@@ -193,7 +193,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
 
 ### Headers and footers
 
-Use the `header` slot for inside-field captions (filenames, categories) and the `footer` slot for counters, hints, or action buttons.
+Use the header for inside-field captions (filenames, categories) and the footer for counters, hints, or action buttons.
 
 ```html
 <label class="ui-text-field">

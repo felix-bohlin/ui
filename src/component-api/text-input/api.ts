@@ -7,6 +7,8 @@ export default {
     astro:
       "CSS-only. Styles a Text field with a `list`; there's no separate Astro component.",
     html: "Needs `text-field.css`, which holds the field, variant and size styles.",
+    svelte:
+      "CSS-only. Styles a Text field with a `list`; there's no separate Svelte component.",
     vue: "CSS-only. Styles a Text field with a `list`; there's no separate Vue component.",
   },
   options: [],

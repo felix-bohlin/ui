@@ -19,8 +19,10 @@ import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
+import ExampleUsageSvelte from "../../component-examples/drawer/Usage.svelte"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
 import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
+import ExampleUsageSvelteRaw from "../../component-examples/drawer/Usage.svelte?raw"
 import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
 
@@ -96,8 +98,8 @@ import Conditional from "../../components/Conditional.astro"
         <p>
           Page scrolling is locked by default when the drawer is open. With a
           transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>scrollLock={false}</code> prop to allow
-          scrolling on every screen.
+          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
+          allow scrolling on every screen.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -125,6 +127,29 @@ import Conditional from "../../components/Conditional.astro"
           class to allow background scrolling.
         </p>
       </Fragment>
+      <Fragment slot="svelte">
+        <p>Change the opening side with the <code>side</code> prop.</p>
+        <p>
+          Put a <code>DrawerHeader</code> in the <code>header</code> snippet to add
+          a heading and a close button. Put actions in the <code>footer</code> snippet,
+          wrapped in a <code>DrawerFooter</code>.
+        </p>
+        <p>
+          The header and footer stay put while the content scrolls, with a
+          shadow on the scrolled edge.
+        </p>
+        <p>
+          The backdrop dims and blurs the page by default. Use <code
+            >backdrop="transparent"</code
+          > to keep the page behind it fully visible.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. With a
+          transparent backdrop the page stays scrollable, except on screens
+          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
+          allow scrolling on every screen.
+        </p>
+      </Fragment>
       <Fragment slot="vue">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
@@ -144,8 +169,8 @@ import Conditional from "../../components/Conditional.astro"
         <p>
           Page scrolling is locked by default when the drawer is open. With a
           transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>scrollLock={false}</code> prop to allow
-          scrolling on every screen.
+          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
+          allow scrolling on every screen.
         </p>
       </Fragment>
     </Conditional>
@@ -154,14 +179,17 @@ import Conditional from "../../components/Conditional.astro"
         <Conditional>
           <span slot="astro"><code>backdrop="transparent"</code></span>
           <span slot="html"><code>.ui-backdrop-transparent</code></span>
+          <span slot="svelte"><code>backdrop="transparent"</code></span>
           <span slot="vue"><code>backdrop="transparent"</code></span>
         </Conditional>
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
       <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleUsageSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleUsageVue} />
       <Example.Code slot="code-html" code={ExampleUsageHTML} />
       <Example.Code slot="code-astro" code={ExampleUsageAstro} />
+      <Example.Code slot="code-svelte" code={ExampleUsageSvelteRaw} />
       <Example.Code slot="code-vue" code={ExampleUsageVueRaw} />
     </Example>
   </section>
@@ -204,6 +232,15 @@ import Conditional from "../../components/Conditional.astro"
             >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
             <code>id</code>, not at <code>.ui-header</code>, which also holds
             the close button.</Fragment
+          >
+          <Fragment slot="svelte"
+            >The drawer is named by the <code>heading</code> of a <code
+              >DrawerHeader</code
+            > in the <code>header</code> snippet, through <code
+              >aria-labelledby</code
+            >. With your own heading, it points at the first heading once the
+            drawer mounts. Pass <code>aria-label</code> or
+            <code>aria-labelledby</code> to name it yourself.</Fragment
           >
           <Fragment slot="vue"
             >The drawer is named by the <code>heading</code> of a <code

@@ -88,13 +88,16 @@ const autoApis = (() => {
 
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
-const hydrationApis =
-  currentFramework === "vue"
-    ? [apis ?? []]
-        .flat()
-        .flatMap((entry: { api?: ComponentApi }) => entry?.api ?? [])
-        .filter((api) => shipped(api, "vue"))
-    : []
+const hydrationFramework =
+  currentFramework === "svelte" || currentFramework === "vue"
+    ? currentFramework
+    : undefined
+const hydrationApis = hydrationFramework
+  ? [apis ?? []]
+      .flat()
+      .flatMap((entry: { api?: ComponentApi }) => entry?.api ?? [])
+      .filter((api) => shipped(api, hydrationFramework))
+  : []
 
 const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
@@ -163,7 +166,7 @@ const learnPost = currentSlug
     (browserSupport || hydrationApis.length > 0) && (
       <BrowserSupportChips ids={browserSupport ?? []}>
         {hydrationApis.length > 0 && (
-          <HydrationChip apis={hydrationApis} framework="vue" />
+          <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
         )}
       </BrowserSupportChips>
     )

@@ -12,7 +12,7 @@ import {
 import DocLink from "./DocLink.astro"
 import HydrationMarker from "./HydrationMarker.astro"
 import type { ComponentApi } from "../component-api/types"
-import { checkApi, shipped } from "../utils/component-source"
+import { checkApi, shipped, splitUnion } from "../utils/component-source"
 import { formatInline } from "../utils/format-inline"
 import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
 
@@ -45,8 +45,6 @@ const notes = [...new Set([view, framework])].flatMap(
   (key) => api.notes?.[key] ?? [],
 )
 const cssVars = cssVarRows(api)
-
-const splitType = (type: string) => type.split("|").map((part) => part.trim())
 ---
 
 {
@@ -126,7 +124,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                 </Table.Cell>
                 <Table.Cell>
                   {row.type
-                    ? splitType(row.type).map((type, i) => (
+                    ? splitUnion(row.type).map((type, i) => (
                         <Fragment>
                           {i > 0 && ", "}
                           <code>{type}</code>

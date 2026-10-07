@@ -80,6 +80,12 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >.ui-sr-only</code
         > instead of <code>.ui-label</code>.</Fragment
       >
+      <Fragment slot="svelte"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: set <code
+          >hideLabel</code
+        > to hide it visually.</Fragment
+      >
       <Fragment slot="vue"
         >All switches should have an accessible name. Put the label text inside
         the component, also when there's no visible label: set <code
@@ -105,6 +111,9 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         >, default and <code>.ui-large</code>, on the <code
           >&lt;label class="ui-switch"&gt;</code
         >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>size="small"</code> for a smaller Switch variant.
       </Fragment>
       <Fragment slot="vue">
         Choose between four sizes with the <code>size</code> prop: <code
@@ -132,6 +141,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           class="ui-link">accessibility</a
         >.</Fragment
       >
+      <Fragment slot="svelte"
+        >The <code>children</code> snippet is the label. Also, don't miss the info
+        on label <a href="#accessibility" class="ui-link">accessibility</a
+        >.</Fragment
+      >
       <Fragment slot="vue"
         >The default slot is the label. Also, don't miss the info on label <a
           href="#accessibility"
@@ -151,6 +165,9 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         >Add <code>.ui-stack</code> to the <code
           >&lt;label class="ui-switch"&gt;</code
         > to put the label under the switch.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>stack</code> to put the label under the switch.</Fragment
       >
       <Fragment slot="vue"
         >Set <code>stack</code> to put the label under the switch.</Fragment
@@ -177,6 +194,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >&lt;input&gt;</code
         >.</Fragment
       >
+      <Fragment slot="svelte"
+        >Put an icon in the <code>iconUnchecked</code> and <code
+          >iconChecked</code
+        > snippets to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
       <Fragment slot="vue"
         >Put an icon in the <code>icon-unchecked</code> and <code
           >icon-checked</code
@@ -194,6 +216,10 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           Set <code>required</code> on the component to toggle required styles on
           the input.
         </li>
+        <li slot="svelte">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
         <li slot="vue">
           Add the <code>required</code> attribute on the component. It is forwarded
           to the underlying <code>&lt;input&gt;</code>.
@@ -209,6 +235,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
             >aria-invalid="true"</code
           > on the input, so screen readers announce it as invalid. Make use of the
           end text to give extra feedback on the error.
+        </li>
+        <li slot="svelte">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          {" "}<code>data-invalid</code> on the root element. Make use of the end
+          text to give extra feedback on the error.
         </li>
         <li slot="vue">
           Use the <code>error</code> prop to toggle invalid styles. It sets <code
@@ -226,6 +257,12 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
+          Switches also get the invalid styles from the browser's own validation
+          (<code>:user-invalid</code>), after the user has edited them. Use the <code
+            >error</code
+          > prop for server-side errors.
+        </li>
+        <li slot="svelte">
           Switches also get the invalid styles from the browser's own validation
           (<code>:user-invalid</code>), after the user has edited them. Use the <code
             >error</code
@@ -263,6 +300,10 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         {" "}to push the label to the left and the switch to the right. This is
         useful for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> prop to push the label to the left and the switch
         to the right. This is useful for full-width items like lists and menus.
@@ -296,6 +337,9 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >name</code
         >
         {" "}attribute so they're submitted together.
+      </p>
+      <p slot="svelte">
+        The <code>name</code> prop will get passed down to each switch in the group.
       </p>
       <p slot="vue">
         The <code>name</code> prop will get passed down to each switch in the group.
@@ -341,6 +385,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       <p slot="astro">
         Set <code>error</code> on each <code>Switch</code> in the group. The end text
         of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="svelte">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >FieldSet</code
+        > component.
       </p>
       <p slot="vue">
         Set <code>error</code> on each <code>Switch</code> in the group. The end text
@@ -402,6 +451,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
                   class="ui-link">visible label</a
                 >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
                 it accessible.</Fragment
+              >
+              <Fragment slot="svelte"
+                >The <code>children</code> snippet is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
               >
               <Fragment slot="vue"
                 >The default slot is the <a

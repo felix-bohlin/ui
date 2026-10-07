@@ -146,9 +146,9 @@ import Example from "../../components/Example/index"
     <p>
       Every class the library owns starts with <code>ui-</code>, so it never
       clashes with yours. A component is one class on the right element, and its
-      options are modifier classes next to it. The Astro and Vue components take
-      the same options as props and render those exact classes, so the HTML and
-      the props map one to one:
+      options are modifier classes next to it. The Astro, Svelte and Vue
+      components take the same options as props and render those exact classes,
+      so the HTML and the props map one to one:
     </p>
     <CodeGroup
       tabs={[
@@ -163,6 +163,11 @@ import Example from "../../components/Example/index"
           title: "Astro",
           code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
           lang: "astro",
+        },
+        {
+          title: "Svelte",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "svelte",
         },
         {
           title: "Vue",
@@ -265,7 +270,7 @@ import Example from "../../components/Example/index"
       <li>
         <strong>Range value</strong>: the <code>output</code> that shows the current
         value has to be updated on <code>input</code>. The Astro component ships
-        a tiny script for it, and Vue does it reactively.
+        a tiny script for it, and Svelte and Vue do it reactively.
       </li>
     </ul>
     <Code

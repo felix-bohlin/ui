@@ -11,6 +11,8 @@ export default {
   notes: {
     astro:
       "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
+    svelte:
+      "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
     vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
   },
   options: [
@@ -32,7 +34,7 @@ export default {
     },
     {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },

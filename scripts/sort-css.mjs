@@ -9,7 +9,10 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 const check = process.argv.includes("--check")
 
 const files = await globby(
-  ["packages/opui/**/*.{astro,css,vue}", "src/**/*.{astro,css,vue}"],
+  [
+    "packages/opui/**/*.{astro,css,svelte,vue}",
+    "src/**/*.{astro,css,svelte,vue}",
+  ],
   {
     cwd: root,
     absolute: true,

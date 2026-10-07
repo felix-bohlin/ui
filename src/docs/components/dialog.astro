@@ -142,6 +142,11 @@ export const description =
       <p slot="html">
         Name the dialog by pointing <code>aria-labelledby</code> at its title.
       </p>
+      <p slot="svelte">
+        The header snippet names the dialog: it gets an <code
+          >aria-labelledby</code
+        > that points at the header.
+      </p>
       <p slot="vue">
         The header slot names the dialog: it gets an <code>aria-labelledby</code
         > that points at the header.
@@ -175,6 +180,11 @@ export const description =
         The dialog grows up to 85% of the viewport height. The header and
         actions stay put while <code>.ui-content</code> scrolls, with a shadow on
         the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="svelte">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>content</code> snippet scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
       <Fragment slot="vue">
         The dialog grows up to 85% of the viewport height. The header and

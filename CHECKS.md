@@ -149,11 +149,11 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 ## Docs site
 
 - [ ] Framework picker
-  - Switching between HTML, Astro and Vue keeps you on the same page and section, and no page shows another framework's text.
+  - Switching between HTML, Astro, Svelte and Vue keeps you on the same page and section, and no page shows another framework's text.
 - [ ] Search
   - Finds components, guide pages and API props. Arrow keys, Enter and Esc work.
 - [ ] Code blocks
-  - Copy buttons copy the right code, and Astro and Vue examples import from the right package.
+  - Copy buttons copy the right code, and Astro, Svelte and Vue examples import from the right package.
 - [ ] What's new
   - Callouts show on changed component pages, every link jumps to its section, and the sidebar shows New badges.
 - [ ] Under the hood walkthroughs
@@ -163,7 +163,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Guides
   - [Getting started](/html/guide/getting-started/), [Migrating](/html/guide/migrating/), [Browser support](/html/guide/browser-support/), [Accessibility](/html/guide/accessibility/) and the other guides read well per framework.
 - [ ] Markdown and llms.txt
-  - `/html/llms.txt`, `/html/llms-full.txt` and the `.md` version of a page load and match the page, also for Astro and Vue.
+  - `/html/llms.txt`, `/html/llms-full.txt` and the `.md` version of a page load and match the page, also for Astro, Svelte and Vue.
 - [ ] Small screens
   - Header, local navigation, table of contents and examples work on a phone.
 - [ ] Home page
@@ -172,9 +172,11 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 ## Package
 
 - [ ] Package contents
-  - `npm pack --dry-run` in `packages/opui`: `dist`, `css`, `core`, `astro`, `vue`, `components` and `skills` are in, and `AGENTS.md` files and tests are out.
+  - `npm pack --dry-run` in `packages/opui`: `dist`, `css`, `core`, `astro`, `svelte`, `vue`, `components` and `skills` are in, and `AGENTS.md` files and tests are out.
 - [ ] Fresh Astro project
   - Install the packed tarball, import the CSS once, render Button, Dialog, Menu and Tabs from `opui-css/astro`, and run `astro check`.
+- [ ] Fresh Svelte project
+  - The same with `opui-css/svelte` in a SvelteKit project, and run `svelte-check`.
 - [ ] Fresh Vue project
   - The same with `opui-css/vue` in a Vite project, and run `vue-tsc`.
 - [ ] Plain HTML

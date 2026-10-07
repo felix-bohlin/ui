@@ -463,7 +463,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `size`                                                                                                                                                                                                                                 | `"x-small"` , `"small"` , `"large"` | -       | The size of the element.                                                             |
 | `spread`                                                                                                                                                                                                                               | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
 | `stack`                                                                                                                                                                                                                                | `boolean`                           | `false` | Stacks the label under the input.                                                    |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                            | `boolean` , `(string` , `number)[]` | -       | The checked state, or the checked values of a group.                                 |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                            | `boolean` , `(string \| number)[]`  | -       | The checked state, or the checked values of a group.                                 |
 
 #### Slots
 
@@ -508,10 +508,10 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                              |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                 |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                         |
+| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
 
 #### Slots
 

@@ -161,7 +161,7 @@ import { Avatar } from "opui-css/astro"
 | `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
 | `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
 | `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `src`         | `string`                                 | -       | The image source. Replaces the default slot.                                                              |
+| `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
 | `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### Slots

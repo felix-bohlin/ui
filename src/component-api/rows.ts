@@ -1,6 +1,12 @@
 import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
-import { describe, frameworkProps, slotNames } from "../utils/component-source"
+import {
+  describe,
+  frameworkProps,
+  modelsFor,
+  slotNames,
+  snippetNames,
+} from "../utils/component-source"
 import { themeTokenDescriptions } from "../utils/theme-token-descriptions"
 import { themeTokens } from "../utils/theme-tokens"
 import {
@@ -71,23 +77,29 @@ export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
     .filter((option) => option.frameworks?.includes(framework))
     .filter((option) => !props.has(option.prop))
     .map((option) => [option.prop, option.type ?? ""] as const)
-  const model = frameworks[framework].model
+  const { model, modelIsProp } = frameworks[framework]
+  const bound = new Set(
+    modelIsProp ? modelsFor(api, framework).map((entry) => entry.prop) : [],
+  )
+  const snippets = snippetNames(api, framework)
+    .filter((name) => !props.has(name) && !bound.has(name))
+    .map((name) => [name, "Snippet"] as const)
   return [
-    ...[...props, ...scoped].map(([name, type]) => ({
-      default: option(name)?.default,
-      description: describe(api, name, framework, "prop") ?? "-",
-      name,
-      type: option(name)?.type ?? type,
-    })),
-    ...(model && api.model
-      ? [
-          {
-            default: undefined,
-            description: api.model.description,
-            name: model(api.model.prop),
-            type: api.model.type,
-          },
-        ]
+    ...[...props, ...scoped, ...snippets]
+      .filter(([name]) => !bound.has(name))
+      .map(([name, type]) => ({
+        default: option(name)?.default,
+        description: describe(api, name, framework, "prop") ?? "-",
+        name,
+        type: option(name)?.type ?? type,
+      })),
+    ...(model
+      ? modelsFor(api, framework).map((entry) => ({
+          default: undefined,
+          description: entry.description,
+          name: model(entry.prop),
+          type: entry.type,
+        }))
       : []),
   ].sort(byName)
 }
@@ -99,15 +111,13 @@ export const hydrationRows = (
   const model = frameworks[framework].model
   return [
     ...(api.hydration?.[framework] ?? []),
-    ...(model && api.model
-      ? [
-          {
-            description:
-              "The bound value only updates on the client. The native control still changes and submits with its form.",
-            fallback: "Read the value from the form instead.",
-            prop: model(api.model.prop),
-          },
-        ]
+    ...(model
+      ? modelsFor(api, framework).map((entry) => ({
+          description:
+            "The bound value only updates on the client. The native control still changes and submits with its form.",
+          fallback: "Read the value from the form instead.",
+          prop: model(entry.prop),
+        }))
       : []),
   ].sort((a, b) => a.prop.localeCompare(b.prop))
 }
@@ -163,9 +173,13 @@ export const partLabel = (
 
   const syntax = frameworks[framework]
   const handles = [
-    ...(part.slots?.length ? part.slots.map(syntax.slot) : (part.props ?? [])),
-    ...(part.model && api.model && syntax.model
-      ? [syntax.model(api.model.prop)]
+    ...(syntax.slotsAreProps && part.snippets
+      ? [...(part.props ?? []), ...part.snippets]
+      : part.slots?.length
+        ? part.slots.map(syntax.slot)
+        : (part.props ?? [])),
+    ...(part.model && syntax.model
+      ? modelsFor(api, framework).map((entry) => syntax.model!(entry.prop))
       : []),
   ]
   return handles.length > 0 ? handles.join(" · ") : fallback

@@ -73,6 +73,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         {" "}<code>name</code> attribute. Browsers use that shared name to enforce
         mutual exclusivity within the group.
       </Fragment>
+      <Fragment slot="svelte">
+        The <code>name</code> prop will get passed down to each radio button in the
+        group.
+      </Fragment>
       <Fragment slot="vue">
         The <code>name</code> prop will get passed down to each radio button in the
         group.
@@ -97,6 +101,11 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >&lt;label class="ui-radio"&gt;</code
         >.
       </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="vue">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
@@ -119,6 +128,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >.ui-label</code
         > to hide it visually.</Fragment
       >
+      <Fragment slot="svelte"
+        >The <code>children</code> snippet is the label. Without a visible label,
+        keep the text in it and set <code>hideLabel</code> to hide it visually.</Fragment
+      >
       <Fragment slot="vue"
         >The default slot is the label. Without a visible label, keep the text
         in the slot and set <code>hideLabel</code> to hide it visually.</Fragment
@@ -137,6 +150,9 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >&lt;label class="ui-radio"&gt;</code
         > to put the label under the radio.</Fragment
       >
+      <Fragment slot="svelte"
+        >Set <code>stack</code> to put the label under the radio.</Fragment
+      >
       <Fragment slot="vue"
         >Set <code>stack</code> to put the label under the radio.</Fragment
       >
@@ -153,6 +169,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         >Add a <code>.ui-end-text</code> element after the label for supporting text
         under a single radio, and point the input's <code>aria-describedby</code
         > at its <code>id</code>.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Use the <code>endText</code> snippet for supporting text under a single radio's
+        label. The component points <code>aria-describedby</code> at it.</Fragment
       >
       <Fragment slot="vue"
         >Use the <code>end-text</code> slot for supporting text under a single radio's
@@ -183,6 +203,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >&lt;input&gt;</code
         >.
       </Fragment>
+      <Fragment slot="svelte">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
       <Fragment slot="vue">
         Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
         in it, or on a single <code>Radio</code>.
@@ -197,6 +221,11 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>required</code> on at least one <code>Radio</code> in the group.
+      </Fragment>
+      <Fragment slot="svelte">
+        Add the <code>required</code> attribute on at least one <code
+          >Radio</code
+        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on at least one <code
@@ -224,6 +253,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         Set <code>error</code> on each <code>Radio</code> in the group. The end text
         of the <code>FieldSet</code> turns red with them.
       </p>
+      <p slot="svelte">
+        Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
+        use the <code>error</code> prop on individual <code>Radio</code> components.
+      </p>
       <p slot="vue">
         Set <code>error</code> on each <code>Radio</code> in the group. The end text
         of the <code>FieldSet</code> turns red with them.
@@ -244,6 +277,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         Radios stack vertically by default. Add <code>.ui-row</code> to the <code
           >.ui-field-group</code
         > to put them in a row.
+      </Fragment>
+      <Fragment slot="svelte">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
       </Fragment>
       <Fragment slot="vue">
         Radios stack vertically by default. Set <code>direction="row"</code> on the
@@ -267,6 +304,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         >
         {" "}to push the label to the left and the radio to the right. Handy for
         settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> prop to push the label to the left and the radio

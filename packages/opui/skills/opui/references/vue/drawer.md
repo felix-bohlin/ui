@@ -35,7 +35,7 @@ The header and footer stay put while the content scrolls, with a shadow on the s
 
 The backdrop dims and blurs the page by default. Use `backdrop="transparent"` to keep the page behind it fully visible.
 
-Page scrolling is locked by default when the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. Use the `scrollLock=` prop to allow scrolling on every screen.
+Page scrolling is locked by default when the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. Use the `scrollLock={false}` prop to allow scrolling on every screen.
 
 ```vue
 <script setup lang="ts">

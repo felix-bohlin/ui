@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "6.0.0",
-  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
+  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro, Svelte & Vue components on top of Open Props.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -22,6 +22,8 @@
     "design-system",
     "html",
     "open-props",
+    "svelte",
+    "svelte-components",
     "ui",
     "vue",
     "vue-components",
@@ -41,6 +43,7 @@
     "env.d.ts",
     "open-props.css",
     "skills",
+    "svelte",
     "vue",
     "CHANGELOG.md",
     "LICENSE",
@@ -53,6 +56,7 @@
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
+    "./svelte": "./svelte/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
     "./core/*.css": "./core/*.css",
@@ -80,7 +84,7 @@
     "astro": "^7",
     "open-props": "^1.7.23",
     "solid-js": "^1.9",
-    "svelte": "^5",
+    "svelte": "^5.29",
     "vue": "^3.5"
   },
   "peerDependenciesMeta": {

@@ -68,6 +68,12 @@ export const description =
           >--field-border-color</code
         >, like the border of a text field.
       </p>
+      <p slot="svelte">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
       <p slot="vue">
         Use the <code>variant</code> prop to swap the track surface for better contrast
         on different backgrounds. Without a variant, the track uses <code
@@ -99,6 +105,13 @@ export const description =
         <code>px</code>). Updating its text content is the consumer's
         responsibility. The example does it with an <code>input</code> listener.
       </p>
+      <p slot="svelte">
+        Pass the <code>valueSuffix</code> prop (or use the <code>valueText</code
+        >
+        snippet) to render a live readout of the slider's current value next to the
+        label. The component wires up an <code>&lt;output&gt;</code> element and keeps
+        its text in sync with the input.
+      </p>
       <p slot="vue">
         Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
         slot) to render a live readout of the slider's current value next to the label.
@@ -125,6 +138,13 @@ export const description =
         <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
       </p>
+      <p slot="svelte">
+        Pass an id to the <code>list</code> prop together with an <code
+          >options</code
+        >
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
+      </p>
       <p slot="vue">
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
@@ -146,6 +166,10 @@ export const description =
       <Fragment slot="html">
         Add <code>disabled</code> to the <code>&lt;input&gt;</code> to disable the
         slider. The whole <code>.ui-range</code> dims and shows a not-allowed cursor.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>disabled</code> prop to disable the slider. The whole range
+        dims and shows a not-allowed cursor.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>disabled</code> prop to disable the slider. The whole range
@@ -198,6 +222,26 @@ export const description =
           </li>
         </ul>
       </Fragment>
+      <Fragment slot="svelte">
+        <ul>
+          <li>
+            Use the <code>error</code> prop to toggle invalid styles: the thumb, the
+            fill and the helper texts turn the invalid color. It sets <code
+              >aria-invalid="true"</code
+            > on the input, so screen readers announce it as invalid.
+          </li>
+          <li>
+            Say what's wrong in the end text. The component points <code
+              >aria-describedby</code
+            > at it.
+          </li>
+          <li>
+            The same styles apply when the browser's own validation fails (<code
+              >:user-invalid</code
+            >), such as after <code>setCustomValidity()</code>.
+          </li>
+        </ul>
+      </Fragment>
       <Fragment slot="vue">
         <ul>
           <li>
@@ -233,6 +277,12 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and start text
+        on the left with the slider on the right. The value, tick marks and end text
+        go under the slider. The layout collapses to a column in containers narrower
+        than 400px.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the slider on the right. The value, tick marks and end text
         go under the slider. The layout collapses to a column in containers narrower
         than 400px.

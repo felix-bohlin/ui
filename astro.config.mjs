@@ -8,6 +8,7 @@ import {
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
+import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
 
@@ -63,6 +64,7 @@ export default defineConfig({
   integrations: [
     vue(),
     sitemap(),
+    svelte(),
     llms(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],

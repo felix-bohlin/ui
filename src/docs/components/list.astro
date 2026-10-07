@@ -29,7 +29,7 @@ export const description =
     { title: "List API", api: listApi },
     { title: "List item API", api: listItemApi },
   ]}
-  browserSupport={["has", "relative-color"]}
+  browserSupport={["container-style-queries", "has", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",
@@ -503,7 +503,6 @@ export const description =
   }
 
   setupListDenseControls()
-  document.addEventListener("astro:after-swap", setupListDenseControls)
 </script>
 
 <style is:global>

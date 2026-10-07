@@ -39,7 +39,14 @@ export const description =
   slug="button"
   heroAnatomy
   apis={[{ title: "Button API", api: buttonApi }]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Button/Button.astro",

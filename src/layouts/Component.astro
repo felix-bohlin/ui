@@ -19,6 +19,7 @@ import {
   FRAMEWORKS,
   type FrameworkId,
 } from "../utils/framework-routing"
+import { posts } from "../utils/learn-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 
 type Props = {
@@ -109,6 +110,10 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 const whatsNew = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
 
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+
+const learnPost = currentSlug
+  ? posts.find((post) => post.component === currentSlug)
+  : undefined
 ---
 
 <Document
@@ -214,6 +219,12 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
     Astro.slots.has("under-the-hood") && (
       <section>
         <h2 id="under-the-hood">Under the hood</h2>
+        {learnPost && (
+          <p>
+            Read the post:
+            <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
+          </p>
+        )}
         <slot name="under-the-hood" />
       </section>
     )

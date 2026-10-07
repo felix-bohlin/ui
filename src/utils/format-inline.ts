@@ -10,5 +10,6 @@ export const formatInline = (text: string, link = (path: string) => path) =>
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(
       /\[([^\]]+)\]\(([^)\s]+)\)/g,
-      (_, label, href) => `<a href="${link(href)}">${label}</a>`,
+      (_, label, href) =>
+        `<a href="${href.startsWith("/") ? link(href) : href}">${label}</a>`,
     )

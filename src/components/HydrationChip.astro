@@ -30,11 +30,17 @@ const lines = [...new Set(needs.map(key))].map((entry) => {
   const name = named
     ? `${code(prop)} (${components.join(", ")}):`
     : `${code(prop)}:`
-  return formatInline([name, description, fallback].filter(Boolean).join(" "))
+  return formatInline(
+    [name, description, fallback].filter(Boolean).join(" "),
+    Astro.locals.link,
+  )
 })
 const props = [...new Set(needs.map((need) => need.prop))].sort()
 const label = needs.length
-  ? formatInline(`SSR: hydrate for ${props.map(code).join(", ")}`)
+  ? formatInline(
+      `SSR: hydrate for ${props.map(code).join(", ")}`,
+      Astro.locals.link,
+    )
   : "SSR: no hydration needed"
 ---
 

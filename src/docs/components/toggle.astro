@@ -26,7 +26,14 @@ export const description =
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",

@@ -75,7 +75,7 @@ const tour = `@keyframes ${id}-tour {
               <p>
                 <code>{part.label}</code>
               </p>
-              <p set:html={formatInline(part.description)} />
+              <p set:html={formatInline(part.description, Astro.locals.link)} />
             </Fragment>
             <span class="frame" aria-hidden="true" />
             <span class="leader" aria-hidden="true">

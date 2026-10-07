@@ -262,9 +262,10 @@ export const description =
         end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        {" "}<code>data-invalid</code> on the root element. Make use of the end text
-        to give extra feedback on the error.
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the input, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It sets <code

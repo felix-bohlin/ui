@@ -21,7 +21,7 @@ export default {
     },
     {
       description:
-        "The button text when the slot is empty, and the input value when `value` is omitted.",
+        "The button text when there is no child content, and the input value when `value` is omitted.",
       prop: "label",
     },
     {

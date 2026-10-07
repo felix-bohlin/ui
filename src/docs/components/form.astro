@@ -215,8 +215,9 @@ const anatomyApi = {
         a control has <code>aria-invalid="true"</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="vue">
         Set <code>error</code> on each field in the <code>FieldSet</code>, and
@@ -249,8 +250,11 @@ const anatomyApi = {
         >.
       </Fragment>
       <Fragment slot="svelte">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
       <Fragment slot="vue">
         A field group with only buttons lines up in a row. Set <code

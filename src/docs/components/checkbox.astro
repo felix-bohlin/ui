@@ -163,9 +163,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           end text to give extra feedback on the error.
         </li>
         <li slot="svelte">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          {" "}<code>data-invalid</code> on the root element. Make use of the end
-          text to give extra feedback on the error.
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
         </li>
         <li slot="vue">
           Use the <code>error</code> prop to toggle invalid styles. It sets <code
@@ -381,9 +382,8 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         text of the <code>FieldSet</code> turns red with them.
       </p>
       <p slot="svelte">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
       </p>
       <p slot="vue">
         Set <code>error</code> on each <code>Checkbox</code> in the group. The end

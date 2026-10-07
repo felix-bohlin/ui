@@ -12,7 +12,7 @@ export default {
     },
     {
       description:
-        "The severity. Sets the color, and in Astro and Vue the default icon.",
+        "The severity. Sets the color, and in Astro, Svelte and Vue the default icon.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -35,7 +35,7 @@ export default {
     {
       code: "<svg>",
       description:
-        "An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.",
+        "An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.",
       selector: ".ui-callout > svg",
       slots: ["icon"],
     },

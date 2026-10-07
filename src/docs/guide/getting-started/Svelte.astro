@@ -75,7 +75,11 @@ import { Code } from "astro-expressive-code/components"
       code={`<!-- src/routes/+layout.svelte -->
 <script lang="ts">
   import "../styles/main.css"
-</script>`}
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
       lang="svelte"
     />
   </section>

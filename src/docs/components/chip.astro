@@ -111,7 +111,11 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       </p>
       <p slot="svelte">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> snippets.
+        <code>start</code> and <code>end</code> snippets. When you use <code
+          >children</code
+        > instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
       </p>
       <p slot="vue">
         The icon can be placed before or after the text using the{" "}
@@ -148,7 +152,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         {" "}<code>.ui-disabled</code> class just dims it.
       </Fragment>
       <Fragment slot="svelte">
-        Disable a button chip with the <code>disabled</code> attribute.
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
       <Fragment slot="vue">
         Disable a button chip with the <code>disabled</code> attribute. A static chip

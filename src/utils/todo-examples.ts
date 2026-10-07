@@ -15,7 +15,6 @@ import buttonGroupLinkItem from "../todo-examples/button-group-link-item.html?ra
 import buttonGroupVerticalSmall from "../todo-examples/button-group-vertical-small.html?raw"
 import buttonGroupWalkthroughOutline from "../todo-examples/button-group-walkthrough-outline.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
-import buttonWalkthroughRipple from "../todo-examples/button-walkthrough-ripple.html?raw"
 import calloutHtmlDefaultIcon from "../todo-examples/callout-html-default-icon.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutLinkFocus from "../todo-examples/callout-link-focus.html?raw"
@@ -196,10 +195,6 @@ export const todoExamples = {
   "button-unwrapped-text": {
     match: "Button with an icon and unwrapped text",
     source: buttonUnwrappedText,
-  },
-  "button-walkthrough-ripple": {
-    match: "Button walkthrough:",
-    source: buttonWalkthroughRipple,
   },
   "callout-html-default-icon": {
     match: "Callout: the `<svg>` part says",

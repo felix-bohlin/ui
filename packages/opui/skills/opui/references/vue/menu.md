@@ -228,6 +228,32 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 </template>
 ```
 
+## Manual
+
+`popover="manual"` keeps the menu open until the trigger or an item closes it. Esc and a click outside don't close it, and opening another menu doesn't either. Items close the menu by default, so set `closeOnClick: false` on the ones that should keep it open.
+
+```vue
+<script setup lang="ts">
+import { Button, Menu } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
+    View
+  </Button>
+  <Menu
+    id="menu-manual"
+    popover="manual"
+    :items="[
+      { label: 'Show grid', closeOnClick: false },
+      { label: 'Show rulers', closeOnClick: false },
+      { label: 'Done', borderTop: true },
+    ]"
+  />
+</template>
+```
+
 ## Accessibility
 
 ### Role
@@ -246,16 +272,16 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
-| Prop        | Type                                                             | Default        | Description                                       |
-| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
-| `class`     | `string`                                                         | -              | Optional CSS class.                               |
-| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
-| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
-| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |
-| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                             |
-| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type.                                 |
-| default     | -                                                                | -              | Optional child content.                           |
+| Prop        | Type                                                             | Default        | Description                                                                                                               |
+| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with.                                                                         |
+| `class`     | `string`                                                         | -              | Optional CSS class.                                                                                                       |
+| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                                                                                             |
+| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                                                                                               |
+| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                                                                                               |
+| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                                                                                                     |
+| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. |
+| default     | -                                                                | -              | Optional child content.                                                                                                   |
 
 ### MenuItem
 

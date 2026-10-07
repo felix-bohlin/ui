@@ -31,6 +31,7 @@ import tabsApi from "../../component-api/tabs/api"
     "light-dark",
     "nth-child-of",
     "scrollbar-width",
+    "sibling-count",
   ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
   changelogPaths={[
@@ -110,8 +111,9 @@ import tabsApi from "../../component-api/tabs/api"
         prop="scrollable"
         class=".ui-scrollable"
       /> to keep them on one row and scroll them sideways instead. The open panel
-      stays in view, and up to 20 tabs are supported. The tabs size to their container,
-      so give them a width inside flex and grid layouts that size to their content.
+      stays in view. Browsers without <code>sibling-index()</code> support up to 20
+      tabs. The tabs size to their container, so give them a width inside flex and
+      grid layouts that size to their content.
     </p>
     <AutoExample name="Scrollable" />
   </section>

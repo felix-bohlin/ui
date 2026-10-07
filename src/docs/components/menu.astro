@@ -152,6 +152,41 @@ export const description = "A popover list of actions or links."
     <AutoExample name="Submenu" centered />
   </section>
 
+  <section>
+    <h2 id="manual">Manual</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+      <Fragment slot="html"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Give <code>command="hide-popover"</code> only to the
+        items that should close it.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Manual" centered />
+  </section>
+
   <Fragment slot="accessibility">
     <h3 id="role">Role</h3>
     <p>

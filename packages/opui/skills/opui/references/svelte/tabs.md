@@ -135,7 +135,7 @@ Use `variant="outlined"` for a bordered track without a background.
 
 ## Scrollable
 
-Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. Browsers without `sibling-index()` support up to 20 tabs. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```svelte
 <script lang="ts">
@@ -203,12 +203,12 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                 | Default | Description                                                                                      |
-| ------------ | ------------------------------------ | ------- | ------------------------------------------------------------------------------------------------ |
-| `children`   | `Snippet`                            | -       | The tab items.                                                                                   |
-| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                       |
-| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
-| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                                              |
+| Prop         | Type                                 | Default | Description                                                                                                                        |
+| ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `children`   | `Snippet`                            | -       | The tab items.                                                                                                                     |
+| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                                                         |
+| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Browsers without `sibling-index()` support up to 20 tabs. |
+| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                                                                                |
 
 #### CSS variables
 
@@ -482,9 +482,9 @@ Step 4 of 4: Segmented
 
 ## Browser support
 
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
+- Chromium: Full support Supported since v138.
+- Firefox: Partial support Missing: sibling-count.
+- Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Tabs.md).
 

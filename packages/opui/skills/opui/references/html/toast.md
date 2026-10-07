@@ -1,5 +1,10 @@
 # Toast
 
+### What's new
+
+- Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
+- Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
+
 ### Alpha stage
 
 This is in no way finished, just an idea put out in the open.
@@ -165,6 +170,8 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 | **Component** | `.ui-toast`             | -        | Individual notification element within the container.                           |
 
 ## Under the hood
+
+Read the post: [Toast timing with typed attr()](https://open-props-ui.netlify.app/learn/toast-attr-duration)
 
 1. Stack
 

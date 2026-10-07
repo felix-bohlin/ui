@@ -5,12 +5,13 @@ Styles for headings, body text, and other text content. Use util classes anywher
 ### What's new
 
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
 - [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
-- Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
-- Rich text headings, `pre` and `small` scale with the surrounding font size.
+- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
 - [Links](#link) are documented, and get a thicker underline on hover.
-- Rich text tables scroll sideways in narrow columns instead of breaking words letter by letter.
+- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
 
 ## Class-based
 
@@ -622,6 +623,8 @@ CSS-only typography. Apply the classes on elements in templates; no Astro compon
 
 ## Under the hood
 
+Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
+
 1. Unsnapped
 
    - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
@@ -641,6 +644,8 @@ CSS-only typography. Apply the classes on elements in templates; no Astro compon
 4. Flow space
 
    - One flow space derived from the body text
+   - `@property` makes it a length, so `1.25em` resolves once, on `.prose`. Unregistered, each heading would resolve it against its own font size
+   - `round()` puts it on the step. Fractions of it round again
    - More space above a heading than below: it sits with the text it introduces
 
 Step 1 of 4: Unsnapped
@@ -657,12 +662,14 @@ Step 2 of 4: Snap line height
 - [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
-.prose h2 {
+.prose :is(h1, h2, h3, h4, h5, h6) {
   line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
 }
 ```
 
 Step 3 of 4: Snap font size
+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
 .prose h2 {
@@ -672,9 +679,19 @@ Step 3 of 4: Snap font size
 
 Step 4 of 4: Flow space
 
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+
 ```css
+@property --flow-space {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
+}
+
+
 .prose {
-  --flow-space: 1.25em;
+  --flow-space: round(1.25em, var(--rhythm-step));
 }
 
 
@@ -684,7 +701,8 @@ Step 4 of 4: Flow space
 
 
 .prose h2 {
-  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+  margin-block: calc(var(--flow-space) * 3)
+    round(var(--flow-space) * 0.75, var(--rhythm-step));
 }
 ```
 

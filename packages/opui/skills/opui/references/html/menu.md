@@ -4,9 +4,9 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 
 ### What's new
 
-- New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
-- A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen.
+- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
+- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
 
 ## Basics
 
@@ -54,7 +54,7 @@ If you want to decide yourself what goes into your list.
 ```html
 <button
   type="button"
-  class="ui-button ui-rounded ui-ripple ui-small"
+  class="ui-button ui-rounded ui-small"
   aria-label="More actions"
   commandfor="menu-custom-html"
   command="toggle-popover"
@@ -69,7 +69,7 @@ If you want to decide yourself what goes into your list.
 <menu class="ui-menu ui-list" id="menu-custom-html" popover>
   <li class="ui-label">Document</li>
   <li>
-    <button commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -83,7 +83,7 @@ If you want to decide yourself what goes into your list.
     </button>
   </li>
   <li>
-    <button commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -110,7 +110,7 @@ If you want to decide yourself what goes into your list.
     </a>
   </li>
   <li class="ui-border-top ui-critical">
-    <button commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -315,7 +315,11 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
     </button>
   </li>
   <li>
-    <button commandfor="menu-export-html" command="toggle-popover">
+    <button
+      type="button"
+      commandfor="menu-export-html"
+      command="toggle-popover"
+    >
       <div class="ui-text"><p>Export</p></div>
       <div class="ui-end">
         <svg
@@ -386,6 +390,8 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 
 ## Under the hood
 
+Read the post: [Menus with popover and anchor positioning](https://open-props-ui.netlify.app/learn/menu-popover-anchor)
+
 1. Popover
 
    - `popover`: top layer, light dismiss, `Esc` to close
@@ -396,30 +402,44 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 
    - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
    - `position-area` places it below, spanning towards the end
-   - `anchor-size(inline)` keeps it at least as wide as the trigger
+   - `anchor-size(inline)` keeps it at least as wide as the trigger, and never under `12rem`
 
-3. Flip
+3. Fit
+
+   - Scroll the trigger towards the bottom of the window and open it again
+   - `100%` is the space below the trigger, minus the `0.25rem` margin on each side, so the menu shrinks to fit and scrolls
+   - But never below `12rem`, or its content if that's shorter. Then it overflows, and that's what makes it flip
+   - Without `calc-size()` it stays at `60dvb` and just flips
+
+4. Flip
 
    - Scroll the trigger to the bottom of the window and open it again
    - The browser tries each fallback when the menu would overflow
+   - Flipped above, it shrinks to fit the space there too
+   - When no corner fits, the last two let it span the full width below or above
 
-4. Animate
+5. Animate
 
    - `@starting-style` gives the entry transition a starting point
    - `allow-discrete` keeps `display` and `overlay` alive during the exit
+   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
 
-Step 1 of 4: Popover
+Step 1 of 5: Popover
 
 - [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
 - [Popover ](https://webstatus.dev/features/popover)(Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
 
 ```html
-<button commandfor="menu" command="toggle-popover">Options</button>
+<button type="button" commandfor="menu" command="toggle-popover">
+  Options
+</button>
 
 
 <menu class="menu" id="menu" popover>
   <li>
-    <button commandfor="menu" command="hide-popover">Edit</button>
+    <button type="button" commandfor="menu" command="hide-popover">
+      Edit
+    </button>
   </li>
 </menu>
 ```
@@ -434,7 +454,7 @@ Step 1 of 4: Popover
 }
 ```
 
-Step 2 of 4: Anchor
+Step 2 of 5: Anchor
 
 - [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
@@ -442,24 +462,61 @@ Step 2 of 4: Anchor
 .menu {
   inset: auto;
   margin: 0.25rem 0;
-  min-inline-size: max(10rem, anchor-size(inline));
+  min-inline-size: max(12rem, anchor-size(inline));
   position-area: block-end span-inline-end;
 }
 ```
 
-Step 3 of 4: Flip
+Step 3 of 5: Fit
+
+- [`calc-size()` ](https://webstatus.dev/features/calc-size)(Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`overscroll-behavior` ](https://webstatus.dev/features/overscroll-behavior)(Limited availability): Chrome 144+, Edge 144+, Firefox 150+, Safari not supported
+
+```css
+.menu {
+  max-block-size: 60dvb;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+
+  @supports (min-block-size: calc-size(fit-content, size)) {
+    max-block-size: min(60dvb, 100% - 0.5rem);
+    min-block-size: calc-size(fit-content, min(size, 12rem));
+  }
+}
+```
+
+Step 4 of 5: Flip
+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```css
 .menu {
   position-try-fallbacks:
     flip-block,
     flip-inline,
-    flip-block flip-inline;
+    flip-block flip-inline,
+    --menu-block-end,
+    --menu-block-start;
+}
+
+
+@position-try --menu-block-end {
+  margin: 0.25rem 0;
+  position-area: block-end span-all;
+}
+
+
+@position-try --menu-block-start {
+  margin: 0.25rem 0;
+  position-area: block-start span-all;
 }
 ```
 
-Step 4 of 4: Animate
+Step 5 of 5: Animate
 
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
 - [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
 - [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
@@ -468,10 +525,10 @@ Step 4 of 4: Animate
   opacity: 0;
   scale: 0.96;
   transition:
-    display 0.15s allow-discrete,
-    opacity 0.15s,
-    overlay 0.15s allow-discrete,
-    scale 0.15s;
+    display calc(0.15s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.15s * var(--motion, 1)),
+    overlay calc(0.15s * var(--motion, 1)) allow-discrete,
+    scale calc(0.15s * var(--motion, 1));
 }
 
 
@@ -490,8 +547,8 @@ Step 4 of 4: Animate
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: display-animation, overlay.
-- Safari: Partial support Missing: overlay.
+- Firefox: Partial support Missing: calc-size, display-animation, overlay.
+- Safari: Partial support Missing: calc-size, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Menu.md).
 

@@ -2,6 +2,10 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/astro/components/progress.md).
 
+### What's new
+
+- Busy buttons and links with `aria-describedby` [get a spinner](#blocked-by-another-use-case) now.
+
 ## Basics
 
 ```astro
@@ -56,7 +60,7 @@ There are a few exceptions where `aria-busy="true"` won't render a spinner. Eith
 
 ### 1. Because it's blocked by another use case
 
-In conjunction with the `<progress>` element `aria-busy="true"` is used on the section that is being updated. Rendering a spinner here would result in a spinner *and* a progress bar which doesn't make sense.
+A section that's being updated points at its progress bar with `aria-describedby` while `aria-busy="true"` marks it as busy. Busy elements with `aria-describedby` get no spinner, so you don't see a spinner *and* a progress bar. Buttons and links always get one.
 
 See [progress accessibility](https://open-props-ui.netlify.app/astro/components/progress.md#accessibility) section for more.
 
@@ -82,22 +86,24 @@ See [progress accessibility](https://open-props-ui.netlify.app/astro/components/
 
 ### CSS variables
 
-| Variable   | Default | Description                                                                                                                |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| Variable   | Default | Description                                                                                                                                                                                               |
+| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
-Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby`.
+Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, and elements with `aria-describedby` other than buttons and links.
 
 Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.
 
 ## Under the hood
 
+Read the post: [Spinners from aria-busy](https://open-props-ui.netlify.app/learn/spinner-aria-busy)
+
 1. Ring
 
    - The state is the API: `aria-busy="true"`, no class
-   - `:not(…)` skips form fields, `<progress>` and sections described by a progress bar
+   - `:not(…)` skips form fields, `<progress>` and sections described by a progress bar, but never buttons or links
    - One transparent border side makes the gap in the ring
    - `1em` sizes it from the font: drag **Font size**
 
@@ -135,11 +141,12 @@ Step 1 of 4: Ring
   textarea,
   html,
   progress,
-  [aria-describedby]
+  [aria-describedby]:not(button, a)
 ) {
   &::before {
     block-size: 1em;
-    border-color: transparent currentColor currentColor;
+    border-block-color: transparent currentColor;
+    border-inline-color: currentColor;
     border-radius: 50%;
     border-style: solid;
     border-width: 3px;

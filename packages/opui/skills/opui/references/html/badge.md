@@ -246,7 +246,7 @@ Change the badge's visibility using the `.ui-invisible` class.
 
 Where the badge should be placed over the child.
 
-`.ui-start-start`, default, `.ui-end-start`, `.ui-end-end`.
+`.ui-start-start`, default (`start-end`, no class), `.ui-end-start`, `.ui-end-end`.
 
 ```html
 <span class="ui-anchor ui-badge ui-start-start">
@@ -332,7 +332,7 @@ Where the badge should be placed over the child.
 
 | Type       | Modifiers                                                               | Default | Description                                      |
 | ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| Alignment  | `.ui-end-end`, `.ui-end-start`, `.ui-start-start`                       | -       | Where the indicator is placed.                   |
+| Alignment  | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | Where the indicator is placed.                   |
 | Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                 |
 | Variants   | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
 | Visibility | `.ui-invisible`                                                         | -       | Hides the indicator.                             |
@@ -347,19 +347,19 @@ Where the badge should be placed over the child.
 
 #### CSS variables
 
-| Variable               | Default                                                                               | Description                                                                                                                |
-| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--critical`           | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
-| `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`         | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                   |
-| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
-| `--info`               | `var(--blue)`                                                                         | Severity color for informational messages.                                                                                 |
-| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--neutral`            | `var(--gray-9)`                                                                       | Severity color for neutral messages.                                                                                       |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
-| `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                       |
-| `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                               |
+| Variable               | Default                                                                               | Description                                                                                                                                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--critical`           | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                                                                                                           |
+| `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease-enter`         | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                                                                                                          |
+| `--info`               | `var(--blue)`                                                                         | Severity color for informational messages.                                                                                                                                                                   |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--neutral`            | `var(--gray-9)`                                                                       | Severity color for neutral messages.                                                                                                                                                                         |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                                                                                                         |
+| `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -369,6 +369,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - `min-inline-size` equals `block-size`: a circle for one digit, a pill for more
    - `max-content` keeps `99+` on one line
+   - A bare count is read as "5", hidden text makes it "5 unread messages"
 
 2. Corner
 
@@ -380,19 +381,22 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - Logical insets flip in right-to-left, `translate` doesn't
    - `:dir(rtl)` sets `--dir: -1` and the offset follows
-   - Offsets live in custom properties, so alignments only swap values
+   - Offsets follow `--sign-x` and `--sign-y`, so alignments only flip the signs
 
 4. Dot
 
    - Same indicator, emptied and shrunk
    - New `--tx` and `--ty` tuck it inside the corner, no new positioning rules
+   - Same signs, so it tucks in whichever corner it's aligned to
 
 Step 1 of 4: Indicator
 
 ```html
 <span class="badge">
   <svg>…</svg>
-  <span class="indicator">5</span>
+  <span class="indicator">
+    5 <span class="ui-sr-only">unread messages</span>
+  </span>
 </span>
 ```
 
@@ -440,8 +444,10 @@ Step 3 of 4: Direction
 ```css
 .badge {
   --dir: 1;
-  --tx: -50%;
-  --ty: 50%;
+  --sign-x: -1;
+  --sign-y: 1;
+  --tx: calc(50% * var(--sign-x));
+  --ty: calc(50% * var(--sign-y));
 }
 
 
@@ -460,8 +466,8 @@ Step 4 of 4: Dot
 ```css
 .badge.dot {
   --dot: 0.5rem;
-  --tx: calc((var(--dot) - 2px) * -1);
-  --ty: var(--dot);
+  --tx: calc((var(--dot) - 2px) * var(--sign-x));
+  --ty: calc(var(--dot) * var(--sign-y));
 }
 
 
@@ -475,9 +481,9 @@ Step 4 of 4: Dot
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Badge.md).
 

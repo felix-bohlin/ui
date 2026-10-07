@@ -2,7 +2,8 @@
 
 ### What's new
 
-- Breaking: `alt` is required when `src` is set.
+- Breaking: [`alt`](#image) is required when `src` is set.
+- Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
 
 ## Image
 
@@ -150,18 +151,18 @@ import { Avatar } from "opui-css/astro"
 
 ### Avatar API
 
-| Prop          | Type                                     | Default | Description                                                              |
-| ------------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `alt`         | `string`                                 | -       | Alternative text for the image.                                          |
-| `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`. |
-| `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                          |
-| `commandfor`  | `string`                                 | -       | The id of the element the command targets.                               |
-| `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                             |
-| `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                       |
-| `interestfor` | `string`                                 | -       | The id of the element to show on interest.                               |
-| `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                 |
-| `src`         | `string`                                 | -       | The image source. Replaces the default slot.                             |
-| `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                      |
+| Prop          | Type                                     | Default | Description                                                                                               |
+| ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
+| `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
+| `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
+| `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
+| `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
+| `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
+| `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
+| `src`         | `string`                                 | -       | The image source. Replaces the default slot.                                                              |
+| `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### Slots
 
@@ -171,17 +172,19 @@ import { Avatar } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                   |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up. |
-| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                         |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                  |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                       |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                     |
+| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
+| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlify.app/learn/avatar-squircles)
 
 1. Circle
 
@@ -280,6 +283,8 @@ Step 3 of 4: Shapes
 ```
 
 Step 4 of 4: Group
+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```html
 <div class="avatar-group" role="group">

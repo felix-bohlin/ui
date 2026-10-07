@@ -4,8 +4,9 @@
 
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
 
 ## Anatomy
 
@@ -44,7 +45,7 @@
 ```vue
 <script setup lang="ts">
 import { List } from "opui-css/vue"
-import ListAll from "../ListAll.vue"
+import ListAll from "./partials/ListAll.vue"
 </script>
 
 
@@ -106,6 +107,8 @@ import { List, ListItem } from "opui-css/vue"
 ## Clickable list item
 
 Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
+
+`as="button"` renders a `<button type="button">`, so the item never submits a surrounding form.
 
 ```vue
 <script setup lang="ts">
@@ -511,7 +514,7 @@ import { List, ListItem } from "opui-css/vue"
       <template #end>
         <button
           aria-label="Delete"
-          class="ui-button ui-rounded ui-ripple ui-small"
+          class="ui-button ui-rounded ui-small"
           type="button"
         >
           <svg
@@ -594,12 +597,12 @@ Just add the `dense` prop to the `List`!
 ```vue
 <script setup lang="ts">
 import { List } from "opui-css/vue"
-import ListAll from "./ListAll.vue"
+import ListAll from "./partials/ListAll.vue"
 </script>
 
 
 <template>
-  <List dense class="list-dense-target">
+  <List dense>
     <ListAll prefix="dense-" />
   </List>
 </template>
@@ -647,17 +650,17 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                  |
-| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                       |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                   |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                           |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                          |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
+| Prop          | Type                                  | Default | Description                                                                                                                                     |
+| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
+| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
 
 #### Slots
 
@@ -697,12 +700,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 1. Row
 
    - Start, text and end slots in one flex row
+   - `>` styles direct children only, so a nested list in a row stays a list
    - `--gap` and `--start-size` drive the spacing and the icon column
    - The button is padded too, so the padding doubles
 
 2. Clickable
 
-   - `:has(> a, > button)` moves the padding onto the button
+   - `:has(> a, > button, > label)` moves the padding onto the button, link or label (checkbox, radio and switch rows)
    - The whole row is the hit target
    - Hover tint derived from `--primary`
 
@@ -713,7 +717,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 4. Bordered
 
-   - `li + li`: a line between items, never above the first
+   - `> li + li`: a line between items, never above the first
    - The line sits in the margin, outside the hover area
 
 Step 1 of 4: Row
@@ -721,13 +725,13 @@ Step 1 of 4: Row
 ```html
 <ul class="list">
   <li>
-    <button>
+    <button type="button">
       <span class="start"><svg>…</svg></span>
       <span class="text">
         <span>Inbox</span>
         <span>3 unread</span>
       </span>
-      <span class="end">⌘I</span>
+      <span class="end"><kbd>⌘I</kbd></span>
     </button>
   </li>
 </ul>
@@ -735,14 +739,14 @@ Step 1 of 4: Row
 
 ```css
 .list {
-  background-color: var(--surface-default);
+  background-color: var(--surface-filled);
   list-style: none;
   padding: 0.5rem 0;
 }
 
 
-.list li,
-.list li > button {
+.list > li,
+.list > li > button {
   align-items: center;
   display: flex;
   gap: var(--gap);
@@ -776,17 +780,17 @@ Step 2 of 4: Clickable
 - [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
-.list li:has(> a, > button) {
+.list > li:has(> a, > button, > label) {
   padding: 0;
 }
 
 
-.list li > button {
+.list > li > button {
   inline-size: 100%;
 }
 
 
-.list li > button:hover {
+.list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 ```
@@ -802,12 +806,12 @@ Step 3 of 4: Inset
 Step 4 of 4: Bordered
 
 ```css
-.bordered li + li {
+.bordered > li + li {
   margin-block-start: 0.75rem;
 }
 
 
-.bordered li + li::before {
+.bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);
   content: "";
   inset: -0.5rem 0 auto 0;
@@ -818,7 +822,7 @@ Step 4 of 4: Bordered
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=List.md).

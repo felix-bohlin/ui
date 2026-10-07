@@ -4,6 +4,7 @@ The card is extremely versatile and can be used on its own, or as a building blo
 
 ### What's new
 
+- Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
 
@@ -35,10 +36,9 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes.
+Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border.
 
 ```html
-<!-- .ui-text class optional -->
 <div class="ui-card ui-text">
   <div class="ui-content">Text</div>
 </div>
@@ -61,7 +61,7 @@ Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.
 
 **Why does a text variant exist?**
 
-It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/html/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the `.ui-card` component.
+On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
 
 ## Header
 
@@ -109,7 +109,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
   <div class="ui-actions">
     <button
       type="button"
-      class="ui-button ui-rounded ui-ripple ui-small"
+      class="ui-button ui-rounded ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -126,7 +126,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-ripple ui-small"
+      class="ui-button ui-rounded ui-small"
       aria-label="Share"
     >
       <svg
@@ -173,7 +173,7 @@ Align actions to the end with the `.ui-align-end` class.
   <div class="ui-actions ui-align-end">
     <button
       type="button"
-      class="ui-button ui-rounded ui-ripple ui-small"
+      class="ui-button ui-rounded ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -190,7 +190,7 @@ Align actions to the end with the `.ui-align-end` class.
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-ripple ui-small"
+      class="ui-button ui-rounded ui-small"
       aria-label="Share"
     >
       <svg
@@ -209,14 +209,40 @@ Align actions to the end with the `.ui-align-end` class.
 </div>
 ```
 
+## Clickable card
+
+Add `.ui-card-link` to a link in the card, usually the one in the heading, and the whole card becomes clickable. The link stretches over the card, so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and screen readers only hear the link text. Other links and buttons in the card stay clickable.
+
+```html
+<div class="ui-card ui-outlined">
+  <hgroup>
+    <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
+  </hgroup>
+  <div class="ui-content">Plans for any team. Click anywhere on the card.</div>
+</div>
+
+
+<div class="ui-card ui-outlined">
+  <hgroup>
+    <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
+  </hgroup>
+  <div class="ui-content">Every release in one place.</div>
+  <div class="ui-actions">
+    <button type="button" class="ui-button">Subscribe</button>
+  </div>
+</div>
+```
+
+Only one `.ui-card-link` per card. The link covers the text, so selecting text in the card won't work. Fair trade.
+
 ## API
 
 ### Card API
 
-| Type      | Modifiers                                               | Default | Description                |
-| --------- | ------------------------------------------------------- | ------- | -------------------------- |
-| Alignment | default, `.ui-actions.ui-align-end`                     | -       | Alignment for the actions. |
-| Variants  | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use.        |
+| Type      | Modifiers                                               | Default | Description                                                                        |
+| --------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| Alignment | default, `.ui-actions.ui-align-end`                     | -       | Alignment for the actions.                                                         |
+| Variants  | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Parts
 
@@ -229,23 +255,33 @@ Align actions to the end with the `.ui-align-end` class.
 
 #### CSS variables
 
-| Variable             | Default                                     | Description                                                       |
-| -------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.       |
-| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions. |
-| `--border-width`     | `1px`                                       | Default border width for components that draw a border.           |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                         |
-| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                      |
-| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                     |
+| Variable              | Default                                     | Description                                                                                     |
+| --------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                     |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                               |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                         |
+| `--focus-ring-color`  | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted. |
+| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                  |
+| `--focus-ring-style`  | `solid`                                     | Outline style of the focus ring.                                                                |
+| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                        |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                       |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                    |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                   |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
+Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.
+
 ## Under the hood
+
+Read the post: [Cards that know their color scheme](https://open-props-ui.netlify.app/learn/card-style-queries)
 
 1. Base
 
    - A flex column: header, content and actions share one `gap`
    - Padding sits on the children, so media can go edge to edge
+   - Without actions, the last child pads the bottom itself
    - `overflow: hidden` clips children to the rounded corners
 
 2. Variants
@@ -296,12 +332,23 @@ Step 1 of 3: Base
 
 
 .card > :is(hgroup, .content) {
+  margin-block: 0;
   padding-inline: 0.75rem;
+}
+
+
+.card > :is(hgroup, .content):last-child {
+  padding-block-end: 0.75rem;
 }
 
 
 .card > hgroup {
   padding-block-start: 0.75rem;
+}
+
+
+.card > hgroup > * {
+  margin-block: 0;
 }
 ```
 

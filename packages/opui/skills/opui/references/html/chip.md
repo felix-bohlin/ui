@@ -5,9 +5,9 @@ Chips are compact elements that represent an input, attribute, or action. Use th
 ### What's new
 
 - [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
-- Long labels truncate with an ellipsis unless the chip is `.ui-multiline`.
-- Breaking: `--ripple` is `--_ripple`.
-- Breaking: `as="button"` renders `type="button"` by default.
+- Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
+- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- Takes `.ui-x-small`. [Sizes](#sizes)
 
 ## Anatomy
 
@@ -46,7 +46,14 @@ The Chip has two variants: tonal (default) and `.ui-outlined`.
 
 ## Sizes
 
+Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. Labels truncate with an ellipsis. Add `.ui-multiline` to let them wrap.
+
 ```html
+<div class="ui-chip ui-tonal ui-x-small">
+  <span class="ui-text">X-small</span>
+</div>
+
+
 <div class="ui-chip ui-tonal ui-small">
   <span class="ui-text">Small</span>
 </div>
@@ -177,7 +184,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 
 ## Disabled
 
-Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or the `.ui-disabled` class.
+Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class just dims it.
 
 ```html
 <div class="example-row">
@@ -194,11 +201,12 @@ Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or th
 
 ### Chip API
 
-| Type     | Modifiers                   | Default     | Description                            |
-| -------- | --------------------------- | ----------- | -------------------------------------- |
-| Layout   | `.ui-multiline`             | -           | Lets the label wrap to multiple lines. |
-| Sizes    | `.ui-large`, `.ui-small`    | -           | The size of the element.               |
-| Variants | `.ui-outlined`, `.ui-tonal` | `.ui-tonal` | The variant to use.                    |
+| Type     | Modifiers                               | Default     | Description                                                                |
+| -------- | --------------------------------------- | ----------- | -------------------------------------------------------------------------- |
+| Layout   | `.ui-multiline`                         | -           | Lets the label wrap to multiple lines.                                     |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small` | -           | The size of the element.                                                   |
+| State    | `.ui-disabled`                          | -           | Dims a static chip. Only changes the look. Use `disabled` on button chips. |
+| Variants | `.ui-outlined`, `.ui-tonal`             | `.ui-tonal` | The variant to use.                                                        |
 
 #### Parts
 
@@ -211,23 +219,23 @@ Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or th
 
 #### CSS variables
 
-| Variable             | Default                                                                | Description                                                                                                                |
-| -------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`    | `var(--size-2)`                                                        | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--border-width`     | `1px`                                                                  | Default border width for components that draw a border.                                                                    |
-| `--chip-size`        | `var(--control-size-small)`                                            | Default `Chip` height.                                                                                                     |
-| `--chip-size-large`  | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                                            |
-| `--chip-size-small`  | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                                            |
-| `--disabled-opacity` | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                      |
-| `--font-size-05`     | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--icon-size`        | `var(--size-4)`                                                        | Default icon size inside components.                                                                                       |
-| `--icon-size-small`  | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                                                   |
-| `--motion`           | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                                                  |
-| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
-| `--text-disabled`    | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
-| `--text-primary`     | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                     |
+| Variable              | Default                                                                | Description                                                                                           |
+| --------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`     | `var(--size-2)`                                                        | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`      | `1px`                                                                  | Default border width for components that draw a border.                                               |
+| `--chip-size`         | `var(--control-size-small)`                                            | Default `Chip` height.                                                                                |
+| `--chip-size-large`   | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                       |
+| `--chip-size-small`   | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                       |
+| `--chip-size-x-small` | `calc(24px * var(--density))`                                          | `Chip` height with `.ui-x-small`.                                                                     |
+| `--disabled-opacity`  | `0.64`                                                                 | Opacity applied to disabled controls.                                                                 |
+| `--font-size-05`      | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--icon-size`         | `var(--size-4)`                                                        | Default icon size inside components.                                                                  |
+| `--icon-size-small`   | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                              |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
+| `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
+| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -240,7 +248,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 2. Icon
 
-   - `:has(svg:first-child)` and `:has(svg:last-child)` find the icon side
+   - `:has(> svg:first-child)` and `:has(> svg:last-child)` find the icon side, and each sets only its own side, so a chip can have both
    - Less padding next to the icon balances its optical weight
    - No `start-icon` or `end-icon` classes
 
@@ -265,7 +273,7 @@ Step 1 of 4: Base
 </div>
 
 
-<button class="chip">…</button>
+<button class="chip" type="button">…</button>
 ```
 
 ```css
@@ -290,13 +298,13 @@ Step 2 of 4: Icon
 - [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
-.chip:has(svg:first-child) {
-  padding-inline: var(--size-1) var(--size-2);
+.chip:has(> svg:first-child) {
+  padding-inline-start: var(--size-1);
 }
 
 
-.chip:has(svg:last-child) {
-  padding-inline: var(--size-2) var(--size-1);
+.chip:has(> svg:last-child) {
+  padding-inline-end: var(--size-1);
 }
 
 

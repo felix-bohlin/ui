@@ -14,7 +14,7 @@ import { Progress } from "opui-css/astro"
 ---
 
 
-<Progress aria-busy="true" />
+<Progress />
 ```
 
 ## Determinate
@@ -85,17 +85,17 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                                                                                |
-| ------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`  | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                    |
-| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                   |
-| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
+| Variable           | Default                                      | Description                                                                                                                                                                                               |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`  | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                  |
+| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
@@ -103,10 +103,13 @@ Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progre
 
 ## Under the hood
 
+Read the post: [Styling the native progress bar](https://open-props-ui.netlify.app/learn/progress-native)
+
 1. Native
 
    - `<progress>`: role, value and an indeterminate state for free
    - No `value` means indeterminate
+   - Give it a name: `aria-label`, or a `<label for>` when the text should be visible
    - Every browser draws it differently
 
 2. Track
@@ -140,12 +143,12 @@ Step 1 of 5: Native
 
 ```html
 <div class="progress">
-  <progress max="100" value="60"></progress>
+  <progress aria-label="Uploading" max="100" value="60"></progress>
 </div>
 
 
 <div class="progress">
-  <progress></progress>
+  <progress aria-label="Loading"></progress>
 </div>
 ```
 
@@ -185,7 +188,7 @@ Step 3 of 5: Value
 ```css
 .progress > progress[value]::-webkit-progress-value {
   background-color: var(--primary);
-  transition: inline-size 0.2s ease-out;
+  transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
 }
 
 
@@ -242,9 +245,9 @@ Step 5 of 5: Reduced motion
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Progress.md).
 

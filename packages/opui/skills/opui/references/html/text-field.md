@@ -4,7 +4,8 @@
 
 - [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
-- The auto-suggest arrow is the Select chevron at every size.
+- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
+- Breaking: mark an invalid field with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
 
 ## Anatomy
 
@@ -73,6 +74,8 @@ Text fields are outlined by default. Add `.ui-filled` for a filled field.
 
 ## Sizes
 
+Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
+
 ```html
 <label class="ui-text-field ui-x-small">
   <span class="ui-label">X-small</span>
@@ -102,6 +105,20 @@ Text fields are outlined by default. Add `.ui-filled` for a filled field.
   <span class="ui-label">Large</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
+  </span>
+</label>
+```
+
+## Description
+
+Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the label and the input.
+
+```html
+<label class="ui-text-field">
+  <span class="ui-label">Name</span>
+  <span class="ui-start-text">As it appears on your ID</span>
+  <span class="ui-field">
+    <input type="text" />
   </span>
 </label>
 ```
@@ -201,7 +218,9 @@ Use the `header` slot for inside-field captions (filenames, categories) and the 
 
 Add `[required]` to the `<input>` element to toggle required styles.
 
-Add `data-invalid` on the root element to toggle invalid styles. Make use of the end text to give extra feedback on the error.
+Add `aria-invalid="true"` to the `<input>` to toggle invalid styles. Screen readers announce it as invalid. Make use of the end text to give extra feedback on the error, and point `aria-describedby` at it.
+
+Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
 <div class="example-row">
@@ -221,7 +240,7 @@ Add `data-invalid` on the root element to toggle invalid styles. Make use of the
 
 
 <div class="example-row">
-  <label class="ui-text-field" data-invalid>
+  <label class="ui-text-field">
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
@@ -236,7 +255,7 @@ Add `data-invalid` on the root element to toggle invalid styles. Make use of the
       >Only double-negatives are allowed.</span
     >
   </label>
-  <label class="ui-text-field ui-filled" data-invalid>
+  <label class="ui-text-field ui-filled">
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
@@ -302,7 +321,7 @@ Add the `.ui-spread` class to display the label and description on the left with
 </label>
 
 
-<label class="ui-text-field ui-spread" data-invalid>
+<label class="ui-text-field ui-spread">
   <span class="ui-label">Invalid Name</span>
   <span class="ui-start-text">This field has an error</span>
   <span class="ui-field">
@@ -382,7 +401,7 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 ## Auto-fit
 
-When enabled the Field changes size depending on its content.
+Use `.ui-auto-fit` to let the field's width follow its content, from `25ch`.
 
 ```html
 <label class="ui-text-field ui-auto-fit">
@@ -597,10 +616,10 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 | Type       | Modifiers                               | Default | Description                                                              |
 | ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Changes size depending on its content.                                   |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                          |
 | Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
-| Validation | `[data-invalid]`                        | -       | Shows error styles.                                                      |
+| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                        |
 | Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
 
 #### Parts
@@ -620,36 +639,36 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 #### CSS variables
 
-| Variable                     | Default                                                                                 | Description                                                                                                                |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                      |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                            |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
-| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                  |
-| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                          |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                           |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                         |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                               |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                       |
-| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                            |
-| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                      |
-| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                             |
-| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                             |
-| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                   |
-| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                       |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                       |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.  |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                     |
+| Variable                     | Default                                                                                 | Description                                                                                                                                                                                              |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                    |
+| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                          |
+| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                 |
+| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                                                                                                |
+| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                               |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                        |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                         |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                       |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                             |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                     |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                          |
+| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                                                                                                    |
+| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                           |
+| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                           |
+| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                         |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                 |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                    |
+| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                     |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                         |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -657,18 +676,11 @@ The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be plac
 
 ### Text input API
 
-| Type     | Modifiers             | Default | Description                                                      |
-| -------- | --------------------- | ------- | ---------------------------------------------------------------- |
-| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content. |
-| Sizes    | `.ui-small`           | -       | The size of the element.                                         |
-| Variants | default, `.ui-filled` | default | The variant to use.                                              |
-
 #### Parts
 
-| Part                   | Description                                                                                                      |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `.ui-text-field input` | The input, wrapped in a `<span class="ui-field">`.                                                               |
-| `.ui-field`            | Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
+| Part                              | Description                                                                                                                                          |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.ui-text-field:has(input[list])` | A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field. |
 
 #### CSS variables
 
@@ -678,7 +690,11 @@ The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be plac
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
+Needs `text-field.css`, which holds the field, variant and size styles.
+
 ## Under the hood
+
+Read the post: [Validation that waits with :user-invalid](https://open-props-ui.netlify.app/learn/text-field-user-invalid)
 
 1. Wrapper
 
@@ -699,7 +715,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 4. Validation
 
    - `:user-invalid` waits until the user has edited the field, not on page load
-   - `[data-invalid]` for errors from the server
+   - `aria-invalid="true"` on the input for errors from the server, which screen readers also announce
    - Only the private custom properties change, every rule above follows
 
 Step 1 of 4: Wrapper
@@ -721,6 +737,7 @@ Step 1 of 4: Wrapper
   --accent: var(--primary);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
+  --label: var(--text-muted);
 
 
   display: grid;
@@ -794,7 +811,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--text-muted);
+  color: var(--label);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -835,10 +852,11 @@ Step 4 of 4: Validation
 - [`:user-valid and :user-invalid` ](https://webstatus.dev/features/user-pseudos)(Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
 
 ```css
-.text-field:is([data-invalid], :has(:user-invalid)) {
+.text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
+  --label: var(--invalid-text-color);
 }
 ```
 

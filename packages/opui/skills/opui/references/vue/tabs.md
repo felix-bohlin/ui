@@ -14,7 +14,7 @@ General account settings.
 
 - `<TabsItem>`
 
-  A visually hidden radio input that holds a tab's state.
+  A visually hidden radio input that holds a tab's state. The tab is its label.
 
 - `<TabsTab>`
 

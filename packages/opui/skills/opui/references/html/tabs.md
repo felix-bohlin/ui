@@ -14,7 +14,7 @@ General account settings.
 
 - `.ui-tab-input`
 
-  A visually hidden radio input that holds a tab's state.
+  A visually hidden radio input that holds a tab's state. The tab is its label.
 
 - `.ui-tab-label`
 
@@ -304,12 +304,12 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 #### Parts
 
-| Part            | Description                                             |
-| --------------- | ------------------------------------------------------- |
-| `.ui-tabs`      | Container element.                                      |
-| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. |
-| `.ui-tab-label` | A tab.                                                  |
-| `.ui-tab-panel` | The panel of the selected tab.                          |
+| Part            | Description                                                                   |
+| --------------- | ----------------------------------------------------------------------------- |
+| `.ui-tabs`      | Container element.                                                            |
+| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. The tab is its label. |
+| `.ui-tab-label` | A tab.                                                                        |
+| `.ui-tab-panel` | The panel of the selected tab.                                                |
 
 #### CSS variables
 

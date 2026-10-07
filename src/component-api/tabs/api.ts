@@ -37,8 +37,9 @@ export default {
     {
       code: ".ui-tab-input",
       component: { astro: "Tabs.Item", svelte: "TabsItem", vue: "TabsItem" },
-      description: "A visually hidden radio input that holds a tab's state.",
-      selector: ".ui-tab-input:checked",
+      description:
+        "A visually hidden radio input that holds a tab's state. The tab is its label.",
+      selector: ".ui-tab-input:not(:checked) + .ui-tab-label",
     },
     {
       code: ".ui-tab-label",

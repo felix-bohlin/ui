@@ -2,13 +2,6 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use them for options in a toolbar, like bold or text alignment. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/astro/components/switch.md), and for choices in a form a [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md). To switch between panels of content, use [Tabs](https://open-props-ui.netlify.app/astro/components/tabs.md). For uncontrolled buttons that just run actions, use a [Button group](https://open-props-ui.netlify.app/astro/components/button-group.md).
 
-### What's new
-
-- [Large](#sizes) size with `size="large"`.
-- [Small and x-small](#sizes) toggles use smaller text, like `Button`.
-- [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
-- Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
-
 ## Anatomy
 
 Day Week Month
@@ -501,6 +494,16 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/astro`:
+
 - `opui-css/css/components/toggle-group.css`
 - `opui-css/css/components/toggle-button.css`
 
+## Changelog
+
+### What's new
+
+- [Large](#sizes) size with `size="large"`.
+- [Small and x-small](#sizes) toggles use smaller text, like `Button`.
+- [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
+- Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.

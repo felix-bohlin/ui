@@ -48,6 +48,7 @@ const label = needs.length
   <Chip
     as="button"
     type="button"
+    multiline
     size="small"
     variant={needs.length ? "outlined" : "tonal"}
     class="hydration-chip"
@@ -84,6 +85,10 @@ const label = needs.length
     :global(svg) {
       color: var(--text-muted);
     }
+  }
+
+  .hydration-tooltip {
+    max-inline-size: 100%;
   }
 
   .hydration-tooltip :global(.ui-anchor-floating) {

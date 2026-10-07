@@ -1,14 +1,5 @@
 # Textarea
 
-### What's new
-
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
-- [Spread](#spread) fields line up at one width.
-- Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label ([API](#api)).
-- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
-- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
-- Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label Description  ¢ EUR Header Footer Supporting text
@@ -479,6 +470,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 ### Dependencies
 
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
@@ -486,3 +479,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/textarea.css`
 
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [Spread](#spread) fields line up at one width.
+- Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label ([API](#api)).
+- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
+- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
+- Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).

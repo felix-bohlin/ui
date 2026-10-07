@@ -2,10 +2,6 @@
 
 A structural primitive to enable CSS Anchor Positioning on stuff.
 
-### What's new
-
-- Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
-
 ## Anatomy
 
 Floating content
@@ -332,5 +328,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.

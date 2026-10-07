@@ -2,11 +2,6 @@
 
 Spacing and grouping for form fields.
 
-### What's new
-
-- Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
-- Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).
-
 ## Anatomy
 
 Favorite pet
@@ -812,3 +807,9 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
+- Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).

@@ -1,10 +1,5 @@
 # Textarea
 
-### What's new
-
-- [X-small and large](#sizes) sizes with the `size` prop.
-- [Spread](#spread) fields line up at one width.
-
 ## Anatomy
 
 Label Description  ¢ EUR Header Footer Supporting text
@@ -467,6 +462,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 ### Dependencies
 
 - [Text Field](https://open-props-ui.netlify.app/svelte/components/text-field.md)
@@ -474,3 +471,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/textarea.css`
 
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes with the `size` prop.
+- [Spread](#spread) fields line up at one width.

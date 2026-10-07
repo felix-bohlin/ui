@@ -2,13 +2,6 @@
 
 Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a [Button](https://open-props-ui.netlify.app/html/components/button.md).
 
-### What's new
-
-- [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
-- Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
-- Takes `.ui-x-small`. [Sizes](#sizes)
-
 ## Anatomy
 
 Chip
@@ -358,3 +351,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/chip.css`
 
+## Changelog
+
+### What's new
+
+- [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
+- Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
+- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- Takes `.ui-x-small`. [Sizes](#sizes)

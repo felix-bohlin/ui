@@ -1,10 +1,5 @@
 # Range
 
-### What's new
-
-- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
-- [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
-
 ## Anatomy
 
 Label 50 Start text End text
@@ -504,5 +499,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 - `opui-css/css/components/range.css`
 
+## Changelog
+
+### What's new
+
+- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
+- [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.

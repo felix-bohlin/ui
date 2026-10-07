@@ -1,10 +1,5 @@
 # List
 
-### What's new
-
-- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-
 ## Anatomy
 
 - Headline
@@ -773,5 +768,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/svelte`:
+
 - `opui-css/css/components/list.css`
 
+## Changelog
+
+### What's new
+
+- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).

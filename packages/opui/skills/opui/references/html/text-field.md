@@ -1,12 +1,5 @@
 # Text field
 
-### What's new
-
-- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
-- [Spread](#spread) fields line up at one width.
-- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
-- Breaking: mark an invalid field with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label Description ¢ EUR Header Footer Supporting text
@@ -873,3 +866,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/text-input.css`
 
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+- [Spread](#spread) fields line up at one width.
+- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
+- Breaking: mark an invalid field with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).

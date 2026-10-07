@@ -2,15 +2,6 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
-### What's new
-
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
-- Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
-- [Spread](#spread) with `.ui-spread`, like Checkbox and Switch.
-- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#validation)).
-- Takes `.ui-x-small`. [Sizes](#sizes)
-
 ## Anatomy
 
 Label End text
@@ -640,3 +631,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/radio.css`
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
+- Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
+- [Spread](#spread) with `.ui-spread`, like Checkbox and Switch.
+- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#validation)).
+- Takes `.ui-x-small`. [Sizes](#sizes)

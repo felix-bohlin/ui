@@ -2,16 +2,6 @@
 
 Buttons do things, like saving a form or opening a dialog. For filters, tags and choices, use a [Chip](https://open-props-ui.netlify.app/vue/components/chip.md).
 
-### What's new
-
-- [Icon-only](#icon-only) buttons need no extra class, and `rounded` makes them round.
-- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
-- Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
-- Links with `aria-disabled="true"` [look and act disabled](#disabled).
-- Breaking: no `.ui-disabled` on a [disabled](#disabled) button. Style `:disabled` or `[aria-disabled="true"]`.
-- [Primary and critical](#colors) colors pass contrast in light and dark mode.
-- Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
-
 ## Anatomy
 
 - `<Button>`
@@ -437,5 +427,18 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/button.css`
 
+## Changelog
+
+### What's new
+
+- [Icon-only](#icon-only) buttons need no extra class, and `rounded` makes them round.
+- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
+- Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
+- Links with `aria-disabled="true"` [look and act disabled](#disabled).
+- Breaking: no `.ui-disabled` on a [disabled](#disabled) button. Style `:disabled` or `[aria-disabled="true"]`.
+- [Primary and critical](#colors) colors pass contrast in light and dark mode.
+- Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.

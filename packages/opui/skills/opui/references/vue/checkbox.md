@@ -2,14 +2,6 @@
 
 Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), and for options in a toolbar a [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md). See also: [Checkbox field group](#field-group).
 
-### What's new
-
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
-- Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.
-- Breaking: `error` only sets `aria-invalid="true"` on the input. Set `error` on each checkbox in an invalid [group](#field-group-validation).
-- `size` takes `"x-small"`. [Sizes](#sizes)
-
 ## Anatomy
 
 Label End text
@@ -714,6 +706,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 ### See also
 
 - [Form](https://open-props-ui.netlify.app/vue/components/form.md)
@@ -721,3 +715,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/checkbox.css`
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
+- Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.
+- Breaking: `error` only sets `aria-invalid="true"` on the input. Set `error` on each checkbox in an invalid [group](#field-group-validation).
+- `size` takes `"x-small"`. [Sizes](#sizes)

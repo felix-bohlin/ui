@@ -2,12 +2,6 @@
 
 A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/html/components/button.md). Use a Menu for actions and navigation. To pick a value in a form, use a [Select](https://open-props-ui.netlify.app/html/components/select.md).
 
-### What's new
-
-- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
-- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
-
 ## Basics
 
 `command="toggle-popover"` to open, and `command="hide-popover"` to close.
@@ -609,3 +603,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [List](https://open-props-ui.netlify.app/html/components/list.md)
+
+## Changelog
+
+### What's new
+
+- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
+- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).

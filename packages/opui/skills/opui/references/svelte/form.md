@@ -749,6 +749,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 This doesn't include all the styles for all form elements, just the scaffolding around them.
 
+Import the components from `opui-css/svelte`:
+
 ### See also
 
 - [Button](https://open-props-ui.netlify.app/svelte/components/button.md)

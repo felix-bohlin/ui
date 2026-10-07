@@ -2,10 +2,6 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/vue/components/progress.md).
 
-### What's new
-
-- Busy buttons and links with `aria-describedby` [get a spinner](#blocked-by-another-use-case) now.
-
 ## Basics
 
 ```vue
@@ -209,3 +205,8 @@ Step 4 of 4: Reduced motion
 
 - `opui-css/css/components/spinner.css`
 
+## Changelog
+
+### What's new
+
+- Busy buttons and links with `aria-describedby` [get a spinner](#blocked-by-another-use-case) now.

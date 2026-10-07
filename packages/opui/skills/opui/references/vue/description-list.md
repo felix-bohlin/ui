@@ -1,9 +1,5 @@
 # Description list
 
-### What's new
-
-- Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
-
 ## Anatomy
 
 - Price
@@ -273,5 +269,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.

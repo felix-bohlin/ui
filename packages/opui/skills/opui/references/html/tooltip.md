@@ -4,10 +4,6 @@ Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/ancho
 
 Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
 
-### What's new
-
-- The [arrow](#arrow) points at the trigger in every position, also after a flip.
-
 ## Basics
 
 ### Text only...
@@ -401,3 +397,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md)
+
+## Changelog
+
+### What's new
+
+- The [arrow](#arrow) points at the trigger in every position, also after a flip.

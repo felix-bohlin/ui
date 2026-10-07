@@ -1,9 +1,5 @@
 # Accordion
 
-### What's new
-
-- [Marker animation](#marker-animation) with the `markerAnimation` prop.
-
 ## Anatomy
 
 Accordion title
@@ -453,6 +449,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/svelte/components/card.md)
@@ -460,3 +458,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/accordion.css`
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- [Marker animation](#marker-animation) with the `markerAnimation` prop.

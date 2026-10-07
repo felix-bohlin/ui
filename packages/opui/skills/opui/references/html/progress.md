@@ -2,10 +2,6 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md).
 
-### What's new
-
-- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
-
 ## Indeterminate
 
 ```html
@@ -255,3 +251,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/progress.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.

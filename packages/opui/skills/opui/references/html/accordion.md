@@ -1,10 +1,5 @@
 # Accordion
 
-### What's new
-
-- [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
-- Breaking: markers only animate with a [marker class](#marker-animation). Add `.ui-marker-rotate` to keep the previous rotation.
-
 ## Anatomy
 
 Accordion title
@@ -650,3 +645,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/accordion.css`
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
+- Breaking: markers only animate with a [marker class](#marker-animation). Add `.ui-marker-rotate` to keep the previous rotation.

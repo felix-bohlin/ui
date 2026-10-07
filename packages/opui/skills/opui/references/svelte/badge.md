@@ -1,10 +1,5 @@
 # Badge
 
-### What's new
-
-- [Indicator](#indicator) context for screen readers with `srLabel`.
-- [`alignment`](#alignment) takes `"start-end"`, the default placement.
-
 ## Anatomy
 
 5
@@ -429,6 +424,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 ### Dependencies
 
 - [Anchor](https://open-props-ui.netlify.app/svelte/components/anchor.md)
@@ -436,3 +433,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/badge.css`
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- [Indicator](#indicator) context for screen readers with `srLabel`.
+- [`alignment`](#alignment) takes `"start-end"`, the default placement.

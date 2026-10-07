@@ -2,16 +2,6 @@
 
 Groups related buttons by wrapping them with `class="ui-button-group"` and `role="group"`.
 
-### What's new
-
-- [Split button](#split-button) with a `Menu`.
-- [Icon-only](#icons) buttons stay square.
-- Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
-- [X-small](#sizes) size with `.ui-x-small`.
-- [Small](#sizes) groups use the same text size as a small `Button`.
-- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
-- `<a class="ui-button">` links get the group styles too, see [Variants](#variants).
-
 ## Anatomy
 
 - `.ui-button-group`
@@ -691,3 +681,14 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/button-group.css`
 - `opui-css/css/components/button.css`
 
+## Changelog
+
+### What's new
+
+- [Split button](#split-button) with a `Menu`.
+- [Icon-only](#icons) buttons stay square.
+- Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
+- [X-small](#sizes) size with `.ui-x-small`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
+- `<a class="ui-button">` links get the group styles too, see [Variants](#variants).

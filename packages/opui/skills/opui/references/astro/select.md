@@ -2,16 +2,6 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).
 
-### What's new
-
-- [X-small and large](#sizes) sizes with the `size` prop.
-- [Spread](#spread) fields line up at one width.
-- [Preselect](#preselected) options with `value` or `selected` on an item.
-- The arrow is a chevron, also on the [classic select](#classic-select).
-- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
-- Breaking: [`ClassicSelect`](#classic-select) no longer sets `aria-labelledby`. The wrapping `<label>` names the select, so `endText` is part of the name.
-- Breaking: `error` only sets `aria-invalid="true"` on the select, no more `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label Description Option one (1) ¤ EUR Header Footer Supporting text
@@ -788,6 +778,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/astro`:
+
 ### Dependencies
 
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
@@ -800,3 +792,15 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [Customizable select (MDN)](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select)
+
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes with the `size` prop.
+- [Spread](#spread) fields line up at one width.
+- [Preselect](#preselected) options with `value` or `selected` on an item.
+- The arrow is a chevron, also on the [classic select](#classic-select).
+- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
+- Breaking: [`ClassicSelect`](#classic-select) no longer sets `aria-labelledby`. The wrapping `<label>` names the select, so `endText` is part of the name.
+- Breaking: `error` only sets `aria-invalid="true"` on the select, no more `data-invalid` on the root ([Validation](#validation)).

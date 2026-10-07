@@ -1,15 +1,5 @@
 # Text field
 
-### What's new
-
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
-- [Spread](#spread) fields line up at one width.
-- Breaking: `style` goes to the label instead of the input ([API](#api)).
-- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
-- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
-- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
-- Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label Description ¢ EUR Header Footer Supporting text
@@ -786,6 +776,19 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/text-input.css`
 
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [Spread](#spread) fields line up at one width.
+- Breaking: `style` goes to the label instead of the input ([API](#api)).
+- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
+- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
+- Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
+- Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).

@@ -1,12 +1,5 @@
 # Range
 
-### What's new
-
-- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
-- The track fill is CSS only, so plain HTML ranges [fill](#basics) too.
-- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
-- Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label 50 Start text End text
@@ -565,3 +558,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/range.css`
 
+## Changelog
+
+### What's new
+
+- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
+- The track fill is CSS only, so plain HTML ranges [fill](#basics) too.
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
+- Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).

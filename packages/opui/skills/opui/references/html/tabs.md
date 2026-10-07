@@ -2,13 +2,6 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a [Toggle group](https://open-props-ui.netlify.app/html/components/toggle.md#toggle-group).
 
-### What's new
-
-- Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
-- Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
-- [Scrollable](#scrollable) tabs with `.ui-scrollable`.
-- [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
-
 ## Anatomy
 
 Profile settings and information.
@@ -608,3 +601,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/tabs.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
+- Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
+- [Scrollable](#scrollable) tabs with `.ui-scrollable`.
+- [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.

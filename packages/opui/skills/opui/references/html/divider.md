@@ -2,11 +2,6 @@
 
 It's just a line.
 
-### What's new
-
-- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
-- Breaking: [`.ui-filled`, `.ui-primary` and `.ui-tonal`](#variants) replace the `.ui-border-*` classes.
-
 ## Default
 
 ```html
@@ -164,3 +159,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/divider.css`
 
+## Changelog
+
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- Breaking: [`.ui-filled`, `.ui-primary` and `.ui-tonal`](#variants) replace the `.ui-border-*` classes.

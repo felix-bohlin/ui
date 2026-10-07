@@ -2,14 +2,6 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/html/components/list.md) to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a [Menu](https://open-props-ui.netlify.app/html/components/menu.md).
 
-### What's new
-
-- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
-- [Spread](#spread) fields line up at one width.
-- [Preselect](#preselected) options with `selected`.
-- The arrow is a chevron, also on the [classic select](#classic-select).
-- Breaking: mark an invalid select with `aria-invalid="true"` on the `<select>` instead of `data-invalid` on the root ([Validation](#validation)).
-
 ## Anatomy
 
 Label Description Option one (1) ¤ EUR Header Footer Supporting text
@@ -1043,3 +1035,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [Customizable select (MDN)](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select)
+
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+- [Spread](#spread) fields line up at one width.
+- [Preselect](#preselected) options with `selected`.
+- The arrow is a chevron, also on the [classic select](#classic-select).
+- Breaking: mark an invalid select with `aria-invalid="true"` on the `<select>` instead of `data-invalid` on the root ([Validation](#validation)).

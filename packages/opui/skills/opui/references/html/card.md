@@ -2,12 +2,6 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/html/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/html/components/dialog.md) and more.
 
-### What's new
-
-- Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
-- [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
-- [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
-
 ## Anatomy
 
 Overline
@@ -411,3 +405,10 @@ Other components might depend on the card component. Be mindful when making chan
 
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
+- [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
+- [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

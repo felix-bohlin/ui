@@ -2,17 +2,6 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
-### What's new
-
-- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
-- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
-- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
-- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
-- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
-- [Links](#link) are documented, and get a thicker underline on hover.
-- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
-
 ## Class-based
 
 Utils that you can plop down wherever.
@@ -738,3 +727,15 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/typography.css`
 - `opui-css/css/components/link.css`
 
+## Changelog
+
+### What's new
+
+- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
+- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
+- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
+- [Links](#link) are documented, and get a thicker underline on hover.
+- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.

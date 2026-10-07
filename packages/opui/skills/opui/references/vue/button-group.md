@@ -2,16 +2,6 @@
 
 Groups related buttons.
 
-### What's new
-
-- [Split button](#split-button) with a `Menu`.
-- [Icon-only](#icons) buttons stay square.
-- Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
-- [X-small](#sizes) size with `size="x-small"`.
-- [Small](#sizes) groups use the same text size as a small `Button`.
-- [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
-- Button links (`href`) get the group styles too, see [Variants](#variants).
-
 ## Anatomy
 
 - `<ButtonGroup>`
@@ -712,6 +702,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 ### Dependencies
 
 - [Button](https://open-props-ui.netlify.app/vue/components/button.md)
@@ -719,3 +711,14 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/button-group.css`
 - `opui-css/css/components/button.css`
 
+## Changelog
+
+### What's new
+
+- [Split button](#split-button) with a `Menu`.
+- [Icon-only](#icons) buttons stay square.
+- Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
+- [X-small](#sizes) size with `size="x-small"`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
+- Button links (`href`) get the group styles too, see [Variants](#variants).

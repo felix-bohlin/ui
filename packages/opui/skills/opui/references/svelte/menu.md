@@ -2,13 +2,6 @@
 
 A popover [List](https://open-props-ui.netlify.app/svelte/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/svelte/components/button.md). Use a Menu for actions and navigation. To pick a value in a form, use a [Select](https://open-props-ui.netlify.app/svelte/components/select.md).
 
-### What's new
-
-- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
-- [Submenus](#submenu) with the `submenu` snippet on `ListItem`.
-- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
-
 ## Basics
 
 `items` with `borderTop`, `critical`, `disabled` and `shortcut`.
@@ -448,6 +441,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 ### Dependencies
 
 - [Description List](https://open-props-ui.netlify.app/svelte/components/description-list.md)
@@ -458,3 +453,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [List](https://open-props-ui.netlify.app/svelte/components/list.md)
+
+## Changelog
+
+### What's new
+
+- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- [Submenus](#submenu) with the `submenu` snippet on `ListItem`.
+- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
+- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).

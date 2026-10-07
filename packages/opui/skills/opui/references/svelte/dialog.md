@@ -2,11 +2,6 @@
 
 Use a Dialog for a question or a short task that needs the user's full attention. For navigation, filters or side content, use a [Drawer](https://open-props-ui.netlify.app/svelte/components/drawer.md).
 
-### What's new
-
-- [Long content](#long-content) scrolls between a fixed header and actions.
-- A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
-
 ## Anatomy
 
 - `<Dialog>`
@@ -545,6 +540,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/svelte/components/card.md)
@@ -552,3 +549,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/dialog.css`
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- [Long content](#long-content) scrolls between a fixed header and actions.
+- A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).

@@ -6,6 +6,7 @@ import { unified } from "unified"
 import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
+  "#changelog-list",
   ".build-up-knobs",
   ".build-up-stage",
   ".build-up-steps legend",
@@ -22,7 +23,7 @@ const REMOVE_SELECTORS = [
   "button",
   "input",
   "script",
-  "section:has(> #changelog)",
+  "section:has(> #changelog):not(:has(.whats-new))",
   "style",
   "svg",
   "template",

@@ -239,5 +239,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 - `opui-css/css/components/progress.css`
 

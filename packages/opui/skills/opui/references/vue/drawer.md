@@ -2,11 +2,6 @@
 
 Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
-### What's new
-
-- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
-- Named by the header heading through [`aria-labelledby`](#accessibility).
-
 ## Anatomy
 
 - `<Drawer>`
@@ -574,5 +569,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/drawer.css`
 
+## Changelog
+
+### What's new
+
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
+- Named by the header heading through [`aria-labelledby`](#accessibility).

@@ -1,12 +1,5 @@
 # List
 
-### What's new
-
-- Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
-- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
-
 ## Anatomy
 
 - Headline
@@ -1113,3 +1106,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/list.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
+- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.

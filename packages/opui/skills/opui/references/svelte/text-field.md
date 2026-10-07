@@ -1,11 +1,5 @@
 # Text field
 
-### What's new
-
-- [X-small and large](#sizes) sizes with the `size` prop.
-- [Spread](#spread) fields line up at one width.
-- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
-
 ## Anatomy
 
 Label Description ¢ EUR Header Footer Supporting text
@@ -742,6 +736,15 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/text-input.css`
 
+## Changelog
+
+### What's new
+
+- [X-small and large](#sizes) sizes with the `size` prop.
+- [Spread](#spread) fields line up at one width.
+- The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

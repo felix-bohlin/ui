@@ -1,9 +1,5 @@
 # Badge
 
-### What's new
-
-- [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
-
 ## Anatomy
 
 5
@@ -496,3 +492,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/badge.css`
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- [Indicator](#indicator) context for screen readers with `.ui-sr-only`.

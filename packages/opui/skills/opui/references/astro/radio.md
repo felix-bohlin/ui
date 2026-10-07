@@ -2,15 +2,6 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/astro/components/form.md).
 
-### What's new
-
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
-- Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
-- [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
-- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#validation)).
-- `size` takes `"x-small"`. [Sizes](#sizes)
-
 ## Anatomy
 
 Label End text
@@ -538,6 +529,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 ### See also
 
 - [Form](https://open-props-ui.netlify.app/astro/components/form.md)
@@ -545,3 +538,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/radio.css`
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
+- Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
+- [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
+- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#validation)).
+- `size` takes `"x-small"`. [Sizes](#sizes)

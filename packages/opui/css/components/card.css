@@ -124,7 +124,7 @@
       }
     }
 
-    &:has(.ui-card-link:hover) {
+    &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
       --_border-color: var(--text-muted);
 
       @media (forced-colors: active) {
@@ -132,7 +132,9 @@
       }
     }
 
-    &:has(.ui-card-link:focus-visible) {
+    &:has(.ui-card-link:focus-visible):not(
+        :has(.ui-card .ui-card-link:focus-visible)
+      ) {
       outline: var(--focus-ring-width) var(--focus-ring-style)
         var(--focus-ring-color, currentColor);
       outline-offset: var(--focus-ring-offset);

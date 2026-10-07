@@ -1,10 +1,5 @@
 # Accordion
 
-### What's new
-
-- [Marker animation](#marker-animation) with the `markerAnimation` prop.
-- Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there or it shows twice.
-
 ## Anatomy
 
 Accordion title
@@ -460,6 +455,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/astro/components/card.md)
@@ -467,3 +464,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/accordion.css`
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- [Marker animation](#marker-animation) with the `markerAnimation` prop.
+- Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there or it shows twice.

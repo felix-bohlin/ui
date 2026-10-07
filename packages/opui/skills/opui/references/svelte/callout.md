@@ -2,10 +2,6 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
-### What's new
-
-- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.
-
 ## Anatomy
 
 ### Title
@@ -308,6 +304,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 - `opui-css/css/components/callout.css`
 `theme tokens (snippet)`
 
+## Changelog
+
+### What's new
+
+- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.

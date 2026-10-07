@@ -260,5 +260,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/svelte`:
+
 - `opui-css/css/components/description-list.css`
 

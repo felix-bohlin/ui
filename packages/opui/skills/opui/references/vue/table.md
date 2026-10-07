@@ -1,11 +1,5 @@
 # Table
 
-### What's new
-
-- [Dense](#variants) tables have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
-- [Sticky header](#sticky-header) with the `stickyHeader` prop.
-
 ## Anatomy
 
 | Name   | Size |
@@ -561,5 +555,14 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/table.css`
 
+## Changelog
+
+### What's new
+
+- [Dense](#variants) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
+- [Sticky header](#sticky-header) with the `stickyHeader` prop.

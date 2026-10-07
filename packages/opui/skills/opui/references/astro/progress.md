@@ -2,10 +2,6 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/astro/components/spinner.md).
 
-### What's new
-
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
-
 ## Indeterminate
 
 ```astro
@@ -253,5 +249,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 - `opui-css/css/components/progress.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.

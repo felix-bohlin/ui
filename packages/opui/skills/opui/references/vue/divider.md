@@ -2,10 +2,6 @@
 
 It's just a line.
 
-### What's new
-
-- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
-
 ## Default
 
 ```vue
@@ -176,5 +172,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/divider.css`
 
+## Changelog
+
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.

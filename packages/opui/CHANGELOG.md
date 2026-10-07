@@ -304,6 +304,7 @@
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `Callout` links in a tonal callout take the hover color on keyboard focus too.
 - `Card` actions aligned to the end line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
+- `Card` hover border and focus ring of a clickable card no longer show on the cards around it.
 - `Accordion` content in a group without a variant lines up with the summary.
 - `Carousel` markers show in forced colors mode: they get a border, and the current marker is filled with `SelectedItem`.
 - `Carousel` scroll buttons and markers show the library focus ring instead of the thin browser ring.

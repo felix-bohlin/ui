@@ -2,11 +2,6 @@
 
 Spacing and grouping for form fields.
 
-### What's new
-
-- Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
-- Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
-
 ## Anatomy
 
 Favorite pet
@@ -788,6 +783,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 This doesn't include all the styles for all form elements, just the scaffolding around them.
 
+Import the components from `opui-css/vue`:
+
 ### See also
 
 - [Button](https://open-props-ui.netlify.app/vue/components/button.md)
@@ -802,3 +799,9 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
+- Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).

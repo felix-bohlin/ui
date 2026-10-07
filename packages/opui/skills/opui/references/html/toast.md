@@ -1,10 +1,5 @@
 # Toast
 
-### What's new
-
-- Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
-- Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
-
 ### Alpha stage
 
 This is in no way finished, just an idea put out in the open.
@@ -324,3 +319,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/toast.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
+- Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).

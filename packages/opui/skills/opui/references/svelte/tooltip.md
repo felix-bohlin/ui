@@ -4,10 +4,6 @@ Built on top of [Anchor](https://open-props-ui.netlify.app/svelte/components/anc
 
 Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` snippet for richer markup.
 
-### What's new
-
-- The [arrow](#arrow) points at the trigger in every position, also after a flip.
-
 ## Basics
 
 ### Text only...
@@ -353,9 +349,17 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/svelte`:
+
 - `opui-css/css/components/tooltip.css`
 - `opui-css/css/components/anchor.css`
 
 ## See also
 
 - [Anchor](https://open-props-ui.netlify.app/svelte/components/anchor.md)
+
+## Changelog
+
+### What's new
+
+- The [arrow](#arrow) points at the trigger in every position, also after a flip.

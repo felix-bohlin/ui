@@ -2,13 +2,6 @@
 
 Use a Switch for a setting that applies right away. Use a [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md) for choices that are submitted with a form, and a [Toggle](https://open-props-ui.netlify.app/html/components/toggle.md) for options in a toolbar. See also: [Switch field group](#field-group).
 
-### What's new
-
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Without a [visible label](#visible-label), switches center in table cells and lines of text.
-- Breaking: mark an invalid switch with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
-- Takes `.ui-x-small` and `.ui-large`. [Sizes](#sizes)
-
 ## Anatomy
 
 Theme Label End text
@@ -960,3 +953,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/switch.css`
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Without a [visible label](#visible-label), switches center in table cells and lines of text.
+- Breaking: mark an invalid switch with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
+- Takes `.ui-x-small` and `.ui-large`. [Sizes](#sizes)

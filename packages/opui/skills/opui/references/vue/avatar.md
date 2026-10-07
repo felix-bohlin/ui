@@ -1,10 +1,5 @@
 # Avatar
 
-### What's new
-
-- Breaking: [`alt`](#image) is required when `src` is set.
-- Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
-
 ## Image
 
 ```vue
@@ -328,5 +323,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/avatar.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`alt`](#image) is required when `src` is set.
+- Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.

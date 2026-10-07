@@ -1,13 +1,5 @@
 # List
 
-### What's new
-
-- Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
-- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
-- Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
-
 ## Anatomy
 
 - Headline
@@ -829,5 +821,16 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/list.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
+- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.

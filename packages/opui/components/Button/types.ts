@@ -1,6 +1,5 @@
 export type Props = {
   color?: "critical" | "primary"
-  ripple?: boolean
   rounded?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"

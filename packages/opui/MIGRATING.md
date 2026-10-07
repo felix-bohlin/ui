@@ -165,16 +165,16 @@ The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--bac
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle and `ripple` gives it the hover halo. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
-+ <Button ripple rounded size="x-small" aria-label="Edit">
++ <Button rounded size="x-small" aria-label="Edit">
 ```
 
 ```diff
 - <button class="ui-icon-button">
-+ <button class="ui-button ui-rounded ui-ripple ui-x-small">
++ <button class="ui-button ui-rounded ui-x-small">
 ```
 
 Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.

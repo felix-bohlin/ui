@@ -4,7 +4,6 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    ripple
     rounded
     size="small"
     aria-label="More actions"

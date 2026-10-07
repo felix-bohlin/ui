@@ -22,7 +22,7 @@ import { Button, Card } from "opui-css/vue"
   <Card variant="outlined" actionsAlign="end">
     <template #content>Icon buttons aligned to the end!</template>
     <template #actions>
-      <Button ripple rounded size="small" aria-label="Favorite">
+      <Button rounded size="small" aria-label="Favorite">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -35,7 +35,7 @@ import { Button, Card } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-      <Button ripple rounded size="small" aria-label="Share">
+      <Button rounded size="small" aria-label="Share">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

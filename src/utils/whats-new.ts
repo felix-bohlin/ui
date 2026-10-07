@@ -41,9 +41,9 @@ const whatsNew = {
   ],
   button: [
     {
-      astro: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
-      html: `<a href="#icon-only">Icon-only</a> buttons are square. <code>.ui-rounded</code> makes them round and <code>.ui-ripple</code> adds a hover halo.`,
-      vue: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
+      astro: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
+      html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-rounded</code> makes them round.`,
+      vue: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
     },
     `Replaces <code>IconButton</code>. An <a href="#icon-only">icon-only</a> button is a <code>Button</code> with just an <code>svg</code>.`,
     `Breaking: icon styles only apply to a direct child <code>svg</code>. Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> next to an icon to <a href="#buttons-with-icon-and-label">tighten the padding</a>, or the button renders as icon-only.`,
@@ -75,6 +75,10 @@ const whatsNew = {
     {
       default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+    },
+    {
+      default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
+      html: `<code>&lt;a class="ui-button"&gt;</code> links get the group styles too, see <a href="#variants">Variants</a>.`,
     },
   ],
   callout: [

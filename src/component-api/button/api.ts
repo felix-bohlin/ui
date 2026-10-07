@@ -40,14 +40,6 @@ export default {
       type: "string",
     },
     {
-      class: ".ui-ripple",
-      default: "false",
-      description:
-        "A halo behind the button on hover instead of a background change.",
-      group: "Hover",
-      prop: "ripple",
-    },
-    {
       class: ".ui-rounded",
       default: "false",
       description: "Fully rounded corners, a circle when icon-only.",
@@ -83,7 +75,8 @@ export default {
     },
     {
       code: '<span class="ui-text">',
-      description: "The label. Wrap it when the button has an icon.",
+      description:
+        "The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.",
       selector: ".ui-button > .ui-text",
     },
   ],

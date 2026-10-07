@@ -77,6 +77,11 @@ export const description =
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column spacious />
+    <p>
+      A default (text) button link with <code>aria-current="page"</code> keeps the
+      pressed background, to mark the current page in navigation. Outlined, tonal
+      and filled buttons don't change.
+    </p>
   </section>
 
   <section>
@@ -133,24 +138,28 @@ export const description =
     <h2 id="buttons-with-icon-and-label">Buttons with icon and label</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Include an icon alongside text by nesting it within the component.
-        Always wrap the label in a <code>&lt;span class="ui-text"&gt;</code>: it
-        tightens the padding on the icon side, and a button whose only element
-        is an <code>svg</code> is styled as icon-only, even with text next to it.
-      </Fragment>
-      <Fragment slot="html">
-        Include an icon alongside text by nesting an SVG element within the
-        button. Always wrap the label in a <code
-          >&lt;span class="ui-text"&gt;</code
-        >: it tightens the padding on the icon side, and a button whose only
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
+        for the wrapper element, the class is a hook for your own styles. The
+        wrapper tightens the padding on the icon side, and a button whose only
         element is an <code>svg</code> is styled as icon-only, even with text next
         to it.
       </Fragment>
+      <Fragment slot="html">
+        Include an icon alongside text by nesting an SVG element within the
+        button. Wrap the label in a <code>&lt;span class="ui-text"&gt;</code>.
+        The CSS looks for the wrapper element, the class is a hook for your own
+        styles. The wrapper tightens the padding on the icon side, and a button
+        whose only element is an <code>svg</code> is styled as icon-only, even with
+        text next to it.
+      </Fragment>
       <Fragment slot="vue">
-        Include an icon alongside text by nesting it within the component.
-        Always wrap the label in a <code>&lt;span class="ui-text"&gt;</code>: it
-        tightens the padding on the icon side, and a button whose only element
-        is an <code>svg</code> is styled as icon-only, even with text next to it.
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
+        for the wrapper element, the class is a hook for your own styles. The
+        wrapper tightens the padding on the icon side, and a button whose only
+        element is an <code>svg</code> is styled as icon-only, even with text next
+        to it.
       </Fragment>
     </Conditional>
     <Example column>
@@ -176,21 +185,21 @@ export const description =
     <h2 id="icon-only">Icon-only</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>rounded</code> for a circle and <code
-          >ripple</code
-        > for a hover halo instead of a background change.
+        Set <code>iconOnly</code> and name the button with <code>label</code>,
+        which renders <code>aria-label</code>. The types require <code
+          >label</code
+        > when <code>iconOnly</code> is set. Add <code>rounded</code> for a circle.
       </Fragment>
       <Fragment slot="html">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>.ui-rounded</code> for a circle and
-        {" "}<code>.ui-ripple</code> for a hover halo instead of a background change.
+        Name a button whose only child is an <code>svg</code> with <code
+          >aria-label</code
+        >. Add <code>.ui-rounded</code> for a circle.
       </Fragment>
       <Fragment slot="vue">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>rounded</code> for a circle and <code
-          >ripple</code
-        > for a hover halo instead of a background change.
+        Set <code>icon-only</code> and name the button with <code>label</code>,
+        which renders <code>aria-label</code>. The types require <code
+          >label</code
+        > when <code>icon-only</code> is set. Add <code>rounded</code> for a circle.
       </Fragment>
     </Conditional>
     <AutoExample name="IconOnly" row />

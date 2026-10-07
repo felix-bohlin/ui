@@ -15,6 +15,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 ---
 
@@ -64,7 +65,15 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </Fragment>
   <ul>
     <li>Button groups should consist of 2-5 buttons.</li>
-    <li>Don't allow them to wrap onto a new line.</li>
+    <li>
+      Use <PropOrClass prop="scrollable" class=".ui-scrollable" /> or <PropOrClass
+        prop="shrink"
+        class=".ui-shrink"
+      /> when a group must stay on one row, see <a
+        href="#overflow"
+        class="ui-link">Overflow</a
+      >.
+    </li>
     <li>
       If an icon is used without label text make sure the button communicates
       clearly what it does.
@@ -154,8 +163,9 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       Yes of course, they're just <DocLink
         href="/components/button"
         class="ui-link">buttons.</DocLink
-      > Wrap labels in a <code>&lt;span&gt;</code> so buttons with an icon keep their
-      padding.
+      > Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> when the button
+      has an icon. The CSS looks for the wrapper element, the class is a hook for
+      your own styles.
     </p>
     <AutoExample name="WithIcons" column centered />
   </section>

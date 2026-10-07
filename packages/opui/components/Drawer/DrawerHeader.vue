@@ -28,13 +28,7 @@ const closeAttrs = computed(() =>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
     <h2 v-if="heading" :id="headingId">{{ heading }}</h2>
     <slot></slot>
-    <Button
-      :aria-label="closeLabel"
-      ripple
-      rounded
-      size="small"
-      v-bind="closeAttrs"
-    >
+    <Button :aria-label="closeLabel" rounded size="small" v-bind="closeAttrs">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

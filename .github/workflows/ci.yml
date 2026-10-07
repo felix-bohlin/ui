@@ -13,6 +13,9 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -28,6 +31,20 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          url=$(pnpm --silent --package=netlify-cli@27.11.2 dlx netlify deploy --no-build --dir=dist --filter open-props-ui-docs --alias "pr-$PR" --message "PR #$PR ${SHA::7}" --json | jq -r .deploy_url)
+          test -n "$url"
+          test "$url" != null
+          gh pr comment "$PR" --edit-last --create-if-none --body "Preview: $url (${SHA::7})"
+          echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
 
   e2e:
     runs-on: ubuntu-latest

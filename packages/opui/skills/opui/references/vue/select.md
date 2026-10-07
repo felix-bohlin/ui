@@ -85,8 +85,8 @@ import { Select } from "opui-css/vue"
 
 
 <template>
-  <Select label="X-small" size="x-small">
-    <option value="">X-small</option>
+  <Select label="x-small" size="x-small">
+    <option value="">x-small</option>
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>
@@ -825,7 +825,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes with the `size` prop.
+- [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
 - The arrow is a chevron, also on the [classic select](#classic-select).

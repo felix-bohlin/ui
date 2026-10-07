@@ -77,7 +77,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 <div class="example-row">
   <label class="ui-switch ui-x-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-sr-only">X-small</span>
+    <span class="ui-sr-only">x-small</span>
   </label>
 
 
@@ -103,7 +103,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 <div class="example-row">
   <label class="ui-switch ui-x-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-label">X-small</span>
+    <span class="ui-label">x-small</span>
   </label>
 
 

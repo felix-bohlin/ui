@@ -93,14 +93,14 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
 ```html
 <label class="ui-select ui-x-small">
-  <span class="ui-label" id="select-sizes-1-label">X-small</span>
+  <span class="ui-label" id="select-sizes-1-label">x-small</span>
   <span class="ui-field">
     <select aria-labelledby="select-sizes-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
-        <option value="">X-small</option>
+        <option value="">x-small</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
@@ -1040,7 +1040,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+- [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `selected`.
 - The arrow is a chevron, also on the [classic select](#classic-select).

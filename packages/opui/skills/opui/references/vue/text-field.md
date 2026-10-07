@@ -71,7 +71,7 @@ import { TextField } from "opui-css/vue"
 
 
 <template>
-  <TextField label="X-small" placeholder="Placeholder" size="x-small" />
+  <TextField label="x-small" placeholder="Placeholder" size="x-small" />
   <TextField label="Small" placeholder="Placeholder" size="small" />
   <TextField label="Default" placeholder="Placeholder" />
   <TextField label="Large" placeholder="Placeholder" size="large" />
@@ -785,7 +785,7 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: `style` goes to the label instead of the input ([API](#api)).
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

@@ -82,7 +82,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 <div class="example-row">
   <label class="ui-radio ui-x-small">
     <input name="radio-sizes-x-small" type="radio" value="other" />
-    <span class="ui-label">X-small</span>
+    <span class="ui-label">x-small</span>
   </label>
 
 

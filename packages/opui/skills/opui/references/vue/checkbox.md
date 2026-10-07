@@ -67,7 +67,7 @@ import { Checkbox } from "opui-css/vue"
     >
   </div>
   <div class="example-row">
-    <Checkbox size="x-small" checked name="checkbox-sizes">X-small</Checkbox>
+    <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
     <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
     <Checkbox checked name="checkbox-sizes">Default</Checkbox>
     <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>

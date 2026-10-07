@@ -84,20 +84,20 @@ import { Button } from "opui-css/astro"
 ---
 
 
-<Button size="x-small">X-small</Button>
+<Button size="x-small">x-small</Button>
 <Button size="small">Small</Button>
 <Button>Default</Button>
 <Button size="large">Large</Button>
 
 
-<Button variant="filled" size="x-small">X-small</Button>
+<Button variant="filled" size="x-small">x-small</Button>
 <Button variant="filled" size="small">Small</Button>
 <Button variant="filled">Default</Button>
 <Button variant="filled" size="large">Large</Button>
 
 
 <Button size="x-small" variant="outlined">
-  <span class="ui-text">X-small</span>
+  <span class="ui-text">x-small</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button size="small" variant="outlined">

@@ -71,7 +71,7 @@ import { Textarea } from "opui-css/vue"
 
 
 <template>
-  <Textarea label="X-small" placeholder="Placeholder" size="x-small" />
+  <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
   <Textarea label="Small" placeholder="Placeholder" size="small" />
   <Textarea label="Default" placeholder="Placeholder" />
   <Textarea label="Large" placeholder="Placeholder" size="large" />
@@ -509,7 +509,7 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: `style` goes to the label instead of the textarea ([API](#api)).
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.

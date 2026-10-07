@@ -75,8 +75,8 @@ const whatsNew = {
     `<a href="#icons">Icon-only</a> buttons stay square.`,
     `Breaking: <a href="#variants">variants</a> apply to the whole group. A variant on a single button inside a group is no longer supported.`,
     {
-      default: `<a href="#sizes">X-small</a> size with <code>size="x-small"</code>.`,
-      html: `<a href="#sizes">X-small</a> size with <code>.ui-x-small</code>.`,
+      default: `<a href="#sizes">x-small</a> size with <code>size="x-small"</code>.`,
+      html: `<a href="#sizes">x-small</a> size with <code>.ui-x-small</code>.`,
     },
     `<a href="#sizes">Small</a> groups use the same text size as a small <code>Button</code>.`,
     {
@@ -264,8 +264,8 @@ const whatsNew = {
   ],
   select: [
     {
-      default: `<a href="#sizes">X-small and large</a> sizes with the <code>size</code> prop.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
@@ -338,9 +338,9 @@ const whatsNew = {
   ],
   "text-field": [
     {
-      default: `<a href="#sizes">X-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
-      svelte: `<a href="#sizes">X-small and large</a> sizes with the <code>size</code> prop.`,
+      default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
@@ -364,9 +364,9 @@ const whatsNew = {
   ],
   textarea: [
     {
-      default: `<a href="#sizes">X-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
-      svelte: `<a href="#sizes">X-small and large</a> sizes with the <code>size</code> prop.`,
+      default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {

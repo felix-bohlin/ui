@@ -88,7 +88,7 @@ import { Radio } from "opui-css/vue"
   </div>
   <div class="example-row">
     <Radio name="radio-sizes-x-small" size="x-small" value="other"
-      >X-small</Radio
+      >x-small</Radio
     >
     <Radio name="radio-sizes-small" size="small" value="other">Small</Radio>
     <Radio name="radio-sizes-default" value="other">Default</Radio>

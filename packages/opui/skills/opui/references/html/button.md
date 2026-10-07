@@ -74,7 +74,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 ```html
 <div class="example-row">
-  <button type="button" class="ui-button ui-x-small">X-small</button>
+  <button type="button" class="ui-button ui-x-small">x-small</button>
   <button type="button" class="ui-button ui-small">Small</button>
   <button type="button" class="ui-button">Default</button>
   <button type="button" class="ui-button ui-large">Large</button>
@@ -82,7 +82,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 
 <div class="example-row">
-  <button type="button" class="ui-button ui-filled ui-x-small">X-small</button>
+  <button type="button" class="ui-button ui-filled ui-x-small">x-small</button>
   <button type="button" class="ui-button ui-filled ui-small">Small</button>
   <button type="button" class="ui-button ui-filled">Default</button>
   <button type="button" class="ui-button ui-filled ui-large">Large</button>
@@ -91,7 +91,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined ui-x-small">
-    <span class="ui-text">X-small</span>
+    <span class="ui-text">x-small</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

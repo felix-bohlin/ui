@@ -68,7 +68,7 @@ import { Textarea } from "opui-css/astro"
 ---
 
 
-<Textarea label="X-small" placeholder="Placeholder" size="x-small" />
+<Textarea label="x-small" placeholder="Placeholder" size="x-small" />
 <Textarea label="Small" placeholder="Placeholder" size="small" />
 <Textarea label="Default" placeholder="Placeholder" />
 <Textarea label="Large" placeholder="Placeholder" size="large" />
@@ -483,7 +483,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label ([API](#api)).
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.

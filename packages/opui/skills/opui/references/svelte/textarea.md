@@ -68,7 +68,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 </script>
 
 
-<Textarea label="X-small" placeholder="Placeholder" size="x-small" />
+<Textarea label="x-small" placeholder="Placeholder" size="x-small" />
 <Textarea label="Small" placeholder="Placeholder" size="small" />
 <Textarea label="Default" placeholder="Placeholder" />
 <Textarea label="Large" placeholder="Placeholder" size="large" />
@@ -475,5 +475,5 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes with the `size` prop.
+- [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.

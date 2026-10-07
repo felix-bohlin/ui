@@ -80,9 +80,9 @@ Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small`
 
 ```html
 <div role="group" class="ui-button-group ui-x-small ui-outlined">
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
+  <button type="button" class="ui-button">x-small</button>
+  <button type="button" class="ui-button">x-small</button>
+  <button type="button" class="ui-button">x-small</button>
 </div>
 
 
@@ -688,7 +688,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Split button](#split-button) with a `Menu`.
 - [Icon-only](#icons) buttons stay square.
 - Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
-- [X-small](#sizes) size with `.ui-x-small`.
+- [x-small](#sizes) size with `.ui-x-small`.
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 - `<a class="ui-button">` links get the group styles too, see [Variants](#variants).

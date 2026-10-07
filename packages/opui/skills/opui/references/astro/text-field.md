@@ -68,7 +68,7 @@ import { TextField } from "opui-css/astro"
 ---
 
 
-<TextField label="X-small" placeholder="Placeholder" size="x-small" />
+<TextField label="x-small" placeholder="Placeholder" size="x-small" />
 <TextField label="Small" placeholder="Placeholder" size="small" />
 <TextField label="Default" placeholder="Placeholder" />
 <TextField label="Large" placeholder="Placeholder" size="large" />
@@ -755,7 +755,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the input. `class` and `style` stay on the label ([API](#api)).
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

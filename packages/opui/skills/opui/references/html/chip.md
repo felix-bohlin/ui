@@ -43,7 +43,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
 
 ```html
 <div class="ui-chip ui-tonal ui-x-small">
-  <span class="ui-text">X-small</span>
+  <span class="ui-text">x-small</span>
 </div>
 
 

@@ -68,7 +68,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 </script>
 
 
-<TextField label="X-small" placeholder="Placeholder" size="x-small" />
+<TextField label="x-small" placeholder="Placeholder" size="x-small" />
 <TextField label="Small" placeholder="Placeholder" size="small" />
 <TextField label="Default" placeholder="Placeholder" />
 <TextField label="Large" placeholder="Placeholder" size="large" />
@@ -745,6 +745,6 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
-- [X-small and large](#sizes) sizes with the `size` prop.
+- [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

@@ -71,7 +71,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
 ```html
 <label class="ui-textarea ui-x-small">
-  <span class="ui-label">X-small</span>
+  <span class="ui-label">x-small</span>
   <span class="ui-field">
     <textarea placeholder="Placeholder"></textarea>
   </span>
@@ -574,6 +574,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+- [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: mark an invalid field with `aria-invalid="true"` on the `<textarea>` instead of `data-invalid` on the root ([Validation](#validation)).

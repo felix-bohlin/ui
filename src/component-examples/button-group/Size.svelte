@@ -3,9 +3,9 @@
 </script>
 
 <ButtonGroup size="x-small" variant="outlined">
-  <Button>X-small</Button>
-  <Button>X-small</Button>
-  <Button>X-small</Button>
+  <Button>x-small</Button>
+  <Button>x-small</Button>
+  <Button>x-small</Button>
 </ButtonGroup>
 
 <ButtonGroup size="small" variant="outlined">

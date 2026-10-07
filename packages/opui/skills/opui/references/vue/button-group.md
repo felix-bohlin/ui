@@ -100,9 +100,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup size="x-small" variant="outlined">
-    <Button>X-small</Button>
-    <Button>X-small</Button>
-    <Button>X-small</Button>
+    <Button>x-small</Button>
+    <Button>x-small</Button>
+    <Button>x-small</Button>
   </ButtonGroup>
 
 
@@ -718,7 +718,7 @@ Import the component from `opui-css/vue`:
 - [Split button](#split-button) with a `Menu`.
 - [Icon-only](#icons) buttons stay square.
 - Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
-- [X-small](#sizes) size with `size="x-small"`.
+- [x-small](#sizes) size with `size="x-small"`.
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).

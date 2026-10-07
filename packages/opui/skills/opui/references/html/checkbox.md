@@ -94,7 +94,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 <div class="example-row">
   <label class="ui-checkbox ui-x-small">
     <input name="checkbox-sizes" type="checkbox" checked />
-    <span class="ui-label">X-small</span>
+    <span class="ui-label">x-small</span>
   </label>
 
 

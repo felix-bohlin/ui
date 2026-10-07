@@ -10,6 +10,16 @@ const style = (locator: Locator, property: string, pseudo?: string) =>
     [property, pseudo ?? null] as const,
   )
 
+const settle = (page: Page) =>
+  page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((animation) => animation instanceof CSSTransition)
+        .map((animation) => animation.finished.catch(() => {})),
+    ),
+  )
+
 const resolve = (locator: Locator, color: string) =>
   locator.evaluate((element, value) => {
     const probe = document.createElement("div")
@@ -172,6 +182,7 @@ test("stress/contrast has no AAA contrast violations inside .ui-contrast-more", 
   await openFixture(page, "html", "stress/contrast")
   for (const colorScheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme })
+    await settle(page)
     const { violations } = await new AxeBuilder({ page })
       .include(".ui-contrast-more")
       .withRules(["color-contrast-enhanced"])
@@ -191,6 +202,7 @@ for (const component of COMPONENTS) {
     await openFixture(page, "html", component)
     for (const colorScheme of ["light", "dark"] as const) {
       await page.emulateMedia({ colorScheme, contrast: "more" })
+      await settle(page)
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")

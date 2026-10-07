@@ -1,0 +1,12 @@
+---
+import { Select } from "@opui/astro"
+---
+
+<Select label="Car">
+  <Fragment slot="header">Company cars only</Fragment>
+  <a class="ui-link" href="#" slot="footer">Manage cars…</a>
+  <option value="">-</option>
+  <option>Kia EV6</option>
+  <option>Volkswagen ID.4</option>
+  <option>Volvo EX30</option>
+</Select>

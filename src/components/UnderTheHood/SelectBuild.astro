@@ -1,11 +1,13 @@
 ---
 import BuildUp from "./BuildUp.astro"
 
+const chevron = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>")`
+
 const steps = [
   {
     css: `
-.select,
-.select::picker(select) {
+.select:has(button),
+.select:has(button)::picker(select) {
   appearance: base-select;
 }
 
@@ -30,17 +32,21 @@ selectedcontent {
 }`,
     features: ["customizable-select"],
     html: `
-<select class="select">
-  <button>
-    <selectedcontent></selectedcontent>
-  </button>
-  <div class="list">
-    <option value="apple">Apple</option>
-    …
-  </div>
-</select>`,
+<label class="field">
+  <span id="fruit-label">Fruit</span>
+  <select aria-labelledby="fruit-label" class="select">
+    <button>
+      <selectedcontent></selectedcontent>
+    </button>
+    <div class="list">
+      <option value="apple">Apple</option>
+      …
+    </div>
+  </select>
+</label>`,
     notes: [
       "<code>appearance: base-select</code> on the select and its picker opts in to the stylable version",
+      "Only a select with a <code>&lt;button&gt;</code> opts in, a plain one stays native",
       "The <code>&lt;button&gt;</code> is the trigger, <code>&lt;selectedcontent&gt;</code> mirrors the chosen option",
       "Browsers without support ignore the button and render a native select",
     ],
@@ -53,13 +59,13 @@ selectedcontent {
 }
 
 .select::picker-icon {
-  block-size: 0;
-  border-block-start: 5px solid;
-  border-inline: 5px solid transparent;
+  background-color: currentColor;
+  block-size: 1rem;
   content: "";
-  inline-size: 0;
+  inline-size: 1rem;
   inset-block: 50% auto;
   inset-inline: auto 0.75rem;
+  mask: ${chevron} center / contain no-repeat;
   position: absolute;
   translate: 0 -50%;
 }
@@ -67,9 +73,10 @@ selectedcontent {
 .select:open::picker-icon {
   rotate: 180deg;
 }`,
-    features: ["individual-transforms", "open-pseudo"],
+    features: ["individual-transforms", "masks", "open-pseudo"],
     notes: [
-      "<code>::picker-icon</code> is the arrow, redrawn here as a border triangle",
+      "<code>::picker-icon</code> is the arrow, redrawn here as a chevron",
+      "<code>mask</code> cuts the chevron out of a <code>currentColor</code> box, so it follows the text color",
       "<code>:open</code> matches while the picker is showing, so the arrow flips",
     ],
     title: "Arrow",
@@ -77,7 +84,9 @@ selectedcontent {
   {
     css: `
 .select::picker(select) {
+  background: transparent;
   border: 0;
+  border-radius: var(--radius-2);
   box-shadow: var(--shadow-2);
   padding: 0;
 }
@@ -107,6 +116,7 @@ selectedcontent {
     features: ["relative-color"],
     notes: [
       "<code>::picker(select)</code> is the dropdown, a popover anchored to the select",
+      "The picker is see-through and rounded like the list, so no square corners show behind it",
       "Options are ordinary boxes now: padding, <code>:hover</code>, <code>:checked</code>",
       "<code>::checkmark</code> hidden, the checked background marks the choice",
       "Open the select",
@@ -153,8 +163,12 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
 
 <BuildUp id="build-select" steps={steps}>
   <label class="field">
-    <span>Fruit</span>
-    <select class="select" name="build-select-fruit">
+    <span id="build-select-label">Fruit</span>
+    <select
+      aria-labelledby="build-select-label"
+      class="select"
+      name="build-select-fruit"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>

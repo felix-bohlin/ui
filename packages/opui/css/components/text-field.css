@@ -200,22 +200,6 @@
       }
     }
 
-    /* Autosuggest */
-    &:has(input[list]) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
-      }
-    }
-
-    /* Select */
-    &:has(select) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
-      }
-    }
-
     /* Customizable Select */
     &:has(select button) {
       select {
@@ -367,7 +351,7 @@
     &.ui-filled {
       --_bg-color: var(--surface-tonal);
 
-      &:not(:has([disabled], input[type="color"])) {
+      &:not(:has(:disabled, input[type="color"])) {
         /* Hover */
         @media (hover: hover) {
           &:hover {

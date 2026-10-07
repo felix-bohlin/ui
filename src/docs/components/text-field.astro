@@ -9,6 +9,7 @@ import {
   TextField as UITextField,
 } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
@@ -122,7 +123,43 @@ export const description =
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="description">Description</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the input.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Description" row />
   </section>
 
   <section>
@@ -252,7 +289,10 @@ export const description =
 
   <section>
     <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+    <p>
+      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
+      follow its content, from <code>25ch</code>.
+    </p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
   </section>

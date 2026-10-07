@@ -17,7 +17,7 @@ export default {
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes size depending on its content.",
+      description: "Lets the width follow the content, from `25ch`.",
       group: "Auto-fit",
       prop: "autoFit",
     },

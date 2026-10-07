@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import { Textarea as UITextarea } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
@@ -79,7 +80,43 @@ export const description =
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="description">Description</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>description</code> prop or slot for text between the label and
+        the textarea.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the textarea.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>description</code> prop or slot for text between the label and
+        the textarea.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Description" row />
   </section>
 
   <section>
@@ -202,7 +239,13 @@ export const description =
 
   <section>
     <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+    <p>
+      Textareas grow with their content, from 3 to 20 lines (<code
+        >field-sizing: content</code
+      >). <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also lets the width
+      follow the longest line, from <code>25ch</code>, and allows resizing in
+      both directions.
+    </p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
   </section>

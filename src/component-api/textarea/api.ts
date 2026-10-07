@@ -17,7 +17,8 @@ export default {
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes height depending on its content.",
+      description:
+        "Lets the width follow the content and allows resizing in both directions.",
       group: "Auto-fit",
       prop: "autoFit",
     },

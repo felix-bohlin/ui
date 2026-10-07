@@ -208,16 +208,25 @@ const anatomyApi = {
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
       <Fragment slot="html">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>&lt;hr class="ui-divider"&gt;</code>.
+        A field group with only buttons lines up in a row. Add <code
+          >.ui-column</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >&lt;hr class="ui-divider"&gt;</code
+        >.
       </Fragment>
       <Fragment slot="vue">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
     </Conditional>
     <AutoExample name="Divider" />

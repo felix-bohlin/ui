@@ -15,6 +15,10 @@
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &:open {
@@ -26,7 +30,9 @@
     /* Select popover */
     &::picker(select) {
       /* Animation on-stage styles */
+      background: transparent;
       border: 0;
+      border-radius: var(--field-border-radius);
       box-shadow: var(--shadow-2);
       opacity: 1;
       padding: 0;
@@ -152,6 +158,10 @@
         mask: var(--_chevron-icon) center / contain no-repeat;
         pointer-events: none;
         position: relative;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {

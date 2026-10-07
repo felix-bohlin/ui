@@ -116,18 +116,16 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     <h2 id="validation">Validation</h2>
     <Conditional>
       <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element.
+        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
+        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
       <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
       </p>
       <p slot="vue">
-        Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
-        use the <code>error</code> prop on individual <code>Radio</code> components.
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
 

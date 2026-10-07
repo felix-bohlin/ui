@@ -161,18 +161,43 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          {" "}<code>data-invalid</code> on the root element. Make use of the end
-          text to give extra feedback on the error.
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
         </li>
         <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          {" "}<code>data-invalid</code> on the root element. Make use of the end
-          text to give extra feedback on the error.
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
         </li>
         <li slot="html">
-          Add <code>data-invalid</code> on the root element to toggle invalid styles.
-          Make use of the end text to give extra feedback on the error.
+          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
+          toggle invalid styles. Screen readers announce it as invalid. Make use of
+          the end text to give extra feedback on the error, and point <code
+            >aria-describedby</code
+          > at it.
+        </li>
+      </Conditional>
+      <Conditional>
+        <li slot="astro">
+          Switches also get the invalid styles from the browser's own validation
+          (<code>:user-invalid</code>), after the user has edited them. Use the <code
+            >error</code
+          > prop for server-side errors.
+        </li>
+        <li slot="vue">
+          Switches also get the invalid styles from the browser's own validation
+          (<code>:user-invalid</code>), after the user has edited them. Use the <code
+            >error</code
+          > prop for server-side errors.
+        </li>
+        <li slot="html">
+          Switches also get the invalid styles from the browser's own validation
+          (<code>:user-invalid</code>), after the user has edited them. Use <code
+            >aria-invalid="true"</code
+          > for server-side errors.
         </li>
       </Conditional>
     </ul>
@@ -271,19 +296,16 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
       <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element.
+        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
+        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
       <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Switch</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
       </p>
       <p slot="vue">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Switch</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
     <AutoExample name="FieldGroupValidation" row />

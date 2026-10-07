@@ -50,7 +50,6 @@ const endTextId = useId()
       { 'ui-spread': props.spread },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
       <slot>{{ props.label }}</slot>

@@ -31,7 +31,7 @@
   }
 
   .todo-proposed .ui-switch {
-    &[data-invalid],
+    &:has([aria-invalid="true"]),
     &:has(:user-invalid) {
       input {
         box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
@@ -61,16 +61,26 @@
         Current: focus only moves the red ring out by 2px
       </p>
       <div class="todo-panel">
-        <label class="ui-switch" data-invalid>
-          <input type="checkbox" role="switch" tabindex="-1" />
+        <label class="ui-switch">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
           <span class="ui-label">Invalid, rest</span>
         </label>
-        <label class="ui-switch todo-focus" data-invalid>
-          <input type="checkbox" role="switch" tabindex="-1" />
+        <label class="ui-switch todo-focus">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
           <span class="ui-label">Invalid, focused</span>
         </label>
-        <label class="ui-switch" data-invalid>
-          <input type="checkbox" role="switch" />
+        <label class="ui-switch">
+          <input type="checkbox" role="switch" aria-invalid="true" />
           <span class="ui-label">Tab to me</span>
         </label>
       </div>
@@ -80,16 +90,26 @@
         Proposed: red ring as a <code>box-shadow</code>, focus ring outside it
       </p>
       <div class="todo-panel">
-        <label class="ui-switch" data-invalid>
-          <input type="checkbox" role="switch" tabindex="-1" />
+        <label class="ui-switch">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
           <span class="ui-label">Invalid, rest</span>
         </label>
-        <label class="ui-switch todo-focus" data-invalid>
-          <input type="checkbox" role="switch" tabindex="-1" />
+        <label class="ui-switch todo-focus">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
           <span class="ui-label">Invalid, focused</span>
         </label>
-        <label class="ui-switch" data-invalid>
-          <input type="checkbox" role="switch" />
+        <label class="ui-switch">
+          <input type="checkbox" role="switch" aria-invalid="true" />
           <span class="ui-label">Tab to me</span>
         </label>
       </div>

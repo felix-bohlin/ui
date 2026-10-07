@@ -27,7 +27,6 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <RadioInput
       :aria-invalid="props.error ? 'true' : undefined"

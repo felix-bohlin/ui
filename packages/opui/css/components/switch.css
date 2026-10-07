@@ -266,8 +266,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       input {
         border-radius: var(--radius-round);
         box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);

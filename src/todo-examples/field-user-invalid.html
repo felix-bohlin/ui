@@ -35,8 +35,8 @@
     <p class="todo-note">
       Docs add: "Fields also get the invalid styles from the browser's own
       validation (<code>:user-invalid</code>), after the user has edited them.
-      Use <code>data-invalid</code> for server-side errors." Same fields, plus a
-      <code>data-invalid</code> one.
+      Use <code>aria-invalid="true"</code> for server-side errors." Same fields,
+      plus one with <code>aria-invalid="true"</code>.
     </p>
     <label class="ui-text-field">
       <span class="ui-label">Name</span>
@@ -50,7 +50,7 @@
       <input name="user-invalid-fixed" type="checkbox" role="switch" required />
       <span class="ui-label">Accept terms</span>
     </label>
-    <label class="ui-text-field" data-invalid>
+    <label class="ui-text-field">
       <span class="ui-label">Username</span>
       <span class="ui-field">
         <input

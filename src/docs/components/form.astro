@@ -181,16 +181,20 @@ const anatomyApi = {
     <h3 id="fieldset-invalid">Invalid</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> to the <code>&lt;fieldset&gt;</code> for error
-        styles. Explain the error in a <code>.ui-end-text</code>.
+        Add <code>aria-invalid="true"</code> to each control in the
+        <code>&lt;fieldset&gt;</code>, and explain the error in a
+        <code>.ui-end-text</code> directly inside it. The end text turns red when
+        a control has <code>aria-invalid="true"</code>.
       </Fragment>
       <Fragment slot="vue">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetInvalid" />

@@ -2,5 +2,15 @@
 * Open Props
 * Import as many props as you need here.
 */
-@import "open-props/src/index.css" layer(openprops);
+@import "open-props/src/props.fonts.css" layer(openprops);
+@import "open-props/src/props.sizes.css" layer(openprops);
+@import "open-props/src/props.easing.css" layer(openprops);
+@import "open-props/src/props.zindex.css" layer(openprops);
+@import "open-props/src/props.shadows.light.css" layer(openprops);
+@import "open-props/src/props.aspects.css" layer(openprops);
+@import "open-props/src/props.colors.css" layer(openprops);
+@import "open-props/src/props.gradients.css" layer(openprops);
+@import "open-props/animations.min.css" layer(openprops);
+@import "open-props/src/props.borders.css" layer(openprops);
+@import "open-props/src/props.palette.css" layer(openprops);
 @import "open-props/src/props.colors-oklch-hues.css" layer(openprops);

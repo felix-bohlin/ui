@@ -157,10 +157,10 @@ Use named slots for specific functional areas. Check for existence before render
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["ui-text-field", size && `ui-${size}`, className]} data-invalid={error ? "" : undefined}>
+<label class:list={["ui-text-field", size && `ui-${size}`, className]}>
   <span class="ui-label">{label}</span>
   <span class="ui-field">
-    <input type="text" {...rest} />
+    <input type="text" aria-invalid={error ? "true" : undefined} {...rest} />
   </span>
   {endText && <span class="ui-end-text">{endText}</span>}
 </label>

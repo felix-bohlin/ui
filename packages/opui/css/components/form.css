@@ -65,31 +65,8 @@
     }
 
     /* Error / validation */
-    &[data-invalid] {
-      :where(.ui-end-text) {
-        color: var(--invalid-text-color);
-      }
-
-      :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --primary: var(--invalid-color);
-
-        :where(.ui-end-text) {
-          color: var(--invalid-text-color);
-        }
-      }
-
-      :where(.ui-switch) {
-        input {
-          border-radius: var(--radius-round);
-          box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
-        }
-
-        input:focus-visible {
-          outline-offset: calc(
-            var(--focus-ring-offset) + var(--focus-ring-width)
-          );
-        }
-      }
+    &:has([aria-invalid="true"]) > :where(.ui-end-text) {
+      color: var(--invalid-text-color);
     }
 
     /* Required */

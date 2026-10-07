@@ -268,9 +268,8 @@
     /* Element states */
     @media (hover: hover) {
       &:hover:not(
-          [data-invalid],
           :focus-within,
-          :has(:user-invalid, :disabled)
+          :has([aria-invalid="true"], :user-invalid, :disabled)
         ) {
         .ui-field {
           border-color: var(--text-primary);
@@ -350,8 +349,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --_accent: var(--invalid-color);
       --_border-color: var(--invalid-color);
       --_label-color: var(--invalid-text-color);

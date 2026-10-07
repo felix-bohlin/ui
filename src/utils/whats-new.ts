@@ -111,6 +111,11 @@ const whatsNew = {
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text.`,
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
+      html: `Breaking: mark an invalid checkbox with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
+    },
   ],
   chip: [
     {
@@ -154,6 +159,11 @@ const whatsNew = {
       default: `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer sets <code>role="group"</code>. Wrap it in a <code>FieldSet</code> to group and name the fields.`,
       html: `Drop <code>role="group"</code> from a <a href="#field-group"><code>.ui-field-group</code></a> inside a fieldset, which already groups the fields.`,
     },
+    {
+      astro: `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
+      html: `Breaking: an invalid <code>.ui-fieldset</code> takes <code>aria-invalid="true"</code> on each control instead of <code>data-invalid</code> on the fieldset (<a href="#fieldset-invalid">Invalid</a>).`,
+      vue: `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
+    },
   ],
   list: [
     {
@@ -194,6 +204,11 @@ const whatsNew = {
       default: `<a href="#spread">Spread</a> with the <code>spread</code> prop, like Checkbox and Switch.`,
       html: `<a href="#spread">Spread</a> with <code>.ui-spread</code>, like Checkbox and Switch.`,
     },
+    {
+      astro: `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
+    },
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -207,8 +222,11 @@ const whatsNew = {
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
     {
-      astro: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
-      vue: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
+      astro: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+      vue: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+    },
+    {
+      html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
   select: [
@@ -230,6 +248,11 @@ const whatsNew = {
       astro: `Breaking: <a href="#classic-select"><code>ClassicSelect</code></a> no longer sets <code>aria-labelledby</code>. The wrapping <code>&lt;label&gt;</code> names the select, so <code>endText</code> is part of the name.`,
       vue: `Breaking: <a href="#classic-select"><code>ClassicSelect</code></a> no longer sets <code>aria-labelledby</code>. The wrapping <code>&lt;label&gt;</code> names the select, so <code>endText</code> is part of the name.`,
     },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+    },
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -241,6 +264,11 @@ const whatsNew = {
     },
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Without a <a href="#visible-label">visible label</a>, switches center in table cells and lines of text.`,
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
+      html: `Breaking: mark an invalid switch with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
+    },
   ],
   table: [
     {
@@ -287,6 +315,11 @@ const whatsNew = {
       astro: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
       vue: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
     },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+    },
   ],
   textarea: [
     {
@@ -305,6 +338,11 @@ const whatsNew = {
     {
       astro: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
       vue: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+    },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
   toast: [

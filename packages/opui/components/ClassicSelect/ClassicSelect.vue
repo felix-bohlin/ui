@@ -30,7 +30,6 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label" class="ui-label">{{ props.label }}</span>
     <span class="ui-field">

@@ -215,8 +215,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {

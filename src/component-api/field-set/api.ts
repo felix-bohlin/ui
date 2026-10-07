@@ -11,11 +11,12 @@ export default {
       prop: "as",
     },
     {
-      attribute: "[data-invalid]",
-      description: "Shows error styles on the fields inside.",
+      attribute: ':has([aria-invalid="true"])',
+      description:
+        'Colors the end text when a field inside has `aria-invalid="true"`.',
       frameworks: ["html"],
       group: "Validation",
-      prop: "data-invalid",
+      prop: "aria-invalid",
     },
     {
       attribute: "[disabled]",

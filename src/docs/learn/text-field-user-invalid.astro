@@ -31,8 +31,8 @@ import { Code } from "astro-expressive-code/components"
         affixes and helper text all react
       </li>
       <li>
-        <code>[data-invalid]</code> covers errors the browser can't know about, like
-        ones from the server
+        <code>aria-invalid="true"</code> on the input covers errors the browser can't
+        know about, like ones from the server
       </li>
       <li>
         Only private custom properties change, every rule that reads them
@@ -52,8 +52,7 @@ import { Code } from "astro-expressive-code/components"
   border-color: var(--accent);
 }
 
-.text-field[data-invalid],
-.text-field:has(:user-invalid) {
+.text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
@@ -75,9 +74,10 @@ import { Code } from "astro-expressive-code/components"
         current browser
       </li>
       <li>
-        <code>[data-invalid]</code> and <code>:has(:user-invalid)</code> share one
-        selector list, so a browser that can't parse <code>:user-invalid</code> drops
-        the whole rule and the field stays neutral
+        <code>[aria-invalid="true"]</code> and <code>:user-invalid</code> share one
+        <code>:has()</code> list, so a browser that can't parse <code
+          >:user-invalid</code
+        > drops the whole rule and the field stays neutral
       </li>
       <li>
         Native validation still runs: the form won't submit and the browser

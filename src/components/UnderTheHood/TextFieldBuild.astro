@@ -123,7 +123,7 @@ const steps = [
   },
   {
     css: `
-.text-field:is([data-invalid], :has(:user-invalid)) {
+.text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
@@ -132,7 +132,7 @@ const steps = [
     features: ["user-pseudos"],
     notes: [
       "<code>:user-invalid</code> waits until the user has edited the field, not on page load",
-      "<code>[data-invalid]</code> for errors from the server",
+      '<code>aria-invalid="true"</code> on the input for errors from the server, which screen readers also announce',
       "Only the private custom properties change, every rule above follows",
     ],
     title: "Validation",
@@ -155,7 +155,7 @@ const steps = [
         <span class="suffix">per month</span>
       </span>
     </label>
-    <label class="text-field" data-invalid>
+    <label class="text-field">
       <span class="label">Email</span>
       <span class="field">
         <input

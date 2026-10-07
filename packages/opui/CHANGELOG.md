@@ -38,6 +38,8 @@
 - `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Menu`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
 - `Toast` keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`.
 - `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
+- `TextField`, `Textarea`, `Select`, `ClassicSelect`, `Switch`, `Checkbox`, `Radio` and `Range` are marked invalid with `aria-invalid="true"` on the control instead of `data-invalid` on the root. `error` in Astro and Vue sets only `aria-invalid`. Replace `data-invalid` on the root with `aria-invalid="true"` on the `<input>`, `<select>` or `<textarea>`.
+- `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
 
 ### Removed
 
@@ -90,7 +92,7 @@
 - `theme.css` adds `--contrast`, set to `more` under `prefers-contrast: more` or with `.ui-contrast-more`. A style query then raises the contrast of muted text, borders, field borders, primary, intent colors and the focus ring, and components with translucent text or fills (`Badge`, `Button`, `Divider`, `List`, `Menu`, `Progress`, `Tabs`, `TextField`, `ToggleButton` and `Typography`) follow. `.ui-contrast-more` also works on a subtree, and `.ui-contrast-normal` on `html` ignores the OS preference.
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
 - `Button` takes `iconOnly` (types only), which makes `label` required for icon-only buttons.
-- `Range` takes an `error` prop (`data-invalid`) for the invalid state, like the other fields.
+- `Range` takes an `error` prop (`aria-invalid="true"` on the input) for the invalid state, like the other fields.
 - `theme.css` adds `--ripple-color` for the `Checkbox` and `Radio` hover halo.
 - `Callout` with `severity="success"` shows a default check icon in Astro and Vue, like `info`, `warning` and `critical`.
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
@@ -153,6 +155,7 @@
 - `Callout` links, `Chip`, `Link`, `List`, `Menu`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
 - `Spinner` shows on busy buttons and links that have `aria-describedby`. Other elements with `aria-describedby` still opt out, for the progress bar pattern.
 - `ButtonGroup` item styles select `.ui-button` instead of `button`, so `Button` links (`<a class="ui-button">`) are styled like the buttons. A plain `<button>` without `.ui-button` no longer gets the group item styles.
+- `open-props.css` imports the Open Props files one by one instead of `open-props/src/index.css`, so `dist/op.css` and `dist/opui.css` no longer contain Open Props' `@custom-media` rules. Import `open-props/media` yourself if a PostCSS plugin reads them.
 
 ### Fixed
 
@@ -267,9 +270,10 @@
 - `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
 - `Radio` sizes work on touch screens. Small and large radios were forced to `--size-4`, and the label sat off center.
 - `Range` fill works when the CSS is minified with lightningcss (Vite builds). `animation-timeline` was folded into the `animation` shorthand, which browsers reject.
-- `Switch` draws its invalid ring as a `box-shadow`, so the focus ring shows outside it, also in an invalid `.ui-fieldset`. In forced colors an invalid switch no longer looks focused.
+- `Switch` draws its invalid ring as a `box-shadow`, so the focus ring shows outside it. In forced colors an invalid switch no longer looks focused.
 - `Accordion` with `.ui-marker-turn` mirrors its chevron in right-to-left, so it points to the inline end when closed and down when open.
 - `ButtonGroup` vertical `x-small` and `small` items are as tall as their size.
+- `theme.css` sets `--shadow-color` and `--shadow-strength` for dark mode (`.ui-dark` and the OS preference), so `--shadow-1` to `--shadow-6` show on dark surfaces. They used the light values before.
 
 ## 5.5.0 - 2026-09-28
 

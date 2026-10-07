@@ -186,8 +186,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       .ui-start-text,
       .ui-end-text,
       .ui-value {
@@ -316,8 +315,7 @@
       }
 
       /* Element state */
-      .ui-range:has(:user-invalid) &,
-      .ui-range[data-invalid] & {
+      .ui-range:has([aria-invalid="true"], :user-invalid) & {
         --_thumb-bg-color: var(--invalid-color);
         --_thumb-highlight-color: oklch(
           from var(--invalid-color) 70% 100% h / 20%

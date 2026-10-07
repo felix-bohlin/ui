@@ -20,7 +20,7 @@
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    /* Palette - override the values in core/palette.css */
+    /* Palette - the knobs core/palette.css derives --color-1 to --color-16 from */
     --palette-chroma: 0.5;
     --palette-hue: var(--hue-green);
     --palette-hue-rotate-by: 0;
@@ -42,6 +42,18 @@
 
     :where(html:not(.ui-light)) {
       --palette-hue: var(--hue-blue);
+    }
+  }
+
+  :where(html.ui-dark) {
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 20%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 20%;
     }
   }
 
@@ -222,7 +234,20 @@
   }
 
   /* Severity scope classes */
-  :where(.ui-critical, .ui-del, [data-invalid], del) {
+  :where(
+    .ui-critical,
+    .ui-del,
+    :is(
+      .ui-checkbox,
+      .ui-radio,
+      .ui-range,
+      .ui-select,
+      .ui-switch,
+      .ui-text-field,
+      .ui-textarea
+    ):has([aria-invalid="true"]),
+    del
+  ) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;
   }

@@ -53,7 +53,6 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
       <slot name="label">{{ props.label }}</slot>

@@ -107,6 +107,8 @@ The root selector is wrapped in `:where()`, like other components, so your own s
 
 Without a visible label the checkbox aligns to the middle, so it centers in table cells. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot, and warn in dev when there's no accessible name.
 
+`aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-checkbox`.
+
 ## Chip
 
 The hover and press ripple is removed. Delete any `--ripple` overrides.
@@ -118,6 +120,8 @@ Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), smal
 ## Classic select
 
 `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
+
+Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
 ## Description list
 
@@ -162,6 +166,8 @@ The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--bac
 ```
 
 `FieldSet` with another element in `as` gets `role="group"`.
+
+`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"`. Switches in an invalid fieldset keep the primary track color like a standalone invalid switch; only the red ring shows.
 
 ## Icon button
 
@@ -242,6 +248,8 @@ Radios are `--choice-size` (20px) like `Checkbox`, instead of 18px. The root sel
 
 Without a visible label the radio aligns to the middle. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot.
 
+`aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-radio`. For an invalid group, put it on every radio in the group.
+
 ## Range
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
@@ -260,11 +268,15 @@ With `spread`, the label and the range split the container into equal columns, a
 + <label class="ui-range ui-tonal">
 ```
 
+`aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
+
 ## Select
 
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
+
+Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
 ## Switch
 
@@ -276,6 +288,8 @@ With `spread`, label and field split the container into equal columns. Selects k
 ```
 
 The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
+
+`aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
 ## Table
 
@@ -329,6 +343,13 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <TextField variant="filled" label="Name" />
 ```
 
+`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>` (Astro and Vue: `error`, unchanged). Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
+
+```diff
+- <label class="ui-text-field" data-invalid> … <input aria-invalid="true">
++ <label class="ui-text-field"> … <input aria-invalid="true">
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -348,6 +369,8 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 - <Textarea filled label="Name" />
 + <Textarea variant="filled" label="Name" />
 ```
+
+Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-invalid` on `.ui-textarea`.
 
 ## Toast
 
@@ -442,6 +465,8 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Tooltip                     | `--_tooltip-min-inline-size`, `--_tooltip-offset`, `--_tooltip-shift` | `--_min-inline-size`, `--_offset`, `--_shift`                      |
 
 `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--blue` in your theme.
+
+Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
 ## Typography and rich text
 

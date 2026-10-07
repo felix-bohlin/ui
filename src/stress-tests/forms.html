@@ -1203,10 +1203,11 @@
       ><span class="ui-label">Required</span
       ><span class="ui-field"
         ><input type="text" placeholder="Placeholder" required /></span></label
-    ><label class="ui-text-field" data-invalid=""
+    ><label class="ui-text-field"
       ><span class="ui-label">Invalid</span
       ><span class="ui-field"
         ><input
+          aria-invalid="true"
           type="text"
           placeholder="Placeholder"
           value="jane@"
@@ -1242,10 +1243,11 @@
           </div>
         </select></span
       ></label
-    ><label class="ui-select" data-invalid=""
+    ><label class="ui-select"
       ><span class="ui-label" id="stress-select-label-22">Invalid select</span
       ><span class="ui-field"
         ><select
+          aria-invalid="true"
           aria-labelledby="stress-select-label-22"
           aria-describedby="stress-end-2"
         >
@@ -1276,10 +1278,11 @@
 Two lines
 of text</textarea>
       </span></label
-    ><label class="ui-textarea" data-invalid=""
+    ><label class="ui-textarea"
       ><span class="ui-label">Invalid textarea</span
       ><span class="ui-field">
         <textarea
+          aria-invalid="true"
           placeholder="Placeholder"
           aria-describedby="stress-end-3"
         ></textarea></span
@@ -1307,10 +1310,11 @@ of text</textarea>
       ><span class="ui-label">Required</span
       ><span class="ui-field"
         ><input type="text" placeholder="Placeholder" required /></span></label
-    ><label class="ui-text-field ui-filled" data-invalid=""
+    ><label class="ui-text-field ui-filled"
       ><span class="ui-label">Invalid</span
       ><span class="ui-field"
         ><input
+          aria-invalid="true"
           type="text"
           placeholder="Placeholder"
           value="jane@"
@@ -1346,10 +1350,11 @@ of text</textarea>
           </div>
         </select></span
       ></label
-    ><label class="ui-select ui-filled" data-invalid=""
+    ><label class="ui-select ui-filled"
       ><span class="ui-label" id="stress-select-label-25">Invalid select</span
       ><span class="ui-field"
         ><select
+          aria-invalid="true"
           aria-labelledby="stress-select-label-25"
           aria-describedby="stress-end-5"
         >
@@ -1380,10 +1385,11 @@ of text</textarea>
 Two lines
 of text</textarea>
       </span></label
-    ><label class="ui-textarea ui-filled" data-invalid=""
+    ><label class="ui-textarea ui-filled"
       ><span class="ui-label">Invalid textarea</span
       ><span class="ui-field">
         <textarea
+          aria-invalid="true"
           placeholder="Placeholder"
           aria-describedby="stress-end-6"
         ></textarea></span
@@ -1407,10 +1413,12 @@ of text</textarea>
         ><input type="checkbox" disabled /><span class="ui-label"
           >Disabled</span
         ></label
-      ><label class="ui-checkbox" data-invalid=""
-        ><input type="checkbox" aria-describedby="stress-end-7" /><span
-          class="ui-label"
-          >Invalid</span
+      ><label class="ui-checkbox"
+        ><input
+          aria-invalid="true"
+          type="checkbox"
+          aria-describedby="stress-end-7"
+        /><span class="ui-label">Invalid</span
         ><span class="ui-end-text" id="stress-end-7">Required.</span></label
       >
     </div>
@@ -1444,8 +1452,9 @@ of text</textarea>
         ><input type="checkbox" role="switch" disabled /><span class="ui-label"
           >Disabled</span
         ></label
-      ><label class="ui-switch" data-invalid=""
+      ><label class="ui-switch"
         ><input
+          aria-invalid="true"
           type="checkbox"
           role="switch"
           aria-describedby="stress-end-8"
@@ -2147,10 +2156,11 @@ Line five</textarea>
         ></label>
       </div>
       <div class="ui-field-group">
-        <label class="ui-text-field" data-invalid=""
+        <label class="ui-text-field"
           ><span class="ui-label">Email</span
           ><span class="ui-field"
             ><input
+              aria-invalid="true"
               type="email"
               placeholder="Placeholder"
               value="jane@"

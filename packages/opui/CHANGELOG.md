@@ -224,6 +224,7 @@
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.
+- `Avatar` groups overlap from the start, so the group's box ends at its last avatar, and a badge on an avatar shows above the next one.
 - `Button` disabled text color applies to text and outlined buttons in every color. Filled and tonal buttons keep their own text color and dim with the disabled opacity, so the label stays readable on the fill.
 - `Button` `kbd` follows the button's text color on hover.
 - `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.
@@ -307,6 +308,7 @@
 - `Carousel` markers show in forced colors mode: they get a border, and the current marker is filled with `SelectedItem`.
 - `Carousel` scroll buttons and markers show the library focus ring instead of the thin browser ring.
 - `Carousel` stops smooth scrolling with `.ui-motion-off` or `--motion: 0`, like its other transitions. Before, only `prefers-reduced-motion` turned it off.
+- `Carousel` keeps the space for its markers when it's vertical with buttons outside.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb at both ends.
 - `Tabs` keep the DOM focus order in Chromium: the selected tab, then the content of its open panel. `reading-flow` put the panel content first.

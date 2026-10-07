@@ -130,6 +130,24 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Explain further and provide an example
   > provide an example of the current, and proposed solution.
   - Explained: The Menu is a `<menu>` of plain buttons and links, not an ARIA menu (no `role="menu"`/`menuitem`), so every key does what it does for buttons: Enter or Space on the trigger opens the menu and focus stays on the trigger; Tab enters the menu because the browser puts a popover opened by `commandfor` right after its invoker in the focus order; Tab and Shift + Tab move between items and back to the trigger; Tab past the last item leaves the menu and it stays open; arrow keys do nothing, because arrow navigation needs a script the library doesn't ship. Esc and a click outside close it and return focus to the trigger only with the default `popover="auto"`; with `popover="manual"` neither works. Each claim was checked in Chromium with keyboard input. The example puts the current one-line section next to the proposed Role and Keyboard support text, each with the same working menu (plus a `popover="manual"` copy in the fixed panel) and a live log of focus moves, arrow keys and open/close. Example: menu-accessibility
+  > Fix
+  > i like the use of <menu>. if you're going to have popover="manual" propose how that would look like for the Astro/Vue APIs and make sure it's consistent with the rest of the API.
+  - Fixed: the Accessibility section has a Role paragraph (a `<menu>` of buttons and links, not an ARIA menu, so the keyboard works like it does for buttons, and arrow keys need a script the library doesn't ship) and a Keyboard support table like Drawer's: Enter/Space, Tab, Shift + Tab, arrow keys, Esc. The Esc row says Esc and a click outside don't close a `popover="manual"` menu (`menu.astro`).
+  - Proposal for `popover="manual"`: keep the `popover` prop with the native values, `"auto"` (default) and `"manual"`. When a prop maps one to one to an HTML attribute, the library keeps the attribute's name and values: Drawer's `closedby` (`"any" | "closerequest" | "none"`), `commandfor` and `command`. That way the HTML, Astro and Vue docs describe the same thing. `"hint"` stays out, it's for tooltips.
+    ```astro
+    <Menu
+      id="view"
+      popover="manual"
+      items={[
+        { closeOnClick: false, label: "Show grid" },
+        { closeOnClick: false, label: "Show rulers" },
+        { borderTop: true, label: "Done" },
+      ]}
+    />
+    ```
+    Vue is the same with `:items`, and HTML is `<menu class="ui-menu ui-list" id="view" popover="manual">`. Two docs changes would go with it: the API row says "The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening it doesn't close other menus. Close it with the trigger or an item.", and a Manual section shows a menu that stays open while you pick items, with a Done item that closes it.
+  - Rejected: a boolean (`manual` or `persistent`) reads nicely but invents a name the HTML version doesn't have, and Drawer's `closedby` would no longer match. Dropping the prop and letting `popover` pass through as an attribute works, but then the API table can't list it.
+  - The example has a third panel with the proposed API and a working manual menu. Example: menu-accessibility
 - [x] (3) Toggle: groups have no accessible name. `ToggleGroup` renders `role="group"` / `role="radiogroup"` and the HTML prose says to write it, but no example sets `aria-label`, and the page has no Accessibility section (the Tabs page tells readers to name its radiogroup) (`packages/opui/components/ToggleGroup/ToggleGroup.astro:45`, `ToggleGroup.vue:37`, `src/docs/components/toggle.astro:89-93`, `src/component-examples/toggle/MultiSelect.html:1`, `Alignment.html:1`, `Interactive.html:1`, `Vertical.html:1`, `Overflow.html:2,31,60`)
   - Fix: `aria-label` on every group in the examples (Astro/Vue: `<ToggleGroup aria-label="Text style">`) and an `accessibility` slot: name the group; icon-only buttons need `aria-label` on the input (the examples already do this, the prose never says so); Space toggles a checkbox button, arrow keys move and select in a single-select group.
   > I think we need to chill with the aria attributes. Let users do it themselves, if we make too many decisions we might make it worse accessibility-wise. I don't want to overdo it.
@@ -637,7 +655,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     and the same with `--size-2` under `.ui-large`.
   > Fix
   - Fixed: the icon rules in `chip.css` now use `:has(> svg:first-child) { padding-inline-start }` and `:has(> svg:last-child) { padding-inline-end }`, also under `.ui-large`. A chip with both icons gets 4px on both sides (8px when large), and an svg inside `.ui-text` no longer changes the padding. Checked in Chromium, LTR and RTL. The Chip walkthrough teaches the same rules.
-- [ ] (2) Avatar: every avatar in `.ui-avatar-group` gets `margin-inline-end: calc(-1 * var(--_margin))`, the last one too, so the group box is 1rem narrower than its content and the last avatar overlaps whatever follows the group (`avatar.css:61-70`)
+- [x] (2) Avatar: every avatar in `.ui-avatar-group` gets `margin-inline-end: calc(-1 * var(--_margin))`, the last one too, so the group box is 1rem narrower than its content and the last avatar overlaps whatever follows the group (`avatar.css:61-70`)
   - In a flex row with `gap`, the next sibling sits 16px closer than the gap says. `Grouped.html` is alone in its example row, so it isn't visible there; `stress-tests/layout.html:1580-1588` puts the group last in a row.
   - Fix (overlap from the start, so the last item has no trailing margin; `> * + *` also covers avatars wrapped in `.ui-anchor.ui-badge` as in the stress test):
     ```css
@@ -659,7 +677,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Explain further and provide an example
   > show me an example of what the proposed solution would look like
   - Explained: Every avatar in a group, the last one too, has a negative end margin of 16px. A negative margin shrinks the space the element takes up, so the group's box ends 16px before its last avatar and that avatar hangs outside it. Whatever comes next measures its gap or padding from the box edge: text after the group touches the last avatar even with a 16px gap (measured 0px), and a group at the end of a bordered row with 8px padding runs over the padding onto the border (measured -8px). The proposed fix flips the overlap to the start: every item after the first gets `margin-inline-start: calc(-1 * var(--_margin))` with `> * + *` (so an avatar wrapped in a badge counts too) and the end margin goes, so the box hugs the avatars and the gap (16px) and padding (8px) around the group hold. One side effect: a badge in the default placement on an avatar that isn't last now sits at the avatar's corner, under the next avatar (today it shows only because the badge wrapper is also 16px narrower than its avatar, which puts the dot mid-avatar). The stress test `layout.html:1580-1588` has exactly that case. Example: avatar-group-overlap
-- [ ] (2) Carousel: vertical + `buttons="outside"` + `markers` loses the space for the markers. `.ui-with-buttons.ui-vertical.ui-buttons-outside { margin-inline: 0 }` (0,3,0) beats `.ui-vertical.ui-with-markers { margin-inline-end: calc(var(--_marker-size) + var(--_markers-margin-block-start)) }` (0,2,0), so the absolutely positioned marker column overflows the parent (`carousel.css:180-184,268-273`)
+  > Fix
+  - Fixed: avatars in a group overlap from the start (`& > * + * { margin-inline-start: calc(-1 * var(--_margin)) }`), and the end margin is gone. The badge side effect is handled: a badge's floating part in a group gets `z-index: 1`, so a dot on an avatar that isn't last shows above the next avatar (`avatar.css`).
+  - Measured in Chromium: the last avatar ends at the group's box (0px past it), text after the group keeps its 16px gap, and a group at the end of a bordered row keeps its 8px padding. In `stress-tests/layout.html` the success dot on the middle avatar is on top (hit test) and the group's box ends at its last avatar. Layout and avatar visual baselines change in CI.
+- [x] (2) Carousel: vertical + `buttons="outside"` + `markers` loses the space for the markers. `.ui-with-buttons.ui-vertical.ui-buttons-outside { margin-inline: 0 }` (0,3,0) beats `.ui-vertical.ui-with-markers { margin-inline-end: calc(var(--_marker-size) + var(--_markers-margin-block-start)) }` (0,2,0), so the absolutely positioned marker column overflows the parent (`carousel.css:180-184,268-273`)
   - All three classes come from documented props (`Carousel.astro:33,37,39`). Measured in a 400px box: the end margin is 0 instead of 24px, and the markers sit 16-24px outside the box.
   - Resetting only `margin-inline-start` doesn't work: a vertical outside carousel without markers then keeps the horizontal `.ui-buttons-outside` end margin of 40px (`carousel.css:221-224`, (0,2,0), not reset by anything else).
   - Fix (keep `margin-inline: 0` and add the marker space in the same block, where `.ui-with-markers` makes it (0,4,0)):
@@ -680,6 +701,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     Checked in Chromium: `0 24px` with markers, `0 0` without.
   > Explain further and provide an example
   - Explained: A vertical carousel with buttons outside and markers (`.ui-vertical.ui-with-buttons.ui-buttons-outside.ui-with-markers`) has no room for its markers. The marker column is absolutely positioned 16px past the carousel's end edge, and `.ui-vertical.ui-with-markers` normally reserves that space with a 24px end margin. The outside-buttons rule for vertical carousels sets `margin-inline: 0` to drop the side margins that horizontal outside buttons need, and it is more specific, so it also removes the marker space. The carousel then fills its parent and the markers end 24px outside it, where an `overflow: hidden` parent clips them or they run into the next element. The fix keeps `margin-inline: 0` and adds the marker margin back in the same block when `.ui-with-markers` is set. The example outlines the parent (dashed) and the carousel (solid) and prints how far the markers stick out, so it shows the overflow in Chromium before 144 too, where the scroll buttons sit in the wrong place. Example: carousel-vertical-outside-markers
+  > Fix
+  > 24px, what is that?? If possible, use parametric values like everywhere else in the library.
+  - The 24px was only the measured value of `calc(var(--_marker-size) + var(--_markers-margin-block-start))` (`--size-2` + `--size-3` with the defaults). The CSS has no fixed 24px anywhere, and the fix uses the same two custom properties.
+  - Fixed: the vertical outside-buttons rule keeps `margin-inline: 0` and adds `margin-inline-end: calc(var(--_marker-size) + var(--_markers-margin-block-start))` back when `.ui-with-markers` is set (`carousel.css`). Measured in Chromium: the carousel ends that distance before its parent and the markers end at the parent's edge (0px past it). Without markers the margin stays `0 0`.
 - [x] (2) Table: footer and "row above the footer" rules match `td` only. A row header (`th scope="row"`) in the last body row keeps its `border-block-end` while its `td` siblings lose it and the `tfoot td` gets `border-top`, so the line above the footer sits 1px higher (and in light mode darker, since `.ui-table th` uses the gray-6 filled-surface border color) in the row-header column. A `th` inside `tfoot` gets the fill and weight from the base `th` rule but no top border and only 4px block padding. `border-top` is also the only physical border in the file (`table.css:42-48,88-99,112-114`; row-header table with a footer in `src/stress-tests/data-display.html:1057-1095`)
   - In light mode the `tfoot td` top border is gray-4, the same as its `--surface-filled` fill, so under the data columns only the fill edge shows.
   - With the fix below the line lines up, but it still sits darker in the row-header column: `.ui-table th` keeps the gray-6 border from the theme's filled surfaces, while the `td` border matches the fill. Decide whether a body `th` should use the `td` border color.
@@ -2141,11 +2166,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   > come up with a nicer example instead. non US-centric.
   - Fixed: the currency select in the Spread example is now a "Time zone" select with a `UTC` prefix, the description "Used for reminders and due dates" and the offsets -03:00, +00:00, +01:00, +05:30 and +09:00, in all three frameworks (`select/Orientation.{astro,html,vue}`). It still shows a spread select with a text prefix.
-- [ ] (2) Drawer: the Drawer footer API says the footer is "aligned to the end", but an `inline-end` drawer aligns it to the start (`src/component-api/drawer-footer/api.ts:10`, `packages/opui/css/components/drawer.css:124,149-151`)
+- [x] (2) Drawer: the Drawer footer API says the footer is "aligned to the end", but an `inline-end` drawer aligns it to the start (`src/component-api/drawer-footer/api.ts:10`, `packages/opui/css/components/drawer.css:124,149-151`)
   - Fix: "Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer."
   > Explain further and provide an example
   > they both yeild the same results
   - Explained: The two panels showed the same drawers because the fix doesn't change any CSS, only the sentence in the Drawer footer API table. drawer.css aligns the footer to the end on every side except `inline-end`, where `.ui-inline-end .ui-footer { justify-content: start }` puts the actions next to the page instead of against the screen edge. The current sentence ("aligned to the end") is wrong for that one side; the proposed one ("aligned to the end, or to the start in an `inline-end` drawer") matches all of them. The example now shows each panel's sentence above the drawers, outlines each footer, and measures where its content sits: the inline-end footer content starts 16px from the inline-start edge and ends 422px from the inline-end edge, which the current sentence calls "end" (doesn't match) and the proposed one calls "start" (matches). Example: drawer-footer-inline-end
+  > Fix
+  - Fixed: the Drawer footer API reads "Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer." The example's measurements match the sentence on every side (`component-api/drawer-footer/api.ts`).
 - [x] (2) Description list: the Bordered prose doesn't say the leader line, the muted color and the end alignment only apply when the list is wider than `45ch`; narrower lists stack with no border at all (`src/docs/components/description-list.astro:53-74`, `packages/opui/css/components/description-list.css:45-83`)
   - Fix: "Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border."
   > the current and the fix show the same things.
@@ -2761,6 +2788,29 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Explain further and provide an example
   > is there a way to not let the css be the limiting factor?
   - Explained: Scrollable tabs keep each hidden radio in its tab's grid column, so focusing the radio with the keyboard scrolls that tab into view. The columns are written out by hand (`repeat(20, max-content)` and `:nth-of-type(1)` to `(20)`), so tab 21 and later have no column: tab 21 is squeezed into the trailing `1fr` track under tab 22, and focusing it scrolls the tabs back to the start. The CSS doesn't have to be the limit, and the markup can stay as it is. Give the radios a row of their own above the tabs (radios `grid-row: 1`, tabs row 2, panels row 3 in column 1) and let `grid-auto-flow: column dense` with `grid-auto-columns: max-content` place them: dense packing fills each row from the first column, so radio n lands in tab n's column for any number of tabs. The radios become in-flow 1px items centered in their column, and a -1px block-end margin keeps their row at 0 height, so focus scrolls exactly as today (a tab whose center is visible isn't scrolled further). The 20 `:nth-of-type` rules go away. Measured in Chromium 141 with 30 tabs, LTR and RTL: no tab overlaps another, and every focused tab's center ends up in view; Firefox and Safari not checked, though dense placement is supported everywhere. Trade-offs: the grid rows shift by one, which only matters to custom CSS that places items in a scrollable tabs grid. Other options are worse: the input inside its label also removes the cap, but it changes the markup (breaking for HTML users, and `input:checked + label + panel` becomes `label:has(:checked) + panel`); anchor positioning would need a unique anchor name per tab, because there is no wrapper per tab to scope one with `anchor-scope`; `scroll-margin` can't know each tab's width. Example: tabs-scrollable-limit
+
+  > Explain further
+  > can't we use sibling-count or sibling-index or something?
+  - Explained: yes. `sibling-index()` and `sibling-count()` are Baseline since August 2026 (Chrome 138, Safari 26.2, Firefox 154). Both count every element sibling, not only inputs, but each tab is already an input, a label and a panel in that order (the `input:checked + label + panel` selectors require it), so input n is always sibling 3n − 2. One rule replaces the 20:
+    ```css
+    &.ui-scrollable {
+      grid-auto-columns: max-content;
+
+      & > .ui-tab-input[type="radio"] {
+        grid-column: calc((sibling-index() + 2) / 3) / span 1;
+      }
+
+      & > .ui-tab-panel {
+        grid-column: 1 / span calc(sibling-count() / 3);
+        margin-inline-end: -100cqi;
+      }
+    }
+    ```
+  - `sibling-count()` can't size the container's columns: on the container it counts the container's own siblings, not its children, so `repeat(20, max-content) minmax(0, 1fr)` can't become `repeat(n, …)`. The columns become implicit instead (`grid-template-columns` goes, `grid-auto-columns: max-content`), and the panel spans `calc(sibling-count() / 3)` of them, which the panel can count. Its `-100cqi` end margin keeps its `100cqi` width out of the column sizes, otherwise tab 1 grows to the full width.
+  - Measured in Chromium 141 with 30 tabs, LTR and RTL: no tab overlaps another, tab 1 keeps its 74px width, focusing tabs 3, 12, 21 and 30 scrolls each tab's center into view, and the open panel stays at the start of the box at every scroll position.
+  - The earlier `grid-auto-flow: column dense` idea had the same tab 1 bug. With the same panel margin it works too, measures the same, and also runs in browsers from before August 2026, but it moves the radios into a row of their own. Both are in the example.
+  - Recommendation: `sibling-index()`. It's the smallest change, keeps the radios where they are today, and reads like what it does. In an older browser the declaration is dropped, so keep the 20 `:nth-of-type` rules and the `repeat(20, …)` template as the fallback and put the new rules in `@supports (order: sibling-index())`. Say which one and I'll implement it, and drop the 20-tab cap from the docs.
+  - Example: tabs-scrollable-limit
 
 - [x] (3) Carousel: vertical orientation
   - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated icons, also outside), markers and peek. Markers sit in a column at the inline end of the items, centered (anchored to the carousel, so they follow RTL). Docs section and example added.

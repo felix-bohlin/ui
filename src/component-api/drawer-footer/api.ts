@@ -7,7 +7,7 @@ export default {
   parts: [],
   root: {
     description:
-      "Container element. Lays out its content in a row, aligned to the end.",
+      "Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
     selector: ".ui-footer",
   },
   slots: [

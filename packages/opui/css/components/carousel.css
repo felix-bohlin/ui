@@ -193,6 +193,12 @@
           @supports selector(::scroll-button(*)) {
             margin-block: calc(var(--_button-size) + var(--_button-inset));
             margin-inline: 0;
+
+            &.ui-with-markers {
+              margin-inline-end: calc(
+                var(--_marker-size) + var(--_markers-margin-block-start)
+              );
+            }
           }
 
           &::scroll-button(block-start) {

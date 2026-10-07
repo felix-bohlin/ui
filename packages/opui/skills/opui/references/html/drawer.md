@@ -443,9 +443,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### Parts
 
-| Part         | Description                                                           |
-| ------------ | --------------------------------------------------------------------- |
-| `.ui-footer` | Container element. Lays out its content in a row, aligned to the end. |
+| Part         | Description                                                                                                      |
+| ------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `.ui-footer` | Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer. |
 
 #### CSS variables
 

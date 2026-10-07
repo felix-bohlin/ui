@@ -66,7 +66,14 @@
 
     .ui-avatar {
       box-shadow: 0 0 0 2px var(--_outline-color);
-      margin-inline-end: calc(-1 * var(--_margin));
+    }
+
+    & > * + * {
+      margin-inline-start: calc(-1 * var(--_margin));
+    }
+
+    & > .ui-badge > .ui-anchor-floating {
+      z-index: 1;
     }
   }
 }

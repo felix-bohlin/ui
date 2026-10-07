@@ -981,7 +981,7 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 
 1. Row
 
-   - Start, text and end slots in one flex row
+   - Start, text and end parts in one flex row
    - `>` styles direct children only, so a nested list in a row stays a list
    - `--gap` and `--start-size` drive the spacing and the icon column
    - The button is padded too, so the padding doubles

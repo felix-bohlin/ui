@@ -6,7 +6,7 @@ export default {
     {
       description:
         "Alternative text for the image. Required with src; use an empty string when the name is shown next to it.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "alt",
       type: "string",
     },
@@ -43,8 +43,8 @@ export default {
       prop: "isGroup",
     },
     {
-      description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
+      description: "The image source. Replaces the content.",
+      frameworks: ["astro", "svelte", "vue"],
       prop: "src",
       type: "string",
     },

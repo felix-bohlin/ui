@@ -4,6 +4,20 @@ export default {
   component: "Switch",
   model: {
     description: "The checked state, or the checked values of a group.",
+    frameworks: {
+      svelte: [
+        {
+          description: "The checked state.",
+          prop: "checked",
+          type: "boolean",
+        },
+        {
+          description: "The checked values of a group.",
+          prop: "group",
+          type: "(string | number)[]",
+        },
+      ],
+    },
     prop: "checked",
     type: "boolean | (string | number)[]",
   },
@@ -11,6 +25,8 @@ export default {
     astro:
       "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
     html: 'The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.',
+    svelte:
+      "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
   },
   options: [

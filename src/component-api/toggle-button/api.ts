@@ -7,7 +7,7 @@ export default {
       attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "svelte", "vue"],
       group: "State",
       part: "input",
       prop: "disabled",
@@ -15,7 +15,7 @@ export default {
     },
     {
       description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -26,7 +26,7 @@ export default {
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "name",
       type: "string",
     },
@@ -58,7 +58,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "value",
       type: "string",
     },

@@ -6,6 +6,8 @@ export default {
     astro:
       "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
     html: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+    svelte:
+      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
     vue: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
   },
   options: [

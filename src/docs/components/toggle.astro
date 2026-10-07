@@ -106,6 +106,13 @@ export const description =
           >.ui-toggle-button</code
         >, or to a <code>.ui-toggle-group</code> to size all its buttons.
       </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
       <Fragment slot="vue">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
@@ -129,6 +136,9 @@ export const description =
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
+      <Fragment slot="svelte">
+        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
+      </Fragment>
       <Fragment slot="vue">
         Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
       </Fragment>
@@ -140,6 +150,9 @@ export const description =
         Use <code>type="checkbox"</code> for multi-select groups.
       </p>
       <p slot="astro">
+        Use <code>selection="multiple"</code> for multi-select groups.
+      </p>
+      <p slot="svelte">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
       <p slot="vue">
@@ -157,6 +170,12 @@ export const description =
         > to the input that starts pressed.
       </p>
       <p slot="astro">
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
+      </p>
+      <p slot="svelte">
         Use <code>selection="single"</code> for single-select groups. Every button
         is a radio then, and a <code>type</code> on a button is ignored. Set <code
           >pressed</code
@@ -183,6 +202,11 @@ export const description =
           >aria-label</code
         > on the input.
       </Fragment>
+      <Fragment slot="svelte">
+        Put an <code>svg</code> before the text in <code>children</code>.
+        Icon-only buttons need an <code>aria-label</code>, which the component
+        passes to the input.
+      </Fragment>
       <Fragment slot="vue">
         Put an <code>svg</code> before the text in the slot. Icon-only buttons need
         an <code>aria-label</code>, which the component passes to the input.
@@ -200,6 +224,11 @@ export const description =
       </p>
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </p>
+      <p slot="svelte">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </p>
       <p slot="vue">
         Change the layout of the group with the <code
@@ -224,6 +253,14 @@ export const description =
           >.ui-scrollable</code
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="svelte">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>

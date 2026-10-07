@@ -68,6 +68,11 @@ export const description = "A popover list of actions or links."
           >disabled</code
         > and <code>shortcut</code>.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
       <Fragment slot="vue"
         ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
           >disabled</code
@@ -99,6 +104,11 @@ export const description = "A popover list of actions or links."
           >align="end"</code
         > to line up with the end edge.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
       <Fragment slot="vue"
         ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
           >align="end"</code
@@ -122,6 +132,13 @@ export const description = "A popover list of actions or links."
       <Fragment slot="html">
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > snippet.
       </Fragment>
       <Fragment slot="vue">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
@@ -150,6 +167,13 @@ export const description = "A popover list of actions or links."
         item closes it. Esc and a click outside don't close it, and opening another
         menu doesn't either. Give <code>command="hide-popover"</code> only to the
         items that should close it.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
       >
       <Fragment slot="vue"
         ><code>popover="manual"</code> keeps the menu open until the trigger or an

@@ -21,7 +21,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `v-slot:marker`
 
-  The marker. Astro and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default.
 
 - `v-slot:default`
 
@@ -323,12 +323,12 @@ import { Accordion } from "opui-css/vue"
 
 #### Slots
 
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `actions` | A group of actions, such as buttons.                   |
-| `default` | The collapsible content.                               |
-| `marker`  | The marker. Astro and Vue render a chevron by default. |
-| `summary` | The always visible header.                             |
+| Slot      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `actions` | A group of actions, such as buttons.                           |
+| `default` | The collapsible content.                                       |
+| `marker`  | The marker. Astro, Svelte and Vue render a chevron by default. |
+| `summary` | The always visible header.                                     |
 
 #### CSS variables
 

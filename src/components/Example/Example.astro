@@ -47,6 +47,7 @@ type Props = {
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  svelteExampleId?: string
   vueExampleId?: string
   wrapperClass?: string
 }
@@ -62,6 +63,7 @@ const {
   row,
   showCode = true,
   spacious,
+  svelteExampleId,
   vueExampleId,
   wrapperClass,
 } = Astro.props
@@ -113,6 +115,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
+const isLiveSveltePreview =
+  previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
@@ -190,6 +194,12 @@ const outputId = `${groupName}-output`
           <div
             class="preview-render"
             data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveSveltePreview ? (
+          <div
+            class="preview-render"
+            data-svelte-example={svelteExampleId}
             set:html={previewHtml}
           />
         ) : (
@@ -431,6 +441,7 @@ const outputId = `${groupName}-output`
 </style>
 
 <script>
+  import "./mount-svelte-examples"
   import "./mount-vue-examples"
 
   // Tab interactivity for the source/output toggle and the show-code button.

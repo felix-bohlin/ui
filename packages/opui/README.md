@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -16,10 +16,10 @@ Peer dependencies:
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23`
 - `solid-js` `^1.9` (optional; only the Solid type files ship today, there are no Solid components yet)
-- `svelte` `^5` (optional; only the Svelte type files ship today, there are no Svelte components yet)
+- `svelte` `^5.29` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
 
-Every component folder also ships `types.solid.ts` and `types.svelte.ts` for projects that port the markup to Solid or Svelte.
+Every component folder also ships `types.solid.ts` for projects that port the markup to Solid.
 
 ## Usage
 
@@ -56,7 +56,21 @@ import { Button, Card } from "opui-css/vue"
 </template>
 ```
 
-Both `opui-css/astro` and `opui-css/vue` export uncompiled sources (`.astro`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro or Vite with `@vitejs/plugin-vue`.
+### Svelte components
+
+Svelte components ship markup only, so import the CSS once in your app entry, like with Vue:
+
+```svelte
+<script lang="ts">
+  import { Button, Card } from "opui-css/svelte"
+</script>
+
+<Card>
+  <Button color="primary" variant="filled">Click me</Button>
+</Card>
+```
+
+`opui-css/astro`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`.
 
 #### Ids in Astro
 
@@ -138,8 +152,9 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
 | `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/svelte`                   | All Svelte components                                                                                                  |
 | `opui-css/vue`                      | All Vue components                                                                                                     |
-| `opui-css/components/*`             | Individual Astro and Vue component sources                                                                             |
+| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
 
 ## AI assistants
 

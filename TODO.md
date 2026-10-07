@@ -2823,6 +2823,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed with `sibling-index()`: inside `@supports (order: sibling-index())`, scrollable tabs use implicit `max-content` columns, each radio goes to `grid-column: calc((sibling-index() + 2) / 3) / span 1`, and the panel spans `calc(sibling-count() / 3)` columns with a `-100cqi` end margin. The 20 `:nth-of-type` rules and the `repeat(20, …)` template stay as the fallback. The docs, the API row and the CHANGELOG say browsers without `sibling-index()` support up to 20 tabs, and the page's browser support lists `sibling-count` (`tabs.css`, `tabs.astro`, `component-api/tabs/api.ts`).
   - Checked in Chromium with the 30-tab example, which now runs the library rules in all three panels: no overlaps, tab 1 keeps its width, focusing tabs 21 and 30 scrolls them into view, and the panel stays in view. The Tabs e2e tests pass.
 
+  > Remove the 20 tab fallback
+  - Fixed: the 20 `:nth-of-type` rules, the `repeat(20, max-content) minmax(0, 1fr)` template and the `@supports` wrapper are gone. The `sibling-index()` and `sibling-count()` rules are the base rules, and the docs, the API row and the CHANGELOG no longer mention a tab limit (`tabs.css`, `tabs.astro`, `component-api/tabs/api.ts`).
+
 - [x] (3) Carousel: vertical orientation
   - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated icons, also outside), markers and peek. Markers sit in a column at the inline end of the items, centered (anchored to the carousel, so they follow RTL). Docs section and example added.
   - Scroll and snap are checked in Chromium 141. The button positions aren't: Carousel buttons need Chromium 144+. Check them in the docs.

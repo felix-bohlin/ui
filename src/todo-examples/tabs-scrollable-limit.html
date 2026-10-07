@@ -1,6 +1,6 @@
 <style>
   @layer components.root {
-    @scope (.todo-fixed) {
+    @scope (.todo-dense) {
       :where(.ui-tabs).ui-scrollable {
         grid-auto-columns: max-content;
         grid-auto-flow: column dense;
@@ -25,6 +25,26 @@
       :where(.ui-tabs).ui-scrollable > .ui-tab-panel {
         grid-column: 1;
         grid-row: 3;
+        margin-inline-end: -100cqi;
+      }
+    }
+  }
+
+  @layer components.root {
+    @scope (.todo-sibling) {
+      :where(.ui-tabs).ui-scrollable {
+        grid-auto-columns: max-content;
+        grid-template-columns: none;
+      }
+
+      :where(.ui-tabs).ui-scrollable
+        > .ui-tab-input[type="radio"]:nth-of-type(n) {
+        grid-column: calc((sibling-index() + 2) / 3) / span 1;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-panel {
+        grid-column: 1 / span calc(sibling-count() / 3);
+        margin-inline-end: -100cqi;
       }
     }
   }
@@ -54,14 +74,15 @@
     </div>
     <p class="todo-measure" data-measure></p>
   </section>
-  <section class="todo-fixed">
+  <section class="todo-fixed todo-dense">
     <p class="todo-label">With dense auto-placement</p>
     <p class="todo-note">
-      Same markup, no per-tab rules. The radios get a row of their own above the
-      tabs, and <code>grid-auto-flow: column dense</code> fills each row from
-      the first column, so radio n lands in the same column as tab n. A 1px
-      radio in the middle of the column scrolls its tab into view on focus, like
-      today. Tab 30 works like tab 3.
+      Same markup, no per-tab rules, works in every browser. The radios get a
+      row of their own above the tabs, and
+      <code>grid-auto-flow: column dense</code> fills each row from the first
+      column, so radio n lands in the same column as tab n. A 1px radio in the
+      middle of the column scrolls its tab into view on focus, like today. Tab
+      30 works like tab 3.
     </p>
     <div class="ui-tabs ui-scrollable todo-full">
       <input
@@ -72,6 +93,30 @@
         checked
       />
       <label for="todo-limit-fixed-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed todo-sibling">
+    <p class="todo-label">With sibling-index()</p>
+    <p class="todo-note">
+      Same markup, one rule instead of 20. Each tab is an input, a label and a
+      panel, so input n is sibling n &times; 3 &minus; 2 and
+      <code>grid-column: calc((sibling-index() + 2) / 3)</code> puts it in tab
+      n's column. The container can't count its children for
+      <code>repeat(20, max-content)</code>, so the columns become implicit
+      (<code>grid-auto-columns: max-content</code>) and the panel spans
+      <code>calc(sibling-count() / 3)</code> of them. Tab 30 works like tab 3.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-sibling"
+        id="todo-limit-sibling-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-sibling-1" class="ui-tab-label">Tab 1</label>
       <div class="ui-tab-panel">Panel 1</div>
     </div>
     <p class="todo-measure" data-measure></p>

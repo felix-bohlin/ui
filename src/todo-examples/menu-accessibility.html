@@ -183,6 +183,65 @@
     </div>
     <p class="todo-measure" data-measure></p>
   </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Proposed: <code>popover="manual"</code> API</p>
+    <p class="todo-note">
+      Keep the <code>popover</code> prop with the native values,
+      <code>"auto"</code> (default) and <code>"manual"</code>, like Drawer's
+      <code>closedby</code>. The API row says what manual changes, and a Manual
+      section shows a menu that stays open while you pick items. Here only Done
+      closes it; Esc and a click outside do nothing.
+    </p>
+    <pre class="todo-measure">
+Astro
+&lt;Menu id="view" popover="manual" items={[
+  { closeOnClick: false, label: "Show grid" },
+  { closeOnClick: false, label: "Show rulers" },
+  { borderTop: true, label: "Done" },
+]} /&gt;
+
+Vue
+&lt;Menu id="view" popover="manual" :items="[
+  { closeOnClick: false, label: 'Show grid' },
+  { closeOnClick: false, label: 'Show rulers' },
+  { borderTop: true, label: 'Done' },
+]" /&gt;
+
+HTML
+&lt;menu class="ui-menu ui-list" id="view" popover="manual"&gt;</pre>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-a11y-menu-view"
+        command="toggle-popover"
+      >
+        View
+      </button>
+      <menu class="ui-menu ui-list" id="todo-a11y-menu-view" popover="manual">
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Show grid</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Show rulers</p></div>
+          </button>
+        </li>
+        <li class="ui-border-top">
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-view"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Done</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
 <script>
   {

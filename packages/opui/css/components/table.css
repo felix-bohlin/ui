@@ -7,7 +7,8 @@
     border-radius: var(--_border-radius);
     border-spacing: 0;
     inline-size: 100%;
-    margin: var(--size-3) 0;
+    margin-block: var(--size-3);
+    margin-inline: 0;
     overflow: clip;
     position: relative;
 
@@ -24,7 +25,8 @@
       background-color: var(--surface-default);
       border-block-end: var(--border-width) solid var(--border-color);
       border-inline-end: var(--border-width) solid var(--border-color);
-      padding: var(--size-1) var(--size-2);
+      padding-block: var(--size-1);
+      padding-inline: var(--size-2);
 
       &:last-child {
         border-inline-end: none;
@@ -99,7 +101,8 @@
       color: var(--text-muted);
       font-size: var(--font-size-05);
       margin-inline-start: var(--size-2);
-      padding: var(--size-2) 0;
+      padding-block: var(--size-2);
+      padding-inline: 0;
       text-align: start;
     }
 
@@ -129,7 +132,7 @@
         }
       }
 
-      @container scroll-state(stuck: top) {
+      @container scroll-state(stuck: block-start) {
         & > thead th {
           box-shadow: var(--_scroll-shadow);
           clip-path: inset(0 0 calc(-1 * var(--size-6)));
@@ -146,7 +149,8 @@
 
       caption {
         margin-inline-start: var(--size-3);
-        padding: var(--size-2) 0;
+        padding-block: var(--size-2);
+        padding-inline: 0;
       }
     }
 
@@ -155,12 +159,14 @@
       th,
       td {
         line-height: var(--font-lineheight-1);
-        padding: calc(var(--size-1) / 2) var(--size-1);
+        padding-block: calc(var(--size-1) / 2);
+        padding-inline: var(--size-1);
       }
 
       caption {
         margin-inline-start: var(--size-1);
-        padding: var(--size-1) 0;
+        padding-block: var(--size-1);
+        padding-inline: 0;
       }
     }
   }

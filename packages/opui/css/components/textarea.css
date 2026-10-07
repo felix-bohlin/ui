@@ -5,7 +5,7 @@
       field-sizing: content;
       max-block-size: var(--_max-block-size, 20lh);
       min-block-size: calc(var(--_field-padding-block) * 2 + 3lh);
-      resize: vertical;
+      resize: block;
     }
 
     /* Auto-fit */

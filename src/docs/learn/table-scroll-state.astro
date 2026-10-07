@@ -31,9 +31,9 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
         state
       </li>
       <li>
-        <code>@container scroll-state(stuck: top)</code> matches while the header
-        is stuck to the top edge. An element can't query itself, so the shadow goes
-        on the <code>&lt;th&gt;</code> cells inside it
+        <code>@container scroll-state(stuck: block-start)</code> matches while the
+        header is stuck to the top edge. An element can't query itself, so the shadow
+        goes on the <code>&lt;th&gt;</code> cells inside it
       </li>
       <li>
         <code>clip-path</code> cuts the shadow off at the top and the sides, so it
@@ -52,7 +52,7 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
   transition: box-shadow 0.2s;
 }
 
-@container scroll-state(stuck: top) {
+@container scroll-state(stuck: block-start) {
   .table.sticky-header > thead th {
     box-shadow: var(--shadow-4);
     clip-path: inset(0 0 calc(-1 * var(--size-6)));
@@ -67,9 +67,9 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
       <DocLink href="/components/dialog">Dialog</DocLink> and <DocLink
         href="/components/drawer">Drawer</DocLink
       > use the other half of the feature. <code
-        >scroll-state(scrollable: top)</code
+        >scroll-state(scrollable: block-start)</code
       > matches when a scroll container can scroll up, so there's content above, and
-      {" "}<code>scrollable: bottom</code> when there's more below.
+      {" "}<code>scrollable: block-end</code> when there's more below.
     </p>
     <ul>
       <li>
@@ -115,21 +115,21 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
 }
 
 .content::before {
-  inset-block-end: anchor(--content top);
+  inset-block-end: anchor(--content outside);
 }
 
 .content::after {
-  inset-block-start: anchor(--content bottom);
+  inset-block-start: anchor(--content outside);
   scale: 1 -1;
 }
 
-@container scroll-state(scrollable: top) {
+@container scroll-state(scrollable: block-start) {
   .content::before {
     opacity: 1;
   }
 }
 
-@container scroll-state(scrollable: bottom) {
+@container scroll-state(scrollable: block-end) {
   .content::after {
     opacity: 1;
   }

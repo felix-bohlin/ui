@@ -125,8 +125,8 @@
     /* Typography */
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
-    --font-size-h3: clamp(var(--font-size-3), 4vw, var(--font-size-4));
-    --font-size-h4: clamp(var(--font-size-2), 3vw, var(--font-size-3));
+    --font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
+    --font-size-h4: clamp(var(--font-size-2), 3vi, var(--font-size-3));
     --font-size-h5: var(--font-size-2);
     --font-size-h6: var(--font-size-1);
 

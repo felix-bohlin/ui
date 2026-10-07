@@ -19,7 +19,8 @@
     justify-content: center;
     min-inline-size: var(--_size);
     outline-offset: calc(-1 * var(--size-2));
-    padding: 0 var(--size-2);
+    padding-block: 0;
+    padding-inline: var(--size-2);
     position: relative;
     user-select: none;
 

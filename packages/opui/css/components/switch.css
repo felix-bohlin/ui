@@ -191,7 +191,7 @@
       margin-block-start: calc(
         (var(--_track-height) - 1lh) / 2 + var(--choice-label-offset)
       );
-      min-width: 0;
+      min-inline-size: 0;
       padding-inline: 0 1ex;
       position: relative;
       user-select: none;

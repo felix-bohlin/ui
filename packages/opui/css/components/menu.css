@@ -10,7 +10,8 @@
     --_border-width: var(--border-width);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease-enter);
-    --_margin: var(--_offset) 0;
+    --_margin-block: var(--_offset);
+    --_margin-inline: 0;
     --_max-block-size: 60dvb;
     --_min-block-size: 12rem;
     --_min-inline-size: 12rem;
@@ -36,7 +37,8 @@
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
       inset: auto;
-      margin: var(--_margin);
+      margin-block: var(--_margin-block);
+      margin-inline: var(--_margin-inline);
       min-inline-size: max(var(--_min-inline-size), anchor-size(inline));
 
       opacity: 0;
@@ -82,13 +84,15 @@
     }
 
     &.ui-inline-end {
-      --_margin: 0 var(--_offset);
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
       --_side: inline-end;
       --_span: span-block-end;
     }
 
     &.ui-inline-start {
-      --_margin: 0 var(--_offset);
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
       --_side: inline-start;
       --_span: span-block-end;
     }
@@ -178,11 +182,13 @@
 }
 
 @position-try --ui-menu-block-end {
-  margin: var(--_offset) 0;
+  margin-block: var(--_offset);
+  margin-inline: 0;
   position-area: block-end span-all;
 }
 
 @position-try --ui-menu-block-start {
-  margin: var(--_offset) 0;
+  margin-block: var(--_offset);
+  margin-inline: 0;
   position-area: block-start span-all;
 }

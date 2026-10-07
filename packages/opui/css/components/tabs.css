@@ -86,8 +86,10 @@
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;
-      padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
-        var(--size-3);
+      padding-block: calc(
+        var(--size-1) + var(--_inset) - var(--_track-border-width)
+      );
+      padding-inline: var(--size-3);
       position: relative;
       transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
       user-select: none;
@@ -99,7 +101,8 @@
           var(--_border-radius) - var(--_inset) - var(--_track-border-width)
         );
         content: "";
-        inset: var(--_inset) 0;
+        inset-block: var(--_inset);
+        inset-inline: 0;
         position: absolute;
         transition:
           background-color calc(var(--duration-fast) * var(--_motion))

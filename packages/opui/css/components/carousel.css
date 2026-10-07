@@ -47,7 +47,7 @@
     list-style: none;
     margin: 0;
     overflow-x: auto;
-    overscroll-behavior-x: contain;
+    overscroll-behavior-inline: contain;
     padding-block: 0;
     padding-inline: var(--_padding-inline);
     scroll-padding-inline: var(--_padding-inline);
@@ -107,7 +107,7 @@
       grid-auto-rows: var(--_item-size);
       overflow-x: hidden;
       overflow-y: auto;
-      overscroll-behavior-y: contain;
+      overscroll-behavior-block: contain;
       padding-block: var(--_padding-block);
       padding-inline: 0;
       scroll-padding-block: var(--_padding-block);

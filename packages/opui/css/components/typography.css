@@ -177,7 +177,8 @@
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
-    padding: 0.1ex 0.3ex;
+    padding-block: 0.1ex;
+    padding-inline: 0.3ex;
     word-break: break-word;
   }
 
@@ -186,7 +187,8 @@
     border-radius: var(--radius-2);
     box-decoration-break: clone;
     color: MarkText;
-    padding: 0.1ex 0.3ex;
+    padding-block: 0.1ex;
+    padding-inline: 0.3ex;
     vertical-align: baseline;
   }
 
@@ -230,7 +232,8 @@
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
-    padding: 0.1ex 0.3ex;
+    padding-block: 0.1ex;
+    padding-inline: 0.3ex;
     word-break: break-word;
   }
 
@@ -485,7 +488,7 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
-      @supports (width: calc(1px * 1em / 1rem)) {
+      @supports (inline-size: calc(1px * 1em / 1rem)) {
         --_font-scale: calc(1em / 1rem);
       }
 
@@ -861,7 +864,8 @@
       border-radius: var(--radius-2);
       border-width: var(--border-size-1);
       color: var(--text-muted-contrast);
-      padding: 0.1ex 0.3ex;
+      padding-block: 0.1ex;
+      padding-inline: 0.3ex;
     }
 
     :not(pre) > code,
@@ -879,13 +883,15 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6) :not(pre) > code {
-      padding: 0.05em 0.2em;
+      padding-block: 0.05em;
+      padding-inline: 0.2em;
     }
 
     mark {
       border-radius: var(--radius-2);
       box-decoration-break: clone;
-      padding: 0.1ex 0.3ex;
+      padding-block: 0.1ex;
+      padding-inline: 0.3ex;
       vertical-align: baseline;
     }
 

@@ -167,7 +167,8 @@
       font-weight: 400;
       line-height: 1.2;
       opacity: 0.8;
-      padding: 0.1ex 0.3ex;
+      padding-block: 0.1ex;
+      padding-inline: 0.3ex;
 
       @container style(--contrast: more) {
         opacity: 1;

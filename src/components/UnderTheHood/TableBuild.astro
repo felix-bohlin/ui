@@ -109,7 +109,7 @@ const steps = [
   z-index: 1;
 }
 
-@container scroll-state(stuck: top) {
+@container scroll-state(stuck: block-start) {
   .table > thead th {
     box-shadow: var(--shadow-4);
     clip-path: inset(0 0 -2rem);
@@ -123,7 +123,7 @@ const steps = [
     notes: [
       "<code>position: sticky</code> on <code>thead</code> keeps the header at the top of the scroll box",
       "Don't give the table <code>overflow: hidden</code>: it makes the table a scroll container, so the header would stick to the table and never move. <code>overflow: clip</code> is safe",
-      "<code>scroll-state(stuck: top)</code> only shows the shadow while the header is stuck, <code>clip-path</code> lets it out below",
+      "<code>scroll-state(stuck: block-start)</code> only shows the shadow while the header is stuck, <code>clip-path</code> lets it out below",
       '<code>tabindex="0"</code> and a name let keyboard users scroll the box',
     ],
     title: "Sticky header",

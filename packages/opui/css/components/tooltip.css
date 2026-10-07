@@ -68,19 +68,19 @@
         block-size: var(--_arrow-size);
         content: "";
         inline-size: var(--_arrow-size);
-        left: clamp(
-          anchor(--ui-tooltip left),
+        inset-block-start: clamp(
+          anchor(--ui-tooltip self-start),
           anchor(--anchor center),
-          anchor(--ui-tooltip right)
+          anchor(--ui-tooltip self-end)
+        );
+        inset-inline-start: clamp(
+          anchor(--ui-tooltip self-start),
+          anchor(--anchor center),
+          anchor(--ui-tooltip self-end)
         );
         margin: calc(var(--_arrow-size) / -2);
         position: fixed;
         rotate: 45deg;
-        top: clamp(
-          anchor(--ui-tooltip top),
-          anchor(--anchor center),
-          anchor(--ui-tooltip bottom)
-        );
 
         @media (forced-colors: active) {
           background-color: CanvasText;

@@ -57,7 +57,7 @@
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
           var(--_max-block-size),
-          calc(100% - var(--_offset))
+          calc(100% - 2 * var(--_offset))
         );
         min-block-size: calc-size(
           fit-content,

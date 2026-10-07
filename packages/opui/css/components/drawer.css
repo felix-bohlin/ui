@@ -50,6 +50,7 @@
     }
 
     &.ui-backdrop-transparent {
+      --_backdrop-bg-color: transparent;
       --_backdrop-blur: none;
     }
 

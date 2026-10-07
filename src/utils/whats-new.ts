@@ -138,8 +138,8 @@ const whatsNew = {
     },
   ],
   dialog: [
-    `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
-    `A subtle scroll shadow shows under the header and above the actions while the <a href="#modal">content scrolls</a>.`,
+    `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
+    `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,

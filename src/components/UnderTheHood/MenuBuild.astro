@@ -56,14 +56,14 @@ const steps = [
   overscroll-behavior: contain;
 
   @supports (min-block-size: calc-size(fit-content, size)) {
-    max-block-size: min(60dvb, 100% - 0.25rem);
+    max-block-size: min(60dvb, 100% - 0.5rem);
     min-block-size: calc-size(fit-content, min(size, 12rem));
   }
 }`,
     features: ["calc-size", "overscroll-behavior"],
     notes: [
       "Scroll the trigger towards the bottom of the window and open it again",
-      "<code>100%</code> is the space below the trigger, so the menu shrinks to fit and scrolls",
+      "<code>100%</code> is the space below the trigger, minus the <code>0.25rem</code> margin on each side, so the menu shrinks to fit and scrolls",
       "But never below <code>12rem</code>, or its content if that's shorter. Then it overflows, and that's what makes it flip",
       "Without <code>calc-size()</code> it stays at <code>60dvb</code> and just flips",
     ],

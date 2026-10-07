@@ -73,6 +73,7 @@ import listTextLeak from "../todo-examples/list-text-leak.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import maskIconsForcedColors from "../todo-examples/mask-icons-forced-colors.html?raw"
+import menuAccessibility from "../todo-examples/menu-accessibility.html?raw"
 import menuShrink from "../todo-examples/menu-shrink.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
 import paletteHueRotate from "../todo-examples/palette-hue-rotate.html?raw"
@@ -427,6 +428,10 @@ export const todoExamples = {
   "mask-icons-forced-colors": {
     match: "Select and Text input: mask icons painted",
     source: maskIconsForcedColors,
+  },
+  "menu-accessibility": {
+    match: "Menu: the Accessibility section is",
+    source: menuAccessibility,
   },
   "menu-shrink": {
     match: "Menu doesn't shrink to the space",

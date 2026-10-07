@@ -2,7 +2,15 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
-import { Switch, Table } from "@opui/astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Button as UIButton,
+  Drawer as UIDrawer,
+  DrawerFooter as UIDrawerFooter,
+  DrawerHeader as UIDrawerHeader,
+  Switch,
+  Table,
+} from "@opui/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
@@ -21,6 +29,7 @@ import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
+  heroAnatomy
   slug="drawer"
   browserSupport={[
     "anchor-positioning",
@@ -74,15 +83,19 @@ import Conditional from "../../components/Conditional.astro"
           wrapped in a <code>DrawerFooter</code>.
         </p>
         <p>
-          The backdrop is blurred by default. Use <code
-            >backdrop="transparent"</code
-          >
-          {" "}to remove the blur effect.
+          The header and footer stay put while the content scrolls, with a
+          shadow on the scrolled edge.
         </p>
         <p>
-          Page scrolling is locked by default when the drawer is open. Use the
-          {" "}<code>scrollLock={false}</code> prop to allow scrolling while the drawer
-          is open.
+          The backdrop dims and blurs the page by default. Use <code
+            >backdrop="transparent"</code
+          > to keep the page behind it fully visible.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. With a
+          transparent backdrop the page stays scrollable, except on screens
+          narrower than 500px. Use the <code>scrollLock={false}</code> prop to allow
+          scrolling on every screen.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -92,14 +105,22 @@ import Conditional from "../../components/Conditional.astro"
           >, <code>.ui-block-start</code>, and <code>.ui-block-end</code> classes.
         </p>
         <p>
-          The backdrop is blurred by default. Use the <code
+          <code>.ui-header</code> and <code>.ui-footer</code> stay put while <code
+            >.ui-content</code
+          > scrolls, with a shadow on the scrolled edge.
+        </p>
+        <p>
+          The backdrop dims and blurs the page by default. Use the <code
             >.ui-backdrop-transparent</code
-          >
-          {" "}class to remove the blur effect.
+          > class to keep the page behind it fully visible.
         </p>
         <p>
           Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
-          page scrolling while it's open. Omit the class to allow background scrolling.
+          page scrolling while it's open. With <code
+            >.ui-backdrop-transparent</code
+          >
+          the page stays scrollable, except on screens narrower than 500px. Omit the
+          class to allow background scrolling.
         </p>
       </Fragment>
       <Fragment slot="vue">
@@ -110,15 +131,19 @@ import Conditional from "../../components/Conditional.astro"
           wrapped in a <code>DrawerFooter</code>.
         </p>
         <p>
-          The backdrop is blurred by default. Use <code
-            >backdrop="transparent"</code
-          >
-          {" "}to remove the blur effect.
+          The header and footer stay put while the content scrolls, with a
+          shadow on the scrolled edge.
         </p>
         <p>
-          Page scrolling is locked by default when the drawer is open. Use the
-          {" "}<code>scrollLock={false}</code> prop to allow scrolling while the drawer
-          is open.
+          The backdrop dims and blurs the page by default. Use <code
+            >backdrop="transparent"</code
+          > to keep the page behind it fully visible.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. With a
+          transparent backdrop the page stays scrollable, except on screens
+          narrower than 500px. Use the <code>scrollLock={false}</code> prop to allow
+          scrolling on every screen.
         </p>
       </Fragment>
     </Conditional>
@@ -143,6 +168,24 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="closedby">How to close a drawer</h2>
     <ClosedbyTable componentDefault="any" name="drawer" />
   </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIDrawer
+        closedby="none"
+        open
+        scrollLock={false}
+        style="block-size: auto; inline-size: 18rem; position: static"
+      >
+        <UIDrawerHeader slot="header" heading="Filters" />
+        <p slot="content">Narrow the list by status, owner and date.</p>
+        <UIDrawerFooter slot="footer">
+          <UIButton size="small">Reset</UIButton>
+          <UIButton size="small" variant="filled">Apply</UIButton>
+        </UIDrawerFooter>
+      </UIDrawer>
+    </Anatomy>
+  </Fragment>
 
   <DrawerBuild slot="under-the-hood" />
 
@@ -248,34 +291,26 @@ import Conditional from "../../components/Conditional.astro"
           <Table.Row>
             <Table.Cell><kbd>Tab</kbd></Table.Cell>
             <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to next focusable element inside the drawer.
-                </li>
-                <li>
-                  When focus is on the last focusable element in the drawer,
-                  moves focus to the first focusable element in the drawer.
-                </li>
-              </ul>
+              Moves focus to the next focusable element in the drawer. After the
+              last one, focus moves to the browser's own controls (like the
+              address bar), then back to the first element in the drawer. The
+              page behind it is inert.
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
             <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to previous focusable element inside the drawer.
-                </li>
-                <li>
-                  When focus is on the first focusable element in the drawer,
-                  moves focus to the last focusable element in the drawer.
-                </li>
-              </ul>
+              Moves focus to the previous focusable element. Before the first
+              one, focus moves to the browser's controls, then to the last
+              element in the drawer.
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>Closes the drawer.</Table.Cell>
+            <Table.Cell>
+              Closes the drawer, unless <code>closedby="none"</code>, and
+              returns focus to the element that opened it.
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>

@@ -9,7 +9,8 @@ export default {
   options: [
     {
       default: '"blurred"',
-      description: "The backdrop style.",
+      description:
+        'The backdrop style. `"transparent"` keeps the page behind it fully visible.',
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -29,7 +30,8 @@ export default {
     {
       class: ".ui-scroll-lock",
       default: "true",
-      description: "Locks page scroll while the drawer is open.",
+      description:
+        "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
       group: "Scroll lock",
       prop: "scrollLock",
     },

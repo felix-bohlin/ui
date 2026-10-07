@@ -33,6 +33,10 @@
       position-visibility: anchors-visible;
       text-align: center;
       text-wrap: pretty;
+
+      @media (forced-colors: active) {
+        border: var(--border-width) solid CanvasText;
+      }
     }
 
     @container style(--anchor-position-area: inline-start) or style(--anchor-position-area: inline-end) {
@@ -77,6 +81,11 @@
           anchor(--anchor center),
           anchor(--ui-tooltip bottom)
         );
+
+        @media (forced-colors: active) {
+          background-color: CanvasText;
+          forced-color-adjust: none;
+        }
       }
     }
 

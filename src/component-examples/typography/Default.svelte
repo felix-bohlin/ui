@@ -231,7 +231,7 @@
     </li>
     <li>
       <strong>Pickled tumeric raw denim squid.</strong>
-      <pre><code>const brew = await steep({"{"} hours: 18 {"}"})</code></pre>
+      <pre><code>{`const brew = await steep({ hours: 18 })`}</code></pre>
     </li>
     <li>
       <strong>Humblebrag chartreuse YOLO pug.</strong>
@@ -325,16 +325,16 @@
     <var>steepHours</var> to taste:
   </p>
   <pre><code
-      >module.exports = {"{"}
-grind: "coarse",
-origin: "single-origin",
-roast: {"{"}
-  level: "light",
-{"}"},
+      >{`module.exports = {
+  grind: "coarse",
+  origin: "single-origin",
+  roast: {
+    level: "light",
+  },
 
-steepHours: 18,
-plugins: ["oat-milk", "pour-over"],
-{"}"}</code
+  steepHours: 18,
+  plugins: ["oat-milk", "pour-over"],
+}`}</code
     ></pre>
   <p>A line that is far too long for the container has to scroll, not wrap:</p>
   <pre><code
@@ -343,7 +343,7 @@ plugins: ["oat-milk", "pour-over"],
   <p>Markup inside a code block has to be escaped:</p>
   <pre><code
       >&lt;article class="ui-rich-text"&gt;
-&lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;
+  &lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;
 &lt;/article&gt;</code
     ></pre>
   <p>
@@ -356,10 +356,10 @@ cold-brew 1.0.0</samp
     ></pre>
   <p>Preformatted text without any code at all:</p>
   <pre>
-Roses are red,
-    violets are blue,
-        whitespace is kept,
-            and so is this, too.</pre>
+  Roses are red,
+      violets are blue,
+          whitespace is kept,
+              and so is this, too.</pre>
   <figure>
     <pre><code>brew --steep 18h --grind coarse</code></pre>
     <figcaption>A code block with a caption.</figcaption>

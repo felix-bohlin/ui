@@ -115,6 +115,10 @@
         justify-content: end;
 
         &:has(.ui-button:first-child[class="ui-button"]) {
+          padding-inline: var(--size-3);
+        }
+
+        &:has(.ui-button:last-child[class="ui-button"]) {
           padding-inline: var(--size-3) var(--size-1);
         }
       }

@@ -76,6 +76,7 @@ const ThemeCSS = `/* ... */
     <UICallout>
       <svg
         slot="icon"
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -160,6 +161,7 @@ const ThemeCSS = `/* ... */
       <UICallout severity="info">
         <svg
           slot="icon"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -190,7 +192,11 @@ const ThemeCSS = `/* ... */
           >critical</code
         > have a default icon. Replace it with the <code>icon</code> slot.
       </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="html">
+        There are no default icons in HTML: put an <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > before <code>.ui-content</code>.
+      </Fragment>
       <Fragment slot="vue">
         <code>info</code>, <code>success</code>, <code>warning</code> and <code
           >critical</code

@@ -12,7 +12,7 @@ import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
 export const description =
-  "Lets you show and hide content. Comes with a chevron marker and a custom marker slot."
+  "Lets you show and hide content, on its own or as a group."
 ---
 
 <Component
@@ -53,11 +53,6 @@ export const description =
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
-  <Fragment slot="preamble">
-    Lets you show and hide content. Comes with a chevron marker, check out how
-    to add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
-  </Fragment>
-
   <section>
     <h2 id="basics">Basics</h2>
 

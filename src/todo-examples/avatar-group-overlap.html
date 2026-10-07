@@ -11,17 +11,40 @@
     }
   }
 
-  .todo-group-row {
+  .todo-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .todo-case {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: 100%;
+  }
+
+  .todo-case-title {
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .todo-after-text,
+  .todo-bordered-row {
     align-items: center;
     display: flex;
     gap: var(--size-3);
   }
 
-  .todo-group-row .ui-avatar-group {
-    outline: 1px dashed var(--critical);
+  .todo-bordered-row {
+    border: var(--border-width) solid var(--text-primary);
+    border-radius: var(--border-radius);
+    justify-content: space-between;
+    padding: var(--size-2);
   }
 
-  .todo-group-row > span:last-child {
+  :is(.todo-after-text, .todo-bordered-row) .ui-avatar-group {
+    outline: 2px dashed var(--critical);
+  }
+
+  .todo-after-text > span {
     background-color: var(--surface-tonal);
   }
 </style>
@@ -29,73 +52,109 @@
   <section class="todo-current">
     <p class="todo-label">Current</p>
     <p class="todo-note">
-      The last avatar overlaps the dashed group box and the text after it, which
-      sits 16px closer than the 16px gap.
+      The dashed line is the group's box. Every avatar, the last one too, pulls
+      the next thing 16px closer, so the last avatar sticks out of the box. It
+      touches the text even though the row has a 16px gap, and it runs over the
+      bordered row's padding onto its border. The badge dot on CD sits in the
+      middle of the avatar, because its wrapper is 16px narrower than the avatar
+      too.
     </p>
-    <div class="todo-group-row">
-      <div class="ui-avatar-group" role="group" aria-label="Team, current">
-        <span class="ui-avatar">AB</span>
-        <span class="ui-avatar">CD</span>
-        <span class="ui-avatar">EF</span>
+    <div class="todo-case">
+      <p class="todo-case-title">Followed by text</p>
+      <div class="todo-after-text">
+        <div class="ui-avatar-group" role="group" aria-label="Team, current">
+          <span class="ui-avatar">AB</span>
+          <span class="ui-avatar">CD</span>
+          <span class="ui-avatar">EF</span>
+        </div>
+        <span>3 reviewers</span>
       </div>
-      <span>Next item</span>
     </div>
-    <div class="todo-group-row">
-      <div class="ui-avatar-group" role="group" aria-label="Reviewers, current">
-        <span class="ui-avatar">EF</span>
-        <span class="ui-anchor ui-badge ui-dot ui-success"
-          ><span class="ui-avatar">GH</span
-          ><span class="ui-anchor-floating"
-            ><span class="ui-badge-indicator"></span></span
-        ></span>
-        <span class="ui-avatar">IJ</span>
+    <div class="todo-case">
+      <p class="todo-case-title">Last in a bordered row</p>
+      <div class="todo-bordered-row">
+        <span>Reviewers</span>
+        <div
+          class="ui-avatar-group"
+          role="group"
+          aria-label="Reviewers, current"
+        >
+          <span class="ui-avatar">AB</span>
+          <span class="ui-anchor ui-badge ui-dot ui-success"
+            ><span class="ui-avatar">CD</span
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span></span
+          ></span>
+          <span class="ui-avatar">EF</span>
+        </div>
       </div>
-      <span>Next item</span>
     </div>
     <p class="todo-measure" data-measure></p>
   </section>
   <section class="todo-fixed">
     <p class="todo-label">With the fix</p>
     <p class="todo-note">
-      Overlap from the start with <code>&gt; * + *</code>; the old end margin is
-      reset to 0.
+      Each avatar after the first overlaps the one before it with
+      <code>margin-inline-start</code> (<code>&gt; * + *</code>, so an avatar
+      wrapped in a badge counts too). The first avatar has no margin and the
+      last has none after it, so the box hugs the avatars and the gap and
+      padding around the group stay as written.
     </p>
-    <div class="todo-group-row">
-      <div class="ui-avatar-group" role="group" aria-label="Team, fixed">
-        <span class="ui-avatar">AB</span>
-        <span class="ui-avatar">CD</span>
-        <span class="ui-avatar">EF</span>
+    <p class="todo-note">
+      One side effect: the badge dot on CD now sits at the avatar's corner, so
+      EF covers it, just as it covers CD. A badge only shows on the last avatar
+      in a group, or with a placement on the start side.
+    </p>
+    <div class="todo-case">
+      <p class="todo-case-title">Followed by text</p>
+      <div class="todo-after-text">
+        <div class="ui-avatar-group" role="group" aria-label="Team, fixed">
+          <span class="ui-avatar">AB</span>
+          <span class="ui-avatar">CD</span>
+          <span class="ui-avatar">EF</span>
+        </div>
+        <span>3 reviewers</span>
       </div>
-      <span>Next item</span>
     </div>
-    <div class="todo-group-row">
-      <div class="ui-avatar-group" role="group" aria-label="Reviewers, fixed">
-        <span class="ui-avatar">EF</span>
-        <span class="ui-anchor ui-badge ui-dot ui-success"
-          ><span class="ui-avatar">GH</span
-          ><span class="ui-anchor-floating"
-            ><span class="ui-badge-indicator"></span></span
-        ></span>
-        <span class="ui-avatar">IJ</span>
+    <div class="todo-case">
+      <p class="todo-case-title">Last in a bordered row</p>
+      <div class="todo-bordered-row">
+        <span>Reviewers</span>
+        <div class="ui-avatar-group" role="group" aria-label="Reviewers, fixed">
+          <span class="ui-avatar">AB</span>
+          <span class="ui-anchor ui-badge ui-dot ui-success"
+            ><span class="ui-avatar">CD</span
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span></span
+          ></span>
+          <span class="ui-avatar">EF</span>
+        </div>
       </div>
-      <span>Next item</span>
     </div>
     <p class="todo-measure" data-measure></p>
   </section>
 </div>
 <script>
   for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lastAvatar = (group) =>
+      [...group.querySelectorAll(".ui-avatar")].at(-1).getBoundingClientRect()
+
+    const afterText = panel.querySelector(".todo-after-text")
+    const textGroup = afterText.querySelector(".ui-avatar-group")
+    const textLast = lastAvatar(textGroup)
+    const text = afterText.lastElementChild.getBoundingClientRect()
+
+    const row = panel.querySelector(".todo-bordered-row")
+    const rowGroup = row.querySelector(".ui-avatar-group")
+    const rowLast = lastAvatar(rowGroup)
+    const rowStyle = getComputedStyle(row)
+    const border =
+      row.getBoundingClientRect().right -
+      parseFloat(rowStyle.borderInlineEndWidth)
+
     panel.querySelector("[data-measure]").textContent = [
-      ...panel.querySelectorAll(".todo-group-row"),
-    ]
-      .map((row, index) => {
-        const group = row.querySelector(".ui-avatar-group")
-        const avatars = group.querySelectorAll(".ui-avatar")
-        const last = avatars[avatars.length - 1].getBoundingClientRect()
-        const box = group.getBoundingClientRect()
-        const next = row.lastElementChild.getBoundingClientRect()
-        return `group ${index + 1}: last avatar ${Math.round(last.right - box.right)}px past the box, text ${Math.round(next.left - last.right)}px after it`
-      })
-      .join("\n")
+      `followed by text: last avatar ${Math.round(textLast.right - textGroup.getBoundingClientRect().right)}px past the box, text ${Math.round(text.left - textLast.right)}px after it (gap ${rowStyle.columnGap})`,
+      `bordered row: last avatar ${Math.round(rowLast.right - rowGroup.getBoundingClientRect().right)}px past the box, ${Math.round(border - rowLast.right)}px from the border (padding ${rowStyle.paddingInlineEnd})`,
+    ].join("\n")
   }
 </script>

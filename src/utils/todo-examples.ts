@@ -40,7 +40,6 @@ import checkboxRadioWalkthroughLabel from "../todo-examples/checkbox-radio-walkt
 import checkboxWalkthroughForcedColors from "../todo-examples/checkbox-walkthrough-forced-colors.html?raw"
 import chipDisabledText from "../todo-examples/chip-disabled-text.html?raw"
 import chipIconPadding from "../todo-examples/chip-icon-padding.html?raw"
-import chipRipple from "../todo-examples/chip-ripple.html?raw"
 import chipTruncation from "../todo-examples/chip-truncation.html?raw"
 import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
@@ -120,10 +119,8 @@ import textFieldLabelWidth from "../todo-examples/text-field-label-width.html?ra
 import textareaAutoFit from "../todo-examples/textarea-auto-fit.html?raw"
 import textareaMinBlockSize from "../todo-examples/textarea-min-block-size.html?raw"
 import textareaWalkthroughMaxSize from "../todo-examples/textarea-walkthrough-max-size.html?raw"
-import toastButtonType from "../todo-examples/toast-button-type.html?raw"
-import toastRtl from "../todo-examples/toast-rtl.html?raw"
 import toggleButtonSelectedHover from "../todo-examples/toggle-button-selected-hover.html?raw"
-import tooltipToastForcedColorsBorder from "../todo-examples/tooltip-toast-forced-colors-border.html?raw"
+import tooltipForcedColorsBorder from "../todo-examples/tooltip-forced-colors-border.html?raw"
 import tooltipWalkthroughArrow from "../todo-examples/tooltip-walkthrough-arrow.html?raw"
 import typographyInlineTable from "../todo-examples/typography-inline-table.html?raw"
 import uiDisabledWhere from "../todo-examples/ui-disabled-where.html?raw"
@@ -299,10 +296,6 @@ export const todoExamples = {
     match: "Chip: a chip with a start and an end icon gets",
     source: chipIconPadding,
   },
-  "chip-ripple": {
-    match: "Chip: the `/* Ripple effect */`",
-    source: chipRipple,
-  },
   "chip-truncation": {
     match: "Chip: the Sizes example shows `multiline`",
     source: chipTruncation,
@@ -432,7 +425,7 @@ export const todoExamples = {
     source: listWalkthroughNested,
   },
   "mask-icons-forced-colors": {
-    match: "Select, Text input and Toast: mask",
+    match: "Select and Text input: mask icons painted",
     source: maskIconsForcedColors,
   },
   "menu-shrink": {
@@ -620,21 +613,13 @@ export const todoExamples = {
     match: "Textarea walkthrough:",
     source: textareaWalkthroughMaxSize,
   },
-  "toast-button-type": {
-    match: "Toast: every HTML trigger button",
-    source: toastButtonType,
-  },
-  "toast-rtl": {
-    match: "Toast: the manager is pinned with",
-    source: toastRtl,
-  },
   "toggle-button-selected-hover": {
     match: "ToggleButton: hovering a selected toggle button drops its tint",
     source: toggleButtonSelectedHover,
   },
-  "tooltip-toast-forced-colors-border": {
-    match: "Tooltip and Toast: no border in",
-    source: tooltipToastForcedColorsBorder,
+  "tooltip-forced-colors-border": {
+    match: "Tooltip: no border in forced colors",
+    source: tooltipForcedColorsBorder,
   },
   "tooltip-walkthrough-arrow": {
     match: "Tooltip walkthrough:",

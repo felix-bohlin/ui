@@ -95,7 +95,7 @@ const whatsNew = {
       default: `Long labels truncate with an ellipsis unless the chip is <code>multiline</code>.`,
       html: `Long labels truncate with an ellipsis unless the chip is <code>.ui-multiline</code>.`,
     },
-    `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
+    `Breaking: the hover and press ripple is removed.`,
     {
       default: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default.`,
     },

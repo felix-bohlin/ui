@@ -7,7 +7,7 @@
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
 - `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot replaces it, so move a custom chevron from `summary` to the `marker` slot, or it shows twice.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
-- `Checkbox`, `Chip` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale` (`Checkbox`, `Radio`), and `--ripple` is `--_ripple` (`Chip`). Rename any overrides to the new names.
+- `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. Rename any overrides to the new names.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
@@ -39,6 +39,7 @@
 
 ### Removed
 
+- `Chip` hover and press ripple. Remove any `--ripple` overrides.
 - `IconButton`. Use `Button`: an icon-only button is square by default, `rounded` (`.ui-rounded`) makes it a circle and `ripple` (`.ui-ripple`) gives it the hover halo. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
@@ -198,8 +199,7 @@
 - `Select` and `ClassicSelect` keep their arrow and its space at the inline end in RTL. The arrow covered the text.
 - `Badge` severity colors use their own text color instead of `--primary-contrast`, and warning badges use dark text for contrast.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--invalid-text-color`, which is lighter in dark mode. They failed contrast on dark surfaces.
-- `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
-- `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
+- `Badge`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.
 - `normalize.css` gives autofilled fields `--surface-default` instead of the undefined `--well-1`.
 - `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.

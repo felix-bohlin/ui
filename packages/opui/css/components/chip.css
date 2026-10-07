@@ -1,17 +1,11 @@
 @layer components.root {
   :where(.ui-chip) {
-    --_motion: var(--motion, 1);
-    --_ripple-duration: calc(0.4s * var(--_motion));
-    --_ripple-size: 100%;
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_text-color: var(--text-primary);
 
     align-items: center;
-    background: var(--_bg-color) var(--_ripple, none);
-
-    /* Ripple effect */
-    background-position: center;
+    background-color: var(--_bg-color);
     block-size: var(--chip-size);
     border: var(--border-width) solid var(--_border-color);
     border-radius: var(--border-radius);
@@ -45,7 +39,7 @@
         :not([disabled], [aria-disabled="true"], .ui-disabled)
       ) {
       @media (hover: hover) {
-        &:where(:not(:active)):hover {
+        &:hover {
           --_bg-color: light-dark(
             oklch(from var(--surface-tonal) calc(l * 0.98) c h),
             oklch(from var(--surface-tonal) calc(l * 1.1) c h)
@@ -95,26 +89,6 @@
 
     &.ui-multiline {
       block-size: auto;
-    }
-
-    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-      @media (hover: hover) {
-        &:where(:not(:active):hover) {
-          --_ripple: radial-gradient(
-              circle,
-              transparent 1%,
-              var(--_bg-color) 1%
-            )
-            center/15000%;
-
-          transition: background var(--_ripple-duration);
-        }
-      }
-
-      &:where(:hover:active) {
-        background-size: var(--_ripple-size);
-        transition: background 0s;
-      }
     }
 
     /* Disabled */

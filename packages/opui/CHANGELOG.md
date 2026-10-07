@@ -97,6 +97,10 @@
 - `Callout` with `severity="success"` shows a default check icon in Astro and Vue, like `info`, `warning` and `critical`.
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
 - `Card` takes `.ui-card-link` on a link to make the whole card clickable. Other links and buttons in the card stay clickable.
+- `Checkbox` and `Radio` take `size="x-small"` (`.ui-x-small`), 14px from the new `--choice-size-x-small` token.
+- `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--switch-dot-size-*`, `--switch-track-height-*` and `--switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
+- `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--chip-size-x-small` token.
+- `Badge` `alignment` takes `"start-end"`, the default placement.
 
 ### Changed
 
@@ -274,6 +278,37 @@
 - `Accordion` with `.ui-marker-turn` mirrors its chevron in right-to-left, so it points to the inline end when closed and down when open.
 - `ButtonGroup` vertical `x-small` and `small` items are as tall as their size.
 - `theme.css` sets `--shadow-color` and `--shadow-strength` for dark mode (`.ui-dark` and the OS preference), so `--shadow-1` to `--shadow-6` show on dark surfaces. They used the light values before.
+- `Radio` dot is centered at every size. It was half a pixel off at small, default and large.
+- `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
+- `Chip` disabled text color applies to tonal and outlined chips.
+- `Checkbox` `initCheckbox()` adds its `astro:after-swap` listener once, however often it is called.
+- `Drawer` with `.ui-backdrop-transparent` (`backdrop="transparent"`) no longer dims the page behind it. It only removed the blur before.
+- `Menu` shrinks to the space on its side before it flips, instead of flipping as soon as its margin box overflows by one offset.
+- `Tooltip` keeps its edge in forced colors with a `CanvasText` border, and the arrow stays visible.
+- `Select` and `TextField` show the select and autosuggest chevrons in forced colors mode.
+- `TextField`, `Textarea` and `Select` no longer darken a filled field on hover when a disabled `fieldset` disables it.
+- `TextField` with a `list` and `Select` no longer shorten the label by 28px.
+- `Textarea` no longer adds the border width to its minimum height.
+- `Select` no longer shows the picker's square corners and shadow outside the rounded option list.
+- `Table` footer rules and the row above the footer apply to `th` as well as `td`, so row headers line up with the footer line and a `th` in `tfoot` gets its top border and padding.
+- `Table` row hover only highlights body rows, not the header or footer.
+- `Typography` inline `code` directly inside `.ui-rich-text` gets the same padding and radius as inline code in a paragraph.
+- `Typography` `.ui-small` also applies to `<small>`.
+- `List` rows with a video keep their end padding on the text side in right-to-left.
+- `List` row text styles no longer reach the `.ui-text` of buttons and chips inside a row, and `.ui-end` only sizes `svg` icons that are its direct children.
+- `List` `.ui-dense` also shrinks group labels in grouped lists, such as a dense Select.
+- `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
+- `Callout` links in a tonal callout take the hover color on keyboard focus too.
+- `Card` actions aligned to the end line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
+- `Accordion` content in a group without a variant lines up with the summary.
+- `Carousel` markers show in forced colors mode: they get a border, and the current marker is filled with `SelectedItem`.
+- `Carousel` scroll buttons and markers show the library focus ring instead of the thin browser ring.
+- `Carousel` stops smooth scrolling with `.ui-motion-off` or `--motion: 0`, like its other transitions. Before, only `prefers-reduced-motion` turned it off.
+- `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
+- `Range` tick labels line up with the thumb at both ends.
+- `Tabs` keep the DOM focus order in Chromium: the selected tab, then the content of its open panel. `reading-flow` put the panel content first.
+- `Tabs` show the whole focus ring on a focused tab. The next tab covered its end side.
+- `ToggleButton` keeps its selected tint on hover, also in a `ToggleGroup` and under `--contrast: more`, and a disabled selected button no longer changes on hover.
 
 ## 5.5.0 - 2026-09-28
 

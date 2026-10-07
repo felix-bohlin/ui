@@ -38,6 +38,10 @@ const whatsNew = {
       default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
       html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
     },
+    {
+      astro: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+      vue: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+    },
   ],
   button: [
     {
@@ -116,6 +120,11 @@ const whatsNew = {
       html: `Breaking: mark an invalid checkbox with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
     },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+    },
   ],
   chip: [
     {
@@ -130,6 +139,11 @@ const whatsNew = {
     {
       astro: `Breaking: <a href="#button"><code>as="button"</code></a> renders <code>type="button"</code> by default.`,
       vue: `Breaking: <a href="#button"><code>as="button"</code></a> renders <code>type="button"</code> by default.`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
   ],
   "description-list": [
@@ -209,6 +223,11 @@ const whatsNew = {
       html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#validation">Validation</a>).`,
       vue: `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
     },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+    },
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -268,6 +287,11 @@ const whatsNew = {
       astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
       html: `Breaking: mark an invalid switch with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code> and <code>.ui-large</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
     },
   ],
   table: [

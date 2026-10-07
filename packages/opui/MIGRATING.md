@@ -210,6 +210,8 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 + <ul class="ui-list ui-transparent">
 ```
 
+`.ui-end` only sizes an `svg` that is its direct child. An icon wrapped in another element inside `.ui-end` keeps its own size.
+
 ## List item
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).

@@ -89,13 +89,16 @@ import buttonGroupApi from "../../component-api/button-group/api"
 
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
+- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `Tabs.Item`. Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`.
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
 - `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
-- `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
+- `hydration`: per-framework props that need a client directive, each with a `description` and an optional `fallback`. They get a marker in the props table.
+- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
+  - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
   - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.

@@ -11,7 +11,7 @@ A CSS UI library built on [Open Props](https://open-props.style/). It ships fram
 
 Install with `npm install opui-css open-props`.
 
-- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`.
+- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then the base files (`open-props.css`, `core/palette.css`, `css/theme.css`, `core/normalize.css`) and one component at a time from `opui-css/css/components/<name>.css`. `references/<framework>/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. Vue: `import { Button } from "opui-css/vue"`. Both still need the CSS imported once.
 
@@ -19,6 +19,8 @@ Install with `npm install opui-css open-props`.
 
 - Every class is prefixed with `ui-`: a base class (`.ui-button`) plus modifiers (`.ui-filled`, `.ui-small`, `.ui-primary`).
 - Astro and Vue props mirror the modifiers without the prefix: `<Button variant="filled" size="small" color="primary">`.
+- Common modifiers: sizes `.ui-x-small`, `.ui-small`, `.ui-large` (not every component has all three), variants `.ui-filled`, `.ui-outlined`, `.ui-tonal`, colors `.ui-primary`, `.ui-critical`, severities `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`. The reference lists which apply.
+- Buttons: give `<button>` a `type`. When a button has an icon, wrap the label in `<span class="ui-text">` (also inside `<Button>`); a button whose only element is an `svg` is styled as icon-only.
 - Components lean on native HTML: `<dialog>`, `popover`, invoker commands (`commandfor` / `command`), `<details>`. Prefer these over custom JavaScript.
 - Styles live in cascade layers (`openprops, theme, normalize, components.prose, components.root, components.extended, utils`). Put overrides in a later layer or leave them unlayered.
 

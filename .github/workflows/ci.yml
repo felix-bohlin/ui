@@ -21,11 +21,12 @@ jobs:
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-      - run: git diff --exit-code -- public/search-index.json
+      - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references
+      - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: pnpm --package=netlify-cli@27.11.2 dlx netlify deploy --prod --no-build --dir=dist --filter open-props-ui-docs --message "Deploy ${GITHUB_SHA::7}"
         env:
@@ -54,7 +55,7 @@ jobs:
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:e2e

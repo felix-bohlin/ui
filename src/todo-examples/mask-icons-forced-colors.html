@@ -7,16 +7,8 @@
         :where(.ui-text-field:has(input[list])) .ui-field::after {
           background-color: ButtonText;
         }
-
-        :where(.ui-toast)[data-severity] .ui-icon {
-          background-color: CanvasText;
-        }
       }
     }
-  }
-
-  .todo-static-toast {
-    animation: none;
   }
 </style>
 <div class="todo-compare">
@@ -24,8 +16,8 @@
     <p class="todo-label">Current</p>
     <p class="todo-note">
       Chrome DevTools &gt; Rendering &gt; Emulate CSS media feature
-      forced-colors: active. The select and autosuggest chevrons and the toast
-      icon turn <code>Canvas</code> on <code>Canvas</code> and vanish.
+      forced-colors: active. The select and autosuggest chevrons turn
+      <code>Canvas</code> on <code>Canvas</code> and vanish.
     </p>
     <label class="ui-select">
       <span class="ui-label">Classic</span>
@@ -57,21 +49,12 @@
         <option value="Ray Manzarek"></option>
       </datalist>
     </label>
-    <div
-      class="ui-toast todo-static-toast"
-      data-severity="success"
-      role="alert"
-    >
-      <span class="ui-icon"></span>
-      <div class="ui-content"><div class="ui-title">Saved</div></div>
-    </div>
     <p class="todo-measure" data-measure></p>
   </section>
   <section class="todo-fixed">
     <p class="todo-label">With the fix</p>
     <p class="todo-note">
-      In forced colors, the chevrons use <code>ButtonText</code> and the toast
-      icon <code>CanvasText</code>.
+      In forced colors, the chevrons use <code>ButtonText</code>.
     </p>
     <label class="ui-select">
       <span class="ui-label">Classic</span>
@@ -103,14 +86,6 @@
         <option value="Ray Manzarek"></option>
       </datalist>
     </label>
-    <div
-      class="ui-toast todo-static-toast"
-      data-severity="success"
-      role="alert"
-    >
-      <span class="ui-icon"></span>
-      <div class="ui-content"><div class="ui-title">Saved</div></div>
-    </div>
     <p class="todo-measure" data-measure></p>
   </section>
 </div>
@@ -128,7 +103,6 @@
         `classic ::after: ${bg(classic, "::after")}`,
         `::picker-icon: ${bg(custom.querySelector("select"), "::picker-icon")}`,
         `autosuggest ::after: ${bg(panel.querySelector(".ui-text-field .ui-field"), "::after")}`,
-        `toast icon: ${bg(panel.querySelector(".ui-toast .ui-icon"))}`,
         `page background: ${bg(document.documentElement)}`,
       ].join("\n")
     }

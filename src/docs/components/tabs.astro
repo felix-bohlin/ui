@@ -28,7 +28,6 @@ import tabsApi from "../../component-api/tabs/api"
     "color-mix",
     "container-queries",
     "light-dark",
-    "reading-flow",
     "scrollbar-width",
   ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
@@ -172,17 +171,18 @@ import tabsApi from "../../component-api/tabs/api"
 
     <ul>
       <li>
-        <strong>Tab</strong>: Moves focus to the active tab trigger (the radio
-        button). Pressing Tab again moves focus out of the tabs to the next
-        focusable element.
+        <strong>Tab</strong>: Moves focus to the selected tab (its radio
+        button), then into the open panel, then to the next focusable element
+        after the tabs.
       </li>
       <li>
-        <strong>Right Arrow / Down Arrow</strong>: Moves focus to the next tab
-        and activates it.
+        <strong>Down Arrow / Up Arrow</strong>: Moves focus to the next or
+        previous tab and selects it.
       </li>
       <li>
-        <strong>Left Arrow / Up Arrow</strong>: Moves focus to the previous tab
-        and activates it.
+        <strong>Right Arrow / Left Arrow</strong>: Moves focus to the next or
+        previous tab and selects it, following the reading direction. In
+        right-to-left text, Left Arrow moves to the next tab.
       </li>
     </ul>
   </Fragment>

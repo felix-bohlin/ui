@@ -10,6 +10,7 @@ export default {
       attribute: "[name]",
       description: "The name shared by the tab inputs. Generated when omitted.",
       group: "Group",
+      htmlDescription: "The name shared by the tab inputs.",
       part: ".ui-tab-input",
       prop: "name",
     },

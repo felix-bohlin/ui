@@ -25,7 +25,6 @@
     flex-wrap: wrap;
     gap: 0;
     position: relative;
-    reading-flow: flex-visual;
 
     & > .ui-tab-input[type="radio"] {
       /* utils > .ui-sr-only */
@@ -60,10 +59,14 @@
       }
 
       &:focus-visible {
-        & + .ui-tab-label::before {
-          outline: var(--focus-ring-width) var(--focus-ring-style)
-            var(--focus-ring-color, var(--text-muted));
-          outline-offset: var(--focus-ring-offset, 0);
+        & + .ui-tab-label {
+          z-index: 1;
+
+          &::before {
+            outline: var(--focus-ring-width) var(--focus-ring-style)
+              var(--focus-ring-color, var(--text-muted));
+            outline-offset: var(--focus-ring-offset, 0);
+          }
         }
       }
     }
@@ -194,7 +197,6 @@
       grid-template-columns: repeat(20, max-content) minmax(0, 1fr);
       overflow-x: auto;
       overscroll-behavior-inline: contain;
-      reading-flow: grid-rows;
       scrollbar-width: thin;
 
       & > .ui-tab-input[type="radio"] {

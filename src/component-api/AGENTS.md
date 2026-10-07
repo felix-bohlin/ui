@@ -99,6 +99,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
   - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
+  - `htmlDescription` replaces the description in the HTML table, for an option whose HTML use differs, such as a `name` that Astro and Vue generate.
   - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.

@@ -15,19 +15,25 @@
 
   .todo-box {
     inline-size: min(100%, 400px);
+    margin-block-end: var(--size-7);
     outline: 1px dashed var(--critical);
   }
 
   .todo-box .ui-carousel {
     --_block-size: 12rem;
+
+    outline: 1px solid var(--info);
   }
 </style>
 <div class="todo-compare">
   <section class="todo-current">
     <p class="todo-label">Current</p>
     <p class="todo-note">
-      Vertical, buttons outside, markers: the marker column sits past the dashed
-      box.
+      Vertical, buttons outside, markers. The dashed line is the parent box, the
+      solid line the carousel. The carousel fills the parent, so the marker
+      column to its right sits outside the parent. Scroll buttons need Chromium
+      144 or later and sit in the wrong place before that, but the markers show
+      the overflow either way.
     </p>
     <div class="todo-box">
       <ul
@@ -54,8 +60,10 @@
   <section class="todo-fixed">
     <p class="todo-label">With the fix</p>
     <p class="todo-note">
-      The outside-buttons block keeps <code>margin-inline: 0</code> and adds the
-      marker space when <code>.ui-with-markers</code> is set (0,4,0).
+      The outside-buttons rule keeps <code>margin-inline: 0</code> and adds the
+      marker space back with a <code>margin-inline-end</code> when
+      <code>.ui-with-markers</code> is set. The carousel is 24px narrower and
+      the markers end at the parent's edge.
     </p>
     <div class="todo-box">
       <ul
@@ -100,7 +108,8 @@
       gap +
       parseFloat(marker.inlineSize)
     panel.querySelector("[data-measure]").textContent =
-      `margin-inline: ${style.marginInlineStart} ${style.marginInlineEnd}\n` +
-      `markers end ${Math.round(markersEnd - box.right)}px past the box`
+      `carousel margin-inline: ${style.marginInlineStart} ${style.marginInlineEnd}\n` +
+      `carousel ends ${Math.round(box.right - carousel.getBoundingClientRect().right)}px before the parent's end\n` +
+      `markers end ${Math.round(markersEnd - box.right)}px past the parent's end`
   }
 </script>

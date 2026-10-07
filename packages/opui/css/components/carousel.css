@@ -57,6 +57,18 @@
       scroll-behavior: smooth;
     }
 
+    @container style(--motion: 0) {
+      scroll-behavior: auto;
+    }
+
+    @container not style(--motion: 0) {
+      scroll-behavior: smooth;
+    }
+
+    &.ui-motion-off {
+      scroll-behavior: auto;
+    }
+
     & > * {
       counter-increment: ui-carousel-item;
       min-inline-size: 0;
@@ -213,6 +225,12 @@
         opacity: var(--_button-disabled-opacity);
       }
 
+      &::scroll-button(*):focus-visible {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, var(--text-primary));
+        outline-offset: var(--focus-ring-offset);
+      }
+
       &.ui-buttons-persistent {
         --_button-disabled-opacity: 1;
       }
@@ -253,6 +271,7 @@
         background-color: var(--_marker-color);
         block-size: var(--_marker-size);
         border-radius: var(--radius-round);
+        box-sizing: border-box;
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
@@ -262,6 +281,23 @@
 
       & > *::scroll-marker:target-current {
         background-color: var(--_marker-color-active);
+      }
+
+      & > *::scroll-marker:focus-visible {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, var(--text-primary));
+        outline-offset: var(--focus-ring-offset);
+      }
+
+      @media (forced-colors: active) {
+        & > *::scroll-marker {
+          border: var(--border-width) solid ButtonText;
+        }
+
+        & > *::scroll-marker:target-current {
+          background-color: SelectedItem;
+          border-color: SelectedItem;
+        }
       }
     }
 

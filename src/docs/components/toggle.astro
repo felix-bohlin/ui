@@ -83,6 +83,35 @@ export const description =
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Add the class to a <code
+          >.ui-toggle-button</code
+        >, or to a <code>.ui-toggle-group</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" centered row />
+  </section>
+
+  <section>
     <h2 id="toggle-group">Toggle group</h2>
     <Conditional as="p">
       <Fragment slot="astro">
@@ -137,6 +166,21 @@ export const description =
     <AutoExample name="Alignment" centered />
 
     <h3 id="text-icon">Text + icon</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+      <Fragment slot="html">
+        Put an <code>svg</code> before the text. Icon-only buttons need an <code
+          >aria-label</code
+        > on the input.
+      </Fragment>
+      <Fragment slot="vue">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Interactive" centered />
 
@@ -157,27 +201,6 @@ export const description =
       </p>
     </Conditional>
     <AutoExample name="Vertical" centered />
-
-    <h3 id="sizes">Sizes</h3>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>, <code
-          >.ui-small</code
-        >, default and <code>.ui-large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Sizes" centered row />
 
     <h3 id="overflow">Overflow</h3>
     <Conditional as="p">
@@ -221,11 +244,3 @@ export const description =
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-toggle-group
-    .ui-toggle-button:has(input:checked).has-text
-    svg:nth-of-type(2) {
-    display: none;
-  }
-</style>

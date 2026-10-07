@@ -4,7 +4,7 @@
 
 <Button
   color="critical"
-  commandfor="alert-dialog"
+  commandfor="alert-dialog-example"
   command="show-modal"
   variant="outlined"
 >
@@ -12,7 +12,7 @@
 </Button>
 
 <Dialog
-  id="alert-dialog"
+  id="alert-dialog-example"
   role="alertdialog"
   aria-describedby="alert-dialog-description"
 >
@@ -21,12 +21,12 @@
       This deletes the project and all its files. You can't undo this.
     </p>{/snippet}
   {#snippet actions()}
-    <Button commandfor="alert-dialog" command="close" type="button">
+    <Button commandfor="alert-dialog-example" command="close" type="button">
       Cancel
     </Button>
     <Button
       color="critical"
-      commandfor="alert-dialog"
+      commandfor="alert-dialog-example"
       command="close"
       type="button"
       variant="filled"

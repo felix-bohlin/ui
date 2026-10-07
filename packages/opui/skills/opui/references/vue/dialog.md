@@ -83,7 +83,7 @@ import { Button, Dialog } from "opui-css/vue"
 <template>
   <Button
     color="critical"
-    commandfor="alert-dialog"
+    commandfor="alert-dialog-example"
     command="show-modal"
     variant="outlined"
   >
@@ -92,7 +92,7 @@ import { Button, Dialog } from "opui-css/vue"
 
 
   <Dialog
-    id="alert-dialog"
+    id="alert-dialog-example"
     role="alertdialog"
     aria-describedby="alert-dialog-description"
   >
@@ -103,12 +103,12 @@ import { Button, Dialog } from "opui-css/vue"
       </p></template
     >
     <template #actions>
-      <Button commandfor="alert-dialog" command="close" type="button">
+      <Button commandfor="alert-dialog-example" command="close" type="button">
         Cancel
       </Button>
       <Button
         color="critical"
-        commandfor="alert-dialog"
+        commandfor="alert-dialog-example"
         command="close"
         type="button"
         variant="filled"

@@ -122,18 +122,24 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 <label class="ui-textarea">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea aria-describedby="end-text-1" placeholder="Default"></textarea>
+    <textarea
+      aria-describedby="supporting-end-text-1"
+      placeholder="Default"
+    ></textarea>
   </span>
-  <span class="ui-end-text" id="end-text-1">Supporting text</span>
+  <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
 </label>
 
 
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea aria-describedby="end-text-2" placeholder="Filled"></textarea>
+    <textarea
+      aria-describedby="supporting-end-text-2"
+      placeholder="Filled"
+    ></textarea>
   </span>
-  <span class="ui-end-text" id="end-text-2">Supporting text</span>
+  <span class="ui-end-text" id="supporting-end-text-2">Supporting text</span>
 </label>
 ```
 
@@ -220,12 +226,12 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <textarea
-        aria-describedby="end-text-1"
+        aria-describedby="validation-end-text-1"
         aria-invalid="true"
         placeholder="Default"
       ></textarea>
     </span>
-    <span class="ui-end-text" id="end-text-1"
+    <span class="ui-end-text" id="validation-end-text-1"
       >Only double-negatives are allowed.</span
     >
   </label>
@@ -233,12 +239,12 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <textarea
-        aria-describedby="end-text-2"
+        aria-describedby="validation-end-text-2"
         aria-invalid="true"
         placeholder="Filled"
       ></textarea>
     </span>
-    <span class="ui-end-text" id="end-text-2"
+    <span class="ui-end-text" id="validation-end-text-2"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -267,11 +273,13 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Add any additional notes or comments</span>
   <span class="ui-field">
     <textarea
-      aria-describedby="end-text-1"
+      aria-describedby="orientation-end-text-1"
       placeholder="Additional notes..."
     ></textarea>
   </span>
-  <span class="ui-end-text" id="end-text-1">Maximum 500 characters</span>
+  <span class="ui-end-text" id="orientation-end-text-1"
+    >Maximum 500 characters</span
+  >
 </label>
 
 
@@ -297,9 +305,14 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Message</span>
   <span class="ui-start-text">This textarea has an error</span>
   <span class="ui-field">
-    <textarea aria-describedby="end-text-2" aria-invalid="true"></textarea>
+    <textarea
+      aria-describedby="orientation-end-text-2"
+      aria-invalid="true"
+    ></textarea>
   </span>
-  <span class="ui-end-text" id="end-text-2">This value is too short.</span>
+  <span class="ui-end-text" id="orientation-end-text-2"
+    >This value is too short.</span
+  >
 </label>
 
 
@@ -337,13 +350,15 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
     <textarea
-      aria-describedby="end-text-3"
+      aria-describedby="orientation-end-text-3"
       placeholder="Markdown supported..."
     ></textarea>
     <span class="ui-header">v1.4.0</span>
     <span class="ui-footer">Saved 2 minutes ago</span>
   </span>
-  <span class="ui-end-text" id="end-text-3">Drafts are auto-saved</span>
+  <span class="ui-end-text" id="orientation-end-text-3"
+    >Drafts are auto-saved</span
+  >
 </label>
 ```
 

@@ -80,7 +80,7 @@ import { Button } from "opui-css/astro"
 
 <Button
   color="critical"
-  commandfor="alert-dialog"
+  commandfor="alert-dialog-example"
   command="show-modal"
   variant="outlined"
 >
@@ -89,7 +89,7 @@ import { Button } from "opui-css/astro"
 
 
 <Dialog
-  id="alert-dialog"
+  id="alert-dialog-example"
   role="alertdialog"
   aria-describedby="alert-dialog-description"
 >
@@ -98,12 +98,12 @@ import { Button } from "opui-css/astro"
     This deletes the project and all its files. You can't undo this.
   </p>
   <Fragment slot="actions">
-    <Button commandfor="alert-dialog" command="close" type="button">
+    <Button commandfor="alert-dialog-example" command="close" type="button">
       Cancel
     </Button>
     <Button
       color="critical"
-      commandfor="alert-dialog"
+      commandfor="alert-dialog-example"
       command="close"
       type="button"
       variant="filled"

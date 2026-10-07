@@ -122,9 +122,13 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 <label class="ui-text-field">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <input aria-describedby="end-text-1" type="text" placeholder="Outlined" />
+    <input
+      aria-describedby="supporting-end-text-1"
+      type="text"
+      placeholder="Outlined"
+    />
   </span>
-  <span class="ui-end-text" id="end-text-1">Supporting text</span>
+  <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
 </label>
 ```
 
@@ -237,14 +241,14 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
-        aria-describedby="end-text-1"
+        aria-describedby="validation-end-text-1"
         aria-invalid="true"
         type="text"
         placeholder="Placeholder"
         value="This isn't right"
       />
     </span>
-    <span class="ui-end-text" id="end-text-1"
+    <span class="ui-end-text" id="validation-end-text-1"
       >Only double-negatives are allowed.</span
     >
   </label>
@@ -252,14 +256,14 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
-        aria-describedby="end-text-2"
+        aria-describedby="validation-end-text-2"
         aria-invalid="true"
         type="text"
         placeholder="Placeholder"
         value="Uh-oh"
       />
     </span>
-    <span class="ui-end-text" id="end-text-2"
+    <span class="ui-end-text" id="validation-end-text-2"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -285,12 +289,12 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">We'll use this to contact you</span>
   <span class="ui-field">
     <input
-      aria-describedby="end-text-1"
+      aria-describedby="orientation-end-text-1"
       type="email"
       placeholder="you@example.com"
     />
   </span>
-  <span class="ui-end-text" id="end-text-1"
+  <span class="ui-end-text" id="orientation-end-text-1"
     >Please use a valid email address</span
   >
 </label>
@@ -318,9 +322,15 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Name</span>
   <span class="ui-start-text">This field has an error</span>
   <span class="ui-field">
-    <input aria-describedby="end-text-2" aria-invalid="true" type="text" />
+    <input
+      aria-describedby="orientation-end-text-2"
+      aria-invalid="true"
+      type="text"
+    />
   </span>
-  <span class="ui-end-text" id="end-text-2">This value is too short.</span>
+  <span class="ui-end-text" id="orientation-end-text-2"
+    >This value is too short.</span
+  >
 </label>
 
 
@@ -340,13 +350,15 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Your public profile URL</span>
   <span class="ui-field">
     <input
-      aria-describedby="end-text-3"
+      aria-describedby="orientation-end-text-3"
       type="text"
       placeholder="example.com"
     />
     <span class="ui-prefix">https://</span>
   </span>
-  <span class="ui-end-text" id="end-text-3">Must include a valid domain</span>
+  <span class="ui-end-text" id="orientation-end-text-3"
+    >Must include a valid domain</span
+  >
 </label>
 
 
@@ -366,7 +378,7 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Stored encrypted at rest</span>
   <span class="ui-field">
     <input
-      aria-describedby="end-text-4"
+      aria-describedby="orientation-end-text-4"
       type="password"
       placeholder="Paste your key"
     />
@@ -388,7 +400,9 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-header">Secret</span>
     <span class="ui-footer">Rotates every 90 days</span>
   </span>
-  <span class="ui-end-text" id="end-text-4">Treat like a password</span>
+  <span class="ui-end-text" id="orientation-end-text-4"
+    >Treat like a password</span
+  >
 </label>
 ```
 

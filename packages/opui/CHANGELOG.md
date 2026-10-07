@@ -19,7 +19,9 @@
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone, use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant`. The open panel gets a `--size-2` top margin.
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles. Use the `.ui-h1`–`.ui-h6` classes to style a heading that has a class.
 - `Typography` theme tokens: `--font-size-h3` is fluid with a higher minimum (`clamp(var(--font-size-3), 4vw, var(--font-size-4))`), `--font-size-h4` scales between `--font-size-2` and `--font-size-3` instead of a fixed `--font-size-3`, and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
+- `Typography` rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`. If you declare the layer order yourself, add `components.prose` before `components.root`, or it sorts after `components.extended` and prose styles beat component styles inside rich text.
 - `theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)` and unused). The global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`, and keeps its inverted page background color while `--focus-ring-color` is unset. Set `--focus-ring-color` yourself where you read it.
+- `theme.css` holds `--motion` and its `prefers-reduced-motion` default, which moved from `core/normalize.css`. The `.ui-motion-*` classes moved to `core/utils.css`. If you import single files, import `theme.css` and `utils.css` too, or `--motion` is undefined and the `.ui-motion-*` classes are missing.
 - `Avatar` requires `alt` when `src` is set (types). `alt=""` is still allowed for decorative images.
 - `Tooltip` requires an `id` (types). Without it the trigger can't reference the tooltip.
 - `Button`, and `Chip` and `Avatar` with `as="button"`, render `type="button"` by default in Astro and Vue, so they no longer submit forms. Pass `type="submit"` for submit buttons.
@@ -107,7 +109,7 @@
 - `Typography` rich text figure captions are muted and start-aligned under quotes, code blocks and tables.
 - `Typography` heading group subtitle line heights and spacing, in rich text `hgroup` and `.ui-hgroup`, snap to `--rhythm-step`.
 - `Typography` headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
-- `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--field-border-width`, instead of a hardcoded `1px`.
+- `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--field-border-width`, instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu`, the `Progress` high contrast outline and the `Textarea` minimum height also read `--border-width`, and `Select` reads `--field-border-width`.
 - `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
 - `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
 - `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px, with the same `--font-size-05` text as a small `Button`.
@@ -121,9 +123,7 @@
 - `Avatar` and `Badge` text uses `--primary-contrast`.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 - `Avatar`, `List` and `ButtonGroup` sizes follow `--control-size` and `--button-size-*`.
-- `theme.css` holds `--motion` and its `prefers-reduced-motion` default, which moved from `core/normalize.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
 - `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.
-- `Typography` rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
 - `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
 - `Menu` has a subtle light gray border in dark mode (`--gray-6` at 40% opacity).
 - `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.

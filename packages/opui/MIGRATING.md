@@ -400,7 +400,7 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`.
+Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu`, the `Progress` high contrast outline and the `Textarea` minimum height also read `--border-width`, and `Select` reads `--field-border-width`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
@@ -498,9 +498,9 @@ Note: Components that use `critical` for severity styling (such as `Button`, `Ca
 
 # Migrating from v4 to v5
 
-v5 prefixes every OPUI-owned class with `ui-`. The component prop API is unchanged; only the rendered class names change.
+v5 prefixes every OPUI-owned class with `ui-`. The component props are unchanged apart from the changes at the end of this section, and the components render the prefixed classes.
 
-If you use the framework component (e.g. `<Button size="small" variant="outlined">`), you don't need to do anything - the component emits the prefixed classes for you.
+If you use the framework component (e.g. `<Button size="small" variant="outlined">`), the component emits the prefixed classes for you.
 
 If you use raw HTML or write CSS that targets library classes, you must rename every reference:
 
@@ -517,6 +517,19 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
 CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged.
+
+These changes in 5.0.0 and 5.0.1 need a code change too:
+
+- `Avatar` no longer takes `spacing`, and the group gap classes that went with it are removed.
+- `ToggleButton` no longer adds an unprefixed `selected` class when pressed. Style the checked input instead, e.g. `.ui-toggle-button:has(input:checked)`.
+- `Progress` (5.0.1): `.ui-progress` and its variant classes (`.ui-default`, `.ui-filled`, `.ui-tonal`) go on a wrapper `<div>` around `<progress>`. The Astro component renders the wrapper.
+
+```diff
+- <progress class="ui-progress ui-tonal" value="60" max="100"></progress>
++ <div class="ui-progress ui-tonal">
++   <progress value="60" max="100"></progress>
++ </div>
+```
 
 # Migrating from v3 to v4
 
@@ -614,7 +627,11 @@ Put your overrides in a later layer or unlayered. If your app already declared `
 
 The source files under `components/` and `css/components/` are unminified and free to vendor in - the license is unchanged (MIT).
 
-## 10. Pinning v3
+## 10. Card and Dialog `actionsAlign` (4.1.0)
+
+The Astro `Card` and `Dialog` no longer take an `actions` prop with an `align` field. Set the `actionsAlign` prop (`"start"` or `"end"`) instead.
+
+## 11. Pinning v3
 
 If you're not ready to migrate, pin the last v3 release:
 

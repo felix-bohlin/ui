@@ -1,0 +1,164 @@
+<style>
+  .todo-stage {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 20rem);
+
+    .fieldset {
+      all: unset;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .fieldset legend {
+      all: unset;
+      font-weight: 600;
+      margin-block-end: 0.75rem;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .group + .group {
+      margin-block-start: 1.25rem;
+    }
+
+    .group:has(> .check):not(:has(> :not(.check))) {
+      gap: 0.5rem;
+    }
+
+    .group:has(> button):not(.column, :has(> :not(button))) {
+      align-items: center;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    .field {
+      display: grid;
+      gap: var(--size-1);
+    }
+
+    .check {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+    }
+
+    .group button {
+      background-color: var(--surface-tonal);
+      border: var(--border-width, 1px) solid var(--border-color);
+      border-radius: var(--radius-2);
+      color: inherit;
+      font: inherit;
+      padding: var(--size-1) var(--size-3);
+    }
+  }
+
+  .todo-fixed .todo-stage {
+    .group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
+      margin-block-start: 1rem;
+    }
+
+    .group.column:has(> button):not(:has(> :not(button))) {
+      align-items: start;
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The walkthrough demo: Cancel and Save sit inside the "Notifications"
+      fieldset. Below, a buttons-only .group.column stretches its buttons.
+    </p>
+    <div class="todo-stage">
+      <form class="form">
+        <fieldset class="fieldset">
+          <legend>Notifications</legend>
+          <div class="group">
+            <label class="field">
+              Email address
+              <input name="todo-email-current" required type="email" />
+            </label>
+          </div>
+          <div class="group">
+            <label class="check"
+              ><input checked name="todo-channel-current" type="checkbox" />
+              Email</label
+            >
+            <label class="check"
+              ><input name="todo-channel-current" type="checkbox" /> SMS</label
+            >
+          </div>
+          <div class="group">
+            <button type="reset">Cancel</button>
+            <button type="button">Save</button>
+          </div>
+        </fieldset>
+      </form>
+      <div class="group column">
+        <button type="button">Save draft</button>
+        <button type="button">Publish</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The action group follows the fieldset and gets a 1rem top margin; a
+      buttons-only .group.column aligns its buttons to the start.
+    </p>
+    <div class="todo-stage">
+      <form class="form">
+        <fieldset class="fieldset">
+          <legend>Notifications</legend>
+          <div class="group">
+            <label class="field">
+              Email address
+              <input name="todo-email-fixed" required type="email" />
+            </label>
+          </div>
+          <div class="group">
+            <label class="check"
+              ><input checked name="todo-channel-fixed" type="checkbox" />
+              Email</label
+            >
+            <label class="check"
+              ><input name="todo-channel-fixed" type="checkbox" /> SMS</label
+            >
+          </div>
+        </fieldset>
+        <div class="group">
+          <button type="reset">Cancel</button>
+          <button type="button">Save</button>
+        </div>
+      </form>
+      <div class="group column">
+        <button type="button">Save draft</button>
+        <button type="button">Publish</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const fieldset = panel.querySelector("fieldset")
+    const save = panel.querySelector("form button[type=button]")
+    fieldset.disabled = true
+    const disabled = save.matches(":disabled")
+    fieldset.disabled = false
+    const actions = save.parentElement
+    const column = [...panel.querySelectorAll(".column button")]
+    panel.querySelector("[data-measure]").textContent = [
+      `Save inside the fieldset: ${fieldset.contains(save)}`,
+      `<fieldset disabled> disables Save: ${disabled}`,
+      `action group margin-top: ${getComputedStyle(actions).marginTop}`,
+      `.column button widths: ${column.map((b) => `${b.offsetWidth}px`).join(", ")}`,
+    ].join("\n")
+  }
+</script>

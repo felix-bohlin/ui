@@ -1,85 +1,137 @@
-<style>
-  .todo-log {
-    background-color: var(--surface-tonal);
-    border-radius: var(--border-radius);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-0);
-    inline-size: 100%;
-    margin: 0;
-    max-block-size: 12rem;
-    overflow: auto;
-    padding: var(--size-2) var(--size-3);
-    white-space: pre-wrap;
-  }
-
-  .todo-stack {
-    display: grid;
-    gap: var(--size-3);
-    justify-items: start;
-  }
-</style>
-<div class="todo-stack">
-  <p>
-    Open the dialog and press <kbd>Tab</kbd> past "Subscribe" (or
-    <kbd>Shift</kbd> + <kbd>Tab</kbd> past "Not now"). The log shows where focus
-    went. Use "Open in a new tab" for the real thing: inside this iframe, focus
-    leaves for the todo page instead of the browser UI.
-  </p>
-  <button
-    type="button"
-    commandfor="todo-focus-dialog"
-    command="show-modal"
-    class="ui-button ui-outlined"
-  >
-    Open dialog
-  </button>
-  <button type="button" class="ui-button">Behind the dialog (inert)</button>
-  <pre class="todo-log" aria-live="polite"></pre>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Docs, Tab row: "When focus is on the last focusable element in the dialog,
+      moves focus to the first focusable element in the dialog." Open the dialog
+      and press Tab past "Subscribe" (or Shift + Tab past "Not now"): focus
+      leaves the page instead of wrapping. Use "Open in a new tab" to see it
+      reach the browser UI; in this iframe it reaches the todo page.
+    </p>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-focus-dialog-current"
+        command="show-modal"
+      >
+        Open dialog
+      </button>
+      <button type="button" class="ui-button">Behind the dialog (inert)</button>
+    </div>
+    <dialog
+      id="todo-focus-dialog-current"
+      class="ui-dialog ui-card ui-elevated"
+      aria-labelledby="todo-focus-dialog-current-title"
+    >
+      <hgroup id="todo-focus-dialog-current-title">
+        <h2 class="ui-h4">Newsletter</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p>Tab past the last button and watch the log behind the backdrop.</p>
+      </div>
+      <div class="ui-actions">
+        <button
+          type="button"
+          class="ui-button"
+          commandfor="todo-focus-dialog-current"
+          command="close"
+        >
+          Not now
+        </button>
+        <button
+          type="button"
+          class="ui-button ui-filled"
+          commandfor="todo-focus-dialog-current"
+          command="close"
+        >
+          Subscribe
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed Tab row: "After the last one, focus moves to the browser's own
+      controls (like the address bar), then back to the first element in the
+      dialog. The page behind it is inert." Esc row: "Closes the dialog, unless
+      <code>closedby="none"</code>, and returns focus to the element that opened
+      it." Same dialog, now matching the docs.
+    </p>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-focus-dialog-fixed"
+        command="show-modal"
+      >
+        Open dialog
+      </button>
+      <button type="button" class="ui-button">Behind the dialog (inert)</button>
+    </div>
+    <dialog
+      id="todo-focus-dialog-fixed"
+      class="ui-dialog ui-card ui-elevated"
+      aria-labelledby="todo-focus-dialog-fixed-title"
+    >
+      <hgroup id="todo-focus-dialog-fixed-title">
+        <h2 class="ui-h4">Newsletter</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p>Tab past the last button and watch the log behind the backdrop.</p>
+      </div>
+      <div class="ui-actions">
+        <button
+          type="button"
+          class="ui-button"
+          commandfor="todo-focus-dialog-fixed"
+          command="close"
+        >
+          Not now
+        </button>
+        <button
+          type="button"
+          class="ui-button ui-filled"
+          commandfor="todo-focus-dialog-fixed"
+          command="close"
+        >
+          Subscribe
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
-<dialog
-  id="todo-focus-dialog"
-  class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="todo-focus-dialog-title"
->
-  <hgroup id="todo-focus-dialog-title">
-    <h2 class="ui-h4">Newsletter</h2>
-  </hgroup>
-  <div class="ui-content">
-    <p>Tab past the last button and watch the log behind the backdrop.</p>
-  </div>
-  <div class="ui-actions">
-    <button
-      commandfor="todo-focus-dialog"
-      command="close"
-      class="ui-button"
-      type="button"
-    >
-      Not now
-    </button>
-    <button
-      commandfor="todo-focus-dialog"
-      command="close"
-      class="ui-button ui-filled"
-      type="button"
-    >
-      Subscribe
-    </button>
-  </div>
-</dialog>
 <script>
   {
-    const log = document.querySelector(".todo-log")
-    const dialog = document.querySelector("#todo-focus-dialog")
     const describe = () => {
       const element = document.activeElement
       if (!document.hasFocus()) return "outside the page (browser UI)"
       if (!element || element === document.body) return "body"
       return `"${element.textContent.trim()}"`
     }
+    let active
     const write = (event) => {
-      if (!dialog.open && event !== "close") return
-      log.textContent += `${event}: focus on ${describe()}\n`
-      log.scrollTop = log.scrollHeight
+      if (!active) return
+      const log = active.querySelector("[data-measure]")
+      log.textContent += `${log.textContent ? "\n" : ""}${event}: focus on ${describe()}`
+      if (event === "close") active = undefined
+    }
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const dialog = panel.querySelector("dialog")
+      dialog.addEventListener("toggle", (event) => {
+        if (event.newState !== "open") return
+        active = panel
+        panel.querySelector("[data-measure]").textContent = ""
+        setTimeout(() => write("open"), 0)
+      })
+      dialog.addEventListener("close", () =>
+        setTimeout(() => write("close"), 0),
+      )
     }
     document.addEventListener("keyup", (event) => {
       if (event.key === "Tab" && document.hasFocus())
@@ -89,6 +141,5 @@
     window.addEventListener("focus", () =>
       setTimeout(() => write("Tab back in"), 0),
     )
-    dialog.addEventListener("close", () => setTimeout(() => write("close"), 0))
   }
 </script>

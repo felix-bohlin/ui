@@ -5,6 +5,12 @@ const steps = [
   {
     css: `
 .radio {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -17,13 +23,27 @@ const steps = [
 }
 
 .radio:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }`,
-    features: ["appearance"],
+    features: ["appearance", "light-dark", "relative-color"],
+    html: `
+<fieldset>
+  <legend>Plan</legend>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" checked />
+    <span>Monthly</span>
+  </label>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" />
+    <span>Yearly</span>
+  </label>
+</fieldset>`,
     notes: [
       "<code>appearance: none</code> drops the native circle",
       "Still a radio group: one shared <code>name</code>, arrow keys move the selection",
+      "The <code>&lt;legend&gt;</code> names the group",
+      "In dark mode <code>--accent</code> caps the primary's lightness, so the light dot keeps 3:1",
     ],
     title: "Appearance",
   },
@@ -35,7 +55,7 @@ const steps = [
 }
 
 .radio::after {
-  background-color: var(--primary-contrast);
+  background-color: var(--accent-contrast);
   block-size: var(--dot);
   border-radius: 50%;
   content: "";
@@ -63,20 +83,19 @@ const steps = [
   grid-auto-flow: column;
 }
 
-.label:has(:disabled) {
+.label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
 
 .label > span {
-  margin-block-start: calc((1.25rem - 1cap) / 2);
-  text-box: trim-start cap alphabetic;
+  margin-block-start: calc((1.25rem - 1lh) / 2);
 }`,
-    features: ["has", "text-box"],
+    features: ["has", "lh"],
     notes: [
       "The <code>&lt;label&gt;</code> wraps the input, so the text is part of the hit area",
-      "<code>:has(:disabled)</code> dims the whole row from the input's state",
-      "<code>text-box: trim-start cap</code> + a <code>1cap</code> offset centers the capitals on the circle",
+      "<code>:has([disabled])</code> dims the whole row from the input's state",
+      "<code>(size − 1lh) / 2</code> centers the first line on the circle, in every browser",
     ],
     title: "Label",
   },
@@ -102,22 +121,25 @@ const items = [
 ---
 
 <BuildUp id="build-radio" knobs={knobs} steps={steps}>
-  <div class="stack">
-    {
-      items.map((item) => (
-        <label class="label">
-          <input
-            checked={item.checked}
-            class="radio"
-            disabled={item.disabled}
-            name="build-radio-plan"
-            type="radio"
-          />
-          <span>{item.label}</span>
-        </label>
-      ))
-    }
-  </div>
+  <fieldset class="ui-fieldset">
+    <legend>Plan</legend>
+    <div class="stack">
+      {
+        items.map((item) => (
+          <label class="label">
+            <input
+              checked={item.checked}
+              class="radio"
+              disabled={item.disabled}
+              name="build-radio-plan"
+              type="radio"
+            />
+            <span>{item.label}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
 </BuildUp>
 
 <style>

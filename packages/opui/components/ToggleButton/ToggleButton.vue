@@ -23,14 +23,7 @@ const inputId = computed(() => id || uid)
 </script>
 
 <template>
-  <label
-    :class="[
-      'ui-toggle-button',
-      { 'ui-disabled': disabled },
-      size && `ui-${size}`,
-      $props.class,
-    ]"
-  >
+  <label :class="['ui-toggle-button', size && `ui-${size}`, $props.class]">
     <input
       :checked="pressed"
       :disabled="disabled"

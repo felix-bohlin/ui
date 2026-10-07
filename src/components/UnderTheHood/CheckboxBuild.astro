@@ -5,6 +5,12 @@ const steps = [
   {
     css: `
 .checkbox {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -19,20 +25,21 @@ const steps = [
 }
 
 .checkbox:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }`,
-    features: ["appearance"],
+    features: ["appearance", "light-dark", "relative-color"],
     notes: [
       "<code>appearance: none</code> drops the native box, the input keeps focus, keyboard and form value",
       "<code>:checked</code> still matches: the fill is plain CSS",
+      "In dark mode <code>--accent</code> caps the primary's lightness, so the light check keeps 3:1",
     ],
     title: "Appearance",
   },
   {
     css: `
 .checkbox::after {
-  background-color: var(--primary-contrast);
+  background-color: var(--accent-contrast);
   clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
   content: "";
   inset: 0;
@@ -54,8 +61,8 @@ const steps = [
   {
     css: `
 .checkbox:indeterminate {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 
 .checkbox:indeterminate::after {
@@ -88,23 +95,46 @@ const steps = [
   grid-auto-flow: column;
 }
 
-.label:has(:disabled) {
+.label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
 
 .label > span {
-  margin-block-start: calc((var(--size) - 1cap) / 2);
-  text-box: trim-start cap alphabetic;
+  margin-block-start: calc((var(--size) - 1lh) / 2);
 }`,
-    features: ["has", "text-box"],
+    features: ["has", "lh"],
     notes: [
       "The <code>&lt;label&gt;</code> wraps the input, so the text is part of the hit area",
-      "<code>:has(:disabled)</code> dims the whole row from the input's state",
-      "<code>text-box: trim-start cap</code> + a <code>1cap</code> offset centers the capitals on the box",
+      "<code>:has([disabled])</code> dims the whole row from the input's state",
+      "<code>(size − 1lh) / 2</code> centers the first line on the box, in every browser",
       "Drag the size: the text stays centered",
     ],
     title: "Label",
+  },
+  {
+    css: `
+@media (forced-colors: active) {
+  .checkbox {
+    border-color: CanvasText;
+  }
+
+  .checkbox:is(:checked, :indeterminate) {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+  }
+
+  .checkbox:is(:checked, :indeterminate)::after {
+    background-color: SelectedItemText;
+  }
+}`,
+    features: ["forced-colors", "system-color"],
+    notes: [
+      "Forced colors swap author colors for the user's palette, so the fill and the check, both backgrounds, disappear",
+      "System colors are kept: <code>SelectedItem</code> for the fill, <code>SelectedItemText</code> for the check",
+      "Try it with forced colors emulation in DevTools",
+    ],
+    title: "Forced colors",
   },
 ]
 

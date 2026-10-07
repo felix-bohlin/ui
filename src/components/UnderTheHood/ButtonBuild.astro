@@ -50,7 +50,7 @@ const steps = [
   padding-inline-end: calc(var(--padding-inline) * 0.75);
 }`,
     html: `
-<button class="button">
+<button class="button" type="button">
   <svg>…</svg>
   <span>Download</span>
 </button>`,
@@ -89,6 +89,7 @@ const steps = [
 .ripple:hover:active {
   --ripple-scale: 1.1;
 }`,
+    features: ["clip-path", "transforms3d"],
     notes: [
       "<code>translateZ(-1px)</code> + <code>preserve-3d</code> puts the halo behind the button, no <code>z-index</code>",
       "<code>clip-path: circle()</code> keeps the halo round",
@@ -124,14 +125,14 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width=
 
 <BuildUp id="build-button" knobs={knobs} steps={steps}>
   <div class="row">
-    <button class="button">Download</button>
-    <button class="button" aria-label="Download"
+    <button class="button" type="button">Download</button>
+    <button aria-label="Download" class="button" type="button"
       ><Fragment set:html={icon} /></button
     >
-    <button class="button"
+    <button class="button" type="button"
       ><Fragment set:html={icon} /><span>Download</span></button
     >
-    <button class="button ripple" aria-label="Download"
+    <button aria-label="Download" class="button ripple" type="button"
       ><Fragment set:html={icon} /></button
     >
   </div>

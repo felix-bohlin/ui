@@ -1,0 +1,78 @@
+<style>
+  .todo-inline-drawer {
+    block-size: auto;
+    inline-size: 100%;
+    position: static;
+    translate: none;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Drawer footer API: "Lays out its content in a row, aligned to the end."
+      The inline-end drawer's footer below is aligned to the start.
+    </p>
+    <dialog open class="ui-drawer ui-inline-start todo-inline-drawer">
+      <div class="ui-content">Inline start</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-drawer ui-inline-end todo-inline-drawer">
+      <div class="ui-content">Inline end</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-drawer ui-block-end todo-inline-drawer">
+      <div class="ui-content">Block end</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed: "Lays out its content in a row, aligned to the end, or to the
+      start in an <code>inline-end</code> drawer." Same drawers.
+    </p>
+    <dialog open class="ui-drawer ui-inline-start todo-inline-drawer">
+      <div class="ui-content">Inline start</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-drawer ui-inline-end todo-inline-drawer">
+      <div class="ui-content">Inline end</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-drawer ui-block-end todo-inline-drawer">
+      <div class="ui-content">Block end</div>
+      <div class="ui-footer">
+        <button type="button" class="ui-button ui-small">Close</button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      panel.querySelector("[data-measure]").textContent = [
+        ...panel.querySelectorAll(".ui-drawer"),
+      ]
+        .map(
+          (drawer) =>
+            `${drawer.classList[1]} footer: justify-content ${getComputedStyle(drawer.querySelector(".ui-footer")).justifyContent}`,
+        )
+        .join("\n")
+    }
+  }
+</script>

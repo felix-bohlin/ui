@@ -1,0 +1,134 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-text-field, .ui-textarea, .ui-select):has(input[list])
+        .ui-label,
+      :where(.ui-text-field, .ui-textarea, .ui-select):has(select) .ui-label {
+        inline-size: auto;
+      }
+    }
+  }
+
+  .todo-compare .ui-text-field,
+  .todo-compare .ui-select {
+    inline-size: 12.5rem;
+  }
+
+  .todo-compare .ui-spread {
+    inline-size: 26rem;
+    max-inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Labels are 28px narrower than the field and wrap early, though they never
+      share a row with the chevron.
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="label-width-select-current"
+        >Preferred delivery window</span
+      >
+      <span class="ui-field">
+        <select aria-labelledby="label-width-select-current">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Morning</option>
+            <option>Evening</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Preferred delivery window</span>
+      <span class="ui-field">
+        <input type="text" list="label-width-list-current" />
+      </span>
+      <datalist id="label-width-list-current">
+        <option value="Morning"></option>
+        <option value="Evening"></option>
+      </datalist>
+    </label>
+    <label class="ui-select ui-spread">
+      <span class="ui-label" id="label-width-spread-current"
+        >Preferred delivery window</span
+      >
+      <span class="ui-field">
+        <select aria-labelledby="label-width-spread-current">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Morning</option>
+            <option>Evening</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Both label rules are removed (reset to <code>inline-size: auto</code>
+      here).
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="label-width-select-fixed"
+        >Preferred delivery window</span
+      >
+      <span class="ui-field">
+        <select aria-labelledby="label-width-select-fixed">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Morning</option>
+            <option>Evening</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Preferred delivery window</span>
+      <span class="ui-field">
+        <input type="text" list="label-width-list-fixed" />
+      </span>
+      <datalist id="label-width-list-fixed">
+        <option value="Morning"></option>
+        <option value="Evening"></option>
+      </datalist>
+    </label>
+    <label class="ui-select ui-spread">
+      <span class="ui-label" id="label-width-spread-fixed"
+        >Preferred delivery window</span
+      >
+      <span class="ui-field">
+        <select aria-labelledby="label-width-spread-fixed">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Morning</option>
+            <option>Evening</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-select, .ui-text-field")].map(
+      (root) => {
+        const label = root.querySelector(".ui-label").getBoundingClientRect()
+        const field = root.querySelector(".ui-field").getBoundingClientRect()
+        const overlap =
+          label.bottom > field.top && label.right > field.right - 28
+        const name = root.classList.contains("ui-spread")
+          ? "spread select"
+          : root.querySelector("select")
+            ? "select"
+            : "autosuggest"
+        return `${name}: label ${Math.round(label.width)}px × ${Math.round(label.height)}px, overlaps chevron ${overlap}`
+      },
+    )
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

@@ -1,0 +1,94 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      @media (hover: hover) {
+        :where(.ui-table) :is(thead, tfoot) > tr:hover > th,
+        :where(.ui-table) tfoot > tr:hover > td {
+          background-color: var(--surface-filled);
+        }
+
+        :where(.ui-table) tbody > tr:hover > :is(td, th) {
+          background-color: oklch(from var(--surface-filled) l c h / 75%);
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Hover the header row, then the footer row: both turn lighter.
+    </p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Band</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Radiohead</td>
+          <td>Ed O'Brien</td>
+        </tr>
+        <tr>
+          <td>Korn</td>
+          <td>Jonathan Davis</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">All great bands!</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Hover only repaints tbody rows. The old tr:hover rule is reset to the
+      filled background for thead and tfoot cells.
+    </p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Band</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Radiohead</td>
+          <td>Ed O'Brien</td>
+        </tr>
+        <tr>
+          <td>Korn</td>
+          <td>Jonathan Davis</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">All great bands!</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const show = () => {
+      const bg = (s) => getComputedStyle(panel.querySelector(s)).backgroundColor
+      panel.querySelector("[data-measure]").textContent = [
+        `thead th: ${bg("thead th")}`,
+        `tbody td: ${bg("tbody td")}`,
+        `tfoot td: ${bg("tfoot td")}`,
+      ].join("\n")
+    }
+    panel.addEventListener("mouseover", show)
+    panel.addEventListener("mouseout", show)
+    show()
+  }
+</script>

@@ -33,6 +33,13 @@ export default {
       values: { large: ".ui-large", small: ".ui-small" },
     },
     {
+      class: ".ui-spread",
+      default: "false",
+      description: "Pushes the label and the input to opposite ends.",
+      group: "Layout",
+      prop: "spread",
+    },
+    {
       class: ".ui-stack",
       default: "false",
       description: "Stacks the label under the input.",

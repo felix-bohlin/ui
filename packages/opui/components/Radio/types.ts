@@ -2,6 +2,7 @@ export type RadioProps = {
   error?: boolean
   hideLabel?: boolean
   size?: "small" | "large"
+  spread?: boolean
   stack?: boolean
 }
 

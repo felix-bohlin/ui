@@ -1,6 +1,7 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
+import DocLink from "../../../components/DocLink.astro"
 import { Code } from "astro-expressive-code/components"
 import Theming from "./_theming.astro"
 ---
@@ -90,6 +91,48 @@ import { Button } from "opui-css/vue"
 </template>`}
       lang="vue"
     />
+  </section>
+
+  <section>
+    <h2 id="ssr">Server rendering</h2>
+    <p>
+      Without hydration (Nuxt, or Astro with <code>@astrojs/vue</code> and no <code
+        >client:*</code
+      > directive), every component renders complete HTML. The native controls work
+      and submit with their form. A few things only update on the client:
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
+        <code>indeterminate</code>: it's a DOM property, so the box looks
+        unchecked. Or call <code>activateIndeterminate()</code> from <code
+          >opui-css/css/js/checkbox.js</code
+        >.
+      </li>
+      <li>
+        <DocLink href="/components/range#value">Range</DocLink> value: the <code
+          >&lt;output&gt;</code
+        > doesn't follow the thumb. The track fill is CSS, so it's fine.
+      </li>
+      <li>
+        <code>v-model</code> on <DocLink href="/components/checkbox"
+          >Checkbox</DocLink
+        >, <DocLink href="/components/select#classic-select"
+          >Classic select</DocLink
+        >, <DocLink href="/components/radio">Radio</DocLink>, <DocLink
+          href="/components/range">Range</DocLink
+        >, <DocLink href="/components/select">Select</DocLink>, <DocLink
+          href="/components/switch">Switch</DocLink
+        >, <DocLink href="/components/text-field">Text field</DocLink> and <DocLink
+          href="/components/textarea">Textarea</DocLink
+        >: the ref stays put. The native value still changes and submits.
+      </li>
+    </ul>
+    <p>
+      Hydrate those (<code>client:load</code> in Astro) or use them in a client-rendered
+      Vue app. Component pages say what needs hydration next to the browser support
+      chips, and the API tables mark each prop with a crossed-out server icon.
+    </p>
   </section>
 
   <Theming />

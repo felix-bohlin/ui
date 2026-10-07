@@ -199,9 +199,24 @@ export const checkApi = (api: ComponentApi) => {
 
   const all = Object.keys(frameworks) as ComponentFramework[]
   all
+    .filter((framework) => api.hydration?.[framework])
+    .filter((framework) => !shipped(api, framework))
+    .forEach((framework) =>
+      warn(
+        `${api.component} (${framework}): hydration for a missing component`,
+      ),
+    )
+  all
     .filter((framework) => shipped(api, framework))
     .forEach((framework) => {
       const props = frameworkProps(api, framework)
+      api.hydration?.[framework]?.forEach((entry) => {
+        if (!props.has(entry.prop)) {
+          warn(
+            `${api.component} (${framework}): hydration prop "${entry.prop}" does not exist`,
+          )
+        }
+      })
       props.forEach((_, prop) => {
         if (!describe(api, prop, framework, "prop")) {
           warn(

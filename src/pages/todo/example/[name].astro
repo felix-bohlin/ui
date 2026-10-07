@@ -60,4 +60,48 @@ const { source } = todoExamples[name]
     flex-wrap: wrap;
     gap: var(--size-2);
   }
+
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-current,
+  .todo-fixed {
+    align-content: start;
+    border: var(--border-width) solid var(--border-color);
+    border-block-start-width: var(--border-size-3);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    min-inline-size: 0;
+    padding: var(--size-3);
+  }
+
+  .todo-current {
+    border-block-start-color: var(--critical);
+  }
+
+  .todo-fixed {
+    border-block-start-color: var(--success);
+  }
+
+  .todo-label {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .todo-note,
+  .todo-measure {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+  }
+
+  .todo-measure {
+    font-family: var(--font-mono);
+    white-space: pre-wrap;
+  }
 </style>

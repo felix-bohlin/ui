@@ -5,6 +5,7 @@ import { Select as UISelect } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import SelectCSS from "@opui/css/components/select.css?raw"
@@ -106,7 +107,10 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
   <section>
     <h2 id="end-text">End text</h2>
-    <p><code>.ui-end-text</code>: end text element</p>
+    <p>
+      Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
+      below the select.
+    </p>
     <AutoExample name="SupportingText" row spacious />
   </section>
 

@@ -141,6 +141,29 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   </section>
 
   <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-radio"&gt;</code
+        >
+        {" "}to push the label to the left and the radio to the right. Handy for
+        settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section>
     <h2 id="label-alignment">Label alignment</h2>
     <p>
       The radio lines up with the first line of its label and centers on the

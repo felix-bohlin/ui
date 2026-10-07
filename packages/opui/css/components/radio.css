@@ -69,6 +69,32 @@
       z-index: 1;
     }
 
+    /* Spread layout */
+    &.ui-spread {
+      align-items: start;
+      column-gap: var(--size-4);
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr auto;
+      inline-size: 100%;
+
+      .ui-label {
+        font-weight: var(--field-label-font-weight);
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: fit-content;
+      }
+
+      input {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      :where(.ui-end-text) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
     /* Stacked layout */
     &.ui-stack {
       grid-auto-columns: unset;
@@ -89,6 +115,7 @@
 
     /* Input */
     input[type="radio"] {
+      --_dir-rtl: -1;
       --_ripple-size: 175%;
 
       appearance: none;
@@ -105,6 +132,7 @@
       padding: 0;
       place-items: center;
       position: relative;
+      transform-style: preserve-3d;
 
       &:checked {
         background-color: var(--_accent);
@@ -125,6 +153,43 @@
       &:checked::after {
         opacity: 1;
       }
+
+      /* Hover and active effect */
+      &:dir(rtl) {
+        --_dir-rtl: 1;
+      }
+
+      &:where(:not([disabled], [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:hover::before {
+            --_thumb-scale: 1;
+          }
+        }
+
+        &:active::before {
+          --_thumb-scale: 1.1;
+        }
+
+        &::before {
+          --_thumb-scale: 0.01;
+
+          background-color: var(--ripple-color);
+          block-size: var(--_ripple-size, 150%);
+          clip-path: circle(50%);
+          content: "";
+          inline-size: var(--_ripple-size, 150%);
+          inset-block-start: 50%;
+          inset-inline-start: 50%;
+          position: absolute;
+          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+            translateZ(-1px) scale(var(--_thumb-scale));
+          transform-origin: center center;
+
+          transition: transform calc(var(--duration) * var(--motion, 1))
+            var(--ease);
+          will-change: transform;
+        }
+      }
     }
 
     /* Sizes */
@@ -143,14 +208,6 @@
 
       :where(.ui-end-text) {
         color: var(--invalid-text-color);
-      }
-    }
-
-    /* Touch devices */
-    @media (pointer: coarse) {
-      input[type="radio"] {
-        block-size: var(--size-4);
-        inline-size: var(--size-4);
       }
     }
 

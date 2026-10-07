@@ -1,0 +1,149 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-select select)::picker(select) {
+        background: transparent;
+        border-radius: var(--field-border-radius);
+      }
+    }
+  }
+
+  .todo-compare .ui-select {
+    inline-size: 14rem;
+  }
+
+  .todo-compare .ui-dark {
+    background-color: var(--surface-default);
+    color: var(--text-primary);
+    padding: var(--size-3);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Open a select and zoom in on the picker's corners: the square picker and
+      its shadow show outside the rounded list.
+    </p>
+    <div class="todo-row">
+      <label class="ui-select">
+        <span class="ui-label" id="picker-corners-light-current-label"
+          >Car</span
+        >
+        <span class="ui-field">
+          <select aria-labelledby="picker-corners-light-current-label">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option value="">Select car</option>
+              <div role="group">
+                <label class="ui-text">French cars</label>
+                <option>Citroën</option>
+                <option>Renault</option>
+              </div>
+              <div role="group">
+                <label class="ui-text">Swedish cars</label>
+                <option>Saab</option>
+                <option>Volvo</option>
+              </div>
+            </div>
+          </select>
+        </span>
+      </label>
+      <div class="ui-dark">
+        <label class="ui-select">
+          <span class="ui-label" id="picker-corners-dark-current-label"
+            >Car</span
+          >
+          <span class="ui-field">
+            <select aria-labelledby="picker-corners-dark-current-label">
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option value="">Select car</option>
+                <div role="group">
+                  <label class="ui-text">French cars</label>
+                  <option>Citroën</option>
+                  <option>Renault</option>
+                </div>
+                <div role="group">
+                  <label class="ui-text">Swedish cars</label>
+                  <option>Saab</option>
+                  <option>Volvo</option>
+                </div>
+              </div>
+            </select>
+          </span>
+        </label>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure>Open a select to measure.</p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>::picker(select)</code> gets
+      <code>background: transparent</code> and
+      <code>border-radius: var(--field-border-radius)</code>.
+    </p>
+    <div class="todo-row">
+      <label class="ui-select">
+        <span class="ui-label" id="picker-corners-light-fixed-label">Car</span>
+        <span class="ui-field">
+          <select aria-labelledby="picker-corners-light-fixed-label">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option value="">Select car</option>
+              <div role="group">
+                <label class="ui-text">French cars</label>
+                <option>Citroën</option>
+                <option>Renault</option>
+              </div>
+              <div role="group">
+                <label class="ui-text">Swedish cars</label>
+                <option>Saab</option>
+                <option>Volvo</option>
+              </div>
+            </div>
+          </select>
+        </span>
+      </label>
+      <div class="ui-dark">
+        <label class="ui-select">
+          <span class="ui-label" id="picker-corners-dark-fixed-label">Car</span>
+          <span class="ui-field">
+            <select aria-labelledby="picker-corners-dark-fixed-label">
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option value="">Select car</option>
+                <div role="group">
+                  <label class="ui-text">French cars</label>
+                  <option>Citroën</option>
+                  <option>Renault</option>
+                </div>
+                <div role="group">
+                  <label class="ui-text">Swedish cars</label>
+                  <option>Saab</option>
+                  <option>Volvo</option>
+                </div>
+              </div>
+            </select>
+          </span>
+        </label>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure>Open a select to measure.</p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const output = panel.querySelector("[data-measure]")
+    setInterval(() => {
+      const select = [...panel.querySelectorAll("select")].find((el) =>
+        el.matches(":open"),
+      )
+      if (!select) return
+      const picker = getComputedStyle(select, "::picker(select)")
+      const list = getComputedStyle(select.querySelector(".ui-list"))
+      output.textContent = `picker background ${picker.backgroundColor}, radius ${picker.borderTopLeftRadius}; list radius ${list.borderTopLeftRadius}`
+    }, 300)
+  }
+</script>

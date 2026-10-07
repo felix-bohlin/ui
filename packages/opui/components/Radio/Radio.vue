@@ -23,6 +23,7 @@ const endTextId = useId()
       props.size && `ui-${props.size}`,
       {
         'ui-stack': props.stack,
+        'ui-spread': props.spread,
       },
       props.class,
     ]"

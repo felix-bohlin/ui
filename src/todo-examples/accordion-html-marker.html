@@ -1,0 +1,58 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML preamble: "Comes with a chevron marker". Plain HTML markup shows the
+      native triangle instead.
+    </p>
+    <details class="ui-accordion ui-card ui-outlined" open>
+      <summary>Accordion</summary>
+      <div class="ui-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </details>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      HTML preamble: "Uses the native marker. Add an svg to the
+      <code>summary</code> for a chevron, see custom marker."
+    </p>
+    <details class="ui-accordion ui-card ui-outlined" open>
+      <summary>Accordion</summary>
+      <div class="ui-content">
+        <p>Native marker, no svg.</p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-outlined ui-marker-rotate" open>
+      <summary>
+        Accordion
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>Chevron from the svg in the <code>summary</code>.</p>
+      </div>
+    </details>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const markers = [...panel.querySelectorAll("summary")].map((summary) => {
+      const { display } = getComputedStyle(summary)
+      return display === "list-item" ? "native marker" : "svg chevron"
+    })
+    panel.querySelector("[data-measure]").textContent = markers.join(", ")
+  }
+</script>

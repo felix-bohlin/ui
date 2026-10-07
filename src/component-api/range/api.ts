@@ -2,6 +2,16 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Range",
+  hydration: {
+    vue: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+    ],
+  },
   model: {
     description: "The current value.",
     prop: "value",

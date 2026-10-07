@@ -1,0 +1,106 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      @supports selector(::scroll-button(*)) {
+        :where(
+            .ui-carousel
+          ).ui-with-buttons.ui-vertical.ui-buttons-outside.ui-with-markers {
+          margin-inline-end: calc(
+            var(--_marker-size) + var(--_markers-margin-block-start)
+          );
+        }
+      }
+    }
+  }
+
+  .todo-box {
+    inline-size: min(100%, 400px);
+    outline: 1px dashed var(--critical);
+  }
+
+  .todo-box .ui-carousel {
+    --_block-size: 12rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Vertical, buttons outside, markers: the marker column sits past the dashed
+      box.
+    </p>
+    <div class="todo-box">
+      <ul
+        class="ui-carousel ui-vertical ui-with-buttons ui-buttons-outside ui-with-markers"
+        aria-label="Destinations, current"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The outside-buttons block keeps <code>margin-inline: 0</code> and adds the
+      marker space when <code>.ui-with-markers</code> is set (0,4,0).
+    </p>
+    <div class="todo-box">
+      <ul
+        class="ui-carousel ui-vertical ui-with-buttons ui-buttons-outside ui-with-markers"
+        aria-label="Destinations, fixed"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const box = panel.querySelector(".todo-box").getBoundingClientRect()
+    const carousel = panel.querySelector(".ui-carousel")
+    const style = getComputedStyle(carousel)
+    const marker = getComputedStyle(
+      carousel.firstElementChild,
+      "::scroll-marker",
+    )
+    const probe = document.createElement("div")
+    probe.style.cssText =
+      "position: absolute; inline-size: var(--_markers-margin-block-start)"
+    carousel.firstElementChild.append(probe)
+    const gap = probe.getBoundingClientRect().width
+    probe.remove()
+    const markersEnd =
+      carousel.getBoundingClientRect().right +
+      gap +
+      parseFloat(marker.inlineSize)
+    panel.querySelector("[data-measure]").textContent =
+      `margin-inline: ${style.marginInlineStart} ${style.marginInlineEnd}\n` +
+      `markers end ${Math.round(markersEnd - box.right)}px past the box`
+  }
+</script>

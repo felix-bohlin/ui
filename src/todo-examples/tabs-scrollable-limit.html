@@ -1,0 +1,110 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-tabs).ui-scrollable {
+        grid-template-columns: repeat(23, max-content) minmax(0, 1fr);
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-input:nth-of-type(21) {
+        grid-column: 21 / span 1;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-input:nth-of-type(22) {
+        grid-column: 22 / span 1;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-input:nth-of-type(23) {
+        grid-column: 23 / span 1;
+      }
+    }
+  }
+
+  .todo-full {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      23 scrollable tabs (the docs support 20). Tab 21 is clipped to a sliver
+      under tab 22. Click tab 20 and press Right Arrow: the tabs scroll back to
+      the start, away from the focused tab.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-current"
+        id="todo-limit-current-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-current-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The existing pattern extended to 23:
+      <code>repeat(23, max-content)</code> and <code>:nth-of-type(21)</code> to
+      <code>(23)</code> columns. Static inputs with
+      <code>grid-column: auto</code> don't work: they only scroll their 1px into
+      view, and the <code>1fr</code> track opens a gap after tab 10.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-fixed"
+        id="todo-limit-fixed-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-fixed-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const tabs = panel.querySelector(".ui-tabs")
+      const [input, label, content] = tabs.children
+      for (let i = 2; i <= 23; i++) {
+        const nextInput = input.cloneNode()
+        nextInput.id = input.id.replace(/\d+$/, i)
+        nextInput.checked = false
+        const nextLabel = label.cloneNode()
+        nextLabel.htmlFor = nextInput.id
+        nextLabel.textContent = `Tab ${i}`
+        const nextContent = content.cloneNode()
+        nextContent.textContent = `Panel ${i}`
+        tabs.append(nextInput, nextLabel, nextContent)
+      }
+      const measure = panel.querySelector("[data-measure]")
+      const write = () => {
+        const labels = tabs.querySelectorAll(".ui-tab-label")
+        const focused = tabs.querySelector(".ui-tab-input:focus")
+        measure.textContent = [
+          `tab 21 width: ${Math.round(labels[20].getBoundingClientRect().width)}px (tab 20: ${Math.round(labels[19].getBoundingClientRect().width)}px)`,
+          `focused: ${focused ? focused.labels[0].textContent : "none"}, scrollLeft: ${Math.round(tabs.scrollLeft)}px`,
+          focused
+            ? `focused tab's center in view: ${(() => {
+                const t = focused.labels[0].getBoundingClientRect()
+                const s = tabs.getBoundingClientRect()
+                const center = t.left + t.width / 2
+                return center >= s.left && center <= s.right
+              })()}`
+            : "",
+        ].join("\n")
+      }
+      write()
+      tabs.addEventListener("focusin", () => setTimeout(write, 300))
+      tabs.addEventListener("scroll", () => write())
+    }
+  }
+</script>

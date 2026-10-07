@@ -1,0 +1,64 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      @media (hover: hover) {
+        :where(.ui-text-field, .ui-textarea, .ui-select).ui-filled:has(
+            :disabled,
+            input[type="color"]
+          ):hover {
+          --_bg-color: var(--surface-tonal);
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Hover the filled field: it is disabled by its fieldset but still darkens.
+    </p>
+    <fieldset class="ui-fieldset" disabled>
+      <legend>Profile</legend>
+      <label class="ui-text-field ui-filled">
+        <span class="ui-label">Name</span>
+        <span class="ui-field">
+          <input type="text" placeholder="Placeholder" />
+        </span>
+      </label>
+    </fieldset>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The filled hover is skipped for <code>:has(:disabled)</code>. Here a
+      scoped rule resets the old <code>[disabled]</code> hover.
+    </p>
+    <fieldset class="ui-fieldset" disabled>
+      <legend>Profile</legend>
+      <label class="ui-text-field ui-filled">
+        <span class="ui-label">Name</span>
+        <span class="ui-field">
+          <input type="text" placeholder="Placeholder" />
+        </span>
+      </label>
+    </fieldset>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const textField = panel.querySelector(".ui-text-field")
+    const field = textField.querySelector(".ui-field")
+    const output = panel.querySelector("[data-measure]")
+    const rest = getComputedStyle(field).backgroundColor
+    const write = (hovered) => {
+      output.textContent = `rest ${rest}, hovered ${hovered}`
+    }
+    write("(hover the field)")
+    textField.addEventListener("mouseenter", () =>
+      write(getComputedStyle(field).backgroundColor),
+    )
+  }
+</script>

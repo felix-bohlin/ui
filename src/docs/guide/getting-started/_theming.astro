@@ -43,8 +43,16 @@ import Example from "../../../components/Example/index"
   <p>
     You can also set <code>--palette-source</code> directly (it must be an <code
       >oklch()</code
-    > color), and you can override it anywhere you want for useful or cool effect:
+    > color). Set it on <code>:root</code>, or on an element with <code
+      >.ui-palette</code
+    > to re-theme that part of the page. Anywhere else it has no effect: the palette
+    is computed where <code>core/palette.css</code> declares it and only inherited
+    from there. The same goes for <code>--palette-hue</code>, <code
+      >--palette-chroma</code
+    > and <code>--palette-hue-rotate-by</code>.
   </p>
+
+  <p>This is how the severity classes get their colors:</p>
 
   <Code
     code={`:where(.ui-warning) {

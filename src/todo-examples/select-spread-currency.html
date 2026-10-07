@@ -1,0 +1,64 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Spread example (Orientation): "¢" prefix and EUR listed twice. Open the
+      select.
+    </p>
+    <label class="ui-select ui-spread">
+      <span class="ui-label" id="spread-currency-current-label">Currency</span>
+      <span class="ui-start-text">Used for billing</span>
+      <span class="ui-field">
+        <select aria-labelledby="spread-currency-current-label">
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option value="">-</option>
+            <option>EUR</option>
+            <option>EUR</option>
+            <option>SEK</option>
+          </div>
+        </select>
+        <span class="ui-prefix">¢</span>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      "¤" prefix and EUR, SEK, USD, as in the Affix example.
+    </p>
+    <label class="ui-select ui-spread">
+      <span class="ui-label" id="spread-currency-fixed-label">Currency</span>
+      <span class="ui-start-text">Used for billing</span>
+      <span class="ui-field">
+        <select aria-labelledby="spread-currency-fixed-label">
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option value="">-</option>
+            <option>EUR</option>
+            <option>SEK</option>
+            <option>USD</option>
+          </div>
+        </select>
+        <span class="ui-prefix">¤</span>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const options = [...panel.querySelectorAll("option")]
+      .map((option) => option.textContent)
+      .slice(1)
+    const prefix = panel.querySelector(".ui-prefix").textContent
+    const duplicates = options.length - new Set(options).size
+    panel.querySelector("[data-measure]").textContent =
+      `prefix ${prefix}, options ${options.join(", ")}, duplicates ${duplicates}`
+  }
+</script>

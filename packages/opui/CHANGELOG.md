@@ -35,6 +35,7 @@
 - `Divider` variants render `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-filled`, `.ui-border-primary` and `.ui-border-tonal`. The `variant` values are unchanged.
 - `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Menu`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
 - `Toast` keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`.
+- `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 
 ### Removed
 
@@ -52,8 +53,8 @@
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
 - `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
-- `Button` supports `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
-- `Chip` supports `aria-disabled="true"` and `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
+- `Button` links with `aria-disabled="true"` no longer receive clicks.
+- `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. They default to the chevron and swap in RTL.
 - `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
@@ -88,6 +89,8 @@
 - `Range` takes an `error` prop (`data-invalid`) for the invalid state, like the other fields.
 - `theme.css` adds `--ripple-color` for the `Button` ripple and the `Checkbox` and `Radio` hover halo.
 - `Callout` with `severity="success"` shows a default check icon in Astro and Vue, like `info`, `warning` and `critical`.
+- `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
+- `Card` takes `.ui-card-link` on a link to make the whole card clickable. Other links and buttons in the card stay clickable.
 
 ### Changed
 
@@ -146,6 +149,7 @@
 - `Carousel` buttons use `--surface-inverse`.
 - `ToggleGroup` is in the `components.extended` layer, like `ButtonGroup`.
 - `Callout` links, `Chip`, `Link`, `List`, `Menu`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
+- `Spinner` shows on busy buttons and links that have `aria-describedby`. Other elements with `aria-describedby` still opt out, for the progress bar pattern.
 
 ### Fixed
 
@@ -257,6 +261,12 @@
 - `Select` only opts selects inside `.ui-select` into `appearance: base-select`.
 - `env.d.ts` is in the package `exports`, so `/// <reference types="opui-css/env.d.ts" />` resolves.
 - `dist/opui.components.css` no longer starts with a stray `undefined` line, which dropped the layer order and the `Anchor` styles.
+- `Badge` critical, info and success fills cap their lightness at 0.48, so white text passes 4.5:1 (success was 4.44:1).
+- `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
+- `Radio` sizes work on touch screens. Small and large radios were forced to `--size-4`, and the label sat off center.
+- `Range` fill works when the CSS is minified with lightningcss (Vite builds). `animation-timeline` was folded into the `animation` shorthand, which browsers reject.
+- `Switch` draws its invalid ring as a `box-shadow`, so the focus ring shows outside it, also in an invalid `.ui-fieldset`. In forced colors an invalid switch no longer looks focused.
+- `Accordion` with `.ui-marker-turn` mirrors its chevron in right-to-left, so it points to the inline end when closed and down when open.
 
 ## 5.5.0 - 2026-09-28
 

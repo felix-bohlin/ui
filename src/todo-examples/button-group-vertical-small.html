@@ -1,0 +1,96 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where([role="group"].ui-button-group).ui-vertical:is(
+          .ui-small,
+          .ui-x-small
+        )
+        > button {
+        padding-block: 0;
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Vertical x-small and small items are taller than the horizontal ones.
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <div role="group" class="ui-button-group ui-x-small ui-outlined">
+        <button type="button" class="ui-button">X-small</button>
+        <button type="button" class="ui-button">X-small</button>
+      </div>
+      <div
+        role="group"
+        class="ui-button-group ui-x-small ui-outlined ui-vertical"
+      >
+        <button type="button" class="ui-button">X-small</button>
+        <button type="button" class="ui-button">X-small</button>
+      </div>
+      <div role="group" class="ui-button-group ui-small ui-outlined">
+        <button type="button" class="ui-button">Small</button>
+        <button type="button" class="ui-button">Small</button>
+      </div>
+      <div
+        role="group"
+        class="ui-button-group ui-small ui-outlined ui-vertical"
+      >
+        <button type="button" class="ui-button">Small</button>
+        <button type="button" class="ui-button">Small</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>.ui-vertical:is(.ui-small, .ui-x-small) &gt; button</code> resets
+      <code>padding-block</code> to 0.
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <div role="group" class="ui-button-group ui-x-small ui-outlined">
+        <button type="button" class="ui-button">X-small</button>
+        <button type="button" class="ui-button">X-small</button>
+      </div>
+      <div
+        role="group"
+        class="ui-button-group ui-x-small ui-outlined ui-vertical"
+      >
+        <button type="button" class="ui-button">X-small</button>
+        <button type="button" class="ui-button">X-small</button>
+      </div>
+      <div role="group" class="ui-button-group ui-small ui-outlined">
+        <button type="button" class="ui-button">Small</button>
+        <button type="button" class="ui-button">Small</button>
+      </div>
+      <div
+        role="group"
+        class="ui-button-group ui-small ui-outlined ui-vertical"
+      >
+        <button type="button" class="ui-button">Small</button>
+        <button type="button" class="ui-button">Small</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const heights = [...panel.querySelectorAll(".ui-button-group")].map(
+      (group) => {
+        const size = group.classList.contains("ui-x-small")
+          ? "x-small"
+          : "small"
+        const axis = group.classList.contains("ui-vertical")
+          ? "vertical"
+          : "horizontal"
+        const height = group.firstElementChild.getBoundingClientRect().height
+        return `${axis} ${size}: ${Math.round(height * 10) / 10}px`
+      },
+    )
+    panel.querySelector("[data-measure]").textContent =
+      `${heights.join(", ")} (expected 28px / 32px)`
+  }
+</script>

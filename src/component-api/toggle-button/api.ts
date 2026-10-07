@@ -2,16 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
-  notes: {
-    html: "Set `disabled` on the input too.",
-  },
   options: [
     {
-      class: ".ui-disabled",
+      attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
       frameworks: ["astro", "html", "vue"],
       group: "State",
+      part: "input",
       prop: "disabled",
       type: "boolean",
     },

@@ -40,7 +40,7 @@
       );
 
       /* Siblings */
-      &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      &:is([disabled], [aria-disabled="true"]) {
         box-shadow:
           calc(-1 * var(--border-width)) 0 0 0
             color-mix(in oklch, var(--_divider-color) 40%, transparent),
@@ -78,9 +78,7 @@
       :where(.ui-button-group.ui-outlined) & {
         --_divider-color: var(--_accent);
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-ripple)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -99,9 +97,7 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-ripple)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -128,9 +124,7 @@
           );
         }
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-ripple)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_filled-hover-bg-color);

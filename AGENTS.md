@@ -2,7 +2,7 @@
 
 Read the guide for the files you're editing:
 
-- `packages/opui/components/AGENTS.md`: the Astro and Vue components and their type files.
+- `packages/opui/components/AGENTS.md`: the Astro, Svelte and Vue components and their type files.
 - `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
 - `src/docs/components/AGENTS.md`: the component docs pages and their examples.
 

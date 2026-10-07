@@ -54,7 +54,7 @@ All switches should have an accessible name. Put the label text inside the compo
 
 ## Sizes
 
-Set `size="small"` for a smaller Switch variant.
+Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
 
 ```svelte
 <script lang="ts">
@@ -193,7 +193,7 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
 ## Validation
 
 - Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
-- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Switches also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
 ```svelte
@@ -421,7 +421,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `FieldSet` component.
+Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns red with them.
 
 ```svelte
 <script lang="ts">

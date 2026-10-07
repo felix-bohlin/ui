@@ -2,10 +2,6 @@
 
 Spacing and grouping for form fields.
 
-### What's new
-
-- Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
-
 ## Anatomy
 
 Favorite pet
@@ -207,7 +203,7 @@ Set `disabled` on `FieldSet` to disable every field inside.
 
 ### Invalid
 
-Add `data-invalid` to `FieldSet` for error styles. Explain the error in a `.ui-end-text`.
+Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
 ```svelte
 <script lang="ts">
@@ -261,7 +257,7 @@ The legend gets an asterisk when a field inside is required.
 
 ## Actions
 
-A field group with only buttons lines up in a row. Separate it from the fields with `Divider`.
+A field group with only buttons lines up in a row. Set `direction="column"` to stack the buttons instead. Separate the group from the fields with `Divider`.
 
 ```svelte
 <script lang="ts">

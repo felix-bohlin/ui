@@ -282,7 +282,8 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
 ## Validation
 
 - Add the `required` attribute on the component. It is forwarded to the underlying `<select>`.
-- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the select, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
 ```svelte
 <script lang="ts">

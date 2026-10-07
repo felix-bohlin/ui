@@ -15,8 +15,8 @@
   const drawer = getDrawerContext()
 
   const closeAttrs = $derived(
-    commandfor
-      ? { command: "close", commandfor }
+    commandfor || drawer
+      ? { command: "close", commandfor: commandfor ?? drawer?.id }
       : {
           onclick: (event: MouseEvent) =>
             (event.currentTarget as HTMLElement).closest("dialog")?.close(),

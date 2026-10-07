@@ -3,7 +3,6 @@
 ### What's new
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 
 ## Anatomy

@@ -18,7 +18,7 @@ Supporting text that explains the callout in more detail.
 
 - `v-slot:icon`
 
-  An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.
+  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
 
 - `v-slot:default`
 
@@ -142,19 +142,19 @@ import { Callout } from "opui-css/vue"
 
 ### Callout API
 
-| Prop           | Type                                                              | Default   | Description                                                          |
-| -------------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                      |
-| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro and Vue the default icon. |
-| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
+| Prop           | Type                                                              | Default   | Description                                                                  |
+| -------------- | ----------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------- |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                              |
+| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, Svelte and Vue the default icon. |
+| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                          |
 
 #### Slots
 
-| Slot      | Description                                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------------------------------- |
-| `default` | The content.                                                                                                      |
-| `icon`    | An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical. |
-| `title`   | An optional title inside the content.                                                                             |
+| Slot      | Description                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `default` | The content.                                                                                                              |
+| `icon`    | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
+| `title`   | An optional title inside the content.                                                                                     |
 
 #### CSS variables
 

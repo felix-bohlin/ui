@@ -66,7 +66,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 ## Icon
 
-The icon can be placed before or after the text using the `start` and `end` snippets.
+The icon can be placed before or after the text using the `start` and `end` snippets. When you use `children` instead of `label`, wrap the text in `<span class="ui-text">` so it can truncate.
 
 ```svelte
 <script lang="ts">
@@ -175,7 +175,7 @@ The icon can be placed before or after the text using the `start` and `end` snip
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute.
+Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` just dims it.
 
 ```svelte
 <script lang="ts">

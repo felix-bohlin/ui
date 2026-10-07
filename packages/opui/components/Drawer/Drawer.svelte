@@ -31,6 +31,9 @@
     get headingId() {
       return headingId
     },
+    get id() {
+      return drawerId
+    },
   })
 
   const labelHeading = (dialog: HTMLDialogElement) => {

@@ -186,7 +186,7 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an `aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
+Set `iconOnly` and name the button with `label`, which renders `aria-label`. The types require `label` when `iconOnly` is set. Add `rounded` for a circle.
 
 ```svelte
 <script lang="ts">

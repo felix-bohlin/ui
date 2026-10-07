@@ -346,16 +346,16 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Toggle button API
 
-| Prop       | Type                                | Default      | Description                                                                          |
-| ---------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------ |
-| `disabled` | `boolean`                           | `false`      | Disables the button.                                                                 |
-| `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.                                     |
-| `label`    | `string`                            | -            | The button text when the slot is empty, and the input value when `value` is omitted. |
-| `name`     | `string`                            | -            | The name of the input. Set by the group.                                             |
-| `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                  |
-| `size`     | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                             |
-| `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                           |
-| `value`    | `string`                            | -            | The value of the input.                                                              |
+| Prop       | Type                                | Default      | Description                                                                                  |
+| ---------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
+| `disabled` | `boolean`                           | `false`      | Disables the button.                                                                         |
+| `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.                                             |
+| `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
+| `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
+| `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |
+| `size`     | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                                     |
+| `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
+| `value`    | `string`                            | -            | The value of the input.                                                                      |
 
 #### Slots
 

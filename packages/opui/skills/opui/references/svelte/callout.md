@@ -18,7 +18,7 @@ Supporting text that explains the callout in more detail.
 
 - `icon`
 
-  An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.
+  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
 
 - `children`
 
@@ -134,14 +134,14 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 ### Callout API
 
-| Prop           | Type                                                              | Default   | Description                                                                                                       |
-| -------------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
-| `children`     | `Snippet`                                                         | -         | The content.                                                                                                      |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                                                   |
-| `icon`         | `Snippet`                                                         | -         | An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical. |
-| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro and Vue the default icon.                                              |
-| `title`        | `Snippet`                                                         | -         | An optional title inside the content.                                                                             |
-| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                               |
+| Prop           | Type                                                              | Default   | Description                                                                                                               |
+| -------------- | ----------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `children`     | `Snippet`                                                         | -         | The content.                                                                                                              |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                                                           |
+| `icon`         | `Snippet`                                                         | -         | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
+| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, Svelte and Vue the default icon.                                              |
+| `title`        | `Snippet`                                                         | -         | An optional title inside the content.                                                                                     |
+| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                       |
 
 #### CSS variables
 

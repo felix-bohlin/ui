@@ -203,7 +203,7 @@ Change the badge's visibility using the `invisible` prop.
 
 Where the badge should be placed over the child.
 
-`start-start`, default, `end-start`, `end-end`.
+`start-start`, default (`start-end`), `end-start`, `end-end`.
 
 ```svelte
 <script lang="ts">

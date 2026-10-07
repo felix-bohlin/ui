@@ -254,7 +254,7 @@ Add the `required` attribute on at least one `Radio`. It is forwarded to the und
 
 ## Validation
 
-Attach `data-invalid` to the `FieldSet` wrapper, or use the `error` prop on individual `Radio` components.
+Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns red with them.
 
 ```svelte
 <script lang="ts">

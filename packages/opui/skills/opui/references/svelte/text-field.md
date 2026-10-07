@@ -2,7 +2,7 @@
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [X-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
 
@@ -171,7 +171,7 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
 
-Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 
 Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 

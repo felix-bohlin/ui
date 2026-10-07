@@ -2,10 +2,6 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.md).
 
-### What's new
-
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
-
 ## Indeterminate
 
 ```svelte

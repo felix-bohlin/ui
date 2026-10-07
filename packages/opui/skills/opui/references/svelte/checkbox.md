@@ -131,7 +131,7 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 ### Validation
 
 - Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
-- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
 ```svelte
@@ -398,7 +398,7 @@ Each checkbox with `required` must be checked before the form submits. There's n
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `FieldSet` component.
+Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turns red with them.
 
 ```svelte
 <script lang="ts">

@@ -2,10 +2,8 @@
 
 ### What's new
 
-- Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
 

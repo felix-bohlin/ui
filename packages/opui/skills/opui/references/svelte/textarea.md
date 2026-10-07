@@ -2,7 +2,7 @@
 
 ### What's new
 
-- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [X-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 
 ## Anatomy
@@ -160,7 +160,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<textarea>`.
 
-Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the textarea, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 
 Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 

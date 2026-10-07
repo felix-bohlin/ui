@@ -5,7 +5,6 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 ### What's new
 
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
-- Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
 - [Scrollable](#scrollable) tabs with the `scrollable` prop.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 

@@ -49,7 +49,13 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 ```svelte
 <script lang="ts">
   import "../styles/main.css"
+
+
+  let { children } = $props()
 </script>
+
+
+{@render children()}
 ```
 
 ## How to use

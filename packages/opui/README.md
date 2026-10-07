@@ -36,6 +36,24 @@ import { Button, Card } from "opui-css/astro"
 </Card>
 ```
 
+### Svelte components
+
+Svelte components ship markup only, so import the CSS once in your root layout or app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```svelte
+<script lang="ts">
+  import { Button, Card } from "opui-css/svelte"
+</script>
+
+<Card>
+  <Button color="primary" variant="filled">Click me</Button>
+</Card>
+```
+
 ### Vue components
 
 Vue components ship markup only, so import the CSS once in your app entry:
@@ -54,20 +72,6 @@ import { Button, Card } from "opui-css/vue"
     <Button color="primary" variant="filled">Click me</Button>
   </Card>
 </template>
-```
-
-### Svelte components
-
-Svelte components ship markup only, so import the CSS once in your app entry, like with Vue:
-
-```svelte
-<script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
-</script>
-
-<Card>
-  <Button color="primary" variant="filled">Click me</Button>
-</Card>
 ```
 
 `opui-css/astro`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`.

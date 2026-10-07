@@ -41,8 +41,8 @@ Before creating or refactoring a page, perform the following research:
 - **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell. There is no `src/pages/components/` directory - legacy `/components/...` URLs are handled by the `redirects` map in [astro.config.mjs](../../../astro.config.mjs).
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
-  - `Basics.astro`, `Basics.html` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all three: the parity test compares them, and a missing `.vue` file silently leaves the example off the Vue page.
-  - `Variants.astro`, `Variants.html`, `Variants.vue`, etc.
+  - `Basics.astro`, `Basics.html`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all four: the parity test compares them, and a missing `.svelte` or `.vue` file silently leaves the example off the Svelte or Vue page.
+  - `Variants.astro`, `Variants.html`, `Variants.svelte`, `Variants.vue`, etc.
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), use a suffix like `Code.astro`.
 
@@ -87,7 +87,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 
 What the conventions handle automatically:
 
-- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
+- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
 - **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
@@ -116,6 +116,7 @@ The manual form remains supported and unchanged:
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
     - `.astro` files should contain UI components imported via the `@opui/astro` alias (e.g. `import { Button } from "@opui/astro"`).
     - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
+    - `.svelte` files mirror the Astro example with the components from `opui-css/svelte`.
     - `.vue` files mirror the Astro example with the components from `opui-css/vue`.
     - Do not wrap the whole example in `<div class="example-row">` / `<div class="example-column">` - set `row` / `column` on `<AutoExample>` in the docs page instead. Multiple sibling `example-row` / `example-column` groups inside one example are fine.
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.

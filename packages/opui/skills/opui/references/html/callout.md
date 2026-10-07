@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<svg>`
 
-  An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.
+  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
 
 - `.ui-content`
 
@@ -247,19 +247,19 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 
 ### Callout API
 
-| Type       | Modifiers                                                               | Default | Description                                                          |
-| ---------- | ----------------------------------------------------------------------- | ------- | -------------------------------------------------------------------- |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro and Vue the default icon. |
-| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                  |
+| Type       | Modifiers                                                               | Default | Description                                                                  |
+| ---------- | ----------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro, Svelte and Vue the default icon. |
+| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                          |
 
 #### Parts
 
-| Part          | Description                                                                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `.ui-callout` | Container element.                                                                                                |
-| `<svg>`       | An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical. |
-| `.ui-content` | The content.                                                                                                      |
-| `<h3>`        | An optional title inside the content.                                                                             |
+| Part          | Description                                                                                                               |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `.ui-callout` | Container element.                                                                                                        |
+| `<svg>`       | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
+| `.ui-content` | The content.                                                                                                              |
+| `<h3>`        | An optional title inside the content.                                                                                     |
 
 #### CSS variables
 

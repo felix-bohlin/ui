@@ -23,6 +23,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: git diff --exit-code -- public/search-index.json
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: pnpm --package=netlify-cli@27.11.2 dlx netlify deploy --prod --no-build --dir=dist --filter open-props-ui-docs --message "Deploy ${GITHUB_SHA::7}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
   e2e:
     runs-on: ubuntu-latest

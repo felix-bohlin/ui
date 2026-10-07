@@ -13,7 +13,7 @@
 
     /* Rows */
     @media (hover: hover) {
-      tr:hover > :is(td, th) {
+      tbody > tr:hover > :is(td, th) {
         background-color: oklch(from var(--surface-filled) l c h / 75%);
       }
     }
@@ -85,17 +85,12 @@
     }
 
     /* Footer */
-    tfoot {
-      tr td {
-        background-color: var(--surface-filled);
-        padding-block: var(--size-2);
-      }
-
-      td {
-        border-top: var(--border-width) solid var(--border-color);
-        color: var(--text-primary);
-        font-weight: var(--font-weight-semibold);
-      }
+    tfoot :where(th, td) {
+      background-color: var(--surface-filled);
+      border-block-start: var(--border-width) solid var(--border-color);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      padding-block: var(--size-2);
     }
 
     /* Caption */
@@ -109,7 +104,7 @@
     }
 
     /* Remove bottom border of the row above the footer to stay single-line */
-    tbody:has(+ tfoot) tr:last-child td {
+    tbody:has(+ tfoot) tr:last-child :where(th, td) {
       border-block-end: none;
     }
 
@@ -131,12 +126,6 @@
 
         th {
           transition: box-shadow calc(var(--duration) * var(--_motion));
-        }
-
-        @media (hover: hover) {
-          tr:hover > th {
-            background-color: var(--surface-filled);
-          }
         }
       }
 

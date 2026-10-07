@@ -72,6 +72,10 @@ export const description =
         </p>
       </Fragment>
     </Conditional>
+    <p>
+      Above <code>45ch</code> the term and description share a row and the border
+      fills the gap between them. Narrower lists stack and show no border.
+    </p>
     <AutoExample name="Bordered" column spacious />
   </section>
 
@@ -79,7 +83,7 @@ export const description =
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UIDescriptionList bordered="dotted" style="inline-size: 16rem">
+      <UIDescriptionList style="inline-size: 16rem">
         <UIDescriptionList.Item>
           <UIDescriptionList.Term>Price</UIDescriptionList.Term>
           <UIDescriptionList.Description

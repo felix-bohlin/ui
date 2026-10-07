@@ -6,15 +6,16 @@ const steps = [
     features: ["progress"],
     html: `
 <div class="progress">
-  <progress max="100" value="60"></progress>
+  <progress aria-label="Uploading" max="100" value="60"></progress>
 </div>
 
 <div class="progress">
-  <progress></progress>
+  <progress aria-label="Loading"></progress>
 </div>`,
     notes: [
       "<code>&lt;progress&gt;</code>: role, value and an indeterminate state for free",
       "No <code>value</code> means indeterminate",
+      "Give it a name: <code>aria-label</code>, or a <code>&lt;label for&gt;</code> when the text should be visible",
       "Every browser draws it differently",
     ],
     title: "Native",

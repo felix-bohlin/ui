@@ -161,7 +161,7 @@
     vertical-align: baseline;
   }
 
-  :where(p:not(.ui-p), span).ui-small {
+  :where(p:not(.ui-p), small, span).ui-small {
     font-size: max(0.5em, var(--font-size-0, 0.75rem));
   }
 
@@ -838,9 +838,9 @@
         background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
       }
 
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius, var(--radius-2));
       font-size: 0.9em;
-      padding: 0.1ex 0.3ex;
+      padding: 0.5ex;
     }
 
     a[href] code {
@@ -870,8 +870,6 @@
     }
 
     :not(pre) > code {
-      border-radius: var(--border-radius, var(--radius-2));
-      padding: 0.5ex;
       writing-mode: horizontal-tb;
     }
 

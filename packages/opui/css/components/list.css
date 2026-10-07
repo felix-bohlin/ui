@@ -59,7 +59,7 @@ Lists meant to be used stand-alone or as part of Select elements
       --_start-size: var(--icon-size);
 
       & > :where(li, option),
-      & > :where([role="group"]) > :where(option) {
+      & > :where([role="group"]) > :where(label, option) {
         min-block-size: var(--size-7);
         padding: var(--size-1) var(--size-3);
 
@@ -248,7 +248,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Video */
       &:has(video) {
-        padding: 0.75rem var(--size-3) 0.75rem 0;
+        padding-block: 0.75rem;
+        padding-inline: 0 var(--size-3);
       }
 
       /* Border between list items */
@@ -267,7 +268,8 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Text */
-      .ui-text {
+      & > .ui-text,
+      & > :where(a, button, label) > .ui-text {
         flex: 1;
         line-height: 1.6;
         min-inline-size: 0;
@@ -337,7 +339,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
         }
 
-        svg {
+        & > svg {
           inline-size: 100%;
           max-inline-size: var(--icon-size-large);
         }

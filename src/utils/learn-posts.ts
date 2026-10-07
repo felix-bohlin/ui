@@ -240,6 +240,19 @@ export const posts = [
   },
   {
     category: "under-the-hood",
+    component: "table",
+    date: "2026-10-07",
+    description:
+      "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
+    features: ["anchor-positioning", "container-scroll-state-queries"],
+    level: "advanced",
+    slug: "table-scroll-state",
+    technique: "scroll-state()",
+    title: "A header that knows it’s stuck",
+    topics: ["layout"],
+  },
+  {
+    category: "under-the-hood",
     component: "tabs",
     date: "2026-10-02",
     description: "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",

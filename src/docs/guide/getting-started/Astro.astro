@@ -1,8 +1,8 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
+import DocLink from "../../../components/DocLink.astro"
 import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
 ---
 
 <Guide overline="Guide">
@@ -79,7 +79,12 @@ import { Button } from "opui-css/astro"
 <Button variant="filled">Click me</Button>`}
       lang="astro"
     />
+    <p>
+      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
+      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
+        href="/components">components</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
+      motion and contrast.
+    </p>
   </section>
-
-  <Theming />
 </Guide>

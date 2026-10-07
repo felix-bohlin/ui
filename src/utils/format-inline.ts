@@ -5,5 +5,10 @@ const escape = (text: string) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
 
-export const formatInline = (text: string) =>
-  escape(text).replace(/`([^`]+)`/g, "<code>$1</code>")
+export const formatInline = (text: string, link = (path: string) => path) =>
+  escape(text)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(
+      /\[([^\]]+)\]\(([^)\s]+)\)/g,
+      (_, label, href) => `<a href="${link(href)}">${label}</a>`,
+    )

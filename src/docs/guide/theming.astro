@@ -1,0 +1,322 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import { Code } from "astro-expressive-code/components"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Theming</Fragment>
+  <Fragment slot="preamble">
+    Colors, density, motion and contrast. Each is a few custom properties on <code
+      >html</code
+    >, and a few classes change them for one part of the page.
+  </Fragment>
+
+  <section>
+    <h2 id="palette">Palette</h2>
+    <p>
+      The basic idea is to pick one hue and chroma, and derive a 16-step palette
+      from them. <code>theme.css</code> sets <code>--palette-hue</code> and <code
+        >--palette-chroma</code
+      >, and <code>core/palette.css</code> turns them into a source color, <code
+        >--palette-source</code
+      >, and the <code>--color-1</code> to <code>--color-16</code> steps.
+    </p>
+
+    <Code
+      code={`:where(html) {
+  --palette-chroma: 0.5;
+  --palette-hue: var(--hue-green);
+  --palette-hue-rotate-by: 0;
+}
+
+:where(html.ui-dark) {
+  --palette-hue: var(--hue-blue);
+}`}
+      lang="css"
+    />
+
+    <ul>
+      <li>
+        <strong><code>--palette-hue</code></strong> is a hue angle in degrees. Open
+        Props' <code>--hue-*</code> tokens work here. The default is green in light
+        mode and blue in dark mode.
+      </li>
+      <li>
+        <strong><code>--palette-chroma</code></strong> scales the saturation, from
+        {" "}<code>0</code> (gray) to <code>1</code>.
+      </li>
+      <li>
+        <strong><code>--palette-hue-rotate-by</code></strong> shifts the hue a little
+        more on each step, in degrees. Step 2 turns by the value once, step 3 twice,
+        and so on, so <code>1</code> spreads 15° from <code>--color-1</code> to
+        <code>--color-16</code>. The severity scopes use <code>1</code> for livelier
+        tints, the brand palette <code>0</code>.
+      </li>
+    </ul>
+
+    <p>
+      You can also set <code>--palette-source</code> directly. Any color works: the
+      palette keeps its oklch hue, scales its chroma and sets the lightness per step.
+      Set it on <code>:root</code>, or on an element with <code
+        >.ui-palette</code
+      > to re-theme that part of the page. Anywhere else it has no effect: the palette
+      is computed where <code>core/palette.css</code> declares it and only inherited
+      from there. The same goes for <code>--palette-hue</code>, <code
+        >--palette-chroma</code
+      > and <code>--palette-hue-rotate-by</code>.
+    </p>
+
+    <p>This is how the severity classes get their colors:</p>
+
+    <Code
+      code={`:where(.ui-warning) {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+}`}
+      lang="css"
+    />
+
+    <p>
+      Every token with its default is listed on the <DocLink
+        href="/guide/theme-tokens">Theme tokens</DocLink
+      > page, and the <DocLink href="/guide/theme-generator"
+        >Theme generator</DocLink
+      > writes a complete <code>theme.css</code> for you.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="scopes">Scopes</h2>
+    <p>
+      A scope is a class that changes the theme for one element and everything
+      inside it.
+    </p>
+    <ul>
+      <li>
+        <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. Put
+        them on <code>html</code> for the whole page, or on any element for just that
+        part.
+      </li>
+      <li>
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-success</code
+        >, <code>.ui-warning</code> and <code>.ui-neutral</code> swap the palette
+        to red, blue, green, orange or gray. The <code>--color-1</code> to <code
+          >--color-16</code
+        > steps inside follow, while <code>--primary</code> and the text colors keep
+        the page values.
+      </li>
+      <li>
+        <code>.ui-palette</code> re-derives the palette and every color token from
+        the knobs set on that element, so one page can carry several brands.
+      </li>
+    </ul>
+    <Code
+      code={`<aside class="ui-dark">Always dark</aside>
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled" type="button">
+    Orange brand
+  </button>
+</section>`}
+      lang="html"
+    />
+  </section>
+
+  <section>
+    <h2 id="density">Density</h2>
+    <p>
+      <code>--density</code> scales the <code>--control-size*</code> tokens, so fields,
+      buttons and list items grow or shrink together. Field and button padding shrinks
+      to fit, down to the height of the text. The sizes resolve on
+      {" "}<code>html</code>, so set <code>--density</code> there.
+    </p>
+    <Code
+      code={`:where(html) {
+  --density: 0.875;
+}`}
+      lang="css"
+    />
+  </section>
+
+  <section>
+    <h2 id="motion">Motion</h2>
+    <p>
+      Use the <code>--motion</code> variable to turn motion on or off. The default
+      value is <code>1</code>. If a user has <code
+        >prefers-reduced-motion: reduce</code
+      > enabled,
+      {" "}<code>--motion</code> will be set to <code>0</code> by default.
+    </p>
+
+    <h3 id="motion-global">Global classes</h3>
+    <p>
+      Adding these utility classes to the <code>html</code> element will override
+      the OS preference.
+    </p>
+    <ul>
+      <li>
+        <code>.ui-motion-off</code>: sets <code>--motion: 0</code>.
+      </li>
+      <li>
+        <code>.ui-motion-on</code>: sets <code>--motion: 1</code>.
+      </li>
+      <li>
+        <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down
+        transitions 10x).
+      </li>
+    </ul>
+    <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+
+    <h3 id="motion-local">Local overrides</h3>
+    <p>
+      Components use a local <code>--_motion</code> variable that allows you to disable
+      motion for each component individually if you want.
+    </p>
+    <Code
+      code={`<button class="ui-button" style="--_motion: 0" type="button">
+  Instant interaction
+</button>`}
+      lang="html"
+    />
+
+    <p>
+      Additionally, this is how you could include <code>--motion</code> in your CSS:
+    </p>
+    <Code
+      code={`transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);`}
+      lang="css"
+    />
+  </section>
+
+  <section>
+    <h2 id="contrast">Contrast</h2>
+    <p>
+      The <code>--contrast</code> variable is <code>normal</code> by default. If a
+      user has <code>prefers-contrast: more</code> enabled, it is set to <code
+        >more</code
+      >, and a style query raises the contrast of muted text, borders, field
+      borders, the primary color, intent colors and the focus ring. Components
+      with translucent text, such as Tabs, keyboard hints and inline code,
+      follow along.
+    </p>
+    <p>
+      Try it with the <strong>High contrast</strong> switch in the theme config drawer.
+    </p>
+
+    <Example row showCode={false}>
+      <div class="contrast-demo">
+        <section>
+          <p class="ui-caption">Default</p>
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input type="email" placeholder="name@example.com" />
+            </span>
+            <span class="ui-end-text">We'll never share it.</span>
+          </label>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Subscribe
+          </button>
+        </section>
+        <section class="ui-contrast-more">
+          <p class="ui-caption">.ui-contrast-more</p>
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input type="email" placeholder="name@example.com" />
+            </span>
+            <span class="ui-end-text">We'll never share it.</span>
+          </label>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Subscribe
+          </button>
+        </section>
+      </div>
+    </Example>
+
+    <h3 id="contrast-classes">Classes</h3>
+    <ul>
+      <li>
+        <code>.ui-contrast-more</code>: sets <code>--contrast: more</code>. Put
+        it on{" "}
+        <code>html</code> for the whole page, or on any element to raise the contrast
+        of its children.
+      </li>
+      <li>
+        <code>.ui-contrast-normal</code>: sets <code>--contrast: normal</code>.
+        Put it on <code>html</code> to ignore the OS preference. It doesn't lower
+        the contrast inside a <code>.ui-contrast-more</code> ancestor, since the tokens
+        are already resolved on the parent.
+      </li>
+    </ul>
+    <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
+
+    <h3 id="contrast-custom">Custom values</h3>
+    <p>
+      Style queries match against the parent element, so the high-contrast
+      values are set on <code>body</code> instead of <code>html</code>. They are
+      set again on the children of <code>.ui-contrast-more</code> and on the surfaces
+      that have their own border colors: <code>.ui-palette</code>, elevated and
+      tonal cards, filled lists and table headers. They replace any value you
+      set on
+      {" "}<code>html</code> for the same tokens. To tune them, write your own style
+      query with the same selectors:
+    </p>
+    <Code
+      code={`@container style(--contrast: more) {
+  :where(
+    body,
+    .ui-contrast-more > *,
+    .ui-palette,
+    .ui-card.ui-elevated,
+    .ui-card.ui-tonal,
+    .ui-list:not(.ui-tonal, .ui-transparent),
+    .ui-table th
+  ) {
+    --border-color: var(--text-muted);
+    --field-border-color: var(--border-color);
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      Tokens that reference an overridden token, like <code
+        >--field-border-color</code
+      > above, have to be set again in the same rule.
+    </p>
+
+    <h3 id="forced-colors">Forced colors</h3>
+    <p>
+      When an OS contrast theme forces its own palette (<code
+        >forced-colors: active</code
+      >), components switch to system colors so their state stays visible.
+      Selected tabs, toggles and list items use <code>SelectedItem</code>,
+      switches, ranges, progress bars and dividers are drawn with <code
+        >CanvasText</code
+      >, and focused fields get a <code>Highlight</code> outline. There is nothing
+      to configure.
+    </p>
+  </section>
+</Guide>
+
+<style>
+  .contrast-demo {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+
+    section {
+      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-3);
+    }
+
+    .ui-text-field {
+      inline-size: 100%;
+    }
+  }
+</style>

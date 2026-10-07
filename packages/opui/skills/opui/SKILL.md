@@ -28,7 +28,7 @@ Install with `npm install opui-css open-props`.
 
 Pick the folder matching the project: `references/html/`, `references/astro/` or `references/vue/`.
 
-1. Read `references/<framework>/getting-started.md` for setup and theming.
+1. Read `references/<framework>/getting-started.md` for setup and `references/<framework>/theming.md` for colors, scopes, density, motion and contrast.
 2. Find the component in `references/index.md`.
 3. Read `references/<framework>/<component>.md` before writing markup. Each reference has examples, the full class or prop API, and the CSS files it needs.
 4. For custom properties and exact selectors, read the component's CSS in `node_modules/opui-css/css/components/<component>.css`.

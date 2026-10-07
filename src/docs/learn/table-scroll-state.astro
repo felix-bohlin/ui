@@ -1,0 +1,198 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import { Button, Dialog } from "@opui/astro"
+import { Code } from "astro-expressive-code/components"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+import StickyHeader from "../../component-examples/table/StickyHeader.astro"
+---
+
+<TechniquePost slug="table-scroll-state">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>position: sticky</code> keeps a table header in view, but the header looks
+      the same whether it's resting at the top of the table or floating over the rows.
+      A shadow shows that it's stuck, and so far that took a scroll listener or an
+      <code>IntersectionObserver</code> with a sentinel element.
+    </p>
+    <p>
+      A scrolling area inside a dialog has the same problem: nothing says that
+      there's more content above or below the fold.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>container-type: scroll-state</code> on the sticky
+        {" "}<code>&lt;thead&gt;</code> makes it a container that knows its scroll
+        state
+      </li>
+      <li>
+        <code>@container scroll-state(stuck: top)</code> matches while the header
+        is stuck to the top edge. An element can't query itself, so the shadow goes
+        on the <code>&lt;th&gt;</code> cells inside it
+      </li>
+      <li>
+        <code>clip-path</code> cuts the shadow off at the top and the sides, so it
+        only falls on the rows below
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.table.sticky-header > thead {
+  container-type: scroll-state;
+  inset-block-start: 0;
+  position: sticky;
+}
+
+.table.sticky-header > thead th {
+  transition: box-shadow 0.2s;
+}
+
+@container scroll-state(stuck: top) {
+  .table.sticky-header > thead th {
+    box-shadow: var(--shadow-4);
+    clip-path: inset(0 0 calc(-1 * var(--size-6)));
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="scroll-shadows">Scroll shadows</h2>
+    <p>
+      <DocLink href="/components/dialog">Dialog</DocLink> and <DocLink
+        href="/components/drawer">Drawer</DocLink
+      > use the other half of the feature. <code
+        >scroll-state(scrollable: top)</code
+      > matches when a scroll container can scroll up, so there's content above, and
+      {" "}<code>scrollable: bottom</code> when there's more below.
+    </p>
+    <ul>
+      <li>
+        The <code>.content</code> area is the scroll container. Its <code
+          >::before</code
+        > and <code>::after</code> are its children, so they can query it
+      </li>
+      <li>
+        Children of a scroller scroll along with it. <code
+          >position: absolute</code
+        > takes them out of the flow, and <code>anchor()</code> pins them to the edges
+        of the content area
+      </li>
+      <li>
+        <code>anchor-scope</code> keeps the anchor name to one dialog, so two open
+        dialogs don't share it
+      </li>
+      <li>
+        Both shadows start at <code>opacity: 0</code>, and each query fades one
+        in. <code>scale: 1 -1</code> flips the bottom one so its shadow falls upward
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.content {
+  anchor-name: --content;
+  anchor-scope: --content;
+  container-type: scroll-state;
+  overflow-y: auto;
+}
+
+.content::before,
+.content::after {
+  block-size: var(--size-2);
+  box-shadow: var(--shadow-4);
+  clip-path: inset(100% 0 calc(-1 * var(--size-6)));
+  content: "";
+  inset-inline: anchor(--content inside);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.content::before {
+  inset-block-end: anchor(--content top);
+}
+
+.content::after {
+  inset-block-start: anchor(--content bottom);
+  scale: 1 -1;
+}
+
+@container scroll-state(scrollable: top) {
+  .content::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: bottom) {
+  .content::after {
+    opacity: 1;
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <p>Scroll the table until the header sticks.</p>
+    <Example showCode={false}>
+      <StickyHeader />
+    </Example>
+    <p>Open the dialog and scroll its content.</p>
+    <Example centered showCode={false}>
+      <Button
+        commandfor="scroll-state-dialog"
+        command="show-modal"
+        type="button"
+      >
+        Open dialog
+      </Button>
+      <Dialog
+        closedby="any"
+        id="scroll-state-dialog"
+        style="max-block-size: 24rem"
+      >
+        <h2 class="ui-h4" slot="header">Terms</h2>
+        <div class="ui-rich-text" slot="content">
+          {
+            Array.from({ length: 8 }, (_, index) => (
+              <p>
+                Section {index + 1}. The shadow at the top shows once you scroll
+                down, and the one at the bottom goes away at the end.
+              </p>
+            ))
+          }
+        </div>
+        <Fragment slot="actions">
+          <Button
+            commandfor="scroll-state-dialog"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Close
+          </Button>
+        </Fragment>
+      </Dialog>
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without scroll state queries the header still sticks and the content
+        still scrolls. There's just no shadow
+      </li>
+      <li>
+        The shadows are decoration, so nothing else depends on them. A scrollbar
+        still shows that there's more
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

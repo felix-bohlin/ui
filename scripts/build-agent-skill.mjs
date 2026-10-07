@@ -75,6 +75,10 @@ function buildSkill() {
       path.join(DIST, framework.id, "guide/getting-started.md"),
       path.join(outDir, "getting-started.md"),
     )
+    copyReference(
+      path.join(DIST, framework.id, "guide/theming.md"),
+      path.join(outDir, "theming.md"),
+    )
   }
 
   const components = readComponents(path.join(DIST, "html/llms.txt")).sort(

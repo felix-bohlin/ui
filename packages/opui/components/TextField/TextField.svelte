@@ -63,10 +63,11 @@
   {/if}
   {#if description || startText}
     <span class="ui-start-text">
-      {#if description}
-        {@render content(description)}
-      {:else}
+      {#if typeof description === "function"}
         {startText}
+        {@render description()}
+      {:else}
+        {description || startText}
       {/if}
     </span>
   {/if}

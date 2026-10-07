@@ -4,6 +4,8 @@ import type { Snippet } from "svelte"
 
 type Snippets = Omit<Base.RangeSlots<Snippet>, "valueSuffix">
 
-export type RangeProps = Omit<Base.RangeProps, keyof Snippets> &
+type WithoutSnippets<T> = T extends unknown ? Omit<T, keyof Snippets> : never
+
+export type RangeProps = WithoutSnippets<Base.RangeProps> &
   Snippets &
   Omit<SvelteHTMLElements["input"], keyof Base.RangeProps | keyof Snippets>

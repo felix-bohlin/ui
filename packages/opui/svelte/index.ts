@@ -70,7 +70,12 @@ export type {
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
-export type { Props as DescriptionListProps } from "../components/DescriptionList/types.svelte"
+export type {
+  DescriptionProps as DescriptionListDescriptionProps,
+  ItemProps as DescriptionListItemProps,
+  Props as DescriptionListProps,
+  TermProps as DescriptionListTermProps,
+} from "../components/DescriptionList/types.svelte"
 export type { Props as DialogProps } from "../components/Dialog/types.svelte"
 export type { Props as DividerProps } from "../components/Divider/types.svelte"
 export type {
@@ -102,6 +107,7 @@ export type {
 export type {
   ColumnProps as TableColumnProps,
   Props as TableProps,
+  SectionProps as TableSectionProps,
 } from "../components/Table/types.svelte"
 export type {
   TabsItemProps,

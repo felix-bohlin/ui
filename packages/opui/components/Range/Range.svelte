@@ -62,7 +62,8 @@
 >
   {#if hasLabel}
     <span class="ui-label" id={labelId}>
-      {#if children}{@render children()}{:else}{label}{/if}
+      {label}
+      {@render children?.()}
     </span>
   {/if}
   {#if hasValue}

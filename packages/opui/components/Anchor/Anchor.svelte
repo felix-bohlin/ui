@@ -5,6 +5,7 @@
     alignment,
     class: className,
     id: idProp,
+    style,
     trigger = "always",
 
     // Snippets
@@ -22,7 +23,8 @@
 <span
   class={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style:--anchor-position-area={alignment}
+  style={`${alignment ? `--anchor-position-area: ${alignment};` : ""}${style ?? ""}` ||
+    undefined}
   {...rest}
 >
   {@render children?.()}

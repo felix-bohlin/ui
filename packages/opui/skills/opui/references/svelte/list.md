@@ -4,7 +4,7 @@
 
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
@@ -102,6 +102,8 @@ Without a color class the list uses the filled surface, because lists usually si
 ## Clickable list item
 
 Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
+
+`as="button"` renders a `<button type="button">`, so the item never submits a surrounding form.
 
 ```svelte
 <script lang="ts">
@@ -476,7 +478,7 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
     {#snippet end()}
       <button
         aria-label="Delete"
-        class="ui-button ui-rounded ui-ripple ui-small"
+        class="ui-button ui-rounded ui-small"
         type="button"
       >
         <svg
@@ -599,22 +601,22 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                  |
-| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                |
-| `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                    |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                       |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                   |
-| `end`         | `string` , `Snippet`                  | -       | Optional content at the end, such as a value or an action.                                                   |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                           |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                          |
-| `start`       | `string` , `Snippet`                  | -       | Optional content at the start, such as an icon or avatar.                                                    |
-| `submenu`     | `string` , `Snippet`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                  |
-| `text`        | `string` , `Snippet`                  | -       | The text content.                                                                                            |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
+| Prop          | Type                                  | Default | Description                                                                                                                                     |
+| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
+| `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
+| `end`         | `string` , `Snippet`                  | -       | Optional content at the end, such as a value or an action.                                                                                      |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
+| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
+| `start`       | `string` , `Snippet`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
+| `submenu`     | `string` , `Snippet`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
+| `text`        | `string` , `Snippet`                  | -       | The text content.                                                                                                                               |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
 
 #### CSS variables
 
@@ -766,7 +768,7 @@ Step 4 of 4: Bordered
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=List.md).

@@ -18,14 +18,17 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--chip-size": "Default `Chip` height.",
   "--chip-size-large": "`Chip` height with `.ui-large`.",
   "--chip-size-small": "`Chip` height with `.ui-small`.",
+  "--chip-size-x-small": "`Chip` height with `.ui-x-small`.",
   "--choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--choice-size": "Default `Checkbox` and `Radio` input size.",
   "--choice-size-large": "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--choice-size-small":
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
+  "--choice-size-x-small":
+    "`Checkbox` and `Radio` input size with `.ui-x-small`.",
   "--contrast":
-    "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`.",
+    "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
   "--control-size":
     "Shared default height for fields and buttons so they line up.",
   "--control-size-large": "Shared large height for fields and buttons.",
@@ -33,7 +36,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--control-size-x-small": "Shared x-small height for fields and buttons.",
   "--critical": "Severity color for errors and destructive actions.",
   "--density":
-    "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable.",
+    "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--disabled-opacity": "Opacity applied to disabled controls.",
   "--divider-space":
     "Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
@@ -93,7 +96,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--invalid-text-color":
     "Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.",
   "--motion":
-    "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.",
+    "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--neutral": "Severity color for neutral messages.",
   "--orange":
     "A literal orange derived from the palette lightness. No severity meaning.",
@@ -102,19 +105,19 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--palette-hue":
     "Hue of the palette source color in degrees. Green in light mode and blue in dark mode by default.",
   "--palette-hue-rotate-by":
-    "Degrees of hue drift per palette step, for warm or cool ramps.",
+    "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`.",
   "--palette-source":
-    "The source color the palette is derived from. Set it to one `oklch()` color to replace `--palette-hue` and `--palette-chroma`.",
+    "The source color the palette is derived from. Set it to replace `--palette-hue` and `--palette-chroma`. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--primary": "Brand color for primary actions and accents.",
-  "--primary-contrast": "Text color on a `--primary` background.",
+  "--primary-contrast":
+    "Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.",
   "--primary-dark": "A darker `--primary`.",
   "--primary-light": "A lighter `--primary`.",
   "--red":
     "A literal red derived from the palette lightness. No severity meaning.",
   "--rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
-  "--ripple-color":
-    "Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.",
+  "--ripple-color": "Halo color for the `Checkbox` and `Radio` hover effect.",
   "--state-active-alpha":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--state-active-alpha-accent":
@@ -136,14 +139,24 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of `Toast` and `Tooltip`, inverted against the page.",
   "--surface-tonal": "Background of tonal variants.",
   "--switch-dot-size": "Diameter of the `Switch` dot.",
+  "--switch-dot-size-large": "Diameter of the `Switch` dot with `.ui-large`.",
   "--switch-dot-size-small":
     "Diameter of the `Switch` dot with `.ui-small` and inside `List`.",
+  "--switch-dot-size-x-small":
+    "Diameter of the `Switch` dot with `.ui-x-small`.",
   "--switch-track-height": "Height of the `Switch` track.",
+  "--switch-track-height-large":
+    "Height of the `Switch` track with `.ui-large`.",
   "--switch-track-height-small":
     "Height of the `Switch` track with `.ui-small` and inside `List`.",
+  "--switch-track-height-x-small":
+    "Height of the `Switch` track with `.ui-x-small`.",
   "--switch-track-width": "Width of the `Switch` track.",
+  "--switch-track-width-large": "Width of the `Switch` track with `.ui-large`.",
   "--switch-track-width-small":
     "Width of the `Switch` track with `.ui-small` and inside `List`.",
+  "--switch-track-width-x-small":
+    "Width of the `Switch` track with `.ui-x-small`.",
   "--text-disabled": "Text color of disabled buttons and chips.",
   "--text-inverse": "Text color on `--surface-inverse`.",
   "--text-muted": "Body text color.",

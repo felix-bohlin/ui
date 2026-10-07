@@ -166,13 +166,7 @@ const { link } = Astro.locals
 
       <div class="ui-actions">
         <!-- Search -->
-        <Button
-          ripple
-          rounded
-          size="small"
-          data-open-search
-          title="Search (⌘K)"
-        >
+        <Button rounded size="small" data-open-search title="Search (⌘K)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -187,7 +181,6 @@ const { link } = Astro.locals
 
         <!-- Theme Configurator -->
         <Button
-          ripple
           rounded
           size="small"
           commandfor="theme-configurator-drawer"
@@ -210,7 +203,7 @@ const { link } = Astro.locals
         <a
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
-          class="github-link ui-button ui-rounded ui-ripple ui-small"
+          class="github-link ui-button ui-rounded ui-small"
           aria-label="GitHub repository"
         >
           <GithubLogo />
@@ -219,7 +212,7 @@ const { link } = Astro.locals
         <!-- Mobile menu button -->
         <button
           aria-label="Menu"
-          class="mobile-menu-button ui-button ui-rounded ui-ripple ui-small"
+          class="mobile-menu-button ui-button ui-rounded ui-small"
           commandfor="mobile-menu-drawer"
           command="show-modal"
         >

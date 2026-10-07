@@ -1,3 +1,11 @@
+## Guides
+
+Read the guide for the files you're editing:
+
+- `packages/opui/components/AGENTS.md`: the Astro and Vue components and their type files.
+- `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
+- `src/docs/components/AGENTS.md`: the component docs pages and their examples.
+
 ## Sorting
 
 Always sort and order items in ascending order (ASC) whenever possible. This applies to:
@@ -38,9 +46,10 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## Testing
 
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
+- The build regenerates `public/search-index.json` and the agent skill references in `packages/opui/skills/opui/references`. Commit them; CI fails when they're stale.
 - CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks. Run `pnpm sort-css` to fix order.
 - The docs build fails on `[component-api]` errors: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop must exist.
-- Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>`, theming checks against `/<framework>/test/theming`, and layout and accessibility checks on every `heroAnatomy` docs page.
+- Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>`, theming checks against `/<framework>/test/theming`, and layout and accessibility checks on every `heroAnatomy` docs page. The fixture pages only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 - Stress test pages combine many components to show how they play together. Each is an HTML file in `src/stress-tests/` that renders at `/tests/<name>/`, also in `pnpm dev`. Every `<section class="stress" data-example="Name">` gets a visual snapshot and an axe check, and `tests/e2e/stress.spec.ts` checks that the controls in each `[data-size]` row share one control size. Add a file to stress test something new.
 - Parity tests render every example in `src/component-examples/` for Astro, Svelte, Vue and HTML and compare the markup. Astro output must match the HTML example, and Svelte and Vue output must match Astro. One markup snapshot per example lives in `tests/unit/__snapshots__/`; accepted drift is recorded next to it as a `.diff` file per framework.
 - NEVER update snapshots, add or change `.diff` files, or edit `tests/e2e/a11y-known-violations.json` to make a failing test pass unless the change is intended. Say so in the commit message when you do.

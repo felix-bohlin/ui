@@ -15,7 +15,6 @@ import buttonGroupLinkItem from "../todo-examples/button-group-link-item.html?ra
 import buttonGroupVerticalSmall from "../todo-examples/button-group-vertical-small.html?raw"
 import buttonGroupWalkthroughOutline from "../todo-examples/button-group-walkthrough-outline.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
-import buttonWalkthroughRipple from "../todo-examples/button-walkthrough-ripple.html?raw"
 import calloutHtmlDefaultIcon from "../todo-examples/callout-html-default-icon.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutLinkFocus from "../todo-examples/callout-link-focus.html?raw"
@@ -73,6 +72,7 @@ import listTextLeak from "../todo-examples/list-text-leak.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import maskIconsForcedColors from "../todo-examples/mask-icons-forced-colors.html?raw"
+import menuAccessibility from "../todo-examples/menu-accessibility.html?raw"
 import menuShrink from "../todo-examples/menu-shrink.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
 import paletteHueRotate from "../todo-examples/palette-hue-rotate.html?raw"
@@ -195,10 +195,6 @@ export const todoExamples = {
   "button-unwrapped-text": {
     match: "Button with an icon and unwrapped text",
     source: buttonUnwrappedText,
-  },
-  "button-walkthrough-ripple": {
-    match: "Button walkthrough:",
-    source: buttonWalkthroughRipple,
   },
   "callout-html-default-icon": {
     match: "Callout: the `<svg>` part says",
@@ -427,6 +423,10 @@ export const todoExamples = {
   "mask-icons-forced-colors": {
     match: "Select and Text input: mask icons painted",
     source: maskIconsForcedColors,
+  },
+  "menu-accessibility": {
+    match: "Menu: the Accessibility section is",
+    source: menuAccessibility,
   },
   "menu-shrink": {
     match: "Menu doesn't shrink to the space",

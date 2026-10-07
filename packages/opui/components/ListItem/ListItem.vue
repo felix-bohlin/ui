@@ -65,6 +65,7 @@ const disabled = computed(() =>
       v-else-if="Tag"
       :disabled="disabled"
       :href="props.href"
+      :type="Tag === 'button' ? 'button' : undefined"
       v-bind="innerAttrs"
     >
       <div v-if="slots.start" class="ui-start">

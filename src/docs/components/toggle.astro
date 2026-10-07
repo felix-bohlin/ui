@@ -26,7 +26,14 @@ export const description =
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -72,12 +79,50 @@ export const description =
       >Checkbox</DocLink
     >. To switch between panels of content, use <DocLink href="/components/tabs"
       >Tabs</DocLink
+    >. For uncontrolled buttons that just run actions, use a <DocLink
+      href="/components/button-group">Button group</DocLink
     >.
   </Fragment>
 
   <section>
     <h2 id="toggle-button">Toggle button</h2>
     <AutoExample name="Standalone" centered />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Add the class to a <code
+          >.ui-toggle-button</code
+        >, or to a <code>.ui-toggle-group</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" centered row />
   </section>
 
   <section>
@@ -147,6 +192,26 @@ export const description =
     <AutoExample name="Alignment" centered />
 
     <h3 id="text-icon">Text + icon</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+      <Fragment slot="html">
+        Put an <code>svg</code> before the text. Icon-only buttons need an <code
+          >aria-label</code
+        > on the input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Put an <code>svg</code> before the text in <code>children</code>.
+        Icon-only buttons need an <code>aria-label</code>, which the component
+        passes to the input.
+      </Fragment>
+      <Fragment slot="vue">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Interactive" centered />
 
@@ -172,32 +237,6 @@ export const description =
       </p>
     </Conditional>
     <AutoExample name="Vertical" centered />
-
-    <h3 id="sizes">Sizes</h3>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Choose between four sizes: <code>.ui-x-small</code>, <code
-          >.ui-small</code
-        >, default and <code>.ui-large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Sizes" centered row />
 
     <h3 id="overflow">Overflow</h3>
     <Conditional as="p">
@@ -249,11 +288,3 @@ export const description =
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-toggle-group
-    .ui-toggle-button:has(input:checked).has-text
-    svg:nth-of-type(2) {
-    display: none;
-  }
-</style>

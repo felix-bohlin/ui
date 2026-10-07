@@ -22,6 +22,7 @@ type Props = {
 }
 
 const { api, headingLevel = 4 } = Astro.props
+const { link } = Astro.locals
 const SlotsHeading = `h${headingLevel}` as const
 
 checkApi(api)
@@ -85,7 +86,7 @@ const cssVars = cssVarRows(api)
                   "default"
                 )}
               </Table.Cell>
-              <Table.Cell set:html={formatInline(row.description)} />
+              <Table.Cell set:html={formatInline(row.description, link)} />
             </Table.Row>
           ))}
         </Table.Body>
@@ -134,7 +135,7 @@ const cssVars = cssVarRows(api)
                 <Table.Cell>
                   {row.default ? <code>{row.default}</code> : "-"}
                 </Table.Cell>
-                <Table.Cell set:html={formatInline(row.description)} />
+                <Table.Cell set:html={formatInline(row.description, link)} />
               </Table.Row>
             )
           })}
@@ -171,7 +172,7 @@ const cssVars = cssVarRows(api)
                   <Table.Cell>
                     <code>{row.name}</code>
                   </Table.Cell>
-                  <Table.Cell set:html={formatInline(row.description)} />
+                  <Table.Cell set:html={formatInline(row.description, link)} />
                 </Table.Row>
               ))}
             </Table.Body>
@@ -214,7 +215,7 @@ const cssVars = cssVarRows(api)
                     </Fragment>
                   )}
                 </Table.Cell>
-                <Table.Cell set:html={formatInline(row.description)} />
+                <Table.Cell set:html={formatInline(row.description, link)} />
               </Table.Row>
             ))}
           </Table.Body>
@@ -230,7 +231,7 @@ const cssVars = cssVarRows(api)
   )
 }
 
-{notes.map((note) => <p set:html={formatInline(note)} />)}
+{notes.map((note) => <p set:html={formatInline(note, link)} />)}
 
 <style>
   .table-scroll {

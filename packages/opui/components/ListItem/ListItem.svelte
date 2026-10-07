@@ -88,7 +88,12 @@
       {@render children?.()}
     </label>
   {:else if Tag}
-    <svelte:element this={Tag} {href} {...rest as HTMLAttributes<HTMLElement>}>
+    <svelte:element
+      this={Tag}
+      {href}
+      type={Tag === "button" ? "button" : undefined}
+      {...rest as HTMLAttributes<HTMLElement>}
+    >
       {@render body()}
     </svelte:element>
   {:else}

@@ -99,6 +99,10 @@
             color: var(--_link-hover-color);
           }
         }
+
+        &:focus-visible {
+          color: var(--_link-hover-color);
+        }
       }
     }
 

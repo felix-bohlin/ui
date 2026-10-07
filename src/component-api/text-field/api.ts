@@ -19,15 +19,16 @@ export default {
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes size depending on its content.",
+      description: "Lets the width follow the content, from `25ch`.",
       group: "Auto-fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {

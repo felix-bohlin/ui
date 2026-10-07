@@ -36,7 +36,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   <CheckboxInput
     {...rest}

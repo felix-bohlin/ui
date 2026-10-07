@@ -29,7 +29,12 @@ export const description =
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}
-  browserSupport={["anchor-positioning", "light-dark", "relative-color"]}
+  browserSupport={[
+    "container-style-queries",
+    "dir-pseudo",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Badge/Badge.astro",
@@ -180,12 +185,12 @@ export const description =
     <p>Where the badge should be placed over the child.</p>
     <Conditional>
       <p slot="html">
-        <code>.ui-start-start</code>, default, <code>.ui-end-start</code>, <code
-          >.ui-end-end</code
-        >.
+        <code>.ui-start-start</code>, default (<code>start-end</code>, no
+        class),
+        <code>.ui-end-start</code>, <code>.ui-end-end</code>.
       </p>
       <p slot="astro">
-        <code>start-start</code>, default,{" "}
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="svelte">
@@ -193,7 +198,7 @@ export const description =
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="vue">
-        <code>start-start</code>, default,{" "}
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
     </Conditional>
@@ -275,5 +280,4 @@ export const description =
   }
 
   setupBadgeVisibilityControls()
-  document.addEventListener("astro:after-swap", setupBadgeVisibilityControls)
 </script>

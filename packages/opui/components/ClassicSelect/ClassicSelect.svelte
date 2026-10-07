@@ -34,7 +34,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {#if label}<span class="ui-label">{label}</span>{/if}
   <span class="ui-field">

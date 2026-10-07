@@ -27,6 +27,8 @@ export const description =
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
     "anchor-positioning",
+    "container-style-queries",
+    "dir-pseudo",
     "light-dark",
     "relative-color",
     "scroll-buttons",
@@ -221,6 +223,18 @@ export const description =
     <p>
       Screen readers announce the position of each item. The buttons and markers
       have accessible names.
+    </p>
+    <p>
+      The buttons and markers get the library's focus ring. In forced colors
+      mode the markers get a border, and the current marker is filled with <code
+        >SelectedItem</code
+      >.
+    </p>
+    <p>
+      The buttons and markers scroll smoothly unless motion is off: with reduced
+      motion, <code>.ui-motion-off</code> on the carousel or a parent, or <code
+        >--motion: 0</code
+      > on a parent.
     </p>
   </Fragment>
   <CarouselBuild slot="under-the-hood" />

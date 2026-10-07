@@ -18,7 +18,7 @@ Supporting text that explains the callout in more detail.
 
 - `icon`
 
-  An optional icon. `info`, `success`, `warning` and `critical` have a default icon.
+  An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.
 
 - `children`
 
@@ -134,14 +134,14 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 ### Callout API
 
-| Prop           | Type                                                              | Default   | Description                                                                        |
-| -------------- | ----------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------- |
-| `children`     | `Snippet`                                                         | -         | The content.                                                                       |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                    |
-| `icon`         | `Snippet`                                                         | -         | An optional icon. `info`, `success`, `warning` and `critical` have a default icon. |
-| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color and the default icon.                                 |
-| `title`        | `Snippet`                                                         | -         | An optional title inside the content.                                              |
-| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                |
+| Prop           | Type                                                              | Default   | Description                                                                                                       |
+| -------------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
+| `children`     | `Snippet`                                                         | -         | The content.                                                                                                      |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                                                   |
+| `icon`         | `Snippet`                                                         | -         | An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical. |
+| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro and Vue the default icon.                                              |
+| `title`        | `Snippet`                                                         | -         | An optional title inside the content.                                                                             |
+| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                               |
 
 #### CSS variables
 
@@ -161,6 +161,8 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Severity colors from one source color](https://open-props-ui.netlify.app/learn/callout-relative-colors)
 
 1. Surface
 
@@ -298,9 +300,9 @@ Step 4 of 4: Severity
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Chromium: Full support Supported since v143.
+- Firefox: Full support Supported since v146.
+- Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Callout.md).
 

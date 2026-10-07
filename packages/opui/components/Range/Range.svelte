@@ -59,7 +59,6 @@
     { "ui-spread": spread },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {#if hasLabel}
     <span class="ui-label" id={labelId}>

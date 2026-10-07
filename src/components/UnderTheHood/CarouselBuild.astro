@@ -27,7 +27,7 @@ const steps = [
   {
     css: `
 .carousel {
-  overscroll-behavior-x: contain;
+  overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
 }
 
@@ -38,7 +38,7 @@ const steps = [
     notes: [
       "<code>scroll-snap-type</code> on the scroller",
       "<code>scroll-snap-align</code> on each item",
-      "<code>overscroll-behavior-x: contain</code> stops the page swiping back",
+      "<code>overscroll-behavior-inline: contain</code> stops the page swiping back",
     ],
     title: "Scroll snap",
   },

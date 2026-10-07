@@ -3,7 +3,6 @@ import Guide from "../../../layouts/Guide.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
 import DocLink from "../../../components/DocLink.astro"
 import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
 ---
 
 <Guide overline="Guide">
@@ -101,6 +100,13 @@ import Theming from "./_theming.astro"
         >Radio</code
       > supports <code>bind:group</code>.
     </p>
+    <p>
+      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
+      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
+        href="/components">components</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
+      motion and contrast.
+    </p>
   </section>
 
   <section>
@@ -151,6 +157,4 @@ import Theming from "./_theming.astro"
       and the API tables mark each prop with a crossed-out server icon.
     </p>
   </section>
-
-  <Theming />
 </Guide>

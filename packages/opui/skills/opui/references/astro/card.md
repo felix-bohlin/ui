@@ -36,7 +36,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `variant` prop.
+Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border.
 
 ```astro
 ---
@@ -66,7 +66,7 @@ import { Card } from "opui-css/astro"
 
 **Why does a text variant exist?**
 
-It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/astro/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the `.ui-card` component.
+On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
 
 ## Header
 
@@ -125,7 +125,7 @@ import { Button } from "opui-css/astro"
 <Card variant="outlined">
   <Fragment slot="content">Icon buttons work too!</Fragment>
   <Fragment slot="actions">
-    <Button ripple rounded size="small" aria-label="Favorite">
+    <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -138,7 +138,7 @@ import { Button } from "opui-css/astro"
         ></path>
       </svg>
     </Button>
-    <Button ripple rounded size="small" aria-label="Share">
+    <Button rounded size="small" aria-label="Share">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -186,7 +186,7 @@ import { Button } from "opui-css/astro"
 <Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Icon buttons aligned to the end!</Fragment>
   <Fragment slot="actions">
-    <Button ripple rounded size="small" aria-label="Favorite">
+    <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -199,7 +199,7 @@ import { Button } from "opui-css/astro"
         ></path>
       </svg>
     </Button>
-    <Button ripple rounded size="small" aria-label="Share">
+    <Button rounded size="small" aria-label="Share">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -252,10 +252,10 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop           | Type                                               | Default | Description                |
-| -------------- | -------------------------------------------------- | ------- | -------------------------- |
-| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions. |
-| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use.        |
+| Prop           | Type                                               | Default | Description                                                                        |
+| -------------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.                                                         |
+| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Slots
 
@@ -287,6 +287,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.
 
 ## Under the hood
+
+Read the post: [Cards that know their color scheme](https://open-props-ui.netlify.app/learn/card-style-queries)
 
 1. Base
 

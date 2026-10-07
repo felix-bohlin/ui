@@ -96,21 +96,21 @@ const steps = [
 }
 
 .dialog > .content::before {
-  inset-block-end: anchor(--content top);
+  inset-block-end: anchor(--content outside);
 }
 
 .dialog > .content::after {
-  inset-block-start: anchor(--content bottom);
+  inset-block-start: anchor(--content outside);
   scale: 1 -1;
 }
 
-@container scroll-state(scrollable: top) {
+@container scroll-state(scrollable: block-start) {
   .dialog > .content::before {
     opacity: 1;
   }
 }
 
-@container scroll-state(scrollable: bottom) {
+@container scroll-state(scrollable: block-end) {
   .dialog > .content::after {
     opacity: 1;
   }

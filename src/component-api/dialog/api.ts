@@ -9,11 +9,12 @@ export default {
   },
   options: [
     {
+      default: '"end"',
       description: "Alignment for the actions.",
       group: "Alignment",
       part: ".ui-actions",
       prop: "actionsAlign",
-      values: { end: ".ui-align-end", start: null },
+      values: { end: null, start: ".ui-align-start" },
     },
     {
       attribute: "[closedby]",

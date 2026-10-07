@@ -2,7 +2,13 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Table } from "@opui/astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Button as UIButton,
+  Callout as UICallout,
+  Dialog as UIDialog,
+  Table,
+} from "@opui/astro"
 
 import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
@@ -29,16 +35,19 @@ export const description =
 
 <Component
   description={description}
+  heroAnatomy
   slug="dialog"
   apis={[{ title: "Dialog API", api: dialogApi }]}
   browserSupport={[
     "anchor-positioning",
     "backdrop-filter",
     "container-scroll-state-queries",
+    "container-style-queries",
     "dialog-closedby",
     "display-animation",
     "has",
     "invoker-commands",
+    "overflow-clip",
     "overlay",
     "scrollbar-gutter",
     "starting-style",
@@ -160,11 +169,59 @@ export const description =
   </section>
 
   <section>
+    <h2 id="long-content">Long content</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>content</code> slot scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="html">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while <code>.ui-content</code> scrolls, with a shadow on
+        the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="svelte">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>content</code> snippet scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="vue">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>content</code> slot scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="LongContent" row />
+  </section>
+
+  <section>
     <h2 id="how-to-close">How to close a dialog</h2>
     <ClosedbyTable name="dialog" />
 
     <AutoExample name="CloseBehaviors" row />
   </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIDialog
+        closedby="none"
+        open
+        style="inline-size: 22rem; margin: 0; position: static"
+      >
+        <h2 class="ui-h4" slot="header">Newsletter</h2>
+        <p slot="content">
+          Get a short email when we ship something new. No more than once a
+          month.
+        </p>
+        <Fragment slot="actions">
+          <UIButton>Not now</UIButton>
+          <UIButton variant="filled">Subscribe</UIButton>
+        </Fragment>
+      </UIDialog>
+    </Anatomy>
+  </Fragment>
 
   <DialogBuild slot="under-the-hood" />
 
@@ -238,34 +295,26 @@ export const description =
           <Table.Row>
             <Table.Cell><kbd>Tab</kbd></Table.Cell>
             <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to next focusable element inside the dialog.
-                </li>
-                <li>
-                  When focus is on the last focusable element in the dialog,
-                  moves focus to the first focusable element in the dialog.
-                </li>
-              </ul>
+              Moves focus to the next focusable element in the dialog. After the
+              last one, focus moves to the browser's own controls (like the
+              address bar), then back to the first element in the dialog. The
+              page behind it is inert.
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
             <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to previous focusable element inside the dialog.
-                </li>
-                <li>
-                  When focus is on the first focusable element in the dialog,
-                  moves focus to the last focusable element in the dialog.
-                </li>
-              </ul>
+              Moves focus to the previous focusable element. Before the first
+              one, focus moves to the browser's controls, then to the last
+              element in the dialog.
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>Closes the dialog.</Table.Cell>
+            <Table.Cell>
+              Closes the dialog, unless <code>closedby="none"</code>, and
+              returns focus to the element that opened it.
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
@@ -273,19 +322,12 @@ export const description =
 
     <p>
       Source: <a
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/#rps_label"
-        class="ui-link">w3.org</a
-      >, <a
-        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility"
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#accessibility"
         class="ui-link">MDN</a
-      >
+      >. The <a
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/"
+        class="ui-link">APG modal dialog pattern</a
+      > wraps focus with a script. A native modal dialog doesn't need one.
     </p>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-dialog.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-  }
-</style>

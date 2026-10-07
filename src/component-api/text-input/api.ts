@@ -5,42 +5,17 @@ export default {
   css: ["text-input"],
   notes: {
     astro:
-      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+      "CSS-only. Styles a Text field with a `list`; there's no separate Astro component.",
+    html: "Needs `text-field.css`, which holds the field, variant and size styles.",
     svelte:
-      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
-    vue: "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+      "CSS-only. Styles a Text field with a `list`; there's no separate Svelte component.",
+    vue: "CSS-only. Styles a Text field with a `list`; there's no separate Vue component.",
   },
-  options: [
-    {
-      class: ".ui-auto-fit",
-      description:
-        "When enabled, the element changes size depending on its content.",
-      group: "Auto-fit",
-      prop: "autoFit",
-    },
-    {
-      description: "The size of the element.",
-      group: "Sizes",
-      prop: "size",
-      values: { small: ".ui-small" },
-    },
-    {
-      default: '"default"',
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "variant",
-      values: { default: null, filled: ".ui-filled" },
-    },
-  ],
-  parts: [
-    {
-      description:
-        "Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself.",
-      selector: ".ui-field",
-    },
-  ],
+  options: [],
+  parts: [],
   root: {
-    description: 'The input, wrapped in a `<span class="ui-field">`.',
-    selector: ".ui-text-field input",
+    description:
+      "A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
+    selector: ".ui-text-field:has(input[list])",
   },
 } satisfies ComponentApi

@@ -206,6 +206,10 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
       --_input-size: var(--choice-size-small);
     }
@@ -215,8 +219,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {

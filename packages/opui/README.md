@@ -133,28 +133,28 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 
 ## Entry points
 
-| Import                              | What it gives you                                                            |
-| ----------------------------------- | ---------------------------------------------------------------------------- |
-| `opui-css`                          | Pre-bundled: everything in one file (default)                                |
-| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                          |
-| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)                |
-| `opui-css/dist/opui.css`            | Same as default - explicit path                                              |
-| `opui-css/dist/opui.components.css` | Pre-bundled: components only (no Open Props, palette, theme, reset or utils) |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                                |
-| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                                |
-| `opui-css/css/layers.css`           | `@layer` order only                                                          |
-| `opui-css/css/components.css`       | All component styles (no Open Props, palette, theme, reset or utils)         |
-| `opui-css/css/components/*.css`     | One component at a time                                                      |
-| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                  |
-| `opui-css/core/normalize.css`       | CSS reset                                                                    |
-| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                   |
-| `opui-css/core/utils.css`           | Utility classes                                                              |
-| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                    |
-| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()` for indeterminate checkboxes without a framework   |
-| `opui-css/astro`                    | All Astro components                                                         |
-| `opui-css/svelte`                   | All Svelte components                                                        |
-| `opui-css/vue`                      | All Vue components                                                           |
-| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                           |
+| Import                              | What it gives you                                                                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `opui-css`                          | Pre-bundled: everything in one file (default)                                                                          |
+| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                                                                    |
+| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)                                                          |
+| `opui-css/dist/opui.css`            | Same as default - explicit path                                                                                        |
+| `opui-css/dist/opui.components.css` | Pre-bundled: components only (no Open Props, palette, theme, reset or utils)                                           |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                                                                          |
+| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                                                                          |
+| `opui-css/css/layers.css`           | `@layer` order only                                                                                                    |
+| `opui-css/css/components.css`       | All component styles (no Open Props, palette, theme, reset or utils)                                                   |
+| `opui-css/css/components/*.css`     | One component at a time                                                                                                |
+| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                                                            |
+| `opui-css/core/normalize.css`       | CSS reset                                                                                                              |
+| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                                                             |
+| `opui-css/core/utils.css`           | Utility classes                                                                                                        |
+| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
+| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
+| `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/svelte`                   | All Svelte components                                                                                                  |
+| `opui-css/vue`                      | All Vue components                                                                                                     |
+| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
 
 ## AI assistants
 

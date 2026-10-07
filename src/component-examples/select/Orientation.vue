@@ -48,13 +48,14 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select spread>
-    <template #label>Currency</template>
-    <template #description>Used for billing</template>
-    <template #prefix>¢</template>
-    <option value="">-</option>
-    <option>EUR</option>
-    <option>EUR</option>
-    <option>SEK</option>
+    <template #label>Time zone</template>
+    <template #description>Used for reminders and due dates</template>
+    <template #prefix>UTC</template>
+    <option>-03:00</option>
+    <option>+00:00</option>
+    <option>+01:00</option>
+    <option>+05:30</option>
+    <option>+09:00</option>
   </Select>
 
   <Select spread variant="filled">

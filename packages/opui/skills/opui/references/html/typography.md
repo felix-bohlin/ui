@@ -5,12 +5,13 @@ Styles for headings, body text, and other text content. Use util classes anywher
 ### What's new
 
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
 - [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
-- Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
-- Rich text headings, `pre` and `small` scale with the surrounding font size.
+- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
 - [Links](#link) are documented, and get a thicker underline on hover.
-- Rich text tables scroll sideways in narrow columns instead of breaking words letter by letter.
+- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
 
 ## Class-based
 
@@ -633,6 +634,8 @@ cold-brew 1.0.0</samp></pre>
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
 
 ## Under the hood
+
+Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
 
 1. Unsnapped
 

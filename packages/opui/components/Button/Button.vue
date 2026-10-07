@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { as, color, disabled, href, label, ripple, rounded, size, variant } =
+const { as, color, disabled, href, label, rounded, size, variant } =
   defineProps<Props>()
 defineSlots<Slots>()
 
@@ -15,10 +15,7 @@ const isButton = computed(() => Tag.value === "button")
     :is="Tag"
     :class="[
       'ui-button',
-      {
-        'ui-ripple': ripple,
-        'ui-rounded': rounded,
-      },
+      { 'ui-rounded': rounded },
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       color && `ui-${color}`,

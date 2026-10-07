@@ -222,10 +222,12 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ## Under the hood
 
+Read the post: [Hover cards without JavaScript](https://open-props-ui.netlify.app/learn/anchor-hover-cards)
+
 1. Hint
 
    - `interestfor` opens it on hover and keyboard focus, no JavaScript
-   - Only `<button>` and `<a href>` can be interest invokers
+   - Only `<button>`, `<a href>` and `<area>` can be interest invokers
    - `popover="hint"` leaves open menus and dialogs alone
    - Without positioning it opens in the middle of the viewport
 
@@ -236,14 +238,15 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 3. Anchor
 
-   - `anchor-name` on the wrapper, `position-anchor` on the card
-   - `anchor-scope` keeps the name local, so every anchor can reuse `--anchor`
+   - The invoker is the implicit anchor: no `anchor-name`, no `position-anchor`
    - `position-area` places it below, spanning towards the end
+   - A card that's always visible has no invoker, so it needs `anchor-name` and `position-anchor`
 
 4. Flip
 
    - Scroll the trigger to the bottom of the window and hover it again
    - The browser tries each fallback when the card would overflow
+   - `anchors-visible` hides it when the trigger scrolls out of view
 
 Step 1 of 4: Hint
 
@@ -251,7 +254,7 @@ Step 1 of 4: Hint
 - [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
 
 ```html
-<button interestfor="card">felix-bohlin/ui</button>
+<button type="button" interestfor="card">felix-bohlin/ui</button>
 
 
 <div class="card" id="card" popover="hint">…</div>
@@ -275,6 +278,7 @@ Step 2 of 4: Tap
 
 ```html
 <button
+  type="button"
   interestfor="card"
   commandfor="card"
   command="toggle-popover"
@@ -287,24 +291,10 @@ Step 3 of 4: Anchor
 
 - [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
-```html
-<span class="anchor">
-  <button interestfor="card" …>felix-bohlin/ui</button>
-  <div class="card" id="card" popover="hint">…</div>
-</span>
-```
-
 ```css
-.anchor {
-  anchor-name: --anchor;
-  anchor-scope: --anchor;
-}
-
-
 .card {
   inset: auto;
   margin: 0.5rem 0 0;
-  position-anchor: --anchor;
   position-area: block-end span-inline-end;
 }
 ```
@@ -317,6 +307,7 @@ Step 4 of 4: Flip
     flip-block,
     flip-inline,
     flip-block flip-inline;
+  position-visibility: anchors-visible;
 }
 ```
 

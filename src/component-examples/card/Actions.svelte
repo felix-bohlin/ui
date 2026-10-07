@@ -23,7 +23,7 @@
 <Card variant="outlined">
   {#snippet content()}Icon buttons work too!{/snippet}
   {#snippet actions()}
-    <Button ripple rounded size="small" aria-label="Favorite">
+    <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -36,7 +36,7 @@
         ></path>
       </svg>
     </Button>
-    <Button ripple rounded size="small" aria-label="Share">
+    <Button rounded size="small" aria-label="Share">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

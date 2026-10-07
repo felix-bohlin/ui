@@ -50,6 +50,7 @@
     }
 
     &.ui-backdrop-transparent {
+      --_backdrop-bg-color: transparent;
       --_backdrop-blur: none;
     }
 
@@ -96,22 +97,22 @@
       }
 
       &::before {
-        inset-block-end: anchor(--ui-drawer-content top);
+        inset-block-end: anchor(--ui-drawer-content outside);
       }
 
       &::after {
-        inset-block-start: anchor(--ui-drawer-content bottom);
+        inset-block-start: anchor(--ui-drawer-content outside);
         scale: 1 -1;
       }
     }
 
-    @container scroll-state(scrollable: top) {
+    @container scroll-state(scrollable: block-start) {
       .ui-content::before {
         opacity: 1;
       }
     }
 
-    @container scroll-state(scrollable: bottom) {
+    @container scroll-state(scrollable: block-end) {
       .ui-content::after {
         opacity: 1;
       }

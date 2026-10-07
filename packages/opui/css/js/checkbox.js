@@ -21,7 +21,11 @@ export function syncIndeterminate(input) {
   input.indeterminate = input.hasAttribute("data-indeterminate")
 }
 
+let initialized = false
+
 export function initCheckbox() {
   activateIndeterminate()
+  if (initialized) return
+  initialized = true
   document.addEventListener("astro:after-swap", () => activateIndeterminate())
 }

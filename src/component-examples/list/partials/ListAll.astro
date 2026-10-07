@@ -62,7 +62,7 @@ const { prefix = "" } = Astro.props
 />
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-text">
       <p>Button list item</p>
     </div>
@@ -93,7 +93,7 @@ const { prefix = "" } = Astro.props
 </ListItem>
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-start">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +135,7 @@ const { prefix = "" } = Astro.props
 </ListItem>
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-text">
       <p>End icon</p>
     </div>
@@ -158,8 +158,9 @@ const { prefix = "" } = Astro.props
 <ListItem headline="End icon button">
   <button
     slot="end"
-    class="ui-button ui-rounded ui-ripple ui-small"
+    class="ui-button ui-rounded ui-small"
     aria-label="More"
+    type="button"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

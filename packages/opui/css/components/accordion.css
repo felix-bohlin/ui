@@ -159,7 +159,7 @@
 
     &.ui-card {
       &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
-        --_item-summary-padding-inline: 0;
+        --_item-padding-inline: 0;
       }
     }
 

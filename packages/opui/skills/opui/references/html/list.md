@@ -2,9 +2,9 @@
 
 ### What's new
 
-- Breaking: `.divided` is removed. Use [`.ui-bordered`](#on-every-item).
+- Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
@@ -118,7 +118,7 @@
     </div>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -156,7 +156,7 @@
     </div>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-start">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@
     </a>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>End icon</p>
       </div>
@@ -220,7 +220,11 @@
       <p>End icon button</p>
     </div>
     <div class="ui-end">
-      <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+      <button
+        class="ui-button ui-rounded ui-small"
+        aria-label="More"
+        type="button"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -349,10 +353,12 @@ Without a color class the list uses the filled surface, because lists usually si
 
 Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
 
+Give a `<button>` `type="button"` so the item doesn't submit a surrounding form.
+
 ```html
 <ul class="ui-list">
   <li>
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -786,7 +792,7 @@ Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inlin
     <div class="ui-end">
       <button
         aria-label="Delete"
-        class="ui-button ui-rounded ui-ripple ui-small"
+        class="ui-button ui-rounded ui-small"
         type="button"
       >
         <svg
@@ -1098,7 +1104,7 @@ Step 4 of 4: Bordered
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=List.md).

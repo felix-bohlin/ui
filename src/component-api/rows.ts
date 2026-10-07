@@ -60,7 +60,7 @@ export const htmlRows = (api: ComponentApi) =>
         ? [
             {
               default: htmlDefault(option),
-              description: option.description,
+              description: option.htmlDescription ?? option.description,
               modifiers: list,
               name: option.group ?? option.prop,
             },

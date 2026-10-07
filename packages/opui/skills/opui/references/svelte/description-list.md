@@ -55,6 +55,8 @@
 
 Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
 
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+
 ```svelte
 <script lang="ts">
   import {
@@ -119,6 +121,8 @@ Set `bordered` on `DescriptionList` to add a separator between the term and desc
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
 1. Stacked
 

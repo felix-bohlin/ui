@@ -7,21 +7,12 @@
   <section class="todo-current">
     <p class="todo-label">Current</p>
     <p class="todo-note">
-      Bordered prose: "Add <code>.ui-bordered</code> to the
+      The Bordered prose today: "Add <code>.ui-bordered</code> to the
       <code>&lt;dl&gt;</code> element. For a dotted style, also add
-      <code>.ui-dotted</code>." The narrow list below has both classes and no
-      border.
+      <code>.ui-dotted</code>." Nothing more, so a reader expects a dotted
+      border. The list below has both classes, but it is narrower than
+      <code>45ch</code>, so it stacks and shows no border.
     </p>
-    <dl class="ui-description-list ui-bordered ui-dotted">
-      <div class="ui-item">
-        <dt class="ui-term">Price</dt>
-        <dd class="ui-description">6 950 000</dd>
-      </div>
-      <div class="ui-item">
-        <dt class="ui-term">Rooms</dt>
-        <dd class="ui-description">3</dd>
-      </div>
-    </dl>
     <dl class="ui-description-list ui-bordered ui-dotted todo-narrow">
       <div class="ui-item">
         <dt class="ui-term">Price</dt>
@@ -37,11 +28,12 @@
   <section class="todo-fixed">
     <p class="todo-label">With the fix</p>
     <p class="todo-note">
-      Proposed prose: "Above <code>45ch</code> the term and description share a
-      row and the border fills the gap between them. Narrower lists stack and
-      show no border."
+      The same prose plus: "Above <code>45ch</code> the term and description
+      share a row and the border fills the gap between them. Narrower lists
+      stack and show no border." The narrow list now matches what the reader was
+      told, and the wide list below it shows the border.
     </p>
-    <dl class="ui-description-list ui-bordered ui-dotted">
+    <dl class="ui-description-list ui-bordered ui-dotted todo-narrow">
       <div class="ui-item">
         <dt class="ui-term">Price</dt>
         <dd class="ui-description">6 950 000</dd>
@@ -51,7 +43,7 @@
         <dd class="ui-description">3</dd>
       </div>
     </dl>
-    <dl class="ui-description-list ui-bordered ui-dotted todo-narrow">
+    <dl class="ui-description-list ui-bordered ui-dotted">
       <div class="ui-item">
         <dt class="ui-term">Price</dt>
         <dd class="ui-description">6 950 000</dd>
@@ -74,8 +66,7 @@
       probe.remove()
       const item = dl.querySelector(".ui-item")
       const leader = getComputedStyle(item, "::after").content !== "none"
-      const dd = getComputedStyle(item.querySelector("dd"))
-      return `${dl.offsetWidth}px (45ch = ${ch}px): border ${leader}, dd ${dd.color}, text-align ${dd.textAlign}`
+      return `${dl.offsetWidth}px wide (45ch = ${ch}px): border ${leader ? "shown" : "none"}`
     })
     panel.querySelector("[data-measure]").textContent = lines.join("\n")
   }

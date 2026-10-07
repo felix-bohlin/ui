@@ -6,7 +6,7 @@
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
     --_input-size: var(--choice-size);
-    --_indicator-size: 50%;
+    --_indicator-size: calc(100% - 2 * round(down, 25%, 1px));
 
     align-items: start;
     color: var(--text-primary);
@@ -193,6 +193,10 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
       --_input-size: var(--choice-size-small);
     }
@@ -202,8 +206,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {

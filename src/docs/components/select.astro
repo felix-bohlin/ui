@@ -19,16 +19,19 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   slug="select"
   browserSupport={[
     "container-queries",
+    "container-style-queries",
     "customizable-select",
     "display-animation",
     "field-sizing",
     "has",
+    "lh",
     "light-dark",
     "open-pseudo",
     "overlay",
     "relative-color",
     "starting-style",
     "transition-behavior",
+    "user-pseudos",
   ]}
   heroAnatomy
   apis={[
@@ -80,11 +83,39 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
   <section>
     <h2 id="variants">Variants</h2>
+    <p>
+      The select is outlined by default. Use <PropOrClass
+        prop='variant="filled"'
+        class=".ui-filled"
+      /> for a filled background.
+    </p>
     <AutoExample name="Variants" row spacious />
   </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row spacious />
   </section>
 
@@ -142,6 +173,37 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   </section>
 
   <section>
+    <h2 id="header-and-footer">Header and footer</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>header</code> and <code>footer</code> slots for short text or
+        a link above and below the select, inside the field's border and set off by
+        a divider.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-header</code> or <code>.ui-footer</code> element inside
+        {" "}<code>.ui-field</code> for short text or a link above and below the select,
+        inside the field's border and set off by a divider.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>header</code> and <code>footer</code> snippets for short text
+        or a link above and below the select, inside the field's border and set off
+        by a divider.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>header</code> and <code>footer</code> slots for short text or
+        a link above and below the select, inside the field's border and set off by
+        a divider.
+      </Fragment>
+    </Conditional>
+    <p>
+      They sit outside the list of options, so they can't filter it. Keep form
+      controls out of them, since the select's <code>&lt;label&gt;</code> wraps them.
+    </p>
+    <AutoExample name="HeaderFooter" row spacious />
+  </section>
+
+  <section>
     <h2 id="preselected">Preselected</h2>
     <Conditional as="p">
       <Fragment slot="astro">
@@ -183,9 +245,15 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
             the select.
           </li>
           <li>
-            Use the <code>error</code> prop to toggle invalid styles. It renders the
-            {" "}<code>data-invalid</code> attribute on the root element. Make use
-            of the end text to give extra feedback on the error.
+            Use the <code>error</code> prop to toggle invalid styles. It sets <code
+              >aria-invalid="true"</code
+            > on the select, so screen readers announce it as invalid. Make use of
+            the end text to give extra feedback on the error.
+          </li>
+          <li>
+            Fields also get the invalid styles from the browser's own validation
+            (<code>:user-invalid</code>), after the user has edited them. Use
+            the <code>error</code> prop for server-side errors.
           </li>
         </ul>
       </Fragment>
@@ -209,9 +277,15 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
             to the underlying <code>&lt;select&gt;</code>.
           </li>
           <li>
-            Use the <code>error</code> prop to toggle invalid styles. It renders
-            {" "}<code>data-invalid</code> on the root element. Make use of the end
-            text to give extra feedback on the error.
+            Use the <code>error</code> prop to toggle invalid styles. It sets <code
+              >aria-invalid="true"</code
+            > on the select, so screen readers announce it as invalid. Make use of
+            the end text to give extra feedback on the error.
+          </li>
+          <li>
+            Fields also get the invalid styles from the browser's own validation
+            (<code>:user-invalid</code>), after the user has edited them. Use
+            the <code>error</code> prop for server-side errors.
           </li>
         </ul>
       </Fragment>
@@ -222,8 +296,18 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
             to toggle required styles.
           </li>
           <li>
-            Add <code>data-invalid</code> on the root element to toggle invalid styles.
-            Make use of the end text to give extra feedback on the error.
+            Add <code>aria-invalid="true"</code> to the <code
+              >&lt;select&gt;</code
+            > to toggle invalid styles. Screen readers announce it as invalid. Make
+            use of the end text to give extra feedback on the error, and point <code
+              >aria-describedby</code
+            > at it.
+          </li>
+          <li>
+            Fields also get the invalid styles from the browser's own validation
+            (<code>:user-invalid</code>), after the user has edited them. Use <code
+              >aria-invalid="true"</code
+            > for server-side errors.
           </li>
         </ul>
       </Fragment>
@@ -270,6 +354,39 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
     <AutoExample name="Classic" row spacious />
   </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      <code>appearance: base-select</code> only changes how the select looks. The
+      browser keeps the behavior of a native <code>&lt;select&gt;</code>:
+    </p>
+    <ul>
+      <li>
+        <kbd>Space</kbd> or the arrow keys open the list. In the list, the arrow keys
+        move between options, and <kbd>Enter</kbd> or <kbd>Space</kbd> picks one.
+      </li>
+      <li>
+        Typing the start of an option's text jumps to it, also while the list is
+        closed.
+      </li>
+      <li>
+        <kbd>Esc</kbd> or a click outside closes the list without changing the value.
+      </li>
+      <li>Focus returns to the select when the list closes.</li>
+      <li>
+        Screen readers announce it like any select, with its label and the
+        selected option, and the value is submitted with the form.
+      </li>
+    </ul>
+    <h3 id="fallback">Fallback</h3>
+    <p>
+      Browsers without customizable select drop the <code>&lt;button&gt;</code>
+      {" "}and the list wrapper from the <code>&lt;select&gt;</code> and keep its
+      options. The select then looks like the <a href="#classic-select"
+        >Classic select</a
+      > and opens the browser's own picker.
+    </p>
+  </Fragment>
 
   <SelectBuild slot="under-the-hood" />
 

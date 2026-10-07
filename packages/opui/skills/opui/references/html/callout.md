@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<svg>`
 
-  An optional icon. `info`, `success`, `warning` and `critical` have a default icon.
+  An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical.
 
 - `.ui-content`
 
@@ -217,7 +217,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 ## Icon
 
-Icon must be placed before the content.
+There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.ui-content`.
 
 ```html
 <article class="ui-callout">
@@ -247,19 +247,19 @@ Icon must be placed before the content.
 
 ### Callout API
 
-| Type       | Modifiers                                                               | Default | Description                                        |
-| ---------- | ----------------------------------------------------------------------- | ------- | -------------------------------------------------- |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color and the default icon. |
-| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                |
+| Type       | Modifiers                                                               | Default | Description                                                          |
+| ---------- | ----------------------------------------------------------------------- | ------- | -------------------------------------------------------------------- |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro and Vue the default icon. |
+| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                  |
 
 #### Parts
 
-| Part          | Description                                                                        |
-| ------------- | ---------------------------------------------------------------------------------- |
-| `.ui-callout` | Container element.                                                                 |
-| `<svg>`       | An optional icon. `info`, `success`, `warning` and `critical` have a default icon. |
-| `.ui-content` | The content.                                                                       |
-| `<h3>`        | An optional title inside the content.                                              |
+| Part          | Description                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `.ui-callout` | Container element.                                                                                                |
+| `<svg>`       | An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical. |
+| `.ui-content` | The content.                                                                                                      |
+| `<h3>`        | An optional title inside the content.                                                                             |
 
 #### CSS variables
 
@@ -279,6 +279,8 @@ Icon must be placed before the content.
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Severity colors from one source color](https://open-props-ui.netlify.app/learn/callout-relative-colors)
 
 1. Surface
 
@@ -416,9 +418,9 @@ Step 4 of 4: Severity
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Chromium: Full support Supported since v143.
+- Firefox: Full support Supported since v146.
+- Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Callout.md).
 

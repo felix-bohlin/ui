@@ -1,6 +1,6 @@
 # UI Component Implementation Guide
 
-This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All must render the same markup as the HTML examples. Use it as a reference for maintaining consistency and accessibility across the library.
+This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
 
 **CRITICAL INSTRUCTION**: Always use components from this package (imported via `@opui/astro`, `opui-css/svelte` and `opui-css/vue`) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
 
@@ -29,6 +29,8 @@ Every component uses layered type files:
 - `types.d.vue.ts` - Vue props = base + `class`, plus the `Slots` type for `defineSlots`
 - `types.svelte.ts` - Svelte props = base + snippets + `SvelteHTMLElements[element]`
 - `types.solid.ts` - framework-specific extensions (for merge parity)
+
+Every component folder has all five files; `pnpm check-components` fails when one is missing.
 
 Every Astro component must follow this exact frontmatter layout:
 
@@ -121,7 +123,7 @@ Use `class:list` exclusively in Astro, a `class` array in Svelte, and a `:class`
 
 Follow this order for readability:
 1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
-2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-ripple": ripple }`).
+2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-dot": dot }`).
 3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
 4.  **External Class**: Always include `className` (Astro and Svelte) or `$props.class` (Vue) at the end to allow for overrides. Do not prefix it.
 
@@ -178,10 +180,10 @@ Use named slots for specific functional areas. Check for existence before render
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["ui-text-field", size && `ui-${size}`, className]} data-invalid={error ? "" : undefined}>
+<label class:list={["ui-text-field", size && `ui-${size}`, className]}>
   <span class="ui-label">{label}</span>
   <span class="ui-field">
-    <input type="text" {...rest} />
+    <input type="text" aria-invalid={error ? "true" : undefined} {...rest} />
   </span>
   {endText && <span class="ui-end-text">{endText}</span>}
 </label>
@@ -259,7 +261,7 @@ Components like `Callout` should provide default SVG icons within their named sl
 
 ```astro
 <slot name="icon">
-  {severity === "error" && <svg>...</svg>}
+  {severity === "critical" && <svg>...</svg>}
 </slot>
 ```
 
@@ -284,8 +286,8 @@ type Props = { items?: Item[] }
 ## 8. Development Workflow
 
 1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.svelte` and `.vue` per example). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
-2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENT.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
+2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
 3.  **Implement**: Follow the checklist in Section 0, for Astro, Svelte and Vue.
-4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`.
+4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 

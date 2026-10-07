@@ -67,7 +67,7 @@
 />
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-text">
       <p>Button list item</p>
     </div>
@@ -100,7 +100,7 @@
 </ListItem>
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-start">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@
 </ListItem>
 
 <ListItem borderTop>
-  <button>
+  <button type="button">
     <div class="ui-text">
       <p>End icon</p>
     </div>
@@ -164,7 +164,11 @@
 
 <ListItem headline="End icon button">
   {#snippet end()}
-    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+    <button
+      class="ui-button ui-rounded ui-small"
+      aria-label="More"
+      type="button"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

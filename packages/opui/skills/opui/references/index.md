@@ -4,7 +4,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 
 | Component | File | Frameworks | Description |
 | --- | --- | --- | --- |
-| Accordion | `accordion.md` | html, astro, svelte, vue | Lets you show and hide content. Comes with a chevron marker and a custom marker slot. |
+| Accordion | `accordion.md` | html, astro, svelte, vue | Lets you show and hide content, on its own or as a group. |
 | Anchor | `anchor.md` | html, astro, svelte, vue | A structural primitive to enable CSS Anchor Positioning on stuff. |
 | Avatar | `avatar.md` | html, astro, svelte, vue | Avatars show a person or entity as an image, initials or icon. |
 | Badge | `badge.md` | html, astro, svelte, vue | Badges attach a small count or status dot to another element. |

@@ -35,7 +35,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   <RadioInput
     {...rest}

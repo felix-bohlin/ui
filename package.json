@@ -5,8 +5,8 @@
   "version": "2.1.0",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "build-search-index": "node --experimental-strip-types scripts/generate-search-index.mjs",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build && pnpm build-skill",
+    "build-search-index": "node scripts/generate-search-index.mjs",
     "build-skill": "node scripts/build-agent-skill.mjs",
     "check": "pnpm check:fast && pnpm build",
     "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm check-css-vars && pnpm typecheck && pnpm test",
@@ -47,7 +47,7 @@
     "@astrojs/svelte": "^9.0.1",
     "@astrojs/vue": "^7.0.3",
     "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "1.63.0",
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
     "hast-util-select": "^6.0.4",
@@ -70,6 +70,9 @@
     "vitest": "^5.0.2",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
+  },
+  "engines": {
+    "node": ">=26.10.0"
   },
   "packageManager": "pnpm@12.9.1"
 }

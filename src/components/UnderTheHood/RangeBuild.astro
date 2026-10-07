@@ -174,10 +174,14 @@ const steps = [
   },
   {
     css: `
+.field {
+  --thumb-size: 3ex;
+}
+
 .ticks {
   display: flex;
   justify-content: space-between;
-  padding-inline: 1.5ex;
+  padding-inline: calc(var(--thumb-size) / 2);
 }
 
 .ticks > option {
@@ -187,8 +191,16 @@ const steps = [
   padding: 0;
   white-space: nowrap;
 }`,
-    features: ["datalist"],
+    features: ["datalist", "registered-custom-properties"],
     html: `
+<style>
+  @property --thumb-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 24px;
+  }
+</style>
+
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -199,6 +211,7 @@ const steps = [
       "A <code>&lt;datalist&gt;</code> is hidden by default, <code>display: flex</code> brings it back",
       "Zero-width options with centered labels sit exactly on each step",
       "Half a thumb of padding lines the ends up with the thumb's center",
+      "<code>--thumb-size</code> is registered as a <code>&lt;length&gt;</code>, so <code>3ex</code> resolves on the field, at the thumb's font size, and the smaller tick labels inherit that length",
     ],
     title: "Ticks",
   },
@@ -252,6 +265,12 @@ const ticks = [0, 25, 50, 75, 100]
 </style>
 
 <style is:global>
+  @property --thumb-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 24px;
+  }
+
   @property --track-fill {
     syntax: "<percentage>";
     inherits: true;
@@ -285,5 +304,4 @@ const ticks = [0, 25, 50, 75, 100]
   }
 
   initRangeBuild()
-  document.addEventListener("astro:after-swap", initRangeBuild)
 </script>

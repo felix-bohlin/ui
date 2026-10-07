@@ -33,4 +33,3 @@ async function mountAll() {
 }
 
 mountAll()
-document.addEventListener("astro:after-swap", mountAll)

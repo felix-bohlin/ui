@@ -38,7 +38,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {#if iconUnchecked}
     <span class="ui-icon-unchecked" aria-hidden="true">

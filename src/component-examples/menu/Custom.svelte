@@ -3,7 +3,6 @@
 </script>
 
 <Button
-  ripple
   rounded
   size="small"
   aria-label="More actions"

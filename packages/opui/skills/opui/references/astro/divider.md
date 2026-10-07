@@ -160,6 +160,14 @@ Step 4 of 5: Breathe
 
 Step 5 of 5: Ship it
 
+## Browser support
+
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Divider.md).
+
 ## Installation
 
 - `opui-css/css/components/divider.css`

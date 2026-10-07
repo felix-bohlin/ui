@@ -26,10 +26,11 @@ export default {
       prop: "dense",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "select",
       prop: "error",
     },
     {

@@ -47,13 +47,14 @@
 </Select>
 
 <Select spread>
-  {#snippet label()}Currency{/snippet}
-  {#snippet description()}Used for billing{/snippet}
-  {#snippet prefix()}¢{/snippet}
-  <option value="">-</option>
-  <option>EUR</option>
-  <option>EUR</option>
-  <option>SEK</option>
+  {#snippet label()}Time zone{/snippet}
+  {#snippet description()}Used for reminders and due dates{/snippet}
+  {#snippet prefix()}UTC{/snippet}
+  <option>-03:00</option>
+  <option>+00:00</option>
+  <option>+01:00</option>
+  <option>+05:30</option>
+  <option>+09:00</option>
 </Select>
 
 <Select spread variant="filled">

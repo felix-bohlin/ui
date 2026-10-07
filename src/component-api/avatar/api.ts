@@ -4,7 +4,8 @@ export default {
   component: "Avatar",
   options: [
     {
-      description: "Alternative text for the image.",
+      description:
+        "Alternative text for the image. Required with src; use an empty string when the name is shown next to it.",
       frameworks: ["astro", "svelte", "vue"],
       prop: "alt",
       type: "string",

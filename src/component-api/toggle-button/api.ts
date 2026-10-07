@@ -20,7 +20,8 @@ export default {
       type: "string",
     },
     {
-      description: "The input value when `value` is omitted.",
+      description:
+        "The button text when the slot is empty, and the input value when `value` is omitted.",
       prop: "label",
     },
     {

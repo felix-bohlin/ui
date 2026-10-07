@@ -66,6 +66,32 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Labels truncate with an ellipsis.
+        Add <code>.ui-multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
   </section>
 
@@ -74,7 +100,10 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <Conditional>
       <p slot="astro">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> slots.
+        <code>start</code> and <code>end</code> slots. When you use the default slot
+        instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
       </p>
       <p slot="html">
         The icon can be placed before or after the text. <br />
@@ -86,7 +115,10 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       </p>
       <p slot="vue">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> slots.
+        <code>start</code> and <code>end</code> slots. When you use the default slot
+        instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
       </p>
     </Conditional>
     <AutoExample name="Icon" row />

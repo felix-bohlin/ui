@@ -1,3 +1,9 @@
+@property --_thumb-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 24px;
+}
+
 @property --_track-fill {
   syntax: "<percentage>";
   inherits: true;
@@ -7,6 +13,12 @@
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--motion, 1);
+    --_thumb-size: 3ex;
+
+    @media (hover: none) {
+      --_thumb-size: 30px;
+    }
+
     display: grid;
     gap: var(--size-1) 0;
     grid-template-columns: 1fr auto;
@@ -55,8 +67,8 @@
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
-      margin-top: calc(var(--size-1) * -1);
-      padding-inline: calc(3ex / 2);
+      margin-block-start: calc(var(--size-1) * -1);
+      padding-inline: calc(var(--_thumb-size) / 2);
 
       & > option {
         display: flex;
@@ -133,15 +145,15 @@
         grid-row: 2;
       }
 
-      &:has(datalist) :where(.ui-end-text) {
+      &:where(:has(datalist), :has(.ui-value)) :where(.ui-end-text) {
         grid-row: 3;
       }
 
-      &:has(.ui-value) :where(.ui-end-text) {
+      &:where(:has(.ui-value)) datalist {
         grid-row: 3;
       }
 
-      &:has(.ui-value):has(datalist) :where(.ui-end-text) {
+      &:where(:has(.ui-value):has(datalist)) :where(.ui-end-text) {
         grid-row: 4;
       }
 
@@ -186,8 +198,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       .ui-start-text,
       .ui-end-text,
       .ui-value {
@@ -201,7 +212,6 @@
       --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
       --_thumb-offset: -1.125ex;
-      --_thumb-size: 3ex;
       --_track-color: var(--field-border-color);
       --_track-fill: 0%;
       --_track-fill-color: var(--primary);
@@ -219,7 +229,6 @@
 
       @media (hover: none) {
         --_thumb-offset: -11.5px;
-        --_thumb-size: 30px;
       }
 
       @supports (animation-timeline: view()) {
@@ -316,8 +325,7 @@
       }
 
       /* Element state */
-      .ui-range:has(:user-invalid) &,
-      .ui-range[data-invalid] & {
+      .ui-range:has([aria-invalid="true"], :user-invalid) & {
         --_thumb-bg-color: var(--invalid-color);
         --_thumb-highlight-color: oklch(
           from var(--invalid-color) 70% 100% h / 20%

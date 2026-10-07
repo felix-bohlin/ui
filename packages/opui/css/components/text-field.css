@@ -55,7 +55,8 @@
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
       min-inline-size: 0;
-      padding: var(--_field-padding-block-fit) var(--_field-padding-inline);
+      padding-block: var(--_field-padding-block-fit);
+      padding-inline: var(--_field-padding-inline);
 
       &:focus,
       &:focus-visible {
@@ -103,7 +104,8 @@
       display: flex;
       font-size: var(--font-size-0);
       gap: var(--size-2);
-      padding: var(--size-1) var(--_field-padding-inline);
+      padding-block: var(--size-1);
+      padding-inline: var(--_field-padding-inline);
     }
 
     .ui-header {
@@ -200,22 +202,6 @@
       }
     }
 
-    /* Autosuggest */
-    &:has(input[list]) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
-      }
-    }
-
-    /* Select */
-    &:has(select) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
-      }
-    }
-
     /* Customizable Select */
     &:has(select button) {
       select {
@@ -268,9 +254,8 @@
     /* Element states */
     @media (hover: hover) {
       &:hover:not(
-          [data-invalid],
           :focus-within,
-          :has(:user-invalid, :disabled)
+          :has([aria-invalid="true"], :user-invalid, :disabled)
         ) {
         .ui-field {
           border-color: var(--text-primary);
@@ -350,8 +335,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --_accent: var(--invalid-color);
       --_border-color: var(--invalid-color);
       --_label-color: var(--invalid-text-color);
@@ -369,7 +353,7 @@
     &.ui-filled {
       --_bg-color: var(--surface-tonal);
 
-      &:not(:has([disabled], input[type="color"])) {
+      &:not(:has(:disabled, input[type="color"])) {
         /* Hover */
         @media (hover: hover) {
           &:hover {

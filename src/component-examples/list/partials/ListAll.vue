@@ -70,7 +70,7 @@ const { prefix = "" } = defineProps<{
   />
 
   <ListItem border-top>
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -103,7 +103,7 @@ const { prefix = "" } = defineProps<{
   </ListItem>
 
   <ListItem border-top>
-    <button>
+    <button type="button">
       <div class="ui-start">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +145,7 @@ const { prefix = "" } = defineProps<{
   </ListItem>
 
   <ListItem border-top>
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>End icon</p>
       </div>
@@ -167,7 +167,11 @@ const { prefix = "" } = defineProps<{
 
   <ListItem headline="End icon button">
     <template #end>
-      <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+      <button
+        class="ui-button ui-rounded ui-small"
+        aria-label="More"
+        type="button"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

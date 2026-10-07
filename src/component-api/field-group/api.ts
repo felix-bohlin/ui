@@ -8,10 +8,11 @@ export default {
   },
   options: [
     {
-      description: "The orientation of the element.",
+      description:
+        "The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.",
       group: "Orientation",
       prop: "direction",
-      values: { column: null, row: ".ui-row" },
+      values: { column: ".ui-column", row: ".ui-row" },
     },
     {
       description:

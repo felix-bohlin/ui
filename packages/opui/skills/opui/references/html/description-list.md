@@ -45,6 +45,8 @@
 
 Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dotted`.
 
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+
 ```html
 <dl class="ui-description-list ui-bordered">
   <div class="ui-item">
@@ -107,6 +109,8 @@ Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dott
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
 1. Stacked
 

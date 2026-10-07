@@ -3,8 +3,9 @@
 ### What's new
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
-- The track fill is CSS only, so plain HTML ranges fill too.
+- The track fill is CSS only, so plain HTML ranges [fill](#basics) too.
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
+- Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
 
 ## Anatomy
 
@@ -94,7 +95,7 @@ Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better c
 
 ## Value
 
-Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility.
+Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility. The example does it with an `input` listener.
 
 ```html
 <label class="ui-range">
@@ -109,6 +110,17 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
     value="250"
   />
 </label>
+
+
+<script>
+  {
+    const input = document.getElementById("hueRange")
+    const output = document.querySelector('output[for="hueRange"]')
+    input.addEventListener("input", () => {
+      output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
+    })
+  }
+</script>
 ```
 
 ## Tick marks
@@ -137,6 +149,8 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ## Disabled
 
+Add `disabled` to the `<input>` to disable the slider. The whole `.ui-range` dims and shows a not-allowed cursor.
+
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-disabled-1-label">Disabled</span>
@@ -146,8 +160,12 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ## Validation
 
+- Add `aria-invalid="true"` to the `<input>` to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. Screen readers announce it as invalid.
+- Say what's wrong in the end text, and point `aria-describedby` at it.
+- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+
 ```html
-<label class="ui-range" data-invalid>
+<label class="ui-range">
   <span class="ui-label" id="range-validation-1-label">Invalid Range</span>
   <input
     aria-invalid="true"
@@ -162,6 +180,8 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 ```
 
 ## Spread
+
+Add the `.ui-spread` class to display the label and start text on the left with the slider on the right. The value, tick marks and end text go under the slider. The layout collapses to a column in containers narrower than 400px.
 
 ```html
 <label class="ui-range ui-spread">
@@ -189,7 +209,7 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 </label>
 
 
-<label class="ui-range ui-spread" data-invalid>
+<label class="ui-range ui-spread">
   <span class="ui-label" id="range-row-3-label">Invalid Range</span>
   <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
   <input
@@ -221,38 +241,6 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 </label>
 ```
 
-### Disabled
-
-```html
-<label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-disabled-label">Volume</span>
-  <input
-    type="range"
-    aria-labelledby="range-row-disabled-label"
-    min="0"
-    max="100"
-    value="50"
-    disabled
-  />
-</label>
-```
-
-### Validation
-
-```html
-<label class="ui-range ui-spread" data-invalid>
-  <span class="ui-label" id="range-row-validation-label">Volume</span>
-  <input
-    aria-invalid="true"
-    type="range"
-    aria-labelledby="range-row-validation-label"
-    min="0"
-    max="100"
-    value="50"
-  />
-</label>
-```
-
 ## Accessibility
 
 - `Right Arrow`: Increase the value of the slider by one step.
@@ -268,11 +256,11 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ### Range API
 
-| Type       | Modifiers                 | Default | Description                                                              |
-| ---------- | ------------------------- | ------- | ------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`              | -       | Pushes the label and description to one side and the input to the other. |
-| Validation | `[data-invalid]`          | -       | Shows error styles.                                                      |
-| Variants   | `.ui-filled`, `.ui-tonal` | -       | The track surface. Without one, the track uses the field border color.   |
+| Type       | Modifiers                    | Default | Description                                                              |
+| ---------- | ---------------------------- | ------- | ------------------------------------------------------------------------ |
+| Layout     | `.ui-spread`                 | -       | Pushes the label and description to one side and the input to the other. |
+| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                        |
+| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Parts
 
@@ -287,33 +275,35 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 #### CSS variables
 
-| Variable                     | Default                                                                                 | Description                                                                                                                |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                      |
-| `--duration-fast`            | `0.1s`                                                                                  | Transition duration for hover and press feedback.                                                                          |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                            |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                          |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                           |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                         |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                               |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                       |
-| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                  | Font weight for labels, table headers and titles.                                                                          |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                       |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.  |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                     |
+| Variable                     | Default                                                                                 | Description                                                                                                                                                                                              |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                    |
+| `--duration-fast`            | `0.1s`                                                                                  | Transition duration for hover and press feedback.                                                                                                                                                        |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                          |
+| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                        |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                         |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                       |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                             |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                     |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                  | Font weight for labels, table headers and titles.                                                                                                                                                        |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                     |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 Add a `<datalist>` after the input for tick marks.
 
 ## Under the hood
+
+Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify.app/learn/range-tick-marks)
 
 1. Track
 
@@ -351,6 +341,7 @@ Add a `<datalist>` after the input for tick marks.
    - A `<datalist>` is hidden by default, `display: flex` brings it back
    - Zero-width options with centered labels sit exactly on each step
    - Half a thumb of padding lines the ends up with the thumb's center
+   - `--thumb-size` is registered as a `<length>`, so `3ex` resolves on the field, at the thumb's font size, and the smaller tick labels inherit that length
 
 Step 1 of 5: Track
 
@@ -520,8 +511,18 @@ Step 4 of 5: Halo
 Step 5 of 5: Ticks
 
 - [\<datalist> ](https://webstatus.dev/features/datalist)(Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
 
 ```html
+<style>
+  @property --thumb-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 24px;
+  }
+</style>
+
+
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -531,10 +532,15 @@ Step 5 of 5: Ticks
 ```
 
 ```css
+.field {
+  --thumb-size: 3ex;
+}
+
+
 .ticks {
   display: flex;
   justify-content: space-between;
-  padding-inline: 1.5ex;
+  padding-inline: calc(var(--thumb-size) / 2);
 }
 
 

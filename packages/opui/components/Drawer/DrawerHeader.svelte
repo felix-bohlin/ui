@@ -29,7 +29,7 @@
     <h2 id={drawer?.headingId}>{heading}</h2>
   {/if}
   {@render children?.()}
-  <Button aria-label={closeLabel} ripple rounded size="small" {...closeAttrs}>
+  <Button aria-label={closeLabel} rounded size="small" {...closeAttrs}>
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

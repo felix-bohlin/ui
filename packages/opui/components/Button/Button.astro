@@ -8,7 +8,6 @@ const {
   as,
   class: className,
   color,
-  ripple,
   rounded,
   size,
   variant,
@@ -26,10 +25,7 @@ const isButton = Tag === "button"
 <Tag
   class:list={[
     "ui-button",
-    {
-      "ui-ripple": ripple,
-      "ui-rounded": rounded,
-    },
+    { "ui-rounded": rounded },
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     color && `ui-${color}`,

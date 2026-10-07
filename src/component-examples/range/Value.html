@@ -10,3 +10,13 @@
     value="250"
   />
 </label>
+
+<script>
+  {
+    const input = document.getElementById("hueRange")
+    const output = document.querySelector('output[for="hueRange"]')
+    input.addEventListener("input", () => {
+      output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
+    })
+  }
+</script>

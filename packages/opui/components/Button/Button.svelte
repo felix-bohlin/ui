@@ -9,7 +9,6 @@
     href,
     iconOnly: _iconOnly,
     label,
-    ripple,
     rounded,
     size,
     variant,
@@ -27,10 +26,7 @@
   this={Tag}
   class={[
     "ui-button",
-    {
-      "ui-ripple": ripple,
-      "ui-rounded": rounded,
-    },
+    { "ui-rounded": rounded },
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     color && `ui-${color}`,

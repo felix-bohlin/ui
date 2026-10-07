@@ -94,19 +94,19 @@ const steps = [
   block-size: 0.5rem;
   content: "";
   inline-size: 0.5rem;
-  left: clamp(
-    anchor(--tooltip left),
+  inset-block-start: clamp(
+    anchor(--tooltip self-start),
     anchor(--anchor center),
-    anchor(--tooltip right)
+    anchor(--tooltip self-end)
+  );
+  inset-inline-start: clamp(
+    anchor(--tooltip self-start),
+    anchor(--anchor center),
+    anchor(--tooltip self-end)
   );
   margin: -0.25rem;
   position: fixed;
   rotate: 45deg;
-  top: clamp(
-    anchor(--tooltip top),
-    anchor(--anchor center),
-    anchor(--tooltip bottom)
-  );
 }`,
     features: ["anchor-positioning", "min-max-clamp"],
     html: `

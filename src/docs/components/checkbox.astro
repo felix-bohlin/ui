@@ -18,7 +18,14 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has", "light-dark", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "dir-pseudo",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "user-pseudos",
+  ]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
     { title: "Field group API", api: fieldGroupApi },
@@ -64,6 +71,30 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
+          >&lt;label class="ui-checkbox"&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
 
@@ -126,9 +157,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          {" "}<code>data-invalid</code> on the root element. Make use of the end
-          text to give extra feedback on the error.
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
         </li>
         <li slot="svelte">
           Use the <code>error</code> prop to toggle invalid styles. It renders
@@ -136,13 +168,39 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           text to give extra feedback on the error.
         </li>
         <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It renders
-          {" "}<code>data-invalid</code> on the root element. Make use of the end
-          text to give extra feedback on the error.
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
         </li>
         <li slot="html">
-          Add <code>data-invalid</code> on the root element to toggle invalid styles.
-          Make use of the end text to give extra feedback on the error.
+          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
+          toggle invalid styles. Screen readers announce it as invalid. Make use of
+          the end text to give extra feedback on the error, and point <code
+            >aria-describedby</code
+          > at it.
+        </li>
+      </Conditional>
+      <Conditional>
+        <li slot="astro">
+          Checkboxes also get the invalid styles from the browser's own
+          validation (<code>:user-invalid</code>), after the user has edited
+          them. Use the <code>error</code> prop for server-side errors.
+        </li>
+        <li slot="svelte">
+          Checkboxes also get the invalid styles from the browser's own
+          validation (<code>:user-invalid</code>), after the user has edited
+          them. Use the <code>error</code> prop for server-side errors.
+        </li>
+        <li slot="vue">
+          Checkboxes also get the invalid styles from the browser's own
+          validation (<code>:user-invalid</code>), after the user has edited
+          them. Use the <code>error</code> prop for server-side errors.
+        </li>
+        <li slot="html">
+          Checkboxes also get the invalid styles from the browser's own
+          validation (<code>:user-invalid</code>), after the user has edited
+          them. Use <code>aria-invalid="true"</code> for server-side errors.
         </li>
       </Conditional>
     </ul>
@@ -201,10 +259,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         <p>
           Add <code>data-indeterminate</code> to the <code
             >&lt;input type="checkbox"&gt;</code
-          > and run a script that sets <code>el.indeterminate = true</code>. <code
-            >indeterminate</code
-          > is a JavaScript-only property on <code>HTMLInputElement</code> - the attribute
-          alone has no effect.
+          > and call <code>activateIndeterminate()</code> from <code
+            >opui-css/css/js/checkbox.js</code
+          > once the element is in the DOM. The attribute alone has no effect.
         </p>
 
         <UICallout>
@@ -213,10 +270,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
             The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
             The browser only exposes it as a property on <code
               >HTMLInputElement</code
-            >, so a small script is needed to flip <code
+            >, so <code>activateIndeterminate()</code> sets <code
               >el.indeterminate = true</code
-            > after the element is in the DOM. The <code>:indeterminate</code> CSS
-            pseudo-class then matches and the dash glyph appears.
+            > on every input with <code>data-indeterminate</code>. The <code
+              >:indeterminate</code
+            > CSS pseudo-class then matches and the dash glyph appears.
           </div>
         </UICallout>
       </div>
@@ -315,14 +373,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
       <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element.
+        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
+        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
       <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
       </p>
       <p slot="svelte">
         Attach the <code>data-invalid</code> attribute to your <code
@@ -330,9 +386,8 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         > component.
       </p>
       <p slot="vue">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >FieldSet</code
-        > component.
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
     <AutoExample name="FieldGroupValidation" row />

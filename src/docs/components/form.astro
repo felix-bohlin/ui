@@ -204,20 +204,24 @@ const anatomyApi = {
     <h3 id="fieldset-invalid">Invalid</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> to the <code>&lt;fieldset&gt;</code> for error
-        styles. Explain the error in a <code>.ui-end-text</code>.
+        Add <code>aria-invalid="true"</code> to each control in the
+        <code>&lt;fieldset&gt;</code>, and explain the error in a
+        <code>.ui-end-text</code> directly inside it. The end text turns red when
+        a control has <code>aria-invalid="true"</code>.
       </Fragment>
       <Fragment slot="svelte">
         Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
         the error in a <code>.ui-end-text</code>.
       </Fragment>
       <Fragment slot="vue">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetInvalid" />
@@ -231,20 +235,29 @@ const anatomyApi = {
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
       <Fragment slot="html">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>&lt;hr class="ui-divider"&gt;</code>.
+        A field group with only buttons lines up in a row. Add <code
+          >.ui-column</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >&lt;hr class="ui-divider"&gt;</code
+        >.
       </Fragment>
       <Fragment slot="svelte">
         A field group with only buttons lines up in a row. Separate it from the
         fields with <code>Divider</code>.
       </Fragment>
       <Fragment slot="vue">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
     </Conditional>
     <AutoExample name="Divider" />

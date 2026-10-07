@@ -25,7 +25,7 @@
       "ui-dot": dot,
       "ui-invisible": invisible,
     },
-    alignment && `ui-${alignment}`,
+    alignment && alignment !== "start-end" && `ui-${alignment}`,
     color && `ui-${color}`,
     className,
   ]}

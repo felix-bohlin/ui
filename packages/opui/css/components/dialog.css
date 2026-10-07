@@ -58,22 +58,22 @@
       }
 
       &::before {
-        inset-block-end: anchor(--ui-dialog-content top);
+        inset-block-end: anchor(--ui-dialog-content outside);
       }
 
       &::after {
-        inset-block-start: anchor(--ui-dialog-content bottom);
+        inset-block-start: anchor(--ui-dialog-content outside);
         scale: 1 -1;
       }
     }
 
-    @container scroll-state(scrollable: top) {
+    @container scroll-state(scrollable: block-start) {
       & > .ui-content::before {
         opacity: 1;
       }
     }
 
-    @container scroll-state(scrollable: bottom) {
+    @container scroll-state(scrollable: block-end) {
       & > .ui-content::after {
         opacity: 1;
       }

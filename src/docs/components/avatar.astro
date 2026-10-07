@@ -16,7 +16,7 @@ export const description =
   description={description}
   slug="avatar"
   apis={[{ title: "Avatar API", api: avatarApi }]}
-  browserSupport={["corner-shape", "has"]}
+  browserSupport={["corner-shape", "has", "overflow-clip"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Avatar/Avatar.astro",
@@ -84,7 +84,8 @@ export const description =
         container.
       </Fragment>
       <Fragment slot="html">
-        Group multiple avatars by adding <code>role="group"</code> to a parent container.
+        Group multiple avatars in a <code>.ui-avatar-group</code> element with
+        <code>role="group"</code> and an <code>aria-label</code>.
       </Fragment>
       <Fragment slot="svelte">
         Group multiple avatars by setting the <code>isGroup</code> prop on a parent

@@ -4,8 +4,9 @@
 
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
 
 ## Anatomy
 
@@ -106,6 +107,8 @@ import { List, ListItem } from "opui-css/vue"
 ## Clickable list item
 
 Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
+
+`as="button"` renders a `<button type="button">`, so the item never submits a surrounding form.
 
 ```vue
 <script setup lang="ts">
@@ -511,7 +514,7 @@ import { List, ListItem } from "opui-css/vue"
       <template #end>
         <button
           aria-label="Delete"
-          class="ui-button ui-rounded ui-ripple ui-small"
+          class="ui-button ui-rounded ui-small"
           type="button"
         >
           <svg
@@ -647,17 +650,17 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                  |
-| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                       |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                   |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                           |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                          |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
+| Prop          | Type                                  | Default | Description                                                                                                                                     |
+| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
+| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
 
 #### Slots
 
@@ -819,7 +822,7 @@ Step 4 of 4: Bordered
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=List.md).

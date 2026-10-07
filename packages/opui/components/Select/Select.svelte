@@ -55,7 +55,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {#if label}
     <span class="ui-label" id={labelId}>

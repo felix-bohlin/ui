@@ -92,9 +92,9 @@ See [progress accessibility](https://open-props-ui.netlify.app/vue/components/pr
 
 ### CSS variables
 
-| Variable   | Default | Description                                                                                                                |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| Variable   | Default | Description                                                                                                                                                                                             |
+| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -103,6 +103,8 @@ Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<ht
 Set `aria-busy` on any element to show a spinner. CSS-only; no Vue component.
 
 ## Under the hood
+
+Read the post: [Spinners from aria-busy](https://open-props-ui.netlify.app/learn/spinner-aria-busy)
 
 1. Ring
 
@@ -149,7 +151,8 @@ Step 1 of 4: Ring
 ) {
   &::before {
     block-size: 1em;
-    border-color: transparent currentColor currentColor;
+    border-block-color: transparent currentColor;
+    border-inline-color: currentColor;
     border-radius: 50%;
     border-style: solid;
     border-width: 3px;

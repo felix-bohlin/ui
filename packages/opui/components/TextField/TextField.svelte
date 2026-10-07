@@ -56,7 +56,6 @@
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
   {style}
 >
   {#if label}

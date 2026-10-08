@@ -15,6 +15,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Carousel | `carousel.md` | html, astro, svelte, vue | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | html, astro, svelte, vue | Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group. |
 | Chip | `chip.md` | html, astro, svelte, vue | Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a Button. |
+| Data grid | `data-grid.md` | html, astro, svelte, vue | A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only. |
 | Description list | `description-list.md` | html, astro, svelte, vue | Description lists are used to display a list of terms and their descriptions. |
 | Dialog | `dialog.md` | html, astro, svelte, vue | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
 | Divider | `divider.md` | html, astro, svelte, vue | It's just a line. |

@@ -5,7 +5,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import DataGridBuild from "../../components/UnderTheHood/DataGridBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 import { DataGrid as UIDataGrid, Table, Callout } from "@opui/astro"
 import type { DataGridRow } from "@opui/astro"
 
@@ -69,7 +69,7 @@ const snippets = {
 }`,
   resizing: `.ui-resizable {
   [role="columnheader"] {
-    resize: horizontal;
+    resize: inline;
   }
 
   .ui-body [role="row"] > * {
@@ -232,6 +232,10 @@ const techniques = [
         ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
         column widths are shared across the header, body and totals.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
+        column widths are shared across the header, body and totals.</Fragment
+      >
       <Fragment slot="vue"
         ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
         column widths are shared across the header, body and totals.</Fragment
@@ -250,6 +254,10 @@ const techniques = [
       >
       <Fragment slot="astro"
         >A <code>cell-[key]</code> slot with a function renders a column's cells.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>cells</code> takes a snippet per column <code>key</code>, which
+        gets the row and the column.</Fragment
       >
       <Fragment slot="vue"
         >A <code>#cell-[key]</code> slot renders a column's cells.</Fragment
@@ -271,6 +279,10 @@ const techniques = [
         ><code>sortable</code> on a column, and <code>sort</code> for the initial
         sort.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>sortable</code> on a column, and <code>sort</code> for the initial
+        sort.</Fragment
+      >
       <Fragment slot="vue"
         ><code>sortable</code> on a column, and <code>sort</code> for the initial
         sort.</Fragment
@@ -288,6 +300,10 @@ const techniques = [
         order and stays with the row when a filter hides others.</Fragment
       >
       <Fragment slot="astro"
+        ><code>numbered</code>. The number follows the sort order and stays with
+        the row when a filter hides others.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>numbered</code>. The number follows the sort order and stays with
         the row when a filter hides others.</Fragment
       >
@@ -312,6 +328,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
+      >
       <Fragment slot="vue"
         ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
       >
@@ -332,6 +351,17 @@ const techniques = [
       >
       <Fragment slot="astro"
         >An <code>actions</code> slot only shows while rows are selected.{" "}
+        <code>rowKey</code> names the checkboxes and editable inputs, such as{
+          " "
+        }
+        <code>selected=ada</code> and <code>role[ada]</code>, and{" "}
+        <code>form</code> ties them to a form, so a reset button clears the selection
+        without touching sorting or filters.</Fragment
+      >
+      <Fragment slot="svelte"
+        >An <code>actions</code> snippet only shows while rows are selected.{
+          " "
+        }
         <code>rowKey</code> names the checkboxes and editable inputs, such as{
           " "
         }
@@ -367,6 +397,12 @@ const techniques = [
         }
         <code>"selected"</code>.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>filters</code>. A filter's <code>match</code> is a function, or{
+          " "
+        }
+        <code>"selected"</code>.</Fragment
+      >
       <Fragment slot="vue"
         ><code>filters</code>. A filter's <code>match</code> is a function, or{
           " "
@@ -386,6 +422,10 @@ const techniques = [
         <code>value</code>.</Fragment
       >
       <Fragment slot="astro"
+        ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
+        out.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
         out.</Fragment
       >
@@ -409,6 +449,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
+      >
       <Fragment slot="vue"
         ><code>header-menus</code> adds a menu to sort or hide each column.</Fragment
       >
@@ -425,6 +468,9 @@ const techniques = [
         <code>.ui-density</code>.</Fragment
       >
       <Fragment slot="astro"
+        ><code>density</code>, and <code>densityToggle</code> to switch it.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>density</code>, and <code>densityToggle</code> to switch it.</Fragment
       >
       <Fragment slot="vue"
@@ -448,6 +494,11 @@ const techniques = [
         <code>width</code> sets a track size, and <code>fit</code> fits the column
         to its content.</Fragment
       >
+      <Fragment slot="svelte"
+        >Columns share the space and never get narrower than their content.{" "}
+        <code>width</code> sets a track size, and <code>fit</code> fits the column
+        to its content.</Fragment
+      >
       <Fragment slot="vue"
         >Columns share the space and never get narrower than their content.{" "}
         <code>width</code> sets a track size, and <code>fit</code> fits the column
@@ -467,6 +518,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>resizable</code>. Drag the corner of a header.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>resizable</code>. Drag the corner of a header.</Fragment
+      >
       <Fragment slot="vue"
         ><code>resizable</code>. Drag the corner of a header.</Fragment
       >
@@ -484,6 +538,11 @@ const techniques = [
         is more to scroll.</Fragment
       >
       <Fragment slot="astro"
+        ><code>pinStart</code> and <code>pinEnd</code>, and{" "}
+        <code>maxBlockSize</code> for a sticky header. Shadows show when there is
+        more to scroll.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>pinStart</code> and <code>pinEnd</code>, and{" "}
         <code>maxBlockSize</code> for a sticky header. Shadows show when there is
         more to scroll.</Fragment
@@ -508,6 +567,9 @@ const techniques = [
       <Fragment slot="astro"
         >A <code>detail</code> slot with a function.</Fragment
       >
+      <Fragment slot="svelte"
+        >A <code>detail</code> snippet, which gets the row.</Fragment
+      >
       <Fragment slot="vue">A <code>#detail</code> slot.</Fragment>
     </Conditional>
 
@@ -521,6 +583,7 @@ const techniques = [
         >An <code>input</code> in a cell looks like text until hovered or focused.</Fragment
       >
       <Fragment slot="astro"><code>editable</code> on a column.</Fragment>
+      <Fragment slot="svelte"><code>editable</code> on a column.</Fragment>
       <Fragment slot="vue"><code>editable</code> on a column.</Fragment>
     </Conditional>
 
@@ -535,6 +598,7 @@ const techniques = [
         <code>grid-column</code> span.</Fragment
       >
       <Fragment slot="astro"><code>columnGroups</code>.</Fragment>
+      <Fragment slot="svelte"><code>columnGroups</code>.</Fragment>
       <Fragment slot="vue"><code>column-groups</code>.</Fragment>
     </Conditional>
 
@@ -554,6 +618,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
+      >
       <Fragment slot="vue"
         ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
       >
@@ -569,6 +636,7 @@ const techniques = [
         ><code>aria-busy="true"</code> on the table.</Fragment
       >
       <Fragment slot="astro"><code>loading</code>.</Fragment>
+      <Fragment slot="svelte"><code>loading</code>.</Fragment>
       <Fragment slot="vue"><code>loading</code>.</Fragment>
     </Conditional>
 
@@ -583,6 +651,9 @@ const techniques = [
       >
       <Fragment slot="astro"
         >The <code>empty</code> slot replaces the text shown when no rows match.</Fragment
+      >
+      <Fragment slot="svelte"
+        >The <code>empty</code> snippet replaces the text shown when no rows match.</Fragment
       >
       <Fragment slot="vue"
         >The <code>#empty</code> slot replaces the text shown when no rows match.</Fragment
@@ -679,7 +750,7 @@ const techniques = [
 
     <h3 id="resizing-and-editing">Resizing and editing</h3>
     <p>
-      Resizable headers use <code>resize: horizontal</code>. Body cells get{" "}
+      Resizable headers use <code>resize: inline</code>. Body cells get{" "}
       <code>contain: inline-size</code> so they stop contributing to the column width,
       and the header alone sets it. Editable cells are inputs with{" "}
       <code>field-sizing: content</code>, so a column fits its longest value.

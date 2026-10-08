@@ -6,17 +6,25 @@ export default {
     astro:
       "Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering.",
     html: 'Cells are matched to columns by position, up to 12 columns. Selection, sorting, filtering, column visibility and density are radio buttons and checkboxes read with `:has()`. Sort radios go in the column header with `value="asc"` or `value="desc"`, filter and density radios in `.ui-filters` and `.ui-density`, and column checkboxes in `.ui-columns` with the column number as `value`. `.ui-bulk-actions` in `.ui-toolbar` only shows while rows are selected. A header menu is a popover of `label` elements pointing at those controls by `id`.',
+    svelte:
+      "Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering. Custom cells are snippets passed in `cells`, keyed by column `key`.",
     vue: "Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering.",
   },
   options: [
     {
+      description:
+        "Snippets that render the cells of a column, keyed by the column `key`. Each gets the row and the column.",
+      frameworks: ["svelte"],
+      prop: "cells",
+    },
+    {
       description: "Header cells that span several columns.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "columnGroups",
     },
     {
       description: "The columns.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "columns",
     },
     {
@@ -56,7 +64,7 @@ export default {
     {
       description:
         "The `id` of a form for the selection checkboxes and editable inputs.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "form",
     },
     {
@@ -72,7 +80,7 @@ export default {
       default: "false",
       description:
         "A menu in each header to sort or hide the column, made of labels for the existing controls.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "headerMenus",
     },
     {
@@ -85,7 +93,7 @@ export default {
     {
       default: "{}",
       description: "Text for the built-in labels.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "labels",
     },
     {
@@ -149,12 +157,12 @@ export default {
     {
       description:
         'The row field used as the checkbox `value` and in editable input names, such as `name="role[ada]"`.',
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "rowKey",
     },
     {
       description: "The rows. Each row is an object keyed by column.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "rows",
     },
     {
@@ -168,7 +176,7 @@ export default {
     {
       default: "-",
       description: "The initial sort.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "sort",
     },
     {

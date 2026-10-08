@@ -52,6 +52,9 @@ const whatsNew = {
       vue: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
     },
   ],
+  "bar-chart": [
+    `New component. A <a href="#basics">data table drawn as a column chart</a>, with a computed axis, grouped series and tooltips. HTML and CSS only.`,
+  ],
   button: [
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,

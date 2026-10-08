@@ -4,6 +4,7 @@ import {
   Anchor,
   Avatar,
   Badge,
+  BarChart,
   Button,
   ButtonGroup,
   Callout,
@@ -110,6 +111,24 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Badge" href="/components/badge">
     <Badge aria-hidden="true" label="3">Inbox</Badge>
+  </ComponentCard>
+
+  <ComponentCard name="Bar Chart" href="/components/bar-chart">
+    <BarChart
+      aria-hidden="true"
+      focusable={false}
+      inert
+      label="Day"
+      rows={[
+        { label: "Mon", values: [4] },
+        { label: "Tue", values: [7] },
+        { label: "Wed", values: [5] },
+        { label: "Thu", values: [9] },
+        { label: "Fri", values: [6] },
+      ]}
+      series={["Deploys"]}
+      size="small"
+    />
   </ComponentCard>
 
   <ComponentCard name="Button" href="/components/button">

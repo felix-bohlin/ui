@@ -1,0 +1,78 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Bar Chart"
+
+const {
+  caption,
+  class: className,
+  focusable = true,
+  format = String,
+  label,
+  max,
+  min,
+  rows,
+  series,
+  size,
+  style,
+  ...rest
+} = Astro.props
+
+const values = rows?.flatMap((row) => row.values) ?? []
+const chartMax = max ?? (values.length > 0 ? Math.max(0, ...values) : undefined)
+const chartMin = min ?? Math.min(0, ...values)
+const varStyle = [
+  chartMax !== undefined && `--max: ${chartMax};`,
+  chartMin !== 0 && `--min: ${chartMin};`,
+]
+  .filter(Boolean)
+  .join(" ")
+const vars = {
+  ...(chartMax !== undefined ? { "--max": chartMax } : {}),
+  ...(chartMin !== 0 ? { "--min": chartMin } : {}),
+}
+const mergedStyle =
+  typeof style === "string" || !style
+    ? [varStyle, style].filter(Boolean).join(" ") || undefined
+    : { ...vars, ...style }
+---
+
+<table
+  class:list={["ui-bar-chart", size && `ui-${size}`, className]}
+  style={mergedStyle}
+  {...rest}
+>
+  {caption && <caption>{caption}</caption>}
+  {
+    series && series.length > 0 && (
+      <thead>
+        <tr>
+          {label ? <th scope="col">{label}</th> : <td />}
+          {series.map((name) => (
+            <th scope="col">{name}</th>
+          ))}
+        </tr>
+      </thead>
+    )
+  }
+  {
+    rows && rows.length > 0 && (
+      <tbody>
+        {rows.map((row) => (
+          <tr class:list={[row.color && `ui-${row.color}`]}>
+            <th scope="row">{row.label}</th>
+            {row.values.map((value) => (
+              <td
+                style={`--value: ${value}`}
+                tabindex={focusable ? 0 : undefined}
+              >
+                {format(value)}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    )
+  }
+  <slot />
+</table>

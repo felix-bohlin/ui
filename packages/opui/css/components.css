@@ -7,6 +7,7 @@
 /*** Root components (no dependencies)  */
 @import "./components/anchor.css";
 @import "./components/avatar.css";
+@import "./components/bar-chart.css";
 @import "./components/button.css";
 @import "./components/callout.css";
 @import "./components/card.css";

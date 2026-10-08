@@ -1,0 +1,101 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-card)
+        > .ui-actions.ui-align-end:has(
+          .ui-button:first-child[class="ui-button"]
+        ) {
+        padding-inline: var(--size-3);
+      }
+
+      :where(.ui-card)
+        > .ui-actions.ui-align-end:has(
+          .ui-button:last-child[class="ui-button"]
+        ) {
+        padding-inline: var(--size-3) var(--size-1);
+      }
+    }
+  }
+
+  .todo-compare .ui-card {
+    inline-size: min(100%, 20rem);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The end padding follows the first button: a filled Save hugs the edge
+      (card 1), and a plain Save after an outlined Cancel keeps 16px, so its
+      text sits 12px further in (card 2).
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Plain Cancel, filled Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Outlined Cancel, plain Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button ui-outlined">Cancel</button>
+        <button type="button" class="ui-button">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Plain Cancel, plain Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button">Save</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The end padding follows the last button, so a plain Save's text lines up
+      with the content and a filled Save keeps 16px.
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Plain Cancel, filled Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Outlined Cancel, plain Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button ui-outlined">Cancel</button>
+        <button type="button" class="ui-button">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Plain Cancel, plain Save</div>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button">Save</button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll(".ui-card"),
+    ]
+      .map((card, index) => {
+        const edge = card.getBoundingClientRect().right
+        const save = card.querySelector(".ui-actions > :last-child")
+        const range = document.createRange()
+        range.selectNodeContents(save)
+        const text = range.getBoundingClientRect().right
+        const actions = getComputedStyle(card.querySelector(".ui-actions"))
+        return `card ${index + 1}: padding ${actions.paddingInlineStart} ${actions.paddingInlineEnd}, Save box ${Math.round(edge - save.getBoundingClientRect().right)}px, text ${Math.round(edge - text)}px from the edge`
+      })
+      .join("\n")
+  }
+</script>

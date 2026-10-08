@@ -1,0 +1,83 @@
+---
+import "@opui/css/imports.css"
+import { allBlocks, isFullPage } from "../../../utils/blocks"
+
+export function getStaticPaths() {
+  return allBlocks.map((block) => ({
+    params: { block: block.slug },
+    props: { block },
+  }))
+}
+
+const { block } = Astro.props
+const fullPage = isFullPage(block.source)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{`${block.name} - Open Props UI blocks`}</title>
+    <script is:inline>
+      {
+        const root = document.documentElement
+        let parentRoot
+        try {
+          if (window.parent !== window)
+            parentRoot = window.parent.document.documentElement
+        } catch {}
+
+        const sync = () => {
+          root.className = parentRoot.className
+          root.style.cssText = parentRoot.style.cssText
+        }
+
+        if (parentRoot) {
+          sync()
+          new MutationObserver(sync).observe(parentRoot, {
+            attributeFilter: ["class", "style"],
+            attributes: true,
+          })
+        } else {
+          try {
+            const theme = localStorage.getItem("theme")
+            const contrast = localStorage.getItem("contrast")
+            if (theme) root.classList.add(`ui-${theme}`)
+            if (contrast) root.classList.add(`ui-contrast-${contrast}`)
+            const custom = localStorage.getItem(
+              `opui-custom-theme-${theme ?? "light"}`,
+            )
+            for (const [name, value] of Object.entries(
+              custom ? JSON.parse(custom) : {},
+            )) {
+              if (name === "enable-grays")
+                root.classList.toggle("no-grays", value === "false")
+              else root.style.setProperty(name, value)
+            }
+          } catch {}
+        }
+      }
+    </script>
+  </head>
+  <body>
+    {
+      fullPage ? (
+        <div class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </div>
+      ) : (
+        <main class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </main>
+      )
+    }
+  </body>
+</html>
+
+<style is:global>
+  main.block-preview {
+    padding: var(--size-6) var(--size-4);
+  }
+</style>

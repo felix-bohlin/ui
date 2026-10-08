@@ -1,0 +1,264 @@
+<style>
+  .error-page {
+    display: grid;
+    gap: var(--size-6);
+    margin-inline: auto;
+    max-inline-size: 36rem;
+    padding-block: var(--size-6);
+
+    .error-page-intro {
+      display: grid;
+      gap: var(--size-4);
+      justify-items: center;
+      text-align: center;
+    }
+
+    .error-page-code {
+      color: var(--primary);
+      font-size: var(--font-size-8);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--font-weight-bold);
+      line-height: var(--font-lineheight-00);
+    }
+
+    .error-page-search {
+      display: flex;
+      gap: var(--size-2);
+
+      .ui-text-field {
+        flex: 1;
+      }
+    }
+
+    .error-page-links {
+      display: grid;
+      gap: var(--size-2);
+    }
+
+    .error-page-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="error-page">
+  <div class="error-page-intro">
+    <p class="error-page-code" aria-hidden="true">404</p>
+    <hgroup>
+      <h1 class="ui-h3">We can't find that page</h1>
+      <p>
+        The link may be broken, or the page may have moved. Try a search, or
+        pick up from one of these.
+      </p>
+    </hgroup>
+  </div>
+
+  <search>
+    <form class="error-page-search" action="#">
+      <label class="ui-text-field">
+        <span class="ui-sr-only">Search Northwind</span>
+        <span class="ui-field">
+          <input name="q" placeholder="Search the docs" type="search" />
+          <span class="ui-prefix"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+              ></path></svg
+          ></span>
+        </span>
+      </label>
+      <button class="ui-button ui-filled" type="submit">Search</button>
+    </form>
+  </search>
+
+  <nav aria-labelledby="error-page-links-heading" class="error-page-links">
+    <h2 class="ui-overline" id="error-page-links-heading">Popular pages</h2>
+    <ul class="ui-list ui-bordered ui-tonal">
+      <li>
+        <a href="#error-page-docs">
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9H13z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Documentation</p>
+            <p>Guides and API reference for every component.</p>
+          </div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              ></path>
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#error-page-changelog">
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Changelog</p>
+            <p>What shipped in 6.2, released 1 October 2026.</p>
+          </div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              ></path>
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#error-page-status">
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>System status</p>
+            <p>All systems operational.</p>
+          </div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              ></path>
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#error-page-support">
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 17h-2v-2h2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Support</p>
+            <p>Talk to a person, usually within the hour.</p>
+          </div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              ></path>
+            </svg>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="error-page-actions">
+    <a class="ui-button ui-outlined" href="#error-page-back"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"
+        ></path></svg
+      ><span class="ui-text">Go back</span></a
+    >
+    <a class="ui-button ui-tonal" href="#error-page-home"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+        ></path></svg
+      ><span class="ui-text">Home</span></a
+    >
+  </div>
+</div>

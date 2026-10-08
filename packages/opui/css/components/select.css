@@ -14,19 +14,26 @@
       mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
+      transition: scale calc(var(--duration) * var(--_motion)) var(--ease);
       translate: 0 -50%;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &:open {
       &::picker-icon {
-        rotate: 180deg;
+        scale: 1 -1;
       }
     }
 
     /* Select popover */
     &::picker(select) {
       /* Animation on-stage styles */
+      background: transparent;
       border: 0;
+      border-radius: var(--field-border-radius);
       box-shadow: var(--shadow-2);
       opacity: 1;
       padding: 0;
@@ -152,6 +159,10 @@
         mask: var(--_chevron-icon) center / contain no-repeat;
         pointer-events: none;
         position: relative;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {

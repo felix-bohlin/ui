@@ -4,6 +4,15 @@ export default {
   component: "Radio",
   model: {
     description: "The selected value of the group.",
+    frameworks: {
+      svelte: [
+        {
+          description: "The selected value of the group.",
+          prop: "group",
+          type: "string | number | boolean",
+        },
+      ],
+    },
     prop: "value",
     type: "string | number | boolean",
   },
@@ -11,14 +20,17 @@ export default {
     astro:
       "Other attributes, such as `checked`, `disabled`, `name` and `value`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
     html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.",
+    svelte:
+      "Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
     vue: "Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
   },
   options: [
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
@@ -30,7 +42,18 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      class: ".ui-spread",
+      default: "false",
+      description: "Pushes the label and the input to opposite ends.",
+      group: "Layout",
+      prop: "spread",
     },
     {
       class: ".ui-stack",

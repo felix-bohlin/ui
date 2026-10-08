@@ -33,7 +33,7 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li>
         The radios are visually hidden, <code>:focus-visible + label</code> draws
-        the focus ring on the label
+        the focus ring on the label's pill
       </li>
       <li>
         <code>:nth-child(1 of .tab-label)</code> finds the first label among the radios
@@ -81,9 +81,9 @@ import { Code } from "astro-expressive-code/components"
         and last tabs lose their outer rounding, switching still works
       </li>
       <li>
-        <code>reading-flow: flex-visual</code> is ignored where unsupported. Focus
-        follows the DOM, which matches here: only the checked radio and its visible
-        panel are in the tab order
+        <code>order</code> only moves the tabs visually. Focus follows the DOM, which
+        already has the right order: the checked radio, then the content of its open
+        panel. No <code>reading-flow</code> needed
       </li>
       <li>
         The rest is <code>:checked</code>, the next-sibling combinator and <code

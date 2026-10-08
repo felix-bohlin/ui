@@ -4,20 +4,24 @@ v6 has breaking changes for most components. If you only use the Astro or Vue co
 
 ## Accordion
 
-Markers only animate with a marker class. In HTML, add `.ui-marker-rotate` to keep the previous rotation, or use `.ui-marker-flip` or `.ui-marker-turn`. Astro and Vue default to `markerAnimation="rotate"`.
+Markers only animate with a marker class on `details`, and only the `svg` with `.ui-marker` is the marker. In HTML, add `.ui-marker-rotate` to keep the previous rotation, or use `.ui-marker-flip` or `.ui-marker-turn`, and add `.ui-marker` to the chevron. Other icons in the `summary` no longer flip or rotate. Astro and Vue default to `markerAnimation="rotate"`.
 
 ```diff
 - <details class="ui-accordion">
 + <details class="ui-accordion ui-marker-rotate">
+    <summary>
+-     Title <svg>…</svg>
++     Title <svg class="ui-marker">…</svg>
+    </summary>
 ```
 
-Astro and Vue render a chevron marker by default. If you put your own chevron in the `summary` slot, you get two: move it to the `marker` slot.
+Astro and Vue render a chevron marker by default. If you put your own chevron in the `summary` slot, you get two: move it to the `marker` slot and give it `.ui-marker`.
 
 ```diff
   <Accordion>
 -   <Fragment slot="summary">Title <svg>…</svg></Fragment>
 +   <Fragment slot="summary">Title</Fragment>
-+   <svg slot="marker">…</svg>
++   <svg slot="marker" class="ui-marker">…</svg>
   </Accordion>
 ```
 
@@ -107,9 +111,11 @@ The root selector is wrapped in `:where()`, like other components, so your own s
 
 Without a visible label the checkbox aligns to the middle, so it centers in table cells. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot, and warn in dev when there's no accessible name.
 
+`aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-checkbox`.
+
 ## Chip
 
-The `--ripple` variable is private. Rename overrides to `--_ripple`.
+The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 `Chip` with `as="button"` renders `type="button"` by default in Astro and Vue. Pass `type="submit"` if it should submit a form.
 
@@ -118,6 +124,8 @@ Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), smal
 ## Classic select
 
 `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
+
+Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
 ## Description list
 
@@ -163,18 +171,20 @@ The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--bac
 
 `FieldSet` with another element in `as` gets `role="group"`.
 
+`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"`. Switches in an invalid fieldset keep the primary track color like a standalone invalid switch; only the red ring shows.
+
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle and `ripple` gives it the hover halo. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
-+ <Button ripple rounded size="x-small" aria-label="Edit">
++ <Button rounded size="x-small" aria-label="Edit">
 ```
 
 ```diff
 - <button class="ui-icon-button">
-+ <button class="ui-button ui-rounded ui-ripple ui-x-small">
++ <button class="ui-button ui-rounded ui-x-small">
 ```
 
 Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.
@@ -203,6 +213,8 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 - <ul class="ui-list ui-default">
 + <ul class="ui-list ui-transparent">
 ```
+
+`.ui-end` only sizes an `svg` that is its direct child. An icon wrapped in another element inside `.ui-end` keeps its own size.
 
 ## List item
 
@@ -242,6 +254,8 @@ Radios are `--choice-size` (20px) like `Checkbox`, instead of 18px. The root sel
 
 Without a visible label the radio aligns to the middle. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot.
 
+`aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-radio`. For an invalid group, put it on every radio in the group.
+
 ## Range
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
@@ -260,11 +274,15 @@ With `spread`, the label and the range split the container into equal columns, a
 + <label class="ui-range ui-tonal">
 ```
 
+`aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
+
 ## Select
 
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
+
+Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
 ## Switch
 
@@ -276,6 +294,8 @@ With `spread`, label and field split the container into equal columns. Selects k
 ```
 
 The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
+
+`aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
 ## Table
 
@@ -329,6 +349,13 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <TextField variant="filled" label="Name" />
 ```
 
+`data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>` (Astro and Vue: `error`, unchanged). Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.
+
+```diff
+- <label class="ui-text-field" data-invalid> … <input aria-invalid="true">
++ <label class="ui-text-field"> … <input aria-invalid="true">
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -349,6 +376,8 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <Textarea variant="filled" label="Name" />
 ```
 
+Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-invalid` on `.ui-textarea`.
+
 ## Toast
 
 Severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors. `Toast` is still HTML only, as in v5.5.
@@ -360,6 +389,13 @@ The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `to
 Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
+
+`ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`. `.ui-disabled` stays on `Chip`, to dim a static chip.
+
+```diff
+- <label class="ui-toggle-button ui-disabled"><input type="checkbox" />Bold</label>
++ <label class="ui-toggle-button"><input type="checkbox" disabled />Bold</label>
+```
 
 ## Tooltip
 
@@ -393,7 +429,7 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`.
+Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu`, the `Progress` high contrast outline and the `Textarea` minimum height also read `--border-width`, and `Select` reads `--field-border-width`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
@@ -435,6 +471,8 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Tooltip                     | `--_tooltip-min-inline-size`, `--_tooltip-offset`, `--_tooltip-shift` | `--_min-inline-size`, `--_offset`, `--_shift`                      |
 
 `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--blue` in your theme.
+
+Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
 ## Typography and rich text
 
@@ -491,9 +529,9 @@ Note: Components that use `critical` for severity styling (such as `Button`, `Ca
 
 # Migrating from v4 to v5
 
-v5 prefixes every OPUI-owned class with `ui-`. The component prop API is unchanged; only the rendered class names change.
+v5 prefixes every OPUI-owned class with `ui-`. The component props are unchanged apart from the changes at the end of this section, and the components render the prefixed classes.
 
-If you use the framework component (e.g. `<Button size="small" variant="outlined">`), you don't need to do anything - the component emits the prefixed classes for you.
+If you use the framework component (e.g. `<Button size="small" variant="outlined">`), the component emits the prefixed classes for you.
 
 If you use raw HTML or write CSS that targets library classes, you must rename every reference:
 
@@ -510,6 +548,19 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
 CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged.
+
+These changes in 5.0.0 and 5.0.1 need a code change too:
+
+- `Avatar` no longer takes `spacing`, and the group gap classes that went with it are removed.
+- `ToggleButton` no longer adds an unprefixed `selected` class when pressed. Style the checked input instead, e.g. `.ui-toggle-button:has(input:checked)`.
+- `Progress` (5.0.1): `.ui-progress` and its variant classes (`.ui-default`, `.ui-filled`, `.ui-tonal`) go on a wrapper `<div>` around `<progress>`. The Astro component renders the wrapper.
+
+```diff
+- <progress class="ui-progress ui-tonal" value="60" max="100"></progress>
++ <div class="ui-progress ui-tonal">
++   <progress value="60" max="100"></progress>
++ </div>
+```
 
 # Migrating from v3 to v4
 
@@ -607,7 +658,11 @@ Put your overrides in a later layer or unlayered. If your app already declared `
 
 The source files under `components/` and `css/components/` are unminified and free to vendor in - the license is unchanged (MIT).
 
-## 10. Pinning v3
+## 10. Card and Dialog `actionsAlign` (4.1.0)
+
+The Astro `Card` and `Dialog` no longer take an `actions` prop with an `align` field. Set the `actionsAlign` prop (`"start"` or `"end"`) instead.
+
+## 11. Pinning v3
 
 If you're not ready to migrate, pin the last v3 release:
 

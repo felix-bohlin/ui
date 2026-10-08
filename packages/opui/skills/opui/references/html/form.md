@@ -236,19 +236,19 @@ Add `disabled` to the `<fieldset>` to disable every field inside.
 
 ### Invalid
 
-Add `data-invalid` to the `<fieldset>` for error styles. Explain the error in a `.ui-end-text`.
+Add `aria-invalid="true"` to each control in the `<fieldset>`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a control has `aria-invalid="true"`.
 
 ```html
-<fieldset class="ui-fieldset" data-invalid>
+<fieldset class="ui-fieldset">
   <legend>Pet food</legend>
   <p class="ui-field-description">Pick at least one.</p>
   <div class="ui-field-group">
     <label class="ui-checkbox">
-      <input name="food" type="checkbox" value="kibble" />
+      <input aria-invalid="true" name="food" type="checkbox" value="kibble" />
       <span class="ui-label">Kibble</span>
     </label>
     <label class="ui-checkbox">
-      <input name="food" type="checkbox" value="wet-food" />
+      <input aria-invalid="true" name="food" type="checkbox" value="wet-food" />
       <span class="ui-label">Wet food</span>
     </label>
   </div>
@@ -283,7 +283,7 @@ The legend gets an asterisk when a field inside is required.
 
 ## Actions
 
-A field group with only buttons lines up in a row. Separate it from the fields with `<hr class="ui-divider">`.
+A field group with only buttons lines up in a row. Add `.ui-column` to stack the buttons instead. Separate the group from the fields with `<hr class="ui-divider">`.
 
 ```html
 <form class="ui-form">
@@ -514,9 +514,7 @@ Everything at once.
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -524,10 +522,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field set API
 
-| Type       | Modifiers        | Default | Description                              |
-| ---------- | ---------------- | ------- | ---------------------------------------- |
-| State      | `[disabled]`     | -       | Disables every field inside.             |
-| Validation | `[data-invalid]` | -       | Shows error styles on the fields inside. |
+| Type       | Modifiers                     | Default | Description                                                        |
+| ---------- | ----------------------------- | ------- | ------------------------------------------------------------------ |
+| State      | `[disabled]`                  | -       | Disables every field inside.                                       |
+| Validation | `:has([aria-invalid="true"])` | -       | Colors the end text when a field inside has `aria-invalid="true"`. |
 
 #### Parts
 
@@ -548,9 +546,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -575,9 +571,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -602,9 +596,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -612,9 +604,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field group API
 
-| Type        | Modifiers          | Default | Description                     |
-| ----------- | ------------------ | ------- | ------------------------------- |
-| Orientation | default, `.ui-row` | -       | The orientation of the element. |
+| Type        | Modifiers               | Default | Description                                                                                              |
+| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 
@@ -633,9 +625,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -644,6 +634,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
+
+Read the post: [Smarter fieldsets with :has()](https://open-props-ui.netlify.app/learn/form-fieldset-has)
 
 1. Fieldset
 
@@ -661,6 +653,9 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
    - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, radios or switches, nothing else
    - A list of choices gets a tighter gap
    - A group of only buttons becomes a row, unless it's set to `.column`
+   - The row gets space above it, unless an `<hr>` comes right before it
+   - A `.column` of buttons keeps each button at its own width
+   - The buttons act on the whole form, so their group goes after the fieldset, not inside it
 
 4. Required
 
@@ -718,6 +713,21 @@ Step 2 of 4: Description
 
 Step 3 of 4: Groups
 
+- [`:not()` ](https://webstatus.dev/features/not)(Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
+
+```html
+<form>
+  <fieldset class="fieldset">
+    <legend>Notifications</legend>
+    …
+  </fieldset>
+  <div class="group">
+    <button type="reset">Cancel</button>
+    <button type="button">Save</button>
+  </div>
+</form>
+```
+
 ```css
 .group {
   display: flex;
@@ -740,6 +750,16 @@ Step 3 of 4: Groups
   align-items: center;
   flex-direction: row;
   gap: 0.5rem;
+}
+
+
+.group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
+  margin-block-start: 1rem;
+}
+
+
+.group.column:has(> button):not(:has(> :not(button))) {
+  align-items: start;
 }
 ```
 
@@ -787,3 +807,9 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
+- Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).

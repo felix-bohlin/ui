@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
+    "description": "Lets you show and hide content, on its own or as a group.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
+    "description": "Lets you show and hide content, on its own or as a group.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation",
     "category": "Component",
     "frameworkId": "astro",
@@ -20,9 +20,19 @@
     "url": "/astro/components/accordion"
   },
   {
+    "id": "component-accordion-svelte",
+    "title": "Accordion",
+    "description": "Lets you show and hide content, on its own or as a group.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/accordion"
+  },
+  {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
+    "description": "Lets you show and hide content, on its own or as a group.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation",
     "category": "Component",
     "frameworkId": "vue",
@@ -50,6 +60,16 @@
     "url": "/astro/components/anchor"
   },
   {
+    "id": "component-anchor-svelte",
+    "title": "Anchor",
+    "description": "",
+    "headings": "Always visible Hover trigger Link preview Used by",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/anchor"
+  },
+  {
     "id": "component-anchor-vue",
     "title": "Anchor",
     "description": "",
@@ -63,7 +83,7 @@
     "id": "component-avatar-html",
     "title": "Avatar",
     "description": "Avatars show a person or entity as an image, initials or icon.",
-    "headings": "Image Letter Icon Variants Grouped",
+    "headings": "Image Letter Icon Variants Sizes Grouped",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -73,17 +93,27 @@
     "id": "component-avatar-astro",
     "title": "Avatar",
     "description": "Avatars show a person or entity as an image, initials or icon.",
-    "headings": "Image Letter Icon Variants Grouped",
+    "headings": "Image Letter Icon Variants Sizes Grouped",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/avatar"
   },
   {
+    "id": "component-avatar-svelte",
+    "title": "Avatar",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
+    "headings": "Image Letter Icon Variants Sizes Grouped",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/avatar"
+  },
+  {
     "id": "component-avatar-vue",
     "title": "Avatar",
     "description": "Avatars show a person or entity as an image, initials or icon.",
-    "headings": "Image Letter Icon Variants Grouped",
+    "headings": "Image Letter Icon Variants Sizes Grouped",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -108,6 +138,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-badge-svelte",
+    "title": "Badge",
+    "description": "Badges attach a small count or status dot to another element.",
+    "headings": "Variants Severities Indicator Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/badge"
   },
   {
     "id": "component-badge-vue",
@@ -140,6 +180,16 @@
     "url": "/astro/components/button-group"
   },
   {
+    "id": "component-button-group-svelte",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "headings": "Variants Colors Sizes Icons Split button Disabled Vertical orientation Overflow",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button-group"
+  },
+  {
     "id": "component-button-group-vue",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -168,6 +218,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button"
+  },
+  {
+    "id": "component-button-svelte",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Sizes Buttons with icon and label Keyboard Icon-only Disabled File upload",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button"
   },
   {
     "id": "component-button-vue",
@@ -200,6 +260,16 @@
     "url": "/astro/components/callout"
   },
   {
+    "id": "component-callout-svelte",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "headings": "Variants Severities Icon",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/callout"
+  },
+  {
     "id": "component-callout-vue",
     "title": "Callout",
     "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
@@ -213,7 +283,7 @@
     "id": "component-card-html",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
-    "headings": "Variants Header Actions Alignment",
+    "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -223,17 +293,27 @@
     "id": "component-card-astro",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
-    "headings": "Variants Header Actions Alignment",
+    "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/card"
   },
   {
+    "id": "component-card-svelte",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment Clickable card",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/card"
+  },
+  {
     "id": "component-card-vue",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
-    "headings": "Variants Header Actions Alignment",
+    "headings": "Variants Header Actions Alignment Clickable card",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -243,7 +323,7 @@
     "id": "component-carousel-html",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",
-    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons",
+    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons Playground Grid and flex layouts",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -253,17 +333,27 @@
     "id": "component-carousel-astro",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",
-    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons",
+    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons Playground Grid and flex layouts",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/carousel"
   },
   {
+    "id": "component-carousel-svelte",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons Playground Grid and flex layouts",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/carousel"
+  },
+  {
     "id": "component-carousel-vue",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",
-    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons",
+    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons Playground Grid and flex layouts",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -290,6 +380,16 @@
     "url": "/astro/components/checkbox"
   },
   {
+    "id": "component-checkbox-svelte",
+    "title": "Checkbox",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "headings": "Basics Sizes Visible label Label position End text Validation Indeterminate Spread Label alignment Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/checkbox"
+  },
+  {
     "id": "component-checkbox-vue",
     "title": "Checkbox",
     "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
@@ -303,7 +403,7 @@
     "id": "component-chip-html",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
-    "headings": "Variants Sizes Icon Button Link Disabled",
+    "headings": "Variants Colors Sizes Icon Dot Button Link Disabled",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -313,17 +413,27 @@
     "id": "component-chip-astro",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
-    "headings": "Variants Sizes Icon Button Link Disabled",
+    "headings": "Variants Colors Sizes Icon Dot Button Link Disabled",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/chip"
   },
   {
+    "id": "component-chip-svelte",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "headings": "Variants Colors Sizes Icon Dot Button Link Disabled",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/chip"
+  },
+  {
     "id": "component-chip-vue",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
-    "headings": "Variants Sizes Icon Button Link Disabled",
+    "headings": "Variants Colors Sizes Icon Dot Button Link Disabled",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -333,7 +443,7 @@
     "id": "component-description-list-html",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
-    "headings": "Basics Bordered",
+    "headings": "Basics Bordered Inline",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -343,17 +453,27 @@
     "id": "component-description-list-astro",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
-    "headings": "Basics Bordered",
+    "headings": "Basics Bordered Inline",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/description-list"
   },
   {
+    "id": "component-description-list-svelte",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "headings": "Basics Bordered Inline",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/description-list"
+  },
+  {
     "id": "component-description-list-vue",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
-    "headings": "Basics Bordered",
+    "headings": "Basics Bordered Inline",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -363,7 +483,7 @@
     "id": "component-dialog-html",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Alert dialog How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -373,17 +493,27 @@
     "id": "component-dialog-astro",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Alert dialog How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/dialog"
   },
   {
+    "id": "component-dialog-svelte",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/dialog"
+  },
+  {
     "id": "component-dialog-vue",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Alert dialog How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -393,7 +523,7 @@
     "id": "component-divider-html",
     "title": "Divider",
     "description": "It's just a line.",
-    "headings": "Default Variants Spacing",
+    "headings": "Default Variants Content Spacing",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -403,17 +533,27 @@
     "id": "component-divider-astro",
     "title": "Divider",
     "description": "It's just a line.",
-    "headings": "Default Variants Spacing",
+    "headings": "Default Variants Content Spacing",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/divider"
   },
   {
+    "id": "component-divider-svelte",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "headings": "Default Variants Content Spacing",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/divider"
+  },
+  {
     "id": "component-divider-vue",
     "title": "Divider",
     "description": "It's just a line.",
-    "headings": "Default Variants Spacing",
+    "headings": "Default Variants Content Spacing",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -438,6 +578,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/drawer"
+  },
+  {
+    "id": "component-drawer-svelte",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/drawer"
   },
   {
     "id": "component-drawer-vue",
@@ -470,6 +620,16 @@
     "url": "/astro/components/form"
   },
   {
+    "id": "component-form-svelte",
+    "title": "Form",
+    "description": "Spacing and grouping for form fields.",
+    "headings": "Usage Fieldset Field group Row States Disabled Invalid Required Actions Without fieldset Kitchen sink",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/form"
+  },
+  {
     "id": "component-form-vue",
     "title": "Form",
     "description": "Spacing and grouping for form fields.",
@@ -500,6 +660,16 @@
     "url": "/astro/components/list"
   },
   {
+    "id": "component-list-svelte",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "headings": "Basics Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/list"
+  },
+  {
     "id": "component-list-vue",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -513,7 +683,7 @@
     "id": "component-menu-html",
     "title": "Menu",
     "description": "A popover list of actions or links.",
-    "headings": "Basics Custom items Placement Submenu",
+    "headings": "Basics Custom items Placement Submenu Manual Role Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -523,17 +693,27 @@
     "id": "component-menu-astro",
     "title": "Menu",
     "description": "A popover list of actions or links.",
-    "headings": "Basics Custom items Placement Submenu",
+    "headings": "Basics Custom items Placement Submenu Manual Role Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/menu"
   },
   {
+    "id": "component-menu-svelte",
+    "title": "Menu",
+    "description": "A popover list of actions or links.",
+    "headings": "Basics Custom items Placement Submenu Manual Role Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/menu"
+  },
+  {
     "id": "component-menu-vue",
     "title": "Menu",
     "description": "A popover list of actions or links.",
-    "headings": "Basics Custom items Placement Submenu",
+    "headings": "Basics Custom items Placement Submenu Manual Role Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -560,6 +740,16 @@
     "url": "/astro/components/progress"
   },
   {
+    "id": "component-progress-svelte",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/progress"
+  },
+  {
     "id": "component-progress-vue",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -573,7 +763,7 @@
     "id": "component-radio-html",
     "title": "Radio",
     "description": "See also: Form documentation.",
-    "headings": "Basics Field description Disabled Required Validation Direction Label alignment",
+    "headings": "Basics Sizes Visible label Label position End text Field description Disabled Required Validation Direction Spread Label alignment",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -583,17 +773,27 @@
     "id": "component-radio-astro",
     "title": "Radio",
     "description": "See also: Form documentation.",
-    "headings": "Basics Field description Disabled Required Validation Direction Label alignment",
+    "headings": "Basics Sizes Visible label Label position End text Field description Disabled Required Validation Direction Spread Label alignment",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/radio"
   },
   {
+    "id": "component-radio-svelte",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "headings": "Basics Sizes Visible label Label position End text Field description Disabled Required Validation Direction Spread Label alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/radio"
+  },
+  {
     "id": "component-radio-vue",
     "title": "Radio",
     "description": "See also: Form documentation.",
-    "headings": "Basics Field description Disabled Required Validation Direction Label alignment",
+    "headings": "Basics Sizes Visible label Label position End text Field description Disabled Required Validation Direction Spread Label alignment",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -620,6 +820,16 @@
     "url": "/astro/components/range"
   },
   {
+    "id": "component-range-svelte",
+    "title": "Range",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
+    "headings": "Basics Variants Start and end text Value Tick marks Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/range"
+  },
+  {
     "id": "component-range-vue",
     "title": "Range",
     "description": "Range lets users pick a number by sliding a thumb along a track.",
@@ -633,7 +843,7 @@
     "id": "component-select-html",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
-    "headings": "Variants Sizes Dense End text Affix Preselected Option groups Validation Spread Classic select",
+    "headings": "Variants Sizes Dense End text Affix Header and footer Preselected Option groups Validation Spread Classic select Fallback",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -643,17 +853,27 @@
     "id": "component-select-astro",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
-    "headings": "Variants Sizes Dense End text Affix Preselected Option groups Validation Spread Classic select",
+    "headings": "Variants Sizes Dense End text Affix Header and footer Preselected Option groups Validation Spread Classic select Fallback",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/select"
   },
   {
+    "id": "component-select-svelte",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "headings": "Variants Sizes Dense End text Affix Header and footer Preselected Option groups Validation Spread Classic select Fallback",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/select"
+  },
+  {
     "id": "component-select-vue",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
-    "headings": "Variants Sizes Dense End text Affix Preselected Option groups Validation Spread Classic select",
+    "headings": "Variants Sizes Dense End text Affix Header and footer Preselected Option groups Validation Spread Classic select Fallback",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -680,6 +900,16 @@
     "url": "/astro/components/spinner"
   },
   {
+    "id": "component-spinner-svelte",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "headings": "Basics Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/spinner"
+  },
+  {
     "id": "component-spinner-vue",
     "title": "Spinner",
     "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
@@ -693,7 +923,7 @@
     "id": "component-switch-html",
     "title": "Switch",
     "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
-    "headings": "Basics Sizes Visible label Label position End text Validation Icons Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "headings": "Basics Sizes Visible label Label position End text Icons Validation Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -703,17 +933,27 @@
     "id": "component-switch-astro",
     "title": "Switch",
     "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
-    "headings": "Basics Sizes Visible label Label position End text Validation Icons Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "headings": "Basics Sizes Visible label Label position End text Icons Validation Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/switch"
   },
   {
+    "id": "component-switch-svelte",
+    "title": "Switch",
+    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "headings": "Basics Sizes Visible label Label position End text Icons Validation Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/switch"
+  },
+  {
     "id": "component-switch-vue",
     "title": "Switch",
     "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
-    "headings": "Basics Sizes Visible label Label position End text Validation Icons Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "headings": "Basics Sizes Visible label Label position End text Icons Validation Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -723,7 +963,7 @@
     "id": "component-table-html",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
-    "headings": "Variants Default Dense Spacious Advanced Sticky header",
+    "headings": "Variants Default Dense Spacious Sticky header Advanced",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -733,17 +973,27 @@
     "id": "component-table-astro",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
-    "headings": "Variants Default Dense Spacious Advanced Sticky header",
+    "headings": "Variants Default Dense Spacious Sticky header Advanced",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/table"
   },
   {
+    "id": "component-table-svelte",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "headings": "Variants Default Dense Spacious Sticky header Advanced",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/table"
+  },
+  {
     "id": "component-table-vue",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
-    "headings": "Variants Default Dense Spacious Advanced Sticky header",
+    "headings": "Variants Default Dense Spacious Sticky header Advanced",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -770,6 +1020,16 @@
     "url": "/astro/components/tabs"
   },
   {
+    "id": "component-tabs-svelte",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "headings": "Basics Filled Line Outlined Scrollable Keyboard interaction",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tabs"
+  },
+  {
     "id": "component-tabs-vue",
     "title": "Tabs",
     "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
@@ -783,7 +1043,7 @@
     "id": "component-text-field-html",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -793,17 +1053,27 @@
     "id": "component-text-field-astro",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/text-field"
   },
   {
+    "id": "component-text-field-svelte",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/text-field"
+  },
+  {
     "id": "component-text-field-vue",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -813,7 +1083,7 @@
     "id": "component-textarea-html",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -823,17 +1093,27 @@
     "id": "component-textarea-astro",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/textarea"
   },
   {
+    "id": "component-textarea-svelte",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/textarea"
+  },
+  {
     "id": "component-textarea-vue",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -853,7 +1133,7 @@
     "id": "component-toggle-html",
     "title": "Toggle",
     "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
-    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes Overflow",
+    "headings": "Toggle button Sizes Toggle group Multi-select Single-select Text + icon Vertical orientation Overflow",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -863,17 +1143,27 @@
     "id": "component-toggle-astro",
     "title": "Toggle",
     "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
-    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes Overflow",
+    "headings": "Toggle button Sizes Toggle group Multi-select Single-select Text + icon Vertical orientation Overflow",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/toggle"
   },
   {
+    "id": "component-toggle-svelte",
+    "title": "Toggle",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
+    "headings": "Toggle button Sizes Toggle group Multi-select Single-select Text + icon Vertical orientation Overflow",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/toggle"
+  },
+  {
     "id": "component-toggle-vue",
     "title": "Toggle",
     "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
-    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes Overflow",
+    "headings": "Toggle button Sizes Toggle group Multi-select Single-select Text + icon Vertical orientation Overflow",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -882,7 +1172,7 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the{\" \"}\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
     "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "html",
@@ -892,7 +1182,7 @@
   {
     "id": "component-tooltip-astro",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the{\" \"}\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
     "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "astro",
@@ -900,9 +1190,19 @@
     "url": "/astro/components/tooltip"
   },
   {
+    "id": "component-tooltip-svelte",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the{\" \"}\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tooltip"
+  },
+  {
     "id": "component-tooltip-vue",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the{\" \"}\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
     "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "vue",
@@ -930,6 +1230,16 @@
     "url": "/astro/components/typography"
   },
   {
+    "id": "component-typography-svelte",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Link Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/typography"
+  },
+  {
     "id": "component-typography-vue",
     "title": "Typography",
     "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
@@ -938,6 +1248,42 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/typography"
+  },
+  {
+    "id": "guide-accessibility-html",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/accessibility"
+  },
+  {
+    "id": "guide-accessibility-astro",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/accessibility"
+  },
+  {
+    "id": "guide-accessibility-svelte",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/accessibility"
+  },
+  {
+    "id": "guide-accessibility-vue",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/accessibility"
   },
   {
     "id": "guide-acknowledgments-html",
@@ -956,6 +1302,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-svelte",
+    "title": "Acknowledgments",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/acknowledgments"
   },
   {
     "id": "guide-acknowledgments-vue",
@@ -985,6 +1340,15 @@
     "url": "/astro/guide/browser-support"
   },
   {
+    "id": "guide-browser-support-svelte",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/browser-support"
+  },
+  {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
@@ -996,8 +1360,8 @@
   {
     "id": "guide-concepts-html",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    how props map to classes, rich text, and when you need JavaScript.",
-    "headings": "Cascade layers Light and dark Props and classes Rich text JavaScript",
+    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
+    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/concepts"
@@ -1005,17 +1369,26 @@
   {
     "id": "guide-concepts-astro",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    how props map to classes, rich text, and when you need JavaScript.",
-    "headings": "Cascade layers Light and dark Props and classes Rich text JavaScript",
+    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
+    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/concepts"
   },
   {
+    "id": "guide-concepts-svelte",
+    "title": "Concepts",
+    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
+    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/concepts"
+  },
+  {
     "id": "guide-concepts-vue",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    how props map to classes, rich text, and when you need JavaScript.",
-    "headings": "Cascade layers Light and dark Props and classes Rich text JavaScript",
+    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
+    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/concepts"
@@ -1037,6 +1410,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/customizing"
+  },
+  {
+    "id": "guide-customizing-svelte",
+    "title": "Customizing",
+    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
+    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/customizing"
   },
   {
     "id": "guide-customizing-vue",
@@ -1066,6 +1448,15 @@
     "url": "/astro/guide/migrating"
   },
   {
+    "id": "guide-migrating-svelte",
+    "title": "Migrating to v6",
+    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/migrating"
+  },
+  {
     "id": "guide-migrating-vue",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
@@ -1093,6 +1484,15 @@
     "url": "/astro/guide/theme-generator"
   },
   {
+    "id": "guide-theme-generator-svelte",
+    "title": "Theme generator",
+    "description": "Edit the design tokens visually and download a theme.css.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/theme-generator"
+  },
+  {
     "id": "guide-theme-generator-vue",
     "title": "Theme generator",
     "description": "Edit the design tokens visually and download a theme.css.",
@@ -1104,8 +1504,8 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens Density",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/theme-tokens"
@@ -1113,20 +1513,65 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens Density",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-tokens"
   },
   {
+    "id": "guide-theme-tokens-svelte",
+    "title": "Theme tokens",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "headings": "Overriding tokens",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/theme-tokens"
+  },
+  {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens Density",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/theme-tokens"
+  },
+  {
+    "id": "guide-theming-html",
+    "title": "Theming",
+    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
+    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/theming"
+  },
+  {
+    "id": "guide-theming-astro",
+    "title": "Theming",
+    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
+    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/theming"
+  },
+  {
+    "id": "guide-theming-svelte",
+    "title": "Theming",
+    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
+    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/theming"
+  },
+  {
+    "id": "guide-theming-vue",
+    "title": "Theming",
+    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
+    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/theming"
   },
   {
     "id": "guide-why-opui-html",
@@ -1145,6 +1590,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/why-opui"
+  },
+  {
+    "id": "guide-why-opui-svelte",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/why-opui"
   },
   {
     "id": "guide-why-opui-vue",
@@ -1174,10 +1628,19 @@
     "url": "/html/guide/getting-started"
   },
   {
+    "id": "guide-getting-started-svelte",
+    "title": "Getting started",
+    "description": "OPUI ships first-class Svelte 5 components. Install the package, import what\n    you need, and you're set.",
+    "headings": "Install via NPM Import the CSS How to use Server rendering",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/getting-started"
+  },
+  {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
     "description": "OPUI ships first-class Vue components. Install the package, import what you\n    need, and you're set.",
-    "headings": "Install via NPM Import the CSS How to use",
+    "headings": "Install via NPM Import the CSS How to use Server rendering",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/getting-started"
@@ -1241,8 +1704,8 @@
   {
     "id": "learn-checkbox-appearance-none",
     "title": "Drawing a checkbox",
-    "description": "appearance: none, a clip-path checkmark and text-box for a native checkbox.",
-    "headings": "The problem The trick Try it Fallback appearance: none appearance text-box",
+    "description": "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
+    "headings": "The problem The trick Try it Fallback appearance: none appearance clip-path",
     "category": "Learn",
     "url": "/learn/checkbox-appearance-none"
   },
@@ -1258,7 +1721,7 @@
     "id": "learn-dialog-closedby",
     "title": "Dialogs without JavaScript",
     "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
-    "headings": "The problem The trick Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
+    "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
     "category": "Learn",
     "url": "/learn/dialog-closedby"
   },
@@ -1327,6 +1790,14 @@
     "url": "/learn/switch-checkbox"
   },
   {
+    "id": "learn-table-scroll-state",
+    "title": "A header that knows it’s stuck",
+    "description": "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
+    "headings": "The problem The trick Scroll shadows Try it Fallback scroll-state() anchor-positioning container-scroll-state-queries",
+    "category": "Learn",
+    "url": "/learn/table-scroll-state"
+  },
+  {
     "id": "learn-tabs-radio-buttons",
     "title": "Tabs from radio buttons",
     "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
@@ -1383,10 +1854,298 @@
     "url": "/learn/vertical-rhythm-round"
   },
   {
+    "id": "block-account-settings",
+    "title": "Account settings",
+    "description": "Profile, password and preference forms split over tabs, with a danger zone at the end.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/account-settings"
+  },
+  {
+    "id": "block-analytics-dashboard",
+    "title": "Analytics dashboard",
+    "description": "Key metrics, a bar chart, top pages and traffic sources for a selectable date range.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/analytics-dashboard"
+  },
+  {
+    "id": "block-app-shell",
+    "title": "App shell",
+    "description": "A header, a navigation sidebar that turns into a drawer on small screens, and a main area.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/app-shell"
+  },
+  {
+    "id": "block-billing",
+    "title": "Billing",
+    "description": "The current plan, usage against its limits, the payment method and past invoices.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/billing"
+  },
+  {
+    "id": "block-blog-list",
+    "title": "Blog list",
+    "description": "A featured post followed by a grid of post cards with tags, authors and reading time.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/blog-list"
+  },
+  {
+    "id": "block-changelog",
+    "title": "Changelog",
+    "description": "Releases on a timeline, each with a version, a date and grouped changes.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/changelog"
+  },
+  {
+    "id": "block-chat",
+    "title": "Chat",
+    "description": "Conversations next to a message thread with a composer at the bottom.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/chat"
+  },
+  {
+    "id": "block-checkout",
+    "title": "Checkout",
+    "description": "Contact, shipping and payment details next to an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/checkout"
+  },
+  {
+    "id": "block-data-table",
+    "title": "Data table",
+    "description": "A searchable, filterable table with row selection, statuses, row actions and pagination.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/data-table"
+  },
+  {
+    "id": "block-empty-states",
+    "title": "Empty states",
+    "description": "Empty states for a first run, an empty search, a cleared inbox and a missing permission.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/empty-states"
+  },
+  {
+    "id": "block-error-page",
+    "title": "Error page",
+    "description": "A not found page with a search field and links to get back on track.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/error-page"
+  },
+  {
+    "id": "block-faq",
+    "title": "FAQ",
+    "description": "Frequently asked questions in an accordion group, with a way to reach support.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/faq"
+  },
+  {
+    "id": "block-feature-grid",
+    "title": "Feature grid",
+    "description": "A grid of features, each with an icon, a title and a summary.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/feature-grid"
+  },
+  {
+    "id": "block-file-manager",
+    "title": "File manager",
+    "description": "Storage usage, folders and a file table with sorting and row actions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/file-manager"
+  },
+  {
+    "id": "block-forgot-password",
+    "title": "Forgot password",
+    "description": "An email field to request a reset link, and the message shown after sending it.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/forgot-password"
+  },
+  {
+    "id": "block-hero",
+    "title": "Hero",
+    "description": "A headline, a short pitch, two calls to action and a product preview.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/hero"
+  },
+  {
+    "id": "block-inbox",
+    "title": "Inbox",
+    "description": "Folders, a message list with unread states and a reading pane.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/inbox"
+  },
+  {
+    "id": "block-invoice",
+    "title": "Invoice",
+    "description": "Sender and recipient, line items, totals and payment details for an invoice.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/invoice"
+  },
+  {
+    "id": "block-kanban-board",
+    "title": "Kanban board",
+    "description": "Columns of task cards with labels, assignees, due dates and counts.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/kanban-board"
+  },
+  {
+    "id": "block-newsletter",
+    "title": "Newsletter",
+    "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/newsletter"
+  },
+  {
+    "id": "block-notification-settings",
+    "title": "Notification settings",
+    "description": "A table of switches that sets which notifications go to email, push and SMS.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/notification-settings"
+  },
+  {
+    "id": "block-notifications",
+    "title": "Notifications",
+    "description": "Notifications grouped by day, with tabs, unread markers and inline actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/notifications"
+  },
+  {
+    "id": "block-onboarding-checklist",
+    "title": "Onboarding checklist",
+    "description": "A getting started checklist with progress and a call to action per step.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/onboarding-checklist"
+  },
+  {
+    "id": "block-order-history",
+    "title": "Order history",
+    "description": "Past orders with their status, items, totals and actions to track or reorder.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/order-history"
+  },
+  {
+    "id": "block-pricing",
+    "title": "Pricing",
+    "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/pricing"
+  },
+  {
+    "id": "block-product-detail",
+    "title": "Product detail",
+    "description": "A product gallery, color and size choices, quantity, add to cart and details.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/product-detail"
+  },
+  {
+    "id": "block-project-overview",
+    "title": "Project overview",
+    "description": "Milestones, progress, the team and recent activity for a single project.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/project-overview"
+  },
+  {
+    "id": "block-sales-dashboard",
+    "title": "Sales dashboard",
+    "description": "Revenue, orders and conversion with sales targets and the latest orders.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/sales-dashboard"
+  },
+  {
+    "id": "block-server-status",
+    "title": "Server status",
+    "description": "Service health, uptime history, response times and incidents.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/server-status"
+  },
+  {
+    "id": "block-shopping-cart",
+    "title": "Shopping cart",
+    "description": "Cart items with quantity controls, a discount code and an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/shopping-cart"
+  },
+  {
+    "id": "block-sign-in",
+    "title": "Sign in",
+    "description": "An email and password form with a remember me option and social sign-in.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-in"
+  },
+  {
+    "id": "block-sign-up",
+    "title": "Sign up",
+    "description": "An account form with a password hint, a plan choice and terms.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-up"
+  },
+  {
+    "id": "block-team-members",
+    "title": "Team members",
+    "description": "An invite form and a member list with roles, statuses and actions.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/team-members"
+  },
+  {
+    "id": "block-testimonials",
+    "title": "Testimonials",
+    "description": "Customer quotes with names, roles and ratings.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/testimonials"
+  },
+  {
+    "id": "block-two-factor",
+    "title": "Two-factor authentication",
+    "description": "A one-time code form for two-factor authentication, with a way to resend the code.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/two-factor"
+  },
+  {
+    "id": "block-user-directory",
+    "title": "User directory",
+    "description": "A filterable grid of people cards with avatars, roles and contact actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/user-directory"
+  },
+  {
     "id": "api-accordion-astro",
     "title": "Accordion API",
     "description": "Reference for Accordion Astro component.",
-    "headings": "Accordion Container element. The always visible header. summary The marker. Astro and Vue render a chevron by default. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
+    "headings": "Accordion Container element. The always visible header. summary The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1396,17 +2155,27 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "headings": "details.ui-accordion Container element. The always visible header. summary The marker. Astro and Vue render a chevron by default. summary > svg The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Grouping Groups accordions so only one of them can be open at a time. .ui-marker-flip .ui-marker-rotate .ui-marker-turn Marker How the marker animates when the accordion opens. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal Variants The variant to use.",
+    "headings": "details.ui-accordion Container element. The always visible header. summary The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. summary .ui-marker The collapsible content. .ui-content A group of actions, such as buttons. .ui-actions [name] Grouping Groups accordions so only one of them can be open at a time. .ui-marker-flip .ui-marker-rotate .ui-marker-turn Marker How the marker animates when the accordion opens. [open] State Whether the accordion is open. .ui-elevated .ui-outlined .ui-tonal Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#accordion"
   },
   {
+    "id": "api-accordion-svelte",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Svelte component.",
+    "headings": "Accordion Container element. The always visible header. summary The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#accordion"
+  },
+  {
     "id": "api-accordion-vue",
     "title": "Accordion API",
     "description": "Reference for Accordion Vue component.",
-    "headings": "Accordion Container element. The always visible header. summary The marker. Astro and Vue render a chevron by default. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
+    "headings": "Accordion Container element. The always visible header. summary The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1433,6 +2202,16 @@
     "url": "/html/api#anchor"
   },
   {
+    "id": "api-anchor-svelte",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Svelte component.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. default The floating content. anchored alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the floating content when `trigger` is `\"hover\"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#anchor"
+  },
+  {
     "id": "api-anchor-vue",
     "title": "Anchor API",
     "description": "Reference for Anchor Vue component.",
@@ -1446,7 +2225,7 @@
     "id": "api-avatar-astro",
     "title": "Avatar API",
     "description": "Reference for Avatar Astro component.",
-    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. src The image source. Replaces the default slot. variant The variant to use.",
+    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with src; use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. size The size of the avatar. src The image source. Replaces the content. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1456,17 +2235,27 @@
     "id": "api-avatar-html",
     "title": "Avatar API",
     "description": "Reference for Avatar HTML component.",
-    "headings": ".ui-avatar Container element. The avatar image. img The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. The command to send to the `commandfor` target. The id of the element the command targets. Disables the avatar when `as` is `\"button\"`. The link to use. Renders an `<a>`. The id of the element to show on interest. .ui-avatar-group Group Renders a container that groups avatars. .ui-rounded .ui-squared .ui-squircle Variants The variant to use.",
+    "headings": ".ui-avatar Container element. The avatar image. img The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. The command to send to the `commandfor` target. The id of the element the command targets. Disables the avatar when `as` is `\"button\"`. The link to use. Renders an `<a>`. The id of the element to show on interest. .ui-avatar-group Group Renders a container that groups avatars. .ui-large .ui-small .ui-x-small Sizes The size of the avatar. .ui-rounded .ui-squared .ui-squircle Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#avatar"
   },
   {
+    "id": "api-avatar-svelte",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Svelte component.",
+    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with src; use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. size The size of the avatar. src The image source. Replaces the content. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#avatar"
+  },
+  {
     "id": "api-avatar-vue",
     "title": "Avatar API",
     "description": "Reference for Avatar Vue component.",
-    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. src The image source. Replaces the default slot. variant The variant to use.",
+    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with src; use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. size The size of the avatar. src The image source. Replaces the content. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1493,6 +2282,16 @@
     "url": "/html/api#badge"
   },
   {
+    "id": "api-badge-svelte",
+    "title": "Badge API",
+    "description": "Reference for Badge Svelte component.",
+    "headings": "Badge Container element. Also takes `.ui-anchor`. The element the badge is anchored to. default The indicator, inside `.ui-anchor-floating`. label indicator alignment Where the indicator is placed. color Optional colors. dot Renders the indicator as a dot, without a label. invisible Hides the indicator. srLabel Visually hidden text that describes the badge to assistive technology, such as \"3 unread\".",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#badge"
+  },
+  {
     "id": "api-badge-vue",
     "title": "Badge API",
     "description": "Reference for Badge Vue component.",
@@ -1506,7 +2305,7 @@
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
-    "headings": "ButtonGroup Container element. The buttons. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "headings": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1516,17 +2315,27 @@
     "id": "api-button-group-html",
     "title": "Button Group API",
     "description": "Reference for Button Group HTML component.",
-    "headings": ".ui-button-group Container element. The buttons. .ui-button-group > :first-child .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-scrollable Overflow Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. .ui-shrink Overflow Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
+    "headings": ".ui-button-group Container element. The buttons and button links. .ui-button-group > :first-child .ui-critical .ui-primary Colors Optional colors for the buttons. .ui-vertical Orientation The orientation of the element. .ui-scrollable Overflow Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. .ui-shrink Overflow Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. .ui-large .ui-small .ui-x-small Sizes The size of the buttons. .ui-filled .ui-outlined .ui-tonal Variants The variant of the buttons.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button-group"
   },
   {
+    "id": "api-button-group-svelte",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Svelte component.",
+    "headings": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#button-group"
+  },
+  {
     "id": "api-button-group-vue",
     "title": "Button Group API",
     "description": "Reference for Button Group Vue component.",
-    "headings": "ButtonGroup Container element. The buttons. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "headings": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1536,7 +2345,7 @@
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
-    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. ripple A halo behind the button on hover instead of a background change. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1546,17 +2355,27 @@
     "id": "api-button-html",
     "title": "Button API",
     "description": "Reference for Button HTML component.",
-    "headings": ".ui-button Container element. An optional icon. .ui-button > svg The label. Wrap it when the button has an icon. .ui-button > .ui-text The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. .ui-critical .ui-primary Colors Optional colors. [disabled] State Disables the button. The link to use. Renders an `<a>`. .ui-ripple Hover A halo behind the button on hover instead of a background change. .ui-rounded Shape Fully rounded corners, a circle when icon-only. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled .ui-outlined .ui-tonal Variants The variant to use.",
+    "headings": ".ui-button Container element. An optional icon. .ui-button > svg The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. .ui-button > .ui-text The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. .ui-critical .ui-primary Colors Optional colors. [disabled] State Disables the button. The link to use. Renders an `<a>`. .ui-rounded Shape Fully rounded corners, a circle when icon-only. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled .ui-outlined .ui-tonal Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button"
   },
   {
+    "id": "api-button-svelte",
+    "title": "Button API",
+    "description": "Reference for Button Svelte component.",
+    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#button"
+  },
+  {
     "id": "api-button-vue",
     "title": "Button API",
     "description": "Reference for Button Vue component.",
-    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. ripple A halo behind the button on hover instead of a background change. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1566,7 +2385,7 @@
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
-    "headings": "Callout Container element. An optional icon. `info`, `success`, `warning` and `critical` have a default icon. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color and the default icon. variant The variant to use.",
+    "headings": "Callout Container element. An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color, and in Astro, Svelte and Vue the default icon. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1576,17 +2395,27 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "headings": ".ui-callout Container element. An optional icon. `info`, `success`, `warning` and `critical` have a default icon. .ui-callout > svg The content. .ui-content An optional title inside the content. .ui-content > h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color and the default icon. .ui-outlined Variants The variant to use.",
+    "headings": ".ui-callout Container element. An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. .ui-callout > svg The content. .ui-content An optional title inside the content. .ui-content > h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Severities The severity. Sets the color, and in Astro, Svelte and Vue the default icon. .ui-outlined Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#callout"
   },
   {
+    "id": "api-callout-svelte",
+    "title": "Callout API",
+    "description": "Reference for Callout Svelte component.",
+    "headings": "Callout Container element. An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color, and in Astro, Svelte and Vue the default icon. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#callout"
+  },
+  {
     "id": "api-callout-vue",
     "title": "Callout API",
     "description": "Reference for Callout Vue component.",
-    "headings": "Callout Container element. An optional icon. `info`, `success`, `warning` and `critical` have a default icon. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color and the default icon. variant The variant to use.",
+    "headings": "Callout Container element. An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color, and in Astro, Svelte and Vue the default icon. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1596,7 +2425,7 @@
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
-    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use.",
+    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use. Without one the card has the page surface color and no border.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1606,17 +2435,27 @@
     "id": "api-card-html",
     "title": "Card API",
     "description": "Reference for Card HTML component.",
-    "headings": ".ui-card Container element. The card header. hgroup The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-align-end Alignment Alignment for the actions. .ui-elevated .ui-outlined .ui-text .ui-tonal Variants The variant to use.",
+    "headings": ".ui-card Container element. The card header. hgroup The card content. .ui-content A group of actions, such as buttons. .ui-actions .ui-align-end Alignment Alignment for the actions. .ui-elevated .ui-outlined .ui-text .ui-tonal Variants The variant to use. Without one the card has the page surface color and no border.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#card"
   },
   {
+    "id": "api-card-svelte",
+    "title": "Card API",
+    "description": "Reference for Card Svelte component.",
+    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use. Without one the card has the page surface color and no border.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#card"
+  },
+  {
     "id": "api-card-vue",
     "title": "Card API",
     "description": "Reference for Card Vue component.",
-    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use.",
+    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use. Without one the card has the page surface color and no border.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1626,7 +2465,7 @@
     "id": "api-carousel-astro",
     "title": "Carousel API",
     "description": "Reference for Carousel Astro component.",
-    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1636,17 +2475,27 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "headings": "ul.ui-carousel The scroller. An item. .ui-carousel > :first-child The previous button. .ui-carousel::scroll-button(inline-start) The next button. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. .ui-with-buttons .ui-buttons-outside Buttons Previous and next buttons. `\"outside\"` places them beside the items. [aria-label] Label Accessible name of the carousel. .ui-with-markers Markers One marker per item, after the list. .ui-vertical Orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. .ui-peek Peek Shows part of the neighbouring items. .ui-buttons-persistent Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_per-view Items per view Number of visible items. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "headings": "ul.ui-carousel The scroller. An item. .ui-carousel > :first-child The previous button. .ui-carousel::scroll-button(inline-start) The next button. .ui-carousel::scroll-button(inline-end) A marker, one per item. .ui-carousel > :first-child::scroll-marker .ui-align-center Alignment Where items snap. --_media-aspect-ratio Aspect ratio Aspect ratio that images, videos and iframes are cropped to. .ui-with-buttons .ui-buttons-outside Buttons Previous and next buttons. `\"outside\"` places them beside the items. [aria-label] Label Accessible name of the carousel. .ui-with-markers Markers One marker per item, after the list. .ui-vertical Orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. .ui-peek Peek Shows part of the neighbouring items. .ui-buttons-persistent Persistent buttons Keeps the buttons visible at the ends. A disabled button has a muted border. --_per-view Items per view Number of visible items. .ui-stretch Stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#carousel"
   },
   {
+    "id": "api-carousel-svelte",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Svelte component.",
+    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#carousel"
+  },
+  {
     "id": "api-carousel-vue",
     "title": "Carousel API",
     "description": "Reference for Carousel Vue component.",
-    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1656,7 +2505,7 @@
     "id": "api-checkbox-astro",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Astro component.",
-    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1666,17 +2515,27 @@
     "id": "api-checkbox-html",
     "title": "Checkbox API",
     "description": "Reference for Checkbox HTML component.",
-    "headings": "label.ui-checkbox Container element. The checkbox input. input The label. .ui-label Supporting text displayed below the label. .ui-end-text [data-invalid] Validation Shows error styles. Visually hides the label. [data-indeterminate] State Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. .ui-large .ui-small Sizes The size of the element. .ui-spread Layout Pushes the label and the input to opposite ends. .ui-stack Layout Stacks the label under the input.",
+    "headings": "label.ui-checkbox Container element. The checkbox input. input The label. .ui-label Supporting text displayed below the label. .ui-end-text [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. Visually hides the label. [data-indeterminate] State Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and the input to opposite ends. .ui-stack Layout Stacks the label under the input.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#checkbox"
   },
   {
+    "id": "api-checkbox-svelte",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Svelte component.",
+    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#checkbox"
+  },
+  {
     "id": "api-checkbox-vue",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Vue component.",
-    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1686,7 +2545,7 @@
     "id": "api-chip-astro",
     "title": "Chip API",
     "description": "Reference for Chip Astro component.",
-    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
+    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. dot Adds a leading dot in the chip's color. Its shape follows the color. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1696,17 +2555,27 @@
     "id": "api-chip-html",
     "title": "Chip API",
     "description": "Reference for Chip HTML component.",
-    "headings": ".ui-chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. .ui-chip > svg:first-child The label. .ui-text Optional content at the end, such as an icon. .ui-chip > svg:last-child The element to render. Defaults to `\"a\"` with `href`. The link to use. Renders an `<a>`. .ui-multiline Layout Lets the label wrap to multiple lines. .ui-large .ui-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use.",
+    "headings": ".ui-chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. .ui-chip > svg:first-child The label. .ui-text Optional content at the end, such as an icon. .ui-chip > svg:last-child The element to render. Defaults to `\"a\"` with `href`. .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. .ui-disabled State Dims a static chip. Only changes the look. Use `disabled` on button chips. .ui-dot Variants Adds a leading dot in the chip's color. Its shape follows the color. The link to use. Renders an `<a>`. .ui-multiline Layout Lets the label wrap to multiple lines. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-outlined .ui-tonal Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#chip"
   },
   {
+    "id": "api-chip-svelte",
+    "title": "Chip API",
+    "description": "Reference for Chip Svelte component.",
+    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. dot Adds a leading dot in the chip's color. Its shape follows the color. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#chip"
+  },
+  {
     "id": "api-chip-vue",
     "title": "Chip API",
     "description": "Reference for Chip Vue component.",
-    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
+    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. dot Adds a leading dot in the chip's color. Its shape follows the color. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1716,7 +2585,7 @@
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
-    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
+    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Marks the control invalid and shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1726,17 +2595,27 @@
     "id": "api-classic-select-html",
     "title": "Classic Select API",
     "description": "Reference for Classic Select HTML component.",
-    "headings": "label.ui-select Container element. The label for the field. .ui-label The boxed select area. .ui-field A native select. select Supporting text displayed below the field. .ui-end-text [data-invalid] Validation Shows error styles. The id of the `<select>`. Generated when omitted. The options, as `{ text, value }` objects. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled Variants The variant to use.",
+    "headings": "label.ui-select Container element. The label for the field. .ui-label The boxed select area. .ui-field A native select. select Supporting text displayed below the field. .ui-end-text [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. The id of the `<select>`. Generated when omitted. The options, as `{ text, value }` objects. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-filled Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
   },
   {
+    "id": "api-classic-select-svelte",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Svelte component.",
+    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Marks the control invalid and shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#classic-select"
+  },
+  {
     "id": "api-classic-select-vue",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Vue component.",
-    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
+    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Marks the control invalid and shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1746,7 +2625,7 @@
     "id": "api-description-list-astro",
     "title": "Description List API",
     "description": "Reference for Description List Astro component.",
-    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description.",
+    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description. inline Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1756,17 +2635,27 @@
     "id": "api-description-list-html",
     "title": "Description List API",
     "description": "Reference for Description List HTML component.",
-    "headings": "dl.ui-description-list Container element. Groups a term with its description. .ui-item The term. dt The description. dd .ui-bordered .ui-bordered.ui-dotted Bordered Adds a border between the term and the description.",
+    "headings": "dl.ui-description-list Container element. Groups a term with its description. .ui-item The term. dt The description. dd .ui-bordered .ui-bordered.ui-dotted Bordered Adds a border between the term and the description. .ui-inline Layout Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#description-list"
   },
   {
+    "id": "api-description-list-svelte",
+    "title": "Description List API",
+    "description": "Reference for Description List Svelte component.",
+    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description. inline Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#description-list"
+  },
+  {
     "id": "api-description-list-vue",
     "title": "Description List API",
     "description": "Reference for Description List Vue component.",
-    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description.",
+    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description. inline Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1786,11 +2675,21 @@
     "id": "api-dialog-html",
     "title": "Dialog API",
     "description": "Reference for Dialog HTML component.",
-    "headings": "dialog.ui-dialog Container element. The dialog header. hgroup The dialog content. .ui-content A group of actions, such as buttons. .ui-actions .ui-align-end Alignment Alignment for the actions. [closedby] Close behavior How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "headings": "dialog.ui-dialog Container element. The dialog header. hgroup The dialog content. .ui-content A group of actions, such as buttons. .ui-actions .ui-align-start Alignment Alignment for the actions. [closedby] Close behavior How the dialog can be closed. `\"any\"` also closes it on a click outside.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-svelte",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Svelte component.",
+    "headings": "Dialog Container element. The dialog header. header The dialog content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. closedby How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#dialog"
   },
   {
     "id": "api-dialog-vue",
@@ -1806,7 +2705,7 @@
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
-    "headings": "Divider The divider line. variant The variant to use.",
+    "headings": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1816,17 +2715,27 @@
     "id": "api-divider-html",
     "title": "Divider API",
     "description": "Reference for Divider HTML component.",
-    "headings": "hr.ui-divider The divider line. .ui-filled .ui-primary .ui-tonal Variants The variant to use.",
+    "headings": ".ui-divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. .ui-align-end .ui-align-start Alignment Where the content sits on the line. .ui-filled .ui-primary .ui-tonal Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#divider"
   },
   {
+    "id": "api-divider-svelte",
+    "title": "Divider API",
+    "description": "Reference for Divider Svelte component.",
+    "headings": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#divider"
+  },
+  {
     "id": "api-divider-vue",
     "title": "Divider API",
     "description": "Reference for Divider Vue component.",
-    "headings": "Divider The divider line. variant The variant to use.",
+    "headings": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1836,7 +2745,7 @@
     "id": "api-drawer-footer-astro",
     "title": "Drawer Footer API",
     "description": "Reference for Drawer Footer Astro component.",
-    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end.",
+    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1846,17 +2755,27 @@
     "id": "api-drawer-footer-html",
     "title": "Drawer Footer API",
     "description": "Reference for Drawer Footer HTML component.",
-    "headings": ".ui-footer Container element. Lays out its content in a row, aligned to the end.",
+    "headings": ".ui-footer Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer-footer"
   },
   {
+    "id": "api-drawer-footer-svelte",
+    "title": "Drawer Footer API",
+    "description": "Reference for Drawer Footer Svelte component.",
+    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#drawer-footer"
+  },
+  {
     "id": "api-drawer-footer-vue",
     "title": "Drawer Footer API",
     "description": "Reference for Drawer Footer Vue component.",
-    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end.",
+    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1883,6 +2802,16 @@
     "url": "/html/api#drawer-header"
   },
   {
+    "id": "api-drawer-header-svelte",
+    "title": "Drawer Header API",
+    "description": "Reference for Drawer Header Svelte component.",
+    "headings": "DrawerHeader Container element. The heading. heading Closes the drawer. closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#drawer-header"
+  },
+  {
     "id": "api-drawer-header-vue",
     "title": "Drawer Header API",
     "description": "Reference for Drawer Header Vue component.",
@@ -1896,7 +2825,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. side The side it opens from.",
+    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1906,17 +2835,27 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "dialog.ui-drawer Container element. The header. `DrawerHeader` renders it with a close button. .ui-header The scrollable content. .ui-content The footer. `DrawerFooter` renders it. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. [closedby] Close behavior How the drawer can be closed. `\"any\"` also closes it on a click outside. The id of the `<dialog>`. Generated when omitted. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open. .ui-block-end .ui-block-start .ui-inline-end .ui-inline-start Sides The side it opens from.",
+    "headings": "dialog.ui-drawer Container element. The header. `DrawerHeader` renders it with a close button. .ui-header The scrollable content. .ui-content The footer. `DrawerFooter` renders it. .ui-footer .ui-backdrop-transparent Backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. [closedby] Close behavior How the drawer can be closed. `\"any\"` also closes it on a click outside. The id of the `<dialog>`. Generated when omitted. .ui-scroll-lock Scroll lock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. .ui-block-end .ui-block-start .ui-inline-end .ui-inline-start Sides The side it opens from.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer"
   },
   {
+    "id": "api-drawer-svelte",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Svelte component.",
+    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#drawer"
+  },
+  {
     "id": "api-drawer-vue",
     "title": "Drawer API",
     "description": "Reference for Drawer Vue component.",
-    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. side The side it opens from.",
+    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1943,6 +2882,16 @@
     "url": "/html/api#field-description"
   },
   {
+    "id": "api-field-description-svelte",
+    "title": "Field Description API",
+    "description": "Reference for Field Description Svelte component.",
+    "headings": "FieldDescription Supporting text for a fieldset.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#field-description"
+  },
+  {
     "id": "api-field-description-vue",
     "title": "Field Description API",
     "description": "Reference for Field Description Vue component.",
@@ -1956,7 +2905,7 @@
     "id": "api-field-group-astro",
     "title": "Field Group API",
     "description": "Reference for Field Group Astro component.",
-    "headings": "FieldGroup Container element. direction The orientation of the element. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
+    "headings": "FieldGroup Container element. direction The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1966,17 +2915,27 @@
     "id": "api-field-group-html",
     "title": "Field Group API",
     "description": "Reference for Field Group HTML component.",
-    "headings": ".ui-field-group Container element. .ui-row Orientation The orientation of the element. Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
+    "headings": ".ui-field-group Container element. .ui-column .ui-row Orientation The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-group"
   },
   {
+    "id": "api-field-group-svelte",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Svelte component.",
+    "headings": "FieldGroup Container element. direction The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#field-group"
+  },
+  {
     "id": "api-field-group-vue",
     "title": "Field Group API",
     "description": "Reference for Field Group Vue component.",
-    "headings": "FieldGroup Container element. direction The orientation of the element. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
+    "headings": "FieldGroup Container element. direction The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2003,6 +2962,16 @@
     "url": "/html/api#field-legend"
   },
   {
+    "id": "api-field-legend-svelte",
+    "title": "Field Legend API",
+    "description": "Reference for Field Legend Svelte component.",
+    "headings": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#field-legend"
+  },
+  {
     "id": "api-field-legend-vue",
     "title": "Field Legend API",
     "description": "Reference for Field Legend Vue component.",
@@ -2026,11 +2995,21 @@
     "id": "api-field-set-html",
     "title": "Field Set API",
     "description": "Reference for Field Set HTML component.",
-    "headings": ".ui-fieldset Container element. The label of the fieldset. :is(legend, .ui-legend) Supporting text displayed below the legend. .ui-field-description The element to render. Any element other than `fieldset` gets `role=\"group\"`, and needs `aria-labelledby` pointing at its legend. [data-invalid] Validation Shows error styles on the fields inside. [disabled] State Disables every field inside.",
+    "headings": ".ui-fieldset Container element. The label of the fieldset. :is(legend, .ui-legend) Supporting text displayed below the legend. .ui-field-description The element to render. Any element other than `fieldset` gets `role=\"group\"`, and needs `aria-labelledby` pointing at its legend. :has([aria-invalid=\"true\"]) Validation Colors the end text when a field inside has `aria-invalid=\"true\"`. [disabled] State Disables every field inside.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-set"
+  },
+  {
+    "id": "api-field-set-svelte",
+    "title": "Field Set API",
+    "description": "Reference for Field Set Svelte component.",
+    "headings": "FieldSet Container element. The label of the fieldset. Supporting text displayed below the legend. as The element to render. Any element other than `fieldset` gets `role=\"group\"`, and needs `aria-labelledby` pointing at its legend. disabled Disables every field inside.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#field-set"
   },
   {
     "id": "api-field-set-vue",
@@ -2063,6 +3042,16 @@
     "url": "/html/api#form"
   },
   {
+    "id": "api-form-svelte",
+    "title": "Form API",
+    "description": "Reference for Form Svelte component.",
+    "headings": "Form Container element. Spaces its fieldsets and fields. as The element to render.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#form"
+  },
+  {
     "id": "api-form-vue",
     "title": "Form API",
     "description": "Reference for Form Vue component.",
@@ -2076,7 +3065,7 @@
     "id": "api-list-item-astro",
     "title": "List Item API",
     "description": "Reference for List Item Astro component.",
-    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
+    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2086,17 +3075,27 @@
     "id": "api-list-item-html",
     "title": "List Item API",
     "description": "Reference for List Item HTML component.",
-    "headings": ".ui-list > li The list item. Optional content at the start, such as an icon or avatar. .ui-start The text content. .ui-text The headline, the first paragraph. .ui-text > p:first-child Supporting text, the second paragraph. .ui-text > p + p Optional content at the end, such as a value or an action. .ui-end The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. .ui-border-top Border top Adds a border above the item. Disables the item when `as` is `\"button\"`. The `for` attribute of the `<label>` when `type` is set. The link to use. Renders an `<a>` inside the `<li>`. .ui-inset Inset Aligns the text with items that have start content. label.ui-checkbox label.ui-radio label.ui-switch Controls Wraps the content in a `<label>` for a checkbox, radio or switch.",
+    "headings": ".ui-list > li The list item. Optional content at the start, such as an icon or avatar. .ui-start The text content. .ui-text The headline, the first paragraph. .ui-text > p:first-child Supporting text, the second paragraph. .ui-text > p + p Optional content at the end, such as a value or an action. .ui-end The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. A `<button>` gets `type=\"button\"`. .ui-border-top Border top Adds a border above the item. Disables the item when `as` is `\"button\"`. The `for` attribute of the `<label>` when `type` is set. The link to use. Renders an `<a>` inside the `<li>`. .ui-inset Inset Aligns the text with items that have start content. label.ui-checkbox label.ui-radio label.ui-switch Controls Wraps the content in a `<label>` for a checkbox, radio or switch.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#list-item"
   },
   {
+    "id": "api-list-item-svelte",
+    "title": "List Item API",
+    "description": "Reference for List Item Svelte component.",
+    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#list-item"
+  },
+  {
     "id": "api-list-item-vue",
     "title": "List Item API",
     "description": "Reference for List Item Vue component.",
-    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
+    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2123,6 +3122,16 @@
     "url": "/html/api#list"
   },
   {
+    "id": "api-list-svelte",
+    "title": "List API",
+    "description": "Reference for List Svelte component.",
+    "headings": "List Container element. A list item. bordered Adds a border between list items. dense Packs the list tighter. gutterless Removes the inline padding. variant The background color variant. Without one, the list uses the filled surface.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#list"
+  },
+  {
     "id": "api-list-vue",
     "title": "List API",
     "description": "Reference for List Vue component.",
@@ -2136,7 +3145,7 @@
     "id": "api-menu-astro",
     "title": "Menu API",
     "description": "Reference for Menu Astro component.",
-    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. With \"manual\", Esc and a click outside don't close the menu, and opening another menu doesn't either. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2146,17 +3155,27 @@
     "id": "api-menu-html",
     "title": "Menu API",
     "description": "Reference for Menu HTML component.",
-    "headings": "Part menu.ui-menu.ui-list[popover] - The menu surface. Trigger commandfor=\"id\", command=\"toggle-popover\" - Opens the menu. Children li &gt; button, li &gt; a - Menu items. Children command=\"hide-popover\" - Closes the menu on click. Children li.ui-label - Group label. Children .ui-start, .ui-text, .ui-end - Icons, text and shortcuts, as in a List item. Colors .ui-critical - Destructive item. Placement .ui-block-start,{\" \"} .ui-inline-start,{\" \"} .ui-inline-end default Where the menu opens. Placement .ui-align-end - Lines up with the trigger's end edge. Placement --anchor-position-area block-end span-inline-end Any valid position-area value. Sizes .ui-dense - Less spacing.",
+    "headings": "Part menu.ui-menu.ui-list[popover] - The menu surface. Behavior popover=\"manual\" popover Esc and a click outside don't close the menu, and opening another menu doesn't either. Trigger commandfor=\"id\", command=\"toggle-popover\" - Opens the menu. Children li &gt; button, li &gt; a - Menu items. Children command=\"hide-popover\" - Closes the menu on click. Children li.ui-label - Group label. Children .ui-start, .ui-text, .ui-end - Icons, text and shortcuts, as in a List item. Colors .ui-critical - Destructive item. Placement .ui-block-start,{\" \"} .ui-inline-start,{\" \"} .ui-inline-end default Where the menu opens. Placement .ui-align-end - Lines up with the trigger's end edge. Placement --anchor-position-area block-end span-inline-end Any valid position-area value. Sizes .ui-dense - Less spacing.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#menu"
   },
   {
+    "id": "api-menu-svelte",
+    "title": "Menu API",
+    "description": "Reference for Menu Svelte component.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. With \"manual\", Esc and a click outside don't close the menu, and opening another menu doesn't either. children Snippet - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#menu"
+  },
+  {
     "id": "api-menu-vue",
     "title": "Menu API",
     "description": "Reference for Menu Vue component.",
-    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. With \"manual\", Esc and a click outside don't close the menu, and opening another menu doesn't either. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2183,6 +3202,16 @@
     "url": "/html/api#progress"
   },
   {
+    "id": "api-progress-svelte",
+    "title": "Progress API",
+    "description": "Reference for Progress Svelte component.",
+    "headings": "Progress Container element. The progress bar. value max max The maximum value. value The current value. Omit it for an indeterminate state. variant The track surface. Without one, the track looks the same as `tonal`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#progress"
+  },
+  {
     "id": "api-progress-vue",
     "title": "Progress API",
     "description": "Reference for Progress Vue component.",
@@ -2196,7 +3225,7 @@
     "id": "api-radio-astro",
     "title": "Radio API",
     "description": "Reference for Radio Astro component.",
-    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. size The size of the element. stack Stacks the label under the input.",
+    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2206,17 +3235,27 @@
     "id": "api-radio-html",
     "title": "Radio API",
     "description": "Reference for Radio HTML component.",
-    "headings": "label.ui-radio Container element. The radio input. input The label. .ui-label Supporting text displayed below the label. .ui-end-text [data-invalid] Validation Shows error styles. Visually hides the label. .ui-large .ui-small Sizes The size of the element. .ui-stack Layout Stacks the label under the input.",
+    "headings": "label.ui-radio Container element. The radio input. input The label. .ui-label Supporting text displayed below the label. .ui-end-text [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. Visually hides the label. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and the input to opposite ends. .ui-stack Layout Stacks the label under the input.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#radio"
   },
   {
+    "id": "api-radio-svelte",
+    "title": "Radio API",
+    "description": "Reference for Radio Svelte component.",
+    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#radio"
+  },
+  {
     "id": "api-radio-vue",
     "title": "Radio API",
     "description": "Reference for Radio Vue component.",
-    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. size The size of the element. stack Stacks the label under the input.",
+    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2226,7 +3265,7 @@
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
-    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. variant The track surface. Without one, the track uses the field border color.",
+    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Marks the control invalid and shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The track surface. Without one, the track uses the field border color.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2236,17 +3275,27 @@
     "id": "api-range-html",
     "title": "Range API",
     "description": "Reference for Range HTML component.",
-    "headings": "label.ui-range Container element. The label for the range. .ui-label Shows the current value, with an optional `valueSuffix`. output.ui-value Description text displayed above the input. .ui-start-text The range input. input[type=\"range\"] Supporting text displayed below the input. .ui-end-text [data-invalid] Validation Shows error styles. The id of the `<input>`. Generated when omitted and the value is shown. The id of the `<datalist>`. Needed with `options`. Tick marks, rendered as `<option>` elements in a `<datalist>`. .ui-spread Layout Pushes the label and description to one side and the input to the other. The current value. .ui-filled .ui-tonal Variants The track surface. Without one, the track uses the field border color.",
+    "headings": "label.ui-range Container element. The label for the range. .ui-label Shows the current value, with an optional `valueSuffix`. output.ui-value Description text displayed above the input. .ui-start-text The range input. input[type=\"range\"] Supporting text displayed below the input. .ui-end-text [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. The id of the `<input>`. Generated when omitted and the value is shown. The id of the `<datalist>`. Needed with `options`. Tick marks, rendered as `<option>` elements in a `<datalist>`. .ui-spread Layout Pushes the label and description to one side and the input to the other. The current value. Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. .ui-filled .ui-tonal Variants The track surface. Without one, the track uses the field border color.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#range"
   },
   {
+    "id": "api-range-svelte",
+    "title": "Range API",
+    "description": "Reference for Range Svelte component.",
+    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Marks the control invalid and shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The track surface. Without one, the track uses the field border color.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#range"
+  },
+  {
     "id": "api-range-vue",
     "title": "Range API",
     "description": "Reference for Range Vue component.",
-    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. variant The track surface. Without one, the track uses the field border color.",
+    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Marks the control invalid and shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The track surface. Without one, the track uses the field border color.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2256,7 +3305,7 @@
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
-    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
+    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Marks the control invalid and shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2266,17 +3315,27 @@
     "id": "api-select-html",
     "title": "Select API",
     "description": "Reference for Select HTML component.",
-    "headings": "label.ui-select Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed select area. .ui-field Content above the select, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The select. Its options are in a popover list. select Content at the inline-end of the field, inside the border. .ui-suffix Content below the select, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-dense Dense Packs the options tighter. [data-invalid] Validation Shows error styles. The options, as `{ selected, text, value }` objects. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the select to the other. .ui-filled Variants The variant to use.",
+    "headings": "label.ui-select Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed select area. .ui-field Content above the select, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The select. Its options are in a popover list. select Content at the inline-end of the field, inside the border. .ui-suffix Content below the select, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-dense Dense Packs the options tighter. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. The options, as `{ selected, text, value }` objects. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the select to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
   },
   {
+    "id": "api-select-svelte",
+    "title": "Select API",
+    "description": "Reference for Select Svelte component.",
+    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Marks the control invalid and shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#select"
+  },
+  {
     "id": "api-select-vue",
     "title": "Select API",
     "description": "Reference for Select Vue component.",
-    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
+    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Marks the control invalid and shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2303,6 +3362,16 @@
     "url": "/html/api#spinner"
   },
   {
+    "id": "api-spinner-svelte",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Svelte component.",
+    "headings": "Spinner Renders a spinner pseudo-element on the element. Always indeterminate. font-size Spinner size follows the element's computed font size.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#spinner"
+  },
+  {
     "id": "api-spinner-vue",
     "title": "Spinner API",
     "description": "Reference for Spinner Vue component.",
@@ -2316,7 +3385,7 @@
     "id": "api-switch-astro",
     "title": "Switch API",
     "description": "Reference for Switch Astro component.",
-    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
+    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2326,17 +3395,27 @@
     "id": "api-switch-html",
     "title": "Switch API",
     "description": "Reference for Switch HTML component.",
-    "headings": "label.ui-switch Container element. The switch input. input An optional icon in the thumb when unchecked. .ui-icon-unchecked An optional icon in the thumb when checked. .ui-icon-checked The label. .ui-label Supporting text displayed below the label. .ui-end-text [data-invalid] Validation Shows error styles. Visually hides the label. .ui-small Sizes The size of the element. .ui-spread Layout Pushes the label and the switch to opposite ends. .ui-stack Layout Stacks the label under the switch.",
+    "headings": "label.ui-switch Container element. The switch input. input An optional icon in the thumb when unchecked. .ui-icon-unchecked An optional icon in the thumb when checked. .ui-icon-checked The label. .ui-label Supporting text displayed below the label. .ui-end-text [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. Visually hides the label. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and the switch to opposite ends. .ui-stack Layout Stacks the label under the switch.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
   },
   {
+    "id": "api-switch-svelte",
+    "title": "Switch API",
+    "description": "Reference for Switch Svelte component.",
+    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#switch"
+  },
+  {
     "id": "api-switch-vue",
     "title": "Switch API",
     "description": "Reference for Switch Vue component.",
-    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
+    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2361,6 +3440,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#table"
+  },
+  {
+    "id": "api-table-svelte",
+    "title": "Table API",
+    "description": "Reference for Table Svelte component.",
+    "headings": "Table Container element. The header rows. A header cell. The body rows. A row. A data cell. stickyHeader Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#table"
   },
   {
     "id": "api-table-vue",
@@ -2393,6 +3482,16 @@
     "url": "/html/api#tabs-item"
   },
   {
+    "id": "api-tabs-item-svelte",
+    "title": "Tabs Item API",
+    "description": "Reference for Tabs Item Svelte component.",
+    "headings": "Tabs.Item The radio input for a tab, followed by the tab and the panel. name Overrides the name shared by the tab inputs. open Selects the tab initially. tabId The id of the input. Generated when omitted.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tabs-item"
+  },
+  {
     "id": "api-tabs-item-vue",
     "title": "Tabs Item API",
     "description": "Reference for Tabs Item Vue component.",
@@ -2421,6 +3520,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tabs-panel"
+  },
+  {
+    "id": "api-tabs-panel-svelte",
+    "title": "Tabs Panel API",
+    "description": "Reference for Tabs Panel Svelte component.",
+    "headings": "Tabs.Panel The panel.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tabs-panel"
   },
   {
     "id": "api-tabs-panel-vue",
@@ -2453,6 +3562,16 @@
     "url": "/html/api#tabs-tab"
   },
   {
+    "id": "api-tabs-tab-svelte",
+    "title": "Tabs Tab API",
+    "description": "Reference for Tabs Tab Svelte component.",
+    "headings": "Tabs.Tab The tab. tabId The id of the input it labels. Set by the item.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tabs-tab"
+  },
+  {
     "id": "api-tabs-tab-vue",
     "title": "Tabs Tab API",
     "description": "Reference for Tabs Tab Vue component.",
@@ -2466,7 +3585,7 @@
     "id": "api-tabs-astro",
     "title": "Tabs API",
     "description": "Reference for Tabs Astro component.",
-    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. variant The variant to use.",
+    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2476,17 +3595,27 @@
     "id": "api-tabs-html",
     "title": "Tabs API",
     "description": "Reference for Tabs HTML component.",
-    "headings": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. .ui-tab-input:checked A tab. .ui-tab-input:checked + .ui-tab-label The panel of the selected tab. .ui-tab-input:checked + .ui-tab-label + .ui-tab-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-scrollable Overflow Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. .ui-filled .ui-line .ui-outlined Variants The variant to use.",
+    "headings": ".ui-tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. .ui-tab-input:not(:checked) + .ui-tab-label A tab. .ui-tab-input:checked + .ui-tab-label The panel of the selected tab. .ui-tab-input:checked + .ui-tab-label + .ui-tab-panel [name] Group The name shared by the tab inputs. Generated when omitted. .ui-scrollable Overflow Keeps the tabs on one row and scrolls them sideways when they don't fit. .ui-filled .ui-line .ui-outlined Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tabs"
   },
   {
+    "id": "api-tabs-svelte",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Svelte component.",
+    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tabs"
+  },
+  {
     "id": "api-tabs-vue",
     "title": "Tabs API",
     "description": "Reference for Tabs Vue component.",
-    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. variant The variant to use.",
+    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2496,7 +3625,7 @@
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
-    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes size depending on its content. error Shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content, from `25ch`. error Marks the control invalid and shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2506,17 +3635,27 @@
     "id": "api-text-field-html",
     "title": "Text Field API",
     "description": "Reference for Text Field HTML component.",
-    "headings": "label.ui-text-field Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The input element. input Content at the inline-end of the field, inside the border. .ui-suffix Content below the input, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto-fit Changes size depending on its content. [data-invalid] Validation Shows error styles. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the input to the other. .ui-filled Variants The variant to use.",
+    "headings": "label.ui-text-field Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The input element. input Content at the inline-end of the field, inside the border. .ui-suffix Content below the input, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto-fit Lets the width follow the content, from `25ch`. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the input to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-field"
   },
   {
+    "id": "api-text-field-svelte",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Svelte component.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content, from `25ch`. error Marks the control invalid and shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#text-field"
+  },
+  {
     "id": "api-text-field-vue",
     "title": "Text Field API",
     "description": "Reference for Text Field Vue component.",
-    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes size depending on its content. error Shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content, from `25ch`. error Marks the control invalid and shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2526,7 +3665,7 @@
     "id": "api-text-input-astro",
     "title": "Text Input API",
     "description": "Reference for Text Input Astro component.",
-    "headings": "Text input The input, wrapped in a `<span class=\"ui-field\">`. Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. autoFit When enabled, the element changes size depending on its content. size The size of the element. variant The variant to use.",
+    "headings": "Text input A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2536,17 +3675,27 @@
     "id": "api-text-input-html",
     "title": "Text Input API",
     "description": "Reference for Text Input HTML component.",
-    "headings": ".ui-text-field input The input, wrapped in a `<span class=\"ui-field\">`. Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. .ui-field .ui-auto-fit Auto-fit When enabled, the element changes size depending on its content. .ui-small Sizes The size of the element. .ui-filled Variants The variant to use.",
+    "headings": ".ui-text-field:has(input[list]) A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-input"
   },
   {
+    "id": "api-text-input-svelte",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Svelte component.",
+    "headings": "Text input A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#text-input"
+  },
+  {
     "id": "api-text-input-vue",
     "title": "Text Input API",
     "description": "Reference for Text Input Vue component.",
-    "headings": "Text input The input, wrapped in a `<span class=\"ui-field\">`. Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. autoFit When enabled, the element changes size depending on its content. size The size of the element. variant The variant to use.",
+    "headings": "Text input A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2556,7 +3705,7 @@
     "id": "api-textarea-astro",
     "title": "Textarea API",
     "description": "Reference for Textarea Astro component.",
-    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes height depending on its content. error Shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
+    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content and allows resizing in both directions. error Marks the control invalid and shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2566,17 +3715,27 @@
     "id": "api-textarea-html",
     "title": "Textarea API",
     "description": "Reference for Textarea HTML component.",
-    "headings": "label.ui-textarea Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed textarea area. .ui-field Content above the textarea, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The textarea element. textarea Content at the inline-end of the field, inside the border. .ui-suffix Content below the textarea, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto-fit Changes height depending on its content. [data-invalid] Validation Shows error styles. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the textarea to the other. .ui-filled Variants The variant to use.",
+    "headings": "label.ui-textarea Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed textarea area. .ui-field Content above the textarea, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The textarea element. textarea Content at the inline-end of the field, inside the border. .ui-suffix Content below the textarea, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto-fit Lets the width follow the content and allows resizing in both directions. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-large .ui-small .ui-x-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the textarea to the other. .ui-filled Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#textarea"
   },
   {
+    "id": "api-textarea-svelte",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Svelte component.",
+    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content and allows resizing in both directions. error Marks the control invalid and shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#textarea"
+  },
+  {
     "id": "api-textarea-vue",
     "title": "Textarea API",
     "description": "Reference for Textarea Vue component.",
-    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes height depending on its content. error Shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
+    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content and allows resizing in both directions. error Marks the control invalid and shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2596,7 +3755,7 @@
     "id": "api-toggle-button-astro",
     "title": "Toggle Button API",
     "description": "Reference for Toggle Button Astro component.",
-    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
+    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The button text when there is no child content, and the input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2606,17 +3765,27 @@
     "id": "api-toggle-button-html",
     "title": "Toggle Button API",
     "description": "Reference for Toggle Button HTML component.",
-    "headings": "label.ui-toggle-button Container element. A visually hidden checkbox or radio input. .ui-toggle-button > input .ui-disabled State Disables the button. The input value when `value` is omitted. [checked] State Selects the button. .ui-large .ui-small .ui-x-small Sizes The size of the element. [type=\"checkbox\"] [type=\"radio\"] Type The input type. `\"radio\"` allows one selection in a group.",
+    "headings": "label.ui-toggle-button Container element. A visually hidden checkbox or radio input. .ui-toggle-button > input [disabled] State Disables the button. The button text when there is no child content, and the input value when `value` is omitted. [checked] State Selects the button. .ui-large .ui-small .ui-x-small Sizes The size of the element. [type=\"checkbox\"] [type=\"radio\"] Type The input type. `\"radio\"` allows one selection in a group.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle-button"
   },
   {
+    "id": "api-toggle-button-svelte",
+    "title": "Toggle Button API",
+    "description": "Reference for Toggle Button Svelte component.",
+    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The button text when there is no child content, and the input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#toggle-button"
+  },
+  {
     "id": "api-toggle-button-vue",
     "title": "Toggle Button API",
     "description": "Reference for Toggle Button Vue component.",
-    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
+    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The button text when there is no child content, and the input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -2641,6 +3810,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle-group"
+  },
+  {
+    "id": "api-toggle-group-svelte",
+    "title": "Toggle Group API",
+    "description": "Reference for Toggle Group Svelte component.",
+    "headings": "ToggleGroup Container element. A toggle button. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. selection Whether one or several buttons can be selected. `\"single\"` uses radio inputs. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#toggle-group"
   },
   {
     "id": "api-toggle-group-vue",
@@ -2673,6 +3852,16 @@
     "url": "/html/api#tooltip"
   },
   {
+    "id": "api-tooltip-svelte",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Svelte component.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. default The tooltip, a `popover=\"hint\"`. label content alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tooltip"
+  },
+  {
     "id": "api-tooltip-vue",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Vue component.",
@@ -2701,6 +3890,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-svelte",
+    "title": "Typography API",
+    "description": "Reference for Typography Svelte component.",
+    "headings": "Typography Classless typography for uncontrolled child markup. blockquote Quoted block with a start border. caption Muted supporting text. codeBlock Monospace preformatted block. hgroup Groups an overline, heading, and optional body copy. heading Heading styles for any element. inline Inline text element utilities. link Link styles outside `.ui-rich-text`. Hover and focus darken the color in light mode, lighten it in dark mode and thicken the underline. overline Small uppercase label text. paragraph Body paragraph styling. size Size modifiers on `.ui-p`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#typography"
   },
   {
     "id": "api-typography-vue",

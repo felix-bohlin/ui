@@ -1,113 +1,104 @@
 <style>
-  .todo-compare {
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    inline-size: 100%;
-  }
-
-  .todo-compare > div {
-    display: grid;
-    gap: var(--size-2);
-    min-inline-size: 0;
-  }
-
   .todo-surface {
-    border: 1px dashed var(--border-color);
+    background-color: var(--surface-tonal);
     border-radius: var(--border-radius);
     display: grid;
     gap: var(--size-3);
+    inline-size: 100%;
     padding: var(--size-3);
   }
 
-  .todo-tonal {
-    background-color: var(--surface-tonal);
+  .todo-quote {
+    border-inline-start: var(--border-size-2) solid var(--border-color);
+    padding-inline-start: var(--size-2);
   }
 </style>
 <div class="todo-compare">
-  <div>
-    <p class="ui-caption">On the page (<code>--surface-default</code>)</p>
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The Card page's callout. The accordion group below is the docs markup: an
+      outlined group card with plain card items, no
+      <code>.ui-text</code> anywhere.
+    </p>
+    <blockquote class="todo-quote">
+      <strong>Why does a text variant exist?</strong> … The accordion group is a
+      great example where Open Props UI leverages the text variant of the
+      <code>.ui-card</code> component.
+    </blockquote>
     <div class="todo-surface">
-      <div class="ui-card">
-        <hgroup><h3 class="ui-h6">No variant</h3></hgroup>
-        <div class="ui-content">Background: <code>--surface-default</code></div>
+      <div class="ui-card" data-name="No variant">
+        <div class="ui-content">No variant</div>
       </div>
-      <div class="ui-card ui-text">
-        <hgroup><h3 class="ui-h6">Text variant</h3></hgroup>
-        <div class="ui-content">Background: transparent</div>
+      <div class="ui-card ui-text" data-name="Text variant">
+        <div class="ui-content">Text variant</div>
+      </div>
+      <div
+        class="ui-card ui-outlined"
+        role="group"
+        aria-label="Accordion group, current"
+      >
+        <details class="ui-accordion ui-card">
+          <summary>Accordion group item</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+        <details class="ui-accordion ui-card">
+          <summary>Accordion group item</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
       </div>
     </div>
-  </div>
-  <div>
-    <p class="ui-caption">On a tonal surface (<code>--surface-tonal</code>)</p>
-    <div class="todo-surface todo-tonal">
-      <div class="ui-card">
-        <hgroup><h3 class="ui-h6">No variant</h3></hgroup>
-        <div class="ui-content">A page-colored panel appears</div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Recommended callout (version 3): no accordion claim, and it explains the
+      tonal-surface difference shown below.
+    </p>
+    <blockquote class="todo-quote">
+      <strong>Why does a text variant exist?</strong> On the page you won't see
+      a difference. Put a card on a tonal surface or in a dialog, though, and
+      the default one turns into a page-colored box. The text variant stays
+      see-through.
+    </blockquote>
+    <div class="todo-surface">
+      <div class="ui-card" data-name="No variant">
+        <div class="ui-content">No variant</div>
       </div>
-      <div class="ui-card ui-text">
-        <hgroup><h3 class="ui-h6">Text variant</h3></hgroup>
-        <div class="ui-content">Takes the tonal color</div>
+      <div class="ui-card ui-text" data-name="Text variant">
+        <div class="ui-content">Text variant</div>
+      </div>
+      <div
+        class="ui-card ui-outlined"
+        role="group"
+        aria-label="Accordion group, fixed"
+      >
+        <details class="ui-accordion ui-card">
+          <summary>Accordion group item</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+        <details class="ui-accordion ui-card">
+          <summary>Accordion group item</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
       </div>
     </div>
-  </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
-<p class="ui-caption">
-  Accordion groups on a tonal surface. The items are plain
-  <code>.ui-card</code> in every case: <code>accordion.css</code> makes them
-  transparent, so only the group card's variant matters.
-</p>
-<div class="todo-compare">
-  <div>
-    <p class="ui-caption">
-      <code>.ui-card[role="group"]</code>, no variant: a panel, with the
-      summaries flush against its edge
-    </p>
-    <div class="todo-surface todo-tonal">
-      <div class="ui-card" role="group">
-        <details class="ui-accordion ui-card">
-          <summary>First</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-        <details class="ui-accordion ui-card">
-          <summary>Second</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-      </div>
-    </div>
-  </div>
-  <div>
-    <p class="ui-caption">
-      <code>.ui-card.ui-text[role="group"]</code>
-    </p>
-    <div class="todo-surface todo-tonal">
-      <div class="ui-card ui-text" role="group">
-        <details class="ui-accordion ui-card">
-          <summary>First</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-        <details class="ui-accordion ui-card">
-          <summary>Second</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-      </div>
-    </div>
-  </div>
-  <div>
-    <p class="ui-caption">
-      <code>.ui-card.ui-outlined[role="group"]</code> (what the docs use)
-    </p>
-    <div class="todo-surface todo-tonal">
-      <div class="ui-card ui-outlined" role="group">
-        <details class="ui-accordion ui-card">
-          <summary>First</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-        <details class="ui-accordion ui-card">
-          <summary>Second</summary>
-          <div class="ui-content"><p>Content</p></div>
-        </details>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const bg = (el) => getComputedStyle(el).backgroundColor
+    const lines = [...panel.querySelectorAll("[data-name]")].map(
+      (card) => `${card.dataset.name}: ${bg(card)}`,
+    )
+    const group = panel.querySelector('[role="group"]')
+    const items = group.querySelectorAll(".ui-accordion")
+    lines.push(
+      `group: .${[...group.classList].join(".")}`,
+      `items with .ui-text: ${group.querySelectorAll(".ui-text").length} of ${items.length}, item bg: ${bg(items[0])}`,
+    )
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

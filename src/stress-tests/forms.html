@@ -5,7 +5,7 @@
     the same size share one height: 28, 32, 40 and 46px.
   </p>
   <div class="stress-row" data-size="x-small">
-    <span class="stress-tag">X-small</span
+    <span class="stress-tag">x-small</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-label">Amount</span
       ><span class="ui-field"
@@ -109,6 +109,20 @@
     </div>
     <label class="ui-toggle-button ui-x-small"
       ><input type="checkbox" />Bold</label
+    >
+    <label class="ui-checkbox ui-x-small"
+      ><input type="checkbox" checked /><span class="ui-label"
+        >Remember</span
+      ></label
+    ><label class="ui-radio ui-x-small"
+      ><input type="radio" name="stress-size-radio-1" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch ui-x-small"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
     >
   </div>
   <div class="stress-row" data-size="small">
@@ -217,6 +231,20 @@
     <label class="ui-toggle-button ui-small"
       ><input type="checkbox" />Bold</label
     >
+    <label class="ui-checkbox ui-small"
+      ><input type="checkbox" checked /><span class="ui-label"
+        >Remember</span
+      ></label
+    ><label class="ui-radio ui-small"
+      ><input type="radio" name="stress-size-radio-2" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch ui-small"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    >
   </div>
   <div class="stress-row" data-size="default">
     <span class="stress-tag">Default</span
@@ -313,7 +341,21 @@
         ><input type="radio" name="stress-toggle-3" />Grid</label
       >
     </div>
-    <label class="ui-toggle-button"><input type="checkbox" />Bold</label>
+    <label class="ui-toggle-button"><input type="checkbox" />Bold</label
+    ><label class="ui-checkbox"
+      ><input type="checkbox" checked /><span class="ui-label"
+        >Remember</span
+      ></label
+    ><label class="ui-radio"
+      ><input type="radio" name="stress-size-radio-3" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    >
   </div>
   <div class="stress-row" data-size="large">
     <span class="stress-tag">Large</span
@@ -421,6 +463,20 @@
     <label class="ui-toggle-button ui-large"
       ><input type="checkbox" />Bold</label
     >
+    <label class="ui-checkbox ui-large"
+      ><input type="checkbox" checked /><span class="ui-label"
+        >Remember</span
+      ></label
+    ><label class="ui-radio ui-large"
+      ><input type="radio" name="stress-size-radio-4" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch ui-large"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    >
   </div>
 </section>
 <section class="stress" data-example="Toolbar">
@@ -430,7 +486,7 @@
     toolbars combine them.
   </p>
   <div class="stress-row stress-center" data-size="x-small">
-    <span class="stress-tag">X-small</span
+    <span class="stress-tag">x-small</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-field"
         ><input type="search" placeholder="Search" aria-label="Search" /><span
@@ -742,7 +798,7 @@
     large chips match default controls.
   </p>
   <div class="stress-row stress-center">
-    <span class="stress-tag">X-small controls, small chips</span
+    <span class="stress-tag">x-small controls, small chips</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-field"
         ><input
@@ -799,7 +855,7 @@
     up with the field, not the label.
   </p>
   <div class="stress-row" data-size="x-small">
-    <span class="stress-tag">X-small</span
+    <span class="stress-tag">x-small</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-label">Email</span
       ><span class="ui-field"
@@ -891,7 +947,7 @@
     Headers and footers add to it.
   </p>
   <div class="stress-row" data-size="x-small">
-    <span class="stress-tag">X-small</span
+    <span class="stress-tag">x-small</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-label">Price</span
       ><span class="ui-field"
@@ -1203,10 +1259,11 @@
       ><span class="ui-label">Required</span
       ><span class="ui-field"
         ><input type="text" placeholder="Placeholder" required /></span></label
-    ><label class="ui-text-field" data-invalid=""
+    ><label class="ui-text-field"
       ><span class="ui-label">Invalid</span
       ><span class="ui-field"
         ><input
+          aria-invalid="true"
           type="text"
           placeholder="Placeholder"
           value="jane@"
@@ -1242,10 +1299,11 @@
           </div>
         </select></span
       ></label
-    ><label class="ui-select" data-invalid=""
+    ><label class="ui-select"
       ><span class="ui-label" id="stress-select-label-22">Invalid select</span
       ><span class="ui-field"
         ><select
+          aria-invalid="true"
           aria-labelledby="stress-select-label-22"
           aria-describedby="stress-end-2"
         >
@@ -1276,10 +1334,11 @@
 Two lines
 of text</textarea>
       </span></label
-    ><label class="ui-textarea" data-invalid=""
+    ><label class="ui-textarea"
       ><span class="ui-label">Invalid textarea</span
       ><span class="ui-field">
         <textarea
+          aria-invalid="true"
           placeholder="Placeholder"
           aria-describedby="stress-end-3"
         ></textarea></span
@@ -1307,10 +1366,11 @@ of text</textarea>
       ><span class="ui-label">Required</span
       ><span class="ui-field"
         ><input type="text" placeholder="Placeholder" required /></span></label
-    ><label class="ui-text-field ui-filled" data-invalid=""
+    ><label class="ui-text-field ui-filled"
       ><span class="ui-label">Invalid</span
       ><span class="ui-field"
         ><input
+          aria-invalid="true"
           type="text"
           placeholder="Placeholder"
           value="jane@"
@@ -1346,10 +1406,11 @@ of text</textarea>
           </div>
         </select></span
       ></label
-    ><label class="ui-select ui-filled" data-invalid=""
+    ><label class="ui-select ui-filled"
       ><span class="ui-label" id="stress-select-label-25">Invalid select</span
       ><span class="ui-field"
         ><select
+          aria-invalid="true"
           aria-labelledby="stress-select-label-25"
           aria-describedby="stress-end-5"
         >
@@ -1380,10 +1441,11 @@ of text</textarea>
 Two lines
 of text</textarea>
       </span></label
-    ><label class="ui-textarea ui-filled" data-invalid=""
+    ><label class="ui-textarea ui-filled"
       ><span class="ui-label">Invalid textarea</span
       ><span class="ui-field">
         <textarea
+          aria-invalid="true"
           placeholder="Placeholder"
           aria-describedby="stress-end-6"
         ></textarea></span
@@ -1407,10 +1469,12 @@ of text</textarea>
         ><input type="checkbox" disabled /><span class="ui-label"
           >Disabled</span
         ></label
-      ><label class="ui-checkbox" data-invalid=""
-        ><input type="checkbox" aria-describedby="stress-end-7" /><span
-          class="ui-label"
-          >Invalid</span
+      ><label class="ui-checkbox"
+        ><input
+          aria-invalid="true"
+          type="checkbox"
+          aria-describedby="stress-end-7"
+        /><span class="ui-label">Invalid</span
         ><span class="ui-end-text" id="stress-end-7">Required.</span></label
       >
     </div>
@@ -1444,8 +1508,9 @@ of text</textarea>
         ><input type="checkbox" role="switch" disabled /><span class="ui-label"
           >Disabled</span
         ></label
-      ><label class="ui-switch" data-invalid=""
+      ><label class="ui-switch"
         ><input
+          aria-invalid="true"
           type="checkbox"
           role="switch"
           aria-describedby="stress-end-8"
@@ -1494,7 +1559,7 @@ of text</textarea>
         ><input type="radio" name="stress-toggle-9" checked />On</label
       ><label class="ui-toggle-button"
         ><input type="radio" name="stress-toggle-9" />Off</label
-      ><label class="ui-toggle-button ui-disabled"
+      ><label class="ui-toggle-button"
         ><input type="radio" name="stress-toggle-9" disabled />Disabled</label
       >
     </div>
@@ -1835,6 +1900,29 @@ Line five</textarea>
     way login and filter forms place them.
   </p>
   <div class="stress-row stress-center">
+    <span class="stress-tag">x-small</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Field"
+          aria-label="x-small field" /></span></label
+    ><label class="ui-checkbox ui-x-small"
+      ><input type="checkbox" /><span class="ui-label">Remember me</span></label
+    ><label class="ui-radio ui-x-small"
+      ><input type="radio" name="stress-radio-0" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch ui-x-small"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    ><button class="ui-button ui-x-small ui-filled" type="button">
+      Sign in
+    </button>
+  </div>
+  <div class="stress-row stress-center">
     <span class="stress-tag">Small</span
     ><label class="ui-text-field ui-small"
       ><span class="ui-field"
@@ -1891,7 +1979,7 @@ Line five</textarea>
         class="ui-label"
         >Option</span
       ></label
-    ><label class="ui-switch"
+    ><label class="ui-switch ui-large"
       ><input type="checkbox" role="switch" checked /><span class="ui-label"
         >Notify</span
       ></label
@@ -2147,10 +2235,11 @@ Line five</textarea>
         ></label>
       </div>
       <div class="ui-field-group">
-        <label class="ui-text-field" data-invalid=""
+        <label class="ui-text-field"
           ><span class="ui-label">Email</span
           ><span class="ui-field"
             ><input
+              aria-invalid="true"
               type="email"
               placeholder="Placeholder"
               value="jane@"

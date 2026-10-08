@@ -3,6 +3,7 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 
 import {
+  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_FREE_PREFIXES,
   FRAMEWORKS,
@@ -92,6 +93,94 @@ const hrefRewriter = (frameworkId, site) => (href) => {
   return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
 }
 
+async function pageFrom(tree, pathname, rewriteHref) {
+  const meta = pageMeta(tree)
+  if (meta.isRedirect) return null
+
+  const markdown = await articleToMarkdown(tree, { rewriteHref })
+  if (!markdown) return null
+
+  const [, , section, slug] = pathname.split("/")
+  const kind =
+    section === "components" && slug
+      ? "component"
+      : section === "guide" && slug
+        ? "guide"
+        : section === "api"
+          ? "api"
+          : "other"
+
+  return {
+    ...meta,
+    full:
+      kind === "component" || kind === "guide"
+        ? await articleToMarkdown(tree, {
+            omitInstallationCode: true,
+            rewriteHref,
+          })
+        : null,
+    kind,
+    markdown,
+    mdPath: markdownPath(pathname),
+    pathname,
+  }
+}
+
+function fullTxt({ framework, pages, site }) {
+  const full = pages
+    .filter((p) => p.full)
+    .sort(
+      (a, b) =>
+        (a.kind === "guide" ? 0 : 1) - (b.kind === "guide" ? 0 : 1) ||
+        byTitle(a, b),
+    )
+    .map((p) => `Source: ${new URL(p.pathname, site)}\n\n${p.full}`)
+    .join("\n\n---\n\n")
+  return `${header(framework)}\n\n---\n\n${full}\n`
+}
+
+const slugsIn = (relDir) =>
+  fs
+    .readdirSync(new URL(relDir, import.meta.url))
+    .filter((file) => file.endsWith(".astro"))
+    .map((file) => file.replace(/\.astro$/, ""))
+    .toSorted()
+
+async function devPages(framework, origin, rewriteHref) {
+  const pathnames = [
+    `/${framework.id}/api/`,
+    ...slugsIn("../pages/[framework]/guide/").map(
+      (slug) => `/${framework.id}/guide/${slug}/`,
+    ),
+    ...slugsIn("../docs/components/")
+      .filter((slug) => componentHasFramework(framework.id, slug))
+      .map((slug) => `/${framework.id}/components/${slug}/`),
+  ]
+  const pages = []
+  for (let index = 0; index < pathnames.length; index += 6) {
+    const batch = await Promise.all(
+      pathnames.slice(index, index + 6).map(async (pathname) => {
+        for (let attempt = 0; attempt < 3; attempt++) {
+          try {
+            const response = await fetch(new URL(pathname, origin))
+            if (!response.ok) return null
+            return pageFrom(
+              parseHtml(await response.text()),
+              pathname,
+              rewriteHref,
+            )
+          } catch {
+            await new Promise((resolve) => setTimeout(resolve, 500))
+          }
+        }
+        return null
+      }),
+    )
+    pages.push(...batch.filter(Boolean))
+  }
+  return pages
+}
+
 export default function llms() {
   let site
 
@@ -102,8 +191,45 @@ export default function llms() {
         site = config.site
       },
       "astro:server:setup": ({ server }) => {
+        const devCache = new Map()
+        server.watcher.on("all", (event, file) => {
+          if (/\/(packages|src)\//.test(file) && !file.includes("node_modules"))
+            devCache.clear()
+        })
+
         server.middlewares.use(async (req, res, next) => {
           const { pathname } = new URL(req.url ?? "/", "http://localhost")
+          const llmsFile = pathname.match(
+            new RegExp(
+              `^/(?:(${FRAMEWORKS.map((f) => f.id).join("|")})/)?(llms(?:-full)?)\\.txt$`,
+            ),
+          )
+          if (llmsFile) {
+            const [, frameworkId, file] = llmsFile
+            const framework = FRAMEWORKS.find(
+              (f) => f.id === (frameworkId ?? DEFAULT_FRAMEWORK),
+            )
+            if (!framework || (!frameworkId && file !== "llms")) return next()
+
+            if (!devCache.has(framework.id)) {
+              devCache.set(
+                framework.id,
+                devPages(
+                  framework,
+                  `http://${req.headers.host}`,
+                  hrefRewriter(framework.id, site),
+                ),
+              )
+            }
+            const pages = await devCache.get(framework.id)
+            res.setHeader("Content-Type", "text/plain; charset=utf-8")
+            res.end(
+              file === "llms"
+                ? llmsTxt({ framework, pages, site, isRoot: !frameworkId })
+                : fullTxt({ framework, pages, site }),
+            )
+            return
+          }
           const isFrameworkFree = FRAMEWORK_FREE_PREFIXES.some((p) =>
             pathname.startsWith(`${p}/`),
           )
@@ -145,59 +271,27 @@ export default function llms() {
 
           const pages = []
           for (const file of htmlFiles(frameworkDir)) {
-            const tree = parseHtml(fs.readFileSync(file, "utf-8"))
-            const meta = pageMeta(tree)
-            if (meta.isRedirect) continue
-
             const relative = path
               .relative(outDir, path.dirname(file))
               .split(path.sep)
               .join("/")
-            const pathname = `/${relative}/`
-            const markdown = await articleToMarkdown(tree, { rewriteHref })
-            if (!markdown) continue
-
-            const mdPath = markdownPath(pathname)
-            fs.writeFileSync(path.join(outDir, mdPath), `${markdown}\n`)
-
-            const [, section, slug] = relative.split("/")
-            const kind =
-              section === "components" && slug
-                ? "component"
-                : section === "guide" && slug
-                  ? "guide"
-                  : section === "api"
-                    ? "api"
-                    : "other"
-
-            pages.push({
-              ...meta,
-              full:
-                kind === "component" || kind === "guide"
-                  ? await articleToMarkdown(tree, {
-                      omitInstallationCode: true,
-                      rewriteHref,
-                    })
-                  : null,
-              kind,
-              mdPath,
-              pathname,
-            })
-          }
-
-          const full = pages
-            .filter((p) => p.full)
-            .sort(
-              (a, b) =>
-                (a.kind === "guide" ? 0 : 1) - (b.kind === "guide" ? 0 : 1) ||
-                byTitle(a, b),
+            const page = await pageFrom(
+              parseHtml(fs.readFileSync(file, "utf-8")),
+              `/${relative}/`,
+              rewriteHref,
             )
-            .map((p) => `Source: ${new URL(p.pathname, site)}\n\n${p.full}`)
-            .join("\n\n---\n\n")
+            if (!page) continue
+
+            fs.writeFileSync(
+              path.join(outDir, page.mdPath),
+              `${page.markdown}\n`,
+            )
+            pages.push(page)
+          }
 
           fs.writeFileSync(
             path.join(frameworkDir, "llms-full.txt"),
-            `${header(framework)}\n\n---\n\n${full}\n`,
+            fullTxt({ framework, pages, site }),
           )
           fs.writeFileSync(
             path.join(frameworkDir, "llms.txt"),

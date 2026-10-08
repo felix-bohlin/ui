@@ -75,6 +75,10 @@ function buildSkill() {
       path.join(DIST, framework.id, "guide/getting-started.md"),
       path.join(outDir, "getting-started.md"),
     )
+    copyReference(
+      path.join(DIST, framework.id, "guide/theming.md"),
+      path.join(outDir, "theming.md"),
+    )
   }
 
   const components = readComponents(path.join(DIST, "html/llms.txt")).sort(
@@ -87,7 +91,7 @@ function buildSkill() {
   const index = [
     "# Components",
     "",
-    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>` and `vue/<file>`.",
+    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>`, `svelte/<file>` and `vue/<file>`.",
     "",
     "| Component | File | Frameworks | Description |",
     "| --- | --- | --- | --- |",

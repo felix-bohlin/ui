@@ -5,8 +5,8 @@
   "version": "2.1.0",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "build-search-index": "node --experimental-strip-types scripts/generate-search-index.mjs",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build && pnpm build-skill",
+    "build-search-index": "node scripts/generate-search-index.mjs",
     "build-skill": "node scripts/build-agent-skill.mjs",
     "check": "pnpm check:fast && pnpm build",
     "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm check-css-vars && pnpm typecheck && pnpm test",
@@ -27,7 +27,7 @@
     "test:e2e:update": "playwright test --update-snapshots=all",
     "test:record-drift": "PARITY_RECORD=1 vitest run -u",
     "test:update": "vitest run --update",
-    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json"
+    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -44,9 +44,10 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/svelte": "^9.0.1",
     "@astrojs/vue": "^7.0.3",
     "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "1.63.0",
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
     "hast-util-select": "^6.0.4",
@@ -56,16 +57,22 @@
     "postcss": "^8.5.28",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-svelte": "^3.5.2",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.1",
     "remark-gfm": "^4.0.1",
     "remark-stringify": "^11.0.0",
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",
+    "svelte": "catalog:",
+    "svelte-check": "^4.7.6",
     "unified": "^11.0.5",
     "vitest": "^5.0.2",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
+  },
+  "engines": {
+    "node": ">=26.10.0"
   },
   "packageManager": "pnpm@12.9.1"
 }

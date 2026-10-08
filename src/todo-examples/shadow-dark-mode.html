@@ -1,0 +1,93 @@
+<style>
+  @layer theme {
+    @scope (.todo-fixed) {
+      :scope {
+        --shadow-color: 220 40% 2%;
+        --shadow-strength: 25%;
+        --shadow-strength-3: calc(var(--shadow-strength) + 2%);
+        --shadow-strength-4: calc(var(--shadow-strength) + 3%);
+        --shadow-strength-5: calc(var(--shadow-strength) + 4%);
+        --shadow-strength-6: calc(var(--shadow-strength) + 5%);
+        --shadow-strength-7: calc(var(--shadow-strength) + 6%);
+        --shadow-strength-8: calc(var(--shadow-strength) + 7%);
+        --shadow-3:
+          0 -1px 3px 0 hsl(var(--shadow-color) / var(--shadow-strength-3)),
+          0 1px 2px -5px hsl(var(--shadow-color) / var(--shadow-strength-3)),
+          0 2px 5px -5px hsl(var(--shadow-color) / var(--shadow-strength-5)),
+          0 4px 12px -5px hsl(var(--shadow-color) / var(--shadow-strength-6)),
+          0 12px 15px -5px hsl(var(--shadow-color) / var(--shadow-strength-8));
+        --shadow-4:
+          0 -2px 5px 0 hsl(var(--shadow-color) / var(--shadow-strength-3)),
+          0 1px 1px -2px hsl(var(--shadow-color) / var(--shadow-strength-4)),
+          0 2px 2px -2px hsl(var(--shadow-color) / var(--shadow-strength-4)),
+          0 5px 5px -2px hsl(var(--shadow-color) / var(--shadow-strength-5)),
+          0 9px 9px -2px hsl(var(--shadow-color) / var(--shadow-strength-6)),
+          0 16px 16px -2px hsl(var(--shadow-color) / var(--shadow-strength-7));
+      }
+    }
+  }
+
+  .todo-dark {
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+    padding: var(--size-5);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Dark mode (<code>.ui-dark</code>): the Open Props dark shadow sits in
+      <code>@media (--OSdark)</code>, which no browser supports, so the card
+      gets the light shadow.
+    </p>
+    <div class="ui-dark todo-dark">
+      <div class="ui-card ui-elevated">
+        <div class="ui-content">Elevated card</div>
+      </div>
+      <details class="ui-accordion ui-card ui-elevated">
+        <summary>Elevated accordion</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>--shadow-color: 220 40% 2%</code> and
+      <code>--shadow-strength: 25%</code> on <code>html.ui-dark</code> and in
+      <code>@media (prefers-color-scheme: dark)</code>. Here they sit on the
+      panel, which also re-declares <code>--shadow-3</code> and
+      <code>--shadow-4</code>, since Open Props resolves them on
+      <code>html</code>.
+    </p>
+    <div class="ui-dark todo-dark">
+      <div class="ui-card ui-elevated">
+        <div class="ui-content">Elevated card</div>
+      </div>
+      <details class="ui-accordion ui-card ui-elevated">
+        <summary>Elevated accordion</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const card = panel.querySelector(".ui-card")
+    const style = getComputedStyle(card)
+    const shadow = style.boxShadow
+      .split(/,(?![^(]*\))/)
+      .at(-1)
+      .trim()
+    panel.querySelector("[data-measure]").textContent = [
+      `--shadow-color: ${style.getPropertyValue("--shadow-color").trim()}`,
+      `--shadow-strength: ${style.getPropertyValue("--shadow-strength").trim()}`,
+      `card shadow, last layer: ${shadow}`,
+    ].join("\n")
+  }
+</script>

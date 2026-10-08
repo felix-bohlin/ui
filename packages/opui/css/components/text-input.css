@@ -28,6 +28,10 @@
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &.ui-small,

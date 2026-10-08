@@ -49,48 +49,4 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
   }
-
-  /* Hover and active effect for checkbox and radio */
-  :where(.ui-checkbox input, .ui-radio input) {
-    --_dir-rtl: -1;
-
-    position: relative;
-    transform-style: preserve-3d;
-
-    &:dir(rtl) {
-      --_dir-rtl: 1;
-    }
-
-    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-      @media (hover: hover) {
-        &:hover:before {
-          --_thumb-scale: 1;
-        }
-      }
-
-      &:active:before {
-        --_thumb-scale: 1.1;
-      }
-
-      &::before {
-        --_thumb-scale: 0.01;
-
-        background-color: var(--ripple-color);
-        block-size: var(--_ripple-size, 150%);
-        clip-path: circle(50%);
-        content: "";
-        inline-size: var(--_ripple-size, 150%);
-        inset-block-start: 50%;
-        inset-inline-start: 50%;
-        position: absolute;
-        transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
-          translateZ(-1px) scale(var(--_thumb-scale));
-        transform-origin: center center;
-
-        transition: transform calc(var(--duration) * var(--motion, 1))
-          var(--ease);
-        will-change: transform;
-      }
-    }
-  }
 }

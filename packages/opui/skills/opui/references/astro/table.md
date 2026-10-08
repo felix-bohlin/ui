@@ -1,11 +1,5 @@
 # Table
 
-### What's new
-
-- [Dense](#variants) tables have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width.
-- [Sticky header](#sticky-header) with the `stickyHeader` prop.
-
 ## Anatomy
 
 | Name   | Size |
@@ -182,90 +176,11 @@ import { Table } from "opui-css/astro"
 </Table>
 ```
 
-## Advanced
-
-An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
-
-```astro
----
-import { Table } from "opui-css/astro"
----
-
-
-<Table>
-  <caption>Nordic Countries Overview</caption>
-  <Table.ColumnGroup>
-    <Table.Column />
-    <Table.Column />
-    <Table.Column />
-  </Table.ColumnGroup>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell rowspan={2}>Country</Table.HeaderCell>
-      <Table.HeaderCell colspan={3}>Major Cities</Table.HeaderCell>
-      <Table.HeaderCell colspan={2}>Nature</Table.HeaderCell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell>Capital</Table.HeaderCell>
-      <Table.HeaderCell>2nd Largest</Table.HeaderCell>
-      <Table.HeaderCell>3rd Largest</Table.HeaderCell>
-      <Table.HeaderCell>National Animal</Table.HeaderCell>
-      <Table.HeaderCell>National Bird</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell>Norway</Table.Cell>
-      <Table.Cell>Oslo</Table.Cell>
-      <Table.Cell>Bergen</Table.Cell>
-      <Table.Cell>Trondheim</Table.Cell>
-      <Table.Cell>Elk</Table.Cell>
-      <Table.Cell>White-throated Dipper</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Sweden</Table.Cell>
-      <Table.Cell>Stockholm</Table.Cell>
-      <Table.Cell>Göteborg</Table.Cell>
-      <Table.Cell>Malmö</Table.Cell>
-      <Table.Cell>Elk</Table.Cell>
-      <Table.Cell>Common Blackbird</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Denmark</Table.Cell>
-      <Table.Cell>København</Table.Cell>
-      <Table.Cell>Aarhus</Table.Cell>
-      <Table.Cell>Odense</Table.Cell>
-      <Table.Cell>Mute Swan</Table.Cell>
-      <Table.Cell>Mute Swan</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Finland</Table.Cell>
-      <Table.Cell>Helsinki</Table.Cell>
-      <Table.Cell>Espoo</Table.Cell>
-      <Table.Cell>Tampere</Table.Cell>
-      <Table.Cell>Brown Bear</Table.Cell>
-      <Table.Cell>Whooper Swan</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Iceland</Table.Cell>
-      <Table.Cell>Reykjavík</Table.Cell>
-      <Table.Cell>Kópavogur</Table.Cell>
-      <Table.Cell>Hafnarfjörður</Table.Cell>
-      <Table.Cell>Gyrfalcon</Table.Cell>
-      <Table.Cell>Gyrfalcon</Table.Cell>
-    </Table.Row>
-  </Table.Body>
-  <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={6}>Scandinavia != The Nordics</Table.Cell>
-    </Table.Row>
-  </tfoot>
-</Table>
-```
-
 ## Sticky header
 
 `stickyHeader` keeps the header rows at the top of the nearest scroll container while the rows scroll under them, and adds a shadow once the header is stuck. Put the table in a scroll box, or let it stick to the page and set `--_sticky-offset` on the table to clear a fixed top bar.
+
+The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table has nothing focusable, so without `tabindex` keyboard users can't reach the box to scroll it, and the name tells screen reader users what the region holds.
 
 ```astro
 ---
@@ -343,6 +258,95 @@ import { Table } from "opui-css/astro"
 </div>
 ```
 
+## Advanced
+
+An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
+
+The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
+
+```astro
+---
+import { Table } from "opui-css/astro"
+---
+
+
+<Table>
+  <caption>Nordic Countries Overview</caption>
+  <Table.ColumnGroup>
+    <Table.Column />
+    <Table.Column />
+    <Table.Column />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell rowspan={2}>Country</Table.HeaderCell>
+      <Table.HeaderCell colspan={3}>Major Cities</Table.HeaderCell>
+      <Table.HeaderCell colspan={2}>Nature</Table.HeaderCell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell>Capital</Table.HeaderCell>
+      <Table.HeaderCell>2nd Largest</Table.HeaderCell>
+      <Table.HeaderCell>3rd Largest</Table.HeaderCell>
+      <Table.HeaderCell>National Animal</Table.HeaderCell>
+      <Table.HeaderCell>National Bird</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.HeaderCell scope="row">Norway</Table.HeaderCell>
+      <Table.Cell>Oslo</Table.Cell>
+      <Table.Cell>Bergen</Table.Cell>
+      <Table.Cell>Trondheim</Table.Cell>
+      <Table.Cell>Elk</Table.Cell>
+      <Table.Cell>White-throated Dipper</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell scope="row">Sweden</Table.HeaderCell>
+      <Table.Cell>Stockholm</Table.Cell>
+      <Table.Cell>Göteborg</Table.Cell>
+      <Table.Cell>Malmö</Table.Cell>
+      <Table.Cell>Elk</Table.Cell>
+      <Table.Cell>Common Blackbird</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell scope="row">Denmark</Table.HeaderCell>
+      <Table.Cell>København</Table.Cell>
+      <Table.Cell>Aarhus</Table.Cell>
+      <Table.Cell>Odense</Table.Cell>
+      <Table.Cell>Mute Swan</Table.Cell>
+      <Table.Cell>Mute Swan</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell scope="row">Finland</Table.HeaderCell>
+      <Table.Cell>Helsinki</Table.Cell>
+      <Table.Cell>Espoo</Table.Cell>
+      <Table.Cell>Tampere</Table.Cell>
+      <Table.Cell>Brown Bear</Table.Cell>
+      <Table.Cell>Whooper Swan</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell scope="row">Iceland</Table.HeaderCell>
+      <Table.Cell>Reykjavík</Table.Cell>
+      <Table.Cell>Kópavogur</Table.Cell>
+      <Table.Cell>Hafnarfjörður</Table.Cell>
+      <Table.Cell>Gyrfalcon</Table.Cell>
+      <Table.Cell>Gyrfalcon</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+  <tfoot>
+    <Table.Row>
+      <Table.Cell colspan={6}>Scandinavia != The Nordics</Table.Cell>
+    </Table.Row>
+  </tfoot>
+</Table>
+```
+
+## Accessibility
+
+A `<caption>` names the table, and screen readers announce it when the user enters the table. `<th>` cells in `<thead>` are column headers, read out with each cell below them. Use `<th scope="row">` for a row header in the body. A `<tfoot>` keeps totals and summaries apart from the data rows.
+
+A table in a scroll box needs `tabindex="0"` on the box so keyboard users can scroll it, and a name from `aria-label` with `role="region"`, as in [Sticky header](#sticky-header).
+
 ## API
 
 ### Table API
@@ -360,25 +364,27 @@ import { Table } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable                 | Default                                     | Description                                                                                                                |
-| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                    |
-| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                          |
-| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+| Variable                 | Default                                     | Description                                                                                                                                                                                               |
+| ------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                         |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                 |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                          |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.
 
 ## Under the hood
+
+Read the post: [A header that knows it’s stuck](https://open-props-ui.netlify.app/learn/table-scroll-state)
 
 1. Separate
 
@@ -389,6 +395,7 @@ Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `wi
 
    - Each cell draws only its end sides, so lines never double up
    - The last column and the last row drop theirs
+   - Only body rows light up on hover
    - The cell backgrounds now poke out of the rounded corners
 
 3. Corners
@@ -402,7 +409,14 @@ Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `wi
    - The footer draws its own top border
    - `tbody:has(+ tfoot)` removes the one above it, so it stays a single line
 
-Step 1 of 4: Separate
+5. Sticky header
+
+   - `position: sticky` on `thead` keeps the header at the top of the scroll box
+   - Don't give the table `overflow: hidden`: it makes the table a scroll container, so the header would stick to the table and never move. `overflow: clip` is safe
+   - `scroll-state(stuck: block-start)` only shows the shadow while the header is stuck, `clip-path` lets it out below
+   - `tabindex="0"` and a name let keyboard users scroll the box
+
+Step 1 of 5: Separate
 
 - [`border-radius` ](https://webstatus.dev/features/border-radius)(Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
 - [Tables ](https://webstatus.dev/features/table)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
@@ -417,7 +431,7 @@ Step 1 of 4: Separate
 }
 ```
 
-Step 2 of 4: Cells
+Step 2 of 5: Cells
 
 - [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 - [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
@@ -447,12 +461,14 @@ Step 2 of 4: Cells
 }
 
 
-.table tr:hover > :is(th, td) {
+.table tbody > tr:hover > :is(th, td) {
   background-color: oklch(from var(--surface-filled) l c h / 75%);
 }
 ```
 
-Step 3 of 4: Corners
+Step 3 of 5: Corners
+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .table > thead tr:first-child th:first-child {
@@ -475,20 +491,54 @@ Step 3 of 4: Corners
 }
 ```
 
-Step 4 of 4: Footer
+Step 4 of 5: Footer
 
 - [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
-.table tfoot td {
+.table tfoot :is(th, td) {
   background-color: var(--surface-filled);
   border-block-start: 1px solid var(--border-color);
   font-weight: 600;
 }
 
 
-.table tbody:has(+ tfoot) tr:last-child td {
+.table tbody:has(+ tfoot) tr:last-child > * {
   border-block-end: none;
+}
+```
+
+Step 5 of 5: Sticky header
+
+- [Container scroll-state queries ](https://webstatus.dev/features/container-scroll-state-queries)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari not supported
+- [Sticky positioning ](https://webstatus.dev/features/sticky-positioning)(Widely available): Chrome 56+, Edge 16+, Firefox 59+, Safari 13+
+
+```html
+<div aria-label="Components" class="table-scroll" role="region" tabindex="0">
+  <table class="table">…</table>
+</div>
+```
+
+```css
+.table-scroll {
+  max-block-size: 12rem;
+  overflow: auto;
+}
+
+
+.table > thead {
+  container-type: scroll-state;
+  inset-block-start: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+
+@container scroll-state(stuck: block-start) {
+  .table > thead th {
+    box-shadow: var(--shadow-4);
+    clip-path: inset(0 0 -2rem);
+  }
 }
 ```
 
@@ -502,5 +552,15 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 - `opui-css/css/components/table.css`
 
+## Changelog
+
+### What's new
+
+- A checkbox alone in a cell is centered ([Default](#default)).
+- [Dense](#variants) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
+- [Sticky header](#sticky-header) with the `stickyHeader` prop.

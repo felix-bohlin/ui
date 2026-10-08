@@ -7,6 +7,8 @@ import {
 import { Code } from "astro-expressive-code/components"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
+import MountSvelteExamples from "./MountSvelteExamples.astro"
+import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
 
@@ -47,6 +49,7 @@ type Props = {
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  svelteExampleId?: string
   vueExampleId?: string
   wrapperClass?: string
 }
@@ -62,6 +65,7 @@ const {
   row,
   showCode = true,
   spacious,
+  svelteExampleId,
   vueExampleId,
   wrapperClass,
 } = Astro.props
@@ -113,6 +117,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
+const isLiveSveltePreview =
+  previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
@@ -169,6 +175,8 @@ const outputId = `${groupName}-output`
   ]}
   data-expanded="false"
 >
+  {isLiveSveltePreview && <MountSvelteExamples />}
+  {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
   {
     hasPreview && (
@@ -190,6 +198,12 @@ const outputId = `${groupName}-output`
           <div
             class="preview-render"
             data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveSveltePreview ? (
+          <div
+            class="preview-render"
+            data-svelte-example={svelteExampleId}
             set:html={previewHtml}
           />
         ) : (
@@ -233,41 +247,43 @@ const outputId = `${groupName}-output`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-          <Tabs.Item tabId={sourceId} name={groupName} open>
-            <Tabs.Tab tabId={sourceId} data-tab="source">
-              {codeLangLabel}
-            </Tabs.Tab>
-            <Tabs.Panel data-panel="source">
-              <div class="ui-tab-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
-                  mark={marks[codeLangId]}
-                />
-              </div>
-            </Tabs.Panel>
-          </Tabs.Item>
-
-          {showOutput && (
-            <Tabs.Item tabId={outputId} name={groupName}>
-              <Tabs.Tab tabId={outputId} data-tab="output">
-                Output
+        <template class="example-code">
+          <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+            <Tabs.Item tabId={sourceId} name={groupName} open>
+              <Tabs.Tab tabId={sourceId} data-tab="source">
+                {codeLangLabel}
               </Tabs.Tab>
-              <Tabs.Panel data-panel="output">
+              <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code code={outputContent} lang="html" />
+                  <Code
+                    code={codeContent}
+                    lang={
+                      codeLangId === "astro"
+                        ? "astro"
+                        : codeLangId === "html"
+                          ? "html"
+                          : codeLangId
+                    }
+                    mark={marks[codeLangId]}
+                  />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
-          )}
-        </Tabs>
+
+            {showOutput && (
+              <Tabs.Item tabId={outputId} name={groupName}>
+                <Tabs.Tab tabId={outputId} data-tab="output">
+                  Output
+                </Tabs.Tab>
+                <Tabs.Panel data-panel="output">
+                  <div class="ui-tab-panel">
+                    <Code code={outputContent} lang="html" />
+                  </div>
+                </Tabs.Panel>
+              </Tabs.Item>
+            )}
+          </Tabs>
+        </template>
       </div>
     )
   }
@@ -431,8 +447,6 @@ const outputId = `${groupName}-output`
 </style>
 
 <script>
-  import "./mount-vue-examples"
-
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing - no client-side language
   // toggle is needed here.
@@ -444,6 +458,11 @@ const outputId = `${groupName}-output`
 
     if (toggleBtn && !(toggleBtn as any)._hasListener) {
       toggleBtn.addEventListener("click", () => {
+        const template = container.querySelector<HTMLTemplateElement>(
+          "template.example-code",
+        )
+        template?.replaceWith(template.content)
+
         const isExpanded = container.getAttribute("data-expanded") === "true"
         const nextState = !isExpanded
         container.setAttribute("data-expanded", String(nextState))
@@ -466,5 +485,4 @@ const outputId = `${groupName}-output`
   }
 
   init()
-  document.addEventListener("astro:after-swap", init)
 </script>

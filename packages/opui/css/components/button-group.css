@@ -25,7 +25,7 @@
     }
 
     /* Button */
-    & > button {
+    & > .ui-button {
       --_border-color: transparent;
       border-radius: 0;
       box-shadow:
@@ -40,7 +40,7 @@
       );
 
       /* Siblings */
-      &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      &:is([disabled], [aria-disabled="true"]) {
         box-shadow:
           calc(-1 * var(--border-width)) 0 0 0
             color-mix(in oklch, var(--_divider-color) 40%, transparent),
@@ -49,7 +49,8 @@
       }
 
       &:focus-visible {
-        outline-offset: var(--focus-ring-inset);
+        --focus-ring-color: currentColor;
+        outline-offset: calc(var(--focus-ring-inset) - var(--size-1));
       }
 
       :where(.ui-button-group.ui-x-small) & {
@@ -72,15 +73,14 @@
       }
 
       &:where(:has(> svg:only-child)) {
+        --_icon-size: 0.7lh;
         padding-inline: 0;
       }
 
       :where(.ui-button-group.ui-outlined) & {
         --_divider-color: var(--_accent);
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -99,9 +99,7 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -128,9 +126,7 @@
           );
         }
 
-        &:where(
-          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-        ) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_filled-hover-bg-color);
@@ -147,13 +143,17 @@
     &.ui-vertical {
       flex-direction: column;
 
-      & > button {
+      & > .ui-button {
         padding: var(--size-2);
 
         &:has(> svg:only-child) {
           aspect-ratio: 1;
           padding: var(--size-1);
         }
+      }
+
+      &:is(.ui-small, .ui-x-small) > .ui-button {
+        padding-block: 0;
       }
     }
 
@@ -165,7 +165,7 @@
       overscroll-behavior-inline: contain;
       scrollbar-width: thin;
 
-      & > button {
+      & > .ui-button {
         flex: none;
       }
     }
@@ -173,7 +173,7 @@
     &.ui-shrink {
       flex-wrap: nowrap;
 
-      & > button {
+      & > .ui-button {
         min-inline-size: 0;
 
         &:has(> svg:only-child) {

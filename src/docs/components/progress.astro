@@ -14,7 +14,7 @@ import progressApi from "../../component-api/progress/api"
 
 <Component
   slug="progress"
-  browserSupport={["has"]}
+  browserSupport={["container-style-queries", "has"]}
   apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
     {
@@ -62,6 +62,11 @@ import progressApi from "../../component-api/progress/api"
         > on the wrapper <code>&lt;div&gt;</code> to swap the progress bar track surface
         for better contrast on different backgrounds. Without a class, the track is
         tonal, the same as <code>.ui-tonal</code>.
+      </p>
+      <p slot="svelte">
+        Use the <code>variant</code> prop to swap the progress bar track surface for
+        better contrast on different backgrounds. Without a variant, the track is
+        tonal, the same as <code>variant="tonal"</code>.
       </p>
       <p slot="vue">
         Use the <code>variant</code> prop to swap the progress bar track surface for

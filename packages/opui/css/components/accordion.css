@@ -2,9 +2,9 @@
   :where(details.ui-accordion) {
     --_motion: var(--motion, 1);
     --_actions-gap: var(--size-1);
-    --_actions-margin-block-start: var(--size-3);
-    --_actions-padding-block-end: var(--size-1);
-    --_actions-padding-inline: var(--size-3) var(--size-1);
+    --_actions-margin-block-start: 0;
+    --_actions-padding-block-end: var(--_summary-padding-block);
+    --_actions-padding-inline: var(--_content-padding-inline);
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-radius: var(--border-radius);
@@ -13,7 +13,9 @@
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease);
+    --_focus-ring-offset: var(--focus-ring-offset, 2px);
     --_margin-inline: var(--size-1);
+    --_overflow: visible;
     --_padding-inline: initial;
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
@@ -25,6 +27,7 @@
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
+    overflow: var(--_overflow);
     transition:
       background-color var(--_duration) var(--_ease),
       border-color var(--_duration) var(--_ease),
@@ -38,7 +41,9 @@
 
     &.ui-elevated {
       --_bg-color: var(--surface-elevated);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
       --_shadow: var(--shadow-3);
     }
@@ -47,13 +52,17 @@
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
       --_border-width: var(--border-width);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
     }
 
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
     }
 
@@ -90,13 +99,13 @@
 
       &:focus-visible {
         border-radius: var(--_border-radius);
-        outline-offset: calc(-2 * var(--focus-ring-width, 2px));
+        outline-offset: var(--_focus-ring-offset);
       }
 
-      &:has(svg) {
+      &:has(.ui-marker) {
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        gap: var(--size-2);
         list-style: none;
 
         &::marker,
@@ -105,26 +114,32 @@
         }
       }
 
-      svg {
+      .ui-marker {
+        flex-shrink: 0;
+        margin-inline-start: auto;
         transition:
           rotate var(--_duration) var(--_ease),
           scale var(--_duration) var(--_ease);
       }
     }
 
-    &.ui-marker-flip[open] > summary svg {
+    &.ui-marker-flip[open] > summary .ui-marker {
       scale: 1 -1;
     }
 
-    &.ui-marker-rotate[open] > summary svg {
+    &.ui-marker-rotate[open] > summary .ui-marker {
       rotate: 180deg;
     }
 
-    &.ui-marker-turn[open] > summary svg {
+    &.ui-marker-turn[open] > summary .ui-marker {
       rotate: 90deg;
     }
 
-    &.ui-marker-turn[open]:dir(rtl) > summary svg {
+    &.ui-marker-turn:dir(rtl) > summary .ui-marker {
+      scale: -1 1;
+    }
+
+    &.ui-marker-turn[open]:dir(rtl) > summary .ui-marker {
       rotate: -90deg;
     }
 
@@ -155,7 +170,7 @@
 
     &.ui-card {
       &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
-        --_item-summary-padding-inline: 0;
+        --_item-padding-inline: 0;
       }
     }
 
@@ -167,6 +182,7 @@
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;

@@ -7,7 +7,8 @@
     flex-direction: column-reverse;
     gap: var(--size-3);
     inline-size: auto;
-    inset: auto var(--size-4) var(--size-4) auto;
+    inset-block: auto var(--size-4);
+    inset-inline: auto var(--size-4);
     margin: 0;
     max-inline-size: calc(100vi - var(--size-8));
     overflow: visible;
@@ -26,6 +27,7 @@
 
   :where(.ui-toast) {
     --_motion: var(--motion, 1);
+    --_dir: 1;
     --_enter-duration: calc(var(--duration-slow) * var(--_motion));
     --_exit-duration: calc(var(--duration-slow) * var(--_motion));
     --_hold-duration: 5s;
@@ -53,7 +55,8 @@
     gap: var(--size-3);
     justify-content: space-between;
     min-inline-size: 30ch;
-    padding: var(--size-3) var(--size-4);
+    padding-block: var(--size-3);
+    padding-inline: var(--size-4);
     pointer-events: auto;
 
     @media (hover: hover) {
@@ -64,6 +67,10 @@
 
     &:focus-within {
       animation-play-state: paused;
+    }
+
+    &:dir(rtl) {
+      --_dir: -1;
     }
 
     &.ui-exiting {
@@ -138,7 +145,7 @@
   @keyframes ui-toast-enter {
     from {
       opacity: 0;
-      translate: var(--size-4) 0;
+      translate: calc(var(--size-4) * var(--_dir)) 0;
     }
 
     to {

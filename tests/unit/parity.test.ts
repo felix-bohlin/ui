@@ -3,6 +3,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { getContainerRenderer } from "@astrojs/vue/container-renderer"
 import { loadRenderers } from "astro:container"
 import { createTwoFilesPatch } from "diff"
+import { render } from "svelte/server"
 import { createSSRApp } from "vue"
 import { renderToString } from "vue/server-renderer"
 import { beforeAll, describe, expect, test } from "vitest"
@@ -13,11 +14,14 @@ const RECORD = !!process.env.PARITY_RECORD
 const astroModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.astro",
 )
+const svelteModules = import.meta.glob<{ default: any }>(
+  "../../src/component-examples/**/*.svelte",
+)
 const vueModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,vue}",
+  "../../src/component-examples/**/*.{astro,html,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -40,9 +44,16 @@ const EXAMPLE_CLASSES = new Set([
   ),
 ])
 
-const FRAMEWORKS = ["html", "astro", "vue"] as const
+const FRAMEWORKS = ["html", "astro", "svelte", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
+
+const REFERENCES: Record<Framework, Framework[]> = {
+  astro: ["html"],
+  html: [],
+  svelte: ["astro", "html"],
+  vue: ["astro", "html"],
+}
 
 type Example = {
   key: string
@@ -65,6 +76,7 @@ const register = (
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("svelte", svelteModules)
 register("vue", vueModules)
 
 const cases = [...examples.values()]
@@ -100,6 +112,7 @@ const renderers: Record<
       },
     }),
   html: async (loaded) => loaded,
+  svelte: async (loaded) => render(loaded.default).body,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
 
@@ -142,9 +155,12 @@ describe.each(cases)("$key", (example) => {
   )
 
   test.each(
-    frameworks
-      .slice(1)
-      .map((framework, index) => [framework, frameworks[index]]),
+    frameworks.flatMap((framework) => {
+      const reference = REFERENCES[framework].find(
+        (candidate) => example.loaders[candidate],
+      )
+      return reference ? [[framework, reference]] : []
+    }),
   )("%s matches %s", async (framework, reference) => {
     const [expected, actual] = await Promise.all([
       markup(example, reference),

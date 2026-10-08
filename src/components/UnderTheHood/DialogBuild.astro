@@ -7,7 +7,7 @@ const steps = [
     css: `
 .dialog {
   background-color: var(--surface-elevated);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--surface-default);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-3);
   color: inherit;
@@ -21,19 +21,28 @@ const steps = [
 }`,
     features: ["dialog", "dialog-closedby", "invoker-commands"],
     html: `
-<button commandfor="dialog" command="show-modal">Shortcuts</button>
+<button type="button" commandfor="dialog" command="show-modal">
+  Shortcuts
+</button>
 
-<dialog class="dialog" id="dialog" closedby="any">
-  <h2>Keyboard shortcuts</h2>
+<dialog
+  class="dialog"
+  id="dialog"
+  aria-labelledby="dialog-title"
+  closedby="any"
+>
+  <h2 id="dialog-title">Keyboard shortcuts</h2>
   <div class="content">…</div>
   <div class="actions">
-    <button commandfor="dialog" command="close">Close</button>
+    <button type="button" commandfor="dialog" command="close">Close</button>
   </div>
 </dialog>`,
     notes: [
       "<code>command=&quot;show-modal&quot;</code>: top layer, inert page, focus moves in, no JavaScript",
       "<code>closedby=&quot;any&quot;</code> closes it on <kbd>Esc</kbd> and on a click outside",
+      "<code>aria-labelledby</code> names it after its heading",
       "<code>display: flex</code> overrides the hidden state, so <code>:not([open])</code> puts <code>display: none</code> back",
+      "The border is the page color, like an elevated card",
     ],
     title: "Modal",
   },
@@ -68,14 +77,70 @@ const steps = [
   },
   {
     css: `
+.dialog > .content {
+  anchor-name: --content;
+  container-type: scroll-state;
+}
+
+.dialog > .content::before,
+.dialog > .content::after {
+  block-size: 0.5rem;
+  box-shadow: var(--shadow-4);
+  clip-path: inset(100% 0 -2rem);
+  content: "";
+  inset-inline: anchor(--content inside);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.dialog > .content::before {
+  inset-block-end: anchor(--content outside);
+}
+
+.dialog > .content::after {
+  inset-block-start: anchor(--content outside);
+  scale: 1 -1;
+}
+
+@container scroll-state(scrollable: block-start) {
+  .dialog > .content::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: block-end) {
+  .dialog > .content::after {
+    opacity: 1;
+  }
+}`,
+    features: ["anchor-positioning", "container-scroll-state-queries"],
+    notes: [
+      "Scroll the shortcuts: a shadow shows on each edge with more to scroll",
+      "<code>container-type: scroll-state</code> lets the pseudo-elements ask which way <code>.content</code> can scroll",
+      "<code>anchor()</code> pins them to the edges of <code>.content</code>, so they don't scroll away",
+      "<code>clip-path</code> keeps only the half of the shadow that falls on the content",
+    ],
+    title: "Shadow",
+  },
+  {
+    css: `
 .dialog::backdrop {
   backdrop-filter: blur(var(--backdrop-blur));
   background-color: var(--backdrop-color);
+}
+
+html:has(.dialog:modal) {
+  overflow: clip;
+  scrollbar-gutter: stable;
 }`,
-    features: ["backdrop", "backdrop-filter"],
+    features: ["backdrop", "backdrop-filter", "has", "scrollbar-gutter"],
     notes: [
       "<code>::backdrop</code> covers the viewport, right under the dialog in the top layer",
       "<code>backdrop-filter</code> blurs the page behind it",
+      "The page behind is inert but still scrolls, <code>html:has(.dialog:modal)</code> locks it",
+      "<code>scrollbar-gutter: stable</code> keeps the layout still when the scrollbar goes",
     ],
     title: "Backdrop",
   },
@@ -96,7 +161,12 @@ const steps = [
     opacity: 0;
   }
 }`,
-    features: ["overlay", "starting-style", "transition-behavior"],
+    features: [
+      "display-animation",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
     notes: [
       "<code>@starting-style</code> gives the entry transition a starting point",
       "The transition only lives on <code>[open]</code>, so closing is instant, on purpose",
@@ -111,6 +181,18 @@ const shortcuts = [
   { keys: "⌘ Z", label: "Undo" },
   { keys: "⌘ ⇧ Z", label: "Redo" },
   { keys: "⌘ /", label: "Toggle comment" },
+  { keys: "⌘ A", label: "Select all" },
+  { keys: "⌘ B", label: "Bold" },
+  { keys: "⌘ C", label: "Copy" },
+  { keys: "⌘ F", label: "Find" },
+  { keys: "⌘ I", label: "Italic" },
+  { keys: "⌘ N", label: "New file" },
+  { keys: "⌘ O", label: "Open" },
+  { keys: "⌘ P", label: "Print" },
+  { keys: "⌘ U", label: "Underline" },
+  { keys: "⌘ V", label: "Paste" },
+  { keys: "⌘ W", label: "Close tab" },
+  { keys: "⌘ X", label: "Cut" },
   { keys: "Esc", label: "Close dialog" },
 ]
 ---
@@ -151,6 +233,15 @@ const shortcuts = [
 </BuildUp>
 
 <style>
+  :global(
+    html:has(
+        #build-dialog .build-up-steps :is([value="4"], [value="5"]):checked
+      ):has(#build-dialog-modal:modal)
+  ) {
+    overflow: clip;
+    scrollbar-gutter: stable;
+  }
+
   .dialog {
     & h3 {
       font-size: var(--font-size-3);

@@ -1,9 +1,5 @@
 # Description list
 
-### What's new
-
-- Breaking: `Description` is now `DescriptionListDescription`, like Astro.
-
 ## Anatomy
 
 - Price
@@ -61,6 +57,8 @@ import {
 
 Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
 
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+
 ```vue
 <script setup lang="ts">
 import {
@@ -106,13 +104,47 @@ import {
 </template>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```vue
+<script setup lang="ts">
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <DescriptionList bordered inline style="max-inline-size: 18rem">
+    <DescriptionListItem>
+      <DescriptionListTerm>Subtotal</DescriptionListTerm>
+      <DescriptionListDescription>$120.00</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Shipping</DescriptionListTerm>
+      <DescriptionListDescription>$8.00</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Total</DescriptionListTerm>
+      <DescriptionListDescription>$128.00</DescriptionListDescription>
+    </DescriptionListItem>
+  </DescriptionList>
+</template>
+```
+
 ## API
 
 ### Description list API
 
-| Prop       | Type                   | Default | Description                                         |
-| ---------- | ---------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
+| Prop       | Type                   | Default | Description                                                                                                              |
+| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots
 
@@ -132,6 +164,8 @@ import {
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
 1. Stacked
 
@@ -269,5 +303,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

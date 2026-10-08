@@ -1,0 +1,231 @@
+---
+import { Code } from "astro-expressive-code/components"
+import Blocks from "../../../layouts/Blocks.astro"
+import {
+  blockCategories,
+  blockGroups,
+  blockHref,
+  blockPreviewHref,
+  splitSource,
+} from "../../../utils/blocks"
+
+export function getStaticPaths() {
+  const ordered = blockGroups.flatMap((group) => group.blocks)
+  return ordered.map((block, index) => ({
+    params: { block: block.slug },
+    props: {
+      block,
+      next: ordered[index + 1],
+      previous: ordered[index - 1],
+    },
+  }))
+}
+
+const { block, next, previous } = Astro.props
+const category = blockCategories.find((entry) => entry.id === block.category)
+const id = (name: string) => `block-${block.slug}-${name}`
+
+const source = splitSource(block.source)
+const codeTabs = [
+  { code: source.html, label: "HTML", lang: "html", name: "html" },
+  { code: source.css, label: "CSS", lang: "css", name: "css" },
+  { code: source.js, label: "JS", lang: "js", name: "js" },
+].filter((tab) => tab.code)
+
+const widths = [
+  { label: "Desktop", value: "100%" },
+  { label: "Tablet", value: "768px" },
+  { label: "Mobile", value: "390px" },
+]
+---
+
+<Blocks description={block.description} overline={category?.label} wide>
+  <Fragment slot="title">{block.name}</Fragment>
+  <Fragment slot="preamble">{block.description}</Fragment>
+
+  <div class="block-viewer ui-not-rich-text">
+    <div class="ui-tabs ui-line">
+      <input
+        checked
+        class="ui-tab-input"
+        id={id("preview-tab")}
+        name={id("view")}
+        type="radio"
+      />
+      <label class="ui-tab-label" for={id("preview-tab")}>Preview</label>
+      <div class="ui-tab-panel">
+        <div class="block-toolbar">
+          <div
+            aria-label="Preview width"
+            class="ui-toggle-group ui-small"
+            role="radiogroup"
+          >
+            {
+              widths.map((width, index) => (
+                <label class="ui-toggle-button">
+                  <input
+                    checked={index === 0}
+                    data-width={width.value}
+                    name={id("width")}
+                    type="radio"
+                    value={width.value}
+                  />
+                  {width.label}
+                </label>
+              ))
+            }
+          </div>
+          <a
+            class="ui-button ui-outlined ui-small"
+            href={blockPreviewHref(block.slug)}
+            target="_blank"
+          >
+            Open in a new tab
+          </a>
+        </div>
+        <div class="block-frame">
+          <iframe
+            data-block-frame
+            src={blockPreviewHref(block.slug)}
+            title={`${block.name} preview`}></iframe>
+        </div>
+      </div>
+      {
+        codeTabs.map((tab) => (
+          <>
+            <input
+              class="ui-tab-input"
+              id={id(`${tab.name}-tab`)}
+              name={id("view")}
+              type="radio"
+            />
+            <label class="ui-tab-label" for={id(`${tab.name}-tab`)}>
+              {tab.label}
+            </label>
+            <div class="ui-tab-panel">
+              <Code code={tab.code} lang={tab.lang} />
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+
+  <nav aria-label="More blocks" class="block-pagination ui-not-rich-text">
+    {
+      previous && (
+        <a class="ui-card ui-outlined" href={blockHref(previous.slug)}>
+          <hgroup>
+            <p>Previous</p>
+            <h2>{previous.name}</h2>
+          </hgroup>
+        </a>
+      )
+    }
+    {
+      next && (
+        <a class="ui-card ui-outlined block-next" href={blockHref(next.slug)}>
+          <hgroup>
+            <p>Next</p>
+            <h2>{next.name}</h2>
+          </hgroup>
+        </a>
+      )
+    }
+  </nav>
+</Blocks>
+
+<script>
+  for (const viewer of document.querySelectorAll(".block-viewer")) {
+    const frame = viewer.querySelector<HTMLElement>(".block-frame")
+    const iframe = viewer.querySelector<HTMLIFrameElement>(
+      "iframe[data-block-frame]",
+    )
+    if (!frame || !iframe) continue
+
+    for (const input of viewer.querySelectorAll<HTMLInputElement>(
+      "input[data-width]",
+    )) {
+      input.addEventListener("change", () => {
+        frame.style.inlineSize = input.dataset.width ?? ""
+      })
+    }
+
+    const fit = () => {
+      const content = iframe.contentDocument?.querySelector(".block-preview")
+      if (!content) return
+      iframe.style.blockSize = `${Math.ceil(content.getBoundingClientRect().height)}px`
+    }
+
+    const observe = () => {
+      const content = iframe.contentDocument?.querySelector(".block-preview")
+      if (!content) return
+      fit()
+      new ResizeObserver(fit).observe(content)
+    }
+
+    if (iframe.contentDocument?.readyState === "complete") observe()
+    iframe.addEventListener("load", observe)
+  }
+</script>
+
+<style>
+  .block-viewer {
+    margin-block-start: var(--size-6);
+  }
+
+  .block-toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: space-between;
+    margin-block-end: var(--size-3);
+  }
+
+  .block-frame {
+    background-color: var(--surface-default);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    inline-size: 100%;
+    margin-inline: auto;
+    max-inline-size: 100%;
+    min-inline-size: 320px;
+    overflow: hidden;
+    resize: horizontal;
+
+    iframe {
+      block-size: 600px;
+      border: 0;
+      color-scheme: normal;
+      display: block;
+      inline-size: 100%;
+    }
+  }
+
+  .block-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    margin-block-start: var(--size-8);
+
+    .ui-card {
+      color: inherit;
+      flex: 0 1 20rem;
+      text-decoration: none;
+
+      &:hover h2 {
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      font-size: var(--font-size-2);
+    }
+
+    .block-next {
+      margin-inline-start: auto;
+      text-align: end;
+    }
+  }
+</style>

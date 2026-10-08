@@ -44,14 +44,19 @@ import { Code } from "astro-expressive-code/components"
     </ul>
     <Code
       lang="html"
-      code={`<button commandfor="shortcuts" command="show-modal">
+      code={`<button type="button" commandfor="shortcuts" command="show-modal">
   Shortcuts
 </button>
 
-<dialog class="dialog" id="shortcuts" closedby="any">
-  <h2>Keyboard shortcuts</h2>
+<dialog
+  class="dialog"
+  id="shortcuts"
+  aria-labelledby="shortcuts-title"
+  closedby="any"
+>
+  <h2 id="shortcuts-title">Keyboard shortcuts</h2>
   <div class="content">…</div>
-  <button commandfor="shortcuts" command="close">Close</button>
+  <button type="button" commandfor="shortcuts" command="close">Close</button>
 </dialog>`}
     />
   </section>
@@ -65,10 +70,10 @@ import { Code } from "astro-expressive-code/components"
     <h2 id="scroll-lock">Scroll lock</h2>
     <p>
       The page behind an open modal is inert, but it still scrolls.
-      {" "}<code>html:has(.ui-dialog[open])</code> sets <code
+      {" "}<code>html:has(.ui-dialog:modal)</code> sets <code
         >overflow: clip</code
       >{" "}
-      on the root while any dialog is open, and
+      on the root while a modal dialog is open, and
       {" "}<code>scrollbar-gutter: stable</code> keeps the layout from shifting when
       the scrollbar goes away.
     </p>

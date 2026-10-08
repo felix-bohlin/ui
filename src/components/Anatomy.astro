@@ -41,10 +41,49 @@ const anchors = parts
   .join("\n")
 
 const step = 100 / parts.length
-const tour = `@keyframes ${id}-tour {
-  0%, ${step}%, 100% { --anatomy-on: 0; }
-  ${step * 0.2}%, ${step * 0.8}% { --anatomy-on: 1; }
-}`
+const ramp = step * 0.2
+const fall = step * 0.8
+const keyframes = (
+  target: string,
+  off: string,
+  on: string,
+  [upFrom, upTo, downFrom, downTo] = [0, ramp, fall, step],
+) => `
+@keyframes ${id}-${target.replace(/\W+/g, "")} {
+  0%, ${upFrom}%, ${downTo}%, 100% { ${off} }
+  ${upTo}%, ${downFrom}% { ${on} }
+}
+:where([data-anatomy="${id}"] .legend) ${target} { animation-name: ${id}-${target.replace(/\W+/g, "")}; }`
+const leader = (n: number) =>
+  [
+    (ramp * (n - 1)) / 3,
+    (ramp * n) / 3,
+    fall + (ramp * (3 - n)) / 3,
+    fall + (ramp * (4 - n)) / 3,
+  ] as [number, number, number, number]
+const tour = [
+  keyframes(".glow::before", "opacity: 0;", "opacity: 1;"),
+  keyframes(".marker::after", "opacity: 0;", "opacity: 1;"),
+  keyframes(".frame::before", "opacity: 0;", "opacity: 1;"),
+  keyframes(
+    ".leader > :nth-child(1) > *",
+    "scale: 0 1;",
+    "scale: 1 1;",
+    leader(1),
+  ),
+  keyframes(
+    ".leader > :nth-child(2) > *",
+    "scale: 1 0;",
+    "scale: 1 1;",
+    leader(2),
+  ),
+  keyframes(
+    ".leader > :nth-child(3) > *",
+    "scale: 0 1;",
+    "scale: 1 1;",
+    leader(3),
+  ),
+].join("\n")
 ---
 
 <figure
@@ -54,7 +93,7 @@ const tour = `@keyframes ${id}-tour {
   <style is:inline set:html={anchors + tour}></style>
   <div
     class="layout"
-    style={`--count: ${parts.length}; --subject: --${id}-subject; --tour: ${id}-tour;`}
+    style={`--count: ${parts.length}; --subject: --${id}-subject;`}
   >
     <div class="stage">
       <div class="subject" inert style={`--zoom: ${zoom};`}>
@@ -68,20 +107,27 @@ const tour = `@keyframes ${id}-tour {
           <ListItem
             class="part"
             tabindex="0"
-            style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1};`}
+            style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1}; --row: --${id}-row-${i + 1};`}
           >
             <span slot="start" class="marker" />
             <Fragment slot="text">
               <p>
                 <code>{part.label}</code>
               </p>
-              <p set:html={formatInline(part.description)} />
+              <p set:html={formatInline(part.description, Astro.locals.link)} />
             </Fragment>
+            <span class="glow" aria-hidden="true" />
             <span class="frame" aria-hidden="true" />
             <span class="leader" aria-hidden="true">
-              <span />
-              <span />
-              <span />
+              <span>
+                <span />
+              </span>
+              <span>
+                <span />
+              </span>
+              <span>
+                <span />
+              </span>
             </span>
           </ListItem>
         ))
@@ -89,6 +135,18 @@ const tour = `@keyframes ${id}-tour {
     </List>
   </div>
 </figure>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    for (const { isIntersecting, target } of entries) {
+      target.toggleAttribute("data-offscreen", !isIntersecting)
+    }
+  })
+
+  document
+    .querySelectorAll(".anatomy-diagram")
+    .forEach((diagram) => observer.observe(diagram))
+</script>
 
 <style>
   @property --anatomy-on {
@@ -155,18 +213,32 @@ const tour = `@keyframes ${id}-tour {
     align-content: center;
     border-inline-start: var(--border-width) solid var(--border-color);
     display: grid;
+    isolation: isolate;
     margin: 0;
     padding: var(--size-3);
   }
 
+  .glow::before,
+  .marker::after,
+  .frame::before,
+  .leader > * > * {
+    animation-delay: calc(var(--i) * var(--_step));
+    animation-duration: calc(var(--count) * var(--_step));
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .anatomy-diagram[data-offscreen] {
+    .glow::before,
+    .marker::after,
+    .frame::before,
+    .leader > * > * {
+      animation-play-state: paused;
+    }
+  }
+
   .layout :global(.part) {
-    animation: var(--tour) calc(var(--count) * var(--_step)) ease-in-out
-      calc(var(--i) * var(--_step)) infinite;
-    background-color: color-mix(
-      in oklch,
-      var(--_anatomy-accent) calc(var(--anatomy-on) * 8%),
-      transparent
-    );
+    anchor-name: var(--row);
     border-radius: var(--radius-2);
     cursor: default;
     outline-offset: -2px;
@@ -174,83 +246,123 @@ const tour = `@keyframes ${id}-tour {
     transition: --anatomy-on 0.45s ease-out;
   }
 
+  .glow {
+    bottom: anchor(bottom);
+    left: anchor(left);
+    pointer-events: none;
+    position: absolute;
+    position-anchor: var(--row);
+    right: anchor(right);
+    top: anchor(top);
+    z-index: -1;
+
+    &::before {
+      background-color: color-mix(
+        in oklch,
+        var(--_anatomy-accent) 8%,
+        transparent
+      );
+      border-radius: var(--radius-2);
+      content: "";
+      inset: 0;
+      opacity: var(--anatomy-on);
+      position: absolute;
+    }
+  }
+
   .marker {
     anchor-name: var(--marker);
-    background-color: color-mix(
-      in oklch,
-      var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
-      transparent
-    );
     block-size: 0.5rem;
-    border: var(--_line) solid
-      color-mix(
-        in oklch,
-        var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
-        var(--_idle)
-      );
+    border: var(--_line) solid var(--_idle);
     border-radius: 50%;
     inline-size: 0.5rem;
+    position: relative;
+
+    &::after {
+      background-color: var(--_anatomy-accent);
+      border-radius: 50%;
+      content: "";
+      inset: calc(var(--_line) * -1);
+      opacity: var(--anatomy-on);
+      position: absolute;
+    }
   }
 
   .frame {
-    background-color: color-mix(
-      in oklch,
-      var(--_anatomy-accent) calc(var(--anatomy-on) * 12%),
-      transparent
-    );
-    border: 1px solid
-      color-mix(
-        in oklch,
-        var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
-        transparent
-      );
-    border-radius: var(--radius-1);
     bottom: anchor(bottom);
     left: anchor(left);
     position: absolute;
     position-anchor: var(--part);
     right: anchor(right);
     top: anchor(top);
+
+    &::before {
+      background-color: color-mix(
+        in oklch,
+        var(--_anatomy-accent) 12%,
+        transparent
+      );
+      border: 1px solid var(--_anatomy-accent);
+      border-radius: var(--radius-1);
+      content: "";
+      inset: 0;
+      opacity: var(--anatomy-on);
+      position: absolute;
+    }
   }
 
   .leader {
     display: contents;
 
     > * {
-      border: 0 solid var(--_anatomy-accent);
       pointer-events: none;
       position: absolute;
+
+      > * {
+        border: 0 solid var(--_anatomy-accent);
+        inset: 0;
+        position: absolute;
+      }
     }
 
     > :nth-child(1) {
-      border-block-start-width: var(--_line);
       left: calc(anchor(var(--subject) right) + var(--_knee));
       right: anchor(var(--marker) left);
-      scale: clamp(0, var(--anatomy-on) * 3, 1) 1;
       top: anchor(var(--marker) center);
-      transform-origin: right;
       translate: 0 calc(var(--_line) / -2);
+
+      > * {
+        border-block-start-width: var(--_line);
+        scale: clamp(0, var(--anatomy-on) * 3, 1) 1;
+        transform-origin: right;
+      }
     }
 
     > :nth-child(2) {
-      border-inline-start-width: var(--_line);
       bottom: min(anchor(var(--marker) center), anchor(var(--part) center));
       left: calc(anchor(var(--subject) right) + var(--_knee));
-      scale: 1 clamp(0, var(--anatomy-on) * 3 - 1, 1);
       top: min(anchor(var(--marker) center), anchor(var(--part) center));
       translate: calc(var(--_line) / -2) 0;
+
+      > * {
+        border-inline-start-width: var(--_line);
+        scale: 1 clamp(0, var(--anatomy-on) * 3 - 1, 1);
+      }
     }
 
     > :nth-child(3) {
-      border-block-start-width: var(--_line);
       left: anchor(var(--part) right);
       right: calc(anchor(var(--subject) right) - var(--_knee));
-      scale: clamp(0, var(--anatomy-on) * 3 - 2, 1) 1;
       top: anchor(var(--part) center);
-      transform-origin: right;
       translate: 0 calc(var(--_line) / -2);
 
-      &:after {
+      > * {
+        border-block-start-width: var(--_line);
+        scale: clamp(0, var(--anatomy-on) * 3 - 2, 1) 1;
+        transform-origin: right;
+      }
+
+      > *:after {
         background-color: var(--_anatomy-accent);
         block-size: 7px;
         border-radius: 50%;
@@ -264,7 +376,10 @@ const tour = `@keyframes ${id}-tour {
     }
   }
 
-  .layout:global(:has(.part:hover, .part:focus)) :global(.part) {
+  .layout:global(:has(.part:hover, .part:focus)) .glow::before,
+  .layout:global(:has(.part:hover, .part:focus)) .marker::after,
+  .layout:global(:has(.part:hover, .part:focus)) .frame::before,
+  .layout:global(:has(.part:hover, .part:focus)) .leader > * > * {
     animation: none;
   }
 
@@ -344,16 +459,31 @@ const tour = `@keyframes ${id}-tour {
   }
 
   @supports not (anchor-name: --a) {
+    .glow,
     .frame,
     .leader {
       display: none;
+    }
+
+    .layout :global(.part) {
+      background-color: color-mix(
+        in oklch,
+        var(--_anatomy-accent) calc(var(--anatomy-on) * 8%),
+        transparent
+      );
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .layout :global(.part) {
-      animation: none;
       transition: none;
+    }
+
+    .layout .glow::before,
+    .layout .marker::after,
+    .layout .frame::before,
+    .layout .leader > * > * {
+      animation: none;
     }
   }
 </style>

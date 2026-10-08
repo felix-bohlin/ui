@@ -19,7 +19,8 @@
     justify-content: center;
     min-inline-size: var(--_size);
     outline-offset: calc(-1 * var(--size-2));
-    padding: 0 var(--size-2);
+    padding-block: 0;
+    padding-inline: var(--size-2);
     position: relative;
     user-select: none;
 
@@ -36,20 +37,20 @@
 
     /* Element states */
     @media (hover: hover) {
-      &:hover:not(.ui-disabled, :has(input:disabled)) {
+      &:hover:not(:has(input:disabled)) {
         --_bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
       }
     }
 
     &:has(input:focus-visible) {
       --focus-ring-offset: -6px;
+      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--text-muted));
+        var(--focus-ring-color, var(--_focus-visible-color));
       outline-offset: var(--focus-ring-offset);
     }
 
     /* Disabled */
-    &.ui-disabled,
     &:has(input:disabled) {
       border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
       color: color-mix(in oklch, var(--text-primary) 30%, transparent);
@@ -68,7 +69,7 @@
       --_bg-color: oklch(from var(--primary) l c h / 25%);
 
       @media (hover: hover) {
-        &:hover {
+        &:hover:not(:has(input:disabled)) {
           --_bg-color: oklch(from var(--primary) l c h / 35%);
         }
       }
@@ -78,7 +79,7 @@
         color: var(--primary-contrast);
 
         @media (hover: hover) {
-          &:hover {
+          &:hover:not(:has(input:disabled)) {
             --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
           }
         }

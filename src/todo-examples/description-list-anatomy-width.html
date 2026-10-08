@@ -1,0 +1,91 @@
+<style>
+  .todo-stage {
+    display: grid;
+    inline-size: 384px;
+    outline: 1px dashed var(--border-color);
+    padding-inline: 0 var(--size-9);
+    place-items: center;
+  }
+
+  .todo-subject {
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    zoom: 1.25;
+
+    > * {
+      max-inline-size: 100%;
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The hero anatomy subject: a dotted bordered list at 16rem, zoom 1.25, in a
+      384px stage like the docs hero (padding-inline-end size-9). It stacks, so
+      no dotted leader shows.
+    </p>
+    <div class="todo-stage">
+      <div class="todo-subject">
+        <dl
+          class="ui-description-list ui-bordered ui-dotted"
+          style="inline-size: 16rem"
+        >
+          <div class="ui-item">
+            <dt class="ui-term">Price</dt>
+            <dd class="ui-description">6 950 000</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      30rem as proposed is capped by the stage and still stacks. Working fix: a
+      list without bordered, so the diagram doesn't promise a leader.
+    </p>
+    <div class="todo-stage">
+      <div class="todo-subject">
+        <dl
+          class="ui-description-list ui-bordered ui-dotted"
+          style="inline-size: 30rem"
+        >
+          <div class="ui-item">
+            <dt class="ui-term">Price</dt>
+            <dd class="ui-description">6 950 000</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="todo-stage">
+      <div class="todo-subject">
+        <dl class="ui-description-list" style="inline-size: 16rem">
+          <div class="ui-item">
+            <dt class="ui-term">Price</dt>
+            <dd class="ui-description">6 950 000</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = [...panel.querySelectorAll("dl")].map((dl) => {
+      const probe = document.createElement("div")
+      probe.style.inlineSize = "45ch"
+      dl.append(probe)
+      const ch = probe.offsetWidth
+      probe.remove()
+      const item = dl.querySelector(".ui-item")
+      const leader = getComputedStyle(item, "::after").content !== "none"
+      const columns =
+        getComputedStyle(item).gridTemplateColumns.split(" ").length
+      return `${dl.style.inlineSize}${dl.classList.contains("ui-bordered") ? " bordered" : ""}: ${dl.offsetWidth}px wide (45ch = ${ch}px), ${columns === 1 ? "stacked" : "one row"}, leader ${leader}`
+    })
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

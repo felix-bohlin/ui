@@ -1,0 +1,285 @@
+<style>
+  .todo-menu-text {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-menu-text dl {
+    display: grid;
+    gap: var(--size-1) var(--size-3);
+    grid-template-columns: max-content 1fr;
+    margin: 0;
+  }
+
+  .todo-menu-text dd {
+    margin: 0;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The whole Accessibility section today. Try the menu with the keyboard: it
+      doesn't say that opening keeps focus on the trigger, that arrow keys do
+      nothing, or why.
+    </p>
+    <div class="todo-menu-text">
+      <p><kbd>Tab</kbd> to navigate, and <kbd>Esc</kbd> to close.</p>
+    </div>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-a11y-menu-current"
+        command="toggle-popover"
+      >
+        Options
+      </button>
+      <menu class="ui-menu ui-list" id="todo-a11y-menu-current" popover>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-current"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Edit</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-current"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Duplicate</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-current"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+      <button type="button" class="ui-button">After the menu</button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed Role and Keyboard support text, with the same menu and a
+      <code>popover="manual"</code> copy. Every claim can be checked in the log:
+      it lists focus moves, arrow key presses and opening and closing.
+    </p>
+    <div class="todo-menu-text">
+      <p>
+        <strong>Role.</strong> A menu is a <code>&lt;menu&gt;</code> of buttons
+        and links, not an ARIA menu. It has no <code>role="menu"</code> or
+        <code>role="menuitem"</code>, so screen readers announce a list of
+        buttons, and the keyboard works like it does for any other button. The
+        ARIA menu pattern needs a script for arrow keys, which the library
+        doesn't ship.
+      </p>
+      <dl>
+        <dt><kbd>Enter</kbd>, <kbd>Space</kbd></dt>
+        <dd>
+          On the trigger, opens or closes the menu. Focus stays on the trigger.
+          On an item, activates it.
+        </dd>
+        <dt><kbd>Tab</kbd></dt>
+        <dd>
+          From the trigger, moves into the open menu: the browser puts a popover
+          opened by <code>commandfor</code> right after its trigger in the focus
+          order. Then moves to the next item, and after the last one, out of the
+          menu to the next element on the page. The menu stays open until Esc or
+          a click outside.
+        </dd>
+        <dt><kbd>Shift + Tab</kbd></dt>
+        <dd>
+          Moves to the previous item, and from the first item to the trigger.
+        </dd>
+        <dt>Arrow keys</dt>
+        <dd>Do nothing.</dd>
+        <dt><kbd>Esc</kbd></dt>
+        <dd>
+          Closes the menu and returns focus to the trigger. Clicking outside
+          closes it too. Both only work with the default
+          <code>popover="auto"</code>. With <code>popover="manual"</code>, close
+          it with the trigger or an item.
+        </dd>
+      </dl>
+    </div>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-a11y-menu-fixed"
+        command="toggle-popover"
+      >
+        Options
+      </button>
+      <menu class="ui-menu ui-list" id="todo-a11y-menu-fixed" popover>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-fixed"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Edit</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-fixed"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Duplicate</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-fixed"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-a11y-menu-manual"
+        command="toggle-popover"
+      >
+        Manual
+      </button>
+      <menu class="ui-menu ui-list" id="todo-a11y-menu-manual" popover="manual">
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-manual"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Edit</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-manual"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Close</p></div>
+          </button>
+        </li>
+      </menu>
+      <button type="button" class="ui-button">After the menus</button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Proposed: <code>popover="manual"</code> API</p>
+    <p class="todo-note">
+      Keep the <code>popover</code> prop with the native values,
+      <code>"auto"</code> (default) and <code>"manual"</code>, like Drawer's
+      <code>closedby</code>. The API row says what manual changes, and a Manual
+      section shows a menu that stays open while you pick items. Here only Done
+      closes it; Esc and a click outside do nothing.
+    </p>
+    <pre class="todo-measure">
+Astro
+&lt;Menu id="view" popover="manual" items={[
+  { closeOnClick: false, label: "Show grid" },
+  { closeOnClick: false, label: "Show rulers" },
+  { borderTop: true, label: "Done" },
+]} /&gt;
+
+Vue
+&lt;Menu id="view" popover="manual" :items="[
+  { closeOnClick: false, label: 'Show grid' },
+  { closeOnClick: false, label: 'Show rulers' },
+  { borderTop: true, label: 'Done' },
+]" /&gt;
+
+HTML
+&lt;menu class="ui-menu ui-list" id="view" popover="manual"&gt;</pre>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-a11y-menu-view"
+        command="toggle-popover"
+      >
+        View
+      </button>
+      <menu class="ui-menu ui-list" id="todo-a11y-menu-view" popover="manual">
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Show grid</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Show rulers</p></div>
+          </button>
+        </li>
+        <li class="ui-border-top">
+          <button
+            type="button"
+            commandfor="todo-a11y-menu-view"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Done</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    const name = (element) => {
+      if (!element || element === document.body) return "the page"
+      const text = element.textContent.trim().replace(/\s+/g, " ")
+      const menu = element.closest("menu")
+      return menu
+        ? `"${text}" in ${menu.id.replace("todo-a11y-", "")}`
+        : `"${text}"`
+    }
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const measure = panel.querySelector("[data-measure]")
+      const lines = []
+      const log = (line) => {
+        lines.push(line)
+        measure.textContent = lines.slice(-8).join("\n")
+      }
+      log("Focus the Options button and use the keyboard.")
+      panel.addEventListener("focusin", (event) => {
+        log(`focus: ${name(event.target)}`)
+      })
+      panel.addEventListener("keydown", (event) => {
+        if (!event.key.startsWith("Arrow") && event.key !== "Escape") return
+        const key = event.key
+        requestAnimationFrame(() =>
+          log(`${key}: focus on ${name(document.activeElement)}`),
+        )
+      })
+      for (const menu of panel.querySelectorAll("menu[popover]")) {
+        menu.addEventListener("toggle", (event) => {
+          log(
+            `${menu.id.replace("todo-a11y-", "")} ${event.newState === "open" ? "opened" : "closed"}, focus on ${name(document.activeElement)}`,
+          )
+        })
+      }
+    }
+  }
+</script>

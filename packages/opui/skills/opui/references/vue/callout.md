@@ -2,10 +2,6 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
-### What's new
-
-- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.
-
 ## Anatomy
 
 ### Title
@@ -18,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `v-slot:icon`
 
-  An optional icon. `info`, `success`, `warning` and `critical` have a default icon.
+  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
 
 - `v-slot:default`
 
@@ -142,19 +138,19 @@ import { Callout } from "opui-css/vue"
 
 ### Callout API
 
-| Prop           | Type                                                              | Default   | Description                                        |
-| -------------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                    |
-| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color and the default icon. |
-| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                |
+| Prop           | Type                                                              | Default   | Description                                                                  |
+| -------------- | ----------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------- |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                              |
+| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, Svelte and Vue the default icon. |
+| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                          |
 
 #### Slots
 
-| Slot      | Description                                                                        |
-| --------- | ---------------------------------------------------------------------------------- |
-| `default` | The content.                                                                       |
-| `icon`    | An optional icon. `info`, `success`, `warning` and `critical` have a default icon. |
-| `title`   | An optional title inside the content.                                              |
+| Slot      | Description                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `default` | The content.                                                                                                              |
+| `icon`    | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
+| `title`   | An optional title inside the content.                                                                                     |
 
 #### CSS variables
 
@@ -174,6 +170,8 @@ import { Callout } from "opui-css/vue"
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Severity colors from one source color](https://open-props-ui.netlify.app/learn/callout-relative-colors)
 
 1. Surface
 
@@ -197,7 +195,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
    - One source color per severity, every shade derived with `oklch(from …)`
    - `light-dark()` picks the shade for each color scheme, no media query
    - A 20% tint in light, 5% in dark: the opaque surface underneath does the rest
-   - The real palette derives 16 shades from `--palette-source`, here four are inlined
+   - The real palette derives 16 shades from `--palette-source`, here seven are inlined
+   - The icon draws with `currentColor`, so `color` tints fill and stroke icons alike
 
 Step 1 of 4: Surface
 
@@ -304,20 +303,27 @@ Step 4 of 4: Severity
 
 
 .callout > svg {
-  stroke: var(--icon, currentColor);
+  color: var(--icon, currentColor);
 }
 ```
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Chromium: Full support Supported since v143.
+- Firefox: Full support Supported since v146.
+- Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Callout.md).
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 - `opui-css/css/components/callout.css`
 `theme tokens (snippet)`
 
+## Changelog
+
+### What's new
+
+- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.

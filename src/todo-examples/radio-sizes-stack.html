@@ -1,0 +1,105 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Radio page sections: Basics, Field description, Disabled, Required,
+      Validation, Direction, Spread, Label alignment. No example uses
+      <code>.ui-small</code>, <code>.ui-large</code> or <code>.ui-stack</code>;
+      per-radio end text only appears in Spread, unexplained.
+    </p>
+    <form class="ui-form">
+      <fieldset class="ui-fieldset">
+        <legend>Legend</legend>
+        <div class="ui-field-group">
+          <label class="ui-radio">
+            <input name="radio-basics-current" type="radio" value="1" checked />
+            <span class="ui-label">Radio 1</span>
+          </label>
+          <label class="ui-radio">
+            <input name="radio-basics-current" type="radio" value="2" />
+            <span class="ui-label">Radio 2</span>
+          </label>
+        </div>
+      </fieldset>
+    </form>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Sizes, Visible label, Label position and End text sections ported from
+      Checkbox, showing <code>.ui-small</code>, <code>.ui-large</code>,
+      <code>.ui-stack</code> and <code>.ui-end-text</code>, which radio.css
+      already implements.
+    </p>
+    <p class="ui-caption">Sizes</p>
+    <div class="todo-row">
+      <label class="ui-radio ui-small">
+        <input name="radio-sizes-fixed" type="radio" checked />
+        <span class="ui-label">Small</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-sizes-fixed" type="radio" />
+        <span class="ui-label">Default</span>
+      </label>
+      <label class="ui-radio ui-large">
+        <input name="radio-sizes-fixed" type="radio" />
+        <span class="ui-label">Large</span>
+      </label>
+    </div>
+    <p class="ui-caption">Label position</p>
+    <div class="todo-row">
+      <label class="ui-radio">
+        <input name="radio-label-position-fixed" type="radio" checked />
+        <span class="ui-label">Default</span>
+      </label>
+      <label class="ui-radio ui-stack">
+        <input name="radio-label-position-fixed" type="radio" />
+        <span class="ui-label">Stack</span>
+      </label>
+    </div>
+    <p class="ui-caption">End text</p>
+    <div class="todo-row">
+      <label class="ui-radio">
+        <input
+          name="radio-end-text-fixed"
+          type="radio"
+          aria-describedby="radio-end-text-1-fixed"
+          checked
+        />
+        <span class="ui-label">Default</span>
+        <span class="ui-end-text" id="radio-end-text-1-fixed"
+          >Supporting text</span
+        >
+      </label>
+      <label class="ui-radio ui-stack">
+        <input
+          name="radio-end-text-fixed"
+          type="radio"
+          aria-describedby="radio-end-text-2-fixed"
+        />
+        <span class="ui-label">Stack</span>
+        <span class="ui-end-text" id="radio-end-text-2-fixed"
+          >Supporting text</span
+        >
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = []
+    for (const radio of panel.querySelectorAll(".ui-radio")) {
+      const input = radio.querySelector("input").getBoundingClientRect()
+      const label = radio.querySelector(".ui-label").getBoundingClientRect()
+      const position =
+        label.top >= input.bottom ? "label below" : "label beside"
+      const end = radio.querySelector(".ui-end-text") ? ", end text" : ""
+      lines.push(
+        `${radio.className}: ${input.width}px input, ${position}${end}`,
+      )
+    }
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

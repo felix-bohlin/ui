@@ -50,6 +50,11 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         The Chip has two variants: tonal (default) and <code>.ui-outlined</code
         >.
       </Fragment>
+      <Fragment slot="svelte">
+        The Chip has two variants: <code>tonal</code> (default) and <code
+          >outlined</code
+        >.
+      </Fragment>
       <Fragment slot="vue">
         The Chip has two variants: <code>tonal</code> (default) and <code
           >outlined</code
@@ -60,7 +65,65 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
   </section>
 
   <section>
+    <h2 id="colors">Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>color</code> to <code>critical</code>, <code>info</code>,
+        <code>neutral</code>, <code>success</code> or <code>warning</code> to tint
+        a tonal chip, such as a status. Keep the status in the label, since color
+        alone doesn't tell it.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >, <code>.ui-success</code> or <code>.ui-warning</code> to tint a tonal chip,
+        such as a status. Keep the status in the label, since color alone doesn't
+        tell it.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>color</code> to <code>critical</code>, <code>info</code>,
+        <code>neutral</code>, <code>success</code> or <code>warning</code> to tint
+        a tonal chip, such as a status. Keep the status in the label, since color
+        alone doesn't tell it.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>color</code> to <code>critical</code>, <code>info</code>,
+        <code>neutral</code>, <code>success</code> or <code>warning</code> to tint
+        a tonal chip, such as a status. Keep the status in the label, since color
+        alone doesn't tell it.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Colors" row />
+  </section>
+
+  <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Labels truncate with an ellipsis.
+        Add <code>.ui-multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Labels truncate
+        with an ellipsis. Set <code>multiline</code> to let them wrap.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
   </section>
 
@@ -69,18 +132,67 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <Conditional>
       <p slot="astro">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> slots.
+        <code>start</code> and <code>end</code> slots. When you use the default slot
+        instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
       </p>
       <p slot="html">
         The icon can be placed before or after the text. <br />
         Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
       </p>
+      <p slot="svelte">
+        The icon can be placed before or after the text using the{" "}
+        <code>start</code> and <code>end</code> snippets. When you use <code
+          >children</code
+        > instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
+      </p>
       <p slot="vue">
         The icon can be placed before or after the text using the{" "}
-        <code>start</code> and <code>end</code> slots.
+        <code>start</code> and <code>end</code> slots. When you use the default slot
+        instead of <code>label</code>, wrap the text in <code
+          >&lt;span class="ui-text"&gt;</code
+        > so it can truncate.
       </p>
     </Conditional>
     <AutoExample name="Icon" row />
+  </section>
+
+  <section>
+    <h2 id="dot">Dot</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>dot</code> to add a leading dot in the chip's color. The shape follows
+        the color: a diamond for <code>critical</code>, a triangle for
+        <code>warning</code> and a ring for <code>neutral</code>, so the dots
+        differ without color too. On an <code>outlined</code> chip only the dot is
+        colored, which keeps a table of statuses calm.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-dot</code> for a leading dot in the chip's color. The shape
+        follows the color: a diamond for <code>.ui-critical</code>, a triangle
+        for <code>.ui-warning</code> and a ring for <code>.ui-neutral</code>, so
+        the dots differ without color too. On an <code>.ui-outlined</code> chip only
+        the dot is colored, which keeps a table of statuses calm.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>dot</code> to add a leading dot in the chip's color. The shape follows
+        the color: a diamond for <code>critical</code>, a triangle for
+        <code>warning</code> and a ring for <code>neutral</code>, so the dots
+        differ without color too. On an <code>outlined</code> chip only the dot is
+        colored, which keeps a table of statuses calm.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>dot</code> to add a leading dot in the chip's color. The shape follows
+        the color: a diamond for <code>critical</code>, a triangle for
+        <code>warning</code> and a ring for <code>neutral</code>, so the dots
+        differ without color too. On an <code>outlined</code> chip only the dot is
+        colored, which keeps a table of statuses calm.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Dot" column />
   </section>
 
   <section>
@@ -97,15 +209,22 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Disable a button chip with the <code>disabled</code> attribute.
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
       <Fragment slot="html">
-        Add disabled styling with the <code>disabled</code> attribute, <code
-          >aria-disabled="true"</code
-        > or the <code>.ui-disabled</code> class.
+        Disable a button chip with the <code>disabled</code> attribute, and use
+        {" "}<code>aria-disabled="true"</code> on a link chip. A static
+        {" "}<code>&lt;div class="ui-chip"&gt;</code> can't be disabled, so the
+        {" "}<code>.ui-disabled</code> class just dims it.
+      </Fragment>
+      <Fragment slot="svelte">
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
       <Fragment slot="vue">
-        Disable a button chip with the <code>disabled</code> attribute.
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" row />

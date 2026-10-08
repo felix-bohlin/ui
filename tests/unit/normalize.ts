@@ -7,7 +7,7 @@ type Element = DefaultTreeAdapterMap["element"]
 const DROPPED_ELEMENTS = new Set(["script", "style"])
 
 const DROPPED_ATTRIBUTE =
-  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
+  /^(data-astro-|data-svelte-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
 
 const ID_REFERENCE_ATTRIBUTES = new Set([
   "anchor",

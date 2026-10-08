@@ -1,0 +1,713 @@
+<style>
+  .kanban-board {
+    container-type: inline-size;
+
+    .kanban-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-2) var(--size-4);
+
+      .ui-avatar-group {
+        margin-inline-start: auto;
+      }
+    }
+
+    .kanban-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-4);
+      padding: var(--size-5) var(--size-4);
+    }
+
+    .kanban-title {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .kanban-toolbar {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .kanban-columns {
+      display: grid;
+      gap: var(--size-3);
+      grid-auto-columns: minmax(17rem, 1fr);
+      grid-auto-flow: column;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding-block-end: var(--size-2);
+      scroll-snap-type: inline mandatory;
+    }
+
+    .kanban-column {
+      align-content: start;
+      background-color: var(--surface-tonal);
+      border-radius: var(--radius-3);
+      display: grid;
+      gap: var(--size-2);
+      padding: var(--size-2);
+      scroll-snap-align: start;
+    }
+
+    .kanban-column-header {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-1) var(--size-1) var(--size-1) var(--size-2);
+
+      h2 {
+        margin: 0;
+      }
+
+      .ui-button {
+        margin-inline-start: auto;
+      }
+
+      &::before {
+        background-color: var(--status);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--size-2);
+      }
+    }
+
+    .kanban-count {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kanban-cards {
+      display: grid;
+      gap: var(--size-2);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-2);
+      }
+
+      h3 {
+        margin: 0;
+      }
+    }
+
+    .kanban-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+    }
+
+    .kanban-dot {
+      background-color: var(--dot);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      flex-shrink: 0;
+      inline-size: var(--size-2);
+    }
+
+    .kanban-meta {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+
+      .ui-avatar-group,
+      & > .ui-avatar {
+        margin-inline-start: auto;
+      }
+
+      span {
+        align-items: center;
+        display: inline-flex;
+        gap: var(--size-1);
+      }
+
+      svg {
+        block-size: var(--size-3);
+        inline-size: var(--size-3);
+      }
+    }
+
+    .kanban-overdue {
+      color: light-dark(
+        oklch(from var(--critical) 0.45 c h),
+        oklch(from var(--critical) 0.8 c h)
+      );
+    }
+
+    .kanban-done h3 {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .kanban-add {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="kanban-board">
+  <header class="kanban-header">
+    <a class="kanban-brand" href="#kanban-board">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M5 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m10 0h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2"
+        ></path>
+      </svg>
+      Tavla
+    </a>
+    <div class="ui-avatar-group" role="group" aria-label="Board members">
+      <div class="ui-avatar" role="img" aria-label="Astrid Nilsson">AN</div>
+      <div class="ui-avatar" role="img" aria-label="Diego Morales">DM</div>
+      <div class="ui-avatar" role="img" aria-label="Hanna Virtanen">HV</div>
+      <div class="ui-avatar" role="img" aria-label="Lukas Weber">LW</div>
+    </div>
+    <button class="ui-button ui-outlined ui-small" type="button">Share</button>
+  </header>
+
+  <main>
+    <div class="kanban-title">
+      <hgroup class="ui-hgroup">
+        <p>Sprint 42 · 6–17 October</p>
+        <h1 class="ui-h3">Website relaunch</h1>
+      </hgroup>
+      <div class="kanban-toolbar">
+        <div
+          aria-label="Show tasks"
+          class="ui-toggle-group ui-small"
+          role="radiogroup"
+        >
+          <label class="ui-toggle-button">
+            <input name="kanban-filter" type="radio" value="all" checked />
+            All tasks
+          </label>
+          <label class="ui-toggle-button">
+            <input name="kanban-filter" type="radio" value="mine" />
+            Assigned to me
+          </label>
+        </div>
+        <button class="ui-button ui-filled ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">New task</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="kanban-columns">
+      <section
+        aria-labelledby="kanban-todo-heading"
+        class="kanban-column"
+        style="--status: var(--text-muted)"
+      >
+        <div class="kanban-column-header">
+          <h2 class="ui-h6" id="kanban-todo-heading">To do</h2>
+          <span class="kanban-count">3</span>
+          <button
+            aria-label="Add task to To do"
+            class="ui-button ui-rounded ui-x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <ol class="kanban-cards">
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span class="kanban-dot" style="--dot: var(--info)"></span>
+                    <span class="ui-text">Content</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-112"
+                    >Write copy for the pricing page</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-14">14 Oct</time>
+                  </span>
+                  <div class="ui-avatar" role="img" aria-label="Astrid Nilsson">
+                    AN
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--success)"
+                    ></span>
+                    <span class="ui-text">Frontend</span>
+                  </span>
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--warning)"
+                    ></span>
+                    <span class="ui-text">Legal</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-118"
+                    >Cookie banner for EU visitors</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-16">16 Oct</time>
+                  </span>
+                  <div class="ui-avatar" role="img" aria-label="Diego Morales">
+                    DM
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--critical)"
+                    ></span>
+                    <span class="ui-text">SEO</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-121"
+                    >Set up redirects from old URLs</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-17">17 Oct</time>
+                  </span>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ol>
+        <button class="ui-button ui-small kanban-add" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">Add a task</span>
+        </button>
+      </section>
+
+      <section
+        aria-labelledby="kanban-progress-heading"
+        class="kanban-column"
+        style="--status: var(--info)"
+      >
+        <div class="kanban-column-header">
+          <h2 class="ui-h6" id="kanban-progress-heading">In progress</h2>
+          <span class="kanban-count">2</span>
+          <button
+            aria-label="Add task to In progress"
+            class="ui-button ui-rounded ui-x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <ol class="kanban-cards">
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--success)"
+                    ></span>
+                    <span class="ui-text">Frontend</span>
+                  </span>
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--primary)"
+                    ></span>
+                    <span class="ui-text">Design</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-104"
+                    >New navigation with mega menu</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span class="kanban-overdue">
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Overdue, was due</span>
+                    <time datetime="2026-10-07">7 Oct</time>
+                  </span>
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2"
+                      ></path>
+                    </svg>
+                    5 <span class="ui-sr-only">comments</span>
+                  </span>
+                  <div
+                    class="ui-avatar-group"
+                    role="group"
+                    aria-label="Assignees"
+                  >
+                    <div
+                      class="ui-avatar"
+                      role="img"
+                      aria-label="Hanna Virtanen"
+                    >
+                      HV
+                    </div>
+                    <div class="ui-avatar" role="img" aria-label="Lukas Weber">
+                      LW
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span class="kanban-dot" style="--dot: var(--info)"></span>
+                    <span class="ui-text">Content</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-109"
+                    >Migrate blog posts to the new CMS</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-9 14-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Subtasks done:</span>
+                    18/42
+                  </span>
+                  <div class="ui-avatar" role="img" aria-label="Astrid Nilsson">
+                    AN
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <section
+        aria-labelledby="kanban-review-heading"
+        class="kanban-column"
+        style="--status: var(--warning)"
+      >
+        <div class="kanban-column-header">
+          <h2 class="ui-h6" id="kanban-review-heading">In review</h2>
+          <span class="kanban-count">1</span>
+          <button
+            aria-label="Add task to In review"
+            class="ui-button ui-rounded ui-x-small"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <ol class="kanban-cards">
+          <li>
+            <article class="ui-card ui-outlined">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--success)"
+                    ></span>
+                    <span class="ui-text">Frontend</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-097"
+                    >Accessibility audit of checkout</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                      ></path>
+                    </svg>
+                    <span class="ui-sr-only">Due</span>
+                    <time datetime="2026-10-09">9 Oct</time>
+                  </span>
+                  <span>
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2"
+                      ></path>
+                    </svg>
+                    12 <span class="ui-sr-only">comments</span>
+                  </span>
+                  <div class="ui-avatar" role="img" aria-label="Lukas Weber">
+                    LW
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <section
+        aria-labelledby="kanban-done-heading"
+        class="kanban-column"
+        style="--status: var(--success)"
+      >
+        <div class="kanban-column-header">
+          <h2 class="ui-h6" id="kanban-done-heading">Done</h2>
+          <span class="kanban-count">2</span>
+        </div>
+        <ol class="kanban-cards">
+          <li>
+            <article class="ui-card ui-outlined kanban-done">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--primary)"
+                    ></span>
+                    <span class="ui-text">Design</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-088"
+                    >Pick a new type scale</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span
+                    >Completed <time datetime="2026-10-06">6 Oct</time></span
+                  >
+                  <div class="ui-avatar" role="img" aria-label="Hanna Virtanen">
+                    HV
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="ui-card ui-outlined kanban-done">
+              <div class="ui-content">
+                <div class="kanban-labels">
+                  <span class="ui-chip ui-outlined ui-x-small">
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--text-muted)"
+                    ></span>
+                    <span class="ui-text">DevOps</span>
+                  </span>
+                </div>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#kanban-task-091"
+                    >Staging environment on Fly</a
+                  >
+                </h3>
+                <div class="kanban-meta">
+                  <span
+                    >Completed <time datetime="2026-10-03">3 Oct</time></span
+                  >
+                  <div class="ui-avatar" role="img" aria-label="Diego Morales">
+                    DM
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </main>
+</div>

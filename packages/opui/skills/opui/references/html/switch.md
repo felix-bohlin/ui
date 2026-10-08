@@ -2,12 +2,6 @@
 
 Use a Switch for a setting that applies right away. Use a [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md) for choices that are submitted with a form, and a [Toggle](https://open-props-ui.netlify.app/html/components/toggle.md) for options in a toolbar. See also: [Switch field group](#field-group).
 
-### What's new
-
-- Breaking: [`size="small"`](#sizes) replaces `small`.
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Without a visible label, switches center in table cells and lines of text.
-
 ## Anatomy
 
 Theme Label End text
@@ -38,7 +32,7 @@ Theme Label End text
 
 ## Basics
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`.
 
 ```html
 <!-- Checked -->
@@ -77,10 +71,16 @@ All switches should have an accessible name. Put the label text inside the compo
 
 ## Sizes
 
-Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switch variant.
+Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, on the `<label class="ui-switch">`.
 
 ```html
 <div class="example-row">
+  <label class="ui-switch ui-x-small">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">x-small</span>
+  </label>
+
+
   <label class="ui-switch ui-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-sr-only">Small</span>
@@ -91,10 +91,22 @@ Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switc
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-sr-only">Default</span>
   </label>
+
+
+  <label class="ui-switch ui-large">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">Large</span>
+  </label>
 </div>
 
 
 <div class="example-row">
+  <label class="ui-switch ui-x-small">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-label">x-small</span>
+  </label>
+
+
   <label class="ui-switch ui-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Small</span>
@@ -104,6 +116,12 @@ Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switc
   <label class="ui-switch">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Default</span>
+  </label>
+
+
+  <label class="ui-switch ui-large">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-label">Large</span>
   </label>
 </div>
 ```
@@ -136,6 +154,8 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 ```
 
 ### Label position
+
+Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the switch.
 
 ```html
 <label class="ui-switch">
@@ -181,59 +201,9 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 </label>
 ```
 
-### Validation
-
-- Add `[required]` to the `<input>` element to toggle required styles.
-- Add `data-invalid` on the root element to toggle invalid styles. Make use of the end text to give extra feedback on the error.
-
-```html
-<div class="example-row ui-spacious">
-  <label class="ui-switch">
-    <input name="switch-validation" type="checkbox" role="switch" required />
-    <span class="ui-label">Default</span>
-  </label>
-
-
-  <label class="ui-switch ui-stack">
-    <input name="switch-validation" type="checkbox" role="switch" required />
-    <span class="ui-label">Stack</span>
-  </label>
-</div>
-
-
-<div class="example-row ui-spacious">
-  <label class="ui-switch" data-invalid>
-    <input
-      aria-invalid="true"
-      name="switch-validation"
-      type="checkbox"
-      role="switch"
-      aria-describedby="switch-validation-end-text-1"
-    />
-    <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="switch-validation-end-text-1"
-      >Supporting text</span
-    >
-  </label>
-
-
-  <label class="ui-switch ui-stack" data-invalid>
-    <input
-      aria-invalid="true"
-      name="switch-validation"
-      type="checkbox"
-      role="switch"
-      aria-describedby="switch-validation-end-text-2"
-    />
-    <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="switch-validation-end-text-2"
-      >Supporting text</span
-    >
-  </label>
-</div>
-```
-
 ## Icons
+
+Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hidden="true"` before the `<input>`.
 
 ```html
 <label class="ui-switch ui-small">
@@ -300,6 +270,59 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 </label>
 ```
 
+## Validation
+
+- Add `[required]` to the `<input>` element to toggle required styles.
+- Add `aria-invalid="true"` to the `<input>` to toggle invalid styles. Screen readers announce it as invalid. Make use of the end text to give extra feedback on the error, and point `aria-describedby` at it.
+- Switches also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
+
+```html
+<div class="example-row ui-spacious">
+  <label class="ui-switch">
+    <input name="switch-validation" type="checkbox" role="switch" required />
+    <span class="ui-label">Default</span>
+  </label>
+
+
+  <label class="ui-switch ui-stack">
+    <input name="switch-validation" type="checkbox" role="switch" required />
+    <span class="ui-label">Stack</span>
+  </label>
+</div>
+
+
+<div class="example-row ui-spacious">
+  <label class="ui-switch">
+    <input
+      aria-invalid="true"
+      name="switch-validation"
+      type="checkbox"
+      role="switch"
+      aria-describedby="switch-validation-end-text-1"
+    />
+    <span class="ui-label">Default</span>
+    <span class="ui-end-text" id="switch-validation-end-text-1"
+      >Supporting text</span
+    >
+  </label>
+
+
+  <label class="ui-switch ui-stack">
+    <input
+      aria-invalid="true"
+      name="switch-validation"
+      type="checkbox"
+      role="switch"
+      aria-describedby="switch-validation-end-text-2"
+    />
+    <span class="ui-label">Stack</span>
+    <span class="ui-end-text" id="switch-validation-end-text-2"
+      >Supporting text</span
+    >
+  </label>
+</div>
+```
+
 ## Spread
 
 Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
@@ -349,7 +372,7 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
 </label>
 
 
-<label class="ui-switch ui-spread" data-invalid>
+<label class="ui-switch ui-spread">
   <input
     aria-invalid="true"
     name="switch-spread"
@@ -568,15 +591,16 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` element.
+Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.ui-fieldset` turns red with them.
 
 ```html
 <form class="ui-form">
-  <fieldset class="ui-fieldset" data-invalid>
+  <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -585,6 +609,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
       </label>
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -593,6 +618,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
       </label>
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -617,11 +643,11 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 
 Accessible switches should have a label. The first two approaches are equally ok:
 
-| Approach                                                       | Usage in Switch component                                                                                                                                                                                                        |
-| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro and Vue, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
-| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                        |
-| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                        |
+| Approach                                                       | Usage in Switch component                                                                                                                |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. |
+| Add an `aria-label` on the input                               | Not used. Use `.ui-sr-only` instead, also for icon-only switches.                                                                        |
+| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                |
 
 ### Keyboard support
 
@@ -633,12 +659,12 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Type       | Modifiers        | Default | Description                                       |
-| ---------- | ---------------- | ------- | ------------------------------------------------- |
-| Layout     | `.ui-spread`     | -       | Pushes the label and the switch to opposite ends. |
-| Layout     | `.ui-stack`      | -       | Stacks the label under the switch.                |
-| Sizes      | `.ui-small`      | -       | The size of the element.                          |
-| Validation | `[data-invalid]` | -       | Shows error styles.                               |
+| Type       | Modifiers                               | Default | Description                                       |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and the switch to opposite ends. |
+| Layout     | `.ui-stack`                             | -       | Stacks the label under the switch.                |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
+| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles. |
 
 #### Parts
 
@@ -653,36 +679,42 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 #### CSS variables
 
-| Variable                      | Default                                                                                 | Description                                                                                                                                           |
-| ----------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--choice-label-offset`       | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font. |
-| `--disabled-opacity`          | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                 |
-| `--duration`                  | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                |
-| `--ease`                      | `ease`                                                                                  | Default easing for transitions.                                                                                                                       |
-| `--field-border-width`        | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                            |
-| `--field-helper-color`        | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                     |
-| `--field-helper-font-size`    | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                      |
-| `--field-helper-line-height`  | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                    |
-| `--field-label-color`         | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                          |
-| `--field-label-font-size`     | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                           |
-| `--field-label-font-weight`   | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                  |
-| `--field-required-color`      | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                       |
-| `--focus-ring-color`          | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                       |
-| `--focus-ring-offset`         | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                        |
-| `--focus-ring-style`          | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                      |
-| `--focus-ring-width`          | `2px`                                                                                   | Width of the focus ring.                                                                                                                              |
-| `--invalid-color`             | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
-| `--invalid-text-color`        | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
-| `--motion`                    | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.                            |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
-| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
-| `--switch-dot-size`           | `var(--size-3)`                                                                         | Diameter of the `Switch` dot.                                                                                                                         |
-| `--switch-dot-size-small`     | `0.75rem`                                                                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                      |
-| `--switch-track-height`       | `var(--size-5)`                                                                         | Height of the `Switch` track.                                                                                                                         |
-| `--switch-track-height-small` | `var(--size-4)`                                                                         | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                      |
-| `--switch-track-width`        | `var(--size-8)`                                                                         | Width of the `Switch` track.                                                                                                                          |
-| `--switch-track-width-small`  | `2.5rem`                                                                                | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                       |
-| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
+| Variable                        | Default                                                                                 | Description                                                                                                                                                                                                  |
+| ------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--choice-label-offset`         | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
+| `--disabled-opacity`            | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration`                    | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                        | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
+| `--field-border-width`          | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
+| `--field-helper-color`          | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
+| `--field-helper-font-size`      | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
+| `--field-helper-line-height`    | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                           |
+| `--field-label-color`           | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                 |
+| `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
+| `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
+| `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
+| `--focus-ring-color`            | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
+| `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
+| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
+| `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
+| `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
+| `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
+| `--motion`                      | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                     | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`            | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--switch-dot-size`             | `var(--size-3)`                                                                         | Diameter of the `Switch` dot.                                                                                                                                                                                |
+| `--switch-dot-size-large`       | `1.25rem`                                                                               | Diameter of the `Switch` dot with `.ui-large`.                                                                                                                                                               |
+| `--switch-dot-size-small`       | `0.75rem`                                                                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-dot-size-x-small`     | `0.625rem`                                                                              | Diameter of the `Switch` dot with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-height`         | `var(--size-5)`                                                                         | Height of the `Switch` track.                                                                                                                                                                                |
+| `--switch-track-height-large`   | `var(--size-6)`                                                                         | Height of the `Switch` track with `.ui-large`.                                                                                                                                                               |
+| `--switch-track-height-small`   | `var(--size-4)`                                                                         | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-track-height-x-small` | `var(--size-3)`                                                                         | Height of the `Switch` track with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-width`          | `var(--size-8)`                                                                         | Width of the `Switch` track.                                                                                                                                                                                 |
+| `--switch-track-width-large`    | `3.5rem`                                                                                | Width of the `Switch` track with `.ui-large`.                                                                                                                                                                |
+| `--switch-track-width-small`    | `2.5rem`                                                                                | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                              |
+| `--switch-track-width-x-small`  | `var(--size-7)`                                                                         | Width of the `Switch` track with `.ui-x-small`.                                                                                                                                                              |
+| `--text-primary`                | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -690,9 +722,9 @@ The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead
 
 ### Field group API
 
-| Type        | Modifiers          | Default | Description                     |
-| ----------- | ------------------ | ------- | ------------------------------- |
-| Orientation | default, `.ui-row` | -       | The orientation of the element. |
+| Type        | Modifiers               | Default | Description                                                                                              |
+| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 
@@ -711,9 +743,7 @@ The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
@@ -722,6 +752,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
+
+Read the post: [A switch from a checkbox](https://open-props-ui.netlify.app/learn/switch-checkbox)
 
 1. Track
 
@@ -739,7 +771,7 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
    - An `outline` in the dot's own color grows it without touching its box
    - Press and hold: `:active` grows it a little more
-   - `transition: all` animates position, color and outline together
+   - The transition lists position, color and outline, so nothing else animates by accident
 
 4. Icons
 
@@ -747,6 +779,7 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
    - `:has(:checked)` on the label swaps which icon shows
    - Each icon sits on the side the dot is not
    - `pointer-events: none` lets clicks through to the input
+   - A `.ui-sr-only` span names the switch without showing text
 
 Step 1 of 4: Track
 
@@ -831,7 +864,11 @@ Step 3 of 4: Motion
 
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
-  transition: all 0.2s var(--ease);
+  transition:
+    background-color 0.2s var(--ease),
+    inset-inline-start 0.2s var(--ease),
+    outline-color 0.2s var(--ease),
+    outline-width 0.2s var(--ease);
 }
 
 
@@ -853,7 +890,8 @@ Step 4 of 4: Icons
 <label class="label">
   <span class="icon icon-unchecked" aria-hidden="true"><svg>…</svg></span>
   <span class="icon icon-checked" aria-hidden="true"><svg>…</svg></span>
-  <input class="switch" type="checkbox" role="switch" aria-label="Light theme" />
+  <input class="switch" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Light theme</span>
 </label>
 ```
 
@@ -915,3 +953,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/switch.css`
 - `opui-css/css/components/form.css`
 
+## Changelog
+
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Without a [visible label](#visible-label), switches center in table cells and lines of text.
+- Breaking: mark an invalid switch with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
+- Takes `.ui-x-small` and `.ui-large`. [Sizes](#sizes)

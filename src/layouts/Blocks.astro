@@ -1,0 +1,82 @@
+---
+import Document from "./Document.astro"
+import { stripFrameworkPrefix } from "../utils/framework-routing"
+import { blockGroups, blockHref } from "../utils/blocks"
+
+type Props = {
+  description?: string
+  overline?: string
+  showToc?: boolean
+  title?: string
+  wide?: boolean
+}
+
+const {
+  description,
+  overline = "Blocks",
+  showToc = false,
+  title,
+  wide,
+} = Astro.props
+
+const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
+  /\/$/,
+  "",
+)
+
+const linkTo = (href: string, label: string) => ({
+  current: canonicalPath === href,
+  href,
+  label,
+})
+
+const groups = [
+  { label: "Blocks", links: [linkTo("/blocks", "All blocks")] },
+  ...blockGroups.map((group) => ({
+    label: group.label,
+    links: group.blocks.map((block) =>
+      linkTo(blockHref(block.slug), block.name),
+    ),
+  })),
+]
+---
+
+<Document
+  description={description}
+  overline={overline}
+  showToc={showToc}
+  title={title}
+  wide={wide}
+>
+  <nav slot="sidebar">
+    {
+      groups.map((group) => (
+        <>
+          <h3>{group.label}</h3>
+          <menu class="blocks-nav-list">
+            {group.links.map((link) => (
+              <li>
+                <a
+                  aria-current={link.current ? "page" : undefined}
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </menu>
+        </>
+      ))
+    }
+  </nav>
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble" />
+  <slot />
+</Document>
+
+<style is:global>
+  .blocks-nav-list + h3 {
+    margin-block-start: var(--size-5);
+  }
+</style>

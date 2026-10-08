@@ -2,8 +2,42 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
+  hydration: {
+    svelte: [
+      {
+        description:
+          "A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
+        fallback:
+          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+        prop: "indeterminate",
+      },
+    ],
+    vue: [
+      {
+        description:
+          "A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
+        fallback:
+          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+        prop: "indeterminate",
+      },
+    ],
+  },
   model: {
     description: "The checked state, or the checked values of a group.",
+    frameworks: {
+      svelte: [
+        {
+          description: "The checked state.",
+          prop: "checked",
+          type: "boolean",
+        },
+        {
+          description: "The checked values of a group.",
+          prop: "group",
+          type: "(string | number)[]",
+        },
+      ],
+    },
     prop: "checked",
     type: "boolean | (string | number)[]",
   },
@@ -11,14 +45,17 @@ export default {
     astro:
       "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
     html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.",
+    svelte:
+      "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
   },
   options: [
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
@@ -39,7 +76,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",

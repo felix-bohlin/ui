@@ -70,11 +70,34 @@ const steps = [
   align-items: center;
   flex-direction: row;
   gap: 0.5rem;
+}
+
+.group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
+  margin-block-start: 1rem;
+}
+
+.group.column:has(> button):not(:has(> :not(button))) {
+  align-items: start;
 }`,
+    features: ["not"],
+    html: `
+<form>
+  <fieldset class="fieldset">
+    <legend>Notifications</legend>
+    …
+  </fieldset>
+  <div class="group">
+    <button type="reset">Cancel</button>
+    <button type="button">Save</button>
+  </div>
+</form>`,
     notes: [
       "<code>:has(> .check):not(:has(> :not(.check)))</code>: only checkboxes, radios or switches, nothing else",
       "A list of choices gets a tighter gap",
       "A group of only buttons becomes a row, unless it's set to <code>.column</code>",
+      "The row gets space above it, unless an <code>&lt;hr&gt;</code> comes right before it",
+      "A <code>.column</code> of buttons keeps each button at its own width",
+      "The buttons act on the whole form, so their group goes after the fieldset, not inside it",
     ],
     title: "Groups",
   },
@@ -134,11 +157,11 @@ const channels = ["Email", "Push", "SMS"]
           ))
         }
       </div>
-      <div class="group">
-        <button type="reset">Cancel</button>
-        <button type="button">Save</button>
-      </div>
     </fieldset>
+    <div class="group">
+      <button type="reset">Cancel</button>
+      <button type="button">Save</button>
+    </div>
   </form>
 </BuildUp>
 

@@ -117,14 +117,12 @@
       border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
-    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+    &:where(a[aria-disabled="true"]) {
       pointer-events: none;
     }
 
     /* Hover & Active */
-    &:where(
-      :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-    ) {
+    &:where(:not([disabled], [aria-disabled="true"])) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_default-hover-bg-color);
@@ -166,10 +164,11 @@
       color: inherit;
       font-family: var(--font-mono);
       font-size: 0.8em;
-      font-weight: 400;
+      font-weight: var(--font-weight-normal);
       line-height: 1.2;
       opacity: 0.8;
-      padding: 0.1ex 0.3ex;
+      padding-block: 0.1ex;
+      padding-inline: 0.3ex;
 
       @container style(--contrast: more) {
         opacity: 1;
@@ -212,9 +211,7 @@
         --_border-color: var(--_accent-text);
       }
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -235,9 +232,7 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -256,9 +251,7 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);
@@ -272,7 +265,7 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+    &:is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
 
@@ -283,41 +276,6 @@
 
     &.ui-rounded {
       --_border-radius: var(--radius-round);
-    }
-
-    &.ui-ripple {
-      --_ripple-color: var(--ripple-color);
-      --_ripple-scale: 0.01;
-      --_ripple-size: 130%;
-
-      position: relative;
-      transform-style: preserve-3d;
-
-      &::before {
-        background-color: var(--_ripple-color);
-        block-size: var(--_ripple-size);
-        clip-path: circle(50%);
-        content: "";
-        inline-size: var(--_ripple-size);
-        inset: 50% auto auto 50%;
-        position: absolute;
-        transform: translate(-50%, -50%) translateZ(-1px)
-          scale(var(--_ripple-scale));
-        transition: transform calc(var(--duration) * var(--_motion)) var(--ease);
-      }
-
-      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-        @media (hover: hover) {
-          &:where(:not(:active):hover) {
-            --_ripple-scale: 1;
-          }
-        }
-
-        &:where(:hover:active),
-        &[aria-current="page"] {
-          --_ripple-scale: 1.1;
-        }
-      }
     }
   }
 

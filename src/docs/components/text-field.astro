@@ -9,34 +9,45 @@ import {
   TextField as UITextField,
 } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
+import InputTypesSvelteRaw from "../../component-examples/text-field/InputTypes.svelte?raw"
 import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
+import InputTypesPreviewSvelte from "../../component-examples/text-field/InputTypes.svelte"
 import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
 
 import Numeric from "../../component-examples/text-field/Numeric.astro"
 import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
+import NumericSvelteRaw from "../../component-examples/text-field/Numeric.svelte?raw"
 import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
+import NumericPreviewSvelte from "../../component-examples/text-field/Numeric.svelte"
 import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
 import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
 
 import File from "../../component-examples/text-field/File.astro"
 import FileAstro from "../../component-examples/text-field/File.astro?raw"
+import FileSvelteRaw from "../../component-examples/text-field/File.svelte?raw"
 import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
+import FilePreviewSvelte from "../../component-examples/text-field/File.svelte"
 import FilePreviewVue from "../../component-examples/text-field/File.vue"
 import FileHtml from "../../component-examples/text-field/File.html?raw"
 
 import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
 import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
+import AutosuggestSvelteRaw from "../../component-examples/text-field/Autosuggest.svelte?raw"
 import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
+import AutosuggestPreviewSvelte from "../../component-examples/text-field/Autosuggest.svelte"
 import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
 import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
 
 import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
+import NoLabelSvelteRaw from "../../component-examples/text-field/NoLabel.svelte?raw"
 import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
+import NoLabelPreviewSvelte from "../../component-examples/text-field/NoLabel.svelte"
 import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 
@@ -58,9 +69,11 @@ export const description =
   slug="text-field"
   browserSupport={[
     "container-queries",
+    "container-style-queries",
     "datalist",
     "field-sizing",
     "has",
+    "lh",
     "light-dark",
     "relative-color",
     "user-pseudos",
@@ -112,6 +125,10 @@ export const description =
         Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
         field.
       </p>
+      <p slot="svelte">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field.
+      </p>
       <p slot="vue">
         Text fields are outlined by default. Set <code>variant="filled"</code> for
         a filled field.
@@ -122,7 +139,52 @@ export const description =
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="description">Description</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>description</code> prop or snippet for text between the label
+        and the input.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Description" row />
   </section>
 
   <section>
@@ -136,6 +198,12 @@ export const description =
       <Fragment slot="astro">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> snippets to affix content inside the field's border.
         Prefix and suffix sit beside the input, while header and footer span the field's
         full width with a divider.
       </Fragment>
@@ -159,8 +227,8 @@ export const description =
 
     <h3 id="headers-and-footers">Headers and footers</h3>
     <p>
-      Use the <code>header</code> slot for inside-field captions (filenames, categories)
-      and the <code>footer</code> slot for counters, hints, or action buttons.
+      Use the header for inside-field captions (filenames, categories) and the
+      footer for counters, hints, or action buttons.
     </p>
 
     <AutoExample name="Headers" column />
@@ -173,6 +241,10 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         input.
       </Fragment>
+      <Fragment slot="svelte">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;input&gt;</code>.
@@ -184,18 +256,55 @@ export const description =
     </Conditional>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        {" "}<code>data-invalid</code> on the root element. Make use of the end text
-        to give extra feedback on the error.
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the input, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the input, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        {" "}<code>data-invalid</code> on the root element. Make use of the end text
-        to give extra feedback on the error.
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the input, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
+        Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
+        toggle invalid styles. Screen readers announce it as invalid. Make use of
+        the end text to give extra feedback on the error, and point <code
+          >aria-describedby</code
+        > at it.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="svelte">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="vue">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="html">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use <code>aria-invalid="true"</code> for
+        server-side errors.
       </Fragment>
     </Conditional>
 
@@ -215,6 +324,11 @@ export const description =
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the input on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the input on the right. The layout collapses to a column
@@ -227,7 +341,10 @@ export const description =
 
   <section>
     <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+    <p>
+      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
+      follow its content, from <code>25ch</code>.
+    </p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
   </section>
@@ -244,8 +361,10 @@ export const description =
 
       <Example.Preview slot="preview-astro" code={InputTypes} />
       <Example.Preview slot="preview-html" code={InputTypesHtml} />
+      <Example.Preview slot="preview-svelte" code={InputTypesPreviewSvelte} />
       <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
       <Example.Code slot="code-astro" code={InputTypesAstro} />
+      <Example.Code slot="code-svelte" code={InputTypesSvelteRaw} />
       <Example.Code slot="code-vue" code={InputTypesVueRaw} />
       <Example.Code slot="code-html" code={InputTypesHtml} />
     </Example>
@@ -269,8 +388,10 @@ export const description =
     <Example>
       <Numeric slot="preview-astro" />
       <Numeric slot="preview-html" />
+      <NumericPreviewSvelte slot="preview-svelte" />
       <NumericPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NumericAstro} />
+      <Example.Code slot="code-svelte" code={NumericSvelteRaw} />
       <Example.Code slot="code-vue" code={NumericVueRaw} />
       <Example.Code slot="code-html" code={NumericHtml} />
     </Example>
@@ -332,8 +453,10 @@ export const description =
     <Example row>
       <File slot="preview-astro" />
       <File slot="preview-html" />
+      <FilePreviewSvelte slot="preview-svelte" />
       <FilePreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={FileAstro} />
+      <Example.Code slot="code-svelte" code={FileSvelteRaw} />
       <Example.Code slot="code-vue" code={FileVueRaw} />
       <Example.Code slot="code-html" code={FileHtml} />
     </Example>
@@ -354,8 +477,10 @@ export const description =
     <Example row>
       <Autosuggest slot="preview-astro" />
       <Autosuggest slot="preview-html" />
+      <AutosuggestPreviewSvelte slot="preview-svelte" />
       <AutosuggestPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={AutosuggestAstro} />
+      <Example.Code slot="code-svelte" code={AutosuggestSvelteRaw} />
       <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
       <Example.Code slot="code-html" code={AutosuggestHtml} />
     </Example>
@@ -400,8 +525,10 @@ export const description =
     <Example>
       <NoLabel slot="preview-astro" />
       <NoLabel slot="preview-html" />
+      <NoLabelPreviewSvelte slot="preview-svelte" />
       <NoLabelPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NoLabelAstro} />
+      <Example.Code slot="code-svelte" code={NoLabelSvelteRaw} />
       <Example.Code slot="code-vue" code={NoLabelVueRaw} />
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
@@ -473,5 +600,4 @@ export const description =
   }
 
   setupInputTypesControls()
-  document.addEventListener("astro:after-swap", setupInputTypesControls)
 </script>

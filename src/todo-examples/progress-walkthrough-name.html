@@ -1,0 +1,55 @@
+<style>
+  .todo-compare .progress {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The step 1 "Native" snippet. Open the accessibility tree in DevTools (or a
+      screen reader): "progress bar, 60%". 60% of what?
+    </p>
+    <div class="progress">
+      <progress max="100" value="60"></progress>
+    </div>
+    <div class="progress">
+      <progress></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Named like the demo and docs, with the note "Give it a name:
+      <code>aria-label</code>, or a <code>&lt;label for&gt;</code> when the text
+      should be visible".
+    </p>
+    <div class="progress">
+      <progress aria-label="Uploading" max="100" value="60"></progress>
+    </div>
+    <div class="progress">
+      <progress aria-label="Loading"></progress>
+    </div>
+    <label for="todo-progress-upload-fixed">Uploading report.pdf</label>
+    <div class="progress">
+      <progress id="todo-progress-upload-fixed" max="100" value="60"></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll("progress"),
+    ]
+      .map((p) => {
+        const name =
+          p.getAttribute("aria-label") ??
+          [...p.labels].map((l) => l.textContent.trim()).join(" ")
+        const state = p.hasAttribute("value") ? `${p.value}%` : "indeterminate"
+        return `${state}: name "${name}"`
+      })
+      .join("\n")
+  }
+</script>

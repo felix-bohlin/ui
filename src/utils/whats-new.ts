@@ -7,63 +7,109 @@ const whatsNew = {
     {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code>.ui-marker-turn</code>.`,
+      svelte: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
     {
-      astro: `Breaking: a chevron marker by default. The <code>marker</code> slot replaces it, so move a custom chevron there or it shows twice.`,
-      vue: `Breaking: a chevron marker by default. The <code>marker</code> slot replaces it, so move a custom chevron there or it shows twice.`,
+      astro: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
+      vue: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
     },
     {
-      html: `Breaking: markers only animate with a marker class. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
+      html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
+    },
+    `<a href="#actions">Actions</a> line up with the content and the chevron.`,
+  ],
+  anchor: [
+    {
+      astro: `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
+      vue: `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
     },
   ],
   avatar: [
-    `Breaking: <code>alt</code> is required when <code>src</code> is set.`,
+    `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover.`,
+    {
+      astro: `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
+      vue: `Breaking: <a href="#image"><code>alt</code></a> is required when <code>src</code> is set.`,
+    },
+    {
+      astro: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
+      vue: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
+    },
+    {
+      default: `<a href="#sizes">Sizes</a> with <code>size="x-small"</code>, <code>size="small"</code> and <code>size="large"</code>.`,
+      html: `<a href="#sizes">Sizes</a> with <code>.ui-x-small</code>, <code>.ui-small</code> and <code>.ui-large</code>.`,
+    },
   ],
   badge: [
+    `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
     {
       default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
       html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
     },
+    {
+      astro: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+      svelte: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+      vue: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+    },
   ],
   button: [
     {
-      astro: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
-      html: `<a href="#icon-only">Icon-only</a> buttons are square. <code>.ui-rounded</code> makes them round and <code>.ui-ripple</code> adds a hover halo.`,
-      vue: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
+      astro: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
+      html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-rounded</code> makes them round.`,
+      svelte: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
+      vue: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
     },
-    `Replaces <code>IconButton</code>.`,
-    `Wrap the label in a <code>&lt;span&gt;</code> to <a href="#buttons-with-icon-and-label">tighten the padding</a> next to an icon.`,
+    `Replaces <code>IconButton</code>. An <a href="#icon-only">icon-only</a> button is a <code>Button</code> with just an <code>svg</code>.`,
+    `Breaking: icon styles only apply to a direct child <code>svg</code>. Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> next to an icon to <a href="#buttons-with-icon-and-label">tighten the padding</a>, or the button renders as icon-only.`,
     {
-      default: `Links with <code>aria-disabled="true"</code> look and act disabled.`,
-      html: `Links with <code>.ui-disabled</code> or <code>aria-disabled="true"</code> look and act disabled.`,
+      html: `Breaking: <code>.ui-icon-only</code> is removed. A button whose only child is an <code>svg</code> is <a href="#icon-only">square</a>.`,
+    },
+    {
+      default: `Links with <code>aria-disabled="true"</code> <a href="#disabled">look and act disabled</a>.`,
+    },
+    {
+      astro: `Breaking: no <code>.ui-disabled</code> on a <a href="#disabled">disabled</a> button. Style <code>:disabled</code> or <code>[aria-disabled="true"]</code>.`,
+      vue: `Breaking: no <code>.ui-disabled</code> on a <a href="#disabled">disabled</a> button. Style <code>:disabled</code> or <code>[aria-disabled="true"]</code>.`,
     },
     `<a href="#colors">Primary and critical</a> colors pass contrast in light and dark mode.`,
     {
-      default: `Breaking: buttons render <code>type="button"</code> by default. Pass <code>type="submit"</code> for submit buttons.`,
+      astro: `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
+      vue: `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     },
   ],
   "button-group": [
+    `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
+    `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
     `<a href="#split-button">Split button</a> with a <code>Menu</code>.`,
-    `Icon-only buttons stay square.`,
+    `<a href="#icons">Icon-only</a> buttons stay square.`,
+    `Breaking: <a href="#variants">variants</a> apply to the whole group. A variant on a single button inside a group is no longer supported.`,
     {
-      default: `<a href="#sizes">X-small</a> size with <code>size="x-small"</code>.`,
-      html: `<a href="#sizes">X-small</a> size with <code>.ui-x-small</code>.`,
+      default: `<a href="#sizes">x-small</a> size with <code>size="x-small"</code>.`,
+      html: `<a href="#sizes">x-small</a> size with <code>.ui-x-small</code>.`,
     },
     `<a href="#sizes">Small</a> groups use the same text size as a small <code>Button</code>.`,
     {
       default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
     },
+    {
+      default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
+      html: `<code>&lt;a class="ui-button"&gt;</code> links get the group styles too, see <a href="#variants">Variants</a>.`,
+    },
   ],
   callout: [
     {
       astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      svelte: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
       vue: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     },
   ],
   carousel: [
-    `New component. A scroll snap carousel with buttons and markers generated by CSS.`,
+    {
+      default: `<a href="#images">Images</a> are cropped with the <code>aspectRatio</code> prop.`,
+    },
+    `A <a href="#playground">playground</a> to try the options together.`,
+    `New component. A <a href="#basics">scroll snap carousel</a> with buttons and markers generated by CSS.`,
     {
       default: `<a href="#persistent-buttons">Persistent buttons</a> with the <code>persistentButtons</code> prop.`,
       html: `<a href="#persistent-buttons">Persistent buttons</a> with <code>.ui-buttons-persistent</code>.`,
@@ -78,13 +124,25 @@ const whatsNew = {
     },
   ],
   card: [
+    `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
-    `Without a visible label, checkboxes center in table cells and lines of text.`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text.`,
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
+      html: `Breaking: mark an invalid checkbox with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+    },
   ],
   chip: [
     {
@@ -92,116 +150,217 @@ const whatsNew = {
       html: `<a href="#sizes">Large</a> size with <code>.ui-large</code>, and small chips are 28px to match the control sizes.`,
     },
     {
-      default: `Long labels truncate with an ellipsis unless the chip is <code>multiline</code>.`,
-      html: `Long labels truncate with an ellipsis unless the chip is <code>.ui-multiline</code>.`,
+      default: `Long labels truncate with an ellipsis unless the chip is <a href="#api"><code>multiline</code></a>.`,
+      html: `Long labels truncate with an ellipsis unless the chip is <a href="#api"><code>.ui-multiline</code></a>.`,
     },
-    `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
+    `Breaking: the hover and press ripple is removed. <a href="#button">Button</a> and <a href="#link">link</a> chips change their background on hover instead.`,
     {
-      default: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default.`,
+      astro: `Breaking: <a href="#button"><code>as="button"</code></a> renders <code>type="button"</code> by default.`,
+      vue: `Breaking: <a href="#button"><code>as="button"</code></a> renders <code>type="button"</code> by default.`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+    },
+    {
+      astro: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      html: `<a href="#colors">Colors</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
+      svelte: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      vue: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
     },
   ],
   "description-list": [
     {
-      vue: `Breaking: <code>Description</code> is now <code>DescriptionListDescription</code>, like Astro.`,
+      vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
+    },
+    {
+      default: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>inline</code>.`,
+      html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
   ],
   dialog: [
-    `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
-    `A subtle scroll shadow shows under the header and above the actions while the content scrolls.`,
+    `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
+    `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
+    `<a href="#width">Width</a> with <code>--_max-inline-size</code>, keeping the margin on small screens.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
     },
+    {
+      astro: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
+      html: `<a href="#content">Content</a> in the middle of the line in a <code>div.ui-divider</code>, aligned with <code>.ui-align-start</code> or <code>.ui-align-end</code>.`,
+      svelte: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
+      vue: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
+    },
   ],
   drawer: [
-    `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.`,
+    `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls (<a href="#usage">Usage</a>).`,
     {
-      default: `Named by the header heading through <code>aria-labelledby</code>.`,
-      html: `Name it with <code>aria-labelledby</code> pointing at the header heading.`,
+      default: `Named by the header heading through <a href="#accessibility"><code>aria-labelledby</code></a>.`,
+      html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
+    },
+  ],
+  form: [
+    {
+      astro: `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer sets <code>role="group"</code>. Wrap it in a <code>FieldSet</code> to group and name the fields.`,
+      html: `Drop <code>role="group"</code> from a <a href="#field-group"><code>.ui-field-group</code></a> inside a fieldset, which already groups the fields.`,
+      vue: `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer sets <code>role="group"</code>. Wrap it in a <code>FieldSet</code> to group and name the fields.`,
+    },
+    {
+      astro: `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
+      html: `Breaking: an invalid <code>.ui-fieldset</code> takes <code>aria-invalid="true"</code> on each control instead of <code>data-invalid</code> on the fieldset (<a href="#fieldset-invalid">Invalid</a>).`,
+      vue: `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
     },
   ],
   list: [
+    `Smaller <a href="#icon">start</a> and end icons.`,
     {
-      default: `Breaking: <code>divided</code> is removed. Use <a href="#on-every-item"><code>bordered</code></a>.`,
-      html: `Breaking: <code>.divided</code> is removed. Use <a href="#on-every-item"><code>.ui-bordered</code></a>.`,
+      astro: `Breaking: <code>divided</code> is removed. Use <a href="#on-every-item"><code>bordered</code></a>.`,
+      html: `Breaking: <code>.ui-divided</code> is removed. Use <a href="#on-every-item"><code>.ui-bordered</code></a>.`,
+      vue: `Breaking: <code>divided</code> is removed. Use <a href="#on-every-item"><code>bordered</code></a>.`,
     },
     `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
-    `Only direct children are styled as rows, so nested lists inside a row stay normal lists.`,
+    `Only direct children are styled as rows, so nested lists inside a row stay normal lists (<a href="#under-the-hood">Under the hood</a>).`,
     {
-      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
+      vue: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+    },
+    {
+      astro: `Breaking: <a href="#list-item-api"><code>ListItem</code> <code>as</code></a> only accepts <code>"a"</code>, <code>"button"</code> or <code>"div"</code>.`,
+      vue: `Breaking: <a href="#list-item-api"><code>ListItem</code> <code>as</code></a> only accepts <code>"a"</code>, <code>"button"</code> or <code>"div"</code>.`,
     },
   ],
   menu: [
-    `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
+    `Smaller start and end icons, and dividers that show in dark mode (<a href="#basics">Basics</a>).`,
+    `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
     {
       astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
+      svelte: `<a href="#submenu">Submenus</a> with the <code>submenu</code> snippet on <code>ListItem</code>.`,
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
-    `A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
-    `Tall menus shrink to the space on their side instead of running off-screen.`,
+    `A subtle light gray border in dark mode, so <a href="#basics">menus</a> stand out on dialogs and other raised surfaces.`,
+    `Tall menus shrink to the space on their side instead of running off-screen (<a href="#placement">Placement</a>).`,
   ],
   progress: [
     {
-      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
+      vue: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
     },
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
-    `Without a visible label, radios center in table cells and lines of text.`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Without a visible label, radios <a href="#label-alignment">center</a> in table cells and lines of text.`,
+    {
+      default: `<a href="#spread">Spread</a> with the <code>spread</code> prop, like Checkbox and Switch.`,
+      html: `<a href="#spread">Spread</a> with <code>.ui-spread</code>, like Checkbox and Switch.`,
+    },
+    {
+      astro: `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
+    },
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
-    `The track fill is CSS only, so plain HTML ranges fill too.`,
     {
-      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
-      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
+      astro: `Breaking: the track fill is CSS only (<a href="#under-the-hood">Under the hood</a>). The component no longer sets <code>--_track-fill</code> from script.`,
+      html: `The track fill is CSS only, so plain HTML ranges <a href="#basics">fill</a> too.`,
+      vue: `Breaking: the track fill is CSS only (<a href="#under-the-hood">Under the hood</a>). The component no longer sets <code>--_track-fill</code> from script.`,
     },
     {
-      astro: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
-      vue: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
+      astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
+      vue: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+    },
+    {
+      astro: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+      svelte: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+      vue: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+    },
+    {
+      html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
   select: [
+    `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
-      default: `<a href="#sizes">X-small and large</a> sizes with the <code>size</code> prop.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
       default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
-    `The arrow is a chevron.`,
+    `The arrow is a chevron, also on the <a href="#classic-select">classic select</a>.`,
     {
-      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
-      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      astro: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
     },
+    {
+      astro: `Breaking: <a href="#classic-select"><code>ClassicSelect</code></a> no longer sets <code>aria-labelledby</code>. The wrapping <code>&lt;label&gt;</code> names the select, so <code>endText</code> is part of the name.`,
+      vue: `Breaking: <a href="#classic-select"><code>ClassicSelect</code></a> no longer sets <code>aria-labelledby</code>. The wrapping <code>&lt;label&gt;</code> names the select, so <code>endText</code> is part of the name.`,
+    },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+    },
+  ],
+  spinner: [
+    `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
   switch: [
     {
-      default: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+      astro: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+      vue: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     },
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Without a visible label, switches center in table cells and lines of text.`,
+    `Without a <a href="#visible-label">visible label</a>, switches center in table cells and lines of text.`,
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
+      html: `Breaking: mark an invalid switch with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root, also in a <a href="#field-group-validation">group</a> (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
+    },
+    {
+      astro: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
+      html: `Takes <code>.ui-x-small</code> and <code>.ui-large</code>. <a href="#sizes">Sizes</a>`,
+      svelte: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
+      vue: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
+    },
   ],
   table: [
+    `A checkbox alone in a cell is centered (<a href="#default">Default</a>).`,
     {
       default: `<a href="#variants">Dense</a> tables have less block padding.`,
       html: `<a href="#variants">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
     },
-    `Fields and selects in cells keep a <code>12ch</code> minimum width.`,
+    `Fields and selects in cells keep a <code>12ch</code> minimum width, in every <a href="#variants">variant</a>.`,
     {
       default: `<a href="#sticky-header">Sticky header</a> with the <code>stickyHeader</code> prop.`,
       html: `<a href="#sticky-header">Sticky header</a> with <code>.ui-sticky-header</code>.`,
     },
   ],
   tabs: [
-    `Restyled as a segmented control.`,
+    `Breaking: <a href="#basics">restyled</a> as a segmented control. <code>--_accent-color</code> and <code>--_bg-color</code> are gone, use a <a href="#filled">variant</a> or <code>--_active-bg-color</code>, <code>--_active-text-color</code>, <code>--_indicator-color</code> and <code>--_track-color</code>.`,
+    {
+      astro: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
+      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-tab-label</code> and <code>.ui-tab-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
+      vue: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
+    },
     {
       default: `<a href="#scrollable">Scrollable</a> tabs with the <code>scrollable</code> prop.`,
       html: `<a href="#scrollable">Scrollable</a> tabs with <code>.ui-scrollable</code>.`,
@@ -213,42 +372,58 @@ const whatsNew = {
   ],
   "text-field": [
     {
-      default: `<a href="#sizes">X-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
-      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label.`,
-      vue: `Breaking: <code>style</code> goes to the label instead of the input.`,
+      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
+      vue: `Breaking: <code>style</code> goes to the label instead of the input (<a href="#api">API</a>).`,
     },
-    `The auto-suggest arrow is the Select chevron at every size.`,
+    `The <a href="#autosuggest">auto-suggest</a> arrow is the Select chevron at every size.`,
     {
       astro: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
       vue: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
     },
     {
-      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
-      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      astro: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+    },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
   textarea: [
     {
-      default: `<a href="#sizes">X-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
-      html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
+      html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
     {
-      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label.`,
-      vue: `Breaking: <code>style</code> goes to the label instead of the textarea.`,
+      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label (<a href="#api">API</a>).`,
+      vue: `Breaking: <code>style</code> goes to the label instead of the textarea (<a href="#api">API</a>).`,
     },
     {
       astro: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
       vue: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
     },
     {
-      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
-      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      astro: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
     },
+    {
+      astro: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+      vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
+    },
+  ],
+  toast: [
+    `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
+    `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
   ],
   toggle: [
     {
@@ -260,21 +435,28 @@ const whatsNew = {
       default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
     },
+    `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
   ],
   tooltip: [
     {
-      default: `Breaking: <code>id</code> is required.`,
+      astro: `Breaking: <a href="#api"><code>id</code></a> is required.`,
+      vue: `Breaking: <a href="#api"><code>id</code></a> is required.`,
     },
-    `The arrow points at the trigger in every position, also after a flip.`,
+    {
+      astro: `Breaking: no <code>&lt;span interestfor&gt;</code> around the trigger. Put <code>interestfor</code> with the tooltip <code>id</code> on the <a href="#basics">trigger</a>.`,
+      vue: `Breaking: no <code>&lt;span interestfor&gt;</code> around the trigger. Put <code>interestfor</code> with the tooltip <code>id</code> on the <a href="#basics">trigger</a>.`,
+    },
+    `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
-    `Heading sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
+    `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
+    `Breaking: <a href="#classless">rich text</a> only styles headings without a class, like lists. Add a <code>.ui-h1</code>–<code>.ui-h6</code> class to a heading that has another class.`,
     `<a href="#rich-text-showcase">Rich text</a> styles tables, <code>hr</code> and task lists.`,
-    `Rich text sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles.`,
-    `Rich text headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
+    `Breaking: <a href="#classless">rich text</a> sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add <code>components.prose</code> before <code>components.root</code>.`,
+    `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `Rich text tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
+    `<a href="#rich-text-showcase">Rich text</a> tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
   ],
 } satisfies Record<string, Note[]>
 

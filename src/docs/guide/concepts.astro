@@ -10,7 +10,8 @@ import Example from "../../components/Example/index"
   <Fragment slot="title">Concepts</Fragment>
   <Fragment slot="preamble">
     The few ideas the whole library is built on: cascade layers, light and dark,
-    how props map to classes, rich text, and when you need JavaScript.
+    palette scopes, how props map to classes, rich text, and when you need
+    JavaScript.
   </Fragment>
 
   <section>
@@ -99,9 +100,44 @@ import Example from "../../components/Example/index"
       </div>
     </Example>
     <p>
-      More on scopes and the palette in <DocLink
-        href="/guide/getting-started#theming">Theming</DocLink
+      More on scopes and the palette in <DocLink href="/guide/theming#scopes"
+        >Theming</DocLink
       >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="palette-scopes">Palette scopes</h2>
+    <p>
+      Every color in OPUI comes from one palette: 16 shades of one color, from
+      almost white (<code>--color-1</code>) to almost black (<code
+        >--color-16</code
+      >). Components pick their fills, borders and text from those shades.
+    </p>
+    <p>
+      A few classes swap that palette for an element and everything inside it:
+      {" "}<code>.ui-critical</code> turns it red, <code>.ui-info</code> blue,
+      {" "}<code>.ui-success</code> green, <code>.ui-warning</code> orange and
+      {" "}<code>.ui-neutral</code> gray. The shades follow, so one class gives a
+      Callout and a tonal Button the same red. <code>--primary</code> and the text
+      colors stay as they are.
+    </p>
+    <Example centered>
+      <article class="ui-callout ui-critical">
+        <div class="ui-content">Your card was declined.</div>
+      </article>
+      <button class="ui-button ui-tonal ui-critical" type="button">
+        Remove card
+      </button>
+    </Example>
+    <p>
+      Want another brand color in one part of the page? Put <code
+        >.ui-palette</code
+      > on it and set your own <code>--palette-hue</code>. It builds a new
+      palette there and recolors <code>--primary</code> and the intent colors too.
+      The grays keep <code>--gray-hue</code>. <DocLink
+        href="/guide/theming#scopes">Theming</DocLink
+      > has the details.
     </p>
   </section>
 
@@ -110,9 +146,9 @@ import Example from "../../components/Example/index"
     <p>
       Every class the library owns starts with <code>ui-</code>, so it never
       clashes with yours. A component is one class on the right element, and its
-      options are modifier classes next to it. The Astro and Vue components take
-      the same options as props and render those exact classes, so the HTML and
-      the props map one to one:
+      options are modifier classes next to it. The Astro, Svelte and Vue
+      components take the same options as props and render those exact classes,
+      so the HTML and the props map one to one:
     </p>
     <CodeGroup
       tabs={[
@@ -127,6 +163,11 @@ import Example from "../../components/Example/index"
           title: "Astro",
           code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
           lang: "astro",
+        },
+        {
+          title: "Svelte",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "svelte",
         },
         {
           title: "Vue",
@@ -229,7 +270,7 @@ import Example from "../../components/Example/index"
       <li>
         <strong>Range value</strong>: the <code>output</code> that shows the current
         value has to be updated on <code>input</code>. The Astro component ships
-        a tiny script for it, and Vue does it reactively.
+        a tiny script for it, and Svelte and Vue do it reactively.
       </li>
     </ul>
     <Code

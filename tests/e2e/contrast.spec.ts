@@ -161,8 +161,19 @@ test.describe("forced-colors", () => {
 
   test("a divider stays visible", async ({ page }) => {
     await openFixture(page, "html", "divider")
-    const divider = page.locator(".ui-divider").first()
+    const divider = page.locator("hr.ui-divider").first()
     expect(await style(divider, "border-block-start-style")).toBe("solid")
+  })
+
+  test("a divider with content keeps its lines", async ({ page }) => {
+    await openFixture(page, "html", "divider")
+    const divider = page.locator(".ui-divider:not(:empty)").first()
+    expect(await style(divider, "border-block-start-style", "::before")).toBe(
+      "solid",
+    )
+    expect(await style(divider, "border-block-start-style", "::after")).toBe(
+      "solid",
+    )
   })
 })
 
@@ -171,7 +182,7 @@ test("stress/contrast has no AAA contrast violations inside .ui-contrast-more", 
 }) => {
   await openFixture(page, "html", "stress/contrast")
   for (const colorScheme of ["light", "dark"] as const) {
-    await page.emulateMedia({ colorScheme })
+    await page.emulateMedia({ colorScheme, reducedMotion: "reduce" })
     const { violations } = await new AxeBuilder({ page })
       .include(".ui-contrast-more")
       .withRules(["color-contrast-enhanced"])
@@ -190,7 +201,11 @@ for (const component of COMPONENTS) {
   }) => {
     await openFixture(page, "html", component)
     for (const colorScheme of ["light", "dark"] as const) {
-      await page.emulateMedia({ colorScheme, contrast: "more" })
+      await page.emulateMedia({
+        colorScheme,
+        contrast: "more",
+        reducedMotion: "reduce",
+      })
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")

@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import { Textarea as UITextarea } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
@@ -20,8 +21,10 @@ export const description =
   slug="textarea"
   browserSupport={[
     "container-queries",
+    "container-style-queries",
     "field-sizing",
     "has",
+    "lh",
     "light-dark",
     "relative-color",
     "user-pseudos",
@@ -69,6 +72,10 @@ export const description =
         Textareas are outlined by default. Add <code>.ui-filled</code> for a filled
         textarea.
       </p>
+      <p slot="svelte">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
       <p slot="vue">
         Textareas are outlined by default. Set <code>variant="filled"</code> for a
         filled textarea.
@@ -79,7 +86,52 @@ export const description =
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="description">Description</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>description</code> prop or slot for text between the label and
+        the textarea.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the textarea.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>description</code> prop or snippet for text between the label
+        and the textarea.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>description</code> prop or slot for text between the label and
+        the textarea.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Description" row />
   </section>
 
   <section>
@@ -93,6 +145,11 @@ export const description =
       <Fragment slot="astro">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> snippets to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
       <Fragment slot="vue">
@@ -123,6 +180,10 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         textarea.
       </Fragment>
+      <Fragment slot="svelte">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;textarea&gt;</code>.
+      </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;textarea&gt;</code>.
@@ -134,18 +195,55 @@ export const description =
     </Conditional>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders the
-        {" "}<code>data-invalid</code> attribute on the root element. Make use of
-        the end text to give extra feedback on the error.
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the textarea, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the textarea, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        {" "}<code>data-invalid</code> on the root element. Make use of the end text
-        to give extra feedback on the error.
+        Use the <code>error</code> prop to toggle invalid styles. It sets <code
+          >aria-invalid="true"</code
+        > on the textarea, so screen readers announce it as invalid. Make use of the
+        end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
+        Add <code>aria-invalid="true"</code> to the <code>&lt;textarea&gt;</code
+        > to toggle invalid styles. Screen readers announce it as invalid. Make use
+        of the end text to give extra feedback on the error, and point <code
+          >aria-describedby</code
+        > at it.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="svelte">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="vue">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use the <code>error</code> prop for server-side
+        errors.
+      </Fragment>
+      <Fragment slot="html">
+        Fields also get the invalid styles from the browser's own validation (<code
+          >:user-invalid</code
+        >), after the user has edited them. Use <code>aria-invalid="true"</code> for
+        server-side errors.
       </Fragment>
     </Conditional>
 
@@ -165,6 +263,11 @@ export const description =
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the textarea on the right. The layout collapses to a column
@@ -177,7 +280,13 @@ export const description =
 
   <section>
     <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+    <p>
+      Textareas grow with their content, from 3 to 20 lines (<code
+        >field-sizing: content</code
+      >). <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also lets the width
+      follow the longest line, from <code>25ch</code>, and allows resizing in
+      both directions.
+    </p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
   </section>

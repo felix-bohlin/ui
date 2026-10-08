@@ -1,0 +1,596 @@
+<style>
+  .product-detail {
+    container-type: inline-size;
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    .pd-breadcrumb ol {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      list-style-type: none;
+      margin: 0 0 var(--size-4);
+      padding: 0;
+
+      li + li::before {
+        color: var(--text-muted);
+        content: "/";
+        margin-inline-end: var(--size-2);
+      }
+
+      [aria-current="page"] {
+        color: var(--text-muted);
+      }
+    }
+
+    .pd-layout {
+      align-items: start;
+      display: grid;
+      gap: var(--size-6);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 52rem) {
+        gap: var(--size-8);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    .pd-gallery {
+      position: relative;
+
+      @container (inline-size >= 52rem) {
+        inset-block-start: var(--size-4);
+        position: sticky;
+      }
+    }
+
+    .pd-image {
+      aspect-ratio: 1;
+      border-radius: var(--border-radius);
+    }
+
+    .pd-image-1 {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        oklch(from var(--primary) l c calc(h + 60))
+      );
+    }
+
+    .pd-image-2 {
+      background: linear-gradient(
+        160deg,
+        oklch(from var(--primary) l c calc(h + 30)),
+        oklch(from var(--primary) calc(l - 0.15) c calc(h + 90))
+      );
+    }
+
+    .pd-image-3 {
+      background: radial-gradient(
+        circle at 30% 30%,
+        oklch(from var(--primary) calc(l + 0.15) c h),
+        oklch(from var(--primary) l c calc(h + 60))
+      );
+    }
+
+    .pd-image-4 {
+      background: linear-gradient(
+        45deg,
+        oklch(from var(--primary) calc(l - 0.1) c calc(h + 60)),
+        var(--primary)
+      );
+    }
+
+    .pd-info {
+      display: grid;
+      gap: var(--size-5);
+    }
+
+    .pd-rating {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    .pd-stars {
+      color: light-dark(
+        oklch(from var(--warning) 0.6 c h),
+        oklch(from var(--warning) 0.8 c h)
+      );
+      display: flex;
+
+      svg {
+        block-size: var(--size-4);
+        inline-size: var(--size-4);
+      }
+    }
+
+    .pd-price {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      margin: 0;
+
+      strong {
+        font-size: var(--font-size-5);
+        font-variant-numeric: tabular-nums;
+      }
+
+      s {
+        color: var(--text-muted);
+      }
+    }
+
+    .pd-summary {
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .pd-swatch {
+      aspect-ratio: 1;
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-round);
+      inline-size: var(--size-3);
+    }
+
+    .pd-swatch-pine {
+      background-color: var(--primary);
+    }
+
+    .pd-swatch-fjord {
+      background-color: oklch(from var(--primary) l c calc(h + 60));
+    }
+
+    .pd-swatch-sand {
+      background-color: oklch(from var(--primary) calc(l + 0.2) c calc(h - 80));
+    }
+
+    .pd-option .ui-toggle-group {
+      flex-wrap: wrap;
+    }
+
+    .pd-buy {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+
+      .ui-text-field {
+        inline-size: 6rem;
+      }
+
+      .pd-add {
+        flex: 1 1 12rem;
+        justify-content: center;
+      }
+    }
+
+    .pd-form {
+      gap: var(--size-5);
+    }
+
+    .pd-perks {
+      margin: 0;
+      padding-block: 0;
+    }
+
+    .pd-details {
+      margin-block-start: var(--size-2);
+    }
+
+    .pd-details ul {
+      margin: 0;
+      padding-inline-start: var(--size-4);
+    }
+  }
+</style>
+
+<div class="product-detail">
+  <nav aria-label="Breadcrumb" class="pd-breadcrumb">
+    <ol>
+      <li><a class="ui-link" href="#product-detail-shop">Shop</a></li>
+      <li><a class="ui-link" href="#product-detail-women">Women</a></li>
+      <li><a class="ui-link" href="#product-detail-midlayers">Midlayers</a></li>
+      <li><span aria-current="page">Merino Trail Hoodie</span></li>
+    </ol>
+  </nav>
+
+  <div class="pd-layout">
+    <div class="pd-gallery">
+      <ul
+        aria-label="Product images"
+        class="ui-carousel ui-with-buttons ui-with-markers"
+        tabindex="0"
+      >
+        <li>
+          <div
+            aria-label="Merino Trail Hoodie in Pine, front view"
+            class="pd-image pd-image-1"
+            role="img"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Back view with the zipped chest pocket"
+            class="pd-image pd-image-2"
+            role="img"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Close-up of the merino knit"
+            class="pd-image pd-image-3"
+            role="img"
+          ></div>
+        </li>
+        <li>
+          <div
+            aria-label="Worn on a mountain trail"
+            class="pd-image pd-image-4"
+            role="img"
+          ></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pd-info">
+      <hgroup class="ui-hgroup">
+        <p class="ui-overline">Fjällgården</p>
+        <h1 class="ui-h3">Merino Trail Hoodie</h1>
+      </hgroup>
+
+      <p class="pd-rating">
+        <span class="pd-stars" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            ></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            ></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            ></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            ></path>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z"
+            ></path>
+          </svg>
+        </span>
+        <span>4.7 out of 5</span>
+        <a class="ui-link" href="#product-detail-reviews">128 reviews</a>
+      </p>
+
+      <p class="pd-price">
+        <strong>€119.00</strong>
+        <s><span class="ui-sr-only">Was </span>€149.00</s>
+        <span class="ui-chip ui-tonal ui-small"
+          ><span class="ui-text">Save 20%</span></span
+        >
+      </p>
+
+      <p class="pd-summary">
+        A breathable 200 g/m² merino midlayer with a scuba hood, thumb loops and
+        a zipped chest pocket. Warm on cold starts, never clammy on the climb.
+      </p>
+
+      <form class="ui-form pd-form" action="#">
+        <fieldset class="ui-fieldset pd-option">
+          <legend>Color: Pine</legend>
+          <div aria-label="Color" class="ui-toggle-group" role="radiogroup">
+            <label class="ui-toggle-button">
+              <input
+                checked
+                name="product-detail-color"
+                type="radio"
+                value="pine"
+              />
+              <span aria-hidden="true" class="pd-swatch pd-swatch-pine"></span>
+              Pine
+            </label>
+            <label class="ui-toggle-button">
+              <input name="product-detail-color" type="radio" value="fjord" />
+              <span aria-hidden="true" class="pd-swatch pd-swatch-fjord"></span>
+              Fjord
+            </label>
+            <label class="ui-toggle-button">
+              <input name="product-detail-color" type="radio" value="sand" />
+              <span aria-hidden="true" class="pd-swatch pd-swatch-sand"></span>
+              Sand
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="ui-fieldset pd-option">
+          <legend>Size</legend>
+          <div aria-label="Size" class="ui-toggle-group" role="radiogroup">
+            <label class="ui-toggle-button">
+              <input
+                disabled
+                name="product-detail-size"
+                type="radio"
+                value="xs"
+              />
+              XS
+            </label>
+            <label class="ui-toggle-button">
+              <input name="product-detail-size" type="radio" value="s" />
+              S
+            </label>
+            <label class="ui-toggle-button">
+              <input
+                checked
+                name="product-detail-size"
+                type="radio"
+                value="m"
+              />
+              M
+            </label>
+            <label class="ui-toggle-button">
+              <input name="product-detail-size" type="radio" value="l" />
+              L
+            </label>
+            <label class="ui-toggle-button">
+              <input name="product-detail-size" type="radio" value="xl" />
+              XL
+            </label>
+          </div>
+          <p class="ui-field-description">
+            XS is sold out. Only 3 left in M.
+            <a class="ui-link" href="#product-detail-size-guide">Size guide</a>
+          </p>
+        </fieldset>
+
+        <div class="pd-buy">
+          <label class="ui-text-field">
+            <span class="ui-label">Quantity</span>
+            <span class="ui-field">
+              <input
+                inputmode="numeric"
+                max="10"
+                min="1"
+                name="quantity"
+                type="number"
+                value="1"
+              />
+            </span>
+          </label>
+          <button class="ui-button ui-filled pd-add" type="submit">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2m6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2z"
+              ></path></svg
+            ><span class="ui-text">Add to cart</span>
+          </button>
+          <span class="ui-anchor ui-tooltip">
+            <button
+              aria-label="Save to wishlist"
+              class="ui-button ui-outlined"
+              command="toggle-popover"
+              commandfor="product-detail-wishlist-tip"
+              interestfor="product-detail-wishlist-tip"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3m-4.4 15.55-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05"
+                ></path>
+              </svg>
+            </button>
+            <span
+              class="ui-anchor-floating"
+              id="product-detail-wishlist-tip"
+              popover="hint"
+              >Save to wishlist</span
+            >
+          </span>
+        </div>
+      </form>
+
+      <ul class="ui-list ui-dense ui-transparent ui-gutterless pd-perks">
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Free delivery on orders over €75</p>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Free returns within 60 days</p>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Two-year warranty, free repairs for life</p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="ui-card ui-outlined pd-details" role="group">
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="product-detail-info"
+          open
+        >
+          <summary>
+            Details
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              />
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <ul>
+              <li>Regular fit, hip length</li>
+              <li>Scuba hood with a low-profile brim</li>
+              <li>Thumb loops and flatlock seams</li>
+              <li>Weight: 340 g in size M</li>
+            </ul>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="product-detail-info"
+        >
+          <summary>
+            Materials and care
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              />
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              100% mulesing-free merino wool from New Zealand. Machine wash cold
+              on a wool cycle and dry flat. Air it between hikes, it rarely
+              needs washing.
+            </p>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="product-detail-info"
+        >
+          <summary>
+            Shipping and returns
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              />
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Ships from our warehouse in Umeå within one business day. Order by
+              14:00 for express delivery to most of the Nordics.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>

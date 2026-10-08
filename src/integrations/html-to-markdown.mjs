@@ -6,6 +6,7 @@ import { unified } from "unified"
 import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
+  "#changelog-list",
   ".build-up-knobs",
   ".build-up-stage",
   ".build-up-steps legend",
@@ -22,7 +23,7 @@ const REMOVE_SELECTORS = [
   "button",
   "input",
   "script",
-  "section:has(> #changelog)",
+  "section:has(> #changelog):not(:has(.whats-new))",
   "style",
   "svg",
   "template",
@@ -66,6 +67,16 @@ function replace(node, test, build) {
 
 const isClass = (name) => (node) =>
   (node.properties?.className ?? []).includes(name)
+
+function unwrapTemplates(node, test) {
+  if (!node.children) return
+  node.children = node.children.flatMap((child) =>
+    child.type === "element" && child.tagName === "template" && test(child)
+      ? (child.content?.children ?? [])
+      : [child],
+  )
+  node.children.forEach((child) => unwrapTemplates(child, test))
+}
 
 const codeBlock = (node) => {
   const pre = select("pre", node)
@@ -176,6 +187,7 @@ export async function articleToMarkdown(
   const source = select("#main-content > article", tree)
   if (!source) return null
   const article = structuredClone(source)
+  unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
     prune(

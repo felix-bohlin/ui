@@ -115,9 +115,66 @@
         justify-content: end;
 
         &:has(.ui-button:first-child[class="ui-button"]) {
+          padding-inline: var(--size-3);
+        }
+
+        &:has(.ui-button:last-child[class="ui-button"]) {
           padding-inline: var(--size-3) var(--size-1);
         }
       }
+    }
+
+    &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
+      --_border-color: var(--text-muted);
+
+      @media (forced-colors: active) {
+        --_border-color: Highlight;
+      }
+    }
+
+    &:has(.ui-card-link:focus-visible):not(
+        :has(.ui-card .ui-card-link:focus-visible)
+      ) {
+      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, var(--_focus-visible-color));
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  :where(
+    .ui-card:has(.ui-card-link)
+      :is(
+        a[href],
+        button,
+        input,
+        label,
+        select,
+        summary,
+        textarea,
+        [tabindex]
+      ):not(.ui-card-link)
+  ) {
+    position: relative;
+    z-index: 1;
+  }
+
+  :where(.ui-card-link) {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

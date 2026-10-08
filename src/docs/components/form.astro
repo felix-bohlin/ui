@@ -6,12 +6,15 @@ import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
+import ExampleUsageSvelteCode from "../../component-examples/form/Usage.svelte?raw"
 import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
 import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
 
 import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
+import ExampleKitchenSinkSvelte from "../../component-examples/form/KitchenSink.svelte"
 import ExampleKitchenSinkVue from "../../component-examples/form/KitchenSink.vue"
 import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
+import ExampleKitchenSinkCodeSvelte from "../../component-examples/form/KitchenSink.svelte?raw"
 import ExampleKitchenSinkCodeVue from "../../component-examples/form/KitchenSink.vue?raw"
 import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
 
@@ -40,14 +43,18 @@ const anatomyApi = {
   parts: [
     {
       code: "<fieldset>",
-      component: { astro: "FieldSet", vue: "FieldSet" },
+      component: { astro: "FieldSet", svelte: "FieldSet", vue: "FieldSet" },
       description: "Groups related fields.",
       selector: ".ui-fieldset",
     },
     ...fieldSetApi.parts,
     {
       code: ".ui-field-group",
-      component: { astro: "FieldGroup", vue: "FieldGroup" },
+      component: {
+        astro: "FieldGroup",
+        svelte: "FieldGroup",
+        vue: "FieldGroup",
+      },
       description: "Lays out related fields.",
       selector: ".ui-fieldset .ui-field-group",
     },
@@ -99,6 +106,7 @@ const anatomyApi = {
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
+      <Code slot="svelte" lang="svelte" code={ExampleUsageSvelteCode} />
       <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
     </Conditional>
@@ -114,6 +122,10 @@ const anatomyApi = {
       <Fragment slot="html">
         Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
         optional <code>.ui-field-description</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
+        <code>FieldDescription</code>.
       </Fragment>
       <Fragment slot="vue">
         Groups related fields. Label it with <code>FieldLegend</code> and add an optional
@@ -134,6 +146,10 @@ const anatomyApi = {
         Lays out related fields. Wrap it in a fieldset to group them for screen
         readers.
       </Fragment>
+      <Fragment slot="svelte">
+        Lays out related fields and passes a shared <code>name</code> to the OPUI
+        fields inside. Wrap it in a fieldset to group them for screen readers.
+      </Fragment>
       <Fragment slot="vue">
         Lays out related fields and passes a shared <code>name</code> to the OPUI
         fields inside. Wrap it in a fieldset to group them for screen readers.
@@ -149,6 +165,9 @@ const anatomyApi = {
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-row</code> to lay out fields horizontally.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>direction="row"</code> to lay out fields horizontally.
       </Fragment>
       <Fragment slot="vue">
         Set <code>direction="row"</code> to lay out fields horizontally.
@@ -171,6 +190,10 @@ const anatomyApi = {
         Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to disable
         every field inside.
       </Fragment>
+      <Fragment slot="svelte">
+        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
+        inside.
+      </Fragment>
       <Fragment slot="vue">
         Set <code>disabled</code> on <code>FieldSet</code> to disable every field
         inside.
@@ -181,16 +204,25 @@ const anatomyApi = {
     <h3 id="fieldset-invalid">Invalid</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="html">
-        Add <code>data-invalid</code> to the <code>&lt;fieldset&gt;</code> for error
-        styles. Explain the error in a <code>.ui-end-text</code>.
+        Add <code>aria-invalid="true"</code> to each control in the
+        <code>&lt;fieldset&gt;</code>, and explain the error in a
+        <code>.ui-end-text</code> directly inside it. The end text turns red when
+        a control has <code>aria-invalid="true"</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
       <Fragment slot="vue">
-        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
-        the error in a <code>.ui-end-text</code>.
+        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        explain the error in a <code>.ui-end-text</code> directly inside it. The end
+        text turns red when a field has <code>error</code> set.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetInvalid" />
@@ -204,16 +236,32 @@ const anatomyApi = {
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
       <Fragment slot="html">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>&lt;hr class="ui-divider"&gt;</code>.
+        A field group with only buttons lines up in a row. Add <code
+          >.ui-column</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >&lt;hr class="ui-divider"&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
       <Fragment slot="vue">
-        A field group with only buttons lines up in a row. Separate it from the
-        fields with <code>Divider</code>.
+        A field group with only buttons lines up in a row. Set <code
+          >direction="column"</code
+        > to stack the buttons instead. Separate the group from the fields with <code
+          >Divider</code
+        >.
       </Fragment>
     </Conditional>
     <AutoExample name="Divider" />
@@ -240,6 +288,15 @@ const anatomyApi = {
         pick up its name from the legend, so give the legend an <code>id</code> and
         point <code>aria-labelledby</code> on the field set at it.
       </Fragment>
+      <Fragment slot="svelte">
+        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
+          >&lt;legend&gt;</code
+        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
+          >FieldLegend</code
+        >. A <code>div</code> doesn't pick up its name from the legend, so give the
+        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
+        set at it.
+      </Fragment>
       <Fragment slot="vue">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
           >&lt;legend&gt;</code
@@ -264,14 +321,17 @@ const anatomyApi = {
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+            <Fragment slot="svelte">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>
       <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleKitchenSinkSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleKitchenSinkVue} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleKitchenSinkCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleKitchenSinkCodeVue} />
     </Example>
   </section>

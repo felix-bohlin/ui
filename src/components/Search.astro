@@ -23,7 +23,6 @@ import Command from "./Command.astro"
   />
 
   <Button
-    ripple
     rounded
     size="small"
     slot="input-end"
@@ -68,6 +67,15 @@ import Command from "./Command.astro"
       variant="outlined"
       class="filter-chip"
       data-filter="Component">Components</Chip
+    >
+    <Chip
+      aria-pressed="false"
+      as="button"
+      size="small"
+      type="button"
+      variant="outlined"
+      class="filter-chip"
+      data-filter="Blocks">Blocks</Chip
     >
     <Chip
       aria-pressed="false"
@@ -362,7 +370,7 @@ import Command from "./Command.astro"
       return acc
     }, {})
 
-    const categoryOrder = ["Component", "Guide", "API", "Learn"]
+    const categoryOrder = ["Component", "Blocks", "Guide", "API", "Learn"]
     const sortedCategories = Object.keys(grouped).sort((a, b) => {
       const indexA = categoryOrder.indexOf(a)
       const indexB = categoryOrder.indexOf(b)

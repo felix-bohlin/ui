@@ -1,12 +1,5 @@
 # List
 
-### What's new
-
-- Breaking: `.divided` is removed. Use [`.ui-bordered`](#on-every-item).
-- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
-- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
-
 ## Anatomy
 
 - Headline
@@ -118,7 +111,7 @@
     </div>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -156,7 +149,7 @@
     </div>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-start">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +189,7 @@
     </a>
   </li>
   <li class="ui-border-top">
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>End icon</p>
       </div>
@@ -220,7 +213,11 @@
       <p>End icon button</p>
     </div>
     <div class="ui-end">
-      <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+      <button
+        class="ui-button ui-rounded ui-small"
+        aria-label="More"
+        type="button"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -349,10 +346,12 @@ Without a color class the list uses the filled surface, because lists usually si
 
 Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
 
+Give a `<button>` `type="button"` so the item doesn't submit a surrounding form.
+
 ```html
 <ul class="ui-list">
   <li>
-    <button>
+    <button type="button">
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -786,7 +785,7 @@ Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inlin
     <div class="ui-end">
       <button
         aria-label="Delete"
-        class="ui-button ui-rounded ui-ripple ui-small"
+        class="ui-button ui-rounded ui-small"
         type="button"
       >
         <svg
@@ -914,8 +913,9 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
+| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
@@ -956,8 +956,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
+| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
@@ -975,13 +976,14 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 
 1. Row
 
-   - Start, text and end slots in one flex row
+   - Start, text and end parts in one flex row
+   - `>` styles direct children only, so a nested list in a row stays a list
    - `--gap` and `--start-size` drive the spacing and the icon column
    - The button is padded too, so the padding doubles
 
 2. Clickable
 
-   - `:has(> a, > button)` moves the padding onto the button
+   - `:has(> a, > button, > label)` moves the padding onto the button, link or label (checkbox, radio and switch rows)
    - The whole row is the hit target
    - Hover tint derived from `--primary`
 
@@ -992,7 +994,7 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 
 4. Bordered
 
-   - `li + li`: a line between items, never above the first
+   - `> li + li`: a line between items, never above the first
    - The line sits in the margin, outside the hover area
 
 Step 1 of 4: Row
@@ -1000,13 +1002,13 @@ Step 1 of 4: Row
 ```html
 <ul class="list">
   <li>
-    <button>
+    <button type="button">
       <span class="start"><svg>…</svg></span>
       <span class="text">
         <span>Inbox</span>
         <span>3 unread</span>
       </span>
-      <span class="end">⌘I</span>
+      <span class="end"><kbd>⌘I</kbd></span>
     </button>
   </li>
 </ul>
@@ -1014,14 +1016,14 @@ Step 1 of 4: Row
 
 ```css
 .list {
-  background-color: var(--surface-default);
+  background-color: var(--surface-filled);
   list-style: none;
   padding: 0.5rem 0;
 }
 
 
-.list li,
-.list li > button {
+.list > li,
+.list > li > button {
   align-items: center;
   display: flex;
   gap: var(--gap);
@@ -1055,17 +1057,17 @@ Step 2 of 4: Clickable
 - [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
-.list li:has(> a, > button) {
+.list > li:has(> a, > button, > label) {
   padding: 0;
 }
 
 
-.list li > button {
+.list > li > button {
   inline-size: 100%;
 }
 
 
-.list li > button:hover {
+.list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 ```
@@ -1081,12 +1083,12 @@ Step 3 of 4: Inset
 Step 4 of 4: Bordered
 
 ```css
-.bordered li + li {
+.bordered > li + li {
   margin-block-start: 0.75rem;
 }
 
 
-.bordered li + li::before {
+.bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);
   content: "";
   inset: -0.5rem 0 auto 0;
@@ -1097,7 +1099,7 @@ Step 4 of 4: Bordered
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=List.md).
@@ -1106,3 +1108,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/list.css`
 
+## Changelog
+
+### What's new
+
+- Smaller [start](#icon) and end icons.
+- Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
+- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.

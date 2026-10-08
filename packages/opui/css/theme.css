@@ -20,7 +20,7 @@
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    /* Palette - override the values in core/palette.css */
+    /* Palette - the knobs core/palette.css derives --color-1 to --color-16 from */
     --palette-chroma: 0.5;
     --palette-hue: var(--hue-green);
     --palette-hue-rotate-by: 0;
@@ -42,6 +42,18 @@
 
     :where(html:not(.ui-light)) {
       --palette-hue: var(--hue-blue);
+    }
+  }
+
+  :where(html.ui-dark) {
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 20%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 20%;
     }
   }
 
@@ -113,14 +125,15 @@
     /* Typography */
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
-    --font-size-h3: clamp(var(--font-size-3), 4vw, var(--font-size-4));
-    --font-size-h4: clamp(var(--font-size-2), 3vw, var(--font-size-3));
+    --font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
+    --font-size-h4: clamp(var(--font-size-2), 3vi, var(--font-size-3));
     --font-size-h5: var(--font-size-2);
     --font-size-h6: var(--font-size-1);
 
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
 
+    --font-weight-normal: var(--font-weight-4);
     --font-weight-medium: var(--font-weight-5);
     --font-weight-semibold: var(--font-weight-6);
     --font-weight-bold: var(--font-weight-7);
@@ -144,6 +157,7 @@
     --button-size: var(--control-size);
     --button-size-large: var(--control-size-large);
 
+    --chip-size-x-small: calc(24px * var(--density));
     --chip-size-small: var(--control-size-x-small);
     --chip-size: var(--control-size-small);
     --chip-size-large: var(--control-size);
@@ -194,15 +208,22 @@
 
     /* Choice controls */
     --choice-label-offset: 0px;
+    --choice-size-x-small: 0.875rem;
     --choice-size-small: var(--size-3);
     --choice-size: var(--size-4);
     --choice-size-large: var(--size-5);
+    --switch-dot-size-x-small: 0.625rem;
     --switch-dot-size-small: 0.75rem;
     --switch-dot-size: var(--size-3);
+    --switch-dot-size-large: 1.25rem;
+    --switch-track-height-x-small: var(--size-3);
     --switch-track-height-small: var(--size-4);
     --switch-track-height: var(--size-5);
+    --switch-track-height-large: var(--size-6);
+    --switch-track-width-x-small: var(--size-7);
     --switch-track-width-small: 2.5rem;
     --switch-track-width: var(--size-8);
+    --switch-track-width-large: 3.5rem;
 
     /* Overlays */
     --backdrop-blur: 1px;
@@ -222,7 +243,20 @@
   }
 
   /* Severity scope classes */
-  :where(.ui-critical, .ui-del, [data-invalid], del) {
+  :where(
+    .ui-critical,
+    .ui-del,
+    :is(
+      .ui-checkbox,
+      .ui-radio,
+      .ui-range,
+      .ui-select,
+      .ui-switch,
+      .ui-text-field,
+      .ui-textarea
+    ):has([aria-invalid="true"]),
+    del
+  ) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;
   }

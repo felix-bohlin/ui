@@ -4,8 +4,9 @@ export default {
   component: "Avatar",
   options: [
     {
-      description: "Alternative text for the image.",
-      frameworks: ["astro", "vue"],
+      description:
+        "Alternative text for the image. Required with src; use an empty string when the name is shown next to it.",
+      frameworks: ["astro", "svelte", "vue"],
       prop: "alt",
       type: "string",
     },
@@ -42,8 +43,18 @@ export default {
       prop: "isGroup",
     },
     {
-      description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
+      description: "The size of the avatar.",
+      group: "Sizes",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description: "The image source. Replaces the content.",
+      frameworks: ["astro", "svelte", "vue"],
       prop: "src",
       type: "string",
     },

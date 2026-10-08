@@ -1,11 +1,5 @@
 {
-  "dark/stress/typography/Columns": [
-    "scrollable-region-focusable"
-  ],
   "dark/stress/typography/HostileContent": [
-    "scrollable-region-focusable"
-  ],
-  "light/stress/typography/Columns": [
     "scrollable-region-focusable"
   ],
   "light/stress/typography/HostileContent": [

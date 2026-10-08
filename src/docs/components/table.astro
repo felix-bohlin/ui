@@ -78,6 +78,11 @@ export const description =
           >.ui-spacious</code
         > class.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the cell padding with <code>variant="dense"</code> or <code
+          >variant="spacious"</code
+        >.
+      </Fragment>
       <Fragment slot="vue">
         Change the cell padding with <code>variant="dense"</code> or <code
           >variant="spacious"</code
@@ -93,17 +98,6 @@ export const description =
 
     <h3 id="spacious">Spacious</h3>
     <AutoExample name="Spacious" />
-  </section>
-
-  <section>
-    <h2 id="advanced">Advanced</h2>
-    <p>
-      An advanced table showcasing the use of <code>colgroup</code>, <code
-        >rowspan</code
-      >, and <code>colspan</code>.
-    </p>
-
-    <AutoExample name="Advanced" />
   </section>
 
   <section>
@@ -123,6 +117,13 @@ export const description =
         page and set <code>--_sticky-offset</code> on the table to clear a fixed top
         bar.
       </Fragment>
+      <Fragment slot="svelte">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
       <Fragment slot="vue">
         <code>stickyHeader</code> keeps the header rows at the top of the nearest
         scroll container while the rows scroll under them, and adds a shadow once
@@ -132,8 +133,51 @@ export const description =
       </Fragment>
     </Conditional>
 
+    <p>
+      The scroll box has <code>role="region"</code>, an <code>aria-label</code> and
+      {" "}<code>tabindex="0"</code>. A table has nothing focusable, so without
+      <code>tabindex</code> keyboard users can't reach the box to scroll it, and the
+      name tells screen reader users what the region holds.
+    </p>
+
     <AutoExample name="StickyHeader" />
   </section>
+
+  <section>
+    <h2 id="advanced">Advanced</h2>
+    <p>
+      An advanced table showcasing the use of <code>colgroup</code>, <code
+        >rowspan</code
+      >, and <code>colspan</code>.
+    </p>
+    <p>
+      The first cell of each row is a row header, <code
+        >&lt;th scope="row"&gt;</code
+      >. Row headers keep the body background, so only the column headers are
+      filled.
+    </p>
+
+    <AutoExample name="Advanced" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      A <code>&lt;caption&gt;</code> names the table, and screen readers announce
+      it when the user enters the table. <code>&lt;th&gt;</code> cells in
+      {" "}<code>&lt;thead&gt;</code> are column headers, read out with each cell
+      below them. Use <code>&lt;th scope="row"&gt;</code> for a row header in the
+      body. A <code>&lt;tfoot&gt;</code> keeps totals and summaries apart from the
+      data rows.
+    </p>
+    <p>
+      A table in a scroll box needs <code>tabindex="0"</code> on the box so keyboard
+      users can scroll it, and a name from <code>aria-label</code> with
+      {" "}<code>role="region"</code>, as in <a
+        class="ui-link"
+        href="#sticky-header">Sticky header</a
+      >.
+    </p>
+  </Fragment>
 
   <TableBuild slot="under-the-hood" />
 </Component>

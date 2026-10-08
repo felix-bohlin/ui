@@ -63,31 +63,39 @@ const steps = [
   },
   {
     css: `
-.range {
-  animation: build-range-fill linear both;
-  animation-range: contain;
-  animation-timeline: --thumb;
-  box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
-  overflow: hidden;
-  padding: 0.75rem;
-  timeline-scope: --thumb;
-}
+@supports (animation-timeline: view()) {
+  .range {
+    animation-fill-mode: both;
+    animation-name: build-range-fill;
+    animation-range: contain;
+    animation-timeline: --thumb;
+    animation-timing-function: linear;
+    box-sizing: content-box;
+    margin: -0.75rem;
+    outline-offset: -0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+    timeline-scope: --thumb;
+  }
 
-.range:dir(rtl) {
-  animation-direction: reverse;
-}
+  .range:dir(rtl) {
+    animation-direction: reverse;
+  }
 
-.range::-webkit-slider-thumb {
-  view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  .range::-webkit-slider-thumb {
+    view-timeline: --thumb inline;
+    view-timeline-inset: 0.75rem;
+  }
 }
 
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
-  background-size: var(--fill) 100%;
+  background-size: var(--track-fill, 0%) 100%;
+}
+
+.range:dir(rtl)::-webkit-slider-runnable-track {
+  background-position: right;
 }
 
 .range::-moz-range-progress {
@@ -96,13 +104,14 @@ const steps = [
   border-radius: 1e5px;
 }`,
     features: [
+      "dir-pseudo",
       "gradients",
       "registered-custom-properties",
       "scroll-driven-animations",
     ],
     html: `
 <style>
-  @property --fill {
+  @property --track-fill {
     syntax: "<percentage>";
     inherits: true;
     initial-value: 0%;
@@ -110,20 +119,22 @@ const steps = [
 
   @keyframes build-range-fill {
     from {
-      --fill: 100%;
+      --track-fill: 100%;
     }
 
     to {
-      --fill: 0%;
+      --track-fill: 0%;
     }
   }
 </style>`,
     notes: [
       "Firefox draws the filled part with <code>::-moz-range-progress</code>",
-      "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--fill</code>, paints it",
+      "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--track-fill</code>, paints it",
       "<code>overflow: hidden</code> makes the input a scroller, and the thumb a <code>view-timeline</code> inside it. <code>timeline-scope</code> lets the input use it",
-      "The thumb's position drives the animation: <code>--fill</code> is registered as a <code>&lt;percentage&gt;</code>, so it animates. No JavaScript",
-      "The timeline runs from the end edge, so the keyframes go from <code>100%</code> to <code>0%</code>, reversed in right-to-left",
+      "The thumb's position drives the animation: <code>--track-fill</code> is registered as a <code>&lt;percentage&gt;</code>, so it animates. No JavaScript",
+      "The timeline runs from the end edge, so the keyframes go from <code>100%</code> to <code>0%</code>",
+      "In right-to-left the animation runs in reverse and the gradient moves to the right edge",
+      "<code>@supports</code> keeps the scroller out where scroll-driven animations aren't supported: no fill, the slider still works",
       "Padding with an equal negative margin leaves room for the thumb and halo, <code>view-timeline-inset</code> and <code>outline-offset</code> take it back out",
     ],
     title: "Fill",
@@ -134,38 +145,43 @@ const steps = [
   --halo: 0px;
 }
 
-.range:hover {
+.range:not([disabled]):hover {
   --halo: 0.25rem;
 }
 
-.range:active {
+.range:not([disabled]):active {
   --halo: 0.5rem;
 }
 
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow 0.2s var(--ease);
+  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow 0.2s var(--ease);
+  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }`,
     features: ["relative-color"],
     notes: [
       "A <code>box-shadow</code> spread draws the ring, no extra element",
       "Relative color: the primary hue at a fixed lightness and 20% alpha",
       "The pseudo-elements inherit <code>--halo</code> from the input's <code>:hover</code> and <code>:active</code>",
+      "<code>:not([disabled])</code>: no halo on a disabled slider",
       "Hover and drag the thumb",
     ],
     title: "Halo",
   },
   {
     css: `
+.field {
+  --thumb-size: 3ex;
+}
+
 .ticks {
   display: flex;
   justify-content: space-between;
-  padding-inline: 1.5ex;
+  padding-inline: calc(var(--thumb-size) / 2);
 }
 
 .ticks > option {
@@ -175,8 +191,16 @@ const steps = [
   padding: 0;
   white-space: nowrap;
 }`,
-    features: ["datalist"],
+    features: ["datalist", "registered-custom-properties"],
     html: `
+<style>
+  @property --thumb-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 24px;
+  }
+</style>
+
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -187,6 +211,7 @@ const steps = [
       "A <code>&lt;datalist&gt;</code> is hidden by default, <code>display: flex</code> brings it back",
       "Zero-width options with centered labels sit exactly on each step",
       "Half a thumb of padding lines the ends up with the thumb's center",
+      "<code>--thumb-size</code> is registered as a <code>&lt;length&gt;</code>, so <code>3ex</code> resolves on the field, at the thumb's font size, and the smaller tick labels inherit that length",
     ],
     title: "Ticks",
   },
@@ -197,9 +222,10 @@ const ticks = [0, 25, 50, 75, 100]
 
 <BuildUp id="build-range" steps={steps}>
   <label class="field">
-    <span>Volume</span>
+    <span id="build-range-label">Volume</span>
     <output class="value" for="build-range-input">40</output>
     <input
+      aria-labelledby="build-range-label"
       class="range"
       id="build-range-input"
       list="build-range-ticks"
@@ -239,7 +265,13 @@ const ticks = [0, 25, 50, 75, 100]
 </style>
 
 <style is:global>
-  @property --fill {
+  @property --thumb-size {
+    syntax: "<length>";
+    inherits: true;
+    initial-value: 24px;
+  }
+
+  @property --track-fill {
     syntax: "<percentage>";
     inherits: true;
     initial-value: 0%;
@@ -247,11 +279,11 @@ const ticks = [0, 25, 50, 75, 100]
 
   @keyframes build-range-fill {
     from {
-      --fill: 100%;
+      --track-fill: 100%;
     }
 
     to {
-      --fill: 0%;
+      --track-fill: 0%;
     }
   }
 </style>
@@ -272,5 +304,4 @@ const ticks = [0, 25, 50, 75, 100]
   }
 
   initRangeBuild()
-  document.addEventListener("astro:after-swap", initRangeBuild)
 </script>

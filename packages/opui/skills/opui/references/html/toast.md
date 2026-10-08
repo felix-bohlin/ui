@@ -166,6 +166,8 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 ## Under the hood
 
+Read the post: [Toast timing with typed attr()](https://open-props-ui.netlify.app/learn/toast-attr-duration)
+
 1. Stack
 
    - Custom commands start with `--` and fire a `command` event on the stack
@@ -317,3 +319,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/toast.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
+- Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).

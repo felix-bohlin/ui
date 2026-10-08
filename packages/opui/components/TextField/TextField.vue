@@ -49,7 +49,6 @@ const startTextValue = computed(() => props.description || props.startText)
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
     :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">

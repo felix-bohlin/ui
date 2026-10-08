@@ -4,6 +4,7 @@ import AstroLogo from "../components/AstroLogo.astro"
 import ChipRain from "../components/ChipRain.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
+import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import {
@@ -20,15 +21,15 @@ const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
-const learnHref = hrefFor(currentFramework, "/learn/under-the-hood")
 const migratingHref = hrefFor(currentFramework, "/guide/migrating")
 
 const FRAMEWORK_BRANDING: Record<
   FrameworkId,
-  { color: string; Logo: typeof AstroLogo }
+  { color?: string; Logo: typeof AstroLogo }
 > = {
   astro: { color: "#F041FF", Logo: AstroLogo },
-  html: { color: "#E34F26", Logo: Html5Logo },
+  html: { Logo: Html5Logo },
+  svelte: { color: "#FF3E00", Logo: SvelteLogo },
   vue: { color: "#41B883", Logo: VueLogo },
 }
 ---
@@ -38,8 +39,8 @@ const FRAMEWORK_BRANDING: Record<
     <ComponentShowcase aria-hidden="true">
       <hgroup class="ui-hgroup" id="main-heading">
         <p>
-          {version} · <a class="ui-link" href={migratingHref}>Migrating to v6</a
-          >
+          {version}
+          <a class="ui-link" href={migratingHref}>Migrating to v6</a>
         </p>
 
         <h1 class="ui-h1">Open Props UI</h1>
@@ -68,7 +69,7 @@ const FRAMEWORK_BRANDING: Record<
                   href={hrefFor(framework.id, "/")}
                   title={`${framework.label} support`}
                   variant="outlined"
-                  data-theme-color={branding.color}
+                  data-theme-color={branding.color ?? "default"}
                   data-framework={framework.id}
                 >
                   <Logo slot="start" />
@@ -87,7 +88,7 @@ const FRAMEWORK_BRANDING: Record<
 
 <script>
   import { hexToOklch } from "../utils/color-utils"
-  import { themeStore } from "../utils/theme-store"
+  import { themeStore, tokenDefaults } from "../utils/theme-store"
 
   // Clicking a framework chip in the hero re-tints the site to match that
   // framework's brand color before navigating. We persist the change via
@@ -106,10 +107,20 @@ const FRAMEWORK_BRANDING: Record<
             // private mode / storage disabled - non-fatal
           }
         }
-        const { C, H } = hexToOklch(hex)
+        const mode = themeStore.getActiveSiteMode()
+        if (hex === "default") {
+          const defaults = tokenDefaults(mode)
+          themeStore.setToken(mode, "--palette-hue", defaults["--palette-hue"])
+          themeStore.setToken(
+            mode,
+            "--palette-chroma",
+            defaults["--palette-chroma"],
+          )
+          return
+        }
+        const { H } = hexToOklch(hex)
         const hue = String(Math.round(H))
         const chroma = String(0.5)
-        const mode = themeStore.getActiveSiteMode()
         themeStore.setToken(mode, "--palette-hue", hue)
         themeStore.setToken(mode, "--palette-chroma", chroma)
       })

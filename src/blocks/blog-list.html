@@ -1,0 +1,451 @@
+<style>
+  .blog-list {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-7);
+    margin-inline: auto;
+    max-inline-size: 76rem;
+
+    .blog-header {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-4);
+      justify-content: space-between;
+
+      .ui-hgroup {
+        flex: 1 1 24rem;
+      }
+    }
+
+    .blog-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .blog-cover {
+      aspect-ratio: 2 / 1;
+      background-image: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h + var(--blog-hue, 0))),
+        oklch(from var(--primary) l c calc(h + var(--blog-hue, 0) + 60))
+      );
+    }
+
+    .blog-featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 52rem) {
+        align-items: center;
+        gap: var(--size-6);
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+
+        .blog-cover {
+          block-size: 100%;
+        }
+      }
+
+      .blog-featured-body {
+        display: grid;
+        gap: var(--size-4);
+        padding: var(--size-5);
+      }
+
+      .ui-hgroup {
+        h2 {
+          text-wrap: balance;
+        }
+      }
+    }
+
+    .blog-latest {
+      display: grid;
+      gap: var(--size-4);
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .blog-posts {
+      display: grid;
+      gap: var(--size-5);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .ui-card {
+        block-size: 100%;
+      }
+    }
+
+    .blog-meta {
+      display: grid;
+      gap: var(--size-4);
+      margin-block-start: auto;
+    }
+
+    .blog-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .blog-byline {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+    }
+
+    .blog-byline-text {
+      display: grid;
+      font-size: var(--font-size-1);
+
+      & > span:last-child {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+      }
+    }
+
+    .blog-more {
+      justify-self: center;
+    }
+  }
+</style>
+
+<div class="blog-list">
+  <div class="blog-header">
+    <hgroup class="ui-hgroup">
+      <p>Northwind blog</p>
+      <h1 class="ui-h2">Notes on building calm software</h1>
+      <p>
+        Engineering deep dives, product thinking and stories from our customers.
+      </p>
+    </hgroup>
+    <nav aria-label="Categories">
+      <ul class="blog-categories">
+        <li>
+          <a class="ui-chip ui-tonal" href="#blog-list-all" aria-current="page"
+            ><span class="ui-text">All posts</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-engineering"
+            ><span class="ui-text">Engineering</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-product"
+            ><span class="ui-text">Product</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-design"
+            ><span class="ui-text">Design</span></a
+          >
+        </li>
+        <li>
+          <a class="ui-chip ui-outlined" href="#blog-list-customers"
+            ><span class="ui-text">Customer stories</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <article class="ui-card ui-outlined blog-featured">
+    <div
+      class="blog-cover"
+      style="--blog-hue: 0"
+      role="img"
+      aria-label="Cover image for Northwind 6.0: planning that learns from your team"
+    ></div>
+    <div class="blog-featured-body">
+      <hgroup class="ui-hgroup">
+        <p>Featured</p>
+        <h2 class="ui-h3">
+          <a class="ui-card-link" href="#blog-list-northwind-6"
+            >Northwind 6.0: planning that learns from your team</a
+          >
+        </h2>
+        <p>
+          AI estimates, a smarter sprint planner and a board that's three times
+          faster. Here's what's new and how we built it.
+        </p>
+      </hgroup>
+      <ul class="blog-tags" aria-label="Tags">
+        <li class="ui-chip ui-tonal ui-small">
+          <span class="ui-text">Product</span>
+        </li>
+        <li class="ui-chip ui-tonal ui-small">
+          <span class="ui-text">Release</span>
+        </li>
+      </ul>
+      <div class="blog-byline">
+        <span class="ui-avatar" aria-hidden="true">LE</span>
+        <span class="blog-byline-text"
+          ><span>Lena Ek, Head of Product</span
+          ><span
+            ><time datetime="2026-10-01">Oct 1, 2026</time> · 12 min read</span
+          ></span
+        >
+      </div>
+    </div>
+  </article>
+
+  <section class="blog-latest" aria-labelledby="blog-list-latest-heading">
+    <h2 class="ui-h4" id="blog-list-latest-heading">Latest posts</h2>
+    <ul class="blog-posts">
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 40"
+            role="img"
+            aria-label="Cover image for Inside our new search engine"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-search"
+                >Inside our new search engine</a
+              >
+            </h3>
+            <p>
+              How we rebuilt search on top of Postgres and cut p95 latency from
+              800 ms to 40 ms.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Engineering</span>
+              </li>
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Performance</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">OH</span>
+              <span class="blog-byline-text"
+                ><span>Omar Haddad</span
+                ><span
+                  ><time datetime="2026-09-30">Sep 30, 2026</time> · 9 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 200"
+            role="img"
+            aria-label="Cover image for Working with clients in Northwind"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-guests"
+                >Working with clients in Northwind</a
+              >
+            </h3>
+            <p>
+              Guest access, shared views and a few habits that keep client
+              projects calm.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Guides</span>
+              </li>
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Collaboration</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">IJ</span>
+              <span class="blog-byline-text"
+                ><span>Ida Jansson</span
+                ><span
+                  ><time datetime="2026-09-22">Sep 22, 2026</time> · 5 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 320"
+            role="img"
+            aria-label="Cover image for How Fjord Health ships weekly with 4 teams"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-fjord"
+                >How Fjord Health ships weekly with 4 teams</a
+              >
+            </h3>
+            <p>
+              Sofia Lindqvist on moving from quarterly releases to a weekly
+              cadence.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Customer stories</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">SK</span>
+              <span class="blog-byline-text"
+                ><span>Sara Kim</span
+                ><span
+                  ><time datetime="2026-09-15">Sep 15, 2026</time> · 7 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 100"
+            role="img"
+            aria-label="Cover image for Estimates are a conversation, not a number"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-estimates"
+                >Estimates are a conversation, not a number</a
+              >
+            </h3>
+            <p>
+              Why we built AI estimates to start discussions instead of ending
+              them.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Product</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">KL</span>
+              <span class="blog-byline-text"
+                ><span>Karl Lund</span
+                ><span
+                  ><time datetime="2026-09-08">Sep 8, 2026</time> · 6 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 260"
+            role="img"
+            aria-label="Cover image for Designing dark mode with OKLCH"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-dark-mode"
+                >Designing dark mode with OKLCH</a
+              >
+            </h3>
+            <p>
+              Relative colors, contrast checks and the tokens that made our dark
+              theme work.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Design</span>
+              </li>
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Accessibility</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">ER</span>
+              <span class="blog-byline-text"
+                ><span>Elif Rahman</span
+                ><span
+                  ><time datetime="2026-08-29">Aug 29, 2026</time> · 8 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="ui-card ui-outlined">
+          <div
+            class="blog-cover"
+            style="--blog-hue: 160"
+            role="img"
+            aria-label="Cover image for Our remote onboarding checklist"
+          ></div>
+          <hgroup>
+            <h3 class="ui-h5">
+              <a class="ui-card-link" href="#blog-list-remote"
+                >Our remote onboarding checklist</a
+              >
+            </h3>
+            <p>
+              The 30-day plan every new Northwind hire gets, from laptop to
+              first release.
+            </p>
+          </hgroup>
+          <div class="ui-content blog-meta">
+            <ul class="blog-tags" aria-label="Tags">
+              <li class="ui-chip ui-tonal ui-small">
+                <span class="ui-text">Company</span>
+              </li>
+            </ul>
+            <div class="blog-byline">
+              <span class="ui-avatar" aria-hidden="true">AB</span>
+              <span class="blog-byline-text"
+                ><span>Anna Berg</span
+                ><span
+                  ><time datetime="2026-08-18">Aug 18, 2026</time> · 4 min
+                  read</span
+                ></span
+              >
+            </div>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </section>
+
+  <a class="ui-button ui-outlined blog-more" href="#blog-list-page-2"
+    >Load more posts</a
+  >
+</div>

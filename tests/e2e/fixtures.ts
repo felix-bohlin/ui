@@ -8,7 +8,7 @@ const PIXEL = Buffer.from(
   "base64",
 )
 
-export const FRAMEWORKS = ["astro", "html", "vue"] as const
+export const FRAMEWORKS = ["astro", "html", "svelte", "vue"] as const
 
 export type Framework = (typeof FRAMEWORKS)[number]
 
@@ -22,6 +22,11 @@ export const STRESS_TESTS = readdirSync(
 )
   .filter((file) => file.endsWith(".html"))
   .map((file) => `stress/${file.replace(/\.html$/, "")}`)
+  .toSorted()
+
+export const BLOCKS = readdirSync(new URL("../../src/blocks/", import.meta.url))
+  .filter((file) => file.endsWith(".html"))
+  .map((file) => `blocks/${file.replace(/\.html$/, "")}`)
   .toSorted()
 
 export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS, "theming"].toSorted()
@@ -45,10 +50,19 @@ export const openFixture = async (
         : route.abort(),
   )
   await page.goto(
-    component.startsWith("stress/")
-      ? `/tests/${component.slice("stress/".length)}/`
-      : `/${framework}/test/${component}/`,
+    component.startsWith("blocks/")
+      ? `/${component}/preview/`
+      : component.startsWith("stress/")
+        ? `/tests/${component.slice("stress/".length)}/`
+        : `/${framework}/test/${component}/`,
   )
+  if (framework === "svelte") {
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll("[data-svelte-example]")].every((el) =>
+        el.hasAttribute("data-svelte-mounted"),
+      ),
+    )
+  }
   if (framework === "vue") {
     await page.waitForFunction(() =>
       [...document.querySelectorAll("[data-vue-example]")].every(

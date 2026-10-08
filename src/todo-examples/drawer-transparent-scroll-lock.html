@@ -1,0 +1,146 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      <code>scrollLock</code> row: "Locks page scroll while the drawer is open."
+      Open each drawer (both have <code>.ui-scroll-lock</code>): the log shows
+      the page's <code>overflow</code> while it's open. With a transparent
+      backdrop the page isn't locked above 500px wide.
+    </p>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-lock-default-current"
+        command="show-modal"
+      >
+        Default backdrop
+      </button>
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-lock-transparent-current"
+        command="show-modal"
+      >
+        Transparent backdrop
+      </button>
+    </div>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-inline-end"
+      id="todo-lock-default-current"
+      aria-label="Default backdrop"
+      closedby="any"
+    >
+      <div class="ui-content">Default backdrop</div>
+      <div class="ui-footer">
+        <button
+          type="button"
+          class="ui-button ui-small"
+          commandfor="todo-lock-default-current"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-backdrop-transparent ui-inline-end"
+      id="todo-lock-transparent-current"
+      aria-label="Transparent backdrop"
+      closedby="any"
+    >
+      <div class="ui-content">Transparent backdrop</div>
+      <div class="ui-footer">
+        <button
+          type="button"
+          class="ui-button ui-small"
+          commandfor="todo-lock-transparent-current"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed: "Locks page scroll while the drawer is open. With a transparent
+      backdrop the page stays scrollable, except on screens narrower than
+      500px." Same drawers, now matching the docs.
+    </p>
+    <div class="todo-row">
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-lock-default-fixed"
+        command="show-modal"
+      >
+        Default backdrop
+      </button>
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-lock-transparent-fixed"
+        command="show-modal"
+      >
+        Transparent backdrop
+      </button>
+    </div>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-inline-end"
+      id="todo-lock-default-fixed"
+      aria-label="Default backdrop"
+      closedby="any"
+    >
+      <div class="ui-content">Default backdrop</div>
+      <div class="ui-footer">
+        <button
+          type="button"
+          class="ui-button ui-small"
+          commandfor="todo-lock-default-fixed"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-backdrop-transparent ui-inline-end"
+      id="todo-lock-transparent-fixed"
+      aria-label="Transparent backdrop"
+      closedby="any"
+    >
+      <div class="ui-content">Transparent backdrop</div>
+      <div class="ui-footer">
+        <button
+          type="button"
+          class="ui-button ui-small"
+          commandfor="todo-lock-transparent-fixed"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const measure = panel.querySelector("[data-measure]")
+      measure.textContent = `page width: ${innerWidth}px`
+      for (const drawer of panel.querySelectorAll(".ui-drawer")) {
+        drawer.addEventListener("toggle", (event) => {
+          if (event.newState !== "open") return
+          const { overflow } = getComputedStyle(document.documentElement)
+          measure.textContent += `\n${drawer.getAttribute("aria-label")}: html overflow ${overflow} (${overflow === "clip" ? "locked" : "scrolls"})`
+        })
+      }
+    }
+  }
+</script>

@@ -26,7 +26,7 @@ const heading =
     ? header.match(/<h[1-6]\b[^>]*>/)?.[0]
     : undefined
 if (header && heading) {
-  labelledBy = heading.match(/\sid="([^"]+)"/)?.[1]
+  labelledBy = heading.match(/\sid=(["'])([^"']+)\1/)?.[2]
   if (!labelledBy) {
     labelledBy = `${drawerId}-heading`
     header = header.replace(

@@ -102,8 +102,8 @@ export const posts = [
     component: "checkbox",
     date: "2026-10-02",
     description:
-      "appearance: none, a clip-path checkmark and text-box for a native checkbox.",
-    features: ["appearance", "text-box"],
+      "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
+    features: ["appearance", "clip-path"],
     level: "intermediate",
     slug: "checkbox-appearance-none",
     technique: "appearance: none",
@@ -237,6 +237,19 @@ export const posts = [
     technique: "light-dark()",
     title: "A switch from a checkbox",
     topics: ["color", "forms"],
+  },
+  {
+    category: "under-the-hood",
+    component: "table",
+    date: "2026-10-07",
+    description:
+      "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
+    features: ["anchor-positioning", "container-scroll-state-queries"],
+    level: "advanced",
+    slug: "table-scroll-state",
+    technique: "scroll-state()",
+    title: "A header that knows it’s stuck",
+    topics: ["layout"],
   },
   {
     category: "under-the-hood",

@@ -3737,14 +3737,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: show a list without `bordered` in the anatomy. Widening doesn't work: the hero stage's content box is 320px at every viewport and the anatomy caps the subject at 100% of it, which stays under 45ch (454px).
   > Fix
   - Fixed: the hero anatomy shows a list without `bordered`, so the stacked layout it renders at 16rem is the list's normal look and nothing is missing from the diagram.
-- [] (4) Button `kbd` looks weird on Mac
 - [x] (4) Agent skill: `skills/opui/references` is stale. It was last regenerated in a258697, and seven later commits changed the docs, What's new notes, API data or components it is built from. The shipped `references/html/button.md` still says links with `.ui-disabled` "look and act disabled", but ddf2697 removed `.ui-disabled` from `button.css`, so an agent following it ships a clickable "disabled" link (`packages/opui/skills/opui/references/html/button.md:10,402`, `packages/opui/css/components/button.css`)
   - Fix: run `pnpm build` and `pnpm build-skill` after the last docs change before publishing, and commit the result. The item about `pnpm build-skill` running nowhere automatically covers the lasting fix.
   > Fix
   - Fixed: `pnpm build` now ends with `pnpm build-skill`, CI fails when the committed references or the search index differ after `pnpm check`, and the references are regenerated (4d147f2), including the new Theming page.
-- [] (6) Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
-- [] (6) Test anatomy heroes in Firefox, Safari and with Windows fonts
 - [x] (7) Check button changes in the browser: new padding scale, icon side padding with wrapped labels, icon sizing, icon-only, button groups
   > - keyboard on hover is buggy (the kbd disappears on outlined and tonal buttons; the kbd on outlined and tonal buttons don't inherit the button text color)
   - Fixed: the `kbd` color was `oklch(from currentColor …)`. Chromium resolved it once and didn't update it while the button's color transitioned on hover, so it kept the old color. It now inherits `color` and dims with `opacity: 0.8`, and the background is `color-mix()` with `currentColor`.
-- [] (8) Test Menu and Carousel in Firefox and Safari (only checked in Chromium)

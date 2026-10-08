@@ -241,6 +241,12 @@
   font-weight: var(--font-weight-5);
 }
 
+:root[data-site-theme="shadcn"]
+  :where(.ui-switch)
+  :where(.ui-icon-checked, .ui-icon-unchecked) {
+  display: none;
+}
+
 :root[data-site-theme="tasteless"] {
   --backdrop-blur: 6px;
   --backdrop-color: oklch(0.9 0.25 125 / 0.5);

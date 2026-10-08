@@ -668,3 +668,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
 - Breaking: markers only animate with a [marker class](#marker-animation), and only the [`svg.ui-marker`](#custom-marker). Add `.ui-marker-rotate` to keep the previous rotation.
+- [Actions](#actions) line up with the content and the chevron.

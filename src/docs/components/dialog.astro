@@ -169,6 +169,18 @@ export const description =
   </section>
 
   <section>
+    <h2 id="width">Width</h2>
+    <p>
+      The dialog is up to <code>60ch</code> wide. Set <code
+        >--_max-inline-size</code
+      > on it for a wider or narrower dialog, for example <code
+        >style="--_max-inline-size: 40rem"</code
+      >. On small screens it keeps a <code>--size-2</code> margin on each side, whatever
+      the width.
+    </p>
+  </section>
+
+  <section>
     <h2 id="long-content">Long content</h2>
     <Conditional as="p">
       <Fragment slot="astro">

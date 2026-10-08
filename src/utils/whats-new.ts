@@ -17,6 +17,7 @@ const whatsNew = {
     {
       html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
+    `<a href="#actions">Actions</a> line up with the content and the chevron.`,
   ],
   anchor: [
     {
@@ -176,6 +177,7 @@ const whatsNew = {
   dialog: [
     `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
     `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
+    `<a href="#width">Width</a> with <code>--_max-inline-size</code>, keeping the margin on small screens.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,

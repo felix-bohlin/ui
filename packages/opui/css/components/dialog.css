@@ -3,25 +3,22 @@
     --_motion: var(--motion, 1);
     --_backdrop-bg-color: var(--backdrop-color);
     --_backdrop-blur: blur(var(--backdrop-blur));
+    --_max-inline-size: 60ch;
     --_scroll-shadow: var(--shadow-4);
     inline-size: 100%;
     inset: 0;
     margin: auto;
     margin-block-start: 15dvb;
     max-block-size: calc(85dvb - var(--size-4));
-    max-inline-size: calc(100% - var(--size-4));
-    overflow: auto;
-    padding-block: 0;
-    pointer-events: none;
-    position: fixed;
-
-    @media (width > 600px) {
-      max-inline-size: 60ch;
-    }
+    max-inline-size: min(var(--_max-inline-size), 100% - var(--size-4));
 
     /* Animation */
     /* There's no close animation, intentionally */
     opacity: 0;
+    overflow: auto;
+    padding-block: 0;
+    pointer-events: none;
+    position: fixed;
 
     &::backdrop {
       backdrop-filter: var(--_backdrop-blur);

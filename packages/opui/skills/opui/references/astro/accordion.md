@@ -473,3 +473,4 @@ Import the component from `opui-css/astro`:
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
+- [Actions](#actions) line up with the content and the chevron.

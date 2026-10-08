@@ -173,6 +173,8 @@
 - `open-props.css` imports the Open Props files one by one instead of `open-props/src/index.css`, so `dist/op.css` and `dist/opui.css` no longer contain Open Props' `@custom-media` rules. Import `open-props/media` yourself if a PostCSS plugin reads them.
 - `Switch`, `Tooltip`, `Textarea`, `Menu`, `Table`, `List`, `Tabs`, `Toast`, `Spinner`, `Carousel`, `Dialog`, `Drawer` and the typography styles use logical properties only (`min-inline-size`, `inset-inline-start`, `padding-block`/`padding-inline`, `resize: block` …), so they follow the writing mode. Horizontal left-to-right rendering is unchanged.
 - `Toast` sits in the bottom inline-end corner and slides in from the inline end, so in right-to-left pages it shows at the bottom left.
+- `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
+- `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
 
 ### Fixed
 

@@ -466,3 +466,4 @@ Import the component from `opui-css/svelte`:
 ### What's new
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
+- [Actions](#actions) line up with the content and the chevron.

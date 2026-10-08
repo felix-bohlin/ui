@@ -1,4 +1,5 @@
 ---
+import Code from "../../components/Code.astro"
 import Guide from "../../layouts/Guide.astro"
 import { compiledContent } from "../../../packages/opui/MIGRATING.md"
 
@@ -13,6 +14,20 @@ const content = [
   intro,
   ...sections.map((section) => `<section>${section.trim()}</section>`),
 ].join("\n")
+
+const CODE_BLOCK =
+  /<pre><code(?: class="language-([\w-]+)")?>([\s\S]*?)<\/code><\/pre>/
+const ENTITIES: Record<string, string> = {
+  amp: "&",
+  gt: ">",
+  lt: "<",
+  quot: '"',
+}
+const decode = (code: string) =>
+  code.replace(/&(?:#x([\da-f]+)|(\w+));/gi, (entity, hex, name) =>
+    hex ? String.fromCodePoint(parseInt(hex, 16)) : (ENTITIES[name] ?? entity),
+  )
+const segments = content.split(CODE_BLOCK)
 ---
 
 <Guide overline="Guide">
@@ -22,7 +37,17 @@ const content = [
     component.
   </Fragment>
 
-  <Fragment set:html={content} />
+  {
+    segments.map((segment, index) =>
+      index % 3 === 0 ? (
+        <Fragment set:html={segment} />
+      ) : (
+        index % 3 === 2 && (
+          <Code code={decode(segment)} lang={segments[index - 1]} />
+        )
+      ),
+    )
+  }
 
   <section>
     <h2 id="older-versions">Older versions</h2>

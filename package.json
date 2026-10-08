@@ -32,10 +32,9 @@
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "astro": "catalog:",
-    "astro-expressive-code": "^0.44.0",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
-    "highlight.js": "^11.11.1",
+    "microlighter": "^2.2.0",
     "minisearch": "^7.2.0",
     "open-props": "catalog:",
     "opui-css": "workspace:*",

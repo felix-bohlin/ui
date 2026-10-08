@@ -1,6 +1,6 @@
 export const SITE_THEMES = [
   {
-    description: "Blueprint grid, hairlines and square corners.",
+    description: "Warm monochrome, hairlines, sharp corners and light type.",
     text: "Architect",
     value: "architect",
   },
@@ -19,6 +19,11 @@ export const SITE_THEMES = [
       "Neobrutalist: thick outlines, hard shadows and loud flat color.",
     text: "Pixel",
     value: "pixel",
+  },
+  {
+    description: "The shadcn/ui neutral theme, token for token.",
+    text: "shadcn",
+    value: "shadcn",
   },
   {
     description: "Everything you were told never to do.",

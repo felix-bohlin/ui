@@ -1,50 +1,55 @@
 :root[data-site-theme="architect"] {
-  --backdrop-blur: 0px;
-  --backdrop-color: oklch(from var(--color-12) l c h / 0.6);
+  --backdrop-blur: 8px;
+  --backdrop-color: light-dark(
+    oklch(0.98 0.003 70 / 0.7),
+    oklch(0.12 0.003 70 / 0.7)
+  );
+  --border-color: light-dark(oklch(0.88 0.004 70), oklch(0.3 0.004 70));
   --border-radius: 0;
   --border-width: 1px;
   --button-border-radius: 0;
-  --density: 0.9;
-  --duration: 0.15s;
+  --density: 1.05;
+  --duration: 0.35s;
+  --duration-fast: 0.2s;
+  --duration-slow: 0.5s;
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --field-border-color: light-dark(oklch(0.8 0.004 70), oklch(0.38 0.004 70));
   --field-border-radius: 0;
-  --field-border-width: 1px;
   --field-label-font-weight: var(--font-weight-5);
-  --focus-ring-offset: 4px;
-  --focus-ring-style: dotted;
+  --focus-ring-color: var(--text-primary);
+  --focus-ring-offset: 3px;
   --font-sans: var(--font-neo-grotesque);
-  --font-weight-bold: var(--font-weight-6);
+  --font-weight-bold: var(--font-weight-4);
   --font-weight-semibold: var(--font-weight-5);
-  --gray-chroma: 0.02;
-  --gray-hue: 255;
-  --palette-chroma: 0.7;
-  --palette-hue: 255;
+  --gray-chroma: 0.006;
+  --gray-hue: 70;
+  --palette-chroma: 0.08;
+  --palette-hue: 70;
+  --primary: light-dark(oklch(0.22 0.004 70), oklch(0.94 0.004 70));
   --radius-1: 0;
   --radius-2: 0;
   --radius-3: 0;
-  --shadow-1: 0 0 0 1px var(--border-color);
-  --shadow-2: 0 0 0 1px var(--border-color);
-  --shadow-3: 0 0 0 1px var(--border-color);
-  --shadow-4: 0 0 0 1px var(--border-color);
-  --site-font-heading: var(--font-industrial);
-}
-
-:root.ui-dark[data-site-theme="architect"] {
-  --gray-chroma: 0.09;
-  --gray-hue: 258;
-  --palette-chroma: 0.5;
-  --palette-hue: 230;
-}
-
-:root[data-site-theme="architect"] body {
-  background-image:
-    linear-gradient(oklch(from var(--primary) l c h / 0.08) 1px, transparent 0),
-    linear-gradient(
-      90deg,
-      oklch(from var(--primary) l c h / 0.08) 1px,
-      transparent 0
-    );
-  background-size: 24px 24px;
+  --ripple-color: transparent;
+  --shadow-1: 0 1px 2px oklch(0.2 0.01 70 / 0.04);
+  --shadow-2:
+    0 1px 2px oklch(0.2 0.01 70 / 0.04),
+    0 8px 24px -12px oklch(0.2 0.01 70 / 0.12);
+  --shadow-3:
+    0 2px 4px oklch(0.2 0.01 70 / 0.04),
+    0 16px 40px -16px oklch(0.2 0.01 70 / 0.16);
+  --shadow-4:
+    0 4px 8px oklch(0.2 0.01 70 / 0.05),
+    0 32px 64px -24px oklch(0.2 0.01 70 / 0.2);
+  --site-font-heading: var(--font-neo-grotesque);
+  --site-glow-color: transparent;
+  --surface-default: light-dark(oklch(0.985 0.002 70), oklch(0.16 0.003 70));
+  --surface-elevated: light-dark(oklch(1 0 0), oklch(0.2 0.003 70));
+  --surface-filled: light-dark(oklch(0.94 0.004 70), oklch(0.24 0.003 70));
+  --surface-tonal: light-dark(oklch(0.955 0.004 70), oklch(0.22 0.003 70));
+  --text-muted: light-dark(oklch(0.45 0.005 70), oklch(0.72 0.005 70));
+  --text-primary: light-dark(oklch(0.18 0.004 70), oklch(0.95 0.003 70));
 }
 
 :root[data-site-theme="paper"] {
@@ -159,6 +164,82 @@
 :root[data-site-theme="pixel"] body {
   -moz-osx-font-smoothing: unset;
   -webkit-font-smoothing: none;
+}
+
+:root[data-site-theme="shadcn"] {
+  --backdrop-blur: 0px;
+  --backdrop-color: oklch(0 0 0 / 0.5);
+  --border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 10%));
+  --border-radius: 0.625rem;
+  --button-border-radius: calc(0.625rem - 2px);
+  --choice-size: 1rem;
+  --control-size: 36px;
+  --control-size-large: 40px;
+  --control-size-small: 32px;
+  --control-size-x-small: 28px;
+  --critical: light-dark(oklch(0.577 0.245 27.325), oklch(0.704 0.191 22.216));
+  --duration: 0.15s;
+  --duration-fast: 0.1s;
+  --duration-slow: 0.2s;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 15%));
+  --field-border-radius: calc(0.625rem - 2px);
+  --field-label-font-size: 0.875rem;
+  --field-label-font-weight: var(--font-weight-5);
+  --focus-ring-color: light-dark(
+    oklch(0.708 0 0 / 0.5),
+    oklch(0.556 0 0 / 0.5)
+  );
+  --focus-ring-offset: 0px;
+  --focus-ring-width: 3px;
+  --font-sans:
+    Geist, Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --font-weight-bold: var(--font-weight-6);
+  --font-weight-semibold: var(--font-weight-5);
+  --gray-chroma: 0;
+  --palette-chroma: 0;
+  --primary: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
+  --primary-contrast: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
+  --radius-1: 4px;
+  --radius-2: calc(0.625rem - 2px);
+  --radius-3: 0.625rem;
+  --ripple-color: transparent;
+  --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-2: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-3: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-4:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --site-font-heading: var(--font-sans);
+  --site-glow-color: transparent;
+  --surface-default: light-dark(oklch(1 0 0), oklch(0.145 0 0));
+  --surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
+  --surface-filled: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
+  --surface-inverse: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
+  --surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
+  --switch-dot-size: 1rem;
+  --switch-track-height: 1.5rem;
+  --switch-track-width: 2.625rem;
+  --text-muted: light-dark(oklch(0.556 0 0), oklch(0.708 0 0));
+  --text-primary: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
+}
+
+:root[data-site-theme="shadcn"]
+  :where(
+    .ui-card.ui-elevated,
+    .ui-card.ui-tonal,
+    .ui-list:not(.ui-tonal, .ui-transparent),
+    .ui-table th
+  ) {
+  --border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 10%));
+  --field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 15%));
+}
+
+:root[data-site-theme="shadcn"] :where(.ui-button:not(.ui-x-small)) {
+  font-size: var(--font-size-05);
+  font-weight: var(--font-weight-5);
 }
 
 :root[data-site-theme="tasteless"] {

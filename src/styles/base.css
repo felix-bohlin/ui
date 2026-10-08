@@ -63,6 +63,7 @@
 :root {
   --site-font-heading: var(--font-bricolage-grotesque), sans-serif;
   --site-gap: var(--size-4, 20px);
+  --site-glow-color: var(--primary);
   --site-header-end-inline-size: 535px;
   --site-page-gutters: var(--site-gap);
 

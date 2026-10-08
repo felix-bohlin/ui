@@ -26,19 +26,19 @@ const currentFramework = (Astro.currentLocale ??
 // every variant (e.g. /astro/components/button -> /components/button).
 const canonicalPath = stripFrameworkPrefix(pathname)
 
-const navItems: { label: string; href: string }[] = [
-  { label: "Guide", href: "/guide/getting-started" },
-  { label: "Components", href: "/components" },
-  { label: "Blocks", href: "/blocks" },
-  { label: "API", href: "/api" },
-  { label: "Learn", href: "/learn" },
+const navItems = [
+  { label: "Guide", href: "/guide/getting-started", section: "/guide" },
+  { label: "Components", href: "/components", section: "/components" },
+  { label: "Blocks", href: "/blocks", section: "/blocks" },
+  { label: "API", href: "/api", section: "/api" },
+  { label: "Learn", href: "/learn", section: "/learn" },
 ]
 
-const resolvedNavItems = navItems.map((item) => ({
+const resolvedNavItems = navItems.map(({ section, ...item }) => ({
   ...item,
   href: hrefFor(currentFramework, item.href),
   isActive:
-    canonicalPath === item.href || canonicalPath.startsWith(item.href + "/"),
+    canonicalPath === section || canonicalPath.startsWith(section + "/"),
 }))
 
 const { link } = Astro.locals

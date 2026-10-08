@@ -252,6 +252,9 @@ const whatsNew = {
   message: [
     `New component. <a href="#basics">Chat bubbles</a> that group by sender, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
   ],
+  "one-time-code": [
+    `New component. A <a href="#basics">one-time code field</a> that draws one input as a box per character, so paste and SMS autofill work without JavaScript.`,
+  ],
   progress: [
     {
       astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
@@ -476,12 +479,16 @@ const whatsNew = {
 } satisfies Record<string, Note[]>
 
 const highlighted = new Set([
+  "bar-chart",
   "button",
   "carousel",
   "menu",
   "message",
+  "one-time-code",
   "rating",
+  "stepper",
   "tabs",
+  "timeline",
   "typography",
 ])
 

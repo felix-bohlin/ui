@@ -1,0 +1,178 @@
+@layer components.extended {
+  .ui-one-time-code:where(.ui-text-field) {
+    --_box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+    --_box-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
+    --_cell: min(var(--_max-cell), 100cqi / (var(--_length) - 0.25));
+    --_dash: none;
+    --_dash-color: var(--text-muted);
+    --_font-size: var(--font-size-3);
+    --_length: 6;
+    --_max-cell: round(
+      max(var(--_min-height) * 1.2, var(--_font-size) * 1.6),
+      8px
+    );
+    --_slot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='%23000' fill-opacity='.12' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
+    contain-intrinsic-inline-size: calc(
+      (var(--_length) - 0.25) * var(--_max-cell)
+    );
+    container-type: inline-size;
+    inline-size: min((var(--_length) - 0.25) * var(--_max-cell), 100%);
+    min-inline-size: 0;
+
+    .ui-field {
+      background: none;
+      border: 0;
+      cursor: text;
+      direction: ltr;
+      font-family: var(--font-mono);
+      font-size: var(--_font-size);
+      grid-template-columns: 0 max-content minmax(0, var(--_cell)) 1fr;
+      grid-template-rows: auto 1fr auto;
+      inline-size: calc(var(--_length) * var(--_cell));
+      justify-content: start;
+      justify-self: start;
+      margin-inline: calc(var(--_cell) * -0.125);
+      overflow: clip;
+
+      &::before {
+        background-color: var(--_border-color);
+        content: "";
+        grid-column: 1 / -1;
+        grid-row: 2;
+        mask: var(--_box) 0 0 / var(--_cell) 100% repeat-x;
+        pointer-events: none;
+        transition: background-color calc(var(--duration) * var(--_motion))
+          var(--ease);
+      }
+    }
+
+    .ui-field input {
+      background: var(--_dash)
+        calc(var(--_length) * var(--_cell) / 2 - var(--_cell) / 16) 50% /
+        calc(var(--_cell) / 8) 2px no-repeat;
+      caret-color: var(--_accent);
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      inline-size: calc((var(--_length) + 1) * var(--_cell));
+      letter-spacing: calc(var(--_cell) - 1ch);
+      margin-inline-end: calc(-1 * var(--_cell));
+      padding-block: 0;
+      padding-inline: calc((var(--_cell) - 1ch) / 2) 0;
+      position: relative;
+    }
+
+    .ui-field input[autocapitalize="characters"] {
+      text-transform: uppercase;
+    }
+
+    &:has([maxlength="4"]) {
+      --_length: 4;
+    }
+
+    &:has([maxlength="5"]) {
+      --_length: 5;
+    }
+
+    &:has([maxlength="7"]) {
+      --_length: 7;
+    }
+
+    &:has([maxlength="8"]) {
+      --_length: 8;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(
+          :focus-within,
+          :has([aria-invalid="true"], :user-invalid, :disabled)
+        )
+        .ui-field::before {
+        background-color: var(--text-primary);
+      }
+    }
+
+    &:focus-within .ui-field::before {
+      background-color: var(--_accent);
+      mask-image: var(--_box-focus);
+    }
+
+    .ui-field:has(:focus-visible) {
+      outline: 0;
+    }
+
+    @supports (field-sizing: content) {
+      .ui-field input {
+        field-sizing: content;
+        inline-size: auto;
+        margin-inline-end: calc(
+          (var(--_cell) - 1ch) / -2 - var(--_length) * var(--_cell)
+        );
+        padding-inline-end: calc(var(--_length) * var(--_cell));
+      }
+
+      &:focus-within .ui-field {
+        &::before {
+          mask-image: var(--_box);
+        }
+
+        &::after {
+          background-color: var(--_accent);
+          content: "";
+          grid-column: 3;
+          grid-row: 2;
+          inline-size: var(--_cell);
+          justify-self: unsafe end;
+          mask: var(--_slot) 0 0 / 100% 100%;
+          pointer-events: none;
+        }
+      }
+    }
+
+    &.ui-grouped {
+      --_dash: linear-gradient(var(--_dash-color) 0 0);
+    }
+
+    &.ui-small {
+      --_font-size: var(--font-size-2);
+    }
+
+    &.ui-large {
+      --_font-size: var(--font-size-4);
+    }
+
+    @media (forced-colors: active) {
+      --_dash-color: CanvasText;
+
+      .ui-field::before,
+      .ui-field::after {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      .ui-field input {
+        caret-color: CanvasText;
+        color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      &:has(:disabled) .ui-field {
+        &::before {
+          background-color: GrayText;
+        }
+
+        input {
+          color: GrayText;
+        }
+      }
+
+      &:focus-within .ui-field {
+        outline: 0;
+
+        &::before,
+        &::after {
+          background-color: Highlight;
+        }
+      }
+    }
+  }
+}

@@ -31,6 +31,7 @@ export { default as ListItem } from "../components/ListItem/ListItem.vue"
 export { default as Menu } from "../components/Menu/Menu.vue"
 export { default as Message } from "../components/Message/Message.vue"
 export { default as Messages } from "../components/Message/Messages.vue"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
@@ -100,6 +101,7 @@ export type {
   MessagesProps,
   Props as MessageProps,
 } from "../components/Message/types.d.vue"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.d.vue"
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
 export type { RadioInputProps } from "../components/Radio/types"
 export type { RadioProps } from "../components/Radio/types.d.vue"

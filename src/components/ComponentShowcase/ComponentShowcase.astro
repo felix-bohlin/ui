@@ -20,6 +20,8 @@ import {
   Form,
   List,
   ListItem,
+  Message,
+  Messages,
   Progress,
   Radio,
   Range,
@@ -268,6 +270,18 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </menu>
   </ComponentCard>
 
+  <ComponentCard name="Message" href="/components/message">
+    <Messages aria-hidden="true" class="showcase-messages" inert>
+      <Message author="Saga">
+        <Avatar slot="avatar">SN</Avatar>
+        <p>Lunch?</p>
+      </Message>
+      <Message author="You" outgoing>
+        <p>Yes please!</p>
+      </Message>
+    </Messages>
+  </ComponentCard>
+
   <ComponentCard name="Progress" href="/components/progress">
     <Progress variant="filled" aria-busy="true" aria-hidden="true" />
   </ComponentCard>
@@ -511,6 +525,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-menu {
+      inline-size: 100%;
+      max-inline-size: 14rem;
+    }
+
+    .showcase-messages {
       inline-size: 100%;
       max-inline-size: 14rem;
     }

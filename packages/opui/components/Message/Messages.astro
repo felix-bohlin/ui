@@ -1,0 +1,11 @@
+---
+import type { MessagesProps as Props } from "./types.astro"
+
+export const title = "Messages"
+
+const { class: className, label, ...rest } = Astro.props
+---
+
+<ol aria-label={label} class:list={["ui-messages", className]} {...rest}>
+  <slot />
+</ol>

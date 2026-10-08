@@ -1,0 +1,114 @@
+---
+import Button from "../Button/Button.astro"
+import { createId } from "../id"
+
+import type { Props } from "./types.astro"
+
+export const title = "Message"
+
+const {
+  author,
+  class: className,
+  datetime,
+  newAuthor,
+  outgoing,
+  picker,
+  pickerLabel = "Add reaction",
+  reactions,
+  reactionsLabel = "Reactions",
+  time,
+  typing,
+  ...rest
+} = Astro.props
+
+const $id = createId(Astro.locals)
+const pickerId = $id("reactions")
+const hasPicker = !!picker?.length
+---
+
+<li
+  class:list={[
+    "ui-message",
+    {
+      "ui-new-author": newAuthor,
+      "ui-outgoing": outgoing,
+      "ui-typing": typing,
+    },
+    className,
+  ]}
+  {...rest}
+>
+  <slot name="avatar" />
+  {
+    typing ? (
+      <div class="ui-bubble" role="status">
+        <span class="ui-sr-only">
+          <slot />
+        </span>
+      </div>
+    ) : (
+      <div class="ui-bubble">
+        {author && <p class="ui-header">{author}</p>}
+        <slot />
+        {(time || Astro.slots.has("footer")) && (
+          <p class="ui-footer">
+            {time && <time datetime={datetime}>{time}</time>}
+            <slot name="footer" />
+          </p>
+        )}
+      </div>
+    )
+  }
+  {
+    !!reactions?.length && (
+      <div aria-label={reactionsLabel} class="ui-reactions" role="group">
+        {reactions.map(({ count, emoji, label, mine, value }) => (
+          <label class="ui-reaction" data-count={count}>
+            <input
+              checked={mine}
+              class="ui-sr-only"
+              form={hasPicker ? pickerId : undefined}
+              name="reaction"
+              type="checkbox"
+              value={value ?? emoji}
+            />
+            <span aria-hidden="true">{emoji}</span>
+            <span class="ui-sr-only">{label}</span>
+          </label>
+        ))}
+      </div>
+    )
+  }
+  {
+    hasPicker && (
+      <Button
+        class="ui-reaction-add"
+        command="toggle-popover"
+        commandfor={pickerId}
+        label={pickerLabel}
+        rounded
+        size="x-small"
+      >
+        <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z" />
+        </svg>
+      </Button>
+    )
+  }
+  {
+    hasPicker && (
+      <form class="ui-reaction-picker" id={pickerId} popover>
+        {picker?.map(({ emoji, label, value }) => (
+          <button
+            aria-label={label}
+            name="add"
+            type="submit"
+            value={value ?? emoji}
+          >
+            {emoji}
+          </button>
+        ))}
+      </form>
+    )
+  }
+</li>

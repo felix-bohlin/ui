@@ -28,6 +28,8 @@ export { default as Form } from "../components/Form/Form.vue"
 export { default as List } from "../components/List/List.vue"
 export { default as ListItem } from "../components/ListItem/ListItem.vue"
 export { default as Menu } from "../components/Menu/Menu.vue"
+export { default as Message } from "../components/Message/Message.vue"
+export { default as Messages } from "../components/Message/Messages.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
@@ -83,6 +85,14 @@ export type { Props as ListProps } from "../components/List/types.d.vue"
 export type { Props as ListItemProps } from "../components/ListItem/types.d.vue"
 export type { MenuItem } from "../components/Menu/types"
 export type { Props as MenuProps } from "../components/Menu/types.d.vue"
+export type {
+  Emoji as MessageEmoji,
+  Reaction as MessageReaction,
+} from "../components/Message/types"
+export type {
+  MessagesProps,
+  Props as MessageProps,
+} from "../components/Message/types.d.vue"
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
 export type { RadioInputProps } from "../components/Radio/types"
 export type { RadioProps } from "../components/Radio/types.d.vue"

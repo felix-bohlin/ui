@@ -246,6 +246,9 @@ const whatsNew = {
     `A subtle light gray border in dark mode, so <a href="#basics">menus</a> stand out on dialogs and other raised surfaces.`,
     `Tall menus shrink to the space on their side instead of running off-screen (<a href="#placement">Placement</a>).`,
   ],
+  message: [
+    `New component. <a href="#basics">Chat bubbles</a> that group by sender, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+  ],
   progress: [
     {
       astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
@@ -464,6 +467,7 @@ const highlighted = new Set([
   "button",
   "carousel",
   "menu",
+  "message",
   "tabs",
   "typography",
 ])

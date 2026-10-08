@@ -1,0 +1,126 @@
+<ol aria-label="Messages in #pricing" class="ui-messages">
+  <li class="ui-message">
+    <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+    <div class="ui-bubble">
+      <p class="ui-header">Saga</p>
+      <p>No rush, Friday is fine.</p>
+      <p class="ui-footer"><time datetime="2026-10-08T14:03">14:03</time></p>
+    </div>
+    <div aria-label="Reactions" class="ui-reactions" role="group">
+      <label class="ui-reaction" data-count="3">
+        <input
+          checked
+          class="ui-sr-only"
+          form="reactions-friday"
+          name="reaction"
+          type="checkbox"
+          value="+1"
+        />
+        <span aria-hidden="true">👍</span>
+        <span class="ui-sr-only">Thumbs up, 2 others</span>
+      </label>
+      <label class="ui-reaction" data-count="1">
+        <input
+          class="ui-sr-only"
+          form="reactions-friday"
+          name="reaction"
+          type="checkbox"
+          value="pray"
+        />
+        <span aria-hidden="true">🙏</span>
+        <span class="ui-sr-only">Folded hands, 1 other</span>
+      </label>
+    </div>
+    <button
+      aria-label="Add reaction"
+      class="ui-button ui-x-small ui-rounded ui-reaction-add"
+      command="toggle-popover"
+      commandfor="reactions-friday"
+      type="button"
+    >
+      <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+        />
+      </svg>
+    </button>
+    <form class="ui-reaction-picker" id="reactions-friday" popover>
+      <button aria-label="Thumbs up" name="add" type="submit" value="+1">
+        👍
+      </button>
+      <button aria-label="Heart" name="add" type="submit" value="heart">
+        ❤️
+      </button>
+      <button aria-label="Laughing" name="add" type="submit" value="joy">
+        😂
+      </button>
+      <button aria-label="Party" name="add" type="submit" value="tada">
+        🎉
+      </button>
+      <button aria-label="Eyes" name="add" type="submit" value="eyes">
+        👀
+      </button>
+    </form>
+  </li>
+  <li class="ui-message ui-outgoing">
+    <div class="ui-bubble">
+      <p class="ui-header">You</p>
+      <p>Yes, looks good. I'd lead with the annual plan.</p>
+      <p class="ui-footer"><time datetime="2026-10-08T14:18">14:18</time></p>
+    </div>
+    <div aria-label="Reactions" class="ui-reactions" role="group">
+      <label class="ui-reaction" data-count="3">
+        <input
+          class="ui-sr-only"
+          form="reactions-annual"
+          name="reaction"
+          type="checkbox"
+          value="tada"
+        />
+        <span aria-hidden="true">🎉</span>
+        <span class="ui-sr-only">Party, 3 others</span>
+      </label>
+      <label class="ui-reaction" data-count="1">
+        <input
+          class="ui-sr-only"
+          form="reactions-annual"
+          name="reaction"
+          type="checkbox"
+          value="heart"
+        />
+        <span aria-hidden="true">❤️</span>
+        <span class="ui-sr-only">Heart, 1 other</span>
+      </label>
+    </div>
+    <button
+      aria-label="Add reaction"
+      class="ui-button ui-x-small ui-rounded ui-reaction-add"
+      command="toggle-popover"
+      commandfor="reactions-annual"
+      type="button"
+    >
+      <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+        />
+      </svg>
+    </button>
+    <form class="ui-reaction-picker" id="reactions-annual" popover>
+      <button aria-label="Thumbs up" name="add" type="submit" value="+1">
+        👍
+      </button>
+      <button aria-label="Heart" name="add" type="submit" value="heart">
+        ❤️
+      </button>
+      <button aria-label="Laughing" name="add" type="submit" value="joy">
+        😂
+      </button>
+      <button aria-label="Party" name="add" type="submit" value="tada">
+        🎉
+      </button>
+      <button aria-label="Eyes" name="add" type="submit" value="eyes">
+        👀
+      </button>
+    </form>
+  </li>
+</ol>

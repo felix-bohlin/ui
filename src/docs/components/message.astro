@@ -1,0 +1,440 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import {
+  Avatar as UIAvatar,
+  Callout as UICallout,
+  Message as UIMessage,
+  Messages as UIMessages,
+} from "@opui/astro"
+
+import AvatarCSS from "@opui/css/components/avatar.css?raw"
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import MessageCSS from "@opui/css/components/message.css?raw"
+
+import messageApi from "../../component-api/message/api"
+import messagesApi from "../../component-api/messages/api"
+
+export const description =
+  "Chat bubbles that group by sender, with attachments, reactions and a typing indicator."
+---
+
+<Component
+  description={description}
+  slug="message"
+  heroAnatomy
+  apis={[
+    { title: "Messages API", api: messagesApi },
+    { title: "Message API", api: messageApi },
+  ]}
+  browserSupport={[
+    "anchor-positioning",
+    "attr",
+    "container-queries",
+    "container-style-queries",
+    "corner-shape",
+    "has",
+    "invoker-commands",
+    "popover",
+    "starting-style",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Message", type: "component" },
+    { path: "src/docs/components/message.astro", type: "docs" },
+    { path: "src/component-examples/message", type: "docs" },
+    { path: "packages/opui/css/components/message.css", type: "css" },
+    { path: "src/component-api/message", type: "api" },
+    { path: "src/component-api/messages", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "message.css", code: MessageCSS, lang: "css" },
+    { title: "avatar.css", code: AvatarCSS, lang: "css", isDependency: true },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+  ]}
+  seeAlsoLinks={[
+    { name: "Avatar", href: "/components/avatar" },
+    { name: "Menu", href: "/components/menu" },
+  ]}
+>
+  <Fragment slot="title">Message</Fragment>
+  <Fragment slot="preamble">
+    Chat bubbles for a conversation. Consecutive messages from the same side
+    group into a run, with tighter corners on the avatar side, the author on the
+    first message and the <DocLink href="/components/avatar">Avatar</DocLink> on the
+    last.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIMessages label="Messages with Saga" style="inline-size: 22rem">
+        <UIMessage
+          author="Saga"
+          datetime="2026-10-08T14:31"
+          picker={[{ emoji: "👍", label: "Thumbs up", value: "+1" }]}
+          reactions={[
+            {
+              count: 2,
+              emoji: "👍",
+              label: "Thumbs up, 1 other",
+              mine: true,
+              value: "+1",
+            },
+          ]}
+          style="--_reaction-add-opacity: 1"
+          time="14:31"
+        >
+          <UIAvatar aria-label="Saga Nyström" role="img" slot="avatar"
+            >SN</UIAvatar
+          >
+          <p>Here's the current draft:</p>
+          <div class="ui-attachment">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+              ></path>
+            </svg>
+            <div>
+              <span class="ui-link">Pricing-proposal.pdf</span>
+              <p>PDF · 2.4 MB</p>
+            </div>
+          </div>
+        </UIMessage>
+      </UIMessages>
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Each message is an <code>li.ui-message</code> in an <code
+          >ol.ui-messages</code
+        >. Add <code>.ui-outgoing</code> to the messages you sent.</Fragment
+      >
+      <Fragment slot="astro"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent.</Fragment
+      >
+      <Fragment slot="vue"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent.</Fragment
+      >
+    </Conditional>
+    <p>
+      Bubbles are at most 85% as wide as the thread. The author of an outgoing
+      message is visually hidden, and still read by screen readers.
+    </p>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="group-chat">Group chat</h2>
+    <p>
+      CSS can't compare authors, so mark the first message after the author
+      changes with <PropOrClass prop="newAuthor" class=".ui-new-author" />. Any
+      other <code>li</code> between messages, such as a date divider, also breaks
+      the run.
+    </p>
+
+    <AutoExample name="GroupChat" />
+  </section>
+
+  <section>
+    <h2 id="attachments">Attachments</h2>
+    <p>
+      Put a <code>.ui-attachment</code> in the bubble for a file card with an icon,
+      a link and details.
+    </p>
+
+    <AutoExample name="Attachments" />
+  </section>
+
+  <section>
+    <h2 id="reactions">Reactions</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Each pill is a checkbox in a <code>label.ui-reaction</code>, so it
+        toggles right away. <code>data-count</code> is the total from your server,
+        and <code>checked</code> marks your own reaction.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>reactions</code> renders a pill per reaction, a checkbox that toggles
+        right away. <code>count</code> is the total from your server, and <code
+          >mine</code
+        > marks your own reaction.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>reactions</code> renders a pill per reaction, a checkbox that toggles
+        right away. <code>count</code> is the total from your server, and <code
+          >mine</code
+        > marks your own reaction.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>reactions</code> renders a pill per reaction, a checkbox that toggles
+        right away. <code>count</code> is the total from your server, and <code
+          >mine</code
+        > marks your own reaction.</Fragment
+      >
+    </Conditional>
+    <p>
+      CSS adds or removes your reaction from the count, in browsers with typed <code
+        >attr()</code
+      >. Other browsers show the server count until the page reloads. Count only
+      the others in the label, such as "Thumbs up, 2 others": the checkbox state
+      already says whether you reacted, so the label never goes stale.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The add button opens a popover form of emoji buttons with <code
+          >command="toggle-popover"</code
+        >. It shows on hover and focus, and always on touch screens. Give the
+        checkboxes the form's <code>id</code> in <code>form</code>, so one form
+        holds every reaction of the message.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>picker</code> adds a button that opens a popover form of emoji buttons.
+        It shows on hover and focus, and always on touch screens.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>picker</code> adds a button that opens a popover form of emoji buttons.
+        It shows on hover and focus, and always on touch screens.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>picker</code> adds a button that opens a popover form of emoji buttons.
+        It shows on hover and focus, and always on touch screens.</Fragment
+      >
+    </Conditional>
+    <p>
+      Saving a toggle, adding a new emoji and removing a pill at zero are up to
+      you: listen for <code>change</code> on the checkboxes and <code
+        >submit</code
+      > on the picker, where <code>event.submitter.value</code> is the emoji. In these
+      examples a small script stands in for the server.
+    </p>
+
+    <AutoExample name="Reactions" />
+  </section>
+
+  <section>
+    <h2 id="button-reactions">Reactions without JavaScript</h2>
+    <p>
+      To save reactions without JavaScript, make each pill a submit <code
+        >button.ui-reaction</code
+      > with <code>aria-pressed</code>, in the picker's form. Give the form an <code
+        >action</code
+      > and <code>method="post"</code>, and render the page again with the new
+      counts.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        ><code>Message</code> renders checkbox pills. Write this markup yourself for
+        button pills.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>Message</code> renders checkbox pills. Write this markup yourself for
+        button pills.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>Message</code> renders checkbox pills. Write this markup yourself for
+        button pills.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="ButtonReactions" />
+  </section>
+
+  <section>
+    <h2 id="typing">Typing indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-typing</code> shows animated dots in the bubble. Give the bubble
+        <code>role="status"</code> and visually hidden text.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>typing</code> shows animated dots in the bubble. The default slot is
+        the status text for screen readers.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>typing</code> shows animated dots in the bubble. The children are the
+        status text for screen readers.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>typing</code> shows animated dots in the bubble. The default slot is
+        the status text for screen readers.</Fragment
+      >
+    </Conditional>
+    <p>The dots hold still when motion is off.</p>
+
+    <AutoExample name="Typing" />
+  </section>
+
+  <section>
+    <h2 id="rtl">Right to left</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Sides, corners and reactions follow <code>dir</code>. Translate the
+        labels with <code>aria-label</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        >Sides, corners and reactions follow <code>dir</code>. Translate the
+        labels with <code>label</code>, <code>pickerLabel</code> and <code
+          >reactionsLabel</code
+        >.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Sides, corners and reactions follow <code>dir</code>. Translate the
+        labels with <code>label</code>, <code>pickerLabel</code> and <code
+          >reactionsLabel</code
+        >.</Fragment
+      >
+      <Fragment slot="vue"
+        >Sides, corners and reactions follow <code>dir</code>. Translate the
+        labels with <code>label</code>, <code>pickerLabel</code> and <code
+          >reactionsLabel</code
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="RightToLeft" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The thread is an ordered list with an accessible name, so screen readers
+      announce the number of messages and each position. Follow-up messages keep
+      their author visually hidden, so every message says who wrote it. Only the
+      avatar on the last message of a run is announced.
+    </p>
+    <p>
+      The typing bubble is a <code>role="status"</code> region inside its list item.
+      Some screen readers skip a live region that is added with its text already in
+      it: add the row first, then set the text.
+    </p>
+    <p>
+      Reaction pills are checkboxes or toggle buttons with a label, and the
+      count drawn by CSS is hidden from screen readers. The picker is a popover:
+      <kbd>Tab</kbd> moves into it from the add button, and <kbd>Esc</kbd> closes
+      it.
+    </p>
+    <p>
+      In forced colors mode bubbles get a border, and your reactions are filled
+      with <code>SelectedItem</code>.
+    </p>
+    <div class="ui-not-rich-text">
+      <UICallout severity="info">
+        <Fragment slot="title">Browser support</Fragment>
+        <p>
+          Without <code>:has()</code>, messages don't group and your reaction
+          isn't highlighted. Without anchor positioning, the picker opens in the
+          middle of the screen.
+        </p>
+      </UICallout>
+    </div>
+  </Fragment>
+</Component>
+
+<script>
+  const labelFor = (button: HTMLButtonElement) =>
+    button.getAttribute("aria-label") ?? button.value
+
+  const togglePressed = (pill: HTMLButtonElement) => {
+    const pressed = pill.getAttribute("aria-pressed") === "true"
+    pill.setAttribute("aria-pressed", String(!pressed))
+    pill.dataset.count = String(Number(pill.dataset.count) + (pressed ? -1 : 1))
+  }
+
+  const createPill = (picker: HTMLFormElement, emoji: HTMLButtonElement) => {
+    const asButton = picker.method === "post"
+    const pill = document.createElement(asButton ? "button" : "label")
+    pill.className = "ui-reaction"
+    pill.dataset.count = "1"
+    const icon = Object.assign(document.createElement("span"), {
+      textContent: emoji.textContent?.trim() ?? "",
+    })
+    icon.setAttribute("aria-hidden", "true")
+    const text = Object.assign(document.createElement("span"), {
+      className: "ui-sr-only",
+      textContent: labelFor(emoji),
+    })
+    if (pill instanceof HTMLButtonElement) {
+      Object.assign(pill, {
+        name: "reaction",
+        type: "submit",
+        value: emoji.value,
+      })
+      pill.setAttribute("aria-pressed", "true")
+      pill.setAttribute("form", picker.id)
+      pill.append(icon, text)
+    } else {
+      const input = Object.assign(document.createElement("input"), {
+        className: "ui-sr-only",
+        defaultChecked: true,
+        name: "reaction",
+        type: "checkbox",
+        value: emoji.value,
+      })
+      input.setAttribute("form", picker.id)
+      pill.append(input, icon, text)
+    }
+    return pill
+  }
+
+  document.addEventListener("submit", (event) => {
+    const picker = event.target
+    const submitter = event.submitter
+    if (
+      !(picker instanceof HTMLFormElement) ||
+      !picker.matches(".ui-message > .ui-reaction-picker") ||
+      !(submitter instanceof HTMLButtonElement)
+    ) {
+      return
+    }
+    event.preventDefault()
+
+    if (submitter.matches(".ui-reaction")) {
+      togglePressed(submitter)
+      return
+    }
+
+    if (picker.matches(":popover-open")) picker.hidePopover()
+    const message = picker.parentElement!
+    const pills = [...message.querySelectorAll<HTMLElement>(".ui-reaction")]
+    const existing = pills.find(
+      (pill) =>
+        (pill.querySelector("input")?.value ??
+          (pill as HTMLButtonElement).value) === submitter.value,
+    )
+    const input = existing?.querySelector("input")
+    if (input) {
+      input.checked = true
+    } else if (existing instanceof HTMLButtonElement) {
+      if (existing.getAttribute("aria-pressed") !== "true") {
+        togglePressed(existing)
+      }
+    } else {
+      let group = message.querySelector(".ui-reactions")
+      if (!group) {
+        group = Object.assign(document.createElement("div"), {
+          className: "ui-reactions",
+        })
+        group.setAttribute("aria-label", "Reactions")
+        group.setAttribute("role", "group")
+        message.querySelector(".ui-bubble")?.after(group)
+      }
+      group.append(createPill(picker, submitter))
+    }
+  })
+</script>

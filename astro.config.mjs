@@ -97,5 +97,35 @@ export default defineConfig({
         ],
       },
     },
+    {
+      name: "Geist",
+      provider: fontProviders.local(),
+      cssVariable: "--font-geist",
+      options: {
+        variants: [
+          {
+            src: ["./public/Geist-Variable.woff2"],
+            style: "normal",
+            weight: "100 900",
+            display: "swap",
+          },
+        ],
+      },
+    },
+    {
+      name: "Geist Mono",
+      provider: fontProviders.local(),
+      cssVariable: "--font-geist-mono",
+      options: {
+        variants: [
+          {
+            src: ["./public/GeistMono-Variable.woff2"],
+            style: "normal",
+            weight: "100 900",
+            display: "swap",
+          },
+        ],
+      },
+    },
   ],
 })

@@ -194,9 +194,8 @@
   );
   --focus-ring-offset: 0px;
   --focus-ring-width: 3px;
-  --font-sans:
-    Geist, Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji";
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist);
   --font-weight-bold: var(--font-weight-6);
   --font-weight-semibold: var(--font-weight-5);
   --gray-chroma: 0;

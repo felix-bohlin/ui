@@ -80,7 +80,6 @@ Put it all together something like this in your main CSS. If you have your files
 ```css
 @import "./opui/css/layers.css";
 
-
 @import "./opui/op.css";
 @import "./opui/core/palette.css";
 @import "./opui/css/theme.css";

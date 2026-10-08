@@ -37,16 +37,13 @@ Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.
   <div class="ui-content">Text</div>
 </div>
 
-
 <div class="ui-card ui-outlined">
   <div class="ui-content">Outlined</div>
 </div>
 
-
 <div class="ui-card ui-tonal">
   <div class="ui-content">Tonal</div>
 </div>
-
 
 <div class="ui-card ui-elevated">
   <div class="ui-content">Elevated</div>
@@ -88,7 +85,6 @@ There are some basic styles here to get you going, but for more advanced use-cas
   </div>
 </div>
 
-
 <div class="ui-card ui-outlined">
   <div class="ui-content">Trying other button types too. Look at that!</div>
   <div class="ui-actions">
@@ -96,7 +92,6 @@ There are some basic styles here to get you going, but for more advanced use-cas
     <button type="button" class="ui-button ui-filled">Save</button>
   </div>
 </div>
-
 
 <div class="ui-card ui-outlined">
   <div class="ui-content">Icon buttons work too!</div>
@@ -152,7 +147,6 @@ Align actions to the end with the `.ui-align-end` class.
   </div>
 </div>
 
-
 <div class="ui-card ui-outlined">
   <div class="ui-content">Again, buttons are aligned to the end!</div>
   <div class="ui-actions ui-align-end">
@@ -160,7 +154,6 @@ Align actions to the end with the `.ui-align-end` class.
     <button type="button" class="ui-button ui-filled">Save</button>
   </div>
 </div>
-
 
 <div class="ui-card ui-outlined">
   <div class="ui-content">Icon buttons aligned to the end!</div>
@@ -214,7 +207,6 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
   </hgroup>
   <div class="ui-content">Plans for any team. Click anywhere on the card.</div>
 </div>
-
 
 <div class="ui-card ui-outlined">
   <hgroup>
@@ -327,22 +319,18 @@ Step 1 of 3: Base
   overflow-wrap: break-word;
 }
 
-
 .card > :is(hgroup, .content) {
   margin-block: 0;
   padding-inline: 0.75rem;
 }
 
-
 .card > :is(hgroup, .content):last-child {
   padding-block-end: 0.75rem;
 }
 
-
 .card > hgroup {
   padding-block-start: 0.75rem;
 }
-
 
 .card > hgroup > * {
   margin-block: 0;
@@ -361,13 +349,11 @@ Step 2 of 3: Variants
   --card-border-width: 1px;
 }
 
-
 .elevated {
   --card-bg: var(--surface-elevated);
   --card-border: var(--surface-default);
   --card-border-width: 1px;
   --card-shadow: var(--shadow-3);
-
 
   @container style(--color-scheme: dark) {
     --card-shadow: var(--shadow-4);
@@ -387,7 +373,6 @@ Step 3 of 3: Actions
   margin-block-start: auto;
   padding: 0.5rem 0.75rem;
 }
-
 
 .actions:has(.ui-button:first-child[class="ui-button"]) {
   padding-inline: 0.25rem 0.75rem;

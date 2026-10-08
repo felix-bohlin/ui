@@ -8,7 +8,7 @@ allowBuilds:
 shellEmulator: true
 
 catalog:
-  astro: ^7.3.7
+  astro: ^7.3.0
   open-props: ^1.7.23
   solid-js: ^1.9.13
   svelte: ^5.56.4

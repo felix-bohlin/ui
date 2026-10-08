@@ -38,11 +38,9 @@ Dog Cat
     <legend><!-- --></legend>
     <p class="ui-field-description"><!-- --></p>
 
-
     <div class="ui-field-group">
       <!-- form fields -->
     </div>
-
 
     <div class="ui-field-group">
       <!-- form fields -->
@@ -104,7 +102,6 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
       </label>
     </div>
   </fieldset>
-
 
   <fieldset class="ui-fieldset">
     <legend>Which side projects do you follow?</legend>
@@ -299,9 +296,7 @@ A field group with only buttons lines up in a row. Add `.ui-column` to stack the
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <div class="ui-field-group">
     <button type="button" class="ui-button">Save draft</button>
@@ -365,9 +360,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <fieldset class="ui-fieldset">
     <legend>Notifications</legend>
@@ -386,9 +379,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
@@ -409,9 +400,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <fieldset class="ui-fieldset">
     <legend>Experience Level</legend>
@@ -439,9 +428,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
@@ -460,9 +447,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
@@ -482,9 +467,7 @@ Everything at once.
     </div>
   </fieldset>
 
-
   <hr class="ui-divider" />
-
 
   <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
@@ -681,7 +664,6 @@ Step 1 of 4: Fieldset
   gap: 0.25rem;
 }
 
-
 .fieldset legend {
   all: unset;
   font-weight: 600;
@@ -698,13 +680,11 @@ Step 2 of 4: Description
   margin-block-end: 0;
 }
 
-
 .description {
   color: var(--text-muted);
   font-size: var(--font-size-05);
   margin: 0;
 }
-
 
 .description:has(+ *) {
   margin-block-end: 0.75rem;
@@ -735,16 +715,13 @@ Step 3 of 4: Groups
   gap: 1rem;
 }
 
-
 .group + .group {
   margin-block-start: 1.25rem;
 }
 
-
 .group:has(> .check):not(:has(> :not(.check))) {
   gap: 0.5rem;
 }
-
 
 .group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
@@ -752,11 +729,9 @@ Step 3 of 4: Groups
   gap: 0.5rem;
 }
 
-
 .group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
   margin-block-start: 1rem;
 }
-
 
 .group.column:has(> button):not(:has(> :not(button))) {
   align-items: start;
@@ -770,7 +745,6 @@ Step 4 of 4: Required
   padding-inline-end: 1ex;
   position: relative;
 }
-
 
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);

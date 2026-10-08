@@ -25,7 +25,6 @@ Change the button variant with the `variant` prop.
 import { Button } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <Button>Text</Button>
   <Button disabled>Disabled</Button>
@@ -59,7 +58,6 @@ Pass `color` to apply a brand or destructive color: `primary` or `critical`. The
 import { Button } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <Button color="primary">Primary</Button>
   <Button color="primary" variant="outlined">Outlined</Button>
@@ -83,18 +81,15 @@ Resize any button using the `size` prop: `x-small`, `small`, default and `large`
 import { Button } from "opui-css/astro"
 ---
 
-
 <Button size="x-small">x-small</Button>
 <Button size="small">Small</Button>
 <Button>Default</Button>
 <Button size="large">Large</Button>
 
-
 <Button variant="filled" size="x-small">x-small</Button>
 <Button variant="filled" size="small">Small</Button>
 <Button variant="filled">Default</Button>
 <Button variant="filled" size="large">Large</Button>
-
 
 <Button size="x-small" variant="outlined">
   <span class="ui-text">x-small</span>
@@ -123,7 +118,6 @@ Include an icon alongside text by nesting it within the component. Wrap the labe
 import { Button } from "opui-css/astro"
 ---
 
-
 <Button>
   <span class="ui-text">Text</span>
   <svg> <!-- --> </svg>
@@ -140,7 +134,6 @@ import { Button } from "opui-css/astro"
   <span class="ui-text">Filled</span>
   <svg> <!-- --> </svg>
 </Button>
-
 
 <Button>
   <svg> <!-- --> </svg>
@@ -169,7 +162,6 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 import { Button } from "opui-css/astro"
 ---
 
-
 <Button>
   Search <kbd>⌘K</kbd>
 </Button>
@@ -192,10 +184,8 @@ Set `iconOnly` and name the button with `label`, which renders `aria-label`. The
 ---
 import { Button } from "opui-css/astro"
 
-
 const editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"></path></svg>`
 ---
-
 
 <Button iconOnly label="Edit">
   <Fragment set:html={editIcon} />
@@ -222,7 +212,6 @@ Disable the button with the `disabled` prop. Links can't be disabled, so with `h
 ---
 import { Button } from "opui-css/astro"
 ---
-
 
 <Button disabled>Text</Button>
 <Button disabled href="#">Link</Button>
@@ -323,7 +312,6 @@ Step 1 of 3: Base
   padding-inline: var(--padding-inline);
 }
 
-
 .button > svg {
   block-size: auto;
   flex-shrink: 0;
@@ -358,7 +346,6 @@ Step 3 of 3: Icon side
 .button:has(> svg:first-child + *) {
   padding-inline-start: calc(var(--padding-inline) * 0.75);
 }
-
 
 .button:has(> * + svg:last-child) {
   padding-inline-end: calc(var(--padding-inline) * 0.75);

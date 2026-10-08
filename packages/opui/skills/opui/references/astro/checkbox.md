@@ -29,7 +29,6 @@ Label End text
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
 <Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
 <Checkbox indeterminate name="checkbox-variants" hideLabel
@@ -49,7 +48,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 ---
 import { Checkbox } from "opui-css/astro"
 ---
-
 
 <div class="example-row">
   <Checkbox hideLabel size="x-small" checked name="checkbox-sizes"
@@ -78,7 +76,6 @@ The default slot is the label. Also, don't miss the info on label [accessibility
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <Checkbox checked name="checkbox-visible-label">Choice A</Checkbox>
 <Checkbox disabled name="checkbox-visible-label">Disabled</Checkbox>
 <Checkbox checked disabled name="checkbox-visible-label"
@@ -98,7 +95,6 @@ import { Checkbox } from "opui-css/astro"
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <Checkbox name="checkbox-label-position">Default</Checkbox>
 <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
 ```
@@ -109,7 +105,6 @@ import { Checkbox } from "opui-css/astro"
 ---
 import { Checkbox } from "opui-css/astro"
 ---
-
 
 <Checkbox name="checkbox-supporting-text">
   Default
@@ -131,7 +126,6 @@ import { Checkbox } from "opui-css/astro"
 ---
 import { Checkbox } from "opui-css/astro"
 ---
-
 
 <div class="example-row ui-spacious">
   <Checkbox required name="checkbox-validation">Default</Checkbox>
@@ -162,7 +156,6 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
 ---
 
-
 <FieldSet class="indeterminate-demo">
   <FieldLegend>
     <Checkbox class="parent" indeterminate>Select all</Checkbox>
@@ -173,7 +166,6 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
     <Checkbox class="child">Cherries</Checkbox>
   </FieldGroup>
 </FieldSet>
-
 
 <script>
   function setupIndeterminateDemo() {
@@ -190,14 +182,12 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
         )
         if (!parent || children.length === 0) return
 
-
         const sync = () => {
           const checkedCount = children.filter((c) => c.checked).length
           parent.checked = checkedCount === children.length
           parent.indeterminate =
             checkedCount > 0 && checkedCount < children.length
         }
-
 
         parent.addEventListener("change", () => {
           children.forEach((c) => (c.checked = parent.checked))
@@ -207,7 +197,6 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
         sync()
       })
   }
-
 
   setupIndeterminateDemo()
 </script>
@@ -222,7 +211,6 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <Checkbox name="checkbox-spread" spread>
   Accept Terms & Conditions
   <Fragment slot="end-text"
@@ -230,18 +218,15 @@ import { Checkbox } from "opui-css/astro"
   >
 </Checkbox>
 
-
 <Checkbox name="checkbox-spread" spread required>
   Required
   <Fragment slot="end-text">You must accept this to continue.</Fragment>
 </Checkbox>
 
-
 <Checkbox name="checkbox-spread" spread disabled>
   Disabled
   <Fragment slot="end-text">This checkbox is disabled.</Fragment>
 </Checkbox>
-
 
 <Checkbox name="checkbox-spread" spread error>
   Invalid Checkbox
@@ -276,7 +261,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -299,7 +283,6 @@ import { FieldLegend } from "opui-css/astro"
 import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
-
 
 <Form>
   <FieldSet>
@@ -327,7 +310,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -338,7 +320,6 @@ import { Form } from "opui-css/astro"
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -365,7 +346,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
@@ -391,7 +371,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
@@ -416,7 +395,6 @@ import { FieldLegend } from "opui-css/astro"
 import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
-
 
 <Form>
   <FieldSet>
@@ -582,7 +560,6 @@ Step 1 of 5: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -595,7 +572,6 @@ Step 1 of 5: Appearance
   margin: 0;
   position: relative;
 }
-
 
 .checkbox:checked {
   background-color: var(--accent);
@@ -617,7 +593,6 @@ Step 2 of 5: Checkmark
   position: absolute;
 }
 
-
 .checkbox:checked::after {
   opacity: 1;
 }
@@ -629,7 +604,6 @@ Step 3 of 5: Indeterminate
 
 ```html
 <input class="checkbox" type="checkbox" data-indeterminate />
-
 
 <script>
   for (const input of document.querySelectorAll("[data-indeterminate]")) {
@@ -643,7 +617,6 @@ Step 3 of 5: Indeterminate
   background-color: var(--accent);
   border-color: var(--accent);
 }
-
 
 .checkbox:indeterminate::after {
   clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
@@ -665,12 +638,10 @@ Step 4 of 5: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((var(--size) - 1lh) / 2);
@@ -688,12 +659,10 @@ Step 5 of 5: Forced colors
     border-color: CanvasText;
   }
 
-
   .checkbox:is(:checked, :indeterminate) {
     background-color: SelectedItem;
     border-color: SelectedItem;
   }
-
 
   .checkbox:is(:checked, :indeterminate)::after {
     background-color: SelectedItemText;

@@ -40,7 +40,6 @@ window.showToast({
   duration: "3000ms",
 })
 
-
 // Or using native CommandEvent
 const btn = document.createElement("button")
 btn.setAttribute("data-title", "Triggered from JS!")
@@ -70,7 +69,6 @@ Use the `data-severity` attribute to change the appearance of the toast.
   Success
 </button>
 
-
 <button
   class="ui-button ui-filled red"
   commandfor="toast-manager"
@@ -80,7 +78,6 @@ Use the `data-severity` attribute to change the appearance of the toast.
 >
   Error
 </button>
-
 
 <button
   class="ui-button ui-filled blue"
@@ -107,7 +104,6 @@ Use `data-title` for a single-line toast, or add `data-description` for a two-li
   Title only
 </button>
 
-
 <button
   class="ui-button"
   commandfor="toast-manager"
@@ -133,7 +129,6 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 >
   1.5s Toast
 </button>
-
 
 <button
   class="ui-button"
@@ -206,9 +201,7 @@ Step 1 of 4: Stack
   Default
 </button>
 
-
 <output class="stack" id="stack" role="status"></output>
-
 
 <template id="toast-template">
   <div class="toast" role="alert">…</div>
@@ -221,7 +214,6 @@ Step 1 of 4: Stack
   flex-direction: column-reverse;
   gap: 0.75rem;
 }
-
 
 .toast {
   align-items: center;
@@ -265,7 +257,6 @@ Step 3 of 4: Pause
   animation-play-state: paused;
 }
 
-
 .toast.exiting {
   animation: build-toast-exit 0.3s forwards;
 }
@@ -284,23 +275,19 @@ Step 4 of 4: Icons
   mask: center / contain no-repeat;
 }
 
-
 .toast:not([data-severity]) .icon {
   display: none;
 }
-
 
 .toast[data-severity="success"] .icon {
   background-color: var(--success);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
 }
 
-
 .toast[data-severity="critical"] .icon {
   background-color: var(--critical);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
 }
-
 
 .toast .description {
   color: oklch(from currentColor l c h / 75%);

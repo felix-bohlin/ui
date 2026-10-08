@@ -32,8 +32,6 @@ const htmlSources = import.meta.glob<string>(
 const EXAMPLE_CLASSES = new Set([
   "code",
   "copy",
-  "ec-line",
-  "expressive-code",
   "frame",
   "header",
   "indent",

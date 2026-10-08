@@ -25,7 +25,6 @@ Default, and `dot`.
 import { Badge } from "opui-css/astro"
 ---
 
-
 <Badge label="5">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +37,6 @@ import { Badge } from "opui-css/astro"
     ></path></svg
   >
 </Badge>
-
 
 <Badge dot>
   <svg
@@ -62,7 +60,6 @@ import { Badge } from "opui-css/astro"
 ---
 import { Badge } from "opui-css/astro"
 ---
-
 
 <Badge color="critical" label="5">
   <svg
@@ -135,7 +132,6 @@ Set indicator text with the `label` prop or the `indicator` slot. The default sl
 import { Badge } from "opui-css/astro"
 ---
 
-
 <Badge label="5" srLabel="unread messages">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +144,6 @@ import { Badge } from "opui-css/astro"
     ></path></svg
   >
 </Badge>
-
 
 <Badge srLabel="unread messages">
   <svg
@@ -174,11 +169,9 @@ Change the badge's visibility using the `invisible` prop.
 import { Badge } from "opui-css/astro"
 ---
 
-
 <Badge label="5" invisible>
   <!-- -->
 </Badge>
-
 
 <Badge dot invisible>
   <!-- -->
@@ -195,7 +188,6 @@ Where the badge should be placed over the child.
 ---
 import { Badge } from "opui-css/astro"
 ---
-
 
 <Badge alignment="start-start" label="35">
   <svg
@@ -356,7 +348,6 @@ Step 2 of 4: Corner
   vertical-align: middle;
 }
 
-
 .indicator {
   inset-block: auto 100%;
   inset-inline: 100% auto;
@@ -378,11 +369,9 @@ Step 3 of 4: Direction
   --ty: calc(50% * var(--sign-y));
 }
 
-
 .badge:dir(rtl) {
   --dir: -1;
 }
-
 
 .indicator {
   translate: calc(var(--tx) * var(--dir)) var(--ty);
@@ -397,7 +386,6 @@ Step 4 of 4: Dot
   --tx: calc((var(--dot) - 2px) * var(--sign-x));
   --ty: calc(var(--dot) * var(--sign-y));
 }
-
 
 .badge.dot .indicator {
   block-size: var(--dot);

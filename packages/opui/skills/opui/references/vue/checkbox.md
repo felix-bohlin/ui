@@ -29,7 +29,6 @@ Label End text
 import { Checkbox } from "opui-css/vue"
 </script>
 
-
 <template>
   <Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
   <Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
@@ -51,7 +50,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Checkbox } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row">
@@ -84,7 +82,6 @@ The default slot is the label. Also, don't miss the info on label [accessibility
 import { Checkbox } from "opui-css/vue"
 </script>
 
-
 <template>
   <Checkbox checked name="checkbox-visible-label">Choice A</Checkbox>
   <Checkbox disabled name="checkbox-visible-label">Disabled</Checkbox>
@@ -106,7 +103,6 @@ import { Checkbox } from "opui-css/vue"
 import { Checkbox } from "opui-css/vue"
 </script>
 
-
 <template>
   <Checkbox name="checkbox-label-position">Default</Checkbox>
   <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
@@ -119,7 +115,6 @@ import { Checkbox } from "opui-css/vue"
 <script setup lang="ts">
 import { Checkbox } from "opui-css/vue"
 </script>
-
 
 <template>
   <Checkbox name="checkbox-supporting-text">
@@ -143,7 +138,6 @@ import { Checkbox } from "opui-css/vue"
 <script setup lang="ts">
 import { Checkbox } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row ui-spacious">
@@ -172,22 +166,18 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 import { computed, ref } from "vue"
 import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/vue"
 
-
 const items = ["Apples", "Bananas", "Cherries"]
 const checked = ref([true, false, false])
-
 
 const allChecked = computed(() => checked.value.every(Boolean))
 const someChecked = computed(() => checked.value.some(Boolean))
 const indeterminate = computed(() => someChecked.value && !allChecked.value)
-
 
 function toggleAll() {
   const next = !allChecked.value
   checked.value = checked.value.map(() => next)
 }
 </script>
-
 
 <template>
   <FieldSet class="indeterminate-demo">
@@ -222,25 +212,21 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
 import { Checkbox } from "opui-css/vue"
 </script>
 
-
 <template>
   <Checkbox name="checkbox-spread" spread>
     Accept Terms & Conditions
     <template #end-text>I have read and agree to the privacy policy.</template>
   </Checkbox>
 
-
   <Checkbox name="checkbox-spread" spread required>
     Required
     <template #end-text>You must accept this to continue.</template>
   </Checkbox>
 
-
   <Checkbox name="checkbox-spread" spread disabled>
     Disabled
     <template #end-text>This checkbox is disabled.</template>
   </Checkbox>
-
 
   <Checkbox name="checkbox-spread" spread error>
     Invalid Checkbox
@@ -272,7 +258,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/vue/components/
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -293,7 +278,6 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 <script setup lang="ts">
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -325,7 +309,6 @@ import {
 } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -337,7 +320,6 @@ import {
         <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
     </FieldSet>
-
 
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
@@ -360,7 +342,6 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <script setup lang="ts">
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -385,7 +366,6 @@ Each checkbox with `required` must be checked before the form submits. There's n
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -408,7 +388,6 @@ Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turn
 <script setup lang="ts">
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -577,7 +556,6 @@ Step 1 of 5: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -590,7 +568,6 @@ Step 1 of 5: Appearance
   margin: 0;
   position: relative;
 }
-
 
 .checkbox:checked {
   background-color: var(--accent);
@@ -612,7 +589,6 @@ Step 2 of 5: Checkmark
   position: absolute;
 }
 
-
 .checkbox:checked::after {
   opacity: 1;
 }
@@ -624,7 +600,6 @@ Step 3 of 5: Indeterminate
 
 ```html
 <input class="checkbox" type="checkbox" data-indeterminate />
-
 
 <script>
   for (const input of document.querySelectorAll("[data-indeterminate]")) {
@@ -638,7 +613,6 @@ Step 3 of 5: Indeterminate
   background-color: var(--accent);
   border-color: var(--accent);
 }
-
 
 .checkbox:indeterminate::after {
   clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
@@ -660,12 +634,10 @@ Step 4 of 5: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((var(--size) - 1lh) / 2);
@@ -683,12 +655,10 @@ Step 5 of 5: Forced colors
     border-color: CanvasText;
   }
 
-
   .checkbox:is(:checked, :indeterminate) {
     background-color: SelectedItem;
     border-color: SelectedItem;
   }
-
 
   .checkbox:is(:checked, :indeterminate)::after {
     background-color: SelectedItemText;

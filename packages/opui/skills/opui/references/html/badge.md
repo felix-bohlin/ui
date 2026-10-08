@@ -38,7 +38,6 @@ Default, and `.ui-dot`.
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge ui-dot">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +78,6 @@ Default, and `.ui-dot`.
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge ui-info">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +94,6 @@ Default, and `.ui-dot`.
     <span class="ui-badge-indicator">5</span>
   </span>
 </span>
-
 
 <span class="ui-anchor ui-badge ui-success">
   <svg
@@ -115,7 +112,6 @@ Default, and `.ui-dot`.
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge ui-warning">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +128,6 @@ Default, and `.ui-dot`.
     <span class="ui-badge-indicator">5</span>
   </span>
 </span>
-
 
 <span class="ui-anchor ui-badge ui-neutral">
   <svg
@@ -176,7 +171,6 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +212,6 @@ Change the badge's visibility using the `.ui-invisible` class.
     <span class="ui-badge-indicator">5</span>
   </span>
 </span>
-
 
 <span class="ui-anchor ui-badge ui-dot ui-invisible">
   <svg
@@ -262,7 +255,6 @@ Where the badge should be placed over the child.
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +272,6 @@ Where the badge should be placed over the child.
   </span>
 </span>
 
-
 <span class="ui-anchor ui-badge ui-end-start">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -297,7 +288,6 @@ Where the badge should be placed over the child.
     <span class="ui-badge-indicator">OK!</span>
   </span>
 </span>
-
 
 <span class="ui-anchor ui-badge ui-end-end">
   <svg
@@ -425,7 +415,6 @@ Step 2 of 4: Corner
   vertical-align: middle;
 }
 
-
 .indicator {
   inset-block: auto 100%;
   inset-inline: 100% auto;
@@ -447,11 +436,9 @@ Step 3 of 4: Direction
   --ty: calc(50% * var(--sign-y));
 }
 
-
 .badge:dir(rtl) {
   --dir: -1;
 }
-
 
 .indicator {
   translate: calc(var(--tx) * var(--dir)) var(--ty);
@@ -466,7 +453,6 @@ Step 4 of 4: Dot
   --tx: calc((var(--dot) - 2px) * var(--sign-x));
   --ty: calc(var(--dot) * var(--sign-y));
 }
-
 
 .badge.dot .indicator {
   block-size: var(--dot);

@@ -53,7 +53,6 @@ Textareas are outlined by default. Set `variant="filled"` for a filled textarea.
 import { Textarea } from "opui-css/astro"
 ---
 
-
 <Textarea label="Default" placeholder="Placeholder" />
 <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
 ```
@@ -66,7 +65,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 ---
 import { Textarea } from "opui-css/astro"
 ---
-
 
 <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
 <Textarea label="Small" placeholder="Placeholder" size="small" />
@@ -83,7 +81,6 @@ Use the `description` prop or slot for text between the label and the textarea.
 import { Textarea } from "opui-css/astro"
 ---
 
-
 <Textarea description="Shown on your public profile" label="Bio" />
 ```
 
@@ -93,7 +90,6 @@ import { Textarea } from "opui-css/astro"
 ---
 import { Textarea } from "opui-css/astro"
 ---
-
 
 <Textarea label="Label" placeholder="Default" endText="Supporting text" />
 <Textarea
@@ -112,7 +108,6 @@ Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside
 ---
 import { Textarea } from "opui-css/astro"
 ---
-
 
 <Textarea label="Notes" placeholder="Add a note...">
   <svg
@@ -139,11 +134,9 @@ import { Textarea } from "opui-css/astro"
 import { Textarea } from "opui-css/astro"
 ---
 
-
 <Textarea label="Code" placeholder="console.log('Hello, world!')">
   <Fragment slot="header">script.js</Fragment>
 </Textarea>
-
 
 <Textarea label="Comment" placeholder="Write a comment...">
   <Fragment slot="footer">0 / 280</Fragment>
@@ -163,12 +156,10 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 import { Textarea } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <Textarea label="Label" placeholder="Default" required />
   <Textarea label="Label" placeholder="Filled" required variant="filled" />
 </div>
-
 
 <div class="example-row">
   <Textarea
@@ -196,7 +187,6 @@ Use the `spread` boolean prop to display the label and description on the left w
 import { Textarea } from "opui-css/astro"
 ---
 
-
 <Textarea spread placeholder="Hello, world!">
   <Fragment slot="label">Message</Fragment>
   <Fragment slot="description"
@@ -205,29 +195,24 @@ import { Textarea } from "opui-css/astro"
   >
 </Textarea>
 
-
 <Textarea spread placeholder="Additional notes..." variant="filled">
   <Fragment slot="label">Notes</Fragment>
   <Fragment slot="description">Add any additional notes or comments</Fragment>
   <Fragment slot="end-text">Maximum 500 characters</Fragment>
 </Textarea>
 
-
 <Textarea spread required label="Required">
   <Fragment slot="description">You must provide a response</Fragment>
 </Textarea>
-
 
 <Textarea spread disabled label="Disabled">
   <Fragment slot="description">This textarea is disabled</Fragment>
 </Textarea>
 
-
 <Textarea spread error label="Invalid Message">
   <Fragment slot="description">This textarea has an error</Fragment>
   <Fragment slot="end-text">This value is too short.</Fragment>
 </Textarea>
-
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
   <Fragment slot="description">Shown on your public profile</Fragment>
@@ -250,7 +235,6 @@ import { Textarea } from "opui-css/astro"
   <Fragment slot="footer">280 characters left</Fragment>
 </Textarea>
 
-
 <Textarea
   spread
   variant="filled"
@@ -272,7 +256,6 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 ---
 import { Textarea } from "opui-css/astro"
 ---
-
 
 <Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
 ```
@@ -392,13 +375,11 @@ Step 1 of 4: Field
   display: grid;
 }
 
-
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -406,7 +387,6 @@ Step 1 of 4: Field
   border-radius: var(--radius-2);
   display: grid;
 }
-
 
 .field textarea {
   background: transparent;
@@ -418,7 +398,6 @@ Step 1 of 4: Field
   outline: 0;
   padding: 0.5rem;
 }
-
 
 .textarea:focus-within .field {
   border-color: var(--primary);
@@ -454,7 +433,6 @@ Step 4 of 4: Auto-fit
 .auto-fit {
   inline-size: fit-content;
 }
-
 
 .auto-fit textarea {
   inline-size: auto;

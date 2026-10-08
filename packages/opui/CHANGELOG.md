@@ -183,6 +183,8 @@
 - `Menu` dividers (`.ui-border-top`, `.ui-bordered`) are visible in dark mode.
 - `Progress` pulses in place under reduced motion (`--motion: 0`) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--motion: 0`) instead of ignoring it.
+- `Switch` icons shrink to fit beside the dot when the track is too narrow for both, instead of overlapping the dot.
+- `Switch` dot stays centered in the track when `--switch-*` sizes aren't whole pixels. Track, dot and inset round to whole pixels.
 - Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.
 - `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).

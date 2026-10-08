@@ -9,7 +9,6 @@ It's just a line.
 import { Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   This text is placed over
   <Divider />
@@ -26,15 +25,12 @@ Use the `variant` prop to change the line color.
 import { Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   Tonal
   <Divider variant="tonal" />
 
-
   Filled
   <Divider variant="filled" />
-
 
   Primary
   <Divider variant="primary" />
@@ -50,16 +46,12 @@ Put text or any element in the default slot to place it in the middle of the lin
 import { Button, Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   <Divider>or continue with email</Divider>
 
-
   <Divider align="start">Billing</Divider>
 
-
   <Divider align="end" variant="primary">Today</Divider>
-
 
   <Divider>
     <Button rounded size="small" variant="outlined"
@@ -78,7 +70,6 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 import { Card, Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   <Card variant="outlined">
     <div class="ui-content">Inside a card, the gap spaces the divider.</div>
@@ -89,7 +80,6 @@ import { Card, Divider } from "opui-css/vue"
       So everything stays close together.
     </div>
   </Card>
-
 
   <div style="--divider-space: var(--size-1)">
     A custom space on any wrapper

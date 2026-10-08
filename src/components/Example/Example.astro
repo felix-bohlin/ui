@@ -4,9 +4,11 @@ import {
   DEFAULT_FRAMEWORK,
   type FrameworkId,
 } from "../../utils/framework-routing"
-import { Code } from "astro-expressive-code/components"
+import Code from "../Code.astro"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
+import MountSvelteExamples from "./MountSvelteExamples.astro"
+import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
 
@@ -41,7 +43,6 @@ type Props = {
   class?: string
   column?: boolean
   exampleClass?: string
-  marks?: Record<string, any>
   output?: "always-show" | "toggled"
   richText?: "rich-text" | "not-rich-text"
   row?: boolean
@@ -57,7 +58,6 @@ const {
   class: className,
   column,
   exampleClass,
-  marks = {},
   output = "toggled",
   richText = "not-rich-text",
   row,
@@ -173,6 +173,8 @@ const outputId = `${groupName}-output`
   ]}
   data-expanded="false"
 >
+  {isLiveSveltePreview && <MountSvelteExamples />}
+  {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
   {
     hasPreview && (
@@ -243,41 +245,33 @@ const outputId = `${groupName}-output`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-          <Tabs.Item tabId={sourceId} name={groupName} open>
-            <Tabs.Tab tabId={sourceId} data-tab="source">
-              {codeLangLabel}
-            </Tabs.Tab>
-            <Tabs.Panel data-panel="source">
-              <div class="ui-tab-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
-                  mark={marks[codeLangId]}
-                />
-              </div>
-            </Tabs.Panel>
-          </Tabs.Item>
-
-          {showOutput && (
-            <Tabs.Item tabId={outputId} name={groupName}>
-              <Tabs.Tab tabId={outputId} data-tab="output">
-                Output
+        <template class="example-code">
+          <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+            <Tabs.Item tabId={sourceId} name={groupName} open>
+              <Tabs.Tab tabId={sourceId} data-tab="source">
+                {codeLangLabel}
               </Tabs.Tab>
-              <Tabs.Panel data-panel="output">
+              <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code code={outputContent} lang="html" />
+                  <Code code={codeContent} lang={codeLangId} />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
-          )}
-        </Tabs>
+
+            {showOutput && (
+              <Tabs.Item tabId={outputId} name={groupName}>
+                <Tabs.Tab tabId={outputId} data-tab="output">
+                  Output
+                </Tabs.Tab>
+                <Tabs.Panel data-panel="output">
+                  <div class="ui-tab-panel">
+                    <Code code={outputContent} lang="html" />
+                  </div>
+                </Tabs.Panel>
+              </Tabs.Item>
+            )}
+          </Tabs>
+        </template>
       </div>
     )
   }
@@ -422,7 +416,7 @@ const outputId = `${groupName}-output`
 </style>
 
 <style is:global>
-  .ui-tab-panel .expressive-code pre {
+  .ui-tab-panel .code-block pre {
     border-radius: 0;
   }
 
@@ -441,9 +435,6 @@ const outputId = `${groupName}-output`
 </style>
 
 <script>
-  import "./mount-svelte-examples"
-  import "./mount-vue-examples"
-
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing - no client-side language
   // toggle is needed here.
@@ -455,6 +446,14 @@ const outputId = `${groupName}-output`
 
     if (toggleBtn && !(toggleBtn as any)._hasListener) {
       toggleBtn.addEventListener("click", () => {
+        const template = container.querySelector<HTMLTemplateElement>(
+          "template.example-code",
+        )
+        if (template) {
+          template.replaceWith(template.content)
+          document.dispatchEvent(new Event("syntax-highlight"))
+        }
+
         const isExpanded = container.getAttribute("data-expanded") === "true"
         const nextState = !isExpanded
         container.setAttribute("data-expanded", String(nextState))

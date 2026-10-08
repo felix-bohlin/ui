@@ -1,0 +1,287 @@
+---
+import "../styles/syntax.css"
+
+type Props = {
+  code: string
+  lang?: string
+}
+
+const { code, lang = "" } = Astro.props
+
+const DIFF_MARKERS: Record<string, string> = { "+": "ins", "-": "del" }
+const FILE_NAME_COMMENT =
+  /^\s*(?:\/\/|#|\/\*|<!--)\s*([\w@./+-]+\.\w+)\s*(?:\*\/|-->)?\s*$/
+const TERMINAL_LANGS = ["bash", "sh", "shell", "zsh"]
+
+const isDiff = lang === "diff"
+const language = lang && !["diff", "text"].includes(lang) ? lang : undefined
+const lines = code
+  .replace(/^\s*\n/, "")
+  .trimEnd()
+  .replaceAll("\t", "  ")
+  .split("\n")
+const titleIndex = lines
+  .slice(0, 4)
+  .findIndex((line) => FILE_NAME_COMMENT.test(line))
+const title =
+  titleIndex === -1 ? undefined : lines[titleIndex].match(FILE_NAME_COMMENT)![1]
+if (titleIndex !== -1) {
+  lines.splice(titleIndex, lines[titleIndex + 1]?.trim() ? 1 : 2)
+}
+const source = lines.join("\n")
+const isTerminal = !title && TERMINAL_LANGS.includes(lang)
+
+const escape = (text: string) =>
+  text.replace(/[&<>]/g, (char) => `&#${char.charCodeAt(0)};`)
+const diffCode = lines.map((line) =>
+  /^[+\- ]/.test(line) ? line.slice(1) : line,
+)
+const diffIndent = Math.min(
+  ...diffCode
+    .filter((line) => line.trim())
+    .map((line) => line.match(/^ */)![0].length),
+)
+const html = isDiff
+  ? lines
+      .map((line, index) => {
+        const type = DIFF_MARKERS[line[0]]
+        const text = escape(diffCode[index].slice(diffIndent))
+        return `<span class="diff-line"${type ? ` data-diff="${type}"` : ""}>${text}</span>`
+      })
+      .join("\n")
+  : escape(source)
+const codeClass = language && `language-${language}`
+const preClass = isDiff ? "is-diff" : undefined
+---
+
+<div
+  class:list={["code-block", { "is-terminal": isTerminal }]}
+  data-language={lang || undefined}
+>
+  {
+    (title || isTerminal) && (
+      <div class="code-header">
+        {title && <span class="code-title">{title}</span>}
+      </div>
+    )
+  }
+  <pre class={preClass}><code class={codeClass} set:html={html} /></pre>
+  <button type="button" class="code-copy" aria-label="Copy to clipboard">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      aria-hidden="true"
+    >
+      <path d="M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1"></path>
+      <rect x="6" y="5" width="16" height="18" rx="1.5" ry="1.5"></rect>
+    </svg>
+  </button>
+</div>
+
+<style>
+  .code-block {
+    --syntax-background: light-dark(#ffffff, #1e1e1e);
+    --syntax-border: light-dark(#d9d9d9, #2d2d2d);
+    --syntax-foreground: light-dark(#000000, #d4d4d4);
+    --syntax-radius: calc(0.3rem + 1.5px);
+
+    border-radius: var(--syntax-radius);
+    box-shadow: 0.1rem 0.1rem 0.2rem light-dark(#00000028, #0000005b);
+    display: grid;
+    grid-template-areas: "header" "code";
+    grid-template-columns: minmax(0, 1fr);
+
+    pre {
+      background: var(--syntax-background);
+      border: 1.5px solid var(--syntax-border);
+      border-radius: var(--syntax-radius);
+      color: var(--syntax-foreground);
+      grid-area: code;
+      margin: 0;
+      overflow-x: auto;
+      padding: 1rem 1.35rem;
+    }
+
+    code {
+      background: none;
+      border: none;
+      color: inherit;
+      display: block;
+      font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      padding: 0;
+      white-space: pre;
+    }
+
+    .is-diff {
+      padding-inline: 0;
+
+      code {
+        display: grid;
+        grid-template-columns: minmax(100%, max-content);
+      }
+    }
+
+    &:has(.code-header) pre {
+      border-block-start: none;
+      border-start-end-radius: 0;
+      border-start-start-radius: 0;
+    }
+  }
+
+  .code-block :global(.diff-line) {
+    border-inline-start: 0.15rem solid transparent;
+    padding-inline: calc(1.35rem - 0.15rem) 1.35rem;
+    position: relative;
+
+    &[data-diff]::before {
+      inset-inline-start: 0.3rem;
+      position: absolute;
+    }
+
+    &[data-diff="ins"] {
+      background: light-dark(#94c68480, #26561c80);
+      border-inline-start-color: #4e7e41d0;
+
+      &::before {
+        color: light-dark(#3a692fd0, #7eb070d0);
+        content: "+";
+      }
+    }
+
+    &[data-diff="del"] {
+      background: light-dark(#fea09280, #81322b80);
+      border-inline-start-color: #ae594fd0;
+
+      &::before {
+        color: light-dark(#97453dd0, #e68a7ed0);
+        content: "-";
+      }
+    }
+  }
+
+  .code-header {
+    background: light-dark(#f3f3f3, #252526);
+    border: 1.5px solid var(--syntax-border);
+    border-block-end: none;
+    border-start-end-radius: var(--syntax-radius);
+    border-start-start-radius: var(--syntax-radius);
+    display: flex;
+    font-size: 0.9rem;
+    grid-area: header;
+    line-height: 1.65;
+
+    .is-terminal & {
+      align-items: center;
+      background: light-dark(#dddddd, #3c3c3c);
+      border-block-end: 1.5px solid var(--syntax-border);
+      min-block-size: calc(0.9rem * 1.65 + 0.5rem + 1.5px);
+      padding-inline: 1rem;
+
+      &::before {
+        background-color: light-dark(#333333, #cccccc);
+        block-size: 0.56rem;
+        content: "";
+        inline-size: 2.1rem;
+        mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2060%2016'%20preserveAspectRatio%3D'xMidYMid%20meet'%3E%3Ccircle%20cx%3D'8'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'30'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'52'%20cy%3D'8'%20r%3D'8'%2F%3E%3C%2Fsvg%3E");
+        mask-repeat: no-repeat;
+        opacity: 0.15;
+      }
+    }
+  }
+
+  .code-title {
+    background: var(--syntax-background);
+    border-start-end-radius: var(--syntax-radius);
+    border-start-start-radius: var(--syntax-radius);
+    color: light-dark(#333333, #ffffff);
+    padding: calc(0.25rem + 1.5px) 1rem;
+  }
+
+  .code-copy {
+    align-items: center;
+    align-self: start;
+    background: var(--syntax-background);
+    block-size: 2.5rem;
+    border: 1.5px solid
+      color-mix(in srgb, var(--syntax-foreground) 40%, transparent);
+    border-radius: 0.2rem;
+    color: var(--syntax-foreground);
+    cursor: pointer;
+    display: flex;
+    grid-area: code;
+    inline-size: 2.5rem;
+    justify-content: center;
+    justify-self: end;
+    margin: calc(1.5px + 0.4rem) calc(1.5px + 0.5rem);
+    opacity: 0.75;
+    padding: 0.475rem;
+    position: relative;
+    transition: opacity 0.2s;
+
+    svg {
+      block-size: 100%;
+      inline-size: 100%;
+    }
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+    }
+
+    &[data-copied]::before {
+      background: light-dark(#008900, #098656);
+      border-radius: 0.2rem;
+      color: white;
+      content: "Copied!";
+      font-size: 0.9rem;
+      inset-inline-end: calc(100% + 0.5rem);
+      padding: 0.125rem 0.75rem;
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    @media (hover: hover) {
+      block-size: 2rem;
+      inline-size: 2rem;
+      opacity: 0;
+
+      .code-block:hover &,
+      .code-block:focus-within & {
+        opacity: 0.75;
+      }
+
+      &:hover,
+      &:focus-visible {
+        opacity: 1;
+      }
+    }
+
+    @media (scripting: none) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { highlightAll } from "microlighter"
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest(".code-copy")
+    const code = button?.parentElement?.querySelector("code")
+    if (!button || !code) return
+
+    await navigator.clipboard.writeText(code.textContent ?? "")
+    button.setAttribute("data-copied", "")
+    setTimeout(() => button.removeAttribute("data-copied"), 1500)
+  })
+
+  document.addEventListener("syntax-highlight", () => highlightAll())
+  highlightAll()
+</script>

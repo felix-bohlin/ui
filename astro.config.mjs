@@ -7,7 +7,6 @@ import {
   passthroughImageService,
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
-import expressiveCode from "astro-expressive-code"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
@@ -54,6 +53,7 @@ const legacyRedirects = {
 export default defineConfig({
   compressHTML: true,
   image: { service: passthroughImageService() },
+  markdown: { syntaxHighlight: false },
   site: "https://open-props-ui.netlify.app/",
   i18n: {
     defaultLocale: DEFAULT_FRAMEWORK,
@@ -61,16 +61,14 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true },
   },
   redirects: legacyRedirects,
-  integrations: [
-    vue(),
-    sitemap(),
-    svelte(),
-    llms(),
-    expressiveCode({
-      themes: ["dark-plus", "light-plus"],
-    }),
-  ],
+  integrations: [vue(), sitemap(), svelte(), llms()],
   vite: {
+    build: {
+      dynamicImportVarsOptions: {
+        exclude: [/node_modules\/(?!(\.pnpm\/)?microlighter)/],
+      },
+    },
+    optimizeDeps: { exclude: ["microlighter"] },
     plugins: [
       {
         name: "opui-package-astro-hmr",

@@ -29,7 +29,6 @@ Label End text
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-
 <Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
 <Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
 <Checkbox indeterminate name="checkbox-variants" hideLabel
@@ -49,7 +48,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { Checkbox } from "opui-css/svelte"
 </script>
-
 
 <div class="example-row">
   <Checkbox hideLabel size="x-small" checked name="checkbox-sizes"
@@ -78,7 +76,6 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-
 <Checkbox checked name="checkbox-visible-label">Choice A</Checkbox>
 <Checkbox disabled name="checkbox-visible-label">Disabled</Checkbox>
 <Checkbox checked disabled name="checkbox-visible-label"
@@ -98,7 +95,6 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-
 <Checkbox name="checkbox-label-position">Default</Checkbox>
 <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
 ```
@@ -109,7 +105,6 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 <script lang="ts">
   import { Checkbox } from "opui-css/svelte"
 </script>
-
 
 <Checkbox name="checkbox-supporting-text">
   Default
@@ -131,7 +126,6 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 <script lang="ts">
   import { Checkbox } from "opui-css/svelte"
 </script>
-
 
 <div class="example-row ui-spacious">
   <Checkbox required name="checkbox-validation">Default</Checkbox>
@@ -157,22 +151,18 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 <script lang="ts">
   import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/svelte"
 
-
   const items = ["Apples", "Bananas", "Cherries"]
   let checked = $state([true, false, false])
-
 
   const allChecked = $derived(checked.every(Boolean))
   const someChecked = $derived(checked.some(Boolean))
   const indeterminate = $derived(someChecked && !allChecked)
-
 
   function toggleAll() {
     const next = !allChecked
     checked = checked.map(() => next)
   }
 </script>
-
 
 <FieldSet class="indeterminate-demo">
   <FieldLegend>
@@ -199,24 +189,20 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-
 <Checkbox name="checkbox-spread" spread>
   Accept Terms & Conditions
   {#snippet endText()}I have read and agree to the privacy policy.{/snippet}
 </Checkbox>
-
 
 <Checkbox name="checkbox-spread" spread required>
   Required
   {#snippet endText()}You must accept this to continue.{/snippet}
 </Checkbox>
 
-
 <Checkbox name="checkbox-spread" spread disabled>
   Disabled
   {#snippet endText()}This checkbox is disabled.{/snippet}
 </Checkbox>
-
 
 <Checkbox name="checkbox-spread" spread error>
   Invalid Checkbox
@@ -253,7 +239,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -278,7 +263,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
     Form,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -308,7 +292,6 @@ Can be placed above and below the fields.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -319,7 +302,6 @@ Can be placed above and below the fields.
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -348,7 +330,6 @@ Attach the `disabled` attribute to the `<fieldset>` element.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
@@ -376,7 +357,6 @@ Each checkbox with `required` must be checked before the form submits. There's n
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
@@ -403,7 +383,6 @@ Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turn
     Form,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -561,7 +540,6 @@ Step 1 of 5: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -574,7 +552,6 @@ Step 1 of 5: Appearance
   margin: 0;
   position: relative;
 }
-
 
 .checkbox:checked {
   background-color: var(--accent);
@@ -596,7 +573,6 @@ Step 2 of 5: Checkmark
   position: absolute;
 }
 
-
 .checkbox:checked::after {
   opacity: 1;
 }
@@ -608,7 +584,6 @@ Step 3 of 5: Indeterminate
 
 ```html
 <input class="checkbox" type="checkbox" data-indeterminate />
-
 
 <script>
   for (const input of document.querySelectorAll("[data-indeterminate]")) {
@@ -622,7 +597,6 @@ Step 3 of 5: Indeterminate
   background-color: var(--accent);
   border-color: var(--accent);
 }
-
 
 .checkbox:indeterminate::after {
   clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
@@ -644,12 +618,10 @@ Step 4 of 5: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((var(--size) - 1lh) / 2);
@@ -667,12 +639,10 @@ Step 5 of 5: Forced colors
     border-color: CanvasText;
   }
 
-
   .checkbox:is(:checked, :indeterminate) {
     background-color: SelectedItem;
     border-color: SelectedItem;
   }
-
 
   .checkbox:is(:checked, :indeterminate)::after {
     background-color: SelectedItemText;

@@ -15,7 +15,6 @@ Pass plain text via the `label` prop.
 import { Button, Tooltip } from "opui-css/vue"
 </script>
 
-
 <template>
   <Tooltip label="Save your changes" id="tooltip-basic">
     <Button
@@ -36,7 +35,6 @@ Use the `content` slot instead, and it lets you put anything in the tooltip.
 <script setup lang="ts">
 import { Button, Tooltip } from "opui-css/vue"
 </script>
-
 
 <template>
   <Tooltip id="tooltip-rich">
@@ -61,7 +59,6 @@ Use the `alignment` prop.
 <script setup lang="ts">
 import { Button, Tooltip } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="tooltip-alignment-grid">
@@ -100,7 +97,6 @@ import { Button, Tooltip } from "opui-css/vue"
   </div>
 </template>
 
-
 <style>
 .tooltip-alignment-grid {
   align-items: center;
@@ -112,7 +108,6 @@ import { Button, Tooltip } from "opui-css/vue"
     ".     bottom .  ";
   justify-items: center;
 }
-
 
 .tooltip-alignment-grid > :nth-child(1) {
   grid-area: top;
@@ -137,7 +132,6 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 <script setup lang="ts">
 import { Button, Tooltip } from "opui-css/vue"
 </script>
-
 
 <template>
   <Tooltip arrow label="Save your changes" id="tooltip-arrow">
@@ -236,7 +230,6 @@ Step 1 of 5: Hint
   Save
 </button>
 
-
 <span class="tooltip" id="tooltip" popover="hint">Save changes</span>
 ```
 
@@ -301,13 +294,11 @@ Step 4 of 5: Arrow
   anchor-scope: --anchor;
 }
 
-
 .tooltip.arrow {
   anchor-name: --tooltip;
   anchor-scope: --tooltip;
   margin: 0.75rem;
 }
-
 
 .tooltip.arrow::before {
   background-color: inherit;
@@ -346,10 +337,8 @@ Step 5 of 5: Fade
     overlay calc(0.2s * var(--motion, 1)) allow-discrete;
 }
 
-
 .tooltip:popover-open {
   opacity: 1;
-
 
   @starting-style {
     opacity: 0;

@@ -68,7 +68,6 @@ The select is outlined by default. Use `.ui-filled` for a filled background.
   </span>
 </label>
 
-
 <label class="ui-select ui-filled">
   <span class="ui-label" id="select-variants-2-label">Label</span>
   <span class="ui-field">
@@ -108,7 +107,6 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-select ui-small">
   <span class="ui-label" id="select-sizes-2-label">Small</span>
   <span class="ui-field">
@@ -125,7 +123,6 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-select">
   <span class="ui-label" id="select-sizes-3-label">Default</span>
   <span class="ui-field">
@@ -141,7 +138,6 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
     </select>
   </span>
 </label>
-
 
 <label class="ui-select ui-large">
   <span class="ui-label" id="select-sizes-4-label">Large</span>
@@ -211,7 +207,6 @@ Use `.ui-end-text` for supporting text below the select.
   >
 </label>
 
-
 <label class="ui-select ui-filled">
   <span class="ui-label" id="select-supporting-2-label">Label</span>
   <span class="ui-field">
@@ -258,7 +253,6 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
     <span class="ui-prefix">¤</span>
   </span>
 </label>
-
 
 <label class="ui-select">
   <span class="ui-label" id="select-affix-2-label">Country</span>
@@ -344,7 +338,6 @@ Add `selected` to the `option` to preselect it.
   </span>
 </label>
 
-
 <label class="ui-select">
   <span class="ui-label" id="select-preselected-2-label">Team</span>
   <span class="ui-field">
@@ -417,7 +410,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
     </span>
   </label>
 
-
   <label class="ui-select ui-filled">
     <span class="ui-label" id="select-validation-2-label">Label</span>
     <span class="ui-field">
@@ -435,7 +427,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
     </span>
   </label>
 </div>
-
 
 <div class="example-row">
   <label class="ui-select">
@@ -461,7 +452,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
       >Supporting text</span
     >
   </label>
-
 
   <label class="ui-select ui-filled">
     <span class="ui-label" id="select-validation-4-label">Label</span>
@@ -514,7 +504,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-select ui-spread ui-filled">
   <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
@@ -541,7 +530,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-3-label">Required</span>
   <span class="ui-start-text">You must select an option</span>
@@ -559,7 +547,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-4-label">Disabled</span>
   <span class="ui-start-text">This select is disabled</span>
@@ -574,7 +561,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     </select>
   </span>
 </label>
-
 
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
@@ -598,7 +584,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-6-label">Time zone</span>
   <span class="ui-start-text">Used for reminders and due dates</span>
@@ -618,7 +603,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-prefix">UTC</span>
   </span>
 </label>
-
 
 <label class="ui-select ui-spread ui-filled">
   <span class="ui-label" id="select-orientation-7-label">Region</span>
@@ -678,7 +662,6 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
     </select>
   </span>
 </label>
-
 
 <label class="ui-select ui-filled">
   <span class="ui-label">Label</span>
@@ -893,7 +876,6 @@ Step 1 of 4: Base select
   appearance: base-select;
 }
 
-
 .select {
   background-color: var(--surface-default);
   border: 1px solid var(--border-color);
@@ -902,13 +884,11 @@ Step 1 of 4: Base select
   padding: 0;
 }
 
-
 .select > button {
   align-items: center;
   display: flex;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
 }
-
 
 selectedcontent {
   overflow: hidden;
@@ -928,7 +908,6 @@ Step 2 of 4: Arrow
   position: relative;
 }
 
-
 .select::picker-icon {
   background-color: currentColor;
   block-size: 1rem;
@@ -940,7 +919,6 @@ Step 2 of 4: Arrow
   position: absolute;
   translate: 0 -50%;
 }
-
 
 .select:open::picker-icon {
   rotate: 180deg;
@@ -960,7 +938,6 @@ Step 3 of 4: Picker
   padding: 0;
 }
 
-
 .list {
   background-color: var(--surface-filled);
   border: 1px solid var(--border-color);
@@ -968,21 +945,17 @@ Step 3 of 4: Picker
   padding: 0.5rem 0;
 }
 
-
 .list > option {
   padding: 0.5rem 0.75rem;
 }
-
 
 .list > option:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 
-
 .list > option:checked {
   background-color: oklch(from var(--primary) l c h / 30%);
 }
-
 
 .list > option::checkmark {
   display: none;
@@ -1005,13 +978,11 @@ Step 4 of 4: Animate
     overlay 0.2s allow-discrete,
     scale 0.2s;
 
-
   @starting-style {
     opacity: 0;
     scale: 0.9;
   }
 }
-
 
 .select:not(:open)::picker(select) {
   opacity: 0;

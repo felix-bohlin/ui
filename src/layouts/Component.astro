@@ -424,7 +424,8 @@ const learnPost = currentSlug
 
         .pagination-link {
           align-items: center;
-          border: 1px solid var(--border-color);
+          border: 1px solid
+            color-mix(in oklch, var(--border-color), var(--text-primary) 20%);
           border-radius: var(--radius-3);
           color: var(--text-primary);
           display: flex;

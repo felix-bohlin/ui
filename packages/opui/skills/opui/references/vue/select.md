@@ -55,7 +55,6 @@ The select is outlined by default. Use `variant="filled"` for a filled backgroun
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select label="Label">
     <option value="">-</option>
@@ -63,7 +62,6 @@ import { Select } from "opui-css/vue"
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>
-
 
   <Select label="Label" variant="filled">
     <option value="">-</option>
@@ -82,7 +80,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Select } from "opui-css/vue"
 </script>
-
 
 <template>
   <Select label="x-small" size="x-small">
@@ -117,7 +114,6 @@ Use the `dense` prop to pack the options tighter.
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select label="Fruit" dense>
     <option value="">-</option>
@@ -137,7 +133,6 @@ Use `endText` for supporting text below the select.
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select label="Label" endText="Supporting text">
     <option value="">-</option>
@@ -145,7 +140,6 @@ import { Select } from "opui-css/vue"
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>
-
 
   <Select label="Label" variant="filled" endText="Supporting text">
     <option value="">-</option>
@@ -165,7 +159,6 @@ Use the `prefix` and `suffix` slots to affix icons or short text alongside the s
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select label="Currency">
     <template #prefix>¤</template>
@@ -174,7 +167,6 @@ import { Select } from "opui-css/vue"
     <option>SEK</option>
     <option>USD</option>
   </Select>
-
 
   <Select label="Country">
     <template #prefix
@@ -213,7 +205,6 @@ They sit outside the list of options, so they can't filter it. Keep form control
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select label="Car">
     <template #header>Company cars only</template>
@@ -235,10 +226,8 @@ Set `value` or `v-model` to preselect an option, or `selected: true` on an item.
 import { ref } from "vue"
 import { Select } from "opui-css/vue"
 
-
 const role = ref("developer")
 </script>
-
 
 <template>
   <Select
@@ -250,7 +239,6 @@ const role = ref("developer")
     ]"
     v-model="role"
   />
-
 
   <Select
     label="Team"
@@ -271,7 +259,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
 <script setup lang="ts">
 import { Select } from "opui-css/vue"
 </script>
-
 
 <template>
   <Select label="Car">
@@ -301,7 +288,6 @@ import { Select } from "opui-css/vue"
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Select label="Label" required>
@@ -311,7 +297,6 @@ import { Select } from "opui-css/vue"
       <option>Come on!</option>
     </Select>
 
-
     <Select label="Label" variant="filled" required>
       <option value="">-</option>
       <option>Pick me!</option>
@@ -320,7 +305,6 @@ import { Select } from "opui-css/vue"
     </Select>
   </div>
 
-
   <div class="example-row">
     <Select label="Label" error endText="Supporting text">
       <option value="">-</option>
@@ -328,7 +312,6 @@ import { Select } from "opui-css/vue"
       <option>Also wrong!</option>
       <option>Nothing's right!</option>
     </Select>
-
 
     <Select label="Label" variant="filled" error endText="Supporting text">
       <option value="">-</option>
@@ -349,7 +332,6 @@ Use the `spread` boolean prop to display the label and description on the left w
 import { Select } from "opui-css/vue"
 </script>
 
-
 <template>
   <Select spread>
     <template #label>Country</template>
@@ -361,7 +343,6 @@ import { Select } from "opui-css/vue"
     <option>Norway</option>
     <option>Sweden</option>
   </Select>
-
 
   <Select spread variant="filled">
     <template #label>Language</template>
@@ -375,7 +356,6 @@ import { Select } from "opui-css/vue"
     <option>Swedish</option>
   </Select>
 
-
   <Select spread required>
     <template #label>Required</template>
     <template #description>You must select an option</template>
@@ -384,13 +364,11 @@ import { Select } from "opui-css/vue"
     <option>Option 2</option>
   </Select>
 
-
   <Select spread disabled>
     <template #label>Disabled</template>
     <template #description>This select is disabled</template>
     <option>Option 1</option>
   </Select>
-
 
   <Select spread error>
     <template #label>Invalid Select</template>
@@ -398,7 +376,6 @@ import { Select } from "opui-css/vue"
     <template #end-text>Please select a valid option.</template>
     <option>Option 1</option>
   </Select>
-
 
   <Select spread>
     <template #label>Time zone</template>
@@ -410,7 +387,6 @@ import { Select } from "opui-css/vue"
     <option>+05:30</option>
     <option>+09:00</option>
   </Select>
-
 
   <Select spread variant="filled">
     <template #label>Region</template>
@@ -451,14 +427,12 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
 import { ClassicSelect } from "opui-css/vue"
 </script>
 
-
 <template>
   <ClassicSelect label="Label">
     <option value="">-</option>
     <option>Option 1</option>
     <option>Option 2</option>
   </ClassicSelect>
-
 
   <ClassicSelect label="Label" variant="filled">
     <option value="">-</option>
@@ -676,7 +650,6 @@ Step 1 of 4: Base select
   appearance: base-select;
 }
 
-
 .select {
   background-color: var(--surface-default);
   border: 1px solid var(--border-color);
@@ -685,13 +658,11 @@ Step 1 of 4: Base select
   padding: 0;
 }
 
-
 .select > button {
   align-items: center;
   display: flex;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
 }
-
 
 selectedcontent {
   overflow: hidden;
@@ -711,7 +682,6 @@ Step 2 of 4: Arrow
   position: relative;
 }
 
-
 .select::picker-icon {
   background-color: currentColor;
   block-size: 1rem;
@@ -723,7 +693,6 @@ Step 2 of 4: Arrow
   position: absolute;
   translate: 0 -50%;
 }
-
 
 .select:open::picker-icon {
   rotate: 180deg;
@@ -743,7 +712,6 @@ Step 3 of 4: Picker
   padding: 0;
 }
 
-
 .list {
   background-color: var(--surface-filled);
   border: 1px solid var(--border-color);
@@ -751,21 +719,17 @@ Step 3 of 4: Picker
   padding: 0.5rem 0;
 }
 
-
 .list > option {
   padding: 0.5rem 0.75rem;
 }
-
 
 .list > option:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 
-
 .list > option:checked {
   background-color: oklch(from var(--primary) l c h / 30%);
 }
-
 
 .list > option::checkmark {
   display: none;
@@ -788,13 +752,11 @@ Step 4 of 4: Animate
     overlay 0.2s allow-discrete,
     scale 0.2s;
 
-
   @starting-style {
     opacity: 0;
     scale: 0.9;
   }
 }
-
 
 .select:not(:open)::picker(select) {
   opacity: 0;

@@ -7,19 +7,16 @@
 import { Avatar } from "opui-css/vue"
 </script>
 
-
 <template>
   <Avatar
     src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Maya Lind"
   />
 
-
   <Avatar
     src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Omar Haddad"
   />
-
 
   <Avatar
     src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -35,7 +32,6 @@ import { Avatar } from "opui-css/vue"
 import { Avatar } from "opui-css/vue"
 </script>
 
-
 <template>
   <Avatar aria-label="Lena Ek" role="img">LE</Avatar>
   <Avatar aria-label="Tom Tanaka" role="img">TT</Avatar>
@@ -49,7 +45,6 @@ import { Avatar } from "opui-css/vue"
 <script setup lang="ts">
 import { Avatar } from "opui-css/vue"
 </script>
-
 
 <template>
   <Avatar>
@@ -66,7 +61,6 @@ import { Avatar } from "opui-css/vue"
     </svg>
   </Avatar>
 
-
   <Avatar>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +74,6 @@ import { Avatar } from "opui-css/vue"
       ></path>
     </svg>
   </Avatar>
-
 
   <Avatar>
     <svg
@@ -107,17 +100,14 @@ Change the shape of the avatar with the `variant` prop.
 import { Avatar } from "opui-css/vue"
 </script>
 
-
 <template>
   <Avatar variant="squared">SQ</Avatar>
-
 
   <Avatar
     variant="rounded"
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Jonas Berg"
   />
-
 
   <Avatar
     variant="squircle"
@@ -136,7 +126,6 @@ Use `size="x-small"`, `size="small"` or `size="large"` to match the control size
 import { Avatar } from "opui-css/vue"
 </script>
 
-
 <template>
   <Avatar aria-label="Lena Ek" role="img" size="x-small">LE</Avatar>
   <Avatar aria-label="Tom Tanaka" role="img" size="small">TT</Avatar>
@@ -153,7 +142,6 @@ Group multiple avatars by setting the `isGroup` prop on a parent container.
 <script setup lang="ts">
 import { Avatar } from "opui-css/vue"
 </script>
-
 
 <template>
   <Avatar aria-label="Team" isGroup>
@@ -264,7 +252,6 @@ Step 1 of 4: Circle
   position: relative;
 }
 
-
 .avatar svg {
   max-inline-size: 1.5rem;
 }
@@ -286,7 +273,6 @@ Step 2 of 4: Image
   background-color: transparent;
 }
 
-
 .avatar img {
   block-size: 100%;
   inline-size: 100%;
@@ -305,10 +291,8 @@ Step 3 of 4: Shapes
   border-radius: var(--radius-2);
 }
 
-
 .avatar.squircle {
   border-radius: var(--radius-3);
-
 
   @supports (corner-shape: squircle) {
     border-radius: var(--radius-round);
@@ -332,7 +316,6 @@ Step 4 of 4: Group
 .avatar-group {
   display: flex;
 }
-
 
 .avatar-group .avatar {
   box-shadow: 0 0 0 2px var(--surface-default);

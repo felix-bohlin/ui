@@ -25,7 +25,6 @@ Change the button variant with the `variant` prop.
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Button>Text</Button>
@@ -61,7 +60,6 @@ Pass `color` to apply a brand or destructive color: `primary` or `critical`. The
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Button color="primary">Primary</Button>
@@ -87,19 +85,16 @@ Resize any button using the `size` prop: `x-small`, `small`, default and `large`
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button size="x-small">x-small</Button>
   <Button size="small">Small</Button>
   <Button>Default</Button>
   <Button size="large">Large</Button>
 
-
   <Button variant="filled" size="x-small">x-small</Button>
   <Button variant="filled" size="small">Small</Button>
   <Button variant="filled">Default</Button>
   <Button variant="filled" size="large">Large</Button>
-
 
   <Button size="x-small" variant="outlined">
     <span class="ui-text">x-small</span>
@@ -129,7 +124,6 @@ Include an icon alongside text by nesting it within the component. Wrap the labe
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button>
     <span class="ui-text">Text</span>
@@ -147,7 +141,6 @@ import { Button } from "opui-css/vue"
     <span class="ui-text">Filled</span>
     <svg><!-- --></svg>
   </Button>
-
 
   <Button>
     <svg><!-- --></svg>
@@ -177,7 +170,6 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button> Search <kbd>⌘K</kbd> </Button>
   <Button variant="outlined"> Save <kbd>⌘S</kbd> </Button>
@@ -194,7 +186,6 @@ Set `icon-only` and name the button with `label`, which renders `aria-label`. Th
 <script setup lang="ts">
 import { Button } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button icon-only label="Edit">
@@ -273,7 +264,6 @@ Disable the button with the `disabled` prop. Links can't be disabled, so with `h
 <script setup lang="ts">
 import { Button } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button disabled>Text</Button>
@@ -376,7 +366,6 @@ Step 1 of 3: Base
   padding-inline: var(--padding-inline);
 }
 
-
 .button > svg {
   block-size: auto;
   flex-shrink: 0;
@@ -411,7 +400,6 @@ Step 3 of 3: Icon side
 .button:has(> svg:first-child + *) {
   padding-inline-start: calc(var(--padding-inline) * 0.75);
 }
-
 
 .button:has(> * + svg:last-child) {
   padding-inline-end: calc(var(--padding-inline) * 0.75);

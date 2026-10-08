@@ -68,15 +68,25 @@ function replace(node, test, build) {
 const isClass = (name) => (node) =>
   (node.properties?.className ?? []).includes(name)
 
+function unwrapTemplates(node, test) {
+  if (!node.children) return
+  node.children = node.children.flatMap((child) =>
+    child.type === "element" && child.tagName === "template" && test(child)
+      ? (child.content?.children ?? [])
+      : [child],
+  )
+  node.children.forEach((child) => unwrapTemplates(child, test))
+}
+
 const codeBlock = (node) => {
-  const pre = select("pre", node)
-  const lang = pre?.properties?.dataLanguage
-  const lines = selectAll(".ec-line", node).map((line) =>
-    textContent(line).replace(/(["'])@opui\//g, "$1opui-css/"),
+  const lang = node.properties?.dataLanguage
+  const code = textContent(select("code", node) ?? node).replace(
+    /(["'])@opui\//g,
+    "$1opui-css/",
   )
   return element("pre", {}, [
     element("code", { className: lang ? [`language-${lang}`] : [] }, [
-      text(lines.join("\n")),
+      text(code),
     ]),
   ])
 }
@@ -85,7 +95,7 @@ const codeGroup = (node) => {
   const labels = selectAll(".ui-tab-label", node).map((tab) =>
     textContent(tab).trim(),
   )
-  const blocks = selectAll(".expressive-code", node)
+  const blocks = selectAll(".code-block", node)
   return element(
     "div",
     {},
@@ -177,13 +187,12 @@ export async function articleToMarkdown(
   const source = select("#main-content > article", tree)
   if (!source) return null
   const article = structuredClone(source)
+  unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
     prune(
       article,
-      new Set(
-        selectAll("section:has(> #installation) .expressive-code", article),
-      ),
+      new Set(selectAll("section:has(> #installation) .code-block", article)),
     )
   }
 
@@ -211,7 +220,7 @@ export async function articleToMarkdown(
   replace(article, isClass("browser-support-chips"), browserSupport)
   replace(article, isClass("feature-support"), featureSupport)
   replace(article, isClass("code-group"), codeGroup)
-  replace(article, isClass("expressive-code"), codeBlock)
+  replace(article, isClass("code-block"), codeBlock)
   prune(article, new Set(selectAll(REMOVE_SELECTORS.join(", "), article)))
 
   for (const link of selectAll("a[href]", article)) {

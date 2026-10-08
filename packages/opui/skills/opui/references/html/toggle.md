@@ -329,93 +329,102 @@ Change the layout of the group with the `.ui-vertical` class.
 Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
 
 ```html
-<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
-  <div role="group" class="ui-toggle-group">
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-wrap-all"
-        name="overflow-wrap"
-        value="all"
-      />
-      Everything
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-wrap-mentions"
-        name="overflow-wrap"
-        value="mentions"
-      />
-      Mentions
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-wrap-none"
-        name="overflow-wrap"
-        value="none"
-      />
-      Nothing at all
-    </label>
+<div style="display: grid; gap: var(--size-4); max-inline-size: 14rem">
+  <div style="display: grid; gap: var(--size-1)">
+    <p>Wrap</p>
+    <div role="group" class="ui-toggle-group">
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-wrap-all"
+          name="overflow-wrap"
+          value="all"
+        />
+        Everything
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-wrap-mentions"
+          name="overflow-wrap"
+          value="mentions"
+        />
+        Mentions
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-wrap-none"
+          name="overflow-wrap"
+          value="none"
+        />
+        Nothing at all
+      </label>
+    </div>
   </div>
-  <div role="group" class="ui-toggle-group ui-scrollable">
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-scrollable-all"
-        name="overflow-scrollable"
-        value="all"
-      />
-      Everything
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-scrollable-mentions"
-        name="overflow-scrollable"
-        value="mentions"
-      />
-      Mentions
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-scrollable-none"
-        name="overflow-scrollable"
-        value="none"
-      />
-      Nothing at all
-    </label>
+  <div style="display: grid; gap: var(--size-1)">
+    <p>Scroll</p>
+    <div role="group" class="ui-toggle-group ui-scrollable">
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-scrollable-all"
+          name="overflow-scrollable"
+          value="all"
+        />
+        Everything
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-scrollable-mentions"
+          name="overflow-scrollable"
+          value="mentions"
+        />
+        Mentions
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-scrollable-none"
+          name="overflow-scrollable"
+          value="none"
+        />
+        Nothing at all
+      </label>
+    </div>
   </div>
-  <div role="group" class="ui-toggle-group ui-shrink">
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-shrink-all"
-        name="overflow-shrink"
-        value="all"
-      />
-      Everything
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-shrink-mentions"
-        name="overflow-shrink"
-        value="mentions"
-      />
-      Mentions
-    </label>
-    <label class="ui-toggle-button">
-      <input
-        type="checkbox"
-        id="overflow-shrink-none"
-        name="overflow-shrink"
-        value="none"
-      />
-      Nothing at all
-    </label>
+  <div style="display: grid; gap: var(--size-1)">
+    <p>Shrink</p>
+    <div role="group" class="ui-toggle-group ui-shrink">
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-shrink-all"
+          name="overflow-shrink"
+          value="all"
+        />
+        Everything
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-shrink-mentions"
+          name="overflow-shrink"
+          value="mentions"
+        />
+        Mentions
+      </label>
+      <label class="ui-toggle-button">
+        <input
+          type="checkbox"
+          id="overflow-shrink-none"
+          name="overflow-shrink"
+          value="none"
+        />
+        Nothing at all
+      </label>
+    </div>
   </div>
 </div>
 ```

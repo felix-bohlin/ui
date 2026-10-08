@@ -1,0 +1,719 @@
+<style>
+  .data-table {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-4);
+    margin-inline: auto;
+    max-inline-size: 80rem;
+
+    .data-table-header {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .data-table-actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .data-table-toolbar {
+      align-items: end;
+      display: grid;
+      gap: var(--size-2);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .ui-text-field {
+        grid-column: 1 / -1;
+      }
+
+      @container (inline-size >= 40rem) {
+        grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, 11rem));
+
+        .ui-text-field {
+          grid-column: auto;
+        }
+      }
+    }
+
+    .data-table-bulk {
+      align-items: center;
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: space-between;
+      padding: var(--size-2) var(--size-3);
+
+      p {
+        font-size: var(--font-size-1);
+        font-weight: var(--font-weight-semibold);
+      }
+
+      div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-1);
+      }
+    }
+
+    &:not(:has(tbody :checked)) .data-table-bulk {
+      display: none;
+    }
+
+    .data-table-scroll {
+      overflow-x: auto;
+
+      .ui-table {
+        margin-block: 0;
+        min-inline-size: 46rem;
+      }
+    }
+
+    tbody tr:has(:checked) > * {
+      background-color: oklch(from var(--primary) l c h / 8%);
+    }
+
+    .data-table-select {
+      inline-size: var(--size-7);
+    }
+
+    .data-table-customer {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+    }
+
+    .data-table-name {
+      display: grid;
+      line-height: var(--font-lineheight-1);
+    }
+
+    .data-table-person {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .data-table-email {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+
+    .data-table-status::before {
+      background-color: var(--_dot);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      content: "";
+      flex-shrink: 0;
+      inline-size: var(--size-2);
+    }
+
+    .data-table-active {
+      --_dot: var(--success);
+    }
+
+    .data-table-trial {
+      --_dot: var(--info);
+    }
+
+    .data-table-past-due {
+      --_dot: var(--warning);
+    }
+
+    .data-table-churned {
+      --_dot: var(--text-muted);
+    }
+
+    .data-table-number {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+    }
+
+    .data-table-date {
+      white-space: nowrap;
+    }
+
+    .data-table-actions {
+      inline-size: var(--size-8);
+      text-align: end;
+    }
+
+    .data-table-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-1);
+      }
+    }
+  }
+</style>
+
+<div class="data-table">
+  <div class="data-table-header">
+    <hgroup class="ui-hgroup">
+      <p>Billing</p>
+      <h1 class="ui-h3">Customers</h1>
+      <p>128 accounts, 94 of them on a paid plan.</p>
+    </hgroup>
+    <div class="data-table-actions-bar">
+      <button class="ui-button ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+          ></path></svg
+        ><span class="ui-text">Export</span>
+      </button>
+      <button class="ui-button ui-filled" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+          ></path></svg
+        ><span class="ui-text">Add customer</span>
+      </button>
+    </div>
+  </div>
+
+  <search class="data-table-toolbar">
+    <label class="ui-text-field">
+      <span class="ui-sr-only">Search customers</span>
+      <span class="ui-field">
+        <input name="q" placeholder="Search by name or email" type="search" />
+        <span class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path></svg
+        ></span>
+      </span>
+    </label>
+    <label class="ui-select">
+      <span class="ui-sr-only" id="data-table-status-label">Status</span>
+      <span class="ui-field">
+        <select aria-labelledby="data-table-status-label" name="status">
+          <button type="button"><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">All statuses</option>
+            <option value="active">Active</option>
+            <option value="churned">Churned</option>
+            <option value="past-due">Past due</option>
+            <option value="trial">Trial</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <label class="ui-select">
+      <span class="ui-sr-only" id="data-table-plan-label">Plan</span>
+      <span class="ui-field">
+        <select aria-labelledby="data-table-plan-label" name="plan">
+          <button type="button"><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">All plans</option>
+            <option value="business">Business</option>
+            <option value="starter">Starter</option>
+            <option value="team">Team</option>
+          </div>
+        </select>
+      </span>
+    </label>
+  </search>
+
+  <div class="data-table-bulk">
+    <p>2 customers selected</p>
+    <div>
+      <button class="ui-button ui-small" type="button">Send invoice</button>
+      <button class="ui-button ui-small" type="button">Export</button>
+      <button class="ui-button ui-small ui-critical" type="button">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <div class="data-table-scroll">
+    <table class="ui-table">
+      <caption class="ui-sr-only">
+        Customers, sorted by name
+      </caption>
+      <thead>
+        <tr>
+          <th class="data-table-select" scope="col">
+            <label class="ui-checkbox">
+              <input name="data-table-all" type="checkbox" />
+              <span class="ui-sr-only">Select all customers</span>
+            </label>
+          </th>
+          <th aria-sort="ascending" scope="col">Customer</th>
+          <th scope="col">Plan</th>
+          <th scope="col">Status</th>
+          <th class="data-table-number" scope="col">MRR</th>
+          <th scope="col">Signed up</th>
+          <th class="data-table-actions" scope="col">
+            <span class="ui-sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="data-table-select">
+            <label class="ui-checkbox">
+              <input name="data-table-row" type="checkbox" value="astrid" />
+              <span class="ui-sr-only">Select Astrid Nyström</span>
+            </label>
+          </td>
+          <td>
+            <span class="data-table-customer">
+              <span class="ui-avatar" aria-hidden="true">AN</span>
+              <span class="data-table-name">
+                <span class="data-table-person">Astrid Nyström</span>
+                <span class="data-table-email">astrid@fjordlab.se</span>
+              </span>
+            </span>
+          </td>
+          <td>Business</td>
+          <td>
+            <span class="ui-chip ui-small data-table-status data-table-active"
+              ><span class="ui-text">Active</span></span
+            >
+          </td>
+          <td class="data-table-number">€2 320</td>
+          <td class="data-table-date">12 Jan 2026</td>
+          <td class="data-table-actions">
+            <button
+              aria-label="Actions for Astrid Nyström"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="data-table-menu-astrid"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                ></path>
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-align-end"
+              id="data-table-menu-astrid"
+              popover
+            >
+              <li>
+                <a href="#data-table-astrid"
+                  ><div class="ui-text"><p>View customer</p></div></a
+                >
+              </li>
+              <li>
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-astrid"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Change plan</p></div>
+                </button>
+              </li>
+              <li class="ui-border-top ui-critical">
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-astrid"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Delete</p></div>
+                </button>
+              </li>
+            </menu>
+          </td>
+        </tr>
+        <tr>
+          <td class="data-table-select">
+            <label class="ui-checkbox">
+              <input
+                name="data-table-row"
+                type="checkbox"
+                value="kwame"
+                checked
+              />
+              <span class="ui-sr-only">Select Kwame Mensah</span>
+            </label>
+          </td>
+          <td>
+            <span class="data-table-customer">
+              <span class="ui-avatar" aria-hidden="true">KM</span>
+              <span class="data-table-name">
+                <span class="data-table-person">Kwame Mensah</span>
+                <span class="data-table-email">kwame@lumenhq.com</span>
+              </span>
+            </span>
+          </td>
+          <td>Team</td>
+          <td>
+            <span class="ui-chip ui-small data-table-status data-table-trial"
+              ><span class="ui-text">Trial</span></span
+            >
+          </td>
+          <td class="data-table-number">€0</td>
+          <td class="data-table-date">28 Sep 2026</td>
+          <td class="data-table-actions">
+            <button
+              aria-label="Actions for Kwame Mensah"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="data-table-menu-kwame"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                ></path>
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-align-end"
+              id="data-table-menu-kwame"
+              popover
+            >
+              <li>
+                <a href="#data-table-kwame"
+                  ><div class="ui-text"><p>View customer</p></div></a
+                >
+              </li>
+              <li>
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-kwame"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Change plan</p></div>
+                </button>
+              </li>
+              <li class="ui-border-top ui-critical">
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-kwame"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Delete</p></div>
+                </button>
+              </li>
+            </menu>
+          </td>
+        </tr>
+        <tr>
+          <td class="data-table-select">
+            <label class="ui-checkbox">
+              <input
+                name="data-table-row"
+                type="checkbox"
+                value="lina"
+                checked
+              />
+              <span class="ui-sr-only">Select Lina Haddad</span>
+            </label>
+          </td>
+          <td>
+            <span class="data-table-customer">
+              <span class="ui-avatar" aria-hidden="true">LH</span>
+              <span class="data-table-name">
+                <span class="data-table-person">Lina Haddad</span>
+                <span class="data-table-email">lina@pinecrest.io</span>
+              </span>
+            </span>
+          </td>
+          <td>Team</td>
+          <td>
+            <span class="ui-chip ui-small data-table-status data-table-active"
+              ><span class="ui-text">Active</span></span
+            >
+          </td>
+          <td class="data-table-number">€480</td>
+          <td class="data-table-date">3 Mar 2026</td>
+          <td class="data-table-actions">
+            <button
+              aria-label="Actions for Lina Haddad"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="data-table-menu-lina"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                ></path>
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-align-end"
+              id="data-table-menu-lina"
+              popover
+            >
+              <li>
+                <a href="#data-table-lina"
+                  ><div class="ui-text"><p>View customer</p></div></a
+                >
+              </li>
+              <li>
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-lina"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Change plan</p></div>
+                </button>
+              </li>
+              <li class="ui-border-top ui-critical">
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-lina"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Delete</p></div>
+                </button>
+              </li>
+            </menu>
+          </td>
+        </tr>
+        <tr>
+          <td class="data-table-select">
+            <label class="ui-checkbox">
+              <input name="data-table-row" type="checkbox" value="mats" />
+              <span class="ui-sr-only">Select Mats Berg</span>
+            </label>
+          </td>
+          <td>
+            <span class="data-table-customer">
+              <span class="ui-avatar" aria-hidden="true">MB</span>
+              <span class="data-table-name">
+                <span class="data-table-person">Mats Berg</span>
+                <span class="data-table-email">mats.berg@nordvik.no</span>
+              </span>
+            </span>
+          </td>
+          <td>Starter</td>
+          <td>
+            <span class="ui-chip ui-small data-table-status data-table-past-due"
+              ><span class="ui-text">Past due</span></span
+            >
+          </td>
+          <td class="data-table-number">€49</td>
+          <td class="data-table-date">19 May 2026</td>
+          <td class="data-table-actions">
+            <button
+              aria-label="Actions for Mats Berg"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="data-table-menu-mats"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                ></path>
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-align-end"
+              id="data-table-menu-mats"
+              popover
+            >
+              <li>
+                <a href="#data-table-mats"
+                  ><div class="ui-text"><p>View customer</p></div></a
+                >
+              </li>
+              <li>
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-mats"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Change plan</p></div>
+                </button>
+              </li>
+              <li class="ui-border-top ui-critical">
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-mats"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Delete</p></div>
+                </button>
+              </li>
+            </menu>
+          </td>
+        </tr>
+        <tr>
+          <td class="data-table-select">
+            <label class="ui-checkbox">
+              <input name="data-table-row" type="checkbox" value="sofia" />
+              <span class="ui-sr-only">Select Sofia Lund</span>
+            </label>
+          </td>
+          <td>
+            <span class="data-table-customer">
+              <span class="ui-avatar" aria-hidden="true">SL</span>
+              <span class="data-table-name">
+                <span class="data-table-person">Sofia Lund</span>
+                <span class="data-table-email">sofia@kvarn.dk</span>
+              </span>
+            </span>
+          </td>
+          <td>Team</td>
+          <td>
+            <span class="ui-chip ui-small data-table-status data-table-churned"
+              ><span class="ui-text">Churned</span></span
+            >
+          </td>
+          <td class="data-table-number">€0</td>
+          <td class="data-table-date">22 Nov 2025</td>
+          <td class="data-table-actions">
+            <button
+              aria-label="Actions for Sofia Lund"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="data-table-menu-sofia"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+                ></path>
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-align-end"
+              id="data-table-menu-sofia"
+              popover
+            >
+              <li>
+                <a href="#data-table-sofia"
+                  ><div class="ui-text"><p>View customer</p></div></a
+                >
+              </li>
+              <li>
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-sofia"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Change plan</p></div>
+                </button>
+              </li>
+              <li class="ui-border-top ui-critical">
+                <button
+                  command="hide-popover"
+                  commandfor="data-table-menu-sofia"
+                  type="button"
+                >
+                  <div class="ui-text"><p>Delete</p></div>
+                </button>
+              </li>
+            </menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="data-table-footer">
+    <p>Showing 1–5 of 128 customers</p>
+    <nav aria-label="Pagination">
+      <div class="ui-button-group ui-outlined ui-small" role="group">
+        <a
+          aria-disabled="true"
+          aria-label="Previous page"
+          class="ui-button"
+          href="#data-table-page-0"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+            ></path></svg
+        ></a>
+        <a aria-current="page" class="ui-button" href="#data-table-page-1">1</a>
+        <a class="ui-button" href="#data-table-page-2">2</a>
+        <a class="ui-button" href="#data-table-page-3">3</a>
+        <a class="ui-button" href="#data-table-page-22">22</a>
+        <a aria-label="Next page" class="ui-button" href="#data-table-page-2"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            ></path></svg
+        ></a>
+      </div>
+    </nav>
+  </div>
+</div>

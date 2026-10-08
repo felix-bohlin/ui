@@ -1,0 +1,792 @@
+<style>
+  .file-manager {
+    container-type: inline-size;
+
+    .files-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-2) var(--size-4);
+
+      .ui-text-field {
+        flex: 1;
+        margin-inline-start: auto;
+        max-inline-size: 22rem;
+      }
+    }
+
+    .files-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-4);
+      margin-inline: auto;
+      max-inline-size: 80rem;
+      padding: var(--size-5) var(--size-4);
+    }
+
+    .files-title {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .files-breadcrumb ol {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-1);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li + li::before {
+        color: var(--text-muted);
+        content: "/";
+        margin-inline-end: var(--size-1);
+      }
+    }
+
+    h1 {
+      margin-block: var(--size-1) 0;
+    }
+
+    .files-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .files-overview {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 60rem) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      }
+    }
+
+    .files-storage .ui-content {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    .files-usage {
+      display: flex;
+      font-size: var(--font-size-1);
+      justify-content: space-between;
+    }
+
+    .files-breakdown {
+      display: grid;
+      gap: var(--size-2);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        align-items: center;
+        display: flex;
+        font-size: var(--font-size-1);
+        gap: var(--size-2);
+      }
+
+      li > span:last-child {
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+        margin-inline-start: auto;
+      }
+    }
+
+    .files-dot {
+      background-color: var(--dot);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      inline-size: var(--size-2);
+    }
+
+    .files-folders {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      @container (40rem <= inline-size < 60rem) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      hgroup > svg {
+        color: var(--folder);
+        margin-block-end: var(--size-1);
+      }
+    }
+
+    .files-table {
+      overflow-x: auto;
+
+      .ui-table {
+        margin-block: 0;
+      }
+
+      th:has(.ui-button) {
+        padding-block: 0;
+        padding-inline-start: var(--size-1);
+      }
+
+      td:first-child,
+      th:first-child {
+        inline-size: var(--size-7);
+      }
+
+      td {
+        white-space: nowrap;
+      }
+    }
+
+    .files-name {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+      white-space: nowrap;
+
+      svg {
+        color: var(--file);
+        flex-shrink: 0;
+      }
+    }
+
+    .files-owner {
+      display: none;
+
+      @container (inline-size >= 48rem) {
+        display: table-cell;
+      }
+    }
+
+    .files-number {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+      white-space: nowrap;
+    }
+
+    .files-row-action {
+      inline-size: var(--size-8);
+      text-align: end;
+    }
+  }
+</style>
+
+<div class="file-manager">
+  <header class="files-header">
+    <a class="files-brand" href="#file-manager">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96"
+        ></path>
+      </svg>
+      Skyhavn
+    </a>
+    <div class="ui-text-field ui-small">
+      <span class="ui-field">
+        <input
+          aria-label="Search files"
+          name="file-manager-search"
+          placeholder="Search files"
+          type="search"
+        />
+        <span class="ui-prefix">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <div class="ui-avatar" role="img" aria-label="Nora Lindqvist">NL</div>
+  </header>
+
+  <main>
+    <div class="files-title">
+      <div>
+        <nav aria-label="Breadcrumb" class="files-breadcrumb">
+          <ol>
+            <li><a class="ui-link" href="#file-manager-root">My files</a></li>
+            <li><a class="ui-link" href="#file-manager-team">Team</a></li>
+            <li><span aria-current="page">Marketing</span></li>
+          </ol>
+        </nav>
+        <h1 class="ui-h3">Marketing</h1>
+      </div>
+      <div class="files-actions">
+        <button class="ui-button ui-outlined ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3z"
+            ></path></svg
+          ><span class="ui-text">New folder</span>
+        </button>
+        <button class="ui-button ui-filled ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"
+            ></path></svg
+          ><span class="ui-text">Upload</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="files-overview">
+      <section
+        aria-labelledby="file-manager-storage-heading"
+        class="ui-card ui-outlined files-storage"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="file-manager-storage-heading">Storage</h2>
+          <p>Shared by the Marketing team.</p>
+        </hgroup>
+        <div class="ui-content">
+          <p class="files-usage" id="file-manager-usage">
+            <span><strong>18.4 GB</strong> of 50 GB used</span>
+            <span>37%</span>
+          </p>
+          <div class="ui-progress">
+            <progress
+              aria-labelledby="file-manager-usage"
+              max="50"
+              value="18.4"
+            ></progress>
+          </div>
+          <ul class="files-breakdown">
+            <li>
+              <span class="files-dot" style="--dot: var(--info)"></span>
+              <span>Documents</span><span>7.2 GB</span>
+            </li>
+            <li>
+              <span class="files-dot" style="--dot: var(--success)"></span>
+              <span>Images</span><span>6.1 GB</span>
+            </li>
+            <li>
+              <span class="files-dot" style="--dot: var(--warning)"></span>
+              <span>Videos</span><span>3.8 GB</span>
+            </li>
+            <li>
+              <span class="files-dot" style="--dot: var(--text-muted)"></span>
+              <span>Other</span><span>1.3 GB</span>
+            </li>
+          </ul>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button ui-tonal ui-small" type="button">
+            Upgrade storage
+          </button>
+        </div>
+      </section>
+
+      <section aria-labelledby="file-manager-folders-heading">
+        <h2 class="ui-sr-only" id="file-manager-folders-heading">Folders</h2>
+        <ul class="files-folders">
+          <li>
+            <div class="ui-card ui-outlined">
+              <hgroup>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  style="--folder: var(--info)"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                  ></path>
+                </svg>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#file-manager-brand"
+                    >Brand assets</a
+                  >
+                </h3>
+                <p>128 files · 2.1 GB</p>
+              </hgroup>
+            </div>
+          </li>
+          <li>
+            <div class="ui-card ui-outlined">
+              <hgroup>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  style="--folder: var(--warning)"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                  ></path>
+                </svg>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#file-manager-campaigns"
+                    >Campaigns 2026</a
+                  >
+                </h3>
+                <p>64 files · 9.8 GB</p>
+              </hgroup>
+            </div>
+          </li>
+          <li>
+            <div class="ui-card ui-outlined">
+              <hgroup>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  style="--folder: var(--critical)"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                  ></path>
+                </svg>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#file-manager-contracts"
+                    >Contracts</a
+                  >
+                </h3>
+                <p>23 files · 84 MB</p>
+              </hgroup>
+            </div>
+          </li>
+          <li>
+            <div class="ui-card ui-outlined">
+              <hgroup>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  style="--folder: var(--success)"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                  ></path>
+                </svg>
+                <h3 class="ui-h6">
+                  <a class="ui-card-link" href="#file-manager-photos"
+                    >Product photos</a
+                  >
+                </h3>
+                <p>412 files · 5.6 GB</p>
+              </hgroup>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section
+      aria-labelledby="file-manager-files-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="file-manager-files-heading">Files</h2>
+        <p>5 files, sorted by name.</p>
+      </hgroup>
+      <div class="ui-content files-table">
+        <table class="ui-table ui-dense">
+          <thead>
+            <tr>
+              <th scope="col">
+                <label class="ui-checkbox">
+                  <input name="file-manager-select-all" type="checkbox" />
+                  <span class="ui-sr-only">Select all files</span>
+                </label>
+              </th>
+              <th aria-sort="ascending" scope="col">
+                <button class="ui-button ui-small" type="button">
+                  <span class="ui-text">Name</span>
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m4 12 1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8z"
+                    ></path>
+                  </svg>
+                </button>
+              </th>
+              <th class="files-owner" scope="col">Owner</th>
+              <th scope="col">
+                <button class="ui-button ui-small" type="button">
+                  Modified
+                </button>
+              </th>
+              <th class="files-number" scope="col">
+                <button class="ui-button ui-small" type="button">Size</button>
+              </th>
+              <th class="files-row-action" scope="col">
+                <span class="ui-sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <label class="ui-checkbox">
+                  <input name="file-manager-select" type="checkbox" />
+                  <span class="ui-sr-only">Select Autumn-lookbook.pdf</span>
+                </label>
+              </td>
+              <td>
+                <span class="files-name" style="--file: var(--critical)">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+                    ></path>
+                  </svg>
+                  Autumn-lookbook.pdf
+                </span>
+              </td>
+              <td class="files-owner">Nora Lindqvist</td>
+              <td>6 Oct 2026</td>
+              <td class="files-number">14.2 MB</td>
+              <td class="files-row-action">
+                <button
+                  aria-label="Actions for Autumn-lookbook.pdf"
+                  class="ui-button ui-rounded ui-small"
+                  command="toggle-popover"
+                  commandfor="file-manager-row-menu"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="ui-checkbox">
+                  <input name="file-manager-select" type="checkbox" />
+                  <span class="ui-sr-only">Select Budget-Q4.xlsx</span>
+                </label>
+              </td>
+              <td>
+                <span class="files-name" style="--file: var(--success)">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M9 17H7v-5h2zm4 0h-2V7h2zm4 0h-2v-3h2z"
+                    ></path>
+                  </svg>
+                  Budget-Q4.xlsx
+                </span>
+              </td>
+              <td class="files-owner">Elias Moberg</td>
+              <td>2 Oct 2026</td>
+              <td class="files-number">86 KB</td>
+              <td class="files-row-action">
+                <button
+                  aria-label="Actions for Budget-Q4.xlsx"
+                  class="ui-button ui-rounded ui-small"
+                  command="toggle-popover"
+                  commandfor="file-manager-row-menu"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="ui-checkbox">
+                  <input name="file-manager-select" type="checkbox" />
+                  <span class="ui-sr-only">Select Hero-banner.png</span>
+                </label>
+              </td>
+              <td>
+                <span class="files-name" style="--file: var(--info)">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2M8.5 13.5l2.5 3.01L14.5 12l4.5 6H5z"
+                    ></path>
+                  </svg>
+                  Hero-banner.png
+                </span>
+              </td>
+              <td class="files-owner">Kenji Watanabe</td>
+              <td>29 Sep 2026</td>
+              <td class="files-number">3.4 MB</td>
+              <td class="files-row-action">
+                <button
+                  aria-label="Actions for Hero-banner.png"
+                  class="ui-button ui-rounded ui-small"
+                  command="toggle-popover"
+                  commandfor="file-manager-row-menu"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="ui-checkbox">
+                  <input name="file-manager-select" type="checkbox" />
+                  <span class="ui-sr-only">Select Launch-teaser.mp4</span>
+                </label>
+              </td>
+              <td>
+                <span class="files-name" style="--file: var(--warning)">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4z"
+                    ></path>
+                  </svg>
+                  Launch-teaser.mp4
+                </span>
+              </td>
+              <td class="files-owner">Nora Lindqvist</td>
+              <td>24 Sep 2026</td>
+              <td class="files-number">248 MB</td>
+              <td class="files-row-action">
+                <button
+                  aria-label="Actions for Launch-teaser.mp4"
+                  class="ui-button ui-rounded ui-small"
+                  command="toggle-popover"
+                  commandfor="file-manager-row-menu"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="ui-checkbox">
+                  <input name="file-manager-select" type="checkbox" />
+                  <span class="ui-sr-only">Select Press-release.docx</span>
+                </label>
+              </td>
+              <td>
+                <span class="files-name" style="--file: var(--info)">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+                    ></path>
+                  </svg>
+                  Press-release.docx
+                </span>
+              </td>
+              <td class="files-owner">Amina Yusuf</td>
+              <td>18 Sep 2026</td>
+              <td class="files-number">42 KB</td>
+              <td class="files-row-action">
+                <button
+                  aria-label="Actions for Press-release.docx"
+                  class="ui-button ui-rounded ui-small"
+                  command="toggle-popover"
+                  commandfor="file-manager-row-menu"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="file-manager-row-menu"
+          popover
+        >
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="file-manager-row-menu"
+              type="button"
+            >
+              <div class="ui-text"><p>Download</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="file-manager-row-menu"
+              type="button"
+            >
+              <div class="ui-text"><p>Rename</p></div>
+              <div class="ui-end"><kbd>F2</kbd></div>
+            </button>
+          </li>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="file-manager-row-menu"
+              type="button"
+            >
+              <div class="ui-text"><p>Share</p></div>
+            </button>
+          </li>
+          <li class="ui-border-top ui-critical">
+            <button
+              command="hide-popover"
+              commandfor="file-manager-row-menu"
+              type="button"
+            >
+              <div class="ui-text"><p>Move to trash</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </section>
+  </main>
+</div>

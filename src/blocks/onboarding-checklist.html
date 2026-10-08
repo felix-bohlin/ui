@@ -1,0 +1,393 @@
+<style>
+  .onboarding-checklist {
+    margin-inline: auto;
+    max-inline-size: 40rem;
+
+    > .ui-card > .ui-content {
+      display: grid;
+      gap: var(--size-4);
+    }
+
+    .onboarding-checklist-head {
+      align-items: start;
+      display: flex;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .onboarding-checklist-progress {
+      display: grid;
+      gap: var(--size-1);
+    }
+
+    .onboarding-checklist-count {
+      display: flex;
+      font-size: var(--font-size-1);
+      justify-content: space-between;
+
+      span:last-child {
+        color: var(--text-muted);
+      }
+    }
+
+    .onboarding-checklist-step {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+    }
+
+    .onboarding-checklist-complete {
+      color: var(--text-muted);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .onboarding-checklist-marker {
+      block-size: var(--size-6);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-round);
+      display: inline-grid;
+      flex-shrink: 0;
+      font-size: var(--font-size-1);
+      font-variant-numeric: tabular-nums;
+      inline-size: var(--size-6);
+      place-items: center;
+    }
+
+    .onboarding-checklist-done {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--primary-contrast);
+    }
+
+    details > .ui-content {
+      display: grid;
+      gap: var(--size-3);
+      padding-inline-start: calc(var(--size-3) + var(--size-6) + var(--size-3));
+    }
+
+    .onboarding-checklist-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+  }
+</style>
+
+<div class="onboarding-checklist">
+  <section
+    aria-labelledby="onboarding-checklist-heading"
+    class="ui-card ui-outlined"
+  >
+    <div class="ui-content">
+      <div class="onboarding-checklist-head">
+        <hgroup>
+          <h1 class="ui-h4" id="onboarding-checklist-heading">
+            Get started with Northwind
+          </h1>
+          <p>A few steps to set up your team. 11 days left in your trial.</p>
+        </hgroup>
+        <button
+          aria-label="Dismiss checklist"
+          class="ui-button ui-rounded ui-small"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="onboarding-checklist-progress">
+        <span
+          class="onboarding-checklist-count"
+          id="onboarding-checklist-progress"
+          ><span>3 of 6 steps done</span><span>50%</span></span
+        >
+        <div class="ui-progress">
+          <progress
+            aria-labelledby="onboarding-checklist-progress"
+            max="6"
+            value="3"
+          ></progress>
+        </div>
+      </div>
+
+      <div class="ui-card ui-outlined" role="group" aria-label="Steps">
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+        >
+          <summary>
+            <span
+              class="onboarding-checklist-step onboarding-checklist-complete"
+            >
+              <span
+                aria-hidden="true"
+                class="onboarding-checklist-marker onboarding-checklist-done"
+                >✓</span
+              >
+              <span
+                >Create your workspace<span class="ui-sr-only"
+                  >, done</span
+                ></span
+              >
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>Your workspace northwind.example is ready.</p>
+            <div class="onboarding-checklist-actions">
+              <a
+                class="ui-button ui-small"
+                href="#onboarding-checklist-workspace"
+                >Workspace settings</a
+              >
+            </div>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+        >
+          <summary>
+            <span
+              class="onboarding-checklist-step onboarding-checklist-complete"
+            >
+              <span
+                aria-hidden="true"
+                class="onboarding-checklist-marker onboarding-checklist-done"
+                >✓</span
+              >
+              <span
+                >Invite your team<span class="ui-sr-only">, done</span></span
+              >
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>Lina, Mats and Priya joined. Invite more people any time.</p>
+            <div class="onboarding-checklist-actions">
+              <a class="ui-button ui-small" href="#onboarding-checklist-team"
+                >Invite more</a
+              >
+            </div>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+        >
+          <summary>
+            <span
+              class="onboarding-checklist-step onboarding-checklist-complete"
+            >
+              <span
+                aria-hidden="true"
+                class="onboarding-checklist-marker onboarding-checklist-done"
+                >✓</span
+              >
+              <span>Connect GitHub<span class="ui-sr-only">, done</span></span>
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Pull requests and issues from northwind/web now sync both ways.
+            </p>
+            <div class="onboarding-checklist-actions">
+              <a class="ui-button ui-small" href="#onboarding-checklist-github"
+                >Manage repositories</a
+              >
+            </div>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+          open
+        >
+          <summary>
+            <span class="onboarding-checklist-step">
+              <span aria-hidden="true" class="onboarding-checklist-marker"
+                >4</span
+              >
+              <span>Create your first project</span>
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Projects group tasks, docs and releases. Start from scratch or use
+              a template for a product launch, a sprint or a design review.
+            </p>
+            <div class="onboarding-checklist-actions">
+              <a
+                class="ui-button ui-filled ui-small"
+                href="#onboarding-checklist-new-project"
+                >Create project</a
+              >
+              <a
+                class="ui-button ui-outlined ui-small"
+                href="#onboarding-checklist-templates"
+                >Browse templates</a
+              >
+            </div>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+        >
+          <summary>
+            <span class="onboarding-checklist-step">
+              <span aria-hidden="true" class="onboarding-checklist-marker"
+                >5</span
+              >
+              <span>Choose your notifications</span>
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Pick what reaches you by email, push or Slack, so nothing
+              important slips by.
+            </p>
+            <div class="onboarding-checklist-actions">
+              <a
+                class="ui-button ui-outlined ui-small"
+                href="#onboarding-checklist-notifications"
+                >Open settings</a
+              >
+            </div>
+          </div>
+        </details>
+        <details
+          class="ui-accordion ui-card ui-marker-rotate"
+          name="onboarding-checklist-steps"
+        >
+          <summary>
+            <span class="onboarding-checklist-step">
+              <span aria-hidden="true" class="onboarding-checklist-marker"
+                >6</span
+              >
+              <span>Install the desktop app</span>
+            </span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              ></path>
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Get a menu bar timer and offline access on macOS, Windows and
+              Linux.
+            </p>
+            <div class="onboarding-checklist-actions">
+              <a
+                class="ui-button ui-outlined ui-small"
+                href="#onboarding-checklist-download"
+                >Download</a
+              >
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 17h-2v-2h2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <p>
+            Stuck on a step?
+            <a class="ui-link" href="#onboarding-checklist-call"
+              >Book a 20-minute call</a
+            >
+            with Elif from our onboarding team.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

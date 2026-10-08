@@ -1,7 +1,13 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { COMPONENTS, FRAMEWORKS, STRESS_TESTS, openFixture } from "./fixtures"
+import {
+  BLOCKS,
+  COMPONENTS,
+  FRAMEWORKS,
+  STRESS_TESTS,
+  openFixture,
+} from "./fixtures"
 
 const KNOWN_VIOLATIONS_FILE = new URL(
   "./a11y-known-violations.json",
@@ -23,7 +29,7 @@ const TARGETS = [
   ...FRAMEWORKS.flatMap((framework) =>
     COMPONENTS.map((component) => ({ component, framework })),
   ),
-  ...STRESS_TESTS.map((component) => ({
+  ...[...BLOCKS, ...STRESS_TESTS].map((component) => ({
     component,
     framework: "html" as const,
   })),
@@ -38,7 +44,7 @@ for (const { component, framework } of TARGETS) {
     await openFixture(page, framework, component)
 
     const { violations } = await new AxeBuilder({ page })
-      .include("main")
+      .include(component.startsWith("blocks/") ? "body" : "main")
       .exclude('iframe[src*="youtube"]')
       .analyze()
     const nodes = violations.flatMap((violation) =>

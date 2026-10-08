@@ -1,0 +1,636 @@
+<style>
+  .order-history {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-5);
+    margin-inline: auto;
+    max-inline-size: 60rem;
+
+    .orders-header {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .orders-filters {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+
+      .ui-text-field {
+        flex: 1 1 14rem;
+      }
+    }
+
+    .orders-list {
+      display: grid;
+      gap: var(--size-4);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .orders-top {
+      align-items: start;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+      padding: var(--size-3);
+    }
+
+    .orders-top h2 {
+      margin: 0;
+    }
+
+    .orders-meta {
+      display: grid;
+      flex: 1 1 24rem;
+      gap: var(--size-3) var(--size-5);
+      grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
+      margin: 0;
+
+      dt {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+      }
+
+      dd {
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--font-weight-semibold);
+        margin: 0;
+      }
+    }
+
+    .orders-status {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+
+      .ui-chip svg {
+        color: var(--_status);
+      }
+    }
+
+    .orders-delivered {
+      --_status: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+    }
+
+    .orders-transit {
+      --_status: light-dark(
+        oklch(from var(--info) 0.45 c h),
+        oklch(from var(--info) 0.8 c h)
+      );
+    }
+
+    .orders-returned {
+      --_status: light-dark(
+        oklch(from var(--warning) 0.45 c h),
+        oklch(from var(--warning) 0.8 c h)
+      );
+    }
+
+    .orders-body {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    .orders-tracking {
+      display: grid;
+      gap: var(--size-1);
+
+      p {
+        font-size: var(--font-size-1);
+        margin: 0;
+      }
+    }
+
+    .orders-steps {
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      justify-content: space-between;
+    }
+
+    .orders-items {
+      margin: 0;
+      padding-block: 0;
+    }
+
+    .orders-thumb {
+      aspect-ratio: 1;
+      border-radius: var(--radius-2);
+      inline-size: var(--size-8);
+    }
+
+    .orders-thumb-1 {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        oklch(from var(--primary) l c calc(h + 60))
+      );
+    }
+
+    .orders-thumb-2 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h - 80)),
+        oklch(from var(--primary) l c calc(h - 30))
+      );
+    }
+
+    .orders-thumb-3 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h + 140)),
+        oklch(from var(--primary) l c calc(h + 190))
+      );
+    }
+
+    .orders-thumb-4 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h + 200)),
+        oklch(from var(--primary) l c calc(h + 250))
+      );
+    }
+
+    .orders-price {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .orders-actions {
+      align-items: center;
+
+      .orders-more {
+        margin-inline-start: auto;
+      }
+    }
+
+    .orders-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-1);
+        margin: 0;
+      }
+    }
+  }
+</style>
+
+<div class="order-history">
+  <div class="orders-header">
+    <hgroup class="ui-hgroup">
+      <h1 class="ui-h3">Order history</h1>
+      <p>Track deliveries, download receipts and buy again.</p>
+    </hgroup>
+  </div>
+
+  <div class="orders-filters">
+    <div class="ui-text-field">
+      <span class="ui-field">
+        <input
+          aria-label="Search orders"
+          name="search"
+          placeholder="Search by order number or product"
+          type="search"
+        />
+        <span class="ui-prefix">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5m-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <div aria-label="Order status" class="ui-toggle-group" role="radiogroup">
+      <label class="ui-toggle-button">
+        <input checked name="order-history-status" type="radio" value="all" />
+        All
+      </label>
+      <label class="ui-toggle-button">
+        <input name="order-history-status" type="radio" value="open" />
+        Open
+      </label>
+      <label class="ui-toggle-button">
+        <input name="order-history-status" type="radio" value="delivered" />
+        Delivered
+      </label>
+    </div>
+  </div>
+
+  <ul class="orders-list">
+    <li>
+      <article aria-labelledby="order-history-4821" class="ui-card ui-outlined">
+        <div class="orders-top">
+          <h2 class="ui-h5" id="order-history-4821">Order NW-4821</h2>
+          <dl class="orders-meta">
+            <div>
+              <dt>Placed</dt>
+              <dd><time datetime="2026-10-05">5 Oct 2026</time></dd>
+            </div>
+            <div>
+              <dt>Total</dt>
+              <dd>€141.90</dd>
+            </div>
+            <div>
+              <dt>Ship to</dt>
+              <dd>Astrid Lindqvist</dd>
+            </div>
+          </dl>
+          <div class="orders-status orders-transit">
+            <span class="ui-chip ui-tonal">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
+                ></path>
+              </svg>
+              <span class="ui-text">In transit</span>
+            </span>
+          </div>
+        </div>
+        <div class="ui-content orders-body">
+          <div class="orders-tracking">
+            <p id="order-history-4821-eta">
+              Arrives <strong>Thursday 8 October</strong> · PostNord 00370 7319
+              4821
+            </p>
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="order-history-4821-eta"
+                max="100"
+                value="66"
+              ></progress>
+            </div>
+            <div aria-hidden="true" class="orders-steps">
+              <span>Ordered</span><span>Shipped</span><span>Delivered</span>
+            </div>
+          </div>
+          <ul class="ui-list ui-transparent ui-gutterless orders-items">
+            <li>
+              <div class="ui-start">
+                <div
+                  aria-label="Merino base layer in Pine"
+                  class="orders-thumb orders-thumb-1"
+                  role="img"
+                ></div>
+              </div>
+              <div class="ui-text">
+                <p>Merino base layer</p>
+                <p>Pine · M · Qty 1</p>
+              </div>
+              <div class="ui-end orders-price">€89.00</div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <div
+                  aria-label="Wool hiking socks in Fjord"
+                  class="orders-thumb orders-thumb-3"
+                  role="img"
+                ></div>
+              </div>
+              <div class="ui-text">
+                <p>Wool hiking socks</p>
+                <p>Fjord · 39–42 · Qty 2</p>
+              </div>
+              <div class="ui-end orders-price">€48.00</div>
+            </li>
+          </ul>
+        </div>
+        <div class="ui-actions orders-actions">
+          <a class="ui-button ui-filled ui-small" href="#order-history-track"
+            >Track package</a
+          >
+          <a class="ui-button ui-outlined ui-small" href="#order-history-view"
+            >View order</a
+          >
+          <button
+            aria-label="More actions for order NW-4821"
+            class="ui-button ui-rounded ui-small orders-more"
+            command="toggle-popover"
+            commandfor="order-history-menu-4821"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-align-end"
+            id="order-history-menu-4821"
+            popover
+          >
+            <li>
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4821"
+                type="button"
+              >
+                <div class="ui-text"><p>Download receipt</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4821"
+                type="button"
+              >
+                <div class="ui-text"><p>Change delivery</p></div>
+              </button>
+            </li>
+            <li class="ui-border-top ui-critical">
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4821"
+                type="button"
+              >
+                <div class="ui-text"><p>Cancel order</p></div>
+              </button>
+            </li>
+          </menu>
+        </div>
+      </article>
+    </li>
+
+    <li>
+      <article aria-labelledby="order-history-4610" class="ui-card ui-outlined">
+        <div class="orders-top">
+          <h2 class="ui-h5" id="order-history-4610">Order NW-4610</h2>
+          <dl class="orders-meta">
+            <div>
+              <dt>Placed</dt>
+              <dd><time datetime="2026-09-14">14 Sep 2026</time></dd>
+            </div>
+            <div>
+              <dt>Total</dt>
+              <dd>€239.00</dd>
+            </div>
+            <div>
+              <dt>Ship to</dt>
+              <dd>Astrid Lindqvist</dd>
+            </div>
+          </dl>
+          <div class="orders-status orders-delivered">
+            <span class="ui-chip ui-tonal">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                ></path>
+              </svg>
+              <span class="ui-text">Delivered 17 Sep</span>
+            </span>
+          </div>
+        </div>
+        <div class="ui-content orders-body">
+          <ul class="ui-list ui-transparent ui-gutterless orders-items">
+            <li>
+              <div class="ui-start">
+                <div
+                  aria-label="Down vest in Moss"
+                  class="orders-thumb orders-thumb-2"
+                  role="img"
+                ></div>
+              </div>
+              <div class="ui-text">
+                <p>Lightweight down vest</p>
+                <p>Moss · L · Qty 1</p>
+              </div>
+              <div class="ui-end orders-price">€159.00</div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <div
+                  aria-label="Insulated bottle in Slate"
+                  class="orders-thumb orders-thumb-4"
+                  role="img"
+                ></div>
+              </div>
+              <div class="ui-text">
+                <p>Insulated bottle 750 ml</p>
+                <p>Slate · Qty 2</p>
+              </div>
+              <div class="ui-end orders-price">€80.00</div>
+            </li>
+          </ul>
+        </div>
+        <div class="ui-actions orders-actions">
+          <button class="ui-button ui-tonal ui-small" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+              ></path></svg
+            ><span class="ui-text">Buy again</span>
+          </button>
+          <a class="ui-button ui-outlined ui-small" href="#order-history-review"
+            >Write a review</a
+          >
+          <button
+            aria-label="More actions for order NW-4610"
+            class="ui-button ui-rounded ui-small orders-more"
+            command="toggle-popover"
+            commandfor="order-history-menu-4610"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-align-end"
+            id="order-history-menu-4610"
+            popover
+          >
+            <li>
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4610"
+                type="button"
+              >
+                <div class="ui-text"><p>Download receipt</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4610"
+                type="button"
+              >
+                <div class="ui-text"><p>Return items</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                command="hide-popover"
+                commandfor="order-history-menu-4610"
+                type="button"
+              >
+                <div class="ui-text"><p>Get help</p></div>
+              </button>
+            </li>
+          </menu>
+        </div>
+      </article>
+    </li>
+
+    <li>
+      <article aria-labelledby="order-history-4377" class="ui-card ui-outlined">
+        <div class="orders-top">
+          <h2 class="ui-h5" id="order-history-4377">Order NW-4377</h2>
+          <dl class="orders-meta">
+            <div>
+              <dt>Placed</dt>
+              <dd><time datetime="2026-08-22">22 Aug 2026</time></dd>
+            </div>
+            <div>
+              <dt>Total</dt>
+              <dd>€33.90</dd>
+            </div>
+            <div>
+              <dt>Ship to</dt>
+              <dd>Mateo Okafor</dd>
+            </div>
+          </dl>
+          <div class="orders-status orders-returned">
+            <span class="ui-chip ui-tonal">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8"
+                ></path>
+              </svg>
+              <span class="ui-text">Returned</span>
+            </span>
+          </div>
+        </div>
+        <div class="ui-content orders-body">
+          <ul class="ui-list ui-transparent ui-gutterless orders-items">
+            <li>
+              <div class="ui-start">
+                <div
+                  aria-label="Trail running cap in Sand"
+                  class="orders-thumb orders-thumb-2"
+                  role="img"
+                ></div>
+              </div>
+              <div class="ui-text">
+                <p>Trail running cap</p>
+                <p>Sand · One size · Qty 1</p>
+              </div>
+              <div class="ui-end orders-price">€29.00</div>
+            </li>
+          </ul>
+          <article class="ui-callout ui-success">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16"
+              ></path>
+            </svg>
+            <div class="ui-content">
+              <p>
+                Refund of €29.00 sent to your Visa ending 4242 on 3 Sep. It can
+                take up to 5 business days to show up.
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="ui-actions orders-actions">
+          <button class="ui-button ui-tonal ui-small" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+              ></path></svg
+            ><span class="ui-text">Buy again</span>
+          </button>
+          <a class="ui-button ui-outlined ui-small" href="#order-history-return"
+            >Return details</a
+          >
+        </div>
+      </article>
+    </li>
+  </ul>
+
+  <div class="orders-footer">
+    <p>Showing 3 of 18 orders</p>
+    <button class="ui-button ui-outlined" type="button">Load more</button>
+  </div>
+</div>

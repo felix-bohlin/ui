@@ -24,6 +24,11 @@ export const STRESS_TESTS = readdirSync(
   .map((file) => `stress/${file.replace(/\.html$/, "")}`)
   .toSorted()
 
+export const BLOCKS = readdirSync(new URL("../../src/blocks/", import.meta.url))
+  .filter((file) => file.endsWith(".html"))
+  .map((file) => `blocks/${file.replace(/\.html$/, "")}`)
+  .toSorted()
+
 export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS, "theming"].toSorted()
 
 export const hasExample = (
@@ -45,9 +50,11 @@ export const openFixture = async (
         : route.abort(),
   )
   await page.goto(
-    component.startsWith("stress/")
-      ? `/tests/${component.slice("stress/".length)}/`
-      : `/${framework}/test/${component}/`,
+    component.startsWith("blocks/")
+      ? `/${component}/preview/`
+      : component.startsWith("stress/")
+        ? `/tests/${component.slice("stress/".length)}/`
+        : `/${framework}/test/${component}/`,
   )
   if (framework === "svelte") {
     await page.waitForFunction(() =>

@@ -3,6 +3,7 @@ import path from "path"
 import { pathToFileURL } from "url"
 import { globby } from "globby"
 
+import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/learn-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
@@ -186,6 +187,19 @@ async function generateIndex() {
         .join(" "),
       category: "Learn",
       url: `/learn/${post.slug}`,
+    })
+  }
+
+  // Blocks are framework-agnostic and live at /blocks/<slug>.
+  for (const block of blocks.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
+    index.push({
+      id: `block-${block.slug}`,
+      title: block.name,
+      description: block.description,
+      headings: blockCategories.find((entry) => entry.id === block.category)
+        ?.label,
+      category: "Blocks",
+      url: `/blocks/${block.slug}`,
     })
   }
 

@@ -1,0 +1,153 @@
+<style>
+  .sign-in {
+    display: grid;
+    margin-inline: auto;
+    max-inline-size: 26rem;
+
+    .ui-card {
+      padding-block: var(--size-3);
+    }
+
+    hgroup {
+      text-align: center;
+    }
+
+    .ui-content {
+      display: grid;
+      gap: var(--size-4);
+    }
+
+    .sign-in-providers {
+      display: grid;
+      gap: var(--size-2);
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+
+      .ui-button {
+        justify-content: center;
+      }
+    }
+
+    .sign-in-divider {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+
+      &::before,
+      &::after {
+        border-block-start: var(--border-width) solid var(--border-color);
+        content: "";
+        flex: 1;
+      }
+    }
+
+    .sign-in-row {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: space-between;
+
+      .ui-link {
+        font-size: var(--font-size-1);
+      }
+    }
+
+    .sign-in-submit {
+      inline-size: 100%;
+      justify-content: center;
+    }
+
+    .sign-in-footer {
+      font-size: var(--font-size-1);
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="sign-in">
+  <div class="ui-card ui-outlined">
+    <hgroup>
+      <h1 class="ui-h4">Sign in to Northwind</h1>
+      <p>Welcome back. Pick up where you left off.</p>
+    </hgroup>
+    <div class="ui-content">
+      <div class="sign-in-providers">
+        <button class="ui-button ui-outlined" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2"
+            ></path></svg
+          ><span class="ui-text">GitHub</span>
+        </button>
+        <button class="ui-button ui-outlined" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M21.35 11.1H12v2.98h5.35c-.23 1.4-1.66 4.1-5.35 4.1a6.18 6.18 0 0 1 0-12.36c1.76 0 2.94.75 3.62 1.4l2.46-2.37A9.9 9.9 0 0 0 12 2.18a9.82 9.82 0 1 0 0 19.64c5.67 0 9.43-3.98 9.43-9.6 0-.65-.07-1.14-.08-1.12"
+            ></path></svg
+          ><span class="ui-text">Google</span>
+        </button>
+      </div>
+
+      <p class="sign-in-divider">or continue with email</p>
+
+      <form class="ui-form" action="#">
+        <div class="ui-field-group">
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input
+                autocomplete="email"
+                name="email"
+                placeholder="ada@example.com"
+                required
+                type="email"
+              />
+            </span>
+          </label>
+          <label class="ui-text-field">
+            <span class="ui-label">Password</span>
+            <span class="ui-field">
+              <input
+                autocomplete="current-password"
+                name="password"
+                required
+                type="password"
+              />
+            </span>
+          </label>
+          <div class="sign-in-row">
+            <label class="ui-checkbox">
+              <input name="remember" type="checkbox" />
+              <span class="ui-label">Remember me</span>
+            </label>
+            <a class="ui-link" href="#forgot-password">Forgot password?</a>
+          </div>
+          <button class="ui-button ui-filled sign-in-submit" type="submit">
+            Sign in
+          </button>
+        </div>
+      </form>
+
+      <p class="sign-in-footer">
+        New to Northwind?
+        <a class="ui-link" href="#sign-up">Create an account</a>
+      </p>
+    </div>
+  </div>
+</div>

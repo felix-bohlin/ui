@@ -1854,6 +1854,294 @@
     "url": "/learn/vertical-rhythm-round"
   },
   {
+    "id": "block-account-settings",
+    "title": "Account settings",
+    "description": "Profile, password and preference forms split over tabs, with a danger zone at the end.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/account-settings"
+  },
+  {
+    "id": "block-analytics-dashboard",
+    "title": "Analytics dashboard",
+    "description": "Key metrics, a bar chart, top pages and traffic sources for a selectable date range.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/analytics-dashboard"
+  },
+  {
+    "id": "block-app-shell",
+    "title": "App shell",
+    "description": "A header, a navigation sidebar that turns into a drawer on small screens, and a main area.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/app-shell"
+  },
+  {
+    "id": "block-billing",
+    "title": "Billing",
+    "description": "The current plan, usage against its limits, the payment method and past invoices.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/billing"
+  },
+  {
+    "id": "block-blog-list",
+    "title": "Blog list",
+    "description": "A featured post followed by a grid of post cards with tags, authors and reading time.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/blog-list"
+  },
+  {
+    "id": "block-changelog",
+    "title": "Changelog",
+    "description": "Releases on a timeline, each with a version, a date and grouped changes.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/changelog"
+  },
+  {
+    "id": "block-chat",
+    "title": "Chat",
+    "description": "Conversations next to a message thread with a composer at the bottom.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/chat"
+  },
+  {
+    "id": "block-checkout",
+    "title": "Checkout",
+    "description": "Contact, shipping and payment details next to an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/checkout"
+  },
+  {
+    "id": "block-data-table",
+    "title": "Data table",
+    "description": "A searchable, filterable table with row selection, statuses, row actions and pagination.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/data-table"
+  },
+  {
+    "id": "block-empty-states",
+    "title": "Empty states",
+    "description": "Empty states for a first run, an empty search, a cleared inbox and a missing permission.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/empty-states"
+  },
+  {
+    "id": "block-error-page",
+    "title": "Error page",
+    "description": "A not found page with a search field and links to get back on track.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/error-page"
+  },
+  {
+    "id": "block-faq",
+    "title": "FAQ",
+    "description": "Frequently asked questions in an accordion group, with a way to reach support.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/faq"
+  },
+  {
+    "id": "block-feature-grid",
+    "title": "Feature grid",
+    "description": "A grid of features, each with an icon, a title and a summary.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/feature-grid"
+  },
+  {
+    "id": "block-file-manager",
+    "title": "File manager",
+    "description": "Storage usage, folders and a file table with sorting and row actions.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/file-manager"
+  },
+  {
+    "id": "block-forgot-password",
+    "title": "Forgot password",
+    "description": "An email field to request a reset link, and the message shown after sending it.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/forgot-password"
+  },
+  {
+    "id": "block-hero",
+    "title": "Hero",
+    "description": "A headline, a short pitch, two calls to action and a product preview.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/hero"
+  },
+  {
+    "id": "block-inbox",
+    "title": "Inbox",
+    "description": "Folders, a message list with unread states and a reading pane.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/inbox"
+  },
+  {
+    "id": "block-invoice",
+    "title": "Invoice",
+    "description": "Sender and recipient, line items, totals and payment details for an invoice.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/invoice"
+  },
+  {
+    "id": "block-kanban-board",
+    "title": "Kanban board",
+    "description": "Columns of task cards with labels, assignees, due dates and counts.",
+    "headings": "Application",
+    "category": "Blocks",
+    "url": "/blocks/kanban-board"
+  },
+  {
+    "id": "block-newsletter",
+    "title": "Newsletter",
+    "description": "A newsletter sign-up with an email field, topic choices and a privacy note.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/newsletter"
+  },
+  {
+    "id": "block-notification-settings",
+    "title": "Notification settings",
+    "description": "A table of switches that sets which notifications go to email, push and SMS.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/notification-settings"
+  },
+  {
+    "id": "block-notifications",
+    "title": "Notifications",
+    "description": "Notifications grouped by day, with tabs, unread markers and inline actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/notifications"
+  },
+  {
+    "id": "block-onboarding-checklist",
+    "title": "Onboarding checklist",
+    "description": "A getting started checklist with progress and a call to action per step.",
+    "headings": "Feedback",
+    "category": "Blocks",
+    "url": "/blocks/onboarding-checklist"
+  },
+  {
+    "id": "block-order-history",
+    "title": "Order history",
+    "description": "Past orders with their status, items, totals and actions to track or reorder.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/order-history"
+  },
+  {
+    "id": "block-pricing",
+    "title": "Pricing",
+    "description": "Three plans with a monthly or yearly toggle, a highlighted plan and a feature comparison.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/pricing"
+  },
+  {
+    "id": "block-product-detail",
+    "title": "Product detail",
+    "description": "A product gallery, color and size choices, quantity, add to cart and details.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/product-detail"
+  },
+  {
+    "id": "block-project-overview",
+    "title": "Project overview",
+    "description": "Milestones, progress, the team and recent activity for a single project.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/project-overview"
+  },
+  {
+    "id": "block-sales-dashboard",
+    "title": "Sales dashboard",
+    "description": "Revenue, orders and conversion with sales targets and the latest orders.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/sales-dashboard"
+  },
+  {
+    "id": "block-server-status",
+    "title": "Server status",
+    "description": "Service health, uptime history, response times and incidents.",
+    "headings": "Dashboards",
+    "category": "Blocks",
+    "url": "/blocks/server-status"
+  },
+  {
+    "id": "block-shopping-cart",
+    "title": "Shopping cart",
+    "description": "Cart items with quantity controls, a discount code and an order summary.",
+    "headings": "E-commerce",
+    "category": "Blocks",
+    "url": "/blocks/shopping-cart"
+  },
+  {
+    "id": "block-sign-in",
+    "title": "Sign in",
+    "description": "An email and password form with a remember me option and social sign-in.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-in"
+  },
+  {
+    "id": "block-sign-up",
+    "title": "Sign up",
+    "description": "An account form with a password hint, a plan choice and terms.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/sign-up"
+  },
+  {
+    "id": "block-team-members",
+    "title": "Team members",
+    "description": "An invite form and a member list with roles, statuses and actions.",
+    "headings": "Settings",
+    "category": "Blocks",
+    "url": "/blocks/team-members"
+  },
+  {
+    "id": "block-testimonials",
+    "title": "Testimonials",
+    "description": "Customer quotes with names, roles and ratings.",
+    "headings": "Marketing",
+    "category": "Blocks",
+    "url": "/blocks/testimonials"
+  },
+  {
+    "id": "block-two-factor",
+    "title": "Two-factor authentication",
+    "description": "A one-time code form for two-factor authentication, with a way to resend the code.",
+    "headings": "Authentication",
+    "category": "Blocks",
+    "url": "/blocks/two-factor"
+  },
+  {
+    "id": "block-user-directory",
+    "title": "User directory",
+    "description": "A filterable grid of people cards with avatars, roles and contact actions.",
+    "headings": "Data display",
+    "category": "Blocks",
+    "url": "/blocks/user-directory"
+  },
+  {
     "id": "api-accordion-astro",
     "title": "Accordion API",
     "description": "Reference for Accordion Astro component.",

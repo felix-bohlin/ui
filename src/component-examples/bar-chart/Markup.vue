@@ -1,0 +1,32 @@
+<script setup lang="ts">
+import { BarChart } from "opui-css/vue"
+</script>
+
+<template>
+  <BarChart caption="Storage per team" :max="112">
+    <thead>
+      <tr>
+        <th scope="col">Team</th>
+        <th scope="col">Used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Design</th>
+        <td style="--value: 48" tabindex="0">48 GB</td>
+      </tr>
+      <tr>
+        <th scope="row">Engineering</th>
+        <td style="--value: 112" tabindex="0">112 GB</td>
+      </tr>
+      <tr>
+        <th scope="row">Marketing</th>
+        <td style="--value: 31" tabindex="0">31 GB</td>
+      </tr>
+      <tr>
+        <th scope="row">Sales</th>
+        <td style="--value: 22" tabindex="0">22 GB</td>
+      </tr>
+    </tbody>
+  </BarChart>
+</template>

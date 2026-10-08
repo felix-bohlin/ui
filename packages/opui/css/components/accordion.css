@@ -15,6 +15,7 @@
     --_ease: var(--ease);
     --_focus-ring-offset: var(--focus-ring-offset, 2px);
     --_margin-inline: var(--size-1);
+    --_overflow: visible;
     --_padding-inline: initial;
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
@@ -26,6 +27,7 @@
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
+    overflow: var(--_overflow);
     transition:
       background-color var(--_duration) var(--_ease),
       border-color var(--_duration) var(--_ease),
@@ -41,6 +43,7 @@
       --_bg-color: var(--surface-elevated);
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
       --_shadow: var(--shadow-3);
     }
@@ -51,6 +54,7 @@
       --_border-width: var(--border-width);
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
     }
 
@@ -58,6 +62,7 @@
       --_bg-color: var(--surface-tonal);
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
+      --_overflow: hidden;
       --_padding-inline: var(--size-3);
     }
 

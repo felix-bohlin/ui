@@ -1,26 +1,38 @@
 <style>
   @layer components.extended {
     :where(.ui-one-time-code) {
-      --_box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect style='x:calc(9%25 + 0.5px);y:0.5px;width:calc(82%25 - 1px);height:calc(100%25 - 1px)' rx='8' fill='none' stroke='%23000'/%3E%3C/svg%3E");
-      --_box-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect style='x:calc(9%25 + 1px);y:1px;width:calc(82%25 - 2px);height:calc(100%25 - 2px)' rx='8' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
-      --_cell: calc(var(--_min-height) * 1.1);
+      --_box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+      --_box-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
+      --_cell: round(
+        max(var(--_min-height) * 1.2, var(--_font-size) * 1.6),
+        8px
+      );
+      --_dash: none;
+      --_dash-color: var(--text-muted);
       --_font-size: var(--font-size-3);
+      --_length: 6;
+      --_slot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='%23000' fill-opacity='.12' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
 
       .ui-field {
         background: none;
         border: 0;
+        cursor: text;
         direction: ltr;
         font-family: var(--font-mono);
         font-size: var(--_font-size);
+        grid-template-columns: 0 max-content minmax(0, var(--_cell)) 1fr;
         grid-template-rows: auto 1fr auto;
+        inline-size: calc(var(--_length) * var(--_cell));
+        justify-content: start;
         justify-self: start;
-        margin-inline: calc(var(--_cell) * -0.09);
+        margin-inline: calc(var(--_cell) * -0.125);
         overflow: clip;
 
         &::before {
           background-color: var(--_border-color);
           content: "";
-          grid-area: input;
+          grid-column: 1 / -1;
+          grid-row: 2;
           mask: var(--_box) 0 0 / var(--_cell) 100% repeat-x;
           pointer-events: none;
           transition: background-color calc(var(--duration) * var(--_motion))
@@ -29,18 +41,35 @@
       }
 
       .ui-field input {
+        background: var(--_dash)
+          calc(var(--_length) * var(--_cell) / 2 - var(--_cell) / 16) 50% /
+          calc(var(--_cell) / 8) 2px no-repeat;
         caret-color: var(--_accent);
         font-family: var(--font-mono);
         font-variant-numeric: tabular-nums;
-        inline-size: calc(7 * var(--_cell));
-        inline-size: calc(
-          (attr(maxlength type(<integer>), 6) + 1) * var(--_cell)
-        );
+        inline-size: calc((var(--_length) + 1) * var(--_cell));
         letter-spacing: calc(var(--_cell) - 1ch);
         margin-inline-end: calc(-1 * var(--_cell));
         padding-block: 0;
         padding-inline: calc((var(--_cell) - 1ch) / 2) 0;
         position: relative;
+        text-transform: uppercase;
+      }
+
+      &:has([maxlength="4"]) {
+        --_length: 4;
+      }
+
+      &:has([maxlength="5"]) {
+        --_length: 5;
+      }
+
+      &:has([maxlength="7"]) {
+        --_length: 7;
+      }
+
+      &:has([maxlength="8"]) {
+        --_length: 8;
       }
 
       @media (hover: hover) {
@@ -62,6 +91,38 @@
         outline: 0;
       }
 
+      @supports (field-sizing: content) {
+        .ui-field input {
+          field-sizing: content;
+          inline-size: auto;
+          margin-inline-end: calc(
+            (var(--_cell) - 1ch) / -2 - var(--_length) * var(--_cell)
+          );
+          padding-inline-end: calc(var(--_length) * var(--_cell));
+        }
+
+        &:focus-within .ui-field {
+          &::before {
+            mask-image: var(--_box);
+          }
+
+          &::after {
+            background-color: var(--_accent);
+            content: "";
+            grid-column: 3;
+            grid-row: 2;
+            inline-size: var(--_cell);
+            justify-self: unsafe end;
+            mask: var(--_slot) 0 0 / 100% 100%;
+            pointer-events: none;
+          }
+        }
+      }
+
+      &.ui-grouped {
+        --_dash: linear-gradient(var(--_dash-color) 0 0);
+      }
+
       &.ui-small {
         --_font-size: var(--font-size-2);
       }
@@ -71,15 +132,35 @@
       }
 
       @media (forced-colors: active) {
-        .ui-field::before {
+        --_dash-color: CanvasText;
+
+        .ui-field::before,
+        .ui-field::after {
           background-color: CanvasText;
           forced-color-adjust: none;
+        }
+
+        .ui-field input {
+          caret-color: CanvasText;
+          color: CanvasText;
+          forced-color-adjust: none;
+        }
+
+        &:has(:disabled) .ui-field {
+          &::before {
+            background-color: GrayText;
+          }
+
+          input {
+            color: GrayText;
+          }
         }
 
         &:focus-within .ui-field {
           outline: 0;
 
-          &::before {
+          &::before,
+          &::after {
             background-color: Highlight;
           }
         }
@@ -90,7 +171,7 @@
   .todo-otp-grid {
     display: grid;
     gap: var(--size-5) var(--size-6);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
     inline-size: 100%;
   }
 
@@ -103,10 +184,12 @@
 </style>
 
 <p>
-  One plain <code>&lt;input&gt;</code> per code: click any box, paste
-  <code>123456</code> or let the phone autofill it. Monospace digits plus
-  <code>letter-spacing</code> land each digit in a box drawn by a repeating
-  mask, so there is nothing to keep in sync.
+  One <code>&lt;input&gt;</code> per code, so typing, paste, undo, SMS autofill
+  and screen readers work like any text field. Monospace <code>ch</code> plus
+  <code>letter-spacing</code> put each character in a box drawn by a repeating
+  mask. Click a box and type: the ring marks the next empty slot, because
+  <code>field-sizing: content</code> makes the input exactly as wide as its
+  value.
 </p>
 <div class="todo-otp-grid">
   <div class="todo-otp-case">
@@ -131,6 +214,47 @@
     </label>
   </div>
   <div class="todo-otp-case">
+    <h2 class="ui-h6">Grouped</h2>
+    <label class="ui-text-field ui-one-time-code ui-grouped">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="code-grouped"
+          pattern="[0-9]{6}"
+          type="text"
+          value="482"
+        />
+      </span>
+    </label>
+    <p class="ui-caption">
+      <code>.ui-grouped</code> draws a dash in the middle gap for 3+3 or 4+4.
+    </p>
+  </div>
+  <div class="todo-otp-case">
+    <h2 class="ui-h6">Alphanumeric</h2>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Recovery code</span>
+      <span class="ui-field">
+        <input
+          autocapitalize="characters"
+          autocomplete="one-time-code"
+          maxlength="6"
+          name="code-alnum"
+          pattern="[A-Za-z0-9]{6}"
+          spellcheck="false"
+          type="text"
+          value="k7q"
+        />
+      </span>
+    </label>
+    <p class="ui-caption">
+      Letters show uppercase; the value keeps what was typed.
+    </p>
+  </div>
+  <div class="todo-otp-case">
     <h2 class="ui-h6">Invalid</h2>
     <label class="ui-text-field ui-one-time-code">
       <span class="ui-label">Verification code</span>
@@ -153,9 +277,27 @@
       >
     </label>
     <p class="ui-caption">
-      Shown with <code>aria-invalid</code>. Type 3 digits in Default and leave
-      it to get the same look from <code>:user-invalid</code>.
+      <code>aria-invalid</code> here; <code>:user-invalid</code> gives the same
+      look after leaving Default half-filled.
     </p>
+  </div>
+  <div class="todo-otp-case">
+    <h2 class="ui-h6">Disabled</h2>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          disabled
+          inputmode="numeric"
+          maxlength="6"
+          name="code-disabled"
+          pattern="[0-9]{6}"
+          type="text"
+          value="905"
+        />
+      </span>
+    </label>
   </div>
   <div class="todo-otp-case">
     <h2 class="ui-h6">4 digits, small</h2>
@@ -173,10 +315,6 @@
         />
       </span>
     </label>
-    <p class="ui-caption">
-      The width comes from <code>maxlength</code> through typed
-      <code>attr()</code>.
-    </p>
   </div>
   <div class="todo-otp-case" dir="rtl" lang="ar">
     <h2 class="ui-h6">RTL, large</h2>

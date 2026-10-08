@@ -21,8 +21,9 @@
 
       align-items: end;
       align-self: start;
-      display: flex;
-      gap: var(--size-2);
+      display: grid;
+      grid-template-areas: "avatar bubble add" ". reactions .";
+      grid-template-columns: auto minmax(0, auto) auto;
       max-inline-size: min(36rem, 85cqi);
 
       @supports (corner-shape: squircle) {
@@ -31,7 +32,9 @@
 
       & > .ui-avatar {
         font-size: var(--font-size-0);
+        grid-area: avatar;
         inline-size: var(--control-size-small);
+        margin-inline-end: var(--size-2);
       }
 
       .ui-bubble {
@@ -43,6 +46,8 @@
         color: var(--_text-color);
         display: grid;
         gap: var(--size-1);
+        grid-area: bubble;
+        justify-self: start;
         min-inline-size: 0;
         overflow-wrap: anywhere;
         padding-block: var(--size-2);
@@ -91,22 +96,57 @@
         }
       }
 
+      .ui-reactions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-1);
+        grid-area: reactions;
+        margin-block: calc(var(--size-2) * -1) var(--size-1);
+        padding-inline: var(--size-2);
+      }
+
+      & > .ui-reaction-add {
+        align-self: center;
+        grid-area: add;
+        margin-inline-start: var(--size-1);
+        transition: opacity calc(var(--duration) * var(--_motion)) var(--ease);
+      }
+
+      @media (hover: hover) {
+        &:not(:hover, :focus-within, :has(:popover-open)) > .ui-reaction-add {
+          opacity: 0;
+        }
+      }
+
       &.ui-outgoing {
         --_bg-color: var(--primary);
         --_text-color: var(--primary-contrast);
 
         align-self: end;
-        flex-direction: row-reverse;
+        grid-template-areas: "add bubble avatar" ". reactions .";
+
+        & > .ui-avatar {
+          margin-inline: var(--size-2) 0;
+        }
+
+        & > .ui-reaction-add {
+          margin-inline: 0 var(--size-1);
+        }
 
         .ui-bubble {
           border-end-end-radius: var(--_bottom);
           border-end-start-radius: var(--_radius);
           border-start-end-radius: var(--_top);
           border-start-start-radius: var(--_radius);
+          justify-self: end;
         }
 
         .ui-footer {
           color: inherit;
+        }
+
+        .ui-reactions {
+          justify-content: end;
         }
       }
 
@@ -175,6 +215,143 @@
       }
     }
 
+    :where(.ui-reaction) {
+      --_bg-color: var(--surface-default);
+      --_border-color: var(--border-color);
+
+      align-items: center;
+      background-color: var(--_bg-color);
+      block-size: var(--size-6);
+      border: var(--border-width) solid var(--_border-color);
+      border-radius: var(--radius-round);
+      box-shadow: 0 0 0 var(--border-width) var(--surface-default);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: var(--font-size-1);
+      gap: var(--size-1);
+      line-height: 1;
+      padding-block: 0;
+      padding-inline: var(--size-2);
+      user-select: none;
+
+      &::after {
+        content: attr(data-count) / "";
+        font-size: var(--font-size-0);
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--font-weight-semibold);
+      }
+
+      @supports (x: attr(x type(*))) {
+        counter-reset: ui-reaction attr(data-count type(<integer>), 0);
+
+        &::after {
+          content: counter(ui-reaction) / "";
+        }
+
+        &:has(input[checked]:not(:checked)) {
+          counter-increment: ui-reaction -1;
+        }
+
+        &:has(input:not([checked]):checked) {
+          counter-increment: ui-reaction;
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          --_border-color: var(--text-muted);
+        }
+      }
+
+      &:has(input:focus-visible) {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, var(--_focus-visible-color));
+        outline-offset: var(--focus-ring-offset);
+      }
+
+      &:is(:has(input:checked), [aria-pressed="true"]) {
+        --_bg-color: color-mix(
+          in oklch,
+          var(--primary) 16%,
+          var(--surface-default)
+        );
+        --_border-color: var(--primary);
+      }
+
+      @media (forced-colors: active) {
+        --_border-color: ButtonText;
+
+        &:is(:has(input:checked), [aria-pressed="true"]) {
+          --_bg-color: SelectedItem;
+          --_border-color: SelectedItem;
+
+          color: SelectedItemText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    :where(.ui-reaction-picker) {
+      --_motion: var(--motion, 1);
+      --_duration: calc(var(--duration) * var(--_motion));
+
+      background-color: var(--surface-elevated);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-round);
+      box-shadow: var(--shadow-3);
+      color: var(--text-primary);
+      gap: var(--size-1);
+      inset: auto;
+      margin: var(--size-1);
+      opacity: 0;
+      padding: var(--size-1);
+      position-area: block-start center;
+      position-try-fallbacks:
+        block-start span-inline-start,
+        block-start span-inline-end,
+        flip-block;
+      scale: 0.9;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--ease-enter),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--ease-enter);
+
+      &:popover-open {
+        display: flex;
+        opacity: 1;
+        scale: 1;
+
+        @starting-style {
+          opacity: 0;
+          scale: 0.9;
+        }
+      }
+
+      button {
+        aspect-ratio: 1;
+        background-color: transparent;
+        block-size: var(--control-size-small);
+        border: 0;
+        border-radius: var(--radius-round);
+        cursor: pointer;
+        font-size: var(--font-size-3);
+        line-height: 1;
+        padding: 0;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--surface-tonal);
+          }
+        }
+      }
+
+      @media (forced-colors: active) {
+        border-color: CanvasText;
+      }
+    }
+
     @keyframes ui-message-typing {
       0%,
       60%,
@@ -222,15 +399,18 @@
 
 <div class="todo-message-grid">
   <section aria-labelledby="message-thread-heading" class="todo-message-case">
-    <h2 class="ui-h6" id="message-thread-heading">1:1 thread</h2>
+    <h2 class="ui-h6" id="message-thread-heading">
+      Grouped thread with reactions: toggle yours, or add one
+    </h2>
     <ol
-      aria-label="Messages with Saga Nyström"
+      aria-label="Messages in #pricing"
       class="ui-messages todo-message-thread"
     >
       <li class="ui-message">
         <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
         <div class="ui-bubble">
-          <p>Hi! Did you get a chance to look at the pricing proposal?</p>
+          <p class="ui-header">Saga</p>
+          <p>Did anyone get a chance to look at the pricing proposal?</p>
           <p class="ui-footer">
             <time datetime="2026-10-08T14:02">14:02</time>
           </p>
@@ -239,11 +419,57 @@
       <li class="ui-message">
         <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
         <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
           <p>No rush, Friday is fine.</p>
           <p class="ui-footer">
             <time datetime="2026-10-08T14:03">14:03</time>
           </p>
         </div>
+        <div aria-label="Reactions" class="ui-reactions" role="group">
+          <label class="ui-reaction" data-count="3">
+            <input
+              checked
+              class="ui-sr-only"
+              form="message-picker-friday"
+              name="reaction"
+              type="checkbox"
+              value="+1"
+            />
+            <span aria-hidden="true">👍</span>
+            <span class="ui-sr-only">Thumbs up, 2 others</span>
+          </label>
+          <label class="ui-reaction" data-count="1">
+            <input
+              class="ui-sr-only"
+              form="message-picker-friday"
+              name="reaction"
+              type="checkbox"
+              value="pray"
+            />
+            <span aria-hidden="true">🙏</span>
+            <span class="ui-sr-only">Folded hands, 1 other</span>
+          </label>
+        </div>
+        <button
+          aria-label="Add reaction"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-friday"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-friday" popover>
+          <button aria-label="Thumbs up" name="add" value="+1">👍</button>
+          <button aria-label="Heart" name="add" value="heart">❤️</button>
+          <button aria-label="Laughing" name="add" value="joy">😂</button>
+          <button aria-label="Party" name="add" value="tada">🎉</button>
+          <button aria-label="Eyes" name="add" value="eyes">👀</button>
+        </form>
       </li>
       <li class="ui-message ui-outgoing">
         <div class="ui-bubble">
@@ -252,14 +478,50 @@
             <time datetime="2026-10-08T14:18">14:18</time>
           </p>
         </div>
-      </li>
-      <li class="ui-message ui-outgoing">
-        <div class="ui-bubble">
-          <p>And keep the 3-seat starter as a fallback.</p>
-          <p class="ui-footer">
-            <time datetime="2026-10-08T14:18">14:18</time>
-          </p>
+        <div aria-label="Reactions" class="ui-reactions" role="group">
+          <label class="ui-reaction" data-count="3">
+            <input
+              class="ui-sr-only"
+              form="message-picker-annual"
+              name="reaction"
+              type="checkbox"
+              value="tada"
+            />
+            <span aria-hidden="true">🎉</span>
+            <span class="ui-sr-only">Party, 3 others</span>
+          </label>
+          <label class="ui-reaction" data-count="1">
+            <input
+              class="ui-sr-only"
+              form="message-picker-annual"
+              name="reaction"
+              type="checkbox"
+              value="heart"
+            />
+            <span aria-hidden="true">❤️</span>
+            <span class="ui-sr-only">Heart, 1 other</span>
+          </label>
         </div>
+        <button
+          aria-label="Add reaction"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-annual"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-annual" popover>
+          <button aria-label="Thumbs up" name="add" value="+1">👍</button>
+          <button aria-label="Heart" name="add" value="heart">❤️</button>
+          <button aria-label="Laughing" name="add" value="joy">😂</button>
+          <button aria-label="Party" name="add" value="tada">🎉</button>
+          <button aria-label="Eyes" name="add" value="eyes">👀</button>
+        </form>
       </li>
       <li class="ui-message ui-outgoing">
         <div class="ui-bubble">
@@ -272,6 +534,7 @@
       <li class="ui-message">
         <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
         <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
           <p>Good call. Here's the current draft:</p>
           <div class="ui-attachment">
             <svg
@@ -308,7 +571,9 @@
     dir="rtl"
     lang="ar"
   >
-    <h2 class="ui-h6" id="message-rtl-heading">مجموعة، RTL، ضيقة</h2>
+    <h2 class="ui-h6" id="message-rtl-heading">
+      RTL، ضيقة، تفاعلات بأزرار ونموذج
+    </h2>
     <ol aria-label="رسائل فريق التصميم" class="ui-messages todo-message-thread">
       <li class="ui-message">
         <div aria-label="ليلى" class="ui-avatar" role="img">لي</div>
@@ -329,6 +594,39 @@
             <time datetime="2026-10-08T09:13">09:13</time>
           </p>
         </div>
+        <div aria-label="التفاعلات" class="ui-reactions" role="group">
+          <button
+            aria-pressed="true"
+            class="ui-reaction"
+            data-count="2"
+            form="message-picker-rtl"
+            name="reaction"
+            value="+1"
+          >
+            <span aria-hidden="true">👍</span>
+            <span class="ui-sr-only">إعجاب، تفاعلان</span>
+          </button>
+        </div>
+        <button
+          aria-label="إضافة تفاعل"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-rtl"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-rtl" popover>
+          <button aria-label="إعجاب" name="add" value="+1">👍</button>
+          <button aria-label="قلب" name="add" value="heart">❤️</button>
+          <button aria-label="ضحك" name="add" value="joy">😂</button>
+          <button aria-label="احتفال" name="add" value="tada">🎉</button>
+          <button aria-label="عيون" name="add" value="eyes">👀</button>
+        </form>
       </li>
       <li class="ui-message ui-outgoing">
         <div class="ui-bubble">

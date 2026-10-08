@@ -1,0 +1,17 @@
+---
+import { Timeline } from "@opui/astro"
+---
+
+<Timeline style="max-inline-size: 20rem">
+  <Timeline.Item datetime="2026-09-02" time="Sep 2" title="Design freeze" />
+  <Timeline.Item datetime="2026-09-16" time="Sep 16" title="Feature complete" />
+  <Timeline.Item
+    current="step"
+    datetime="2026-10-14"
+    time="Oct 14"
+    title="Beta review"
+  >
+    <p>Moved from October 10.</p>
+  </Timeline.Item>
+  <Timeline.Item datetime="2026-10-31" time="Oct 31" title="Launch" />
+</Timeline>

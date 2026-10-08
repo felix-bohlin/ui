@@ -107,6 +107,7 @@
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
+- `Timeline` component (`ol.ui-timeline`). Dated events with markers and a connecting line, where the dates line up in their own column through subgrid and move above the titles when the timeline is narrower than `24rem`. Markers are centered on the first line with `lh` units. Items take a color (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`), `aria-current` for a primary marker with a halo, and a custom icon marker (`.ui-marker`, the `marker` slot). `progress` (`.ui-with-progress`) colors the line up to the current item, and `size="small"` (`.ui-small`) tightens it. Astro, Svelte and Vue take `items` or `Timeline.Item`/`TimelineItem` children with `time`, `datetime`, `title`, `headingLevel`, `color` and `current`.
 
 ### Changed
 

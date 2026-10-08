@@ -55,6 +55,8 @@ export {
 } from "../components/Tabs/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
+export { default as Timeline } from "../components/Timeline/index"
+export { Item as TimelineItem } from "../components/Timeline/index"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
@@ -121,6 +123,11 @@ export type {
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"
+export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.astro"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"
 export type { Props as TooltipProps } from "../components/Tooltip/types.astro"

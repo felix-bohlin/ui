@@ -1,0 +1,33 @@
+---
+import type { TimelineItemProps as Props } from "./types.astro"
+
+const {
+  class: className,
+  color,
+  current,
+  datetime,
+  headingLevel = 3,
+  time,
+  title,
+  ...rest
+} = Astro.props
+
+const Heading = `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6"
+---
+
+<li
+  aria-current={current === true ? "true" : current || undefined}
+  class:list={[color && `ui-${color}`, className]}
+  {...rest}
+>
+  {
+    Astro.slots.has("marker") && (
+      <span class="ui-marker">
+        <slot name="marker" />
+      </span>
+    )
+  }
+  {time && <time datetime={datetime}>{time}</time>}
+  {title && <Heading class="ui-h6">{title}</Heading>}
+  <slot />
+</li>

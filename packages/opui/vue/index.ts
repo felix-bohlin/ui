@@ -49,6 +49,8 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
 export { default as TabsTab } from "../components/Tabs/TabsTab.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
+export { default as Timeline } from "../components/Timeline/Timeline.vue"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
@@ -101,6 +103,11 @@ export type {
 } from "../components/Tabs/types.d.vue"
 export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
 export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"
+export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.d.vue"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.d.vue"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.d.vue"
 export type { Props as TooltipProps } from "../components/Tooltip/types.d.vue"

@@ -1,0 +1,68 @@
+---
+import { Timeline } from "@opui/astro"
+---
+
+<Timeline>
+  <Timeline.Item
+    color="success"
+    datetime="2026-10-01"
+    time="Oct 1"
+    title="Ordered"
+  >
+    <svg
+      slot="marker"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
+    >
+  </Timeline.Item>
+  <Timeline.Item
+    color="success"
+    datetime="2026-10-02"
+    time="Oct 2"
+    title="Packed"
+  >
+    <svg
+      slot="marker"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
+    >
+  </Timeline.Item>
+  <Timeline.Item
+    color="success"
+    datetime="2026-10-03"
+    time="Oct 3"
+    title="Shipped"
+  >
+    <svg
+      slot="marker"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
+    >
+    <p>On its way from Gothenburg.</p>
+  </Timeline.Item>
+  <Timeline.Item datetime="2026-10-06" time="Oct 6" title="Delivered" />
+</Timeline>

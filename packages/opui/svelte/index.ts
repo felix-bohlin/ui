@@ -51,6 +51,8 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
 export { default as TabsTab } from "../components/Tabs/TabsTab.svelte"
 export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
+export { default as Timeline } from "../components/Timeline/Timeline.svelte"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.svelte"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.svelte"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"
@@ -117,6 +119,11 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
+export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.svelte"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.svelte"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.svelte"
 export type { Props as TooltipProps } from "../components/Tooltip/types.svelte"

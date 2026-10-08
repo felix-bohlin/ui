@@ -10,7 +10,7 @@ const { code, lang = "" } = Astro.props
 
 const DIFF_MARKERS: Record<string, string> = { "+": "ins", "-": "del" }
 const FILE_NAME_COMMENT =
-  /^\s*(?:\/\/|#|\/\*|<!--)\s*([\w@./-]+\.\w+)\s*(?:\*\/|-->)?\s*$/
+  /^\s*(?:\/\/|#|\/\*|<!--)\s*([\w@./+-]+\.\w+)\s*(?:\*\/|-->)?\s*$/
 const TERMINAL_LANGS = ["bash", "sh", "shell", "zsh"]
 
 const isDiff = lang === "diff"

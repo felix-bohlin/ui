@@ -13,6 +13,7 @@
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease);
+    --_focus-ring-offset: var(--focus-ring-offset, 2px);
     --_margin-inline: var(--size-1);
     --_padding-inline: initial;
     --_shadow: none;
@@ -38,6 +39,7 @@
 
     &.ui-elevated {
       --_bg-color: var(--surface-elevated);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
       --_shadow: var(--shadow-3);
@@ -47,12 +49,14 @@
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
       --_border-width: var(--border-width);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
     }
 
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
     }
@@ -90,7 +94,7 @@
 
       &:focus-visible {
         border-radius: var(--_border-radius);
-        outline-offset: calc(-2 * var(--focus-ring-width, 2px));
+        outline-offset: var(--_focus-ring-offset);
       }
 
       &:has(svg) {
@@ -171,6 +175,7 @@
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;

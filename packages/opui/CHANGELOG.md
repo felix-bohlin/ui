@@ -271,6 +271,7 @@
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleGroup` separators show in forced colors.
 - `Accordion` focus ring is drawn inside the summary, so the card no longer clips it.
+- `Accordion` without a variant draws its focus ring outside the summary, so it no longer cuts through the text and marker.
 - `ButtonGroup` vertical only squares icon-only buttons.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.

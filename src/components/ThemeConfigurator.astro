@@ -14,12 +14,15 @@ import {
   TextField,
 } from "@opui/astro"
 import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
+import { SITE_THEMES } from "../utils/site-themes"
 
 const radiusGroups = [
   { name: "--border-radius", label: "Border radius" },
   { name: "--field-border-radius", label: "Field border radius" },
   { name: "--button-border-radius", label: "Button border radius" },
 ] as const
+
+const defaultTheme = SITE_THEMES.find((theme) => theme.value === "default")
 
 const { link } = Astro.locals
 ---
@@ -37,6 +40,34 @@ const { link } = Astro.locals
   <Fragment slot="content">
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
+        <FieldSet>
+          <FieldLegend>Theme</FieldLegend>
+          <FieldGroup>
+            <div class="chip-group">
+              {
+                SITE_THEMES.map((theme) => {
+                  const pressed = theme.value === "default"
+                  return (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={pressed ? "tonal" : "outlined"}
+                      aria-pressed={pressed ? "true" : "false"}
+                      data-site-theme-option={theme.value}
+                      data-description={theme.description}
+                      label={theme.text}
+                    />
+                  )
+                })
+              }
+            </div>
+            <p id="site-theme-description">{defaultTheme?.description}</p>
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup direction="row">
@@ -242,6 +273,10 @@ const { link } = Astro.locals
     "contrast-switcher",
   ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
+  const siteThemeDescription = document.getElementById("site-theme-description")
+  const siteThemeChips =
+    form?.querySelectorAll<HTMLElement>("[data-site-theme-option]") ?? []
+  const resolvedValues = new Map<string, string>()
 
   function setChipPressed(chip: HTMLElement, pressed: boolean) {
     chip.classList.toggle("ui-tonal", pressed)
@@ -249,13 +284,42 @@ const { link } = Astro.locals
     chip.setAttribute("aria-pressed", String(pressed))
   }
 
+  function resolveValue(value: string) {
+    let resolved = resolvedValues.get(value)
+    if (resolved === undefined) {
+      const probe = document.createElement("div")
+      probe.style.setProperty("--_resolved", value)
+      document.body.append(probe)
+      resolved = getComputedStyle(probe).getPropertyValue("--_resolved").trim()
+      probe.remove()
+      resolvedValues.set(value, resolved)
+    }
+    return resolved
+  }
+
+  function syncSiteTheme() {
+    const active = document.documentElement.dataset.siteTheme ?? "default"
+    siteThemeChips.forEach((chip) => {
+      const pressed = chip.dataset.siteThemeOption === active
+      setChipPressed(chip, pressed)
+      if (pressed && siteThemeDescription) {
+        siteThemeDescription.textContent = chip.dataset.description ?? ""
+      }
+    })
+  }
+
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
     const defaults = tokenDefaults(mode)
+    const rootStyle = getComputedStyle(document.documentElement)
+    const current = (token: Token) =>
+      config[token] ||
+      rootStyle.getPropertyValue(token).trim() ||
+      defaults[token]
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? defaults[token] ?? ""
+      const value = current(token)
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -266,7 +330,12 @@ const { link } = Astro.locals
 
       form
         .querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-        .forEach((chip) => setChipPressed(chip, chip.dataset.value === value))
+        .forEach((chip) =>
+          setChipPressed(
+            chip,
+            resolveValue(chip.dataset.value ?? "") === resolveValue(value),
+          ),
+        )
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -278,17 +347,14 @@ const { link } = Astro.locals
       '[name="--palette-source-color"]',
     )
     if (colorPicker) {
-      const hue = parseFloat(
-        config["--palette-hue"] ?? defaults["--palette-hue"],
-      )
-      const chroma = parseFloat(
-        config["--palette-chroma"] ?? defaults["--palette-chroma"],
-      )
+      const hue = parseFloat(current("--palette-hue"))
+      const chroma = parseFloat(current("--palette-chroma"))
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
   }
 
   themeStore.applyMode()
+  syncSiteTheme()
   syncFormFromStore()
 
   if (themeSwitcher) {
@@ -395,7 +461,19 @@ const { link } = Astro.locals
       .forEach((c) => setChipPressed(c, c === chip))
   })
 
+  form?.addEventListener("click", (e) => {
+    const chip = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-site-theme-option]",
+    )
+    if (!chip) return
+    ;(window as any).themeUtils?.setSiteTheme(chip.dataset.siteThemeOption)
+    syncSiteTheme()
+    themeStore.reset()
+  })
+
   resetBtn?.addEventListener("click", () => {
+    ;(window as any).themeUtils?.setSiteTheme(null)
+    syncSiteTheme()
     themeStore.reset()
     form?.reset()
     if (themeSwitcher) {

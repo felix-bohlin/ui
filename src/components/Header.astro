@@ -53,6 +53,9 @@ const { link } = Astro.locals
     getStoredContrast() {
       return localStorage.getItem("contrast")
     },
+    getStoredSiteTheme() {
+      return localStorage.getItem("site-theme")
+    },
     getStoredTheme() {
       return localStorage.getItem("theme")
     },
@@ -66,6 +69,15 @@ const { link } = Astro.locals
         localStorage.setItem("contrast", contrast)
       } else {
         localStorage.removeItem("contrast")
+      }
+    },
+    setSiteTheme(theme) {
+      if (theme && theme !== "default") {
+        document.documentElement.dataset.siteTheme = theme
+        localStorage.setItem("site-theme", theme)
+      } else {
+        delete document.documentElement.dataset.siteTheme
+        localStorage.removeItem("site-theme")
       }
     },
     setTheme(theme) {
@@ -129,6 +141,7 @@ const { link } = Astro.locals
   window.themeUtils.setTheme(initialTheme)
   window.themeUtils.applyCustomTheme()
   window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
+  window.themeUtils.setSiteTheme(window.themeUtils.getStoredSiteTheme())
 </script>
 
 <div class="site-header">
@@ -414,7 +427,7 @@ const { link } = Astro.locals
       }
 
       span {
-        font-family: var(--font-bricolage-grotesque), sans-serif;
+        font-family: var(--site-font-heading);
         transition: transform 0.3s ease-out;
 
         & + span {

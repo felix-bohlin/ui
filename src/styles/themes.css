@@ -1,0 +1,187 @@
+:root[data-site-theme="architect"] {
+  --backdrop-blur: 0px;
+  --backdrop-color: oklch(from var(--color-12) l c h / 0.6);
+  --border-radius: 0;
+  --border-width: 1px;
+  --button-border-radius: 0;
+  --density: 0.9;
+  --duration: 0.15s;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --field-border-radius: 0;
+  --field-border-width: 1px;
+  --field-label-font-weight: var(--font-weight-5);
+  --focus-ring-offset: 4px;
+  --focus-ring-style: dotted;
+  --font-sans: var(--font-neo-grotesque);
+  --font-weight-bold: var(--font-weight-6);
+  --font-weight-semibold: var(--font-weight-5);
+  --gray-chroma: 0.02;
+  --gray-hue: 255;
+  --palette-chroma: 0.7;
+  --palette-hue: 255;
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --shadow-1: 0 0 0 1px var(--border-color);
+  --shadow-2: 0 0 0 1px var(--border-color);
+  --shadow-3: 0 0 0 1px var(--border-color);
+  --shadow-4: 0 0 0 1px var(--border-color);
+  --site-font-heading: var(--font-industrial);
+}
+
+:root.ui-dark[data-site-theme="architect"] {
+  --gray-chroma: 0.09;
+  --gray-hue: 258;
+  --palette-chroma: 0.5;
+  --palette-hue: 230;
+}
+
+:root[data-site-theme="architect"] body {
+  background-image:
+    linear-gradient(oklch(from var(--primary) l c h / 0.08) 1px, transparent 0),
+    linear-gradient(
+      90deg,
+      oklch(from var(--primary) l c h / 0.08) 1px,
+      transparent 0
+    );
+  background-size: 24px 24px;
+}
+
+:root[data-site-theme="paper"] {
+  --backdrop-blur: 2px;
+  --backdrop-color: oklch(0.3 0.03 60 / 0.4);
+  --border-radius: var(--size-1);
+  --button-border-radius: var(--size-1);
+  --duration: 0.3s;
+  --ease: var(--ease-in-out-2);
+  --field-border-radius: 2px;
+  --font-sans: var(--font-transitional);
+  --gray-chroma: 0.025;
+  --gray-hue: 80;
+  --palette-chroma: 0.45;
+  --palette-hue: 35;
+  --radius-2: var(--size-1);
+  --radius-3: var(--size-1);
+  --shadow-color: 30 40% 25%;
+  --shadow-strength: 4%;
+  --site-font-heading: var(--font-old-style);
+}
+
+:root.ui-dark[data-site-theme="paper"] {
+  --gray-chroma: 0.015;
+  --gray-hue: 60;
+  --palette-chroma: 0.35;
+  --palette-hue: 55;
+  --shadow-color: 30 40% 3%;
+  --shadow-strength: 30%;
+}
+
+:root[data-site-theme="paper"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+:root[data-site-theme="pixel"] {
+  --backdrop-blur: 0px;
+  --backdrop-color: oklch(from var(--color-12) l c h / 0.75);
+  --border-radius: 0;
+  --border-width: 2px;
+  --button-border-radius: 0;
+  --duration: 0.24s;
+  --duration-fast: 0.12s;
+  --duration-slow: 0.36s;
+  --ease: steps(3, end);
+  --ease-enter: steps(3, end);
+  --ease-exit: steps(3, end);
+  --field-border-radius: 0;
+  --field-border-width: 2px;
+  --focus-ring-offset: 3px;
+  --focus-ring-style: dashed;
+  --focus-ring-width: 3px;
+  --font-sans: var(--font-monospace-code);
+  --gray-chroma: 0.04;
+  --gray-hue: 130;
+  --palette-chroma: 0.8;
+  --palette-hue: 135;
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-round: 0;
+  --shadow-1: 2px 2px 0 0 var(--text-primary);
+  --shadow-2: 4px 4px 0 0 var(--text-primary);
+  --shadow-3: 4px 4px 0 0 var(--text-primary);
+  --shadow-4: 6px 6px 0 0 var(--text-primary);
+  --site-font-heading: var(--font-monospace-code);
+}
+
+:root.ui-dark[data-site-theme="pixel"] {
+  --gray-chroma: 0.03;
+  --gray-hue: 300;
+  --palette-chroma: 1;
+  --palette-hue: 330;
+  --shadow-1: 2px 2px 0 0 var(--primary);
+  --shadow-2: 4px 4px 0 0 var(--primary);
+  --shadow-3: 4px 4px 0 0 var(--primary);
+  --shadow-4: 6px 6px 0 0 var(--primary);
+}
+
+:root[data-site-theme="pixel"] body {
+  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing: none;
+}
+
+:root[data-site-theme="tasteless"] {
+  --backdrop-blur: 6px;
+  --backdrop-color: oklch(0.9 0.25 125 / 0.5);
+  --border-radius: var(--size-6);
+  --border-width: 3px;
+  --button-border-radius: 0;
+  --density: 1.15;
+  --duration: 0.6s;
+  --duration-fast: 0.4s;
+  --duration-slow: 0.9s;
+  --ease: var(--ease-elastic-out-4);
+  --ease-enter: var(--ease-spring-5);
+  --ease-exit: var(--ease-elastic-in-4);
+  --field-border-radius: var(--size-5);
+  --field-border-width: 3px;
+  --focus-ring-color: orangered;
+  --focus-ring-offset: 6px;
+  --focus-ring-style: double;
+  --focus-ring-width: 8px;
+  --font-sans:
+    "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Comic Neue",
+    var(--font-handwritten);
+  --font-weight-semibold: var(--font-weight-9);
+  --gray-chroma: 0.08;
+  --gray-hue: 110;
+  --palette-chroma: 1;
+  --palette-hue: 234;
+  --palette-hue-rotate-by: 12;
+  --ripple-color: oklch(0.88 0.3 130 / 0.6);
+  --shadow-1: 3px 3px 0 hotpink, -2px -2px 0 cyan;
+  --shadow-2: 6px 6px 0 hotpink, -3px -3px 0 cyan;
+  --shadow-3: 8px 8px 0 hotpink, -4px -4px 0 cyan;
+  --shadow-4: 10px 10px 0 hotpink, -5px -5px 0 cyan;
+  --site-font-heading:
+    Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+:root.ui-dark[data-site-theme="tasteless"] {
+  --gray-hue: 300;
+  --palette-hue: 70;
+}
+
+:root[data-site-theme="tasteless"] body {
+  background-image: linear-gradient(
+    135deg,
+    oklch(from var(--color-3) l c h / 0.5),
+    transparent 40%,
+    oklch(from var(--color-12) l c h / 0.2)
+  );
+}
+
+:root[data-site-theme="tasteless"] :where(h1, h2) {
+  text-shadow:
+    2px 2px 0 var(--color-6),
+    4px 4px 0 var(--color-9);
+}

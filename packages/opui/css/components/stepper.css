@@ -127,7 +127,8 @@
       font-weight: var(--font-weight-semibold);
     }
 
-    & > li:has(~ [aria-current="step"]) {
+    & > li:has(~ [aria-current="step"]),
+    &.ui-complete > li {
       --_connector-color: var(--_complete-color);
       --_label-color: var(--text-primary);
       --_marker-bg-color: var(--_complete-color);
@@ -199,7 +200,8 @@
         border-color: Highlight;
       }
 
-      & > li:has(~ [aria-current="step"]) {
+      & > li:has(~ [aria-current="step"]),
+      &.ui-complete > li {
         &:not(:last-child)::after {
           background-color: CanvasText;
         }

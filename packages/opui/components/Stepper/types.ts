@@ -5,6 +5,7 @@ export type StepperItem = {
 }
 
 export type Props = {
+  complete?: boolean
   completedLabel?: string
   current?: number
   items?: StepperItem[]

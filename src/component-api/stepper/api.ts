@@ -7,6 +7,15 @@ export default {
   },
   options: [
     {
+      class: ".ui-complete",
+      default: "false",
+      description:
+        "Marks every step complete. Also on when `current` is past the last step.",
+      group: "Complete",
+      htmlDescription: "Marks every step complete. Leave out `aria-current`.",
+      prop: "complete",
+    },
+    {
       cssVar: "--_completed-label",
       default: '"Completed: "',
       description: "What screen readers announce before a completed step.",

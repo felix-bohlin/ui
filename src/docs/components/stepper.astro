@@ -107,6 +107,33 @@ export const description =
   </section>
 
   <section>
+    <h2 id="complete">Complete</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-complete</code> and leave out <code>aria-current</code> to
+        mark every step complete.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Complete" />
+  </section>
+
+  <section>
     <h2 id="sizes">Sizes</h2>
     <p>
       Use <PropOrClass prop='size="small"' class=".ui-small" /> for a smaller stepper.

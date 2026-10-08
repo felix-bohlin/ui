@@ -4,6 +4,7 @@
 
   let {
     class: className,
+    complete,
     completedLabel,
     current,
     items,
@@ -17,13 +18,18 @@
     children,
     ...rest
   }: Props = $props()
+
+  let done = $derived(
+    complete ||
+      (current !== undefined && items !== undefined && current >= items.length),
+  )
 </script>
 
 <ol
   aria-label={label}
   class={[
     "ui-stepper",
-    { "ui-vertical": orientation === "vertical" },
+    { "ui-complete": done, "ui-vertical": orientation === "vertical" },
     size && `ui-${size}`,
     className,
   ]}
@@ -40,7 +46,7 @@
       {#if check}
         <span aria-hidden="true" class="ui-check">{@render check()}</span>
       {/if}
-      {#if href && current !== undefined && index < current}
+      {#if href && (done || (current !== undefined && index < current))}
         <a {href}>{stepLabel}</a>
       {:else}
         {stepLabel}

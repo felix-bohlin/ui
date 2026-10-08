@@ -3,9 +3,15 @@ import { computed } from "vue"
 import { cssString } from "./css-string"
 import type { Props, Slots } from "./types.d.vue"
 
-const { completedLabel, current, items, label, orientation, size } =
+const { complete, completedLabel, current, items, label, orientation, size } =
   defineProps<Props>()
 const slots = defineSlots<Slots>()
+
+const done = computed(
+  () =>
+    complete ||
+    (current !== undefined && items !== undefined && current >= items.length),
+)
 
 const completedLabelStyle = computed(() =>
   completedLabel
@@ -19,7 +25,7 @@ const completedLabelStyle = computed(() =>
     :aria-label="label"
     :class="[
       'ui-stepper',
-      { 'ui-vertical': orientation === 'vertical' },
+      { 'ui-complete': done, 'ui-vertical': orientation === 'vertical' },
       size && `ui-${size}`,
       $props.class,
     ]"
@@ -33,7 +39,7 @@ const completedLabelStyle = computed(() =>
       <span v-if="slots.check" aria-hidden="true" class="ui-check"
         ><slot name="check"></slot></span
       ><a
-        v-if="href && current !== undefined && index < current"
+        v-if="href && (done || (current !== undefined && index < current))"
         :href="href"
         >{{ stepLabel }}</a
       ><template v-else>{{ stepLabel }}</template

@@ -6,6 +6,7 @@ export const title = "Stepper"
 
 const {
   class: className,
+  complete,
   completedLabel,
   current,
   items,
@@ -19,6 +20,9 @@ const {
 const check = Astro.slots.has("check")
   ? await Astro.slots.render("check")
   : undefined
+const done =
+  complete ||
+  (current !== undefined && items !== undefined && current >= items.length)
 const vars = completedLabel
   ? { "--_completed-label": cssString(completedLabel) }
   : {}
@@ -35,7 +39,7 @@ const mergedStyle =
   aria-label={label}
   class:list={[
     "ui-stepper",
-    { "ui-vertical": orientation === "vertical" },
+    { "ui-complete": done, "ui-vertical": orientation === "vertical" },
     size && `ui-${size}`,
     className,
   ]}
@@ -48,7 +52,7 @@ const mergedStyle =
         {check !== undefined && (
           <span aria-hidden="true" class="ui-check" set:html={check} />
         )}
-        {href && current !== undefined && index < current ? (
+        {href && (done || (current !== undefined && index < current)) ? (
           <a href={href}>{stepLabel}</a>
         ) : (
           stepLabel

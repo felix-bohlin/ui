@@ -17,6 +17,7 @@ const whatsNew = {
     {
       html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
+    `<a href="#actions">Actions</a> line up with the content and the chevron.`,
   ],
   anchor: [
     {
@@ -163,6 +164,12 @@ const whatsNew = {
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
+    {
+      astro: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      html: `<a href="#colors">Colors</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
+      svelte: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      vue: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+    },
   ],
   "description-list": [
     {
@@ -176,11 +183,18 @@ const whatsNew = {
   dialog: [
     `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
     `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
+    `<a href="#width">Width</a> with <code>--_max-inline-size</code>, keeping the margin on small screens.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
+    },
+    {
+      astro: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
+      html: `<a href="#content">Content</a> in the middle of the line in a <code>div.ui-divider</code>, aligned with <code>.ui-align-start</code> or <code>.ui-align-end</code>.`,
+      svelte: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
+      vue: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
     },
   ],
   drawer: [

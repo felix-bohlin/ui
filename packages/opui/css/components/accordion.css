@@ -2,9 +2,9 @@
   :where(details.ui-accordion) {
     --_motion: var(--motion, 1);
     --_actions-gap: var(--size-1);
-    --_actions-margin-block-start: var(--size-3);
-    --_actions-padding-block-end: var(--size-1);
-    --_actions-padding-inline: var(--size-3) var(--size-1);
+    --_actions-margin-block-start: 0;
+    --_actions-padding-block-end: var(--_summary-padding-block);
+    --_actions-padding-inline: var(--_content-padding-inline);
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-radius: var(--border-radius);

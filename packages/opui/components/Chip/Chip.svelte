@@ -4,6 +4,8 @@
   let {
     as,
     class: className,
+    color,
+    dot,
     href,
     label,
     multiline,
@@ -25,8 +27,10 @@
   class={[
     "ui-chip",
     {
+      "ui-dot": dot,
       "ui-multiline": multiline,
     },
+    color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     className,

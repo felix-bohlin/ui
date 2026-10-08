@@ -771,7 +771,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Not reproducible in headless Chromium at 1×, 1.1×, 1.25×, 1.5×, 1.75×, 2× and 2.25×, with or without GPU rasterization: dot and ring share a center within 0.15 device pixels there. The checkbox has a clip-path checkmark, not a dot, so this is the radio.
   - Fixed: the dot is no longer a separate box. A checked radio paints it as a `radial-gradient()` on its own background, centered in the input's box, with stops at `--_dot-radius` ± 0.25px for a smooth edge. `--_dot-radius` keeps the old size: half the content box minus `round(down, content / 4, 1px)`, so the dots are still 6, 8, 10 and 12px (measured). The background also runs under the border, so there's no seam between ring and border (an inset `box-shadow` was tried first and left a light seam there). In forced colors the checked radio sets `forced-color-adjust: none` with `SelectedItem` and `SelectedItemText`. The Radio walkthrough's Dot step teaches the gradient (`radio.css`, `RadioBuild.astro`).
   - Measured in Chromium at 1×, 1.25× and 1.5×: dot and ring share a center within 0.1 device pixels.
-- [ ] (2) Accordion: actions pad `var(--size-3) var(--size-1)`, so buttons sit closer to the end edge than the chevron and the content, with a large gap above them. Found while building the onboarding-checklist block (`packages/opui/css/components/accordion.css:7,141-148`)
+- [x] (2) Accordion: actions pad `var(--size-3) var(--size-1)`, so buttons sit closer to the end edge than the chevron and the content, with a large gap above them. Found while building the onboarding-checklist block (`packages/opui/css/components/accordion.css:7,141-148`)
   - Fix: pad actions like the content (`var(--size-3)` on both sides), or drop the `var(--size-1)` end padding when the last button isn't a text button, like `Card` does.
   > Explain further and provide an example
   - The actions don't use the spacing of the rest of the accordion. The summary and the content are padded with `--_padding-inline` (`0`, or `--size-3` on `outlined`, `tonal` and `elevated`), but the actions have their own `--_actions-padding-inline: var(--size-3) var(--size-1)`, `--_actions-margin-block-start: var(--size-3)` and `--_actions-padding-block-end: var(--size-1)`.
@@ -789,6 +789,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     The buttons then end 17px from the edge, like the chevron, with 24px above and 20px below them.
   - Example: `accordion-actions-padding`.
+  > Fix
+  - Fixed as proposed: the actions use the content's inline padding (`--_actions-padding-inline: var(--_content-padding-inline)`), no top margin, and the summary's block padding below them (`--_actions-padding-block-end: var(--_summary-padding-block)`) (`accordion.css`).
+  - Measured in Chromium on the outlined example: the last button ends 17px from the edge, like the chevron and the text (was 5px), with 24px above the buttons (was 40px) and 20px below (was 5px). Without a variant the buttons end at the chevron instead of 4px short of it.
+  - CHANGELOG (Changed) and What's new link to Actions. The example shows the old padding next to the library default (`accordion-actions-padding`).
 - [ ] (2) Callout: `.ui-content` is a grid, so bare text with an inline link splits into stacked rows. It only works when the text is wrapped in a `<p>`. Found while building the blocks (`packages/opui/css/components/callout.css:69-70`)
   - Fix: `display: grid` only when the content has block children (`:has(> :is(p, ul, ol, h1, h2, h3, h4, h5, h6))`), or say in the docs that text goes in a `<p>`.
   > Explain further and provide an example
@@ -816,7 +820,31 @@ Findings with a page and section in brackets come from the stress pages in `src/
     Where rich text applies, the existing `display: block` rule stays and the rich text flow margins should win, e.g. `margin-block-start: revert-layer` in the same `@scope`.
   - Or keep the grid and document that text goes in a `<p>`.
   - Example: `callout-bare-text`.
-- [ ] (2) Dialog: setting `max-inline-size` on a `.ui-dialog` replaces `calc(100% - var(--size-4))`, so a wider or narrower dialog loses its mobile margin and goes edge to edge on phones. Found while building the server-status block (`packages/opui/css/components/dialog.css:12-20`)
+  > Explain further
+  > can the display:grid be removed completely without messing anything up in the stress test?
+  - Why it splits: a grid lays out each child as its own item. Text that isn't in an element becomes an anonymous item, and an inline element like `<a>` or `<strong>` is turned into a block (blockified). So "text, link, text" are three rows with the 8px `--_content-gap` between them, instead of one line of text. In a `<p>` they are one item and wrap normally.
+  - Removing `display: grid` alone: no. I rendered every callout on the stress pages (`contrast`, `layout`, `typography`), the Callout docs (HTML and Astro) and the 9 blocks with a callout, at 1280px and 390px, with and without the grid, and compared each child's position. With `display: block` only, every callout with more than one child loses the 8px gap, so the title touches the text. At 1280px, 7 of 15 callouts on `layout`, all 6 on `contrast`, 5 on the docs page, and the `invoice` and `server-status` blocks change. `typography` doesn't change, since rich text already makes the content a block.
+  - Removing it and keeping the gap with margins: yes. With this, every callout in the stress tests and blocks lays out exactly as now (same child positions and heights):
+    ```css
+    .ui-callout > .ui-content {
+      display: flow-root;
+
+      & > * + * {
+        margin-block-start: var(--_content-gap);
+      }
+    }
+
+    @scope (.ui-rich-text) to (.ui-not-rich-text) {
+      .ui-callout > .ui-content > * + *,
+      .ui-callout > :scope.ui-content > * + * {
+        margin-block-start: revert-layer;
+      }
+    }
+    ```
+    The `revert-layer` rule keeps rich text callouts on the rich text flow margins. Without it, the `typography` ProseInComponents callout and the Callout docs "What's new" callout get 8px more under their heading.
+  - The only remaining difference is on the Callout docs page: the "Icons and accessibility" callout starts with a bare `<strong>` before a `<p>`. The `strong` is no longer blockified, so it's an inline box in a line of its own. The text and the paragraph stay in the same place, and the callout keeps its height.
+  - None of the stress tests or blocks has bare text in a callout today, so they don't show the fix itself. `callout-bare-text` does.
+- [x] (2) Dialog: setting `max-inline-size` on a `.ui-dialog` replaces `calc(100% - var(--size-4))`, so a wider or narrower dialog loses its mobile margin and goes edge to edge on phones. Found while building the server-status block (`packages/opui/css/components/dialog.css:12-20`)
   - Fix: a `--_max-inline-size` hook (default `60ch`) used as `min(var(--_max-inline-size), 100% - var(--size-4))`.
   > Explain further and provide an example
   - One property does two jobs. `max-inline-size: calc(100% - var(--size-4))` keeps a 10px margin on each side of the viewport, and above 600px a media query swaps it for the `60ch` width. A dialog that needs another width sets `max-inline-size` too, so its value replaces both:
@@ -836,6 +864,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     The media query goes away, since `min()` picks the margin on small screens. A wider dialog sets `--_max-inline-size: 40rem` and keeps its margin.
   - Example: `dialog-max-inline-size` (in a 320px box, since the current phone rule depends on the viewport).
+  > Fix
+  - Fixed as proposed: `max-inline-size: min(var(--_max-inline-size), 100% - var(--size-4))` with `--_max-inline-size: 60ch`, and the `width > 600px` media query is gone (`dialog.css`). A wider or narrower dialog sets `--_max-inline-size` and keeps its margin.
+  - New Width section on the Dialog page. CHANGELOG (Changed) and What's new. The example shows the old behavior next to the fix (`dialog-max-inline-size`).
+  - Measured in Chromium with `showModal()`: at 390px, the default dialog and one with `--_max-inline-size: 40rem` are the same width with the same margin, and `20rem` is 320px. At 1280px they are 606px (`60ch`), 640px and 320px. Between 600px and about 626px the default dialog now keeps its margin instead of switching to `60ch` at 600px.
+  - Not in the API table: an option there needs a prop, and Dialog has no width prop. Same as Table's `--_sticky-offset`, which is only in prose.
 - [x] (2) List: `.ui-text` sets `font-weight: 400` on every `p` and `span`, so an unread (bold) row needs `<strong>` or unlayered CSS. Found while building the inbox and notifications blocks (`packages/opui/css/components/list.css:286-288`)
   - Fix: only set the weight on the first line (the headline), or use `font-weight: inherit` and set 400 on the list.
   > Fix
@@ -3913,7 +3946,13 @@ Components the blocks hand-roll today. Each has a pitch and a live example with 
   > Fix
   - Fixed: `::picker(select)` gets `background: transparent` and `border-radius: var(--field-border-radius)` (`select.css`). The walkthrough's Picker step does the same. Checked in Chromium: the open picker's background is `rgba(0, 0, 0, 0)` and its radius is 8px.
 - [ ] (2) Contrast: `ui-link` on `--surface-tonal` or a light primary tint fails axe contrast in light mode, and a text `ui-button.ui-critical` on `--surface-tonal` fails in dark mode. Reported while building the blocks; the blocks avoid those combinations.
+  > Explain further and provide an example
+  - Explained: `--primary` is tuned for 4.5:1 on the page surface (4.76 in light), so any darker surface drops a primary link under AA. Measured with axe: light link on `--surface-tonal` 4.09, on a 15% primary tint 3.93; dark link on tonal 4.52 (passes, barely). The critical text button reads `--_accent-text`, which is `max(l, 0.75)` of `--critical` in dark mode: 4.17 on tonal.
+  - Proposed: a text-safe primary, `light-dark(oklch(from var(--primary) min(l, 0.47) c h), oklch(from var(--primary) max(l, 0.78) c h))`, for `.ui-link` (could be a `--primary-text` theme token, also usable by text buttons), and `max(l, 0.8)` for the critical button's dark text. Measured: links 5.31 / 5.11 in light and 5.84 / 5.95 in dark on tonal / tint, the critical button 4.65 in dark. On the page surface the link gets darker in light mode (still the same hue), which is the visible trade-off. Example: contrast-tinted-surfaces
 - [ ] (2) List: in `.ui-list.ui-bordered.ui-tonal`, the separators are nearly invisible in dark mode. Reported while building the error-page and two-factor blocks (`packages/opui/css/components/list.css:37-55`)
+  > Explain further and provide an example
+  - Explained: the separators use `--border-color`, which is `--gray-12` in dark mode, the same color as `--surface-tonal` in dark mode. On a tonal list in dark mode the line is exactly the background (contrast 1.00, invisible, not faint). Elsewhere it varies with the surface: 1.33 on tonal in light, 1.58 on the filled list in light, 1.72 on the filled list in dark.
+  - Proposed: draw the separator from the list's own text color, `color-mix(in oklch, currentColor 18%, transparent)`, so it adapts to whatever surface it sits on. Measured: 1.47 tonal light, 1.45 filled light, 1.70 tonal dark, 1.64 filled dark, so every list gets about the same visible line. Applies to `.ui-bordered` and `.ui-border-top`. Example: list-separator-surfaces
 - [x] (3) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
   - Yes, and most of it is in place. `text-input.css` already hides the browser's datalist indicator (Chromium only, Firefox has none and Safari draws its own) and draws a CSS triangle with `.ui-field::after`, like Select's `::picker-icon`. The arrow sits closer to the edge at `x-small`/`small` on purpose: the inset drops from `--size-3` to `--size-2` with the field padding.
@@ -3953,6 +3992,9 @@ Components the blocks hand-roll today. Each has a pitch and a live example with 
   > Fix
   - Fixed: the hero anatomy shows a list without `bordered`, so the stacked layout it renders at 16rem is the list's normal look and nothing is missing from the diagram.
 - [ ] (3) Carousel in Chromium 141 (the sandbox browser): the next `::scroll-button()` sits at the inline-start edge, outside the item and not vertically centered, also in `carousel/Basics.html`. It looks like `anchor(self-end)` with `position-anchor: auto` doesn't resolve there. Check in current Chrome; if it's fine there, it's only the old version.
+  > Explain further and provide an example
+  - Explained: it's a Chromium bug that's fixed in newer versions. CI renders the visual tests with the Chromium that ships with Playwright 1.63, and its `carousel-Basics.png` baseline has the next button at the inline end, vertically centered. The sandbox's Chromium 141 supports `::scroll-button()`, `anchor()` and `position-anchor: auto` (`CSS.supports` says yes to all), but doesn't resolve the implicit anchor of a scroll button, so every `anchor()` in its insets is invalid and the button falls back to its static position, the top start corner. `::scroll-button()` shipped in Chrome 135, so Chrome 135 up to roughly 141 shows it there.
+  - Proposed (optional): give the insets `anchor()` fallbacks, `anchor(center, 50%)` and `anchor(self-end, 0px)`. Newer Chrome ignores them. In Chrome 141 they place the button at the edge of the nearest positioned ancestor, vertically centered, which is right when the carousel's parent is positioned (checked in Chromium 141) but measured against the wrong box otherwise. So it softens the bug rather than fixing it; skipping it and accepting the old versions is also reasonable. Example: carousel-scroll-button-fallback
 - [x] (4) Agent skill: `skills/opui/references` is stale. It was last regenerated in a258697, and seven later commits changed the docs, What's new notes, API data or components it is built from. The shipped `references/html/button.md` still says links with `.ui-disabled` "look and act disabled", but ddf2697 removed `.ui-disabled` from `button.css`, so an agent following it ships a clickable "disabled" link (`packages/opui/skills/opui/references/html/button.md:10,402`, `packages/opui/css/components/button.css`)
   - Fix: run `pnpm build` and `pnpm build-skill` after the last docs change before publishing, and commit the result. The item about `pnpm build-skill` running nowhere automatically covers the lasting fix.
   > Fix

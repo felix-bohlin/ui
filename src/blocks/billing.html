@@ -185,28 +185,6 @@
       font-variant-numeric: tabular-nums;
       text-align: end;
     }
-
-    .billing-status {
-      .ui-chip::before {
-        background-color: var(--_dot);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
-    }
-
-    .billing-paid {
-      --_dot: var(--success);
-    }
-
-    .billing-open {
-      --_dot: var(--warning);
-    }
-
-    .billing-refunded {
-      --_dot: var(--neutral);
-    }
   }
 </style>
 
@@ -456,8 +434,8 @@
               <tr>
                 <td><time datetime="2026-10-01">1 Oct 2026</time></td>
                 <td>INV-2026-0010</td>
-                <td class="billing-status billing-open">
-                  <span class="ui-chip ui-outlined ui-small"
+                <td>
+                  <span class="ui-chip ui-dot ui-warning ui-small ui-outlined"
                     ><span class="ui-text">Due 15 Oct</span></span
                   >
                 </td>
@@ -486,8 +464,8 @@
               <tr>
                 <td><time datetime="2026-09-01">1 Sep 2026</time></td>
                 <td>INV-2026-0009</td>
-                <td class="billing-status billing-paid">
-                  <span class="ui-chip ui-outlined ui-small"
+                <td>
+                  <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
                     ><span class="ui-text">Paid</span></span
                   >
                 </td>
@@ -516,8 +494,8 @@
               <tr>
                 <td><time datetime="2026-08-01">1 Aug 2026</time></td>
                 <td>INV-2026-0008</td>
-                <td class="billing-status billing-paid">
-                  <span class="ui-chip ui-outlined ui-small"
+                <td>
+                  <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
                     ><span class="ui-text">Paid</span></span
                   >
                 </td>
@@ -546,8 +524,8 @@
               <tr>
                 <td><time datetime="2026-07-01">1 Jul 2026</time></td>
                 <td>INV-2026-0007</td>
-                <td class="billing-status billing-refunded">
-                  <span class="ui-chip ui-outlined ui-small"
+                <td>
+                  <span class="ui-chip ui-dot ui-neutral ui-small ui-outlined"
                     ><span class="ui-text">Refunded</span></span
                   >
                 </td>

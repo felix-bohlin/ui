@@ -12,16 +12,16 @@
     min-inline-size: 0;
   }
 
-  .todo-proposed details.ui-accordion {
-    --_actions-margin-block-start: 0;
-    --_actions-padding-block-end: var(--_summary-padding-block);
-    --_actions-padding-inline: var(--_padding-inline);
+  .todo-before details.ui-accordion {
+    --_actions-margin-block-start: var(--size-3);
+    --_actions-padding-block-end: var(--size-1);
+    --_actions-padding-inline: var(--size-3) var(--size-1);
   }
 </style>
 <div class="todo-compare">
-  <div>
+  <div class="todo-before">
     <p class="ui-caption">
-      Current: actions padded <code>--size-3 --size-1</code>
+      Before: actions padded <code>--size-3 --size-1</code>
     </p>
     <details open class="ui-accordion ui-card ui-marker-rotate ui-outlined">
       <summary>
@@ -48,9 +48,9 @@
       </div>
     </details>
   </div>
-  <div class="todo-proposed">
+  <div>
     <p class="ui-caption">
-      Proposed: actions use the content's inline padding and the summary's block
+      Fixed: actions use the content's inline padding and the summary's block
       padding
     </p>
     <details open class="ui-accordion ui-card ui-marker-rotate ui-outlined">

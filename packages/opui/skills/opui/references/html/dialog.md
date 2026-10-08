@@ -134,6 +134,10 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 </dialog>
 ```
 
+## Width
+
+The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or narrower dialog, for example `style="--_max-inline-size: 40rem"`. On small screens it keeps a `--size-2` margin on each side, whatever the width.
+
 ## Long content
 
 The dialog grows up to 85% of the viewport height. The header and actions stay put while `.ui-content` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
@@ -611,3 +615,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
+- [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.

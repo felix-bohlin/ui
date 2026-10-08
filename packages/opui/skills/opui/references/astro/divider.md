@@ -37,6 +37,30 @@ Primary
 <Divider variant="primary" />
 ```
 
+## Content
+
+Put text or any element in the default slot to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant`.
+
+```astro
+---
+import { Button, Divider } from "opui-css/astro"
+---
+
+
+<Divider>or continue with email</Divider>
+
+
+<Divider align="start">Billing</Divider>
+
+
+<Divider align="end" variant="primary">Today</Divider>
+
+
+<Divider>
+  <Button rounded size="small" variant="outlined">Show 12 more replies</Button>
+</Divider>
+```
+
 ## Spacing
 
 The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
@@ -69,9 +93,16 @@ import { Card, Divider } from "opui-css/astro"
 
 ### Divider API
 
-| Prop      | Type                                 | Default | Description         |
-| --------- | ------------------------------------ | ------- | ------------------- |
-| `variant` | `"tonal"` , `"primary"` , `"filled"` | -       | The variant to use. |
+| Prop      | Type                                 | Default    | Description                         |
+| --------- | ------------------------------------ | ---------- | ----------------------------------- |
+| `align`   | `"start"` , `"end"` , `"center"`     | `"center"` | Where the content sits on the line. |
+| `variant` | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                 |
+
+#### Slots
+
+| Slot      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `default` | Optional content in the middle of the line. Renders a `<div>`. |
 
 #### CSS variables
 
@@ -82,6 +113,7 @@ import { Card, Divider } from "opui-css/astro"
 | `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
 | `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
 | `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
+| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
@@ -175,3 +207,4 @@ Import the component from `opui-css/astro`:
 ### What's new
 
 - [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- [Content](#content) in the middle of the line through the default slot, aligned with `align`.

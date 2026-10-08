@@ -31,6 +31,7 @@ import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw
 import carouselFocusRing from "../todo-examples/carousel-focus-ring.html?raw"
 import carouselMarkersForcedColors from "../todo-examples/carousel-markers-forced-colors.html?raw"
 import carouselMotionOffScroll from "../todo-examples/carousel-motion-off-scroll.html?raw"
+import carouselScrollButtonFallback from "../todo-examples/carousel-scroll-button-fallback.html?raw"
 import carouselTranslatedLabels from "../todo-examples/carousel-translated-labels.html?raw"
 import carouselVerticalOutsideMarkers from "../todo-examples/carousel-vertical-outside-markers.html?raw"
 import carouselWalkthroughOverrun from "../todo-examples/carousel-walkthrough-overrun.html?raw"
@@ -46,6 +47,7 @@ import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
 import contrastCustomValues from "../todo-examples/contrast-custom-values.html?raw"
 import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
+import contrastTintedSurfaces from "../todo-examples/contrast-tinted-surfaces.html?raw"
 import controlSizes from "../todo-examples/control-sizes.html?raw"
 import descriptionListAnatomyWidth from "../todo-examples/description-list-anatomy-width.html?raw"
 import descriptionListNarrowBorder from "../todo-examples/description-list-narrow-border.html?raw"
@@ -71,6 +73,7 @@ import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listDenseGroupLabel from "../todo-examples/list-dense-group-label.html?raw"
 import listItemButtonType from "../todo-examples/list-item-button-type.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
+import listSeparatorSurfaces from "../todo-examples/list-separator-surfaces.html?raw"
 import listTextLeak from "../todo-examples/list-text-leak.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
@@ -276,6 +279,10 @@ export const todoExamples = {
     match: "Carousel: `scroll-behavior: smooth` is",
     source: carouselMotionOffScroll,
   },
+  "carousel-scroll-button-fallback": {
+    match: "Carousel in Chromium 141",
+    source: carouselScrollButtonFallback,
+  },
   "carousel-translated-labels": {
     match: "Carousel: the generated button and marker names are English",
     source: carouselTranslatedLabels,
@@ -335,6 +342,10 @@ export const todoExamples = {
   "contrast-normal-nested": {
     match: "Getting started Contrast: `.ui-contrast-normal`",
     source: contrastNormalNested,
+  },
+  "contrast-tinted-surfaces": {
+    match: "Contrast: `ui-link` on",
+    source: contrastTintedSurfaces,
   },
   "control-sizes": {
     match: "Sizes: control size scales differ",
@@ -435,6 +446,10 @@ export const todoExamples = {
   "list-nested-lists": {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
+  },
+  "list-separator-surfaces": {
+    match: "List: in `.ui-list.ui-bordered.ui-tonal`",
+    source: listSeparatorSurfaces,
   },
   "list-text-leak": {
     match: "List: the `.ui-text` rule inside",

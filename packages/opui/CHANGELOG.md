@@ -105,6 +105,8 @@
 - `Badge` `alignment` takes `"start-end"`, the default placement.
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it.
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
+- `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
+- `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
 
 ### Changed
 
@@ -173,6 +175,8 @@
 - `open-props.css` imports the Open Props files one by one instead of `open-props/src/index.css`, so `dist/op.css` and `dist/opui.css` no longer contain Open Props' `@custom-media` rules. Import `open-props/media` yourself if a PostCSS plugin reads them.
 - `Switch`, `Tooltip`, `Textarea`, `Menu`, `Table`, `List`, `Tabs`, `Toast`, `Spinner`, `Carousel`, `Dialog`, `Drawer` and the typography styles use logical properties only (`min-inline-size`, `inset-inline-start`, `padding-block`/`padding-inline`, `resize: block` …), so they follow the writing mode. Horizontal left-to-right rendering is unchanged.
 - `Toast` sits in the bottom inline-end corner and slides in from the inline end, so in right-to-left pages it shows at the bottom left.
+- `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
+- `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
 
 ### Fixed
 

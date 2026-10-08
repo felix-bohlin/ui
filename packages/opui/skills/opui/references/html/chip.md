@@ -37,6 +37,36 @@ The Chip has two variants: tonal (default) and `.ui-outlined`.
 </div>
 ```
 
+## Colors
+
+Add `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning` to tint a tonal chip, such as a status. Keep the status in the label, since color alone doesn't tell it.
+
+```html
+<div class="ui-chip ui-critical ui-tonal">
+  <span class="ui-text">Past due</span>
+</div>
+
+
+<div class="ui-chip ui-info ui-tonal">
+  <span class="ui-text">Processing</span>
+</div>
+
+
+<div class="ui-chip ui-neutral ui-tonal">
+  <span class="ui-text">Refunded</span>
+</div>
+
+
+<div class="ui-chip ui-success ui-tonal">
+  <span class="ui-text">Paid</span>
+</div>
+
+
+<div class="ui-chip ui-warning ui-tonal">
+  <span class="ui-text">Due 15 Oct</span>
+</div>
+```
+
 ## Sizes
 
 Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. Labels truncate with an ellipsis. Add `.ui-multiline` to let them wrap.
@@ -105,6 +135,65 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
       d="M16.25 3A3.75 3.75 0 0 1 20 6.75v9a3.75 3.75 0 0 1-2.89 3.651l2.462 1.172a.75.75 0 0 1-.55 1.392l-.095-.038L13.83 19.5h-3.661l-5.097 2.427a.75.75 0 1 1-.645-1.354L6.89 19.4A3.75 3.75 0 0 1 4 15.75v-9A3.75 3.75 0 0 1 7.75 3zM8 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m8 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2m.25-10.5h-8.5A2.25 2.25 0 0 0 5.5 6.75v5.75h13V6.75a2.25 2.25 0 0 0-2.25-2.25m-3 1.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"
     ></path>
   </svg>
+</div>
+```
+
+## Dot
+
+Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color: a diamond for `.ui-critical`, a triangle for `.ui-warning` and a ring for `.ui-neutral`, so the dots differ without color too. On an `.ui-outlined` chip only the dot is colored, which keeps a table of statuses calm.
+
+```html
+<div class="example-row">
+  <div class="ui-chip ui-dot ui-critical ui-tonal">
+    <span class="ui-text">Past due</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-info ui-tonal">
+    <span class="ui-text">Processing</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-neutral ui-tonal">
+    <span class="ui-text">Refunded</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-success ui-tonal">
+    <span class="ui-text">Paid</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-warning ui-tonal">
+    <span class="ui-text">Due 15 Oct</span>
+  </div>
+</div>
+
+
+<div class="example-row">
+  <div class="ui-chip ui-dot ui-critical ui-small ui-outlined">
+    <span class="ui-text">Past due</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-info ui-small ui-outlined">
+    <span class="ui-text">Processing</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-neutral ui-small ui-outlined">
+    <span class="ui-text">Refunded</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-success ui-small ui-outlined">
+    <span class="ui-text">Paid</span>
+  </div>
+
+
+  <div class="ui-chip ui-dot ui-warning ui-small ui-outlined">
+    <span class="ui-text">Due 15 Oct</span>
+  </div>
 </div>
 ```
 
@@ -194,12 +283,14 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 
 ### Chip API
 
-| Type     | Modifiers                               | Default     | Description                                                                |
-| -------- | --------------------------------------- | ----------- | -------------------------------------------------------------------------- |
-| Layout   | `.ui-multiline`                         | -           | Lets the label wrap to multiple lines.                                     |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small` | -           | The size of the element.                                                   |
-| State    | `.ui-disabled`                          | -           | Dims a static chip. Only changes the look. Use `disabled` on button chips. |
-| Variants | `.ui-outlined`, `.ui-tonal`             | `.ui-tonal` | The variant to use.                                                        |
+| Type     | Modifiers                                                               | Default     | Description                                                                |
+| -------- | ----------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                           |
+| Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                     |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                   |
+| State    | `.ui-disabled`                                                          | -           | Dims a static chip. Only changes the look. Use `disabled` on button chips. |
+| Variants | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.       |
+| Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                        |
 
 #### Parts
 
@@ -221,14 +312,19 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 | `--chip-size-large`   | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                       |
 | `--chip-size-small`   | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                       |
 | `--chip-size-x-small` | `calc(24px * var(--density))`                                          | `Chip` height with `.ui-x-small`.                                                                     |
+| `--critical`          | `var(--red)`                                                           | Severity color for errors and destructive actions.                                                    |
 | `--disabled-opacity`  | `0.64`                                                                 | Opacity applied to disabled controls.                                                                 |
 | `--font-size-05`      | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
 | `--icon-size`         | `var(--size-4)`                                                        | Default icon size inside components.                                                                  |
 | `--icon-size-small`   | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                              |
+| `--info`              | `var(--blue)`                                                          | Severity color for informational messages.                                                            |
+| `--neutral`           | `var(--gray-9)`                                                        | Severity color for neutral messages.                                                                  |
+| `--success`           | `var(--green)`                                                         | Severity color for success messages.                                                                  |
 | `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
 | `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
+| `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -359,3 +455,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
 - Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Takes `.ui-x-small`. [Sizes](#sizes)
+- [Colors](#colors) for statuses with `.ui-success`, `.ui-warning` and more, and a shape-coded [`.ui-dot`](#dot).

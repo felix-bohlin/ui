@@ -71,31 +71,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: var(--size-2);
-
-      .ui-chip svg {
-        color: var(--_status);
-      }
-    }
-
-    .orders-delivered {
-      --_status: light-dark(
-        oklch(from var(--success) 0.45 c h),
-        oklch(from var(--success) 0.8 c h)
-      );
-    }
-
-    .orders-transit {
-      --_status: light-dark(
-        oklch(from var(--info) 0.45 c h),
-        oklch(from var(--info) 0.8 c h)
-      );
-    }
-
-    .orders-returned {
-      --_status: light-dark(
-        oklch(from var(--warning) 0.45 c h),
-        oklch(from var(--warning) 0.8 c h)
-      );
     }
 
     .orders-body {
@@ -259,8 +234,8 @@
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
-          <div class="orders-status orders-transit">
-            <span class="ui-chip ui-tonal">
+          <div class="orders-status">
+            <span class="ui-chip ui-info ui-tonal">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -407,8 +382,8 @@
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
-          <div class="orders-status orders-delivered">
-            <span class="ui-chip ui-tonal">
+          <div class="orders-status">
+            <span class="ui-chip ui-success ui-tonal">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -550,8 +525,8 @@
               <dd>Mateo Okafor</dd>
             </div>
           </dl>
-          <div class="orders-status orders-returned">
-            <span class="ui-chip ui-tonal">
+          <div class="orders-status">
+            <span class="ui-chip ui-warning ui-tonal">
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"

@@ -13,6 +13,8 @@
     }
 
     .ui-content {
+      --divider-space: 0;
+
       display: grid;
       gap: var(--size-4);
     }
@@ -24,21 +26,6 @@
 
       .ui-button {
         justify-content: center;
-      }
-    }
-
-    .sign-in-divider {
-      align-items: center;
-      color: var(--text-muted);
-      display: flex;
-      font-size: var(--font-size-0);
-      gap: var(--size-3);
-
-      &::before,
-      &::after {
-        border-block-start: var(--border-width) solid var(--border-color);
-        content: "";
-        flex: 1;
       }
     }
 
@@ -104,7 +91,7 @@
         </button>
       </div>
 
-      <p class="sign-in-divider">or continue with email</p>
+      <p class="ui-divider">or continue with email</p>
 
       <form class="ui-form" action="#">
         <div class="ui-field-group">

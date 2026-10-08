@@ -98,31 +98,6 @@
       font-size: var(--font-size-0);
     }
 
-    .data-table-status::before {
-      background-color: var(--_dot);
-      block-size: var(--size-2);
-      border-radius: var(--radius-round);
-      content: "";
-      flex-shrink: 0;
-      inline-size: var(--size-2);
-    }
-
-    .data-table-active {
-      --_dot: var(--success);
-    }
-
-    .data-table-trial {
-      --_dot: var(--info);
-    }
-
-    .data-table-past-due {
-      --_dot: var(--warning);
-    }
-
-    .data-table-churned {
-      --_dot: var(--text-muted);
-    }
-
     .data-table-number {
       font-variant-numeric: tabular-nums;
       text-align: end;
@@ -295,7 +270,7 @@
           </td>
           <td>Business</td>
           <td>
-            <span class="ui-chip ui-small data-table-status data-table-active"
+            <span class="ui-chip ui-dot ui-success ui-small"
               ><span class="ui-text">Active</span></span
             >
           </td>
@@ -376,7 +351,7 @@
           </td>
           <td>Team</td>
           <td>
-            <span class="ui-chip ui-small data-table-status data-table-trial"
+            <span class="ui-chip ui-dot ui-info ui-small"
               ><span class="ui-text">Trial</span></span
             >
           </td>
@@ -457,7 +432,7 @@
           </td>
           <td>Team</td>
           <td>
-            <span class="ui-chip ui-small data-table-status data-table-active"
+            <span class="ui-chip ui-dot ui-success ui-small"
               ><span class="ui-text">Active</span></span
             >
           </td>
@@ -533,7 +508,7 @@
           </td>
           <td>Starter</td>
           <td>
-            <span class="ui-chip ui-small data-table-status data-table-past-due"
+            <span class="ui-chip ui-dot ui-warning ui-small"
               ><span class="ui-text">Past due</span></span
             >
           </td>
@@ -609,7 +584,7 @@
           </td>
           <td>Team</td>
           <td>
-            <span class="ui-chip ui-small data-table-status data-table-churned"
+            <span class="ui-chip ui-dot ui-neutral ui-small"
               ><span class="ui-text">Churned</span></span
             >
           </td>

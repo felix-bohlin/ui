@@ -219,8 +219,8 @@
   --surface-inverse: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
   --surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
   --switch-dot-size: 1rem;
-  --switch-track-height: 1.5rem;
-  --switch-track-width: 2.625rem;
+  --switch-track-height: 1.15rem;
+  --switch-track-width: 2rem;
   --text-muted: light-dark(oklch(0.556 0 0), oklch(0.708 0 0));
   --text-primary: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
 }

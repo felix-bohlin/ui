@@ -1,13 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
-
-### What's new
-
-- New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
-- [Submenus](#submenu) with the `submenu` slot on `ListItem`.
-- A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen.
+A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md). Use a Menu for actions and navigation. To pick a value in a form, use a [Select](https://open-props-ui.netlify.app/vue/components/select.md).
 
 ## Basics
 
@@ -17,7 +10,6 @@ A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anch
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
@@ -44,10 +36,8 @@ If you want to decide yourself what goes into your list.
 import { Button, ListItem, Menu } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button
-    ripple
     rounded
     size="small"
     aria-label="More actions"
@@ -134,10 +124,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 
-
 const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 </script>
-
 
 <template>
   <Button
@@ -149,7 +137,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   </Button>
   <Menu id="menu-block-start" :items="items" placement="block-start" />
 
-
   <Button
     commandfor="menu-block-end"
     command="toggle-popover"
@@ -159,7 +146,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   </Button>
   <Menu id="menu-block-end" :items="items" />
 
-
   <Button
     commandfor="menu-inline-start"
     command="toggle-popover"
@@ -168,7 +154,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
     Inline start
   </Button>
   <Menu id="menu-inline-start" :items="items" placement="inline-start" />
-
 
   <Button
     commandfor="menu-inline-end"
@@ -189,13 +174,11 @@ Pass a `Menu` to the `submenu` slot of a `ListItem`. Mark the item with an icon 
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 
-
 const formats = ["PDF", "PNG", "SVG"].map((label) => ({
   commandfor: "menu-file",
   label,
 }))
 </script>
-
 
 <template>
   <Button commandfor="menu-file" command="toggle-popover" variant="outlined">
@@ -229,22 +212,59 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 </template>
 ```
 
+## Manual
+
+`popover="manual"` keeps the menu open until the trigger or an item closes it. Esc and a click outside don't close it, and opening another menu doesn't either. Items close the menu by default, so set `closeOnClick: false` on the ones that should keep it open.
+
+```vue
+<script setup lang="ts">
+import { Button, Menu } from "opui-css/vue"
+</script>
+
+<template>
+  <Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
+    View
+  </Button>
+  <Menu
+    id="menu-manual"
+    popover="manual"
+    :items="[
+      { label: 'Show grid', closeOnClick: false },
+      { label: 'Show rulers', closeOnClick: false },
+      { label: 'Done', borderTop: true },
+    ]"
+  />
+</template>
+```
+
 ## Accessibility
 
-`Tab` to navigate, and `Esc` to close.
+### Role
+
+A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="menu"` or `role="menuitem"`, so screen readers announce a list of buttons, and the keyboard works like it does for any other button. The ARIA menu pattern needs a script for the arrow keys, which the library doesn't ship.
+
+### Keyboard support
+
+| Key              | Function                                                                                                                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Enter`, `Space` | On the trigger, opens or closes the menu. Focus stays on the trigger. On an item, activates it.                                                                                                                                                |
+| `Tab`            | From the trigger, moves into the open menu, because the browser puts a popover opened with `commandfor` right after its trigger in the focus order. Then moves to the next item, and after the last one, out of the menu. The menu stays open. |
+| `Shift + Tab`    | Moves to the previous item, and from the first item back to the trigger.                                                                                                                                                                       |
+| Arrow keys       | Do nothing.                                                                                                                                                                                                                                    |
+| `Esc`            | Closes the menu and returns focus to the trigger. A click outside closes it too. Neither works with `popover="manual"`.                                                                                                                        |
 
 ## API
 
-| Prop        | Type                                                             | Default        | Description                                       |
-| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
-| `class`     | `string`                                                         | -              | Optional CSS class.                               |
-| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
-| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
-| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |
-| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                             |
-| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type.                                 |
-| default     | -                                                                | -              | Optional child content.                           |
+| Prop        | Type                                                             | Default        | Description                                                                                                               |
+| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with.                                                                         |
+| `class`     | `string`                                                         | -              | Optional CSS class.                                                                                                       |
+| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                                                                                             |
+| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                                                                                               |
+| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                                                                                               |
+| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                                                                                                     |
+| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. |
+| default     | -                                                                | -              | Optional child content.                                                                                                   |
 
 ### MenuItem
 
@@ -261,6 +281,8 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 
 ## Under the hood
 
+Read the post: [Menus with popover and anchor positioning](https://open-props-ui.netlify.app/learn/menu-popover-anchor)
+
 1. Popover
 
    - `popover`: top layer, light dismiss, `Esc` to close
@@ -271,30 +293,43 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 
    - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
    - `position-area` places it below, spanning towards the end
-   - `anchor-size(inline)` keeps it at least as wide as the trigger
+   - `anchor-size(inline)` keeps it at least as wide as the trigger, and never under `12rem`
 
-3. Flip
+3. Fit
+
+   - Scroll the trigger towards the bottom of the window and open it again
+   - `100%` is the space below the trigger, minus the `0.25rem` margin on each side, so the menu shrinks to fit and scrolls
+   - But never below `12rem`, or its content if that's shorter. Then it overflows, and that's what makes it flip
+   - Without `calc-size()` it stays at `60dvb` and just flips
+
+4. Flip
 
    - Scroll the trigger to the bottom of the window and open it again
    - The browser tries each fallback when the menu would overflow
+   - Flipped above, it shrinks to fit the space there too
+   - When no corner fits, the last two let it span the full width below or above
 
-4. Animate
+5. Animate
 
    - `@starting-style` gives the entry transition a starting point
    - `allow-discrete` keeps `display` and `overlay` alive during the exit
+   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
 
-Step 1 of 4: Popover
+Step 1 of 5: Popover
 
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover ](https://webstatus.dev/features/popover)(Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
 
 ```html
-<button commandfor="menu" command="toggle-popover">Options</button>
-
+<button type="button" commandfor="menu" command="toggle-popover">
+  Options
+</button>
 
 <menu class="menu" id="menu" popover>
   <li>
-    <button commandfor="menu" command="hide-popover">Edit</button>
+    <button type="button" commandfor="menu" command="hide-popover">
+      Edit
+    </button>
   </li>
 </menu>
 ```
@@ -309,51 +344,83 @@ Step 1 of 4: Popover
 }
 ```
 
-Step 2 of 4: Anchor
+Step 2 of 5: Anchor
 
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```css
 .menu {
   inset: auto;
   margin: 0.25rem 0;
-  min-inline-size: max(10rem, anchor-size(inline));
+  min-inline-size: max(12rem, anchor-size(inline));
   position-area: block-end span-inline-end;
 }
 ```
 
-Step 3 of 4: Flip
+Step 3 of 5: Fit
+
+- [`calc-size()` ](https://webstatus.dev/features/calc-size)(Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`overscroll-behavior` ](https://webstatus.dev/features/overscroll-behavior)(Limited availability): Chrome 144+, Edge 144+, Firefox 150+, Safari not supported
+
+```css
+.menu {
+  max-block-size: 60dvb;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  @supports (min-block-size: calc-size(fit-content, size)) {
+    max-block-size: min(60dvb, 100% - 0.5rem);
+    min-block-size: calc-size(fit-content, min(size, 12rem));
+  }
+}
+```
+
+Step 4 of 5: Flip
+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```css
 .menu {
   position-try-fallbacks:
     flip-block,
     flip-inline,
-    flip-block flip-inline;
+    flip-block flip-inline,
+    --menu-block-end,
+    --menu-block-start;
+}
+
+@position-try --menu-block-end {
+  margin: 0.25rem 0;
+  position-area: block-end span-all;
+}
+
+@position-try --menu-block-start {
+  margin: 0.25rem 0;
+  position-area: block-start span-all;
 }
 ```
 
-Step 4 of 4: Animate
+Step 5 of 5: Animate
 
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .menu {
   opacity: 0;
   scale: 0.96;
   transition:
-    display 0.15s allow-discrete,
-    opacity 0.15s,
-    overlay 0.15s allow-discrete,
-    scale 0.15s;
+    display calc(0.15s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.15s * var(--motion, 1)),
+    overlay calc(0.15s * var(--motion, 1)) allow-discrete,
+    scale calc(0.15s * var(--motion, 1));
 }
-
 
 .menu:popover-open {
   opacity: 1;
   scale: 1;
-
 
   @starting-style {
     opacity: 0;
@@ -365,12 +432,14 @@ Step 4 of 4: Animate
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: display-animation, overlay.
-- Safari: Partial support Missing: overlay.
+- Firefox: Partial support Missing: calc-size, display-animation, overlay.
+- Safari: Partial support Missing: calc-size, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Menu.md).
 
 ## Installation
+
+Import the component from `opui-css/vue`:
 
 ### Dependencies
 
@@ -382,3 +451,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [List](https://open-props-ui.netlify.app/vue/components/list.md)
+
+## Changelog
+
+### What's new
+
+- Smaller start and end icons, and dividers that show in dark mode ([Basics](#basics)).
+- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- [Submenus](#submenu) with the `submenu` slot on `ListItem`.
+- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
+- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).

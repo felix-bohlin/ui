@@ -27,7 +27,6 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
 import { Anchor, Button, Card } from "opui-css/astro"
 ---
 
-
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
   <Card slot="anchored" variant="tonal" class="coach-mark">
@@ -36,7 +35,6 @@ import { Anchor, Button, Card } from "opui-css/astro"
     </Fragment>
   </Card>
 </Anchor>
-
 
 <style>
   .coach-mark {
@@ -59,7 +57,6 @@ Put a [Card](https://open-props-ui.netlify.app/astro/components/card.md) in the 
 ---
 import { Anchor, Avatar, Button, Card } from "opui-css/astro"
 ---
-
 
 <div>
   The source lives in
@@ -98,7 +95,6 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
   on GitHub.
 </div>
 
-
 <style>
   .repo-card {
     font-size: var(--font-size-05);
@@ -106,19 +102,16 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
     margin-block-start: var(--size-2);
   }
 
-
   .repo-card .ui-content {
     display: grid;
     gap: var(--size-2);
   }
-
 
   .repo-card-identity {
     align-items: center;
     display: flex;
     gap: var(--size-3);
   }
-
 
   .repo-card-identity > div {
     display: grid;
@@ -134,7 +127,6 @@ Preview where a link goes before following it. The card keeps its interactive co
 ---
 import { Anchor, Card } from "opui-css/astro"
 ---
-
 
 <div>
   Learn more about
@@ -162,13 +154,11 @@ import { Anchor, Card } from "opui-css/astro"
   on MDN.
 </div>
 
-
 <style>
   .link-preview {
     inline-size: 280px;
     margin-block-start: var(--size-2);
   }
-
 
   .link-preview img {
     aspect-ratio: 16 / 9;
@@ -176,11 +166,9 @@ import { Anchor, Card } from "opui-css/astro"
     object-fit: cover;
   }
 
-
   .link-preview hgroup {
     padding-block-start: 0;
   }
-
 
   .link-preview h3 {
     font-size: var(--font-size-2);
@@ -198,11 +186,11 @@ import { Anchor, Card } from "opui-css/astro"
 
 ### Anchor API
 
-| Prop        | Type                  | Default       | Description                                                                                                                                   |
-| ----------- | --------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`              | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                               |
-| `id`        | `string`              | -             | The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. |
-| `trigger`   | `"always"`, `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                               |
+| Prop        | Type                   | Default       | Description                                                                                                                                   |
+| ----------- | ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                               |
+| `id`        | `string`               | -             | The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. |
+| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                               |
 
 #### Slots
 
@@ -213,10 +201,12 @@ import { Anchor, Card } from "opui-css/astro"
 
 ## Under the hood
 
+Read the post: [Hover cards without JavaScript](https://open-props-ui.netlify.app/learn/anchor-hover-cards)
+
 1. Hint
 
    - `interestfor` opens it on hover and keyboard focus, no JavaScript
-   - Only `<button>` and `<a href>` can be interest invokers
+   - Only `<button>`, `<a href>` and `<area>` can be interest invokers
    - `popover="hint"` leaves open menus and dialogs alone
    - Without positioning it opens in the middle of the viewport
 
@@ -227,23 +217,23 @@ import { Anchor, Card } from "opui-css/astro"
 
 3. Anchor
 
-   - `anchor-name` on the wrapper, `position-anchor` on the card
-   - `anchor-scope` keeps the name local, so every anchor can reuse `--anchor`
+   - The invoker is the implicit anchor: no `anchor-name`, no `position-anchor`
    - `position-area` places it below, spanning towards the end
+   - A card that's always visible has no invoker, so it needs `anchor-name` and `position-anchor`
 
 4. Flip
 
    - Scroll the trigger to the bottom of the window and hover it again
    - The browser tries each fallback when the card would overflow
+   - `anchors-visible` hides it when the trigger scrolls out of view
 
 Step 1 of 4: Hint
 
-- [Interest invokers](https://webstatus.dev/features/interest-invokers) (Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
-- [popover="hint"](https://webstatus.dev/features/popover-hint) (Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+- [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
+- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
 
 ```html
-<button interestfor="card">felix-bohlin/ui</button>
-
+<button type="button" interestfor="card">felix-bohlin/ui</button>
 
 <div class="card" id="card" popover="hint">…</div>
 ```
@@ -262,10 +252,11 @@ Step 1 of 4: Hint
 
 Step 2 of 4: Tap
 
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
 
 ```html
 <button
+  type="button"
   interestfor="card"
   commandfor="card"
   command="toggle-popover"
@@ -276,26 +267,12 @@ Step 2 of 4: Tap
 
 Step 3 of 4: Anchor
 
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
-
-```html
-<span class="anchor">
-  <button interestfor="card" …>felix-bohlin/ui</button>
-  <div class="card" id="card" popover="hint">…</div>
-</span>
-```
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```css
-.anchor {
-  anchor-name: --anchor;
-  anchor-scope: --anchor;
-}
-
-
 .card {
   inset: auto;
   margin: 0.5rem 0 0;
-  position-anchor: --anchor;
   position-area: block-end span-inline-end;
 }
 ```
@@ -308,6 +285,7 @@ Step 4 of 4: Flip
     flip-block,
     flip-inline,
     flip-block flip-inline;
+  position-visibility: anchors-visible;
 }
 ```
 
@@ -321,5 +299,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.

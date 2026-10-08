@@ -58,8 +58,8 @@ export default {
   ],
   parts: [
     {
-      code: "& > button",
-      description: "The buttons.",
+      code: "& > .ui-button",
+      description: "The buttons and button links.",
       selector: ".ui-button-group > :first-child",
       slots: ["default"],
     },

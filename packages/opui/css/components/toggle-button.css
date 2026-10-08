@@ -1,15 +1,12 @@
-/* TODO:
-* Somehow handle when a group gets too wide for its container. Should it be handled?
-*/
 @layer components.root {
   :where(.ui-toggle-button) {
-    --_button-bg-color: transparent;
+    --_bg-color: transparent;
     --_font-size: var(--font-size-1);
     --_size: var(--field-size);
     --_svg-size: var(--icon-size);
 
     align-items: center;
-    background-color: var(--_button-bg-color);
+    background-color: var(--_bg-color);
     block-size: var(--_size);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius);
@@ -22,7 +19,8 @@
     justify-content: center;
     min-inline-size: var(--_size);
     outline-offset: calc(-1 * var(--size-2));
-    padding: 0 var(--size-2);
+    padding-block: 0;
+    padding-inline: var(--size-2);
     position: relative;
     user-select: none;
 
@@ -39,23 +37,20 @@
 
     /* Element states */
     @media (hover: hover) {
-      &:hover:not(.ui-disabled, :has(input:disabled)) {
-        --_button-bg-color: light-dark(
-          oklch(0% 0 0 / 0.04),
-          oklch(100% 0 0 / 0.08)
-        );
+      &:hover:not(:has(input:disabled)) {
+        --_bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
       }
     }
 
     &:has(input:focus-visible) {
       --focus-ring-offset: -6px;
+      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--text-muted));
+        var(--focus-ring-color, var(--_focus-visible-color));
       outline-offset: var(--focus-ring-offset);
     }
 
     /* Disabled */
-    &.ui-disabled,
     &:has(input:disabled) {
       border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
       color: color-mix(in oklch, var(--text-primary) 30%, transparent);
@@ -71,21 +66,21 @@
 
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
-      --_button-bg-color: oklch(from var(--primary) l c h / 25%);
+      --_bg-color: oklch(from var(--primary) l c h / 25%);
 
       @media (hover: hover) {
-        &:hover {
-          --_button-bg-color: oklch(from var(--primary) l c h / 35%);
+        &:hover:not(:has(input:disabled)) {
+          --_bg-color: oklch(from var(--primary) l c h / 35%);
         }
       }
 
       @container style(--contrast: more) {
-        --_button-bg-color: var(--primary);
+        --_bg-color: var(--primary);
         color: var(--primary-contrast);
 
         @media (hover: hover) {
-          &:hover {
-            --_button-bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
+          &:hover:not(:has(input:disabled)) {
+            --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
           }
         }
       }

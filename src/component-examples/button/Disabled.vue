@@ -67,4 +67,10 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
   </div>
+  <div class="example-row">
+    <Button disabled href="#">Text</Button>
+    <Button variant="outlined" disabled href="#">Outlined</Button>
+    <Button variant="tonal" disabled href="#">Tonal</Button>
+    <Button variant="filled" disabled href="#">Filled</Button>
+  </div>
 </template>

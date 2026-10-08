@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="range-tick-marks">
@@ -79,21 +79,29 @@ import { Code } from "astro-expressive-code/components"
   }
 }
 
-input[type="range"] {
-  animation: range-fill linear both;
-  animation-range: contain;
-  animation-timeline: --thumb;
-  box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
-  overflow: hidden;
-  padding: 0.75rem;
-  timeline-scope: --thumb;
-}
+@supports (animation-timeline: view()) {
+  input[type="range"] {
+    animation-fill-mode: both;
+    animation-name: range-fill;
+    animation-range: contain;
+    animation-timeline: --thumb;
+    animation-timing-function: linear;
+    box-sizing: content-box;
+    margin: -0.75rem;
+    outline-offset: -0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+    timeline-scope: --thumb;
+  }
 
-input[type="range"]::-webkit-slider-thumb {
-  view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  input[type="range"]:dir(rtl) {
+    animation-direction: reverse;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    view-timeline: --thumb inline;
+    view-timeline-inset: 0.75rem;
+  }
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -101,6 +109,10 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--fill-color), var(--fill-color));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
+}
+
+input[type="range"]:dir(rtl)::-webkit-slider-runnable-track {
+  background-position: right;
 }
 
 datalist {

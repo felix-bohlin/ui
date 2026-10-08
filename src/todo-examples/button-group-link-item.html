@@ -1,0 +1,110 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where([role="group"].ui-button-group) > :where(a.ui-button) {
+        --_border-color: transparent;
+        --_divider-color: light-dark(
+          oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
+          oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
+        );
+        border-radius: 0;
+        box-shadow:
+          calc(-1 * var(--border-width)) 0 0 0 var(--_divider-color),
+          0 calc(-1 * var(--border-width)) 0 0 var(--_divider-color);
+        flex: auto;
+      }
+
+      :where(.ui-button-group.ui-small) > :where(a.ui-button) {
+        --_font-size: var(--font-size-05);
+        --_min-height: var(--button-size-small);
+        --_padding-inline: 1.25ex;
+        padding-block: 0;
+      }
+
+      :where(.ui-button-group.ui-outlined) > :where(a.ui-button) {
+        --_divider-color: var(--_accent);
+
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
+        }
+      }
+
+      :where([role="group"].ui-button-group).ui-shrink > :where(a.ui-button) {
+        align-content: center;
+        display: block;
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .todo-narrow {
+    inline-size: 14rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      "Week" is an <code>&lt;a class="ui-button"&gt;</code>: own radius, no
+      divider, no small size, no shrink. Hover it.
+    </p>
+    <div class="ui-button-group ui-outlined" role="group">
+      <button type="button" class="ui-button">Day</button>
+      <a href="#" class="ui-button">Week</a>
+      <button type="button" class="ui-button">Month</button>
+    </div>
+    <div class="ui-button-group ui-outlined ui-small" role="group">
+      <button type="button" class="ui-button">Day</button>
+      <a href="#" class="ui-button">Week</a>
+      <button type="button" class="ui-button">Month</button>
+    </div>
+    <div class="ui-button-group ui-outlined ui-shrink todo-narrow" role="group">
+      <button type="button" class="ui-button">Yesterday</button>
+      <a href="#" class="ui-button">This week so far</a>
+      <button type="button" class="ui-button">Last month</button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Item rules select <code>&gt; :where(button, a.ui-button)</code>, so the
+      link is styled like the buttons.
+    </p>
+    <div class="ui-button-group ui-outlined" role="group">
+      <button type="button" class="ui-button">Day</button>
+      <a href="#" class="ui-button">Week</a>
+      <button type="button" class="ui-button">Month</button>
+    </div>
+    <div class="ui-button-group ui-outlined ui-small" role="group">
+      <button type="button" class="ui-button">Day</button>
+      <a href="#" class="ui-button">Week</a>
+      <button type="button" class="ui-button">Month</button>
+    </div>
+    <div class="ui-button-group ui-outlined ui-shrink todo-narrow" role="group">
+      <button type="button" class="ui-button">Yesterday</button>
+      <a href="#" class="ui-button">This week so far</a>
+      <button type="button" class="ui-button">Last month</button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const [group, small, shrink] = panel.querySelectorAll(".ui-button-group")
+    const link = group.querySelector("a")
+    const style = getComputedStyle(link)
+    const height = (el) => `${Math.round(el.getBoundingClientRect().height)}px`
+    panel.querySelector("[data-measure]").textContent =
+      `link radius ${style.borderRadius}, flex-grow ${style.flexGrow}, ` +
+      `divider ${style.boxShadow === "none" ? "none" : "yes"}; ` +
+      `small group ${height(small)}, link font-size ${getComputedStyle(small.querySelector("a")).fontSize}; ` +
+      `shrink group ${height(shrink)}`
+  }
+</script>

@@ -1,4 +1,4 @@
-@layer components.root {
+@layer components.extended {
   :where(.ui-toggle-group) {
     --_bg-color: var(--surface-default);
     --_border-color: var(--border-color);

@@ -1,0 +1,152 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-tabs),
+      :where(.ui-tabs).ui-scrollable {
+        reading-flow: normal;
+      }
+    }
+  }
+
+  .todo-full {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Click "Before", then press Tab to "After". In Chromium the panel link
+      comes before the tab, in both the default and the scrollable tabs. Docs:
+      "Pressing Tab again moves focus out of the tabs to the next focusable
+      element."
+    </p>
+    <a class="ui-link" href="#todo-before-current">Before</a>
+    <div class="ui-tabs">
+      <input
+        type="radio"
+        name="todo-flow-a-current"
+        id="todo-flow-a1-current"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-flow-a1-current" class="ui-tab-label">Profile</label>
+      <div class="ui-tab-panel">
+        Default tabs. <a class="ui-link" href="#todo-a-current">Panel link</a>
+      </div>
+      <input
+        type="radio"
+        name="todo-flow-a-current"
+        id="todo-flow-a2-current"
+        class="ui-tab-input"
+      />
+      <label for="todo-flow-a2-current" class="ui-tab-label">Settings</label>
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <a class="ui-link" href="#todo-between-current">Between</a>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-flow-b-current"
+        id="todo-flow-b1-current"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-flow-b1-current" class="ui-tab-label">Profile</label>
+      <div class="ui-tab-panel">
+        Scrollable tabs.
+        <a class="ui-link" href="#todo-b-current">Panel link</a>
+      </div>
+      <input
+        type="radio"
+        name="todo-flow-b-current"
+        id="todo-flow-b2-current"
+        class="ui-tab-input"
+      />
+      <label for="todo-flow-b2-current" class="ui-tab-label">Settings</label>
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <a class="ui-link" href="#todo-after-current">After</a>
+    <p class="todo-measure" data-measure>Focus order: (press Tab)</p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>reading-flow</code> reset to <code>normal</code> on
+      <code>.ui-tabs</code> and <code>.ui-scrollable</code>: the tab comes
+      first, then the panel. Docs: "Tab moves to the selected tab, then into the
+      open panel. Arrow keys move between tabs and select them, following the
+      reading direction."
+    </p>
+    <a class="ui-link" href="#todo-before-fixed">Before</a>
+    <div class="ui-tabs">
+      <input
+        type="radio"
+        name="todo-flow-a-fixed"
+        id="todo-flow-a1-fixed"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-flow-a1-fixed" class="ui-tab-label">Profile</label>
+      <div class="ui-tab-panel">
+        Default tabs. <a class="ui-link" href="#todo-a-fixed">Panel link</a>
+      </div>
+      <input
+        type="radio"
+        name="todo-flow-a-fixed"
+        id="todo-flow-a2-fixed"
+        class="ui-tab-input"
+      />
+      <label for="todo-flow-a2-fixed" class="ui-tab-label">Settings</label>
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <a class="ui-link" href="#todo-between-fixed">Between</a>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-flow-b-fixed"
+        id="todo-flow-b1-fixed"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-flow-b1-fixed" class="ui-tab-label">Profile</label>
+      <div class="ui-tab-panel">
+        Scrollable tabs. <a class="ui-link" href="#todo-b-fixed">Panel link</a>
+      </div>
+      <input
+        type="radio"
+        name="todo-flow-b-fixed"
+        id="todo-flow-b2-fixed"
+        class="ui-tab-input"
+      />
+      <label for="todo-flow-b2-fixed" class="ui-tab-label">Settings</label>
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <a class="ui-link" href="#todo-after-fixed">After</a>
+    <p class="todo-measure" data-measure>Focus order: (press Tab)</p>
+  </section>
+</div>
+<script>
+  {
+    const name = (element) =>
+      element.matches("input")
+        ? `${element.labels[0].textContent} tab (${element.closest(".ui-scrollable") ? "scrollable" : "default"})`
+        : element.closest(".ui-tab-panel")
+          ? `panel link (${element.closest(".ui-scrollable") ? "scrollable" : "default"})`
+          : element.textContent.trim()
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const measure = panel.querySelector("[data-measure]")
+      const order = []
+      panel.addEventListener("focusin", (event) => {
+        if (event.target.textContent.trim() === "Before") order.length = 0
+        order.push(name(event.target))
+        measure.textContent = `Focus order:\n${order.join(" → ")}`
+      })
+      panel.addEventListener("click", (event) => {
+        if (event.target.matches("a")) event.preventDefault()
+      })
+    }
+  }
+</script>

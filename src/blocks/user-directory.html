@@ -1,0 +1,543 @@
+<style>
+  .user-directory {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-4);
+    margin-inline: auto;
+    max-inline-size: 80rem;
+
+    .user-directory-header {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .user-directory-filters {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+
+      .ui-text-field {
+        flex: 1 1 16rem;
+        max-inline-size: 28rem;
+      }
+    }
+
+    .user-directory-grid {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-3);
+      }
+    }
+
+    .user-directory-person {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+
+      hgroup {
+        min-inline-size: 0;
+      }
+    }
+
+    .user-directory-meta {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-2);
+    }
+
+    .user-directory-footer {
+      align-items: center;
+      display: grid;
+      gap: var(--size-2);
+      justify-items: center;
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-1);
+      }
+    }
+  }
+</style>
+
+<div class="user-directory">
+  <div class="user-directory-header">
+    <hgroup class="ui-hgroup">
+      <p>Northwind</p>
+      <h1 class="ui-h3">People</h1>
+      <p>48 people across 6 offices.</p>
+    </hgroup>
+    <button class="ui-button ui-filled" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4m-9-2V7H4v3H1v2h3v3h2v-3h3v-2zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4"
+        ></path></svg
+      ><span class="ui-text">Invite people</span>
+    </button>
+  </div>
+
+  <search class="user-directory-filters">
+    <label class="ui-text-field">
+      <span class="ui-sr-only">Search people</span>
+      <span class="ui-field">
+        <input
+          name="q"
+          placeholder="Search by name, role or city"
+          type="search"
+        />
+        <span class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path></svg
+        ></span>
+      </span>
+    </label>
+    <div
+      aria-label="Department"
+      class="ui-toggle-group ui-scrollable"
+      role="radiogroup"
+    >
+      <label class="ui-toggle-button"
+        ><input
+          checked
+          name="user-directory-department"
+          type="radio"
+          value="all"
+        />All</label
+      >
+      <label class="ui-toggle-button"
+        ><input
+          name="user-directory-department"
+          type="radio"
+          value="design"
+        />Design</label
+      >
+      <label class="ui-toggle-button"
+        ><input
+          name="user-directory-department"
+          type="radio"
+          value="engineering"
+        />Engineering</label
+      >
+      <label class="ui-toggle-button"
+        ><input
+          name="user-directory-department"
+          type="radio"
+          value="sales"
+        />Sales</label
+      >
+      <label class="ui-toggle-button"
+        ><input
+          name="user-directory-department"
+          type="radio"
+          value="support"
+        />Support</label
+      >
+    </div>
+  </search>
+
+  <ul class="user-directory-grid">
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-anchor ui-badge ui-dot ui-success ui-end-end">
+            <span class="ui-avatar" aria-hidden="true">AN</span>
+            <span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span
+            ></span>
+          </span>
+          <hgroup>
+            <h2 class="ui-h6">Astrid Nyström</h2>
+            <p>Head of Design<span class="ui-sr-only">, online</span></p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Design</span></span
+          >
+          <span>Stockholm · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-astrid-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-astrid-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Astrid"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-astrid-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-avatar" aria-hidden="true">ER</span>
+          <hgroup>
+            <h2 class="ui-h6">Elif Rahman</h2>
+            <p>Customer Success Manager</p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Support</span></span
+          >
+          <span>Berlin · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-elif-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-elif-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Elif"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-elif-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-anchor ui-badge ui-dot ui-success ui-end-end">
+            <span class="ui-avatar" aria-hidden="true">KM</span>
+            <span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span
+            ></span>
+          </span>
+          <hgroup>
+            <h2 class="ui-h6">Kwame Mensah</h2>
+            <p>Staff Engineer<span class="ui-sr-only">, online</span></p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Engineering</span></span
+          >
+          <span>Accra · 12:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-kwame-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-kwame-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Kwame"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-kwame-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-anchor ui-badge ui-dot ui-success ui-end-end">
+            <span class="ui-avatar" aria-hidden="true">LH</span>
+            <span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span
+            ></span>
+          </span>
+          <hgroup>
+            <h2 class="ui-h6">Lina Haddad</h2>
+            <p>Product Designer<span class="ui-sr-only">, online</span></p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Design</span></span
+          >
+          <span>Amsterdam · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-lina-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-lina-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Lina"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-lina-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-avatar" aria-hidden="true">MB</span>
+          <hgroup>
+            <h2 class="ui-h6">Mats Berg</h2>
+            <p>Account Executive</p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Sales</span></span
+          >
+          <span>Oslo · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-mats-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-mats-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Mats"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-mats-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-avatar" aria-hidden="true">PN</span>
+          <hgroup>
+            <h2 class="ui-h6">Priya Nair</h2>
+            <p>Engineering Manager</p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Engineering</span></span
+          >
+          <span>Bengaluru · 17:50 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-priya-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-priya-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Priya"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-priya-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-anchor ui-badge ui-dot ui-success ui-end-end">
+            <span class="ui-avatar" aria-hidden="true">SL</span>
+            <span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span
+            ></span>
+          </span>
+          <hgroup>
+            <h2 class="ui-h6">Sofia Lund</h2>
+            <p>Support Lead<span class="ui-sr-only">, online</span></p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Support</span></span
+          >
+          <span>Copenhagen · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-sofia-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-sofia-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Sofia"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-sofia-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+    <li class="ui-card ui-outlined">
+      <div class="ui-content">
+        <div class="user-directory-person">
+          <span class="ui-avatar" aria-hidden="true">TO</span>
+          <hgroup>
+            <h2 class="ui-h6">Tomás Ortega</h2>
+            <p>Frontend Engineer</p>
+          </hgroup>
+        </div>
+        <div class="user-directory-meta">
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Engineering</span></span
+          >
+          <span>Madrid · 14:20 local time</span>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a
+          class="ui-button ui-outlined ui-small"
+          href="#user-directory-tomas-email"
+          >Email</a
+        >
+        <a class="ui-button ui-small" href="#user-directory-tomas-chat"
+          >Message</a
+        >
+        <a
+          aria-label="Call Tomás"
+          class="ui-button ui-rounded ui-small"
+          href="#user-directory-tomas-call"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path></svg
+        ></a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="user-directory-footer">
+    <p>Showing 8 of 48 people</p>
+    <button class="ui-button ui-outlined" type="button">Load more</button>
+  </div>
+</div>

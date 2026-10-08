@@ -12,7 +12,7 @@ import { TextField } from "opui-css/vue"
   </TextField>
 
   <TextField
-    filled
+    variant="filled"
     label="Emails"
     list="users-email"
     placeholder="Placeholder"

@@ -1,0 +1,606 @@
+<style>
+  .checkout {
+    container-type: inline-size;
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    .checkout-title {
+      margin-block-end: var(--size-5);
+    }
+
+    .checkout-layout {
+      align-items: start;
+      display: grid;
+      gap: var(--size-6);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 56rem) {
+        gap: var(--size-8);
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+    }
+
+    .checkout-row {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    }
+
+    .checkout-delivery {
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .checkout-price {
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .checkout-payment .ui-tab-panel {
+      padding-block-start: var(--size-4);
+    }
+
+    .checkout-alt-pay {
+      color: var(--text-muted);
+      font-size: var(--font-size-1);
+      margin: 0;
+    }
+
+    .checkout-submit {
+      inline-size: 100%;
+      justify-content: center;
+    }
+
+    .checkout-secure {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-1);
+      justify-content: center;
+      margin: 0;
+
+      svg {
+        block-size: var(--size-3);
+        inline-size: var(--size-3);
+      }
+    }
+
+    .checkout-summary {
+      @container (inline-size >= 56rem) {
+        inset-block-start: var(--size-4);
+        position: sticky;
+      }
+    }
+
+    .checkout-items {
+      margin: 0;
+      padding-block: 0;
+    }
+
+    .checkout-thumb {
+      aspect-ratio: 1;
+      border-radius: var(--radius-2);
+      inline-size: var(--size-8);
+    }
+
+    .checkout-thumb-1 {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        oklch(from var(--primary) l c calc(h + 60))
+      );
+    }
+
+    .checkout-thumb-2 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h - 80)),
+        oklch(from var(--primary) l c calc(h - 30))
+      );
+    }
+
+    .checkout-thumb-3 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h + 140)),
+        oklch(from var(--primary) l c calc(h + 190))
+      );
+    }
+
+    .checkout-discount {
+      align-items: end;
+      display: flex;
+      gap: var(--size-2);
+
+      .ui-text-field {
+        flex: 1;
+      }
+    }
+
+    .checkout-totals {
+      display: grid;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      margin: 0;
+
+      div {
+        display: flex;
+        gap: var(--size-3);
+        justify-content: space-between;
+      }
+
+      dt {
+        color: var(--text-muted);
+      }
+
+      dd {
+        font-variant-numeric: tabular-nums;
+        margin: 0;
+      }
+
+      .checkout-total {
+        border-block-start: var(--border-width) solid var(--border-color);
+        font-size: var(--font-size-3);
+        font-weight: var(--font-weight-bold);
+        margin-block-start: var(--size-2);
+        padding-block-start: var(--size-3);
+
+        dd,
+        dt {
+          color: var(--text-primary);
+        }
+      }
+    }
+
+    .checkout-summary .ui-content {
+      display: grid;
+      gap: var(--size-4);
+    }
+  }
+</style>
+
+<div class="checkout">
+  <hgroup class="ui-hgroup checkout-title">
+    <p>Fjällgården Outdoor</p>
+    <h1 class="ui-h3">Checkout</h1>
+  </hgroup>
+
+  <div class="checkout-layout">
+    <form class="ui-form" action="#">
+      <fieldset class="ui-fieldset">
+        <legend>Contact</legend>
+        <div class="ui-field-group">
+          <label class="ui-text-field">
+            <span class="ui-label">Email</span>
+            <span class="ui-field">
+              <input
+                autocomplete="email"
+                id="checkout-email"
+                name="email"
+                placeholder="you@example.com"
+                required
+                type="email"
+                value="astrid.lindqvist@example.com"
+              />
+            </span>
+          </label>
+          <label class="ui-checkbox">
+            <input id="checkout-news" name="news" type="checkbox" checked />
+            <span class="ui-label">Email me about new arrivals and offers</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="ui-fieldset">
+        <legend>Shipping address</legend>
+        <div class="ui-field-group">
+          <div class="checkout-row">
+            <label class="ui-text-field">
+              <span class="ui-label">First name</span>
+              <span class="ui-field">
+                <input
+                  autocomplete="given-name"
+                  name="first-name"
+                  required
+                  type="text"
+                  value="Astrid"
+                />
+              </span>
+            </label>
+            <label class="ui-text-field">
+              <span class="ui-label">Last name</span>
+              <span class="ui-field">
+                <input
+                  autocomplete="family-name"
+                  name="last-name"
+                  required
+                  type="text"
+                  value="Lindqvist"
+                />
+              </span>
+            </label>
+          </div>
+          <label class="ui-text-field">
+            <span class="ui-label">Street address</span>
+            <span class="ui-field">
+              <input
+                autocomplete="address-line1"
+                name="address"
+                required
+                type="text"
+                value="Hornsgatan 64"
+              />
+            </span>
+          </label>
+          <div class="checkout-row">
+            <label class="ui-text-field">
+              <span class="ui-label">Postal code</span>
+              <span class="ui-field">
+                <input
+                  autocomplete="postal-code"
+                  inputmode="numeric"
+                  name="postal-code"
+                  required
+                  type="text"
+                  value="118 49"
+                />
+              </span>
+            </label>
+            <label class="ui-text-field">
+              <span class="ui-label">City</span>
+              <span class="ui-field">
+                <input
+                  autocomplete="address-level2"
+                  name="city"
+                  required
+                  type="text"
+                  value="Stockholm"
+                />
+              </span>
+            </label>
+          </div>
+          <div class="checkout-row">
+            <label class="ui-select">
+              <span class="ui-label" id="checkout-country-label">Country</span>
+              <span class="ui-field">
+                <select
+                  aria-labelledby="checkout-country-label"
+                  autocomplete="country-name"
+                  name="country"
+                >
+                  <button type="button">
+                    <selectedcontent></selectedcontent>
+                  </button>
+                  <div class="ui-list">
+                    <option value="dk">Denmark</option>
+                    <option value="fi">Finland</option>
+                    <option value="no">Norway</option>
+                    <option value="se" selected>Sweden</option>
+                  </div>
+                </select>
+              </span>
+            </label>
+            <label class="ui-text-field">
+              <span class="ui-label">Phone</span>
+              <span class="ui-field">
+                <input
+                  aria-describedby="checkout-phone-hint"
+                  autocomplete="tel"
+                  name="phone"
+                  type="tel"
+                  value="070 123 45 67"
+                />
+              </span>
+              <span class="ui-end-text" id="checkout-phone-hint"
+                >For delivery updates only</span
+              >
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="ui-fieldset">
+        <legend>Delivery</legend>
+        <ul class="ui-list ui-bordered ui-transparent checkout-delivery">
+          <li>
+            <label class="ui-radio" for="checkout-delivery-standard">
+              <div class="ui-text">
+                <p>Standard · <span class="checkout-price">€4.90</span></p>
+                <p>3–5 business days to a pickup point</p>
+              </div>
+              <div class="ui-end">
+                <input
+                  checked
+                  id="checkout-delivery-standard"
+                  name="checkout-delivery"
+                  type="radio"
+                  value="standard"
+                />
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="ui-radio" for="checkout-delivery-home">
+              <div class="ui-text">
+                <p>Home delivery · <span class="checkout-price">€9.90</span></p>
+                <p>2–3 business days, evening slot</p>
+              </div>
+              <div class="ui-end">
+                <input
+                  id="checkout-delivery-home"
+                  name="checkout-delivery"
+                  type="radio"
+                  value="home"
+                />
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="ui-radio" for="checkout-delivery-express">
+              <div class="ui-text">
+                <p>Express · <span class="checkout-price">€19.00</span></p>
+                <p>Next business day if ordered before 14:00</p>
+              </div>
+              <div class="ui-end">
+                <input
+                  id="checkout-delivery-express"
+                  name="checkout-delivery"
+                  type="radio"
+                  value="express"
+                />
+              </div>
+            </label>
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset class="ui-fieldset">
+        <legend>Payment</legend>
+        <div class="ui-tabs checkout-payment">
+          <input
+            checked
+            class="ui-tab-input"
+            id="checkout-pay-card"
+            name="checkout-payment"
+            type="radio"
+            value="card"
+          />
+          <label class="ui-tab-label" for="checkout-pay-card">Card</label>
+          <div class="ui-tab-panel">
+            <div class="ui-field-group">
+              <label class="ui-text-field">
+                <span class="ui-label">Card number</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="cc-number"
+                    inputmode="numeric"
+                    name="card-number"
+                    placeholder="1234 1234 1234 1234"
+                    type="text"
+                  />
+                  <span class="ui-prefix">
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2m0 14H4v-6h16zm0-10H4V6h16z"
+                      ></path>
+                    </svg>
+                  </span>
+                </span>
+              </label>
+              <div class="checkout-row">
+                <label class="ui-text-field">
+                  <span class="ui-label">Expiry date</span>
+                  <span class="ui-field">
+                    <input
+                      autocomplete="cc-exp"
+                      inputmode="numeric"
+                      name="card-expiry"
+                      placeholder="MM / YY"
+                      type="text"
+                    />
+                  </span>
+                </label>
+                <label class="ui-text-field">
+                  <span class="ui-label">Security code</span>
+                  <span class="ui-field">
+                    <input
+                      autocomplete="cc-csc"
+                      inputmode="numeric"
+                      name="card-cvc"
+                      placeholder="CVC"
+                      type="text"
+                    />
+                  </span>
+                </label>
+              </div>
+              <label class="ui-checkbox">
+                <input name="billing-same" type="checkbox" checked />
+                <span class="ui-label"
+                  >Billing address is the same as shipping</span
+                >
+              </label>
+            </div>
+          </div>
+
+          <input
+            class="ui-tab-input"
+            id="checkout-pay-invoice"
+            name="checkout-payment"
+            type="radio"
+            value="invoice"
+          />
+          <label class="ui-tab-label" for="checkout-pay-invoice">Invoice</label>
+          <div class="ui-tab-panel">
+            <p class="checkout-alt-pay">
+              Pay within 30 days of delivery. We'll email the invoice to
+              astrid.lindqvist@example.com once your order ships.
+            </p>
+          </div>
+
+          <input
+            class="ui-tab-input"
+            id="checkout-pay-wallet"
+            name="checkout-payment"
+            type="radio"
+            value="wallet"
+          />
+          <label class="ui-tab-label" for="checkout-pay-wallet">Wallet</label>
+          <div class="ui-tab-panel">
+            <p class="checkout-alt-pay">
+              You'll confirm the payment in your wallet app after placing the
+              order.
+            </p>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="ui-field-group">
+        <button
+          class="ui-button ui-filled ui-large checkout-submit"
+          type="submit"
+        >
+          Pay €154.30
+        </button>
+        <p class="checkout-secure">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2m-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1z"
+            ></path>
+          </svg>
+          Payments are encrypted and processed securely
+        </p>
+      </div>
+    </form>
+
+    <section
+      aria-labelledby="checkout-summary-heading"
+      class="ui-card ui-outlined checkout-summary"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="checkout-summary-heading">Order summary</h2>
+        <p>3 items</p>
+      </hgroup>
+      <div class="ui-content">
+        <ul class="ui-list ui-transparent ui-gutterless checkout-items">
+          <li>
+            <div class="ui-start">
+              <div
+                aria-label="Merino base layer in Pine"
+                class="checkout-thumb checkout-thumb-1"
+                role="img"
+              ></div>
+            </div>
+            <div class="ui-text">
+              <p>Merino base layer</p>
+              <p>Pine · M · Qty 1</p>
+            </div>
+            <div class="ui-end checkout-price">€89.00</div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div
+                aria-label="Trail running cap in Sand"
+                class="checkout-thumb checkout-thumb-2"
+                role="img"
+              ></div>
+            </div>
+            <div class="ui-text">
+              <p>Trail running cap</p>
+              <p>Sand · One size · Qty 1</p>
+            </div>
+            <div class="ui-end checkout-price">€29.00</div>
+          </li>
+          <li>
+            <div class="ui-start">
+              <div
+                aria-label="Wool hiking socks in Fjord"
+                class="checkout-thumb checkout-thumb-3"
+                role="img"
+              ></div>
+            </div>
+            <div class="ui-text">
+              <p>Wool hiking socks</p>
+              <p>Fjord · 39–42 · Qty 2</p>
+            </div>
+            <div class="ui-end checkout-price">€48.00</div>
+          </li>
+        </ul>
+
+        <hr class="ui-divider" />
+
+        <div class="checkout-discount">
+          <label class="ui-text-field ui-small">
+            <span class="ui-label">Discount code</span>
+            <span class="ui-field">
+              <input name="discount" type="text" value="HOSTEN10" />
+            </span>
+          </label>
+          <button class="ui-button ui-outlined ui-small" type="button">
+            Apply
+          </button>
+        </div>
+
+        <dl class="checkout-totals">
+          <div>
+            <dt>Subtotal</dt>
+            <dd>€166.00</dd>
+          </div>
+          <div>
+            <dt>Discount (HOSTEN10)</dt>
+            <dd>−€16.60</dd>
+          </div>
+          <div>
+            <dt>Shipping</dt>
+            <dd>€4.90</dd>
+          </div>
+          <div>
+            <dt>VAT (25%, included)</dt>
+            <dd>€30.86</dd>
+          </div>
+          <div class="checkout-total">
+            <dt>Total</dt>
+            <dd>€154.30</dd>
+          </div>
+        </dl>
+
+        <article class="ui-callout ui-info">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
+            ></path>
+          </svg>
+          <div class="ui-content">
+            <p>
+              Free returns within 60 days. Need help?
+              <a class="ui-link" href="#checkout-support">Chat with us</a>.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>

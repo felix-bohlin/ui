@@ -19,13 +19,17 @@
     }
 
     .ui-item {
+      align-items: baseline;
       display: grid;
+      gap: var(--size-1);
+      grid-template-columns: auto auto;
+      justify-content: space-between;
       margin: 0;
       overflow-wrap: anywhere;
       padding: 0;
 
       & + .ui-item {
-        margin-block-start: var(--size-3);
+        margin-block-start: var(--size-1);
       }
 
       dt,
@@ -37,48 +41,53 @@
       }
 
       dd {
+        color: var(--text-muted);
         margin: 0;
         padding: 0;
+        text-align: end;
       }
     }
 
-    @container (width > 45ch) {
-      .ui-item {
-        align-items: baseline;
-        display: grid;
-        gap: var(--size-1);
-        grid-template-columns: auto auto;
-        justify-content: space-between;
+    &.ui-bordered > .ui-item {
+      grid-template-columns: auto 1fr auto;
 
-        & + .ui-item {
-          margin-block-start: var(--size-1);
-        }
-
-        dd {
-          color: var(--text-muted);
-          text-align: end;
-        }
+      dt,
+      .ui-term {
+        order: 0;
       }
 
-      &.ui-bordered > .ui-item {
-        grid-template-columns: auto 1fr auto;
+      dd {
+        order: 2;
+      }
 
-        dt,
-        .ui-term {
-          order: 0;
+      &::after {
+        background-color: transparent;
+        block-size: 2px;
+        border-block-end: var(--_border-width) var(--_border-style)
+          var(--border-color);
+        content: "";
+        order: 1;
+      }
+    }
+
+    @container (width <= 45ch) {
+      &:not(.ui-inline) > .ui-item {
+        align-items: normal;
+        gap: 0;
+        grid-template-columns: none;
+        justify-content: normal;
+
+        & + .ui-item {
+          margin-block-start: var(--size-3);
         }
 
         dd {
-          order: 2;
+          color: inherit;
+          text-align: start;
         }
 
         &::after {
-          background-color: transparent;
-          block-size: 2px;
-          border-block-end: var(--_border-width) var(--_border-style)
-            var(--border-color);
-          content: "";
-          order: 1;
+          content: none;
         }
       }
     }

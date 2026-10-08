@@ -1,0 +1,108 @@
+---
+import Blocks from "../../layouts/Blocks.astro"
+import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
+---
+
+<Blocks
+  description="Bigger pieces of UI built from the components, ready to copy into a project."
+  overline=""
+  wide
+>
+  <Fragment slot="title">Blocks</Fragment>
+  <Fragment slot="preamble">
+    Very generic SaaS'y-looking blocks, but they are fully functional and if
+    nothing else shows you how the components play together in different
+    scenarios.
+  </Fragment>
+
+  {
+    blockGroups.map((group) => (
+      <section class="ui-not-rich-text">
+        <h2 id={group.id}>{group.label}</h2>
+        <ul class="block-grid">
+          {group.blocks.map((block) => (
+            <li>
+              <article class="ui-card ui-outlined">
+                <div class="block-thumbnail">
+                  <iframe
+                    inert
+                    loading="lazy"
+                    src={blockPreviewHref(block.slug)}
+                    tabindex="-1"
+                    title={`${block.name} preview`}
+                  />
+                </div>
+                <hgroup>
+                  <h3>
+                    <a class="ui-card-link" href={blockHref(block.slug)}>
+                      {block.name}
+                    </a>
+                  </h3>
+                  <p>{block.description}</p>
+                </hgroup>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</Blocks>
+
+<style>
+  section + section {
+    margin-block-start: var(--size-8);
+  }
+
+  h2 {
+    font-size: var(--font-size-4);
+    margin-block-end: var(--size-4);
+  }
+
+  .block-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .ui-card {
+      block-size: 100%;
+      gap: 0;
+      padding-block-end: var(--size-3);
+    }
+
+    hgroup {
+      h3 {
+        font-size: var(--font-size-2);
+      }
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-05);
+        line-height: var(--font-lineheight-3);
+        margin-block-start: var(--size-1);
+      }
+    }
+  }
+
+  .block-thumbnail {
+    aspect-ratio: 16 / 10;
+    background-color: var(--surface-default);
+    border-block-end: var(--border-width) solid var(--border-color);
+    container-type: inline-size;
+    overflow: hidden;
+    pointer-events: none;
+
+    iframe {
+      block-size: 800px;
+      border: 0;
+      color-scheme: normal;
+      display: block;
+      inline-size: 1280px;
+      transform: scale(tan(atan2(100cqi, 1280px)));
+      transform-origin: 0 0;
+    }
+  }
+</style>

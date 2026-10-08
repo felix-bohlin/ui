@@ -1,3 +1,9 @@
+@property --_thumb-size {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 24px;
+}
+
 @property --_track-fill {
   syntax: "<percentage>";
   inherits: true;
@@ -7,6 +13,12 @@
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--motion, 1);
+    --_thumb-size: 3ex;
+
+    @media (hover: none) {
+      --_thumb-size: 30px;
+    }
+
     display: grid;
     gap: var(--size-1) 0;
     grid-template-columns: 1fr auto;
@@ -55,8 +67,8 @@
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
-      margin-top: calc(var(--size-1) * -1);
-      padding-inline: calc(3ex / 2);
+      margin-block-start: calc(var(--size-1) * -1);
+      padding-inline: calc(var(--_thumb-size) / 2);
 
       & > option {
         display: flex;
@@ -84,10 +96,6 @@
     /* Color */
     &.ui-filled input[type="range"] {
       --_track-color: var(--surface-filled);
-    }
-
-    &.ui-default input[type="range"] {
-      --_track-color: var(--surface-default);
     }
 
     &.ui-tonal input[type="range"] {
@@ -137,15 +145,15 @@
         grid-row: 2;
       }
 
-      &:has(datalist) :where(.ui-end-text) {
+      &:where(:has(datalist), :has(.ui-value)) :where(.ui-end-text) {
         grid-row: 3;
       }
 
-      &:has(.ui-value) :where(.ui-end-text) {
+      &:where(:has(.ui-value)) datalist {
         grid-row: 3;
       }
 
-      &:has(.ui-value):has(datalist) :where(.ui-end-text) {
+      &:where(:has(.ui-value):has(datalist)) :where(.ui-end-text) {
         grid-row: 4;
       }
 
@@ -190,8 +198,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       .ui-start-text,
       .ui-end-text,
       .ui-value {
@@ -201,11 +208,10 @@
 
     /* Range input */
     :where(& > input[type="range"]) {
-      --_thumb-bg: var(--primary);
+      --_thumb-bg-color: var(--primary);
       --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
       --_thumb-offset: -1.125ex;
-      --_thumb-size: 3ex;
       --_track-color: var(--field-border-color);
       --_track-fill: 0%;
       --_track-fill-color: var(--primary);
@@ -223,7 +229,6 @@
 
       @media (hover: none) {
         --_thumb-offset: -11.5px;
-        --_thumb-size: 30px;
       }
 
       @supports (animation-timeline: view()) {
@@ -232,9 +237,11 @@
           var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
         );
 
-        animation: ui-range-fill linear both;
+        animation-fill-mode: both;
+        animation-name: ui-range-fill;
         animation-range: contain;
         animation-timeline: --ui-range-thumb;
+        animation-timing-function: linear;
         box-sizing: content-box;
         margin: calc(var(--_inset) * -1);
         outline-offset: calc(1ex - var(--_inset));
@@ -242,8 +249,16 @@
         padding: var(--_inset);
         timeline-scope: --ui-range-thumb;
 
+        &:focus-visible {
+          animation-duration: auto, calc(var(--duration) * var(--_motion));
+          animation-name: ui-range-fill, ui-focus-ring;
+          animation-range: contain, normal;
+          animation-timeline: --ui-range-thumb, auto;
+          animation-timing-function: linear, var(--ease);
+        }
+
         &:dir(rtl) {
-          animation-direction: reverse;
+          animation-direction: reverse, normal;
         }
 
         &::-webkit-slider-thumb {
@@ -287,7 +302,7 @@
       /* Ring */
       &::-webkit-slider-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -303,7 +318,7 @@
 
       &::-moz-range-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -318,9 +333,8 @@
       }
 
       /* Element state */
-      .ui-range:has(:user-invalid) &,
-      .ui-range[data-invalid] & {
-        --_thumb-bg: var(--invalid-color);
+      .ui-range:has([aria-invalid="true"], :user-invalid) & {
+        --_thumb-bg-color: var(--invalid-color);
         --_thumb-highlight-color: oklch(
           from var(--invalid-color) 70% 100% h / 20%
         );
@@ -328,8 +342,10 @@
       }
 
       &:not([disabled]) {
-        &:hover {
-          --_thumb-highlight-size: var(--size-1);
+        @media (hover: hover) {
+          &:hover {
+            --_thumb-highlight-size: var(--size-1);
+          }
         }
 
         &:active {
@@ -342,7 +358,7 @@
       }
 
       &[disabled] {
-        --_thumb-bg: oklch(from var(--text-primary) l c h / 50%);
+        --_thumb-bg-color: oklch(from var(--text-primary) l c h / 50%);
         --_track-color: var(--field-border-color);
 
         cursor: not-allowed;

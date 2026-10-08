@@ -1,0 +1,844 @@
+<style>
+  .inbox {
+    container-type: inline-size;
+
+    .inbox-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-2) var(--size-3);
+
+      .ui-text-field {
+        flex: 1;
+        max-inline-size: 28rem;
+      }
+    }
+
+    .inbox-menu-button {
+      @container (inline-size >= 72rem) {
+        display: none;
+      }
+    }
+
+    .inbox-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      margin-inline-end: auto;
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    .inbox-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 72rem) {
+        grid-template-columns: 14rem minmax(0, 1fr);
+      }
+    }
+
+    .inbox-folders {
+      border-inline-end: var(--border-width) solid var(--border-color);
+      display: none;
+      padding: var(--size-3) var(--size-2);
+
+      @container (inline-size >= 72rem) {
+        display: block;
+      }
+
+      .ui-button {
+        inline-size: 100%;
+        justify-content: center;
+        margin-block-end: var(--size-2);
+      }
+    }
+
+    .inbox-label-heading {
+      padding: var(--size-3) var(--size-3) 0;
+    }
+
+    .inbox-dot {
+      background-color: var(--dot);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      inline-size: var(--size-2);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 48rem) {
+        grid-template-columns: 20rem minmax(0, 1fr);
+      }
+
+      @container (inline-size >= 72rem) {
+        grid-template-columns: 22rem minmax(0, 1fr);
+      }
+    }
+
+    .inbox-list {
+      border-block-end: var(--border-width) solid var(--border-color);
+
+      @container (inline-size >= 48rem) {
+        border-block-end: 0;
+        border-inline-end: var(--border-width) solid var(--border-color);
+      }
+    }
+
+    .inbox-list-header {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+      justify-content: space-between;
+      padding: var(--size-3) var(--size-3) var(--size-1);
+
+      h1 {
+        margin: 0;
+      }
+    }
+
+    .inbox-messages {
+      .ui-text p:first-child {
+        display: flex;
+        gap: var(--size-2);
+        justify-content: space-between;
+      }
+
+      time {
+        color: var(--text-muted);
+        flex-shrink: 0;
+        font-size: var(--font-size-0);
+      }
+
+      .inbox-subject {
+        color: var(--text-primary);
+        font-size: var(--font-size-05);
+      }
+
+      .inbox-snippet {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .inbox-unread {
+      .ui-text p:first-child span,
+      .inbox-subject {
+        font-weight: var(--font-weight-semibold);
+      }
+
+      .ui-start::before {
+        background-color: var(--primary);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--size-2);
+        inset-block-start: 50%;
+        inset-inline-start: calc(var(--size-2) * -1.25);
+        position: absolute;
+        translate: 0 -50%;
+      }
+
+      .ui-start {
+        position: relative;
+      }
+    }
+
+    .inbox-reader {
+      display: grid;
+      gap: var(--size-4);
+      padding: var(--size-4);
+
+      @container (inline-size >= 48rem) {
+        padding: var(--size-5);
+      }
+    }
+
+    .inbox-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        gap: var(--size-1);
+      }
+    }
+
+    .inbox-reader-title {
+      display: grid;
+      gap: var(--size-2);
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .inbox-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+    }
+
+    .inbox-sender {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .inbox-sender-info {
+      flex: 1;
+      min-inline-size: 0;
+    }
+
+    .inbox-body {
+      display: grid;
+      gap: var(--size-3);
+      max-inline-size: 42rem;
+
+      p,
+      ul {
+        margin: 0;
+      }
+    }
+
+    .inbox-attachments {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .inbox-reply {
+      display: grid;
+      gap: var(--size-2);
+      max-inline-size: 42rem;
+
+      .ui-button {
+        justify-self: end;
+      }
+    }
+  }
+</style>
+
+<div class="inbox">
+  <header class="inbox-header">
+    <button
+      aria-label="Open folders"
+      class="ui-button ui-rounded ui-small inbox-menu-button"
+      command="show-modal"
+      commandfor="inbox-drawer"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+        ></path>
+      </svg>
+    </button>
+    <a class="inbox-brand" href="#inbox">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 4-8 5-8-5V6l8 5 8-5z"
+        ></path>
+      </svg>
+      Postbox
+    </a>
+    <div class="ui-text-field ui-small">
+      <span class="ui-field">
+        <input
+          aria-label="Search mail"
+          name="inbox-search"
+          placeholder="Search mail"
+          type="search"
+        />
+        <span class="ui-prefix">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <div class="ui-avatar" role="img" aria-label="Linnea Ek">LE</div>
+  </header>
+
+  <div class="inbox-layout">
+    <nav aria-label="Folders" class="inbox-folders">
+      <button class="ui-button ui-filled" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+          ></path></svg
+        ><span class="ui-text">Compose</span>
+      </button>
+      <ul class="ui-list ui-dense ui-transparent">
+        <li>
+          <a aria-current="page" href="#inbox-folder-inbox">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 12h-4a3 3 0 0 1-6 0H5V5h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Inbox</p></div>
+            <div class="ui-end">3</div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-starred">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Starred</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-sent">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Sent</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-drafts">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Drafts</p></div>
+            <div class="ui-end">2</div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-archive">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20.54 5.23 19.15 3.55A1.45 1.45 0 0 0 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23A2 2 0 0 0 3 6.5V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.5c0-.48-.17-.93-.46-1.27M12 17.5 6.5 12H10v-2h4v2h3.5zM5.12 5l.81-1h12l.94 1z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Archive</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-trash">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Trash</p></div>
+          </a>
+        </li>
+      </ul>
+      <p class="ui-overline inbox-label-heading" id="inbox-labels-heading">
+        Labels
+      </p>
+      <ul
+        aria-labelledby="inbox-labels-heading"
+        class="ui-list ui-dense ui-transparent"
+      >
+        <li>
+          <a href="#inbox-label-clients">
+            <div class="ui-start">
+              <span class="inbox-dot" style="--dot: var(--info)"></span>
+            </div>
+            <div class="ui-text"><p>Clients</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-label-invoices">
+            <div class="ui-start">
+              <span class="inbox-dot" style="--dot: var(--success)"></span>
+            </div>
+            <div class="ui-text"><p>Invoices</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-label-team">
+            <div class="ui-start">
+              <span class="inbox-dot" style="--dot: var(--warning)"></span>
+            </div>
+            <div class="ui-text"><p>Team</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <section aria-labelledby="inbox-heading" class="inbox-list">
+        <div class="inbox-list-header">
+          <h1 class="ui-h5" id="inbox-heading">Inbox</h1>
+          <span class="ui-caption">3 unread</span>
+        </div>
+        <ul class="ui-list ui-transparent inbox-messages">
+          <li class="inbox-unread">
+            <a aria-current="page" href="#inbox-message-1">
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Henrik Aalto">
+                  HA
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>
+                  <span>Henrik Aalto</span>
+                  <time datetime="2026-10-08T09:41">09:41</time>
+                </p>
+                <p class="inbox-subject">
+                  <span class="ui-sr-only">Unread: </span>Signed contract and
+                  next steps
+                </p>
+                <p class="inbox-snippet">
+                  Great news, legal approved everything on our side. Attached is
+                  the signed copy…
+                </p>
+              </div>
+            </a>
+          </li>
+          <li class="inbox-unread">
+            <a href="#inbox-message-2">
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Camille Durand">
+                  CD
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>
+                  <span>Camille Durand</span>
+                  <time datetime="2026-10-08T08:12">08:12</time>
+                </p>
+                <p class="inbox-subject">
+                  <span class="ui-sr-only">Unread: </span>Workshop agenda for
+                  Thursday
+                </p>
+                <p class="inbox-snippet">
+                  Here's a rough plan for the morning. Let me know if we should
+                  swap the second block…
+                </p>
+              </div>
+            </a>
+          </li>
+          <li class="inbox-unread">
+            <a href="#inbox-message-3">
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Billing">B</div>
+              </div>
+              <div class="ui-text">
+                <p>
+                  <span>Billing</span>
+                  <time datetime="2026-10-07T17:30">Yesterday</time>
+                </p>
+                <p class="inbox-subject">
+                  <span class="ui-sr-only">Unread: </span>Invoice #2026-0412 is
+                  ready
+                </p>
+                <p class="inbox-snippet">
+                  Your invoice for September (4 280 SEK) is now available to
+                  download.
+                </p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#inbox-message-4">
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Sofia Rossi">
+                  SR
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>
+                  <span>Sofia Rossi</span>
+                  <time datetime="2026-10-06T14:05">Mon</time>
+                </p>
+                <p class="inbox-subject">Re: Photos from the offsite</p>
+                <p class="inbox-snippet">
+                  Haha, the one by the lake is my favourite. Uploading the rest
+                  tonight.
+                </p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#inbox-message-5">
+              <div class="ui-start">
+                <div class="ui-avatar" role="img" aria-label="Magnus Strand">
+                  MS
+                </div>
+              </div>
+              <div class="ui-text">
+                <p>
+                  <span>Magnus Strand</span>
+                  <time datetime="2026-10-03T11:20">3 Oct</time>
+                </p>
+                <p class="inbox-subject">Q4 roadmap review</p>
+                <p class="inbox-snippet">
+                  Thanks everyone for the input. I've summarised the decisions
+                  below.
+                </p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <article aria-labelledby="inbox-subject" class="inbox-reader">
+        <div class="inbox-toolbar">
+          <div role="group" aria-label="Message actions">
+            <button
+              aria-label="Archive"
+              class="ui-button ui-rounded ui-small"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20.54 5.23 19.15 3.55A1.45 1.45 0 0 0 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23A2 2 0 0 0 3 6.5V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.5c0-.48-.17-.93-.46-1.27M12 17.5 6.5 12H10v-2h4v2h3.5zM5.12 5l.81-1h12l.94 1z"
+                ></path>
+              </svg>
+            </button>
+            <button
+              aria-label="Delete"
+              class="ui-button ui-rounded ui-small"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                ></path>
+              </svg>
+            </button>
+            <button
+              aria-label="Star"
+              aria-pressed="false"
+              class="ui-button ui-rounded ui-small"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div>
+            <button class="ui-button ui-outlined ui-small" type="button">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11"
+                ></path></svg
+              ><span class="ui-text">Reply</span>
+            </button>
+            <button class="ui-button ui-outlined ui-small" type="button">
+              <span class="ui-text">Forward</span
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M14 9V5l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="inbox-reader-title">
+          <h2 class="ui-h4" id="inbox-subject">
+            Signed contract and next steps
+          </h2>
+          <div class="inbox-labels">
+            <span class="ui-chip ui-outlined ui-small">
+              <span class="inbox-dot" style="--dot: var(--info)"></span>
+              <span class="ui-text">Clients</span>
+            </span>
+            <span class="ui-chip ui-outlined ui-small">
+              <span class="ui-text">Inbox</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="inbox-sender">
+          <div class="ui-avatar" role="img" aria-label="Henrik Aalto">HA</div>
+          <div class="inbox-sender-info">
+            <p>
+              <strong>Henrik Aalto</strong>
+              <span class="ui-caption">henrik@aalto-design.example</span>
+            </p>
+            <p class="ui-caption">To you and Oskar Lind</p>
+          </div>
+          <time class="ui-caption" datetime="2026-10-08T09:41"
+            >Wed 8 Oct, 09:41</time
+          >
+        </div>
+
+        <div class="inbox-body">
+          <p>Hi Linnea,</p>
+          <p>
+            Great news, legal approved everything on our side. Attached is the
+            signed copy of the agreement, plus the updated timeline we talked
+            about on Monday.
+          </p>
+          <p>Next steps from our end:</p>
+          <ul>
+            <li>Kick-off workshop in Helsinki on 15 October</li>
+            <li>First design review in week 44</li>
+            <li>Invoices go to accounts@aalto-design.example</li>
+          </ul>
+          <p>Looking forward to getting started!</p>
+          <p>Henrik</p>
+        </div>
+
+        <div class="inbox-attachments">
+          <a class="ui-chip ui-outlined" href="#inbox-attachment-contract">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"
+              ></path>
+            </svg>
+            <span class="ui-text">Agreement-signed.pdf · 1.2 MB</span>
+          </a>
+          <a class="ui-chip ui-outlined" href="#inbox-attachment-timeline">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"
+              ></path>
+            </svg>
+            <span class="ui-text">Timeline-v3.pdf · 340 KB</span>
+          </a>
+        </div>
+
+        <form action="#" class="inbox-reply">
+          <label class="ui-textarea">
+            <span class="ui-label">Reply to Henrik</span>
+            <span class="ui-field">
+              <textarea
+                name="inbox-reply"
+                placeholder="Write your reply…"
+              ></textarea>
+            </span>
+          </label>
+          <button class="ui-button ui-filled ui-small" type="submit">
+            Send
+          </button>
+        </form>
+      </article>
+    </main>
+  </div>
+
+  <dialog
+    aria-labelledby="inbox-drawer-heading"
+    class="ui-drawer ui-scroll-lock ui-inline-start"
+    closedby="any"
+    id="inbox-drawer"
+  >
+    <div class="ui-header">
+      <h2 id="inbox-drawer-heading">Folders</h2>
+      <button
+        aria-label="Close folders"
+        class="ui-button ui-rounded ui-small"
+        command="close"
+        commandfor="inbox-drawer"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Folders" class="ui-content">
+      <ul class="ui-list ui-transparent">
+        <li>
+          <a aria-current="page" href="#inbox-folder-inbox">
+            <div class="ui-text"><p>Inbox</p></div>
+            <div class="ui-end">3</div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-starred">
+            <div class="ui-text"><p>Starred</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-sent">
+            <div class="ui-text"><p>Sent</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-drafts">
+            <div class="ui-text"><p>Drafts</p></div>
+            <div class="ui-end">2</div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-archive">
+            <div class="ui-text"><p>Archive</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#inbox-folder-trash">
+            <div class="ui-text"><p>Trash</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </dialog>
+</div>

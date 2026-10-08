@@ -8,7 +8,14 @@
     text-underline-offset: 2px;
 
     &[href] {
-      &:hover,
+      @media (hover: hover) {
+        &:hover {
+          color: light-dark(var(--primary-dark), var(--primary-light));
+          text-decoration-color: currentColor;
+          text-decoration-thickness: 3px;
+        }
+      }
+
       &:focus-visible {
         color: light-dark(var(--primary-dark), var(--primary-light));
         text-decoration-color: currentColor;

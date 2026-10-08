@@ -1,11 +1,24 @@
 # Drawer
 
-Slides in from the sides, top or bottom of the screen.
+Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
-### What's new
+## Anatomy
 
-- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.
-- Named by the header heading through `aria-labelledby`.
+- `<Drawer>`
+
+  Container element.
+
+- `v-slot:header`
+
+  The header. `DrawerHeader` renders it with a close button.
+
+- `v-slot:content`
+
+  The scrollable content.
+
+- `v-slot:footer`
+
+  The footer. `DrawerFooter` renders it.
 
 ## Usage
 
@@ -13,15 +26,16 @@ Change the opening side with the `side` prop.
 
 Put a `DrawerHeader` in the `header` slot to add a heading and a close button. Put actions in the `footer` slot, wrapped in a `DrawerFooter`.
 
-The backdrop is blurred by default. Use `backdrop="transparent"` to remove the blur effect.
+The header and footer stay put while the content scrolls, with a shadow on the scrolled edge.
 
-Page scrolling is locked by default when the drawer is open. Use the `scrollLock=` prop to allow scrolling while the drawer is open.
+The backdrop dims and blurs the page by default. Use `backdrop="transparent"` to keep the page behind it fully visible.
+
+Page scrolling is locked by default when the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. Use the `scrollLock={false}` prop to allow scrolling on every screen.
 
 ```vue
 <script setup lang="ts">
 import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="drawer-examples">
@@ -38,7 +52,6 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
       >Block End</Button
     >
   </div>
-
 
   <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
     <template #header>
@@ -72,7 +85,6 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
     >
   </Drawer>
 
-
   <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
     <template #header>
       <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
@@ -105,7 +117,6 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
     >
   </Drawer>
 
-
   <Drawer id="drawer-block-start" side="block-start" closedby="any">
     <template #header>
       <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
@@ -131,7 +142,6 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
       </DrawerFooter></template
     >
   </Drawer>
-
 
   <Drawer id="drawer-block-end" side="block-end" closedby="any">
     <template #header>
@@ -163,17 +173,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 
 ## How to close a drawer
 
-Use the `closedby` prop to control the closing behavior.
+Use the `closedby` prop to choose how the drawer can be closed.
 
-| Prop                      | Description                                                                                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `closedby="any"`          | Click anywhere outside of the drawer to close it.                                                                           |
-| `closedby="closerequest"` | Device-specific way to close, ex: `Esc` on desktop, back button on mobile, and whatever dismiss action assistive tools use. |
-| `closedby="none"`         | You have to handroll a closing solution yourself.                                                                           |
+| Value                      | Closes with                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `closedby="any"` (default) | A click outside the drawer, `Esc` or the platform's close request (like the back gesture on mobile), and your own close button. |
+| `closedby="closerequest"`  | `Esc` or the platform's close request, and your own close button. A click outside does nothing.                                 |
+| `closedby="none"`          | Only your own close button (`command="close"`), `close()` or a form with `method="dialog"`.                                     |
+
+The drawer sets `closedby="any"` when you leave it out.
 
 ## Accessibility
 
-- The drawer is named by the `heading` of a `DrawerHeader` in the `header` slot, through `aria-labelledby`. With your own heading, pass `aria-labelledby` or`aria-label` to `Drawer`.
+- The drawer is named by the `heading` of a `DrawerHeader` in the `header` slot, through `aria-labelledby`. With your own heading, pass `aria-labelledby` or `aria-label` to `Drawer`.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
 - Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 
@@ -181,34 +193,32 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Role & attributes
 
-| Role/attribute             | Usage                                                                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role="dialog"`            | Identifies the element that serves as the drawer container.                                                                                |
-| `aria-labelledby="IDREF"`  | Gives the drawer an accessible name by referring to the element that provides the drawer title.                                            |
-| `aria-describedby="IDREF"` | Gives the drawer an accessible description by referring to the drawer content that describes the primary message or purpose of the drawer. |
-| `aria-modal="true"`        | Tells assistive technologies that the windows underneath the current drawer are not available for interaction (inert).                     |
+Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+
+| Role/attribute             | Usage                                                                                                                                                |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aria-labelledby="IDREF"`  | Gives the drawer an accessible name by referring to the element that provides the drawer title.                                                      |
+| `aria-describedby="IDREF"` | Optional. Gives the drawer an accessible description by referring to the drawer content that describes the primary message or purpose of the drawer. |
 
 ### Keyboard support
 
-| Key           | Function                                                                                                                                                                              |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Tab`         | - Moves focus to next focusable element inside the drawer.
-- When focus is on the last focusable element in the drawer, moves focus to the first focusable element in the drawer.     |
-| `Shift + Tab` | * Moves focus to previous focusable element inside the drawer.
-* When focus is on the first focusable element in the drawer, moves focus to the last focusable element in the drawer. |
-| `Esc`         | Closes the drawer.                                                                                                                                                                    |
+| Key           | Function                                                                                                                                                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Tab`         | Moves focus to the next focusable element in the drawer. After the last one, focus moves to the browser's own controls (like the address bar), then back to the first element in the drawer. The page behind it is inert. |
+| `Shift + Tab` | Moves focus to the previous focusable element. Before the first one, focus moves to the browser's controls, then to the last element in the drawer.                                                                       |
+| `Esc`         | Closes the drawer, unless `closedby="none"`, and returns focus to the element that opened it.                                                                                                                             |
 
 ## API
 
 ### Drawer API
 
-| Prop         | Type                                                             | Default          | Description                                                              |
-| ------------ | ---------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------ |
-| `backdrop`   | `"transparent"`, `"blurred"`                                     | `"blurred"`      | The backdrop style.                                                      |
-| `closedby`   | `"none"`, `"any"`, `"closerequest"`                              | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside. |
-| `id`         | `string`                                                         | -                | The id of the `<dialog>`. Generated when omitted.                        |
-| `scrollLock` | `boolean`                                                        | `true`           | Locks page scroll while the drawer is open.                              |
-| `side`       | `"inline-start"`, `"inline-end"`, `"block-start"`, `"block-end"` | `"inline-start"` | The side it opens from.                                                  |
+| Prop         | Type                                                                | Default          | Description                                                                                                                               |
+| ------------ | ------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
+| `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
+| `side`       | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
 #### Slots
 
@@ -221,17 +231,17 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+| Variable            | Default                                     | Description                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -253,17 +263,17 @@ Attributes that aren't props go to the `<dialog>`.
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+| Variable            | Default                                     | Description                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -277,26 +287,29 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+| Variable            | Default                                     | Description                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
 
+Read the post: [Sliding drawers with @starting-style](https://open-props-ui.netlify.app/learn/drawer-starting-style)
+
 1. Modal
 
    - A drawer is a modal `<dialog>`: top layer, focus trap and `Esc` for free
    - `closedby="any"` closes it on a click outside
+   - `aria-labelledby` names it after its heading
    - `:not([open])` brings back the `display: none` that `display: flex` overrode
 
 2. Edge
@@ -305,30 +318,46 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
    - Logical properties: `inline-start` is the left in LTR and the right in RTL
    - `dvb` and `dvi` follow the mobile browser toolbar
 
-3. Slide
+3. Shadow
+
+   - Scroll the filters: a shadow shows on each edge with more to scroll
+   - `container-type: scroll-state` lets the pseudo-elements ask which way `.content` can scroll
+   - `anchor()` pins them to the edges of `.content`, so they don't scroll away
+
+4. Slide
 
    - Closed, it waits just past its edge
    - `@starting-style` slides it in from there
    - `allow-discrete` keeps `display` and `overlay` alive until it has slid out
    - `--dir` flips to `-1` under `:dir(rtl)`
 
-4. Backdrop
+5. Backdrop
 
    - `::backdrop` gets its own transition, in step with the drawer
    - `backdrop-filter` blurs the page behind it
 
-Step 1 of 4: Modal
+Step 1 of 5: Modal
 
-- [\<dialog>](https://webstatus.dev/features/dialog) (Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
-- [\<dialog closedby>](https://webstatus.dev/features/dialog-closedby) (Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [\<dialog> ](https://webstatus.dev/features/dialog)(Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
+- [\<dialog closedby> ](https://webstatus.dev/features/dialog-closedby)(Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [`overscroll-behavior` ](https://webstatus.dev/features/overscroll-behavior)(Limited availability): Chrome 144+, Edge 144+, Firefox 150+, Safari not supported
 
 ```html
-<button commandfor="drawer" command="show-modal">Start</button>
+<button type="button" commandfor="drawer" command="show-modal">
+  Start
+</button>
 
-
-<dialog class="drawer inline-start" id="drawer" closedby="any">
-  <div class="header">…</div>
+<dialog
+  class="drawer inline-start"
+  id="drawer"
+  aria-labelledby="drawer-title"
+  closedby="any"
+>
+  <div class="header">
+    <h2 id="drawer-title">Filters</h2>
+    …
+  </div>
   <div class="content">…</div>
   <div class="footer">…</div>
 </dialog>
@@ -345,11 +374,9 @@ Step 1 of 4: Modal
   padding: 0;
 }
 
-
 .drawer:not([open]) {
   display: none;
 }
-
 
 .drawer > .content {
   flex: 1;
@@ -358,10 +385,10 @@ Step 1 of 4: Modal
 }
 ```
 
-Step 2 of 4: Edge
+Step 2 of 5: Edge
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [Small, large, and dynamic viewport units](https://webstatus.dev/features/viewport-unit-variants) (Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Small, large, and dynamic viewport units ](https://webstatus.dev/features/viewport-unit-variants)(Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
 
 ```css
 .drawer {
@@ -369,7 +396,6 @@ Step 2 of 4: Edge
   max-inline-size: 100%;
   position: fixed;
 }
-
 
 .drawer.inline-start {
   block-size: 100dvb;
@@ -379,7 +405,6 @@ Step 2 of 4: Edge
   inset-inline: 0 auto;
   max-block-size: 100%;
 }
-
 
 .drawer.block-end {
   block-size: min(80vb, 650px);
@@ -391,12 +416,60 @@ Step 2 of 4: Edge
 }
 ```
 
-Step 3 of 4: Slide
+Step 3 of 5: Shadow
 
-- [`:dir()`](https://webstatus.dev/features/dir-pseudo) (Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
-- [`overlay`](https://webstatus.dev/features/overlay) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Container scroll-state queries ](https://webstatus.dev/features/container-scroll-state-queries)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari not supported
+
+```css
+.drawer > .content {
+  anchor-name: --content;
+  container-type: scroll-state;
+}
+
+.drawer > .content::before,
+.drawer > .content::after {
+  block-size: 0.5rem;
+  box-shadow: var(--shadow-4);
+  clip-path: inset(100% 0 -2rem);
+  content: "";
+  inset-inline: anchor(--content inside);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.drawer > .content::before {
+  inset-block-end: anchor(--content outside);
+}
+
+.drawer > .content::after {
+  inset-block-start: anchor(--content outside);
+  scale: 1 -1;
+}
+
+@container scroll-state(scrollable: block-start) {
+  .drawer > .content::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: block-end) {
+  .drawer > .content::after {
+    opacity: 1;
+  }
+}
+```
+
+Step 4 of 5: Slide
+
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [display animation ](https://webstatus.dev/features/display-animation)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari 18+
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .drawer {
@@ -407,31 +480,25 @@ Step 3 of 4: Slide
     translate 0.2s;
 }
 
-
 .drawer:dir(rtl) {
   --dir: -1;
 }
-
 
 .drawer.inline-start {
   translate: calc(-100% * var(--dir)) 0;
 }
 
-
 .drawer.block-end {
   translate: 0 100%;
 }
 
-
 .drawer[open] {
   translate: 0 0;
-
 
   @starting-style {
     &.inline-start {
       translate: calc(-100% * var(--dir)) 0;
     }
-
 
     &.block-end {
       translate: 0 100%;
@@ -440,10 +507,10 @@ Step 3 of 4: Slide
 }
 ```
 
-Step 4 of 4: Backdrop
+Step 5 of 5: Backdrop
 
-- [`::backdrop`](https://webstatus.dev/features/backdrop) (Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
-- [`backdrop-filter`](https://webstatus.dev/features/backdrop-filter) (Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
+- [`::backdrop` ](https://webstatus.dev/features/backdrop)(Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
+- [`backdrop-filter` ](https://webstatus.dev/features/backdrop-filter)(Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
 
 ```css
 .drawer::backdrop {
@@ -456,12 +523,10 @@ Step 4 of 4: Backdrop
     overlay 0.2s allow-discrete;
 }
 
-
 .drawer[open] {
   &::backdrop {
     opacity: 1;
   }
-
 
   @starting-style {
     &::backdrop {
@@ -473,13 +538,21 @@ Step 4 of 4: Backdrop
 
 ## Browser support
 
-- Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: display-animation, overlay.
-- Safari: Partial support Missing: dialog-closedby, overlay.
+- Chromium: Full support Supported since v144.
+- Firefox: Partial support Missing: container-scroll-state-queries, display-animation, overlay.
+- Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Drawer.md).
 
 ## Installation
 
+Import the components from `opui-css/vue`:
+
 - `opui-css/css/components/drawer.css`
 
+## Changelog
+
+### What's new
+
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
+- Named by the header heading through [`aria-labelledby`](#accessibility).

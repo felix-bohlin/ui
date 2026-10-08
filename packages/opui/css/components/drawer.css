@@ -8,8 +8,9 @@
     --_block-size: min(80vb, 650px);
     --_border-color: var(--border-color);
     --_border-width: var(--border-width);
-    --_color: var(--text-primary);
     --_content-padding: var(--size-4);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
     --_footer-gap: var(--size-3);
     --_footer-padding: var(--size-3);
     --_header-font-size: var(--font-size-3);
@@ -17,13 +18,12 @@
     --_inline-size: min(375px, 100vi);
     --_scroll-shadow: var(--shadow-4);
     --_shadow: var(--shadow-2);
-    --_transition-duration: calc(var(--duration) * var(--_motion));
-    --_transition-timing: var(--ease-enter);
+    --_text-color: var(--text-primary);
 
     background-color: var(--_bg-color);
     border: none;
     box-shadow: var(--_shadow);
-    color: var(--_color);
+    color: var(--_text-color);
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -31,9 +31,9 @@
     padding: 0;
     position: fixed;
     transition:
-      display var(--_transition-duration) allow-discrete,
-      overlay var(--_transition-duration) allow-discrete,
-      translate var(--_transition-duration) var(--_transition-timing);
+      display var(--_duration) allow-discrete,
+      overlay var(--_duration) allow-discrete,
+      translate var(--_duration) var(--_ease);
 
     &:dir(rtl) {
       --_dir: -1;
@@ -44,12 +44,13 @@
       background-color: var(--_backdrop-bg-color);
       opacity: 0;
       transition:
-        display var(--_transition-duration) allow-discrete,
-        overlay var(--_transition-duration) allow-discrete,
-        opacity var(--_transition-duration) var(--_transition-timing);
+        display var(--_duration) allow-discrete,
+        overlay var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease);
     }
 
     &.ui-backdrop-transparent {
+      --_backdrop-bg-color: transparent;
       --_backdrop-blur: none;
     }
 
@@ -91,27 +92,27 @@
         opacity: 0;
         pointer-events: none;
         position: absolute;
-        transition: opacity var(--_transition-duration);
+        transition: opacity var(--_duration);
         z-index: 1;
       }
 
       &::before {
-        inset-block-end: anchor(--ui-drawer-content top);
+        inset-block-end: anchor(--ui-drawer-content outside);
       }
 
       &::after {
-        inset-block-start: anchor(--ui-drawer-content bottom);
+        inset-block-start: anchor(--ui-drawer-content outside);
         scale: 1 -1;
       }
     }
 
-    @container scroll-state(scrollable: top) {
+    @container scroll-state(scrollable: block-start) {
       .ui-content::before {
         opacity: 1;
       }
     }
 
-    @container scroll-state(scrollable: bottom) {
+    @container scroll-state(scrollable: block-end) {
       .ui-content::after {
         opacity: 1;
       }

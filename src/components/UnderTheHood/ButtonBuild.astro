@@ -17,18 +17,23 @@ const steps = [
 }
 
 .button > svg {
+  block-size: auto;
   flex-shrink: 0;
-  max-block-size: 1.25em;
+  inline-size: auto;
+  max-block-size: var(--icon-size, 0.7lh);
 }`,
     notes: [
+      "Shown tonal for visibility, the library default is a text button",
       "Padding in <code>ex</code> so it scales with the font",
       "One custom property per size, every size reuses the same rules",
+      "The icon is <code>0.7lh</code>, so it follows the line height",
     ],
     title: "Base",
   },
   {
     css: `
 .button:has(> svg:only-child) {
+  --icon-size: calc(var(--size) * 0.6);
   justify-content: center;
   min-inline-size: var(--size);
   padding-inline: 0;
@@ -37,6 +42,7 @@ const steps = [
     notes: [
       "<code>:has(> svg:only-child)</code> spots an icon-only button",
       "Square at every size: no <code>IconButton</code>, no extra class",
+      "The icon scales with the button instead of the text",
     ],
     title: "Icon-only",
   },
@@ -50,51 +56,15 @@ const steps = [
   padding-inline-end: calc(var(--padding-inline) * 0.75);
 }`,
     html: `
-<button class="button">
+<button class="button" type="button">
   <svg>…</svg>
-  <span>Download</span>
+  <span class="ui-text">Download</span>
 </button>`,
     notes: [
       "Tighter padding on the icon side balances the optical weight",
-      "Text nodes aren't elements, so the label needs a <code>&lt;span&gt;</code>",
+      "Text nodes aren't elements, so the label needs a wrapper element. In <code>&lt;span class=&quot;ui-text&quot;&gt;</code> the class is only a hook",
     ],
     title: "Icon side",
-  },
-  {
-    css: `
-.ripple {
-  --ripple-scale: 0.01;
-  border-radius: 50%;
-  position: relative;
-  transform-style: preserve-3d;
-}
-
-.ripple::before {
-  background-color: oklch(0.6 0 0 / 0.2);
-  block-size: 130%;
-  clip-path: circle(50%);
-  content: "";
-  inline-size: 130%;
-  inset: 50% auto auto 50%;
-  position: absolute;
-  transform: translate(-50%, -50%) translateZ(-1px)
-    scale(var(--ripple-scale));
-  transition: transform 0.2s ease;
-}
-
-.ripple:hover {
-  --ripple-scale: 1;
-}
-
-.ripple:hover:active {
-  --ripple-scale: 1.1;
-}`,
-    notes: [
-      "<code>translateZ(-1px)</code> + <code>preserve-3d</code> puts the halo behind the button, no <code>z-index</code>",
-      "<code>clip-path: circle()</code> keeps the halo round",
-      "Hover the last button",
-    ],
-    title: "Ripple",
   },
 ]
 
@@ -124,15 +94,12 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width=
 
 <BuildUp id="build-button" knobs={knobs} steps={steps}>
   <div class="row">
-    <button class="button">Download</button>
-    <button class="button" aria-label="Download"
+    <button class="button" type="button">Download</button>
+    <button aria-label="Download" class="button" type="button"
       ><Fragment set:html={icon} /></button
     >
-    <button class="button"
-      ><Fragment set:html={icon} /><span>Download</span></button
-    >
-    <button class="button ripple" aria-label="Download"
-      ><Fragment set:html={icon} /></button
+    <button class="button" type="button"
+      ><Fragment set:html={icon} /><span class="ui-text">Download</span></button
     >
   </div>
 </BuildUp>

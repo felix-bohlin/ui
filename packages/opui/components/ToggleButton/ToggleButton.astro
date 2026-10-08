@@ -21,14 +21,7 @@ const finalType = type || "checkbox"
 const id = rest.id || $id("toggle")
 ---
 
-<label
-  class:list={[
-    "ui-toggle-button",
-    { "ui-disabled": disabled },
-    size && `ui-${size}`,
-    className,
-  ]}
->
+<label class:list={["ui-toggle-button", size && `ui-${size}`, className]}>
   <input
     checked={pressed}
     disabled={disabled}

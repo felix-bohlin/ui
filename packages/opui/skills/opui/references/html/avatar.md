@@ -1,32 +1,26 @@
 # Avatar
 
-### What's new
-
-- Breaking: `alt` is required when `src` is set.
-
 ## Image
 
 ```html
 <div class="ui-avatar">
   <img
     src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Maya Lind"
   />
 </div>
-
 
 <div class="ui-avatar">
   <img
     src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Omar Haddad"
   />
 </div>
-
 
 <div class="ui-avatar">
   <img
     src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Priya Nair"
   />
 </div>
 ```
@@ -34,9 +28,9 @@
 ## Letter
 
 ```html
-<div class="ui-avatar">LE</div>
-<div class="ui-avatar">TT</div>
-<div class="ui-avatar">ER</div>
+<div class="ui-avatar" role="img" aria-label="Lena Ek">LE</div>
+<div class="ui-avatar" role="img" aria-label="Tom Tanaka">TT</div>
+<div class="ui-avatar" role="img" aria-label="Elif Rahman">ER</div>
 ```
 
 ## Icon
@@ -56,7 +50,6 @@
   </svg>
 </div>
 
-
 <div class="ui-avatar">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +63,6 @@
     ></path>
   </svg>
 </div>
-
 
 <div class="ui-avatar">
   <svg
@@ -94,37 +86,54 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 ```html
 <div class="ui-avatar ui-squared">SQ</div>
 
-
 <div class="ui-avatar ui-rounded">
   <img
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Jonas Berg"
   />
 </div>
-
 
 <div class="ui-avatar ui-squircle">
   <img
     src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Sara Kim"
   />
 </div>
 ```
 
-## Grouped
+## Sizes
 
-Group multiple avatars by adding `role="group"` to a parent container.
+Use `.ui-x-small`, `.ui-small` or `.ui-large` to match the control sizes, for example in dense lists, table rows and bylines. Letters and icons scale with the avatar.
 
 ```html
-<div class="ui-avatar-group" role="group">
-  <div class="ui-avatar">AB</div>
-  <div class="ui-avatar">CD</div>
-  <button type="button" class="ui-avatar">EF</button>
-  <button type="button" class="ui-avatar">GH</button>
-  <a href="#" class="ui-avatar">IJ</a>
-  <a href="#" class="ui-avatar">KL</a>
+<div class="ui-avatar ui-x-small" role="img" aria-label="Lena Ek">LE</div>
+<div class="ui-avatar ui-small" role="img" aria-label="Tom Tanaka">TT</div>
+<div class="ui-avatar" role="img" aria-label="Elif Rahman">ER</div>
+<div class="ui-avatar ui-large" role="img" aria-label="Kai Lund">KL</div>
+```
+
+## Grouped
+
+Group multiple avatars in a `.ui-avatar-group` element with `role="group"` and an `aria-label`.
+
+```html
+<div class="ui-avatar-group" role="group" aria-label="Team">
+  <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
+  <div class="ui-avatar" role="img" aria-label="Carl Dahl">CD</div>
+  <button type="button" class="ui-avatar" aria-label="Eva Falk">EF</button>
+  <button type="button" class="ui-avatar" aria-label="Gustav Holm">GH</button>
+  <a href="#" class="ui-avatar" aria-label="Ida Jansson">IJ</a>
+  <a href="#" class="ui-avatar" aria-label="Karl Lund">KL</a>
 </div>
 ```
+
+A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avatar in a group sits on the avatar's start side, the part the next avatar doesn't cover.
+
+## Accessibility
+
+- Give an image avatar the person's name as its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
+- Initials and icons have no name on their own. Add `role="img"` and an `aria-label` with the full name, or `aria-hidden="true"` when the name is next to it.
+- A link or button avatar needs an `aria-label` that names the person, and a group of avatars an `aria-label` that names the group.
 
 ## API
 
@@ -133,6 +142,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
 | Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the avatar.                  |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts
@@ -144,17 +154,25 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                   |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up. |
-| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `IconButton`, `Avatar` and `List`.           |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                  |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                       |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                     |
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                     |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlify.app/learn/avatar-squircles)
 
 1. Circle
 
@@ -182,7 +200,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Circle
 
-- [`aspect-ratio`](https://webstatus.dev/features/aspect-ratio) (Widely available): Chrome 88+, Edge 88+, Firefox 89+, Safari 15+
+- [`aspect-ratio` ](https://webstatus.dev/features/aspect-ratio)(Widely available): Chrome 88+, Edge 88+, Firefox 89+, Safari 15+
 
 ```css
 .avatar {
@@ -199,7 +217,6 @@ Step 1 of 4: Circle
   position: relative;
 }
 
-
 .avatar svg {
   max-inline-size: 1.5rem;
 }
@@ -207,8 +224,8 @@ Step 1 of 4: Circle
 
 Step 2 of 4: Image
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`object-fit`](https://webstatus.dev/features/object-fit) (Widely available): Chrome 32+, Edge 79+, Firefox 36+, Safari 10+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`object-fit` ](https://webstatus.dev/features/object-fit)(Widely available): Chrome 32+, Edge 79+, Firefox 36+, Safari 10+
 
 ```html
 <div class="avatar">
@@ -221,7 +238,6 @@ Step 2 of 4: Image
   background-color: transparent;
 }
 
-
 .avatar img {
   block-size: 100%;
   inline-size: 100%;
@@ -233,17 +249,15 @@ Step 2 of 4: Image
 
 Step 3 of 4: Shapes
 
-- [`corner-shape`](https://webstatus.dev/features/corner-shape) (Limited availability): Chrome 139+, Edge 139+, Firefox not supported, Safari not supported
+- [`corner-shape` ](https://webstatus.dev/features/corner-shape)(Limited availability): Chrome 139+, Edge 139+, Firefox not supported, Safari not supported
 
 ```css
 .avatar.rounded {
   border-radius: var(--radius-2);
 }
 
-
 .avatar.squircle {
   border-radius: var(--radius-3);
-
 
   @supports (corner-shape: squircle) {
     border-radius: var(--radius-round);
@@ -253,6 +267,8 @@ Step 3 of 4: Shapes
 ```
 
 Step 4 of 4: Group
+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```html
 <div class="avatar-group" role="group">
@@ -265,7 +281,6 @@ Step 4 of 4: Group
 .avatar-group {
   display: flex;
 }
-
 
 .avatar-group .avatar {
   box-shadow: 0 0 0 2px var(--surface-default);
@@ -285,3 +300,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/avatar.css`
 
+## Changelog
+
+### What's new
+
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.

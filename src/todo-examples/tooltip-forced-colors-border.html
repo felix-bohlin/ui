@@ -1,0 +1,70 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      @media (forced-colors: active) {
+        :where(.ui-tooltip) > .ui-anchor-floating {
+          border: var(--border-width) solid CanvasText;
+        }
+      }
+    }
+  }
+
+  .todo-tip-space {
+    padding-block-start: var(--size-8);
+    padding-inline-start: var(--size-8);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Chrome DevTools &gt; Rendering &gt; Emulate CSS media feature
+      forced-colors: active. The tooltip loses its edge, only the text remains.
+      The card keeps its border.
+    </p>
+    <div class="todo-tip-space">
+      <span class="ui-anchor ui-tooltip">
+        <button type="button" class="ui-button">Save</button>
+        <span class="ui-anchor-floating">Save the draft</span>
+      </span>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Card for comparison</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      In forced colors, the tooltip gets a
+      <code>CanvasText</code> border.
+    </p>
+    <div class="todo-tip-space">
+      <span class="ui-anchor ui-tooltip">
+        <button type="button" class="ui-button">Save</button>
+        <span class="ui-anchor-floating">Save the draft</span>
+      </span>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Card for comparison</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    const forced = matchMedia("(forced-colors: active)").matches
+    const border = (element) => {
+      const style = getComputedStyle(element)
+      return `${style.borderTopWidth} ${style.borderTopStyle} ${style.borderTopColor}`
+    }
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      panel.querySelector("[data-measure]").textContent = [
+        `forced-colors: ${forced ? "active" : "none"}`,
+        `tooltip border: ${border(panel.querySelector(".ui-anchor-floating"))}`,
+      ].join("\n")
+    }
+  }
+</script>

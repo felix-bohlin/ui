@@ -3,13 +3,17 @@ import type { Props } from "./types.astro"
 
 export const title = "Description List"
 
-const { bordered, class: className, ...rest } = Astro.props
+const { bordered, class: className, inline, ...rest } = Astro.props
 ---
 
 <dl
   class:list={[
     "ui-description-list",
-    { "ui-bordered": bordered, "ui-dotted": bordered === "dotted" },
+    {
+      "ui-bordered": bordered,
+      "ui-dotted": bordered === "dotted",
+      "ui-inline": inline,
+    },
     className,
   ]}
   {...rest}

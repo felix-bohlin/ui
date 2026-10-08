@@ -1,17 +1,20 @@
 @layer components.root {
   :where(.ui-avatar) {
     --_bg-color: var(--primary);
-    --_color: var(--primary-contrast);
-    --_width: var(--control-size);
+    --_font-size: 1em;
+    --_icon-size: var(--icon-size-large);
+    --_size: var(--control-size);
+    --_text-color: var(--primary-contrast);
 
     align-items: center;
     aspect-ratio: 1;
     background-color: var(--_bg-color);
     border-radius: var(--radius-round);
-    color: var(--_color);
+    color: var(--_text-color);
     display: inline-flex;
     flex-shrink: 0;
-    inline-size: var(--_width);
+    font-size: var(--_font-size);
+    inline-size: var(--_size);
     justify-content: center;
     overflow: clip;
     position: relative;
@@ -23,7 +26,7 @@
     }
 
     svg {
-      max-inline-size: var(--icon-size-large);
+      max-inline-size: var(--_icon-size);
     }
 
     img {
@@ -32,6 +35,23 @@
       inset: 0;
       object-fit: cover;
       position: absolute;
+    }
+
+    &.ui-x-small {
+      --_font-size: var(--font-size-0);
+      --_icon-size: var(--icon-size-small);
+      --_size: var(--control-size-x-small);
+    }
+
+    &.ui-small {
+      --_font-size: var(--font-size-05);
+      --_icon-size: var(--icon-size);
+      --_size: var(--control-size-small);
+    }
+
+    &.ui-large {
+      --_font-size: var(--font-size-2);
+      --_size: var(--control-size-large);
     }
 
     &.ui-squared {
@@ -66,7 +86,14 @@
 
     .ui-avatar {
       box-shadow: 0 0 0 2px var(--_outline-color);
-      margin-inline-end: calc(-1 * var(--_margin));
+    }
+
+    & > * + * {
+      margin-inline-start: calc(-1 * var(--_margin));
+    }
+
+    & > .ui-badge > .ui-anchor-floating {
+      z-index: 1;
     }
   }
 }

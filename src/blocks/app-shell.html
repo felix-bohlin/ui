@@ -1,0 +1,592 @@
+<style>
+  .app-shell {
+    container-type: inline-size;
+
+    .shell-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-2) var(--size-3);
+    }
+
+    .shell-menu-button {
+      @container (inline-size >= 56rem) {
+        display: none;
+      }
+    }
+
+    .shell-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      margin-inline-end: auto;
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    .shell-search {
+      display: none;
+      inline-size: 18rem;
+
+      @container (inline-size >= 40rem) {
+        display: block;
+      }
+    }
+
+    .shell-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 56rem) {
+        grid-template-columns: 15rem minmax(0, 1fr);
+      }
+    }
+
+    .shell-sidebar {
+      border-inline-end: var(--border-width) solid var(--border-color);
+      display: none;
+      padding: var(--size-2);
+
+      @container (inline-size >= 56rem) {
+        display: block;
+      }
+    }
+
+    .shell-nav-label {
+      padding: var(--size-3) var(--size-3) 0;
+    }
+
+    .shell-dot {
+      background-color: var(--dot);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      inline-size: var(--size-2);
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-4);
+      padding: var(--size-5) var(--size-4);
+    }
+
+    .shell-title {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .shell-stats {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+      list-style-type: none;
+      padding: 0;
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      hgroup > p:last-child {
+        font-size: var(--font-size-0);
+      }
+    }
+
+    .shell-grid {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 64rem) {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+    }
+
+    .shell-card-list {
+      padding-inline: 0;
+    }
+  }
+</style>
+
+<div class="app-shell">
+  <header class="shell-header">
+    <button
+      aria-label="Open navigation"
+      class="ui-button ui-rounded ui-small shell-menu-button"
+      command="show-modal"
+      commandfor="app-shell-drawer"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+        ></path>
+      </svg>
+    </button>
+    <a class="shell-brand" href="#app-shell-home">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M12 2 3 7v10l9 5 9-5V7zm0 2.3 6.6 3.7L12 11.7 5.4 8zM5 9.7l6 3.4v6.6l-6-3.4zm8 10v-6.6l6-3.4v6.6z"
+        ></path>
+      </svg>
+      Fjord
+    </a>
+    <div class="ui-text-field ui-small shell-search">
+      <span class="ui-field">
+        <input
+          aria-label="Search"
+          name="app-shell-search"
+          placeholder="Search projects and people"
+          type="search"
+        />
+        <span class="ui-prefix">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            ></path>
+          </svg>
+        </span>
+      </span>
+    </div>
+    <button
+      aria-label="Notifications, 3 unread"
+      class="ui-button ui-rounded ui-small"
+      type="button"
+    >
+      <span class="ui-anchor ui-badge ui-dot">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating">
+          <span class="ui-badge-indicator"></span>
+        </span>
+      </span>
+    </button>
+    <button
+      aria-label="Account menu for Ingrid Sandberg"
+      class="ui-avatar"
+      command="toggle-popover"
+      commandfor="app-shell-account"
+      type="button"
+    >
+      IS
+    </button>
+    <menu class="ui-menu ui-list ui-align-end" id="app-shell-account" popover>
+      <li class="ui-label">ingrid@fjord.example</li>
+      <li>
+        <a href="#app-shell-profile">
+          <div class="ui-text"><p>Profile</p></div>
+        </a>
+      </li>
+      <li>
+        <a href="#app-shell-settings">
+          <div class="ui-text"><p>Settings</p></div>
+        </a>
+      </li>
+      <li class="ui-border-top">
+        <button
+          command="hide-popover"
+          commandfor="app-shell-account"
+          type="button"
+        >
+          <div class="ui-text"><p>Sign out</p></div>
+        </button>
+      </li>
+    </menu>
+  </header>
+
+  <div class="shell-layout">
+    <nav aria-label="Main" class="shell-sidebar">
+      <ul class="ui-list ui-dense ui-transparent">
+        <li>
+          <a aria-current="page" href="#app-shell-home">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Home</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-inbox">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 12h-4a3 3 0 0 1-6 0H5V5h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Inbox</p></div>
+            <div class="ui-end">4</div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-projects">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Projects</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-calendar">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 16H5V10h14z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Calendar</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-reports">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 12a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Reports</p></div>
+          </a>
+        </li>
+      </ul>
+      <p class="ui-overline shell-nav-label" id="app-shell-projects-label">
+        Projects
+      </p>
+      <ul
+        aria-labelledby="app-shell-projects-label"
+        class="ui-list ui-dense ui-transparent"
+      >
+        <li>
+          <a href="#app-shell-mobile-app">
+            <div class="ui-start">
+              <span class="shell-dot" style="--dot: var(--info)"></span>
+            </div>
+            <div class="ui-text"><p>Mobile app</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-q4-campaign">
+            <div class="ui-start">
+              <span class="shell-dot" style="--dot: var(--warning)"></span>
+            </div>
+            <div class="ui-text"><p>Q4 campaign</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-website">
+            <div class="ui-start">
+              <span class="shell-dot" style="--dot: var(--success)"></span>
+            </div>
+            <div class="ui-text"><p>Website relaunch</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="shell-title">
+        <hgroup class="ui-hgroup">
+          <p>Wednesday, 8 October</p>
+          <h1 class="ui-h3">Good morning, Ingrid</h1>
+        </hgroup>
+        <button class="ui-button ui-filled ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            ></path></svg
+          ><span class="ui-text">New task</span>
+        </button>
+      </div>
+
+      <ul class="shell-stats">
+        <li>
+          <div class="ui-card ui-outlined">
+            <hgroup>
+              <p>Open tasks</p>
+              <h2 class="ui-h4">12</h2>
+              <p>3 marked as urgent</p>
+            </hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <hgroup>
+              <p>Due this week</p>
+              <h2 class="ui-h4">5</h2>
+              <p>Next one on Friday</p>
+            </hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <hgroup>
+              <p>Completed in October</p>
+              <h2 class="ui-h4">38</h2>
+              <p>Up from 29 in September</p>
+            </hgroup>
+          </div>
+        </li>
+      </ul>
+
+      <div class="shell-grid">
+        <section
+          aria-labelledby="app-shell-upcoming-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="app-shell-upcoming-heading">Up next</h2>
+            <p>Tasks assigned to you, by due date.</p>
+          </hgroup>
+          <div class="ui-content shell-card-list">
+            <ul class="ui-list ui-transparent">
+              <li>
+                <label class="ui-checkbox" for="app-shell-task-1">
+                  <div class="ui-text">
+                    <p>Review onboarding copy</p>
+                    <p>Website relaunch · Due today</p>
+                  </div>
+                  <div class="ui-end">
+                    <input id="app-shell-task-1" type="checkbox" />
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="ui-checkbox" for="app-shell-task-2">
+                  <div class="ui-text">
+                    <p>Approve push notification designs</p>
+                    <p>Mobile app · Due Fri 10 Oct</p>
+                  </div>
+                  <div class="ui-end">
+                    <input id="app-shell-task-2" type="checkbox" />
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="ui-checkbox" for="app-shell-task-3">
+                  <div class="ui-text">
+                    <p>Book photographer for the launch shoot</p>
+                    <p>Q4 campaign · Due Tue 14 Oct</p>
+                  </div>
+                  <div class="ui-end">
+                    <input id="app-shell-task-3" type="checkbox" />
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="ui-checkbox" for="app-shell-task-4">
+                  <div class="ui-text">
+                    <p>Write release notes for 2.4</p>
+                    <p>Mobile app · Due Thu 16 Oct</p>
+                  </div>
+                  <div class="ui-end">
+                    <input id="app-shell-task-4" type="checkbox" />
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="app-shell-activity-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="app-shell-activity-heading">Activity</h2>
+            <p>What your team did today.</p>
+          </hgroup>
+          <div class="ui-content shell-card-list">
+            <ul class="ui-list ui-transparent">
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Oskar Lind">
+                    OL
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Oskar moved “Pricing page” to Done</p>
+                  <p>Website relaunch · 09:42</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Amara Okafor">
+                    AO
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Amara commented on “Login flow”</p>
+                  <p>Mobile app · 08:15</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Freja Holm">
+                    FH
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Freja uploaded 12 files</p>
+                  <p>Q4 campaign · 07:58</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog
+    aria-labelledby="app-shell-drawer-heading"
+    class="ui-drawer ui-scroll-lock ui-inline-start"
+    closedby="any"
+    id="app-shell-drawer"
+  >
+    <div class="ui-header">
+      <h2 id="app-shell-drawer-heading">Fjord</h2>
+      <button
+        aria-label="Close navigation"
+        class="ui-button ui-rounded ui-small"
+        command="close"
+        commandfor="app-shell-drawer"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Main" class="ui-content">
+      <ul class="ui-list ui-transparent">
+        <li>
+          <a aria-current="page" href="#app-shell-home">
+            <div class="ui-text"><p>Home</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-inbox">
+            <div class="ui-text"><p>Inbox</p></div>
+            <div class="ui-end">4</div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-projects">
+            <div class="ui-text"><p>Projects</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-calendar">
+            <div class="ui-text"><p>Calendar</p></div>
+          </a>
+        </li>
+        <li>
+          <a href="#app-shell-reports">
+            <div class="ui-text"><p>Reports</p></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </dialog>
+</div>

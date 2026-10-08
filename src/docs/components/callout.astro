@@ -46,7 +46,7 @@ const ThemeCSS = `/* ... */
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={["has", "light-dark", "relative-color", "scope"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Callout/Callout.astro",
@@ -76,6 +76,7 @@ const ThemeCSS = `/* ... */
     <UICallout>
       <svg
         slot="icon"
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -119,6 +120,11 @@ const ThemeCSS = `/* ... */
       <Fragment slot="html">
         Tonal (default) and <code>.ui-outlined</code> variants.
       </Fragment>
+      <Fragment slot="svelte">
+        Tonal (default) and outlined variants are available via the <code
+          >variant</code
+        > prop.
+      </Fragment>
       <Fragment slot="vue">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
@@ -127,23 +133,6 @@ const ThemeCSS = `/* ... */
     </Conditional>
 
     <AutoExample name="Variants" column />
-  </section>
-
-  <section>
-    <h2 id="icon">Icon</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
-      <Fragment slot="vue">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Icon" column />
   </section>
 
   <section>
@@ -164,6 +153,13 @@ const ThemeCSS = `/* ... */
         >
         {" "}tone for brand-tinted attention. The default is a plain surface.
       </Fragment>
+      <Fragment slot="svelte">
+        The <code>severity</code> prop accepts <code>info</code>, <code
+          >success</code
+        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
+      </Fragment>
       <Fragment slot="vue">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
@@ -177,6 +173,7 @@ const ThemeCSS = `/* ... */
       <UICallout severity="info">
         <svg
           slot="icon"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -197,6 +194,34 @@ const ThemeCSS = `/* ... */
     </div>
 
     <AutoExample name="Severities" column />
+  </section>
+
+  <section>
+    <h2 id="icon">Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        There are no default icons in HTML: put an <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > before <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> snippet.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Icon" column />
   </section>
 
   <CalloutBuild slot="under-the-hood" />

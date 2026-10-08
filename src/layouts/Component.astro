@@ -5,9 +5,12 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
+import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
+import { componentImports, packageFor } from "../utils/component-imports"
+import { shipped } from "../utils/component-source"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
@@ -17,6 +20,7 @@ import {
   FRAMEWORKS,
   type FrameworkId,
 } from "../utils/framework-routing"
+import { posts } from "../utils/learn-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 
 type Props = {
@@ -85,6 +89,17 @@ const autoApis = (() => {
 
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
+const hydrationFramework =
+  currentFramework === "svelte" || currentFramework === "vue"
+    ? currentFramework
+    : undefined
+const hydrationApis = hydrationFramework
+  ? [apis ?? []]
+      .flat()
+      .flatMap((entry: { api?: ComponentApi }) => entry?.api ?? [])
+      .filter((api) => shipped(api, hydrationFramework))
+  : []
+
 const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
   (component) => component.slug === currentSlug,
@@ -99,6 +114,18 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 const whatsNew = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
 
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+
+const imports =
+  currentSlug && currentFramework !== "html"
+    ? {
+        names: componentImports(currentFramework, currentSlug),
+        package: packageFor(currentFramework),
+      }
+    : undefined
+
+const learnPost = currentSlug
+  ? posts.find((post) => post.component === currentSlug)
+  : undefined
 ---
 
 <Document
@@ -144,18 +171,13 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {browserSupport && <BrowserSupportChips ids={browserSupport} />}
-
   {
-    whatsNew.length > 0 && (
-      <Callout severity="info" variant="tonal" class="whats-new">
-        <Fragment slot="title">What's new</Fragment>
-        <ul>
-          {whatsNew.map((note) => (
-            <li set:html={note} />
-          ))}
-        </ul>
-      </Callout>
+    (browserSupport || hydrationApis.length > 0) && (
+      <BrowserSupportChips ids={browserSupport ?? []}>
+        {hydrationApis.length > 0 && (
+          <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
+        )}
+      </BrowserSupportChips>
     )
   }
 
@@ -196,6 +218,12 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
     Astro.slots.has("under-the-hood") && (
       <section>
         <h2 id="under-the-hood">Under the hood</h2>
+        {learnPost && (
+          <p>
+            Read the post:
+            <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
+          </p>
+        )}
         <slot name="under-the-hood" />
       </section>
     )
@@ -205,7 +233,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   {
     installationTabs ? (
-      <Installation tabs={installationTabs}>
+      <Installation imports={imports} tabs={installationTabs}>
         <slot name="installation" />
       </Installation>
     ) : (
@@ -235,43 +263,55 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   }
 
   {
-    changelog.length > 0 && (
+    (whatsNew.length > 0 || changelog.length > 0) && (
       <section>
         <h2 id="changelog">Changelog</h2>
-        <div class="ui-not-rich-text">
-          <List id="changelog-list" bordered gutterless variant="transparent">
-            {changelog.map((entry, index) => (
-              <ListItem
-                as="a"
-                class={index >= 5 ? "changelog-extra" : undefined}
-                href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                headline={entry.message}
+        {whatsNew.length > 0 && (
+          <Callout severity="info" variant="tonal" class="whats-new">
+            <Fragment slot="title">What's new</Fragment>
+            <ul>
+              {whatsNew.map((note) => (
+                <li set:html={note} />
+              ))}
+            </ul>
+          </Callout>
+        )}
+        {changelog.length > 0 && (
+          <div class="ui-not-rich-text">
+            <List id="changelog-list" bordered gutterless variant="transparent">
+              {changelog.map((entry, index) => (
+                <ListItem
+                  as="a"
+                  class={index >= 5 ? "changelog-extra" : undefined}
+                  href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  headline={entry.message}
+                >
+                  <time slot="end" datetime={entry.date}>
+                    {entry.relativeDate}
+                  </time>
+                  {entry.types.length > 0 && (
+                    <span slot="text" class="changelog-types">
+                      {entry.types.map((type) => (
+                        <Chip label={type} variant="outlined" size="small" />
+                      ))}
+                    </span>
+                  )}
+                </ListItem>
+              ))}
+            </List>
+            {changelog.length > 5 && (
+              <Button
+                id="changelog-toggle"
+                variant="outlined"
+                data-more-count={changelog.length - 5}
               >
-                <time slot="end" datetime={entry.date}>
-                  {entry.relativeDate}
-                </time>
-                {entry.types.length > 0 && (
-                  <span slot="text" class="changelog-types">
-                    {entry.types.map((type) => (
-                      <Chip label={type} variant="outlined" size="small" />
-                    ))}
-                  </span>
-                )}
-              </ListItem>
-            ))}
-          </List>
-          {changelog.length > 5 && (
-            <Button
-              id="changelog-toggle"
-              variant="outlined"
-              data-more-count={changelog.length - 5}
-            >
-              Show {changelog.length - 5} more
-            </Button>
-          )}
-        </div>
+                Show {changelog.length - 5} more
+              </Button>
+            )}
+          </div>
+        )}
       </section>
     )
   }
@@ -384,7 +424,8 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
         .pagination-link {
           align-items: center;
-          border: 1px solid var(--border-color);
+          border: 1px solid
+            color-mix(in oklch, var(--border-color), var(--text-primary) 20%);
           border-radius: var(--radius-3);
           color: var(--text-primary);
           display: flex;
@@ -458,7 +499,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
     }
 
     .whats-new {
-      margin-block-end: var(--size-8);
+      margin-block-end: var(--size-4);
     }
   </style>
 </Document>

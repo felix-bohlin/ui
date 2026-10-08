@@ -4,5 +4,5 @@ import { Textarea } from "opui-css/vue"
 
 <template>
   <Textarea label="Default" placeholder="Placeholder" />
-  <Textarea label="Filled" placeholder="Placeholder" filled />
+  <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
 </template>

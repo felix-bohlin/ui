@@ -3,8 +3,8 @@ import { Select } from "opui-css/vue"
 </script>
 
 <template>
-  <Select label="X-small" size="x-small">
-    <option value="">X-small</option>
+  <Select label="x-small" size="x-small">
+    <option value="">x-small</option>
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>

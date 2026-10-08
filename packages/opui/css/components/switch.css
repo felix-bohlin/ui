@@ -1,21 +1,31 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--motion, 1);
-    --_accent-color: light-dark(
+    --_accent: light-dark(
       var(--primary),
       oklch(from var(--primary) min(l, 0.62) c h)
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
+    --_dot-inset: round(
+      down,
+      (var(--_track-height) - var(--_dot-size)) / 2,
+      1px
+    );
     --_dot-outline-size: 0;
-    --_dot-size: var(--switch-dot-size);
+    --_dot-size: round(var(--switch-dot-size), 1px);
+    --_icon-size: min(
+      var(--_dot-size),
+      max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
+    );
 
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: var(--switch-track-height);
-    --_track-width: var(--switch-track-width);
-    --_transition-tf: var(--ease);
-    --_transition-time: calc(var(--duration) * var(--_motion));
+    --_track-height: round(var(--switch-track-height), 1px);
+    --_track-width: round(var(--switch-track-width), 1px);
+
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
 
     align-items: start;
     color: var(--text-primary);
@@ -46,8 +56,9 @@
       }
 
       &:focus-visible {
+        border-radius: var(--radius-round);
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color, currentColor);
+          var(--focus-ring-color, var(--_focus-visible-color));
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -58,8 +69,8 @@
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_dot-size);
-        inset-block-start: var(--size-1);
-        inset-inline-start: var(--size-1);
+        inset-block-start: var(--_dot-inset);
+        inset-inline-start: var(--_dot-inset);
         outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
         outline-offset: -1px;
         position: absolute;
@@ -68,20 +79,20 @@
       /* Checked */
       &:checked {
         &::before {
-          background-color: var(--_accent-color);
-          border-color: var(--_accent-color);
+          background-color: var(--_accent);
+          border-color: var(--_accent);
           transition:
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
+            background-color var(--_duration) var(--_ease),
+            border-color var(--_duration) var(--_ease);
         }
 
         /* Dot */
         &::after {
           --_dot-bg-color: var(--_accent-contrast);
-          --_dot-outline-size: calc(var(--size-1) - 1px);
+          --_dot-outline-size: calc(var(--_dot-inset) - 1px);
 
           inset-inline-start: calc(
-            var(--_track-width) - var(--_dot-size) - var(--size-1)
+            var(--_track-width) - var(--_dot-size) - var(--_dot-inset)
           );
         }
       }
@@ -90,17 +101,21 @@
       /* Track */
       &::before {
         transition:
-          background-color var(--_transition-time) var(--_transition-tf),
-          border-color var(--_transition-time) var(--_transition-tf);
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
 
       /* Dot */
       &::after {
-        transition: all var(--_transition-time) var(--_transition-tf);
+        transition:
+          background-color var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--_ease),
+          outline-color var(--_duration) var(--_ease),
+          outline-width var(--_duration) var(--_ease);
       }
 
       &:active:after {
-        --_dot-outline-size: calc(var(--size-1) + 1px);
+        --_dot-outline-size: calc(var(--_dot-inset) + 1px);
       }
     }
 
@@ -129,24 +144,28 @@
       .ui-icon-checked {
         grid-column: 1;
         grid-row: 1;
-        margin-block-start: var(--size-1);
+        margin-block-start: round(
+          down,
+          (var(--_track-height) - var(--_icon-size)) / 2,
+          1px
+        );
         pointer-events: none;
         z-index: 1;
 
         svg {
           display: block;
-          inline-size: var(--_dot-size);
+          inline-size: var(--_icon-size);
         }
       }
 
       .ui-icon-unchecked {
         margin-inline-start: calc(
-          var(--_track-width) - var(--_dot-size) - var(--size-1)
+          var(--_track-width) - var(--_icon-size) - var(--_dot-inset)
         );
       }
 
       .ui-icon-checked {
-        margin-inline-start: var(--size-1);
+        margin-inline-start: var(--_dot-inset);
       }
     }
 
@@ -155,9 +174,7 @@
       .ui-label:after {
         color: var(--field-required-color);
         content: "*";
-        inset-block: 0 auto;
-        inset-inline: auto -0.25ex;
-        position: absolute;
+        margin-inline-start: 0.25ex;
       }
     }
 
@@ -185,7 +202,7 @@
       margin-block-start: calc(
         (var(--_track-height) - 1lh) / 2 + var(--choice-label-offset)
       );
-      min-width: 0;
+      min-inline-size: 0;
       padding-inline: 0 1ex;
       position: relative;
       user-select: none;
@@ -202,10 +219,22 @@
     }
 
     /* Size */
+    &.ui-x-small {
+      --_dot-size: round(var(--switch-dot-size-x-small), 1px);
+      --_track-height: round(var(--switch-track-height-x-small), 1px);
+      --_track-width: round(var(--switch-track-width-x-small), 1px);
+    }
+
     &.ui-small {
-      --_dot-size: var(--switch-dot-size-small);
-      --_track-height: var(--switch-track-height-small);
-      --_track-width: var(--switch-track-width-small);
+      --_dot-size: round(var(--switch-dot-size-small), 1px);
+      --_track-height: round(var(--switch-track-height-small), 1px);
+      --_track-width: round(var(--switch-track-width-small), 1px);
+    }
+
+    &.ui-large {
+      --_dot-size: round(var(--switch-dot-size-large), 1px);
+      --_track-height: round(var(--switch-track-height-large), 1px);
+      --_track-width: round(var(--switch-track-width-large), 1px);
     }
 
     /* Spread layout */
@@ -261,11 +290,16 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       input {
         border-radius: var(--radius-round);
-        outline: var(--focus-ring-width) solid var(--invalid-color);
+        box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
+      }
+
+      input:focus-visible {
+        outline-offset: calc(
+          var(--focus-ring-offset) + var(--focus-ring-width)
+        );
       }
 
       .ui-end-text {
@@ -274,13 +308,13 @@
     }
 
     @media (forced-colors: active) {
-      --_accent-color: SelectedItem;
+      --_accent: SelectedItem;
       --_accent-contrast: SelectedItemText;
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
       &:has([disabled]) {
-        --_accent-color: GrayText;
+        --_accent: GrayText;
         --_dot-bg-color: GrayText;
       }
     }

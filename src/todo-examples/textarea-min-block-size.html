@@ -1,0 +1,64 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-textarea) textarea {
+        min-block-size: calc(var(--_field-padding-block) * 2 + 3lh);
+      }
+    }
+  }
+
+  .todo-compare .ui-textarea {
+    inline-size: 14rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The empty textarea is 3 lines + padding + <code>--border-width</code> × 2,
+      though the textarea has no border. The second one sets
+      <code>--border-width: 6px</code>.
+    </p>
+    <div class="todo-row">
+      <label class="ui-textarea">
+        <span class="ui-label">Message</span>
+        <span class="ui-field"><textarea></textarea></span>
+      </label>
+      <label class="ui-textarea" style="--border-width: 6px">
+        <span class="ui-label">--border-width: 6px</span>
+        <span class="ui-field"><textarea></textarea></span>
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>min-block-size: calc(var(--_field-padding-block) * 2 + 3lh)</code>
+    </p>
+    <div class="todo-row">
+      <label class="ui-textarea">
+        <span class="ui-label">Message</span>
+        <span class="ui-field"><textarea></textarea></span>
+      </label>
+      <label class="ui-textarea" style="--border-width: 6px">
+        <span class="ui-label">--border-width: 6px</span>
+        <span class="ui-field"><textarea></textarea></span>
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll("textarea")].map((textarea) => {
+      const style = getComputedStyle(textarea)
+      const lines = parseFloat(style.lineHeight) * 3
+      const padding =
+        parseFloat(style.paddingBlockStart) + parseFloat(style.paddingBlockEnd)
+      const border = parseFloat(style.borderTopWidth) * 2
+      return `${Math.round(textarea.getBoundingClientRect().height * 10) / 10}px (3lh + padding + own border = ${Math.round((lines + padding + border) * 10) / 10}px)`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

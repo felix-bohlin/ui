@@ -1,0 +1,128 @@
+<style>
+  .todo-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-log {
+    background-color: var(--surface-tonal);
+    border-radius: var(--border-radius);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+    inline-size: 100%;
+    margin: 0;
+    min-block-size: 4lh;
+    padding: var(--size-2) var(--size-3);
+    white-space: pre-wrap;
+  }
+
+  .ui-card:has(.ui-card-link) {
+    transition: border-color var(--duration) var(--ease);
+
+    :is(
+      a[href],
+      button,
+      input,
+      label,
+      select,
+      summary,
+      textarea,
+      [tabindex]
+    ):not(.ui-card-link) {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:has(.ui-card-link:hover) {
+      border-color: var(--text-muted);
+    }
+
+    &:has(.ui-card-link:focus-visible) {
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, currentColor);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  .ui-card-link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
+<p>
+  Click anywhere on a card, Tab through, try selecting text, and
+  <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + click or right-click "Open in new tab". The
+  log shows what got the click.
+</p>
+<div class="todo-grid">
+  <article class="ui-card ui-outlined">
+    <hgroup>
+      <h3 class="ui-h5">
+        <a class="ui-card-link" href="#pricing">Pricing</a>
+      </h3>
+    </hgroup>
+    <div class="ui-content">
+      <p>Plans for any team. The whole card opens the pricing page.</p>
+    </div>
+  </article>
+  <article class="ui-card ui-outlined">
+    <hgroup>
+      <h3 class="ui-h5">
+        <a class="ui-card-link" href="#changelog">Changelog</a>
+      </h3>
+    </hgroup>
+    <div class="ui-content">
+      <p>
+        Every release in one place. This
+        <a class="ui-link" href="#rss">RSS link</a> and the buttons below stay
+        clickable on their own.
+      </p>
+    </div>
+    <div class="ui-actions">
+      <button type="button" class="ui-button">Subscribe</button>
+      <button
+        type="button"
+        class="ui-button ui-rounded ui-small"
+        aria-label="Favorite"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z"
+          />
+        </svg>
+      </button>
+    </div>
+  </article>
+</div>
+<pre class="todo-log" aria-live="polite"></pre>
+<script>
+  {
+    const log = document.querySelector(".todo-log")
+    document.querySelector(".todo-grid").addEventListener("click", (event) => {
+      const target = event.target.closest("a, button")
+      if (!target) return
+      if (target.matches("a") && !event.ctrlKey && !event.metaKey)
+        event.preventDefault()
+      const name =
+        target.getAttribute("aria-label") ?? target.textContent.trim()
+      log.textContent = `Clicked "${name}" (${target.matches(".ui-card-link") ? "card link" : target.localName})\n${log.textContent}`
+    })
+  }
+</script>

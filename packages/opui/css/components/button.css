@@ -1,14 +1,10 @@
 @layer components.root {
   :where(.ui-button) {
     --_motion: var(--motion, 1);
-    --_color: light-dark(var(--color-16), var(--color-1));
-    --_color-contrast: light-dark(var(--color-1), var(--color-16));
-    --_color-tonal: var(--surface-tonal);
-
-    --_accent: var(--_color);
-    --_accent-contrast: var(--_color-contrast);
-    --_accent-tonal: var(--_color-tonal);
-    --_accent-tonal-contrast: var(--_color);
+    --_accent: light-dark(var(--color-16), var(--color-1));
+    --_accent-contrast: light-dark(var(--color-1), var(--color-16));
+    --_accent-tonal: var(--surface-tonal);
+    --_accent-tonal-contrast: var(--_accent);
     --_accent-text: light-dark(
       var(--_accent),
       oklch(from var(--_accent) max(l, 0.75) c h)
@@ -44,12 +40,12 @@
     &.ui-primary,
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
-      --_color-contrast: var(--primary-contrast);
-      --_color-tonal: light-dark(var(--color-6), var(--color-11));
+      --_accent-contrast: var(--primary-contrast);
+      --_accent-tonal: light-dark(var(--color-6), var(--color-11));
       --_accent-tonal-contrast: light-dark(var(--gray-15), var(--gray-1));
 
       @container style(--contrast: more) {
-        --_color-tonal: light-dark(var(--color-4), var(--color-12));
+        --_accent-tonal: light-dark(var(--color-4), var(--color-12));
       }
 
       --_default-hover-bg-color: oklch(
@@ -67,11 +63,11 @@
 
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
-      --_color: var(--critical);
-      --_color-contrast: var(--gray-1);
+      --_accent: var(--critical);
+      --_accent-contrast: var(--gray-1);
 
       @container style(--contrast: more) {
-        --_color: light-dark(
+        --_accent: light-dark(
           var(--critical),
           oklch(from var(--critical) min(l, 0.45) c h)
         );
@@ -80,7 +76,7 @@
 
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
-      --_color: var(--primary);
+      --_accent: var(--primary);
     }
   }
 
@@ -121,14 +117,12 @@
       border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
-    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+    &:where(a[aria-disabled="true"]) {
       pointer-events: none;
     }
 
     /* Hover & Active */
-    &:where(
-      :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-    ) {
+    &:where(:not([disabled], [aria-disabled="true"])) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_default-hover-bg-color);
@@ -170,10 +164,11 @@
       color: inherit;
       font-family: var(--font-mono);
       font-size: 0.8em;
-      font-weight: 400;
+      font-weight: var(--font-weight-normal);
       line-height: 1.2;
       opacity: 0.8;
-      padding: 0.1ex 0.3ex;
+      padding-block: 0.1ex;
+      padding-inline: 0.3ex;
 
       @container style(--contrast: more) {
         opacity: 1;
@@ -216,9 +211,7 @@
         --_border-color: var(--_accent-text);
       }
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -239,9 +232,7 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -260,9 +251,7 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
-      ) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);
@@ -276,7 +265,7 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+    &:is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
 
@@ -287,41 +276,6 @@
 
     &.ui-rounded {
       --_border-radius: var(--radius-round);
-    }
-
-    &.ui-ripple {
-      --_ripple-color: oklch(0.6 0 0 / 0.2);
-      --_ripple-scale: 0.01;
-      --_ripple-size: 130%;
-
-      position: relative;
-      transform-style: preserve-3d;
-
-      &::before {
-        background-color: var(--_ripple-color);
-        block-size: var(--_ripple-size);
-        clip-path: circle(50%);
-        content: "";
-        inline-size: var(--_ripple-size);
-        inset: 50% auto auto 50%;
-        position: absolute;
-        transform: translate(-50%, -50%) translateZ(-1px)
-          scale(var(--_ripple-scale));
-        transition: transform calc(var(--duration) * var(--_motion)) var(--ease);
-      }
-
-      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-        @media (hover: hover) {
-          &:where(:not(:active):hover) {
-            --_ripple-scale: 1;
-          }
-        }
-
-        &:where(:hover:active),
-        &[aria-current="page"] {
-          --_ripple-scale: 1.1;
-        }
-      }
     }
   }
 

@@ -1,20 +1,22 @@
 # UI Component Implementation Guide
 
-This guide defines the standards for implementing reusable Astro UI components in this package (`packages/opui/components/<Name>/<Name>.astro`) based on the documentation specs at `src/docs/components/`. Use it as a reference for maintaining consistency and accessibility across the library.
+This guide defines the standards for implementing reusable UI components in this package. Every component ships an Astro, a Svelte and a Vue version side by side (`packages/opui/components/<Name>/<Name>.astro`, `<Name>.svelte` and `<Name>.vue`), based on the documentation specs at `src/docs/components/`. All should render the same markup as the HTML examples. A framework can add some markup of its own because of how it works (recorded as `.diff` drift next to the parity snapshots), but in general the output is the same. Use it as a reference for maintaining consistency and accessibility across the library.
 
-**CRITICAL INSTRUCTION**: Always use components from this package (imported via the `@opui/astro` alias) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
+**CRITICAL INSTRUCTION**: Always use components from this package (imported via `@opui/astro`, `opui-css/svelte` and `opui-css/vue`) and their corresponding CSS from `packages/opui/css/components/` whenever possible. Avoid writing custom CSS if an existing component or utility can achieve the desired result.
 
 ## 0. Implementation Checklist
 
 When implementing or updating a component, ensure:
-- [ ] **Title Export**: `export const title = "Component Name"` is present.
-- [ ] **Props Type**: Imported `Props` from `./types.astro` (avoid interfaces).
+- [ ] **All Frameworks**: Every `.astro` file has a matching `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
+- [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
+- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`).
 - [ ] **Sorting**: Props, Destructuring, and Classes are sorted alphabetically.
-- [ ] **Rest Props**: `...rest` is captured and spread onto the root element.
-- [ ] **Class Management**: Used `class:list` for all class manipulations.
-- [ ] **ID Stability**: Used `createId(Astro.locals)` for any internal element linking.
+- [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro and Svelte. Vue falls through attributes by default.
+- [ ] **Class Management**: Used `class:list` in Astro, a `class` array in Svelte and a `:class` array in Vue, in the same order.
+- [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
 - [ ] **Slot Strategy**: Named slots are used for structural content (icons, actions).
+- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted.
 
 ---
 
@@ -24,9 +26,13 @@ Every component uses layered type files:
 
 - `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`)
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
-- `types.d.vue.ts` / `types.svelte.ts` / `types.solid.ts` - framework-specific extensions (for merge parity)
+- `types.d.vue.ts` - Vue props = base + `class`, plus the `Slots` type for `defineSlots`
+- `types.svelte.ts` - Svelte props = base + snippets + `SvelteHTMLElements[element]`
+- `types.solid.ts` - framework-specific extensions (for merge parity)
 
-Every component must follow this exact frontmatter layout:
+Every component folder has all five files; `pnpm check-components` fails when one is missing.
+
+Every Astro component must follow this exact frontmatter layout:
 
 ```astro
 ---
@@ -44,6 +50,41 @@ const {
 } = Astro.props
 ---
 ```
+
+The Vue component mirrors it in `<script setup>`:
+
+```vue
+<script setup lang="ts">
+import type { Props, Slots } from "./types.d.vue"
+
+const { disabled, label, size, variant = "outlined" } = defineProps<Props>()
+defineSlots<Slots>()
+</script>
+```
+
+Derived values go in `computed()`, so they update when props change.
+
+The Svelte component destructures props, snippets and `...rest` from `$props()`:
+
+```svelte
+<script lang="ts">
+  import type { Props } from "./types.svelte"
+
+  let {
+    class: className,
+    disabled,
+    label,
+    size,
+    variant = "outlined",
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
+</script>
+```
+
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, ClassicSelect, TextField, Textarea and Range, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
 
 ### Key Rules:
 - **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
@@ -65,6 +106,7 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 ```
 - **Inference**: Default to `"a"` if `href` is present.
 - **Override**: Allow manual override via the `as` prop.
+- **Button type**: A rendered `<button>` gets `type="button"` unless the user passes `type`, so it never submits a form by accident.
 
 ### Styling Inheritance
 Components should often inherit styles from others (e.g., `Dialog` looking like a `Card`). Use conditional classes to apply the inherited base class. All library classes are prefixed with `ui-`.
@@ -77,13 +119,15 @@ Components should often inherit styles from others (e.g., `Dialog` looking like 
 
 ## 3. Class Management
 
-Use `class:list` exclusively. Every library-owned class is prefixed with `ui-`; the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+Use `class:list` exclusively in Astro, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-`; the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
 1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
-2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-disabled": disabled }`).
+2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-dot": dot }`).
 3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
-4.  **External Class**: Always include `className` at the end to allow for overrides. Do not prefix `className`.
+4.  **External Class**: Always include `className` (Astro and Svelte) or `$props.class` (Vue) at the end to allow for overrides. Do not prefix it.
+
+Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`.
 
 ```astro
 <div
@@ -136,15 +180,17 @@ Use named slots for specific functional areas. Check for existence before render
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["ui-field", { "ui-disabled": disabled }]} data-invalid={error ? "" : undefined}>
+<label class:list={["ui-text-field", size && `ui-${size}`, className]}>
   <span class="ui-label">{label}</span>
-  <input type="text" {...rest} />
+  <span class="ui-field">
+    <input type="text" aria-invalid={error ? "true" : undefined} {...rest} />
+  </span>
   {endText && <span class="ui-end-text">{endText}</span>}
 </label>
 ```
 
 ### End Text & ARIA
-When providing `endText`, use `createId(Astro.locals)` to link it to the input via `aria-describedby`.
+When providing `endText`, use `createId(Astro.locals)` (Astro), `$props.id()` (Svelte) or `useId()` (Vue) to link it to the input via `aria-describedby`.
 
 ```astro
 ---
@@ -203,11 +249,11 @@ When building forms, follow this nesting order inside a `FieldSet`:
 ## 6. Identification & Accessibility
 
 ### Unique IDs
-Always use `createId(Astro.locals)` from `../id` for IDs. It falls back to random IDs when no middleware sets `Astro.locals.$id`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page.
+Always use `createId(Astro.locals)` from `../id` for IDs in Astro. It falls back to random IDs when no middleware sets `Astro.locals.$id`. In Svelte, use `$props.id()`, and in Vue, `useId()`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page. Only generate an id for elements the component links itself; don't generate an input `id` the user didn't pass.
 
 ```astro
 const $id = createId(Astro.locals)
-const fieldId = id || $id("input") // Prefer passed ID if available
+const groupName = name || $id("tabs") // Prefer the passed value if available
 ```
 
 ### Default Icons
@@ -215,7 +261,7 @@ Components like `Callout` should provide default SVG icons within their named sl
 
 ```astro
 <slot name="icon">
-  {severity === "error" && <svg>...</svg>}
+  {severity === "critical" && <svg>...</svg>}
 </slot>
 ```
 
@@ -239,9 +285,9 @@ type Props = { items?: Item[] }
 
 ## 8. Development Workflow
 
-1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes. (Component docs live under `src/docs/components/` now; `src/pages/components/` only contains route shells.)
-2.  **Analyze the API**: Check `src/component-api/[name]/` (`Astro.astro` and `HTML.astro`) or `src/component-api/[name]-api.astro` for the documented props.
-3.  **Implement**: Follow the checklist in Section 0.
-4.  **Verify**: Check that your implementation matches the "HTML" preview in the rendered `Example` for the spec page (`/components/[name]`). For framework-specific behaviour, also verify the Astro variant at `/astro/components/[name]`.
+1.  **Read the Spec**: Open `src/docs/components/[name].astro` to see required HTML and CSS classes, and the examples in `src/component-examples/[name]/` (`.html`, `.astro`, `.svelte` and `.vue` per example). `src/pages/[framework]/components/[component].astro` is the route shell that renders every docs page for each framework.
+2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
+3.  **Implement**: Follow the checklist in Section 0, for Astro, Svelte and Vue.
+4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 

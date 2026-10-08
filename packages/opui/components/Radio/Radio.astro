@@ -11,6 +11,7 @@ const {
   hideLabel,
   name,
   size,
+  spread,
   stack,
   ...rest
 } = Astro.props
@@ -38,10 +39,10 @@ if (
     size && `ui-${size}`,
     {
       "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   <RadioInput
     {...rest}

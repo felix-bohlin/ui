@@ -2,6 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Card",
+  notes: {
+    astro:
+      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+    html: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+    svelte:
+      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+    vue: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+  },
   options: [
     {
       description: "Alignment for the actions.",
@@ -11,7 +19,8 @@ export default {
       values: { end: ".ui-align-end", start: null },
     },
     {
-      description: "The variant to use.",
+      description:
+        "The variant to use. Without one the card has the page surface color and no border.",
       group: "Variants",
       prop: "variant",
       values: {

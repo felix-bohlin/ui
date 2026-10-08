@@ -1,0 +1,79 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+
+  .todo-group {
+    border-radius: var(--radius-2);
+    display: inline-flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    & > button {
+      --divider: light-dark(
+        oklch(from var(--surface-tonal) calc(l - 0.1) c h),
+        oklch(from var(--surface-tonal) calc(l + 0.1) c h)
+      );
+
+      background-color: var(--surface-tonal);
+      border: 0;
+      border-radius: 0;
+      box-shadow:
+        -1px 0 0 0 var(--divider),
+        0 -1px 0 0 var(--divider);
+      color: inherit;
+      flex: auto;
+      font: inherit;
+      padding: var(--size-2) var(--size-3);
+    }
+
+    &.todo-outlined {
+      outline: 1px solid var(--border-color);
+      outline-offset: -1px;
+
+      & > button {
+        --divider: var(--border-color);
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough: outlined with <code>--border-color</code>
+    </p>
+    <div class="todo-group todo-outlined" role="group">
+      <button type="button">Day</button>
+      <button type="button">Week</button>
+      <button type="button">Month</button>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>.ui-button-group.ui-outlined</code></p>
+    <div class="ui-button-group ui-outlined" role="group">
+      <button class="ui-button" type="button">Day</button>
+      <button class="ui-button" type="button">Week</button>
+      <button class="ui-button" type="button">Month</button>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Library without <code>role="group"</code>: not styled at all
+    </p>
+    <div class="ui-button-group ui-outlined">
+      <button class="ui-button" type="button">Day</button>
+      <button class="ui-button" type="button">Week</button>
+      <button class="ui-button" type="button">Month</button>
+    </div>
+  </div>
+</div>

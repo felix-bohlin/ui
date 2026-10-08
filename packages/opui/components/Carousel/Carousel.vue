@@ -3,6 +3,7 @@ import type { Props, Slots } from "./types.d.vue"
 
 const {
   align,
+  aspectRatio,
   buttons = true,
   label,
   markers,
@@ -32,7 +33,11 @@ defineSlots<Slots>()
       align && align !== 'start' && `ui-align-${align}`,
       $props.class,
     ]"
-    :style="perView ? { '--_per-view': perView } : undefined"
+    :style="
+      perView || aspectRatio
+        ? { '--_per-view': perView, '--_media-aspect-ratio': aspectRatio }
+        : undefined
+    "
   >
     <slot></slot>
   </ul>

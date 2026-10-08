@@ -1,0 +1,2 @@
+[build]
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':!.claude' ':!.github' ':!.vscode' ':!tests' ':!.oxlintrc.json' ':!.prettierignore' ':!.prettierrc' ':!AGENTS.md' ':!CHANGELOG.md' ':!playwright.config.ts' ':!README.md' ':!stylelint.config.mjs' ':!vitest.config.ts'"

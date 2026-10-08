@@ -4,6 +4,7 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import { Table } from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
@@ -16,9 +17,13 @@ export const description = "A popover list of actions or links."
   slug="menu"
   browserSupport={[
     "anchor-positioning",
+    "calc-size",
+    "container-style-queries",
+    "dir-pseudo",
     "display-animation",
     "has",
     "invoker-commands",
+    "light-dark",
     "overlay",
     "popover",
     "relative-color",
@@ -44,7 +49,10 @@ export const description = "A popover list of actions or links."
   <Fragment slot="title">Menu</Fragment>
   <Fragment slot="preamble">
     A popover <DocLink href="/components/list">List</DocLink>, anchored to a
-    {" "}<DocLink href="/components/button">Button</DocLink>.
+    {" "}<DocLink href="/components/button">Button</DocLink>. Use a Menu for
+    actions and navigation. To pick a value in a form, use a <DocLink
+      href="/components/select">Select</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -56,6 +64,11 @@ export const description = "A popover list of actions or links."
         > to close.</Fragment
       >
       <Fragment slot="astro"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
           >disabled</code
         > and <code>shortcut</code>.</Fragment
@@ -91,6 +104,11 @@ export const description = "A popover list of actions or links."
           >align="end"</code
         > to line up with the end edge.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
       <Fragment slot="vue"
         ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
           >align="end"</code
@@ -115,6 +133,13 @@ export const description = "A popover list of actions or links."
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
       </Fragment>
+      <Fragment slot="svelte">
+        Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > snippet.
+      </Fragment>
       <Fragment slot="vue">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
           >ListItem</code
@@ -127,8 +152,102 @@ export const description = "A popover list of actions or links."
     <AutoExample name="Submenu" centered />
   </section>
 
+  <section>
+    <h2 id="manual">Manual</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+      <Fragment slot="html"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Give <code>command="hide-popover"</code> only to the
+        items that should close it.</Fragment
+      >
+      <Fragment slot="svelte"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Manual" centered />
+  </section>
+
   <Fragment slot="accessibility">
-    <p><kbd>Tab</kbd> to navigate, and <kbd>Esc</kbd> to close.</p>
+    <h3 id="role">Role</h3>
+    <p>
+      A menu is a <code>&lt;menu&gt;</code> of buttons and links, not an ARIA menu.
+      It has no <code>role="menu"</code> or <code>role="menuitem"</code>, so
+      screen readers announce a list of buttons, and the keyboard works like it
+      does for any other button. The ARIA menu pattern needs a script for the
+      arrow keys, which the library doesn't ship.
+    </p>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <div class="ui-not-rich-text">
+      <Table style="table-layout: fixed">
+        <Table.ColumnGroup>
+          <Table.Column width="30%" />
+          <Table.Column />
+        </Table.ColumnGroup>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeaderCell>Key</Table.HeaderCell>
+            <Table.HeaderCell>Function</Table.HeaderCell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell><kbd>Enter</kbd>, <kbd>Space</kbd></Table.Cell>
+            <Table.Cell>
+              On the trigger, opens or closes the menu. Focus stays on the
+              trigger. On an item, activates it.
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Tab</kbd></Table.Cell>
+            <Table.Cell>
+              From the trigger, moves into the open menu, because the browser
+              puts a popover opened with <code>commandfor</code> right after its trigger
+              in the focus order. Then moves to the next item, and after the last
+              one, out of the menu. The menu stays open.
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
+            <Table.Cell>
+              Moves to the previous item, and from the first item back to the
+              trigger.
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Arrow keys</Table.Cell>
+            <Table.Cell>Do nothing.</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Esc</kbd></Table.Cell>
+            <Table.Cell>
+              Closes the menu and returns focus to the trigger. A click outside
+              closes it too. Neither works with <code>popover="manual"</code>.
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
   </Fragment>
   <MenuBuild slot="under-the-hood" />
 </Component>

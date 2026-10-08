@@ -2,7 +2,7 @@ export type CheckboxProps = {
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
-  size?: "small" | "large"
+  size?: "x-small" | "small" | "large"
   spread?: boolean
   stack?: boolean
 }

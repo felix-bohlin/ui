@@ -8,7 +8,7 @@ import { List, ListItem } from "opui-css/vue"
       <template #end>
         <button
           aria-label="Delete"
-          class="ui-button ui-rounded ui-ripple ui-small"
+          class="ui-button ui-rounded ui-small"
           type="button"
         >
           <svg

@@ -13,7 +13,6 @@ const {
   disabled,
   endText,
   error,
-  filled,
   id,
   label,
   maxlength,
@@ -26,6 +25,7 @@ const {
   spread,
   style,
   value,
+  variant,
   ...rest
 } = Astro.props
 
@@ -44,12 +44,11 @@ const describedBy =
     size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
   style={style}
 >
   {

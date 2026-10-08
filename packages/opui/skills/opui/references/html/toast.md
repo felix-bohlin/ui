@@ -40,7 +40,6 @@ window.showToast({
   duration: "3000ms",
 })
 
-
 // Or using native CommandEvent
 const btn = document.createElement("button")
 btn.setAttribute("data-title", "Triggered from JS!")
@@ -70,7 +69,6 @@ Use the `data-severity` attribute to change the appearance of the toast.
   Success
 </button>
 
-
 <button
   class="ui-button ui-filled red"
   commandfor="toast-manager"
@@ -80,7 +78,6 @@ Use the `data-severity` attribute to change the appearance of the toast.
 >
   Error
 </button>
-
 
 <button
   class="ui-button ui-filled blue"
@@ -107,7 +104,6 @@ Use `data-title` for a single-line toast, or add `data-description` for a two-li
   Title only
 </button>
 
-
 <button
   class="ui-button"
   commandfor="toast-manager"
@@ -133,7 +129,6 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 >
   1.5s Toast
 </button>
-
 
 <button
   class="ui-button"
@@ -166,6 +161,8 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 ## Under the hood
 
+Read the post: [Toast timing with typed attr()](https://open-props-ui.netlify.app/learn/toast-attr-duration)
+
 1. Stack
 
    - Custom commands start with `--` and fire a `command` event on the stack
@@ -192,8 +189,8 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 Step 1 of 4: Stack
 
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [\<template>](https://webstatus.dev/features/template) (Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [\<template> ](https://webstatus.dev/features/template)(Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
 
 ```html
 <button
@@ -204,9 +201,7 @@ Step 1 of 4: Stack
   Default
 </button>
 
-
 <output class="stack" id="stack" role="status"></output>
-
 
 <template id="toast-template">
   <div class="toast" role="alert">…</div>
@@ -219,7 +214,6 @@ Step 1 of 4: Stack
   flex-direction: column-reverse;
   gap: 0.75rem;
 }
-
 
 .toast {
   align-items: center;
@@ -237,8 +231,8 @@ Step 1 of 4: Stack
 
 Step 2 of 4: Lifetime
 
-- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
-- [`attr()`](https://webstatus.dev/features/attr) (Limited availability): Chrome 133+, Edge 133+, Firefox 119+, Safari 18.4+
+- [`Animations (CSS)` ](https://webstatus.dev/features/animations-css)(Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [`attr()` ](https://webstatus.dev/features/attr)(Limited availability): Chrome 133+, Edge 133+, Firefox 119+, Safari 18.4+
 
 ```css
 .toast {
@@ -255,14 +249,13 @@ Step 2 of 4: Lifetime
 
 Step 3 of 4: Pause
 
-- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [`:focus-within` ](https://webstatus.dev/features/focus-within)(Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
 
 ```css
 .toast:hover,
 .toast:focus-within {
   animation-play-state: paused;
 }
-
 
 .toast.exiting {
   animation: build-toast-exit 0.3s forwards;
@@ -271,8 +264,8 @@ Step 3 of 4: Pause
 
 Step 4 of 4: Icons
 
-- [Masks](https://webstatus.dev/features/masks) (Widely available): Chrome 120+, Edge 120+, Firefox 53+, Safari 15.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Masks ](https://webstatus.dev/features/masks)(Widely available): Chrome 120+, Edge 120+, Firefox 53+, Safari 15.4+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .toast .icon {
@@ -282,23 +275,19 @@ Step 4 of 4: Icons
   mask: center / contain no-repeat;
 }
 
-
 .toast:not([data-severity]) .icon {
   display: none;
 }
-
 
 .toast[data-severity="success"] .icon {
   background-color: var(--success);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
 }
 
-
 .toast[data-severity="critical"] .icon {
   background-color: var(--critical);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
 }
-
 
 .toast .description {
   color: oklch(from currentColor l c h / 75%);
@@ -317,3 +306,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/toast.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
+- Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).

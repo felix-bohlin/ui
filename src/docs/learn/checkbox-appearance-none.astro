@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="checkbox-appearance-none">
@@ -35,14 +35,23 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li><code>:indeterminate</code> swaps the polygon for a dash</li>
       <li>
-        <code>text-box: trim-start cap alphabetic</code> and a <code>1cap</code
-        >{" "}
-        offset center the label's capitals on the box
+        In dark mode <code>--accent</code> caps the primary's lightness, so the light
+        check keeps 3:1 contrast
+      </li>
+      <li>
+        <code>margin-block-start: calc((var(--size) - 1lh) / 2)</code> centers the
+        label's first line on the box
       </li>
     </ul>
     <Code
       lang="css"
       code={`input[type="checkbox"] {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
   appearance: none;
   aspect-ratio: 1;
   border: 1px solid var(--border-color);
@@ -82,9 +91,8 @@ input:checked::after {
         the box and the check render everywhere
       </li>
       <li>
-        <code>text-box</code> sits behind <code>@supports</code>. Without it the
-        label uses a <code>1lh</code> offset, which centers the line box instead of
-        the capitals
+        The label offset is a <code>calc()</code> with <code>lh</code>, so the
+        label lines up the same in every engine
       </li>
       <li>
         In forced colors mode the box and the check switch to

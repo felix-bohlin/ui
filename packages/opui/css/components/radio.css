@@ -6,7 +6,6 @@
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
     --_input-size: var(--choice-size);
-    --_indicator-size: 50%;
 
     align-items: start;
     color: var(--text-primary);
@@ -40,9 +39,7 @@
       .ui-label:after {
         color: var(--field-required-color);
         content: "*";
-        inset-block: 0 auto;
-        inset-inline: auto -0.25ex;
-        position: absolute;
+        margin-inline-start: 0.25ex;
       }
     }
 
@@ -69,6 +66,32 @@
       z-index: 1;
     }
 
+    /* Spread layout */
+    &.ui-spread {
+      align-items: start;
+      column-gap: var(--size-4);
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr auto;
+      inline-size: 100%;
+
+      .ui-label {
+        font-weight: var(--field-label-font-weight);
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: fit-content;
+      }
+
+      input {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      :where(.ui-end-text) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
     /* Stacked layout */
     &.ui-stack {
       grid-auto-columns: unset;
@@ -89,6 +112,15 @@
 
     /* Input */
     input[type="radio"] {
+      --_dir-rtl: -1;
+      --_dot-radius: calc(
+        var(--_input-size) / 2 - var(--field-border-width) -
+          round(
+            down,
+            (var(--_input-size) - 2 * var(--field-border-width)) / 4,
+            1px
+          )
+      );
       --_ripple-size: 175%;
 
       appearance: none;
@@ -99,35 +131,66 @@
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;
-      display: grid;
       inline-size: var(--_input-size);
       margin: 0;
       padding: 0;
-      place-items: center;
       position: relative;
+      transform-style: preserve-3d;
 
+      /* Dot */
       &:checked {
         background-color: var(--_accent);
+        background-image: radial-gradient(
+          circle,
+          var(--_accent-contrast) calc(var(--_dot-radius) - 0.25px),
+          var(--_accent) calc(var(--_dot-radius) + 0.25px)
+        );
         border-color: var(--_accent);
       }
 
-      /* Dot */
-      &::after {
-        background-color: var(--_accent-contrast);
-        block-size: var(--_indicator-size);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--_indicator-size);
-        margin: auto;
-        opacity: 0;
+      /* Hover and active effect */
+      &:dir(rtl) {
+        --_dir-rtl: 1;
       }
 
-      &:checked::after {
-        opacity: 1;
+      &:where(:not([disabled], [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:hover::before {
+            --_thumb-scale: 1;
+          }
+        }
+
+        &:active::before {
+          --_thumb-scale: 1.1;
+        }
+
+        &::before {
+          --_thumb-scale: 0.01;
+
+          background-color: var(--ripple-color);
+          block-size: var(--_ripple-size, 150%);
+          clip-path: circle(50%);
+          content: "";
+          inline-size: var(--_ripple-size, 150%);
+          inset-block-start: 50%;
+          inset-inline-start: 50%;
+          position: absolute;
+          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+            translateZ(-1px) scale(var(--_thumb-scale));
+          transform-origin: center center;
+
+          transition: transform calc(var(--duration) * var(--motion, 1))
+            var(--ease);
+          will-change: transform;
+        }
       }
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
       --_input-size: var(--choice-size-small);
     }
@@ -137,20 +200,11 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
         color: var(--invalid-text-color);
-      }
-    }
-
-    /* Touch devices */
-    @media (pointer: coarse) {
-      input[type="radio"] {
-        block-size: var(--size-4);
-        inline-size: var(--size-4);
       }
     }
 
@@ -159,12 +213,10 @@
         border: 1px solid CanvasText;
 
         &:checked {
-          background-color: SelectedItem;
-          border-color: SelectedItem;
+          --_accent: SelectedItem;
+          --_accent-contrast: SelectedItemText;
 
-          &::after {
-            background-color: SelectedItemText;
-          }
+          forced-color-adjust: none;
         }
       }
     }

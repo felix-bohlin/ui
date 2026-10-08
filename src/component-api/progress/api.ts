@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
+    svelte:
+      "Attributes that aren't props, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
     vue: "Attributes that aren't props, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
   },
   options: [
@@ -20,11 +22,13 @@ export default {
       prop: "value",
     },
     {
-      description: "The variant to use.",
+      default: '"tonal"',
+      description:
+        "The track surface. Without one, the track looks the same as `tonal`.",
       group: "Variants",
+      htmlDefault: null,
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
         tonal: ".ui-tonal",
       },

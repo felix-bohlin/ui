@@ -29,23 +29,15 @@ export default {
       default: "false",
       description:
         "Marks the button as icon-only, so `label` is required. Types only.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "iconOnly",
       type: "boolean",
     },
     {
       description: "The accessible name. Use it on icon-only buttons.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "label",
       type: "string",
-    },
-    {
-      class: ".ui-ripple",
-      default: "false",
-      description:
-        "A halo behind the button on hover instead of a background change.",
-      group: "Hover",
-      prop: "ripple",
     },
     {
       class: ".ui-rounded",
@@ -83,7 +75,8 @@ export default {
     },
     {
       code: '<span class="ui-text">',
-      description: "The label. Wrap it when the button has an icon.",
+      description:
+        "The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.",
       selector: ".ui-button > .ui-text",
     },
   ],

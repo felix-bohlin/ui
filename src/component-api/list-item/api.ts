@@ -9,7 +9,7 @@ export default {
   options: [
     {
       description:
-        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`.',
       prop: "as",
     },
     {

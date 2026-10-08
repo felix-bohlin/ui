@@ -2,11 +2,6 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/astro/components/anchor.md).
 
-### What's new
-
-- Breaking: `id` is required.
-- The arrow points at the trigger in every position, also after a flip.
-
 Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics
@@ -19,7 +14,6 @@ Pass plain text via the `label` prop.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <Tooltip label="Save your changes" id="tooltip-basic">
   <Button
@@ -38,7 +32,6 @@ Use the `content` slot instead, and it lets you put anything in the tooltip.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <Tooltip id="tooltip-rich">
   <Button
@@ -60,7 +53,6 @@ Use the `alignment` prop.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <div class="tooltip-alignment-grid">
   <Tooltip label="Above" alignment="block-start" id="tooltip-top">
@@ -93,7 +85,6 @@ import { Button, Tooltip } from "opui-css/astro"
   </Tooltip>
 </div>
 
-
 <style>
   .tooltip-alignment-grid {
     align-items: center;
@@ -105,7 +96,6 @@ import { Button, Tooltip } from "opui-css/astro"
       ".     bottom .  ";
     justify-items: center;
   }
-
 
   .tooltip-alignment-grid > :nth-child(1) {
     grid-area: top;
@@ -130,7 +120,6 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <Tooltip arrow label="Save your changes" id="tooltip-arrow">
   <Button
@@ -161,18 +150,21 @@ import { Button, Tooltip } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
-| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
-| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
+| Variable            | Default                                     | Description                                                                                                                                                                                               |
+| ------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                  |
+| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                           |
+| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                                                                                                        |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Tooltips with interestfor](https://open-props-ui.netlify.app/learn/tooltip-interest-invokers)
 
 1. Hint
 
@@ -195,26 +187,33 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 4. Arrow
 
-   - Hover Share: a rotated square, half outside the tooltip
-   - `[popover]` defaults to `overflow: auto`, which would clip it
-   - A shifted tooltip would point the arrow at nothing, so it only flips
+   - Hover Share: a rotated square, centered on the tooltip's edge
+   - The tooltip is its own anchor, the wrapper names the trigger
+   - `clamp()` moves the arrow towards the trigger's center but keeps it on the tooltip's edge
+   - So it still points at the trigger after a flip or a shift
 
-Step 1 of 4: Hint
+5. Fade
 
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
-- [Interest invokers](https://webstatus.dev/features/interest-invokers) (Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [popover="hint"](https://webstatus.dev/features/popover-hint) (Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+   - `@starting-style` fades it in from `opacity: 0`
+   - `allow-discrete` keeps `display` and `overlay` alive while it fades out
+   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+
+Step 1 of 5: Hint
+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
 
 ```html
 <button
+  type="button"
   interestfor="tooltip"
   commandfor="tooltip"
   command="toggle-popover"
 >
   Save
 </button>
-
 
 <span class="tooltip" id="tooltip" popover="hint">Save changes</span>
 ```
@@ -234,10 +233,10 @@ Step 1 of 4: Hint
 }
 ```
 
-Step 2 of 4: Size
+Step 2 of 5: Size
 
-- [`calc-size()`](https://webstatus.dev/features/calc-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
-- [text-wrap: pretty](https://webstatus.dev/features/text-wrap-pretty) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari 26+
+- [`calc-size()` ](https://webstatus.dev/features/calc-size)(Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [text-wrap: pretty ](https://webstatus.dev/features/text-wrap-pretty)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari 26+
 
 ```css
 .tooltip {
@@ -248,7 +247,7 @@ Step 2 of 4: Size
 }
 ```
 
-Step 3 of 4: Shift
+Step 3 of 5: Shift
 
 ```css
 .tooltip {
@@ -262,41 +261,87 @@ Step 3 of 4: Shift
 }
 ```
 
-Step 4 of 4: Arrow
+Step 4 of 5: Arrow
+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [`min(), max(), and clamp()` ](https://webstatus.dev/features/min-max-clamp)(Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
+
+```html
+<span class="anchor">
+  <button type="button" interestfor="share" …>Share</button>
+  <span class="tooltip arrow" id="share" popover="hint">Copy a link</span>
+</span>
+```
 
 ```css
-.tooltip.arrow {
-  margin: 0.75rem;
-  overflow: visible;
-  position-try-fallbacks:
-    flip-block,
-    flip-inline,
-    flip-block flip-inline;
+.anchor {
+  anchor-name: --anchor;
+  anchor-scope: --anchor;
 }
 
+.tooltip.arrow {
+  anchor-name: --tooltip;
+  anchor-scope: --tooltip;
+  margin: 0.75rem;
+}
 
 .tooltip.arrow::before {
   background-color: inherit;
   block-size: 0.5rem;
   content: "";
   inline-size: 0.5rem;
-  inset-block-end: -0.25rem;
-  inset-inline: 0;
-  margin-inline: auto;
-  position: absolute;
+  inset-block-start: clamp(
+    anchor(--tooltip self-start),
+    anchor(--anchor center),
+    anchor(--tooltip self-end)
+  );
+  inset-inline-start: clamp(
+    anchor(--tooltip self-start),
+    anchor(--anchor center),
+    anchor(--tooltip self-end)
+  );
+  margin: -0.25rem;
+  position: fixed;
   rotate: 45deg;
+}
+```
+
+Step 5 of 5: Fade
+
+- [display animation ](https://webstatus.dev/features/display-animation)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari 18+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.tooltip {
+  opacity: 0;
+  transition:
+    display calc(0.2s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.2s * var(--motion, 1)),
+    overlay calc(0.2s * var(--motion, 1)) allow-discrete;
+}
+
+.tooltip:popover-open {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
 }
 ```
 
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: display-animation, interest-invokers, overlay, text-wrap-pretty.
-- Safari: Partial support Missing: interest-invokers, overlay, popover-hint.
+- Firefox: Partial support Missing: calc-size, display-animation, interest-invokers, overlay, text-wrap-pretty.
+- Safari: Partial support Missing: calc-size, interest-invokers, overlay, popover-hint.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Tooltip.md).
 
 ## Installation
+
+Import the component from `opui-css/astro`:
 
 - `opui-css/css/components/tooltip.css`
 - `opui-css/css/components/anchor.css`
@@ -304,3 +349,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## See also
 
 - [Anchor](https://open-props-ui.netlify.app/astro/components/anchor.md)
+
+## Changelog
+
+### What's new
+
+- Breaking: [`id`](#api) is required.
+- Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).
+- The [arrow](#arrow) points at the trigger in every position, also after a flip.

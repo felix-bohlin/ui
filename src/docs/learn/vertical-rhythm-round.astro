@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="vertical-rhythm-round" topic="rhythm">
@@ -34,6 +34,12 @@ import { Code } from "astro-expressive-code/components"
       <li>
         Margins and flow space round to the same <code>--rhythm-step</code>
       </li>
+      <li>
+        <code>@property</code> makes the flow space a length, so <code
+          >1.25em</code
+        >
+        resolves against the body text, not each heading
+      </li>
     </ul>
     <Code
       lang="css"
@@ -43,6 +49,12 @@ import { Code } from "astro-expressive-code/components"
 
 h2 {
   font-size: round(var(--font-size-h2), var(--rhythm-step, 0.25rem) / 2);
+}
+
+@property --flow-space {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
 }
 
 .rich-text {

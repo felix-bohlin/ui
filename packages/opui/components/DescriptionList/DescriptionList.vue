@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { bordered } = defineProps<Props>()
+const { bordered, inline } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -13,7 +13,11 @@ defineOptions({
   <dl
     :class="[
       'ui-description-list',
-      { 'ui-bordered': bordered, 'ui-dotted': bordered === 'dotted' },
+      {
+        'ui-bordered': bordered,
+        'ui-dotted': bordered === 'dotted',
+        'ui-inline': inline,
+      },
       $props.class,
     ]"
     v-bind="$attrs"

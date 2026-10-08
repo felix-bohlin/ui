@@ -17,6 +17,7 @@ import {
 } from "@opui/astro"
 import { RADIUS_OPTIONS, tokenDefaults } from "../../utils/theme-store"
 import { PLACEHOLDER_CSS } from "./generateCss"
+import "../../styles/syntax.css"
 
 const surfaces = ["default", "tonal", "filled", "elevated"]
 
@@ -266,7 +267,6 @@ const previewStyle = Object.entries(tokenDefaults("light"))
         <h3>theme.css</h3>
         <div class="css-actions">
           <Button
-            ripple
             rounded
             id="theme-generator-copy"
             size="x-small"
@@ -285,7 +285,6 @@ const previewStyle = Object.entries(tokenDefaults("light"))
             </svg>
           </Button>
           <Button
-            ripple
             rounded
             id="theme-generator-download"
             size="x-small"
@@ -307,7 +306,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
       </div>
     </Fragment>
     <pre
-      slot="content"><code id="theme-generator-css-code" class="hljs language-css">{PLACEHOLDER_CSS}</code></pre>
+      slot="content"><code id="theme-generator-css-code" class="language-css">{PLACEHOLDER_CSS}</code></pre>
   </Card>
 </div>
 
@@ -524,6 +523,21 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     }
 
     code {
+      --syntax-comment: #74a061;
+      --syntax-constant: #b5cea8;
+      --syntax-function: #dcdcaa;
+      --syntax-keyword: #c586c0;
+      --syntax-operator: #d4d4d4;
+      --syntax-property: #9cdcfe;
+      --syntax-punctuation: #949494;
+      --syntax-selector: #d7ba7d;
+      --syntax-string: #ce9178;
+      --syntax-tag: #569cd6;
+      --syntax-type: #4ec9b0;
+      --syntax-value: #ce9178;
+      --syntax-variable: #9cdcfe;
+
+      color: #d4d4d4;
       font-family: var(--font-mono);
       font-size: var(--font-size-0);
       white-space: pre;
@@ -531,41 +545,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   }
 </style>
 
-<style is:global>
-  #theme-generator-css-code.hljs {
-    color: #d4d4d4;
-  }
-  #theme-generator-css-code .hljs-keyword,
-  #theme-generator-css-code .hljs-selector-tag {
-    color: #c586c0;
-  }
-  #theme-generator-css-code .hljs-selector-class,
-  #theme-generator-css-code .hljs-selector-id,
-  #theme-generator-css-code .hljs-selector-pseudo {
-    color: #d7ba7d;
-  }
-  #theme-generator-css-code .hljs-built_in {
-    color: #dcdcaa;
-  }
-  #theme-generator-css-code .hljs-attr,
-  #theme-generator-css-code .hljs-attribute {
-    color: #9cdcfe;
-  }
-  #theme-generator-css-code .hljs-number,
-  #theme-generator-css-code .hljs-unit {
-    color: #b5cea8;
-  }
-  #theme-generator-css-code .hljs-string {
-    color: #ce9178;
-  }
-  #theme-generator-css-code .hljs-comment {
-    color: #6a9955;
-  }
-</style>
-
 <script>
-  import hljs from "highlight.js/lib/core"
-  import css from "highlight.js/lib/languages/css"
+  import { highlightAll } from "microlighter"
   import {
     themeStore,
     TOKENS,
@@ -576,8 +557,6 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   } from "../../utils/theme-store"
   import { generateCss } from "./generateCss"
   import { hexToOklch, oklchToHex } from "../../utils/color-utils"
-
-  hljs.registerLanguage("css", css)
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -720,7 +699,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
       light: themeStore.get("light"),
       dark: themeStore.get("dark"),
     })
-    codeEl.innerHTML = hljs.highlight(generatedCss, { language: "css" }).value
+    codeEl.textContent = generatedCss
+    highlightAll()
   }
 
   function refreshAll() {

@@ -2,6 +2,8 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/astro/components/progress.md).
 
+## Basics
+
 ```astro
 <div aria-busy="true"></div>
 ```
@@ -27,13 +29,11 @@ Simply add `aria-busy="true"` to a `<button>`.
 import { Button } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <Button aria-busy="true">Text</Button>
   <Button aria-busy="true" disabled variant="outlined"> Outlined </Button>
   <Button aria-busy="true" variant="filled">Filled</Button>
 </div>
-
 
 <div class="example-row">
   <Button aria-busy="true">
@@ -54,7 +54,7 @@ There are a few exceptions where `aria-busy="true"` won't render a spinner. Eith
 
 ### 1. Because it's blocked by another use case
 
-In conjunction with the `<progress>` element `aria-busy="true"` is used on the section that is being updated. Rendering a spinner here would result in a spinner *and* a progress bar which doesn't make sense.
+A section that's being updated points at its progress bar with `aria-describedby` while `aria-busy="true"` marks it as busy. Busy elements with `aria-describedby` get no spinner, so you don't see a spinner *and* a progress bar. Buttons and links always get one.
 
 See [progress accessibility](https://open-props-ui.netlify.app/astro/components/progress.md#accessibility) section for more.
 
@@ -80,22 +80,24 @@ See [progress accessibility](https://open-props-ui.netlify.app/astro/components/
 
 ### CSS variables
 
-| Variable   | Default | Description                                                                                                                |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| Variable   | Default | Description                                                                                                                                                                                               |
+| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
-Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby`.
+Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, and elements with `aria-describedby` other than buttons and links.
 
 Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.
 
 ## Under the hood
 
+Read the post: [Spinners from aria-busy](https://open-props-ui.netlify.app/learn/spinner-aria-busy)
+
 1. Ring
 
    - The state is the API: `aria-busy="true"`, no class
-   - `:not(…)` skips form fields, `<progress>` and sections described by a progress bar
+   - `:not(…)` skips form fields, `<progress>` and sections described by a progress bar, but never buttons or links
    - One transparent border side makes the gap in the ring
    - `1em` sizes it from the font: drag **Font size**
 
@@ -119,8 +121,8 @@ Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.
 
 Step 1 of 4: Ring
 
-- [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
-- [`:not()`](https://webstatus.dev/features/not) (Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
+- [`::before and ::after` ](https://webstatus.dev/features/before-after)(Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
+- [`:not()` ](https://webstatus.dev/features/not)(Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
 
 ```html
 <p aria-busy="true">Loading results</p>
@@ -133,11 +135,12 @@ Step 1 of 4: Ring
   textarea,
   html,
   progress,
-  [aria-describedby]
+  [aria-describedby]:not(button, a)
 ) {
   &::before {
     block-size: 1em;
-    border-color: transparent currentColor currentColor;
+    border-block-color: transparent currentColor;
+    border-inline-color: currentColor;
     border-radius: 50%;
     border-style: solid;
     border-width: 3px;
@@ -152,8 +155,8 @@ Step 1 of 4: Ring
 
 Step 2 of 4: Spin
 
-- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
-- [2D transforms](https://webstatus.dev/features/transforms2d) (Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
+- [`Animations (CSS)` ](https://webstatus.dev/features/animations-css)(Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [2D transforms ](https://webstatus.dev/features/transforms2d)(Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
 
 ```css
 [aria-busy="true"]::before {
@@ -163,8 +166,8 @@ Step 2 of 4: Spin
 
 Step 3 of 4: Gap
 
-- [`:empty`](https://webstatus.dev/features/empty) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`:empty` ](https://webstatus.dev/features/empty)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 [aria-busy="true"]:not(:empty)::before {
@@ -174,13 +177,12 @@ Step 3 of 4: Gap
 
 Step 4 of 4: Reduced motion
 
-- [`min(), max(), and clamp()`](https://webstatus.dev/features/min-max-clamp) (Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
+- [`min(), max(), and clamp()` ](https://webstatus.dev/features/min-max-clamp)(Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
 
 ```css
 .demo {
   --motion: 0;
 }
-
 
 [aria-busy="true"]::before {
   animation-duration: max(
@@ -194,3 +196,8 @@ Step 4 of 4: Reduced motion
 
 - `opui-css/css/components/spinner.css`
 
+## Changelog
+
+### What's new
+
+- Busy buttons and links with `aria-describedby` [get a spinner](#blocked-by-another-use-case) now.

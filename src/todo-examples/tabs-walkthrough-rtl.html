@@ -1,0 +1,162 @@
+<style>
+  .todo-rows {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 26rem);
+  }
+
+  .todo-rows > div {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-tabs {
+    --inset: 3px;
+    --radius: 10px;
+
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+
+    input {
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    label {
+      background-color: var(--surface-tonal);
+      cursor: pointer;
+      font-weight: 500;
+      isolation: isolate;
+      padding: calc(0.25rem + var(--inset)) 0.75rem;
+      position: relative;
+    }
+
+    label::before {
+      border-radius: calc(var(--radius) - var(--inset));
+      content: "";
+      inset: var(--inset) 0;
+      position: absolute;
+      z-index: -1;
+    }
+
+    label:nth-child(1 of label) {
+      padding-inline-start: calc(0.75rem + var(--inset));
+
+      &::before {
+        inset-inline-start: var(--inset);
+      }
+    }
+
+    label:nth-last-child(1 of label) {
+      padding-inline-end: calc(0.75rem + var(--inset));
+
+      &::before {
+        inset-inline-end: var(--inset);
+      }
+    }
+
+    input:checked + label::before {
+      background-color: var(--surface-default);
+      box-shadow: var(--shadow-1);
+    }
+  }
+
+  .todo-physical {
+    label:nth-child(1 of label) {
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+
+    label:nth-last-child(1 of label) {
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+  }
+
+  .todo-logical {
+    label:nth-child(1 of label) {
+      border-end-start-radius: var(--radius);
+      border-start-start-radius: var(--radius);
+    }
+
+    label:nth-last-child(1 of label) {
+      border-end-end-radius: var(--radius);
+      border-start-end-radius: var(--radius);
+    }
+  }
+
+  .todo-ring-label label.todo-focus {
+    outline: 2px solid var(--text-muted);
+  }
+
+  .todo-ring-pill label.todo-focus::before {
+    outline: 2px solid var(--text-muted);
+  }
+</style>
+<div class="todo-rows">
+  <div>
+    <p class="ui-caption">Walkthrough, left to right</p>
+    <div class="todo-tabs todo-physical">
+      <input checked id="todo-tabs-1a" name="todo-tabs-1" type="radio" />
+      <label for="todo-tabs-1a">Profile</label>
+      <input id="todo-tabs-1b" name="todo-tabs-1" type="radio" />
+      <label for="todo-tabs-1b">Settings</label>
+      <input id="todo-tabs-1c" name="todo-tabs-1" type="radio" />
+      <label for="todo-tabs-1c">Billing</label>
+    </div>
+  </div>
+  <div dir="rtl">
+    <p class="ui-caption" dir="ltr">
+      Walkthrough, right to left: physical corners, the rounded ends and the
+      pill are on opposite sides
+    </p>
+    <div class="todo-tabs todo-physical">
+      <input checked id="todo-tabs-2a" name="todo-tabs-2" type="radio" />
+      <label for="todo-tabs-2a">Profile</label>
+      <input id="todo-tabs-2b" name="todo-tabs-2" type="radio" />
+      <label for="todo-tabs-2b">Settings</label>
+      <input id="todo-tabs-2c" name="todo-tabs-2" type="radio" />
+      <label for="todo-tabs-2c">Billing</label>
+    </div>
+  </div>
+  <div dir="rtl">
+    <p class="ui-caption" dir="ltr">
+      Logical corners, as <code>tabs.css</code> does, right to left
+    </p>
+    <div class="todo-tabs todo-logical">
+      <input checked id="todo-tabs-3a" name="todo-tabs-3" type="radio" />
+      <label for="todo-tabs-3a">Profile</label>
+      <input id="todo-tabs-3b" name="todo-tabs-3" type="radio" />
+      <label for="todo-tabs-3b">Settings</label>
+      <input id="todo-tabs-3c" name="todo-tabs-3" type="radio" />
+      <label for="todo-tabs-3c">Billing</label>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Focus ring (simulated on Settings). Walkthrough: on the label
+    </p>
+    <div class="todo-tabs todo-logical todo-ring-label">
+      <input checked id="todo-tabs-4a" name="todo-tabs-4" type="radio" />
+      <label for="todo-tabs-4a">Profile</label>
+      <input id="todo-tabs-4b" name="todo-tabs-4" type="radio" />
+      <label class="todo-focus" for="todo-tabs-4b">Settings</label>
+      <input id="todo-tabs-4c" name="todo-tabs-4" type="radio" />
+      <label for="todo-tabs-4c">Billing</label>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">Library: on the pill</p>
+    <div class="todo-tabs todo-logical todo-ring-pill">
+      <input checked id="todo-tabs-5a" name="todo-tabs-5" type="radio" />
+      <label for="todo-tabs-5a">Profile</label>
+      <input id="todo-tabs-5b" name="todo-tabs-5" type="radio" />
+      <label class="todo-focus" for="todo-tabs-5b">Settings</label>
+      <input id="todo-tabs-5c" name="todo-tabs-5" type="radio" />
+      <label for="todo-tabs-5c">Billing</label>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      @media (forced-colors: active) {
+        :where(.ui-select select)::picker-icon,
+        :where(.ui-select:has(select)):not(:has(button))::after,
+        :where(.ui-text-field:has(input[list])) .ui-field::after {
+          background-color: ButtonText;
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Chrome DevTools &gt; Rendering &gt; Emulate CSS media feature
+      forced-colors: active. The select and autosuggest chevrons turn
+      <code>Canvas</code> on <code>Canvas</code> and vanish.
+    </p>
+    <label class="ui-select">
+      <span class="ui-label">Classic</span>
+      <span class="ui-field">
+        <select id="todo-mask-classic-current">
+          <option value="">-</option>
+          <option>Option 1</option>
+        </select>
+      </span>
+    </label>
+    <label class="ui-select">
+      <span class="ui-label" id="todo-mask-custom-current-label">Select</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-mask-custom-current-label">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">-</option>
+            <option>Option 1</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Users</span>
+      <span class="ui-field">
+        <input type="text" list="todo-mask-users-current" />
+      </span>
+      <datalist id="todo-mask-users-current">
+        <option value="Ray Manzarek"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      In forced colors, the chevrons use <code>ButtonText</code>.
+    </p>
+    <label class="ui-select">
+      <span class="ui-label">Classic</span>
+      <span class="ui-field">
+        <select id="todo-mask-classic-fixed">
+          <option value="">-</option>
+          <option>Option 1</option>
+        </select>
+      </span>
+    </label>
+    <label class="ui-select">
+      <span class="ui-label" id="todo-mask-custom-fixed-label">Select</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-mask-custom-fixed-label">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">-</option>
+            <option>Option 1</option>
+          </div>
+        </select>
+      </span>
+    </label>
+    <label class="ui-text-field">
+      <span class="ui-label">Users</span>
+      <span class="ui-field">
+        <input type="text" list="todo-mask-users-fixed" />
+      </span>
+      <datalist id="todo-mask-users-fixed">
+        <option value="Ray Manzarek"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    const forced = matchMedia("(forced-colors: active)").matches
+    const bg = (element, pseudo) =>
+      getComputedStyle(element, pseudo).backgroundColor
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const [classic, custom] = panel.querySelectorAll(".ui-select")
+      panel.querySelector("[data-measure]").textContent = [
+        `forced-colors: ${forced ? "active" : "none"}`,
+        `classic ::after: ${bg(classic, "::after")}`,
+        `::picker-icon: ${bg(custom.querySelector("select"), "::picker-icon")}`,
+        `autosuggest ::after: ${bg(panel.querySelector(".ui-text-field .ui-field"), "::after")}`,
+        `page background: ${bg(document.documentElement)}`,
+      ].join("\n")
+    }
+  }
+</script>

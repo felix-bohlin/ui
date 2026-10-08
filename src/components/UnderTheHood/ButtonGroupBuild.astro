@@ -4,7 +4,7 @@ import BuildUp from "./BuildUp.astro"
 const steps = [
   {
     css: `
-.group {
+[role="group"].group {
   border-radius: var(--radius-2);
   display: inline-flex;
   flex-wrap: wrap;
@@ -13,26 +13,26 @@ const steps = [
   overflow: hidden;
 }
 
-.group > button {
+[role="group"].group > button {
   border-radius: 0;
   flex: auto;
 }`,
     html: `
 <div class="group" role="group">
-  <button>Day</button>
-  <button>Week</button>
+  <button type="button">Day</button>
+  <button type="button">Week</button>
   …
 </div>`,
     notes: [
       "Buttons drop their own radius, <code>overflow: hidden</code> on the group rounds the outer corners",
       "<code>flex: auto</code> stretches the buttons to fill a wrapped row",
-      "<code>role=&quot;group&quot;</code> tells assistive tech the buttons belong together",
+      "<code>role=&quot;group&quot;</code> tells assistive tech the buttons belong together, and the styles require it, so it can't be forgotten",
     ],
     title: "Join",
   },
   {
     css: `
-.group > button {
+[role="group"].group > button {
   --divider: light-dark(
     oklch(from var(--surface-tonal) calc(l - 0.1) c h),
     oklch(from var(--surface-tonal) calc(l + 0.1) c h)
@@ -43,8 +43,9 @@ const steps = [
 }`,
     features: ["light-dark", "relative-color"],
     notes: [
-      "Each button draws a line along its start and top edge",
+      "Each button draws a line along its left and top edge",
       "The group clips the lines on the outer edges, so only the gaps between buttons show one",
+      "Physical is fine here: in right-to-left the clipped outer edge just switches sides",
       "Drag <strong>Width</strong>: wrapped rows get a divider on top for free",
       "Relative color: one shade darker in light mode, lighter in dark",
     ],
@@ -52,17 +53,24 @@ const steps = [
   },
   {
     css: `
-.group.outlined {
-  outline: 1px solid var(--border-color);
+[role="group"].group {
+  --edge: transparent;
+  outline: 1px solid var(--edge);
   outline-offset: -1px;
 }
 
-.group.outlined > button {
-  --divider: var(--border-color);
+[role="group"].group.outlined {
+  --edge: light-dark(var(--color-16), var(--color-1));
+}
+
+[role="group"].group.outlined > button {
+  --divider: var(--edge);
 }`,
+    features: ["light-dark"],
     html: `
 <div class="group outlined" role="group">…</div>`,
     notes: [
+      "The outline is always there, transparent until <code>.outlined</code> gives <code>--edge</code> a strong color",
       "<code>outline</code> takes no space and <code>overflow</code> can't clip it",
       "<code>outline-offset: -1px</code> pulls it in on top of the buttons' outer edge",
       "The dividers switch to the same color, nothing else changes",

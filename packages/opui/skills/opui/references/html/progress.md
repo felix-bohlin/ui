@@ -6,7 +6,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress aria-busy="true"></progress>
+  <progress></progress>
 </div>
 ```
 
@@ -16,18 +16,30 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 <div class="ui-progress">
   <progress id="determinate-progress" value="10" max="100"></progress>
 </div>
+
+<script>
+  {
+    const progress = document.querySelector("#determinate-progress")
+    if (progress instanceof HTMLProgressElement) {
+      setInterval(() => {
+        if (progress.value >= 100) {
+          progress.value = 10
+        } else {
+          progress.value += 10
+        }
+      }, 3000)
+    }
+  }
+</script>
 ```
 
 ## Variants
 
-Use the modifier classes `.ui-filled`, `.ui-default`, or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
+Use the modifier classes `.ui-filled` or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds. Without a class, the track is tonal, the same as `.ui-tonal`.
 
 ```html
-<div class="ui-progress ui-default">
-  <progress value="25" max="100"></progress>
-</div>
 <div class="ui-progress ui-filled">
-  <progress value="50" max="100"></progress>
+  <progress value="25" max="100"></progress>
 </div>
 <div class="ui-progress ui-tonal">
   <progress value="75" max="100"></progress>
@@ -56,10 +68,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Type     | Modifiers                                | Default | Description                                            |
-| -------- | ---------------------------------------- | ------- | ------------------------------------------------------ |
-| Value    | `progress[value]`                        | -       | The current value. Omit it for an indeterminate state. |
-| Variants | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                    |
+| Type     | Modifiers                 | Default | Description                                                          |
+| -------- | ------------------------- | ------- | -------------------------------------------------------------------- |
+| Value    | `progress[value]`         | -       | The current value. Omit it for an indeterminate state.               |
+| Variants | `.ui-filled`, `.ui-tonal` | -       | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Parts
 
@@ -70,27 +82,29 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 #### CSS variables
 
-| Variable            | Default                                      | Description                                                                                                                |
-| ------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`   | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--border-width`    | `1px`                                        | Default border width for components that draw a border.                                                                    |
-| `--duration`        | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                   |
-| `--motion`          | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`         | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
-| `--surface-filled`  | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`   | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
+| Variable           | Default                                      | Description                                                                                                                                                                                              |
+| ------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`  | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                  |
+| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                 |
+| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                            |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
 
+Read the post: [Styling the native progress bar](https://open-props-ui.netlify.app/learn/progress-native)
+
 1. Native
 
    - `<progress>`: role, value and an indeterminate state for free
    - No `value` means indeterminate
+   - Give it a name: `aria-label`, or a `<label for>` when the text should be visible
    - Every browser draws it differently
 
 2. Track
@@ -120,22 +134,21 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Native
 
-- [\<progress>](https://webstatus.dev/features/progress) (Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
+- [\<progress> ](https://webstatus.dev/features/progress)(Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
 
 ```html
 <div class="progress">
-  <progress max="100" value="60"></progress>
+  <progress aria-label="Uploading" max="100" value="60"></progress>
 </div>
 
-
 <div class="progress">
-  <progress></progress>
+  <progress aria-label="Loading"></progress>
 </div>
 ```
 
 Step 2 of 5: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
 ```css
 .progress {
@@ -148,7 +161,6 @@ Step 2 of 5: Track
   position: relative;
 }
 
-
 .progress > progress {
   appearance: none;
   background: none;
@@ -157,7 +169,6 @@ Step 2 of 5: Track
   display: block;
   inline-size: 100%;
 }
-
 
 .progress > progress::-webkit-progress-bar {
   background: none;
@@ -169,9 +180,8 @@ Step 3 of 5: Value
 ```css
 .progress > progress[value]::-webkit-progress-value {
   background-color: var(--primary);
-  transition: inline-size 0.2s ease-out;
+  transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
 }
-
 
 .progress > progress::-moz-progress-bar {
   background-color: var(--primary);
@@ -180,9 +190,9 @@ Step 3 of 5: Value
 
 Step 4 of 5: Indeterminate
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:indeterminate` ](https://webstatus.dev/features/indeterminate)(Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .progress:has(> progress:indeterminate)::after {
@@ -193,11 +203,9 @@ Step 4 of 5: Indeterminate
   position: absolute;
 }
 
-
 .progress > progress:indeterminate::-webkit-progress-value {
   background-color: transparent;
 }
-
 
 .progress > progress:indeterminate::-moz-progress-bar {
   background-color: transparent;
@@ -206,13 +214,12 @@ Step 4 of 5: Indeterminate
 
 Step 5 of 5: Reduced motion
 
-- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+- [Container style queries ](https://webstatus.dev/features/container-style-queries)(Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
 
 ```css
 .stack {
   --motion: 0;
 }
-
 
 .progress:has(> progress:indeterminate) {
   @container style(--motion: 0) {
@@ -226,9 +233,9 @@ Step 5 of 5: Reduced motion
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Progress.md).
 
@@ -236,3 +243,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/progress.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.

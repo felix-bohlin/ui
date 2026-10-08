@@ -4,13 +4,15 @@ import type { Framework } from "../component-api/frameworks"
 import {
   cssVarRows,
   htmlRows,
+  hydrationRows,
   partLabel,
   propRows,
   slotRows,
 } from "../component-api/rows"
 import DocLink from "./DocLink.astro"
+import HydrationMarker from "./HydrationMarker.astro"
 import type { ComponentApi } from "../component-api/types"
-import { checkApi } from "../utils/component-source"
+import { checkApi, shipped, splitUnion } from "../utils/component-source"
 import { formatInline } from "../utils/format-inline"
 import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
 
@@ -20,6 +22,7 @@ type Props = {
 }
 
 const { api, headingLevel = 4 } = Astro.props
+const { link } = Astro.locals
 const SlotsHeading = `h${headingLevel}` as const
 
 checkApi(api)
@@ -29,6 +32,8 @@ const view = api.source ? framework : "html"
 const component = view === "html" ? undefined : view
 const html = component ? [] : htmlRows(api)
 const rows = component ? propRows(api, component) : []
+const hydration =
+  component && shipped(api, component) ? hydrationRows(api, component) : []
 const slots = component ? slotRows(api, component) : []
 const parts = component
   ? []
@@ -40,8 +45,6 @@ const notes = [...new Set([view, framework])].flatMap(
   (key) => api.notes?.[key] ?? [],
 )
 const cssVars = cssVarRows(api)
-
-const splitType = (type: string) => type.split("|").map((part) => part.trim())
 ---
 
 {
@@ -83,7 +86,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                   "default"
                 )}
               </Table.Cell>
-              <Table.Cell set:html={formatInline(row.description)} />
+              <Table.Cell set:html={formatInline(row.description, link)} />
             </Table.Row>
           ))}
         </Table.Body>
@@ -111,27 +114,31 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
           </Table.Row>
         </Table.Head>
         <Table.Body>
-          {rows.map((row) => (
-            <Table.Row>
-              <Table.Cell>
-                <code>{row.name}</code>
-              </Table.Cell>
-              <Table.Cell>
-                {row.type
-                  ? splitType(row.type).map((type, i) => (
-                      <Fragment>
-                        {i > 0 && ", "}
-                        <code>{type}</code>
-                      </Fragment>
-                    ))
-                  : "-"}
-              </Table.Cell>
-              <Table.Cell>
-                {row.default ? <code>{row.default}</code> : "-"}
-              </Table.Cell>
-              <Table.Cell set:html={formatInline(row.description)} />
-            </Table.Row>
-          ))}
+          {rows.map((row) => {
+            const needs = hydration.find((entry) => entry.prop === row.name)
+            return (
+              <Table.Row>
+                <Table.Cell>
+                  <code>{row.name}</code>
+                  {needs && <HydrationMarker hydration={needs} />}
+                </Table.Cell>
+                <Table.Cell>
+                  {row.type
+                    ? splitUnion(row.type).map((type, i) => (
+                        <Fragment>
+                          {i > 0 && ", "}
+                          <code>{type}</code>
+                        </Fragment>
+                      ))
+                    : "-"}
+                </Table.Cell>
+                <Table.Cell>
+                  {row.default ? <code>{row.default}</code> : "-"}
+                </Table.Cell>
+                <Table.Cell set:html={formatInline(row.description, link)} />
+              </Table.Row>
+            )
+          })}
         </Table.Body>
       </Table>
     </div>
@@ -165,7 +172,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                   <Table.Cell>
                     <code>{row.name}</code>
                   </Table.Cell>
-                  <Table.Cell set:html={formatInline(row.description)} />
+                  <Table.Cell set:html={formatInline(row.description, link)} />
                 </Table.Row>
               ))}
             </Table.Body>
@@ -208,7 +215,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                     </Fragment>
                   )}
                 </Table.Cell>
-                <Table.Cell set:html={formatInline(row.description)} />
+                <Table.Cell set:html={formatInline(row.description, link)} />
               </Table.Row>
             ))}
           </Table.Body>
@@ -224,7 +231,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
   )
 }
 
-{notes.map((note) => <p set:html={formatInline(note)} />)}
+{notes.map((note) => <p set:html={formatInline(note, link)} />)}
 
 <style>
   .table-scroll {

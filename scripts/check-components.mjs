@@ -19,6 +19,14 @@ const KEY = /^ {2}(?:"([^"]+)"|(\w+))\??:/
 
 const CLASS_LIST = /class:list=\{\[/g
 
+const TYPE_FILES = [
+  "types.astro.ts",
+  "types.d.vue.ts",
+  "types.solid.ts",
+  "types.svelte.ts",
+  "types.ts",
+]
+
 const splitTopLevel = (body) => {
   const items = []
   let depth = 0
@@ -95,12 +103,22 @@ for (const folder of folders) {
       .map((file) => basename(file, ext))
 
   const astro = names(".astro")
+  const svelte = names(".svelte")
   const vue = names(".vue")
+  for (const name of astro.filter((name) => !svelte.includes(name))) {
+    report(join(dir, `${name}.astro`), "has no matching .svelte component")
+  }
   for (const name of astro.filter((name) => !vue.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .vue component")
   }
+  for (const name of svelte.filter((name) => !astro.includes(name))) {
+    report(join(dir, `${name}.svelte`), "has no matching .astro component")
+  }
   for (const name of vue.filter((name) => !astro.includes(name))) {
     report(join(dir, `${name}.vue`), "has no matching .astro component")
+  }
+  for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
+    report(join(dir, name), "is missing")
   }
 
   for (const file of files) {

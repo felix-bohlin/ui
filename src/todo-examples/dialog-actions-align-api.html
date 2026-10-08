@@ -1,0 +1,74 @@
+<style>
+  .todo-inline-dialog {
+    margin: 0;
+    max-inline-size: none;
+    position: static;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML modifiers table, Alignment row:
+      <code>.ui-actions.ui-align-end</code>, with no class meaning
+      <code>start</code>. Both dialogs below align their actions to the end, so
+      the class is a no-op and nothing gives start.
+    </p>
+    <dialog open class="ui-dialog ui-card ui-elevated todo-inline-dialog">
+      <hgroup><h3 class="ui-h5">No class ("start" per the table)</h3></hgroup>
+      <div class="ui-actions">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-dialog ui-card ui-elevated todo-inline-dialog">
+      <hgroup>
+        <h3 class="ui-h5">.ui-align-end ("end" per the table)</h3>
+      </hgroup>
+      <div class="ui-actions ui-align-end">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed row: default <code>"end"</code>, modifier
+      <code>.ui-actions.ui-align-start</code>, which matches
+      <code>dialog.css</code> and <code>Dialog.astro</code>.
+    </p>
+    <dialog open class="ui-dialog ui-card ui-elevated todo-inline-dialog">
+      <hgroup><h3 class="ui-h5">No class ("end", the default)</h3></hgroup>
+      <div class="ui-actions">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </dialog>
+    <dialog open class="ui-dialog ui-card ui-elevated todo-inline-dialog">
+      <hgroup><h3 class="ui-h5">.ui-align-start ("start")</h3></hgroup>
+      <div class="ui-actions ui-align-start">
+        <button type="button" class="ui-button">Cancel</button>
+        <button type="button" class="ui-button ui-filled">Save</button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      panel.querySelector("[data-measure]").textContent = [
+        ...panel.querySelectorAll(".ui-actions"),
+      ]
+        .map(
+          (actions) =>
+            `${actions.className}: justify-content ${getComputedStyle(actions).justifyContent}`,
+        )
+        .join("\n")
+    }
+  }
+</script>

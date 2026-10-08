@@ -1,0 +1,139 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-chip):has(svg:first-child),
+      :where(.ui-chip):has(svg:last-child) {
+        padding-inline: var(--size-2);
+      }
+
+      :where(.ui-chip):has(> svg:first-child) {
+        padding-inline-start: var(--size-1);
+      }
+
+      :where(.ui-chip):has(> svg:last-child) {
+        padding-inline-end: var(--size-1);
+      }
+
+      :where(.ui-chip).ui-large:has(svg:first-child),
+      :where(.ui-chip).ui-large:has(svg:last-child) {
+        padding-inline: var(--size-3);
+      }
+
+      :where(.ui-chip).ui-large:has(> svg:first-child) {
+        padding-inline-start: var(--size-2);
+      }
+
+      :where(.ui-chip).ui-large:has(> svg:last-child) {
+        padding-inline-end: var(--size-2);
+      }
+    }
+  }
+
+  [data-chip="svg in .ui-text"] svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      With both icons the start icon sits 8px in, not 4px; an svg inside
+      <code>.ui-text</code> also shrinks the end padding.
+    </p>
+    <div class="todo-row">
+      <div class="ui-chip ui-tonal" data-chip="start icon">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Start</span>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="end icon">
+        <span class="ui-text">End</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="both icons">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Both</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="svg in .ui-text">
+        <span class="ui-text"
+          >Inline
+          <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+            <circle cx="1" cy="1" r="0.7" /></svg
+        ></span>
+      </div>
+      <div class="ui-chip ui-tonal ui-large" data-chip="large, both icons">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Large</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Start and end padding are set separately with
+      <code>:has(&gt; svg…)</code>. The old
+      <code>padding-inline</code> shorthands are reset first.
+    </p>
+    <div class="todo-row">
+      <div class="ui-chip ui-tonal" data-chip="start icon">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Start</span>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="end icon">
+        <span class="ui-text">End</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="both icons">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Both</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+      <div class="ui-chip ui-tonal" data-chip="svg in .ui-text">
+        <span class="ui-text"
+          >Inline
+          <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+            <circle cx="1" cy="1" r="0.7" /></svg
+        ></span>
+      </div>
+      <div class="ui-chip ui-tonal ui-large" data-chip="large, both icons">
+        <svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" /></svg
+        ><span class="ui-text">Large</span
+        ><svg viewBox="0 0 2 2" fill="currentColor" aria-hidden="true">
+          <circle cx="1" cy="1" r="0.7" />
+        </svg>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll("[data-chip]"),
+    ]
+      .map((chip) => {
+        const style = getComputedStyle(chip)
+        return `${chip.dataset.chip}: ${style.paddingInlineStart} ${style.paddingInlineEnd}`
+      })
+      .join("\n")
+  }
+</script>

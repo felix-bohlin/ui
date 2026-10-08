@@ -2,26 +2,18 @@
 
 Groups related buttons by wrapping them with `class="ui-button-group"` and `role="group"`.
 
-### What's new
-
-- [Split button](#split-button) with a `Menu`.
-- Icon-only buttons stay square.
-- [X-small](#sizes) size with `.ui-x-small`.
-- [Small](#sizes) groups use the same text size as a small `Button`.
-- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
-
 ## Anatomy
 
 - `.ui-button-group`
 
   Container element.
 
-- `& > button`
+- `& > .ui-button`
 
-  The buttons.
+  The buttons and button links.
 
 * Button groups should consist of 2-5 buttons.
-* Don't allow them to wrap onto a new line.
+* Use `.ui-scrollable` or `.ui-shrink` when a group must stay on one row, see [Overflow](#overflow).
 * If an icon is used without label text make sure the button communicates clearly what it does.
 
 Button group or Toggle group?
@@ -41,20 +33,17 @@ Change the appearance of the entire group with the `.ui-outlined`, `.ui-tonal`, 
   <button type="button" class="ui-button">Text</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">Outlined</button>
   <button type="button" class="ui-button">Outlined</button>
   <button type="button" class="ui-button">Outlined</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-tonal">
   <button type="button" class="ui-button">Tonal</button>
   <button type="button" class="ui-button">Tonal</button>
   <button type="button" class="ui-button">Tonal</button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-filled">
   <button type="button" class="ui-button">Filled</button>
@@ -74,7 +63,6 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
   <button type="button" class="ui-button">Primary</button>
 </div>
 
-
 <div class="ui-button-group ui-critical ui-filled" role="group">
   <button type="button" class="ui-button">Critical</button>
   <button type="button" class="ui-button">Critical</button>
@@ -82,13 +70,43 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
 </div>
 ```
 
+## Sizes
+
+Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
+
+```html
+<div role="group" class="ui-button-group ui-x-small ui-outlined">
+  <button type="button" class="ui-button">x-small</button>
+  <button type="button" class="ui-button">x-small</button>
+  <button type="button" class="ui-button">x-small</button>
+</div>
+
+<div role="group" class="ui-button-group ui-small ui-outlined">
+  <button type="button" class="ui-button">Small</button>
+  <button type="button" class="ui-button">Small</button>
+  <button type="button" class="ui-button">Small</button>
+</div>
+
+<div role="group" class="ui-button-group ui-outlined">
+  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button">Default</button>
+</div>
+
+<div role="group" class="ui-button-group ui-large ui-outlined">
+  <button type="button" class="ui-button">Large</button>
+  <button type="button" class="ui-button">Large</button>
+  <button type="button" class="ui-button">Large</button>
+</div>
+```
+
 ## Icons
 
-Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
+Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md) Wrap the label in a `<span class="ui-text">` when the button has an icon. The CSS looks for the wrapper element, the class is a hook for your own styles.
 
 ```html
 <div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button" aria-label="Label">
+  <button type="button" class="ui-button" aria-label="OK">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -102,11 +120,9 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
   </button>
 
+  <button type="button" class="ui-button">Maybe</button>
 
-  <button type="button" class="ui-button" aria-label="Label">Maybe</button>
-
-
-  <button type="button" class="ui-button" aria-label="Label">
+  <button type="button" class="ui-button" aria-label="No">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -120,7 +136,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
   </button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">
@@ -138,7 +153,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     <span class="ui-text">OK</span>
   </button>
 
-
   <button type="button" class="ui-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +167,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
     <span class="ui-text">Maybe</span>
   </button>
-
 
   <button type="button" class="ui-button">
     <svg
@@ -180,7 +193,6 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">Save</button>
 
-
   <button
     type="button"
     class="ui-button"
@@ -200,7 +212,6 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       ></path>
     </svg>
   </button>
-
 
   <menu
     id="split-button-menu-html"
@@ -229,36 +240,21 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 </div>
 ```
 
-## Sizes
+## Disabled
 
-Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
+Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
 
 ```html
-<div role="group" class="ui-button-group ui-x-small ui-outlined">
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
+<div role="group" class="ui-button-group ui-filled">
+  <button type="button" class="ui-button">Enabled</button>
+  <button type="button" class="ui-button" disabled>Disabled</button>
+  <button type="button" class="ui-button">Enabled</button>
 </div>
 
-
-<div role="group" class="ui-button-group ui-small ui-outlined">
-  <button type="button" class="ui-button">Small</button>
-  <button type="button" class="ui-button">Small</button>
-  <button type="button" class="ui-button">Small</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-large ui-outlined">
-  <button type="button" class="ui-button">Large</button>
-  <button type="button" class="ui-button">Large</button>
-  <button type="button" class="ui-button">Large</button>
+<div role="group" class="ui-button-group ui-filled ui-primary">
+  <button type="button" class="ui-button">Enabled</button>
+  <button type="button" class="ui-button" disabled>Disabled</button>
+  <button type="button" class="ui-button">Enabled</button>
 </div>
 ```
 
@@ -269,7 +265,7 @@ Change the layout of the group with the `.ui-vertical` class.
 ```html
 <div class="example-row">
   <div class="ui-button-group ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -301,10 +297,9 @@ Change the layout of the group with the `.ui-vertical` class.
       </svg>
     </button>
   </div>
-
 
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -336,10 +331,9 @@ Change the layout of the group with the `.ui-vertical` class.
       </svg>
     </button>
   </div>
-
 
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -372,9 +366,8 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
   </div>
 
-
   <div class="ui-button-group ui-filled ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -407,7 +400,6 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
   </div>
 </div>
-
 
 <div class="example-row">
   <div class="ui-button-group ui-vertical" role="group">
@@ -456,28 +448,9 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 </div>
 ```
 
-## Disabled
-
-Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
-
-```html
-<div role="group" class="ui-button-group ui-filled">
-  <button type="button" class="ui-button">Enabled</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
-  <button type="button" class="ui-button">Enabled</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-filled ui-primary">
-  <button type="button" class="ui-button">Enabled</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
-  <button type="button" class="ui-button">Enabled</button>
-</div>
-```
-
 ## API
 
-### Button group
+### Button group API
 
 | Type        | Modifiers                                 | Default | Description                                                                                                       |
 | ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -490,95 +463,94 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 
 #### Parts
 
-| Part               | Description        |
-| ------------------ | ------------------ |
-| `.ui-button-group` | Container element. |
-| `& > button`       | The buttons.       |
+| Part               | Description                   |
+| ------------------ | ----------------------------- |
+| `.ui-button-group` | Container element.            |
+| `& > .ui-button`   | The buttons and button links. |
 
 #### CSS variables
 
-| Variable                      | Default                                                                               | Description                                                                                                                |
-| ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                    |
-| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                               |
-| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
-| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
-| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
-| `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
-| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
-| `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--duration-fast`             | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
-| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                            |
-| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`                                                  | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
-| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--font-weight-bold`          | `var(--font-weight-7)`                                                                | Font weight for headings, buttons and terms.                                                                               |
-| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
-| `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
-| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
-| `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
-| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                           |
-| `--state-hover-alpha-accent`  | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                            |
-| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                            |
-| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                                           | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
-| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                  |
-| `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                   |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
+| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
+| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                                                                                                            |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                        |
+| `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                                                                                                           |
+| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration-fast`             | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
+| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`                                                  | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                            |
+| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--font-weight-bold`          | `var(--font-weight-7)`                                                                | Font weight for headings, buttons and terms.                                                                                                                                                                 |
+| `--font-weight-normal`        | `var(--font-weight-4)`                                                                | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                 |
+| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                           |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                                                                                                            |
+| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
+| `--state-hover-alpha-accent`  | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                              |
+| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                              |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                                           | Background of filled areas such as progress tracks and table stripes.                                                                                                                                        |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
+| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
+| `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="group"`.
 
-### Button
+### Button API
 
-| Type     | Modifiers                                 | Default | Description                                                       |
-| -------- | ----------------------------------------- | ------- | ----------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                  |
-| Hover    | `.ui-ripple`                              | -       | A halo behind the button on hover instead of a background change. |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                   |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                          |
-| State    | `[disabled]`                              | -       | Disables the button.                                              |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                               |
+| Type     | Modifiers                                 | Default | Description                                     |
+| -------- | ----------------------------------------- | ------- | ----------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only. |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                        |
+| State    | `[disabled]`                              | -       | Disables the button.                            |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                             |
 
 #### Parts
 
-| Part                     | Description                                     |
-| ------------------------ | ----------------------------------------------- |
-| `.ui-button`             | Container element.                              |
-| `<svg>`                  | An optional icon.                               |
-| `<span class="ui-text">` | The label. Wrap it when the button has an icon. |
+| Part                     | Description                                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------------- |
+| `.ui-button`             | Container element.                                                                                  |
+| `<svg>`                  | An optional icon.                                                                                   |
+| `<span class="ui-text">` | The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. |
 
 #### CSS variables
 
-| Variable                      | Default                                                                               | Description                                                                                                                |
-| ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                               |
-| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
-| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
-| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
-| `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
-| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
-| `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--duration-fast`             | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
-| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                            |
-| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
-| `--font-weight-bold`          | `var(--font-weight-7)`                                                                | Font weight for headings, buttons and terms.                                                                               |
-| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
-| `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
-| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
-| `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
-| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                           |
-| `--state-hover-alpha-accent`  | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                            |
-| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                            |
-| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                                           | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
-| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                  |
-| `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                   |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
+| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
+| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                                                                                                            |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                        |
+| `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                                                                                                           |
+| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration-fast`             | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
+| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--font-weight-bold`          | `var(--font-weight-7)`                                                                | Font weight for headings, buttons and terms.                                                                                                                                                                 |
+| `--font-weight-normal`        | `var(--font-weight-4)`                                                                | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                 |
+| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                           |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                                                                                                            |
+| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
+| `--state-hover-alpha-accent`  | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                              |
+| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                              |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                                           | Background of filled areas such as progress tracks and table stripes.                                                                                                                                        |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
+| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
+| `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -588,17 +560,19 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - Buttons drop their own radius, `overflow: hidden` on the group rounds the outer corners
    - `flex: auto` stretches the buttons to fill a wrapped row
-   - `role="group"` tells assistive tech the buttons belong together
+   - `role="group"` tells assistive tech the buttons belong together, and the styles require it, so it can't be forgotten
 
 2. Dividers
 
-   - Each button draws a line along its start and top edge
+   - Each button draws a line along its left and top edge
    - The group clips the lines on the outer edges, so only the gaps between buttons show one
+   - Physical is fine here: in right-to-left the clipped outer edge just switches sides
    - Drag **Width**: wrapped rows get a divider on top for free
    - Relative color: one shade darker in light mode, lighter in dark
 
 3. Outline
 
+   - The outline is always there, transparent until `.outlined` gives `--edge` a strong color
    - `outline` takes no space and `overflow` can't clip it
    - `outline-offset: -1px` pulls it in on top of the buttons' outer edge
    - The dividers switch to the same color, nothing else changes
@@ -607,14 +581,14 @@ Step 1 of 3: Join
 
 ```html
 <div class="group" role="group">
-  <button>Day</button>
-  <button>Week</button>
+  <button type="button">Day</button>
+  <button type="button">Week</button>
   …
 </div>
 ```
 
 ```css
-.group {
+[role="group"].group {
   border-radius: var(--radius-2);
   display: inline-flex;
   flex-wrap: wrap;
@@ -623,8 +597,7 @@ Step 1 of 3: Join
   overflow: hidden;
 }
 
-
-.group > button {
+[role="group"].group > button {
   border-radius: 0;
   flex: auto;
 }
@@ -632,11 +605,11 @@ Step 1 of 3: Join
 
 Step 2 of 3: Dividers
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
-.group > button {
+[role="group"].group > button {
   --divider: light-dark(
     oklch(from var(--surface-tonal) calc(l - 0.1) c h),
     oklch(from var(--surface-tonal) calc(l + 0.1) c h)
@@ -649,26 +622,32 @@ Step 2 of 3: Dividers
 
 Step 3 of 3: Outline
 
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+
 ```html
 <div class="group outlined" role="group">…</div>
 ```
 
 ```css
-.group.outlined {
-  outline: 1px solid var(--border-color);
+[role="group"].group {
+  --edge: transparent;
+  outline: 1px solid var(--edge);
   outline-offset: -1px;
 }
 
+[role="group"].group.outlined {
+  --edge: light-dark(var(--color-16), var(--color-1));
+}
 
-.group.outlined > button {
-  --divider: var(--border-color);
+[role="group"].group.outlined > button {
+  --divider: var(--edge);
 }
 ```
 
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Button+Group.md).
@@ -682,3 +661,16 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/button-group.css`
 - `opui-css/css/components/button.css`
 
+## Changelog
+
+### What's new
+
+- Icon-only buttons use the same [icon size](#icons) as buttons with a label.
+- The focus ring shows on every [variant](#variants), inside the button.
+- [Split button](#split-button) with a `Menu`.
+- [Icon-only](#icons) buttons stay square.
+- Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
+- [x-small](#sizes) size with `.ui-x-small`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
+- `<a class="ui-button">` links get the group styles too, see [Variants](#variants).

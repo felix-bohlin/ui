@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -16,10 +16,10 @@ Peer dependencies:
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23`
 - `solid-js` `^1.9` (optional; only the Solid type files ship today, there are no Solid components yet)
-- `svelte` `^5` (optional; only the Svelte type files ship today, there are no Svelte components yet)
+- `svelte` `^5.29` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
 
-Every component folder also ships `types.solid.ts` and `types.svelte.ts` for projects that port the markup to Solid or Svelte.
+Every component folder also ships `types.solid.ts` for projects that port the markup to Solid.
 
 ## Usage
 
@@ -30,6 +30,24 @@ Every component folder also ships `types.solid.ts` and `types.svelte.ts` for pro
 import "opui-css/css/imports.css"
 import { Button, Card } from "opui-css/astro"
 ---
+
+<Card>
+  <Button color="primary" variant="filled">Click me</Button>
+</Card>
+```
+
+### Svelte components
+
+Svelte components ship markup only, so import the CSS once in your root layout or app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```svelte
+<script lang="ts">
+  import { Button, Card } from "opui-css/svelte"
+</script>
 
 <Card>
   <Button color="primary" variant="filled">Click me</Button>
@@ -56,7 +74,7 @@ import { Button, Card } from "opui-css/vue"
 </template>
 ```
 
-Both `opui-css/astro` and `opui-css/vue` export uncompiled sources (`.astro`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro or Vite with `@vitejs/plugin-vue`.
+`opui-css/astro`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`.
 
 #### Ids in Astro
 
@@ -92,7 +110,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 <button class="ui-button ui-primary">Click me</button>
 ```
 
-`dist/opui.css` is a single self-contained file (Open Props + normalize + theme + every component + utils, in the correct cascade layers). `dist/opui.components.css` is the same minus tokens and reset for users who already have those.
+`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order and the component styles. The components need Open Props, `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it.
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
@@ -113,36 +131,41 @@ Import `opui-css/css/layers.css` first to set this order when you import single 
 
 Wrap your own styles in a layer above `utils` (or unlayered) to override.
 
+## Upgrading
+
+Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://open-props-ui.netlify.app/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
+
 ## Entry points
 
-| Import                              | What it gives you                                                          |
-| ----------------------------------- | -------------------------------------------------------------------------- |
-| `opui-css`                          | Pre-bundled: everything in one file (default)                              |
-| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                        |
-| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)              |
-| `opui-css/dist/opui.css`            | Same as default - explicit path                                            |
-| `opui-css/dist/opui.components.css` | Pre-bundled: components only                                               |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                              |
-| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                              |
-| `opui-css/css/layers.css`           | `@layer` order only                                                        |
-| `opui-css/css/components.css`       | All component styles (no tokens / reset)                                   |
-| `opui-css/css/components/*.css`     | One component at a time                                                    |
-| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                |
-| `opui-css/core/normalize.css`       | CSS reset                                                                  |
-| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                 |
-| `opui-css/core/utils.css`           | Utility classes                                                            |
-| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                  |
-| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()` for indeterminate checkboxes without a framework |
-| `opui-css/astro`                    | All Astro components                                                       |
-| `opui-css/vue`                      | All Vue components                                                         |
-| `opui-css/components/*`             | Individual Astro and Vue component sources                                 |
+| Import                              | What it gives you                                                                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `opui-css`                          | Pre-bundled: everything in one file (default)                                                                          |
+| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                                                                    |
+| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)                                                          |
+| `opui-css/dist/opui.css`            | Same as default - explicit path                                                                                        |
+| `opui-css/dist/opui.components.css` | Pre-bundled: components only (no Open Props, palette, theme, reset or utils)                                           |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                                                                          |
+| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                                                                          |
+| `opui-css/css/layers.css`           | `@layer` order only                                                                                                    |
+| `opui-css/css/components.css`       | All component styles (no Open Props, palette, theme, reset or utils)                                                   |
+| `opui-css/css/components/*.css`     | One component at a time                                                                                                |
+| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                                                            |
+| `opui-css/core/normalize.css`       | CSS reset                                                                                                              |
+| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                                                             |
+| `opui-css/core/utils.css`           | Utility classes                                                                                                        |
+| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
+| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
+| `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/svelte`                   | All Svelte components                                                                                                  |
+| `opui-css/vue`                      | All Vue components                                                                                                     |
+| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
 
 ## AI assistants
 
 The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
 
 ```bash
-cp -r node_modules/opui-css/skills/opui .claude/skills/opui
+mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui
 ```
 
 Use the skills folder your agent reads from if it isn't Claude Code, or point your `AGENTS.md` at `node_modules/opui-css/skills/opui/SKILL.md`.

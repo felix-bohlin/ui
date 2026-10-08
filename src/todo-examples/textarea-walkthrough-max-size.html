@@ -1,0 +1,65 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+</style>
+<p>Each textarea is filled with 12 lines and asks for a 4 line cap.</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      <code>--max-block-size: 4lh</code>, as the walkthrough teaches: no effect
+    </p>
+    <label class="ui-textarea" style="--max-block-size: 4lh">
+      <span class="ui-label">Notes</span>
+      <span class="ui-field">
+        <textarea>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</textarea>
+      </span>
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>--_max-block-size: 4lh</code>, the private property the library
+      reads
+    </p>
+    <label class="ui-textarea" style="--_max-block-size: 4lh">
+      <span class="ui-label">Notes</span>
+      <span class="ui-field">
+        <textarea>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</textarea>
+      </span>
+    </label>
+  </div>
+</div>

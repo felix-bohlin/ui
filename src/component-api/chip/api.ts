@@ -9,6 +9,35 @@ export default {
       prop: "as",
     },
     {
+      description: "Optional colors.",
+      group: "Colors",
+      prop: "color",
+      values: {
+        critical: ".ui-critical",
+        info: ".ui-info",
+        neutral: ".ui-neutral",
+        success: ".ui-success",
+        warning: ".ui-warning",
+      },
+    },
+    {
+      class: ".ui-disabled",
+      default: "false",
+      description:
+        "Dims a static chip. Only changes the look. Use `disabled` on button chips.",
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabled",
+    },
+    {
+      class: ".ui-dot",
+      default: "false",
+      description:
+        "Adds a leading dot in the chip's color. Its shape follows the color.",
+      group: "Variants",
+      prop: "dot",
+    },
+    {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
     },
@@ -23,7 +52,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"tonal"',

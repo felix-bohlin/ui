@@ -39,9 +39,7 @@
       .ui-label:after {
         color: var(--field-required-color);
         content: "*";
-        inset-block: 0 auto;
-        inset-inline: auto -0.25ex;
-        position: absolute;
+        margin-inline-start: 0.25ex;
       }
     }
 
@@ -114,6 +112,7 @@
 
     /* Input */
     input[type="checkbox"] {
+      --_dir-rtl: -1;
       --_ripple-size: 175%;
 
       appearance: none;
@@ -131,6 +130,7 @@
       padding: 0;
       place-items: center;
       position: relative;
+      transform-style: preserve-3d;
 
       &:checked,
       &:indeterminate {
@@ -164,9 +164,50 @@
       &:indeterminate::after {
         clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
       }
+
+      /* Hover and active effect */
+      &:dir(rtl) {
+        --_dir-rtl: 1;
+      }
+
+      &:where(:not([disabled], [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:hover::before {
+            --_thumb-scale: 1;
+          }
+        }
+
+        &:active::before {
+          --_thumb-scale: 1.1;
+        }
+
+        &::before {
+          --_thumb-scale: 0.01;
+
+          background-color: var(--ripple-color);
+          block-size: var(--_ripple-size, 150%);
+          clip-path: circle(50%);
+          content: "";
+          inline-size: var(--_ripple-size, 150%);
+          inset-block-start: 50%;
+          inset-inline-start: 50%;
+          position: absolute;
+          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+            translateZ(-1px) scale(var(--_thumb-scale));
+          transform-origin: center center;
+
+          transition: transform calc(var(--duration) * var(--motion, 1))
+            var(--ease);
+          will-change: transform;
+        }
+      }
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
       --_input-size: var(--choice-size-small);
     }
@@ -176,8 +217,7 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
+    &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {

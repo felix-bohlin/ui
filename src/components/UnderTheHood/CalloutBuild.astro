@@ -103,14 +103,15 @@ const steps = [
 }
 
 .callout > svg {
-  stroke: var(--icon, currentColor);
+  color: var(--icon, currentColor);
 }`,
     features: ["light-dark", "relative-color"],
     notes: [
       "One source color per severity, every shade derived with <code>oklch(from …)</code>",
       "<code>light-dark()</code> picks the shade for each color scheme, no media query",
       "A 20% tint in light, 5% in dark: the opaque surface underneath does the rest",
-      "The real palette derives 16 shades from <code>--palette-source</code>, here four are inlined",
+      "The real palette derives 16 shades from <code>--palette-source</code>, here seven are inlined",
+      "The icon draws with <code>currentColor</code>, so <code>color</code> tints fill and stroke icons alike",
     ],
     title: "Severity",
   },

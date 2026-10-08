@@ -11,33 +11,30 @@ export default {
   notes: {
     astro:
       "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
+    svelte:
+      "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
     vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes height depending on its content.",
+      description:
+        "Lets the width follow the content and allows resizing in both directions.",
       group: "Auto-fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "textarea",
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -58,6 +55,13 @@ export default {
         "Pushes the label and description to one side and the textarea to the other.",
       group: "Layout",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

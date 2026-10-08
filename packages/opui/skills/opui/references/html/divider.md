@@ -2,10 +2,6 @@
 
 It's just a line.
 
-### What's new
-
-- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
-
 ## Default
 
 ```html
@@ -16,17 +12,35 @@ This text is placed under
 
 ## Variants
 
+Use `.ui-filled`, `.ui-primary`, or `.ui-tonal` to change the line color.
+
 ```html
 Tonal
-<hr class="ui-divider ui-border-tonal" />
-
+<hr class="ui-divider ui-tonal" />
 
 Filled
-<hr class="ui-divider ui-border-filled" />
-
+<hr class="ui-divider ui-filled" />
 
 Primary
-<hr class="ui-divider ui-border-primary" />
+<hr class="ui-divider ui-primary" />
+```
+
+## Content
+
+Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider">` to place it in the middle of the line, since an `<hr>` can't have content. Screen readers read it in order. Add `.ui-align-start` or `.ui-align-end` to move it to one side. The lines follow the variant classes.
+
+```html
+<div class="ui-divider">or continue with email</div>
+
+<div class="ui-divider ui-align-start">Billing</div>
+
+<div class="ui-divider ui-align-end ui-primary">Today</div>
+
+<div class="ui-divider">
+  <button class="ui-button ui-outlined ui-rounded ui-small" type="button">
+    Show 12 more replies
+  </button>
+</div>
 ```
 
 ## Spacing
@@ -44,7 +58,6 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
   </div>
 </div>
 
-
 <div style="--divider-space: var(--size-1)">
   A custom space on any wrapper
   <hr class="ui-divider" />
@@ -56,15 +69,16 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 
 ### Divider API
 
-| Type     | Modifiers                                                     | Default | Description         |
-| -------- | ------------------------------------------------------------- | ------- | ------------------- |
-| Variants | `.ui-border-filled`, `.ui-border-primary`, `.ui-border-tonal` | -       | The variant to use. |
+| Type      | Modifiers                                   | Default | Description                         |
+| --------- | ------------------------------------------- | ------- | ----------------------------------- |
+| Alignment | default, `.ui-align-end`, `.ui-align-start` | default | Where the content sits on the line. |
+| Variants  | `.ui-filled`, `.ui-primary`, `.ui-tonal`    | -       | The variant to use.                 |
 
 #### Parts
 
-| Part            | Description       |
-| --------------- | ----------------- |
-| `hr.ui-divider` | The divider line. |
+| Part          | Description                                                                    |
+| ------------- | ------------------------------------------------------------------------------ |
+| `.ui-divider` | The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. |
 
 #### CSS variables
 
@@ -75,6 +89,7 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 | `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
 | `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
 | `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
+| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -110,7 +125,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Element
 
-- [\<hr>](https://webstatus.dev/features/hr) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
+- [\<hr> ](https://webstatus.dev/features/hr)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
 
 ```html
 <p>Above the line</p>
@@ -128,7 +143,7 @@ Step 2 of 5: Height
 
 Step 3 of 5: Paint
 
-- [`background-color`](https://webstatus.dev/features/background-color) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [`background-color` ](https://webstatus.dev/features/background-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -138,8 +153,8 @@ Step 3 of 5: Paint
 
 Step 4 of 5: Breathe
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [`margin`](https://webstatus.dev/features/margin) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`margin` ](https://webstatus.dev/features/margin)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -149,7 +164,22 @@ Step 4 of 5: Breathe
 
 Step 5 of 5: Ship it
 
+## Browser support
+
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Divider.md).
+
 ## Installation
 
 - `opui-css/css/components/divider.css`
 
+## Changelog
+
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- Breaking: [`.ui-filled`, `.ui-primary` and `.ui-tonal`](#variants) replace the `.ui-border-*` classes.
+- [Content](#content) in the middle of the line in a `div.ui-divider`, aligned with `.ui-align-start` or `.ui-align-end`.

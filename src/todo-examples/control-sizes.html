@@ -1,0 +1,149 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      .ui-checkbox.ui-x-small,
+      .ui-radio.ui-x-small {
+        --_input-size: 0.875rem;
+      }
+
+      .ui-chip.ui-x-small {
+        block-size: 1.5rem;
+        font-size: var(--font-size-00);
+        padding-inline: var(--size-1);
+      }
+
+      .ui-switch.ui-x-small {
+        --_dot-size: 0.625rem;
+        --_track-height: 1rem;
+        --_track-width: 2rem;
+      }
+
+      .ui-switch.ui-large {
+        --_dot-size: 1.25rem;
+        --_track-height: 1.75rem;
+        --_track-width: 3.5rem;
+      }
+    }
+  }
+
+  .todo-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .todo-sizes {
+    border-collapse: collapse;
+    font-size: var(--font-size-0);
+
+    :is(th, td) {
+      padding: var(--size-1) var(--size-2);
+      text-align: start;
+      vertical-align: middle;
+    }
+
+    .todo-measure {
+      display: block;
+    }
+  }
+
+  :is(.todo-sizes, .todo-row) :is(.ui-text-field, .ui-select) {
+    inline-size: 7rem;
+  }
+
+  .todo-row {
+    align-items: center;
+  }
+
+  .todo-missing {
+    background-color: oklch(from var(--critical) l c h / 15%);
+  }
+
+  .todo-new {
+    background-color: oklch(from var(--success) l c h / 15%);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      One row per control, one column per size class.
+      <span class="todo-missing">Red</span>: the size doesn't exist, so the
+      class does nothing and you get the default. Below: a form row with
+      <code>.ui-x-small</code> on everything.
+    </p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      One scale, <code>x-small | small | (default) | large</code>, on every
+      control. <span class="todo-new">Green</span>: new sizes, simulated in this
+      panel; in the library they'd be tokens in <code>theme.css</code>.
+    </p>
+  </section>
+</div>
+<script>
+  const sizes = ["x-small", "small", "", "large"]
+  const missing = [
+    "Checkbox x-small",
+    "Chip x-small",
+    "Radio x-small",
+    "Switch x-small",
+    "Switch large",
+  ]
+  const field = (cls, id) =>
+    `<label class="ui-text-field ${cls}"><span class="ui-label ui-sr-only">Name</span><span class="ui-field"><input type="text" placeholder="Name" id="${id}" /></span></label>`
+  const controls = {
+    Button: (cls) =>
+      `<button type="button" class="ui-button ui-outlined ${cls}">Save</button>`,
+    Checkbox: (cls) =>
+      `<label class="ui-checkbox ${cls}"><input type="checkbox" checked /><span class="ui-label">Accept</span></label>`,
+    Chip: (cls) => `<span class="ui-chip ui-outlined ${cls}">Tag</span>`,
+    Radio: (cls, id) =>
+      `<label class="ui-radio ${cls}"><input type="radio" name="${id}" checked /><span class="ui-label">Basic</span></label>`,
+    Select: (cls, id) =>
+      `<label class="ui-select ${cls}"><span class="ui-label ui-sr-only" id="${id}">Fruit</span><span class="ui-field"><select aria-labelledby="${id}"><button><selectedcontent></selectedcontent></button><div class="ui-list"><option>Apple</option><option>Pear</option></div></select></span></label>`,
+    Switch: (cls) =>
+      `<label class="ui-switch ${cls}"><input type="checkbox" role="switch" checked /><span class="ui-label">Wi-Fi</span></label>`,
+    "Text field": field,
+  }
+  const box = (el) => {
+    const target = el.querySelector("input:not([type=text]), .ui-field") ?? el
+    return `${Math.round(target.getBoundingClientRect().height)}px`
+  }
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const state = panel.classList.contains("todo-fixed") ? "fixed" : "current"
+    const mark = state === "fixed" ? "todo-new" : "todo-missing"
+    const head = sizes
+      .map((size) => `<th scope="col">${size || "default"}</th>`)
+      .join("")
+    const rows = Object.entries(controls).map(([name, render]) => {
+      const cells = sizes.map((size, i) => {
+        const cls = size && `ui-${size}`
+        const id =
+          `${name.replace(" ", "-")}-${size || "default"}-${state}`.toLowerCase()
+        const flag = missing.includes(`${name} ${size}`) ? mark : ""
+        return `<td class="${flag}">${render(cls, id)}<span class="todo-measure"></span></td>`
+      })
+      return `<tr><th scope="row">${name}</th>${cells.join("")}</tr>`
+    })
+    const row = Object.entries(controls).map(([name, render]) =>
+      render(
+        "ui-x-small",
+        `row-${name.replace(" ", "-")}-${state}`.toLowerCase(),
+      ),
+    )
+    panel.insertAdjacentHTML(
+      "beforeend",
+      `<table class="todo-sizes"><thead><tr><th>Control</th>${head}</tr></thead><tbody>${rows.join("")}</tbody></table><p class="ui-caption">Form row, <code>.ui-x-small</code> on everything</p><div class="todo-row">${row.join("")}</div><p class="todo-measure" data-measure></p>`,
+    )
+    for (const cell of panel.querySelectorAll(".todo-sizes td")) {
+      cell.querySelector(".todo-measure").textContent = box(
+        cell.firstElementChild,
+      )
+    }
+    panel.querySelector("[data-measure]").textContent =
+      "x-small row: " +
+      [...panel.querySelector(".todo-row").children]
+        .map((el, i) => `${Object.keys(controls)[i]} ${box(el)}`)
+        .join(", ")
+  }
+</script>

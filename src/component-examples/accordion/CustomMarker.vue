@@ -7,6 +7,7 @@ import { Accordion } from "opui-css/vue"
     <template #summary>Custom marker</template>
     <template #marker>
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

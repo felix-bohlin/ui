@@ -1,0 +1,137 @@
+<style>
+  .todo-inline-drawer {
+    block-size: auto;
+    inline-size: 100%;
+    position: static;
+    translate: none;
+  }
+
+  .todo-drawer-case {
+    display: grid;
+    gap: var(--size-1);
+    inline-size: 100%;
+  }
+
+  .todo-drawer-case .ui-footer {
+    outline: 2px dashed var(--critical);
+    outline-offset: -2px;
+  }
+
+  .todo-drawer-case .ui-footer > * {
+    background-color: var(--surface-tonal);
+  }
+
+  .todo-api-sentence {
+    border-inline-start: 3px solid var(--border-color);
+    font-style: italic;
+    padding-inline-start: var(--size-2);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The CSS is the same in both panels. Only the sentence in the Drawer footer
+      API table changes. The dashed line is each footer's box. Compare where the
+      buttons sit with what the sentence says.
+    </p>
+    <p class="todo-api-sentence">
+      "Lays out its content in a row, aligned to the end."
+    </p>
+    <div class="todo-drawer-case" data-says="end">
+      <dialog open class="ui-drawer ui-inline-start todo-inline-drawer">
+        <div class="ui-content">Inline start</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+    <div class="todo-drawer-case" data-says="end">
+      <dialog open class="ui-drawer ui-inline-end todo-inline-drawer">
+        <div class="ui-content">Inline end</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+    <div class="todo-drawer-case" data-says="end">
+      <dialog open class="ui-drawer ui-block-end todo-inline-drawer">
+        <div class="ui-content">Block end</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Same drawers, same CSS. The proposed sentence names the inline-end
+      exception, so it matches every side.
+    </p>
+    <p class="todo-api-sentence">
+      "Lays out its content in a row, aligned to the end, or to the start in an
+      <code>inline-end</code> drawer."
+    </p>
+    <div class="todo-drawer-case" data-says="end">
+      <dialog open class="ui-drawer ui-inline-start todo-inline-drawer">
+        <div class="ui-content">Inline start</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+    <div class="todo-drawer-case" data-says="start">
+      <dialog open class="ui-drawer ui-inline-end todo-inline-drawer">
+        <div class="ui-content">Inline end</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+    <div class="todo-drawer-case" data-says="end">
+      <dialog open class="ui-drawer ui-block-end todo-inline-drawer">
+        <div class="ui-content">Block end</div>
+        <div class="ui-footer">
+          <button type="button" class="ui-button ui-small">Reset</button>
+          <button type="button" class="ui-button ui-small">Apply</button>
+        </div>
+      </dialog>
+      <p class="todo-measure" data-measure></p>
+    </div>
+  </section>
+</div>
+<script>
+  {
+    for (const item of document.querySelectorAll(".todo-drawer-case")) {
+      const drawer = item.querySelector(".ui-drawer")
+      const footer = drawer.querySelector(".ui-footer")
+      const rtl = getComputedStyle(footer).direction === "rtl"
+      const box = footer.getBoundingClientRect()
+      const first = footer.firstElementChild.getBoundingClientRect()
+      const last = footer.lastElementChild.getBoundingClientRect()
+      const fromStart = Math.round(
+        rtl ? box.right - first.right : first.left - box.left,
+      )
+      const fromEnd = Math.round(
+        rtl ? last.left - box.left : box.right - last.right,
+      )
+      const actual = fromStart < fromEnd ? "start" : "end"
+      const says = item.dataset.says
+      item.querySelector("[data-measure]").textContent = [
+        `${drawer.classList[1]}: content starts ${fromStart}px from the inline-start edge, ends ${fromEnd}px from the inline-end edge`,
+        `aligned to the ${actual}, the sentence says ${says}: ${actual === says ? "matches" : "doesn't match"}`,
+      ].join("\n")
+    }
+  }
+</script>

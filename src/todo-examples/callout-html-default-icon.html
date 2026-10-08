@@ -1,0 +1,64 @@
+<style>
+  .todo-quote {
+    border-inline-start: var(--border-size-2) solid var(--border-color);
+    padding-inline-start: var(--size-2);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML parts table, <code>&lt;svg&gt;</code> row, and the HTML Icon prose.
+      An HTML info callout written from them has no icon.
+    </p>
+    <blockquote class="todo-quote">
+      An optional icon. <code>info</code>, <code>success</code>,
+      <code>warning</code> and <code>critical</code> have a default icon.
+    </blockquote>
+    <blockquote class="todo-quote">
+      Icon must be placed before the content.
+    </blockquote>
+    <article class="ui-callout ui-info">
+      <div class="ui-content">An info callout, expecting the default icon.</div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The proposed part description and HTML slot sentence, followed.
+    </p>
+    <blockquote class="todo-quote">
+      An optional icon before the content. Astro and Vue render one by default
+      for info, success, warning and critical.
+    </blockquote>
+    <blockquote class="todo-quote">
+      There are no default icons in HTML: put an
+      <code>&lt;svg aria-hidden="true"&gt;</code> before
+      <code>.ui-content</code>.
+    </blockquote>
+    <article class="ui-callout ui-info">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content">An info callout with the svg pasted in.</div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const callout = panel.querySelector(".ui-callout")
+    panel.querySelector("[data-measure]").textContent =
+      `icon: ${callout.querySelector(":scope > svg") ? "yes" : "none"}, display: ${getComputedStyle(callout).display}`
+  }
+</script>

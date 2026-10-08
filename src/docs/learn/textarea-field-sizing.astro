@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="textarea-field-sizing">
@@ -34,18 +34,18 @@ import { Code } from "astro-expressive-code/components"
           >max-block-size</code
         > caps it at 20, then it scrolls
       </li>
-      <li><code>resize: vertical</code> still lets the user drag it taller</li>
+      <li><code>resize: block</code> still lets the user drag it taller</li>
     </ul>
     <Code
       lang="css"
       code={`textarea {
   block-size: auto;
   field-sizing: content;
-  max-block-size: var(--max-block-size, 20lh);
+  max-block-size: var(--_max-block-size, 20lh);
   min-block-size: calc(
     var(--padding-block) * 2 + var(--border-width) * 2 + 3lh
   );
-  resize: vertical;
+  resize: block;
 }`}
     />
   </section>

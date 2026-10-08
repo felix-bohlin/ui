@@ -41,12 +41,11 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
+        'ui-filled': variant === 'filled',
         'ui-spread': props.spread,
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
     :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">

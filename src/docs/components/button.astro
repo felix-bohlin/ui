@@ -8,20 +8,26 @@ import { Button as UIButton } from "@opui/astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
 import ExampleIconAndLabel from "../../component-examples/button/IconAndLabel.astro"
+import ExampleIconAndLabelSvelte from "../../component-examples/button/IconAndLabel.svelte"
 import ExampleIconAndLabelVue from "../../component-examples/button/IconAndLabel.vue"
 import ExampleIconAndLabelCodeAstro from "../../component-examples/button/IconAndLabelCode.astro?raw"
+import ExampleIconAndLabelCodeSvelte from "../../component-examples/button/IconAndLabelCode.svelte?raw"
 import ExampleIconAndLabelCodeVue from "../../component-examples/button/IconAndLabelCode.vue?raw"
 import ExampleIconAndLabelHTML from "../../component-examples/button/IconAndLabel.html?raw"
 
 import ExampleSizes from "../../component-examples/button/Sizes.astro"
+import ExampleSizesSvelte from "../../component-examples/button/Sizes.svelte"
 import ExampleSizesVue from "../../component-examples/button/Sizes.vue"
 import ExampleSizesCodeAstro from "../../component-examples/button/SizesCode.astro?raw"
+import ExampleSizesCodeSvelte from "../../component-examples/button/SizesCode.svelte?raw"
 import ExampleSizesCodeVue from "../../component-examples/button/SizesCode.vue?raw"
 import ExampleSizesHTML from "../../component-examples/button/Sizes.html?raw"
 
 import ExampleDisabled from "../../component-examples/button/Disabled.astro"
+import ExampleDisabledSvelte from "../../component-examples/button/Disabled.svelte"
 import ExampleDisabledVue from "../../component-examples/button/Disabled.vue"
 import ExampleDisabledCodeAstro from "../../component-examples/button/DisabledCode.astro?raw"
+import ExampleDisabledCodeSvelte from "../../component-examples/button/DisabledCode.svelte?raw"
 import ExampleDisabledCodeVue from "../../component-examples/button/DisabledCode.vue?raw"
 import ExampleDisabledHTML from "../../component-examples/button/Disabled.html?raw"
 
@@ -39,7 +45,14 @@ export const description =
   slug="button"
   heroAnatomy
   apis={[{ title: "Button API", api: buttonApi }]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Button/Button.astro",
@@ -56,6 +69,10 @@ export const description =
   installationTabs={[{ title: "button.css", code: ButtonCSS, lang: "css" }]}
 >
   <Fragment slot="title">Button</Fragment>
+  <Fragment slot="preamble">
+    Buttons do things, like saving a form or opening a dialog. For filters, tags
+    and choices, use a <DocLink href="/components/chip">Chip</DocLink>.
+  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -68,11 +85,19 @@ export const description =
           >.ui-tonal</code
         >, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the button variant with the <code>variant</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the button variant with the <code>variant</code> prop.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column spacious />
+    <p>
+      A default (text) button link with <code>aria-current="page"</code> keeps the
+      pressed background, to mark the current page in navigation. Outlined, tonal
+      and filled buttons don't change.
+    </p>
   </section>
 
   <section>
@@ -87,6 +112,11 @@ export const description =
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
         a brand or destructive color. The default is a neutral gray.
       </Fragment>
+      <Fragment slot="svelte">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
+      </Fragment>
       <Fragment slot="vue">
         Pass <code>color</code> to apply a brand or destructive color: <code
           >primary</code
@@ -97,35 +127,85 @@ export const description =
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Resize any button with the <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        > and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="svelte">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleSizes} />
+      <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleSizesSvelte} />
+      <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
+      <Example.Code slot="code-html" code={ExampleSizesHTML} />
+      <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleSizesCodeSvelte} />
+      <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
+    </Example>
+  </section>
+
+  <section>
     <h2 id="buttons-with-icon-and-label">Buttons with icon and label</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Include an icon alongside text by nesting it within the component.
-        Always wrap the label in a <code>&lt;span class="ui-text"&gt;</code>: it
-        tightens the padding on the icon side, and a button whose only element
-        is an <code>svg</code> is styled as icon-only, even with text next to it.
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
+        for the wrapper element, the class is a hook for your own styles. The
+        wrapper tightens the padding on the icon side, and a button whose only
+        element is an <code>svg</code> is styled as icon-only, even with text next
+        to it.
       </Fragment>
       <Fragment slot="html">
         Include an icon alongside text by nesting an SVG element within the
-        button. Always wrap the label in a <code
-          >&lt;span class="ui-text"&gt;</code
-        >: it tightens the padding on the icon side, and a button whose only
+        button. Wrap the label in a <code>&lt;span class="ui-text"&gt;</code>.
+        The CSS looks for the wrapper element, the class is a hook for your own
+        styles. The wrapper tightens the padding on the icon side, and a button
+        whose only element is an <code>svg</code> is styled as icon-only, even with
+        text next to it.
+      </Fragment>
+      <Fragment slot="svelte">
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
+        for the wrapper element, the class is a hook for your own styles. The
+        wrapper tightens the padding on the icon side, and a button whose only
         element is an <code>svg</code> is styled as icon-only, even with text next
         to it.
       </Fragment>
       <Fragment slot="vue">
-        Include an icon alongside text by nesting it within the component.
-        Always wrap the label in a <code>&lt;span class="ui-text"&gt;</code>: it
-        tightens the padding on the icon side, and a button whose only element
-        is an <code>svg</code> is styled as icon-only, even with text next to it.
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span class="ui-text"&gt;</code>. The CSS looks
+        for the wrapper element, the class is a hook for your own styles. The
+        wrapper tightens the padding on the icon side, and a button whose only
+        element is an <code>svg</code> is styled as icon-only, even with text next
+        to it.
       </Fragment>
     </Conditional>
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleIconAndLabel} />
       <Example.Preview slot="preview-html" code={ExampleIconAndLabelHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleIconAndLabelSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleIconAndLabelVue} />
       <Example.Code slot="code-html" code={ExampleIconAndLabelHTML} />
       <Example.Code slot="code-astro" code={ExampleIconAndLabelCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleIconAndLabelCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleIconAndLabelCodeVue} />
     </Example>
   </section>
@@ -143,72 +223,71 @@ export const description =
     <h2 id="icon-only">Icon-only</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>rounded</code> for a circle and <code
-          >ripple</code
-        > for a hover halo instead of a background change.
+        Set <code>iconOnly</code> and name the button with <code>label</code>,
+        which renders <code>aria-label</code>. The types require <code
+          >label</code
+        > when <code>iconOnly</code> is set. Add <code>rounded</code> for a circle.
       </Fragment>
       <Fragment slot="html">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>.ui-rounded</code> for a circle and
-        {" "}<code>.ui-ripple</code> for a hover halo instead of a background change.
+        Name a button whose only child is an <code>svg</code> with <code
+          >aria-label</code
+        >. Add <code>.ui-rounded</code> for a circle.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>iconOnly</code> and name the button with <code>label</code>,
+        which renders <code>aria-label</code>. The types require <code
+          >label</code
+        > when <code>iconOnly</code> is set. Add <code>rounded</code> for a circle.
       </Fragment>
       <Fragment slot="vue">
-        A button whose only child is an <code>svg</code> is square. Give it an
-        {" "}<code>aria-label</code>. Add <code>rounded</code> for a circle and <code
-          >ripple</code
-        > for a hover halo instead of a background change.
+        Set <code>icon-only</code> and name the button with <code>label</code>,
+        which renders <code>aria-label</code>. The types require <code
+          >label</code
+        > when <code>icon-only</code> is set. Add <code>rounded</code> for a circle.
       </Fragment>
     </Conditional>
     <AutoExample name="IconOnly" row />
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Resize any button using the <code>size</code> prop.
-      </Fragment>
-      <Fragment slot="html">
-        Resize any button with the <code>.ui-x-small</code>, <code
-          >.ui-small</code
-        > and <code>.ui-large</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Resize any button using the <code>size</code> prop.
-      </Fragment>
-    </Conditional>
-    <Example column>
-      <Example.Preview slot="preview-astro" code={ExampleSizes} />
-      <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
-      <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
-      <Example.Code slot="code-html" code={ExampleSizesHTML} />
-      <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
-      <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
-    </Example>
-  </section>
-
-  <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Disable the button with the <code>disabled</code> prop.
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
       <Fragment slot="html">
-        Add disabled styling with the <code>disabled</code> attribute or the <code
-          >.ui-disabled</code
-        > class.
+        Disable the button with the <code>disabled</code> attribute. Links can't be
+        disabled, so use <code>aria-disabled="true"</code>
+        on an <code>&lt;a&gt;</code>, which blocks clicks. The link can still be
+        focused and followed with <kbd>Enter</kbd>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
       <Fragment slot="vue">
-        Disable the button with the <code>disabled</code> prop.
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
     </Conditional>
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleDisabled} />
       <Example.Preview slot="preview-html" code={ExampleDisabledHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleDisabledSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleDisabledVue} />
       <Example.Code slot="code-html" code={ExampleDisabledHTML} />
       <Example.Code slot="code-astro" code={ExampleDisabledCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleDisabledCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleDisabledCodeVue} />
     </Example>
   </section>

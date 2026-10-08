@@ -1,32 +1,69 @@
 @layer components.root {
   :where(.ui-divider) {
-    background-color: var(--border-color);
+    --_color: var(--border-color);
+
+    background-color: var(--_color);
     block-size: var(--border-size-1);
     margin-block: var(--divider-space, var(--size-fluid-3));
 
     /* Border color */
-    &.ui-border-filled {
-      background-color: var(--surface-filled);
+    &.ui-filled {
+      --_color: var(--surface-filled);
     }
 
-    &.ui-border-primary {
-      background-color: var(--primary);
+    &.ui-primary {
+      --_color: var(--primary);
     }
 
-    &.ui-border-tonal {
-      background-color: var(--surface-tonal);
+    &.ui-tonal {
+      --_color: var(--surface-tonal);
     }
 
     @container style(--contrast: more) {
-      &.ui-border-filled,
-      &.ui-border-tonal {
-        background-color: var(--border-color);
+      &.ui-filled,
+      &.ui-tonal {
+        --_color: var(--border-color);
       }
+    }
+
+    &:not(:empty) {
+      align-items: center;
+      background-color: transparent;
+      block-size: auto;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+      text-box: trim-both cap alphabetic;
+
+      &::before,
+      &::after {
+        background-color: var(--_color);
+        block-size: var(--border-size-1);
+        content: "";
+        flex: 1;
+        min-inline-size: var(--size-4);
+      }
+    }
+
+    &.ui-align-start::before,
+    &.ui-align-end::after {
+      display: none;
     }
 
     @media (forced-colors: active) {
       block-size: 0;
       border-block-start: var(--border-size-1) solid CanvasText;
+
+      &:not(:empty) {
+        border-block-start: 0;
+
+        &::before,
+        &::after {
+          block-size: 0;
+          border-block-start: var(--border-size-1) solid CanvasText;
+        }
+      }
     }
   }
 

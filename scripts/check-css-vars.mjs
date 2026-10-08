@@ -23,7 +23,7 @@ const listCssFiles = async (dir) => {
           ? []
           : listCssFiles(path)
       }
-      return [".astro", ".css", ".vue"].includes(extname(entry.name))
+      return [".astro", ".css", ".svelte", ".vue"].includes(extname(entry.name))
         ? [path]
         : []
     }),

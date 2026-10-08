@@ -5,6 +5,7 @@ export const title = "Carousel"
 
 const {
   align,
+  aspectRatio,
   buttons = true,
   class: className,
   label,
@@ -18,11 +19,17 @@ const {
   ...rest
 } = Astro.props
 
-const perViewStyle = perView ? `--_per-view: ${perView};` : ""
+const vars = {
+  ...(perView ? { "--_per-view": perView } : {}),
+  ...(aspectRatio ? { "--_media-aspect-ratio": aspectRatio } : {}),
+}
+const varStyle = Object.entries(vars)
+  .map(([name, value]) => `${name}: ${value};`)
+  .join(" ")
 const mergedStyle =
   typeof style === "string" || !style
-    ? `${perViewStyle}${style ?? ""}` || undefined
-    : { ...(perView ? { "--_per-view": perView } : {}), ...style }
+    ? [varStyle, style].filter(Boolean).join(" ") || undefined
+    : { ...vars, ...style }
 ---
 
 <ul

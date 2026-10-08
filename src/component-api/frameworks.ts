@@ -5,6 +5,7 @@ export type Framework = ComponentFramework | "html"
 type Syntax = {
   component: (source: string) => string
   model?: (prop: string) => string
+  modelIsProp?: boolean
   slot: (name: string) => string
   slotsAreProps: boolean
   types: string
@@ -31,6 +32,7 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
   svelte: {
     component: (source) => `${source}.svelte`,
     model: (prop) => `bind:${prop}`,
+    modelIsProp: true,
     slot: slotProp,
     slotsAreProps: true,
     types: "types.svelte.ts",

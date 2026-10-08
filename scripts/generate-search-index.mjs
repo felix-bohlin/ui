@@ -3,6 +3,7 @@ import path from "path"
 import { pathToFileURL } from "url"
 import { globby } from "globby"
 
+import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/learn-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
@@ -47,9 +48,25 @@ function readMeta(file) {
       ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
       : ""
 
-  const headings = readHeadings(content)
+  const headings = [
+    ...readHeadings(content),
+    ...readMarkdownHeadings(file, content),
+  ]
 
   return { title, preamble, headings }
+}
+
+function readMarkdownHeadings(file, content) {
+  const importMatch = content.match(/from\s+["']([^"']+\.md)["']/)
+  if (!importMatch) return []
+  const markdown = fs.readFileSync(
+    path.resolve(path.dirname(file), importMatch[1]),
+    "utf-8",
+  )
+  const firstSection = markdown.split(/^# /m)[1] ?? ""
+  return Array.from(firstSection.matchAll(/^##+ (.+)$/gm), (m) =>
+    m[1].replace(/`/g, "").trim(),
+  )
 }
 
 async function generateIndex() {
@@ -170,6 +187,19 @@ async function generateIndex() {
         .join(" "),
       category: "Learn",
       url: `/learn/${post.slug}`,
+    })
+  }
+
+  // Blocks are framework-agnostic and live at /blocks/<slug>.
+  for (const block of blocks.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
+    index.push({
+      id: `block-${block.slug}`,
+      title: block.name,
+      description: block.description,
+      headings: blockCategories.find((entry) => entry.id === block.category)
+        ?.label,
+      category: "Blocks",
+      url: `/blocks/${block.slug}`,
     })
   }
 

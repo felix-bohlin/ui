@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="switch-checkbox">
@@ -54,7 +54,11 @@ import { Code } from "astro-expressive-code/components"
   outline: var(--dot-outline-size) solid var(--dot-color);
   outline-offset: -1px;
   position: absolute;
-  transition: all 0.2s var(--ease);
+  transition:
+    background-color 0.2s var(--ease),
+    inset-inline-start 0.2s var(--ease),
+    outline-color 0.2s var(--ease),
+    outline-width 0.2s var(--ease);
 }
 
 [role="switch"]:checked::after {

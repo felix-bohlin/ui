@@ -1,0 +1,72 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-phone {
+    border: var(--border-width) dashed var(--border-color);
+    inline-size: 320px;
+    padding-block: var(--size-3);
+  }
+
+  .todo-compare .ui-dialog {
+    margin-block-start: 0;
+    position: static;
+  }
+
+  .todo-before .ui-dialog {
+    max-inline-size: calc(100% - var(--size-4));
+  }
+
+  .todo-before .ui-dialog.todo-wide {
+    max-inline-size: 40rem;
+  }
+
+  .todo-fixed .ui-dialog.todo-wide {
+    --_max-inline-size: 40rem;
+  }
+</style>
+<div class="todo-compare">
+  <div class="todo-before">
+    <p class="ui-caption">
+      Before: default dialog, 320px screen (the under 600px rule)
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+  <div class="todo-before">
+    <p class="ui-caption">
+      Before: <code>max-inline-size: 40rem</code>, 320px screen
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated todo-wide">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+  <div class="todo-fixed">
+    <p class="ui-caption">
+      Fixed: <code>--_max-inline-size: 40rem</code>, 320px screen
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated todo-wide">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+</div>

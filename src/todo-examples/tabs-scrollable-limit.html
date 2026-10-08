@@ -1,0 +1,173 @@
+<style>
+  @layer components.root {
+    @scope (.todo-dense) {
+      :where(.ui-tabs).ui-scrollable {
+        grid-auto-columns: max-content;
+        grid-auto-flow: column dense;
+        grid-template-columns: none;
+      }
+
+      :where(.ui-tabs).ui-scrollable
+        > .ui-tab-input[type="radio"]:nth-of-type(n) {
+        block-size: 1px;
+        grid-column: auto;
+        grid-row: 1;
+        inline-size: 1px;
+        justify-self: center;
+        margin-block-end: -1px;
+        position: static;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-label {
+        grid-row: 2;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-panel {
+        grid-column: 1;
+        grid-row: 3;
+        margin-inline-end: -100cqi;
+      }
+    }
+  }
+
+  @layer components.root {
+    @scope (.todo-sibling) {
+      :where(.ui-tabs).ui-scrollable {
+        grid-auto-columns: max-content;
+        grid-template-columns: none;
+      }
+
+      :where(.ui-tabs).ui-scrollable
+        > .ui-tab-input[type="radio"]:nth-of-type(n) {
+        grid-column: calc((sibling-index() + 2) / 3) / span 1;
+      }
+
+      :where(.ui-tabs).ui-scrollable > .ui-tab-panel {
+        grid-column: 1 / span calc(sibling-count() / 3);
+        margin-inline-end: -100cqi;
+      }
+    }
+  }
+
+  .todo-full {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      30 scrollable tabs (the docs support 20). Tab 21 is clipped to a sliver
+      under tab 22. Click tab 19 and press Right Arrow twice: on tab 21 the tabs
+      scroll back to the start, away from the focused tab.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-current"
+        id="todo-limit-current-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-current-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed todo-dense">
+    <p class="todo-label">With dense auto-placement</p>
+    <p class="todo-note">
+      Same markup, no per-tab rules, works in every browser. The radios get a
+      row of their own above the tabs, and
+      <code>grid-auto-flow: column dense</code> fills each row from the first
+      column, so radio n lands in the same column as tab n. A 1px radio in the
+      middle of the column scrolls its tab into view on focus, like today. Tab
+      30 works like tab 3.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-fixed"
+        id="todo-limit-fixed-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-fixed-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed todo-sibling">
+    <p class="todo-label">With sibling-index()</p>
+    <p class="todo-note">
+      Same markup, one rule instead of 20. Each tab is an input, a label and a
+      panel, so input n is sibling n &times; 3 &minus; 2 and
+      <code>grid-column: calc((sibling-index() + 2) / 3)</code> puts it in tab
+      n's column. The container can't count its children for
+      <code>repeat(20, max-content)</code>, so the columns become implicit
+      (<code>grid-auto-columns: max-content</code>) and the panel spans
+      <code>calc(sibling-count() / 3)</code> of them. Tab 30 works like tab 3.
+    </p>
+    <div class="ui-tabs ui-scrollable todo-full">
+      <input
+        type="radio"
+        name="todo-limit-sibling"
+        id="todo-limit-sibling-1"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-limit-sibling-1" class="ui-tab-label">Tab 1</label>
+      <div class="ui-tab-panel">Panel 1</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const tabs = panel.querySelector(".ui-tabs")
+      const [input, label, content] = tabs.children
+      for (let i = 2; i <= 30; i++) {
+        const nextInput = input.cloneNode()
+        nextInput.id = input.id.replace(/\d+$/, i)
+        nextInput.checked = false
+        const nextLabel = label.cloneNode()
+        nextLabel.htmlFor = nextInput.id
+        nextLabel.textContent = `Tab ${i}`
+        const nextContent = content.cloneNode()
+        nextContent.textContent = `Panel ${i}`
+        tabs.append(nextInput, nextLabel, nextContent)
+      }
+      const measure = panel.querySelector("[data-measure]")
+      const write = () => {
+        const labels = [...tabs.querySelectorAll(".ui-tab-label")]
+        const overlaps = labels.filter(
+          (tab, i) =>
+            i > 0 &&
+            tab.getBoundingClientRect().left <
+              labels[i - 1].getBoundingClientRect().right - 0.5,
+        ).length
+        const focused = tabs.querySelector(".ui-tab-input:focus")
+        const box = tabs.getBoundingClientRect()
+        const inView = (tab) => {
+          const rect = tab.getBoundingClientRect()
+          const center = rect.left + rect.width / 2
+          return center >= box.left && center <= box.right
+        }
+        measure.textContent = [
+          `tab 21 width: ${Math.round(labels[20].getBoundingClientRect().width)}px (tab 20: ${Math.round(labels[19].getBoundingClientRect().width)}px)`,
+          `tabs drawn over the previous tab: ${overlaps}`,
+          `focused: ${focused ? focused.labels[0].textContent : "none"}, scrollLeft: ${Math.round(Math.abs(tabs.scrollLeft))}px`,
+          focused
+            ? `focused tab's center in view: ${inView(focused.labels[0])}`
+            : "",
+        ].join("\n")
+      }
+      write()
+      tabs.addEventListener("focusin", () => setTimeout(write, 300))
+      tabs.addEventListener("scroll", () => write())
+    }
+  }
+</script>

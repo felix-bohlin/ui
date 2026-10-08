@@ -1,0 +1,125 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-current .todo-focus input {
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .todo-proposed .ui-switch {
+    &:has([aria-invalid="true"]),
+    &:has(:user-invalid) {
+      input {
+        box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
+        outline: none;
+      }
+
+      input:focus-visible,
+      &.todo-focus input {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, currentColor);
+        outline-offset: calc(
+          var(--focus-ring-offset) + var(--focus-ring-width)
+        );
+      }
+    }
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    The middle switch in each panel has its focus ring forced on, so you can
+    compare without tabbing. Tab through the last switch in each panel to see
+    the real thing.
+  </p>
+  <div class="todo-compare">
+    <div class="todo-current">
+      <p class="ui-caption">
+        Current: focus only moves the red ring out by 2px
+      </p>
+      <div class="todo-panel">
+        <label class="ui-switch">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
+          <span class="ui-label">Invalid, rest</span>
+        </label>
+        <label class="ui-switch todo-focus">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
+          <span class="ui-label">Invalid, focused</span>
+        </label>
+        <label class="ui-switch">
+          <input type="checkbox" role="switch" aria-invalid="true" />
+          <span class="ui-label">Tab to me</span>
+        </label>
+      </div>
+    </div>
+    <div class="todo-proposed">
+      <p class="ui-caption">
+        Proposed: red ring as a <code>box-shadow</code>, focus ring outside it
+      </p>
+      <div class="todo-panel">
+        <label class="ui-switch">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
+          <span class="ui-label">Invalid, rest</span>
+        </label>
+        <label class="ui-switch todo-focus">
+          <input
+            type="checkbox"
+            role="switch"
+            aria-invalid="true"
+            tabindex="-1"
+          />
+          <span class="ui-label">Invalid, focused</span>
+        </label>
+        <label class="ui-switch">
+          <input type="checkbox" role="switch" aria-invalid="true" />
+          <span class="ui-label">Tab to me</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <p class="ui-caption">For reference, a valid switch (Tab to it)</p>
+  <div class="todo-panel">
+    <label class="ui-switch">
+      <input type="checkbox" role="switch" />
+      <span class="ui-label">Valid</span>
+    </label>
+  </div>
+</div>

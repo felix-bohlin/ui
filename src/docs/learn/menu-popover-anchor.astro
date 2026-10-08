@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="menu-popover-anchor">
@@ -33,6 +33,12 @@ import { Code } from "astro-expressive-code/components"
       <li>
         <code>position-area</code> places it below the trigger, and
         {" "}<code>anchor-size(inline)</code> keeps it at least as wide
+      </li>
+      <li>
+        <code>max-block-size</code> with <code>100%</code> caps it to the space on
+        its side, where it scrolls. <code>calc-size()</code> keeps at least <code
+          >12rem</code
+        > of it, so it only flips when that side has less room
       </li>
       <li>
         <code>position-try-fallbacks</code> flips it when it would overflow. Two

@@ -6,6 +6,7 @@ import { DescriptionList as UIDescriptionList } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
@@ -43,7 +44,10 @@ export const description =
 >
   <Fragment slot="title">Description list</Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="bordered">Bordered</h2>
@@ -61,6 +65,13 @@ export const description =
           a dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
+      <Fragment slot="svelte">
+        <p>
+          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
+          between the term and description on all items. Use{" "}
+          <code>bordered="dotted"</code> for a dotted style.
+        </p>
+      </Fragment>
       <Fragment slot="vue">
         <p>
           Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
@@ -69,14 +80,31 @@ export const description =
         </p>
       </Fragment>
     </Conditional>
+    <p>
+      Above <code>45ch</code> the term and description share a row and the border
+      fills the gap between them. Narrower lists stack and show no border.
+    </p>
     <AutoExample name="Bordered" column spacious />
+  </section>
+
+  <section>
+    <h2 id="inline">Inline</h2>
+    <p>
+      The term and the description stack when the list is <code>45ch</code> or narrower,
+      and sit side by side when it's wider. Set <PropOrClass
+        prop="inline"
+        class=".ui-inline"
+      /> to keep them side by side at any width, for example for totals in a sidebar
+      or summary card.
+    </p>
+    <AutoExample name="Inline" />
   </section>
 
   <DescriptionListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UIDescriptionList bordered="dotted" style="inline-size: 16rem">
+      <UIDescriptionList style="inline-size: 16rem">
         <UIDescriptionList.Item>
           <UIDescriptionList.Term>Price</UIDescriptionList.Term>
           <UIDescriptionList.Description

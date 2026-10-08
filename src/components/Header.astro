@@ -26,18 +26,19 @@ const currentFramework = (Astro.currentLocale ??
 // every variant (e.g. /astro/components/button -> /components/button).
 const canonicalPath = stripFrameworkPrefix(pathname)
 
-const navItems: { label: string; href: string }[] = [
-  { label: "Guide", href: "/guide/getting-started" },
-  { label: "Components", href: "/components" },
-  { label: "API", href: "/api" },
-  { label: "Learn", href: "/learn" },
+const navItems = [
+  { label: "Guide", href: "/guide/getting-started", section: "/guide" },
+  { label: "Components", href: "/components", section: "/components" },
+  { label: "Blocks", href: "/blocks", section: "/blocks" },
+  { label: "API", href: "/api", section: "/api" },
+  { label: "Learn", href: "/learn", section: "/learn" },
 ]
 
-const resolvedNavItems = navItems.map((item) => ({
+const resolvedNavItems = navItems.map(({ section, ...item }) => ({
   ...item,
   href: hrefFor(currentFramework, item.href),
   isActive:
-    canonicalPath === item.href || canonicalPath.startsWith(item.href + "/"),
+    canonicalPath === section || canonicalPath.startsWith(section + "/"),
 }))
 
 const { link } = Astro.locals
@@ -166,13 +167,7 @@ const { link } = Astro.locals
 
       <div class="ui-actions">
         <!-- Search -->
-        <Button
-          ripple
-          rounded
-          size="small"
-          data-open-search
-          title="Search (⌘K)"
-        >
+        <Button rounded size="small" data-open-search title="Search (⌘K)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -187,7 +182,6 @@ const { link } = Astro.locals
 
         <!-- Theme Configurator -->
         <Button
-          ripple
           rounded
           size="small"
           commandfor="theme-configurator-drawer"
@@ -210,7 +204,7 @@ const { link } = Astro.locals
         <a
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
-          class="github-link ui-button ui-rounded ui-ripple ui-small"
+          class="github-link ui-button ui-rounded ui-small"
           aria-label="GitHub repository"
         >
           <GithubLogo />
@@ -219,7 +213,7 @@ const { link } = Astro.locals
         <!-- Mobile menu button -->
         <button
           aria-label="Menu"
-          class="mobile-menu-button ui-button ui-rounded ui-ripple ui-small"
+          class="mobile-menu-button ui-button ui-rounded ui-small"
           commandfor="mobile-menu-drawer"
           command="show-modal"
         >
@@ -295,19 +289,19 @@ const { link } = Astro.locals
   .header-toolbar {
     display: none;
     margin-inline: auto;
-    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    max-inline-size: calc(var(--site-content-lg) + var(--site-page-gutters));
     min-inline-size: 0;
 
     &:has(.local-nav) {
       display: grid;
-      grid-template-columns: var(--_gap) 1fr 0 minmax(auto, 100%) 0 1fr var(
-          --_gap
-        );
+      grid-template-columns:
+        var(--site-gap) 1fr 0 minmax(auto, 100%)
+        0 1fr var(--site-gap);
 
       @media (width >= 900px) {
         grid-template-columns:
-          var(--_gap) 1fr 200px minmax(auto, 100%)
-          0 1fr var(--_gap);
+          var(--site-gap) 1fr 200px minmax(auto, 100%)
+          0 1fr var(--site-gap);
       }
 
       @media (width >= 1140px) {
@@ -317,12 +311,41 @@ const { link } = Astro.locals
   }
 
   @media (width < 1140px) {
-    .site-header:has(.local-nav) header .ui-content {
-      border-block-end: none;
-    }
+    .site-header:has(.local-nav) {
+      animation-fill-mode: both;
+      animation-name: frost;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      animation-timing-function: linear;
+      margin-block-end: var(--size-4);
 
-    .site-header:has(.local-nav) header .ui-content::before {
-      border-block-end: none;
+      &::before {
+        animation-fill-mode: both;
+        animation-name: fade-bg;
+        animation-range: 0 150px;
+        animation-timeline: scroll();
+        animation-timing-function: linear;
+        background-color: oklch(from var(--surface-elevated) l c h / 0.8);
+        border-block-end: var(--border-width) solid
+          oklch(from var(--text-primary) l c h / 0.15);
+        box-shadow: var(--shadow-2);
+        content: "";
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+      }
+
+      header .ui-content {
+        animation-name: compact-content;
+        backdrop-filter: none;
+        border-block-end: none;
+
+        &::before {
+          display: none;
+        }
+      }
     }
   }
 
@@ -337,14 +360,16 @@ const { link } = Astro.locals
       gap: var(--size-4);
       justify-content: space-between;
       margin: 0 auto;
-      max-inline-size: var(--_content-lg);
+      max-inline-size: var(--site-content-lg);
       padding: var(--size-4);
       position: relative;
 
       &::before {
-        animation: fade-bg linear both;
+        animation-fill-mode: both;
+        animation-name: fade-bg;
         animation-range: 0 150px;
         animation-timeline: scroll();
+        animation-timing-function: linear;
         background-color: var(--surface-elevated);
         border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
         border-radius: 0;
@@ -505,12 +530,16 @@ const { link } = Astro.locals
 
   /* Scroll-driven animations */
   .ui-content {
-    animation: fade-content linear both;
+    animation-fill-mode: both;
+    animation-name: fade-content;
+    animation-timing-function: linear;
   }
 
   @container (width >= 1140px) {
     header {
-      animation: shrink-padding linear both;
+      animation-fill-mode: both;
+      animation-name: shrink-padding;
+      animation-timing-function: linear;
     }
   }
 
@@ -522,7 +551,7 @@ const { link } = Astro.locals
 
   @keyframes shrink-padding {
     to {
-      padding: var(--size-3) var(--_gap);
+      padding: var(--size-3) var(--site-gap);
     }
   }
 
@@ -533,6 +562,23 @@ const { link } = Astro.locals
     to {
       border-block-end-color: transparent;
       opacity: 0.9;
+      padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
+    }
+  }
+
+  @keyframes frost {
+    from {
+      -webkit-backdrop-filter: blur(0) saturate(1);
+      backdrop-filter: blur(0) saturate(1);
+    }
+    to {
+      -webkit-backdrop-filter: blur(12px) saturate(1.5);
+      backdrop-filter: blur(12px) saturate(1.5);
+    }
+  }
+
+  @keyframes compact-content {
+    to {
       padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
     }
   }

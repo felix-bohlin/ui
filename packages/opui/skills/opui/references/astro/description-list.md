@@ -22,11 +22,12 @@
 
   The description.
 
+## Basics
+
 ```astro
 ---
 import { DescriptionList } from "opui-css/astro"
 ---
-
 
 <DescriptionList>
   <DescriptionList.Item>
@@ -48,11 +49,12 @@ import { DescriptionList } from "opui-css/astro"
 
 Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
 
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+
 ```astro
 ---
 import { DescriptionList } from "opui-css/astro"
 ---
-
 
 <DescriptionList bordered>
   <DescriptionList.Item>
@@ -68,7 +70,6 @@ import { DescriptionList } from "opui-css/astro"
     <DescriptionList.Description>3</DescriptionList.Description>
   </DescriptionList.Item>
 </DescriptionList>
-
 
 <DescriptionList bordered="dotted">
   <DescriptionList.Item>
@@ -86,13 +87,39 @@ import { DescriptionList } from "opui-css/astro"
 </DescriptionList>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```astro
+---
+import { DescriptionList } from "opui-css/astro"
+---
+
+<DescriptionList bordered inline style="max-inline-size: 18rem">
+  <DescriptionList.Item>
+    <DescriptionList.Term>Subtotal</DescriptionList.Term>
+    <DescriptionList.Description>$120.00</DescriptionList.Description>
+  </DescriptionList.Item>
+  <DescriptionList.Item>
+    <DescriptionList.Term>Shipping</DescriptionList.Term>
+    <DescriptionList.Description>$8.00</DescriptionList.Description>
+  </DescriptionList.Item>
+  <DescriptionList.Item>
+    <DescriptionList.Term>Total</DescriptionList.Term>
+    <DescriptionList.Description>$128.00</DescriptionList.Description>
+  </DescriptionList.Item>
+</DescriptionList>
+```
+
 ## API
 
 ### Description list API
 
-| Prop       | Type                  | Default | Description                                         |
-| ---------- | --------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean`, `"dotted"` | `false` | Adds a border between the term and the description. |
+| Prop       | Type                   | Default | Description                                                                                                              |
+| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots
 
@@ -112,6 +139,8 @@ import { DescriptionList } from "opui-css/astro"
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
 1. Stacked
 
@@ -154,21 +183,17 @@ Step 1 of 4: Stacked
   margin: 0;
 }
 
-
 .item {
   display: grid;
 }
-
 
 .item + .item {
   margin-block-start: 0.75rem;
 }
 
-
 .item dt {
   font-weight: 700;
 }
-
 
 .item dd {
   margin: 0;
@@ -177,13 +202,12 @@ Step 1 of 4: Stacked
 
 Step 2 of 4: Container query
 
-- [Container queries](https://webstatus.dev/features/container-queries) (Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+- [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
 ```css
 .dl {
   container-type: inline-size;
 }
-
 
 @container (width > 45ch) {
   .item {
@@ -193,11 +217,9 @@ Step 2 of 4: Container query
     justify-content: space-between;
   }
 
-
   .item + .item {
     margin-block-start: 0.25rem;
   }
-
 
   .item dd {
     color: var(--text-muted);
@@ -214,7 +236,6 @@ Step 3 of 4: Leader line
     grid-template-columns: auto 1fr auto;
   }
 
-
   .bordered > .item::after {
     block-size: 2px;
     border-block-end: var(--line-width, 1px) var(--line-style, solid)
@@ -222,7 +243,6 @@ Step 3 of 4: Leader line
     content: "";
     order: 1;
   }
-
 
   .bordered > .item dd {
     order: 2;
@@ -249,5 +269,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/astro`:
+
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

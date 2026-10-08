@@ -47,13 +47,14 @@ import { Select } from "@opui/astro"
 </Select>
 
 <Select spread>
-  <Fragment slot="label">Currency</Fragment>
-  <Fragment slot="description">Used for billing</Fragment>
-  <Fragment slot="prefix">¢</Fragment>
-  <option value="">-</option>
-  <option>EUR</option>
-  <option>EUR</option>
-  <option>SEK</option>
+  <Fragment slot="label">Time zone</Fragment>
+  <Fragment slot="description">Used for reminders and due dates</Fragment>
+  <Fragment slot="prefix">UTC</Fragment>
+  <option>-03:00</option>
+  <option>+00:00</option>
+  <option>+01:00</option>
+  <option>+05:30</option>
+  <option>+09:00</option>
 </Select>
 
 <Select spread variant="filled">

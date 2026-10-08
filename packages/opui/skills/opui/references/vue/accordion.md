@@ -1,12 +1,5 @@
 # Accordion
 
-Lets you show and hide content. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
-
-### What's new
-
-- [Marker animation](#marker-animation) with the `markerAnimation` prop.
-- A chevron marker by default. The `marker` slot replaces it.
-
 ## Anatomy
 
 Accordion title
@@ -23,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `v-slot:marker`
 
-  The marker. Astro and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `v-slot:default`
 
@@ -39,7 +32,6 @@ Explain more about the topic shown in the summary through supporting text.
 <script setup lang="ts">
 import { Accordion } from "opui-css/vue"
 </script>
-
 
 <template>
   <Accordion>
@@ -64,7 +56,6 @@ Use the `variant` prop to change how it looks.
 import { Accordion } from "opui-css/vue"
 </script>
 
-
 <template>
   <Accordion>
     <template #summary>Text</template>
@@ -75,7 +66,6 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-
   <Accordion variant="elevated">
     <template #summary>Elevated</template>
     <p>
@@ -85,7 +75,6 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-
   <Accordion variant="outlined">
     <template #summary>Outlined</template>
     <p>
@@ -94,7 +83,6 @@ import { Accordion } from "opui-css/vue"
       neque ante id justo.
     </p>
   </Accordion>
-
 
   <Accordion variant="tonal">
     <template #summary>Tonal</template>
@@ -115,7 +103,6 @@ Group multiple accordions by wrapping them in a `Card` component with `role="gro
 <script setup lang="ts">
 import { Accordion, Card } from "opui-css/vue"
 </script>
-
 
 <template>
   <Card variant="outlined" role="group">
@@ -156,7 +143,6 @@ Set the same `name` prop on each accordion to allow only one of them to be open 
 import { Accordion, Card } from "opui-css/vue"
 </script>
 
-
 <template>
   <Card variant="outlined" role="group">
     <Accordion name="example-group">
@@ -189,13 +175,12 @@ import { Accordion, Card } from "opui-css/vue"
 
 ## Actions
 
-Add buttons or other interactive elements below the content with the`actions` slot.
+Add buttons or other interactive elements below the content with the `actions` slot.
 
 ```vue
 <script setup lang="ts">
 import { Accordion, Button } from "opui-css/vue"
 </script>
-
 
 <template>
   <Accordion open variant="elevated">
@@ -215,19 +200,19 @@ import { Accordion, Button } from "opui-css/vue"
 
 ## Custom marker
 
-Replace the default marker with the `marker` slot.
+Replace the default marker with the `marker` slot, and give it `.ui-marker` so it sits at the end and animates. Other icons in the `summary`, such as a leading status icon, stay put.
 
 ```vue
 <script setup lang="ts">
 import { Accordion } from "opui-css/vue"
 </script>
 
-
 <template>
   <Accordion variant="outlined">
     <template #summary>Custom marker</template>
     <template #marker>
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -260,7 +245,6 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 import { Accordion } from "opui-css/vue"
 </script>
 
-
 <template>
   <Accordion markerAnimation="flip" variant="outlined">
     <template #summary>Flip</template>
@@ -271,7 +255,6 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-
   <Accordion markerAnimation="rotate" variant="outlined">
     <template #summary>Rotate</template>
     <p>
@@ -281,11 +264,11 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-
   <Accordion markerAnimation="turn" variant="outlined">
     <template #summary>Turn</template>
     <template #marker>
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -316,43 +299,46 @@ import { Accordion } from "opui-css/vue"
 
 ### Accordion API
 
-| Prop              | Type                                               | Default     | Description                                                  |
-| ----------------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `markerAnimation` | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`            | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
-| `open`            | `boolean`                                          | `false`     | Whether the accordion is open.                               |
-| `variant`         | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
+| Prop              | Type                                                  | Default     | Description                                                  |
+| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time. |
+| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                               |
+| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                          |
 
 #### Slots
 
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `actions` | A group of actions, such as buttons.                   |
-| `default` | The collapsible content.                               |
-| `marker`  | The marker. Astro and Vue render a chevron by default. |
-| `summary` | The always visible header.                             |
+| Slot      | Description                                                                                |
+| --------- | ------------------------------------------------------------------------------------------ |
+| `actions` | A group of actions, such as buttons.                                                       |
+| `default` | The collapsible content.                                                                   |
+| `marker`  | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `summary` | The always visible header.                                                                 |
 
 #### CSS variables
 
-| Variable             | Default                                     | Description                                                                                                                |
-| -------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--border-width`     | `1px`                                       | Default border width for components that draw a border.                                                                    |
-| `--duration`         | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease`             | `ease`                                      | Default easing for transitions.                                                                                            |
-| `--focus-ring-width` | `2px`                                       | Width of the focus ring.                                                                                                   |
-| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                               |
-| `--motion`           | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                               |
-| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| Variable              | Default                                     | Description                                                                                                                                                                                             |
+| --------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                       |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                         |
+| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                          |
+| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                |
+| `--font-weight-bold`  | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                                                                                                            |
+| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                            |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                           |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
 
 ## Under the hood
+
+Read the post: [An accordion that animates to auto](https://open-props-ui.netlify.app/learn/accordion-height-auto)
 
 1. Details
 
@@ -367,9 +353,10 @@ Group accordions in a `<Card role="group">`. Set its `variant` to theme the whol
 
 3. Marker
 
-   - `list-style: none` removes the native marker
+   - `list-style: none` removes the native marker, but only when there's an `<svg>` to replace it
    - Three marker animations: `flip`, `rotate`, `turn`
    - Individual transform properties (`rotate`, `scale`) transition independently
+   - In right-to-left, `turn` mirrors the chevron to point at the end, then turns the other way
 
 Step 1 of 3: Details
 
@@ -382,16 +369,15 @@ Step 1 of 3: Details
 
 Step 2 of 3: Animate to auto
 
-- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
-- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
-- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`content-visibility` ](https://webstatus.dev/features/content-visibility)(Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
+- [`::details-content` ](https://webstatus.dev/features/details-content)(Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
+- [`interpolate-size` ](https://webstatus.dev/features/interpolate-size)(Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .accordion {
   interpolate-size: allow-keywords;
 }
-
 
 .accordion::details-content {
   block-size: 0;
@@ -403,7 +389,6 @@ Step 2 of 3: Animate to auto
     opacity 0.2s;
 }
 
-
 .accordion[open]::details-content {
   block-size: auto;
   opacity: 1;
@@ -412,19 +397,21 @@ Step 2 of 3: Animate to auto
 
 Step 3 of 3: Marker
 
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+
 ```css
-.accordion > summary {
+.accordion > summary:has(svg) {
   align-items: center;
   display: flex;
   justify-content: space-between;
   list-style: none;
 }
 
-
-.accordion > summary::-webkit-details-marker {
+.accordion > summary:has(svg)::-webkit-details-marker {
   display: none;
 }
-
 
 .accordion > summary svg {
   transition:
@@ -432,19 +419,24 @@ Step 3 of 3: Marker
     scale 0.2s;
 }
 
-
 .marker-flip[open] > summary svg {
   scale: 1 -1;
 }
-
 
 .marker-rotate[open] > summary svg {
   rotate: 180deg;
 }
 
-
 .marker-turn[open] > summary svg {
   rotate: 90deg;
+}
+
+.marker-turn:dir(rtl) > summary svg {
+  scale: -1 1;
+}
+
+.marker-turn[open]:dir(rtl) > summary svg {
+  rotate: -90deg;
 }
 ```
 
@@ -458,6 +450,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
+Import the component from `opui-css/vue`:
+
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/vue/components/card.md)
@@ -465,3 +459,10 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/accordion.css`
 - `opui-css/css/components/card.css`
 
+## Changelog
+
+### What's new
+
+- [Marker animation](#marker-animation) with the `markerAnimation` prop.
+- Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
+- [Actions](#actions) line up with the content and the chevron.

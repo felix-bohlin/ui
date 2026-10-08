@@ -8,7 +8,10 @@
     );
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
-    --_margin: var(--_offset) 0;
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
+    --_margin-block: var(--_offset);
+    --_margin-inline: 0;
     --_max-block-size: 60dvb;
     --_min-block-size: 12rem;
     --_min-inline-size: 12rem;
@@ -17,7 +20,6 @@
     --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-3);
-    --_transition-duration: calc(var(--duration) * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -32,10 +34,16 @@
     padding-block: var(--size-1);
     padding-inline: 0;
 
+    & > .ui-border-top::before,
+    &.ui-bordered > :where(li + li, option + option)::before {
+      border-block-start-color: var(--_border-color);
+    }
+
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
       inset: auto;
-      margin: var(--_margin);
+      margin-block: var(--_margin-block);
+      margin-inline: var(--_margin-inline);
       min-inline-size: max(var(--_min-inline-size), anchor-size(inline));
 
       opacity: 0;
@@ -48,15 +56,15 @@
         --ui-menu-block-start;
       scale: 0.96;
       transition:
-        display var(--_transition-duration) allow-discrete,
-        opacity var(--_transition-duration) var(--ease-enter),
-        overlay var(--_transition-duration) allow-discrete,
-        scale var(--_transition-duration) var(--ease-enter);
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
 
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
           var(--_max-block-size),
-          calc(100% - var(--_offset))
+          calc(100% - 2 * var(--_offset))
         );
         min-block-size: calc-size(
           fit-content,
@@ -81,13 +89,15 @@
     }
 
     &.ui-inline-end {
-      --_margin: 0 var(--_offset);
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
       --_side: inline-end;
       --_span: span-block-end;
     }
 
     &.ui-inline-start {
-      --_margin: 0 var(--_offset);
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
       --_side: inline-start;
       --_span: span-block-end;
     }
@@ -136,14 +146,16 @@
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
 
-      &:hover {
-        background-color: transparent;
+      @media (hover: hover) {
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
 
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
-      --_bg-color-hover: oklch(
+      --_hover-bg-color: oklch(
         from var(--critical) l c h / var(--state-hover-alpha-accent)
       );
       color: light-dark(
@@ -175,11 +187,13 @@
 }
 
 @position-try --ui-menu-block-end {
-  margin: var(--_offset) 0;
+  margin-block: var(--_offset);
+  margin-inline: 0;
   position-area: block-end span-all;
 }
 
 @position-try --ui-menu-block-start {
-  margin: var(--_offset) 0;
+  margin-block: var(--_offset);
+  margin-inline: 0;
   position-area: block-start span-all;
 }

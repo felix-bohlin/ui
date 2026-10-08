@@ -2,15 +2,6 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
-### What's new
-
-- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
-- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
-- Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
-- Rich text headings, `pre` and `small` scale with the surrounding font size.
-- [Links](#link) are documented, and get a thicker underline on hover.
-
 ## Class-based
 
 Utils that you can plop down wherever.
@@ -84,9 +75,12 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 
 Wrap your code in `.ui-rich-text` to add typographic styles to its children. It's extra handy when you can't control the contents yourself, like printing text from a CMS.
 
+Headings, lists and tables with a class keep their own styles, and components look the same inside rich text as outside it. Wrap a part in `.ui-not-rich-text` to end the rich text styles there.
+
 ```html
 <article class="ui-rich-text">
-  <!-- -->
+  <h2>Styled</h2>
+  <div class="ui-not-rich-text"><!-- not styled --></div>
 </article>
 ```
 
@@ -132,9 +126,7 @@ Let's put everything together and see how all elements look in a classless, rich
       hashtag meggings sartorial disrupt.
     </p>
 
-
     <hr />
-
 
     <h2 id="inline-text">Inline text</h2>
     <p>
@@ -204,7 +196,6 @@ Let's put everything together and see how all elements look in a classless, rich
       This sentence follows a line break.
     </p>
 
-
     <h2>Headings</h2>
     <p>Each level followed by body copy.</p>
     <h1>Heading level one</h1>
@@ -228,7 +219,6 @@ Let's put everything together and see how all elements look in a classless, rich
       restructuring your content instead.
     </p>
 
-
     <h3>Stacked headings</h3>
     <h4>An <code>h4</code> directly under an <code>h3</code></h4>
     <h5>An <code>h5</code> directly under an <code>h4</code></h5>
@@ -238,11 +228,9 @@ Let's put everything together and see how all elements look in a classless, rich
       paragraph hugs the last one.
     </p>
 
-
     <h3>Sibling headings of the same level</h3>
     <h3>Like this one, right after another <code>h3</code></h3>
     <p>Vegan poutine letterpress tacos coloring book flannel hexagon.</p>
-
 
     <h3>
       A heading with <code>code</code>, <em>emphasis</em> and
@@ -250,14 +238,12 @@ Let's put everything together and see how all elements look in a classless, rich
     </h3>
     <p>Shoreditch tbh mlkshk wolf.</p>
 
-
     <h3>
       A deliberately long heading that wraps onto several lines to check line
       height, letter spacing and text wrapping at larger sizes, because titles
       from a CMS are never as short as the designer hoped
     </h3>
     <p>Heirloom cloud bread tousled.</p>
-
 
     <h4>A heading directly followed by a list</h4>
     <ul>
@@ -271,9 +257,7 @@ Let's put everything together and see how all elements look in a classless, rich
       Humblebrag cloud bread kogi raw denim pabst affogato.
     </blockquote>
 
-
     <hr />
-
 
     <hgroup>
       <p>Mid-article heading group</p>
@@ -376,7 +360,6 @@ Let's put everything together and see how all elements look in a classless, rich
       </li>
     </ul>
 
-
     <h2>Description lists</h2>
     <p>
       Tbh literally roof party four loko snackwave vexillologist cold-pressed
@@ -403,7 +386,6 @@ Let's put everything together and see how all elements look in a classless, rich
         </ul>
       </dd>
     </dl>
-
 
     <h2>Blockquotes</h2>
     <p>Without any inner elements:</p>
@@ -442,7 +424,6 @@ Let's put everything together and see how all elements look in a classless, rich
       <figcaption>— A barista, probably</figcaption>
     </figure>
 
-
     <h2>Code</h2>
     <p>
       Flexitarian <code>brew.config.js</code> kogi hashtag vaporware, set
@@ -454,7 +435,6 @@ Let's put everything together and see how all elements look in a classless, rich
   roast: {
     level: "light",
   },
-
 
   steepHours: 18,
   plugins: ["oat-milk", "pour-over"],
@@ -484,7 +464,6 @@ cold-brew 1.0.0</samp></pre>
       <figcaption>A code block with a caption.</figcaption>
     </figure>
 
-
     <h2>Media</h2>
     <p>Raclette actually marfa air plant gluten-free knausgaard:</p>
     <figure>
@@ -511,7 +490,6 @@ cold-brew 1.0.0</samp></pre>
         loading="lazy"
       />
     </p>
-
 
     <h2>Tables</h2>
     <p>Tables from Markdown or a CMS never come with classes:</p>
@@ -557,7 +535,6 @@ cold-brew 1.0.0</samp></pre>
       </tfoot>
     </table>
 
-
     <h2>Other elements</h2>
     <details>
       <summary>A closed disclosure</summary>
@@ -598,9 +575,7 @@ cold-brew 1.0.0</samp></pre>
     </div>
     <p>And now we're back in rich text.</p>
 
-
     <hr />
-
 
     <ol>
       <li id="footnote-1">
@@ -637,6 +612,8 @@ CSS-only typography. Apply the classes on elements in templates; no Vue componen
 
 ## Under the hood
 
+Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
+
 1. Unsnapped
 
    - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
@@ -656,6 +633,8 @@ CSS-only typography. Apply the classes on elements in templates; no Vue componen
 4. Flow space
 
    - One flow space derived from the body text
+   - `@property` makes it a length, so `1.25em` resolves once, on `.prose`. Unregistered, each heading would resolve it against its own font size
+   - `round()` puts it on the step. Fractions of it round again
    - More space above a heading than below: it sits with the text it introduces
 
 Step 1 of 4: Unsnapped
@@ -669,15 +648,17 @@ Step 1 of 4: Unsnapped
 
 Step 2 of 4: Snap line height
 
-- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
-.prose h2 {
+.prose :is(h1, h2, h3, h4, h5, h6) {
   line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
 }
 ```
 
 Step 3 of 4: Snap font size
+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
 .prose h2 {
@@ -687,19 +668,27 @@ Step 3 of 4: Snap font size
 
 Step 4 of 4: Flow space
 
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+
 ```css
-.prose {
-  --flow-space: 1.25em;
+@property --flow-space {
+  inherits: true;
+  initial-value: 0px;
+  syntax: "<length>";
 }
 
+.prose {
+  --flow-space: round(1.25em, var(--rhythm-step));
+}
 
 .prose > * {
   margin-block: 0 var(--flow-space);
 }
 
-
 .prose h2 {
-  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+  margin-block: calc(var(--flow-space) * 3)
+    round(var(--flow-space) * 0.75, var(--rhythm-step));
 }
 ```
 
@@ -716,3 +705,15 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - `opui-css/css/components/typography.css`
 - `opui-css/css/components/link.css`
 
+## Changelog
+
+### What's new
+
+- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
+- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
+- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
+- [Links](#link) are documented, and get a thicker underline on hover.
+- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.

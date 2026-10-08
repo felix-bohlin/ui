@@ -1,0 +1,58 @@
+<style>
+  @layer components.prose {
+    @scope (.todo-fixed) {
+      @scope (.ui-rich-text) to (.ui-not-rich-text) {
+        code {
+          border-radius: var(--border-radius, var(--radius-2));
+          padding: 0.5ex;
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The same inline code in a paragraph inside rich text, and directly in a
+      .ui-rich-text element: different padding and radius.
+    </p>
+    <div class="ui-rich-text">
+      <p>In a paragraph: run <code>pnpm check</code> first.</p>
+    </div>
+    <p class="ui-rich-text">Root child: run <code>pnpm check</code> first.</p>
+    <div class="ui-rich-text">
+      <pre><code>pnpm check</code></pre>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Padding and radius move to the code rule (the :not(pre) &gt; code copies
+      are identical, so dropping them changes nothing); pre code stays reset.
+    </p>
+    <div class="ui-rich-text">
+      <p>In a paragraph: run <code>pnpm check</code> first.</p>
+    </div>
+    <p class="ui-rich-text">Root child: run <code>pnpm check</code> first.</p>
+    <div class="ui-rich-text">
+      <pre><code>pnpm check</code></pre>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const names = ["in p", "root child", "in pre"]
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll("code"),
+    ]
+      .map((code, i) => {
+        const s = getComputedStyle(code)
+        const px = (v) => `${parseFloat(v).toFixed(1)}px`
+        return `${names[i]}: padding ${px(s.paddingTop)} ${px(s.paddingLeft)}, radius ${s.borderTopLeftRadius}`
+      })
+      .join("\n")
+  }
+</script>

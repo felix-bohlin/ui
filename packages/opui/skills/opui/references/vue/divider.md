@@ -2,17 +2,12 @@
 
 It's just a line.
 
-### What's new
-
-- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
-
 ## Default
 
 ```vue
 <script setup lang="ts">
 import { Divider } from "opui-css/vue"
 </script>
-
 
 <template>
   This text is placed over
@@ -23,23 +18,46 @@ import { Divider } from "opui-css/vue"
 
 ## Variants
 
+Use the `variant` prop to change the line color.
+
 ```vue
 <script setup lang="ts">
 import { Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   Tonal
   <Divider variant="tonal" />
 
-
   Filled
   <Divider variant="filled" />
 
-
   Primary
   <Divider variant="primary" />
+</template>
+```
+
+## Content
+
+Put text or any element in the default slot to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant`.
+
+```vue
+<script setup lang="ts">
+import { Button, Divider } from "opui-css/vue"
+</script>
+
+<template>
+  <Divider>or continue with email</Divider>
+
+  <Divider align="start">Billing</Divider>
+
+  <Divider align="end" variant="primary">Today</Divider>
+
+  <Divider>
+    <Button rounded size="small" variant="outlined"
+      >Show 12 more replies</Button
+    >
+  </Divider>
 </template>
 ```
 
@@ -52,7 +70,6 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 import { Card, Divider } from "opui-css/vue"
 </script>
 
-
 <template>
   <Card variant="outlined">
     <div class="ui-content">Inside a card, the gap spaces the divider.</div>
@@ -63,7 +80,6 @@ import { Card, Divider } from "opui-css/vue"
       So everything stays close together.
     </div>
   </Card>
-
 
   <div style="--divider-space: var(--size-1)">
     A custom space on any wrapper
@@ -77,9 +93,16 @@ import { Card, Divider } from "opui-css/vue"
 
 ### Divider API
 
-| Prop      | Type                               | Default | Description         |
-| --------- | ---------------------------------- | ------- | ------------------- |
-| `variant` | `"tonal"`, `"primary"`, `"filled"` | -       | The variant to use. |
+| Prop      | Type                                 | Default    | Description                         |
+| --------- | ------------------------------------ | ---------- | ----------------------------------- |
+| `align`   | `"start"` , `"end"` , `"center"`     | `"center"` | Where the content sits on the line. |
+| `variant` | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                 |
+
+#### Slots
+
+| Slot      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `default` | Optional content in the middle of the line. Renders a `<div>`. |
 
 #### CSS variables
 
@@ -90,6 +113,7 @@ import { Card, Divider } from "opui-css/vue"
 | `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
 | `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
 | `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
+| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -125,7 +149,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Element
 
-- [\<hr>](https://webstatus.dev/features/hr) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
+- [\<hr> ](https://webstatus.dev/features/hr)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
 
 ```html
 <p>Above the line</p>
@@ -143,7 +167,7 @@ Step 2 of 5: Height
 
 Step 3 of 5: Paint
 
-- [`background-color`](https://webstatus.dev/features/background-color) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [`background-color` ](https://webstatus.dev/features/background-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -153,8 +177,8 @@ Step 3 of 5: Paint
 
 Step 4 of 5: Breathe
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [`margin`](https://webstatus.dev/features/margin) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`margin` ](https://webstatus.dev/features/margin)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -164,7 +188,23 @@ Step 4 of 5: Breathe
 
 Step 5 of 5: Ship it
 
+## Browser support
+
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Divider.md).
+
 ## Installation
+
+Import the component from `opui-css/vue`:
 
 - `opui-css/css/components/divider.css`
 
+## Changelog
+
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- [Content](#content) in the middle of the line through the default slot, aligned with `align`.

@@ -12,7 +12,7 @@ import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
 export const description =
-  "Lets you show and hide content. Comes with a chevron marker and a custom marker slot."
+  "Lets you show and hide content, on its own or as a group."
 ---
 
 <Component
@@ -25,8 +25,10 @@ export const description =
     "content-visibility",
     "details-content",
     "details-name",
+    "dir-pseudo",
     "has",
     "interpolate-size",
+    "overflow-clip",
     "transition-behavior",
   ]}
   changelogPaths={[
@@ -53,11 +55,6 @@ export const description =
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
-  <Fragment slot="preamble">
-    Lets you show and hide content. Comes with a chevron marker, check out how
-    to add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
-  </Fragment>
-
   <section>
     <h2 id="basics">Basics</h2>
 
@@ -76,6 +73,9 @@ export const description =
           >.ui-elevated</code
         >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
         change how it looks. Add <code>.ui-card</code> for the card styles.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>variant</code> prop to change how it looks.
@@ -99,6 +99,11 @@ export const description =
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
+      <Fragment slot="svelte">
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
+      </Fragment>
       <Fragment slot="vue">
         Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
@@ -119,6 +124,10 @@ export const description =
         Set the same <code>name</code> attribute on each <code
           >&lt;details&gt;</code
         > element to allow only one of them to be open at a time.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
       </Fragment>
       <Fragment slot="vue">
         Set the same <code>name</code> prop on each accordion to allow only one of
@@ -144,6 +153,10 @@ export const description =
           >.ui-actions</code
         > element, after <code>.ui-content</code>.
       </Fragment>
+      <Fragment slot="svelte">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> snippet.
+      </Fragment>
       <Fragment slot="vue">
         Add buttons or other interactive elements below the content with the{
           " "
@@ -160,14 +173,26 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Replace the default marker with the <code>marker</code> slot.
+        Replace the default marker with the <code>marker</code> slot, and give it
+        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
+        the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="html">
-        Replace the SVG inside the <code>summary</code> to change the marker. Leave
-        it out to fall back to the native arrow.
+        Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
+        change the marker. Leave it out to fall back to the native arrow. Only <code
+          >.ui-marker</code
+        > animates, so other icons in the <code>summary</code>, such as a
+        leading status icon, stay put.
+      </Fragment>
+      <Fragment slot="svelte">
+        Replace the default marker with the <code>marker</code> snippet, and give
+        it <code>.ui-marker</code> so it sits at the end and animates. Other icons
+        in the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="vue">
-        Replace the default marker with the <code>marker</code> slot.
+        Replace the default marker with the <code>marker</code> slot, and give it
+        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
+        the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
     </Conditional>
 
@@ -185,8 +210,13 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code
           >.ui-marker-turn</code
-        > to the <code>&lt;details&gt;</code> element to animate the marker when the
-        accordion opens.
+        > to the <code>&lt;details&gt;</code> element to animate the <code
+          >.ui-marker</code
+        > when the accordion opens.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>markerAnimation</code> prop to change how the marker animates

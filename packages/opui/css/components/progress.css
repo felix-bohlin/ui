@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-progress) {
     --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
+    --_accent: var(--primary);
     --_bg-color: var(--surface-tonal);
 
     background-color: var(--_bg-color);
@@ -18,10 +18,6 @@
       --_bg-color: var(--surface-filled);
     }
 
-    &.ui-default {
-      --_bg-color: var(--surface-default);
-    }
-
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
     }
@@ -31,7 +27,7 @@
     }
 
     @media (forced-colors: active) {
-      --_accent-color: SelectedItem;
+      --_accent: SelectedItem;
 
       outline: 1px solid CanvasText;
     }
@@ -50,13 +46,13 @@
       }
 
       &[value]::-webkit-progress-value {
-        background-color: var(--_accent-color);
+        background-color: var(--_accent);
         transition: inline-size calc(var(--duration) * var(--_motion))
           var(--ease-enter);
       }
 
       &::-moz-progress-bar {
-        background-color: var(--_accent-color);
+        background-color: var(--_accent);
       }
     }
   }
@@ -64,7 +60,7 @@
   :where(.ui-progress):has(> progress:indeterminate) {
     &::after {
       animation: ui-indeterminate calc(2s * var(--_motion)) linear infinite;
-      background-color: var(--_accent-color);
+      background-color: var(--_accent);
       content: "";
       inset-block: 0;
       position: absolute;

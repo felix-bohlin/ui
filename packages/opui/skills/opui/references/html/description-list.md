@@ -22,6 +22,8 @@
 
   The description.
 
+## Basics
+
 ```html
 <dl class="ui-description-list">
   <div class="ui-item">
@@ -43,6 +45,8 @@
 
 Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dotted`.
 
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+
 ```html
 <dl class="ui-description-list ui-bordered">
   <div class="ui-item">
@@ -58,7 +62,6 @@ Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dott
     <dd class="ui-description">3</dd>
   </div>
 </dl>
-
 
 <dl class="ui-description-list ui-bordered ui-dotted">
   <div class="ui-item">
@@ -76,13 +79,38 @@ Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dott
 </dl>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `.ui-inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```html
+<dl
+  class="ui-description-list ui-bordered ui-inline"
+  style="max-inline-size: 18rem"
+>
+  <div class="ui-item">
+    <dt class="ui-term">Subtotal</dt>
+    <dd class="ui-description">$120.00</dd>
+  </div>
+  <div class="ui-item">
+    <dt class="ui-term">Shipping</dt>
+    <dd class="ui-description">$8.00</dd>
+  </div>
+  <div class="ui-item">
+    <dt class="ui-term">Total</dt>
+    <dd class="ui-description">$128.00</dd>
+  </div>
+</dl>
+```
+
 ## API
 
 ### Description list API
 
-| Type     | Modifiers                                | Default | Description                                         |
-| -------- | ---------------------------------------- | ------- | --------------------------------------------------- |
-| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description. |
+| Type     | Modifiers                                | Default | Description                                                                                                              |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description.                                                                      |
+| Layout   | `.ui-inline`                             | -       | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Parts
 
@@ -105,6 +133,8 @@ Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dott
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
+
+Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
 1. Stacked
 
@@ -147,21 +177,17 @@ Step 1 of 4: Stacked
   margin: 0;
 }
 
-
 .item {
   display: grid;
 }
-
 
 .item + .item {
   margin-block-start: 0.75rem;
 }
 
-
 .item dt {
   font-weight: 700;
 }
-
 
 .item dd {
   margin: 0;
@@ -170,13 +196,12 @@ Step 1 of 4: Stacked
 
 Step 2 of 4: Container query
 
-- [Container queries](https://webstatus.dev/features/container-queries) (Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+- [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
 ```css
 .dl {
   container-type: inline-size;
 }
-
 
 @container (width > 45ch) {
   .item {
@@ -186,11 +211,9 @@ Step 2 of 4: Container query
     justify-content: space-between;
   }
 
-
   .item + .item {
     margin-block-start: 0.25rem;
   }
-
 
   .item dd {
     color: var(--text-muted);
@@ -207,7 +230,6 @@ Step 3 of 4: Leader line
     grid-template-columns: auto 1fr auto;
   }
 
-
   .bordered > .item::after {
     block-size: 2px;
     border-block-end: var(--line-width, 1px) var(--line-style, solid)
@@ -215,7 +237,6 @@ Step 3 of 4: Leader line
     content: "";
     order: 1;
   }
-
 
   .bordered > .item dd {
     order: 2;
@@ -244,3 +265,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `.ui-inline`.

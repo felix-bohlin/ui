@@ -15,16 +15,25 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 ---
 
 <Component
   slug="button-group"
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   heroAnatomy
   apis={[
-    { title: "Button group", api: buttonGroupApi },
-    { title: "Button", api: buttonApi },
+    { title: "Button group API", api: buttonGroupApi },
+    { title: "Button API", api: buttonApi },
   ]}
   changelogPaths={[
     {
@@ -53,12 +62,21 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > and <code>role="group"</code>.
       </Fragment>
       <Fragment slot="astro">Groups related buttons.</Fragment>
+      <Fragment slot="svelte">Groups related buttons.</Fragment>
       <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
   </Fragment>
   <ul>
     <li>Button groups should consist of 2-5 buttons.</li>
-    <li>Don't allow them to wrap onto a new line.</li>
+    <li>
+      Use <PropOrClass prop="scrollable" class=".ui-scrollable" /> or <PropOrClass
+        prop="shrink"
+        class=".ui-shrink"
+      /> when a group must stay on one row, see <a
+        href="#overflow"
+        class="ui-link">Overflow</a
+      >.
+    </li>
     <li>
       If an icon is used without label text make sure the button communicates
       clearly what it does.
@@ -93,6 +111,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the appearance of the entire group with the <code>variant</code>
+        {" "}prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the appearance of the entire group with the <code>variant</code>
         {" "}prop.
@@ -113,6 +135,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
         the entire group. The default is a neutral gray.
       </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>color</code> prop to <code>primary</code> or <code
+          >critical</code
+        > to recolor the entire group. The default is a neutral gray.
+      </Fragment>
       <Fragment slot="vue">
         Set the <code>color</code> prop to <code>primary</code> or <code
           >critical</code
@@ -123,13 +150,38 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
+      <Fragment slot="html">
+        Adjust the size of all buttons in the group using the <code
+          >.ui-x-small</code
+        >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="svelte">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
+      <Fragment slot="vue">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Size" column centered />
+  </section>
+
+  <section>
     <h2 id="icons">Icons</h2>
     <p>
       Yes of course, they're just <DocLink
         href="/components/button"
         class="ui-link">buttons.</DocLink
-      > Wrap labels in a <code>&lt;span&gt;</code> so buttons with an icon keep their
-      padding.
+      > Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> when the button
+      has an icon. The CSS looks for the wrapper element, the class is a hook for
+      your own styles.
     </p>
     <AutoExample name="WithIcons" column centered />
   </section>
@@ -145,6 +197,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
+      <Fragment slot="svelte">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
       <Fragment slot="vue">
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
@@ -154,23 +210,34 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
+    <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
       <Fragment slot="html">
-        Adjust the size of all buttons in the group using the <code
-          >.ui-x-small</code
-        >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+        Disable individual buttons within a group by adding the <code
+          >disabled</code
+        >
+        {" "}attribute to each <code>&lt;button&gt;</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
       <Fragment slot="vue">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
     </Conditional>
-    <AutoExample name="Size" column centered />
+    <AutoExample name="Disabled" column centered />
   </section>
 
   <section>
@@ -183,6 +250,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
       <Fragment slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </Fragment>
+      <Fragment slot="svelte">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </Fragment>
       <Fragment slot="vue">
         Change the layout of the group with the <code
@@ -213,6 +285,14 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>
+      <Fragment slot="svelte">
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
       <Fragment slot="vue">
         Buttons wrap onto more rows when they don't fit. Use <code
           >scrollable</code
@@ -223,31 +303,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" />
-  </section>
-
-  <section>
-    <h2 id="disabled">Disabled</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Disable individual buttons within a group by adding the <code
-          >disabled</code
-        >
-        {" "}attribute to each <code>&lt;button&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="Disabled" column centered />
   </section>
 
   <ButtonGroupBuild slot="under-the-hood" />

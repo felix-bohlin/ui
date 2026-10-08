@@ -1,5 +1,5 @@
 ---
-import { Button } from "@opui/astro"
+import { Button, Checkbox } from "@opui/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -24,18 +24,34 @@ const steps = [
   overflow-y: auto;
   overscroll-behavior: contain;
 }`,
-    features: ["dialog", "dialog-closedby", "invoker-commands"],
+    features: [
+      "dialog",
+      "dialog-closedby",
+      "invoker-commands",
+      "overscroll-behavior",
+    ],
     html: `
-<button commandfor="drawer" command="show-modal">Start</button>
+<button type="button" commandfor="drawer" command="show-modal">
+  Start
+</button>
 
-<dialog class="drawer inline-start" id="drawer" closedby="any">
-  <div class="header">…</div>
+<dialog
+  class="drawer inline-start"
+  id="drawer"
+  aria-labelledby="drawer-title"
+  closedby="any"
+>
+  <div class="header">
+    <h2 id="drawer-title">Filters</h2>
+    …
+  </div>
   <div class="content">…</div>
   <div class="footer">…</div>
 </dialog>`,
     notes: [
       "A drawer is a modal <code>&lt;dialog&gt;</code>: top layer, focus trap and <kbd>Esc</kbd> for free",
       "<code>closedby=&quot;any&quot;</code> closes it on a click outside",
+      "<code>aria-labelledby</code> names it after its heading",
       "<code>:not([open])</code> brings back the <code>display: none</code> that <code>display: flex</code> overrode",
     ],
     title: "Modal",
@@ -75,6 +91,54 @@ const steps = [
   },
   {
     css: `
+.drawer > .content {
+  anchor-name: --content;
+  container-type: scroll-state;
+}
+
+.drawer > .content::before,
+.drawer > .content::after {
+  block-size: 0.5rem;
+  box-shadow: var(--shadow-4);
+  clip-path: inset(100% 0 -2rem);
+  content: "";
+  inset-inline: anchor(--content inside);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.drawer > .content::before {
+  inset-block-end: anchor(--content outside);
+}
+
+.drawer > .content::after {
+  inset-block-start: anchor(--content outside);
+  scale: 1 -1;
+}
+
+@container scroll-state(scrollable: block-start) {
+  .drawer > .content::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: block-end) {
+  .drawer > .content::after {
+    opacity: 1;
+  }
+}`,
+    features: ["anchor-positioning", "container-scroll-state-queries"],
+    notes: [
+      "Scroll the filters: a shadow shows on each edge with more to scroll",
+      "<code>container-type: scroll-state</code> lets the pseudo-elements ask which way <code>.content</code> can scroll",
+      "<code>anchor()</code> pins them to the edges of <code>.content</code>, so they don't scroll away",
+    ],
+    title: "Shadow",
+  },
+  {
+    css: `
 .drawer {
   --dir: 1;
   transition:
@@ -110,6 +174,8 @@ const steps = [
 }`,
     features: [
       "dir-pseudo",
+      "display-animation",
+      "individual-transforms",
       "overlay",
       "starting-style",
       "transition-behavior",
@@ -159,6 +225,15 @@ const drawers = [
   { id: "build-drawer-bottom", side: "block-end", title: "Bottom" },
 ]
 
+const filters = [
+  {
+    legend: "Status",
+    options: ["Open", "In progress", "In review", "Done", "Closed"],
+  },
+  { legend: "Owner", options: ["Ada", "Grace", "Linus", "Margaret", "Tim"] },
+  { legend: "Updated", options: ["Today", "This week", "This month"] },
+]
+
 const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg>`
 ---
 
@@ -197,6 +272,16 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
             Narrow the results down by status, owner and date. Changes apply
             when you press Apply.
           </p>
+          {filters.map((filter) => (
+            <fieldset>
+              <legend>{filter.legend}</legend>
+              {filter.options.map((option) => (
+                <Checkbox name={`${drawer.id}-${filter.legend}`} value={option}>
+                  {option}
+                </Checkbox>
+              ))}
+            </fieldset>
+          ))}
         </div>
         <div class="footer">
           <Button command="close" commandfor={drawer.id}>
@@ -234,11 +319,27 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
     }
 
     & .content {
+      display: grid;
+      gap: var(--size-4);
       padding: var(--size-4);
     }
 
     & p {
       margin: 0;
+    }
+
+    & fieldset {
+      border: 0;
+      display: grid;
+      gap: var(--size-1);
+      margin: 0;
+      padding: 0;
+    }
+
+    & legend {
+      font-weight: 600;
+      margin-block-end: var(--size-1);
+      padding: 0;
     }
 
     & .footer {

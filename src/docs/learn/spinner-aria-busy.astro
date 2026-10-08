@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="spinner-aria-busy">
@@ -33,19 +33,21 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li>
         <code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code>,
-        the root and anything with <code>aria-describedby</code>, such as a
-        section pointing to its progress bar
+        the root and anything but a button or link with <code
+          >aria-describedby</code
+        >, such as a section pointing to its progress bar
       </li>
       <li><code>:not(:empty)</code> adds a gap only next to text</li>
     </ul>
     <Code
       lang="css"
-      code={`[aria-busy="true"]:not(input, select, textarea, html, progress, [aria-describedby]) {
+      code={`[aria-busy="true"]:not(input, select, textarea, html, progress, [aria-describedby]:not(button, a)) {
   &::before {
     animation: spin 0.7s linear infinite;
     block-size: 1em;
     border: 3px solid;
-    border-color: transparent currentColor currentColor;
+    border-block-color: transparent currentColor;
+    border-inline-color: currentColor;
     border-radius: 50%;
     content: "";
     display: inline-block;

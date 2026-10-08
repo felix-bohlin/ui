@@ -1,0 +1,132 @@
+<style>
+  @property --_thumb-size {
+    inherits: true;
+    initial-value: 24px;
+    syntax: "<length>";
+  }
+
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-range) {
+        --_thumb-size: 3ex;
+
+        @media (hover: none) {
+          --_thumb-size: 30px;
+        }
+      }
+
+      :where(.ui-range) :where(datalist) {
+        padding-inline: calc(var(--_thumb-size) / 2);
+      }
+
+      :where(.ui-range > input[type="range"]) {
+        --_thumb-size: inherit;
+      }
+    }
+  }
+
+  .todo-zoom {
+    inline-size: 14rem;
+    zoom: 2;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Shown at 2x zoom. The "0%" and "100%" labels sit outside the thumb center
+      at 0 and 100 (more on a touch screen, where the thumb is 30px).
+    </p>
+    <label class="ui-range todo-zoom">
+      <span class="ui-label" id="todo-tick-min-label-current">Minimum</span>
+      <input
+        aria-labelledby="todo-tick-min-label-current"
+        list="todo-ticks-min-current"
+        type="range"
+        value="0"
+      />
+      <datalist id="todo-ticks-min-current">
+        <option value="0" label="0%"></option>
+        <option value="50" label="50%"></option>
+        <option value="100" label="100%"></option>
+      </datalist>
+    </label>
+    <label class="ui-range todo-zoom">
+      <span class="ui-label" id="todo-tick-max-label-current">Maximum</span>
+      <input
+        aria-labelledby="todo-tick-max-label-current"
+        list="todo-ticks-max-current"
+        type="range"
+        value="100"
+      />
+      <datalist id="todo-ticks-max-current">
+        <option value="0" label="0%"></option>
+        <option value="50" label="50%"></option>
+        <option value="100" label="100%"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The thumb size lives on the root as a registered length, so the datalist
+      padding is half the real thumb. The input's own --_thumb-size is reset to
+      inherit.
+    </p>
+    <label class="ui-range todo-zoom">
+      <span class="ui-label" id="todo-tick-min-label-fixed">Minimum</span>
+      <input
+        aria-labelledby="todo-tick-min-label-fixed"
+        list="todo-ticks-min-fixed"
+        type="range"
+        value="0"
+      />
+      <datalist id="todo-ticks-min-fixed">
+        <option value="0" label="0%"></option>
+        <option value="50" label="50%"></option>
+        <option value="100" label="100%"></option>
+      </datalist>
+    </label>
+    <label class="ui-range todo-zoom">
+      <span class="ui-label" id="todo-tick-max-label-fixed">Maximum</span>
+      <input
+        aria-labelledby="todo-tick-max-label-fixed"
+        list="todo-ticks-max-fixed"
+        type="range"
+        value="100"
+      />
+      <datalist id="todo-ticks-max-fixed">
+        <option value="0" label="0%"></option>
+        <option value="50" label="50%"></option>
+        <option value="100" label="100%"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const range = panel.querySelector(".ui-range")
+    const input = range.querySelector("input")
+    const list = range.querySelector("datalist")
+    const zoom = 2
+    const style = getComputedStyle(input)
+    const thumb = parseFloat(style.getPropertyValue("--_thumb-size"))
+    const rect = input.getBoundingClientRect()
+    const start = rect.left / zoom + parseFloat(style.paddingLeft)
+    const end = rect.right / zoom - parseFloat(style.paddingRight)
+    const options = [...list.options].map(
+      (o) => o.getBoundingClientRect().left / zoom,
+    )
+    const first = (options[0] - (start + thumb / 2))
+      .toFixed(1)
+      .replace("-0.0", "0.0")
+    const last = (end - thumb / 2 - options.at(-1))
+      .toFixed(1)
+      .replace("-0.0", "0.0")
+    panel.querySelector("[data-measure]").textContent =
+      `thumb ${thumb.toFixed(1)}px, datalist padding ${getComputedStyle(list).paddingLeft}\n` +
+      `first label center vs thumb center: ${first}px\nlast label center vs thumb center: ${last}px`
+  }
+</script>

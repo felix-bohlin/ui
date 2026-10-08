@@ -1,7 +1,7 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
 import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 ---
 
 <TechniquePost slug="tooltip-interest-invokers">
@@ -38,6 +38,7 @@ import { Code } from "astro-expressive-code/components"
     <Code
       lang="html"
       code={`<button
+  type="button"
   interestfor="tooltip"
   commandfor="tooltip"
   command="toggle-popover"
@@ -63,6 +64,11 @@ import { Code } from "astro-expressive-code/components"
       <li>
         <code>position-visibility: anchors-visible</code> hides it when the trigger
         scrolls out of view
+      </li>
+      <li>
+        An arrow follows along: the tooltip is its own anchor, and <code
+          >clamp()</code
+        > keeps the arrow on its edge, as close to the trigger as it gets
       </li>
       <li>
         Near an edge, <code>calc-size(max-content, min(size, 10rem))</code> keeps

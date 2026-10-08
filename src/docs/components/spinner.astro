@@ -28,7 +28,10 @@ import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
     >.
   </Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
@@ -59,10 +62,12 @@ import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
       1. Because it's blocked by another use case
     </h3>
     <p>
-      In conjunction with the <code>&lt;progress&gt;</code> element <code
-        >aria-busy="true"</code
-      > is used on the section that is being updated. Rendering a spinner here would
-      result in a spinner <em>and</em> a progress bar which doesn't make sense.
+      A section that's being updated points at its progress bar with <code
+        >aria-describedby</code
+      > while <code>aria-busy="true"</code> marks it as busy. Busy elements with <code
+        >aria-describedby</code
+      > get no spinner, so you don't see a spinner <em>and</em> a progress bar. Buttons
+      and links always get one.
     </p>
 
     <p>

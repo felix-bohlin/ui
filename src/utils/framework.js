@@ -8,7 +8,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "svelte" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,6 +17,7 @@ export const DEFAULT_FRAMEWORK = "html"
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
+  { id: "svelte", label: "Svelte" },
   { id: "vue", label: "Vue" },
 ]
 
@@ -47,7 +48,7 @@ export function pathHasFramework(framework, sharedPath) {
   return !slug || componentHasFramework(framework, slug)
 }
 
-export const FRAMEWORK_FREE_PREFIXES = ["/learn"]
+export const FRAMEWORK_FREE_PREFIXES = ["/blocks", "/learn"]
 
 /** @param {string} sharedPath */
 export function isFrameworkFree(sharedPath) {

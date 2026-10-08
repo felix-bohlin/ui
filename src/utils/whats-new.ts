@@ -332,6 +332,9 @@ const whatsNew = {
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
+  stepper: [
+    `New component. A <a href="#basics">stepper</a> where the current step marks every step before it as complete, with a <a href="#custom-checkmark">custom checkmark</a>.`,
+  ],
   switch: [
     {
       astro: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,

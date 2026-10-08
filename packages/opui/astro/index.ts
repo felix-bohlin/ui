@@ -39,6 +39,7 @@ export { default as RadioInput } from "../components/Radio/RadioInput.astro"
 export { default as Range } from "../components/Range/Range.astro"
 export { default as Rating } from "../components/Rating/Rating.astro"
 export { default as Select } from "../components/Select/Select.astro"
+export { default as Stepper } from "../components/Stepper/Stepper.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
 export { default as Table } from "../components/Table/index"
@@ -121,6 +122,8 @@ export type { RangeProps } from "../components/Range/types.astro"
 export type { Props as RatingProps } from "../components/Rating/types.astro"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"
+export type { StepperItem } from "../components/Stepper/types"
+export type { Props as StepperProps } from "../components/Stepper/types.astro"
 export type {
   SwitchInputProps,
   SwitchProps,

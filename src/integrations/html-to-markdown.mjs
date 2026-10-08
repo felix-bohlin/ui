@@ -68,6 +68,16 @@ function replace(node, test, build) {
 const isClass = (name) => (node) =>
   (node.properties?.className ?? []).includes(name)
 
+function unwrapTemplates(node, test) {
+  if (!node.children) return
+  node.children = node.children.flatMap((child) =>
+    child.type === "element" && child.tagName === "template" && test(child)
+      ? (child.content?.children ?? [])
+      : [child],
+  )
+  node.children.forEach((child) => unwrapTemplates(child, test))
+}
+
 const codeBlock = (node) => {
   const pre = select("pre", node)
   const lang = pre?.properties?.dataLanguage
@@ -177,6 +187,7 @@ export async function articleToMarkdown(
   const source = select("#main-content > article", tree)
   if (!source) return null
   const article = structuredClone(source)
+  unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
     prune(

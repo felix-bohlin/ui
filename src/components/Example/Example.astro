@@ -243,41 +243,43 @@ const outputId = `${groupName}-output`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-          <Tabs.Item tabId={sourceId} name={groupName} open>
-            <Tabs.Tab tabId={sourceId} data-tab="source">
-              {codeLangLabel}
-            </Tabs.Tab>
-            <Tabs.Panel data-panel="source">
-              <div class="ui-tab-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
-                  mark={marks[codeLangId]}
-                />
-              </div>
-            </Tabs.Panel>
-          </Tabs.Item>
-
-          {showOutput && (
-            <Tabs.Item tabId={outputId} name={groupName}>
-              <Tabs.Tab tabId={outputId} data-tab="output">
-                Output
+        <template class="example-code">
+          <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+            <Tabs.Item tabId={sourceId} name={groupName} open>
+              <Tabs.Tab tabId={sourceId} data-tab="source">
+                {codeLangLabel}
               </Tabs.Tab>
-              <Tabs.Panel data-panel="output">
+              <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code code={outputContent} lang="html" />
+                  <Code
+                    code={codeContent}
+                    lang={
+                      codeLangId === "astro"
+                        ? "astro"
+                        : codeLangId === "html"
+                          ? "html"
+                          : codeLangId
+                    }
+                    mark={marks[codeLangId]}
+                  />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
-          )}
-        </Tabs>
+
+            {showOutput && (
+              <Tabs.Item tabId={outputId} name={groupName}>
+                <Tabs.Tab tabId={outputId} data-tab="output">
+                  Output
+                </Tabs.Tab>
+                <Tabs.Panel data-panel="output">
+                  <div class="ui-tab-panel">
+                    <Code code={outputContent} lang="html" />
+                  </div>
+                </Tabs.Panel>
+              </Tabs.Item>
+            )}
+          </Tabs>
+        </template>
       </div>
     )
   }
@@ -455,6 +457,11 @@ const outputId = `${groupName}-output`
 
     if (toggleBtn && !(toggleBtn as any)._hasListener) {
       toggleBtn.addEventListener("click", () => {
+        const template = container.querySelector<HTMLTemplateElement>(
+          "template.example-code",
+        )
+        template?.replaceWith(template.content)
+
         const isExpanded = container.getAttribute("data-expanded") === "true"
         const nextState = !isExpanded
         container.setAttribute("data-expanded", String(nextState))

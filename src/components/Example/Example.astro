@@ -7,6 +7,7 @@ import {
 import { Code } from "astro-expressive-code/components"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
+import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
 
@@ -173,6 +174,7 @@ const outputId = `${groupName}-output`
   ]}
   data-expanded="false"
 >
+  {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
   {
     hasPreview && (
@@ -444,7 +446,6 @@ const outputId = `${groupName}-output`
 
 <script>
   import "./mount-svelte-examples"
-  import "./mount-vue-examples"
 
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing - no client-side language

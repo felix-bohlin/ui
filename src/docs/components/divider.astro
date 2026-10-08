@@ -57,6 +57,43 @@ import dividerApi from "../../component-api/divider/api"
   </section>
 
   <section>
+    <h2 id="content">Content</h2>
+    <Conditional>
+      <p slot="astro">
+        Put text or any element in the default slot to place it in the middle of
+        the line. The divider then renders a <code>&lt;div&gt;</code> instead of an
+        <code>&lt;hr&gt;</code>, so screen readers read the content in order.
+        Set <code>align</code> to <code>start</code> or <code>end</code> to move it
+        to one side. The lines follow the <code>variant</code>.
+      </p>
+      <p slot="html">
+        Put text or any element in a <code>&lt;div class="ui-divider"&gt;</code> or
+        <code>&lt;p class="ui-divider"&gt;</code> to place it in the middle of the
+        line, since an <code>&lt;hr&gt;</code> can't have content. Screen readers
+        read it in order. Add <code>.ui-align-start</code> or <code
+          >.ui-align-end</code
+        > to move it to one side. The lines follow the variant classes.
+      </p>
+      <p slot="svelte">
+        Pass text or any element as children to place it in the middle of the
+        line. The divider then renders a <code>&lt;div&gt;</code> instead of an <code
+          >&lt;hr&gt;</code
+        >, so screen readers read the content in order. Set <code>align</code> to
+        <code>start</code> or <code>end</code> to move it to one side. The lines follow
+        the <code>variant</code>.
+      </p>
+      <p slot="vue">
+        Put text or any element in the default slot to place it in the middle of
+        the line. The divider then renders a <code>&lt;div&gt;</code> instead of an
+        <code>&lt;hr&gt;</code>, so screen readers read the content in order.
+        Set <code>align</code> to <code>start</code> or <code>end</code> to move it
+        to one side. The lines follow the <code>variant</code>.
+      </p>
+    </Conditional>
+    <AutoExample name="Content" column />
+  </section>
+
+  <section>
     <h2 id="spacing">Spacing</h2>
     <p>
       The space above and below a divider is <code>--divider-space</code>.

@@ -69,35 +69,11 @@
     }
 
     .team-status {
-      align-items: center;
-      color: var(--text-muted);
       display: none;
-      gap: var(--size-1);
-      white-space: nowrap;
-
-      &::before {
-        background-color: var(--_dot);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
 
       @container (inline-size >= 36rem) {
         display: inline-flex;
       }
-    }
-
-    .team-active {
-      --_dot: var(--success);
-    }
-
-    .team-warning {
-      --_dot: var(--warning);
-    }
-
-    .team-inactive {
-      --_dot: var(--neutral);
     }
 
     .team-pending-actions {
@@ -208,7 +184,9 @@
               <p>anna.berg@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-active">Active</span>
+              <span class="ui-chip ui-dot ui-success ui-small team-status"
+                ><span class="ui-text">Active</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Owner</span></span
               >
@@ -269,7 +247,9 @@
               <p>diego@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-active">Active</span>
+              <span class="ui-chip ui-dot ui-success ui-small team-status"
+                ><span class="ui-text">Active</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Admin</span></span
               >
@@ -339,7 +319,9 @@
               <p>elin.nilsson@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-active">Active</span>
+              <span class="ui-chip ui-dot ui-success ui-small team-status"
+                ><span class="ui-text">Active</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Member</span></span
               >
@@ -409,7 +391,9 @@
               <p>hiroshi.kato@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-warning">2FA not set up</span>
+              <span class="ui-chip ui-dot ui-warning ui-small team-status"
+                ><span class="ui-text">2FA not set up</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Member</span></span
               >
@@ -479,7 +463,9 @@
               <p>mateo@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-active">Active</span>
+              <span class="ui-chip ui-dot ui-success ui-small team-status"
+                ><span class="ui-text">Active</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Billing</span></span
               >
@@ -549,7 +535,9 @@
               <p>sofia.lindgren@northwind.example</p>
             </div>
             <div class="ui-end team-end">
-              <span class="team-status team-inactive">Deactivated</span>
+              <span class="ui-chip ui-dot ui-neutral ui-small team-status"
+                ><span class="ui-text">Deactivated</span></span
+              >
               <span class="ui-chip ui-outlined ui-small"
                 ><span class="ui-text">Member</span></span
               >

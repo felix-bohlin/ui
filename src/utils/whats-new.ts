@@ -164,6 +164,12 @@ const whatsNew = {
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
+    {
+      astro: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      html: `<a href="#colors">Colors</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
+      svelte: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+      vue: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
+    },
   ],
   "description-list": [
     {
@@ -183,6 +189,12 @@ const whatsNew = {
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
+    },
+    {
+      astro: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
+      html: `<a href="#content">Content</a> in the middle of the line in a <code>div.ui-divider</code>, aligned with <code>.ui-align-start</code> or <code>.ui-align-end</code>.`,
+      svelte: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
+      vue: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
     },
   ],
   drawer: [

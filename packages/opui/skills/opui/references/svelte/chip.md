@@ -36,6 +36,23 @@ The Chip has two variants: `tonal` (default) and `outlined`.
 <Chip variant="outlined" label="Outlined" />
 ```
 
+## Colors
+
+Set `color` to `critical`, `info`, `neutral`, `success` or `warning` to tint a tonal chip, such as a status. Keep the status in the label, since color alone doesn't tell it.
+
+```svelte
+<script lang="ts">
+  import { Chip } from "opui-css/svelte"
+</script>
+
+
+<Chip color="critical" label="Past due" />
+<Chip color="info" label="Processing" />
+<Chip color="neutral" label="Refunded" />
+<Chip color="success" label="Paid" />
+<Chip color="warning" label="Due 15 Oct" />
+```
+
 ## Sizes
 
 Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Labels truncate with an ellipsis. Set `multiline` to let them wrap.
@@ -95,6 +112,40 @@ The icon can be placed before or after the text using the `start` and `end` snip
       ></path></svg
     >{/snippet}
 </Chip>
+```
+
+## Dot
+
+Set `dot` to add a leading dot in the chip's color. The shape follows the color: a diamond for `critical`, a triangle for `warning` and a ring for `neutral`, so the dots differ without color too. On an `outlined` chip only the dot is colored, which keeps a table of statuses calm.
+
+```svelte
+<script lang="ts">
+  import { Chip } from "opui-css/svelte"
+</script>
+
+
+<div class="example-row">
+  <Chip color="critical" dot label="Past due" />
+  <Chip color="info" dot label="Processing" />
+  <Chip color="neutral" dot label="Refunded" />
+  <Chip color="success" dot label="Paid" />
+  <Chip color="warning" dot label="Due 15 Oct" />
+</div>
+
+
+<div class="example-row">
+  <Chip color="critical" dot label="Past due" size="small" variant="outlined" />
+  <Chip color="info" dot label="Processing" size="small" variant="outlined" />
+  <Chip color="neutral" dot label="Refunded" size="small" variant="outlined" />
+  <Chip color="success" dot label="Paid" size="small" variant="outlined" />
+  <Chip
+    color="warning"
+    dot
+    label="Due 15 Oct"
+    size="small"
+    variant="outlined"
+  />
+</div>
 ```
 
 ## Button
@@ -186,17 +237,19 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 
 ### Chip API
 
-| Prop        | Type                                | Default   | Description                                           |
-| ----------- | ----------------------------------- | --------- | ----------------------------------------------------- |
-| `as`        | `"div"` , `"button"` , `"a"`        | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
-| `children`  | `Snippet`                           | -         | Content placed before the label.                      |
-| `end`       | `Snippet`                           | -         | Optional content at the end, such as an icon.         |
-| `href`      | `string`                            | -         | The link to use. Renders an `<a>`.                    |
-| `label`     | `string`                            | -         | The label.                                            |
-| `multiline` | `boolean`                           | `false`   | Lets the label wrap to multiple lines.                |
-| `size`      | `"x-small"` , `"small"` , `"large"` | -         | The size of the element.                              |
-| `start`     | `Snippet`                           | -         | Optional content at the start, such as an icon.       |
-| `variant`   | `"outlined"` , `"tonal"`            | `"tonal"` | The variant to use.                                   |
+| Prop        | Type                                                              | Default   | Description                                                          |
+| ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
+| `as`        | `"div"` , `"button"` , `"a"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `children`  | `Snippet`                                                         | -         | Content placed before the label.                                     |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
+| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
+| `end`       | `Snippet`                                                         | -         | Optional content at the end, such as an icon.                        |
+| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
+| `label`     | `string`                                                          | -         | The label.                                                           |
+| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
+| `size`      | `"x-small"` , `"small"` , `"large"`                               | -         | The size of the element.                                             |
+| `start`     | `Snippet`                                                         | -         | Optional content at the start, such as an icon.                      |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
 
 #### CSS variables
 
@@ -209,14 +262,19 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 | `--chip-size-large`   | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                       |
 | `--chip-size-small`   | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                       |
 | `--chip-size-x-small` | `calc(24px * var(--density))`                                          | `Chip` height with `.ui-x-small`.                                                                     |
+| `--critical`          | `var(--red)`                                                           | Severity color for errors and destructive actions.                                                    |
 | `--disabled-opacity`  | `0.64`                                                                 | Opacity applied to disabled controls.                                                                 |
 | `--font-size-05`      | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
 | `--icon-size`         | `var(--size-4)`                                                        | Default icon size inside components.                                                                  |
 | `--icon-size-small`   | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                              |
+| `--info`              | `var(--blue)`                                                          | Severity color for informational messages.                                                            |
+| `--neutral`           | `var(--gray-9)`                                                        | Severity color for neutral messages.                                                                  |
+| `--success`           | `var(--green)`                                                         | Severity color for success messages.                                                                  |
 | `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
 | `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
+| `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
@@ -349,3 +407,4 @@ Import the component from `opui-css/svelte`:
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#api).
 - Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
+- [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).

@@ -27,6 +27,27 @@ Primary
 <hr class="ui-divider ui-primary" />
 ```
 
+## Content
+
+Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider">` to place it in the middle of the line, since an `<hr>` can't have content. Screen readers read it in order. Add `.ui-align-start` or `.ui-align-end` to move it to one side. The lines follow the variant classes.
+
+```html
+<div class="ui-divider">or continue with email</div>
+
+
+<div class="ui-divider ui-align-start">Billing</div>
+
+
+<div class="ui-divider ui-align-end ui-primary">Today</div>
+
+
+<div class="ui-divider">
+  <button class="ui-button ui-outlined ui-rounded ui-small" type="button">
+    Show 12 more replies
+  </button>
+</div>
+```
+
 ## Spacing
 
 The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
@@ -54,15 +75,16 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 
 ### Divider API
 
-| Type     | Modifiers                                | Default | Description         |
-| -------- | ---------------------------------------- | ------- | ------------------- |
-| Variants | `.ui-filled`, `.ui-primary`, `.ui-tonal` | -       | The variant to use. |
+| Type      | Modifiers                                   | Default | Description                         |
+| --------- | ------------------------------------------- | ------- | ----------------------------------- |
+| Alignment | default, `.ui-align-end`, `.ui-align-start` | default | Where the content sits on the line. |
+| Variants  | `.ui-filled`, `.ui-primary`, `.ui-tonal`    | -       | The variant to use.                 |
 
 #### Parts
 
-| Part            | Description       |
-| --------------- | ----------------- |
-| `hr.ui-divider` | The divider line. |
+| Part          | Description                                                                    |
+| ------------- | ------------------------------------------------------------------------------ |
+| `.ui-divider` | The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. |
 
 #### CSS variables
 
@@ -73,6 +95,7 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 | `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
 | `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
 | `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
+| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -165,3 +188,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
 - Breaking: [`.ui-filled`, `.ui-primary` and `.ui-tonal`](#variants) replace the `.ui-border-*` classes.
+- [Content](#content) in the middle of the line in a `div.ui-divider`, aligned with `.ui-align-start` or `.ui-align-end`.

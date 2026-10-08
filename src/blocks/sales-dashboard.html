@@ -217,15 +217,6 @@
       }
     }
 
-    .sales-status::before {
-      background-color: var(--status);
-      block-size: var(--size-2);
-      border-radius: var(--radius-round);
-      content: "";
-      flex-shrink: 0;
-      inline-size: var(--size-2);
-    }
-
     .sales-number {
       font-variant-numeric: tabular-nums;
       text-align: end;
@@ -527,9 +518,7 @@
               <td>Klara Holmgren</td>
               <td>8 Oct, 13:58</td>
               <td>
-                <span
-                  class="ui-chip ui-outlined ui-small sales-status"
-                  style="--status: var(--info)"
+                <span class="ui-chip ui-dot ui-info ui-small ui-outlined"
                   ><span class="ui-text">Processing</span></span
                 >
               </td>
@@ -544,9 +533,7 @@
               <td>Café Ljung AB</td>
               <td>8 Oct, 13:41</td>
               <td>
-                <span
-                  class="ui-chip ui-outlined ui-small sales-status"
-                  style="--status: var(--success)"
+                <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
                   ><span class="ui-text">Paid</span></span
                 >
               </td>
@@ -561,9 +548,7 @@
               <td>Yusuf Demir</td>
               <td>8 Oct, 13:12</td>
               <td>
-                <span
-                  class="ui-chip ui-outlined ui-small sales-status"
-                  style="--status: var(--success)"
+                <span class="ui-chip ui-dot ui-success ui-small ui-outlined"
                   ><span class="ui-text">Paid</span></span
                 >
               </td>
@@ -578,9 +563,7 @@
               <td>Ines Carvalho</td>
               <td>8 Oct, 12:47</td>
               <td>
-                <span
-                  class="ui-chip ui-outlined ui-small sales-status"
-                  style="--status: var(--warning)"
+                <span class="ui-chip ui-dot ui-warning ui-small ui-outlined"
                   ><span class="ui-text">Awaiting payment</span></span
                 >
               </td>
@@ -595,9 +578,7 @@
               <td>Oliver Bäckström</td>
               <td>8 Oct, 12:30</td>
               <td>
-                <span
-                  class="ui-chip ui-outlined ui-small sales-status"
-                  style="--status: var(--critical)"
+                <span class="ui-chip ui-dot ui-critical ui-small ui-outlined"
                   ><span class="ui-text">Refunded</span></span
                 >
               </td>

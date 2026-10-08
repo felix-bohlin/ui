@@ -1,0 +1,97 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-link) {
+        color: light-dark(
+          oklch(from var(--primary) min(l, 0.47) c h),
+          oklch(from var(--primary) max(l, 0.78) c h)
+        );
+      }
+
+      :where(.ui-button).ui-critical {
+        --_accent-text: light-dark(
+          var(--_accent),
+          oklch(from var(--_accent) max(l, 0.8) c h)
+        );
+      }
+    }
+  }
+
+  .todo-schemes {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-scheme {
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-3);
+  }
+
+  .todo-surface {
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+    padding: var(--size-2) var(--size-3);
+  }
+
+  .todo-tonal {
+    background-color: var(--surface-tonal);
+  }
+
+  .todo-tint {
+    background-color: oklch(from var(--primary) l c h / 15%);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <div class="todo-schemes">
+      <div class="todo-scheme ui-light">
+        <div class="todo-surface todo-tonal">
+          <a class="ui-link" href="#">Link on tonal</a>
+          <button class="ui-button ui-critical" type="button">Delete</button>
+        </div>
+        <div class="todo-surface todo-tint">
+          <a class="ui-link" href="#">Link on a primary tint</a>
+        </div>
+      </div>
+      <div class="todo-scheme ui-dark">
+        <div class="todo-surface todo-tonal">
+          <a class="ui-link" href="#">Link on tonal</a>
+          <button class="ui-button ui-critical" type="button">Delete</button>
+        </div>
+        <div class="todo-surface todo-tint">
+          <a class="ui-link" href="#">Link on a primary tint</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Proposed: text-safe primary and critical</p>
+    <div class="todo-schemes">
+      <div class="todo-scheme ui-light">
+        <div class="todo-surface todo-tonal">
+          <a class="ui-link" href="#">Link on tonal</a>
+          <button class="ui-button ui-critical" type="button">Delete</button>
+        </div>
+        <div class="todo-surface todo-tint">
+          <a class="ui-link" href="#">Link on a primary tint</a>
+        </div>
+      </div>
+      <div class="todo-scheme ui-dark">
+        <div class="todo-surface todo-tonal">
+          <a class="ui-link" href="#">Link on tonal</a>
+          <button class="ui-button ui-critical" type="button">Delete</button>
+        </div>
+        <div class="todo-surface todo-tint">
+          <a class="ui-link" href="#">Link on a primary tint</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

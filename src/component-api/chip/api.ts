@@ -9,6 +9,18 @@ export default {
       prop: "as",
     },
     {
+      description: "Optional colors.",
+      group: "Colors",
+      prop: "color",
+      values: {
+        critical: ".ui-critical",
+        info: ".ui-info",
+        neutral: ".ui-neutral",
+        success: ".ui-success",
+        warning: ".ui-warning",
+      },
+    },
+    {
       class: ".ui-disabled",
       default: "false",
       description:
@@ -16,6 +28,14 @@ export default {
       frameworks: ["html"],
       group: "State",
       prop: "disabled",
+    },
+    {
+      class: ".ui-dot",
+      default: "false",
+      description:
+        "Adds a leading dot in the chip's color. Its shape follows the color.",
+      group: "Variants",
+      prop: "dot",
     },
     {
       description: "The link to use. Renders an `<a>`.",

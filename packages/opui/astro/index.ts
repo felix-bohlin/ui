@@ -30,6 +30,8 @@ export { default as Form } from "../components/Form/Form.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"
+export { default as Message } from "../components/Message/Message.astro"
+export { default as Messages } from "../components/Message/Messages.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
@@ -99,6 +101,14 @@ export type { Props as ListProps } from "../components/List/types.astro"
 export type { Props as ListItemProps } from "../components/ListItem/types.astro"
 export type { MenuItem } from "../components/Menu/types"
 export type { Props as MenuProps } from "../components/Menu/types.astro"
+export type {
+  Emoji as MessageEmoji,
+  Reaction as MessageReaction,
+} from "../components/Message/types"
+export type {
+  MessagesProps,
+  Props as MessageProps,
+} from "../components/Message/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,

@@ -1,0 +1,34 @@
+<ol aria-label="Messages in #design" class="ui-messages">
+  <li class="ui-message">
+    <div aria-label="Leila Haddad" class="ui-avatar" role="img">LH</div>
+    <div class="ui-bubble">
+      <p class="ui-header">Leila</p>
+      <p>Can we review the new icons today?</p>
+      <p class="ui-footer">
+        <time datetime="2026-10-08T09:13">09:13</time>
+      </p>
+    </div>
+    <div aria-label="Reactions" class="ui-reactions" role="group">
+      <button aria-pressed="true" class="ui-reaction" data-count="2" form="id-1" name="reaction" type="submit" value="+1">
+        <span aria-hidden="true">👍</span>
+        <span class="ui-sr-only">Thumbs up, 1 other</span>
+      </button>
+      <button aria-pressed="false" class="ui-reaction" data-count="1" form="id-1" name="reaction" type="submit" value="eyes">
+        <span aria-hidden="true">👀</span>
+        <span class="ui-sr-only">Eyes, 1 other</span>
+      </button>
+    </div>
+    <button aria-label="Add reaction" class="ui-button ui-reaction-add ui-rounded ui-x-small" command="toggle-popover" commandfor="id-1" type="button">
+      <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"></path>
+      </svg>
+    </button>
+    <form action="/messages/42/reactions" class="ui-reaction-picker" id="id-1" method="post" popover>
+      <button aria-label="Thumbs up" name="add" type="submit" value="+1">👍</button>
+      <button aria-label="Heart" name="add" type="submit" value="heart">❤️</button>
+      <button aria-label="Laughing" name="add" type="submit" value="joy">😂</button>
+      <button aria-label="Party" name="add" type="submit" value="tada">🎉</button>
+      <button aria-label="Eyes" name="add" type="submit" value="eyes">👀</button>
+    </form>
+  </li>
+</ol>

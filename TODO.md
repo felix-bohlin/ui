@@ -771,6 +771,16 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Not reproducible in headless Chromium at 1×, 1.1×, 1.25×, 1.5×, 1.75×, 2× and 2.25×, with or without GPU rasterization: dot and ring share a center within 0.15 device pixels there. The checkbox has a clip-path checkmark, not a dot, so this is the radio.
   - Fixed: the dot is no longer a separate box. A checked radio paints it as a `radial-gradient()` on its own background, centered in the input's box, with stops at `--_dot-radius` ± 0.25px for a smooth edge. `--_dot-radius` keeps the old size: half the content box minus `round(down, content / 4, 1px)`, so the dots are still 6, 8, 10 and 12px (measured). The background also runs under the border, so there's no seam between ring and border (an inset `box-shadow` was tried first and left a light seam there). In forced colors the checked radio sets `forced-color-adjust: none` with `SelectedItem` and `SelectedItemText`. The Radio walkthrough's Dot step teaches the gradient (`radio.css`, `RadioBuild.astro`).
   - Measured in Chromium at 1×, 1.25× and 1.5×: dot and ring share a center within 0.1 device pixels.
+- [ ] (2) Accordion: actions pad `var(--size-3) var(--size-1)`, so buttons sit closer to the end edge than the chevron and the content, with a large gap above them. Found while building the onboarding-checklist block (`packages/opui/css/components/accordion.css:7,141-148`)
+  - Fix: pad actions like the content (`var(--size-3)` on both sides), or drop the `var(--size-1)` end padding when the last button isn't a text button, like `Card` does.
+- [ ] (2) Callout: `.ui-content` is a grid, so bare text with an inline link splits into stacked rows. It only works when the text is wrapped in a `<p>`. Found while building the blocks (`packages/opui/css/components/callout.css:69-70`)
+  - Fix: `display: grid` only when the content has block children (`:has(> :is(p, ul, ol, h1, h2, h3, h4, h5, h6))`), or say in the docs that text goes in a `<p>`.
+- [ ] (2) Dialog: setting `max-inline-size` on a `.ui-dialog` replaces `calc(100% - var(--size-4))`, so a wider or narrower dialog loses its mobile margin and goes edge to edge on phones. Found while building the server-status block (`packages/opui/css/components/dialog.css:12-20`)
+  - Fix: a `--_max-inline-size` hook (default `60ch`) used as `min(var(--_max-inline-size), 100% - var(--size-4))`.
+- [ ] (2) List: `.ui-text` sets `font-weight: 400` on every `p` and `span`, so an unread (bold) row needs `<strong>` or unlayered CSS. Found while building the inbox and notifications blocks (`packages/opui/css/components/list.css:286-288`)
+  - Fix: only set the weight on the first line (the headline), or use `font-weight: inherit` and set 400 on the list.
+- [ ] (2) Table: the header style (filled background, darker border) also hits row headers (`<th scope="row">` in `tbody`), so a correctly marked-up comparison table gets a heavy first column. Found while building the pricing and data-table blocks (`packages/opui/css/components/table.css`)
+  - Fix: scope the header style to `thead th` and `th[scope="col"]`, and give `tbody th` the cell background with `font-weight: var(--font-weight-semibold)`.
 - [x] (3) `.ui-dense` tables are as tall as default ones (only inline padding changes) (`data-display` TableInlineEditing)
   - Fixed: dense cells use half the block padding and a tighter line height.
 - [x] (3) `ol[start]` with 4-digit markers overflows: the wider gutter only applies at 100+ items (`typography` DeepLists)
@@ -1028,6 +1038,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: scope it to the row's own text (`& > .ui-text, & > :where(a, button, label) > .ui-text`) and change `.ui-end svg` to `.ui-end > svg`. Measured: with only the first change the label is back to 22.5px, but the descendant `svg` rule still stretches the button's icon to a 24px box while the button is sized for 14.7px, so the content still overflows.
   > Fix
   - Fixed: both changes from the notes. The row text rule is `& > .ui-text, & > :where(a, button, label) > .ui-text`, and the end slot icon rule is `.ui-end > svg`. Measured: the "Edit" label in an outlined small button in `.ui-end` is 22.5px wide again with no overflow (58/58px). Icon-only round buttons in `.ui-end` (List Default, Dense, Gutterless) now show their icon at the button's own 19.2px instead of being stretched to 24px (20px dense), so those visual baselines will change. Checked every list example: no other `.ui-text` sits deeper than these two positions.
+- [ ] (3) Accordion: `.ui-marker-flip`, `.ui-marker-rotate` and `.ui-marker-turn` transform every `svg` in the `summary`, so a leading status icon flips with the chevron. Found while building the onboarding-checklist block (`packages/opui/css/components/accordion.css:115-129`)
+  - Fix: target the marker only, for example `summary > svg:last-child` or a `.ui-marker` class the Astro, Svelte and Vue components already render.
+- [ ] (3) Checkbox: the required `*` is absolutely positioned at the label's inline end, so when a long label wraps it jumps to the far edge of the row instead of following the text (sign-up block at 390px) (`packages/opui/css/components/checkbox.css:37-45`)
+  - Fix: render it inline, `content: " *"` without `position: absolute`, like the field labels in `form.css:73-80`.
+- [ ] (3) List: `.ui-start:has(svg)` caps the start column at the icon size, so an `.ui-avatar` holding an icon `svg` is squeezed and overlaps the text. Found while building the notifications and billing blocks (`packages/opui/css/components/list.css:305-307`)
+  - Fix: `.ui-start:has(> svg)`, so only a bare icon caps the column.
 - [x] (4) A tooltip at the inline-end edge squeezes into a narrow column instead of flipping (no minimum width) (`overlays` EdgeTriggers)
   - Fixed: tooltips have `min-inline-size: calc-size(max-content, min(size, 10rem))` and shift along the edge instead (`@position-try --ui-tooltip-shift-start`/`-end`, also flipped to the other side). Tooltips with `--anchor-position-area: inline-start`/`inline-end` try `flip-inline` first.
   - Tooltips with an arrow only flip, like before, so the arrow never ends up off-center. Moving the arrow with the shift needs anchored container queries, which break the build for now (see Submenus).
@@ -1219,6 +1235,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: In a spread range with a value, the datalist moves to row 3 under the value, and the end text to row 4. The row rules use `:where(:has(…))`, so the narrow layout (`@container (width < 400px)`) still wins. That also fixes the narrow layout, where the end text landed on the slider row (with tick marks only) or on the tick row (with value and tick marks). Checked in Chromium 141 at 600px and 300px.
+- [ ] (4) Avatar: in a group, every avatar but the last is covered by `--size-3` (12px of a 40px avatar), so two-letter initials lose their second letter ("A", "C", "E" … "KL"). The Grouped example shows it too (`packages/opui/css/components/avatar.css:62-73`, `src/component-examples/avatar/Grouped.html`)
+  - Fix: a smaller overlap (`--size-2`), or shift the initials toward the visible start side in a group (`justify-content: start; padding-inline-start: …`).
 - [x] (5) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
   > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
   - Fixed: menus use a subtle light gray border in dark mode (`--gray-6` at 40% opacity), in dialogs and everywhere else.
@@ -2298,6 +2316,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: drop the listener lines in the docs and examples. Decide separately for the shipped `packages/opui/css/js/checkbox.js:26`.
   > Fix
   - Fixed: dropped the `astro:after-swap` listener from the docs pages (Badge, Drawer, List, Text field), the walkthroughs (`BuildUp.astro`, `RangeBuild.astro`, `ToastBuild.astro`), `Example.astro`, `mount-vue-examples.ts`, `FrameworkPicker.astro`, `TableOfContents.astro` and the Checkbox Indeterminate (HTML, Astro) and Toast JavaScript (HTML) examples. Each script already calls its setup function at the top level, so it still runs on every page load with cross-document view transitions. The shipped `packages/opui/css/js/checkbox.js` keeps its listener, since apps that use `<ClientRouter>` need it, and it does nothing without one.
+- [ ] (2) Carousel: with `.ui-with-markers`, `::scroll-marker-group` becomes a sibling box of the carousel, so a carousel placed directly in a grid or flex parent gets its markers in a separate cell. Found while building the product-detail block (`packages/opui/css/components/carousel.css`)
+  - Fix: say in the Markers docs to wrap the carousel in its own element when it sits in a grid or flex layout.
 - [x] (3) Progress walkthrough: the step's `<progress>` snippets have no accessible name. The demo and docs use `aria-label` (`ProgressBuild.astro:8-14`, `progress.astro:100`)
   > Explain further and provide an example
   - `<progress>` has the `progressbar` role, and a progress bar needs a name (axe `aria-progressbar-name`, WCAG 4.1.2). Without one, a screen reader only says "progress bar, 60%", and the user has no idea what is at 60%.
@@ -3232,6 +3252,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: a "Guides" section listing the three files.
   > Fix
   - Fixed: root AGENTS.md starts with a "Guides" section that lists `packages/opui/components/AGENTS.md`, `src/component-api/AGENTS.md` and `src/docs/components/AGENTS.md`, with what each one covers.
+- [ ] (2) Theme tokens: there is `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`, but no `--font-weight-normal`, so blocks fall back to Open Props' `--font-weight-4` (`packages/opui/css/theme.css`)
 - [x] (3) Scroll-state container queries: sticky Table header shadow, scroll shadows in Dialog/Drawer
   > provide examples here in the todo page how that would work.
   - Scroll-state queries let descendants (and the scroller's own pseudo-elements) react to the scroller's state: `scrollable: top` means there is content scrolled out above.
@@ -3596,6 +3617,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: The Custom values snippet uses the library's full selector list (`body`, `.ui-contrast-more > *`, `.ui-palette`, elevated and tonal cards, filled lists, table headers), and the text says why. Checked in Chromium with `--contrast-more`: the override applies inside `.ui-contrast-more`, `.ui-palette`, a tonal card and on the page.
+- [ ] (3) Avatar: no size modifiers (`.ui-small`, `.ui-x-small`, `.ui-large`) like other components, so avatars can't shrink in dense lists, table rows, chat bubbles or bylines without overriding the private `--_size` (`packages/opui/css/components/avatar.css:4`)
+- [ ] (3) Description list: the side-by-side layout only applies above `45ch` of its own width, so in a sidebar or summary card (about 400px) it always stacks and `.ui-bordered` shows no separators. Blocks used their own grids for totals instead (`packages/opui/css/components/description-list.css:45`)
+  - Suggestion: a `.ui-row` modifier that keeps term and description side by side at any width, or a lower breakpoint.
 - [x] (4) No type exports from `opui-css/astro` / `opui-css/vue` (component `Props`, Menu `MenuItem`, Select `Item`) (`astro/index.ts`, `vue/index.ts`)
   > Fix
   - Fixed: both index files export the component `Props` types as `<Component>Props` (e.g. `ButtonProps`, `TabsTabProps`, `TableColumnProps`, `DescriptionListTermProps` in Astro), plus `MenuItem`, `SelectItem` and `ClassicSelectItem`, sorted.
@@ -3661,6 +3685,20 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: new Customizing page (`src/docs/guide/customizing.astro`): theme tokens vs `--_` properties, set them on the component (not a parent), prefer inputs (`--_accent`) over outputs (`--_bg-color`) so hover and active keep working, and unlayered CSS vs your own `overrides` layer, with live examples.
+- [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
+  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
+  - Breadcrumb: file-manager, product-detail.
+  - Chat message bubble: chat.
+  - Empty state: empty-states, error-page.
+  - Labeled divider ("or continue with email"): sign-in.
+  - Number stepper (quantity): product-detail, shopping-cart.
+  - One-time code input: two-factor.
+  - Pagination: data-table.
+  - Rating: product-detail, testimonials, hero.
+  - Stat card (label, value, trend): analytics-dashboard, app-shell, project-overview, sales-dashboard.
+  - Status pill (colored chip or inline badge): billing, data-table, order-history, sales-dashboard, team-members.
+  - Stepper: checkout, onboarding-checklist.
+  - Timeline: changelog, project-overview, server-status.
 - [x] (5) `contrast-color()` for `--primary-contrast` so custom primaries get readable text
 
   > contrast-color() has its limitations - it can only be black or white. it's better to use relative color syntax imo.
@@ -3699,6 +3737,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: `::picker(select)` gets `background: transparent` and `border-radius: var(--field-border-radius)` (`select.css`). The walkthrough's Picker step does the same. Checked in Chromium: the open picker's background is `rgba(0, 0, 0, 0)` and its radius is 8px.
+- [ ] (2) Contrast: `ui-link` on `--surface-tonal` or a light primary tint fails axe contrast in light mode, and a text `ui-button.ui-critical` on `--surface-tonal` fails in dark mode. Reported while building the blocks; the blocks avoid those combinations.
+- [ ] (2) List: in `.ui-list.ui-bordered.ui-tonal`, the separators are nearly invisible in dark mode. Reported while building the error-page and two-factor blocks (`packages/opui/css/components/list.css:37-55`)
 - [x] (3) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
   - Yes, and most of it is in place. `text-input.css` already hides the browser's datalist indicator (Chromium only, Firefox has none and Safari draws its own) and draws a CSS triangle with `.ui-field::after`, like Select's `::picker-icon`. The arrow sits closer to the edge at `x-small`/`small` on purpose: the inset drops from `--size-3` to `--size-2` with the field padding.
@@ -3737,6 +3777,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: show a list without `bordered` in the anatomy. Widening doesn't work: the hero stage's content box is 320px at every viewport and the anatomy caps the subject at 100% of it, which stays under 45ch (454px).
   > Fix
   - Fixed: the hero anatomy shows a list without `bordered`, so the stacked layout it renders at 16rem is the list's normal look and nothing is missing from the diagram.
+- [ ] (3) Carousel in Chromium 141 (the sandbox browser): the next `::scroll-button()` sits at the inline-start edge, outside the item and not vertically centered, also in `carousel/Basics.html`. It looks like `anchor(self-end)` with `position-anchor: auto` doesn't resolve there. Check in current Chrome; if it's fine there, it's only the old version.
 - [x] (4) Agent skill: `skills/opui/references` is stale. It was last regenerated in a258697, and seven later commits changed the docs, What's new notes, API data or components it is built from. The shipped `references/html/button.md` still says links with `.ui-disabled` "look and act disabled", but ddf2697 removed `.ui-disabled` from `button.css`, so an agent following it ships a clickable "disabled" link (`packages/opui/skills/opui/references/html/button.md:10,402`, `packages/opui/css/components/button.css`)
   - Fix: run `pnpm build` and `pnpm build-skill` after the last docs change before publishing, and commit the result. The item about `pnpm build-skill` running nowhere automatically covers the lasting fix.
   > Fix

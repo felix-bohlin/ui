@@ -44,7 +44,6 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -53,7 +52,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel buttons="outside" label="Destinations" markers>
   {
@@ -80,7 +78,6 @@ Set `perView` to show more than one item at a time.
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -89,7 +86,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel buttons="outside" label="Destinations" perView={3}>
   {
@@ -118,7 +114,6 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   {
@@ -131,7 +126,6 @@ const places = [
   { description: "Medina markets.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel buttons="outside" label="Destinations" perView={3} stretch>
   {
@@ -158,7 +152,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -167,7 +160,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel align="center" buttons={false} label="Destinations" markers peek>
   {
@@ -194,7 +186,6 @@ const places = [
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -203,7 +194,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel
   label="Destinations"
@@ -235,7 +225,6 @@ const places = [
 ---
 import { Carousel } from "opui-css/astro"
 
-
 const photos = [
   { alt: "A deep blue fjord between steep mountains", id: 1015 },
   { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
@@ -244,7 +233,6 @@ const photos = [
   { alt: "A waterfall in a green forest valley", id: 1039 },
 ]
 ---
-
 
 <Carousel label="Photos" markers>
   {
@@ -267,7 +255,6 @@ const photos = [
 ---
 import { Carousel } from "opui-css/astro"
 
-
 const photos = [
   { alt: "A deep blue fjord between steep mountains", id: 1015 },
   { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
@@ -276,7 +263,6 @@ const photos = [
   { alt: "A waterfall in a green forest valley", id: 1039 },
 ]
 ---
-
 
 <Carousel label="Gallery" perView={3} aspectRatio="1">
   {
@@ -303,13 +289,11 @@ const photos = [
 ---
 import { Carousel } from "opui-css/astro"
 
-
 const videos = [
   { label: "A red flower bud opening", name: "flower" },
   { label: "Scene from a black-and-white film", name: "friday" },
 ]
 ---
-
 
 <Carousel label="Videos" markers>
   {
@@ -332,7 +316,6 @@ const videos = [
 ---
 import { Carousel } from "opui-css/astro"
 
-
 const tutorials = [
   {
     id: "gmI5nvzv170",
@@ -342,7 +325,6 @@ const tutorials = [
   { id: "qu1jE41O_8o", title: "Use these CSS features instead of JavaScript" },
 ]
 ---
-
 
 <Carousel label="Tutorials" markers>
   {
@@ -370,7 +352,6 @@ Use `buttons="outside"` to keep the buttons off the content.
 ---
 import { Button, Card, Carousel } from "opui-css/astro"
 
-
 const plans = [
   {
     action: "Choose Basic",
@@ -386,7 +367,6 @@ const plans = [
   { action: "Choose Team", description: "For small teams.", title: "Team" },
 ]
 ---
-
 
 <Carousel buttons="outside" label="Plans" perView={2}>
   {
@@ -415,7 +395,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
@@ -423,7 +402,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
   {
@@ -450,7 +428,6 @@ const places = [
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
   { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -459,7 +436,6 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 ---
-
 
 <Carousel
   buttons="outside"
@@ -482,7 +458,6 @@ const places = [
   }
 </Carousel>
 
-
 <style is:global>
   .carousel-custom-buttons {
     --_button-bg-color: var(--primary);
@@ -504,10 +479,8 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
 ---
 import { Card, Carousel } from "opui-css/astro"
 
-
 const places = ["Kyoto", "Lima", "Lisbon"]
 ---
-
 
 <div
   style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
@@ -637,7 +610,6 @@ Step 1 of 4: Grid track
   overflow-x: auto;
 }
 
-
 .carousel > li {
   min-inline-size: 0;
 }
@@ -653,7 +625,6 @@ Step 2 of 4: Scroll snap
   overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
 }
-
 
 .carousel > li {
   scroll-snap-align: start;
@@ -681,18 +652,15 @@ Step 3 of 4: Scroll buttons
   translate: 0 -50%;
 }
 
-
 .carousel.with-buttons::scroll-button(inline-start) {
   content: "❮" / "Previous";
   inset-inline-start: calc(anchor(self-start) + 0.5rem);
 }
 
-
 .carousel.with-buttons::scroll-button(inline-end) {
   content: "❯" / "Next";
   inset-inline-end: calc(anchor(self-end) + 0.5rem);
 }
-
 
 .carousel.with-buttons::scroll-button(inline-start):disabled,
 .carousel.with-buttons::scroll-button(inline-end):disabled {
@@ -712,11 +680,9 @@ Step 4 of 4: Scroll markers
   counter-reset: slide;
 }
 
-
 .carousel.with-markers {
   scroll-marker-group: after;
 }
-
 
 .carousel.with-markers::scroll-marker-group {
   display: flex;
@@ -725,11 +691,9 @@ Step 4 of 4: Scroll markers
   margin-block-start: 0.75rem;
 }
 
-
 .carousel > li {
   counter-increment: slide;
 }
-
 
 .carousel.with-markers > li::scroll-marker {
   background-color: oklch(from var(--text-primary) l c h / 25%);
@@ -740,11 +704,9 @@ Step 4 of 4: Scroll markers
   inline-size: 0.5rem;
 }
 
-
 .carousel.with-markers > li::scroll-marker:target-current {
   background-color: var(--primary);
 }
-
 
 @supports selector(::scroll-button(*)) {
   .carousel:is(.with-buttons, .with-markers) {

@@ -38,7 +38,6 @@ General account settings.
   <label for="tab-profile" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-
   <input
     type="radio"
     name="basic-tabs"
@@ -47,7 +46,6 @@ General account settings.
   />
   <label for="tab-settings" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
-
 
   <input
     type="radio"
@@ -76,7 +74,6 @@ Use `.ui-filled` to fill the selected tab with the primary color.
   <label for="filled-tab-profile" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-
   <input
     type="radio"
     name="filled-tabs"
@@ -85,7 +82,6 @@ Use `.ui-filled` to fill the selected tab with the primary color.
   />
   <label for="filled-tab-settings" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
-
 
   <input
     type="radio"
@@ -116,7 +112,6 @@ Use `.ui-line` for tabs without a background, marking the selected tab with a li
   <label for="line-tab-profile" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-
   <input
     type="radio"
     name="line-tabs"
@@ -125,7 +120,6 @@ Use `.ui-line` for tabs without a background, marking the selected tab with a li
   />
   <label for="line-tab-settings" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
-
 
   <input
     type="radio"
@@ -154,7 +148,6 @@ Use `.ui-outlined` for a bordered track without a background.
   <label for="outlined-tab-profile" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-
   <input
     type="radio"
     name="outlined-tabs"
@@ -163,7 +156,6 @@ Use `.ui-outlined` for a bordered track without a background.
   />
   <label for="outlined-tab-settings" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
-
 
   <input
     type="radio"
@@ -194,7 +186,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   <label for="scrollable-tab-profile" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-
   <input
     type="radio"
     name="scrollable-tabs"
@@ -203,7 +194,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   />
   <label for="scrollable-tab-settings" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
-
 
   <input
     type="radio"
@@ -216,7 +206,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   >
   <div class="ui-tab-panel">Manage your notifications.</div>
 
-
   <input
     type="radio"
     name="scrollable-tabs"
@@ -225,7 +214,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   />
   <label for="scrollable-tab-billing" class="ui-tab-label">Billing</label>
   <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
-
 
   <input
     type="radio"
@@ -238,7 +226,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
     Passwords, sessions and two-factor authentication.
   </div>
 
-
   <input
     type="radio"
     name="scrollable-tabs"
@@ -250,7 +237,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   >
   <div class="ui-tab-panel">Connected apps and webhooks.</div>
 
-
   <input
     type="radio"
     name="scrollable-tabs"
@@ -259,7 +245,6 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   />
   <label for="scrollable-tab-team" class="ui-tab-label">Team</label>
   <div class="ui-tab-panel">Members and roles.</div>
-
 
   <input
     type="radio"
@@ -481,7 +466,6 @@ Step 1 of 4: Radios
   display: none;
 }
 
-
 .tab-input:checked + .tab-label + .tab-panel {
   display: block;
 }
@@ -496,11 +480,9 @@ Step 2 of 4: Order
   flex-wrap: wrap;
 }
 
-
 .tab-label {
   order: 1;
 }
-
 
 .tab-panel {
   inline-size: 100%;
@@ -523,7 +505,6 @@ Step 3 of 4: Hide radios
   white-space: nowrap;
 }
 
-
 .tab-input:focus-visible + .tab-label {
   outline: 2px solid var(--text-muted);
 }
@@ -542,7 +523,6 @@ Step 4 of 4: Segmented
   position: relative;
 }
 
-
 .tab-label::before {
   border-radius: calc(var(--radius) - var(--inset));
   content: "";
@@ -552,41 +532,34 @@ Step 4 of 4: Segmented
   z-index: -1;
 }
 
-
 .tab-label:nth-child(1 of .tab-label) {
   border-end-start-radius: var(--radius);
   border-start-start-radius: var(--radius);
   padding-inline-start: calc(0.75rem + var(--inset));
-
 
   &::before {
     inset-inline-start: var(--inset);
   }
 }
 
-
 .tab-label:nth-last-child(1 of .tab-label) {
   border-end-end-radius: var(--radius);
   border-start-end-radius: var(--radius);
   padding-inline-end: calc(0.75rem + var(--inset));
-
 
   &::before {
     inset-inline-end: var(--inset);
   }
 }
 
-
 .tab-input:checked + .tab-label::before {
   background-color: var(--surface-default);
   box-shadow: var(--shadow-1);
 }
 
-
 .tab-input:focus-visible + .tab-label {
   outline: none;
 }
-
 
 .tab-input:focus-visible + .tab-label::before {
   outline: 2px solid var(--text-muted);

@@ -25,7 +25,6 @@ Default, and `dot`.
 import { Badge } from "opui-css/vue"
 </script>
 
-
 <template>
   <Badge label="5">
     <svg
@@ -40,7 +39,6 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-
 
   <Badge dot>
     <svg
@@ -66,7 +64,6 @@ import { Badge } from "opui-css/vue"
 <script setup lang="ts">
 import { Badge } from "opui-css/vue"
 </script>
-
 
 <template>
   <Badge color="critical" label="5">
@@ -146,7 +143,6 @@ Set indicator text with the `label` prop or the `indicator` slot. The default sl
 import { Badge } from "opui-css/vue"
 </script>
 
-
 <template>
   <Badge label="5" sr-label="unread messages">
     <svg
@@ -161,7 +157,6 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-
 
   <Badge sr-label="unread messages">
     <svg
@@ -189,12 +184,10 @@ Change the badge's visibility using the `invisible` prop.
 import { Badge } from "opui-css/vue"
 </script>
 
-
 <template>
   <Badge label="5" invisible>
     <!-- -->
   </Badge>
-
 
   <Badge dot invisible>
     <!-- -->
@@ -212,7 +205,6 @@ Where the badge should be placed over the child.
 <script setup lang="ts">
 import { Badge } from "opui-css/vue"
 </script>
-
 
 <template>
   <Badge alignment="start-start" label="35">
@@ -379,7 +371,6 @@ Step 2 of 4: Corner
   vertical-align: middle;
 }
 
-
 .indicator {
   inset-block: auto 100%;
   inset-inline: 100% auto;
@@ -401,11 +392,9 @@ Step 3 of 4: Direction
   --ty: calc(50% * var(--sign-y));
 }
 
-
 .badge:dir(rtl) {
   --dir: -1;
 }
-
 
 .indicator {
   translate: calc(var(--tx) * var(--dir)) var(--ty);
@@ -420,7 +409,6 @@ Step 4 of 4: Dot
   --tx: calc((var(--dot) - 2px) * var(--sign-x));
   --ty: calc(var(--dot) * var(--sign-y));
 }
-
 
 .badge.dot .indicator {
   block-size: var(--dot);

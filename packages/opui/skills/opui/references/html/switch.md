@@ -41,13 +41,11 @@ All switches should have an accessible name. Put the label text inside the compo
   <span class="ui-sr-only">Label</span>
 </label>
 
-
 <!-- Unchecked -->
 <label class="ui-switch">
   <input name="switch-variants" type="checkbox" role="switch" />
   <span class="ui-sr-only">Label</span>
 </label>
-
 
 <!-- Checked & disabled -->
 <label class="ui-switch">
@@ -60,7 +58,6 @@ All switches should have an accessible name. Put the label text inside the compo
   />
   <span class="ui-sr-only">Label</span>
 </label>
-
 
 <!-- Unchecked & disabled -->
 <label class="ui-switch">
@@ -80,18 +77,15 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
     <span class="ui-sr-only">x-small</span>
   </label>
 
-
   <label class="ui-switch ui-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-sr-only">Small</span>
   </label>
 
-
   <label class="ui-switch">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-sr-only">Default</span>
   </label>
-
 
   <label class="ui-switch ui-large">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
@@ -99,25 +93,21 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
   </label>
 </div>
 
-
 <div class="example-row">
   <label class="ui-switch ui-x-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">x-small</span>
   </label>
 
-
   <label class="ui-switch ui-small">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Small</span>
   </label>
 
-
   <label class="ui-switch">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Default</span>
   </label>
-
 
   <label class="ui-switch ui-large">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
@@ -136,12 +126,10 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
   <span class="ui-label">Label</span>
 </label>
 
-
 <label class="ui-switch">
   <input name="switch-visible-label" type="checkbox" role="switch" disabled />
   <span class="ui-label">Disabled</span>
 </label>
-
 
 <label class="ui-switch">
   <input name="switch-visible-label" type="checkbox" role="switch" />
@@ -162,7 +150,6 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
   <input name="switch-label-position" type="checkbox" role="switch" />
   <span class="ui-label">Default</span>
 </label>
-
 
 <label class="ui-switch ui-stack">
   <input name="switch-label-position" type="checkbox" role="switch" />
@@ -185,7 +172,6 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
     >Supporting text</span
   >
 </label>
-
 
 <label class="ui-switch ui-stack">
   <input
@@ -237,7 +223,6 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
   <span class="ui-sr-only">Toggle theme</span>
 </label>
 
-
 <label class="ui-switch">
   <span class="ui-icon-unchecked" aria-hidden="true">
     <svg
@@ -283,13 +268,11 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
     <span class="ui-label">Default</span>
   </label>
 
-
   <label class="ui-switch ui-stack">
     <input name="switch-validation" type="checkbox" role="switch" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
-
 
 <div class="example-row ui-spacious">
   <label class="ui-switch">
@@ -305,7 +288,6 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
       >Supporting text</span
     >
   </label>
-
 
   <label class="ui-switch ui-stack">
     <input
@@ -341,7 +323,6 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
   >
 </label>
 
-
 <label class="ui-switch ui-spread">
   <input
     name="switch-spread"
@@ -356,7 +337,6 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
   >
 </label>
 
-
 <label class="ui-switch ui-spread">
   <input
     name="switch-spread"
@@ -370,7 +350,6 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     >This switch is disabled.</span
   >
 </label>
-
 
 <label class="ui-switch ui-spread">
   <input
@@ -487,7 +466,6 @@ Can be placed above and below the fields.
       </label>
     </div>
   </fieldset>
-
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
@@ -797,7 +775,6 @@ Step 1 of 4: Track
 .switch {
   --dot-color: light-dark(var(--gray-11), var(--gray-14));
 
-
   appearance: none;
   block-size: 1.5rem;
   cursor: pointer;
@@ -805,7 +782,6 @@ Step 1 of 4: Track
   margin: 0;
   position: relative;
 }
-
 
 .switch::before {
   background-color: light-dark(var(--gray-3), var(--gray-8));
@@ -833,16 +809,13 @@ Step 2 of 4: Dot
   position: absolute;
 }
 
-
 .switch:checked::before {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
-
 .switch:checked::after {
   --dot-color: var(--primary-contrast);
-
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }
@@ -857,10 +830,8 @@ Step 3 of 4: Motion
     border-color 0.2s;
 }
 
-
 .switch::after {
   --ring: 0px;
-
 
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
@@ -871,11 +842,9 @@ Step 3 of 4: Motion
     outline-width 0.2s var(--ease);
 }
 
-
 .switch:checked::after {
   --ring: 3px;
 }
-
 
 .switch:active::after {
   --ring: 5px;
@@ -905,29 +874,24 @@ Step 4 of 4: Icons
     z-index: 1;
   }
 
-
   .icon-checked {
     display: none;
     margin-inline-start: 0.25rem;
   }
 
-
   .icon-unchecked {
     margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
   }
-
 
   .switch {
     grid-column: 1;
     grid-row: 1;
   }
 
-
   &:has(:checked) {
     .icon-checked {
       display: block;
     }
-
 
     .icon-unchecked {
       display: none;

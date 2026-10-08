@@ -35,7 +35,6 @@ Label 50 Start text End text
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range label="Label" startText="Min" />
 </template>
@@ -49,7 +48,6 @@ Use the `variant` prop to swap the track surface for better contrast on differen
 <script setup lang="ts">
 import { Range } from "opui-css/vue"
 </script>
-
 
 <template>
   <Range>No variant = <code>var(--field-border-color)</code></Range>
@@ -69,7 +67,6 @@ import { Range } from "opui-css/vue"
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range
     label="Label"
@@ -88,7 +85,6 @@ Pass the `valueSuffix` prop (or use the `value` named slot) to render a live rea
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range label="Hue" min="0" max="360" value="250" valueSuffix="°" />
 </template>
@@ -102,7 +98,6 @@ Pass an id to the `list` prop together with an `options` array - `options=[{ val
 <script setup lang="ts">
 import { Range } from "opui-css/vue"
 </script>
-
 
 <template>
   <Range
@@ -128,7 +123,6 @@ Set the `disabled` prop to disable the slider. The whole range dims and shows a 
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range disabled label="Disabled" />
 </template>
@@ -145,7 +139,6 @@ import { Range } from "opui-css/vue"
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range label="Invalid Range" error endText="This value is incorrect." />
 </template>
@@ -160,7 +153,6 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 import { Range } from "opui-css/vue"
 </script>
 
-
 <template>
   <Range spread>
     Spread Layout
@@ -168,19 +160,16 @@ import { Range } from "opui-css/vue"
     <template #end-text>End text</template>
   </Range>
 
-
   <Range spread disabled>
     Disabled
     <template #start-text>Start text</template>
     <template #end-text>End text</template>
   </Range>
 
-
   <Range spread error endText="This value is incorrect.">
     Invalid Range
     <template #start-text>Start text</template>
   </Range>
-
 
   <Range
     label="Tick marks with labels"
@@ -321,14 +310,12 @@ Step 1 of 5: Track
   inline-size: 100%;
 }
 
-
 .range::-webkit-slider-runnable-track {
   appearance: none;
   background-color: var(--border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
-
 
 .range::-moz-range-track {
   appearance: none;
@@ -351,7 +338,6 @@ Step 2 of 5: Thumb
   inline-size: 3ex;
   margin-block-start: -1.125ex;
 }
-
 
 .range::-moz-range-thumb {
   appearance: none;
@@ -379,12 +365,10 @@ Step 3 of 5: Fill
     initial-value: 0%;
   }
 
-
   @keyframes build-range-fill {
     from {
       --track-fill: 100%;
     }
-
 
     to {
       --track-fill: 0%;
@@ -409,11 +393,9 @@ Step 3 of 5: Fill
     timeline-scope: --thumb;
   }
 
-
   .range:dir(rtl) {
     animation-direction: reverse;
   }
-
 
   .range::-webkit-slider-thumb {
     view-timeline: --thumb inline;
@@ -421,18 +403,15 @@ Step 3 of 5: Fill
   }
 }
 
-
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
 }
 
-
 .range:dir(rtl)::-webkit-slider-runnable-track {
   background-position: right;
 }
-
 
 .range::-moz-range-progress {
   background-color: var(--primary);
@@ -450,22 +429,18 @@ Step 4 of 5: Halo
   --halo: 0px;
 }
 
-
 .range:not([disabled]):hover {
   --halo: 0.25rem;
 }
-
 
 .range:not([disabled]):active {
   --halo: 0.5rem;
 }
 
-
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
   transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
-
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
@@ -487,7 +462,6 @@ Step 5 of 5: Ticks
   }
 </style>
 
-
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -501,13 +475,11 @@ Step 5 of 5: Ticks
   --thumb-size: 3ex;
 }
 
-
 .ticks {
   display: flex;
   justify-content: space-between;
   padding-inline: calc(var(--thumb-size) / 2);
 }
-
 
 .ticks > option {
   display: flex;

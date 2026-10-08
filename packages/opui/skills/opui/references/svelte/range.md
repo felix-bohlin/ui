@@ -35,7 +35,6 @@ Label 50 Start text End text
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range label="Label" startText="Min" />
 ```
 
@@ -47,7 +46,6 @@ Use the `variant` prop to swap the track surface for better contrast on differen
 <script lang="ts">
   import { Range } from "opui-css/svelte"
 </script>
-
 
 <Range>No variant = <code>var(--field-border-color)</code></Range>
 <Range variant="filled">
@@ -65,7 +63,6 @@ Use the `variant` prop to swap the track surface for better contrast on differen
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range label="Label" startText="Start helper text" endText="End helper text" />
 ```
 
@@ -78,7 +75,6 @@ Pass the `valueSuffix` prop (or use the `valueText` snippet) to render a live re
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range label="Hue" min="0" max="360" value="250" valueSuffix="°" />
 ```
 
@@ -90,7 +86,6 @@ Pass an id to the `list` prop together with an `options` array - `options=[{ val
 <script lang="ts">
   import { Range } from "opui-css/svelte"
 </script>
-
 
 <Range
   label="Tick marks with labels"
@@ -114,7 +109,6 @@ Set the `disabled` prop to disable the slider. The whole range dims and shows a 
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range disabled label="Disabled" />
 ```
 
@@ -129,7 +123,6 @@ Set the `disabled` prop to disable the slider. The whole range dims and shows a 
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range label="Invalid Range" error endText="This value is incorrect." />
 ```
 
@@ -142,13 +135,11 @@ Use the `spread` boolean prop to display the label and start text on the left wi
   import { Range } from "opui-css/svelte"
 </script>
 
-
 <Range spread>
   Spread Layout
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
-
 
 <Range spread disabled>
   Disabled
@@ -156,12 +147,10 @@ Use the `spread` boolean prop to display the label and start text on the left wi
   {#snippet endText()}End text{/snippet}
 </Range>
 
-
 <Range spread error endText="This value is incorrect.">
   Invalid Range
   {#snippet startText()}Start text{/snippet}
 </Range>
-
 
 <Range
   label="Tick marks with labels"
@@ -293,14 +282,12 @@ Step 1 of 5: Track
   inline-size: 100%;
 }
 
-
 .range::-webkit-slider-runnable-track {
   appearance: none;
   background-color: var(--border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
-
 
 .range::-moz-range-track {
   appearance: none;
@@ -323,7 +310,6 @@ Step 2 of 5: Thumb
   inline-size: 3ex;
   margin-block-start: -1.125ex;
 }
-
 
 .range::-moz-range-thumb {
   appearance: none;
@@ -351,12 +337,10 @@ Step 3 of 5: Fill
     initial-value: 0%;
   }
 
-
   @keyframes build-range-fill {
     from {
       --track-fill: 100%;
     }
-
 
     to {
       --track-fill: 0%;
@@ -381,11 +365,9 @@ Step 3 of 5: Fill
     timeline-scope: --thumb;
   }
 
-
   .range:dir(rtl) {
     animation-direction: reverse;
   }
-
 
   .range::-webkit-slider-thumb {
     view-timeline: --thumb inline;
@@ -393,18 +375,15 @@ Step 3 of 5: Fill
   }
 }
 
-
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
 }
 
-
 .range:dir(rtl)::-webkit-slider-runnable-track {
   background-position: right;
 }
-
 
 .range::-moz-range-progress {
   background-color: var(--primary);
@@ -422,22 +401,18 @@ Step 4 of 5: Halo
   --halo: 0px;
 }
 
-
 .range:not([disabled]):hover {
   --halo: 0.25rem;
 }
-
 
 .range:not([disabled]):active {
   --halo: 0.5rem;
 }
 
-
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
   transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
-
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
@@ -459,7 +434,6 @@ Step 5 of 5: Ticks
   }
 </style>
 
-
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -473,13 +447,11 @@ Step 5 of 5: Ticks
   --thumb-size: 3ex;
 }
 
-
 .ticks {
   display: flex;
   justify-content: space-between;
   padding-inline: calc(var(--thumb-size) / 2);
 }
-
 
 .ticks > option {
   display: flex;

@@ -31,7 +31,6 @@ General account settings.
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
-
 <template>
   <Tabs name="basic-tabs">
     <TabsItem open>
@@ -58,7 +57,6 @@ Use `variant="filled"` to fill the selected tab with the primary color.
 <script setup lang="ts">
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
-
 
 <template>
   <Tabs name="filled-tabs" variant="filled">
@@ -87,7 +85,6 @@ Use `variant="line"` for tabs without a background, marking the selected tab wit
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
-
 <template>
   <Tabs name="line-tabs" variant="line">
     <TabsItem open>
@@ -115,7 +112,6 @@ Use `variant="outlined"` for a bordered track without a background.
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
-
 <template>
   <Tabs name="outlined-tabs" variant="outlined">
     <TabsItem open>
@@ -142,7 +138,6 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on o
 <script setup lang="ts">
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
-
 
 <template>
   <Tabs name="scrollable-tabs" scrollable>
@@ -392,7 +387,6 @@ Step 1 of 4: Radios
   display: none;
 }
 
-
 .tab-input:checked + .tab-label + .tab-panel {
   display: block;
 }
@@ -407,11 +401,9 @@ Step 2 of 4: Order
   flex-wrap: wrap;
 }
 
-
 .tab-label {
   order: 1;
 }
-
 
 .tab-panel {
   inline-size: 100%;
@@ -434,7 +426,6 @@ Step 3 of 4: Hide radios
   white-space: nowrap;
 }
 
-
 .tab-input:focus-visible + .tab-label {
   outline: 2px solid var(--text-muted);
 }
@@ -453,7 +444,6 @@ Step 4 of 4: Segmented
   position: relative;
 }
 
-
 .tab-label::before {
   border-radius: calc(var(--radius) - var(--inset));
   content: "";
@@ -463,41 +453,34 @@ Step 4 of 4: Segmented
   z-index: -1;
 }
 
-
 .tab-label:nth-child(1 of .tab-label) {
   border-end-start-radius: var(--radius);
   border-start-start-radius: var(--radius);
   padding-inline-start: calc(0.75rem + var(--inset));
-
 
   &::before {
     inset-inline-start: var(--inset);
   }
 }
 
-
 .tab-label:nth-last-child(1 of .tab-label) {
   border-end-end-radius: var(--radius);
   border-start-end-radius: var(--radius);
   padding-inline-end: calc(0.75rem + var(--inset));
-
 
   &::before {
     inset-inline-end: var(--inset);
   }
 }
 
-
 .tab-input:checked + .tab-label::before {
   background-color: var(--surface-default);
   box-shadow: var(--shadow-1);
 }
 
-
 .tab-input:focus-visible + .tab-label {
   outline: none;
 }
-
 
 .tab-input:focus-visible + .tab-label::before {
   outline: 2px solid var(--text-muted);

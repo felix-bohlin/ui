@@ -53,7 +53,6 @@ Textareas are outlined by default. Set `variant="filled"` for a filled textarea.
 import { Textarea } from "opui-css/vue"
 </script>
 
-
 <template>
   <Textarea label="Default" placeholder="Placeholder" />
   <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
@@ -68,7 +67,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Textarea } from "opui-css/vue"
 </script>
-
 
 <template>
   <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
@@ -87,7 +85,6 @@ Use the `description` prop or slot for text between the label and the textarea.
 import { Textarea } from "opui-css/vue"
 </script>
 
-
 <template>
   <Textarea description="Shown on your public profile" label="Bio" />
 </template>
@@ -99,7 +96,6 @@ import { Textarea } from "opui-css/vue"
 <script setup lang="ts">
 import { Textarea } from "opui-css/vue"
 </script>
-
 
 <template>
   <Textarea label="Label" placeholder="Default" endText="Supporting text" />
@@ -120,7 +116,6 @@ Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside
 <script setup lang="ts">
 import { Textarea } from "opui-css/vue"
 </script>
-
 
 <template>
   <Textarea label="Notes" placeholder="Add a note...">
@@ -153,12 +148,10 @@ import { Textarea } from "opui-css/vue"
 import { Textarea } from "opui-css/vue"
 </script>
 
-
 <template>
   <Textarea label="Code" placeholder="console.log('Hello, world!')">
     <template #header>script.js</template>
   </Textarea>
-
 
   <Textarea label="Comment" placeholder="Write a comment...">
     <template #footer>0 / 280</template>
@@ -179,13 +172,11 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 import { Textarea } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Textarea label="Label" placeholder="Default" required />
     <Textarea label="Label" placeholder="Filled" required variant="filled" />
   </div>
-
 
   <div class="example-row">
     <Textarea
@@ -214,7 +205,6 @@ Use the `spread` boolean prop to display the label and description on the left w
 import { Textarea } from "opui-css/vue"
 </script>
 
-
 <template>
   <Textarea spread placeholder="Hello, world!">
     <template #label>Message</template>
@@ -224,29 +214,24 @@ import { Textarea } from "opui-css/vue"
     >
   </Textarea>
 
-
   <Textarea spread placeholder="Additional notes..." variant="filled">
     <template #label>Notes</template>
     <template #description>Add any additional notes or comments</template>
     <template #end-text>Maximum 500 characters</template>
   </Textarea>
 
-
   <Textarea spread required label="Required">
     <template #description>You must provide a response</template>
   </Textarea>
-
 
   <Textarea spread disabled label="Disabled">
     <template #description>This textarea is disabled</template>
   </Textarea>
 
-
   <Textarea spread error label="Invalid Message">
     <template #description>This textarea has an error</template>
     <template #end-text>This value is too short.</template>
   </Textarea>
-
 
   <Textarea spread label="Bio" placeholder="Tell us about yourself...">
     <template #description>Shown on your public profile</template>
@@ -272,7 +257,6 @@ import { Textarea } from "opui-css/vue"
     <template #footer>280 characters left</template>
   </Textarea>
 
-
   <Textarea
     spread
     variant="filled"
@@ -295,7 +279,6 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 <script setup lang="ts">
 import { Textarea } from "opui-css/vue"
 </script>
-
 
 <template>
   <Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
@@ -418,13 +401,11 @@ Step 1 of 4: Field
   display: grid;
 }
 
-
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -432,7 +413,6 @@ Step 1 of 4: Field
   border-radius: var(--radius-2);
   display: grid;
 }
-
 
 .field textarea {
   background: transparent;
@@ -444,7 +424,6 @@ Step 1 of 4: Field
   outline: 0;
   padding: 0.5rem;
 }
-
 
 .textarea:focus-within .field {
   border-color: var(--primary);
@@ -480,7 +459,6 @@ Step 4 of 4: Auto-fit
 .auto-fit {
   inline-size: fit-content;
 }
-
 
 .auto-fit textarea {
   inline-size: auto;

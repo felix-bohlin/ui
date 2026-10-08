@@ -4,7 +4,7 @@ import {
   DEFAULT_FRAMEWORK,
   type FrameworkId,
 } from "../../utils/framework-routing"
-import { Code } from "astro-expressive-code/components"
+import Code from "../Code.astro"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
@@ -43,7 +43,6 @@ type Props = {
   class?: string
   column?: boolean
   exampleClass?: string
-  marks?: Record<string, any>
   output?: "always-show" | "toggled"
   richText?: "rich-text" | "not-rich-text"
   row?: boolean
@@ -59,7 +58,6 @@ const {
   class: className,
   column,
   exampleClass,
-  marks = {},
   output = "toggled",
   richText = "not-rich-text",
   row,
@@ -255,17 +253,7 @@ const outputId = `${groupName}-output`
               </Tabs.Tab>
               <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code
-                    code={codeContent}
-                    lang={
-                      codeLangId === "astro"
-                        ? "astro"
-                        : codeLangId === "html"
-                          ? "html"
-                          : codeLangId
-                    }
-                    mark={marks[codeLangId]}
-                  />
+                  <Code code={codeContent} lang={codeLangId} />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
@@ -428,7 +416,7 @@ const outputId = `${groupName}-output`
 </style>
 
 <style is:global>
-  .ui-tab-panel .expressive-code pre {
+  .ui-tab-panel .code-block pre {
     border-radius: 0;
   }
 
@@ -461,7 +449,10 @@ const outputId = `${groupName}-output`
         const template = container.querySelector<HTMLTemplateElement>(
           "template.example-code",
         )
-        template?.replaceWith(template.content)
+        if (template) {
+          template.replaceWith(template.content)
+          document.dispatchEvent(new Event("syntax-highlight"))
+        }
 
         const isExpanded = container.getAttribute("data-expanded") === "true"
         const nextState = !isExpanded

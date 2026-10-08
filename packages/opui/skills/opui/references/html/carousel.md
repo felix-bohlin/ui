@@ -662,7 +662,6 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
   </li>
 </ul>
 
-
 <style>
   .carousel-custom-buttons {
     --_button-bg-color: var(--primary);
@@ -834,7 +833,6 @@ Step 1 of 4: Grid track
   overflow-x: auto;
 }
 
-
 .carousel > li {
   min-inline-size: 0;
 }
@@ -850,7 +848,6 @@ Step 2 of 4: Scroll snap
   overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
 }
-
 
 .carousel > li {
   scroll-snap-align: start;
@@ -878,18 +875,15 @@ Step 3 of 4: Scroll buttons
   translate: 0 -50%;
 }
 
-
 .carousel.with-buttons::scroll-button(inline-start) {
   content: "❮" / "Previous";
   inset-inline-start: calc(anchor(self-start) + 0.5rem);
 }
 
-
 .carousel.with-buttons::scroll-button(inline-end) {
   content: "❯" / "Next";
   inset-inline-end: calc(anchor(self-end) + 0.5rem);
 }
-
 
 .carousel.with-buttons::scroll-button(inline-start):disabled,
 .carousel.with-buttons::scroll-button(inline-end):disabled {
@@ -909,11 +903,9 @@ Step 4 of 4: Scroll markers
   counter-reset: slide;
 }
 
-
 .carousel.with-markers {
   scroll-marker-group: after;
 }
-
 
 .carousel.with-markers::scroll-marker-group {
   display: flex;
@@ -922,11 +914,9 @@ Step 4 of 4: Scroll markers
   margin-block-start: 0.75rem;
 }
 
-
 .carousel > li {
   counter-increment: slide;
 }
-
 
 .carousel.with-markers > li::scroll-marker {
   background-color: oklch(from var(--text-primary) l c h / 25%);
@@ -937,11 +927,9 @@ Step 4 of 4: Scroll markers
   inline-size: 0.5rem;
 }
 
-
 .carousel.with-markers > li::scroll-marker:target-current {
   background-color: var(--primary);
 }
-
 
 @supports selector(::scroll-button(*)) {
   .carousel:is(.with-buttons, .with-markers) {

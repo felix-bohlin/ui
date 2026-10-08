@@ -36,7 +36,6 @@ Simply add `aria-busy="true"` to a `<button>`.
   </button>
 </div>
 
-
 <!-- Icon buttons -->
 <div class="example-row">
   <button type="button" aria-busy="true" class="ui-button">
@@ -184,7 +183,6 @@ Step 4 of 4: Reduced motion
 .demo {
   --motion: 0;
 }
-
 
 [aria-busy="true"]::before {
   animation-duration: max(

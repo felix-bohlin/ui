@@ -27,7 +27,6 @@ import { createApp } from "vue"
 import "opui-css/css/imports.css"
 import App from "./App.vue"
 
-
 createApp(App).mount("#app")
 ```
 
@@ -55,7 +54,6 @@ In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
 <script setup lang="ts">
 import { Button } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button variant="filled">Click me</Button>

@@ -88,7 +88,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   </div>
 </details>
 
-
 <!-- Elevated -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-elevated">
   <summary>
@@ -115,7 +114,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   </div>
 </details>
 
-
 <!-- Outlined -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
   <summary>
@@ -141,7 +139,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
     </p>
   </div>
 </details>
-
 
 <!-- Tonal -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
@@ -431,7 +428,6 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   </div>
 </details>
 
-
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
   <summary>
     Rotate
@@ -456,7 +452,6 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
     </p>
   </div>
 </details>
-
 
 <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
   <summary>
@@ -575,7 +570,6 @@ Step 2 of 3: Animate to auto
   interpolate-size: allow-keywords;
 }
 
-
 .accordion::details-content {
   block-size: 0;
   opacity: 0;
@@ -585,7 +579,6 @@ Step 2 of 3: Animate to auto
     content-visibility 0.2s allow-discrete,
     opacity 0.2s;
 }
-
 
 .accordion[open]::details-content {
   block-size: auto;
@@ -607,11 +600,9 @@ Step 3 of 3: Marker
   list-style: none;
 }
 
-
 .accordion > summary:has(svg)::-webkit-details-marker {
   display: none;
 }
-
 
 .accordion > summary svg {
   transition:
@@ -619,26 +610,21 @@ Step 3 of 3: Marker
     scale 0.2s;
 }
 
-
 .marker-flip[open] > summary svg {
   scale: 1 -1;
 }
-
 
 .marker-rotate[open] > summary svg {
   rotate: 180deg;
 }
 
-
 .marker-turn[open] > summary svg {
   rotate: 90deg;
 }
 
-
 .marker-turn:dir(rtl) > summary svg {
   scale: -1 1;
 }
-
 
 .marker-turn[open]:dir(rtl) > summary svg {
   rotate: -90deg;

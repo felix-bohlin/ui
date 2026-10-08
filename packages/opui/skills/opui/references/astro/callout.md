@@ -39,7 +39,6 @@ Tonal (default) and outlined variants are available via the `variant` prop.
 import { Callout } from "opui-css/astro"
 ---
 
-
 <Callout>
   <Fragment slot="title">Note</Fragment>
   <p>
@@ -72,7 +71,6 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 import { Callout } from "opui-css/astro"
 ---
 
-
 <Callout severity="neutral">This is a tonal neutral Callout</Callout>
 <Callout severity="info">This is a tonal info Callout</Callout>
 <Callout severity="success">This is a tonal success Callout</Callout>
@@ -103,7 +101,6 @@ import { Callout } from "opui-css/astro"
 ---
 import { Callout } from "opui-css/astro"
 ---
-
 
 <Callout>
   <svg
@@ -213,7 +210,6 @@ Step 1 of 4: Surface
   padding: 0.75rem;
 }
 
-
 .callout > .content {
   display: grid;
   font-size: var(--font-size-05);
@@ -232,7 +228,6 @@ Step 2 of 4: Tint layer
   isolation: isolate;
   position: relative;
 }
-
 
 .callout::before {
   background-color: var(--bg);
@@ -257,7 +252,6 @@ Step 3 of 4: Icon
   grid-template-columns: var(--icon-size) 1fr;
 }
 
-
 .callout > svg {
   margin-block-start: 0.15rem;
 }
@@ -273,11 +267,9 @@ Step 4 of 4: Severity
   --tone: oklch(58% 0.21 var(--hue-blue));
 }
 
-
 .warning {
   --tone: oklch(58% 0.21 var(--hue-orange));
 }
-
 
 .callout:is(.info, .warning) {
   --bg: light-dark(
@@ -294,7 +286,6 @@ Step 4 of 4: Severity
     oklch(from var(--tone) 98% 0.03 h)
   );
 }
-
 
 .callout > svg {
   color: var(--icon, currentColor);

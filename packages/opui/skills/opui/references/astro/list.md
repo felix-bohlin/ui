@@ -40,7 +40,6 @@ import { List } from "opui-css/astro"
 import ListAll from "./partials/ListAll.astro"
 ---
 
-
 <List>
   <ListAll prefix="default-" />
 </List>
@@ -71,19 +70,16 @@ Without a color class the list uses the filled surface, because lists usually si
 import { List, ListItem } from "opui-css/astro"
 ---
 
-
 <div class="column" style="gap: var(--size-4);">
   <List>
     <ListItem headline="Filled (default)" />
     <ListItem headline="Second item" />
   </List>
 
-
   <List variant="tonal">
     <ListItem headline="Tonal" />
     <ListItem headline="Second item" />
   </List>
-
 
   <List variant="transparent">
     <ListItem headline="Transparent" />
@@ -104,7 +100,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 import { CheckboxInput } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem as="button" headline="Button list item" />
@@ -127,7 +122,6 @@ Add `aria-current="page"` to the link inside the `ListItem`.
 ---
 import { List, ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem>
@@ -158,7 +152,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
 
-
 <List>
   <ListItem headline="Headline" />
   <ListItem
@@ -183,7 +176,6 @@ Authored via the `start` slot on `ListItem`.
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem headline="Headline">
@@ -228,7 +220,6 @@ import { ListItem } from "opui-css/astro"
 import { Avatar } from "opui-css/astro"
 ---
 
-
 <List>
   <ListItem headline="Headline">
     <Avatar slot="start">AB</Avatar>
@@ -253,7 +244,6 @@ import { Avatar } from "opui-css/astro"
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem headline="Headline" description="Supporting text">
@@ -284,7 +274,6 @@ import { ListItem } from "opui-css/astro"
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem headline="Headline" description="Supporting text">
@@ -320,7 +309,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
 
-
 <List>
   <ListItem headline="Headline">
     <Fragment slot="end">30kB</Fragment>
@@ -345,7 +333,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
 
-
 <List>
   <ListItem headline="Save all">
     <kbd slot="end">CTRL+ALT+DEL</kbd>
@@ -368,7 +355,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 import { CheckboxInput } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem type="checkbox" for="checkbox-example-1">
@@ -396,7 +382,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 import { RadioInput } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem type="radio" for="radio-example-1">
@@ -431,7 +416,6 @@ import { ListItem } from "opui-css/astro"
 import { SwitchInput } from "opui-css/astro"
 ---
 
-
 <List>
   <ListItem type="switch" for="switch-example-1">
     <Fragment slot="text">Switch 1</Fragment>
@@ -453,7 +437,6 @@ Enables a list item without a start icon to align with items that do.
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem headline="No inset">
@@ -489,7 +472,6 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
@@ -542,7 +524,6 @@ import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
 
-
 <List bordered>
   <ListItem headline="So" />
   <ListItem headline="Many" />
@@ -559,7 +540,6 @@ Add the `borderTop` prop to a `ListItem` to give it an upper border.
 import { List } from "opui-css/astro"
 import { ListItem } from "opui-css/astro"
 ---
-
 
 <List>
   <ListItem headline="I need borders" />
@@ -716,7 +696,6 @@ Step 1 of 4: Row
   padding: 0.5rem 0;
 }
 
-
 .list > li,
 .list > li > button {
   align-items: center;
@@ -727,18 +706,15 @@ Step 1 of 4: Row
   position: relative;
 }
 
-
 .start {
   display: grid;
   inline-size: var(--start-size);
 }
 
-
 .text {
   display: grid;
   flex: 1;
 }
-
 
 .text > * + * {
   color: var(--text-muted);
@@ -756,11 +732,9 @@ Step 2 of 4: Clickable
   padding: 0;
 }
 
-
 .list > li > button {
   inline-size: 100%;
 }
-
 
 .list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
@@ -781,7 +755,6 @@ Step 4 of 4: Bordered
 .bordered > li + li {
   margin-block-start: 0.75rem;
 }
-
 
 .bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);

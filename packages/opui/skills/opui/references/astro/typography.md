@@ -116,9 +116,7 @@ Let's put everything together and see how all elements look in a classless, rich
     meggings sartorial disrupt.
   </p>
 
-
   <hr />
-
 
   <h2 id="inline-text">Inline text</h2>
   <p>
@@ -192,7 +190,6 @@ Let's put everything together and see how all elements look in a classless, rich
     This sentence follows a line break.
   </p>
 
-
   <h2>Headings</h2>
   <p>Each level followed by body copy.</p>
   <h1>Heading level one</h1>
@@ -214,7 +211,6 @@ Let's put everything together and see how all elements look in a classless, rich
     restructuring your content instead.
   </p>
 
-
   <h3>Stacked headings</h3>
   <h4>An <code>h4</code> directly under an <code>h3</code></h4>
   <h5>An <code>h5</code> directly under an <code>h4</code></h5>
@@ -224,11 +220,9 @@ Let's put everything together and see how all elements look in a classless, rich
     hugs the last one.
   </p>
 
-
   <h3>Sibling headings of the same level</h3>
   <h3>Like this one, right after another <code>h3</code></h3>
   <p>Vegan poutine letterpress tacos coloring book flannel hexagon.</p>
-
 
   <h3>
     A heading with <code>code</code>, <em>emphasis</em> and{" "}
@@ -236,14 +230,12 @@ Let's put everything together and see how all elements look in a classless, rich
   </h3>
   <p>Shoreditch tbh mlkshk wolf.</p>
 
-
   <h3>
     A deliberately long heading that wraps onto several lines to check line
     height, letter spacing and text wrapping at larger sizes, because titles
     from a CMS are never as short as the designer hoped
   </h3>
   <p>Heirloom cloud bread tousled.</p>
-
 
   <h4>A heading directly followed by a list</h4>
   <ul>
@@ -255,9 +247,7 @@ Let's put everything together and see how all elements look in a classless, rich
   <h4>A heading directly followed by a blockquote</h4>
   <blockquote>Humblebrag cloud bread kogi raw denim pabst affogato.</blockquote>
 
-
   <hr />
-
 
   <hgroup>
     <p>Mid-article heading group</p>
@@ -355,7 +345,6 @@ Let's put everything together and see how all elements look in a classless, rich
     <li><label><input type="checkbox" disabled /> Drink it all</label></li>
   </ul>
 
-
   <h2>Description lists</h2>
   <p>
     Tbh literally roof party four loko snackwave vexillologist cold-pressed
@@ -382,7 +371,6 @@ Let's put everything together and see how all elements look in a classless, rich
       </ul>
     </dd>
   </dl>
-
 
   <h2>Blockquotes</h2>
   <p>Without any inner elements:</p>
@@ -421,7 +409,6 @@ Let's put everything together and see how all elements look in a classless, rich
     <figcaption>— A barista, probably</figcaption>
   </figure>
 
-
   <h2>Code</h2>
   <p>
     Flexitarian <code>brew.config.js</code> kogi hashtag vaporware, set{" "}
@@ -433,7 +420,6 @@ Let's put everything together and see how all elements look in a classless, rich
   roast: {
     level: "light",
   },
-
 
   steepHours: 18,
   plugins: ["oat-milk", "pour-over"],
@@ -461,7 +447,6 @@ cold-brew 1.0.0</samp></pre>
     <figcaption>A code block with a caption.</figcaption>
   </figure>
 
-
   <h2>Media</h2>
   <p>Raclette actually marfa air plant gluten-free knausgaard:</p>
   <figure>
@@ -488,7 +473,6 @@ cold-brew 1.0.0</samp></pre>
       loading="lazy"
     />
   </p>
-
 
   <h2>Tables</h2>
   <p>Tables from Markdown or a CMS never come with classes:</p>
@@ -532,7 +516,6 @@ cold-brew 1.0.0</samp></pre>
     </tfoot>
   </table>
 
-
   <h2>Other elements</h2>
   <details>
     <summary>A closed disclosure</summary>
@@ -574,9 +557,7 @@ cold-brew 1.0.0</samp></pre>
   </div>
   <p>And now we're back in rich text.</p>
 
-
   <hr />
-
 
   <ol>
     <li id="footnote-1">
@@ -678,16 +659,13 @@ Step 4 of 4: Flow space
   syntax: "<length>";
 }
 
-
 .prose {
   --flow-space: round(1.25em, var(--rhythm-step));
 }
 
-
 .prose > * {
   margin-block: 0 var(--flow-space);
 }
-
 
 .prose h2 {
   margin-block: calc(var(--flow-space) * 3)

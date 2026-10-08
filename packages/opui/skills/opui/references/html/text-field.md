@@ -56,7 +56,6 @@ Text fields are outlined by default. Add `.ui-filled` for a filled field.
   </span>
 </label>
 
-
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Filled</span>
   <span class="ui-field">
@@ -77,7 +76,6 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-text-field ui-small">
   <span class="ui-label">Small</span>
   <span class="ui-field">
@@ -85,14 +83,12 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-text-field">
   <span class="ui-label">Default</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>
 </label>
-
 
 <label class="ui-text-field ui-large">
   <span class="ui-label">Large</span>
@@ -146,7 +142,6 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   </span>
 </label>
 
-
 <label class="ui-text-field">
   <span class="ui-label">Website</span>
   <span class="ui-field">
@@ -155,7 +150,6 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   </span>
 </label>
 
-
 <label class="ui-text-field">
   <span class="ui-label">Weight</span>
   <span class="ui-field">
@@ -163,7 +157,6 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
     <span class="ui-suffix">kg</span>
   </span>
 </label>
-
 
 <label class="ui-text-field">
   <span class="ui-label">Search</span>
@@ -201,7 +194,6 @@ Use the header for inside-field captions (filenames, categories) and the footer 
   </span>
 </label>
 
-
 <label class="ui-text-field">
   <span class="ui-label">Tagline</span>
   <span class="ui-field">
@@ -234,7 +226,6 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     </span>
   </label>
 </div>
-
 
 <div class="example-row">
   <label class="ui-text-field">
@@ -283,7 +274,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-text-field ui-spread ui-filled">
   <span class="ui-label">Email</span>
   <span class="ui-start-text">We'll use this to contact you</span>
@@ -299,7 +289,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-text-field ui-spread">
   <span class="ui-label">Required</span>
   <span class="ui-start-text">You must fill this in</span>
@@ -308,7 +297,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-text-field ui-spread">
   <span class="ui-label">Disabled</span>
   <span class="ui-start-text">This field is disabled</span>
@@ -316,7 +304,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <input type="text" disabled />
   </span>
 </label>
-
 
 <label class="ui-text-field ui-spread">
   <span class="ui-label">Invalid Name</span>
@@ -333,7 +320,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-text-field ui-spread">
   <span class="ui-label">Amount</span>
   <span class="ui-start-text">Daily spending limit</span>
@@ -343,7 +329,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-suffix">EUR</span>
   </span>
 </label>
-
 
 <label class="ui-text-field ui-spread ui-filled">
   <span class="ui-label">Website</span>
@@ -361,7 +346,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-text-field ui-spread">
   <span class="ui-label">Project name</span>
   <span class="ui-start-text">Used to generate the project URL</span>
@@ -371,7 +355,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-footer">Lowercase letters and dashes only</span>
   </span>
 </label>
-
 
 <label class="ui-text-field ui-spread ui-filled">
   <span class="ui-label">API key</span>
@@ -467,7 +450,6 @@ Use `.ui-auto-fit` to let the field's width follow its content, from `25ch`.
   </label>
 </div>
 
-
 <div class="example-column">
   <label class="ui-text-field input-type-field">
     <span class="ui-label">Date</span>
@@ -552,7 +534,6 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
   </span>
 </label>
 
-
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
@@ -580,7 +561,6 @@ Leverages the `<input>` + `<datalist>` element combo.
     <option value="Marika Hackman"></option>
   </datalist>
 </label>
-
 
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Emails</span>
@@ -749,17 +729,14 @@ Step 1 of 4: Wrapper
   --helper: var(--field-helper-color);
   --label: var(--text-muted);
 
-
   display: grid;
 }
-
 
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -768,7 +745,6 @@ Step 1 of 4: Wrapper
   display: grid;
   min-block-size: var(--field-size);
 }
-
 
 .field input {
   background: transparent;
@@ -780,11 +756,9 @@ Step 1 of 4: Wrapper
   padding: 0.5rem;
 }
 
-
 .text-field:focus-within .field {
   border-color: var(--accent);
 }
-
 
 .end-text {
   color: var(--helper);
@@ -812,11 +786,9 @@ Step 2 of 4: Affixes
   grid-template-columns: auto 1fr auto;
 }
 
-
 .field input {
   grid-area: input;
 }
-
 
 .prefix,
 .suffix {
@@ -826,21 +798,17 @@ Step 2 of 4: Affixes
   padding-inline: 0.5rem;
 }
 
-
 .prefix {
   grid-area: prefix;
 }
-
 
 .suffix {
   grid-area: suffix;
 }
 
-
 .field:has(> .prefix) input {
   padding-inline-start: 0;
 }
-
 
 .field:has(> .suffix) input {
   padding-inline-end: 0;

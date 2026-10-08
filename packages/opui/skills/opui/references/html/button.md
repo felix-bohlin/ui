@@ -80,14 +80,12 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-large">Large</button>
 </div>
 
-
 <div class="example-row">
   <button type="button" class="ui-button ui-filled ui-x-small">x-small</button>
   <button type="button" class="ui-button ui-filled ui-small">Small</button>
   <button type="button" class="ui-button ui-filled">Default</button>
   <button type="button" class="ui-button ui-filled ui-large">Large</button>
 </div>
-
 
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined ui-x-small">
@@ -170,7 +168,6 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
     </svg>
   </button>
 
-
   <button type="button" class="ui-button ui-outlined">
     <span class="ui-text">Outlined</span>
     <svg
@@ -186,7 +183,6 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
     </svg>
   </button>
 
-
   <button type="button" class="ui-button ui-tonal">
     <span class="ui-text">Tonal</span>
     <svg
@@ -201,7 +197,6 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
       ></path>
     </svg>
   </button>
-
 
   <button type="button" class="ui-button ui-filled">
     <span class="ui-text">Filled</span>
@@ -248,7 +243,6 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
     <span class="ui-text">Outlined</span>
   </button>
 
-
   <button type="button" class="ui-button ui-tonal">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +257,6 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
     </svg>
     <span class="ui-text">Tonal</span>
   </button>
-
 
   <button type="button" class="ui-button ui-filled">
     <svg
@@ -377,16 +370,12 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
 <div class="example-row">
   <button type="button" class="ui-button" disabled>Text</button>
 
-
   <button type="button" class="ui-button ui-outlined" disabled>Outlined</button>
-
 
   <button type="button" class="ui-button ui-tonal" disabled>Tonal</button>
 
-
   <button type="button" class="ui-button ui-filled" disabled>Filled</button>
 </div>
-
 
 <div class="example-row">
   <button type="button" class="ui-button" disabled>
@@ -404,7 +393,6 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
     </svg>
   </button>
 
-
   <button type="button" class="ui-button ui-outlined" disabled>
     <span class="ui-text">Outlined</span>
     <svg
@@ -420,7 +408,6 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
     </svg>
   </button>
 
-
   <button type="button" class="ui-button ui-tonal" disabled>
     <span class="ui-text">Tonal</span>
     <svg
@@ -435,7 +422,6 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
       ></path>
     </svg>
   </button>
-
 
   <button type="button" class="ui-button ui-filled" disabled>
     <span class="ui-text">Filled</span>
@@ -453,16 +439,12 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   </button>
 </div>
 
-
 <div class="example-row">
   <a href="#" class="ui-button" aria-disabled="true">Text</a>
 
-
   <a href="#" class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
 
-
   <a href="#" class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
-
 
   <a href="#" class="ui-button ui-filled" aria-disabled="true">Filled</a>
 </div>
@@ -561,7 +543,6 @@ Step 1 of 3: Base
   padding-inline: var(--padding-inline);
 }
 
-
 .button > svg {
   block-size: auto;
   flex-shrink: 0;
@@ -596,7 +577,6 @@ Step 3 of 3: Icon side
 .button:has(> svg:first-child + *) {
   padding-inline-start: calc(var(--padding-inline) * 0.75);
 }
-
 
 .button:has(> * + svg:last-child) {
   padding-inline-end: calc(var(--padding-inline) * 0.75);

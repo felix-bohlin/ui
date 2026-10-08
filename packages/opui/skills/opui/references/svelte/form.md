@@ -43,7 +43,6 @@ Dog Cat
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend><!-- --></FieldLegend>
@@ -73,7 +72,6 @@ Groups related fields. Label it with `FieldLegend` and add an optional `FieldDes
   } from "opui-css/svelte"
 </script>
 
-
 <FieldSet>
   <FieldLegend>Favorite Pet</FieldLegend>
   <FieldDescription>Please select your favorite type of pet.</FieldDescription>
@@ -102,7 +100,6 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
@@ -114,7 +111,6 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
       <Radio value="king-of-limbs">The King of Limbs</Radio>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Which side projects do you follow?</FieldLegend>
@@ -160,7 +156,6 @@ Set `direction="row"` to lay out fields horizontally.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Options</FieldLegend>
@@ -190,7 +185,6 @@ Set `disabled` on `FieldSet` to disable every field inside.
   } from "opui-css/svelte"
 </script>
 
-
 <FieldSet disabled>
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
@@ -215,7 +209,6 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
     FieldSet,
   } from "opui-css/svelte"
 </script>
-
 
 <FieldSet>
   <FieldLegend>Pet food</FieldLegend>
@@ -244,7 +237,6 @@ The legend gets an asterisk when a field inside is required.
   } from "opui-css/svelte"
 </script>
 
-
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
@@ -272,7 +264,6 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Post Content</FieldLegend>
@@ -281,9 +272,7 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldGroup>
     <Button>Save draft</Button>
@@ -305,7 +294,6 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` a
     Form,
   } from "opui-css/svelte"
 </script>
-
 
 <Form as="div">
   <FieldSet aria-labelledby="delivery-legend" as="div">
@@ -338,20 +326,17 @@ Everything at once.
     Textarea,
   } from "opui-css/svelte"
 
-
   const roleItems = [
     { text: "Developer", value: "dev" },
     { text: "Designer", value: "design" },
     { text: "Manager", value: "manager" },
   ]
 
-
   let emailNotifs = $state(true)
   let smsNotifs = $state(false)
   let theme = $state("light")
   let experience = $state(5)
 </script>
-
 
 <Form id="kitchen-sink-example">
   <FieldSet>
@@ -371,9 +356,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Notifications</FieldLegend>
@@ -390,9 +373,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Theme Preference</FieldLegend>
@@ -404,9 +385,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Experience Level</FieldLegend>
@@ -425,9 +404,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Additional Info</FieldLegend>
@@ -441,9 +418,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
@@ -455,9 +430,7 @@ Everything at once.
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldGroup>
     <Button variant="filled" type="submit">Send</Button>
@@ -637,7 +610,6 @@ Step 1 of 4: Fieldset
   gap: 0.25rem;
 }
 
-
 .fieldset legend {
   all: unset;
   font-weight: 600;
@@ -654,13 +626,11 @@ Step 2 of 4: Description
   margin-block-end: 0;
 }
 
-
 .description {
   color: var(--text-muted);
   font-size: var(--font-size-05);
   margin: 0;
 }
-
 
 .description:has(+ *) {
   margin-block-end: 0.75rem;
@@ -691,16 +661,13 @@ Step 3 of 4: Groups
   gap: 1rem;
 }
 
-
 .group + .group {
   margin-block-start: 1.25rem;
 }
 
-
 .group:has(> .check):not(:has(> :not(.check))) {
   gap: 0.5rem;
 }
-
 
 .group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
@@ -708,11 +675,9 @@ Step 3 of 4: Groups
   gap: 0.5rem;
 }
 
-
 .group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
   margin-block-start: 1rem;
 }
-
 
 .group.column:has(> button):not(:has(> :not(button))) {
   align-items: start;
@@ -726,7 +691,6 @@ Step 4 of 4: Required
   padding-inline-end: 1ex;
   position: relative;
 }
-
 
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);

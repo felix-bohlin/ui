@@ -44,7 +44,6 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -53,7 +52,6 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel buttons="outside" label="Destinations" markers>
   {#each places as { description, title } (title)}
@@ -78,7 +76,6 @@ Set `perView` to show more than one item at a time.
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -87,7 +84,6 @@ Set `perView` to show more than one item at a time.
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel buttons="outside" label="Destinations" perView={3}>
   {#each places as { description, title } (title)}
@@ -114,7 +110,6 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     {
@@ -127,7 +122,6 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
     { description: "Medina markets.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel buttons="outside" label="Destinations" perView={3} stretch>
   {#each places as { description, title } (title)}
@@ -152,7 +146,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -161,7 +154,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel align="center" buttons={false} label="Destinations" markers peek>
   {#each places as { description, title } (title)}
@@ -186,7 +178,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -195,7 +186,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel
   label="Destinations"
@@ -225,7 +215,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Carousel } from "opui-css/svelte"
 
-
   const photos = [
     { alt: "A deep blue fjord between steep mountains", id: 1015 },
     { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
@@ -234,7 +223,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
     { alt: "A waterfall in a green forest valley", id: 1039 },
   ]
 </script>
-
 
 <Carousel label="Photos" markers>
   {#each photos as { alt, id } (id)}
@@ -255,7 +243,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Carousel } from "opui-css/svelte"
 
-
   const photos = [
     { alt: "A deep blue fjord between steep mountains", id: 1015 },
     { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
@@ -264,7 +251,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
     { alt: "A waterfall in a green forest valley", id: 1039 },
   ]
 </script>
-
 
 <Carousel label="Gallery" perView={3} aspectRatio="1">
   {#each photos as { alt, id } (id)}
@@ -289,13 +275,11 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Carousel } from "opui-css/svelte"
 
-
   const videos = [
     { label: "A red flower bud opening", name: "flower" },
     { label: "Scene from a black-and-white film", name: "friday" },
   ]
 </script>
-
 
 <Carousel label="Videos" markers>
   {#each videos as { label, name } (name)}
@@ -316,7 +300,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 <script lang="ts">
   import { Carousel } from "opui-css/svelte"
 
-
   const tutorials = [
     {
       id: "gmI5nvzv170",
@@ -329,7 +312,6 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
     },
   ]
 </script>
-
 
 <Carousel label="Tutorials" markers>
   {#each tutorials as { id, title } (id)}
@@ -355,7 +337,6 @@ Use `buttons="outside"` to keep the buttons off the content.
 <script lang="ts">
   import { Button, Card, Carousel } from "opui-css/svelte"
 
-
   const plans = [
     {
       action: "Choose Basic",
@@ -371,7 +352,6 @@ Use `buttons="outside"` to keep the buttons off the content.
     { action: "Choose Team", description: "For small teams.", title: "Team" },
   ]
 </script>
-
 
 <Carousel buttons="outside" label="Plans" perView={2}>
   {#each plans as { action, description, title } (title)}
@@ -398,7 +378,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Tiles, trams and custard tarts.", title: "Lisbon" },
@@ -406,7 +385,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
   {#each places as { description, title } (title)}
@@ -431,7 +409,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
     { description: "Ceviche by the Pacific.", title: "Lima" },
@@ -440,7 +417,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
     { description: "Medina markets and Mediterranean light.", title: "Tunis" },
   ]
 </script>
-
 
 <Carousel
   buttons="outside"
@@ -460,7 +436,6 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
     </li>
   {/each}
 </Carousel>
-
 
 <style>
   :global {
@@ -485,10 +460,8 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
 <script lang="ts">
   import { Card, Carousel } from "opui-css/svelte"
 
-
   const places = ["Kyoto", "Lima", "Lisbon"]
 </script>
-
 
 <div
   style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
@@ -611,7 +584,6 @@ Step 1 of 4: Grid track
   overflow-x: auto;
 }
 
-
 .carousel > li {
   min-inline-size: 0;
 }
@@ -627,7 +599,6 @@ Step 2 of 4: Scroll snap
   overscroll-behavior-inline: contain;
   scroll-snap-type: x mandatory;
 }
-
 
 .carousel > li {
   scroll-snap-align: start;
@@ -655,18 +626,15 @@ Step 3 of 4: Scroll buttons
   translate: 0 -50%;
 }
 
-
 .carousel.with-buttons::scroll-button(inline-start) {
   content: "❮" / "Previous";
   inset-inline-start: calc(anchor(self-start) + 0.5rem);
 }
 
-
 .carousel.with-buttons::scroll-button(inline-end) {
   content: "❯" / "Next";
   inset-inline-end: calc(anchor(self-end) + 0.5rem);
 }
-
 
 .carousel.with-buttons::scroll-button(inline-start):disabled,
 .carousel.with-buttons::scroll-button(inline-end):disabled {
@@ -686,11 +654,9 @@ Step 4 of 4: Scroll markers
   counter-reset: slide;
 }
 
-
 .carousel.with-markers {
   scroll-marker-group: after;
 }
-
 
 .carousel.with-markers::scroll-marker-group {
   display: flex;
@@ -699,11 +665,9 @@ Step 4 of 4: Scroll markers
   margin-block-start: 0.75rem;
 }
 
-
 .carousel > li {
   counter-increment: slide;
 }
-
 
 .carousel.with-markers > li::scroll-marker {
   background-color: oklch(from var(--text-primary) l c h / 25%);
@@ -714,11 +678,9 @@ Step 4 of 4: Scroll markers
   inline-size: 0.5rem;
 }
 
-
 .carousel.with-markers > li::scroll-marker:target-current {
   background-color: var(--primary);
 }
-
 
 @supports selector(::scroll-button(*)) {
   .carousel:is(.with-buttons, .with-markers) {

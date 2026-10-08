@@ -33,20 +33,17 @@ Change the appearance of the entire group with the `.ui-outlined`, `.ui-tonal`, 
   <button type="button" class="ui-button">Text</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">Outlined</button>
   <button type="button" class="ui-button">Outlined</button>
   <button type="button" class="ui-button">Outlined</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-tonal">
   <button type="button" class="ui-button">Tonal</button>
   <button type="button" class="ui-button">Tonal</button>
   <button type="button" class="ui-button">Tonal</button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-filled">
   <button type="button" class="ui-button">Filled</button>
@@ -66,7 +63,6 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
   <button type="button" class="ui-button">Primary</button>
 </div>
 
-
 <div class="ui-button-group ui-critical ui-filled" role="group">
   <button type="button" class="ui-button">Critical</button>
   <button type="button" class="ui-button">Critical</button>
@@ -85,20 +81,17 @@ Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small`
   <button type="button" class="ui-button">x-small</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-small ui-outlined">
   <button type="button" class="ui-button">Small</button>
   <button type="button" class="ui-button">Small</button>
   <button type="button" class="ui-button">Small</button>
 </div>
 
-
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">Default</button>
   <button type="button" class="ui-button">Default</button>
   <button type="button" class="ui-button">Default</button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-large ui-outlined">
   <button type="button" class="ui-button">Large</button>
@@ -127,9 +120,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
   </button>
 
-
   <button type="button" class="ui-button">Maybe</button>
-
 
   <button type="button" class="ui-button" aria-label="No">
     <svg
@@ -145,7 +136,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
   </button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">
@@ -163,7 +153,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     <span class="ui-text">OK</span>
   </button>
 
-
   <button type="button" class="ui-button">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +167,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
     </svg>
     <span class="ui-text">Maybe</span>
   </button>
-
 
   <button type="button" class="ui-button">
     <svg
@@ -205,7 +193,6 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">Save</button>
 
-
   <button
     type="button"
     class="ui-button"
@@ -225,7 +212,6 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       ></path>
     </svg>
   </button>
-
 
   <menu
     id="split-button-menu-html"
@@ -264,7 +250,6 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
   <button type="button" class="ui-button" disabled>Disabled</button>
   <button type="button" class="ui-button">Enabled</button>
 </div>
-
 
 <div role="group" class="ui-button-group ui-filled ui-primary">
   <button type="button" class="ui-button">Enabled</button>
@@ -313,7 +298,6 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
   </div>
 
-
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
@@ -347,7 +331,6 @@ Change the layout of the group with the `.ui-vertical` class.
       </svg>
     </button>
   </div>
-
 
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
@@ -383,7 +366,6 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
   </div>
 
-
   <div class="ui-button-group ui-filled ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
@@ -418,7 +400,6 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
   </div>
 </div>
-
 
 <div class="example-row">
   <div class="ui-button-group ui-vertical" role="group">
@@ -616,7 +597,6 @@ Step 1 of 3: Join
   overflow: hidden;
 }
 
-
 [role="group"].group > button {
   border-radius: 0;
   flex: auto;
@@ -655,11 +635,9 @@ Step 3 of 3: Outline
   outline-offset: -1px;
 }
 
-
 [role="group"].group.outlined {
   --edge: light-dark(var(--color-16), var(--color-1));
 }
-
 
 [role="group"].group.outlined > button {
   --divider: var(--edge);

@@ -31,7 +31,6 @@ The Chip has two variants: `tonal` (default) and `outlined`.
 import { Chip } from "opui-css/vue"
 </script>
 
-
 <template>
   <Chip variant="tonal" label="Tonal" />
   <Chip variant="outlined" label="Outlined" />
@@ -46,7 +45,6 @@ Set `color` to `critical`, `info`, `neutral`, `success` or `warning` to tint a t
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
-
 
 <template>
   <Chip color="critical" label="Past due" />
@@ -65,7 +63,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
-
 
 <template>
   <Chip size="x-small" label="x-small" />
@@ -88,7 +85,6 @@ The icon can be placed before or after the text using the `start` and `end` slot
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
-
 
 <template>
   <Chip variant="tonal">
@@ -133,7 +129,6 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 import { Chip } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Chip color="critical" dot label="Past due" />
@@ -142,7 +137,6 @@ import { Chip } from "opui-css/vue"
     <Chip color="success" dot label="Paid" />
     <Chip color="warning" dot label="Due 15 Oct" />
   </div>
-
 
   <div class="example-row">
     <Chip
@@ -178,7 +172,6 @@ import { Chip } from "opui-css/vue"
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row">
@@ -227,7 +220,6 @@ import { Chip } from "opui-css/vue"
 import { Chip } from "opui-css/vue"
 </script>
 
-
 <template>
   <Chip as="a" href="#" variant="tonal" label="Tonal link" />
   <Chip as="a" href="#" variant="outlined">
@@ -256,7 +248,6 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row">
@@ -349,7 +340,6 @@ Step 1 of 4: Base
   <span class="text">Design</span>
 </div>
 
-
 <button class="chip" type="button">…</button>
 ```
 
@@ -379,11 +369,9 @@ Step 2 of 4: Icon
   padding-inline-start: var(--size-1);
 }
 
-
 .chip:has(> svg:last-child) {
   padding-inline-end: var(--size-1);
 }
-
 
 .chip svg {
   flex-shrink: 0;
@@ -399,7 +387,6 @@ Step 3 of 4: Truncate
 .chip {
   max-inline-size: 100%;
 }
-
 
 .chip > .text {
   min-inline-size: 0;

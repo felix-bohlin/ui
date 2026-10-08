@@ -11,7 +11,6 @@ A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anch
 import { Button, Menu } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
     Options
@@ -36,7 +35,6 @@ If you want to decide yourself what goes into your list.
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button
@@ -126,10 +124,8 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 
-
 const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 </script>
-
 
 <template>
   <Button
@@ -141,7 +137,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   </Button>
   <Menu id="menu-block-start" :items="items" placement="block-start" />
 
-
   <Button
     commandfor="menu-block-end"
     command="toggle-popover"
@@ -151,7 +146,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   </Button>
   <Menu id="menu-block-end" :items="items" />
 
-
   <Button
     commandfor="menu-inline-start"
     command="toggle-popover"
@@ -160,7 +154,6 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
     Inline start
   </Button>
   <Menu id="menu-inline-start" :items="items" placement="inline-start" />
-
 
   <Button
     commandfor="menu-inline-end"
@@ -181,13 +174,11 @@ Pass a `Menu` to the `submenu` slot of a `ListItem`. Mark the item with an icon 
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 
-
 const formats = ["PDF", "PNG", "SVG"].map((label) => ({
   commandfor: "menu-file",
   label,
 }))
 </script>
-
 
 <template>
   <Button commandfor="menu-file" command="toggle-popover" variant="outlined">
@@ -229,7 +220,6 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 </script>
-
 
 <template>
   <Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
@@ -335,7 +325,6 @@ Step 1 of 5: Popover
   Options
 </button>
 
-
 <menu class="menu" id="menu" popover>
   <li>
     <button type="button" commandfor="menu" command="hide-popover">
@@ -379,7 +368,6 @@ Step 3 of 5: Fit
   overflow-y: auto;
   overscroll-behavior: contain;
 
-
   @supports (min-block-size: calc-size(fit-content, size)) {
     max-block-size: min(60dvb, 100% - 0.5rem);
     min-block-size: calc-size(fit-content, min(size, 12rem));
@@ -401,12 +389,10 @@ Step 4 of 5: Flip
     --menu-block-start;
 }
 
-
 @position-try --menu-block-end {
   margin: 0.25rem 0;
   position-area: block-end span-all;
 }
-
 
 @position-try --menu-block-start {
   margin: 0.25rem 0;
@@ -432,11 +418,9 @@ Step 5 of 5: Animate
     scale calc(0.15s * var(--motion, 1));
 }
 
-
 .menu:popover-open {
   opacity: 1;
   scale: 1;
-
 
   @starting-style {
     opacity: 0;

@@ -37,7 +37,6 @@ The `name` prop will get passed down to each radio button in the group.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -58,7 +57,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { Radio } from "opui-css/svelte"
 </script>
-
 
 <div class="example-row">
   <Radio
@@ -103,7 +101,6 @@ The `children` snippet is the label. Without a visible label, keep the text in i
   import { Radio } from "opui-css/svelte"
 </script>
 
-
 <Radio name="radio-visible-label" value="a" checked>Choice A</Radio>
 <Radio name="radio-visible-label" value="b" disabled>Disabled</Radio>
 <Radio name="radio-visible-label" value="c">
@@ -122,7 +119,6 @@ Set `stack` to put the label under the radio.
   import { Radio } from "opui-css/svelte"
 </script>
 
-
 <Radio name="radio-label-position" value="default" checked>Default</Radio>
 <Radio name="radio-label-position" value="stack" stack>Stack</Radio>
 ```
@@ -135,7 +131,6 @@ Use the `endText` snippet for supporting text under a single radio's label. The 
 <script lang="ts">
   import { Radio } from "opui-css/svelte"
 </script>
-
 
 <Radio name="radio-supporting-text" value="default" checked>
   Default
@@ -163,7 +158,6 @@ Can be placed above and below the fields.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -174,7 +168,6 @@ Can be placed above and below the fields.
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -203,7 +196,6 @@ Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `R
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
@@ -231,7 +223,6 @@ Add the `required` attribute on at least one `Radio`. It is forwarded to the und
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
@@ -258,7 +249,6 @@ Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns r
     Radio,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -288,7 +278,6 @@ Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -315,7 +304,6 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
     Radio,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -471,7 +459,6 @@ Step 1 of 3: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -482,7 +469,6 @@ Step 1 of 3: Appearance
   inline-size: 1.25rem;
   margin: 0;
 }
-
 
 .radio:checked {
   background-color: var(--accent);
@@ -516,12 +502,10 @@ Step 3 of 3: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((1.25rem - 1lh) / 2);

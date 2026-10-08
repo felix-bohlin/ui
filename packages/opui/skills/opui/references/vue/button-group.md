@@ -31,7 +31,6 @@ Change the appearance of the entire group with the `variant` prop.
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
-
 <template>
   <ButtonGroup>
     <Button>Text</Button>
@@ -39,20 +38,17 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <Button>Text</Button>
   </ButtonGroup>
 
-
   <ButtonGroup variant="outlined">
     <Button>Outlined</Button>
     <Button>Outlined</Button>
     <Button>Outlined</Button>
   </ButtonGroup>
 
-
   <ButtonGroup variant="tonal">
     <Button>Tonal</Button>
     <Button>Tonal</Button>
     <Button>Tonal</Button>
   </ButtonGroup>
-
 
   <ButtonGroup variant="filled">
     <Button>Filled</Button>
@@ -71,14 +67,12 @@ Set the `color` prop to `primary` or `critical` to recolor the entire group. The
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
-
 <template>
   <ButtonGroup color="primary" variant="filled">
     <Button>Primary</Button>
     <Button>Primary</Button>
     <Button>Primary</Button>
   </ButtonGroup>
-
 
   <ButtonGroup color="critical" variant="filled">
     <Button>Critical</Button>
@@ -97,7 +91,6 @@ Adjust the size of all buttons in the group using the `size` prop.
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
-
 <template>
   <ButtonGroup size="x-small" variant="outlined">
     <Button>x-small</Button>
@@ -105,20 +98,17 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <Button>x-small</Button>
   </ButtonGroup>
 
-
   <ButtonGroup size="small" variant="outlined">
     <Button>Small</Button>
     <Button>Small</Button>
     <Button>Small</Button>
   </ButtonGroup>
 
-
   <ButtonGroup variant="outlined">
     <Button>Default</Button>
     <Button>Default</Button>
     <Button>Default</Button>
   </ButtonGroup>
-
 
   <ButtonGroup size="large" variant="outlined">
     <Button>Large</Button>
@@ -136,7 +126,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/vue/com
 <script setup lang="ts">
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
-
 
 <template>
   <ButtonGroup variant="outlined">
@@ -168,7 +157,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </svg>
     </Button>
   </ButtonGroup>
-
 
   <ButtonGroup variant="outlined">
     <Button>
@@ -226,7 +214,6 @@ A [Menu](https://open-props-ui.netlify.app/vue/components/menu.md) after the las
 import { Button, ButtonGroup, Menu } from "opui-css/vue"
 </script>
 
-
 <template>
   <ButtonGroup variant="outlined">
     <Button>Save</Button>
@@ -265,14 +252,12 @@ Disable individual buttons within a group by setting the `disabled` prop on each
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
-
 <template>
   <ButtonGroup variant="filled">
     <Button>Enabled</Button>
     <Button disabled>Disabled</Button>
     <Button>Enabled</Button>
   </ButtonGroup>
-
 
   <ButtonGroup variant="filled" color="primary">
     <Button>Enabled</Button>
@@ -291,7 +276,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
@@ -328,7 +312,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
     </ButtonGroup>
 
-
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button aria-label="Increase">
         <svg
@@ -363,7 +346,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
     </ButtonGroup>
 
-
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button aria-label="Increase">
         <svg
@@ -397,7 +379,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
         </svg>
       </Button>
     </ButtonGroup>
-
 
     <ButtonGroup orientation="vertical" variant="filled">
       <Button aria-label="Increase">
@@ -434,25 +415,21 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
   </div>
 
-
   <div class="example-row">
     <ButtonGroup orientation="vertical">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
 
-
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
 
-
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button>Up</Button>
       <Button>Down</Button>
     </ButtonGroup>
-
 
     <ButtonGroup orientation="vertical" variant="filled">
       <Button>Up</Button>
@@ -470,7 +447,6 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 <script setup lang="ts">
 import { Button, ButtonGroup } from "opui-css/vue"
 </script>
-
 
 <template>
   <div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
@@ -644,7 +620,6 @@ Step 1 of 3: Join
   overflow: hidden;
 }
 
-
 [role="group"].group > button {
   border-radius: 0;
   flex: auto;
@@ -683,11 +658,9 @@ Step 3 of 3: Outline
   outline-offset: -1px;
 }
 
-
 [role="group"].group.outlined {
   --edge: light-dark(var(--color-16), var(--color-1));
 }
-
 
 [role="group"].group.outlined > button {
   --divider: var(--edge);

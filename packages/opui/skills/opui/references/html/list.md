@@ -312,7 +312,6 @@ Without a color class the list uses the filled surface, because lists usually si
     </li>
   </ul>
 
-
   <ul class="ui-list ui-tonal">
     <li>
       <div class="ui-text">
@@ -325,7 +324,6 @@ Without a color class the list uses the filled surface, because lists usually si
       </div>
     </li>
   </ul>
-
 
   <ul class="ui-list ui-transparent">
     <li>
@@ -1021,7 +1019,6 @@ Step 1 of 4: Row
   padding: 0.5rem 0;
 }
 
-
 .list > li,
 .list > li > button {
   align-items: center;
@@ -1032,18 +1029,15 @@ Step 1 of 4: Row
   position: relative;
 }
 
-
 .start {
   display: grid;
   inline-size: var(--start-size);
 }
 
-
 .text {
   display: grid;
   flex: 1;
 }
-
 
 .text > * + * {
   color: var(--text-muted);
@@ -1061,11 +1055,9 @@ Step 2 of 4: Clickable
   padding: 0;
 }
 
-
 .list > li > button {
   inline-size: 100%;
 }
-
 
 .list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
@@ -1086,7 +1078,6 @@ Step 4 of 4: Bordered
 .bordered > li + li {
   margin-block-start: 0.75rem;
 }
-
 
 .bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);

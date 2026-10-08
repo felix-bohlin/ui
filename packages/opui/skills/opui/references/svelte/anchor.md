@@ -27,7 +27,6 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
   import { Anchor, Button, Card } from "opui-css/svelte"
 </script>
 
-
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
   {#snippet anchored()}
@@ -38,7 +37,6 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
     </Card>
   {/snippet}
 </Anchor>
-
 
 <style>
   :global {
@@ -63,7 +61,6 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
 <script lang="ts">
   import { Anchor, Avatar, Button, Card } from "opui-css/svelte"
 </script>
-
 
 <div>
   The source lives in
@@ -106,7 +103,6 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
   on GitHub.
 </div>
 
-
 <style>
   :global {
     .repo-card {
@@ -115,19 +111,16 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
       margin-block-start: var(--size-2);
     }
 
-
     .repo-card .ui-content {
       display: grid;
       gap: var(--size-2);
     }
-
 
     .repo-card-identity {
       align-items: center;
       display: flex;
       gap: var(--size-3);
     }
-
 
     .repo-card-identity > div {
       display: grid;
@@ -144,7 +137,6 @@ Preview where a link goes before following it. The card keeps its interactive co
 <script lang="ts">
   import { Anchor, Card } from "opui-css/svelte"
 </script>
-
 
 <div>
   Learn more about
@@ -174,7 +166,6 @@ Preview where a link goes before following it. The card keeps its interactive co
   on MDN.
 </div>
 
-
 <style>
   :global {
     .link-preview {
@@ -182,18 +173,15 @@ Preview where a link goes before following it. The card keeps its interactive co
       margin-block-start: var(--size-2);
     }
 
-
     .link-preview img {
       aspect-ratio: 16 / 9;
       inline-size: 100%;
       object-fit: cover;
     }
 
-
     .link-preview hgroup {
       padding-block-start: 0;
     }
-
 
     .link-preview h3 {
       font-size: var(--font-size-2);
@@ -255,7 +243,6 @@ Step 1 of 4: Hint
 
 ```html
 <button type="button" interestfor="card">felix-bohlin/ui</button>
-
 
 <div class="card" id="card" popover="hint">…</div>
 ```

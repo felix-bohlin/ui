@@ -63,7 +63,6 @@ Above `45ch` the term and description share a row and the border fills the gap b
   </div>
 </dl>
 
-
 <dl class="ui-description-list ui-bordered ui-dotted">
   <div class="ui-item">
     <dt class="ui-term">Price</dt>
@@ -178,21 +177,17 @@ Step 1 of 4: Stacked
   margin: 0;
 }
 
-
 .item {
   display: grid;
 }
-
 
 .item + .item {
   margin-block-start: 0.75rem;
 }
 
-
 .item dt {
   font-weight: 700;
 }
-
 
 .item dd {
   margin: 0;
@@ -208,7 +203,6 @@ Step 2 of 4: Container query
   container-type: inline-size;
 }
 
-
 @container (width > 45ch) {
   .item {
     align-items: baseline;
@@ -217,11 +211,9 @@ Step 2 of 4: Container query
     justify-content: space-between;
   }
 
-
   .item + .item {
     margin-block-start: 0.25rem;
   }
-
 
   .item dd {
     color: var(--text-muted);
@@ -238,7 +230,6 @@ Step 3 of 4: Leader line
     grid-template-columns: auto 1fr auto;
   }
 
-
   .bordered > .item::after {
     block-size: 2px;
     border-block-end: var(--line-width, 1px) var(--line-style, solid)
@@ -246,7 +237,6 @@ Step 3 of 4: Leader line
     content: "";
     order: 1;
   }
-
 
   .bordered > .item dd {
     order: 2;

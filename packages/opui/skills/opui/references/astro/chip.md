@@ -31,7 +31,6 @@ The Chip has two variants: `tonal` (default) and `outlined`.
 import { Chip } from "opui-css/astro"
 ---
 
-
 <Chip variant="tonal" label="Tonal" />
 <Chip variant="outlined" label="Outlined" />
 ```
@@ -44,7 +43,6 @@ Set `color` to `critical`, `info`, `neutral`, `success` or `warning` to tint a t
 ---
 import { Chip } from "opui-css/astro"
 ---
-
 
 <Chip color="critical" label="Past due" />
 <Chip color="info" label="Processing" />
@@ -61,7 +59,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 ---
 import { Chip } from "opui-css/astro"
 ---
-
 
 <Chip size="x-small" label="x-small" />
 <Chip size="small" label="Small" />
@@ -82,7 +79,6 @@ The icon can be placed before or after the text using the `start` and `end` slot
 ---
 import { Chip } from "opui-css/astro"
 ---
-
 
 <Chip variant="tonal">
   <svg
@@ -125,7 +121,6 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 import { Chip } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <Chip color="critical" dot label="Past due" />
   <Chip color="info" dot label="Processing" />
@@ -133,7 +128,6 @@ import { Chip } from "opui-css/astro"
   <Chip color="success" dot label="Paid" />
   <Chip color="warning" dot label="Due 15 Oct" />
 </div>
-
 
 <div class="example-row">
   <Chip color="critical" dot label="Past due" size="small" variant="outlined" />
@@ -156,7 +150,6 @@ import { Chip } from "opui-css/astro"
 ---
 import { Chip } from "opui-css/astro"
 ---
-
 
 <div class="example-row">
   <Chip as="button" variant="tonal" label="Tonal button" />
@@ -203,7 +196,6 @@ import { Chip } from "opui-css/astro"
 import { Chip } from "opui-css/astro"
 ---
 
-
 <Chip as="a" href="#" variant="tonal" label="Tonal link" />
 <Chip as="a" href="#" variant="outlined">
   <span class="ui-text">Outlined link</span>
@@ -230,7 +222,6 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 ---
 import { Chip } from "opui-css/astro"
 ---
-
 
 <div class="example-row">
   <Chip as="button" variant="tonal" label="Tonal" disabled />
@@ -321,7 +312,6 @@ Step 1 of 4: Base
   <span class="text">Design</span>
 </div>
 
-
 <button class="chip" type="button">…</button>
 ```
 
@@ -351,11 +341,9 @@ Step 2 of 4: Icon
   padding-inline-start: var(--size-1);
 }
 
-
 .chip:has(> svg:last-child) {
   padding-inline-end: var(--size-1);
 }
-
 
 .chip svg {
   flex-shrink: 0;
@@ -371,7 +359,6 @@ Step 3 of 4: Truncate
 .chip {
   max-inline-size: 100%;
 }
-
 
 .chip > .text {
   min-inline-size: 0;

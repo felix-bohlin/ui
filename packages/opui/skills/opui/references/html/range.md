@@ -104,7 +104,6 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
   />
 </label>
 
-
 <script>
   {
     const input = document.getElementById("hueRange")
@@ -188,7 +187,6 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-end-text" id="range-row-1-end-text">End text</span>
 </label>
 
-
 <label class="ui-range ui-spread">
   <span class="ui-label" id="range-row-2-label">Disabled</span>
   <span class="ui-start-text" id="range-row-2-start-text">Start text</span>
@@ -200,7 +198,6 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   />
   <span class="ui-end-text" id="range-row-2-end-text">End text</span>
 </label>
-
 
 <label class="ui-range ui-spread">
   <span class="ui-label" id="range-row-3-label">Invalid Range</span>
@@ -215,7 +212,6 @@ Add the `.ui-spread` class to display the label and start text on the left with 
     >This value is incorrect.</span
   >
 </label>
-
 
 <label class="ui-range ui-spread">
   <span class="ui-label" id="range-row-4-label">Tick marks with labels</span>
@@ -350,14 +346,12 @@ Step 1 of 5: Track
   inline-size: 100%;
 }
 
-
 .range::-webkit-slider-runnable-track {
   appearance: none;
   background-color: var(--border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
-
 
 .range::-moz-range-track {
   appearance: none;
@@ -380,7 +374,6 @@ Step 2 of 5: Thumb
   inline-size: 3ex;
   margin-block-start: -1.125ex;
 }
-
 
 .range::-moz-range-thumb {
   appearance: none;
@@ -408,12 +401,10 @@ Step 3 of 5: Fill
     initial-value: 0%;
   }
 
-
   @keyframes build-range-fill {
     from {
       --track-fill: 100%;
     }
-
 
     to {
       --track-fill: 0%;
@@ -438,11 +429,9 @@ Step 3 of 5: Fill
     timeline-scope: --thumb;
   }
 
-
   .range:dir(rtl) {
     animation-direction: reverse;
   }
-
 
   .range::-webkit-slider-thumb {
     view-timeline: --thumb inline;
@@ -450,18 +439,15 @@ Step 3 of 5: Fill
   }
 }
 
-
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
 }
 
-
 .range:dir(rtl)::-webkit-slider-runnable-track {
   background-position: right;
 }
-
 
 .range::-moz-range-progress {
   background-color: var(--primary);
@@ -479,22 +465,18 @@ Step 4 of 5: Halo
   --halo: 0px;
 }
 
-
 .range:not([disabled]):hover {
   --halo: 0.25rem;
 }
-
 
 .range:not([disabled]):active {
   --halo: 0.5rem;
 }
 
-
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
   transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
-
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
@@ -516,7 +498,6 @@ Step 5 of 5: Ticks
   }
 </style>
 
-
 <input class="range" type="range" list="ticks" … />
 <datalist class="ticks" id="ticks">
   <option value="0" label="0"></option>
@@ -530,13 +511,11 @@ Step 5 of 5: Ticks
   --thumb-size: 3ex;
 }
 
-
 .ticks {
   display: flex;
   justify-content: space-between;
   padding-inline: calc(var(--thumb-size) / 2);
 }
-
 
 .ticks > option {
   display: flex;

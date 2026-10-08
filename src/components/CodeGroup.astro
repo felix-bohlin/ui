@@ -1,5 +1,5 @@
 ---
-import { Code } from "astro-expressive-code/components"
+import Code from "./Code.astro"
 import { Tabs } from "@opui/astro"
 
 type Tab = {
@@ -45,7 +45,7 @@ const { tabs } = Astro.props
       isolation: isolate;
     }
 
-    .expressive-code .frame .header {
+    .code-block .code-header {
       border-radius: 0;
     }
   }

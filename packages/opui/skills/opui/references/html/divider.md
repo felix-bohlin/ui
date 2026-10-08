@@ -18,10 +18,8 @@ Use `.ui-filled`, `.ui-primary`, or `.ui-tonal` to change the line color.
 Tonal
 <hr class="ui-divider ui-tonal" />
 
-
 Filled
 <hr class="ui-divider ui-filled" />
-
 
 Primary
 <hr class="ui-divider ui-primary" />
@@ -34,12 +32,9 @@ Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider
 ```html
 <div class="ui-divider">or continue with email</div>
 
-
 <div class="ui-divider ui-align-start">Billing</div>
 
-
 <div class="ui-divider ui-align-end ui-primary">Today</div>
-
 
 <div class="ui-divider">
   <button class="ui-button ui-outlined ui-rounded ui-small" type="button">
@@ -62,7 +57,6 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
     So everything stays close together.
   </div>
 </div>
-
 
 <div style="--divider-space: var(--size-1)">
   A custom space on any wrapper

@@ -53,7 +53,6 @@ Text fields are outlined by default. Set `variant="filled"` for a filled field.
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField label="Outlined" placeholder="Placeholder" />
 <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 ```
@@ -66,7 +65,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 ---
 import { TextField } from "opui-css/astro"
 ---
-
 
 <TextField label="x-small" placeholder="Placeholder" size="x-small" />
 <TextField label="Small" placeholder="Placeholder" size="small" />
@@ -83,7 +81,6 @@ Use the `description` prop or slot for text between the label and the input.
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField description="As it appears on your ID" label="Name" />
 ```
 
@@ -93,7 +90,6 @@ import { TextField } from "opui-css/astro"
 ---
 import { TextField } from "opui-css/astro"
 ---
-
 
 <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
 ```
@@ -107,22 +103,18 @@ Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField label="Amount" placeholder="0.00">
   <Fragment slot="prefix">¢</Fragment>
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
-
 <TextField label="Website" placeholder="example.com">
   <Fragment slot="prefix">https://</Fragment>
 </TextField>
 
-
 <TextField label="Weight" type="numeric" placeholder="0">
   <Fragment slot="suffix">kg</Fragment>
 </TextField>
-
 
 <TextField label="Search" placeholder="Search...">
   <svg
@@ -151,11 +143,9 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField label="Username" placeholder="Enter your name">
   <Fragment slot="header">Full Name</Fragment>
 </TextField>
-
 
 <TextField label="Tagline" placeholder="A short description">
   <Fragment slot="footer">0 / 80</Fragment>
@@ -175,7 +165,6 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 import { TextField } from "opui-css/astro"
 ---
 
-
 <div class="example-row">
   <TextField label="I'm required" placeholder="Placeholder" required />
   <TextField
@@ -185,7 +174,6 @@ import { TextField } from "opui-css/astro"
     variant="filled"
   />
 </div>
-
 
 <div class="example-row">
   <TextField
@@ -215,7 +203,6 @@ Use the `spread` boolean prop to display the label and description on the left w
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField spread placeholder="Evil Rabbit">
   <Fragment slot="label">Name</Fragment>
   <Fragment slot="description"
@@ -223,29 +210,24 @@ import { TextField } from "opui-css/astro"
   >
 </TextField>
 
-
 <TextField spread placeholder="you@example.com" type="email" variant="filled">
   <Fragment slot="label">Email</Fragment>
   <Fragment slot="description">We'll use this to contact you</Fragment>
   <Fragment slot="end-text">Please use a valid email address</Fragment>
 </TextField>
 
-
 <TextField spread required label="Required">
   <Fragment slot="description">You must fill this in</Fragment>
 </TextField>
-
 
 <TextField spread disabled label="Disabled">
   <Fragment slot="description">This field is disabled</Fragment>
 </TextField>
 
-
 <TextField spread error label="Invalid Name">
   <Fragment slot="description">This field has an error</Fragment>
   <Fragment slot="end-text">This value is too short.</Fragment>
 </TextField>
-
 
 <TextField spread label="Amount" placeholder="0.00">
   <Fragment slot="description">Daily spending limit</Fragment>
@@ -253,20 +235,17 @@ import { TextField } from "opui-css/astro"
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
-
 <TextField spread label="Website" placeholder="example.com" variant="filled">
   <Fragment slot="description">Your public profile URL</Fragment>
   <Fragment slot="prefix">https://</Fragment>
   <Fragment slot="end-text">Must include a valid domain</Fragment>
 </TextField>
 
-
 <TextField spread label="Project name" placeholder="my-project">
   <Fragment slot="description">Used to generate the project URL</Fragment>
   <Fragment slot="header">acme.dev/</Fragment>
   <Fragment slot="footer">Lowercase letters and dashes only</Fragment>
 </TextField>
-
 
 <TextField
   spread
@@ -305,7 +284,6 @@ Use `autoFit` to let the field's width follow its content, from `25ch`.
 ---
 import { TextField } from "opui-css/astro"
 ---
-
 
 <TextField label="Label" placeholder="Auto-fit" autoFit />
 ```
@@ -358,7 +336,6 @@ import { TextField } from "opui-css/astro"
   </label>
 </div>
 
-
 <div class="example-column">
   <label class="ui-text-field input-type-field">
     <span class="ui-label">Date</span>
@@ -404,7 +381,6 @@ Date-related inputs never show as empty, so the label is always visible. There a
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField label="Numeric" placeholder="Numeric" type="numeric" />
 ```
 
@@ -435,7 +411,6 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField type="file" placeholder="File" label="Label" />
 <TextField type="file" placeholder="File" label="Label" variant="filled" />
 ```
@@ -452,7 +427,6 @@ Leverages the `<input>` + `<datalist>` element combo.
 import { TextField } from "opui-css/astro"
 ---
 
-
 <TextField label="Users" list="users" placeholder="Placeholder">
   <datalist id="users">
     <option value="Ray Manzarek"></option>
@@ -460,7 +434,6 @@ import { TextField } from "opui-css/astro"
     <option value="Marika Hackman"></option>
   </datalist>
 </TextField>
-
 
 <TextField
   variant="filled"
@@ -618,17 +591,14 @@ Step 1 of 4: Wrapper
   --helper: var(--field-helper-color);
   --label: var(--text-muted);
 
-
   display: grid;
 }
-
 
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -637,7 +607,6 @@ Step 1 of 4: Wrapper
   display: grid;
   min-block-size: var(--field-size);
 }
-
 
 .field input {
   background: transparent;
@@ -649,11 +618,9 @@ Step 1 of 4: Wrapper
   padding: 0.5rem;
 }
 
-
 .text-field:focus-within .field {
   border-color: var(--accent);
 }
-
 
 .end-text {
   color: var(--helper);
@@ -681,11 +648,9 @@ Step 2 of 4: Affixes
   grid-template-columns: auto 1fr auto;
 }
 
-
 .field input {
   grid-area: input;
 }
-
 
 .prefix,
 .suffix {
@@ -695,21 +660,17 @@ Step 2 of 4: Affixes
   padding-inline: 0.5rem;
 }
 
-
 .prefix {
   grid-area: prefix;
 }
-
 
 .suffix {
   grid-area: suffix;
 }
 
-
 .field:has(> .prefix) input {
   padding-inline-start: 0;
 }
-
 
 .field:has(> .suffix) input {
   padding-inline-end: 0;

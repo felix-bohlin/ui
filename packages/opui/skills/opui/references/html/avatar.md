@@ -10,14 +10,12 @@
   />
 </div>
 
-
 <div class="ui-avatar">
   <img
     src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Omar Haddad"
   />
 </div>
-
 
 <div class="ui-avatar">
   <img
@@ -52,7 +50,6 @@
   </svg>
 </div>
 
-
 <div class="ui-avatar">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +63,6 @@
     ></path>
   </svg>
 </div>
-
 
 <div class="ui-avatar">
   <svg
@@ -90,14 +86,12 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 ```html
 <div class="ui-avatar ui-squared">SQ</div>
 
-
 <div class="ui-avatar ui-rounded">
   <img
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Jonas Berg"
   />
 </div>
-
 
 <div class="ui-avatar ui-squircle">
   <img
@@ -223,7 +217,6 @@ Step 1 of 4: Circle
   position: relative;
 }
 
-
 .avatar svg {
   max-inline-size: 1.5rem;
 }
@@ -245,7 +238,6 @@ Step 2 of 4: Image
   background-color: transparent;
 }
 
-
 .avatar img {
   block-size: 100%;
   inline-size: 100%;
@@ -264,10 +256,8 @@ Step 3 of 4: Shapes
   border-radius: var(--radius-2);
 }
 
-
 .avatar.squircle {
   border-radius: var(--radius-3);
-
 
   @supports (corner-shape: squircle) {
     border-radius: var(--radius-round);
@@ -291,7 +281,6 @@ Step 4 of 4: Group
 .avatar-group {
   display: flex;
 }
-
 
 .avatar-group .avatar {
   box-shadow: 0 0 0 2px var(--surface-default);

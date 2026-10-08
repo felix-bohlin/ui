@@ -31,13 +31,11 @@ Change the appearance of the entire group with the `variant` prop.
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-
 <ButtonGroup>
   <Button>Text</Button>
   <Button>Text</Button>
   <Button>Text</Button>
 </ButtonGroup>
-
 
 <ButtonGroup variant="outlined">
   <Button>Outlined</Button>
@@ -45,13 +43,11 @@ Change the appearance of the entire group with the `variant` prop.
   <Button>Outlined</Button>
 </ButtonGroup>
 
-
 <ButtonGroup variant="tonal">
   <Button>Tonal</Button>
   <Button>Tonal</Button>
   <Button>Tonal</Button>
 </ButtonGroup>
-
 
 <ButtonGroup variant="filled">
   <Button>Filled</Button>
@@ -69,13 +65,11 @@ Set the `color` prop to `primary` or `critical` to recolor the entire group. The
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-
 <ButtonGroup color="primary" variant="filled">
   <Button>Primary</Button>
   <Button>Primary</Button>
   <Button>Primary</Button>
 </ButtonGroup>
-
 
 <ButtonGroup color="critical" variant="filled">
   <Button>Critical</Button>
@@ -93,13 +87,11 @@ Adjust the size of all buttons in the group using the `size` prop.
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-
 <ButtonGroup size="x-small" variant="outlined">
   <Button>x-small</Button>
   <Button>x-small</Button>
   <Button>x-small</Button>
 </ButtonGroup>
-
 
 <ButtonGroup size="small" variant="outlined">
   <Button>Small</Button>
@@ -107,13 +99,11 @@ Adjust the size of all buttons in the group using the `size` prop.
   <Button>Small</Button>
 </ButtonGroup>
 
-
 <ButtonGroup variant="outlined">
   <Button>Default</Button>
   <Button>Default</Button>
   <Button>Default</Button>
 </ButtonGroup>
-
 
 <ButtonGroup size="large" variant="outlined">
   <Button>Large</Button>
@@ -130,7 +120,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/svelte/
 <script lang="ts">
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
-
 
 <ButtonGroup variant="outlined">
   <Button iconOnly label="OK">
@@ -161,7 +150,6 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/svelte/
     </svg>
   </Button>
 </ButtonGroup>
-
 
 <ButtonGroup variant="outlined">
   <Button>
@@ -218,7 +206,6 @@ A [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md) after the 
   import { Button, ButtonGroup, Menu } from "opui-css/svelte"
 </script>
 
-
 <ButtonGroup variant="outlined">
   <Button>Save</Button>
   <Button
@@ -255,13 +242,11 @@ Disable individual buttons within a group by setting the `disabled` prop on each
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-
 <ButtonGroup variant="filled">
   <Button>Enabled</Button>
   <Button disabled>Disabled</Button>
   <Button>Enabled</Button>
 </ButtonGroup>
-
 
 <ButtonGroup variant="filled" color="primary">
   <Button>Enabled</Button>
@@ -279,7 +264,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <ButtonGroup orientation="vertical">
     <Button aria-label="Increase">
@@ -315,7 +299,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
     </Button>
   </ButtonGroup>
 
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button aria-label="Increase">
       <svg
@@ -350,7 +333,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
     </Button>
   </ButtonGroup>
 
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button aria-label="Increase">
       <svg
@@ -384,7 +366,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
       </svg>
     </Button>
   </ButtonGroup>
-
 
   <ButtonGroup orientation="vertical" variant="filled">
     <Button aria-label="Increase">
@@ -421,25 +402,21 @@ Change the layout of the group with the `orientation="vertical"` prop.
   </ButtonGroup>
 </div>
 
-
 <div class="example-row">
   <ButtonGroup orientation="vertical">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
 
-
   <ButtonGroup orientation="vertical" variant="outlined">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
 
-
   <ButtonGroup orientation="vertical" variant="tonal">
     <Button>Up</Button>
     <Button>Down</Button>
   </ButtonGroup>
-
 
   <ButtonGroup orientation="vertical" variant="filled">
     <Button>Up</Button>
@@ -456,7 +433,6 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 <script lang="ts">
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
-
 
 <div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
   <ButtonGroup variant="outlined">
@@ -618,7 +594,6 @@ Step 1 of 3: Join
   overflow: hidden;
 }
 
-
 [role="group"].group > button {
   border-radius: 0;
   flex: auto;
@@ -657,11 +632,9 @@ Step 3 of 3: Outline
   outline-offset: -1px;
 }
 
-
 [role="group"].group.outlined {
   --edge: light-dark(var(--color-16), var(--color-1));
 }
-
 
 [role="group"].group.outlined > button {
   --divider: var(--edge);

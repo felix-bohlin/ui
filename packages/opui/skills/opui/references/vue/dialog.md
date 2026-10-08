@@ -39,12 +39,10 @@ The header slot names the dialog: it gets an `aria-labelledby` that points at th
 import { Button, Dialog } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button commandfor="example-dialog" command="show-modal" variant="outlined">
     Open dialog
   </Button>
-
 
   <Dialog id="example-dialog">
     <template #header><h2 class="ui-h4">Newsletter</h2></template>
@@ -79,7 +77,6 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 import { Button, Dialog } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button
     color="critical"
@@ -89,7 +86,6 @@ import { Button, Dialog } from "opui-css/vue"
   >
     Delete project
   </Button>
-
 
   <Dialog
     id="alert-dialog-example"
@@ -133,7 +129,6 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 import { Button, Dialog } from "opui-css/vue"
 </script>
 
-
 <template>
   <Button
     commandfor="example-dialog-long"
@@ -142,7 +137,6 @@ import { Button, Dialog } from "opui-css/vue"
   >
     Read the terms
   </Button>
-
 
   <Dialog id="example-dialog-long">
     <template #header><h2 class="ui-h4">Terms of service</h2></template>
@@ -253,13 +247,11 @@ import {
 } from "opui-css/vue"
 import { onMounted } from "vue"
 
-
 onMounted(() => {
   const dialog = document.getElementById(
     "closing-behaviors-dialog",
   ) as HTMLDialogElement
   const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
 
   radios.forEach((radio) => {
     radio.addEventListener("change", (e) => {
@@ -272,7 +264,6 @@ onMounted(() => {
 })
 </script>
 
-
 <template>
   <Button
     commandfor="closing-behaviors-dialog"
@@ -281,7 +272,6 @@ onMounted(() => {
   >
     Open dialog
   </Button>
-
 
   <Dialog id="closing-behaviors-dialog" closedby="any">
     <template #header><h2 class="ui-h4">How to close</h2></template>
@@ -409,7 +399,6 @@ Step 1 of 5: Modal
   Shortcuts
 </button>
 
-
 <dialog
   class="dialog"
   id="dialog"
@@ -436,7 +425,6 @@ Step 1 of 5: Modal
   padding: 0;
 }
 
-
 .dialog:not([open]) {
   display: none;
 }
@@ -458,11 +446,9 @@ Step 2 of 5: Place
   overflow: auto;
 }
 
-
 .dialog > :not(.content) {
   flex-shrink: 0;
 }
-
 
 .dialog > .content {
   overflow-y: auto;
@@ -481,7 +467,6 @@ Step 3 of 5: Shadow
   container-type: scroll-state;
 }
 
-
 .dialog > .content::before,
 .dialog > .content::after {
   block-size: 0.5rem;
@@ -495,24 +480,20 @@ Step 3 of 5: Shadow
   transition: opacity 0.2s;
 }
 
-
 .dialog > .content::before {
   inset-block-end: anchor(--content outside);
 }
-
 
 .dialog > .content::after {
   inset-block-start: anchor(--content outside);
   scale: 1 -1;
 }
 
-
 @container scroll-state(scrollable: block-start) {
   .dialog > .content::before {
     opacity: 1;
   }
 }
-
 
 @container scroll-state(scrollable: block-end) {
   .dialog > .content::after {
@@ -534,7 +515,6 @@ Step 4 of 5: Backdrop
   background-color: var(--backdrop-color);
 }
 
-
 html:has(.dialog:modal) {
   overflow: clip;
   scrollbar-gutter: stable;
@@ -553,14 +533,12 @@ Step 5 of 5: Fade
   opacity: 0;
 }
 
-
 .dialog[open] {
   opacity: 1;
   transition:
     display 0.2s allow-discrete,
     opacity 0.2s,
     overlay 0.2s allow-discrete;
-
 
   @starting-style {
     opacity: 0;

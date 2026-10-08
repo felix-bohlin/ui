@@ -55,14 +55,12 @@ The select is outlined by default. Use `variant="filled"` for a filled backgroun
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select label="Label">
   <option value="">-</option>
   <option>Outlined (default)</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
-
 
 <Select label="Label" variant="filled">
   <option value="">-</option>
@@ -80,7 +78,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { Select } from "opui-css/svelte"
 </script>
-
 
 <Select label="x-small" size="x-small">
   <option value="">x-small</option>
@@ -113,7 +110,6 @@ Use the `dense` prop to pack the options tighter.
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select label="Fruit" dense>
   <option value="">-</option>
   <option>Apple</option>
@@ -131,14 +127,12 @@ Use `endText` for supporting text below the select.
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select label="Label" endText="Supporting text">
   <option value="">-</option>
   <option>Outlined (default)</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
-
 
 <Select label="Label" variant="filled" endText="Supporting text">
   <option value="">-</option>
@@ -157,7 +151,6 @@ Use the `prefix` and `suffix` snippets to affix icons or short text alongside th
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select label="Currency">
   {#snippet prefix()}¤{/snippet}
   <option value="">-</option>
@@ -165,7 +158,6 @@ Use the `prefix` and `suffix` snippets to affix icons or short text alongside th
   <option>SEK</option>
   <option>USD</option>
 </Select>
-
 
 <Select label="Country">
   {#snippet prefix()}<svg
@@ -202,7 +194,6 @@ They sit outside the list of options, so they can't filter it. Keep form control
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select label="Car">
   {#snippet header()}Company cars only{/snippet}
   {#snippet footer()}<a class="ui-link" href="#">Manage cars…</a>{/snippet}
@@ -221,10 +212,8 @@ Set `value` or `bind:value` to preselect an option, or `selected: true` on an it
 <script lang="ts">
   import { Select } from "opui-css/svelte"
 
-
   let role = $state("developer")
 </script>
-
 
 <Select
   label="Role"
@@ -235,7 +224,6 @@ Set `value` or `bind:value` to preselect an option, or `selected: true` on an it
   ]}
   bind:value={role}
 />
-
 
 <Select
   label="Team"
@@ -255,7 +243,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
 <script lang="ts">
   import { Select } from "opui-css/svelte"
 </script>
-
 
 <Select label="Car">
   <option value="">Select car</option>
@@ -283,7 +270,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <Select label="Label" required>
     <option value="">-</option>
@@ -291,7 +277,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
     <option>No me!!</option>
     <option>Come on!</option>
   </Select>
-
 
   <Select label="Label" variant="filled" required>
     <option value="">-</option>
@@ -301,7 +286,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
   </Select>
 </div>
 
-
 <div class="example-row">
   <Select label="Label" error endText="Supporting text">
     <option value="">-</option>
@@ -309,7 +293,6 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
     <option>Also wrong!</option>
     <option>Nothing's right!</option>
   </Select>
-
 
   <Select label="Label" variant="filled" error endText="Supporting text">
     <option value="">-</option>
@@ -329,7 +312,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   import { Select } from "opui-css/svelte"
 </script>
 
-
 <Select spread>
   {#snippet label()}Country{/snippet}
   {#snippet description()}Select your country of residence{/snippet}
@@ -340,7 +322,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   <option>Norway</option>
   <option>Sweden</option>
 </Select>
-
 
 <Select spread variant="filled">
   {#snippet label()}Language{/snippet}
@@ -354,7 +335,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   <option>Swedish</option>
 </Select>
 
-
 <Select spread required>
   {#snippet label()}Required{/snippet}
   {#snippet description()}You must select an option{/snippet}
@@ -363,13 +343,11 @@ Use the `spread` boolean prop to display the label and description on the left w
   <option>Option 2</option>
 </Select>
 
-
 <Select spread disabled>
   {#snippet label()}Disabled{/snippet}
   {#snippet description()}This select is disabled{/snippet}
   <option>Option 1</option>
 </Select>
-
 
 <Select spread error>
   {#snippet label()}Invalid Select{/snippet}
@@ -377,7 +355,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   {#snippet endText()}Please select a valid option.{/snippet}
   <option>Option 1</option>
 </Select>
-
 
 <Select spread>
   {#snippet label()}Time zone{/snippet}
@@ -389,7 +366,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   <option>+05:30</option>
   <option>+09:00</option>
 </Select>
-
 
 <Select spread variant="filled">
   {#snippet label()}Region{/snippet}
@@ -429,13 +405,11 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
   import { ClassicSelect } from "opui-css/svelte"
 </script>
 
-
 <ClassicSelect label="Label">
   <option value="">-</option>
   <option>Option 1</option>
   <option>Option 2</option>
 </ClassicSelect>
-
 
 <ClassicSelect label="Label" variant="filled">
   <option value="">-</option>
@@ -639,7 +613,6 @@ Step 1 of 4: Base select
   appearance: base-select;
 }
 
-
 .select {
   background-color: var(--surface-default);
   border: 1px solid var(--border-color);
@@ -648,13 +621,11 @@ Step 1 of 4: Base select
   padding: 0;
 }
 
-
 .select > button {
   align-items: center;
   display: flex;
   padding: 0.5rem 2.5rem 0.5rem 0.75rem;
 }
-
 
 selectedcontent {
   overflow: hidden;
@@ -674,7 +645,6 @@ Step 2 of 4: Arrow
   position: relative;
 }
 
-
 .select::picker-icon {
   background-color: currentColor;
   block-size: 1rem;
@@ -686,7 +656,6 @@ Step 2 of 4: Arrow
   position: absolute;
   translate: 0 -50%;
 }
-
 
 .select:open::picker-icon {
   rotate: 180deg;
@@ -706,7 +675,6 @@ Step 3 of 4: Picker
   padding: 0;
 }
 
-
 .list {
   background-color: var(--surface-filled);
   border: 1px solid var(--border-color);
@@ -714,21 +682,17 @@ Step 3 of 4: Picker
   padding: 0.5rem 0;
 }
 
-
 .list > option {
   padding: 0.5rem 0.75rem;
 }
-
 
 .list > option:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 
-
 .list > option:checked {
   background-color: oklch(from var(--primary) l c h / 30%);
 }
-
 
 .list > option::checkmark {
   display: none;
@@ -751,13 +715,11 @@ Step 4 of 4: Animate
     overlay 0.2s allow-discrete,
     scale 0.2s;
 
-
   @starting-style {
     opacity: 0;
     scale: 0.9;
   }
 }
-
 
 .select:not(:open)::picker(select) {
   opacity: 0;

@@ -39,7 +39,6 @@ All switches should have an accessible name. Put the label text inside the compo
 import { Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Switch name="switch-variants" checked hideLabel>Label</Switch>
   <Switch name="switch-variants" hideLabel>Label</Switch>
@@ -56,7 +55,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row">
@@ -85,7 +83,6 @@ The default slot is the label. Also, don't miss the info on label [accessibility
 import { Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Switch name="switch-visible-label">Label</Switch>
   <Switch name="switch-visible-label" disabled>Disabled</Switch>
@@ -105,7 +102,6 @@ Set `stack` to put the label under the switch.
 import { Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Switch name="switch-label-position">Default</Switch>
   <Switch name="switch-label-position" stack>Stack</Switch>
@@ -118,7 +114,6 @@ import { Switch } from "opui-css/vue"
 <script setup lang="ts">
 import { Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <Switch name="switch-supporting-text">
@@ -140,7 +135,6 @@ Put an icon in the `icon-unchecked` and `icon-checked` slots to show it in the t
 <script setup lang="ts">
 import { Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <Switch name="switch-icons" size="small" hideLabel>
@@ -170,7 +164,6 @@ import { Switch } from "opui-css/vue"
         ></path></svg
     ></template>
   </Switch>
-
 
   <Switch name="switch-icons" checked hideLabel>
     Toggle theme
@@ -213,13 +206,11 @@ import { Switch } from "opui-css/vue"
 import { Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row ui-spacious">
     <Switch name="switch-validation" required>Default</Switch>
     <Switch name="switch-validation" required stack>Stack</Switch>
   </div>
-
 
   <div class="example-row ui-spacious">
     <Switch name="switch-validation" error>
@@ -243,25 +234,21 @@ Use the `spread` prop to push the label to the left and the switch to the right.
 import { Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Switch name="switch-spread" spread>
     Notifications
     <template #end-text>Receive alerts when someone mentions you.</template>
   </Switch>
 
-
   <Switch name="switch-spread" spread required>
     Required
     <template #end-text>You must accept this to proceed.</template>
   </Switch>
 
-
   <Switch name="switch-spread" spread disabled>
     Disabled
     <template #end-text>This switch is disabled.</template>
   </Switch>
-
 
   <Switch name="switch-spread" spread error>
     Invalid Switch
@@ -293,7 +280,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/vue/components/
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form as="div">
     <FieldSet>
@@ -314,7 +300,6 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -346,7 +331,6 @@ import {
 } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -358,7 +342,6 @@ import {
         <Switch>Switch 3</Switch>
       </FieldGroup>
     </FieldSet>
-
 
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
@@ -381,7 +364,6 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -406,7 +388,6 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -429,7 +410,6 @@ Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns 
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -611,7 +591,6 @@ Step 1 of 4: Track
 .switch {
   --dot-color: light-dark(var(--gray-11), var(--gray-14));
 
-
   appearance: none;
   block-size: 1.5rem;
   cursor: pointer;
@@ -619,7 +598,6 @@ Step 1 of 4: Track
   margin: 0;
   position: relative;
 }
-
 
 .switch::before {
   background-color: light-dark(var(--gray-3), var(--gray-8));
@@ -647,16 +625,13 @@ Step 2 of 4: Dot
   position: absolute;
 }
 
-
 .switch:checked::before {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
-
 .switch:checked::after {
   --dot-color: var(--primary-contrast);
-
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }
@@ -671,10 +646,8 @@ Step 3 of 4: Motion
     border-color 0.2s;
 }
 
-
 .switch::after {
   --ring: 0px;
-
 
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
@@ -685,11 +658,9 @@ Step 3 of 4: Motion
     outline-width 0.2s var(--ease);
 }
 
-
 .switch:checked::after {
   --ring: 3px;
 }
-
 
 .switch:active::after {
   --ring: 5px;
@@ -719,29 +690,24 @@ Step 4 of 4: Icons
     z-index: 1;
   }
 
-
   .icon-checked {
     display: none;
     margin-inline-start: 0.25rem;
   }
 
-
   .icon-unchecked {
     margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
   }
-
 
   .switch {
     grid-column: 1;
     grid-row: 1;
   }
 
-
   &:has(:checked) {
     .icon-checked {
       display: block;
     }
-
 
     .icon-unchecked {
       display: none;

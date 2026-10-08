@@ -56,7 +56,6 @@ Textareas are outlined by default. Add `.ui-filled` for a filled textarea.
   </span>
 </label>
 
-
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Filled</span>
   <span class="ui-field">
@@ -77,7 +76,6 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-textarea ui-small">
   <span class="ui-label">Small</span>
   <span class="ui-field">
@@ -85,14 +83,12 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
   </span>
 </label>
 
-
 <label class="ui-textarea">
   <span class="ui-label">Default</span>
   <span class="ui-field">
     <textarea placeholder="Placeholder"></textarea>
   </span>
 </label>
-
 
 <label class="ui-textarea ui-large">
   <span class="ui-label">Large</span>
@@ -129,7 +125,6 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
   </span>
   <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
 </label>
-
 
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Label</span>
@@ -186,7 +181,6 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   </span>
 </label>
 
-
 <label class="ui-textarea">
   <span class="ui-label">Comment</span>
   <span class="ui-field">
@@ -219,7 +213,6 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     </span>
   </label>
 </div>
-
 
 <div class="example-row">
   <label class="ui-textarea">
@@ -267,7 +260,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-textarea ui-spread ui-filled">
   <span class="ui-label">Notes</span>
   <span class="ui-start-text">Add any additional notes or comments</span>
@@ -282,7 +274,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   >
 </label>
 
-
 <label class="ui-textarea ui-spread">
   <span class="ui-label">Required</span>
   <span class="ui-start-text">You must provide a response</span>
@@ -291,7 +282,6 @@ Add the `.ui-spread` class to display the label and description on the left with
   </span>
 </label>
 
-
 <label class="ui-textarea ui-spread">
   <span class="ui-label">Disabled</span>
   <span class="ui-start-text">This textarea is disabled</span>
@@ -299,7 +289,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <textarea disabled></textarea>
   </span>
 </label>
-
 
 <label class="ui-textarea ui-spread">
   <span class="ui-label">Invalid Message</span>
@@ -314,7 +303,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     >This value is too short.</span
   >
 </label>
-
 
 <label class="ui-textarea ui-spread">
   <span class="ui-label">Bio</span>
@@ -343,7 +331,6 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-footer">280 characters left</span>
   </span>
 </label>
-
 
 <label class="ui-textarea ui-spread ui-filled">
   <span class="ui-label">Release notes</span>
@@ -485,13 +472,11 @@ Step 1 of 4: Field
   display: grid;
 }
 
-
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -499,7 +484,6 @@ Step 1 of 4: Field
   border-radius: var(--radius-2);
   display: grid;
 }
-
 
 .field textarea {
   background: transparent;
@@ -511,7 +495,6 @@ Step 1 of 4: Field
   outline: 0;
   padding: 0.5rem;
 }
-
 
 .textarea:focus-within .field {
   border-color: var(--primary);
@@ -547,7 +530,6 @@ Step 4 of 4: Auto-fit
 .auto-fit {
   inline-size: fit-content;
 }
-
 
 .auto-fit textarea {
   inline-size: auto;

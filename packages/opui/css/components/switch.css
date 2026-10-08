@@ -48,8 +48,9 @@
       }
 
       &:focus-visible {
+        border-radius: var(--radius-round);
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color, currentColor);
+          var(--focus-ring-color, var(--_focus-visible-color));
         outline-offset: var(--focus-ring-offset);
       }
 

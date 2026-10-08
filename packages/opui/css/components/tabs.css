@@ -64,7 +64,7 @@
 
           &::before {
             outline: var(--focus-ring-width) var(--focus-ring-style)
-              var(--focus-ring-color, var(--text-muted));
+              var(--focus-ring-color, var(--_focus-visible-color));
             outline-offset: var(--focus-ring-offset, 0);
           }
         }

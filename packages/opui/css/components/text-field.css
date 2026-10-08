@@ -269,6 +269,12 @@
       }
     }
 
+    .ui-field:has(:focus-visible) {
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, var(--_focus-visible-color));
+      outline-offset: var(--focus-ring-offset);
+    }
+
     @media (forced-colors: active) {
       &:focus-within .ui-field {
         outline: var(--focus-ring-width) solid Highlight;

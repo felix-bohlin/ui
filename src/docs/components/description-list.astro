@@ -6,6 +6,7 @@ import { DescriptionList as UIDescriptionList } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
 import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
@@ -84,6 +85,19 @@ export const description =
       fills the gap between them. Narrower lists stack and show no border.
     </p>
     <AutoExample name="Bordered" column spacious />
+  </section>
+
+  <section>
+    <h2 id="inline">Inline</h2>
+    <p>
+      The term and the description stack when the list is <code>45ch</code> or narrower,
+      and sit side by side when it's wider. Set <PropOrClass
+        prop="inline"
+        class=".ui-inline"
+      /> to keep them side by side at any width, for example for totals in a sidebar
+      or summary card.
+    </p>
+    <AutoExample name="Inline" />
   </section>
 
   <DescriptionListBuild slot="under-the-hood" />

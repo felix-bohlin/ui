@@ -6,6 +6,7 @@ import DocLink from "../../components/DocLink.astro"
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import avatarApi from "../../component-api/avatar/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
@@ -74,6 +75,21 @@ export const description =
     </Conditional>
 
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+
+    <p>
+      Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />, <PropOrClass
+        prop='size="small"'
+        class=".ui-small"
+      /> or <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
+      sizes, for example in dense lists, table rows and bylines. Letters and icons
+      scale with the avatar.
+    </p>
+
+    <AutoExample name="Sizes" row />
   </section>
 
   <section>

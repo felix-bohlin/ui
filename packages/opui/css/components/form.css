@@ -78,9 +78,7 @@
         &::after {
           color: var(--field-required-color);
           content: "*";
-          inset-block: 0 auto;
-          inset-inline: auto -0.25ex;
-          position: absolute;
+          margin-inline-start: 0.25ex;
         }
       }
     }

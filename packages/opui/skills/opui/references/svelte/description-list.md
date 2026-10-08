@@ -100,14 +100,46 @@ Above `45ch` the term and description share a row and the border fills the gap b
 </DescriptionList>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```svelte
+<script lang="ts">
+  import {
+    DescriptionList,
+    DescriptionListDescription,
+    DescriptionListItem,
+    DescriptionListTerm,
+  } from "opui-css/svelte"
+</script>
+
+
+<DescriptionList bordered inline style="max-inline-size: 18rem">
+  <DescriptionListItem>
+    <DescriptionListTerm>Subtotal</DescriptionListTerm>
+    <DescriptionListDescription>$120.00</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Shipping</DescriptionListTerm>
+    <DescriptionListDescription>$8.00</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Total</DescriptionListTerm>
+    <DescriptionListDescription>$128.00</DescriptionListDescription>
+  </DescriptionListItem>
+</DescriptionList>
+```
+
 ## API
 
 ### Description list API
 
-| Prop       | Type                   | Default | Description                                         |
-| ---------- | ---------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
-| `children` | `Snippet`              | -       | The items.                                          |
+| Prop       | Type                   | Default | Description                                                                                                              |
+| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `children` | `Snippet`              | -       | The items.                                                                                                               |
+| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### CSS variables
 
@@ -264,3 +296,8 @@ Import the components from `opui-css/svelte`:
 
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

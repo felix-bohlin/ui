@@ -169,17 +169,26 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Replace the default marker with the <code>marker</code> slot.
+        Replace the default marker with the <code>marker</code> slot, and give it
+        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
+        the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="html">
-        Replace the SVG inside the <code>summary</code> to change the marker. Leave
-        it out to fall back to the native arrow.
+        Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
+        change the marker. Leave it out to fall back to the native arrow. Only <code
+          >.ui-marker</code
+        > animates, so other icons in the <code>summary</code>, such as a
+        leading status icon, stay put.
       </Fragment>
       <Fragment slot="svelte">
-        Replace the default marker with the <code>marker</code> snippet.
+        Replace the default marker with the <code>marker</code> snippet, and give
+        it <code>.ui-marker</code> so it sits at the end and animates. Other icons
+        in the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="vue">
-        Replace the default marker with the <code>marker</code> slot.
+        Replace the default marker with the <code>marker</code> slot, and give it
+        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
+        the <code>summary</code>, such as a leading status icon, stay put.
       </Fragment>
     </Conditional>
 
@@ -197,8 +206,9 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code
           >.ui-marker-turn</code
-        > to the <code>&lt;details&gt;</code> element to animate the marker when the
-        accordion opens.
+        > to the <code>&lt;details&gt;</code> element to animate the <code
+          >.ui-marker</code
+        > when the accordion opens.
       </Fragment>
       <Fragment slot="svelte">
         Set the <code>markerAnimation</code> prop to change how the marker animates

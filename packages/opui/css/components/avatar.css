@@ -1,6 +1,8 @@
 @layer components.root {
   :where(.ui-avatar) {
     --_bg-color: var(--primary);
+    --_font-size: 1em;
+    --_icon-size: var(--icon-size-large);
     --_size: var(--control-size);
     --_text-color: var(--primary-contrast);
 
@@ -11,6 +13,7 @@
     color: var(--_text-color);
     display: inline-flex;
     flex-shrink: 0;
+    font-size: var(--_font-size);
     inline-size: var(--_size);
     justify-content: center;
     overflow: clip;
@@ -23,7 +26,7 @@
     }
 
     svg {
-      max-inline-size: var(--icon-size-large);
+      max-inline-size: var(--_icon-size);
     }
 
     img {
@@ -32,6 +35,23 @@
       inset: 0;
       object-fit: cover;
       position: absolute;
+    }
+
+    &.ui-x-small {
+      --_font-size: var(--font-size-0);
+      --_icon-size: var(--icon-size-small);
+      --_size: var(--control-size-x-small);
+    }
+
+    &.ui-small {
+      --_font-size: var(--font-size-05);
+      --_icon-size: var(--icon-size);
+      --_size: var(--control-size-small);
+    }
+
+    &.ui-large {
+      --_font-size: var(--font-size-2);
+      --_size: var(--control-size-large);
     }
 
     &.ui-squared {

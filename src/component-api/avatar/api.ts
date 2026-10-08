@@ -43,6 +43,16 @@ export default {
       prop: "isGroup",
     },
     {
+      description: "The size of the avatar.",
+      group: "Sizes",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
       description: "The image source. Replaces the content.",
       frameworks: ["astro", "svelte", "vue"],
       prop: "src",

@@ -262,6 +262,8 @@ import { Table } from "opui-css/astro"
 
 An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
+The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
+
 ```astro
 ---
 import { Table } from "opui-css/astro"
@@ -291,7 +293,7 @@ import { Table } from "opui-css/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell>Norway</Table.Cell>
+      <Table.HeaderCell scope="row">Norway</Table.HeaderCell>
       <Table.Cell>Oslo</Table.Cell>
       <Table.Cell>Bergen</Table.Cell>
       <Table.Cell>Trondheim</Table.Cell>
@@ -299,7 +301,7 @@ import { Table } from "opui-css/astro"
       <Table.Cell>White-throated Dipper</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell>Sweden</Table.Cell>
+      <Table.HeaderCell scope="row">Sweden</Table.HeaderCell>
       <Table.Cell>Stockholm</Table.Cell>
       <Table.Cell>Göteborg</Table.Cell>
       <Table.Cell>Malmö</Table.Cell>
@@ -307,7 +309,7 @@ import { Table } from "opui-css/astro"
       <Table.Cell>Common Blackbird</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell>Denmark</Table.Cell>
+      <Table.HeaderCell scope="row">Denmark</Table.HeaderCell>
       <Table.Cell>København</Table.Cell>
       <Table.Cell>Aarhus</Table.Cell>
       <Table.Cell>Odense</Table.Cell>
@@ -315,7 +317,7 @@ import { Table } from "opui-css/astro"
       <Table.Cell>Mute Swan</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell>Finland</Table.Cell>
+      <Table.HeaderCell scope="row">Finland</Table.HeaderCell>
       <Table.Cell>Helsinki</Table.Cell>
       <Table.Cell>Espoo</Table.Cell>
       <Table.Cell>Tampere</Table.Cell>
@@ -323,7 +325,7 @@ import { Table } from "opui-css/astro"
       <Table.Cell>Whooper Swan</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell>Iceland</Table.Cell>
+      <Table.HeaderCell scope="row">Iceland</Table.HeaderCell>
       <Table.Cell>Reykjavík</Table.Cell>
       <Table.Cell>Kópavogur</Table.Cell>
       <Table.Cell>Hafnarfjörður</Table.Cell>

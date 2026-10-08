@@ -104,13 +104,47 @@ import {
 </template>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```vue
+<script setup lang="ts">
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <DescriptionList bordered inline style="max-inline-size: 18rem">
+    <DescriptionListItem>
+      <DescriptionListTerm>Subtotal</DescriptionListTerm>
+      <DescriptionListDescription>$120.00</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Shipping</DescriptionListTerm>
+      <DescriptionListDescription>$8.00</DescriptionListDescription>
+    </DescriptionListItem>
+    <DescriptionListItem>
+      <DescriptionListTerm>Total</DescriptionListTerm>
+      <DescriptionListDescription>$128.00</DescriptionListDescription>
+    </DescriptionListItem>
+  </DescriptionList>
+</template>
+```
+
 ## API
 
 ### Description list API
 
-| Prop       | Type                   | Default | Description                                         |
-| ---------- | ---------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
+| Prop       | Type                   | Default | Description                                                                                                              |
+| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots
 
@@ -278,3 +312,4 @@ Import the components from `opui-css/vue`:
 ### What's new
 
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

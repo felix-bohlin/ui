@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `marker`
 
-  The marker. Astro, Svelte and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `children`
 
@@ -198,7 +198,7 @@ Add buttons or other interactive elements below the content with the `actions` s
 
 ## Custom marker
 
-Replace the default marker with the `marker` snippet.
+Replace the default marker with the `marker` snippet, and give it `.ui-marker` so it sits at the end and animates. Other icons in the `summary`, such as a leading status icon, stay put.
 
 ```svelte
 <script lang="ts">
@@ -210,6 +210,7 @@ Replace the default marker with the `marker` snippet.
   {#snippet summary()}Custom marker{/snippet}
   {#snippet marker()}
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -266,6 +267,7 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
   {#snippet summary()}Turn{/snippet}
   {#snippet marker()}
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -295,16 +297,16 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 
 ### Accordion API
 
-| Prop              | Type                                                  | Default     | Description                                                    |
-| ----------------- | ----------------------------------------------------- | ----------- | -------------------------------------------------------------- |
-| `actions`         | `Snippet`                                             | -           | A group of actions, such as buttons.                           |
-| `children`        | `Snippet`                                             | -           | The collapsible content.                                       |
-| `marker`          | `Snippet`                                             | -           | The marker. Astro, Svelte and Vue render a chevron by default. |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.              |
-| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.   |
-| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                                 |
-| `summary`         | `string` , `Snippet`                                  | -           | The always visible header.                                     |
-| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                            |
+| Prop              | Type                                                  | Default     | Description                                                                                |
+| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
+| `actions`         | `Snippet`                                             | -           | A group of actions, such as buttons.                                                       |
+| `children`        | `Snippet`                                             | -           | The collapsible content.                                                                   |
+| `marker`          | `Snippet`                                             | -           | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.                                          |
+| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.                               |
+| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                                                             |
+| `summary`         | `string` , `Snippet`                                  | -           | The always visible header.                                                                 |
+| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                                                        |
 
 #### CSS variables
 

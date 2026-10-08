@@ -83,6 +83,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--font-size-h6": "Font size for `h6` and `.ui-h6`.",
   "--font-weight-bold": "Font weight for headings, buttons and terms.",
   "--font-weight-medium": "Font weight for badges, overlines and group labels.",
+  "--font-weight-normal":
+    "Font weight for `List` text and `Button` keyboard shortcuts.",
   "--font-weight-semibold": "Font weight for labels, table headers and titles.",
   "--gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
   "--gray-hue": "Hue of the gray ramp.",

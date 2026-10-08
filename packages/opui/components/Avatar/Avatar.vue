@@ -11,6 +11,7 @@ const {
   href,
   interestfor,
   isGroup,
+  size,
   src,
   variant,
 } = defineProps<Props>()
@@ -24,6 +25,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
     :is="Tag"
     :class="[
       { 'ui-avatar': !isGroup, 'ui-avatar-group': isGroup },
+      !isGroup && size && `ui-${size}`,
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"

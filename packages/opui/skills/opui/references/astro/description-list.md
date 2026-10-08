@@ -90,13 +90,40 @@ import { DescriptionList } from "opui-css/astro"
 </DescriptionList>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```astro
+---
+import { DescriptionList } from "opui-css/astro"
+---
+
+
+<DescriptionList bordered inline style="max-inline-size: 18rem">
+  <DescriptionList.Item>
+    <DescriptionList.Term>Subtotal</DescriptionList.Term>
+    <DescriptionList.Description>$120.00</DescriptionList.Description>
+  </DescriptionList.Item>
+  <DescriptionList.Item>
+    <DescriptionList.Term>Shipping</DescriptionList.Term>
+    <DescriptionList.Description>$8.00</DescriptionList.Description>
+  </DescriptionList.Item>
+  <DescriptionList.Item>
+    <DescriptionList.Term>Total</DescriptionList.Term>
+    <DescriptionList.Description>$128.00</DescriptionList.Description>
+  </DescriptionList.Item>
+</DescriptionList>
+```
+
 ## API
 
 ### Description list API
 
-| Prop       | Type                   | Default | Description                                         |
-| ---------- | ---------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
+| Prop       | Type                   | Default | Description                                                                                                              |
+| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots
 
@@ -259,3 +286,8 @@ Import the component from `opui-css/astro`:
 
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

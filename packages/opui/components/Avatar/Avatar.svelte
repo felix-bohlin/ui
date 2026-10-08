@@ -7,6 +7,7 @@
     class: className,
     href,
     isGroup,
+    size,
     src,
     variant,
 
@@ -22,6 +23,7 @@
   this={Tag}
   class={[
     { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
+    !isGroup && size && `ui-${size}`,
     !isGroup && variant && `ui-${variant}`,
     className,
   ]}

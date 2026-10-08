@@ -102,10 +102,10 @@
         outline-offset: var(--_focus-ring-offset);
       }
 
-      &:has(svg) {
+      &:has(.ui-marker) {
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        gap: var(--size-2);
         list-style: none;
 
         &::marker,
@@ -114,30 +114,32 @@
         }
       }
 
-      svg {
+      .ui-marker {
+        flex-shrink: 0;
+        margin-inline-start: auto;
         transition:
           rotate var(--_duration) var(--_ease),
           scale var(--_duration) var(--_ease);
       }
     }
 
-    &.ui-marker-flip[open] > summary svg {
+    &.ui-marker-flip[open] > summary .ui-marker {
       scale: 1 -1;
     }
 
-    &.ui-marker-rotate[open] > summary svg {
+    &.ui-marker-rotate[open] > summary .ui-marker {
       rotate: 180deg;
     }
 
-    &.ui-marker-turn[open] > summary svg {
+    &.ui-marker-turn[open] > summary .ui-marker {
       rotate: 90deg;
     }
 
-    &.ui-marker-turn:dir(rtl) > summary svg {
+    &.ui-marker-turn:dir(rtl) > summary .ui-marker {
       scale: -1 1;
     }
 
-    &.ui-marker-turn[open]:dir(rtl) > summary svg {
+    &.ui-marker-turn[open]:dir(rtl) > summary .ui-marker {
       rotate: -90deg;
     }
 

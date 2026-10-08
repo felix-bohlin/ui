@@ -80,13 +80,38 @@ Above `45ch` the term and description share a row and the border fills the gap b
 </dl>
 ```
 
+## Inline
+
+The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `.ui-inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+
+```html
+<dl
+  class="ui-description-list ui-bordered ui-inline"
+  style="max-inline-size: 18rem"
+>
+  <div class="ui-item">
+    <dt class="ui-term">Subtotal</dt>
+    <dd class="ui-description">$120.00</dd>
+  </div>
+  <div class="ui-item">
+    <dt class="ui-term">Shipping</dt>
+    <dd class="ui-description">$8.00</dd>
+  </div>
+  <div class="ui-item">
+    <dt class="ui-term">Total</dt>
+    <dd class="ui-description">$128.00</dd>
+  </div>
+</dl>
+```
+
 ## API
 
 ### Description list API
 
-| Type     | Modifiers                                | Default | Description                                         |
-| -------- | ---------------------------------------- | ------- | --------------------------------------------------- |
-| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description. |
+| Type     | Modifiers                                | Default | Description                                                                                                              |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description.                                                                      |
+| Layout   | `.ui-inline`                             | -       | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Parts
 
@@ -250,3 +275,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - `opui-css/css/components/description-list.css`
 
+## Changelog
+
+### What's new
+
+- [Inline](#inline) keeps terms and descriptions side by side at any width with `.ui-inline`.

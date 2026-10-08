@@ -14,9 +14,9 @@ Explain more about the topic shown in the summary through supporting text.
 
   The always visible header.
 
-- `<svg>`
+- `<svg class="ui-marker">`
 
-  The marker. Astro, Svelte and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `.ui-content`
 
@@ -33,6 +33,7 @@ Explain more about the topic shown in the summary through supporting text.
   <summary>
     Accordion
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -66,6 +67,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Text
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -92,6 +94,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Elevated
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -118,6 +121,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Outlined
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -144,6 +148,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Tonal
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -175,6 +180,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -198,6 +204,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -221,6 +228,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -253,6 +261,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -276,6 +285,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -299,6 +309,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -330,6 +341,7 @@ Add buttons or other interactive elements below the content in a `.ui-actions` e
   <summary>
     Accordion with actions
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -357,13 +369,14 @@ Add buttons or other interactive elements below the content in a `.ui-actions` e
 
 ## Custom marker
 
-Replace the SVG inside the `summary` to change the marker. Leave it out to fall back to the native arrow.
+Replace the `svg.ui-marker` inside the `summary` to change the marker. Leave it out to fall back to the native arrow. Only `.ui-marker` animates, so other icons in the `summary`, such as a leading status icon, stay put.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
   <summary>
     Custom marker
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -390,13 +403,14 @@ Replace the SVG inside the `summary` to change the marker. Leave it out to fall 
 
 ## Marker animation
 
-Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details>` element to animate the marker when the accordion opens.
+Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details>` element to animate the `.ui-marker` when the accordion opens.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-flip ui-outlined">
   <summary>
     Flip
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -422,6 +436,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   <summary>
     Rotate
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -447,6 +462,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   <summary>
     Turn
     <svg
+      class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -487,13 +503,13 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 #### Parts
 
-| Part                   | Description                                                    |
-| ---------------------- | -------------------------------------------------------------- |
-| `details.ui-accordion` | Container element.                                             |
-| `<summary>`            | The always visible header.                                     |
-| `<svg>`                | The marker. Astro, Svelte and Vue render a chevron by default. |
-| `.ui-content`          | The collapsible content.                                       |
-| `.ui-actions`          | A group of actions, such as buttons.                           |
+| Part                      | Description                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| `details.ui-accordion`    | Container element.                                                                         |
+| `<summary>`               | The always visible header.                                                                 |
+| `<svg class="ui-marker">` | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `.ui-content`             | The collapsible content.                                                                   |
+| `.ui-actions`             | A group of actions, such as buttons.                                                       |
 
 #### CSS variables
 
@@ -651,4 +667,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
-- Breaking: markers only animate with a [marker class](#marker-animation). Add `.ui-marker-rotate` to keep the previous rotation.
+- Breaking: markers only animate with a [marker class](#marker-animation), and only the [`svg.ui-marker`](#custom-marker). Add `.ui-marker-rotate` to keep the previous rotation.

@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `v-slot:marker`
 
-  The marker. Astro, Svelte and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `v-slot:default`
 
@@ -208,7 +208,7 @@ import { Accordion, Button } from "opui-css/vue"
 
 ## Custom marker
 
-Replace the default marker with the `marker` slot.
+Replace the default marker with the `marker` slot, and give it `.ui-marker` so it sits at the end and animates. Other icons in the `summary`, such as a leading status icon, stay put.
 
 ```vue
 <script setup lang="ts">
@@ -221,6 +221,7 @@ import { Accordion } from "opui-css/vue"
     <template #summary>Custom marker</template>
     <template #marker>
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -279,6 +280,7 @@ import { Accordion } from "opui-css/vue"
     <template #summary>Turn</template>
     <template #marker>
       <svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -318,12 +320,12 @@ import { Accordion } from "opui-css/vue"
 
 #### Slots
 
-| Slot      | Description                                                    |
-| --------- | -------------------------------------------------------------- |
-| `actions` | A group of actions, such as buttons.                           |
-| `default` | The collapsible content.                                       |
-| `marker`  | The marker. Astro, Svelte and Vue render a chevron by default. |
-| `summary` | The always visible header.                                     |
+| Slot      | Description                                                                                |
+| --------- | ------------------------------------------------------------------------------------------ |
+| `actions` | A group of actions, such as buttons.                                                       |
+| `default` | The collapsible content.                                                                   |
+| `marker`  | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `summary` | The always visible header.                                                                 |
 
 #### CSS variables
 
@@ -483,4 +485,4 @@ Import the component from `opui-css/vue`:
 ### What's new
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
-- Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there or it shows twice.
+- Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.

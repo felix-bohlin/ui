@@ -11,11 +11,11 @@ const whatsNew = {
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
     {
-      astro: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there or it shows twice.`,
-      vue: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there or it shows twice.`,
+      astro: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
+      vue: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
     },
     {
-      html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
+      html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
   ],
   anchor: [
@@ -33,6 +33,10 @@ const whatsNew = {
     {
       astro: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
       vue: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
+    },
+    {
+      default: `<a href="#sizes">Sizes</a> with <code>size="x-small"</code>, <code>size="small"</code> and <code>size="large"</code>.`,
+      html: `<a href="#sizes">Sizes</a> with <code>.ui-x-small</code>, <code>.ui-small</code> and <code>.ui-large</code>.`,
     },
   ],
   badge: [
@@ -163,6 +167,10 @@ const whatsNew = {
   "description-list": [
     {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
+    },
+    {
+      default: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>inline</code>.`,
+      html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
   ],
   dialog: [

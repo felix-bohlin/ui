@@ -14,6 +14,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     background-color: var(--_bg-color);
     color: var(--text-primary);
+    font-weight: var(--font-weight-normal);
     list-style: none;
     padding-block: var(--size-2);
     padding-inline: 0;
@@ -285,7 +286,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         :where(h1, h2, h3, h4, h5, h6, p, span) {
           color: inherit;
-          font-weight: 400;
+          font-weight: inherit;
           margin: 0;
         }
 
@@ -302,11 +303,11 @@ Lists meant to be used stand-alone or as part of Select elements
         display: grid;
         z-index: 1;
 
-        &:has(svg) {
+        &:has(> svg) {
           max-inline-size: var(--_start-size);
         }
 
-        svg {
+        & > svg {
           padding-block-start: 0.125rem;
         }
 

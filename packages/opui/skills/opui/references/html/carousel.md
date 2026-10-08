@@ -676,6 +676,56 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
 
 Try the options together. The code below the carousel updates as you go.
 
+## Grid and flex layouts
+
+With `.ui-with-markers`, the markers are a box next to the carousel, not inside it. In a grid or flex parent they become an item of their own and land in the next cell. Wrap the carousel in a `div` to keep them together.
+
+```html
+<div
+  style="
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  "
+>
+  <div>
+    <ul
+      class="ui-carousel ui-with-buttons ui-with-markers"
+      aria-label="Destinations"
+    >
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Kyoto</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Lima</h3>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Lisbon</h3>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <hgroup>
+    <h3>Spring trips</h3>
+    <p>Three cities, two weeks, one carry-on.</p>
+  </hgroup>
+</div>
+```
+
 ## Accessibility
 
 ### Work in progress

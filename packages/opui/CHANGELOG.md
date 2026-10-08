@@ -4,8 +4,8 @@
 
 ### Breaking
 
-- `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
-- `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot replaces it, so move a custom chevron from `summary` to the `marker` slot, or it shows twice.
+- `Accordion` markers only animate with a marker class on `details`, and the marker is the `svg` with `.ui-marker`. Add `.ui-marker-rotate` to keep the previous rotation and `.ui-marker` to the chevron. Other icons in the `summary` stay put.
+- `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot replaces it, so move a custom chevron from `summary` to the `marker` slot and give it `.ui-marker`, or it shows twice.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. Rename any overrides to the new names.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
@@ -81,7 +81,7 @@
 - `theme.css` adds icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
 - `theme.css` adds choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
 - `theme.css` adds overlay tokens, `--backdrop-color` and `--backdrop-blur`, read by `Dialog` and `Drawer`, and inverse surface tokens, `--surface-inverse` and `--text-inverse`.
-- `theme.css` adds state and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
+- `theme.css` adds state and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-normal`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
 - `theme.css` adds field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 - `theme.css` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--density`, a multiplier for `--control-size-x-small`, `--control-size-small`, `--control-size` and `--control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
@@ -103,6 +103,8 @@
 - `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--switch-dot-size-*`, `--switch-track-height-*` and `--switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--chip-size-x-small` token.
 - `Badge` `alignment` takes `"start-end"`, the default placement.
+- `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it.
+- `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 
 ### Changed
 
@@ -329,6 +331,10 @@
 - `Tabs` keep the DOM focus order in Chromium: the selected tab, then the content of its open panel. `reading-flow` put the panel content first.
 - `Tabs` show the whole focus ring on a focused tab. The next tab covered its end side.
 - `ToggleButton` keeps its selected tint on hover, also in a `ToggleGroup` and under `--contrast: more`, and a disabled selected button no longer changes on hover.
+- `List` text inherits the item's font weight, so `font-weight` on an `li` makes the whole row bold, e.g. for unread items.
+- `List` only caps the start column at the icon size when it holds an `svg` directly, so an `Avatar` with an icon keeps its size.
+- `Table` row headers (`<th scope="row">`, or a `th` next to `td` cells in `tbody`) keep the body background instead of the header fill.
+- `Checkbox`, `Radio` and `Switch` required asterisks, and the `FieldSet` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 
 ## 5.5.0 - 2026-09-28
 

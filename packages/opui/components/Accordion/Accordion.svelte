@@ -31,6 +31,7 @@
 >
   <summary
     >{#if typeof summary === "string"}{summary}{:else}{@render summary?.()}{/if}{#if marker}{@render marker()}{:else}<svg
+        class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

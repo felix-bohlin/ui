@@ -64,6 +64,10 @@
       }
     }
 
+    tbody :is(th[scope="row"], tr:has(> td) > th) {
+      background-color: var(--surface-default);
+    }
+
     /* Round corner cells  */
     & > thead:first-of-type tr:first-child {
       th:first-child {

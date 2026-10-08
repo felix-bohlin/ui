@@ -11,6 +11,14 @@ export default {
       prop: "bordered",
       values: { dotted: ".ui-bordered.ui-dotted" },
     },
+    {
+      class: ".ui-inline",
+      default: "false",
+      description:
+        "Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
+      group: "Layout",
+      prop: "inline",
+    },
   ],
   parts: [
     {

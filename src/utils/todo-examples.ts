@@ -1,5 +1,6 @@
 import buttonKeyboard from "../component-examples/button/Keyboard.html?raw"
 import abbrUnderline from "../todo-examples/abbr-underline.html?raw"
+import accordionActionsPadding from "../todo-examples/accordion-actions-padding.html?raw"
 import accordionFocusRing from "../todo-examples/accordion-focus-ring.html?raw"
 import accordionHtmlMarker from "../todo-examples/accordion-html-marker.html?raw"
 import accordionPlainGroup from "../todo-examples/accordion-plain-group.html?raw"
@@ -15,6 +16,7 @@ import buttonGroupLinkItem from "../todo-examples/button-group-link-item.html?ra
 import buttonGroupVerticalSmall from "../todo-examples/button-group-vertical-small.html?raw"
 import buttonGroupWalkthroughOutline from "../todo-examples/button-group-walkthrough-outline.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
+import calloutBareText from "../todo-examples/callout-bare-text.html?raw"
 import calloutHtmlDefaultIcon from "../todo-examples/callout-html-default-icon.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutLinkFocus from "../todo-examples/callout-link-focus.html?raw"
@@ -51,6 +53,7 @@ import dialogActionsAlignApi from "../todo-examples/dialog-actions-align-api.htm
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
 import dialogLongContent from "../todo-examples/dialog-long-content.html?raw"
+import dialogMaxInlineSize from "../todo-examples/dialog-max-inline-size.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
 import drawerFooterInlineEnd from "../todo-examples/drawer-footer-inline-end.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
@@ -132,6 +135,10 @@ export const todoExamples = {
     match: "`.ui-abbr`/`.ui-dfn` underline uses",
     source: abbrUnderline,
   },
+  "accordion-actions-padding": {
+    match: "Accordion: actions pad",
+    source: accordionActionsPadding,
+  },
   "accordion-focus-ring": {
     match: "Accordion `summary` focus ring is mostly invisible",
     source: accordionFocusRing,
@@ -195,6 +202,10 @@ export const todoExamples = {
   "button-unwrapped-text": {
     match: "Button with an icon and unwrapped text",
     source: buttonUnwrappedText,
+  },
+  "callout-bare-text": {
+    match: "Callout: `.ui-content` is a grid",
+    source: calloutBareText,
   },
   "callout-html-default-icon": {
     match: "Callout: the `<svg>` part says",
@@ -339,6 +350,10 @@ export const todoExamples = {
   "dialog-long-content": {
     match: "Dialog: What's new says \"Long content scrolls",
     source: dialogLongContent,
+  },
+  "dialog-max-inline-size": {
+    match: "Dialog: setting `max-inline-size`",
+    source: dialogMaxInlineSize,
   },
   "disabled-buttons": {
     match: "Disabled button text color",

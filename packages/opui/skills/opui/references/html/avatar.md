@@ -107,6 +107,17 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 </div>
 ```
 
+## Sizes
+
+Use `.ui-x-small`, `.ui-small` or `.ui-large` to match the control sizes, for example in dense lists, table rows and bylines. Letters and icons scale with the avatar.
+
+```html
+<div class="ui-avatar ui-x-small" role="img" aria-label="Lena Ek">LE</div>
+<div class="ui-avatar ui-small" role="img" aria-label="Tom Tanaka">TT</div>
+<div class="ui-avatar" role="img" aria-label="Elif Rahman">ER</div>
+<div class="ui-avatar ui-large" role="img" aria-label="Kai Lund">KL</div>
+```
+
 ## Grouped
 
 Group multiple avatars in a `.ui-avatar-group` element with `role="group"` and an `aria-label`.
@@ -137,6 +148,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
 | Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the avatar.                  |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts
@@ -148,13 +160,19 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
-| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                     |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -298,3 +316,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.

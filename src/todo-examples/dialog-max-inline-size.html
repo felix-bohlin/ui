@@ -1,0 +1,78 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-phone {
+    border: var(--border-width) dashed var(--border-color);
+    inline-size: 320px;
+    padding-block: var(--size-3);
+  }
+
+  .todo-compare .ui-dialog {
+    margin-block-start: 0;
+    position: static;
+  }
+
+  .todo-current .ui-dialog {
+    max-inline-size: calc(100% - var(--size-4));
+  }
+
+  .todo-current .ui-dialog.todo-wide {
+    max-inline-size: 40rem;
+  }
+
+  .todo-proposed .ui-dialog {
+    --_max-inline-size: 60ch;
+
+    max-inline-size: min(var(--_max-inline-size), 100% - var(--size-4));
+
+    &.todo-wide {
+      --_max-inline-size: 40rem;
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div class="todo-current">
+    <p class="ui-caption">
+      Current: default dialog, 320px screen (the under 600px rule)
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+  <div class="todo-current">
+    <p class="ui-caption">
+      Current: <code>max-inline-size: 40rem</code>, 320px screen
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated todo-wide">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">
+      Proposed: <code>--_max-inline-size: 40rem</code>, 320px screen
+    </p>
+    <div class="todo-phone">
+      <dialog open class="ui-dialog ui-card ui-elevated todo-wide">
+        <hgroup><h3>Server status</h3></hgroup>
+        <div class="ui-content"><p>All systems are running.</p></div>
+      </dialog>
+    </div>
+  </div>
+</div>

@@ -116,6 +116,22 @@ import { Avatar } from "opui-css/astro"
 />
 ```
 
+## Sizes
+
+Use `size="x-small"`, `size="small"` or `size="large"` to match the control sizes, for example in dense lists, table rows and bylines. Letters and icons scale with the avatar.
+
+```astro
+---
+import { Avatar } from "opui-css/astro"
+---
+
+
+<Avatar aria-label="Lena Ek" role="img" size="x-small">LE</Avatar>
+<Avatar aria-label="Tom Tanaka" role="img" size="small">TT</Avatar>
+<Avatar aria-label="Elif Rahman" role="img">ER</Avatar>
+<Avatar aria-label="Kai Lund" role="img" size="large">KL</Avatar>
+```
+
 ## Grouped
 
 Group multiple avatars by setting the `isGroup` prop on a parent container.
@@ -158,6 +174,7 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
 | `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
 | `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
+| `size`        | `"x-small"` , `"small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
 | `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
 | `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
@@ -169,13 +186,19 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
-| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                     |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
@@ -323,3 +346,4 @@ Import the component from `opui-css/astro`:
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - Breaking: [`alt`](#image) is required when `src` is set.
 - Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
+- [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.

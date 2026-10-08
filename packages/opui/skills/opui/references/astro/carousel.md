@@ -496,6 +496,45 @@ const places = [
 
 Try the options together. The code below the carousel updates as you go.
 
+## Grid and flex layouts
+
+With `markers`, the markers are a box next to the carousel, not inside it. In a grid or flex parent they become an item of their own and land in the next cell. Wrap the carousel in a `div` to keep them together.
+
+```astro
+---
+import { Card, Carousel } from "opui-css/astro"
+
+
+const places = ["Kyoto", "Lima", "Lisbon"]
+---
+
+
+<div
+  style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+>
+  <div>
+    <Carousel label="Destinations" markers>
+      {
+        places.map((title) => (
+          <li>
+            <Card variant="tonal">
+              <Fragment slot="header">
+                <p>Destination</p>
+                <h3>{title}</h3>
+              </Fragment>
+            </Card>
+          </li>
+        ))
+      }
+    </Carousel>
+  </div>
+  <hgroup>
+    <h3>Spring trips</h3>
+    <p>Three cities, two weeks, one carry-on.</p>
+  </hgroup>
+</div>
+```
+
 ## Accessibility
 
 ### Work in progress

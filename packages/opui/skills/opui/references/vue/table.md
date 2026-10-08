@@ -268,6 +268,8 @@ import {
 
 An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
+The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
+
 ```vue
 <template>
   <table class="ui-table">
@@ -295,7 +297,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
     </thead>
     <tbody>
       <tr>
-        <td>Norway</td>
+        <th scope="row">Norway</th>
         <td>Oslo</td>
         <td>Bergen</td>
         <td>Trondheim</td>
@@ -303,7 +305,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
         <td>White-throated Dipper</td>
       </tr>
       <tr>
-        <td>Sweden</td>
+        <th scope="row">Sweden</th>
         <td>Stockholm</td>
         <td>Göteborg</td>
         <td>Malmö</td>
@@ -311,7 +313,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
         <td>Common Blackbird</td>
       </tr>
       <tr>
-        <td>Denmark</td>
+        <th scope="row">Denmark</th>
         <td>København</td>
         <td>Aarhus</td>
         <td>Odense</td>
@@ -319,7 +321,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
         <td>Mute Swan</td>
       </tr>
       <tr>
-        <td>Finland</td>
+        <th scope="row">Finland</th>
         <td>Helsinki</td>
         <td>Espoo</td>
         <td>Tampere</td>
@@ -327,7 +329,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
         <td>Whooper Swan</td>
       </tr>
       <tr>
-        <td>Iceland</td>
+        <th scope="row">Iceland</th>
         <td>Reykjavík</td>
         <td>Kópavogur</td>
         <td>Hafnarfjörður</td>

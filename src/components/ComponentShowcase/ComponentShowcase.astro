@@ -23,6 +23,7 @@ import {
   Progress,
   Radio,
   Range,
+  Rating,
   Select,
   Switch,
   Table,
@@ -288,6 +289,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       value={50}
       min={0}
       max={100}
+    />
+  </ComponentCard>
+
+  <ComponentCard name="Rating" href="/components/rating">
+    <Rating
+      aria-hidden="true"
+      inert
+      label="Rated 4.5 out of 5"
+      size="large"
+      value={4.5}
     />
   </ComponentCard>
 

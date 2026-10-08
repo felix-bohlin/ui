@@ -34,6 +34,7 @@ export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
 export { default as Range } from "../components/Range/Range.svelte"
+export { default as Rating } from "../components/Rating/Rating.svelte"
 export { default as Select } from "../components/Select/Select.svelte"
 export { default as Switch } from "../components/Switch/Switch.svelte"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.svelte"
@@ -100,6 +101,7 @@ export type {
   RadioProps,
 } from "../components/Radio/types.svelte"
 export type { RangeProps } from "../components/Range/types.svelte"
+export type { Props as RatingProps } from "../components/Rating/types.svelte"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
 export type {

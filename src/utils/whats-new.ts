@@ -294,6 +294,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
+  rating: [
+    `New component. A <a href="#basics">star rating</a> that shows a score with exact fractions, or <a href="#input">collects one</a> with radios.`,
+  ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
@@ -467,6 +470,7 @@ const highlighted = new Set([
   "button",
   "carousel",
   "menu",
+  "rating",
   "tabs",
   "typography",
 ])

@@ -1,0 +1,308 @@
+<style>
+  @layer components.root {
+    :where(.ui-bar-chart) {
+      --_motion: var(--motion, 1);
+      --_accent: var(--primary);
+      --_bar-size: 2.5rem;
+      --_block-size: 12rem;
+      --_max: var(--max, 100);
+      --_value-size: 7ch;
+
+      border-collapse: collapse;
+      display: grid;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+      inline-size: 100%;
+      margin: 0;
+
+      @supports (x: attr(x type(*))) {
+        --_max: attr(data-max type(<number>), var(--max, 100));
+      }
+
+      & > caption {
+        color: var(--text-primary);
+        font-size: var(--font-size-05);
+        font-weight: var(--font-weight-semibold);
+        text-align: start;
+      }
+
+      & > thead {
+        block-size: 1px;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      & > tbody {
+        block-size: var(--_block-size);
+        display: grid;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+      }
+
+      & > tbody > tr {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+      }
+
+      & > tbody > tr > th {
+        color: var(--text-muted);
+        font-weight: inherit;
+        grid-row: 2;
+        padding: var(--size-1) 0 0;
+        text-align: center;
+      }
+
+      & > tbody > tr > td {
+        --_ratio: clamp(0, var(--_value) / var(--_max), 1);
+        --_value: var(--value, 0);
+
+        align-items: center;
+        border-block-end: var(--border-width) solid var(--border-color);
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        font-variant-numeric: tabular-nums;
+        gap: var(--size-1);
+        grid-row: 1;
+        justify-content: end;
+        min-block-size: 0;
+        padding: 0;
+
+        @supports (x: attr(x type(*))) {
+          --_value: attr(data-value type(<number>), var(--value, 0));
+        }
+
+        &::after {
+          background-color: var(--_accent);
+          block-size: calc(var(--_ratio) * (100% - 1lh - var(--size-1)));
+          border-start-end-radius: var(--radius-2);
+          border-start-start-radius: var(--radius-2);
+          content: "";
+          inline-size: min(100% - var(--size-2), var(--_bar-size));
+          transition:
+            block-size calc(var(--duration-slow) * var(--_motion))
+              var(--ease-enter),
+            inline-size calc(var(--duration-slow) * var(--_motion))
+              var(--ease-enter);
+
+          @starting-style {
+            block-size: 0;
+          }
+
+          @media (forced-colors: active) {
+            background-color: CanvasText;
+            forced-color-adjust: none;
+          }
+        }
+      }
+
+      &
+        > tbody
+        > tr:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+        --_accent: light-dark(var(--color-9), var(--color-6));
+      }
+
+      &.ui-small {
+        --_block-size: 8rem;
+      }
+
+      &.ui-large {
+        --_block-size: 16rem;
+      }
+
+      &.ui-horizontal {
+        & > tbody {
+          block-size: auto;
+          column-gap: var(--size-3);
+          grid-auto-flow: row;
+          grid-template-columns: [label] max-content [bar] minmax(0, 1fr);
+        }
+
+        & > tbody > tr {
+          align-items: center;
+          grid-column: 1 / -1;
+          grid-template-columns: subgrid;
+          grid-template-rows: auto;
+        }
+
+        & > tbody > tr > th {
+          grid-row: 1;
+          padding: 0;
+          text-align: start;
+        }
+
+        & > tbody > tr > td {
+          border-block-end: 0;
+          border-inline-start: var(--border-width) solid var(--border-color);
+          flex-direction: row;
+          gap: var(--size-2);
+          justify-content: start;
+          padding-block: var(--size-1);
+
+          &::after {
+            block-size: var(--size-4);
+            border-end-end-radius: var(--radius-2);
+            border-start-start-radius: 0;
+            inline-size: calc(var(--_ratio) * (100% - var(--_value-size)));
+            order: -1;
+
+            @starting-style {
+              inline-size: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .todo-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+</style>
+<div class="todo-grid">
+  <div class="todo-case">
+    <p class="ui-caption">Vertical, values from typed <code>attr()</code></p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">
+        <table class="ui-bar-chart" data-max="12000">
+          <caption>
+            Visitors per day
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">Visitors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Mon</th>
+              <td data-value="5840">5 840</td>
+            </tr>
+            <tr>
+              <th scope="row">Tue</th>
+              <td data-value="7120">7 120</td>
+            </tr>
+            <tr>
+              <th scope="row">Wed</th>
+              <td data-value="6480">6 480</td>
+            </tr>
+            <tr>
+              <th scope="row">Thu</th>
+              <td data-value="8910">8 910</td>
+            </tr>
+            <tr>
+              <th scope="row">Fri</th>
+              <td data-value="8040">8 040</td>
+            </tr>
+            <tr>
+              <th scope="row">Sat</th>
+              <td data-value="3790">3 790</td>
+            </tr>
+            <tr>
+              <th scope="row">Sun</th>
+              <td data-value="10030">10 030</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="todo-case">
+    <p class="ui-caption">
+      Small, <code>--value</code> fallback, <code>.ui-warning</code> rows
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">
+        <table class="ui-bar-chart ui-small" style="--max: 600">
+          <caption>
+            Response time (ms)
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Hour</th>
+              <th scope="col">Milliseconds</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">09</th>
+              <td style="--value: 187">187</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td style="--value: 204">204</td>
+            </tr>
+            <tr>
+              <th scope="row">11</th>
+              <td style="--value: 192">192</td>
+            </tr>
+            <tr class="ui-warning">
+              <th scope="row">12</th>
+              <td style="--value: 468">468</td>
+            </tr>
+            <tr class="ui-warning">
+              <th scope="row">13</th>
+              <td style="--value: 562">562</td>
+            </tr>
+            <tr class="ui-warning">
+              <th scope="row">14</th>
+              <td style="--value: 421">421</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="todo-case">
+    <p class="ui-caption">
+      <code>.ui-horizontal</code>, labels aligned with subgrid
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">
+        <table class="ui-bar-chart ui-horizontal" data-max="100">
+          <caption>
+            Top sources
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Source</th>
+              <th scope="col">Share of visitors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Search</th>
+              <td data-value="46">46%</td>
+            </tr>
+            <tr>
+              <th scope="row">Direct</th>
+              <td data-value="28">28%</td>
+            </tr>
+            <tr>
+              <th scope="row">Social media</th>
+              <td data-value="17">17%</td>
+            </tr>
+            <tr class="ui-neutral">
+              <th scope="row">Email</th>
+              <td data-value="9">9%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

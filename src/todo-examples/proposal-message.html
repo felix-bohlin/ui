@@ -1,0 +1,343 @@
+<style>
+  @layer components.root {
+    :where(.ui-messages) {
+      container-type: inline-size;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-1);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    :where(.ui-message) {
+      --_motion: var(--motion, 1);
+      --_bg-color: var(--surface-tonal);
+      --_bottom: var(--_radius);
+      --_radius: var(--radius-3);
+      --_text-color: var(--text-primary);
+      --_tight: var(--size-1);
+      --_top: var(--_radius);
+
+      align-items: end;
+      align-self: start;
+      display: flex;
+      gap: var(--size-2);
+      max-inline-size: min(36rem, 85cqi);
+
+      @supports (corner-shape: squircle) {
+        --_radius: calc(var(--radius-3) * 1.75);
+      }
+
+      & > .ui-avatar {
+        font-size: var(--font-size-0);
+        inline-size: var(--control-size-small);
+      }
+
+      .ui-bubble {
+        background-color: var(--_bg-color);
+        border-end-end-radius: var(--_radius);
+        border-end-start-radius: var(--_bottom);
+        border-start-end-radius: var(--_radius);
+        border-start-start-radius: var(--_top);
+        color: var(--_text-color);
+        display: grid;
+        gap: var(--size-1);
+        min-inline-size: 0;
+        overflow-wrap: anywhere;
+        padding-block: var(--size-2);
+        padding-inline: var(--size-3);
+
+        @supports (corner-shape: squircle) {
+          corner-shape: squircle;
+        }
+
+        & > * {
+          margin: 0;
+        }
+      }
+
+      .ui-header {
+        font-size: var(--font-size-0);
+        font-weight: var(--font-weight-semibold);
+      }
+
+      .ui-footer {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        text-align: end;
+      }
+
+      .ui-attachment {
+        align-items: center;
+        background-color: var(--surface-default);
+        border: var(--border-width) solid var(--border-color);
+        border-radius: var(--radius-2);
+        color: var(--text-primary);
+        display: flex;
+        gap: var(--size-2);
+        padding: var(--size-2);
+
+        & > svg {
+          color: var(--primary);
+          flex-shrink: 0;
+          inline-size: var(--icon-size);
+        }
+
+        p {
+          color: var(--text-muted);
+          font-size: var(--font-size-0);
+          margin: 0;
+        }
+      }
+
+      &.ui-outgoing {
+        --_bg-color: var(--primary);
+        --_text-color: var(--primary-contrast);
+
+        align-self: end;
+        flex-direction: row-reverse;
+
+        .ui-bubble {
+          border-end-end-radius: var(--_bottom);
+          border-end-start-radius: var(--_radius);
+          border-start-end-radius: var(--_top);
+          border-start-start-radius: var(--_radius);
+        }
+
+        .ui-footer {
+          color: inherit;
+        }
+      }
+
+      &:not(.ui-outgoing):has(+ .ui-message:not(.ui-outgoing)),
+      &.ui-outgoing:has(+ .ui-message.ui-outgoing) {
+        --_bottom: var(--_tight);
+
+        & > .ui-avatar {
+          visibility: hidden;
+        }
+      }
+
+      :where(.ui-message:not(.ui-outgoing)) + &:not(.ui-outgoing),
+      :where(.ui-message.ui-outgoing) + &.ui-outgoing {
+        --_top: var(--_tight);
+
+        .ui-header {
+          block-size: 1px;
+          clip-path: inset(50%);
+          inline-size: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+        }
+      }
+
+      :where(.ui-message:not(.ui-outgoing)) + &.ui-outgoing,
+      :where(.ui-message.ui-outgoing) + &:not(.ui-outgoing) {
+        margin-block-start: var(--size-3);
+      }
+
+      &.ui-typing .ui-bubble::before {
+        --_dot: radial-gradient(
+          circle closest-side,
+          currentColor 90%,
+          transparent
+        );
+
+        animation: ui-message-typing calc(1.2s * var(--_motion)) infinite;
+        background:
+          var(--_dot) 0 50% / var(--size-2) var(--size-2),
+          var(--_dot) 50% 50% / var(--size-2) var(--size-2),
+          var(--_dot) 100% 50% / var(--size-2) var(--size-2);
+        background-repeat: no-repeat;
+        block-size: 1lh;
+        color: var(--text-muted);
+        content: "";
+        inline-size: var(--size-7);
+      }
+
+      @container style(--motion: 0) {
+        &.ui-typing .ui-bubble::before {
+          animation: none;
+        }
+      }
+
+      @media (forced-colors: active) {
+        .ui-bubble {
+          border: var(--border-width) solid CanvasText;
+        }
+
+        &.ui-typing .ui-bubble::before {
+          color: CanvasText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    @keyframes ui-message-typing {
+      0%,
+      60%,
+      100% {
+        background-position-y: 50%, 50%, 50%;
+      }
+
+      15% {
+        background-position-y: 15%, 50%, 50%;
+      }
+
+      30% {
+        background-position-y: 50%, 15%, 50%;
+      }
+
+      45% {
+        background-position-y: 50%, 50%, 15%;
+      }
+    }
+  }
+
+  .todo-message-grid {
+    display: grid;
+    gap: var(--size-5) var(--size-6);
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    inline-size: 100%;
+
+    @media (width < 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .todo-message-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-message-thread {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--size-3);
+  }
+</style>
+
+<div class="todo-message-grid">
+  <section aria-labelledby="message-thread-heading" class="todo-message-case">
+    <h2 class="ui-h6" id="message-thread-heading">1:1 thread</h2>
+    <ol
+      aria-label="Messages with Saga Nyström"
+      class="ui-messages todo-message-thread"
+    >
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p>Hi! Did you get a chance to look at the pricing proposal?</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:02">14:02</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p>No rush, Friday is fine.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:03">14:03</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>Yes, looks good. I'd lead with the annual plan.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:18">14:18</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>And keep the 3-seat starter as a fallback.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:18">14:18</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>Can you add the Bergen Bikes case study too?</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:19">14:19</time> · Read
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p>Good call. Here's the current draft:</p>
+          <div class="ui-attachment">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+              />
+            </svg>
+            <div>
+              <a class="ui-link" href="#message-file">Pricing-proposal.pdf</a>
+              <p>PDF · 2.4 MB</p>
+            </div>
+          </div>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:31">14:31</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-typing">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble" role="status">
+          <span class="ui-sr-only">Saga is typing…</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+  <section
+    aria-labelledby="message-rtl-heading"
+    class="todo-message-case"
+    dir="rtl"
+    lang="ar"
+  >
+    <h2 class="ui-h6" id="message-rtl-heading">مجموعة، RTL، ضيقة</h2>
+    <ol aria-label="رسائل فريق التصميم" class="ui-messages todo-message-thread">
+      <li class="ui-message">
+        <div aria-label="ليلى" class="ui-avatar" role="img">لي</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>الأيقونات الجديدة جاهزة.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:12">09:12</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="ليلى" class="ui-avatar" role="img">لي</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>هل نراجعها اليوم؟</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:13">09:13</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>نعم، بعد الظهر.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:20">09:20</time>
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+</div>

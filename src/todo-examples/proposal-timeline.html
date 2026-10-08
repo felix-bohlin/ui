@@ -1,0 +1,203 @@
+<style>
+  @layer components.root {
+    :where(.ui-timeline) {
+      --_gap: var(--size-3);
+      --_line-color: var(--border-color);
+      --_marker-color: var(--text-muted);
+      --_marker-size: var(--size-3);
+      --_space: var(--size-5);
+
+      container-type: inline-size;
+      display: grid;
+      grid-template-columns:
+        [date] auto
+        [marker] calc(var(--_marker-size) + var(--_gap) * 2)
+        [content] minmax(0, 1fr);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      & > li {
+        align-items: baseline;
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+        padding-block-end: var(--_space);
+        position: relative;
+        row-gap: var(--size-1);
+
+        &:last-child {
+          padding-block-end: 0;
+        }
+
+        &::before {
+          align-self: start;
+          background-color: var(--surface-default);
+          block-size: var(--_marker-size);
+          border: 2px solid var(--_marker-color);
+          border-radius: var(--radius-round);
+          box-sizing: border-box;
+          content: "";
+          grid-column: marker;
+          grid-row: 1;
+          inline-size: var(--_marker-size);
+          justify-self: center;
+          margin-block-start: calc((1lh - var(--_marker-size)) / 2);
+        }
+
+        &:not(:last-child)::after {
+          border-inline-start: 2px solid var(--_line-color);
+          content: "";
+          grid-column: marker;
+          inset-block: calc((1lh + var(--_marker-size)) / 2 + var(--size-1))
+            calc(var(--size-1) - (1lh - var(--_marker-size)) / 2);
+          justify-self: center;
+          position: absolute;
+        }
+
+        & > * {
+          grid-column: content;
+          justify-self: start;
+          margin: 0;
+          max-inline-size: 100%;
+        }
+
+        & > time {
+          color: var(--text-muted);
+          font-size: var(--font-size-0);
+          font-variant-numeric: tabular-nums;
+          grid-column: date;
+          grid-row: 1;
+          justify-self: end;
+          white-space: nowrap;
+        }
+      }
+
+      & > li:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+        --_marker-color: light-dark(var(--color-9), var(--color-6));
+
+        &::before {
+          background-color: var(--_marker-color);
+        }
+      }
+
+      & > li[aria-current]::before {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 var(--size-1) oklch(from var(--primary) l c h / 25%);
+
+        @media (forced-colors: active) {
+          background-color: Highlight;
+          border-color: Highlight;
+          box-shadow: none;
+          forced-color-adjust: none;
+        }
+      }
+
+      &.ui-small {
+        --_gap: var(--size-2);
+        --_marker-size: var(--size-2);
+        --_space: var(--size-3);
+      }
+
+      @container (inline-size < 24rem) {
+        & > li {
+          &::before,
+          &::after {
+            font-size: var(--font-size-0);
+          }
+
+          & > time {
+            grid-column: content;
+            justify-self: start;
+          }
+        }
+      }
+    }
+  }
+
+  .todo-grid {
+    align-items: start;
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-case {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .todo-narrow {
+    inline-size: min(100%, 20rem);
+  }
+</style>
+<div class="todo-case">
+  <h2 class="ui-h6">Dates share one column through subgrid</h2>
+  <ol class="ui-timeline">
+    <li class="ui-success">
+      <time datetime="2026-10-01">Oct 1, 2026</time>
+      <h3 class="ui-h6">AI planning and a faster board</h3>
+      <p>Estimates from past work, and a board that renders 3× faster.</p>
+      <span class="ui-chip ui-tonal ui-small"
+        ><span class="ui-text">v6.0.0 · Latest</span></span
+      >
+    </li>
+    <li>
+      <time datetime="2026-09-12">Sep 12, 2026</time>
+      <h3 class="ui-h6">Saved views</h3>
+      <p>Save filters and sorting as named views and share them with a link.</p>
+    </li>
+    <li>
+      <time datetime="2026-08-04">Aug 4, 2026</time>
+      <h3 class="ui-h6">Bug fixes</h3>
+      <p>Faster search and fewer duplicate notifications.</p>
+    </li>
+  </ol>
+</div>
+<div class="todo-grid">
+  <div class="todo-case">
+    <h2 class="ui-h6">Below 24rem the date moves above the event</h2>
+    <ol class="ui-timeline todo-narrow">
+      <li class="ui-success">
+        <time datetime="2026-09-02">2 September</time>
+        <h3 class="ui-h6">Design freeze</h3>
+      </li>
+      <li class="ui-success">
+        <time datetime="2026-09-16">16 September</time>
+        <h3 class="ui-h6">Feature complete</h3>
+      </li>
+      <li aria-current="step">
+        <time datetime="2026-10-14">14 October</time>
+        <h3 class="ui-h6">Beta review</h3>
+        <p class="ui-caption">Moved from 10 October.</p>
+      </li>
+      <li>
+        <time datetime="2026-10-31">31 October</time>
+        <h3 class="ui-h6">Launch</h3>
+      </li>
+    </ol>
+  </div>
+  <div class="todo-case">
+    <h2 class="ui-h6">
+      <code>.ui-small</code> with tones and <code>aria-current</code>
+    </h2>
+    <ol class="ui-timeline ui-small" reversed>
+      <li aria-current="true">
+        <time datetime="2026-10-08T14:05">14:05</time>
+        <p>Monitoring: response times are back to normal.</p>
+      </li>
+      <li class="ui-warning">
+        <time datetime="2026-10-08T13:40">13:40</time>
+        <p>Identified: an index rebuild competes with live traffic.</p>
+      </li>
+      <li class="ui-critical">
+        <time datetime="2026-10-08T12:18">12:18</time>
+        <p>Investigating slower search in eu-north.</p>
+      </li>
+    </ol>
+  </div>
+</div>

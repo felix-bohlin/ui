@@ -1,0 +1,198 @@
+<style>
+  @layer components.extended {
+    :where(.ui-one-time-code) {
+      --_box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect style='x:calc(9%25 + 0.5px);y:0.5px;width:calc(82%25 - 1px);height:calc(100%25 - 1px)' rx='8' fill='none' stroke='%23000'/%3E%3C/svg%3E");
+      --_box-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect style='x:calc(9%25 + 1px);y:1px;width:calc(82%25 - 2px);height:calc(100%25 - 2px)' rx='8' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+      --_cell: calc(var(--_min-height) * 1.1);
+      --_font-size: var(--font-size-3);
+
+      .ui-field {
+        background: none;
+        border: 0;
+        direction: ltr;
+        font-family: var(--font-mono);
+        font-size: var(--_font-size);
+        grid-template-rows: auto 1fr auto;
+        justify-self: start;
+        margin-inline: calc(var(--_cell) * -0.09);
+        overflow: clip;
+
+        &::before {
+          background-color: var(--_border-color);
+          content: "";
+          grid-area: input;
+          mask: var(--_box) 0 0 / var(--_cell) 100% repeat-x;
+          pointer-events: none;
+          transition: background-color calc(var(--duration) * var(--_motion))
+            var(--ease);
+        }
+      }
+
+      .ui-field input {
+        caret-color: var(--_accent);
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+        inline-size: calc(7 * var(--_cell));
+        inline-size: calc(
+          (attr(maxlength type(<integer>), 6) + 1) * var(--_cell)
+        );
+        letter-spacing: calc(var(--_cell) - 1ch);
+        margin-inline-end: calc(-1 * var(--_cell));
+        padding-block: 0;
+        padding-inline: calc((var(--_cell) - 1ch) / 2) 0;
+        position: relative;
+      }
+
+      @media (hover: hover) {
+        &:hover:not(
+            :focus-within,
+            :has([aria-invalid="true"], :user-invalid, :disabled)
+          )
+          .ui-field::before {
+          background-color: var(--text-primary);
+        }
+      }
+
+      &:focus-within .ui-field::before {
+        background-color: var(--_accent);
+        mask-image: var(--_box-focus);
+      }
+
+      .ui-field:has(:focus-visible) {
+        outline: 0;
+      }
+
+      &.ui-small {
+        --_font-size: var(--font-size-2);
+      }
+
+      &.ui-large {
+        --_font-size: var(--font-size-4);
+      }
+
+      @media (forced-colors: active) {
+        .ui-field::before {
+          background-color: CanvasText;
+          forced-color-adjust: none;
+        }
+
+        &:focus-within .ui-field {
+          outline: 0;
+
+          &::before {
+            background-color: Highlight;
+          }
+        }
+      }
+    }
+  }
+
+  .todo-otp-grid {
+    display: grid;
+    gap: var(--size-5) var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-otp-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+</style>
+
+<p>
+  One plain <code>&lt;input&gt;</code> per code: click any box, paste
+  <code>123456</code> or let the phone autofill it. Monospace digits plus
+  <code>letter-spacing</code> land each digit in a box drawn by a repeating
+  mask, so there is nothing to keep in sync.
+</p>
+<div class="todo-otp-grid">
+  <div class="todo-otp-case">
+    <h2 class="ui-h6">Default</h2>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          aria-describedby="one-time-code-default-hint"
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="code"
+          pattern="[0-9]{6}"
+          required
+          type="text"
+        />
+      </span>
+      <span class="ui-end-text" id="one-time-code-default-hint"
+        >The code expires in 10 minutes.</span
+      >
+    </label>
+  </div>
+  <div class="todo-otp-case">
+    <h2 class="ui-h6">Invalid</h2>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Verification code</span>
+      <span class="ui-field">
+        <input
+          aria-describedby="one-time-code-invalid-hint"
+          aria-invalid="true"
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="code-invalid"
+          pattern="[0-9]{6}"
+          required
+          type="text"
+          value="4821"
+        />
+      </span>
+      <span class="ui-end-text" id="one-time-code-invalid-hint"
+        >Enter all 6 digits.</span
+      >
+    </label>
+    <p class="ui-caption">
+      Shown with <code>aria-invalid</code>. Type 3 digits in Default and leave
+      it to get the same look from <code>:user-invalid</code>.
+    </p>
+  </div>
+  <div class="todo-otp-case">
+    <h2 class="ui-h6">4 digits, small</h2>
+    <label class="ui-text-field ui-one-time-code ui-small">
+      <span class="ui-label">PIN</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="4"
+          name="pin"
+          pattern="[0-9]{4}"
+          type="text"
+          value="2024"
+        />
+      </span>
+    </label>
+    <p class="ui-caption">
+      The width comes from <code>maxlength</code> through typed
+      <code>attr()</code>.
+    </p>
+  </div>
+  <div class="todo-otp-case" dir="rtl" lang="ar">
+    <h2 class="ui-h6">RTL, large</h2>
+    <label class="ui-text-field ui-one-time-code ui-large">
+      <span class="ui-label">رمز التحقق</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="code-rtl"
+          pattern="[0-9]{6}"
+          type="text"
+          value="905113"
+        />
+      </span>
+    </label>
+  </div>
+</div>

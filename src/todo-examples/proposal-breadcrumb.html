@@ -1,0 +1,243 @@
+<style>
+  @layer components.root {
+    :where(.ui-breadcrumb) {
+      --_chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+      --_gap: var(--size-1);
+
+      container: ui-breadcrumb / inline-size;
+      font-size: var(--font-size-1);
+
+      & > ol {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--_gap);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      & > ol > li {
+        align-items: center;
+        display: inline-flex;
+        gap: var(--_gap);
+        min-inline-size: 0;
+      }
+
+      & > ol > li + li::before {
+        background-color: var(--text-muted);
+        block-size: 1.25em;
+        content: "" / "";
+        flex-shrink: 0;
+        inline-size: 1.25em;
+        mask: var(--_chevron-icon) center / contain no-repeat;
+      }
+
+      &:dir(rtl) > ol > li + li::before {
+        scale: -1 1;
+      }
+
+      & > ol > li > a {
+        border-radius: var(--radius-2);
+        color: var(--text-muted);
+        text-decoration: none;
+        text-underline-offset: 2px;
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+          }
+        }
+      }
+
+      & > ol > li > button {
+        min-inline-size: 0;
+        padding-inline: var(--size-1);
+      }
+
+      & > ol > li > button > svg {
+        block-size: 1.25em;
+        inline-size: 1.25em;
+      }
+
+      & [aria-current="page"] {
+        color: var(--text-primary);
+        font-weight: var(--font-weight-semibold);
+      }
+
+      & > ol > li:has(> [popover]) {
+        display: none;
+      }
+
+      &.ui-slash > ol > li + li::before {
+        background-color: transparent;
+        block-size: auto;
+        color: var(--text-muted);
+        content: "/" / "";
+        inline-size: auto;
+        mask: none;
+        scale: none;
+      }
+
+      &.ui-small {
+        font-size: var(--font-size-0);
+      }
+
+      @container ui-breadcrumb (inline-size < 30rem) {
+        & > ol {
+          flex-wrap: nowrap;
+        }
+
+        & > ol > li:has(> [popover]) {
+          display: inline-flex;
+        }
+
+        & > ol > li:has(> [popover]) ~ li:not(:nth-last-child(-n + 2)) {
+          display: none;
+        }
+
+        & > ol > li:last-child {
+          flex-shrink: 999;
+          min-inline-size: 4em;
+        }
+
+        & > ol > li > :is(a, span) {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        & > ol > li > button {
+          flex-shrink: 0;
+        }
+      }
+
+      @media (forced-colors: active) {
+        & > ol > li + li::before {
+          background-color: CanvasText;
+        }
+
+        &.ui-slash > ol > li + li::before {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .todo-breadcrumb-cases {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: 100%;
+  }
+
+  .todo-breadcrumb-case {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-breadcrumb-resize {
+    border: var(--border-width) dashed var(--border-color);
+    border-radius: var(--border-radius);
+    inline-size: 20rem;
+    max-inline-size: 100%;
+    min-inline-size: 12rem;
+    overflow: hidden;
+    padding: var(--size-3);
+    resize: horizontal;
+  }
+</style>
+
+<div class="todo-breadcrumb-cases">
+  <div class="todo-breadcrumb-case">
+    <h2 class="ui-h6">Wide: every crumb, chevrons drawn in CSS</h2>
+    <nav class="ui-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="#breadcrumb-shop">Shop</a></li>
+        <li>
+          <button
+            type="button"
+            class="ui-button ui-x-small"
+            aria-label="Show 2 more"
+            commandfor="breadcrumb-wide-menu"
+            command="toggle-popover"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+              />
+            </svg>
+          </button>
+          <menu class="ui-menu ui-list" id="breadcrumb-wide-menu" popover>
+            <li><a href="#breadcrumb-women">Women</a></li>
+            <li><a href="#breadcrumb-outdoor">Outdoor</a></li>
+          </menu>
+        </li>
+        <li><a href="#breadcrumb-women">Women</a></li>
+        <li><a href="#breadcrumb-outdoor">Outdoor</a></li>
+        <li><a href="#breadcrumb-midlayers">Midlayers</a></li>
+        <li><span aria-current="page">Merino Trail Hoodie</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="todo-breadcrumb-case">
+    <h2 class="ui-h6">
+      Narrow container: the middle crumbs move into a menu (drag the corner)
+    </h2>
+    <div class="todo-breadcrumb-resize">
+      <nav class="ui-breadcrumb" aria-label="Breadcrumb, narrow">
+        <ol>
+          <li><a href="#breadcrumb-shop">Shop</a></li>
+          <li>
+            <button
+              type="button"
+              class="ui-button ui-x-small"
+              aria-label="Show 2 more"
+              commandfor="breadcrumb-narrow-menu"
+              command="toggle-popover"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M6 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4m12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                />
+              </svg>
+            </button>
+            <menu class="ui-menu ui-list" id="breadcrumb-narrow-menu" popover>
+              <li><a href="#breadcrumb-women">Women</a></li>
+              <li><a href="#breadcrumb-outdoor">Outdoor</a></li>
+            </menu>
+          </li>
+          <li><a href="#breadcrumb-women">Women</a></li>
+          <li><a href="#breadcrumb-outdoor">Outdoor</a></li>
+          <li><a href="#breadcrumb-midlayers">Midlayers</a></li>
+          <li><span aria-current="page">Merino Trail Hoodie</span></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="todo-breadcrumb-case">
+    <h2 class="ui-h6">Right to left: the chevrons mirror</h2>
+    <nav class="ui-breadcrumb" aria-label="مسار التنقل" dir="rtl" lang="ar">
+      <ol>
+        <li><a href="#breadcrumb-shop">المتجر</a></li>
+        <li><a href="#breadcrumb-women">نساء</a></li>
+        <li><span aria-current="page">هودي ميرينو</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="todo-breadcrumb-case">
+    <h2 class="ui-h6">Small with slashes</h2>
+    <nav class="ui-breadcrumb ui-slash ui-small" aria-label="Folder path">
+      <ol>
+        <li><a href="#breadcrumb-files">My files</a></li>
+        <li><a href="#breadcrumb-team">Team</a></li>
+        <li><span aria-current="page">Marketing</span></li>
+      </ol>
+    </nav>
+  </div>
+</div>

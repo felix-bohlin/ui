@@ -281,6 +281,7 @@
 - `Card`, `Carousel`, `Switch`, `Tabs` and `ToggleButton` focus rings fall back to the same color as other focus rings, the inverted page background, when `--focus-ring-color` is unset.
 - `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`. The border keeps its color while the ring shows.
 - `Switch` focus ring is rounded.
+- `Button`, `ButtonGroup`, `Card`, `Carousel`, `Range`, `Select`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` focus rings grow in like the rest of the library. `normalize.css` animates the `:focus-visible` ring with the `ui-focus-ring` keyframes instead of an `outline-offset` transition, which a component's own `transition` overrode.
 - `ButtonGroup` vertical only squares icon-only buttons.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.

@@ -1,0 +1,17 @@
+---
+import { Stepper } from "@opui/astro"
+---
+
+<Stepper
+  current={1}
+  dir="rtl"
+  items={[{ label: "السلة" }, { label: "الشحن" }, { label: "الدفع" }]}
+  label="خطوات الدفع"
+  lang="ar"
+/>
+
+<style is:global>
+  .ui-stepper:lang(ar) {
+    --_completed-label: "مكتمل: ";
+  }
+</style>

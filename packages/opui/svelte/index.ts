@@ -35,6 +35,7 @@ export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
 export { default as Range } from "../components/Range/Range.svelte"
 export { default as Select } from "../components/Select/Select.svelte"
+export { default as Stepper } from "../components/Stepper/Stepper.svelte"
 export { default as Switch } from "../components/Switch/Switch.svelte"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.svelte"
 export { default as Table } from "../components/Table/Table.svelte"
@@ -100,6 +101,8 @@ export type {
 export type { RangeProps } from "../components/Range/types.svelte"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
+export type { StepperItem } from "../components/Stepper/types"
+export type { Props as StepperProps } from "../components/Stepper/types.svelte"
 export type {
   SwitchInputProps,
   SwitchProps,

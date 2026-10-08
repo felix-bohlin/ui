@@ -24,6 +24,7 @@ import {
   Radio,
   Range,
   Select,
+  Stepper,
   Switch,
   Table,
   Tabs,
@@ -299,6 +300,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
       Loading
     </Button>
+  </ComponentCard>
+
+  <ComponentCard name="Stepper" href="/components/stepper">
+    <Stepper
+      aria-hidden="true"
+      current={1}
+      inert
+      items={[{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }]}
+      size="small"
+    />
   </ComponentCard>
 
   <ComponentCard name="Switch" href="/components/switch">

@@ -13,6 +13,7 @@ export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.svelte"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/Description.svelte"
 export { default as DescriptionListItem } from "../components/DescriptionList/Item.svelte"
@@ -70,6 +71,14 @@ export type {
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.svelte"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,

@@ -18,6 +18,7 @@ export {
   Term as DescriptionListTerm,
 } from "../components/DescriptionList/index"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.astro"
@@ -74,6 +75,14 @@ export type {
 export type { Props as ChipProps } from "../components/Chip/types.astro"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.astro"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.astro"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,

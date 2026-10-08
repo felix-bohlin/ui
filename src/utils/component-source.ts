@@ -159,6 +159,9 @@ export const snippetNames = (target: Target, framework: ComponentFramework) => {
   return [...new Set(names)].filter((name) => !local.has(name)).sort()
 }
 
+const slotName = (name: string) =>
+  name.replace(/^`|`$/g, "").replace(/\$\{(?:[\w.]+\.)?(\w+)\}/g, "[$1]")
+
 export const slotNames = (target: Target, framework: ComponentFramework) => {
   if (frameworks[framework].slotsAreProps) return []
   const text = read(target.source, componentFile(target, framework))
@@ -169,10 +172,10 @@ export const slotNames = (target: Target, framework: ComponentFramework) => {
       ([, attributes]) =>
         attributes.match(/\bname="([^"]+)"/)?.[1] ?? "default",
     ),
-    ...[...text.matchAll(/Astro\.slots\.render\("([^"]+)"/g)].map(
+    ...[...text.matchAll(/Astro\.slots\.render\(\s*["`]([^"`]+)["`]/g)].map(
       ([, name]) => name,
     ),
-  ]
+  ].map(slotName)
   return [...new Set(names)].sort()
 }
 

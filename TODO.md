@@ -435,6 +435,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: the select `::picker-icon`, the classic select `::after` and the autosuggest `.ui-field::after` each get `background-color: ButtonText` inside `@media (forced-colors: active)` (`select.css`, `text-input.css`). Checked in Chromium with forced colors: all three chevrons are `rgb(0, 0, 0)` on a white page instead of disappearing.
+- [ ] (5) Data grid header menus can't be used with a keyboard. Their items are `<label for>` pointing at the sort radios and the Columns menu checkboxes, and labels aren't focusable, so a keyboard user opens a menu with nothing to focus (`DataGrid.astro`, `DataGrid.vue`, `HeaderMenus` example)
+  - Sorting and hiding still work by keyboard through the header sort arrows and the Columns menu, but the menu button offers options it can't deliver.
+  - Proposal: make every item a real control. See the example.
+    1. The sort radios move into the header menus as Sort ascending, Sort descending and Unsorted. They keep the grid's one radio `name`, so only one column sorts. The sort CSS keeps working, since it reads `:nth-child(n) input[value="asc"]:checked` inside the header cell, which now holds the menu.
+    2. The arrow next to the header becomes an `aria-hidden` indicator, driven by `[role="columnheader"]:has(menu [value="desc"]:checked)`.
+    3. Hide column becomes a Manage columns button (`command="show-popover"`) that opens the Columns menu. A checkbox can't live in two places, and a hidden column's own menu would disappear with it.
+  - Keyboard flow, checked in Chromium: Enter on the menu button opens the menu, Tab moves to the first radio, arrow keys move between the three radios and sort right away (radios in closed menus are skipped, so focus stays in the menu), Tab reaches Manage columns, and Enter there opens the Columns menu.
+  - Trade-offs: with `headerMenus` on, the header arrow no longer sorts on click, so pointer users need one more click. Arrow keys sort immediately, like any radio group.
 - [x] (6) Carousel: the library focus ring doesn't reach `::scroll-button()` and `::scroll-marker`. `normalize.css:113-123` is a bare `:focus-visible` rule, and a selector without the pseudo-element never matches one, so the buttons and the 8px markers get only the UA ring, not `--focus-ring-width`/`--focus-ring-color` (`carousel.css:111-135,252-261`, `normalize.css:113`)
   - Deferred: CSS carousel accessibility is still being worked out by browser vendors. The Carousel page says so and leaves it to the user for now.
   - The learn page says the buttons are "real, focusable" (`carousel-css-only.astro:31`), and Astro and Vue turn buttons on by default (`Carousel.astro:8`).

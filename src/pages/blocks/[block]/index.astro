@@ -2,19 +2,21 @@
 import { Code } from "astro-expressive-code/components"
 import Blocks from "../../../layouts/Blocks.astro"
 import {
-  allBlocks,
   blockCategories,
+  blockGroups,
   blockHref,
   blockPreviewHref,
+  splitSource,
 } from "../../../utils/blocks"
 
 export function getStaticPaths() {
-  return allBlocks.map((block, index) => ({
+  const ordered = blockGroups.flatMap((group) => group.blocks)
+  return ordered.map((block, index) => ({
     params: { block: block.slug },
     props: {
       block,
-      next: allBlocks[index + 1],
-      previous: allBlocks[index - 1],
+      next: ordered[index + 1],
+      previous: ordered[index - 1],
     },
   }))
 }
@@ -22,6 +24,13 @@ export function getStaticPaths() {
 const { block, next, previous } = Astro.props
 const category = blockCategories.find((entry) => entry.id === block.category)
 const id = (name: string) => `block-${block.slug}-${name}`
+
+const source = splitSource(block.source)
+const codeTabs = [
+  { code: source.html, label: "HTML", lang: "html", name: "html" },
+  { code: source.css, label: "CSS", lang: "css", name: "css" },
+  { code: source.js, label: "JS", lang: "js", name: "js" },
+].filter((tab) => tab.code)
 
 const widths = [
   { label: "Desktop", value: "100%" },
@@ -81,16 +90,24 @@ const widths = [
             title={`${block.name} preview`}></iframe>
         </div>
       </div>
-      <input
-        class="ui-tab-input"
-        id={id("code-tab")}
-        name={id("view")}
-        type="radio"
-      />
-      <label class="ui-tab-label" for={id("code-tab")}>Code</label>
-      <div class="ui-tab-panel">
-        <Code code={block.source.trim()} lang="html" />
-      </div>
+      {
+        codeTabs.map((tab) => (
+          <>
+            <input
+              class="ui-tab-input"
+              id={id(`${tab.name}-tab`)}
+              name={id("view")}
+              type="radio"
+            />
+            <label class="ui-tab-label" for={id(`${tab.name}-tab`)}>
+              {tab.label}
+            </label>
+            <div class="ui-tab-panel">
+              <Code code={tab.code} lang={tab.lang} />
+            </div>
+          </>
+        ))
+      }
     </div>
   </div>
 

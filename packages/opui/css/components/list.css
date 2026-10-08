@@ -10,7 +10,7 @@ Lists meant to be used stand-alone or as part of Select elements
     --_bg-color: var(--surface-filled);
     --_hover-bg-color: oklch(from var(--primary) l c h / 15%);
     --_item-gap: var(--size-3);
-    --_start-size: var(--icon-size-large);
+    --_start-size: var(--icon-size);
 
     background-color: var(--_bg-color);
     color: var(--text-primary);
@@ -58,7 +58,7 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Dense - less gaps and spacing */
     &.ui-dense {
       --_item-gap: var(--size-2);
-      --_start-size: var(--icon-size);
+      --_start-size: var(--icon-size-small);
 
       & > :where(li, option),
       & > :where([role="group"]) > :where(label, option) {
@@ -350,7 +350,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         & > svg {
           inline-size: 100%;
-          max-inline-size: var(--icon-size-large);
+          max-inline-size: var(--_start-size);
         }
       }
 

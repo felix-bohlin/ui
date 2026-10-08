@@ -914,7 +914,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
@@ -956,7 +956,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
@@ -1110,6 +1110,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- Smaller [start](#icon) and end icons.
 - Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).

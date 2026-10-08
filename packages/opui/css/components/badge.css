@@ -7,8 +7,9 @@
     --_border-color: var(--primary);
     --_dir: 1;
     --_dot-size: var(--size-2);
-    --_inset-block: auto 100%;
-    --_inset-inline: 100% auto;
+    --_inset: 100%;
+    --_inset-block: auto var(--_inset);
+    --_inset-inline: var(--_inset) auto;
     --_sign-x: -1;
     --_sign-y: 1;
     --_size: var(--size-4);
@@ -106,19 +107,19 @@
 
     /* Alignment */
     &.ui-start-start {
-      --_inset-inline: auto 100%;
+      --_inset-inline: auto var(--_inset);
       --_sign-x: 1;
     }
 
     &.ui-end-start {
-      --_inset-block: 100% auto;
-      --_inset-inline: auto 100%;
+      --_inset-block: var(--_inset) auto;
+      --_inset-inline: auto var(--_inset);
       --_sign-x: 1;
       --_sign-y: -1;
     }
 
     &.ui-end-end {
-      --_inset-block: 100% auto;
+      --_inset-block: var(--_inset) auto;
       --_sign-y: -1;
     }
 
@@ -133,6 +134,21 @@
       inline-size: var(--_dot-size);
       min-inline-size: var(--_dot-size);
       padding: 0;
+    }
+
+    &:has(> .ui-avatar:not(.ui-rounded, .ui-squared, .ui-squircle)) {
+      --_anchor-tx: calc(50% * var(--_sign-x));
+      --_anchor-ty: calc(50% * var(--_sign-y));
+      --_inset: calc(50% + 50% * sin(45deg));
+    }
+
+    :where(.ui-avatar-group) > & > .ui-anchor-floating > .ui-badge-indicator {
+      box-shadow: 0 0 0 2px var(--surface-default);
+    }
+
+    :where(.ui-avatar-group) > & {
+      --_inset-inline: auto var(--_inset);
+      --_sign-x: 1;
     }
 
     /* Visibility */

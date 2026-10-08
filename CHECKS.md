@@ -42,7 +42,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
   - [Anchor](/html/components/anchor/): hover cards open on hover and focus, and stay inside the viewport near the edges.
 - [ ] Avatar
   - [Avatar](/html/components/avatar/): squircle corners in Chrome, round elsewhere.
-  - A group's box ends at its last avatar, and a badge dot on a middle avatar shows above the next one ([layout stress page](/tests/layout/)).
+  - A group's box ends at its last avatar, and a badge dot on a middle avatar sits on its own start side, clear of the next one ([layout stress page](/tests/layout/)).
 - [ ] Badge
   - [Badge](/html/components/badge/): every placement on avatars, chips and buttons, also in RTL. White text on critical, info and success fills is readable in light and dark.
 - [ ] Button

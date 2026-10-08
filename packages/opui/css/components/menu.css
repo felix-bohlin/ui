@@ -34,6 +34,11 @@
     padding-block: var(--size-1);
     padding-inline: 0;
 
+    & > .ui-border-top::before,
+    &.ui-bordered > :where(li + li, option + option)::before {
+      border-block-start-color: var(--_border-color);
+    }
+
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
       inset: auto;

@@ -825,6 +825,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
+- The chevron flips when the [picker](#variants) opens.
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.

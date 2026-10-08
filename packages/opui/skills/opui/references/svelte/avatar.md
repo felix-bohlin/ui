@@ -139,6 +139,8 @@ Group multiple avatars by setting the `isGroup` prop on a parent container.
 </Avatar>
 ```
 
+A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an avatar in a group sits on the avatar's start side, the part the next avatar doesn't cover.
+
 ## Accessibility
 
 - Give an image avatar the person's name as its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
@@ -312,3 +314,8 @@ Import the component from `opui-css/svelte`:
 
 - `opui-css/css/components/avatar.css`
 
+## Changelog
+
+### What's new
+
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.

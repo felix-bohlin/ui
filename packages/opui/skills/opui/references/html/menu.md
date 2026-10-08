@@ -608,6 +608,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- Smaller start and end icons, and dividers that show in dark mode ([Basics](#basics)).
 - New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
 - Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).

@@ -149,6 +149,8 @@ import { Avatar } from "opui-css/vue"
 </template>
 ```
 
+A [Badge](https://open-props-ui.netlify.app/vue/components/badge.md) on an avatar in a group sits on the avatar's start side, the part the next avatar doesn't cover.
+
 ## Accessibility
 
 - Give an image avatar the person's name as its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
@@ -331,5 +333,6 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - Breaking: [`alt`](#image) is required when `src` is set.
 - Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.

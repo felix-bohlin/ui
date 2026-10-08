@@ -563,6 +563,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
+- A checkbox alone in a cell is centered ([Default](#default)).
 - [Dense](#variants) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.

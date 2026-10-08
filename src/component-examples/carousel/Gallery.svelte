@@ -10,7 +10,7 @@
   ]
 </script>
 
-<Carousel label="Gallery" perView={3} style="--_media-aspect-ratio: 1">
+<Carousel label="Gallery" perView={3} aspectRatio="1">
   {#each photos as { alt, id } (id)}
     <li>
       <img

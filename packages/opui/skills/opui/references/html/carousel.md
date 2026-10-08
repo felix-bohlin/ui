@@ -331,7 +331,7 @@ Use `.ui-peek` to show part of the neighbouring items, and `.ui-align-center` to
 
 ## Images
 
-Set `--_media-aspect-ratio` to crop images to the same shape.
+`--_media-aspect-ratio` crops images to the same shape, `16 / 9` by default.
 
 ```html
 <ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Photos">
@@ -672,6 +672,10 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
 </style>
 ```
 
+## Playground
+
+Try the options together. The code below the carousel updates as you go.
+
 ## Accessibility
 
 ### Work in progress
@@ -688,17 +692,18 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 ### Carousel API
 
-| Type               | Modifiers                                 | Default | Description                                                                                                           |
-| ------------------ | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| Alignment          | default, `.ui-align-center`               | default | Where items snap.                                                                                                     |
-| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -       | Previous and next buttons. `"outside"` places them beside the items.                                                  |
-| Items per view     | `--_per-view`                             | `1`     | Number of visible items.                                                                                              |
-| Label              | `[aria-label]`                            | -       | Accessible name of the carousel.                                                                                      |
-| Markers            | `.ui-with-markers`                        | -       | One marker per item, after the list.                                                                                  |
-| Orientation        | default, `.ui-vertical`                   | default | Scroll direction. Vertical carousels need a block size, set with `--_block-size`.                                     |
-| Peek               | `.ui-peek`                                | -       | Shows part of the neighbouring items.                                                                                 |
-| Persistent buttons | `.ui-buttons-persistent`                  | -       | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
-| Stretch            | `.ui-stretch`                             | -       | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
+| Type               | Modifiers                                 | Default  | Description                                                                                                           |
+| ------------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| Alignment          | default, `.ui-align-center`               | default  | Where items snap.                                                                                                     |
+| Aspect ratio       | `--_media-aspect-ratio`                   | `16 / 9` | Aspect ratio that images, videos and iframes are cropped to.                                                          |
+| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -        | Previous and next buttons. `"outside"` places them beside the items.                                                  |
+| Items per view     | `--_per-view`                             | `1`      | Number of visible items.                                                                                              |
+| Label              | `[aria-label]`                            | -        | Accessible name of the carousel.                                                                                      |
+| Markers            | `.ui-with-markers`                        | -        | One marker per item, after the list.                                                                                  |
+| Orientation        | default, `.ui-vertical`                   | default  | Scroll direction. Vertical carousels need a block size, set with `--_block-size`.                                     |
+| Peek               | `.ui-peek`                                | -        | Shows part of the neighbouring items.                                                                                 |
+| Persistent buttons | `.ui-buttons-persistent`                  | -        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
+| Stretch            | `.ui-stretch`                             | -        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
 
 #### Parts
 
@@ -911,6 +916,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- [Images](#images) are cropped with the `aspectRatio` prop.
+- A [playground](#playground) to try the options together.
 - New component. A [scroll snap carousel](#basics) with buttons and markers generated by CSS.
 - [Persistent buttons](#persistent-buttons) with `.ui-buttons-persistent`.
 - [Vertical](#vertical) carousels with `.ui-vertical`.

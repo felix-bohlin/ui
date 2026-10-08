@@ -3,6 +3,7 @@
 
   let {
     align,
+    aspectRatio,
     buttons = true,
     class: className,
     label,
@@ -36,8 +37,13 @@
     align && align !== "start" && `ui-align-${align}`,
     className,
   ]}
-  style={`${perView ? `--_per-view: ${perView};` : ""}${style ?? ""}` ||
-    undefined}
+  style={[
+    perView && `--_per-view: ${perView};`,
+    aspectRatio && `--_media-aspect-ratio: ${aspectRatio};`,
+    style,
+  ]
+    .filter(Boolean)
+    .join(" ") || undefined}
   {...rest}
 >
   {@render children?.()}

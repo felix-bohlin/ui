@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import DocLink from "../../components/DocLink.astro"
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
@@ -98,6 +99,11 @@ export const description =
     </Conditional>
 
     <AutoExample name="Grouped" row />
+
+    <p>
+      A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a group
+      sits on the avatar's start side, the part the next avatar doesn't cover.
+    </p>
   </section>
 
   <Fragment slot="accessibility">

@@ -52,6 +52,7 @@
 
 ### Added
 
+- `Carousel` takes an `aspectRatio` prop that crops media, like `--_media-aspect-ratio`.
 - Svelte 5 components for every Astro and Vue component, exported from `opui-css/svelte`. Slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
 - `Accordion` takes a `markerAnimation` prop (`.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn`) that sets how the marker animates when it opens. Defaults to `rotate`.
 - `Button` takes a `rounded` prop (`.ui-rounded`). Icon size is set with `--_icon-size`.
@@ -105,6 +106,13 @@
 
 ### Changed
 
+- `ButtonGroup` icon-only buttons use the same icon size as buttons with a label.
+- `ButtonGroup` focus ring sits inside the button with a gap and uses the button's text color, so it shows on every variant and isn't clipped by the group.
+- `List` and `Menu` start and end icons are smaller: `--icon-size` by default and `--icon-size-small` in dense lists (were `--icon-size-large` and `--icon-size`).
+- `Select` chevron flips when the picker opens, with a transition, like the `Accordion` flip marker.
+- `Table` centers a checkbox that is alone in a cell and shrinks the column to fit it.
+- `Badge` on a round `Avatar` sits on the avatar's edge instead of the corner of its box.
+- `Badge` in an `Avatar` group sits on the avatar's start side, the part the next avatar doesn't cover, with a ring in the page color.
 - `theme.css` `--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is dark in dark mode, so text on primary and primary text both pass WCAG AA in light and dark.
 - `Checkbox`, `Radio` and `Switch` keep a light marker in dark mode on a fill darkened to keep 3:1 contrast.
 - `Button` critical keeps light text on its fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode. `Menu` critical items do the same.
@@ -166,6 +174,7 @@
 
 ### Fixed
 
+- `Menu` dividers (`.ui-border-top`, `.ui-bordered`) are visible in dark mode.
 - `Progress` pulses in place under reduced motion (`--motion: 0`) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--motion: 0`) instead of ignoring it.
 - Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.
@@ -224,7 +233,7 @@
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.
-- `Avatar` groups overlap from the start, so the group's box ends at its last avatar, and a badge on an avatar shows above the next one.
+- `Avatar` groups overlap from the start, so the group's box ends at its last avatar.
 - `Button` disabled text color applies to text and outlined buttons in every color. Filled and tonal buttons keep their own text color and dim with the disabled opacity, so the label stays readable on the fill.
 - `Button` `kbd` follows the button's text color on hover.
 - `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.

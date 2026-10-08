@@ -286,6 +286,7 @@ import { Badge } from "opui-css/astro"
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
 | `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                                                                                                         |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
@@ -429,5 +430,6 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `srLabel`.
 - [`alignment`](#alignment) takes `"start-end"`, the default placement.

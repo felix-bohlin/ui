@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
 import PropOrClass from "../../components/PropOrClass.astro"
 import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
 import {
@@ -15,6 +16,30 @@ import {
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
 
 import carouselApi from "../../component-api/carousel/api"
+
+const photos = [
+  { alt: "A deep blue fjord between steep mountains", id: 1015 },
+  { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
+  { alt: "Green cliffs and a winding road under a cloudy sky", id: 1018 },
+  { alt: "A snowy mountain ridge above the clouds", id: 1036 },
+  { alt: "A lake with a wooden pier at dawn", id: 1039 },
+  { alt: "A forest path covered in autumn leaves", id: 1043 },
+]
+
+const destinations = [
+  { text: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  {
+    text: "Ceviche by the Pacific, colonial plazas and clifftop parks above the ocean.",
+    title: "Lima",
+  },
+  { text: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { text: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  {
+    text: "Medina markets, Mediterranean light and the ruins of Carthage a short train ride away.",
+    title: "Tunis",
+  },
+  { text: "Canals, bikes and brown cafés.", title: "Utrecht" },
+]
 
 export const description =
   "A scrolling list with snap points, buttons and markers."
@@ -157,7 +182,8 @@ export const description =
   <section>
     <h2 id="images">Images</h2>
     <p>
-      Set <code>--_media-aspect-ratio</code> to crop images to the same shape.
+      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops images
+      to the same shape, <code>16 / 9</code> by default.
     </p>
 
     <AutoExample name="Images" />
@@ -207,6 +233,119 @@ export const description =
     <AutoExample name="CustomButtons" />
   </section>
 
+  <section>
+    <h2 id="playground">Playground</h2>
+    <p>
+      Try the options together. The code below the carousel updates as you go.
+    </p>
+
+    <Example showCode={false}>
+      <div class="carousel-playground-controls" slot="controls">
+        <label class="ui-select ui-small">
+          <span class="ui-label">Content</span>
+          <span class="ui-field">
+            <select data-control="content">
+              <option value="images">Images</option>
+              <option value="cards">Cards</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Buttons</span>
+          <span class="ui-field">
+            <select data-control="buttons">
+              <option value="inside">Inside</option>
+              <option value="outside">Outside</option>
+              <option value="none">None</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Items per view</span>
+          <span class="ui-field">
+            <select data-control="per-view">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Aspect ratio</span>
+          <span class="ui-field">
+            <select data-control="aspect-ratio">
+              <option>16 / 9</option>
+              <option>4 / 3</option>
+              <option>1</option>
+              <option>3 / 4</option>
+            </select>
+          </span>
+        </label>
+        {
+          [
+            ["persistent", "Persistent buttons"],
+            ["markers", "Markers"],
+            ["peek", "Peek"],
+            ["stretch", "Stretch"],
+            ["vertical", "Vertical"],
+            ["center", "Center"],
+          ].map(([control, label]) => (
+            <label class="ui-switch ui-small">
+              <input data-control={control} role="switch" type="checkbox" />
+              <span class="ui-label">{label}</span>
+            </label>
+          ))
+        }
+      </div>
+      <div class="carousel-playground" data-carousel-playground>
+        <ul
+          aria-label="Photos"
+          class="ui-carousel ui-with-buttons"
+          data-content="images"
+          style="--_block-size: 20rem"
+        >
+          {
+            photos.map((photo) => (
+              <li>
+                <img
+                  alt={photo.alt}
+                  height="450"
+                  loading="lazy"
+                  src={`https://picsum.photos/id/${photo.id}/800/450`}
+                  width="800"
+                />
+              </li>
+            ))
+          }
+        </ul>
+        <ul
+          aria-label="Destinations"
+          class="ui-carousel ui-with-buttons"
+          data-content="cards"
+          hidden
+          style="--_block-size: 20rem"
+        >
+          {
+            destinations.map((destination) => (
+              <li>
+                <div class="ui-card ui-tonal">
+                  <hgroup>
+                    <p>Destination</p>
+                    <h3>{destination.title}</h3>
+                    <p>{destination.text}</p>
+                  </hgroup>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <pre
+          class="carousel-playground-code"><code data-playground-code /></pre>
+      </div>
+    </Example>
+  </section>
+
   <Fragment slot="accessibility">
     <div class="ui-not-rich-text">
       <UICallout severity="warning">
@@ -239,3 +378,173 @@ export const description =
   </Fragment>
   <CarouselBuild slot="under-the-hood" />
 </Component>
+
+<script>
+  type State = {
+    align?: string
+    aspectRatio: string
+    buttons: string
+    content: string
+    markers: boolean
+    orientation?: string
+    peek: boolean
+    persistentButtons: boolean
+    perView: number
+    stretch: boolean
+  }
+
+  const htmlSnippet = (state: State, label: string) => {
+    const classes = [
+      "ui-carousel",
+      state.buttons === "outside" && "ui-buttons-outside",
+      state.persistentButtons && "ui-buttons-persistent",
+      state.peek && "ui-peek",
+      state.stretch && "ui-stretch",
+      state.orientation && "ui-vertical",
+      state.buttons !== "none" && "ui-with-buttons",
+      state.markers && "ui-with-markers",
+      state.align && "ui-align-center",
+    ].filter(Boolean)
+    const style = [
+      state.perView > 1 && `--_per-view: ${state.perView}`,
+      state.aspectRatio !== "16 / 9" &&
+        `--_media-aspect-ratio: ${state.aspectRatio}`,
+      state.orientation && "--_block-size: 20rem",
+    ].filter(Boolean)
+    return [
+      "<ul",
+      `  aria-label="${label}"`,
+      `  class="${classes.join(" ")}"`,
+      style.length > 0 && `  style="${style.join("; ")}"`,
+      ">",
+    ]
+      .filter(Boolean)
+      .join("\n")
+  }
+
+  const componentSnippet = (state: State, label: string, vue: boolean) => {
+    const name = (prop: string) =>
+      vue
+        ? prop.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+        : prop
+    const expression = (prop: string, value: string) =>
+      vue ? `:${name(prop)}="${value}"` : `${prop}={${value}}`
+    const props = [
+      `label="${label}"`,
+      state.align && `align="center"`,
+      state.aspectRatio !== "16 / 9" &&
+        `${name("aspectRatio")}="${state.aspectRatio}"`,
+      state.buttons === "outside" && `buttons="outside"`,
+      state.buttons === "none" && expression("buttons", "false"),
+      state.markers && "markers",
+      state.orientation && `orientation="vertical"`,
+      state.peek && "peek",
+      state.persistentButtons && name("persistentButtons"),
+      state.perView > 1 && expression("perView", String(state.perView)),
+      state.stretch && "stretch",
+      state.orientation && `style="--_block-size: 20rem"`,
+    ].filter(Boolean)
+    return ["<Carousel", ...props.map((prop) => `  ${prop}`), ">"].join("\n")
+  }
+
+  for (const playground of document.querySelectorAll<HTMLElement>(
+    "[data-carousel-playground]",
+  )) {
+    const container = playground.closest(".example-container") ?? playground
+    const carousels = playground.querySelectorAll<HTMLElement>(".ui-carousel")
+    const code = playground.querySelector("[data-playground-code]")
+    const framework = document.documentElement.dataset.framework ?? "html"
+
+    const control = (name: string) =>
+      container.querySelector<HTMLInputElement | HTMLSelectElement>(
+        `[data-control="${name}"]`,
+      )
+    const checked = (name: string) =>
+      control(name) instanceof HTMLInputElement &&
+      (control(name) as HTMLInputElement).checked
+    const value = (name: string) => control(name)?.value ?? ""
+
+    const update = () => {
+      const state: State = {
+        align: checked("center") ? "center" : undefined,
+        aspectRatio: value("aspect-ratio"),
+        buttons: value("buttons"),
+        content: value("content"),
+        markers: checked("markers"),
+        orientation: checked("vertical") ? "vertical" : undefined,
+        peek: checked("peek"),
+        persistentButtons: checked("persistent"),
+        perView: Number(value("per-view")),
+        stretch: checked("stretch"),
+      }
+
+      for (const carousel of carousels) {
+        carousel.hidden = carousel.dataset.content !== state.content
+        carousel.classList.toggle("ui-align-center", !!state.align)
+        carousel.classList.toggle(
+          "ui-buttons-outside",
+          state.buttons === "outside",
+        )
+        carousel.classList.toggle(
+          "ui-buttons-persistent",
+          state.persistentButtons,
+        )
+        carousel.classList.toggle("ui-peek", state.peek)
+        carousel.classList.toggle("ui-stretch", state.stretch)
+        carousel.classList.toggle("ui-vertical", !!state.orientation)
+        carousel.classList.toggle("ui-with-buttons", state.buttons !== "none")
+        carousel.classList.toggle("ui-with-markers", state.markers)
+        carousel.style.setProperty("--_per-view", String(state.perView))
+        carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
+      }
+
+      const label = state.content === "images" ? "Photos" : "Destinations"
+      if (code)
+        code.textContent =
+          framework === "html"
+            ? htmlSnippet(state, label)
+            : componentSnippet(state, label, framework === "vue")
+    }
+
+    container.addEventListener("change", update)
+    update()
+  }
+</script>
+
+<style>
+  .carousel-playground-controls {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+
+    .ui-select {
+      inline-size: 9rem;
+    }
+
+    .ui-switch {
+      align-self: end;
+      min-block-size: var(--control-size-small);
+    }
+  }
+
+  .carousel-playground {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+    min-inline-size: 0;
+
+    & > [hidden] {
+      display: none;
+    }
+  }
+
+  .carousel-playground-code {
+    background-color: var(--surface-tonal);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-0);
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--size-3);
+  }
+</style>

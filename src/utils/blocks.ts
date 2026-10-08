@@ -43,3 +43,24 @@ export const blockHref = (slug: string) => `/blocks/${slug}`
 export const blockPreviewHref = (slug: string) => `/blocks/${slug}/preview/`
 
 export const isFullPage = (source: string) => /<main\b/.test(source)
+
+const dedent = (code: string) => {
+  const lines = code.replace(/^\n+|\s+$/g, "").split("\n")
+  const indent = Math.min(
+    ...lines
+      .filter((line) => line.trim())
+      .map((line) => line.match(/^ */)![0].length),
+  )
+  return lines.map((line) => line.slice(indent)).join("\n")
+}
+
+const extract = (source: string, tag: string) =>
+  [...source.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, "g"))]
+    .map(([, code]) => dedent(code))
+    .join("\n\n")
+
+export const splitSource = (source: string) => ({
+  css: extract(source, "style"),
+  html: source.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/g, "").trim(),
+  js: extract(source, "script"),
+})

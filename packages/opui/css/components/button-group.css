@@ -49,7 +49,8 @@
       }
 
       &:focus-visible {
-        outline-offset: var(--focus-ring-inset);
+        --focus-ring-color: currentColor;
+        outline-offset: calc(var(--focus-ring-inset) - var(--size-1));
       }
 
       :where(.ui-button-group.ui-x-small) & {
@@ -72,6 +73,7 @@
       }
 
       &:where(:has(> svg:only-child)) {
+        --_icon-size: 0.7lh;
         padding-inline: 0;
       }
 

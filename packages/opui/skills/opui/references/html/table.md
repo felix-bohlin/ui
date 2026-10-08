@@ -542,6 +542,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- A checkbox alone in a cell is centered ([Default](#default)).
 - [Dense](#variants) tables (`.ui-dense`) have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.

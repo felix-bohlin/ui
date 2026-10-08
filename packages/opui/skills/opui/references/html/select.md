@@ -1040,6 +1040,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- The chevron flips when the [picker](#variants) opens.
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `selected`.

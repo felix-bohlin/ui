@@ -14,6 +14,14 @@ export default {
       values: { center: ".ui-align-center", start: null },
     },
     {
+      cssVar: "--_media-aspect-ratio",
+      default: '"16 / 9"',
+      description:
+        "Aspect ratio that images, videos and iframes are cropped to.",
+      group: "Aspect ratio",
+      prop: "aspectRatio",
+    },
+    {
       class: ".ui-with-buttons",
       default: "true",
       description:

@@ -685,6 +685,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- Icon-only buttons use the same [icon size](#icons) as buttons with a label.
+- The focus ring shows on every [variant](#variants), inside the button.
 - [Split button](#split-button) with a `Menu`.
 - [Icon-only](#icons) buttons stay square.
 - Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.

@@ -161,8 +161,19 @@ test.describe("forced-colors", () => {
 
   test("a divider stays visible", async ({ page }) => {
     await openFixture(page, "html", "divider")
-    const divider = page.locator(".ui-divider").first()
+    const divider = page.locator("hr.ui-divider").first()
     expect(await style(divider, "border-block-start-style")).toBe("solid")
+  })
+
+  test("a divider with content keeps its lines", async ({ page }) => {
+    await openFixture(page, "html", "divider")
+    const divider = page.locator(".ui-divider:not(:empty)").first()
+    expect(await style(divider, "border-block-start-style", "::before")).toBe(
+      "solid",
+    )
+    expect(await style(divider, "border-block-start-style", "::after")).toBe(
+      "solid",
+    )
   })
 })
 

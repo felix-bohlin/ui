@@ -249,8 +249,16 @@
         padding: var(--_inset);
         timeline-scope: --ui-range-thumb;
 
+        &:focus-visible {
+          animation-duration: auto, calc(var(--duration) * var(--_motion));
+          animation-name: ui-range-fill, ui-focus-ring;
+          animation-range: contain, normal;
+          animation-timeline: --ui-range-thumb, auto;
+          animation-timing-function: linear, var(--ease);
+        }
+
         &:dir(rtl) {
-          animation-direction: reverse;
+          animation-direction: reverse, normal;
         }
 
         &::-webkit-slider-thumb {

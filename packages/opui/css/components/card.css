@@ -135,6 +135,7 @@
     &:has(.ui-card-link:focus-visible):not(
         :has(.ui-card .ui-card-link:focus-visible)
       ) {
+      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
         var(--focus-ring-color, var(--_focus-visible-color));
       outline-offset: var(--focus-ring-offset);

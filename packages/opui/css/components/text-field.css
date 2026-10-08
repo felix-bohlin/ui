@@ -270,6 +270,8 @@
     }
 
     .ui-field:has(:focus-visible) {
+      animation: ui-focus-ring calc(var(--duration) * var(--_motion))
+        var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
         var(--focus-ring-color, var(--_focus-visible-color));
       outline-offset: var(--focus-ring-offset);

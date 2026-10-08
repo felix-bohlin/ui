@@ -107,6 +107,7 @@
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
+- `Rating` component (`.ui-rating`). A read-only `<meter>` with a star mask that fills exact fractions and follows RTL, or, with `name`, a `<fieldset>` of radios that fills up to the checked or hovered star with `:has()`, shows a CSS counter count, and has a no rating radio (dropped with `required`). Sizes, `max` for the number of stars (typed `attr()`, with a `--_max` fallback the components set), `disabled`, `required`, `error`, translatable radio names (`clearLabel`, `starLabel`) and forced colors support. The star color comes from `--orange`. With Astro, Svelte (`bind:value`) and Vue (`v-model`) components.
 
 ### Changed
 

@@ -15,7 +15,8 @@ export const SITE_THEMES = [
     value: "paper",
   },
   {
-    description: "Chunky borders, hard shadows and stepped motion.",
+    description:
+      "Neobrutalist: thick outlines, hard shadows and loud flat color.",
     text: "Pixel",
     value: "pixel",
   },

@@ -263,7 +263,7 @@
       }
     }
 
-    &:focus-within {
+    &:focus-within:not(:has(:focus-visible)) {
       .ui-field {
         border-color: var(--_accent);
       }

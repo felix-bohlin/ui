@@ -275,7 +275,7 @@
 - `Accordion` focus ring is drawn inside the summary, so the card no longer clips it.
 - `Accordion` without a variant draws its focus ring outside the summary, so it no longer cuts through the text and marker.
 - `Card`, `Carousel`, `Switch`, `Tabs` and `ToggleButton` focus rings fall back to the same color as other focus rings, the inverted page background, when `--focus-ring-color` is unset.
-- `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`.
+- `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`. The border keeps its color while the ring shows.
 - `Switch` focus ring is rounded.
 - `ButtonGroup` vertical only squares icon-only buttons.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.

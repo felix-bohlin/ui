@@ -13,7 +13,6 @@ The basic idea is to pick one hue and chroma, and derive a 16-step palette from 
   --palette-hue-rotate-by: 0;
 }
 
-
 :where(html.ui-dark) {
   --palette-hue: var(--hue-blue);
 }
@@ -45,7 +44,6 @@ A scope is a class that changes the theme for one element and everything inside 
 
 ```html
 <aside class="ui-dark">Always dark</aside>
-
 
 <section class="ui-palette" style="--palette-hue: 30">
   <button class="ui-button ui-primary ui-filled" type="button">

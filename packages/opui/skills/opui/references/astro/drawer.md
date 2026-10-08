@@ -37,7 +37,6 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 ---
 
-
 <div class="drawer-examples">
   <Button class="top" commandfor="drawer-block-start" command="show-modal"
     >Block Start</Button
@@ -52,7 +51,6 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
     >Block End</Button
   >
 </div>
-
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
   <DrawerHeader
@@ -85,7 +83,6 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
   </DrawerFooter>
 </Drawer>
 
-
 <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
   <DrawerHeader
     slot="header"
@@ -117,7 +114,6 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
   </DrawerFooter>
 </Drawer>
 
-
 <Drawer id="drawer-block-start" side="block-start" closedby="any">
   <DrawerHeader
     slot="header"
@@ -143,7 +139,6 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
     >
   </DrawerFooter>
 </Drawer>
-
 
 <Drawer id="drawer-block-end" side="block-end" closedby="any">
   <DrawerHeader
@@ -347,7 +342,6 @@ Step 1 of 5: Modal
   Start
 </button>
 
-
 <dialog
   class="drawer inline-start"
   id="drawer"
@@ -374,11 +368,9 @@ Step 1 of 5: Modal
   padding: 0;
 }
 
-
 .drawer:not([open]) {
   display: none;
 }
-
 
 .drawer > .content {
   flex: 1;
@@ -399,7 +391,6 @@ Step 2 of 5: Edge
   position: fixed;
 }
 
-
 .drawer.inline-start {
   block-size: 100dvb;
   border-inline-end: 1px solid var(--border-color);
@@ -408,7 +399,6 @@ Step 2 of 5: Edge
   inset-inline: 0 auto;
   max-block-size: 100%;
 }
-
 
 .drawer.block-end {
   block-size: min(80vb, 650px);
@@ -431,7 +421,6 @@ Step 3 of 5: Shadow
   container-type: scroll-state;
 }
 
-
 .drawer > .content::before,
 .drawer > .content::after {
   block-size: 0.5rem;
@@ -445,24 +434,20 @@ Step 3 of 5: Shadow
   transition: opacity 0.2s;
 }
 
-
 .drawer > .content::before {
   inset-block-end: anchor(--content outside);
 }
-
 
 .drawer > .content::after {
   inset-block-start: anchor(--content outside);
   scale: 1 -1;
 }
 
-
 @container scroll-state(scrollable: block-start) {
   .drawer > .content::before {
     opacity: 1;
   }
 }
-
 
 @container scroll-state(scrollable: block-end) {
   .drawer > .content::after {
@@ -489,31 +474,25 @@ Step 4 of 5: Slide
     translate 0.2s;
 }
 
-
 .drawer:dir(rtl) {
   --dir: -1;
 }
-
 
 .drawer.inline-start {
   translate: calc(-100% * var(--dir)) 0;
 }
 
-
 .drawer.block-end {
   translate: 0 100%;
 }
 
-
 .drawer[open] {
   translate: 0 0;
-
 
   @starting-style {
     &.inline-start {
       translate: calc(-100% * var(--dir)) 0;
     }
-
 
     &.block-end {
       translate: 0 100%;
@@ -538,12 +517,10 @@ Step 5 of 5: Backdrop
     overlay 0.2s allow-discrete;
 }
 
-
 .drawer[open] {
   &::backdrop {
     opacity: 1;
   }
-
 
   @starting-style {
     &::backdrop {

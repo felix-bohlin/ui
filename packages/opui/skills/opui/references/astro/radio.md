@@ -35,7 +35,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -56,7 +55,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 ---
 import { Radio } from "opui-css/astro"
 ---
-
 
 <div class="example-row">
   <Radio
@@ -101,7 +99,6 @@ The default slot is the label. Without a visible label, keep the text in the slo
 import { Radio } from "opui-css/astro"
 ---
 
-
 <Radio name="radio-visible-label" value="a" checked>Choice A</Radio>
 <Radio name="radio-visible-label" value="b" disabled>Disabled</Radio>
 <Radio name="radio-visible-label" value="c">
@@ -120,7 +117,6 @@ Set `stack` to put the label under the radio.
 import { Radio } from "opui-css/astro"
 ---
 
-
 <Radio name="radio-label-position" value="default" checked>Default</Radio>
 <Radio name="radio-label-position" value="stack" stack>Stack</Radio>
 ```
@@ -133,7 +129,6 @@ Use the `end-text` slot for supporting text under a single radio's label. The co
 ---
 import { Radio } from "opui-css/astro"
 ---
-
 
 <Radio name="radio-supporting-text" value="default" checked>
   Default
@@ -159,7 +154,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -170,7 +164,6 @@ import { Form } from "opui-css/astro"
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -197,7 +190,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
@@ -223,7 +215,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
@@ -248,7 +239,6 @@ import { FieldLegend } from "opui-css/astro"
 import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
-
 
 <Form>
   <FieldSet>
@@ -276,7 +266,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Form } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -297,7 +286,6 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
 ---
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
-
 
 <Form>
   <FieldSet>
@@ -462,7 +450,6 @@ Step 1 of 3: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -473,7 +460,6 @@ Step 1 of 3: Appearance
   inline-size: 1.25rem;
   margin: 0;
 }
-
 
 .radio:checked {
   background-color: var(--accent);
@@ -507,12 +493,10 @@ Step 3 of 3: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((1.25rem - 1lh) / 2);

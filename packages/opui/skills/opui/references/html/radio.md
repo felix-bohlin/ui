@@ -59,18 +59,15 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
     <span class="ui-sr-only">Selected</span>
   </label>
 
-
   <label class="ui-radio ui-small">
     <input name="radio-sizes-small" type="radio" value="selected" checked />
     <span class="ui-sr-only">Selected</span>
   </label>
 
-
   <label class="ui-radio">
     <input name="radio-sizes-default" type="radio" value="selected" checked />
     <span class="ui-sr-only">Selected</span>
   </label>
-
 
   <label class="ui-radio ui-large">
     <input name="radio-sizes-large" type="radio" value="selected" checked />
@@ -78,25 +75,21 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
   </label>
 </div>
 
-
 <div class="example-row">
   <label class="ui-radio ui-x-small">
     <input name="radio-sizes-x-small" type="radio" value="other" />
     <span class="ui-label">x-small</span>
   </label>
 
-
   <label class="ui-radio ui-small">
     <input name="radio-sizes-small" type="radio" value="other" />
     <span class="ui-label">Small</span>
   </label>
 
-
   <label class="ui-radio">
     <input name="radio-sizes-default" type="radio" value="other" />
     <span class="ui-label">Default</span>
   </label>
-
 
   <label class="ui-radio ui-large">
     <input name="radio-sizes-large" type="radio" value="other" />
@@ -115,12 +108,10 @@ Render the label text inside an element with a `.ui-label` class. Without a visi
   <span class="ui-label">Choice A</span>
 </label>
 
-
 <label class="ui-radio">
   <input name="radio-visible-label" type="radio" value="b" disabled />
   <span class="ui-label">Disabled</span>
 </label>
-
 
 <label class="ui-radio">
   <input name="radio-visible-label" type="radio" value="c" />
@@ -141,7 +132,6 @@ Add `.ui-stack` to the `<label class="ui-radio">` to put the label under the rad
   <input name="radio-label-position" type="radio" value="default" checked />
   <span class="ui-label">Default</span>
 </label>
-
 
 <label class="ui-radio ui-stack">
   <input name="radio-label-position" type="radio" value="stack" />
@@ -167,7 +157,6 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
     >Supporting text</span
   >
 </label>
-
 
 <label class="ui-radio ui-stack">
   <input
@@ -212,7 +201,6 @@ Can be placed above and below the fields.
       </label>
     </div>
   </fieldset>
-
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
@@ -557,7 +545,6 @@ Step 1 of 3: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -568,7 +555,6 @@ Step 1 of 3: Appearance
   inline-size: 1.25rem;
   margin: 0;
 }
-
 
 .radio:checked {
   background-color: var(--accent);
@@ -602,12 +588,10 @@ Step 3 of 3: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((1.25rem - 1lh) / 2);

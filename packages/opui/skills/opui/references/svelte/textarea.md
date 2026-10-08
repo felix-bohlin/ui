@@ -53,7 +53,6 @@ Textareas are outlined by default. Set `variant="filled"` for a filled textarea.
   import { Textarea } from "opui-css/svelte"
 </script>
 
-
 <Textarea label="Default" placeholder="Placeholder" />
 <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
 ```
@@ -66,7 +65,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { Textarea } from "opui-css/svelte"
 </script>
-
 
 <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
 <Textarea label="Small" placeholder="Placeholder" size="small" />
@@ -83,7 +81,6 @@ Use the `description` prop or snippet for text between the label and the textare
   import { Textarea } from "opui-css/svelte"
 </script>
 
-
 <Textarea description="Shown on your public profile" label="Bio" />
 ```
 
@@ -93,7 +90,6 @@ Use the `description` prop or snippet for text between the label and the textare
 <script lang="ts">
   import { Textarea } from "opui-css/svelte"
 </script>
-
 
 <Textarea label="Label" placeholder="Default" endText="Supporting text" />
 <Textarea
@@ -112,7 +108,6 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 <script lang="ts">
   import { Textarea } from "opui-css/svelte"
 </script>
-
 
 <Textarea label="Notes" placeholder="Add a note...">
   {#snippet prefix()}<svg
@@ -140,11 +135,9 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
   import { Textarea } from "opui-css/svelte"
 </script>
 
-
 <Textarea label="Code" placeholder="console.log('Hello, world!')">
   {#snippet header()}script.js{/snippet}
 </Textarea>
-
 
 <Textarea label="Comment" placeholder="Write a comment...">
   {#snippet footer()}0 / 280{/snippet}
@@ -164,12 +157,10 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
   import { Textarea } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <Textarea label="Label" placeholder="Default" required />
   <Textarea label="Label" placeholder="Filled" required variant="filled" />
 </div>
-
 
 <div class="example-row">
   <Textarea
@@ -197,13 +188,11 @@ Use the `spread` boolean prop to display the label and description on the left w
   import { Textarea } from "opui-css/svelte"
 </script>
 
-
 <Textarea spread placeholder="Hello, world!">
   {#snippet label()}Message{/snippet}
   {#snippet description()}You can write your message here. Keep it short,
     preferably under 100 characters.{/snippet}
 </Textarea>
-
 
 <Textarea spread placeholder="Additional notes..." variant="filled">
   {#snippet label()}Notes{/snippet}
@@ -211,22 +200,18 @@ Use the `spread` boolean prop to display the label and description on the left w
   {#snippet endText()}Maximum 500 characters{/snippet}
 </Textarea>
 
-
 <Textarea spread required label="Required">
   {#snippet description()}You must provide a response{/snippet}
 </Textarea>
-
 
 <Textarea spread disabled label="Disabled">
   {#snippet description()}This textarea is disabled{/snippet}
 </Textarea>
 
-
 <Textarea spread error label="Invalid Message">
   {#snippet description()}This textarea has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </Textarea>
-
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
   {#snippet description()}Shown on your public profile{/snippet}
@@ -249,7 +234,6 @@ Use the `spread` boolean prop to display the label and description on the left w
   {#snippet footer()}280 characters left{/snippet}
 </Textarea>
 
-
 <Textarea
   spread
   variant="filled"
@@ -271,7 +255,6 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 <script lang="ts">
   import { Textarea } from "opui-css/svelte"
 </script>
-
 
 <Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
 ```
@@ -384,13 +367,11 @@ Step 1 of 4: Field
   display: grid;
 }
 
-
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -398,7 +379,6 @@ Step 1 of 4: Field
   border-radius: var(--radius-2);
   display: grid;
 }
-
 
 .field textarea {
   background: transparent;
@@ -410,7 +390,6 @@ Step 1 of 4: Field
   outline: 0;
   padding: 0.5rem;
 }
-
 
 .textarea:focus-within .field {
   border-color: var(--primary);
@@ -446,7 +425,6 @@ Step 4 of 4: Auto-fit
 .auto-fit {
   inline-size: fit-content;
 }
-
 
 .auto-fit textarea {
   inline-size: auto;

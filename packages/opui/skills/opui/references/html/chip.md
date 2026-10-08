@@ -31,7 +31,6 @@ The Chip has two variants: tonal (default) and `.ui-outlined`.
   <span class="ui-text">Tonal</span>
 </div>
 
-
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
 </div>
@@ -46,21 +45,17 @@ Add `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning` to
   <span class="ui-text">Past due</span>
 </div>
 
-
 <div class="ui-chip ui-info ui-tonal">
   <span class="ui-text">Processing</span>
 </div>
-
 
 <div class="ui-chip ui-neutral ui-tonal">
   <span class="ui-text">Refunded</span>
 </div>
 
-
 <div class="ui-chip ui-success ui-tonal">
   <span class="ui-text">Paid</span>
 </div>
-
 
 <div class="ui-chip ui-warning ui-tonal">
   <span class="ui-text">Due 15 Oct</span>
@@ -76,21 +71,17 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
   <span class="ui-text">x-small</span>
 </div>
 
-
 <div class="ui-chip ui-tonal ui-small">
   <span class="ui-text">Small</span>
 </div>
-
 
 <div class="ui-chip ui-tonal">
   <span class="ui-text">Default</span>
 </div>
 
-
 <div class="ui-chip ui-tonal ui-large">
   <span class="ui-text">Large</span>
 </div>
-
 
 <div class="ui-chip ui-tonal ui-multiline" style="max-width: 30ch">
   <span class="ui-text"
@@ -121,7 +112,6 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
   <span class="ui-text">Tonal</span>
 </div>
 
-
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
   <svg
@@ -148,48 +138,39 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
     <span class="ui-text">Past due</span>
   </div>
 
-
   <div class="ui-chip ui-dot ui-info ui-tonal">
     <span class="ui-text">Processing</span>
   </div>
-
 
   <div class="ui-chip ui-dot ui-neutral ui-tonal">
     <span class="ui-text">Refunded</span>
   </div>
 
-
   <div class="ui-chip ui-dot ui-success ui-tonal">
     <span class="ui-text">Paid</span>
   </div>
-
 
   <div class="ui-chip ui-dot ui-warning ui-tonal">
     <span class="ui-text">Due 15 Oct</span>
   </div>
 </div>
 
-
 <div class="example-row">
   <div class="ui-chip ui-dot ui-critical ui-small ui-outlined">
     <span class="ui-text">Past due</span>
   </div>
 
-
   <div class="ui-chip ui-dot ui-info ui-small ui-outlined">
     <span class="ui-text">Processing</span>
   </div>
-
 
   <div class="ui-chip ui-dot ui-neutral ui-small ui-outlined">
     <span class="ui-text">Refunded</span>
   </div>
 
-
   <div class="ui-chip ui-dot ui-success ui-small ui-outlined">
     <span class="ui-text">Paid</span>
   </div>
-
 
   <div class="ui-chip ui-dot ui-warning ui-small ui-outlined">
     <span class="ui-text">Due 15 Oct</span>
@@ -246,7 +227,6 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 <a href="#" class="ui-chip ui-tonal">
   <span class="ui-text">Tonal link</span>
 </a>
-
 
 <a href="#" class="ui-chip ui-outlined">
   <span class="ui-text">Outlined link</span>
@@ -361,7 +341,6 @@ Step 1 of 4: Base
   <span class="text">Design</span>
 </div>
 
-
 <button class="chip" type="button">…</button>
 ```
 
@@ -391,11 +370,9 @@ Step 2 of 4: Icon
   padding-inline-start: var(--size-1);
 }
 
-
 .chip:has(> svg:last-child) {
   padding-inline-end: var(--size-1);
 }
-
 
 .chip svg {
   flex-shrink: 0;
@@ -411,7 +388,6 @@ Step 3 of 4: Truncate
 .chip {
   max-inline-size: 100%;
 }
-
 
 .chip > .text {
   min-inline-size: 0;

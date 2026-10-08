@@ -37,21 +37,17 @@ Change the card variant with the `variant` prop. Without a variant the card has 
 import { Card } from "opui-css/astro"
 ---
 
-
 <Card variant="text">
   <Fragment slot="content">Text</Fragment>
 </Card>
-
 
 <Card variant="outlined">
   <Fragment slot="content">Outlined</Fragment>
 </Card>
 
-
 <Card variant="tonal">
   <Fragment slot="content">Tonal</Fragment>
 </Card>
-
 
 <Card variant="elevated">
   <Fragment slot="content">Elevated</Fragment>
@@ -70,7 +66,6 @@ Using the `header` slot.
 ---
 import { Card } from "opui-css/astro"
 ---
-
 
 <Card variant="outlined">
   <Fragment slot="header">
@@ -93,7 +88,6 @@ import { Card } from "opui-css/astro"
 import { Button } from "opui-css/astro"
 ---
 
-
 <Card variant="outlined">
   <Fragment slot="content">
     Notice how the buttons are made to align with the text above.
@@ -104,7 +98,6 @@ import { Button } from "opui-css/astro"
   </Fragment>
 </Card>
 
-
 <Card variant="outlined">
   <Fragment slot="content"
     >Trying other button types too. Look at that!</Fragment
@@ -114,7 +107,6 @@ import { Button } from "opui-css/astro"
     <Button variant="filled">Save</Button>
   </Fragment>
 </Card>
-
 
 <Card variant="outlined">
   <Fragment slot="content">Icon buttons work too!</Fragment>
@@ -158,7 +150,6 @@ import { Card } from "opui-css/astro"
 import { Button } from "opui-css/astro"
 ---
 
-
 <Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Buttons aligned to the end. Works too!</Fragment>
   <Fragment slot="actions">
@@ -167,7 +158,6 @@ import { Button } from "opui-css/astro"
   </Fragment>
 </Card>
 
-
 <Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Again, buttons are aligned to the end!</Fragment>
   <Fragment slot="actions">
@@ -175,7 +165,6 @@ import { Button } from "opui-css/astro"
     <Button variant="filled">Save</Button>
   </Fragment>
 </Card>
-
 
 <Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Icon buttons aligned to the end!</Fragment>
@@ -218,7 +207,6 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 import { Button, Card } from "opui-css/astro"
 ---
 
-
 <Card variant="outlined">
   <Fragment slot="header">
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
@@ -227,7 +215,6 @@ import { Button, Card } from "opui-css/astro"
     Plans for any team. Click anywhere on the card.
   </Fragment>
 </Card>
-
 
 <Card variant="outlined">
   <Fragment slot="header">
@@ -340,22 +327,18 @@ Step 1 of 3: Base
   overflow-wrap: break-word;
 }
 
-
 .card > :is(hgroup, .content) {
   margin-block: 0;
   padding-inline: 0.75rem;
 }
 
-
 .card > :is(hgroup, .content):last-child {
   padding-block-end: 0.75rem;
 }
 
-
 .card > hgroup {
   padding-block-start: 0.75rem;
 }
-
 
 .card > hgroup > * {
   margin-block: 0;
@@ -374,13 +357,11 @@ Step 2 of 3: Variants
   --card-border-width: 1px;
 }
 
-
 .elevated {
   --card-bg: var(--surface-elevated);
   --card-border: var(--surface-default);
   --card-border-width: 1px;
   --card-shadow: var(--shadow-3);
-
 
   @container style(--color-scheme: dark) {
     --card-shadow: var(--shadow-4);
@@ -400,7 +381,6 @@ Step 3 of 3: Actions
   margin-block-start: auto;
   padding: 0.5rem 0.75rem;
 }
-
 
 .actions:has(.ui-button:first-child[class="ui-button"]) {
   padding-inline: 0.25rem 0.75rem;

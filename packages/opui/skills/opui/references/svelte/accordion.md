@@ -33,7 +33,6 @@ Explain more about the topic shown in the summary through supporting text.
   import { Accordion } from "opui-css/svelte"
 </script>
 
-
 <Accordion>
   {#snippet summary()}Accordion{/snippet}
   <p>
@@ -55,7 +54,6 @@ Use the `variant` prop to change how it looks.
   import { Accordion } from "opui-css/svelte"
 </script>
 
-
 <Accordion>
   {#snippet summary()}Text{/snippet}
   <p>
@@ -64,7 +62,6 @@ Use the `variant` prop to change how it looks.
     neque ante id justo.
   </p>
 </Accordion>
-
 
 <Accordion variant="elevated">
   {#snippet summary()}Elevated{/snippet}
@@ -75,7 +72,6 @@ Use the `variant` prop to change how it looks.
   </p>
 </Accordion>
 
-
 <Accordion variant="outlined">
   {#snippet summary()}Outlined{/snippet}
   <p>
@@ -84,7 +80,6 @@ Use the `variant` prop to change how it looks.
     neque ante id justo.
   </p>
 </Accordion>
-
 
 <Accordion variant="tonal">
   {#snippet summary()}Tonal{/snippet}
@@ -104,7 +99,6 @@ Group multiple accordions by wrapping them in a `Card` component with `role="gro
 <script lang="ts">
   import { Accordion, Card } from "opui-css/svelte"
 </script>
-
 
 <Card variant="outlined" role="group">
   <Accordion>
@@ -143,7 +137,6 @@ Set the same `name` prop on each accordion to allow only one of them to be open 
   import { Accordion, Card } from "opui-css/svelte"
 </script>
 
-
 <Card variant="outlined" role="group">
   <Accordion name="example-group">
     {#snippet summary()}Accordion title{/snippet}
@@ -181,7 +174,6 @@ Add buttons or other interactive elements below the content with the `actions` s
   import { Accordion, Button } from "opui-css/svelte"
 </script>
 
-
 <Accordion open variant="elevated">
   {#snippet summary()}Accordion with actions{/snippet}
   <p>
@@ -204,7 +196,6 @@ Replace the default marker with the `marker` snippet, and give it `.ui-marker` s
 <script lang="ts">
   import { Accordion } from "opui-css/svelte"
 </script>
-
 
 <Accordion variant="outlined">
   {#snippet summary()}Custom marker{/snippet}
@@ -242,7 +233,6 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
   import { Accordion } from "opui-css/svelte"
 </script>
 
-
 <Accordion markerAnimation="flip" variant="outlined">
   {#snippet summary()}Flip{/snippet}
   <p>
@@ -252,7 +242,6 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
   </p>
 </Accordion>
 
-
 <Accordion markerAnimation="rotate" variant="outlined">
   {#snippet summary()}Rotate{/snippet}
   <p>
@@ -261,7 +250,6 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
     neque ante id justo.
   </p>
 </Accordion>
-
 
 <Accordion markerAnimation="turn" variant="outlined">
   {#snippet summary()}Turn{/snippet}
@@ -372,7 +360,6 @@ Step 2 of 3: Animate to auto
   interpolate-size: allow-keywords;
 }
 
-
 .accordion::details-content {
   block-size: 0;
   opacity: 0;
@@ -382,7 +369,6 @@ Step 2 of 3: Animate to auto
     content-visibility 0.2s allow-discrete,
     opacity 0.2s;
 }
-
 
 .accordion[open]::details-content {
   block-size: auto;
@@ -404,11 +390,9 @@ Step 3 of 3: Marker
   list-style: none;
 }
 
-
 .accordion > summary:has(svg)::-webkit-details-marker {
   display: none;
 }
-
 
 .accordion > summary svg {
   transition:
@@ -416,26 +400,21 @@ Step 3 of 3: Marker
     scale 0.2s;
 }
 
-
 .marker-flip[open] > summary svg {
   scale: 1 -1;
 }
-
 
 .marker-rotate[open] > summary svg {
   rotate: 180deg;
 }
 
-
 .marker-turn[open] > summary svg {
   rotate: 90deg;
 }
 
-
 .marker-turn:dir(rtl) > summary svg {
   scale: -1 1;
 }
-
 
 .marker-turn[open]:dir(rtl) > summary svg {
   rotate: -90deg;

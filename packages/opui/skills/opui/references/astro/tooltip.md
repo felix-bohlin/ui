@@ -15,7 +15,6 @@ Pass plain text via the `label` prop.
 import { Button, Tooltip } from "opui-css/astro"
 ---
 
-
 <Tooltip label="Save your changes" id="tooltip-basic">
   <Button
     interestfor="tooltip-basic"
@@ -33,7 +32,6 @@ Use the `content` slot instead, and it lets you put anything in the tooltip.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <Tooltip id="tooltip-rich">
   <Button
@@ -55,7 +53,6 @@ Use the `alignment` prop.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <div class="tooltip-alignment-grid">
   <Tooltip label="Above" alignment="block-start" id="tooltip-top">
@@ -88,7 +85,6 @@ import { Button, Tooltip } from "opui-css/astro"
   </Tooltip>
 </div>
 
-
 <style>
   .tooltip-alignment-grid {
     align-items: center;
@@ -100,7 +96,6 @@ import { Button, Tooltip } from "opui-css/astro"
       ".     bottom .  ";
     justify-items: center;
   }
-
 
   .tooltip-alignment-grid > :nth-child(1) {
     grid-area: top;
@@ -125,7 +120,6 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 ---
 import { Button, Tooltip } from "opui-css/astro"
 ---
-
 
 <Tooltip arrow label="Save your changes" id="tooltip-arrow">
   <Button
@@ -221,7 +215,6 @@ Step 1 of 5: Hint
   Save
 </button>
 
-
 <span class="tooltip" id="tooltip" popover="hint">Save changes</span>
 ```
 
@@ -286,13 +279,11 @@ Step 4 of 5: Arrow
   anchor-scope: --anchor;
 }
 
-
 .tooltip.arrow {
   anchor-name: --tooltip;
   anchor-scope: --tooltip;
   margin: 0.75rem;
 }
-
 
 .tooltip.arrow::before {
   background-color: inherit;
@@ -331,10 +322,8 @@ Step 5 of 5: Fade
     overlay calc(0.2s * var(--motion, 1)) allow-discrete;
 }
 
-
 .tooltip:popover-open {
   opacity: 1;
-
 
   @starting-style {
     opacity: 0;

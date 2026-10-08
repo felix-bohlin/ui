@@ -40,7 +40,6 @@
   import ListAll from "./partials/ListAll.svelte"
 </script>
 
-
 <List>
   <ListAll prefix="default-" />
 </List>
@@ -71,19 +70,16 @@ Without a color class the list uses the filled surface, because lists usually si
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <div class="column" style="gap: var(--size-4)">
   <List>
     <ListItem headline="Filled (default)" />
     <ListItem headline="Second item" />
   </List>
 
-
   <List variant="tonal">
     <ListItem headline="Tonal" />
     <ListItem headline="Second item" />
   </List>
-
 
   <List variant="transparent">
     <ListItem headline="Transparent" />
@@ -102,7 +98,6 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 <script lang="ts">
   import { CheckboxInput, List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem as="button" headline="Button list item" />
@@ -125,7 +120,6 @@ Add `aria-current="page"` to the link inside the `ListItem`.
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem>
@@ -155,7 +149,6 @@ Main text lives in the `text` snippet, or pass `headline` and `description` prop
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <List>
   <ListItem headline="Headline" />
   <ListItem
@@ -179,7 +172,6 @@ Authored via the `start` snippet on `ListItem`.
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem headline="Headline">
@@ -220,7 +212,6 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
   import { Avatar, List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <List>
   <ListItem headline="Headline">
     {#snippet start()}<Avatar>AB</Avatar>{/snippet}
@@ -244,7 +235,6 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem headline="Headline" description="Supporting text">
@@ -272,7 +262,6 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem headline="Headline" description="Supporting text">
@@ -307,7 +296,6 @@ Authored via the `end` snippet on `ListItem`.
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <List>
   <ListItem headline="Headline">
     {#snippet end()}30kB{/snippet}
@@ -331,7 +319,6 @@ Authored via the `end` snippet on `ListItem`.
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <List>
   <ListItem headline="Save all">
     {#snippet end()}<kbd>CTRL+ALT+DEL</kbd>{/snippet}
@@ -352,7 +339,6 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkb
 <script lang="ts">
   import { CheckboxInput, List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem type="checkbox" for="checkbox-example-1">
@@ -378,7 +364,6 @@ Read more: [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
 <script lang="ts">
   import { List, ListItem, RadioInput } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem type="radio" for="radio-example-1">
@@ -409,7 +394,6 @@ Read more: [Switch](https://open-props-ui.netlify.app/svelte/components/switch.m
   import { List, ListItem, SwitchInput } from "opui-css/svelte"
 </script>
 
-
 <List>
   <ListItem type="switch" for="switch-example-1">
     {#snippet text()}Switch 1{/snippet}
@@ -430,7 +414,6 @@ Enables a list item without a start icon to align with items that do.
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem headline="No inset">
@@ -464,7 +447,6 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
@@ -516,7 +498,6 @@ Add the `bordered` prop to the `List` to give all list items a border.
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-
 <List bordered>
   <ListItem headline="So" />
   <ListItem headline="Many" />
@@ -532,7 +513,6 @@ Add the `borderTop` prop to a `ListItem` to give it an upper border.
 <script lang="ts">
   import { List, ListItem } from "opui-css/svelte"
 </script>
-
 
 <List>
   <ListItem headline="I need borders" />
@@ -550,7 +530,6 @@ Just add the `dense` prop to the `List`!
   import { List } from "opui-css/svelte"
   import ListAll from "./partials/ListAll.svelte"
 </script>
-
 
 <List dense>
   <ListAll prefix="dense-" />
@@ -685,7 +664,6 @@ Step 1 of 4: Row
   padding: 0.5rem 0;
 }
 
-
 .list > li,
 .list > li > button {
   align-items: center;
@@ -696,18 +674,15 @@ Step 1 of 4: Row
   position: relative;
 }
 
-
 .start {
   display: grid;
   inline-size: var(--start-size);
 }
 
-
 .text {
   display: grid;
   flex: 1;
 }
-
 
 .text > * + * {
   color: var(--text-muted);
@@ -725,11 +700,9 @@ Step 2 of 4: Clickable
   padding: 0;
 }
 
-
 .list > li > button {
   inline-size: 100%;
 }
-
 
 .list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
@@ -750,7 +723,6 @@ Step 4 of 4: Bordered
 .bordered > li + li {
   margin-block-start: 0.75rem;
 }
-
 
 .bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);

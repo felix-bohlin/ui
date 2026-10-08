@@ -31,13 +31,11 @@ Label End text
   <span class="ui-sr-only">Checked</span>
 </label>
 
-
 <!-- Unchecked -->
 <label class="ui-checkbox">
   <input name="checkbox-variants" type="checkbox" />
   <span class="ui-sr-only">Unchecked</span>
 </label>
-
 
 <!-- Indeterminate -->
 <label class="ui-checkbox">
@@ -45,13 +43,11 @@ Label End text
   <span class="ui-sr-only">Indeterminate</span>
 </label>
 
-
 <!-- Disabled -->
 <label class="ui-checkbox">
   <input name="checkbox-variants" type="checkbox" disabled />
   <span class="ui-sr-only">Disabled</span>
 </label>
-
 
 <!-- Checked and disabled -->
 <label class="ui-checkbox">
@@ -71,18 +67,15 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
     <span class="ui-sr-only">Label</span>
   </label>
 
-
   <label class="ui-checkbox ui-small">
     <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-sr-only">Label</span>
   </label>
 
-
   <label class="ui-checkbox">
     <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-sr-only">Label</span>
   </label>
-
 
   <label class="ui-checkbox ui-large">
     <input name="checkbox-sizes" type="checkbox" checked />
@@ -90,25 +83,21 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
   </label>
 </div>
 
-
 <div class="example-row">
   <label class="ui-checkbox ui-x-small">
     <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">x-small</span>
   </label>
 
-
   <label class="ui-checkbox ui-small">
     <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">Small</span>
   </label>
 
-
   <label class="ui-checkbox">
     <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">Default</span>
   </label>
-
 
   <label class="ui-checkbox ui-large">
     <input name="checkbox-sizes" type="checkbox" checked />
@@ -127,18 +116,15 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
   <span class="ui-label">Choice A</span>
 </label>
 
-
 <label class="ui-checkbox">
   <input name="checkbox-visible-label" type="checkbox" disabled />
   <span class="ui-label">Disabled</span>
 </label>
 
-
 <label class="ui-checkbox">
   <input name="checkbox-visible-label" type="checkbox" checked disabled />
   <span class="ui-label">Checked and disabled</span>
 </label>
-
 
 <label class="ui-checkbox">
   <input name="checkbox-visible-label" type="checkbox" />
@@ -157,7 +143,6 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
   <input name="checkbox-label-position" type="checkbox" />
   <span class="ui-label">Default</span>
 </label>
-
 
 <label class="ui-checkbox ui-stack">
   <input name="checkbox-label-position" type="checkbox" />
@@ -179,7 +164,6 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
     >Supporting text</span
   >
 </label>
-
 
 <label class="ui-checkbox ui-stack">
   <input
@@ -207,13 +191,11 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
     <span class="ui-label">Default</span>
   </label>
 
-
   <label class="ui-checkbox ui-stack">
     <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
-
 
 <div class="example-row ui-spacious">
   <label class="ui-checkbox">
@@ -229,7 +211,6 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
       >Check yourself</span
     >
   </label>
-
 
   <label class="ui-checkbox ui-stack">
     <input
@@ -278,7 +259,6 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
   </div>
 </fieldset>
 
-
 <script>
   function setupIndeterminateDemoHtml() {
     document.querySelectorAll(".indeterminate-demo").forEach((root) => {
@@ -288,14 +268,12 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
       )
       if (!parent || children.length === 0) return
 
-
       const sync = () => {
         const checkedCount = children.filter((c) => c.checked).length
         parent.checked = checkedCount === children.length
         parent.indeterminate =
           checkedCount > 0 && checkedCount < children.length
       }
-
 
       parent.addEventListener("change", () => {
         children.forEach((c) => (c.checked = parent.checked))
@@ -305,7 +283,6 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
       sync()
     })
   }
-
 
   setupIndeterminateDemoHtml()
 </script>
@@ -328,7 +305,6 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
   >
 </label>
 
-
 <label class="ui-checkbox ui-spread">
   <input
     name="checkbox-spread"
@@ -342,7 +318,6 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
   >
 </label>
 
-
 <label class="ui-checkbox ui-spread">
   <input
     name="checkbox-spread"
@@ -355,7 +330,6 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
     >This checkbox is disabled.</span
   >
 </label>
-
 
 <label class="ui-checkbox ui-spread">
   <input
@@ -463,7 +437,6 @@ Can be placed above and below the fields.
       </label>
     </div>
   </fieldset>
-
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
@@ -735,7 +708,6 @@ Step 1 of 5: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -748,7 +720,6 @@ Step 1 of 5: Appearance
   margin: 0;
   position: relative;
 }
-
 
 .checkbox:checked {
   background-color: var(--accent);
@@ -770,7 +741,6 @@ Step 2 of 5: Checkmark
   position: absolute;
 }
 
-
 .checkbox:checked::after {
   opacity: 1;
 }
@@ -782,7 +752,6 @@ Step 3 of 5: Indeterminate
 
 ```html
 <input class="checkbox" type="checkbox" data-indeterminate />
-
 
 <script>
   for (const input of document.querySelectorAll("[data-indeterminate]")) {
@@ -796,7 +765,6 @@ Step 3 of 5: Indeterminate
   background-color: var(--accent);
   border-color: var(--accent);
 }
-
 
 .checkbox:indeterminate::after {
   clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
@@ -818,12 +786,10 @@ Step 4 of 5: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((var(--size) - 1lh) / 2);
@@ -841,12 +807,10 @@ Step 5 of 5: Forced colors
     border-color: CanvasText;
   }
 
-
   .checkbox:is(:checked, :indeterminate) {
     background-color: SelectedItem;
     border-color: SelectedItem;
   }
-
 
   .checkbox:is(:checked, :indeterminate)::after {
     background-color: SelectedItemText;

@@ -41,7 +41,6 @@ import { FieldGroup } from "opui-css/astro"
 import { FieldDescription } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend><!-- --></FieldLegend>
@@ -69,7 +68,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Radio } from "opui-css/astro"
 ---
 
-
 <FieldSet>
   <FieldLegend>Favorite Pet</FieldLegend>
   <FieldDescription>Please select your favorite type of pet.</FieldDescription>
@@ -96,7 +94,6 @@ import { Form } from "opui-css/astro"
 import { Radio } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
@@ -108,7 +105,6 @@ import { Radio } from "opui-css/astro"
       <Radio value="king-of-limbs">The King of Limbs</Radio>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Which side projects do you follow?</FieldLegend>
@@ -155,7 +151,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Options</FieldLegend>
@@ -183,7 +178,6 @@ import { FieldGroup } from "opui-css/astro"
 import { Checkbox } from "opui-css/astro"
 ---
 
-
 <FieldSet disabled>
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
@@ -206,7 +200,6 @@ import { FieldDescription } from "opui-css/astro"
 import { FieldGroup } from "opui-css/astro"
 import { Checkbox } from "opui-css/astro"
 ---
-
 
 <FieldSet>
   <FieldLegend>Pet food</FieldLegend>
@@ -233,7 +226,6 @@ import { Textarea } from "opui-css/astro"
 import { TextField } from "opui-css/astro"
 ---
 
-
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
@@ -259,7 +251,6 @@ import { Button } from "opui-css/astro"
 import { Divider } from "opui-css/astro"
 ---
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Post Content</FieldLegend>
@@ -268,9 +259,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldGroup>
     <Button>Save draft</Button>
@@ -287,7 +276,6 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` a
 ---
 import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/astro"
 ---
-
 
 <Form as="div">
   <FieldSet aria-labelledby="delivery-legend" as="div">
@@ -319,7 +307,6 @@ import { Button } from "opui-css/astro"
 import { Divider } from "opui-css/astro"
 ---
 
-
 <Form id="kitchen-sink-example">
   <FieldSet>
     <FieldLegend>User Profile</FieldLegend>
@@ -345,9 +332,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Notifications</FieldLegend>
@@ -360,9 +345,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Theme Preference</FieldLegend>
@@ -374,9 +357,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Experience Level</FieldLegend>
@@ -395,9 +376,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Additional Info</FieldLegend>
@@ -411,9 +390,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
@@ -425,9 +402,7 @@ import { Divider } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 
-
   <Divider />
-
 
   <FieldGroup>
     <Button variant="filled" type="submit">Send</Button>
@@ -629,7 +604,6 @@ Step 1 of 4: Fieldset
   gap: 0.25rem;
 }
 
-
 .fieldset legend {
   all: unset;
   font-weight: 600;
@@ -646,13 +620,11 @@ Step 2 of 4: Description
   margin-block-end: 0;
 }
 
-
 .description {
   color: var(--text-muted);
   font-size: var(--font-size-05);
   margin: 0;
 }
-
 
 .description:has(+ *) {
   margin-block-end: 0.75rem;
@@ -683,16 +655,13 @@ Step 3 of 4: Groups
   gap: 1rem;
 }
 
-
 .group + .group {
   margin-block-start: 1.25rem;
 }
 
-
 .group:has(> .check):not(:has(> :not(.check))) {
   gap: 0.5rem;
 }
-
 
 .group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
@@ -700,11 +669,9 @@ Step 3 of 4: Groups
   gap: 0.5rem;
 }
 
-
 .group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
   margin-block-start: 1rem;
 }
-
 
 .group.column:has(> button):not(:has(> :not(button))) {
   align-items: start;
@@ -718,7 +685,6 @@ Step 4 of 4: Required
   padding-inline-end: 1ex;
   position: relative;
 }
-
 
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);

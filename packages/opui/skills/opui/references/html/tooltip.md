@@ -118,7 +118,6 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
   </span>
 </div>
 
-
 <style>
   .tooltip-alignment-grid {
     display: grid;
@@ -131,21 +130,17 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     align-items: center;
   }
 
-
   .tooltip-alignment-grid > :nth-child(1) {
     grid-area: top;
   }
-
 
   .tooltip-alignment-grid > :nth-child(2) {
     grid-area: start;
   }
 
-
   .tooltip-alignment-grid > :nth-child(3) {
     grid-area: end;
   }
-
 
   .tooltip-alignment-grid > :nth-child(4) {
     grid-area: bottom;
@@ -260,7 +255,6 @@ Step 1 of 5: Hint
   Save
 </button>
 
-
 <span class="tooltip" id="tooltip" popover="hint">Save changes</span>
 ```
 
@@ -325,13 +319,11 @@ Step 4 of 5: Arrow
   anchor-scope: --anchor;
 }
 
-
 .tooltip.arrow {
   anchor-name: --tooltip;
   anchor-scope: --tooltip;
   margin: 0.75rem;
 }
-
 
 .tooltip.arrow::before {
   background-color: inherit;
@@ -370,10 +362,8 @@ Step 5 of 5: Fade
     overlay calc(0.2s * var(--motion, 1)) allow-discrete;
 }
 
-
 .tooltip:popover-open {
   opacity: 1;
-
 
   @starting-style {
     opacity: 0;

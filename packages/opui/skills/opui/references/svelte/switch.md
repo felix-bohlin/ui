@@ -39,7 +39,6 @@ All switches should have an accessible name. Put the label text inside the compo
   import { Switch } from "opui-css/svelte"
 </script>
 
-
 <Switch name="switch-variants" checked hideLabel>Label</Switch>
 <Switch name="switch-variants" hideLabel>Label</Switch>
 <Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
@@ -54,7 +53,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { Switch } from "opui-css/svelte"
 </script>
-
 
 <div class="example-row">
   <Switch name="switch-sizes" size="x-small" checked hideLabel>x-small</Switch>
@@ -79,7 +77,6 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
   import { Switch } from "opui-css/svelte"
 </script>
 
-
 <Switch name="switch-visible-label">Label</Switch>
 <Switch name="switch-visible-label" disabled>Disabled</Switch>
 <Switch name="switch-visible-label">
@@ -97,7 +94,6 @@ Set `stack` to put the label under the switch.
   import { Switch } from "opui-css/svelte"
 </script>
 
-
 <Switch name="switch-label-position">Default</Switch>
 <Switch name="switch-label-position" stack>Stack</Switch>
 ```
@@ -108,7 +104,6 @@ Set `stack` to put the label under the switch.
 <script lang="ts">
   import { Switch } from "opui-css/svelte"
 </script>
-
 
 <Switch name="switch-supporting-text">
   Default
@@ -128,7 +123,6 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
 <script lang="ts">
   import { Switch } from "opui-css/svelte"
 </script>
-
 
 <Switch name="switch-icons" size="small" hideLabel>
   Toggle theme
@@ -155,7 +149,6 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
       ></path></svg
     >{/snippet}
 </Switch>
-
 
 <Switch name="switch-icons" checked hideLabel>
   Toggle theme
@@ -195,12 +188,10 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
   import { Switch } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row ui-spacious">
   <Switch name="switch-validation" required>Default</Switch>
   <Switch name="switch-validation" required stack>Stack</Switch>
 </div>
-
 
 <div class="example-row ui-spacious">
   <Switch name="switch-validation" error>
@@ -223,24 +214,20 @@ Use the `spread` prop to push the label to the left and the switch to the right.
   import { Switch } from "opui-css/svelte"
 </script>
 
-
 <Switch name="switch-spread" spread>
   Notifications
   {#snippet endText()}Receive alerts when someone mentions you.{/snippet}
 </Switch>
-
 
 <Switch name="switch-spread" spread required>
   Required
   {#snippet endText()}You must accept this to proceed.{/snippet}
 </Switch>
 
-
 <Switch name="switch-spread" spread disabled>
   Disabled
   {#snippet endText()}This switch is disabled.{/snippet}
 </Switch>
-
 
 <Switch name="switch-spread" spread error>
   Invalid Switch
@@ -277,7 +264,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   } from "opui-css/svelte"
 </script>
 
-
 <Form as="div">
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -302,7 +288,6 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
     Switch,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -332,7 +317,6 @@ Can be placed above and below the fields.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -343,7 +327,6 @@ Can be placed above and below the fields.
       <Switch>Switch 3</Switch>
     </FieldGroup>
   </FieldSet>
-
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
@@ -372,7 +355,6 @@ Attach the `disabled` attribute to the `<fieldset>` element.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
@@ -400,7 +382,6 @@ Attach the `required` attribute to at least one of your `<input>` elements.
   } from "opui-css/svelte"
 </script>
 
-
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
@@ -427,7 +408,6 @@ Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns 
     Switch,
   } from "opui-css/svelte"
 </script>
-
 
 <Form>
   <FieldSet>
@@ -598,7 +578,6 @@ Step 1 of 4: Track
 .switch {
   --dot-color: light-dark(var(--gray-11), var(--gray-14));
 
-
   appearance: none;
   block-size: 1.5rem;
   cursor: pointer;
@@ -606,7 +585,6 @@ Step 1 of 4: Track
   margin: 0;
   position: relative;
 }
-
 
 .switch::before {
   background-color: light-dark(var(--gray-3), var(--gray-8));
@@ -634,16 +612,13 @@ Step 2 of 4: Dot
   position: absolute;
 }
 
-
 .switch:checked::before {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
-
 .switch:checked::after {
   --dot-color: var(--primary-contrast);
-
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }
@@ -658,10 +633,8 @@ Step 3 of 4: Motion
     border-color 0.2s;
 }
 
-
 .switch::after {
   --ring: 0px;
-
 
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
@@ -672,11 +645,9 @@ Step 3 of 4: Motion
     outline-width 0.2s var(--ease);
 }
 
-
 .switch:checked::after {
   --ring: 3px;
 }
-
 
 .switch:active::after {
   --ring: 5px;
@@ -706,29 +677,24 @@ Step 4 of 4: Icons
     z-index: 1;
   }
 
-
   .icon-checked {
     display: none;
     margin-inline-start: 0.25rem;
   }
 
-
   .icon-unchecked {
     margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
   }
-
 
   .switch {
     grid-column: 1;
     grid-row: 1;
   }
 
-
   &:has(:checked) {
     .icon-checked {
       display: block;
     }
-
 
     .icon-unchecked {
       display: none;

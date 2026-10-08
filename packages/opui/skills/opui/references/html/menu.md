@@ -162,7 +162,6 @@ If you want to decide yourself what goes into your list.
   </li>
 </menu>
 
-
 <button
   type="button"
   class="ui-button ui-outlined"
@@ -200,7 +199,6 @@ If you want to decide yourself what goes into your list.
     </button>
   </li>
 </menu>
-
 
 <button
   type="button"
@@ -243,7 +241,6 @@ If you want to decide yourself what goes into your list.
     </button>
   </li>
 </menu>
-
 
 <button
   type="button"
@@ -473,7 +470,6 @@ Step 1 of 5: Popover
   Options
 </button>
 
-
 <menu class="menu" id="menu" popover>
   <li>
     <button type="button" commandfor="menu" command="hide-popover">
@@ -517,7 +513,6 @@ Step 3 of 5: Fit
   overflow-y: auto;
   overscroll-behavior: contain;
 
-
   @supports (min-block-size: calc-size(fit-content, size)) {
     max-block-size: min(60dvb, 100% - 0.5rem);
     min-block-size: calc-size(fit-content, min(size, 12rem));
@@ -539,12 +534,10 @@ Step 4 of 5: Flip
     --menu-block-start;
 }
 
-
 @position-try --menu-block-end {
   margin: 0.25rem 0;
   position-area: block-end span-all;
 }
-
 
 @position-try --menu-block-start {
   margin: 0.25rem 0;
@@ -570,11 +563,9 @@ Step 5 of 5: Animate
     scale calc(0.15s * var(--motion, 1));
 }
 
-
 .menu:popover-open {
   opacity: 1;
   scale: 1;
-
 
   @starting-style {
     opacity: 0;

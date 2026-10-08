@@ -53,7 +53,6 @@ Text fields are outlined by default. Set `variant="filled"` for a filled field.
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField label="Outlined" placeholder="Placeholder" />
 <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 ```
@@ -66,7 +65,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script lang="ts">
   import { TextField } from "opui-css/svelte"
 </script>
-
 
 <TextField label="x-small" placeholder="Placeholder" size="x-small" />
 <TextField label="Small" placeholder="Placeholder" size="small" />
@@ -83,7 +81,6 @@ Use the `description` prop or snippet for text between the label and the input.
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField description="As it appears on your ID" label="Name" />
 ```
 
@@ -93,7 +90,6 @@ Use the `description` prop or snippet for text between the label and the input.
 <script lang="ts">
   import { TextField } from "opui-css/svelte"
 </script>
-
 
 <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
 ```
@@ -107,22 +103,18 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField label="Amount" placeholder="0.00">
   {#snippet prefix()}¢{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
-
 <TextField label="Website" placeholder="example.com">
   {#snippet prefix()}https://{/snippet}
 </TextField>
 
-
 <TextField label="Weight" type="numeric" placeholder="0">
   {#snippet suffix()}kg{/snippet}
 </TextField>
-
 
 <TextField label="Search" placeholder="Search...">
   {#snippet prefix()}<svg
@@ -150,11 +142,9 @@ Use the header for inside-field captions (filenames, categories) and the footer 
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField label="Username" placeholder="Enter your name">
   {#snippet header()}Full Name{/snippet}
 </TextField>
-
 
 <TextField label="Tagline" placeholder="A short description">
   {#snippet footer()}0 / 80{/snippet}
@@ -174,7 +164,6 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <TextField label="I'm required" placeholder="Placeholder" required />
   <TextField
@@ -184,7 +173,6 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     variant="filled"
   />
 </div>
-
 
 <div class="example-row">
   <TextField
@@ -214,12 +202,10 @@ Use the `spread` boolean prop to display the label and description on the left w
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField spread placeholder="Evil Rabbit">
   {#snippet label()}Name{/snippet}
   {#snippet description()}Provide your full name for identification{/snippet}
 </TextField>
-
 
 <TextField spread placeholder="you@example.com" type="email" variant="filled">
   {#snippet label()}Email{/snippet}
@@ -227,22 +213,18 @@ Use the `spread` boolean prop to display the label and description on the left w
   {#snippet endText()}Please use a valid email address{/snippet}
 </TextField>
 
-
 <TextField spread required label="Required">
   {#snippet description()}You must fill this in{/snippet}
 </TextField>
-
 
 <TextField spread disabled label="Disabled">
   {#snippet description()}This field is disabled{/snippet}
 </TextField>
 
-
 <TextField spread error label="Invalid Name">
   {#snippet description()}This field has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </TextField>
-
 
 <TextField spread label="Amount" placeholder="0.00">
   {#snippet description()}Daily spending limit{/snippet}
@@ -250,20 +232,17 @@ Use the `spread` boolean prop to display the label and description on the left w
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
-
 <TextField spread label="Website" placeholder="example.com" variant="filled">
   {#snippet description()}Your public profile URL{/snippet}
   {#snippet prefix()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
-
 <TextField spread label="Project name" placeholder="my-project">
   {#snippet description()}Used to generate the project URL{/snippet}
   {#snippet header()}acme.dev/{/snippet}
   {#snippet footer()}Lowercase letters and dashes only{/snippet}
 </TextField>
-
 
 <TextField
   spread
@@ -302,7 +281,6 @@ Use `autoFit` to let the field's width follow its content, from `25ch`.
 <script lang="ts">
   import { TextField } from "opui-css/svelte"
 </script>
-
 
 <TextField label="Label" placeholder="Auto-fit" autoFit />
 ```
@@ -355,7 +333,6 @@ Use `autoFit` to let the field's width follow its content, from `25ch`.
   </label>
 </div>
 
-
 <div class="example-column">
   <label class="ui-text-field input-type-field">
     <span class="ui-label">Date</span>
@@ -401,7 +378,6 @@ Date-related inputs never show as empty, so the label is always visible. There a
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField label="Numeric" placeholder="Numeric" type="numeric" />
 ```
 
@@ -432,7 +408,6 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField type="file" placeholder="File" label="Label" />
 <TextField type="file" placeholder="File" label="Label" variant="filled" />
 ```
@@ -449,7 +424,6 @@ Leverages the `<input>` + `<datalist>` element combo.
   import { TextField } from "opui-css/svelte"
 </script>
 
-
 <TextField label="Users" list="users" placeholder="Placeholder">
   <datalist id="users">
     <option value="Ray Manzarek"></option>
@@ -457,7 +431,6 @@ Leverages the `<input>` + `<datalist>` element combo.
     <option value="Marika Hackman"></option>
   </datalist>
 </TextField>
-
 
 <TextField
   variant="filled"
@@ -608,17 +581,14 @@ Step 1 of 4: Wrapper
   --helper: var(--field-helper-color);
   --label: var(--text-muted);
 
-
   display: grid;
 }
-
 
 .label {
   font-size: var(--font-size-05);
   font-weight: 600;
   margin-block-end: 0.25rem;
 }
-
 
 .field {
   background-color: var(--surface-default);
@@ -627,7 +597,6 @@ Step 1 of 4: Wrapper
   display: grid;
   min-block-size: var(--field-size);
 }
-
 
 .field input {
   background: transparent;
@@ -639,11 +608,9 @@ Step 1 of 4: Wrapper
   padding: 0.5rem;
 }
 
-
 .text-field:focus-within .field {
   border-color: var(--accent);
 }
-
 
 .end-text {
   color: var(--helper);
@@ -671,11 +638,9 @@ Step 2 of 4: Affixes
   grid-template-columns: auto 1fr auto;
 }
 
-
 .field input {
   grid-area: input;
 }
-
 
 .prefix,
 .suffix {
@@ -685,21 +650,17 @@ Step 2 of 4: Affixes
   padding-inline: 0.5rem;
 }
 
-
 .prefix {
   grid-area: prefix;
 }
-
 
 .suffix {
   grid-area: suffix;
 }
 
-
 .field:has(> .prefix) input {
   padding-inline-start: 0;
 }
-
 
 .field:has(> .suffix) input {
   padding-inline-end: 0;

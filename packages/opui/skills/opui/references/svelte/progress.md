@@ -9,7 +9,6 @@ See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.
   import { Progress } from "opui-css/svelte"
 </script>
 
-
 <Progress />
 ```
 
@@ -19,9 +18,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.
 <script lang="ts">
   import { Progress } from "opui-css/svelte"
 
-
   let value = $state(10)
-
 
   $effect(() => {
     const interval = setInterval(() => {
@@ -30,7 +27,6 @@ See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.
     return () => clearInterval(interval)
   })
 </script>
-
 
 <Progress id="determinate-progress" max="100" {value} />
 ```
@@ -43,7 +39,6 @@ Use the `variant` prop to swap the progress bar track surface for better contras
 <script lang="ts">
   import { Progress } from "opui-css/svelte"
 </script>
-
 
 <Progress value="25" max="100" variant="filled" />
 <Progress value="75" max="100" variant="tonal" />
@@ -132,7 +127,6 @@ Step 1 of 5: Native
   <progress aria-label="Uploading" max="100" value="60"></progress>
 </div>
 
-
 <div class="progress">
   <progress aria-label="Loading"></progress>
 </div>
@@ -153,7 +147,6 @@ Step 2 of 5: Track
   position: relative;
 }
 
-
 .progress > progress {
   appearance: none;
   background: none;
@@ -162,7 +155,6 @@ Step 2 of 5: Track
   display: block;
   inline-size: 100%;
 }
-
 
 .progress > progress::-webkit-progress-bar {
   background: none;
@@ -176,7 +168,6 @@ Step 3 of 5: Value
   background-color: var(--primary);
   transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
 }
-
 
 .progress > progress::-moz-progress-bar {
   background-color: var(--primary);
@@ -198,11 +189,9 @@ Step 4 of 5: Indeterminate
   position: absolute;
 }
 
-
 .progress > progress:indeterminate::-webkit-progress-value {
   background-color: transparent;
 }
-
 
 .progress > progress:indeterminate::-moz-progress-bar {
   background-color: transparent;
@@ -217,7 +206,6 @@ Step 5 of 5: Reduced motion
 .stack {
   --motion: 0;
 }
-
 
 .progress:has(> progress:indeterminate) {
   @container style(--motion: 0) {

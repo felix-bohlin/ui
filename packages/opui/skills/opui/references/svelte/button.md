@@ -25,7 +25,6 @@ Change the button variant with the `variant` prop.
   import { Button } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <Button>Text</Button>
   <Button disabled>Disabled</Button>
@@ -59,7 +58,6 @@ Pass `color` to apply a brand or destructive color: `primary` or `critical`. The
   import { Button } from "opui-css/svelte"
 </script>
 
-
 <div class="example-row">
   <Button color="primary">Primary</Button>
   <Button color="primary" variant="outlined">Outlined</Button>
@@ -83,18 +81,15 @@ Resize any button using the `size` prop: `x-small`, `small`, default and `large`
   import { Button } from "opui-css/svelte"
 </script>
 
-
 <Button size="x-small">x-small</Button>
 <Button size="small">Small</Button>
 <Button>Default</Button>
 <Button size="large">Large</Button>
 
-
 <Button variant="filled" size="x-small">x-small</Button>
 <Button variant="filled" size="small">Small</Button>
 <Button variant="filled">Default</Button>
 <Button variant="filled" size="large">Large</Button>
-
 
 <Button size="x-small" variant="outlined">
   <span class="ui-text">x-small</span>
@@ -123,7 +118,6 @@ Include an icon alongside text by nesting it within the component. Wrap the labe
   import { Button } from "opui-css/svelte"
 </script>
 
-
 <Button>
   <span class="ui-text">Text</span>
   <svg><!-- --></svg>
@@ -140,7 +134,6 @@ Include an icon alongside text by nesting it within the component. Wrap the labe
   <span class="ui-text">Filled</span>
   <svg><!-- --></svg>
 </Button>
-
 
 <Button>
   <svg><!-- --></svg>
@@ -169,7 +162,6 @@ Use the `<kbd>` element to provide keyboard hints within a button.
   import { Button } from "opui-css/svelte"
 </script>
 
-
 <Button>Search <kbd>⌘K</kbd></Button>
 <Button variant="outlined">Save <kbd>⌘S</kbd></Button>
 <Button variant="tonal">Copy <kbd>⌘C</kbd></Button>
@@ -184,7 +176,6 @@ Set `iconOnly` and name the button with `label`, which renders `aria-label`. The
 <script lang="ts">
   import { Button } from "opui-css/svelte"
 </script>
-
 
 <Button iconOnly label="Edit">
   <svg
@@ -261,7 +252,6 @@ Disable the button with the `disabled` prop. Links can't be disabled, so with `h
 <script lang="ts">
   import { Button } from "opui-css/svelte"
 </script>
-
 
 <Button disabled>Text</Button>
 <Button disabled href="#">Link</Button>
@@ -357,7 +347,6 @@ Step 1 of 3: Base
   padding-inline: var(--padding-inline);
 }
 
-
 .button > svg {
   block-size: auto;
   flex-shrink: 0;
@@ -392,7 +381,6 @@ Step 3 of 3: Icon side
 .button:has(> svg:first-child + *) {
   padding-inline-start: calc(var(--padding-inline) * 0.75);
 }
-
 
 .button:has(> * + svg:last-child) {
   padding-inline-end: calc(var(--padding-inline) * 0.75);

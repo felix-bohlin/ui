@@ -37,21 +37,17 @@ Change the card variant with the `variant` prop. Without a variant the card has 
   import { Card } from "opui-css/svelte"
 </script>
 
-
 <Card variant="text">
   {#snippet content()}Text{/snippet}
 </Card>
-
 
 <Card variant="outlined">
   {#snippet content()}Outlined{/snippet}
 </Card>
 
-
 <Card variant="tonal">
   {#snippet content()}Tonal{/snippet}
 </Card>
-
 
 <Card variant="elevated">
   {#snippet content()}Elevated{/snippet}
@@ -70,7 +66,6 @@ Using the `header` snippet.
 <script lang="ts">
   import { Card } from "opui-css/svelte"
 </script>
-
 
 <Card variant="outlined">
   {#snippet header()}
@@ -92,7 +87,6 @@ There are some basic styles here to get you going, but for more advanced use-cas
   import { Button, Card } from "opui-css/svelte"
 </script>
 
-
 <Card variant="outlined">
   {#snippet content()}
     Notice how the buttons are made to align with the text above.
@@ -103,7 +97,6 @@ There are some basic styles here to get you going, but for more advanced use-cas
   {/snippet}
 </Card>
 
-
 <Card variant="outlined">
   {#snippet content()}Trying other button types too. Look at that!{/snippet}
   {#snippet actions()}
@@ -111,7 +104,6 @@ There are some basic styles here to get you going, but for more advanced use-cas
     <Button variant="filled">Save</Button>
   {/snippet}
 </Card>
-
 
 <Card variant="outlined">
   {#snippet content()}Icon buttons work too!{/snippet}
@@ -155,7 +147,6 @@ Align actions to the end with the `actionsAlign="end"` prop.
   import { Button, Card } from "opui-css/svelte"
 </script>
 
-
 <Card variant="outlined" actionsAlign="end">
   {#snippet content()}Buttons aligned to the end. Works too!{/snippet}
   {#snippet actions()}
@@ -164,7 +155,6 @@ Align actions to the end with the `actionsAlign="end"` prop.
   {/snippet}
 </Card>
 
-
 <Card variant="outlined" actionsAlign="end">
   {#snippet content()}Again, buttons are aligned to the end!{/snippet}
   {#snippet actions()}
@@ -172,7 +162,6 @@ Align actions to the end with the `actionsAlign="end"` prop.
     <Button variant="filled">Save</Button>
   {/snippet}
 </Card>
-
 
 <Card variant="outlined" actionsAlign="end">
   {#snippet content()}Icon buttons aligned to the end!{/snippet}
@@ -216,7 +205,6 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
   import { Button, Card } from "opui-css/svelte"
 </script>
 
-
 <Card variant="outlined">
   {#snippet header()}
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
@@ -225,7 +213,6 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
     Plans for any team. Click anywhere on the card.
   {/snippet}
 </Card>
-
 
 <Card variant="outlined">
   {#snippet header()}
@@ -333,22 +320,18 @@ Step 1 of 3: Base
   overflow-wrap: break-word;
 }
 
-
 .card > :is(hgroup, .content) {
   margin-block: 0;
   padding-inline: 0.75rem;
 }
 
-
 .card > :is(hgroup, .content):last-child {
   padding-block-end: 0.75rem;
 }
 
-
 .card > hgroup {
   padding-block-start: 0.75rem;
 }
-
 
 .card > hgroup > * {
   margin-block: 0;
@@ -367,13 +350,11 @@ Step 2 of 3: Variants
   --card-border-width: 1px;
 }
 
-
 .elevated {
   --card-bg: var(--surface-elevated);
   --card-border: var(--surface-default);
   --card-border-width: 1px;
   --card-shadow: var(--shadow-3);
-
 
   @container style(--color-scheme: dark) {
     --card-shadow: var(--shadow-4);
@@ -393,7 +374,6 @@ Step 3 of 3: Actions
   margin-block-start: auto;
   padding: 0.5rem 0.75rem;
 }
-
 
 .actions:has(.ui-button:first-child[class="ui-button"]) {
   padding-inline: 0.25rem 0.75rem;

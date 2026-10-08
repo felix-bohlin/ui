@@ -21,7 +21,6 @@ Day Week Month
   import { ToggleButton } from "opui-css/svelte"
 </script>
 
-
 <ToggleButton name="standalone-demo-1">Toggle me</ToggleButton>
 <ToggleButton name="standalone-demo-2">
   <svg
@@ -52,7 +51,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
   import { ToggleButton } from "opui-css/svelte"
 </script>
 
-
 <ToggleButton size="x-small">x-small</ToggleButton>
 <ToggleButton size="small">small</ToggleButton>
 <ToggleButton>default</ToggleButton>
@@ -72,7 +70,6 @@ Use `selection="multiple"` for multi-select groups.
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-
 <ToggleGroup name="text-style">
   <ToggleButton value="bold" aria-label="Bold"><strong>B</strong></ToggleButton>
   <ToggleButton value="italic" aria-label="Italic"><i>I</i></ToggleButton>
@@ -88,7 +85,6 @@ Use `selection="single"` for single-select groups. Every button is a radio then,
 <script lang="ts">
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
-
 
 <ToggleGroup selection="single" name="alignment">
   <ToggleButton value="left" aria-label="Align left">
@@ -141,7 +137,6 @@ Put an `svg` before the text in `children`. Icon-only buttons need an `aria-labe
 <script lang="ts">
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
-
 
 <ToggleGroup selection="single" name="transport">
   <ToggleButton value="walking" pressed>
@@ -198,7 +193,6 @@ Change the layout of the group with the `orientation="vertical"` prop.
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-
 <ToggleGroup
   selection="single"
   name="alignment-vertical"
@@ -254,7 +248,6 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 <script lang="ts">
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
-
 
 <div style="display: grid; gap: var(--size-4); max-inline-size: 14rem">
   <div style="display: grid; gap: var(--size-1)">
@@ -429,11 +422,9 @@ Step 2 of 4: Pressed
   background-color: var(--bg);
 }
 
-
 .toggle:hover {
   --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
 }
-
 
 .toggle:has(input:checked) {
   --bg: oklch(from var(--primary) l c h / 25%);
@@ -453,7 +444,6 @@ Step 3 of 4: Hide input
   position: absolute;
   white-space: nowrap;
 }
-
 
 .toggle:has(input:focus-visible) {
   outline: 2px solid var(--text-muted);
@@ -483,7 +473,6 @@ Step 4 of 4: Group
   outline-offset: -1px;
   overflow: hidden;
 }
-
 
 .toggle-group .toggle {
   border: 0;

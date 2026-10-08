@@ -33,14 +33,12 @@ Simply add `aria-busy="true"` to a `<button>`.
 import { Button } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="example-row">
     <Button aria-busy="true">Text</Button>
     <Button aria-busy="true" disabled variant="outlined"> Outlined </Button>
     <Button aria-busy="true" variant="filled">Filled</Button>
   </div>
-
 
   <div class="example-row">
     <Button aria-busy="true">
@@ -191,7 +189,6 @@ Step 4 of 4: Reduced motion
 .demo {
   --motion: 0;
 }
-
 
 [aria-busy="true"]::before {
   animation-duration: max(

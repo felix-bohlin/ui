@@ -51,7 +51,6 @@ import "../styles/global.css"
 import { Button } from "opui-css/astro"
 ---
 
-
 <Button variant="filled">Click me</Button>
 ```
 

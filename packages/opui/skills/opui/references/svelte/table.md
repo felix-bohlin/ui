@@ -179,7 +179,6 @@ The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table 
   } from "opui-css/svelte"
 </script>
 
-
 <div
   role="region"
   aria-label="Invoices"
@@ -427,21 +426,17 @@ Step 2 of 5: Cells
   text-align: start;
 }
 
-
 .table th {
   background-color: var(--surface-filled);
 }
-
 
 .table :is(th, td):last-child {
   border-inline-end: none;
 }
 
-
 .table > :last-child tr:last-child > * {
   border-block-end: none;
 }
-
 
 .table tbody > tr:hover > :is(th, td) {
   background-color: oklch(from var(--surface-filled) l c h / 75%);
@@ -457,16 +452,13 @@ Step 3 of 5: Corners
   border-start-start-radius: var(--radius);
 }
 
-
 .table > thead tr:first-child th:last-child {
   border-start-end-radius: var(--radius);
 }
 
-
 .table > :last-child tr:last-child > :first-child {
   border-end-start-radius: var(--radius);
 }
-
 
 .table > :last-child tr:last-child > :last-child {
   border-end-end-radius: var(--radius);
@@ -483,7 +475,6 @@ Step 4 of 5: Footer
   border-block-start: 1px solid var(--border-color);
   font-weight: 600;
 }
-
 
 .table tbody:has(+ tfoot) tr:last-child > * {
   border-block-end: none;
@@ -507,14 +498,12 @@ Step 5 of 5: Sticky header
   overflow: auto;
 }
 
-
 .table > thead {
   container-type: scroll-state;
   inset-block-start: 0;
   position: sticky;
   z-index: 1;
 }
-
 
 @container scroll-state(stuck: block-start) {
   .table > thead th {

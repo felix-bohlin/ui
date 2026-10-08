@@ -52,18 +52,15 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
   x-small
 </label>
 
-
 <label class="ui-toggle-button ui-small">
   <input type="checkbox" id="toggle-size-2" />
   small
 </label>
 
-
 <label class="ui-toggle-button">
   <input type="checkbox" id="toggle-size-3" />
   default
 </label>
-
 
 <label class="ui-toggle-button ui-large">
   <input type="checkbox" id="toggle-size-4" />
@@ -581,11 +578,9 @@ Step 2 of 4: Pressed
   background-color: var(--bg);
 }
 
-
 .toggle:hover {
   --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
 }
-
 
 .toggle:has(input:checked) {
   --bg: oklch(from var(--primary) l c h / 25%);
@@ -605,7 +600,6 @@ Step 3 of 4: Hide input
   position: absolute;
   white-space: nowrap;
 }
-
 
 .toggle:has(input:focus-visible) {
   outline: 2px solid var(--text-muted);
@@ -635,7 +629,6 @@ Step 4 of 4: Group
   outline-offset: -1px;
   overflow: hidden;
 }
-
 
 .toggle-group .toggle {
   border: 0;

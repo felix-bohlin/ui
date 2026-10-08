@@ -40,7 +40,6 @@ import { List } from "opui-css/vue"
 import ListAll from "./partials/ListAll.vue"
 </script>
 
-
 <template>
   <List>
     <ListAll prefix="default-" />
@@ -73,7 +72,6 @@ Without a color class the list uses the filled surface, because lists usually si
 import { List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <div class="column" style="gap: var(--size-4)">
     <List>
@@ -81,12 +79,10 @@ import { List, ListItem } from "opui-css/vue"
       <ListItem headline="Second item" />
     </List>
 
-
     <List variant="tonal">
       <ListItem headline="Tonal" />
       <ListItem headline="Second item" />
     </List>
-
 
     <List variant="transparent">
       <ListItem headline="Transparent" />
@@ -106,7 +102,6 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 <script setup lang="ts">
 import { CheckboxInput, List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -131,7 +126,6 @@ Add `aria-current="page"` to the link inside the `ListItem`.
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -163,7 +157,6 @@ Main text lives in the `text` slot, or pass `headline` and `description` props d
 import { List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem headline="Headline" />
@@ -189,7 +182,6 @@ Authored via the `start` slot on `ListItem`.
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -234,7 +226,6 @@ Read more: [Avatar](https://open-props-ui.netlify.app/vue/components/avatar.md)
 import { Avatar, List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem headline="Headline">
@@ -261,7 +252,6 @@ import { Avatar, List, ListItem } from "opui-css/vue"
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -293,7 +283,6 @@ import { List, ListItem } from "opui-css/vue"
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -332,7 +321,6 @@ Authored via the `end` slot on `ListItem`.
 import { List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem headline="Headline">
@@ -358,7 +346,6 @@ import { List, ListItem } from "opui-css/vue"
 import { List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem headline="Save all">
@@ -381,7 +368,6 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.
 <script setup lang="ts">
 import { CheckboxInput, List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -410,7 +396,6 @@ Read more: [Radio](https://open-props-ui.netlify.app/vue/components/radio.md)
 import { List, ListItem, RadioInput } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem type="radio" for="radio-example-1">
@@ -438,7 +423,6 @@ Read more: [Switch](https://open-props-ui.netlify.app/vue/components/switch.md)
 import { List, ListItem, SwitchInput } from "opui-css/vue"
 </script>
 
-
 <template>
   <List>
     <ListItem type="switch" for="switch-example-1">
@@ -461,7 +445,6 @@ Enables a list item without a start icon to align with items that do.
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -498,7 +481,6 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List gutterless>
@@ -553,7 +535,6 @@ Add the `bordered` prop to the `List` to give all list items a border.
 import { List, ListItem } from "opui-css/vue"
 </script>
 
-
 <template>
   <List bordered>
     <ListItem headline="So" />
@@ -571,7 +552,6 @@ Add the `borderTop` prop to a `ListItem` to give it an upper border.
 <script setup lang="ts">
 import { List, ListItem } from "opui-css/vue"
 </script>
-
 
 <template>
   <List>
@@ -591,7 +571,6 @@ Just add the `dense` prop to the `List`!
 import { List } from "opui-css/vue"
 import ListAll from "./partials/ListAll.vue"
 </script>
-
 
 <template>
   <List dense>
@@ -738,7 +717,6 @@ Step 1 of 4: Row
   padding: 0.5rem 0;
 }
 
-
 .list > li,
 .list > li > button {
   align-items: center;
@@ -749,18 +727,15 @@ Step 1 of 4: Row
   position: relative;
 }
 
-
 .start {
   display: grid;
   inline-size: var(--start-size);
 }
 
-
 .text {
   display: grid;
   flex: 1;
 }
-
 
 .text > * + * {
   color: var(--text-muted);
@@ -778,11 +753,9 @@ Step 2 of 4: Clickable
   padding: 0;
 }
 
-
 .list > li > button {
   inline-size: 100%;
 }
-
 
 .list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
@@ -803,7 +776,6 @@ Step 4 of 4: Bordered
 .bordered > li + li {
   margin-block-start: 0.75rem;
 }
-
 
 .bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);

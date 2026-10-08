@@ -23,13 +23,12 @@ npm install opui-css open-props svelte -S
 Svelte components ship markup only - the CSS still has to be imported once, in your root layout or the entry file that mounts your app. Import everything:
 
 ```svelte
+<!-- src/routes/+layout.svelte -->
 <script lang="ts">
   import "opui-css/css/imports.css"
 
-
   let { children } = $props()
 </script>
-
 
 {@render children()}
 ```
@@ -47,13 +46,12 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 ```
 
 ```svelte
+<!-- src/routes/+layout.svelte -->
 <script lang="ts">
   import "../styles/main.css"
 
-
   let { children } = $props()
 </script>
-
 
 {@render children()}
 ```
@@ -64,7 +62,6 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 <script lang="ts">
   import { Button } from "opui-css/svelte"
 </script>
-
 
 <Button variant="filled">Click me</Button>
 ```

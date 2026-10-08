@@ -31,7 +31,6 @@ The `name` prop will get passed down to each radio button in the group.
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -54,7 +53,6 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <script setup lang="ts">
 import { Radio } from "opui-css/vue"
 </script>
-
 
 <template>
   <div class="example-row">
@@ -106,7 +104,6 @@ The default slot is the label. Without a visible label, keep the text in the slo
 import { Radio } from "opui-css/vue"
 </script>
 
-
 <template>
   <Radio name="radio-visible-label" value="a" checked>Choice A</Radio>
   <Radio name="radio-visible-label" value="b" disabled>Disabled</Radio>
@@ -127,7 +124,6 @@ Set `stack` to put the label under the radio.
 import { Radio } from "opui-css/vue"
 </script>
 
-
 <template>
   <Radio name="radio-label-position" value="default" checked>Default</Radio>
   <Radio name="radio-label-position" value="stack" stack>Stack</Radio>
@@ -142,7 +138,6 @@ Use the `end-text` slot for supporting text under a single radio's label. The co
 <script setup lang="ts">
 import { Radio } from "opui-css/vue"
 </script>
-
 
 <template>
   <Radio name="radio-supporting-text" value="default" checked>
@@ -172,7 +167,6 @@ import {
 } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -184,7 +178,6 @@ import {
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>
     </FieldSet>
-
 
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
@@ -207,7 +200,6 @@ Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `R
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -232,7 +224,6 @@ Add the `required` attribute on at least one `Radio`. It is forwarded to the und
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -255,7 +246,6 @@ Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns r
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -281,7 +271,6 @@ Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
 
-
 <template>
   <Form>
     <FieldSet>
@@ -304,7 +293,6 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </script>
-
 
 <template>
   <Form>
@@ -472,7 +460,6 @@ Step 1 of 3: Appearance
   );
   --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
-
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -483,7 +470,6 @@ Step 1 of 3: Appearance
   inline-size: 1.25rem;
   margin: 0;
 }
-
 
 .radio:checked {
   background-color: var(--accent);
@@ -517,12 +503,10 @@ Step 3 of 3: Label
   grid-auto-flow: column;
 }
 
-
 .label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
-
 
 .label > span {
   margin-block-start: calc((1.25rem - 1lh) / 2);

@@ -188,7 +188,6 @@ const { link } = Astro.locals
                           aria-pressed={pressed ? "true" : "false"}
                           data-name={group.name}
                           data-value={item.value}
-                          data-default={pressed ? "true" : undefined}
                           label={item.text}
                           title={item.value}
                         />
@@ -243,6 +242,16 @@ const { link } = Astro.locals
   ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
 
+  function setGrayInputsDisabled(disabled: boolean) {
+    form
+      ?.querySelectorAll<HTMLInputElement>(
+        '[name="--gray-chroma"], [name="--gray-hue"]',
+      )
+      .forEach((input) => {
+        input.disabled = disabled
+      })
+  }
+
   function setChipPressed(chip: HTMLElement, pressed: boolean) {
     chip.classList.toggle("ui-tonal", pressed)
     chip.classList.toggle("ui-outlined", !pressed)
@@ -272,7 +281,9 @@ const { link } = Astro.locals
     const enableGrays = form.querySelector<HTMLInputElement>(
       '[name="enable-grays"]',
     )
-    if (enableGrays) enableGrays.checked = themeStore.isGraysEnabled(mode)
+    const graysEnabled = themeStore.isGraysEnabled(mode)
+    if (enableGrays) enableGrays.checked = graysEnabled
+    setGrayInputsDisabled(!graysEnabled)
 
     const colorPicker = form.querySelector<HTMLInputElement>(
       '[name="--palette-source-color"]',
@@ -337,6 +348,7 @@ const { link } = Astro.locals
     if (target.type === "checkbox") {
       if (name === "enable-grays") {
         themeStore.setEnableGrays(mode, target.checked)
+        setGrayInputsDisabled(!target.checked)
       }
       return
     }
@@ -397,18 +409,12 @@ const { link } = Astro.locals
 
   resetBtn?.addEventListener("click", () => {
     themeStore.reset()
-    form?.reset()
     if (themeSwitcher) {
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")
     }
     ;(window as any).themeUtils?.setContrast(null)
     syncContrastSwitcher()
-    const allChips =
-      form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
-    allChips.forEach((chip) =>
-      setChipPressed(chip, chip.dataset.default === "true"),
-    )
   })
 
   themeStore.subscribe((detail) => {

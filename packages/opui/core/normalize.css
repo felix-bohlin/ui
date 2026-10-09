@@ -22,8 +22,7 @@
     background-color: var(--_page-bg-color);
     block-size: 100%;
     caret-color: var(--primary);
-    color: var(--text-muted, var(--text-color-2));
-    /* text-color-2 is for backwards compatibility */
+    color: var(--text-muted);
     font-family: var(--font-sans);
     interpolate-size: allow-keywords;
     line-height: var(--font-lineheight-4);
@@ -92,13 +91,13 @@
   :where(select):autofill,
   :where(select):autofill:hover,
   :where(select):autofill:focus {
-    -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
+    -webkit-text-fill-color: var(--text-muted);
     box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
   ::placeholder {
-    color: var(--text-muted, var(--text-color-2));
+    color: var(--text-muted);
   }
 
   :focus-visible {

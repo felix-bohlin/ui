@@ -6,7 +6,7 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
 const openPropsEntry = join(opuiDir, "open-props.css")
 
-const CONSUMER_SET = ["--anchor-position-area", "--text-color-2"]
+const CONSUMER_SET = ["--anchor-position-area"]
 
 const DECLARATION = /(--[\w-]+)\s*:/g
 const READ = /var\(\s*(--[\w-]+)/g

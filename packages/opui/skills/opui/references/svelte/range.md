@@ -223,9 +223,9 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                              |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.
 
 ## Under the hood
 

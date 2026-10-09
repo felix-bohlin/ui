@@ -4,8 +4,8 @@ export default {
   component: "Dialog",
   notes: {
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
-    svelte: "Attributes that aren't props, such as `id`, go to the `<dialog>`.",
-    vue: "Attributes that aren't props, such as `id`, go to the `<dialog>`.",
+    svelte: "Attributes that aren't props go to the `<dialog>`, like `id`.",
+    vue: "Attributes that aren't props go to the `<dialog>`, like `id`.",
   },
   options: [
     {

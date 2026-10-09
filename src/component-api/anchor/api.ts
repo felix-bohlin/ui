@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Anchor",
   notes: {
-    html: 'For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.',
+    html: 'To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the anchor content.',
   },
   options: [
     {
@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        'The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root.',
+        'The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger.',
       frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",

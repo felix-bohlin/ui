@@ -13,7 +13,7 @@ export default {
     ],
   },
   notes: {
-    html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
+    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
     svelte: "Attributes that aren't props go to the `<dialog>`.",
     vue: "Attributes that aren't props go to the `<dialog>`.",
   },

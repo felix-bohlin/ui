@@ -4,11 +4,11 @@ export default {
   component: "Card",
   notes: {
     astro:
-      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
-    html: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
+    html: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
     svelte:
-      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
-    vue: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
+    vue: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
   },
   options: [
     {

@@ -347,7 +347,7 @@ Where the badge should be placed over the child.
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 

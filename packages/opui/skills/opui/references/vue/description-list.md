@@ -157,7 +157,7 @@ import {
 | `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                |
 | `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                            |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Under the hood
 

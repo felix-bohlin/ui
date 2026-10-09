@@ -198,9 +198,9 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 | `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                          |
 | `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger.
+Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.
 
 ## Under the hood
 

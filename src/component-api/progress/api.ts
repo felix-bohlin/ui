@@ -4,10 +4,10 @@ export default {
   component: "Progress",
   notes: {
     astro:
-      "Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
+      "Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
     svelte:
-      "Attributes that aren't props, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
-    vue: "Attributes that aren't props, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.",
+      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
+    vue: "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
   },
   options: [
     {

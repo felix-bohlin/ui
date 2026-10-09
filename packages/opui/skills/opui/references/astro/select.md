@@ -501,9 +501,9 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                          |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
+Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.
 
 ### Classic select API
 
@@ -563,9 +563,9 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                          |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
+Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.
 
 ## Under the hood
 

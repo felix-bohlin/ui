@@ -477,9 +477,9 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                    |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.
+Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`. To hide the label, set `hideLabel` and keep the text in the slot.
 
 ### Field group API
 
@@ -509,7 +509,7 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 

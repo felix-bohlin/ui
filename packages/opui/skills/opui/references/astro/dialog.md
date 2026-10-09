@@ -328,7 +328,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                  |
 | `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 

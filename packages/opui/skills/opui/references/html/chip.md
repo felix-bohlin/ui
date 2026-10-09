@@ -306,7 +306,7 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
 | `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 

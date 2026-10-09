@@ -500,7 +500,7 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 The root needs `role="group"`.
 
@@ -552,7 +552,7 @@ The root needs `role="group"`.
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 

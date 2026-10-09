@@ -4,10 +4,10 @@ export default {
   component: "Typography",
   notes: {
     astro:
-      "CSS-only typography. Apply the classes on elements in templates; no Astro component.",
+      "Add the classes to elements in your templates. There is no Astro component.",
     svelte:
-      "CSS-only typography. Apply the classes on elements in markup; no Svelte component.",
-    vue: "CSS-only typography. Apply the classes on elements in templates; no Vue component.",
+      "Add the classes to elements in your markup. There is no Svelte component.",
+    vue: "Add the classes to elements in your templates. There is no Vue component.",
   },
   options: [
     {
@@ -71,7 +71,7 @@ export default {
     {
       class: ".ui-link",
       description:
-        "Link styles outside `.ui-rich-text`. Hover and focus darken the color in light mode, lighten it in dark mode and thicken the underline.",
+        "Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode.",
       group: "Link",
       prop: "link",
     },

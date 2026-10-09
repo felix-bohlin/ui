@@ -186,11 +186,11 @@ import { Anchor, Card } from "opui-css/astro"
 
 ### Anchor API
 
-| Prop        | Type                   | Default       | Description                                                                                                                                   |
-| ----------- | ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                               |
-| `id`        | `string`               | -             | The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. |
-| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                               |
+| Prop        | Type                   | Default       | Description                                                                                                                    |
+| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                |
+| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger. |
+| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                |
 
 #### Slots
 

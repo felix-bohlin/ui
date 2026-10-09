@@ -373,9 +373,9 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                          |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.
+Set column widths with `Table.ColumnGroup` and `Table.Column`. `Table.Column` takes a `width`.
 
 ## Under the hood
 

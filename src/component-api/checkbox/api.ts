@@ -43,11 +43,11 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
-    html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.",
+      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`. To hide the label, set `hideLabel` and keep the text in the slot.",
+    html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
     svelte:
-      "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
-    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
     {

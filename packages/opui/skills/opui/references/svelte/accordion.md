@@ -312,9 +312,9 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 | `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                               |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                              |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
+To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.
 
 ## Under the hood
 

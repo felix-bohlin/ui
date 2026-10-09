@@ -5,11 +5,11 @@ export default {
   css: ["spinner"],
   notes: {
     astro:
-      "Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.",
-    html: "Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, and elements with `aria-describedby` other than buttons and links.",
+      "Set `aria-busy` on any element to show a spinner. There is no Astro component.",
+    html: "These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.",
     svelte:
-      "Set `aria-busy` on any element to show a spinner. CSS-only; no Svelte component.",
-    vue: "Set `aria-busy` on any element to show a spinner. CSS-only; no Vue component.",
+      "Set `aria-busy` on any element to show a spinner. There is no Svelte component.",
+    vue: "Set `aria-busy` on any element to show a spinner. There is no Vue component.",
   },
   options: [
     {

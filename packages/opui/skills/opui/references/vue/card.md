@@ -274,9 +274,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                           |
 | `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                        |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.
+To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
 
 ## Under the hood
 

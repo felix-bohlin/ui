@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs",
   notes: {
-    html: 'Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.',
+    html: 'Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `label.ui-tab-label` and `.ui-tab-panel`.',
   },
   options: [
     {

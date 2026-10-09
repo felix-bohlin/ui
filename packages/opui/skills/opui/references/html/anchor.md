@@ -195,7 +195,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 | `& > :first-child`    | The content the floating content is anchored to.     |
 | `.ui-anchor-floating` | The floating content.                                |
 
-For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.
+To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the anchor content.
 
 ## Under the hood
 

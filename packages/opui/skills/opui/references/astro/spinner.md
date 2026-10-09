@@ -84,11 +84,11 @@ See [progress accessibility](https://open-props-ui.netlify.app/astro/components/
 | ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, and elements with `aria-describedby` other than buttons and links.
+These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
 
-Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.
+Set `aria-busy` on any element to show a spinner. There is no Astro component.
 
 ## Under the hood
 

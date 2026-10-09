@@ -394,9 +394,9 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.
+Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
 
 ### Drawer header API
 
@@ -422,7 +422,7 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ### Drawer footer API
 
@@ -446,7 +446,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 

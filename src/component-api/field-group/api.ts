@@ -4,7 +4,7 @@ export default {
   component: "FieldGroup",
   css: ["form"],
   notes: {
-    html: "Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.",
+    html: "To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.",
   },
   options: [
     {

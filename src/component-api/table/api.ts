@@ -4,10 +4,10 @@ export default {
   component: "Table",
   notes: {
     astro:
-      "Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.",
+      "Set column widths with `Table.ColumnGroup` and `Table.Column`. `Table.Column` takes a `width`.",
     svelte:
-      "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
-    vue: "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
+    vue: "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
   },
   options: [
     {

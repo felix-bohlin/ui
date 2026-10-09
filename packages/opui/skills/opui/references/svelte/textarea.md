@@ -318,9 +318,9 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.
 
 ## Under the hood
 

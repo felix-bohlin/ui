@@ -108,6 +108,7 @@
         gap: var(--size-2);
         list-style: none;
 
+        /* Safari fallback */
         &::marker,
         &::-webkit-details-marker {
           display: none;

@@ -208,6 +208,10 @@
 
     /* Range input */
     :where(& > input[type="range"]) {
+      --_inset: max(
+        var(--size-2),
+        var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
+      );
       --_thumb-bg-color: var(--primary);
       --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
@@ -218,53 +222,44 @@
       --_track-height: 0.75ex;
       --_track-radius: 1e5px;
 
+      animation-fill-mode: both;
+      animation-name: ui-range-fill;
+      animation-range: contain;
+      animation-timeline: --ui-range-thumb;
+      animation-timing-function: linear;
       appearance: none;
       background: transparent;
       block-size: var(--size-4);
+      box-sizing: content-box;
       display: block;
       grid-column: 1/-1;
       grid-row: 3;
       inline-size: 100%;
-      outline-offset: 1ex;
+      margin: calc(var(--_inset) * -1);
+      outline-offset: calc(1ex - var(--_inset));
+      overflow: hidden;
+      padding: var(--_inset);
+      timeline-scope: --ui-range-thumb;
 
       @media (hover: none) {
         --_thumb-offset: -11.5px;
       }
 
-      @supports (animation-timeline: view()) {
-        --_inset: max(
-          var(--size-2),
-          var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
-        );
+      &:focus-visible {
+        animation-duration: auto, calc(var(--duration) * var(--_motion));
+        animation-name: ui-range-fill, ui-focus-ring;
+        animation-range: contain, normal;
+        animation-timeline: --ui-range-thumb, auto;
+        animation-timing-function: linear, var(--ease);
+      }
 
-        animation-fill-mode: both;
-        animation-name: ui-range-fill;
-        animation-range: contain;
-        animation-timeline: --ui-range-thumb;
-        animation-timing-function: linear;
-        box-sizing: content-box;
-        margin: calc(var(--_inset) * -1);
-        outline-offset: calc(1ex - var(--_inset));
-        overflow: hidden;
-        padding: var(--_inset);
-        timeline-scope: --ui-range-thumb;
+      &:dir(rtl) {
+        animation-direction: reverse, normal;
+      }
 
-        &:focus-visible {
-          animation-duration: auto, calc(var(--duration) * var(--_motion));
-          animation-name: ui-range-fill, ui-focus-ring;
-          animation-range: contain, normal;
-          animation-timeline: --ui-range-thumb, auto;
-          animation-timing-function: linear, var(--ease);
-        }
-
-        &:dir(rtl) {
-          animation-direction: reverse, normal;
-        }
-
-        &::-webkit-slider-thumb {
-          view-timeline: --ui-range-thumb inline;
-          view-timeline-inset: var(--_inset);
-        }
+      &::-webkit-slider-thumb {
+        view-timeline: --ui-range-thumb inline;
+        view-timeline-inset: var(--_inset);
       }
 
       /* Track */

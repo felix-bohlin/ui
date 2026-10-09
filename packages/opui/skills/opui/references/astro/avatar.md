@@ -210,7 +210,7 @@ Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlif
 
    - A shape is just a different `border-radius`
    - `corner-shape: squircle` turns a full radius into a superellipse
-   - `@supports` falls back to a rounded square
+   - Without `corner-shape`, the squircle is a circle
 
 4. Group
 
@@ -277,12 +277,8 @@ Step 3 of 4: Shapes
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-3);
-
-  @supports (corner-shape: squircle) {
-    border-radius: var(--radius-round);
-    corner-shape: squircle;
-  }
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
 }
 ```
 

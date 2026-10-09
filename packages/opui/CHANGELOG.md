@@ -49,6 +49,10 @@
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
 - `TextField` and `Textarea` no longer declare a `startText` slot, which was never rendered. The `startText` prop stays.
+- `Avatar` squircle no longer falls back to a rounded square. Without `corner-shape` it is a circle.
+- `Range` no longer wraps the scroll-driven track fill in `@supports (animation-timeline: view())`.
+- `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
+- `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`, and sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields.
 
 ### Added
 

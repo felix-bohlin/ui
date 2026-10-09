@@ -76,22 +76,12 @@
     padding: var(--size-3);
   }
 
-  :where(input, button, select, textarea),
-  :where(input[type="file"])::-webkit-file-upload-button {
+  :where(input, button, select, textarea) {
     color: inherit;
     font: inherit;
     letter-spacing: inherit;
   }
 
-  :where(input):-webkit-autofill,
-  :where(input):-webkit-autofill:hover,
-  :where(input):-webkit-autofill:focus,
-  :where(textarea):-webkit-autofill,
-  :where(textarea):-webkit-autofill:hover,
-  :where(textarea):-webkit-autofill:focus,
-  :where(select):-webkit-autofill,
-  :where(select):-webkit-autofill:hover,
-  :where(select):-webkit-autofill:focus,
   :where(input):autofill,
   :where(input):autofill:hover,
   :where(input):autofill:focus,
@@ -102,16 +92,12 @@
   :where(select):autofill:hover,
   :where(select):autofill:focus {
     -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
-    -webkit-box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
+    box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
   ::placeholder {
     color: var(--text-muted, var(--text-color-2));
-  }
-
-  ::-moz-placeholder {
-    opacity: 1;
   }
 
   :focus-visible {

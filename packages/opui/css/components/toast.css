@@ -33,6 +33,7 @@
     --_hold-duration: 5s;
 
     align-items: center;
+    /* Firefox and Safari fallback */
     animation:
       ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
       ui-toast-hold var(--_hold-duration) linear both,
@@ -41,6 +42,7 @@
       ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
       ui-toast-hold attr(data-duration type(<time>), 5s) linear both,
       ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
+    /* Firefox and Safari fallback */
     animation-delay:
       0s, var(--_enter-duration),
       calc(var(--_enter-duration) + var(--_hold-duration));

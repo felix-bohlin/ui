@@ -190,6 +190,7 @@
         }
 
         &.ui-buttons-outside {
+          /* Firefox and Safari fallback */
           @supports selector(::scroll-button(*)) {
             margin-block: calc(var(--_button-size) + var(--_button-inset));
             margin-inline: 0;
@@ -245,6 +246,7 @@
 
       /* Buttons outside the items */
       &.ui-buttons-outside {
+        /* Firefox and Safari fallback */
         @supports selector(::scroll-button(*)) {
           margin-inline: calc(var(--_button-size) + var(--_button-inset));
         }
@@ -330,6 +332,7 @@
       }
     }
 
+    /* Firefox and Safari fallback */
     @supports selector(::scroll-button(*)) {
       &:is(.ui-with-buttons, .ui-with-markers) {
         scrollbar-width: none;

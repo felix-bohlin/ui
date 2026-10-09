@@ -488,6 +488,7 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+      /* Firefox and Safari fallback */
       @supports (inline-size: calc(1px * 1em / 1rem)) {
         --_font-scale: calc(1em / 1rem);
       }
@@ -673,6 +674,7 @@
       }
 
       &[start] {
+        /* Firefox and Safari fallback */
         --_start-digits: 4;
 
         @supports (x: attr(x type(*))) {

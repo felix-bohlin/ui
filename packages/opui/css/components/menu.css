@@ -61,6 +61,7 @@
         overlay var(--_duration) allow-discrete,
         scale var(--_duration) var(--_ease);
 
+      /* Firefox and Safari fallback */
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
           var(--_max-block-size),

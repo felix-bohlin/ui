@@ -61,18 +61,14 @@ const steps = [
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-3);
-
-  @supports (corner-shape: squircle) {
-    border-radius: var(--radius-round);
-    corner-shape: squircle;
-  }
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
 }`,
     features: ["corner-shape"],
     notes: [
       "A shape is just a different <code>border-radius</code>",
       "<code>corner-shape: squircle</code> turns a full radius into a superellipse",
-      "<code>@supports</code> falls back to a rounded square",
+      "Without <code>corner-shape</code>, the squircle is a circle",
     ],
     title: "Shapes",
   },

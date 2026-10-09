@@ -79,29 +79,27 @@ import Code from "../../components/Code.astro"
   }
 }
 
-@supports (animation-timeline: view()) {
-  input[type="range"] {
-    animation-fill-mode: both;
-    animation-name: range-fill;
-    animation-range: contain;
-    animation-timeline: --thumb;
-    animation-timing-function: linear;
-    box-sizing: content-box;
-    margin: -0.75rem;
-    outline-offset: -0.75rem;
-    overflow: hidden;
-    padding: 0.75rem;
-    timeline-scope: --thumb;
-  }
+input[type="range"] {
+  animation-fill-mode: both;
+  animation-name: range-fill;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  animation-timing-function: linear;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
 
-  input[type="range"]:dir(rtl) {
-    animation-direction: reverse;
-  }
+input[type="range"]:dir(rtl) {
+  animation-direction: reverse;
+}
 
-  input[type="range"]::-webkit-slider-thumb {
-    view-timeline: --thumb inline;
-    view-timeline-inset: 0.75rem;
-  }
+input[type="range"]::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -141,10 +139,7 @@ datalist > option {
       <li>
         Without scroll-driven animations <code>--track-fill</code> stays at <code
           >0%</code
-        >: no fill, the slider still works. <code
-          >@supports (animation-timeline: view())</code
-        > keeps the padding and <code>overflow: hidden</code> out too. Firefox fills
-        natively
+        >: no fill, the slider still works. Firefox fills natively
       </li>
       <li>
         The labels are plain flex content and render wherever <code

@@ -280,11 +280,9 @@ import { FieldLegend } from "opui-css/astro"
 
 ## Accessibility
 
-- The `tabindex` attribute must **not** be used on the `<dialog>` element.
-
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                                  |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

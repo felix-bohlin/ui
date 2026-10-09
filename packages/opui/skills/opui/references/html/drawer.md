@@ -340,13 +340,12 @@ Without `closedby`, the browser picks: a modal drawer, opened with `command="sho
 
 - Name the drawer with `aria-labelledby` pointing at the heading's `id`, not at `.ui-header`, which also holds the close button.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
-- Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |

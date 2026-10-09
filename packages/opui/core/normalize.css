@@ -29,6 +29,7 @@
     line-height: var(--font-lineheight-4);
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+    /* Firefox and Safari fallback */
     -moz-text-size-adjust: none;
     -webkit-text-size-adjust: none;
     text-size-adjust: none;

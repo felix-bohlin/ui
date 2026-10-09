@@ -261,6 +261,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 - **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
+- **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content".
 - **Alphabetical Order**: Organize imports and props alphabetically where possible.
 
 ## 7. Key Learnings & Debugging

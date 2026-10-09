@@ -238,16 +238,8 @@ export const description =
   <DialogBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
-    <ul>
-      <li>
-        The <code>tabindex</code> attribute must <strong>not</strong> be used on the
-        {" "}<code>&lt;dialog&gt;</code> element.
-      </li>
-    </ul>
-
     <h3 id="role-attributes">Role & attributes</h3>
     <p>
-      Don't add <code>role="dialog"</code> or <code>aria-modal="true"</code>.
       The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
       with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
       it modal and the page behind it inert.

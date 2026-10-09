@@ -1,0 +1,120 @@
+<form id="id-1" method="dialog"></form>
+<div class="ui-data-grid">
+  <div class="ui-toolbar">
+    <div class="ui-bulk-actions">
+      <button class="ui-button ui-small ui-tonal" form="id-1" type="submit">Archive</button>
+      <button class="ui-button ui-small" form="id-1" type="reset">Clear selection</button>
+    </div>
+  </div>
+  <div aria-label="Team" role="table" tabindex="0">
+    <div class="ui-head" role="rowgroup">
+      <div role="row">
+        <div class="ui-row-select" role="columnheader">
+          <span class="ui-sr-only">Select</span>
+        </div>
+        <div role="columnheader">
+          <span>Name</span>
+        </div>
+        <div role="columnheader">
+          <span>Role</span>
+        </div>
+        <div role="columnheader">
+          <span>Location</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body" role="rowgroup">
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="ada">
+            <span class="ui-sr-only">Select Ada Lovelace</span>
+          </label>
+        </div>
+        <div role="rowheader">Ada Lovelace</div>
+        <div role="cell">
+          <input aria-label="Role, Ada Lovelace" form="id-1" name="role[ada]" value="Engineer">
+        </div>
+        <div role="cell">London</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="alan">
+            <span class="ui-sr-only">Select Alan Turing</span>
+          </label>
+        </div>
+        <div role="rowheader">Alan Turing</div>
+        <div role="cell">
+          <input aria-label="Role, Alan Turing" form="id-1" name="role[alan]" value="Researcher">
+        </div>
+        <div role="cell">Manchester</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="grace">
+            <span class="ui-sr-only">Select Grace Hopper</span>
+          </label>
+        </div>
+        <div role="rowheader">Grace Hopper</div>
+        <div role="cell">
+          <input aria-label="Role, Grace Hopper" form="id-1" name="role[grace]" value="Admiral">
+        </div>
+        <div role="cell">New York</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="hedy">
+            <span class="ui-sr-only">Select Hedy Lamarr</span>
+          </label>
+        </div>
+        <div role="rowheader">Hedy Lamarr</div>
+        <div role="cell">
+          <input aria-label="Role, Hedy Lamarr" form="id-1" name="role[hedy]" value="Inventor">
+        </div>
+        <div role="cell">Vienna</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="katherine">
+            <span class="ui-sr-only">Select Katherine Johnson</span>
+          </label>
+        </div>
+        <div role="rowheader">Katherine Johnson</div>
+        <div role="cell">
+          <input aria-label="Role, Katherine Johnson" form="id-1" name="role[katherine]" value="Mathematician">
+        </div>
+        <div role="cell">Hampton</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input form="id-1" name="selected" type="checkbox" value="margaret">
+            <span class="ui-sr-only">Select Margaret Hamilton</span>
+          </label>
+        </div>
+        <div role="rowheader">Margaret Hamilton</div>
+        <div role="cell">
+          <input aria-label="Role, Margaret Hamilton" form="id-1" name="role[margaret]" value="Director">
+        </div>
+        <div role="cell">Boston</div>
+      </div>
+      <div class="ui-empty" role="row">
+        <div role="cell">No rows</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-status">
+    <span class="ui-selection">
+      <span class="ui-selected-count"></span>
+      selected
+    </span>
+    <span>
+      <span class="ui-row-count"></span>
+      rows
+    </span>
+  </div>
+</div>

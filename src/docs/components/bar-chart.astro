@@ -1,0 +1,336 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { BarChart as UIBarChart } from "@opui/astro"
+
+import BarChartCSS from "@opui/css/components/bar-chart.css?raw"
+
+import barChartApi from "../../component-api/bar-chart/api"
+
+export const description =
+  "A data table drawn as a column chart with CSS, with an axis, gridlines, grouped series and tooltips."
+---
+
+<Component
+  description={description}
+  slug="bar-chart"
+  heroAnatomy
+  apis={[{ title: "Bar chart API", api: barChartApi }]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "attr",
+    "container-queries",
+    "exp-functions",
+    "has",
+    "light-dark",
+    "relative-color",
+    "round-mod-rem",
+    "starting-style",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/BarChart/BarChart.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/bar-chart.astro", type: "docs" },
+    { path: "src/component-examples/bar-chart", type: "docs" },
+    { path: "packages/opui/css/components/bar-chart.css", type: "css" },
+    { path: "src/component-api/bar-chart", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "bar-chart.css", code: BarChartCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Bar chart</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A <code>&lt;table&gt;</code> drawn as a column chart. The chart is the data
+      table, so screen readers, print, copy and paste and forced colors get the real
+      numbers, with no JavaScript.
+    </p>
+    <p>
+      Use it for dashboard-sized bar and column data: a few dozen bars in up to
+      three series. For line, area, pie or scatter charts, thousands of points,
+      zooming or locale-formatted axes, use a chart library. See also: <DocLink
+        href="/components/table"
+        class="ui-link">Table</DocLink
+      >, <DocLink href="/components/progress" class="ui-link">Progress</DocLink
+      >.
+    </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIBarChart
+        caption="Orders"
+        label="Month"
+        max={560}
+        rows={[
+          { label: "Jan", values: [412, 448] },
+          { label: "Feb", values: [455, 501] },
+          { label: "Mar", values: [498, 560] },
+        ]}
+        series={["2025", "2026"]}
+        size="small"
+        style="inline-size: 18rem"
+      />
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Pass the categories in <code>rows</code>, each with a <code>label</code
+        > and its values, and name the series in <code>series</code>. <code
+          >label</code
+        > names the category column for screen readers. The axis runs from zero to
+        a round number above the largest value.</Fragment
+      >
+      <Fragment slot="html"
+        >Each <code>&lt;tr&gt;</code> is a category, with a row header and one <code
+          >&lt;td&gt;</code
+        > per series. Give every cell its number in <code>--value</code>, and
+        the table the largest value in <code>--max</code>. The axis runs from
+        zero to a round number above it.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Pass the categories in <code>rows</code>, each with a <code>label</code
+        > and its values, and name the series in <code>series</code>. <code
+          >label</code
+        > names the category column for screen readers. The axis runs from zero to
+        a round number above the largest value.</Fragment
+      >
+      <Fragment slot="vue"
+        >Pass the categories in <code>rows</code>, each with a <code>label</code
+        > and its values, and name the series in <code>series</code>. <code
+          >label</code
+        > names the category column for screen readers. The axis runs from zero to
+        a round number above the largest value.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="series">Series</h2>
+    <p>
+      With two or three series, the bars group by category, the series headers
+      become the legend, and the values show on hover and focus.
+    </p>
+
+    <AutoExample name="Series" />
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>color</code> on a row to <code>"critical"</code>, <code
+          >"info"</code
+        >, <code>"neutral"</code>, <code>"success"</code> or <code
+          >"warning"</code
+        > to color its bars. Use it with a single series, and say what the color means
+        in the caption or the text.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >, <code>.ui-success</code> or <code>.ui-warning</code> to a <code
+          >&lt;tr&gt;</code
+        > to color its bars. Use it with a single series, and say what the color means
+        in the caption or the text.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>color</code> on a row to <code>"critical"</code>, <code
+          >"info"</code
+        >, <code>"neutral"</code>, <code>"success"</code> or <code
+          >"warning"</code
+        > to color its bars. Use it with a single series, and say what the color means
+        in the caption or the text.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>color</code> on a row to <code>"critical"</code>, <code
+          >"info"</code
+        >, <code>"neutral"</code>, <code>"success"</code> or <code
+          >"warning"</code
+        > to color its bars. Use it with a single series, and say what the color means
+        in the caption or the text.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Colors" />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> or <PropOrClass
+        prop='size="large"'
+        class=".ui-large"
+      /> for a shorter or taller plot. Set <code>--_block-size</code> for any other
+      height, and <code>--_bar-size</code> for the widest a bar gets.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section>
+    <h2 id="negative-values">Negative values</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Negative values hang from the zero line. <code>min</code> defaults to the
+        smallest value. <code>format</code> turns each value into the text of its
+        cell, here with a sign.</Fragment
+      >
+      <Fragment slot="html"
+        >Negative values hang from the zero line. Set the smallest value in <code
+          >--min</code
+        >. The cell text is what people read, so write it the way it should
+        show, here with a sign.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Negative values hang from the zero line. <code>min</code> defaults to the
+        smallest value. <code>format</code> turns each value into the text of its
+        cell, here with a sign.</Fragment
+      >
+      <Fragment slot="vue"
+        >Negative values hang from the zero line. <code>min</code> defaults to the
+        smallest value. <code>format</code> turns each value into the text of its
+        cell, here with a sign.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Negative" />
+  </section>
+
+  <section>
+    <h2 id="cell-text">Cell text</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Write the <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> yourself
+        in the default slot. Give every <code>&lt;td&gt;</code> its number in <code
+          >--value</code
+        >, and pass <code>max</code> (and <code>min</code> for negative values), since
+        the component can't read the slot. The cell text can differ from the value.</Fragment
+      >
+      <Fragment slot="html"
+        >The bar draws <code>--value</code>, and people read the cell text, so
+        the text can carry a unit.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Write the <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> yourself
+        as children. Give every <code>&lt;td&gt;</code> its number in <code
+          >--value</code
+        >, and pass <code>max</code> (and <code>min</code> for negative values), since
+        the component can't read the children. The cell text can differ from the value.</Fragment
+      >
+      <Fragment slot="vue"
+        >Write the <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> yourself
+        in the default slot. Give every <code>&lt;td&gt;</code> its number in <code
+          >--value</code
+        >, and pass <code>max</code> (and <code>min</code> for negative values), since
+        the component can't read the slot. The cell text can differ from the value.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Markup" />
+  </section>
+
+  <section>
+    <h2 id="limitations">Limitations</h2>
+    <ul>
+      <li>
+        <Conditional>
+          <Fragment slot="astro"
+            >The component writes every value to an inline <code>--value</code>,
+            and <code>max</code> and <code>min</code> to <code>--max</code> and <code
+              >--min</code
+            >, so charts draw in all current browsers.</Fragment
+          >
+          <Fragment slot="html"
+            >CSS can't find the largest value in a table, so <code>--max</code> and
+            <code>--min</code> are yours to set. <code>data-value</code>, <code
+              >data-max</code
+            > and <code>data-min</code> work instead of the custom properties in Chromium
+            only, through typed <code>attr()</code>. Firefox and Safari then
+            draw flat bars over the readable table, so use the inline custom
+            properties.</Fragment
+          >
+          <Fragment slot="svelte"
+            >The component writes every value to an inline <code>--value</code>,
+            and <code>max</code> and <code>min</code> to <code>--max</code> and <code
+              >--min</code
+            >, so charts draw in all current browsers.</Fragment
+          >
+          <Fragment slot="vue"
+            >The component writes every value to an inline <code>--value</code>,
+            and <code>max</code> and <code>min</code> to <code>--max</code> and <code
+              >--min</code
+            >, so charts draw in all current browsers.</Fragment
+          >
+        </Conditional>
+      </li>
+      <li>
+        Axis labels are whole numbers, up to 10 of them, without units or locale
+        formatting. Put the unit in the caption.
+      </li>
+      <li>
+        Up to three series colors. Tooltips show the value only, and they don't
+        flip at the edges.
+      </li>
+      <li>
+        Each bar is an element, which is fine for dozens of bars, not thousands.
+      </li>
+      <li>Without <code>@starting-style</code>, the bars don't grow in.</li>
+    </ul>
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The chart is a <code>&lt;table&gt;</code>: screen readers read the
+      caption, the series headers, a row header per category and every value.
+      The axis labels are generated content with empty alternative text, so they
+      aren't read.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Every bar is a Tab stop that shows its value on focus. Set <code
+          >focusable={"{false}"}</code
+        > when the values are shown elsewhere.</Fragment
+      >
+      <Fragment slot="html"
+        >With <code>tabindex="0"</code> on its <code>&lt;td&gt;</code>, every
+        bar is a Tab stop that shows its value on focus. Leave it out when the
+        values are shown elsewhere.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Every bar is a Tab stop that shows its value on focus. Set <code
+          >focusable={"{false}"}</code
+        > when the values are shown elsewhere.</Fragment
+      >
+      <Fragment slot="vue"
+        >Every bar is a Tab stop that shows its value on focus. Set <code
+          >:focusable="false"</code
+        > when the values are shown elsewhere.</Fragment
+      >
+    </Conditional>
+    <p>
+      The three series colors are told apart with color vision deficiencies, and
+      the legend names them. In forced colors mode the bars use <code
+        >CanvasText</code
+      >, with the second and third series hatched in opposite directions.
+    </p>
+    <p>
+      The bars grow in unless motion is off: with reduced motion, <code
+        >.ui-motion-off</code
+      > on the chart or a parent, or <code>--motion: 0</code> on a parent. In right-to-left
+      pages the axis moves to the right and the categories run right to left.
+    </p>
+  </Fragment>
+</Component>

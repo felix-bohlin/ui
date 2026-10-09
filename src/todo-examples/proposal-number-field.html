@@ -1,0 +1,169 @@
+<style>
+  @layer components.extended {
+    :where(.ui-number-field) {
+      --_spin-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5.83 15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z'/%3E%3C/svg%3E");
+
+      inline-size: fit-content;
+
+      .ui-field {
+        inline-size: fit-content;
+      }
+
+      .ui-field input {
+        field-sizing: content;
+        font-variant-numeric: tabular-nums;
+        min-inline-size: calc(
+          2ch + var(--icon-size) + var(--_field-padding-inline) * 2
+        );
+        text-align: end;
+
+        &::-webkit-inner-spin-button {
+          appearance: none;
+          background-color: var(--_label-color);
+          block-size: var(--icon-size);
+          cursor: pointer;
+          inline-size: var(--icon-size);
+          margin-inline-start: var(--size-1);
+          mask: var(--_spin-icon) center / contain no-repeat;
+          opacity: 1;
+        }
+
+        &:hover::-webkit-inner-spin-button {
+          background-color: var(--text-primary);
+        }
+
+        &::-webkit-outer-spin-button {
+          appearance: none;
+        }
+      }
+
+      @media (forced-colors: active) {
+        .ui-field input::-webkit-inner-spin-button {
+          background-color: ButtonText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+  }
+
+  .todo-number-grid {
+    display: grid;
+    gap: var(--size-5) var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-number-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+
+  .todo-number-line {
+    align-items: center;
+    border-block: var(--border-width) solid var(--border-color);
+    display: flex;
+    gap: var(--size-3);
+    inline-size: 100%;
+    justify-content: space-between;
+    padding-block: var(--size-2);
+
+    p {
+      margin: 0;
+    }
+  }
+</style>
+
+<p>
+  A native <code>&lt;input type="number"&gt;</code>: arrow keys, the scroll
+  wheel and the spin buttons step it, <code>min</code>/<code>max</code>/<code
+    >step</code
+  >
+  validate it, and <code>field-sizing</code> grows it with the value. There are
+  no +/- buttons, because stepping the value needs JavaScript.
+</p>
+<div class="todo-number-grid">
+  <div class="todo-number-case">
+    <h2 class="ui-h6">Product page</h2>
+    <label class="ui-text-field ui-number-field">
+      <span class="ui-label">Quantity</span>
+      <span class="ui-field">
+        <input
+          aria-describedby="number-field-quantity-hint"
+          inputmode="numeric"
+          max="10"
+          min="1"
+          name="quantity"
+          type="number"
+          value="1"
+        />
+      </span>
+      <span class="ui-end-text" id="number-field-quantity-hint"
+        >Max 10 per order</span
+      >
+    </label>
+  </div>
+  <div class="todo-number-case">
+    <h2 class="ui-h6">Prefix, suffix and step</h2>
+    <label class="ui-text-field ui-number-field">
+      <span class="ui-label">Donation</span>
+      <span class="ui-field">
+        <span class="ui-prefix">€</span>
+        <input
+          inputmode="decimal"
+          min="5"
+          name="donation"
+          step="5"
+          type="number"
+          value="250"
+        />
+        <span class="ui-suffix">/ month</span>
+      </span>
+    </label>
+  </div>
+  <div class="todo-number-case">
+    <h2 class="ui-h6">Over max</h2>
+    <label class="ui-text-field ui-number-field">
+      <span class="ui-label">Quantity</span>
+      <span class="ui-field">
+        <input
+          aria-describedby="number-field-invalid-hint"
+          aria-invalid="true"
+          inputmode="numeric"
+          max="3"
+          min="1"
+          name="quantity-invalid"
+          type="number"
+          value="12"
+        />
+      </span>
+      <span class="ui-end-text" id="number-field-invalid-hint"
+        >Only 3 left in stock.</span
+      >
+    </label>
+    <p class="ui-caption">
+      Shown with <code>aria-invalid</code>. Type 12 in Product page and leave it
+      to get it from <code>:user-invalid</code>.
+    </p>
+  </div>
+  <div class="todo-number-case">
+    <h2 class="ui-h6">Cart line, small</h2>
+    <div class="todo-number-line">
+      <p>Wool hiking socks</p>
+      <div class="ui-text-field ui-number-field ui-small">
+        <span class="ui-field">
+          <input
+            aria-label="Quantity of Wool hiking socks"
+            inputmode="numeric"
+            max="99"
+            min="0"
+            name="number-field-socks"
+            type="number"
+            value="2"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

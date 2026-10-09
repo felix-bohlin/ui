@@ -59,7 +59,7 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
 ---
 
 <div>
-  The source lives in
+  The source lives in{" "}
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
@@ -91,7 +91,7 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
       </Fragment>
       <Button slot="actions" variant="outlined" size="small">Star</Button>
     </Card>
-  </Anchor>
+  </Anchor>{" "}
   on GitHub.
 </div>
 
@@ -129,7 +129,7 @@ import { Anchor, Card } from "opui-css/astro"
 ---
 
 <div>
-  Learn more about
+  Learn more about{" "}
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
@@ -150,7 +150,7 @@ import { Anchor, Card } from "opui-css/astro"
         </p>
       </hgroup>
     </Card>
-  </Anchor>
+  </Anchor>{" "}
   on MDN.
 </div>
 

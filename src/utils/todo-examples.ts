@@ -49,6 +49,7 @@ import contrastCustomValues from "../todo-examples/contrast-custom-values.html?r
 import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
 import contrastTintedSurfaces from "../todo-examples/contrast-tinted-surfaces.html?raw"
 import controlSizes from "../todo-examples/control-sizes.html?raw"
+import dataGridHeaderMenus from "../todo-examples/data-grid-header-menus.html?raw"
 import descriptionListAnatomyWidth from "../todo-examples/description-list-anatomy-width.html?raw"
 import descriptionListNarrowBorder from "../todo-examples/description-list-narrow-border.html?raw"
 import dialogActionsAlignApi from "../todo-examples/dialog-actions-align-api.html?raw"
@@ -88,6 +89,19 @@ import primaryContrastClamp from "../todo-examples/primary-contrast-clamp.html?r
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
 import progressDeterminateScript from "../todo-examples/progress-determinate-script.html?raw"
 import progressWalkthroughName from "../todo-examples/progress-walkthrough-name.html?raw"
+import proposalBarChart from "../todo-examples/proposal-bar-chart.html?raw"
+import proposalBreadcrumb from "../todo-examples/proposal-breadcrumb.html?raw"
+import proposalChipSeverity from "../todo-examples/proposal-chip-severity.html?raw"
+import proposalDividerLabel from "../todo-examples/proposal-divider-label.html?raw"
+import proposalEmptyState from "../todo-examples/proposal-empty-state.html?raw"
+import proposalMessage from "../todo-examples/proposal-message.html?raw"
+import proposalNumberField from "../todo-examples/proposal-number-field.html?raw"
+import proposalOneTimeCode from "../todo-examples/proposal-one-time-code.html?raw"
+import proposalPagination from "../todo-examples/proposal-pagination.html?raw"
+import proposalRating from "../todo-examples/proposal-rating.html?raw"
+import proposalStat from "../todo-examples/proposal-stat.html?raw"
+import proposalSteps from "../todo-examples/proposal-steps.html?raw"
+import proposalTimeline from "../todo-examples/proposal-timeline.html?raw"
 import radioCoarseSizes from "../todo-examples/radio-coarse-sizes.html?raw"
 import radioSizesStack from "../todo-examples/radio-sizes-stack.html?raw"
 import radioSpread from "../todo-examples/radio-spread.html?raw"
@@ -338,6 +352,10 @@ export const todoExamples = {
     match: "Sizes: control size scales differ",
     source: controlSizes,
   },
+  "data-grid-header-menus": {
+    match: "Data grid header menus",
+    source: dataGridHeaderMenus,
+  },
   "description-list-anatomy-width": {
     match: "Description list: the hero anatomy",
     source: descriptionListAnatomyWidth,
@@ -493,6 +511,58 @@ export const todoExamples = {
   "progress-walkthrough-name": {
     match: "Progress walkthrough:",
     source: progressWalkthroughName,
+  },
+  "proposal-bar-chart": {
+    match: "Bar chart:",
+    source: proposalBarChart,
+  },
+  "proposal-breadcrumb": {
+    match: "Breadcrumb:",
+    source: proposalBreadcrumb,
+  },
+  "proposal-chip-severity": {
+    match: "Status pill:",
+    source: proposalChipSeverity,
+  },
+  "proposal-divider-label": {
+    match: "Labeled divider:",
+    source: proposalDividerLabel,
+  },
+  "proposal-empty-state": {
+    match: "Empty state:",
+    source: proposalEmptyState,
+  },
+  "proposal-message": {
+    match: "Message:",
+    source: proposalMessage,
+  },
+  "proposal-number-field": {
+    match: "Number field:",
+    source: proposalNumberField,
+  },
+  "proposal-one-time-code": {
+    match: "One-time code:",
+    source: proposalOneTimeCode,
+  },
+  "proposal-pagination": {
+    match: "Pagination:",
+    source: proposalPagination,
+  },
+  "proposal-rating": {
+    match: "Rating:",
+    source: proposalRating,
+  },
+  "proposal-stat": {
+    match: "Stat:",
+    source: proposalStat,
+  },
+  "proposal-steps": {
+    match: "Steps:",
+    source: proposalSteps,
+  },
+  "proposal-timeline": {
+    match: "Timeline:",
+    source: proposalTimeline,
   },
   "radio-coarse-sizes": {
     match: "Radio: on touch screens",

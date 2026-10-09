@@ -1,0 +1,223 @@
+<style>
+  @layer components.root {
+    :where(.ui-empty-state) {
+      --_icon-size: var(--size-7);
+
+      container: ui-empty-state / inline-size;
+      display: grid;
+      gap: var(--size-3);
+      justify-items: center;
+      padding: var(--size-6) var(--size-4);
+      text-align: center;
+
+      & > svg:first-child {
+        background-color: oklch(from var(--primary) l c h / 12%);
+        block-size: var(--_icon-size);
+        border-radius: var(--radius-round);
+        box-sizing: content-box;
+        color: var(--primary);
+        inline-size: var(--_icon-size);
+        margin-block-end: var(--size-1);
+        padding: var(--size-3);
+      }
+
+      & > :is(h1, h2, h3, h4, h5, h6) {
+        margin: 0;
+        text-wrap: balance;
+      }
+
+      & > p {
+        color: var(--text-muted);
+        margin: 0;
+        max-inline-size: 45ch;
+        text-wrap: pretty;
+      }
+
+      & > .ui-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-2);
+        justify-content: center;
+        margin-block-start: var(--size-2);
+      }
+
+      &.ui-outlined {
+        border: var(--border-width) dashed var(--border-color);
+        border-radius: var(--border-radius);
+      }
+
+      &.ui-tonal {
+        background-color: var(--surface-tonal);
+        border-radius: var(--border-radius);
+      }
+
+      @container ui-empty-state (inline-size < 20rem) {
+        & > svg:first-child {
+          --_icon-size: var(--size-5);
+
+          margin-block-end: 0;
+          padding: var(--size-2);
+        }
+
+        & > :is(h1, h2, h3, h4, h5, h6) {
+          font-size: var(--font-size-1);
+        }
+
+        & > p {
+          font-size: var(--font-size-0);
+        }
+
+        & > .ui-actions {
+          flex-direction: column;
+          inline-size: 100%;
+        }
+      }
+
+      @media (forced-colors: active) {
+        & > svg:first-child,
+        &.ui-tonal {
+          border: var(--border-width) solid CanvasText;
+        }
+      }
+    }
+
+    :where(ul, ol, menu):not(:has(> li)):has(+ .ui-empty-state),
+    :where(ul, ol, menu):has(> li) + :where(.ui-empty-state),
+    :where(table):has(> tbody > tr) + :where(.ui-empty-state) {
+      display: none;
+    }
+  }
+
+  .todo-empty-state-cases {
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-empty-state-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-empty-state-toggle:has(#empty-state-archived:checked)
+    .todo-empty-state-inbox,
+  .todo-empty-state-toggle:not(:has(#empty-state-archived:checked))
+    .todo-empty-state-archive {
+    display: none;
+  }
+
+  .todo-empty-state-sidebar {
+    inline-size: 15rem;
+    max-inline-size: 100%;
+  }
+</style>
+
+<div class="todo-empty-state-cases">
+  <section
+    class="todo-empty-state-case todo-empty-state-toggle"
+    aria-labelledby="empty-state-list-heading"
+  >
+    <h2 class="ui-h6" id="empty-state-list-heading">
+      Shows itself only when the list before it is empty
+    </h2>
+    <label class="ui-switch">
+      <input id="empty-state-archived" type="checkbox" role="switch" />
+      <span class="ui-label">Show archived (0)</span>
+    </label>
+    <div class="ui-card ui-outlined todo-empty-state-inbox">
+      <ul class="ui-list ui-transparent" aria-label="Inbox">
+        <li>
+          <div class="ui-text"><p>Invoice #1042 is due</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Ada commented on Roadmap</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Weekly report is ready</p></div>
+        </li>
+      </ul>
+      <div class="ui-empty-state">
+        <h3 class="ui-h5">Inbox zero</h3>
+        <p>Stays hidden: the list before it has items.</p>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined todo-empty-state-archive">
+      <ul class="ui-list ui-transparent" aria-label="Archive"></ul>
+      <div class="ui-empty-state">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 12h-4a3 3 0 0 1-6 0H5V5h14z"
+          />
+        </svg>
+        <h3 class="ui-h5">Nothing archived</h3>
+        <p>Archived messages show up here. The list is empty, so this shows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="todo-empty-state-case"
+    aria-labelledby="empty-state-table-heading"
+  >
+    <h2 class="ui-h6" id="empty-state-table-heading">
+      After a table with no rows, outlined
+    </h2>
+    <div>
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th scope="col">Invoice</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="ui-empty-state ui-outlined">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+          />
+        </svg>
+        <h3 class="ui-h5">No invoices match “Q4”</h3>
+        <p>Try another search, or clear the filters to see every invoice.</p>
+        <div class="ui-actions">
+          <button type="button" class="ui-button ui-outlined">
+            Clear filters
+          </button>
+          <button type="button" class="ui-button ui-filled">New invoice</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="todo-empty-state-case"
+    aria-labelledby="empty-state-compact-heading"
+  >
+    <h2 class="ui-h6" id="empty-state-compact-heading">
+      Compact in a narrow container, tonal
+    </h2>
+    <div class="ui-empty-state ui-tonal todo-empty-state-sidebar">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8z"
+        />
+      </svg>
+      <h3 class="ui-h5">No projects yet</h3>
+      <p>Projects keep tasks, files and people in one place.</p>
+      <div class="ui-actions">
+        <button type="button" class="ui-button ui-filled ui-small">
+          New project
+        </button>
+        <button type="button" class="ui-button ui-outlined ui-small">
+          Import CSV
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,281 @@
+<style>
+  @layer components.root {
+    :where(.ui-rating) {
+      --_motion: var(--motion, 1);
+      --_accent: light-dark(
+        oklch(from var(--warning) 0.6 c h),
+        oklch(from var(--warning) 0.8 c h)
+      );
+      --_empty: color-mix(in oklch, var(--text-muted) 30%, transparent);
+      --_size: var(--icon-size);
+      --_star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+
+      &.ui-small {
+        --_size: var(--icon-size-small);
+      }
+
+      &.ui-large {
+        --_size: var(--icon-size-large);
+      }
+    }
+
+    :where(meter.ui-rating) {
+      appearance: none;
+      background: var(--_empty);
+      block-size: var(--_size);
+      border: 0;
+      border-radius: 0;
+      inline-size: calc(5 * var(--_size));
+      inline-size: calc(attr(max type(<number>), 5) * var(--_size));
+      mask: var(--_star) 0 0 / var(--_size) var(--_size) repeat-x;
+      vertical-align: middle;
+
+      &::-webkit-meter-bar {
+        background: none;
+        block-size: var(--_size);
+        border: 0;
+        border-radius: 0;
+      }
+
+      &::-webkit-meter-optimum-value,
+      &::-webkit-meter-suboptimum-value,
+      &::-webkit-meter-even-less-good-value {
+        background: var(--_accent);
+      }
+
+      &::-moz-meter-bar {
+        background: var(--_accent);
+      }
+
+      @media (forced-colors: active) {
+        --_accent: CanvasText;
+        --_empty: GrayText;
+
+        forced-color-adjust: none;
+      }
+    }
+
+    :where(fieldset.ui-rating) {
+      --_size: var(--size-6);
+
+      align-items: center;
+      border: 0;
+      counter-reset: ui-rating ui-rating-max;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      margin: 0;
+      min-inline-size: 0;
+      padding: 0;
+
+      & > legend {
+        color: var(--field-label-color);
+        font-size: var(--field-label-font-size);
+        font-weight: var(--field-label-font-weight);
+        margin-block-end: var(--size-1);
+        padding: 0;
+      }
+
+      input {
+        --_fill: var(--_empty);
+
+        appearance: none;
+        block-size: var(--_size);
+        border-radius: var(--radius-2);
+        counter-increment: ui-rating-max;
+        cursor: pointer;
+        inline-size: var(--_size);
+        margin: 0;
+        position: relative;
+
+        &::before {
+          background-color: var(--_fill);
+          content: "";
+          inset: 0;
+          mask: var(--_star) center / contain no-repeat;
+          position: absolute;
+          transition: background-color calc(var(--duration) * var(--_motion))
+            var(--ease);
+        }
+
+        &:focus-visible {
+          outline: var(--focus-ring-width) var(--focus-ring-style)
+            var(--focus-ring-color, var(--_focus-visible-color));
+          outline-offset: var(--focus-ring-offset);
+        }
+      }
+
+      input:first-of-type {
+        --_fill: var(--text-muted);
+
+        counter-increment: none;
+        inline-size: calc(var(--_size) * 0.75);
+
+        &::before {
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 0 1-6.32-12.9l11.22 11.22A7.96 7.96 0 0 1 12 20m6.32-3.1L7.1 5.68A8 8 0 0 1 18.32 16.9'/%3E%3C/svg%3E");
+          mask-size: 75%;
+        }
+      }
+
+      input:not(:first-of-type):is(:checked, :has(~ :checked)) {
+        --_fill: var(--_accent);
+
+        counter-increment: ui-rating ui-rating-max;
+      }
+
+      @media (hover: hover) {
+        &:has(input:not(:first-of-type):hover) input:not(:first-of-type) {
+          --_fill: var(--_empty);
+
+          &:is(:hover, :has(~ input:hover)) {
+            --_fill: var(--_accent);
+          }
+        }
+
+        input:first-of-type:hover {
+          --_fill: var(--text-primary);
+        }
+      }
+
+      &::after {
+        color: var(--text-muted);
+        content: counter(ui-rating) "/" counter(ui-rating-max) / "";
+        font-size: var(--font-size-0);
+        font-variant-numeric: tabular-nums;
+        margin-inline-start: var(--size-1);
+      }
+
+      @media (forced-colors: active) {
+        --_accent: Highlight;
+        --_empty: GrayText;
+
+        input {
+          forced-color-adjust: none;
+        }
+      }
+    }
+  }
+
+  .todo-rating-grid {
+    display: grid;
+    gap: var(--size-5) var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-rating-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .todo-rating-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-1);
+    gap: var(--size-2);
+    margin: 0;
+  }
+</style>
+
+<div class="todo-rating-grid">
+  <div class="todo-rating-case">
+    <h2 class="ui-h6">Display: a styled meter</h2>
+    <p class="todo-rating-row">
+      <meter
+        aria-label="Rated 4.5 out of 5"
+        class="ui-rating"
+        max="5"
+        min="0"
+        value="4.5"
+      ></meter>
+      <a class="ui-link" href="#rating-reviews">128 reviews</a>
+    </p>
+    <p class="todo-rating-row">
+      <meter
+        aria-label="Rated 3.7 out of 5"
+        class="ui-rating ui-small"
+        max="5"
+        min="0"
+        value="3.7"
+      ></meter>
+      <span class="ui-caption">Small, 3.7</span>
+    </p>
+    <p class="todo-rating-row">
+      <meter
+        aria-label="Rated 4.9 out of 5"
+        class="ui-rating ui-large"
+        max="5"
+        min="0"
+        value="4.9"
+      ></meter>
+      <span class="ui-caption">Large, 4.9</span>
+    </p>
+    <p class="todo-rating-row">
+      <meter
+        aria-label="Rated 7 out of 10"
+        class="ui-rating ui-small"
+        max="10"
+        min="0"
+        value="7"
+      ></meter>
+      <span class="ui-caption"><code>max="10"</code> sizes it</span>
+    </p>
+  </div>
+  <div class="todo-rating-case">
+    <h2 class="ui-h6">Input: a radio group</h2>
+    <fieldset class="ui-rating">
+      <legend>Your rating</legend>
+      <input
+        aria-label="No rating"
+        name="rating-review"
+        type="radio"
+        value="0"
+      />
+      <input aria-label="1 star" name="rating-review" type="radio" value="1" />
+      <input aria-label="2 stars" name="rating-review" type="radio" value="2" />
+      <input
+        aria-label="3 stars"
+        checked
+        name="rating-review"
+        type="radio"
+        value="3"
+      />
+      <input aria-label="4 stars" name="rating-review" type="radio" value="4" />
+      <input aria-label="5 stars" name="rating-review" type="radio" value="5" />
+    </fieldset>
+    <p class="ui-caption">
+      Hover previews, click or arrow keys set it, the first radio clears it. The
+      count is a CSS <code>counter()</code>.
+    </p>
+  </div>
+  <div class="todo-rating-case" dir="rtl" lang="ar">
+    <h2 class="ui-h6">RTL</h2>
+    <p class="todo-rating-row">
+      <meter
+        aria-label="التقييم 3.5 من 5"
+        class="ui-rating"
+        max="5"
+        min="0"
+        value="3.5"
+      ></meter>
+    </p>
+    <fieldset class="ui-rating ui-large">
+      <legend>قيّم المنتج</legend>
+      <input
+        aria-label="بدون تقييم"
+        checked
+        name="rating-rtl"
+        type="radio"
+        value="0"
+      />
+      <input aria-label="نجمة واحدة" name="rating-rtl" type="radio" value="1" />
+      <input aria-label="نجمتان" name="rating-rtl" type="radio" value="2" />
+      <input aria-label="3 نجوم" name="rating-rtl" type="radio" value="3" />
+      <input aria-label="4 نجوم" name="rating-rtl" type="radio" value="4" />
+      <input aria-label="5 نجوم" name="rating-rtl" type="radio" value="5" />
+    </fieldset>
+  </div>
+</div>

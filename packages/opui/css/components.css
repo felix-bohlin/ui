@@ -7,6 +7,7 @@
 /*** Root components (no dependencies)  */
 @import "./components/anchor.css";
 @import "./components/avatar.css";
+@import "./components/bar-chart.css";
 @import "./components/button.css";
 @import "./components/callout.css";
 @import "./components/card.css";
@@ -20,10 +21,13 @@
 @import "./components/progress.css";
 @import "./components/radio.css";
 @import "./components/range.css";
+@import "./components/rating.css";
 @import "./components/spinner.css";
+@import "./components/stepper.css";
 @import "./components/switch.css";
 @import "./components/table.css";
 @import "./components/tabs.css";
+@import "./components/timeline.css";
 @import "./components/toggle-button.css";
 @import "./components/typography.css";
 
@@ -31,10 +35,13 @@
 @import "./components/accordion.css";
 @import "./components/badge.css";
 @import "./components/button-group.css";
+@import "./components/data-grid.css";
 @import "./components/dialog.css";
 @import "./components/form.css";
 @import "./components/list.css";
 @import "./components/menu.css";
+@import "./components/message.css";
+@import "./components/one-time-code.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
 @import "./components/text-input.css";

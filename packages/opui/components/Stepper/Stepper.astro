@@ -1,0 +1,65 @@
+---
+import type { Props } from "./types.astro"
+import { cssString } from "./css-string"
+
+export const title = "Stepper"
+
+const {
+  class: className,
+  complete,
+  completedLabel,
+  current,
+  items,
+  label,
+  orientation,
+  size,
+  style,
+  ...rest
+} = Astro.props
+
+const check = Astro.slots.has("check")
+  ? await Astro.slots.render("check")
+  : undefined
+const done =
+  complete ||
+  (current !== undefined && items !== undefined && current >= items.length)
+const vars = completedLabel
+  ? { "--_completed-label": cssString(completedLabel) }
+  : {}
+const varStyle = Object.entries(vars)
+  .map(([name, value]) => `${name}: ${value};`)
+  .join(" ")
+const mergedStyle =
+  typeof style === "string" || !style
+    ? [varStyle, style].filter(Boolean).join(" ") || undefined
+    : { ...vars, ...style }
+---
+
+<ol
+  aria-label={label}
+  class:list={[
+    "ui-stepper",
+    { "ui-complete": done, "ui-vertical": orientation === "vertical" },
+    size && `ui-${size}`,
+    className,
+  ]}
+  style={mergedStyle}
+  {...rest}
+>
+  {
+    items?.map(({ description, href, label: stepLabel }, index) => (
+      <li aria-current={index === current ? "step" : undefined}>
+        {check !== undefined && (
+          <span aria-hidden="true" class="ui-check" set:html={check} />
+        )}
+        {href && (done || (current !== undefined && index < current)) ? (
+          <a href={href}>{stepLabel}</a>
+        ) : (
+          stepLabel
+        )}
+        {description && <span class="ui-description">{description}</span>}
+      </li>
+    ))
+  }
+  <slot />
+</ol>

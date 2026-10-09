@@ -1,0 +1,618 @@
+<div
+  class="ui-data-grid ui-pin-end ui-pin-start"
+  style="--_max-block-size: 24rem"
+>
+  <div class="ui-toolbar">
+    <div
+      aria-label="Filter rows"
+      class="ui-toggle-group ui-small ui-filters"
+      role="radiogroup"
+    >
+      <label class="ui-toggle-button">
+        <input
+          checked
+          name="all-features-filter-1"
+          type="radio"
+          value=""
+        />All</label
+      >
+      <label class="ui-toggle-button">
+        <input
+          name="all-features-filter-1"
+          type="radio"
+          value="1"
+        />Active</label
+      >
+      <label class="ui-toggle-button">
+        <input name="all-features-filter-1" type="radio" value="2" />Away</label
+      >
+      <label class="ui-toggle-button">
+        <input
+          name="all-features-filter-1"
+          type="radio"
+          value="selected"
+        />Selected</label
+      >
+    </div>
+    <div
+      aria-label="Density"
+      class="ui-toggle-group ui-small ui-density"
+      role="radiogroup"
+    >
+      <label class="ui-toggle-button">
+        <input
+          name="all-features-density-1"
+          type="radio"
+          value="dense"
+        />Dense</label
+      >
+      <label class="ui-toggle-button">
+        <input
+          checked
+          name="all-features-density-1"
+          type="radio"
+          value="standard"
+        />Standard</label
+      >
+      <label class="ui-toggle-button">
+        <input
+          name="all-features-density-1"
+          type="radio"
+          value="spacious"
+        />Spacious</label
+      >
+    </div>
+    <button
+      class="ui-button ui-outlined ui-small"
+      command="toggle-popover"
+      commandfor="all-features-columns-1"
+      type="button"
+    >
+      Columns
+    </button>
+    <menu
+      class="ui-menu ui-list ui-dense ui-columns ui-align-end"
+      id="all-features-columns-1"
+      popover
+    >
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-4"
+            type="checkbox"
+            value="4"
+          />Name</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-5"
+            type="checkbox"
+            value="5"
+          />Role</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-6"
+            type="checkbox"
+            value="6"
+          />Status</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-7"
+            type="checkbox"
+            value="7"
+          />Location</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-8"
+            type="checkbox"
+            value="8"
+          />Joined</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="all-features-columns-1-9"
+            type="checkbox"
+            value="9"
+          />Tickets</label
+        >
+      </li>
+    </menu>
+  </div>
+  <div aria-label="Team" role="table" tabindex="0">
+    <div class="ui-head" role="rowgroup">
+      <div role="row">
+        <div class="ui-row-select" role="columnheader">
+          <span class="ui-sr-only">Select</span>
+        </div>
+        <div class="ui-row-number" role="columnheader">
+          <span class="ui-sr-only">Row number</span>
+        </div>
+        <div class="ui-expand" role="columnheader">
+          <span class="ui-sr-only">Show details for</span>
+        </div>
+        <div role="columnheader">
+          <span>Name</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-4-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Name, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-4-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Name, descending</span>
+            </label>
+          </span>
+        </div>
+        <div role="columnheader">
+          <span>Role</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-5-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Role, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-5-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Role, descending</span>
+            </label>
+          </span>
+        </div>
+        <div role="columnheader">
+          <span>Status</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-6-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Status, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-6-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Status, descending</span>
+            </label>
+          </span>
+        </div>
+        <div role="columnheader">
+          <span>Location</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-7-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Location, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-7-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Location, descending</span>
+            </label>
+          </span>
+        </div>
+        <div class="ui-numeric" role="columnheader">
+          <span>Joined</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-8-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Joined, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-8-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Joined, descending</span>
+            </label>
+          </span>
+        </div>
+        <div class="ui-numeric" role="columnheader">
+          <span>Tickets</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="all-features-sort-1-9-asc"
+                name="all-features-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Tickets, ascending</span>
+            </label>
+            <label>
+              <input
+                id="all-features-sort-1-9-desc"
+                name="all-features-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Tickets, descending</span>
+            </label>
+          </span>
+        </div>
+        <div class="ui-fit" role="columnheader">
+          <span>Actions</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body" role="rowgroup">
+      <div
+        data-filters="1"
+        role="row"
+        style="
+          --_rank-4: 1;
+          --_rank-5: 3;
+          --_rank-6: 1;
+          --_rank-7: 3;
+          --_rank-8: 3;
+          --_rank-9: 3;
+          --_sum-9: 42;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Ada Lovelace</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Ada Lovelace</span>
+            </summary>
+            <div class="ui-detail">
+              <p>Ada Lovelace joined in 2015. Contact: ada@example.com</p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">AL</div>
+          Ada Lovelace
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Ada Lovelace" value="Engineer" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Active</span>
+          </div>
+        </div>
+        <div role="cell">London</div>
+        <div class="ui-numeric" role="cell">2015</div>
+        <div class="ui-numeric" role="cell">42</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div
+        data-filters="2"
+        role="row"
+        style="
+          --_rank-4: 2;
+          --_rank-5: 6;
+          --_rank-6: 4;
+          --_rank-7: 4;
+          --_rank-8: 5;
+          --_rank-9: 2;
+          --_sum-9: 37;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Alan Turing</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Alan Turing</span>
+            </summary>
+            <div class="ui-detail">
+              <p>Alan Turing joined in 2018. Contact: alan@example.com</p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">AT</div>
+          Alan Turing
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Alan Turing" value="Researcher" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Away</span>
+          </div>
+        </div>
+        <div role="cell">Manchester</div>
+        <div class="ui-numeric" role="cell">2018</div>
+        <div class="ui-numeric" role="cell">37</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div
+        data-filters="1"
+        role="row"
+        style="
+          --_rank-4: 3;
+          --_rank-5: 1;
+          --_rank-6: 2;
+          --_rank-7: 5;
+          --_rank-8: 1;
+          --_rank-9: 5;
+          --_sum-9: 58;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Grace Hopper</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Grace Hopper</span>
+            </summary>
+            <div class="ui-detail">
+              <p>Grace Hopper joined in 2012. Contact: grace@example.com</p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">GH</div>
+          Grace Hopper
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Grace Hopper" value="Admiral" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Active</span>
+          </div>
+        </div>
+        <div role="cell">New York</div>
+        <div class="ui-numeric" role="cell">2012</div>
+        <div class="ui-numeric" role="cell">58</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div
+        role="row"
+        style="
+          --_rank-4: 4;
+          --_rank-5: 4;
+          --_rank-6: 6;
+          --_rank-7: 6;
+          --_rank-8: 6;
+          --_rank-9: 1;
+          --_sum-9: 12;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Hedy Lamarr</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Hedy Lamarr</span>
+            </summary>
+            <div class="ui-detail">
+              <p>Hedy Lamarr joined in 2021. Contact: hedy@example.com</p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">HL</div>
+          Hedy Lamarr
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Hedy Lamarr" value="Inventor" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Offline</span>
+          </div>
+        </div>
+        <div role="cell">Vienna</div>
+        <div class="ui-numeric" role="cell">2021</div>
+        <div class="ui-numeric" role="cell">12</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div
+        data-filters="2"
+        role="row"
+        style="
+          --_rank-4: 5;
+          --_rank-5: 5;
+          --_rank-6: 5;
+          --_rank-7: 2;
+          --_rank-8: 4;
+          --_rank-9: 4;
+          --_sum-9: 51;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Katherine Johnson</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Katherine Johnson</span>
+            </summary>
+            <div class="ui-detail">
+              <p>
+                Katherine Johnson joined in 2016. Contact: katherine@example.com
+              </p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">KJ</div>
+          Katherine Johnson
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Katherine Johnson" value="Mathematician" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Away</span>
+          </div>
+        </div>
+        <div role="cell">Hampton</div>
+        <div class="ui-numeric" role="cell">2016</div>
+        <div class="ui-numeric" role="cell">51</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div
+        data-filters="1"
+        role="row"
+        style="
+          --_rank-4: 6;
+          --_rank-5: 2;
+          --_rank-6: 3;
+          --_rank-7: 1;
+          --_rank-8: 2;
+          --_rank-9: 6;
+          --_sum-9: 64;
+        "
+      >
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Margaret Hamilton</span>
+          </label>
+        </div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell">
+          <details>
+            <summary>
+              <span class="ui-sr-only">Show details for Margaret Hamilton</span>
+            </summary>
+            <div class="ui-detail">
+              <p>
+                Margaret Hamilton joined in 2013. Contact: margaret@example.com
+              </p>
+            </div>
+          </details>
+        </div>
+        <div role="rowheader">
+          <div class="ui-avatar">MH</div>
+          Margaret Hamilton
+        </div>
+        <div role="cell">
+          <input aria-label="Role, Margaret Hamilton" value="Director" />
+        </div>
+        <div role="cell">
+          <div class="ui-chip ui-small ui-tonal">
+            <span class="ui-text">Active</span>
+          </div>
+        </div>
+        <div role="cell">Boston</div>
+        <div class="ui-numeric" role="cell">2013</div>
+        <div class="ui-numeric" role="cell">64</div>
+        <div role="cell">
+          <button class="ui-button ui-small" type="button">Edit</button>
+        </div>
+      </div>
+      <div class="ui-empty" role="row">
+        <div role="cell">No rows</div>
+      </div>
+    </div>
+    <div class="ui-foot" role="rowgroup">
+      <div role="row">
+        <div class="ui-row-select" role="cell"></div>
+        <div class="ui-row-number" role="cell"></div>
+        <div class="ui-expand" role="cell"></div>
+        <div role="rowheader">Total</div>
+        <div role="cell"></div>
+        <div role="cell"></div>
+        <div role="cell"></div>
+        <div class="ui-numeric" role="cell"></div>
+        <div class="ui-numeric ui-sum" role="cell"></div>
+        <div role="cell"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-status">
+    <span class="ui-selection">
+      <span class="ui-selected-count"> </span> selected</span
+    >
+    <span> <span class="ui-row-count"> </span> rows</span>
+  </div>
+</div>

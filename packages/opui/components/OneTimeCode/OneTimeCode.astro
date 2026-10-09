@@ -1,0 +1,87 @@
+---
+import type { Props } from "./types.astro"
+import { createId } from "../id"
+
+export const title = "One-Time Code"
+
+const {
+  "aria-describedby": ariaDescribedBy,
+  alphanumeric,
+  autocapitalize,
+  autocomplete = "one-time-code",
+  class: className,
+  disabled,
+  endText,
+  error,
+  grouped,
+  id,
+  inputmode,
+  label,
+  length = 6,
+  name,
+  pattern,
+  required,
+  size,
+  spellcheck,
+  style,
+  value,
+  ...rest
+} = Astro.props
+
+const $id = createId(Astro.locals)
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
+---
+
+<label
+  class:list={[
+    "ui-text-field",
+    "ui-one-time-code",
+    {
+      "ui-grouped": grouped,
+    },
+    size && `ui-${size}`,
+    className,
+  ]}
+  style={style}
+>
+  {
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label">
+        {label}
+        <slot name="label" />
+      </span>
+    )
+  }
+  <span class="ui-field">
+    <input
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : undefined}
+      autocapitalize={autocapitalize ??
+        (alphanumeric ? "characters" : undefined)}
+      autocomplete={autocomplete}
+      disabled={disabled}
+      id={id}
+      inputmode={inputmode ?? (alphanumeric ? undefined : "numeric")}
+      maxlength={length}
+      name={name}
+      pattern={pattern ??
+        (alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`)}
+      required={required}
+      spellcheck={spellcheck ?? (alphanumeric ? "false" : undefined)}
+      type="text"
+      value={value}
+    />
+  </span>
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text" id={endTextId}>
+        {endText}
+        <slot name="end-text" />
+      </span>
+    )
+  }
+</label>

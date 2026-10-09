@@ -1,0 +1,278 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { Timeline as UITimeline } from "@opui/astro"
+
+import TimelineCSS from "@opui/css/components/timeline.css?raw"
+
+import timelineItemApi from "../../component-api/timeline-item/api"
+import timelineApi from "../../component-api/timeline/api"
+
+export const description =
+  "A list of dated events with markers and a connecting line."
+---
+
+<Component
+  description={description}
+  slug="timeline"
+  heroAnatomy
+  apis={[
+    { title: "Timeline API", api: timelineApi },
+    { title: "Timeline item API", api: timelineItemApi },
+  ]}
+  browserSupport={[
+    "container-queries",
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "subgrid",
+  ]}
+  changelogPaths={[
+    { path: "packages/opui/components/Timeline", type: "component" },
+    { path: "src/docs/components/timeline.astro", type: "docs" },
+    { path: "src/component-examples/timeline", type: "docs" },
+    { path: "packages/opui/css/components/timeline.css", type: "css" },
+    { path: "src/component-api/timeline", type: "api" },
+    { path: "src/component-api/timeline-item", type: "api" },
+  ]}
+  installationTabs={[{ title: "timeline.css", code: TimelineCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Timeline</Fragment>
+  <Fragment slot="preamble">
+    An ordered list of dated events with markers and a connecting line. The
+    dates line up in their own column, whatever their length.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy api={timelineItemApi}>
+      <UITimeline style="inline-size: 26rem; max-inline-size: 100%">
+        <UITimeline.Item
+          color="success"
+          datetime="2026-09-02"
+          time="Sep 2"
+          title="Design freeze"
+        >
+          <svg
+            slot="marker"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
+          >
+          <p>Final screens handed off.</p>
+        </UITimeline.Item>
+        <UITimeline.Item datetime="2026-10-31" time="Oct 31" title="Launch" />
+      </UITimeline>
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Each <code>li</code> holds a <code>&lt;time&gt;</code>, a heading and
+        its content. The dates share the first column through subgrid. Pick the
+        heading level that fits your page outline.</Fragment
+      >
+      <Fragment slot="astro"
+        >Each <code>Timeline.Item</code> takes a <code>time</code>, a <code
+          >datetime</code
+        > and a <code>title</code>, and its content in the default slot. The
+        title is an <code>h3</code>. Set <code>headingLevel</code> to fit your page
+        outline, or leave out <code>title</code> and put your own heading in the default
+        slot.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Each <code>TimelineItem</code> takes a <code>time</code>, a <code
+          >datetime</code
+        > and a <code>title</code>, and its content as children. The title is an <code
+          >h3</code
+        >. Set <code>headingLevel</code> to fit your page outline, or leave out <code
+          >title</code
+        > and put your own heading in the children.</Fragment
+      >
+      <Fragment slot="vue"
+        >Each <code>TimelineItem</code> takes a <code>time</code>, a <code
+          >datetime</code
+        > and a <code>title</code>, and its content in the default slot. The
+        title is an <code>h3</code>. Set <code>headingLevel</code> to fit your page
+        outline, or leave out <code>title</code> and put your own heading in the default
+        slot.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+
+    <p>
+      Browsers without subgrid give each item its own columns, so dates of
+      different lengths don't line up.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <p>
+      Set <PropOrClass prop="color" class=".ui-critical" /> and the other tones on
+      an item to fill its marker. Say the status in the text too, since the color
+      isn't announced.
+    </p>
+
+    <AutoExample name="Colors" />
+  </section>
+
+  <section>
+    <h2 id="small">Small</h2>
+    <p>
+      <PropOrClass prop='size="small"' class=".ui-small" /> makes the markers and
+      the spacing smaller, for logs and dense lists.
+    </p>
+
+    <AutoExample name="Small" />
+  </section>
+
+  <section>
+    <h2 id="custom-marker">Custom marker</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Put an icon in a <code>span.ui-marker</code> at the start of the <code
+          >li</code
+        > to replace the dot. It follows the item's color and the current state.</Fragment
+      >
+      <Fragment slot="astro"
+        >Put an icon in the <code>marker</code> slot to replace the dot. It follows
+        the item's color and the current state.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Put an icon in the <code>marker</code> snippet to replace the dot. It follows
+        the item's color and the current state.</Fragment
+      >
+      <Fragment slot="vue"
+        >Put an icon in the <code>marker</code> slot to replace the dot. It follows
+        the item's color and the current state.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Markers" />
+  </section>
+
+  <section>
+    <h2 id="current">Current item</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Add <code>aria-current</code> to the current item, such as <code
+          >aria-current="step"</code
+        > for a milestone or <code>aria-current="true"</code> for the latest update.
+        Its marker gets the primary color and a halo.</Fragment
+      >
+      <Fragment slot="astro"
+        >Set <code>current</code> on the current item. <code
+          >current="step"</code
+        > fits a milestone, and <code>current</code> alone renders <code
+          >aria-current="true"</code
+        >. Its marker gets the primary color and a halo.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>current</code> on the current item. <code
+          >current="step"</code
+        > fits a milestone, and <code>current</code> alone renders <code
+          >aria-current="true"</code
+        >. Its marker gets the primary color and a halo.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>current</code> on the current item. <code
+          >current="step"</code
+        > fits a milestone, and <code>current</code> alone renders <code
+          >aria-current="true"</code
+        >. Its marker gets the primary color and a halo.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Current" />
+  </section>
+
+  <section>
+    <h2 id="progress">Progress</h2>
+    <p>
+      <PropOrClass prop="progress" class=".ui-with-progress" /> colors the line up
+      to the current item, and the markers before it that have no color.
+    </p>
+
+    <AutoExample name="Progress" />
+  </section>
+
+  <section>
+    <h2 id="narrow">Narrow containers</h2>
+    <p>
+      When the timeline is narrower than <code>24rem</code>, the dates move
+      above the titles and the date column closes. It responds to its own width,
+      so it works in sidebars and cards too. Browsers without container queries
+      keep the date column.
+    </p>
+
+    <AutoExample name="Narrow" />
+  </section>
+
+  <section>
+    <h2 id="items">Items</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The markup the <code>items</code> prop renders in Astro, Svelte and Vue:
+        one <code>li</code> per item, with the description in a <code>p</code
+        >.</Fragment
+      >
+      <Fragment slot="astro"
+        >Pass <code>items</code> to render the list from data. Each <code
+          >description</code
+        > renders a paragraph. Use <code>Timeline.Item</code> for custom markers or
+        richer content.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Pass <code>items</code> to render the list from data. Each <code
+          >description</code
+        > renders a paragraph. Use <code>TimelineItem</code> for custom markers or
+        richer content.</Fragment
+      >
+      <Fragment slot="vue"
+        >Pass <code>items</code> to render the list from data. Each <code
+          >description</code
+        > renders a paragraph. Use <code>TimelineItem</code> for custom markers or
+        richer content.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Items" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The timeline is an <code>ol</code>, so screen readers announce the number
+      of events and the position of each. Add <code>reversed</code> when the newest
+      event comes first.
+    </p>
+    <p>
+      Put dates in a <code>&lt;time&gt;</code> with a <code>datetime</code> attribute.
+      The dots and the line are drawn with pseudo-elements and aren't announced. Give
+      icons in a custom marker <code>aria-hidden="true"</code>.
+    </p>
+    <p>
+      <code>aria-current</code> tells screen readers which item is current. Colors
+      are only visual, so name the status in the text.
+    </p>
+    <p>
+      In forced colors mode the line and markers use system colors, colored
+      markers are filled with <code>CanvasText</code>, and the current marker
+      and the progress line use <code>Highlight</code>.
+    </p>
+  </Fragment>
+</Component>

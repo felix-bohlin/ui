@@ -1,0 +1,186 @@
+@layer components.root {
+  :where(.ui-timeline) {
+    --_dot-size: var(--size-3);
+    --_gap: var(--size-3);
+    --_icon-size: var(--size-5);
+    --_line-color: var(--border-color);
+    --_space: var(--size-5);
+
+    container-type: inline-size;
+    display: grid;
+    grid-template-columns: [date] auto [marker] auto [content] minmax(0, 1fr);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+      --_marker-color: var(--text-muted);
+      --_marker-size: var(--_dot-size);
+      --_next-marker-size: var(--_dot-size);
+
+      align-items: baseline;
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+      padding-block-end: var(--_space);
+      position: relative;
+      row-gap: var(--size-1);
+
+      &:last-child {
+        padding-block-end: 0;
+      }
+
+      &:has(> .ui-marker) {
+        --_marker-size: var(--_icon-size);
+      }
+
+      &:has(+ li > .ui-marker) {
+        --_next-marker-size: var(--_icon-size);
+      }
+
+      &::before,
+      & > .ui-marker {
+        align-self: start;
+        background-color: var(--surface-default);
+        block-size: var(--_marker-size);
+        border: 2px solid var(--_marker-color);
+        border-radius: var(--radius-round);
+        box-sizing: border-box;
+        grid-column: marker;
+        grid-row: 1;
+        inline-size: var(--_marker-size);
+        justify-self: center;
+        margin-block-start: calc((1lh - var(--_marker-size)) / 2);
+        margin-inline: var(--_gap);
+      }
+
+      &::before {
+        content: "";
+      }
+
+      &:has(> .ui-marker)::before {
+        content: none;
+      }
+
+      & > .ui-marker {
+        align-items: center;
+        color: var(--_marker-color);
+        display: flex;
+        justify-content: center;
+
+        & > svg {
+          block-size: calc(var(--_marker-size) * 0.625);
+          flex-shrink: 0;
+          inline-size: calc(var(--_marker-size) * 0.625);
+        }
+      }
+
+      &:not(:last-child)::after {
+        border-inline-start: 2px solid var(--_line-color);
+        content: "";
+        grid-column: marker;
+        inset-block: calc((1lh + var(--_marker-size)) / 2 + var(--size-1))
+          calc(var(--size-1) - (1lh - var(--_next-marker-size)) / 2);
+        justify-self: center;
+        position: absolute;
+      }
+
+      & > * {
+        grid-column: content;
+        justify-self: start;
+        margin: 0;
+        max-inline-size: 100%;
+      }
+
+      & > time {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        font-variant-numeric: tabular-nums;
+        grid-column: date;
+        grid-row: 1;
+        justify-self: end;
+        white-space: nowrap;
+      }
+    }
+
+    & > li:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+      --_marker-color: light-dark(var(--color-9), var(--color-6));
+
+      @container style(--contrast: more) {
+        --_marker-color: light-dark(var(--color-11), var(--color-5));
+      }
+
+      &::before,
+      & > .ui-marker {
+        background-color: var(--_marker-color);
+        color: oklch(
+          from var(--_marker-color) clamp(0.15, (0.565 - l) * 1000, 0.98)
+            calc(c * 0.15) h
+        );
+
+        @media (forced-colors: active) {
+          background-color: CanvasText;
+          border-color: CanvasText;
+          color: Canvas;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    & > li[aria-current] {
+      --_marker-color: var(--primary);
+
+      &::before,
+      & > .ui-marker {
+        background-color: var(--primary);
+        box-shadow: 0 0 0 var(--size-1) oklch(from var(--primary) l c h / 25%);
+        color: var(--primary-contrast);
+
+        @media (forced-colors: active) {
+          background-color: Highlight;
+          border-color: Highlight;
+          box-shadow: none;
+          color: HighlightText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    &.ui-with-progress > li:has(~ li[aria-current]) {
+      --_line-color: var(--primary);
+
+      &:not(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+        --_marker-color: var(--primary);
+      }
+
+      &::after {
+        @media (forced-colors: active) {
+          border-color: Highlight;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    &.ui-small {
+      --_dot-size: var(--size-2);
+      --_gap: var(--size-2);
+      --_icon-size: var(--size-4);
+      --_space: var(--size-3);
+    }
+
+    @container (inline-size < 24rem) {
+      & > li {
+        &::before,
+        &::after,
+        & > .ui-marker {
+          font-size: var(--font-size-0);
+        }
+
+        & > time {
+          grid-column: content;
+          justify-self: start;
+        }
+      }
+    }
+  }
+}

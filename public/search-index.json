@@ -160,6 +160,46 @@
     "url": "/vue/components/badge"
   },
   {
+    "id": "component-bar-chart-html",
+    "title": "Bar chart",
+    "description": "A data table drawn as a column chart with CSS, with an axis, gridlines, grouped series and tooltips.",
+    "headings": "Basics Series Colors Sizes Negative values Cell text Limitations",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/bar-chart"
+  },
+  {
+    "id": "component-bar-chart-astro",
+    "title": "Bar chart",
+    "description": "A data table drawn as a column chart with CSS, with an axis, gridlines, grouped series and tooltips.",
+    "headings": "Basics Series Colors Sizes Negative values Cell text Limitations",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/bar-chart"
+  },
+  {
+    "id": "component-bar-chart-svelte",
+    "title": "Bar chart",
+    "description": "A data table drawn as a column chart with CSS, with an axis, gridlines, grouped series and tooltips.",
+    "headings": "Basics Series Colors Sizes Negative values Cell text Limitations",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/bar-chart"
+  },
+  {
+    "id": "component-bar-chart-vue",
+    "title": "Bar chart",
+    "description": "A data table drawn as a column chart with CSS, with an axis, gridlines, grouped series and tooltips.",
+    "headings": "Basics Series Colors Sizes Negative values Cell text Limitations",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/bar-chart"
+  },
+  {
     "id": "component-button-group-html",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -438,6 +478,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/chip"
+  },
+  {
+    "id": "component-data-grid-html",
+    "title": "Data grid",
+    "description": "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only.",
+    "headings": "Basics Custom cells Sorting Row numbers Selection Bulk actions and forms Filtering Column visibility Header menus Density Column widths Resizable Pinned columns Detail panel Editable cells Column groups Totals Loading Empty state Right to left All features Every technique Pinned columns and scroll shadows Detail panels Resizing and editing Fallbacks Performance",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/data-grid"
+  },
+  {
+    "id": "component-data-grid-astro",
+    "title": "Data grid",
+    "description": "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only.",
+    "headings": "Basics Custom cells Sorting Row numbers Selection Bulk actions and forms Filtering Column visibility Header menus Density Column widths Resizable Pinned columns Detail panel Editable cells Column groups Totals Loading Empty state Right to left All features Every technique Pinned columns and scroll shadows Detail panels Resizing and editing Fallbacks Performance",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/data-grid"
+  },
+  {
+    "id": "component-data-grid-svelte",
+    "title": "Data grid",
+    "description": "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only.",
+    "headings": "Basics Custom cells Sorting Row numbers Selection Bulk actions and forms Filtering Column visibility Header menus Density Column widths Resizable Pinned columns Detail panel Editable cells Column groups Totals Loading Empty state Right to left All features Every technique Pinned columns and scroll shadows Detail panels Resizing and editing Fallbacks Performance",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/data-grid"
+  },
+  {
+    "id": "component-data-grid-vue",
+    "title": "Data grid",
+    "description": "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only.",
+    "headings": "Basics Custom cells Sorting Row numbers Selection Bulk actions and forms Filtering Column visibility Header menus Density Column widths Resizable Pinned columns Detail panel Editable cells Column groups Totals Loading Empty state Right to left All features Every technique Pinned columns and scroll shadows Detail panels Resizing and editing Fallbacks Performance",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/data-grid"
   },
   {
     "id": "component-description-list-html",
@@ -720,6 +800,86 @@
     "url": "/vue/components/menu"
   },
   {
+    "id": "component-message-html",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Reactions without JavaScript Typing indicator Right to left",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/message"
+  },
+  {
+    "id": "component-message-astro",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Reactions without JavaScript Typing indicator Right to left",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/message"
+  },
+  {
+    "id": "component-message-svelte",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Reactions without JavaScript Typing indicator Right to left",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/message"
+  },
+  {
+    "id": "component-message-vue",
+    "title": "Message",
+    "description": "Chat bubbles that group by sender, with attachments, reactions and a typing indicator.",
+    "headings": "Basics Group chat Attachments Reactions Reactions without JavaScript Typing indicator Right to left",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/message"
+  },
+  {
+    "id": "component-one-time-code-html",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-astro",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-svelte",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/one-time-code"
+  },
+  {
+    "id": "component-one-time-code-vue",
+    "title": "One-time code",
+    "description": "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill.",
+    "headings": "Basics Grouped Sizes Length Alphanumeric Validation Disabled Right-to-left Paste and auto-submit",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/one-time-code"
+  },
+  {
     "id": "component-progress-html",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -840,6 +1000,46 @@
     "url": "/vue/components/range"
   },
   {
+    "id": "component-rating-html",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/rating"
+  },
+  {
+    "id": "component-rating-astro",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/rating"
+  },
+  {
+    "id": "component-rating-svelte",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/rating"
+  },
+  {
+    "id": "component-rating-vue",
+    "title": "Rating",
+    "description": "A star rating: a meter that shows a score, or radios that collect one.",
+    "headings": "Basics Input Sizes Fractions Max Disabled Validation Localization",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/rating"
+  },
+  {
     "id": "component-select-html",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
@@ -918,6 +1118,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/spinner"
+  },
+  {
+    "id": "component-stepper-html",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Complete Sizes Descriptions Custom checkmark Vertical Narrow containers Completed label",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/stepper"
+  },
+  {
+    "id": "component-stepper-astro",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Complete Sizes Descriptions Custom checkmark Vertical Narrow containers Completed label",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/stepper"
+  },
+  {
+    "id": "component-stepper-svelte",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Complete Sizes Descriptions Custom checkmark Vertical Narrow containers Completed label",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/stepper"
+  },
+  {
+    "id": "component-stepper-vue",
+    "title": "Stepper",
+    "description": "Shows where someone is in a flow of steps, such as a checkout.",
+    "headings": "Basics Complete Sizes Descriptions Custom checkmark Vertical Narrow containers Completed label",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/stepper"
   },
   {
     "id": "component-switch-html",
@@ -1118,6 +1358,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/textarea"
+  },
+  {
+    "id": "component-timeline-html",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Small Custom marker Current item Progress Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/timeline"
+  },
+  {
+    "id": "component-timeline-astro",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Small Custom marker Current item Progress Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/timeline"
+  },
+  {
+    "id": "component-timeline-svelte",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Small Custom marker Current item Progress Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/timeline"
+  },
+  {
+    "id": "component-timeline-vue",
+    "title": "Timeline",
+    "description": "A list of dated events with markers and a connecting line.",
+    "headings": "Basics Colors Small Custom marker Current item Progress Narrow containers Items",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/timeline"
   },
   {
     "id": "component-toast-html",
@@ -2302,6 +2582,46 @@
     "url": "/vue/api#badge"
   },
   {
+    "id": "api-bar-chart-astro",
+    "title": "Bar Chart API",
+    "description": "Reference for Bar Chart Astro component.",
+    "headings": "BarChart The data table. The chart title. caption The legend, one `<th>` per series. Hidden with a single series. series The axis labels, computed from the scale. The gridlines and the zero line. A value. Its `::after` is the bar, and it shows as a tooltip on hover and focus. A category label. rows focusable Makes every bar a Tab stop that shows its value on focus. format Turns a value into the text of its cell and tooltip, such as a currency or percentage. label Header of the category column. Screen readers read it; it's hidden visually. max Largest value on the scale. Defaults to the largest value in `rows`. min Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`. rows The categories, each with a `label`, one value per series and an optional `color`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#bar-chart"
+  },
+  {
+    "id": "api-bar-chart-html",
+    "title": "Bar Chart API",
+    "description": "Reference for Bar Chart HTML component.",
+    "headings": "table.ui-bar-chart The data table. The chart title. .ui-bar-chart > caption The legend, one `<th>` per series. Hidden with a single series. .ui-bar-chart > thead The axis labels, computed from the scale. .ui-bar-chart > tbody::before The gridlines and the zero line. .ui-bar-chart > tbody::after A value. Its `::after` is the bar, and it shows as a tooltip on hover and focus. .ui-bar-chart > tbody > tr:first-child > td:last-child A category label. .ui-bar-chart > tbody > tr:first-child > th .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Tone of a row's bars, such as `critical` for a loss. [tabindex=\"0\"] Focus Makes every bar a Tab stop that shows its value on focus. Turns a value into the text of its cell and tooltip, such as a currency or percentage. Header of the category column. Screen readers read it; it's hidden visually. [data-max] --max Scale Largest value on the scale. Defaults to the largest value in `rows`. [data-min] --min Scale minimum Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`. The categories, each with a `label`, one value per series and an optional `color`. .ui-large .ui-small Sizes The size of the element. [data-value] --value Value The number a cell's bar draws. `data-value` only works in Chromium.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#bar-chart"
+  },
+  {
+    "id": "api-bar-chart-svelte",
+    "title": "Bar Chart API",
+    "description": "Reference for Bar Chart Svelte component.",
+    "headings": "BarChart The data table. The chart title. caption The legend, one `<th>` per series. Hidden with a single series. series The axis labels, computed from the scale. The gridlines and the zero line. A value. Its `::after` is the bar, and it shows as a tooltip on hover and focus. A category label. rows focusable Makes every bar a Tab stop that shows its value on focus. format Turns a value into the text of its cell and tooltip, such as a currency or percentage. label Header of the category column. Screen readers read it; it's hidden visually. max Largest value on the scale. Defaults to the largest value in `rows`. min Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`. rows The categories, each with a `label`, one value per series and an optional `color`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#bar-chart"
+  },
+  {
+    "id": "api-bar-chart-vue",
+    "title": "Bar Chart API",
+    "description": "Reference for Bar Chart Vue component.",
+    "headings": "BarChart The data table. The chart title. caption The legend, one `<th>` per series. Hidden with a single series. series The axis labels, computed from the scale. The gridlines and the zero line. A value. Its `::after` is the bar, and it shows as a tooltip on hover and focus. A category label. rows focusable Makes every bar a Tab stop that shows its value on focus. format Turns a value into the text of its cell and tooltip, such as a currency or percentage. label Header of the category column. Screen readers read it; it's hidden visually. max Largest value on the scale. Defaults to the largest value in `rows`. min Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`. rows The categories, each with a `label`, one value per series and an optional `color`. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#bar-chart"
+  },
+  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -2620,6 +2940,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#classic-select"
+  },
+  {
+    "id": "api-data-grid-astro",
+    "title": "Data Grid API",
+    "description": "Reference for Data Grid Astro component.",
+    "headings": "DataGrid The grid and its toolbar and footer. Filters, density and column toggles. Filter radios. filters Density radios. densityToggle Column checkboxes in a popover. columnsMenu The scroll container. The sticky header. Sort radios. Row numbers, in sorted order. numbered Row selection checkboxes. selectable Expandable detail panel. detail A cell. cell-[key] The sticky totals row. Selected and visible row counts. footer columnGroups Header cells that span several columns. columns The columns. density Row height and cell padding. form The `id` of a form for the selection checkboxes and editable inputs. headerMenus A menu in each header to sort or hide the column, made of labels for the existing controls. label Accessible name of the grid. labels Text for the built-in labels. loading Dims the rows and shows a loading bar. maxBlockSize Scrolls the rows below a sticky header. pinEnd Keeps the last column in view. pinStart Keeps the first column in view. resizable Lets users drag header cells to resize columns. rowKey The row field used as the checkbox `value` and in editable input names, such as `name=\"role[ada]\"`. rows The rows. Each row is an object keyed by column. sort The initial sort. wrap Wraps cell text instead of truncating it.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#data-grid"
+  },
+  {
+    "id": "api-data-grid-html",
+    "title": "Data Grid API",
+    "description": "Reference for Data Grid HTML component.",
+    "headings": ".ui-data-grid The grid and its toolbar and footer. Filters, density and column toggles. .ui-toolbar Filter radios. .ui-filters Density radios. .ui-density Column checkboxes in a popover. .ui-toolbar > .ui-button The scroll container. [role=\"table\"] The sticky header. .ui-head Sort radios. .ui-sort Row numbers, in sorted order. .ui-body .ui-row-number Row selection checkboxes. .ui-body .ui-row-select Expandable detail panel. .ui-body .ui-expand summary A cell. .ui-body [role=\"cell\"] The sticky totals row. .ui-foot Selected and visible row counts. .ui-status [aria-colspan] Column groups A header cell that spans several columns. --_col-[n] Column widths The track size of column `n`. .ui-dense .ui-spacious Density Row height and cell padding. .ui-fit Fit Sizes the column to its content instead of sharing space. [form] Form Associates selection checkboxes and editable inputs with a form outside the grid. [aria-label] Label Accessible name of the grid. [aria-busy=\"true\"] Loading Dims the rows and shows a loading bar. --_max-block-size Height Scrolls the rows below a sticky header. .ui-numeric Numeric Aligns numbers to the end with tabular figures. .ui-pin-end Pin end Keeps the last column in view. .ui-pin-start Pin start Keeps the first column in view. --_rank-[n] Sorting The position of a row when sorted by column `n`. .ui-resizable Resizable Lets users drag header cells to resize columns. [data-filters] Filters The filter values a row matches, separated by spaces. --_sum-[n] Totals The integer a row adds to the `.ui-sum` cell of column `n`. .ui-wrap Wrap Wraps cell text instead of truncating it.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#data-grid"
+  },
+  {
+    "id": "api-data-grid-svelte",
+    "title": "Data Grid API",
+    "description": "Reference for Data Grid Svelte component.",
+    "headings": "DataGrid The grid and its toolbar and footer. Filters, density and column toggles. Filter radios. filters Density radios. densityToggle Column checkboxes in a popover. columnsMenu The scroll container. The sticky header. Sort radios. Row numbers, in sorted order. numbered Row selection checkboxes. selectable Expandable detail panel. detail A cell. cell-[key] The sticky totals row. Selected and visible row counts. footer cells Snippets that render the cells of a column, keyed by the column `key`. Each gets the row and the column. columnGroups Header cells that span several columns. columns The columns. density Row height and cell padding. form The `id` of a form for the selection checkboxes and editable inputs. headerMenus A menu in each header to sort or hide the column, made of labels for the existing controls. label Accessible name of the grid. labels Text for the built-in labels. loading Dims the rows and shows a loading bar. maxBlockSize Scrolls the rows below a sticky header. pinEnd Keeps the last column in view. pinStart Keeps the first column in view. resizable Lets users drag header cells to resize columns. rowKey The row field used as the checkbox `value` and in editable input names, such as `name=\"role[ada]\"`. rows The rows. Each row is an object keyed by column. sort The initial sort. wrap Wraps cell text instead of truncating it.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#data-grid"
+  },
+  {
+    "id": "api-data-grid-vue",
+    "title": "Data Grid API",
+    "description": "Reference for Data Grid Vue component.",
+    "headings": "DataGrid The grid and its toolbar and footer. Filters, density and column toggles. Filter radios. filters Density radios. densityToggle Column checkboxes in a popover. columnsMenu The scroll container. The sticky header. Sort radios. Row numbers, in sorted order. numbered Row selection checkboxes. selectable Expandable detail panel. detail A cell. cell-[key] The sticky totals row. Selected and visible row counts. footer columnGroups Header cells that span several columns. columns The columns. density Row height and cell padding. form The `id` of a form for the selection checkboxes and editable inputs. headerMenus A menu in each header to sort or hide the column, made of labels for the existing controls. label Accessible name of the grid. labels Text for the built-in labels. loading Dims the rows and shows a loading bar. maxBlockSize Scrolls the rows below a sticky header. pinEnd Keeps the last column in view. pinStart Keeps the first column in view. resizable Lets users drag header cells to resize columns. rowKey The row field used as the checkbox `value` and in editable input names, such as `name=\"role[ada]\"`. rows The rows. Each row is an object keyed by column. sort The initial sort. wrap Wraps cell text instead of truncating it.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#data-grid"
   },
   {
     "id": "api-description-list-astro",
@@ -3182,6 +3542,126 @@
     "url": "/vue/api#menu"
   },
   {
+    "id": "api-message-astro",
+    "title": "Message API",
+    "description": "Reference for Message Astro component.",
+    "headings": "Message A message. The author's avatar, shown on the last message of a run. avatar The bubble. default The author, shown on the first message of a run and read by screen readers on every message. author A file card inside the bubble. The time, and content such as a read receipt. time footer The reaction pills, overlapping the bubble's bottom edge. reactions A reaction pill: a checkbox in a `<label>`, or a `<button>` with `aria-pressed`. The count comes from `data-count`. Opens the reaction picker. Shows on hover and focus on devices that can hover. A popover form of emoji buttons, anchored to its trigger. picker datetime Machine-readable date and time of the message. newAuthor Starts a new run when the author changes, for group chats. outgoing A message you sent. Aligns to the end, in the primary color, with the author visually hidden. pickerLabel The accessible name of the add reaction button. reactionsLabel The accessible name of the reactions group. typing Shows animated dots. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#message"
+  },
+  {
+    "id": "api-message-html",
+    "title": "Message API",
+    "description": "Reference for Message HTML component.",
+    "headings": "li.ui-message A message. The author's avatar, shown on the last message of a run. .ui-avatar The bubble. .ui-bubble The author, shown on the first message of a run and read by screen readers on every message. .ui-header A file card inside the bubble. .ui-attachment The time, and content such as a read receipt. .ui-footer The reaction pills, overlapping the bubble's bottom edge. .ui-reactions A reaction pill: a checkbox in a `<label>`, or a `<button>` with `aria-pressed`. The count comes from `data-count`. .ui-reaction Opens the reaction picker. Shows on hover and focus on devices that can hover. .ui-reaction-add A popover form of emoji buttons, anchored to its trigger. .ui-reaction-picker [datetime] Time Machine-readable date and time of the message. .ui-new-author New author Starts a new run when the author changes, for group chats. .ui-outgoing Outgoing A message you sent. Aligns to the end, in the primary color, with the author visually hidden. [aria-label] Add reaction label The accessible name of the add reaction button. [aria-label] Reactions label The accessible name of the reactions group. .ui-typing Typing Shows animated dots. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#message"
+  },
+  {
+    "id": "api-message-svelte",
+    "title": "Message API",
+    "description": "Reference for Message Svelte component.",
+    "headings": "Message A message. The author's avatar, shown on the last message of a run. avatar The bubble. default The author, shown on the first message of a run and read by screen readers on every message. author A file card inside the bubble. The time, and content such as a read receipt. time footer The reaction pills, overlapping the bubble's bottom edge. reactions A reaction pill: a checkbox in a `<label>`, or a `<button>` with `aria-pressed`. The count comes from `data-count`. Opens the reaction picker. Shows on hover and focus on devices that can hover. A popover form of emoji buttons, anchored to its trigger. picker datetime Machine-readable date and time of the message. newAuthor Starts a new run when the author changes, for group chats. outgoing A message you sent. Aligns to the end, in the primary color, with the author visually hidden. pickerLabel The accessible name of the add reaction button. reactionsLabel The accessible name of the reactions group. typing Shows animated dots. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#message"
+  },
+  {
+    "id": "api-message-vue",
+    "title": "Message API",
+    "description": "Reference for Message Vue component.",
+    "headings": "Message A message. The author's avatar, shown on the last message of a run. avatar The bubble. default The author, shown on the first message of a run and read by screen readers on every message. author A file card inside the bubble. The time, and content such as a read receipt. time footer The reaction pills, overlapping the bubble's bottom edge. reactions A reaction pill: a checkbox in a `<label>`, or a `<button>` with `aria-pressed`. The count comes from `data-count`. Opens the reaction picker. Shows on hover and focus on devices that can hover. A popover form of emoji buttons, anchored to its trigger. picker datetime Machine-readable date and time of the message. newAuthor Starts a new run when the author changes, for group chats. outgoing A message you sent. Aligns to the end, in the primary color, with the author visually hidden. pickerLabel The accessible name of the add reaction button. reactionsLabel The accessible name of the reactions group. typing Shows animated dots. The default slot becomes the status text for screen readers.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#message"
+  },
+  {
+    "id": "api-messages-astro",
+    "title": "Messages API",
+    "description": "Reference for Messages Astro component.",
+    "headings": "Messages The thread. Caps bubbles at 85% of its width. A message. label Accessible name of the thread.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#messages"
+  },
+  {
+    "id": "api-messages-html",
+    "title": "Messages API",
+    "description": "Reference for Messages HTML component.",
+    "headings": "ol.ui-messages The thread. Caps bubbles at 85% of its width. A message. .ui-messages > .ui-message [aria-label] Label Accessible name of the thread.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#messages"
+  },
+  {
+    "id": "api-messages-svelte",
+    "title": "Messages API",
+    "description": "Reference for Messages Svelte component.",
+    "headings": "Messages The thread. Caps bubbles at 85% of its width. A message. label Accessible name of the thread.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#messages"
+  },
+  {
+    "id": "api-messages-vue",
+    "title": "Messages API",
+    "description": "Reference for Messages Vue component.",
+    "headings": "Messages The thread. Caps bubbles at 85% of its width. A message. label Accessible name of the thread.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#messages"
+  },
+  {
+    "id": "api-one-time-code-astro",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Astro component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-html",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code HTML component.",
+    "headings": "label.ui-text-field.ui-one-time-code Container element. The label for the field. .ui-label Draws a box per character and a ring on the next one. .ui-field The input element. input Supporting text displayed below the field. .ui-end-text [autocapitalize=\"characters\"] Characters Accepts letters and digits. Letters show uppercase and keep the case they were typed in. [aria-invalid=\"true\"] Validation Marks the control invalid and shows error styles. .ui-grouped Grouped Draws a dash between the two halves of the code. [maxlength] Length The number of characters and boxes. .ui-large .ui-small Sizes The size of the element.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-svelte",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Svelte component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#one-time-code"
+  },
+  {
+    "id": "api-one-time-code-vue",
+    "title": "One Time Code API",
+    "description": "Reference for One Time Code Vue component.",
+    "headings": "OneTimeCode Container element. The label for the field. label label Draws a box per character and a ring on the next one. The input element. Supporting text displayed below the field. endText end-text alphanumeric Accepts letters and digits. Letters show uppercase and keep the case they were typed in. error Marks the control invalid and shows error styles. grouped Draws a dash between the two halves of the code. id The id of the `<input>`. length The number of characters and boxes. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#one-time-code"
+  },
+  {
     "id": "api-progress-astro",
     "title": "Progress API",
     "description": "Reference for Progress Astro component.",
@@ -3302,6 +3782,46 @@
     "url": "/vue/api#range"
   },
   {
+    "id": "api-rating-astro",
+    "title": "Rating API",
+    "description": "Reference for Rating Astro component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel Accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the no rating radio. size The size of the element. starLabel Returns the accessible name of each star radio. Use it to translate. value The score of the meter, fractions included, or the checked star of the input.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#rating"
+  },
+  {
+    "id": "api-rating-html",
+    "title": "Rating API",
+    "description": "Reference for Rating HTML component.",
+    "headings": ".ui-rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. legend Clears the rating. Drawn as a muted icon, left out with `required`. input[value=\"0\"] A star, one per value from `1` to `max`. input[value=\"1\"] The checked and total count, such as `3/5`. Hidden from screen readers. fieldset.ui-rating::after Accessible name of the radio that clears the rating. Not rendered with `required`. [disabled] Disabled Disables the input. [aria-invalid=\"true\"] Validation Marks the radios invalid and tints the empty stars. The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. [max] --_max Max Number of stars. Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. [required] Required Requires a star and drops the no rating radio. .ui-large .ui-small Sizes The size of the element. Returns the accessible name of each star radio. Use it to translate. The score of the meter, fractions included, or the checked star of the input.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#rating"
+  },
+  {
+    "id": "api-rating-svelte",
+    "title": "Rating API",
+    "description": "Reference for Rating Svelte component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel Accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the no rating radio. size The size of the element. starLabel Returns the accessible name of each star radio. Use it to translate. value The score of the meter, fractions included, or the checked star of the input.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#rating"
+  },
+  {
+    "id": "api-rating-vue",
+    "title": "Rating API",
+    "description": "Reference for Rating Vue component.",
+    "headings": "Rating A `<meter>` for a read-only score, or a `<fieldset>` of radios for input. The label of the input. label Clears the rating. Drawn as a muted icon, left out with `required`. clearLabel A star, one per value from `1` to `max`. starLabel The checked and total count, such as `3/5`. Hidden from screen readers. clearLabel Accessible name of the radio that clears the rating. Not rendered with `required`. disabled Disables the input. error Marks the radios invalid and tints the empty stars. label The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. max Number of stars. name Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`. required Requires a star and drops the no rating radio. size The size of the element. starLabel Returns the accessible name of each star radio. Use it to translate. value The score of the meter, fractions included, or the checked star of the input.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#rating"
+  },
+  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -3380,6 +3900,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#spinner"
+  },
+  {
+    "id": "api-stepper-astro",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Astro component.",
+    "headings": "Stepper The list of steps. A step. Its text is the label. Steps before the current one are complete. items current The marker: the step number, or a check on a completed step. The check is `--_check-icon`, sized with `--_check-size`. An optional custom check, shown on completed steps in place of the default. Hidden from screen readers. check A link back to a completed step. An optional line under the label. The line to the next step. complete Marks every step complete. Also on when `current` is past the last step. completedLabel What screen readers announce before a completed step. current Index of the current step, from 0. Every step before it is complete. items The steps, as `{ description, href, label }` objects. `href` renders a link on completed steps. label Accessible name of the stepper. orientation The orientation of the element. Narrow containers turn vertical on their own. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#stepper"
+  },
+  {
+    "id": "api-stepper-html",
+    "title": "Stepper API",
+    "description": "Reference for Stepper HTML component.",
+    "headings": "ol.ui-stepper The list of steps. A step. Its text is the label. Steps before the current one are complete. .ui-stepper > li:first-child The marker: the step number, or a check on a completed step. The check is `--_check-icon`, sized with `--_check-size`. .ui-stepper > li:first-child::before An optional custom check, shown on completed steps in place of the default. Hidden from screen readers. .ui-stepper > li:first-child > .ui-check A link back to a completed step. .ui-stepper > li:first-child > a An optional line under the label. .ui-stepper > li:first-child > .ui-description The line to the next step. .ui-stepper > li:first-child::after .ui-complete Complete Marks every step complete. Also on when `current` is past the last step. --_completed-label Completed label What screen readers announce before a completed step. [aria-current=\"step\"] Current step Index of the current step, from 0. Every step before it is complete. The steps, as `{ description, href, label }` objects. `href` renders a link on completed steps. [aria-label] Label Accessible name of the stepper. .ui-vertical Orientation The orientation of the element. Narrow containers turn vertical on their own. .ui-small Sizes The size of the element.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#stepper"
+  },
+  {
+    "id": "api-stepper-svelte",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Svelte component.",
+    "headings": "Stepper The list of steps. A step. Its text is the label. Steps before the current one are complete. items current The marker: the step number, or a check on a completed step. The check is `--_check-icon`, sized with `--_check-size`. An optional custom check, shown on completed steps in place of the default. Hidden from screen readers. check A link back to a completed step. An optional line under the label. The line to the next step. complete Marks every step complete. Also on when `current` is past the last step. completedLabel What screen readers announce before a completed step. current Index of the current step, from 0. Every step before it is complete. items The steps, as `{ description, href, label }` objects. `href` renders a link on completed steps. label Accessible name of the stepper. orientation The orientation of the element. Narrow containers turn vertical on their own. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#stepper"
+  },
+  {
+    "id": "api-stepper-vue",
+    "title": "Stepper API",
+    "description": "Reference for Stepper Vue component.",
+    "headings": "Stepper The list of steps. A step. Its text is the label. Steps before the current one are complete. items current The marker: the step number, or a check on a completed step. The check is `--_check-icon`, sized with `--_check-size`. An optional custom check, shown on completed steps in place of the default. Hidden from screen readers. check A link back to a completed step. An optional line under the label. The line to the next step. complete Marks every step complete. Also on when `current` is past the last step. completedLabel What screen readers announce before a completed step. current Index of the current step, from 0. Every step before it is complete. items The steps, as `{ description, href, label }` objects. `href` renders a link on completed steps. label Accessible name of the stepper. orientation The orientation of the element. Narrow containers turn vertical on their own. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#stepper"
   },
   {
     "id": "api-switch-astro",
@@ -3740,6 +4300,86 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
+  },
+  {
+    "id": "api-timeline-item-astro",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Astro component.",
+    "headings": "Timeline.Item An event. Content after the title goes in the content column. The date, in its own column. Above the title in narrow timelines. time Optional custom marker, such as an icon. Replaces the dot. marker The title. title color Optional colors. Fills the marker. current Marks the current item with a primary marker and a halo. `true` renders `aria-current=\"true\"`. datetime The machine-readable date or time. headingLevel The heading level of the title. time The visible date or time. Renders a `<time>`. title The title. Renders a heading with `.ui-h6`.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-html",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item HTML component.",
+    "headings": "li:first-child An event. Content after the title goes in the content column. The date, in its own column. Above the title in narrow timelines. li:first-child > time Optional custom marker, such as an icon. Replaces the dot. li:first-child > .ui-marker The title. li:first-child > h3 .ui-critical .ui-info .ui-neutral .ui-success .ui-warning Colors Optional colors. Fills the marker. [aria-current] State Marks the current item with a primary marker and a halo. `true` renders `aria-current=\"true\"`. [datetime] Date The machine-readable date or time. The heading level of the title. The visible date or time. Renders a `<time>`. The title. Renders a heading with `.ui-h6`.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-svelte",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Svelte component.",
+    "headings": "Timeline.Item An event. Content after the title goes in the content column. The date, in its own column. Above the title in narrow timelines. time Optional custom marker, such as an icon. Replaces the dot. marker The title. title color Optional colors. Fills the marker. current Marks the current item with a primary marker and a halo. `true` renders `aria-current=\"true\"`. datetime The machine-readable date or time. headingLevel The heading level of the title. time The visible date or time. Renders a `<time>`. title The title. Renders a heading with `.ui-h6`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-item-vue",
+    "title": "Timeline Item API",
+    "description": "Reference for Timeline Item Vue component.",
+    "headings": "Timeline.Item An event. Content after the title goes in the content column. The date, in its own column. Above the title in narrow timelines. time Optional custom marker, such as an icon. Replaces the dot. marker The title. title color Optional colors. Fills the marker. current Marks the current item with a primary marker and a halo. `true` renders `aria-current=\"true\"`. datetime The machine-readable date or time. headingLevel The heading level of the title. time The visible date or time. Renders a `<time>`. title The title. Renders a heading with `.ui-h6`.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#timeline-item"
+  },
+  {
+    "id": "api-timeline-astro",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Astro component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph. progress Colors the line and the plain markers before the current item with the primary color. size The size of the element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#timeline"
+  },
+  {
+    "id": "api-timeline-html",
+    "title": "Timeline API",
+    "description": "Reference for Timeline HTML component.",
+    "headings": "ol.ui-timeline Container element. An event, with its marker and the line to the next one. li The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph. .ui-with-progress Progress Colors the line and the plain markers before the current item with the primary color. .ui-small Sizes The size of the element.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#timeline"
+  },
+  {
+    "id": "api-timeline-svelte",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Svelte component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph. progress Colors the line and the plain markers before the current item with the primary color. size The size of the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#timeline"
+  },
+  {
+    "id": "api-timeline-vue",
+    "title": "Timeline API",
+    "description": "Reference for Timeline Vue component.",
+    "headings": "Timeline Container element. An event, with its marker and the line to the next one. items The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph. progress Colors the line and the plain markers before the current item with the primary color. size The size of the element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#timeline"
   },
   {
     "id": "api-toast-html",

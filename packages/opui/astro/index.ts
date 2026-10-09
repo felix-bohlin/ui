@@ -2,6 +2,7 @@ export { default as Accordion } from "../components/Accordion/Accordion.astro"
 export { default as Anchor } from "../components/Anchor/Anchor.astro"
 export { default as Avatar } from "../components/Avatar/Avatar.astro"
 export { default as Badge } from "../components/Badge/Badge.astro"
+export { default as BarChart } from "../components/BarChart/BarChart.astro"
 export { default as Button } from "../components/Button/Button.astro"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
@@ -18,6 +19,7 @@ export {
   Term as DescriptionListTerm,
 } from "../components/DescriptionList/index"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.astro"
@@ -30,11 +32,16 @@ export { default as Form } from "../components/Form/Form.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"
+export { default as Message } from "../components/Message/Message.astro"
+export { default as Messages } from "../components/Message/Messages.astro"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
 export { default as Range } from "../components/Range/Range.astro"
+export { default as Rating } from "../components/Rating/Rating.astro"
 export { default as Select } from "../components/Select/Select.astro"
+export { default as Stepper } from "../components/Stepper/Stepper.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
 export { default as Table } from "../components/Table/index"
@@ -55,6 +62,8 @@ export {
 } from "../components/Tabs/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
+export { default as Timeline } from "../components/Timeline/index"
+export { Item as TimelineItem } from "../components/Timeline/index"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
@@ -62,6 +71,8 @@ export type { Props as AccordionProps } from "../components/Accordion/types.astr
 export type { Props as AnchorProps } from "../components/Anchor/types.astro"
 export type { Props as AvatarProps } from "../components/Avatar/types.astro"
 export type { Props as BadgeProps } from "../components/Badge/types.astro"
+export type { BarChartRow } from "../components/BarChart/types"
+export type { Props as BarChartProps } from "../components/BarChart/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"
 export type { Props as CalloutProps } from "../components/Callout/types.astro"
@@ -74,6 +85,14 @@ export type {
 export type { Props as ChipProps } from "../components/Chip/types.astro"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.astro"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.astro"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,
@@ -96,14 +115,26 @@ export type { Props as ListProps } from "../components/List/types.astro"
 export type { Props as ListItemProps } from "../components/ListItem/types.astro"
 export type { MenuItem } from "../components/Menu/types"
 export type { Props as MenuProps } from "../components/Menu/types.astro"
+export type {
+  Emoji as MessageEmoji,
+  Reaction as MessageReaction,
+} from "../components/Message/types"
+export type {
+  MessagesProps,
+  Props as MessageProps,
+} from "../components/Message/types.astro"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,
   RadioProps,
 } from "../components/Radio/types.astro"
 export type { RangeProps } from "../components/Range/types.astro"
+export type { Props as RatingProps } from "../components/Rating/types.astro"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"
+export type { StepperItem } from "../components/Stepper/types"
+export type { Props as StepperProps } from "../components/Stepper/types.astro"
 export type {
   SwitchInputProps,
   SwitchProps,
@@ -121,6 +152,11 @@ export type {
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"
+export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.astro"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"
 export type { Props as TooltipProps } from "../components/Tooltip/types.astro"

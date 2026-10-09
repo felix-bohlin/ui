@@ -1,0 +1,361 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { OneTimeCode as UIOneTimeCode } from "@opui/astro"
+
+import OneTimeCodeCSS from "@opui/css/components/one-time-code.css?raw"
+import FieldCSS from "@opui/css/components/text-field.css?raw"
+
+import oneTimeCodeApi from "../../component-api/one-time-code/api"
+
+export const description =
+  "A one-time password (OTP) field: one input drawn as a box per character, with paste and SMS autofill."
+
+const recipe = `const otp = ".ui-one-time-code input"
+
+document.addEventListener("paste", (event) => {
+  const input = event.target
+  if (!input.matches?.(otp)) return
+  event.preventDefault()
+  input.value = event.clipboardData
+    .getData("text")
+    .replace(/[\\s-]/g, "")
+    .slice(0, input.maxLength)
+  input.dispatchEvent(new Event("input", { bubbles: true }))
+})
+
+document.addEventListener("input", ({ target }) => {
+  if (!target.matches?.(otp)) return
+  if (target.value.length === target.maxLength && target.checkValidity()) {
+    target.form?.requestSubmit()
+  }
+})`
+---
+
+<Component
+  description={description}
+  slug="one-time-code"
+  heroAnatomy
+  apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
+  browserSupport={[
+    "container-queries",
+    "container-style-queries",
+    "field-sizing",
+    "forced-colors",
+    "has",
+    "inputmode",
+    "masks",
+    "round-mod-rem",
+    "user-pseudos",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/OneTimeCode/OneTimeCode.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/one-time-code.astro", type: "docs" },
+    { path: "src/component-examples/one-time-code", type: "docs" },
+    {
+      path: "packages/opui/css/components/one-time-code.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/text-field.css",
+      type: "css",
+    },
+    { path: "src/component-api/one-time-code", type: "api" },
+  ]}
+  installationTabs={[
+    {
+      title: "text-field.css",
+      code: FieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "one-time-code.css", code: OneTimeCodeCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">One-time code</Fragment>
+  <Fragment slot="preamble">
+    A field for one-time passwords (OTP), verification codes and PINs. It is a
+    single <code>&lt;input autocomplete="one-time-code"&gt;</code> drawn as one box
+    per character, so typing, paste, undo, SMS autofill and password managers work
+    without JavaScript. Built on <DocLink
+      href="/components/text-field"
+      class="ui-link">Text field</DocLink
+    >.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIOneTimeCode endText="Supporting text" grouped label="Label" />
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        The code has 6 digits by default. The input gets <code
+          >inputmode="numeric"</code
+        >, <code>maxlength</code> and a matching <code>pattern</code>, so phones
+        show a number pad and the browser validates the code.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-one-time-code</code> to a <code>.ui-text-field</code>, and
+        give the input <code>autocomplete="one-time-code"</code>, <code
+          >inputmode="numeric"</code
+        >, <code>maxlength</code> and a matching <code>pattern</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        The code has 6 digits by default. The input gets <code
+          >inputmode="numeric"</code
+        >, <code>maxlength</code> and a matching <code>pattern</code>, so phones
+        show a number pad and the browser validates the code. Use <code
+          >bind:value</code
+        > to read it.
+      </Fragment>
+      <Fragment slot="vue">
+        The code has 6 digits by default. The input gets <code
+          >inputmode="numeric"</code
+        >, <code>maxlength</code> and a matching <code>pattern</code>, so phones
+        show a number pad and the browser validates the code. Use <code
+          >v-model</code
+        > to read it.
+      </Fragment>
+    </Conditional>
+    <p>
+      A ring marks the next empty box. The input is exactly as wide as its value
+      (<code>field-sizing: content</code>), and the ring sits right after it.
+      Browsers without <code>field-sizing</code> (Firefox before 152, Safari before
+      26.2) show no ring and outline every box in the accent color while the field
+      has focus.
+    </p>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="grouped">Grouped</h2>
+    <p>
+      <PropOrClass prop="grouped" class=".ui-grouped" /> draws a dash between the
+      two halves of the code, such as 3 + 3 or 4 + 4. Use it with an even length.
+    </p>
+
+    <AutoExample name="Grouped" />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between three sizes with the <code>size</code> prop: <code
+          >small</code
+        >, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between three sizes: <code>.ui-small</code>, default and <code
+          >.ui-large</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between three sizes with the <code>size</code> prop: <code
+          >small</code
+        >, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between three sizes with the <code>size</code> prop: <code
+          >small</code
+        >, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section>
+    <h2 id="length">Length</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
+          >maxlength</code
+        > and the <code>pattern</code>.
+      </Fragment>
+      <Fragment slot="html">
+        The number of boxes follows <code>maxlength</code>, from 4 to 8. Match
+        the <code>pattern</code> to it, such as <code>[0-9]{"{4}"}</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
+          >maxlength</code
+        > and the <code>pattern</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
+          >maxlength</code
+        > and the <code>pattern</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Length" />
+  </section>
+
+  <section>
+    <h2 id="alphanumeric">Alphanumeric</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>alphanumeric</code> for codes with letters. The pattern accepts
+        letters and digits, the keyboard is a regular one, and letters show uppercase
+        (<code>autocapitalize="characters"</code>). The value keeps the case
+        they were typed in. Pass <code>autocapitalize="off"</code> for case-sensitive
+        codes.
+      </Fragment>
+      <Fragment slot="html">
+        For codes with letters, drop <code>inputmode</code>, use a <code
+          >pattern</code
+        > such as <code>[A-Za-z0-9]{"{6}"}</code> and add <code
+          >autocapitalize="characters"</code
+        >, which also shows letters uppercase. The value keeps the case they
+        were typed in. Leave <code>autocapitalize</code> out for case-sensitive codes.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>alphanumeric</code> for codes with letters. The pattern accepts
+        letters and digits, the keyboard is a regular one, and letters show uppercase
+        (<code>autocapitalize="characters"</code>). The value keeps the case
+        they were typed in. Pass <code>autocapitalize="off"</code> for case-sensitive
+        codes.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>alphanumeric</code> for codes with letters. The pattern accepts
+        letters and digits, the keyboard is a regular one, and letters show uppercase
+        (<code>autocapitalize="characters"</code>). The value keeps the case
+        they were typed in. Pass <code>autocapitalize="off"</code> for case-sensitive
+        codes.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Alphanumeric" />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>error</code> prop for server-side errors. It sets <code
+          >aria-invalid="true"</code
+        > on the input, and every box turns red. Explain the error in the end text.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>aria-invalid="true"</code> to the input for server-side errors,
+        and every box turns red. Explain the error in the end text and point <code
+          >aria-describedby</code
+        > at it.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>error</code> prop for server-side errors. It sets <code
+          >aria-invalid="true"</code
+        > on the input, and every box turns red. Explain the error in the end text.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>error</code> prop for server-side errors. It sets <code
+          >aria-invalid="true"</code
+        > on the input, and every box turns red. Explain the error in the end text.
+      </Fragment>
+    </Conditional>
+    <p>
+      The browser's own validation (<code>:user-invalid</code>) gives the same
+      look when a required code is left incomplete or doesn't match the pattern.
+    </p>
+
+    <AutoExample name="Validation" />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+
+    <AutoExample name="Disabled" />
+  </section>
+
+  <section>
+    <h2 id="right-to-left">Right-to-left</h2>
+    <p>
+      The code always runs left to right, also on right-to-left pages. Digits
+      are written left to right in Arabic and Hebrew too, so the code reads the
+      same as in the message it came from, and the caret, boxes and ring stay in
+      one order. The label and end text follow the page direction.
+    </p>
+    <p>
+      The default <code>pattern</code> accepts the digits 0–9, which SMS autofill
+      inserts and most servers expect. To also accept Arabic-Indic digits typed on
+      an Arabic keyboard, pass a wider pattern, such as <code
+        >[0-9٠-٩۰-۹]{"{6}"}</code
+      >, and convert them to 0–9 on the server.
+    </p>
+
+    <AutoExample name="RightToLeft" />
+  </section>
+
+  <section>
+    <h2 id="paste-and-auto-submit">Paste and auto-submit</h2>
+    <p>
+      Without JavaScript, letters can be typed into a numeric code (they turn
+      red when the field loses focus), and a pasted <code>123 456</code> or <code
+        >123-456</code
+      > is cut to <code>maxlength</code>. This optional script, not part of the
+      library, strips spaces and dashes from pasted codes and submits the form
+      once the code is complete and valid. Only auto-submit when the code is the
+      last field in the form.
+    </p>
+    <Code lang="js" code={recipe} />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The field is one labeled text input, so screen readers announce the
+        label, the value and the end text once, not one box at a time.
+      </li>
+      <li>
+        <code>autocomplete="one-time-code"</code> lets phones offer the code from
+        an SMS or email, and password managers fill it.
+      </li>
+      <li>
+        Focus is shown on the boxes instead of an outline: a thicker accent ring
+        on the next empty box, or on every box without <code>field-sizing</code
+        >. Forced colors mode draws the boxes and ring in system colors.
+      </li>
+      <li>
+        <Conditional>
+          <Fragment slot="astro"
+            >The <code>error</code> prop sets <code>aria-invalid="true"</code>,
+            and <code>endText</code> is linked with <code>aria-describedby</code
+            >.</Fragment
+          >
+          <Fragment slot="html"
+            >Mark errors with <code>aria-invalid="true"</code> and link the end text
+            with <code>aria-describedby</code>.</Fragment
+          >
+          <Fragment slot="svelte"
+            >The <code>error</code> prop sets <code>aria-invalid="true"</code>,
+            and <code>endText</code> is linked with <code>aria-describedby</code
+            >.</Fragment
+          >
+          <Fragment slot="vue"
+            >The <code>error</code> prop sets <code>aria-invalid="true"</code>,
+            and <code>endText</code> is linked with <code>aria-describedby</code
+            >.</Fragment
+          >
+        </Conditional>
+      </li>
+      <li>
+        Say how long the code is valid and how to get a new one in the end text,
+        not only in the layout.
+      </li>
+    </ul>
+  </Fragment>
+</Component>

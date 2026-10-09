@@ -1,0 +1,304 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
+import { Stepper as UIStepper } from "@opui/astro"
+
+import StepperCSS from "@opui/css/components/stepper.css?raw"
+
+import stepperApi from "../../component-api/stepper/api"
+
+export const description =
+  "Shows where someone is in a flow of steps, such as a checkout."
+---
+
+<Component
+  description={description}
+  slug="stepper"
+  heroAnatomy
+  apis={[{ title: "Stepper API", api: stepperApi }]}
+  browserSupport={[
+    "alt-text-generated-content",
+    "container-queries",
+    "container-style-queries",
+    "has",
+    "masks",
+    "relative-color",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Stepper/Stepper.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/stepper.astro", type: "docs" },
+    { path: "src/component-examples/stepper", type: "docs" },
+    { path: "packages/opui/css/components/stepper.css", type: "css" },
+    { path: "src/component-api/stepper", type: "api" },
+  ]}
+  installationTabs={[{ title: "stepper.css", code: StepperCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Stepper</Fragment>
+  <Fragment slot="preamble">
+    Shows where someone is in a flow of steps, such as a checkout or an
+    onboarding. The current step marks every step before it as complete. See
+    also: <DocLink href="/components/progress" class="ui-link">Progress</DocLink
+    >.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIStepper
+        current={1}
+        items={[
+          { description: "Name and email", href: "#basics", label: "Account" },
+          { description: "Free or Pro", label: "Plan" },
+          { description: "Card or invoice", label: "Payment" },
+        ]}
+        label="Sign-up steps"
+        style="inline-size: 14rem"
+      >
+        <svg
+          slot="check"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path d="M18 6 7 17l-5-5"></path><path d="m22 10-7.5 7.5L13 16"
+          ></path></svg
+        >
+      </UIStepper>
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>current</code> to the index of the current step, from 0. Every
+        step before it is complete. Completed steps with an <code>href</code> render
+        a link back, the current and later steps render text.</Fragment
+      >
+      <Fragment slot="html"
+        >Put <code>aria-current="step"</code> on the current <code>li</code>.
+        Every step before it is complete, so moving that one attribute updates
+        the whole stepper. Link the completed steps so people can go back.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>current</code> to the index of the current step, from 0. Every
+        step before it is complete. Completed steps with an <code>href</code> render
+        a link back, the current and later steps render text.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>current</code> to the index of the current step, from 0. Every
+        step before it is complete. Completed steps with an <code>href</code> render
+        a link back, the current and later steps render text.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="complete">Complete</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-complete</code> and leave out <code>aria-current</code> to
+        mark every step complete.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Complete" />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <p>
+      Use <PropOrClass prop='size="small"' class=".ui-small" /> for a smaller stepper.
+    </p>
+
+    <AutoExample name="Sizes" />
+  </section>
+
+  <section>
+    <h2 id="descriptions">Descriptions</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Give a step a <code>description</code> for a short line under its label.</Fragment
+      >
+      <Fragment slot="html"
+        >Add a <code>&lt;span class="ui-description"&gt;</code> after the label for
+        a short line under it.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Give a step a <code>description</code> for a short line under its label.</Fragment
+      >
+      <Fragment slot="vue"
+        >Give a step a <code>description</code> for a short line under its label.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Descriptions" />
+  </section>
+
+  <section>
+    <h2 id="custom-checkmark">Custom checkmark</h2>
+    <p>
+      The default check is cut out of the marker, so it follows the theme. Swap
+      it for any SVG with <code>--_check-icon</code>, and resize it with <code
+        >--_check-size</code
+      >.
+    </p>
+
+    <AutoExample name="CustomCheckIcon" />
+
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >To use your own icon component, pass it to the <code>check</code> slot. The
+        stepper renders it in a <code>.ui-check</code> in every step, hidden from
+        screen readers, and shows it on the completed ones. Steps you write in the
+        default slot need their own <code
+          >&lt;span class="ui-check" aria-hidden="true"&gt;</code
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >To use markup, such as an icon from your library, an <code>img</code> or
+        an emoji, put it in a <code
+          >&lt;span class="ui-check" aria-hidden="true"&gt;</code
+        > first in each <code>li</code>. It shows on completed steps in place of
+        the default check, in the marker's text color.</Fragment
+      >
+      <Fragment slot="svelte"
+        >To use your own icon component, pass it to the <code>check</code> snippet.
+        The stepper renders it in a <code>.ui-check</code> in every step, hidden from
+        screen readers, and shows it on the completed ones. Steps you write in <code
+          >children</code
+        > need their own <code
+          >&lt;span class="ui-check" aria-hidden="true"&gt;</code
+        >.</Fragment
+      >
+      <Fragment slot="vue"
+        >To use your own icon component, pass it to the <code>check</code> slot. The
+        stepper renders it in a <code>.ui-check</code> in every step, hidden from
+        screen readers, and shows it on the completed ones. Steps you write in the
+        default slot need their own <code
+          >&lt;span class="ui-check" aria-hidden="true"&gt;</code
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="CustomCheck" />
+  </section>
+
+  <section>
+    <h2 id="vertical">Vertical</h2>
+    <p>
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> stacks the
+      steps. Use it for long labels or many steps.
+    </p>
+
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section>
+    <h2 id="narrow-containers">Narrow containers</h2>
+    <p>
+      A stepper narrower than <code>32rem</code> turns vertical on its own. Drag the
+      corner of the box to try it. The stepper measures its own width, so in a flex
+      row give it one, for example with <code>flex: 1</code>.
+    </p>
+    <p>
+      Browsers without container queries keep it horizontal, and the steps wrap.
+    </p>
+
+    <AutoExample name="Responsive" />
+  </section>
+
+  <section>
+    <h2 id="completed-label">Completed label</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Screen readers announce a completed step as "Completed: Cart".
+        Translate it with <code>completedLabel</code>, or for a whole language
+        with <code>--_completed-label</code> and <code>:lang()</code>, as below.
+        The stepper follows the text direction.</Fragment
+      >
+      <Fragment slot="html"
+        >Screen readers announce a completed step as "Completed: Cart".
+        Translate it with <code>--_completed-label</code>, for example for a
+        whole language with <code>:lang()</code>. The stepper follows the text
+        direction.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Screen readers announce a completed step as "Completed: Cart".
+        Translate it with <code>completedLabel</code>, or for a whole language
+        with <code>--_completed-label</code> and <code>:lang()</code>, as below.
+        The stepper follows the text direction.</Fragment
+      >
+      <Fragment slot="vue"
+        >Screen readers announce a completed step as "Completed: Cart".
+        Translate it with <code>completedLabel</code>, or for a whole language
+        with <code>--_completed-label</code> and <code>:lang()</code>, as below.
+        The stepper follows the text direction.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Translated" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The stepper is an ordered list, so screen readers announce the number of
+      steps and the position of each one. The numbers in the markers are hidden
+      from them, so they aren't read twice.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">Give it a name with <code>label</code>.</Fragment>
+      <Fragment slot="html"
+        >Give it a name with <code>aria-label</code>.</Fragment
+      >
+      <Fragment slot="svelte">Give it a name with <code>label</code>.</Fragment>
+      <Fragment slot="vue">Give it a name with <code>label</code>.</Fragment>
+    </Conditional>
+    <p>
+      <code>aria-current="step"</code> is announced as the current step. The completed
+      steps get "Completed: " from the marker's alternative text (<a
+        href="#completed-label">Completed label</a
+      >). Browsers without alternative text for generated content read the
+      numbers and "check mark" instead.
+    </p>
+    <p>
+      A custom check is hidden from screen readers with <code
+        >aria-hidden="true"</code
+      >, so the announcement stays the same.
+    </p>
+    <p>
+      In forced colors mode, completed markers are filled with <code
+        >CanvasText</code
+      >, the current marker gets a <code>Highlight</code> border, and the lines to
+      later steps are <code>GrayText</code>.
+    </p>
+  </Fragment>
+</Component>

@@ -1,0 +1,76 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Rating"
+
+const {
+  class: className,
+  clearLabel = "No rating",
+  disabled,
+  error,
+  label,
+  max = 5,
+  name,
+  required,
+  size,
+  starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
+  style,
+  value,
+  ...rest
+} = Astro.props
+
+const count = Number(max)
+const stars = Array.from({ length: count }, (_, index) => index + 1)
+const current = Number(value)
+const vars = count === 5 ? {} : { "--_max": count }
+const varStyle = Object.entries(vars)
+  .map(([property, number]) => `${property}: ${number};`)
+  .join(" ")
+const mergedStyle =
+  typeof style === "string" || !style
+    ? [varStyle, style].filter(Boolean).join(" ") || undefined
+    : { ...vars, ...style }
+---
+
+{
+  name ? (
+    <fieldset
+      class:list={["ui-rating", size && `ui-${size}`, className]}
+      disabled={disabled}
+      style={style}
+      {...rest}
+    >
+      {label && <legend>{label}</legend>}
+      {!required && (
+        <input
+          aria-invalid={error ? "true" : undefined}
+          aria-label={clearLabel}
+          checked={current === 0}
+          name={name}
+          type="radio"
+          value="0"
+        />
+      )}
+      {stars.map((star) => (
+        <input
+          aria-invalid={error ? "true" : undefined}
+          aria-label={starLabel(star)}
+          checked={current === star}
+          name={name}
+          required={required}
+          type="radio"
+          value={star}
+        />
+      ))}
+    </fieldset>
+  ) : (
+    <meter
+      aria-label={label}
+      class:list={["ui-rating", size && `ui-${size}`, className]}
+      max={max}
+      style={mergedStyle}
+      value={value}
+      {...rest}
+    />
+  )
+}

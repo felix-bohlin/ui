@@ -1,0 +1,307 @@
+<style>
+  @layer components.root {
+    :where(.ui-pagination) {
+      --_motion: var(--motion, 1);
+      --_bg-color: transparent;
+      --_border-color: transparent;
+      --_font-size: var(--font-size-1);
+      --_hover-bg-color: light-dark(
+        oklch(from var(--text-primary) l c h / var(--state-hover-alpha)),
+        oklch(from var(--text-primary) l c h / var(--state-hover-alpha-dark))
+      );
+      --_size: var(--control-size);
+
+      container: ui-pagination / inline-size;
+      font-size: var(--_font-size);
+
+      & > ol {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-1);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      & > ol > li > a {
+        align-items: center;
+        background-color: var(--_bg-color);
+        block-size: var(--_size);
+        border: var(--border-width) solid var(--_border-color);
+        border-radius: var(--border-radius);
+        color: var(--text-primary);
+        display: inline-flex;
+        font-variant-numeric: tabular-nums;
+        justify-content: center;
+        min-inline-size: var(--_size);
+        padding-inline: var(--size-2);
+        text-decoration: none;
+        transition: background-color calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
+
+        & > svg {
+          block-size: var(--icon-size);
+          flex-shrink: 0;
+          inline-size: var(--icon-size);
+        }
+
+        @media (hover: hover) {
+          &:hover:not([aria-current="page"], [aria-disabled="true"]) {
+            background-color: var(--_hover-bg-color);
+          }
+        }
+
+        &[aria-current="page"] {
+          background-color: var(--primary);
+          border-color: var(--primary);
+          color: var(--primary-contrast);
+          font-weight: var(--font-weight-semibold);
+        }
+
+        &[aria-disabled="true"] {
+          color: var(--text-disabled);
+          cursor: not-allowed;
+        }
+      }
+
+      &:dir(rtl) > ol > li > a > svg {
+        scale: -1 1;
+      }
+
+      & > ol > li.ui-ellipsis {
+        color: var(--text-muted);
+        min-inline-size: var(--_size);
+        text-align: center;
+      }
+
+      & > ol > li.ui-status {
+        color: var(--text-muted);
+        display: none;
+        font-variant-numeric: tabular-nums;
+        padding-inline: var(--size-2);
+        white-space: nowrap;
+      }
+
+      &.ui-outlined {
+        --_border-color: var(--border-color);
+      }
+
+      &.ui-tonal {
+        --_bg-color: var(--surface-tonal);
+      }
+
+      &.ui-x-small {
+        --_font-size: var(--font-size-0);
+        --_size: var(--control-size-x-small);
+      }
+
+      &.ui-small {
+        --_font-size: var(--font-size-05);
+        --_size: var(--control-size-small);
+      }
+
+      &.ui-large {
+        --_size: var(--control-size-large);
+      }
+
+      @container ui-pagination (inline-size < 24rem) {
+        & > ol {
+          flex-wrap: nowrap;
+          justify-content: space-between;
+        }
+
+        & > ol > li:not(:first-child, :last-child, .ui-status) {
+          display: none;
+        }
+
+        & > ol > li.ui-status {
+          display: block;
+        }
+      }
+
+      @media (forced-colors: active) {
+        & > ol > li > a[aria-current="page"] {
+          background-color: Highlight;
+          color: HighlightText;
+          forced-color-adjust: none;
+        }
+
+        & > ol > li > a[aria-disabled="true"] {
+          color: GrayText;
+        }
+      }
+    }
+  }
+
+  .todo-pagination-cases {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: 100%;
+  }
+
+  .todo-pagination-case {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-pagination-resize {
+    border: var(--border-width) dashed var(--border-color);
+    border-radius: var(--border-radius);
+    inline-size: 20rem;
+    max-inline-size: 100%;
+    min-inline-size: 12rem;
+    overflow: hidden;
+    padding: var(--size-3);
+    resize: horizontal;
+  }
+</style>
+
+<div class="todo-pagination-cases">
+  <div class="todo-pagination-case">
+    <h2 class="ui-h6">Page 3 of 12</h2>
+    <nav class="ui-pagination" aria-label="Pagination">
+      <ol>
+        <li>
+          <a href="#pagination-2" aria-label="Previous page">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="ui-status">Page 3 of 12</li>
+        <li><a href="#pagination-1">1</a></li>
+        <li><a href="#pagination-2">2</a></li>
+        <li><a href="#pagination-3" aria-current="page">3</a></li>
+        <li><a href="#pagination-4">4</a></li>
+        <li class="ui-ellipsis" aria-hidden="true">…</li>
+        <li><a href="#pagination-12">12</a></li>
+        <li>
+          <a href="#pagination-4" aria-label="Next page">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="todo-pagination-case">
+    <h2 class="ui-h6">Outlined, small, first page: Previous is disabled</h2>
+    <nav class="ui-pagination ui-outlined ui-small" aria-label="Customers">
+      <ol>
+        <li>
+          <a role="link" aria-disabled="true" aria-label="Previous page">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="ui-status">Page 1 of 22</li>
+        <li><a href="#pagination-1" aria-current="page">1</a></li>
+        <li><a href="#pagination-2">2</a></li>
+        <li><a href="#pagination-3">3</a></li>
+        <li class="ui-ellipsis" aria-hidden="true">…</li>
+        <li><a href="#pagination-22">22</a></li>
+        <li>
+          <a href="#pagination-2" aria-label="Next page">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="todo-pagination-case">
+    <h2 class="ui-h6">
+      Narrow container: collapses to "Page 3 of 12" (drag the corner)
+    </h2>
+    <div class="todo-pagination-resize">
+      <nav class="ui-pagination ui-tonal" aria-label="Pagination, narrow">
+        <ol>
+          <li>
+            <a href="#pagination-2" aria-label="Previous page">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                />
+              </svg>
+            </a>
+          </li>
+          <li class="ui-status">Page 3 of 12</li>
+          <li><a href="#pagination-1">1</a></li>
+          <li><a href="#pagination-2">2</a></li>
+          <li><a href="#pagination-3" aria-current="page">3</a></li>
+          <li><a href="#pagination-4">4</a></li>
+          <li class="ui-ellipsis" aria-hidden="true">…</li>
+          <li><a href="#pagination-12">12</a></li>
+          <li>
+            <a href="#pagination-4" aria-label="Next page">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                />
+              </svg>
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="todo-pagination-case">
+    <h2 class="ui-h6">Right to left, last page: the arrows mirror</h2>
+    <nav
+      class="ui-pagination ui-outlined"
+      aria-label="ترقيم الصفحات"
+      dir="rtl"
+      lang="ar"
+    >
+      <ol>
+        <li>
+          <a href="#pagination-4" aria-label="الصفحة السابقة">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="ui-status">الصفحة 5 من 5</li>
+        <li><a href="#pagination-1">1</a></li>
+        <li><a href="#pagination-2">2</a></li>
+        <li><a href="#pagination-3">3</a></li>
+        <li><a href="#pagination-4">4</a></li>
+        <li><a href="#pagination-5" aria-current="page">5</a></li>
+        <li>
+          <a role="link" aria-disabled="true" aria-label="الصفحة التالية">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</div>

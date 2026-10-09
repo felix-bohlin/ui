@@ -1,0 +1,359 @@
+@layer components.root {
+  :where(.ui-bar-chart) {
+    --_motion: var(--motion, 1);
+    --_accent: var(--_series-1);
+    --_bar-size: 2.5rem;
+    --_block-size: 12rem;
+    --_data-max: var(--max, 100);
+    --_data-min: var(--min, 0);
+    --_hi: round(up, max(var(--_data-max), 0), var(--_step));
+    --_lo: round(down, min(var(--_data-min), 0), var(--_step));
+    --_mag: pow(10, round(down, log(var(--_rough), 10), 1));
+    --_norm: calc(var(--_rough) / var(--_mag));
+    --_range: calc(var(--_hi) - var(--_lo));
+    --_rough: calc((max(var(--_data-max), 0) - min(var(--_data-min), 0)) / 5);
+    --_series: 1;
+    --_series-1: var(--primary);
+    --_series-2: var(--orange);
+    --_series-3: light-dark(
+      oklch(from var(--color-9) l 0.2 330),
+      oklch(from var(--color-8) l 0.2 330)
+    );
+    --_step: calc(
+      var(--_mag) *
+        (
+          1 + clamp(0, (var(--_norm) - 1.41) * 1e6, 1) + 3 *
+            clamp(0, (var(--_norm) - 3.16) * 1e6, 1) + 5 *
+            clamp(0, (var(--_norm) - 7.07) * 1e6, 1)
+        )
+    );
+    --_tick: calc(var(--_block-size) * var(--_step) / var(--_range));
+
+    border-collapse: collapse;
+    display: grid;
+    font-size: var(--font-size-0);
+    gap: var(--size-3);
+    inline-size: 100%;
+    margin: 0;
+
+    @supports (x: attr(x type(*))) {
+      --_data-max: attr(data-max type(<number>), var(--max, 100));
+      --_data-min: attr(data-min type(<number>), var(--min, 0));
+    }
+
+    &:has(td + td) {
+      --_series: 2;
+    }
+
+    &:has(td + td + td) {
+      --_series: 3;
+    }
+
+    & > caption {
+      color: var(--text-primary);
+      font-size: var(--font-size-1);
+      font-weight: var(--font-weight-semibold);
+      text-align: start;
+    }
+
+    &:not(:has(td + td)) > thead,
+    & > thead :is(td, th):first-child {
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    & > thead > tr {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1) var(--size-3);
+    }
+
+    & > thead th {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-weight: inherit;
+      gap: var(--size-1);
+      padding: 0;
+
+      &::before {
+        background: var(--_fill);
+        block-size: var(--size-2);
+        border-radius: var(--radius-1);
+        content: "";
+        forced-color-adjust: none;
+        inline-size: var(--size-3);
+        print-color-adjust: exact;
+      }
+
+      @media (forced-colors: active) {
+        color: CanvasText;
+      }
+    }
+
+    & :is(td, th) {
+      --_fill: var(--_accent);
+
+      @media (forced-colors: active) {
+        --_fill: CanvasText;
+      }
+    }
+
+    & :is(td, th):nth-child(3) {
+      --_accent: var(--_series-2);
+
+      @media (forced-colors: active) {
+        --_fill: repeating-linear-gradient(
+          45deg,
+          CanvasText 0 2px,
+          Canvas 0 5px
+        );
+      }
+    }
+
+    & :is(td, th):nth-child(4) {
+      --_accent: var(--_series-3);
+
+      @media (forced-colors: active) {
+        --_fill: repeating-linear-gradient(
+          -45deg,
+          CanvasText 0 1px,
+          Canvas 0 3px
+        );
+      }
+    }
+
+    & > tbody {
+      column-gap: var(--size-2);
+      display: grid;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      grid-template-columns: max-content;
+      grid-template-rows: var(--_block-size) auto;
+      isolation: isolate;
+      position: relative;
+
+      &::before {
+        color: var(--text-muted);
+        content: counter(ui-tick-9) "\A" counter(ui-tick-8) "\A"
+          counter(ui-tick-7) "\A" counter(ui-tick-6) "\A" counter(ui-tick-5)
+          "\A" counter(ui-tick-4) "\A" counter(ui-tick-3) "\A"
+          counter(ui-tick-2) "\A" counter(ui-tick-1) "\A" counter(ui-tick-0) /
+          "";
+        counter-reset: ui-tick-0 var(--_lo) ui-tick-1
+          calc(var(--_lo) + var(--_step)) ui-tick-2
+          calc(var(--_lo) + 2 * var(--_step)) ui-tick-3
+          calc(var(--_lo) + 3 * var(--_step)) ui-tick-4
+          calc(var(--_lo) + 4 * var(--_step)) ui-tick-5
+          calc(var(--_lo) + 5 * var(--_step)) ui-tick-6
+          calc(var(--_lo) + 6 * var(--_step)) ui-tick-7
+          calc(var(--_lo) + 7 * var(--_step)) ui-tick-8
+          calc(var(--_lo) + 8 * var(--_step)) ui-tick-9
+          calc(var(--_lo) + 9 * var(--_step));
+        display: flex;
+        flex-direction: column;
+        font-variant-numeric: tabular-nums;
+        grid-area: 1 / 1;
+        justify-content: end;
+        line-height: var(--_tick);
+        margin-block: calc(var(--_tick) / -2);
+        overflow: hidden;
+        text-align: end;
+        white-space: pre;
+
+        @media (forced-colors: active) {
+          color: CanvasText;
+        }
+      }
+
+      &::after {
+        background:
+          linear-gradient(var(--text-muted) 0 0) 0
+            calc(var(--_block-size) * var(--_hi) / var(--_range)) / 100%
+            var(--border-width) no-repeat,
+          linear-gradient(
+              to top,
+              var(--border-color) var(--border-width),
+              transparent 0
+            )
+            bottom / 100% var(--_tick);
+        content: "";
+        grid-area: 1 / 2 / 2 / auto;
+        inset-block: calc(var(--border-width) * -1) 0;
+        inset-inline: 0;
+        position: absolute;
+        print-color-adjust: exact;
+        z-index: -1;
+
+        @media (forced-colors: active) {
+          --border-color: GrayText;
+          --text-muted: CanvasText;
+
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    & > tbody > tr {
+      column-gap: 2px;
+      container-type: inline-size;
+      display: grid;
+      grid-row: 1 / span 2;
+      grid-template-columns:
+        1fr repeat(var(--_series), minmax(0, var(--_bar-size)))
+        1fr;
+      grid-template-rows: var(--_block-size) auto;
+    }
+
+    & > tbody > tr > th {
+      color: var(--text-muted);
+      font-weight: inherit;
+      grid-area: 2 / 1 / 3 / -1;
+      overflow: hidden;
+      padding-block: var(--size-1) 0;
+      padding-inline: 0;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @media (forced-colors: active) {
+        color: CanvasText;
+        forced-color-adjust: none;
+      }
+    }
+
+    & > tbody > tr > td {
+      --_bar: calc(
+        var(--_block-size) * max(var(--_value), -1 * var(--_value)) /
+          var(--_range)
+      );
+      --_pos: clamp(0, var(--_value) * 1e9 + 1, 1);
+      --_value: var(--value, 0);
+
+      align-self: start;
+      border-radius: var(--radius-2);
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: center;
+      margin-block-start: calc(
+        var(--_block-size) * (var(--_hi) - var(--_value)) / var(--_range)
+      );
+      padding-block: var(--size-1);
+      padding-inline: var(--size-2);
+      position: relative;
+      translate: 0 calc(-100% * var(--_pos));
+      white-space: nowrap;
+
+      @media (forced-colors: active) {
+        color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      @supports (x: attr(x type(*))) {
+        --_value: attr(data-value type(<number>), var(--value, 0));
+      }
+
+      &::after {
+        background: var(--_fill);
+        block-size: var(--_bar);
+        border-end-end-radius: calc(var(--radius-2) * (1 - var(--_pos)));
+        border-end-start-radius: calc(var(--radius-2) * (1 - var(--_pos)));
+        border-start-end-radius: calc(var(--radius-2) * var(--_pos));
+        border-start-start-radius: calc(var(--radius-2) * var(--_pos));
+        content: "";
+        inline-size: min(
+          var(--_bar-size),
+          (100cqi - 2px * (var(--_series) - 1)) / var(--_series)
+        );
+        inset-block-start: calc(
+          var(--_pos) * 100% - (1 - var(--_pos)) * var(--_bar)
+        );
+        inset-inline: 0;
+        margin-inline: auto;
+        position: absolute;
+        print-color-adjust: exact;
+        transform-origin: 50% calc(var(--_pos) * 100%);
+        transition:
+          opacity calc(var(--duration) * var(--_motion)) var(--ease),
+          scale calc(var(--duration-slow) * var(--_motion)) var(--ease-enter);
+
+        @starting-style {
+          scale: 1 0;
+        }
+
+        @media (forced-colors: active) {
+          forced-color-adjust: none;
+        }
+      }
+
+      &:is(:hover, :focus-visible) {
+        background-color: var(--surface-inverse);
+        color: var(--text-inverse);
+        z-index: 1;
+
+        @media (forced-colors: active) {
+          background-color: Canvas;
+          color: CanvasText;
+          outline: var(--border-width) solid CanvasText;
+        }
+      }
+    }
+
+    & > tbody > tr > td:nth-child(3) {
+      grid-column: 3;
+    }
+
+    & > tbody > tr > td:nth-child(4) {
+      grid-column: 4;
+    }
+
+    &:has(td + td) > tbody td:not(:hover, :focus-visible) {
+      color: transparent;
+    }
+
+    &
+      > tbody:has(td:is(:hover, :focus-visible))
+      td:not(:hover, :focus-visible)::after {
+      opacity: 0.4;
+    }
+
+    & > tbody > tr:has(> td:is(:hover, :focus-visible)) > th {
+      color: var(--text-primary);
+    }
+
+    &
+      > tbody
+      > tr:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning)
+      > td {
+      --_accent: light-dark(var(--color-9), var(--color-6));
+    }
+
+    &.ui-small {
+      --_bar-size: 1.5rem;
+      --_block-size: 8rem;
+    }
+
+    &.ui-large {
+      --_bar-size: 3.5rem;
+      --_block-size: 16rem;
+    }
+
+    @container (inline-size < 2.5rem) {
+      & > tbody > tr > th {
+        justify-self: center;
+        overflow: visible;
+      }
+
+      & > tbody > tr:nth-child(even) > th,
+      & > tbody td:not(:hover, :focus-visible) {
+        color: transparent;
+      }
+    }
+  }
+}

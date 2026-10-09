@@ -52,6 +52,9 @@ const whatsNew = {
       vue: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
     },
   ],
+  "bar-chart": [
+    `New component. A <a href="#basics">data table drawn as a column chart</a>, with a computed axis, grouped series and tooltips. HTML and CSS only.`,
+  ],
   button: [
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
@@ -180,6 +183,9 @@ const whatsNew = {
       html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
   ],
+  "data-grid": [
+    `New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and <code>:has()</code>. HTML and CSS only.`,
+  ],
   dialog: [
     `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
     `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,
@@ -246,6 +252,12 @@ const whatsNew = {
     `A subtle light gray border in dark mode, so <a href="#basics">menus</a> stand out on dialogs and other raised surfaces.`,
     `Tall menus shrink to the space on their side instead of running off-screen (<a href="#placement">Placement</a>).`,
   ],
+  message: [
+    `New component. <a href="#basics">Chat bubbles</a> that group by sender, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+  ],
+  "one-time-code": [
+    `New component. A <a href="#basics">one-time code field</a> that draws one input as a box per character, so paste and SMS autofill work without JavaScript.`,
+  ],
   progress: [
     {
       astro: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
@@ -294,6 +306,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
+  rating: [
+    `New component. A <a href="#basics">star rating</a> that shows a score with exact fractions, or <a href="#input">collects one</a> with radios.`,
+  ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
@@ -322,6 +337,9 @@ const whatsNew = {
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
+  ],
+  stepper: [
+    `New component. A <a href="#basics">stepper</a> where the current step marks every step before it as complete, with a <a href="#custom-checkmark">custom checkmark</a>.`,
   ],
   switch: [
     {
@@ -421,6 +439,9 @@ const whatsNew = {
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
   ],
+  timeline: [
+    `New component. A <a href="#basics">timeline</a> of dated events whose dates line up in their own column, with colors, custom markers and progress.`,
+  ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
@@ -461,10 +482,16 @@ const whatsNew = {
 } satisfies Record<string, Note[]>
 
 const highlighted = new Set([
+  "bar-chart",
   "button",
   "carousel",
   "menu",
+  "message",
+  "one-time-code",
+  "rating",
+  "stepper",
   "tabs",
+  "timeline",
   "typography",
 ])
 

@@ -4,6 +4,7 @@ import {
   Anchor,
   Avatar,
   Badge,
+  BarChart,
   Button,
   ButtonGroup,
   Callout,
@@ -20,15 +21,21 @@ import {
   Form,
   List,
   ListItem,
+  Message,
+  Messages,
+  OneTimeCode,
   Progress,
   Radio,
   Range,
+  Rating,
   Select,
+  Stepper,
   Switch,
   Table,
   Tabs,
   TextField,
   Textarea,
+  Timeline,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -106,6 +113,24 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Badge" href="/components/badge">
     <Badge aria-hidden="true" label="3">Inbox</Badge>
+  </ComponentCard>
+
+  <ComponentCard name="Bar Chart" href="/components/bar-chart">
+    <BarChart
+      aria-hidden="true"
+      focusable={false}
+      inert
+      label="Day"
+      rows={[
+        { label: "Mon", values: [4] },
+        { label: "Tue", values: [7] },
+        { label: "Wed", values: [5] },
+        { label: "Thu", values: [9] },
+        { label: "Fri", values: [6] },
+      ]}
+      series={["Deploys"]}
+      size="small"
+    />
   </ComponentCard>
 
   <ComponentCard name="Button" href="/components/button">
@@ -268,6 +293,22 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </menu>
   </ComponentCard>
 
+  <ComponentCard name="Message" href="/components/message">
+    <Messages aria-hidden="true" class="showcase-messages" inert>
+      <Message author="Saga">
+        <Avatar slot="avatar">SN</Avatar>
+        <p>Lunch?</p>
+      </Message>
+      <Message author="You" outgoing>
+        <p>Yes please!</p>
+      </Message>
+    </Messages>
+  </ComponentCard>
+
+  <ComponentCard name="One-Time Code" href="/components/one-time-code">
+    <OneTimeCode aria-hidden="true" grouped inert value="482" />
+  </ComponentCard>
+
   <ComponentCard name="Progress" href="/components/progress">
     <Progress variant="filled" aria-busy="true" aria-hidden="true" />
   </ComponentCard>
@@ -290,6 +331,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     />
   </ComponentCard>
 
+  <ComponentCard name="Rating" href="/components/rating">
+    <Rating
+      aria-hidden="true"
+      inert
+      label="Rated 4.5 out of 5"
+      size="large"
+      value={4.5}
+    />
+  </ComponentCard>
+
   <ComponentCard name="Select" href="/components/select">
     <FrameworkPicker />
   </ComponentCard>
@@ -299,6 +350,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
       Loading
     </Button>
+  </ComponentCard>
+
+  <ComponentCard name="Stepper" href="/components/stepper">
+    <Stepper
+      aria-hidden="true"
+      current={1}
+      inert
+      items={[{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }]}
+      size="small"
+    />
   </ComponentCard>
 
   <ComponentCard name="Switch" href="/components/switch">
@@ -352,6 +413,20 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Textarea" href="/components/textarea">
     <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
+  </ComponentCard>
+
+  <ComponentCard name="Timeline" href="/components/timeline">
+    <Timeline aria-hidden="true" inert size="small">
+      <Timeline.Item color="success" datetime="2026-09-02" time="Sep 2">
+        <p>Design freeze</p>
+      </Timeline.Item>
+      <Timeline.Item current datetime="2026-10-14" time="Oct 14">
+        <p>Beta review</p>
+      </Timeline.Item>
+      <Timeline.Item datetime="2026-10-31" time="Oct 31">
+        <p>Launch</p>
+      </Timeline.Item>
+    </Timeline>
   </ComponentCard>
 
   <ComponentCard name="Toast" href="/components/toast">
@@ -511,6 +586,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-menu {
+      inline-size: 100%;
+      max-inline-size: 14rem;
+    }
+
+    .showcase-messages {
       inline-size: 100%;
       max-inline-size: 14rem;
     }

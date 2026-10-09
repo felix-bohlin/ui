@@ -1,0 +1,641 @@
+<style>
+  @layer components.root {
+    :where(.ui-messages) {
+      container-type: inline-size;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-1);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    :where(.ui-message) {
+      --_motion: var(--motion, 1);
+      --_bg-color: var(--surface-tonal);
+      --_bottom: var(--_radius);
+      --_radius: var(--radius-3);
+      --_text-color: var(--text-primary);
+      --_tight: var(--size-1);
+      --_top: var(--_radius);
+
+      align-items: end;
+      align-self: start;
+      display: grid;
+      grid-template-areas: "avatar bubble add" ". reactions .";
+      grid-template-columns: auto minmax(0, auto) auto;
+      max-inline-size: min(36rem, 85cqi);
+
+      @supports (corner-shape: squircle) {
+        --_radius: calc(var(--radius-3) * 1.75);
+      }
+
+      & > .ui-avatar {
+        font-size: var(--font-size-0);
+        grid-area: avatar;
+        inline-size: var(--control-size-small);
+        margin-inline-end: var(--size-2);
+      }
+
+      .ui-bubble {
+        background-color: var(--_bg-color);
+        border-end-end-radius: var(--_radius);
+        border-end-start-radius: var(--_bottom);
+        border-start-end-radius: var(--_radius);
+        border-start-start-radius: var(--_top);
+        color: var(--_text-color);
+        display: grid;
+        gap: var(--size-1);
+        grid-area: bubble;
+        justify-self: start;
+        min-inline-size: 0;
+        overflow-wrap: anywhere;
+        padding-block: var(--size-2);
+        padding-inline: var(--size-3);
+
+        @supports (corner-shape: squircle) {
+          corner-shape: squircle;
+        }
+
+        & > * {
+          margin: 0;
+        }
+      }
+
+      .ui-header {
+        font-size: var(--font-size-0);
+        font-weight: var(--font-weight-semibold);
+      }
+
+      .ui-footer {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        text-align: end;
+      }
+
+      .ui-attachment {
+        align-items: center;
+        background-color: var(--surface-default);
+        border: var(--border-width) solid var(--border-color);
+        border-radius: var(--radius-2);
+        color: var(--text-primary);
+        display: flex;
+        gap: var(--size-2);
+        padding: var(--size-2);
+
+        & > svg {
+          color: var(--primary);
+          flex-shrink: 0;
+          inline-size: var(--icon-size);
+        }
+
+        p {
+          color: var(--text-muted);
+          font-size: var(--font-size-0);
+          margin: 0;
+        }
+      }
+
+      .ui-reactions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-1);
+        grid-area: reactions;
+        margin-block: calc(var(--size-2) * -1) var(--size-1);
+        padding-inline: var(--size-2);
+      }
+
+      & > .ui-reaction-add {
+        align-self: center;
+        grid-area: add;
+        margin-inline-start: var(--size-1);
+        transition: opacity calc(var(--duration) * var(--_motion)) var(--ease);
+      }
+
+      @media (hover: hover) {
+        &:not(:hover, :focus-within, :has(:popover-open)) > .ui-reaction-add {
+          opacity: 0;
+        }
+      }
+
+      &.ui-outgoing {
+        --_bg-color: var(--primary);
+        --_text-color: var(--primary-contrast);
+
+        align-self: end;
+        grid-template-areas: "add bubble avatar" ". reactions .";
+
+        & > .ui-avatar {
+          margin-inline: var(--size-2) 0;
+        }
+
+        & > .ui-reaction-add {
+          margin-inline: 0 var(--size-1);
+        }
+
+        .ui-bubble {
+          border-end-end-radius: var(--_bottom);
+          border-end-start-radius: var(--_radius);
+          border-start-end-radius: var(--_top);
+          border-start-start-radius: var(--_radius);
+          justify-self: end;
+        }
+
+        .ui-footer {
+          color: inherit;
+        }
+
+        .ui-reactions {
+          justify-content: end;
+        }
+      }
+
+      &:not(.ui-outgoing):has(+ .ui-message:not(.ui-outgoing)),
+      &.ui-outgoing:has(+ .ui-message.ui-outgoing) {
+        --_bottom: var(--_tight);
+
+        & > .ui-avatar {
+          visibility: hidden;
+        }
+      }
+
+      :where(.ui-message:not(.ui-outgoing)) + &:not(.ui-outgoing),
+      :where(.ui-message.ui-outgoing) + &.ui-outgoing {
+        --_top: var(--_tight);
+
+        .ui-header {
+          block-size: 1px;
+          clip-path: inset(50%);
+          inline-size: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+        }
+      }
+
+      :where(.ui-message:not(.ui-outgoing)) + &.ui-outgoing,
+      :where(.ui-message.ui-outgoing) + &:not(.ui-outgoing) {
+        margin-block-start: var(--size-3);
+      }
+
+      &.ui-typing .ui-bubble::before {
+        --_dot: radial-gradient(
+          circle closest-side,
+          currentColor 90%,
+          transparent
+        );
+
+        animation: ui-message-typing calc(1.2s * var(--_motion)) infinite;
+        background:
+          var(--_dot) 0 50% / var(--size-2) var(--size-2),
+          var(--_dot) 50% 50% / var(--size-2) var(--size-2),
+          var(--_dot) 100% 50% / var(--size-2) var(--size-2);
+        background-repeat: no-repeat;
+        block-size: 1lh;
+        color: var(--text-muted);
+        content: "";
+        inline-size: var(--size-7);
+      }
+
+      @container style(--motion: 0) {
+        &.ui-typing .ui-bubble::before {
+          animation: none;
+        }
+      }
+
+      @media (forced-colors: active) {
+        .ui-bubble {
+          border: var(--border-width) solid CanvasText;
+        }
+
+        &.ui-typing .ui-bubble::before {
+          color: CanvasText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    :where(.ui-reaction) {
+      --_bg-color: var(--surface-default);
+      --_border-color: var(--border-color);
+
+      align-items: center;
+      background-color: var(--_bg-color);
+      block-size: var(--size-6);
+      border: var(--border-width) solid var(--_border-color);
+      border-radius: var(--radius-round);
+      box-shadow: 0 0 0 var(--border-width) var(--surface-default);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: var(--font-size-1);
+      gap: var(--size-1);
+      line-height: 1;
+      padding-block: 0;
+      padding-inline: var(--size-2);
+      user-select: none;
+
+      &::after {
+        content: attr(data-count) / "";
+        font-size: var(--font-size-0);
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--font-weight-semibold);
+      }
+
+      @supports (x: attr(x type(*))) {
+        counter-reset: ui-reaction attr(data-count type(<integer>), 0);
+
+        &::after {
+          content: counter(ui-reaction) / "";
+        }
+
+        &:has(input[checked]:not(:checked)) {
+          counter-increment: ui-reaction -1;
+        }
+
+        &:has(input:not([checked]):checked) {
+          counter-increment: ui-reaction;
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          --_border-color: var(--text-muted);
+        }
+      }
+
+      &:has(input:focus-visible) {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, var(--_focus-visible-color));
+        outline-offset: var(--focus-ring-offset);
+      }
+
+      &:is(:has(input:checked), [aria-pressed="true"]) {
+        --_bg-color: color-mix(
+          in oklch,
+          var(--primary) 16%,
+          var(--surface-default)
+        );
+        --_border-color: var(--primary);
+      }
+
+      @media (forced-colors: active) {
+        --_border-color: ButtonText;
+
+        &:is(:has(input:checked), [aria-pressed="true"]) {
+          --_bg-color: SelectedItem;
+          --_border-color: SelectedItem;
+
+          color: SelectedItemText;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    :where(.ui-reaction-picker) {
+      --_motion: var(--motion, 1);
+      --_duration: calc(var(--duration) * var(--_motion));
+
+      background-color: var(--surface-elevated);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-round);
+      box-shadow: var(--shadow-3);
+      color: var(--text-primary);
+      gap: var(--size-1);
+      inset: auto;
+      margin: var(--size-1);
+      opacity: 0;
+      padding: var(--size-1);
+      position-area: block-start center;
+      position-try-fallbacks:
+        block-start span-inline-start,
+        block-start span-inline-end,
+        flip-block;
+      scale: 0.9;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--ease-enter),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--ease-enter);
+
+      &:popover-open {
+        display: flex;
+        opacity: 1;
+        scale: 1;
+
+        @starting-style {
+          opacity: 0;
+          scale: 0.9;
+        }
+      }
+
+      button {
+        aspect-ratio: 1;
+        background-color: transparent;
+        block-size: var(--control-size-small);
+        border: 0;
+        border-radius: var(--radius-round);
+        cursor: pointer;
+        font-size: var(--font-size-3);
+        line-height: 1;
+        padding: 0;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--surface-tonal);
+          }
+        }
+      }
+
+      @media (forced-colors: active) {
+        border-color: CanvasText;
+      }
+    }
+
+    @keyframes ui-message-typing {
+      0%,
+      60%,
+      100% {
+        background-position-y: 50%, 50%, 50%;
+      }
+
+      15% {
+        background-position-y: 15%, 50%, 50%;
+      }
+
+      30% {
+        background-position-y: 50%, 15%, 50%;
+      }
+
+      45% {
+        background-position-y: 50%, 50%, 15%;
+      }
+    }
+  }
+
+  .todo-message-grid {
+    display: grid;
+    gap: var(--size-5) var(--size-6);
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    inline-size: 100%;
+
+    @media (width < 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .todo-message-case {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-message-thread {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--size-3);
+  }
+</style>
+
+<div class="todo-message-grid">
+  <section aria-labelledby="message-thread-heading" class="todo-message-case">
+    <h2 class="ui-h6" id="message-thread-heading">
+      Grouped thread with reactions: toggle yours, or add one
+    </h2>
+    <ol
+      aria-label="Messages in #pricing"
+      class="ui-messages todo-message-thread"
+    >
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>Did anyone get a chance to look at the pricing proposal?</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:02">14:02</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>No rush, Friday is fine.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:03">14:03</time>
+          </p>
+        </div>
+        <div aria-label="Reactions" class="ui-reactions" role="group">
+          <label class="ui-reaction" data-count="3">
+            <input
+              checked
+              class="ui-sr-only"
+              form="message-picker-friday"
+              name="reaction"
+              type="checkbox"
+              value="+1"
+            />
+            <span aria-hidden="true">👍</span>
+            <span class="ui-sr-only">Thumbs up, 2 others</span>
+          </label>
+          <label class="ui-reaction" data-count="1">
+            <input
+              class="ui-sr-only"
+              form="message-picker-friday"
+              name="reaction"
+              type="checkbox"
+              value="pray"
+            />
+            <span aria-hidden="true">🙏</span>
+            <span class="ui-sr-only">Folded hands, 1 other</span>
+          </label>
+        </div>
+        <button
+          aria-label="Add reaction"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-friday"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-friday" popover>
+          <button aria-label="Thumbs up" name="add" value="+1">👍</button>
+          <button aria-label="Heart" name="add" value="heart">❤️</button>
+          <button aria-label="Laughing" name="add" value="joy">😂</button>
+          <button aria-label="Party" name="add" value="tada">🎉</button>
+          <button aria-label="Eyes" name="add" value="eyes">👀</button>
+        </form>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>Yes, looks good. I'd lead with the annual plan.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:18">14:18</time>
+          </p>
+        </div>
+        <div aria-label="Reactions" class="ui-reactions" role="group">
+          <label class="ui-reaction" data-count="3">
+            <input
+              class="ui-sr-only"
+              form="message-picker-annual"
+              name="reaction"
+              type="checkbox"
+              value="tada"
+            />
+            <span aria-hidden="true">🎉</span>
+            <span class="ui-sr-only">Party, 3 others</span>
+          </label>
+          <label class="ui-reaction" data-count="1">
+            <input
+              class="ui-sr-only"
+              form="message-picker-annual"
+              name="reaction"
+              type="checkbox"
+              value="heart"
+            />
+            <span aria-hidden="true">❤️</span>
+            <span class="ui-sr-only">Heart, 1 other</span>
+          </label>
+        </div>
+        <button
+          aria-label="Add reaction"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-annual"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-annual" popover>
+          <button aria-label="Thumbs up" name="add" value="+1">👍</button>
+          <button aria-label="Heart" name="add" value="heart">❤️</button>
+          <button aria-label="Laughing" name="add" value="joy">😂</button>
+          <button aria-label="Party" name="add" value="tada">🎉</button>
+          <button aria-label="Eyes" name="add" value="eyes">👀</button>
+        </form>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>Can you add the Bergen Bikes case study too?</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:19">14:19</time> · Read
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>Good call. Here's the current draft:</p>
+          <div class="ui-attachment">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+              />
+            </svg>
+            <div>
+              <a class="ui-link" href="#message-file">Pricing-proposal.pdf</a>
+              <p>PDF · 2.4 MB</p>
+            </div>
+          </div>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:31">14:31</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-typing">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble" role="status">
+          <span class="ui-sr-only">Saga is typing…</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+  <section
+    aria-labelledby="message-rtl-heading"
+    class="todo-message-case"
+    dir="rtl"
+    lang="ar"
+  >
+    <h2 class="ui-h6" id="message-rtl-heading">
+      RTL، ضيقة، تفاعلات بأزرار ونموذج
+    </h2>
+    <ol aria-label="رسائل فريق التصميم" class="ui-messages todo-message-thread">
+      <li class="ui-message">
+        <div aria-label="ليلى" class="ui-avatar" role="img">لي</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>الأيقونات الجديدة جاهزة.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:12">09:12</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="ليلى" class="ui-avatar" role="img">لي</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>هل نراجعها اليوم؟</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:13">09:13</time>
+          </p>
+        </div>
+        <div aria-label="التفاعلات" class="ui-reactions" role="group">
+          <button
+            aria-pressed="true"
+            class="ui-reaction"
+            data-count="2"
+            form="message-picker-rtl"
+            name="reaction"
+            value="+1"
+          >
+            <span aria-hidden="true">👍</span>
+            <span class="ui-sr-only">إعجاب، تفاعلان</span>
+          </button>
+        </div>
+        <button
+          aria-label="إضافة تفاعل"
+          class="ui-button ui-x-small ui-rounded ui-reaction-add"
+          command="toggle-popover"
+          commandfor="message-picker-rtl"
+          type="button"
+        >
+          <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+            />
+          </svg>
+        </button>
+        <form class="ui-reaction-picker" id="message-picker-rtl" popover>
+          <button aria-label="إعجاب" name="add" value="+1">👍</button>
+          <button aria-label="قلب" name="add" value="heart">❤️</button>
+          <button aria-label="ضحك" name="add" value="joy">😂</button>
+          <button aria-label="احتفال" name="add" value="tada">🎉</button>
+          <button aria-label="عيون" name="add" value="eyes">👀</button>
+        </form>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p>نعم، بعد الظهر.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T09:20">09:20</time>
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+</div>

@@ -1,0 +1,410 @@
+@layer components.extended {
+  :where(.ui-messages) {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(.ui-message) {
+    --_motion: var(--motion, 1);
+    --_avatar-size: var(--control-size-small);
+    --_bg-color: var(--surface-tonal);
+    --_bottom: var(--_radius);
+    --_max-inline-size: min(36rem, 85cqi);
+    --_radius: var(--radius-3);
+    --_reaction-add-opacity: 0;
+    --_text-color: var(--text-primary);
+    --_tight: var(--size-1);
+    --_top: var(--_radius);
+
+    align-items: end;
+    align-self: start;
+    display: grid;
+    grid-template-areas: "avatar bubble add" ". reactions .";
+    grid-template-columns: auto minmax(0, auto) auto;
+    max-inline-size: var(--_max-inline-size);
+
+    @supports (corner-shape: squircle) {
+      --_radius: calc(var(--radius-3) * 1.75);
+    }
+
+    & > .ui-avatar {
+      font-size: var(--font-size-0);
+      grid-area: avatar;
+      inline-size: var(--_avatar-size);
+      margin-inline-end: var(--size-2);
+    }
+
+    .ui-bubble {
+      background-color: var(--_bg-color);
+      border-end-end-radius: var(--_radius);
+      border-end-start-radius: var(--_bottom);
+      border-start-end-radius: var(--_radius);
+      border-start-start-radius: var(--_top);
+      color: var(--_text-color);
+      display: grid;
+      gap: var(--size-1);
+      grid-area: bubble;
+      justify-self: start;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+      padding-block: var(--size-2);
+      padding-inline: var(--size-3);
+
+      @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+      }
+
+      @container style(--contrast: more) {
+        box-shadow: inset 0 0 0 var(--border-width) var(--border-color);
+      }
+
+      & > * {
+        margin: 0;
+      }
+    }
+
+    .ui-header {
+      font-size: var(--font-size-0);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .ui-footer {
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-1);
+      justify-content: end;
+    }
+
+    .ui-attachment {
+      align-items: center;
+      background-color: var(--surface-default);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-2);
+      color: var(--text-primary);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-2);
+
+      & > svg {
+        color: var(--primary);
+        flex-shrink: 0;
+        inline-size: var(--icon-size);
+      }
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        margin: 0;
+      }
+    }
+
+    .ui-reactions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      grid-area: reactions;
+      margin-block: calc(var(--size-2) * -1) var(--size-1);
+      padding-inline: var(--size-2);
+    }
+
+    & > .ui-reaction-add {
+      align-self: center;
+      grid-area: add;
+      margin-inline-start: var(--size-1);
+      transition: opacity calc(var(--duration) * var(--_motion)) var(--ease);
+    }
+
+    @media (hover: hover) {
+      &:not(:hover, :focus-within, :has(:popover-open)) > .ui-reaction-add {
+        opacity: var(--_reaction-add-opacity);
+      }
+    }
+
+    &.ui-outgoing {
+      --_bg-color: var(--primary);
+      --_text-color: var(--primary-contrast);
+
+      align-self: end;
+      grid-template-areas: "add bubble avatar" ". reactions .";
+
+      & > .ui-avatar {
+        margin-inline: var(--size-2) 0;
+      }
+
+      & > .ui-reaction-add {
+        margin-inline: 0 var(--size-1);
+      }
+
+      .ui-bubble {
+        border-end-end-radius: var(--_bottom);
+        border-end-start-radius: var(--_radius);
+        border-start-end-radius: var(--_top);
+        border-start-start-radius: var(--_radius);
+        justify-self: end;
+
+        @container style(--contrast: more) {
+          box-shadow: none;
+        }
+
+        & > :not(.ui-attachment) a {
+          color: inherit;
+          text-decoration-color: currentColor;
+        }
+      }
+
+      .ui-header {
+        block-size: 1px;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .ui-footer {
+        color: inherit;
+      }
+
+      .ui-reactions {
+        justify-content: end;
+      }
+    }
+
+    &:not(.ui-outgoing):has(+ .ui-message:not(.ui-outgoing, .ui-new-author)),
+    &.ui-outgoing:has(+ .ui-message.ui-outgoing:not(.ui-new-author)) {
+      --_bottom: var(--_tight);
+
+      & > .ui-avatar {
+        visibility: hidden;
+      }
+    }
+
+    :where(.ui-message:not(.ui-outgoing)) + &:not(.ui-outgoing, .ui-new-author),
+    :where(.ui-message.ui-outgoing) + &.ui-outgoing:not(.ui-new-author) {
+      --_top: var(--_tight);
+
+      .ui-header {
+        block-size: 1px;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+    }
+
+    :where(.ui-message) + &.ui-new-author {
+      margin-block-start: var(--size-2);
+    }
+
+    :where(.ui-message:not(.ui-outgoing)) + &.ui-outgoing,
+    :where(.ui-message.ui-outgoing) + &:not(.ui-outgoing) {
+      margin-block-start: var(--size-3);
+    }
+
+    &.ui-typing .ui-bubble::before {
+      --_dot: radial-gradient(
+        circle closest-side,
+        currentColor 90%,
+        transparent
+      );
+
+      animation: ui-message-typing calc(1.2s * var(--_motion)) infinite;
+      background:
+        var(--_dot) 0 50% / var(--size-2) var(--size-2),
+        var(--_dot) 50% 50% / var(--size-2) var(--size-2),
+        var(--_dot) 100% 50% / var(--size-2) var(--size-2);
+      background-repeat: no-repeat;
+      block-size: 1lh;
+      color: var(--text-muted);
+      content: "";
+      inline-size: var(--size-7);
+    }
+
+    @container style(--motion: 0) {
+      &.ui-typing .ui-bubble::before {
+        animation: none;
+      }
+    }
+
+    @media (forced-colors: active) {
+      .ui-bubble {
+        border: var(--border-width) solid CanvasText;
+      }
+
+      &.ui-typing .ui-bubble::before {
+        color: CanvasText;
+        forced-color-adjust: none;
+      }
+    }
+  }
+
+  :where(.ui-reaction) {
+    --_bg-color: var(--surface-default);
+    --_border-color: var(--border-color);
+
+    align-items: center;
+    background-color: var(--_bg-color);
+    block-size: var(--size-6);
+    border: var(--border-width) solid var(--_border-color);
+    border-radius: var(--radius-round);
+    box-shadow: 0 0 0 var(--border-width) var(--surface-default);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: inherit;
+    font-size: var(--font-size-1);
+    gap: var(--size-1);
+    line-height: 1;
+    padding-block: 0;
+    padding-inline: var(--size-2);
+    position: relative;
+    user-select: none;
+
+    &::after {
+      content: attr(data-count) / "";
+      font-size: var(--font-size-0);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    @supports (x: attr(x type(*))) {
+      counter-reset: ui-reaction attr(data-count type(<integer>), 0);
+
+      &::after {
+        content: counter(ui-reaction) / "";
+      }
+
+      &:has(input[checked]:not(:checked)) {
+        counter-increment: ui-reaction -1;
+      }
+
+      &:has(input:not([checked]):checked) {
+        counter-increment: ui-reaction;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        --_border-color: var(--text-muted);
+      }
+    }
+
+    &:has(input:focus-visible) {
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, var(--_focus-visible-color));
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    &:is(:has(input:checked), [aria-pressed="true"]) {
+      --_bg-color: color-mix(
+        in oklch,
+        var(--primary) 16%,
+        var(--surface-default)
+      );
+      --_border-color: var(--primary);
+    }
+
+    @media (forced-colors: active) {
+      --_border-color: ButtonText;
+
+      &:is(:has(input:checked), [aria-pressed="true"]) {
+        --_bg-color: SelectedItem;
+        --_border-color: SelectedItem;
+
+        color: SelectedItemText;
+        forced-color-adjust: none;
+      }
+    }
+  }
+
+  :where(.ui-reaction-picker) {
+    --_motion: var(--motion, 1);
+    --_duration: calc(var(--duration) * var(--_motion));
+
+    background-color: var(--surface-elevated);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-round);
+    box-shadow: var(--shadow-3);
+    color: var(--text-primary);
+    gap: var(--size-1);
+    opacity: 0;
+    padding: var(--size-1);
+    scale: 0.9;
+    transition:
+      display var(--_duration) allow-discrete,
+      opacity var(--_duration) var(--ease-enter),
+      overlay var(--_duration) allow-discrete,
+      scale var(--_duration) var(--ease-enter);
+
+    @supports (position-area: block-start) {
+      inset: auto;
+      margin: var(--size-1);
+      position-area: block-start center;
+      position-try-fallbacks:
+        block-start span-inline-start,
+        block-start span-inline-end,
+        flip-block;
+    }
+
+    &:popover-open {
+      display: flex;
+      opacity: 1;
+      scale: 1;
+
+      @starting-style {
+        opacity: 0;
+        scale: 0.9;
+      }
+    }
+
+    button {
+      aspect-ratio: 1;
+      background-color: transparent;
+      block-size: var(--control-size-small);
+      border: 0;
+      border-radius: var(--radius-round);
+      cursor: pointer;
+      font-size: var(--font-size-3);
+      line-height: 1;
+      padding: 0;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--surface-tonal);
+        }
+      }
+    }
+
+    @media (forced-colors: active) {
+      border-color: CanvasText;
+    }
+  }
+
+  @keyframes ui-message-typing {
+    0%,
+    60%,
+    100% {
+      background-position-y: 50%, 50%, 50%;
+    }
+
+    15% {
+      background-position-y: 15%, 50%, 50%;
+    }
+
+    30% {
+      background-position-y: 50%, 15%, 50%;
+    }
+
+    45% {
+      background-position-y: 50%, 50%, 15%;
+    }
+  }
+}

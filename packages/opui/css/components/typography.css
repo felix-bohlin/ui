@@ -177,9 +177,9 @@
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
+    overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
-    word-break: break-word;
   }
 
   :where(.ui-mark) {
@@ -232,9 +232,9 @@
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
+    overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
-    word-break: break-word;
   }
 
   :where(.ui-samp) {
@@ -872,7 +872,7 @@
 
     :not(pre) > code,
     kbd {
-      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     :not(pre) > code {

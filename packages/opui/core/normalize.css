@@ -50,7 +50,6 @@
     min-block-size: 100%;
     min-inline-size: 320px;
     position: relative;
-    text-rendering: optimizeLegibility;
   }
 
   :where(:not(dialog, [popover])) {

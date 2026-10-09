@@ -107,10 +107,6 @@
           display: none;
         }
 
-        &::before {
-          display: none;
-        }
-
         &:focus-visible {
           outline-offset: var(--focus-ring-inset);
         }

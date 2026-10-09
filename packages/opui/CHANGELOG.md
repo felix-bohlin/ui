@@ -54,6 +54,8 @@
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
 - `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`, and sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields.
 - `normalize.css` no longer falls back to `--text-color-2` when `--text-muted` is unset.
+- `normalize.css` no longer sets `text-rendering: optimizeLegibility` on `body`.
+- `Select` no longer hides `option::before`.
 
 ### Added
 

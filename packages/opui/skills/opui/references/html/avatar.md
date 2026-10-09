@@ -131,7 +131,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 ## Accessibility
 
-- Give an image avatar a relevant names its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
+- Give an image avatar the person's name as its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
 - Initials and icons have no name on their own. Add `role="img"` and an `aria-label` with the full name, or `aria-hidden="true"` when the name is next to it.
 - A link or button avatar needs an `aria-label` that names the person, and a group of avatars an `aria-label` that names the group.
 

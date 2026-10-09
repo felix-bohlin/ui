@@ -183,6 +183,9 @@ const whatsNew = {
       html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
   ],
+  "data-grid": [
+    `New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and <code>:has()</code>. HTML and CSS only.`,
+  ],
   dialog: [
     `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
     `A subtle scroll shadow shows under the header and above the actions while the <a href="#long-content">content scrolls</a>.`,

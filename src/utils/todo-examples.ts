@@ -49,6 +49,7 @@ import contrastCustomValues from "../todo-examples/contrast-custom-values.html?r
 import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
 import contrastTintedSurfaces from "../todo-examples/contrast-tinted-surfaces.html?raw"
 import controlSizes from "../todo-examples/control-sizes.html?raw"
+import dataGridHeaderMenus from "../todo-examples/data-grid-header-menus.html?raw"
 import descriptionListAnatomyWidth from "../todo-examples/description-list-anatomy-width.html?raw"
 import descriptionListNarrowBorder from "../todo-examples/description-list-narrow-border.html?raw"
 import dialogActionsAlignApi from "../todo-examples/dialog-actions-align-api.html?raw"
@@ -350,6 +351,10 @@ export const todoExamples = {
   "control-sizes": {
     match: "Sizes: control size scales differ",
     source: controlSizes,
+  },
+  "data-grid-header-menus": {
+    match: "Data grid header menus",
+    source: dataGridHeaderMenus,
   },
   "description-list-anatomy-width": {
     match: "Description list: the hero anatomy",

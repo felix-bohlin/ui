@@ -12,6 +12,7 @@ export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.vue"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/Description.vue"
 export { default as DescriptionListItem } from "../components/DescriptionList/Item.vue"
@@ -76,6 +77,14 @@ export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.d.vue"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.d.vue"
 export type { Props as DescriptionListProps } from "../components/DescriptionList/types.d.vue"
 export type { Props as DialogProps } from "../components/Dialog/types.d.vue"
 export type { Props as DividerProps } from "../components/Divider/types.d.vue"

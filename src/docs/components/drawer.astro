@@ -225,11 +225,15 @@ import Conditional from "../../components/Conditional.astro"
         <Conditional>
           <Fragment slot="astro"
             >The drawer is named by the first heading in the <code>header</code> slot,
-            through <code>aria-labelledby</code>. Pass <code>aria-label</code> or
+            through <code>aria-labelledby</code>. Pass <code>aria-label</code> or{
+              " "
+            }
             <code>aria-labelledby</code> to name it yourself.</Fragment
           >
           <Fragment slot="html"
-            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
+            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's{
+              " "
+            }
             <code>id</code>, not at <code>.ui-header</code>, which also holds
             the close button.</Fragment
           >
@@ -247,7 +251,7 @@ import Conditional from "../../components/Conditional.astro"
               >DrawerHeader</code
             > in the <code>header</code> slot, through <code
               >aria-labelledby</code
-            >. With your own heading, pass <code>aria-labelledby</code> or
+            >. With your own heading, pass <code>aria-labelledby</code> or{" "}
             <code>aria-label</code> to <code>Drawer</code>.</Fragment
           >
         </Conditional>

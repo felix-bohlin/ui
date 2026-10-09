@@ -55,6 +55,12 @@ test("form controls of one size share one height", async ({ page }) => {
   expectSharedHeights(await measureRows(page))
 })
 
+test("data grid toolbar controls share one height", async ({ page }) => {
+  await openFixture(page, "html", "stress/data-grid")
+
+  expectSharedHeights(await measureRows(page))
+})
+
 test("form controls keep their height in high contrast mode", async ({
   page,
 }) => {

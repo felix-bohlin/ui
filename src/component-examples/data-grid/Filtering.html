@@ -1,0 +1,135 @@
+<div class="ui-data-grid">
+  <div class="ui-toolbar">
+    <div
+      aria-label="Filter rows"
+      class="ui-toggle-group ui-small ui-filters"
+      role="radiogroup"
+    >
+      <label class="ui-toggle-button">
+        <input
+          checked
+          name="filtering-filter-1"
+          type="radio"
+          value=""
+        />All</label
+      >
+      <label class="ui-toggle-button">
+        <input name="filtering-filter-1" type="radio" value="1" />Active</label
+      >
+      <label class="ui-toggle-button">
+        <input name="filtering-filter-1" type="radio" value="2" />Away</label
+      >
+      <label class="ui-toggle-button">
+        <input
+          name="filtering-filter-1"
+          type="radio"
+          value="selected"
+        />Selected</label
+      >
+    </div>
+  </div>
+  <div aria-label="Team" role="table" tabindex="0">
+    <div class="ui-head" role="rowgroup">
+      <div role="row">
+        <div class="ui-row-select" role="columnheader">
+          <span class="ui-sr-only">Select</span>
+        </div>
+        <div role="columnheader">
+          <span>Name</span>
+        </div>
+        <div role="columnheader">
+          <span>Role</span>
+        </div>
+        <div role="columnheader">
+          <span>Location</span>
+        </div>
+        <div class="ui-numeric" role="columnheader">
+          <span>Tickets</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body" role="rowgroup">
+      <div data-filters="1" role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Ada Lovelace</span>
+          </label>
+        </div>
+        <div role="rowheader">Ada Lovelace</div>
+        <div role="cell">Engineer</div>
+        <div role="cell">London</div>
+        <div class="ui-numeric" role="cell">42</div>
+      </div>
+      <div data-filters="2" role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Alan Turing</span>
+          </label>
+        </div>
+        <div role="rowheader">Alan Turing</div>
+        <div role="cell">Researcher</div>
+        <div role="cell">Manchester</div>
+        <div class="ui-numeric" role="cell">37</div>
+      </div>
+      <div data-filters="1" role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Grace Hopper</span>
+          </label>
+        </div>
+        <div role="rowheader">Grace Hopper</div>
+        <div role="cell">Admiral</div>
+        <div role="cell">New York</div>
+        <div class="ui-numeric" role="cell">58</div>
+      </div>
+      <div role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Hedy Lamarr</span>
+          </label>
+        </div>
+        <div role="rowheader">Hedy Lamarr</div>
+        <div role="cell">Inventor</div>
+        <div role="cell">Vienna</div>
+        <div class="ui-numeric" role="cell">12</div>
+      </div>
+      <div data-filters="2" role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Katherine Johnson</span>
+          </label>
+        </div>
+        <div role="rowheader">Katherine Johnson</div>
+        <div role="cell">Mathematician</div>
+        <div role="cell">Hampton</div>
+        <div class="ui-numeric" role="cell">51</div>
+      </div>
+      <div data-filters="1" role="row">
+        <div class="ui-row-select" role="cell">
+          <label class="ui-checkbox">
+            <input type="checkbox" />
+            <span class="ui-sr-only">Select Margaret Hamilton</span>
+          </label>
+        </div>
+        <div role="rowheader">Margaret Hamilton</div>
+        <div role="cell">Director</div>
+        <div role="cell">Boston</div>
+        <div class="ui-numeric" role="cell">64</div>
+      </div>
+      <div class="ui-empty" role="row">
+        <div role="cell">No rows</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-status">
+    <span class="ui-selection">
+      <span class="ui-selected-count"> </span> selected</span
+    >
+    <span> <span class="ui-row-count"> </span> rows</span>
+  </div>
+</div>

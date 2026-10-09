@@ -44,7 +44,7 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
-const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+)$/
+const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-s?\d+)$/
 
 const isElement = (node: Node): node is Element => "tagName" in node
 

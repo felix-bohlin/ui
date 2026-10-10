@@ -23,8 +23,8 @@
     /* Legend */
     :where(legend, .ui-legend) {
       all: unset;
-      color: var(--text-primary);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-weight: var(--field-label-font-weight);
       margin-block-end: var(--size-3);
       padding: 0;
 
@@ -38,6 +38,7 @@
       color: var(--text-muted);
       font-size: var(--font-size-05);
       line-height: var(--font-lineheight-3);
+      margin: 0;
 
       &:has(+ *) {
         margin-block-end: var(--size-3);
@@ -46,18 +47,14 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
-      line-height: var(--font-lineheight-3);
-    }
-
-    &:has(.ui-text-field.ui-row) {
-      row-gap: var(--size-7);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
+      line-height: var(--field-helper-line-height);
     }
 
     /* Disabled */
     &[disabled] {
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input,
@@ -68,38 +65,20 @@
     }
 
     /* Error / validation */
-    &[data-invalid] {
-      :where(.ui-end-text) {
-        color: var(--critical);
-      }
-
-      :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --primary: var(--critical);
-
-        :where(.ui-end-text) {
-          color: var(--critical);
-        }
-      }
-
-      :where(.ui-switch) {
-        input {
-          border-radius: var(--radius-round);
-          outline: 2px solid var(--critical);
-        }
-      }
+    &:has([aria-invalid="true"]) > :where(.ui-end-text) {
+      color: var(--invalid-text-color);
     }
 
     /* Required */
-    &:has(:invalid) {
+    &:has(:required) {
       :where(legend, .ui-legend) {
         padding-inline-end: 1ex;
         position: relative;
 
         &::after {
-          color: var(--red);
+          color: var(--field-required-color);
           content: "*";
-          inset: 0 -0.25ex auto auto;
-          position: absolute;
+          margin-inline-start: 0.25ex;
         }
       }
     }
@@ -119,7 +98,7 @@
     }
 
     /* If it only has buttons */
-    &:has(.ui-button):not(:has(*:not(.ui-button))) {
+    &:has(> .ui-button):not(.ui-column, :has(> :not(.ui-button))) {
       align-items: center;
       flex-direction: row;
       gap: var(--size-2);
@@ -135,6 +114,10 @@
     }
 
     /* Directions */
+    &.ui-column:has(> .ui-button):not(:has(> :not(.ui-button))) {
+      align-items: start;
+    }
+
     &.ui-row {
       flex-direction: row;
       flex-wrap: wrap;

@@ -2,11 +2,26 @@
 export const title = "Divider"
 import type { Props } from "./types.astro"
 
-const { class: className, variant, ...rest } = Astro.props
-const variantClass = variant ? `border-${variant}` : ""
+const { align, class: className, variant, ...rest } = Astro.props
 ---
 
-<hr
-  class:list={["ui-divider", className, variantClass && `ui-${variantClass}`]}
-  {...rest}
-/>
+{
+  Astro.slots.has("default") ? (
+    <div
+      class:list={[
+        "ui-divider",
+        align && align !== "center" && `ui-align-${align}`,
+        variant && `ui-${variant}`,
+        className,
+      ]}
+      {...rest}
+    >
+      <slot />
+    </div>
+  ) : (
+    <hr
+      class:list={["ui-divider", variant && `ui-${variant}`, className]}
+      {...rest}
+    />
+  )
+}

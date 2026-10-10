@@ -1,0 +1,462 @@
+<style>
+  .analytics-dashboard {
+    container-type: inline-size;
+
+    .analytics-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-3) var(--size-4);
+
+      .ui-avatar {
+        margin-inline-start: auto;
+      }
+    }
+
+    .analytics-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-4);
+      margin-inline: auto;
+      max-inline-size: 80rem;
+      padding: var(--size-5) var(--size-4);
+    }
+
+    .analytics-title {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .analytics-actions {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .analytics-stats {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+      list-style-type: none;
+      padding: 0;
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      hgroup > p:last-child {
+        font-size: var(--font-size-0);
+      }
+    }
+
+    .analytics-up {
+      color: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+    }
+
+    .analytics-down {
+      color: light-dark(
+        oklch(from var(--critical) 0.45 c h),
+        oklch(from var(--critical) 0.8 c h)
+      );
+    }
+
+    .analytics-grid {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 56rem) {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      }
+    }
+
+    .analytics-chart {
+      align-items: end;
+      block-size: 12rem;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: grid;
+      gap: var(--size-2);
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        align-items: center;
+        block-size: 100%;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        justify-items: center;
+        row-gap: var(--size-1);
+      }
+
+      .analytics-bar {
+        align-self: end;
+        background-color: var(--primary);
+        block-size: var(--value);
+        border-start-end-radius: var(--radius-2);
+        border-start-start-radius: var(--radius-2);
+        inline-size: min(100%, 2.5rem);
+        opacity: 0.85;
+      }
+
+      li:last-child .analytics-bar {
+        opacity: 1;
+      }
+
+      .analytics-day {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        translate: 0 calc(100% + var(--size-1));
+      }
+    }
+
+    .analytics-chart-card .ui-content {
+      padding-block-end: var(--size-6);
+    }
+
+    .analytics-sources {
+      display: grid;
+      gap: var(--size-3);
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: grid;
+        gap: var(--size-1);
+      }
+
+      .analytics-source {
+        display: flex;
+        font-size: var(--font-size-1);
+        justify-content: space-between;
+      }
+    }
+
+    .analytics-table {
+      overflow-x: auto;
+
+      .ui-table {
+        margin-block: 0;
+      }
+    }
+
+    .analytics-number {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+    }
+  }
+</style>
+
+<div class="analytics-dashboard">
+  <header class="analytics-header">
+    <a class="analytics-brand" href="#analytics">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 12a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z"
+        ></path>
+      </svg>
+      Northwind Analytics
+    </a>
+    <div class="ui-avatar ui-rounded" role="img" aria-label="Ada Lovelace">
+      AL
+    </div>
+  </header>
+
+  <main>
+    <div class="analytics-title">
+      <hgroup class="ui-hgroup">
+        <p>northwind.example</p>
+        <h1 class="ui-h3">Analytics</h1>
+      </hgroup>
+      <div class="analytics-actions">
+        <div
+          aria-label="Date range"
+          class="ui-toggle-group ui-small"
+          role="radiogroup"
+        >
+          <label class="ui-toggle-button">
+            <input name="analytics-range" type="radio" value="7" checked />
+            7 days
+          </label>
+          <label class="ui-toggle-button">
+            <input name="analytics-range" type="radio" value="30" />
+            30 days
+          </label>
+          <label class="ui-toggle-button">
+            <input name="analytics-range" type="radio" value="90" />
+            90 days
+          </label>
+        </div>
+        <button class="ui-button ui-outlined ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1M5 19a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z"
+            ></path></svg
+          ><span class="ui-text">Export</span>
+        </button>
+      </div>
+    </div>
+
+    <ul class="analytics-stats">
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Visitors</p>
+            <h2 class="ui-h4">48 210</h2>
+            <p><span class="analytics-up">+12.4%</span> from last week</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Page views</p>
+            <h2 class="ui-h4">162 904</h2>
+            <p><span class="analytics-up">+8.1%</span> from last week</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Bounce rate</p>
+            <h2 class="ui-h4">41.2%</h2>
+            <p><span class="analytics-down">+2.3%</span> from last week</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Visit duration</p>
+            <h2 class="ui-h4">3m 12s</h2>
+            <p><span class="analytics-up">+0.4%</span> from last week</p>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+
+    <div class="analytics-grid">
+      <section
+        aria-labelledby="analytics-visitors-heading"
+        class="ui-card ui-outlined analytics-chart-card"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="analytics-visitors-heading">
+            Visitors per day
+          </h2>
+          <p>Unique visitors over the last 7 days.</p>
+        </hgroup>
+        <div class="ui-content">
+          <ol class="analytics-chart">
+            <li>
+              <span class="analytics-bar" style="--value: 52%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Mon</span
+                ><span class="ui-sr-only">Monday: 5 840 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 64%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Tue</span
+                ><span class="ui-sr-only">Tuesday: 7 120 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 58%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Wed</span
+                ><span class="ui-sr-only">Wednesday: 6 480 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 80%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Thu</span
+                ><span class="ui-sr-only">Thursday: 8 910 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 72%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Fri</span
+                ><span class="ui-sr-only">Friday: 8 040 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 34%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Sat</span
+                ><span class="ui-sr-only">Saturday: 3 790 visitors</span></span
+              >
+            </li>
+            <li>
+              <span class="analytics-bar" style="--value: 90%"></span>
+              <span class="analytics-day"
+                ><span aria-hidden="true">Sun</span
+                ><span class="ui-sr-only">Sunday: 10 030 visitors</span></span
+              >
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="analytics-sources-heading"
+        class="ui-card ui-outlined"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="analytics-sources-heading">Top sources</h2>
+          <p>Where visitors came from.</p>
+        </hgroup>
+        <div class="ui-content">
+          <ul class="analytics-sources">
+            <li>
+              <span class="analytics-source" id="analytics-source-search"
+                ><span>Search</span><span>46%</span></span
+              >
+              <div class="ui-progress">
+                <progress
+                  aria-labelledby="analytics-source-search"
+                  max="100"
+                  value="46"
+                ></progress>
+              </div>
+            </li>
+            <li>
+              <span class="analytics-source" id="analytics-source-direct"
+                ><span>Direct</span><span>28%</span></span
+              >
+              <div class="ui-progress">
+                <progress
+                  aria-labelledby="analytics-source-direct"
+                  max="100"
+                  value="28"
+                ></progress>
+              </div>
+            </li>
+            <li>
+              <span class="analytics-source" id="analytics-source-social"
+                ><span>Social</span><span>17%</span></span
+              >
+              <div class="ui-progress">
+                <progress
+                  aria-labelledby="analytics-source-social"
+                  max="100"
+                  value="17"
+                ></progress>
+              </div>
+            </li>
+            <li>
+              <span class="analytics-source" id="analytics-source-email"
+                ><span>Email</span><span>9%</span></span
+              >
+              <div class="ui-progress">
+                <progress
+                  aria-labelledby="analytics-source-email"
+                  max="100"
+                  value="9"
+                ></progress>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <section
+      aria-labelledby="analytics-pages-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="analytics-pages-heading">Top pages</h2>
+      </hgroup>
+      <div class="ui-content analytics-table">
+        <table class="ui-table ui-dense">
+          <thead>
+            <tr>
+              <th scope="col">Page</th>
+              <th class="analytics-number" scope="col">Visitors</th>
+              <th class="analytics-number" scope="col">Views</th>
+              <th class="analytics-number" scope="col">Bounce</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="ui-link" href="#analytics-page-home">/</a></td>
+              <td class="analytics-number">18 402</td>
+              <td class="analytics-number">40 116</td>
+              <td class="analytics-number">32%</td>
+            </tr>
+            <tr>
+              <td>
+                <a class="ui-link" href="#analytics-page-pricing">/pricing</a>
+              </td>
+              <td class="analytics-number">9 214</td>
+              <td class="analytics-number">14 870</td>
+              <td class="analytics-number">38%</td>
+            </tr>
+            <tr>
+              <td>
+                <a class="ui-link" href="#analytics-page-docs"
+                  >/docs/getting-started</a
+                >
+              </td>
+              <td class="analytics-number">6 530</td>
+              <td class="analytics-number">21 008</td>
+              <td class="analytics-number">24%</td>
+            </tr>
+            <tr>
+              <td>
+                <a class="ui-link" href="#analytics-page-blog"
+                  >/blog/shipping-6-0</a
+                >
+              </td>
+              <td class="analytics-number">4 118</td>
+              <td class="analytics-number">5 002</td>
+              <td class="analytics-number">61%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

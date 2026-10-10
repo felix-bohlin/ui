@@ -1,4 +1,4 @@
-import type { HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
 import type {
   Props as BaseProps,
   TabsItemProps as BaseTabsItemProps,
@@ -26,6 +26,5 @@ export type Slots = {
   default?: Slot
 }
 
-export const TabsGroupNameKey = Symbol() as InjectionKey<string>
+export const TabsGroupNameKey = Symbol() as InjectionKey<Readonly<Ref<string>>>
 export const CurrentTabIdKey = Symbol() as InjectionKey<string>
-export const CurrentPanelIdKey = Symbol() as InjectionKey<string>

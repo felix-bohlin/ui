@@ -1,0 +1,531 @@
+<style>
+  .account-settings {
+    container-type: inline-size;
+
+    .acct-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-3) var(--size-4);
+
+      .ui-avatar {
+        margin-inline-start: auto;
+      }
+    }
+
+    .acct-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-6);
+      margin-inline: auto;
+      max-inline-size: 48rem;
+      padding: var(--size-5) var(--size-4) var(--size-8);
+    }
+
+    .acct-tabs {
+      .ui-tab-panel {
+        padding-block-start: var(--size-5);
+      }
+    }
+
+    .acct-photo {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+
+      .ui-avatar {
+        font-size: var(--font-size-4);
+        inline-size: var(--size-10);
+      }
+
+      p {
+        color: var(--text-muted);
+        flex-basis: 100%;
+        font-size: var(--font-size-0);
+        margin: 0;
+
+        @container (inline-size >= 30rem) {
+          flex-basis: auto;
+        }
+      }
+    }
+
+    .acct-photo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .acct-row {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    }
+
+    .acct-verified {
+      color: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+    }
+
+    .acct-actions {
+      justify-content: end;
+    }
+
+    .acct-danger {
+      border-color: light-dark(
+        oklch(from var(--critical) 0.6 c h),
+        oklch(from var(--critical) 0.5 c h)
+      );
+
+      .ui-content {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-3);
+        justify-content: space-between;
+      }
+
+      p {
+        flex: 1 1 18rem;
+        margin: 0;
+      }
+    }
+  }
+</style>
+
+<div class="account-settings">
+  <header class="acct-header">
+    <a class="acct-brand" href="#account-settings-home">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 12a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z"
+        ></path>
+      </svg>
+      Northwind
+    </a>
+    <div class="ui-avatar ui-rounded" role="img" aria-label="Ingrid Nyström">
+      IN
+    </div>
+  </header>
+
+  <main>
+    <hgroup class="ui-hgroup">
+      <h1 class="ui-h3">Account settings</h1>
+      <p>Manage your profile, sign-in and how Northwind looks for you.</p>
+    </hgroup>
+
+    <div class="ui-tabs ui-line ui-scrollable acct-tabs">
+      <input
+        checked
+        class="ui-tab-input"
+        id="account-settings-tab-profile"
+        name="account-settings-tabs"
+        type="radio"
+      />
+      <label class="ui-tab-label" for="account-settings-tab-profile"
+        >Profile</label
+      >
+      <div class="ui-tab-panel">
+        <form class="ui-form" action="#">
+          <fieldset class="ui-fieldset">
+            <legend>Photo</legend>
+            <div class="acct-photo">
+              <div
+                aria-label="Ingrid Nyström"
+                class="ui-avatar ui-rounded"
+                role="img"
+              >
+                IN
+              </div>
+              <div class="acct-photo-actions">
+                <button class="ui-button ui-outlined ui-small" type="button">
+                  Upload new photo
+                </button>
+                <button class="ui-button ui-small" type="button">Remove</button>
+              </div>
+              <p>JPG or PNG, at least 256 × 256 px.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="ui-fieldset">
+            <legend>Personal details</legend>
+            <div class="ui-field-group">
+              <div class="acct-row">
+                <label class="ui-text-field">
+                  <span class="ui-label">First name</span>
+                  <span class="ui-field">
+                    <input
+                      autocomplete="given-name"
+                      name="first-name"
+                      required
+                      type="text"
+                      value="Ingrid"
+                    />
+                  </span>
+                </label>
+                <label class="ui-text-field">
+                  <span class="ui-label">Last name</span>
+                  <span class="ui-field">
+                    <input
+                      autocomplete="family-name"
+                      name="last-name"
+                      required
+                      type="text"
+                      value="Nyström"
+                    />
+                  </span>
+                </label>
+              </div>
+              <label class="ui-text-field">
+                <span class="ui-label">Email</span>
+                <span class="ui-field">
+                  <input
+                    aria-describedby="account-settings-email-hint"
+                    autocomplete="email"
+                    name="email"
+                    required
+                    type="email"
+                    value="ingrid@northwind.example"
+                  />
+                </span>
+                <span class="ui-end-text" id="account-settings-email-hint"
+                  ><span class="acct-verified">Verified</span> · Used for
+                  sign-in and receipts</span
+                >
+              </label>
+              <label class="ui-text-field">
+                <span class="ui-label">Username</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="username"
+                    name="username"
+                    type="text"
+                    value="ingrid"
+                  />
+                  <span class="ui-prefix">northwind.app/</span>
+                </span>
+              </label>
+              <label class="ui-textarea">
+                <span class="ui-label">Bio</span>
+                <span class="ui-start-text">Shown on your public profile</span>
+                <span class="ui-field">
+                  <textarea name="bio" rows="3">
+Product designer in Malmö. Into typography, sourdough and long bike rides.</textarea>
+                  <span class="ui-footer">73 / 160</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="ui-field-group acct-actions">
+            <button class="ui-button" type="reset">Cancel</button>
+            <button class="ui-button ui-filled" type="submit">
+              Save profile
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <input
+        class="ui-tab-input"
+        id="account-settings-tab-password"
+        name="account-settings-tabs"
+        type="radio"
+      />
+      <label class="ui-tab-label" for="account-settings-tab-password"
+        >Password</label
+      >
+      <div class="ui-tab-panel">
+        <form class="ui-form" action="#">
+          <fieldset class="ui-fieldset">
+            <legend>Change password</legend>
+            <p class="ui-field-description">Last changed on 12 June 2026.</p>
+            <div class="ui-field-group">
+              <label class="ui-text-field">
+                <span class="ui-label">Current password</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="current-password"
+                    name="current-password"
+                    required
+                    type="password"
+                  />
+                </span>
+              </label>
+              <label class="ui-text-field">
+                <span class="ui-label">New password</span>
+                <span class="ui-field">
+                  <input
+                    aria-describedby="account-settings-password-hint"
+                    autocomplete="new-password"
+                    minlength="12"
+                    name="new-password"
+                    required
+                    type="password"
+                  />
+                </span>
+                <span class="ui-end-text" id="account-settings-password-hint"
+                  >At least 12 characters. A passphrase works great.</span
+                >
+              </label>
+              <label class="ui-text-field">
+                <span class="ui-label">Confirm new password</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="new-password"
+                    name="confirm-password"
+                    required
+                    type="password"
+                  />
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="ui-fieldset">
+            <legend>Sign-in security</legend>
+            <div class="ui-field-group">
+              <label class="ui-switch ui-spread">
+                <input
+                  aria-describedby="account-settings-2fa-hint"
+                  checked
+                  name="two-factor"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-label">Two-factor authentication</span>
+                <span class="ui-end-text" id="account-settings-2fa-hint"
+                  >Ask for a code from your authenticator app.</span
+                >
+              </label>
+              <label class="ui-switch ui-spread">
+                <input
+                  aria-describedby="account-settings-alerts-hint"
+                  checked
+                  name="sign-in-alerts"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-label">Sign-in alerts</span>
+                <span class="ui-end-text" id="account-settings-alerts-hint"
+                  >Email me when a new device signs in.</span
+                >
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="ui-field-group acct-actions">
+            <button class="ui-button ui-filled" type="submit">
+              Update password
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <input
+        class="ui-tab-input"
+        id="account-settings-tab-preferences"
+        name="account-settings-tabs"
+        type="radio"
+      />
+      <label class="ui-tab-label" for="account-settings-tab-preferences"
+        >Preferences</label
+      >
+      <div class="ui-tab-panel">
+        <form class="ui-form" action="#">
+          <fieldset class="ui-fieldset">
+            <legend>Theme</legend>
+            <div aria-label="Theme" class="ui-toggle-group" role="radiogroup">
+              <label class="ui-toggle-button">
+                <input
+                  name="account-settings-theme"
+                  type="radio"
+                  value="light"
+                />
+                Light
+              </label>
+              <label class="ui-toggle-button">
+                <input
+                  name="account-settings-theme"
+                  type="radio"
+                  value="dark"
+                />
+                Dark
+              </label>
+              <label class="ui-toggle-button">
+                <input
+                  checked
+                  name="account-settings-theme"
+                  type="radio"
+                  value="system"
+                />
+                System
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="ui-fieldset">
+            <legend>Region</legend>
+            <div class="acct-row">
+              <label class="ui-select">
+                <span class="ui-label" id="account-settings-language-label"
+                  >Language</span
+                >
+                <span class="ui-field">
+                  <select
+                    aria-labelledby="account-settings-language-label"
+                    name="language"
+                  >
+                    <button type="button">
+                      <selectedcontent></selectedcontent>
+                    </button>
+                    <div class="ui-list">
+                      <option value="da">Dansk</option>
+                      <option value="de">Deutsch</option>
+                      <option selected value="en">English</option>
+                      <option value="nb">Norsk</option>
+                      <option value="sv">Svenska</option>
+                    </div>
+                  </select>
+                </span>
+              </label>
+              <label class="ui-select">
+                <span class="ui-label" id="account-settings-timezone-label"
+                  >Time zone</span
+                >
+                <span class="ui-field">
+                  <select
+                    aria-labelledby="account-settings-timezone-label"
+                    name="timezone"
+                  >
+                    <button type="button">
+                      <selectedcontent></selectedcontent>
+                    </button>
+                    <div class="ui-list">
+                      <option value="london">London (GMT+1)</option>
+                      <option selected value="stockholm">
+                        Stockholm (GMT+2)
+                      </option>
+                      <option value="helsinki">Helsinki (GMT+3)</option>
+                    </div>
+                  </select>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="ui-fieldset">
+            <legend>Accessibility</legend>
+            <div class="ui-field-group">
+              <label class="ui-switch ui-spread">
+                <input name="reduce-motion" role="switch" type="checkbox" />
+                <span class="ui-label">Reduce motion</span>
+              </label>
+              <label class="ui-switch ui-spread">
+                <input
+                  checked
+                  name="underline-links"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-label">Always underline links</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="ui-field-group acct-actions">
+            <button class="ui-button ui-filled" type="submit">
+              Save preferences
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <section
+      aria-labelledby="account-settings-danger-heading"
+      class="ui-card ui-outlined acct-danger"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="account-settings-danger-heading">Danger zone</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p>
+          Deleting your account removes your profile, projects and invoices for
+          good. Export your data first if you need it.
+        </p>
+        <button
+          class="ui-button ui-outlined ui-critical"
+          command="show-modal"
+          commandfor="account-settings-delete-dialog"
+          type="button"
+        >
+          Delete account
+        </button>
+      </div>
+    </section>
+
+    <dialog
+      aria-describedby="account-settings-delete-description"
+      aria-labelledby="account-settings-delete-title"
+      class="ui-dialog ui-card ui-elevated"
+      id="account-settings-delete-dialog"
+      role="alertdialog"
+    >
+      <hgroup>
+        <h2 class="ui-h4" id="account-settings-delete-title">
+          Delete your account?
+        </h2>
+      </hgroup>
+      <div class="ui-content">
+        <p id="account-settings-delete-description">
+          This deletes ingrid@northwind.example and everything in it. You can't
+          undo this.
+        </p>
+      </div>
+      <div class="ui-actions">
+        <button
+          class="ui-button"
+          command="close"
+          commandfor="account-settings-delete-dialog"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="ui-button ui-filled ui-critical"
+          command="close"
+          commandfor="account-settings-delete-dialog"
+          type="button"
+        >
+          Delete account
+        </button>
+      </div>
+    </dialog>
+  </main>
+</div>

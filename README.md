@@ -6,6 +6,11 @@ A CSS UI library exploring how next-gen HTML & CSS features can change the way w
 
 https://open-props-ui.netlify.app/html/guide/getting-started/
 
+### AI assistants
+
+- [llms.txt](https://open-props-ui.netlify.app/llms.txt) indexes the docs. Every page also has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+- `opui-css` ships an agent skill in `skills/opui`. See the [package README](packages/opui/README.md#ai-assistants).
+
 ---
 
 ## Maintainers
@@ -15,23 +20,57 @@ https://open-props-ui.netlify.app/html/guide/getting-started/
 The project is managed as a monorepo with two main parts:
 
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
-  - `components/`: UI components organized by folder. Each folder contains the component logic, templates (e.g., `Button.astro`), and specific types.
-  - `css/`: Component styles, theme, and entry-point imports.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
-- **The Documentation Site (`src/`)**: The Astro site implementation, located in `src/pages`, `src/layouts`, and `src/components`.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, Svelte and Vue templates (e.g., `Button.astro`, `Button.svelte`, `Button.vue`) and their types.
+  - `core/`: Normalize, palette and utility classes.
+  - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
+  - `scripts/`: The build that writes the pre-bundled files to `dist/`.
+  - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
+  - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
+  - `vue/`: Public entry point and barrel exports for Vue-based projects.
+- **The Documentation Site (`src/`)**: The Astro site.
+  - `src/component-api/`: API table data for each component (`api.ts`).
+  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
+  - `src/components/`, `src/layouts/`: Docs site components and page layouts.
+  - `src/docs/`: Page content for the components, guide and learn sections.
+  - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
+  - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
+  - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
+  - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
+- **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts.
+- **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`.
 
 ### Development
 
-Run the documentation site locally for development:
+Use Node 26 (`.nvmrc`) and pnpm 12. Run the documentation site locally for development:
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
+Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
+
+The fixture pages at `/<framework>/test/<component>` and `/<framework>/test/theming` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+
+`pnpm test:e2e` needs a Playwright Chromium. Install it once with `pnpm exec playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
+
+Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`.
+
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]`.
-2. Add `[ComponentName].astro` to that folder.
-3. Export the component from the barrel in `packages/opui/astro/index.ts`.
-4. (Optional) Implement the component CSS in `packages/opui/css/components/`.
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `[ComponentName].vue` and the `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+2. Export the component from both barrels, `packages/opui/astro/index.ts` and `packages/opui/vue/index.ts`, in alphabetical order.
+3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
+4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/` and the API data in `src/component-api/[component-name]/api.ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENTS.md`).
+5. Run `pnpm check` and `pnpm test:e2e`; record the new parity snapshots with `pnpm test:update`.
+6. Add the CHANGELOG entry and the What's new note (see `AGENTS.md`), a theme token description for new tokens in `src/utils/theme-token-descriptions.ts`, and the component to a stress page in `src/stress-tests/`. List it in `COMPONENT_FRAMEWORKS` (`src/utils/framework.js`) if it doesn't ship for all three frameworks.
+7. Commit `public/search-index.json` and `packages/opui/skills/opui/references` (regenerated by `pnpm build`; CI fails when they're stale). New screenshots come from CI: add the `update-snapshots` label.
+
+### Agent skill
+
+`packages/opui/skills/opui/references` is generated from the docs build. `pnpm build` (and so `pnpm check`) regenerates it, and CI fails when the committed references are stale. To regenerate it from an existing build:
+
+```bash
+pnpm build-skill
+```

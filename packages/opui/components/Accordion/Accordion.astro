@@ -3,11 +3,14 @@ import type { Props } from "./types.astro"
 
 export const title = "Accordion"
 
-const { $id } = Astro.locals
-const { class: className, name, open, variant, ...rest } = Astro.props
-
-const summaryId = $id("summary")
-const contentId = $id("content")
+const {
+  class: className,
+  markerAnimation = "rotate",
+  name,
+  open,
+  variant,
+  ...rest
+} = Astro.props
 ---
 
 <details
@@ -15,29 +18,33 @@ const contentId = $id("content")
   class:list={[
     "ui-accordion",
     "ui-card",
+    markerAnimation && `ui-marker-${markerAnimation}`,
     variant && `ui-${variant}`,
     className,
   ]}
   open={open}
   {...rest}
 >
-  <!-- Summary -->
-
-  <summary id={summaryId} aria-controls={contentId}
-    ><slot name="summary" /><slot name="marker" /></summary
+  <summary
+    ><slot name="summary" /><slot name="marker"
+      ><svg
+        class="ui-marker"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+        ></path></svg
+      ></slot
+    ></summary
   >
 
-  <!-- Content -->
-  <div
-    id={contentId}
-    class="ui-content"
-    role="region"
-    aria-labelledby={summaryId}
-  >
+  <div class="ui-content">
     <slot />
   </div>
 
-  <!-- Actions -->
   {
     Astro.slots.has("actions") && (
       <div class="ui-actions">

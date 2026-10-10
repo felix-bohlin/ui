@@ -1,0 +1,75 @@
+<style>
+  .todo-ramps {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+
+  .todo-ramp {
+    display: grid;
+    gap: var(--size-1);
+  }
+
+  .todo-steps {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+
+    > span {
+      block-size: var(--size-6);
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Token table: "Degrees of hue drift per palette step, for warm or cool
+      ramps." Getting started: "per-step warm/cool drift, in degrees."
+    </p>
+    <div class="todo-ramps"></div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      "Hue drift per palette step in degrees: each step rotates one more time
+      than the last, so <code>1</code> spreads 15° across the ramp. The severity
+      scopes use <code>1</code> for livelier tints, the brand palette
+      <code>0</code>."
+    </p>
+    <div class="todo-ramps"></div>
+  </section>
+</div>
+<script>
+  const ramps = [
+    ["ui-palette", 0, ".ui-palette, rotate-by 0 (brand)"],
+    ["ui-palette", 1, ".ui-palette, rotate-by 1"],
+    ["ui-palette", 4, ".ui-palette, rotate-by 4"],
+    ["ui-warning", null, ".ui-warning (sets 1)"],
+    ["ui-neutral", null, ".ui-neutral (sets 0)"],
+  ]
+  const hue = (el) =>
+    Number(
+      getComputedStyle(el)
+        .backgroundColor.match(/oklch\(([^)]+)\)/)[1]
+        .split(" ")[2],
+    )
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    for (const [className, rotate, label] of ramps) {
+      const ramp = document.createElement("div")
+      ramp.className = `todo-ramp ${className}`
+      ramp.style.setProperty("--palette-hue", "250")
+      if (rotate !== null)
+        ramp.style.setProperty("--palette-hue-rotate-by", String(rotate))
+      const steps = Array.from(
+        { length: 16 },
+        (_, i) => `<span style="background: var(--color-${i + 1})"></span>`,
+      ).join("")
+      ramp.innerHTML = `<p class="ui-caption">${label}</p><div class="todo-steps" aria-hidden="true">${steps}</div><p class="todo-measure"></p>`
+      panel.querySelector(".todo-ramps").append(ramp)
+      const spans = ramp.querySelectorAll(".todo-steps > span")
+      const [first, second, last] = [spans[0], spans[1], spans[15]].map(hue)
+      ramp.querySelector(".todo-measure").textContent =
+        `hue --color-1 ${first.toFixed(1)}, --color-2 ${second.toFixed(1)}, --color-16 ${last.toFixed(1)}: drift ${(last - first).toFixed(1)}°`
+    }
+  }
+</script>

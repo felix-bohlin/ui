@@ -1,0 +1,147 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.radio {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  inline-size: 1.25rem;
+  margin: 0;
+}
+
+.radio:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}`,
+    features: ["appearance", "light-dark", "relative-color"],
+    html: `
+<fieldset>
+  <legend>Plan</legend>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" checked />
+    <span>Monthly</span>
+  </label>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" />
+    <span>Yearly</span>
+  </label>
+</fieldset>`,
+    notes: [
+      "<code>appearance: none</code> drops the native circle",
+      "Still a radio group: one shared <code>name</code>, arrow keys move the selection",
+      "The <code>&lt;legend&gt;</code> names the group",
+      "In dark mode <code>--accent</code> caps the primary's lightness, so the light dot keeps 3:1",
+    ],
+    title: "Appearance",
+  },
+  {
+    css: `
+.radio:checked {
+  background-image: radial-gradient(
+    circle,
+    var(--accent-contrast) calc(var(--dot) - 0.25px),
+    var(--accent) calc(var(--dot) + 0.25px)
+  );
+}`,
+    notes: [
+      "The dot is a <code>radial-gradient()</code> on the input's own background, centered in its box",
+      "No second box to lay out and round to device pixels, so the dot stays centered at every zoom level and screen scale",
+      "Half a pixel between the two stops smooths the edge",
+    ],
+    title: "Dot",
+  },
+  {
+    css: `
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+.label:has([disabled]) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+.label > span {
+  margin-block-start: calc((1.25rem - 1lh) / 2);
+}`,
+    features: ["has", "lh"],
+    notes: [
+      "The <code>&lt;label&gt;</code> wraps the input, so the text is part of the hit area",
+      "<code>:has([disabled])</code> dims the whole row from the input's state",
+      "<code>(size − 1lh) / 2</code> centers the first line on the circle, in every browser",
+    ],
+    title: "Label",
+  },
+]
+
+const knobs = [
+  {
+    label: "Dot radius",
+    max: 8,
+    min: 2,
+    property: "--dot",
+    step: 1,
+    unit: "px",
+    value: 5,
+  },
+]
+
+const items = [
+  { checked: true, label: "Monthly" },
+  { label: "Yearly" },
+  { disabled: true, label: "Lifetime" },
+]
+---
+
+<BuildUp id="build-radio" knobs={knobs} steps={steps}>
+  <fieldset class="ui-fieldset">
+    <legend>Plan</legend>
+    <div class="stack">
+      {
+        items.map((item) => (
+          <label class="label">
+            <input
+              checked={item.checked}
+              class="radio"
+              disabled={item.disabled}
+              name="build-radio-plan"
+              type="radio"
+            />
+            <span>{item.label}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .label {
+    align-items: start;
+    display: flex;
+    gap: var(--size-2);
+  }
+</style>

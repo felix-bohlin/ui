@@ -1,0 +1,69 @@
+<style>
+  .todo-chips {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Sizes has no prose. Icon (Astro/Vue): "The icon can be placed before or
+      after the text using the <code>start</code> and <code>end</code> slots."
+      So <code>&lt;Chip&gt;Long label&lt;/Chip&gt;</code> renders the text
+      unwrapped, and <code>multiline</code> only shows in the Sizes example.
+    </p>
+    <div class="todo-chips">
+      <div
+        class="ui-chip ui-tonal"
+        style="max-inline-size: 12ch"
+        data-case="Default slot"
+      >
+        Label in the default slot overflows the chip
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Sizes: "Labels truncate with an ellipsis. Set
+      <code>multiline</code> (<code>.ui-multiline</code> in HTML) to let them
+      wrap." Icon slots: "When you use the default slot instead of
+      <code>label</code>, wrap the text in
+      <code>&lt;span class="ui-text"&gt;</code> so it can truncate."
+    </p>
+    <div class="todo-chips">
+      <div
+        class="ui-chip ui-tonal"
+        style="max-inline-size: 12ch"
+        data-case="Wrapped in .ui-text"
+      >
+        <span class="ui-text">Label wrapped in .ui-text truncates</span>
+      </div>
+      <div
+        class="ui-chip ui-tonal ui-multiline"
+        style="max-inline-size: 12ch"
+        data-case="multiline"
+      >
+        <span class="ui-text">Multiline label wraps onto more lines</span>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = []
+    for (const chip of panel.querySelectorAll("[data-case]")) {
+      const text = chip.querySelector(".ui-text") ?? chip
+      const x = text.scrollWidth - text.clientWidth
+      const y = chip.scrollHeight - chip.clientHeight
+      lines.push(
+        `${chip.dataset.case}: chip ${chip.offsetWidth}x${chip.offsetHeight}px, content overflows ${x}px across and ${y}px down, text-overflow ${getComputedStyle(text).textOverflow}`,
+      )
+    }
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

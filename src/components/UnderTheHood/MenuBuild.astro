@@ -1,0 +1,204 @@
+---
+import { Button } from "@opui/astro"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.menu {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: 0.25rem 0;
+}`,
+    features: ["invoker-commands", "popover"],
+    html: `
+<button type="button" commandfor="menu" command="toggle-popover">
+  Options
+</button>
+
+<menu class="menu" id="menu" popover>
+  <li>
+    <button type="button" commandfor="menu" command="hide-popover">
+      Edit
+    </button>
+  </li>
+</menu>`,
+    notes: [
+      "<code>popover</code>: top layer, light dismiss, <kbd>Esc</kbd> to close",
+      "Invoker Commands: <code>commandfor</code> + <code>command</code>, no JavaScript",
+      "Without positioning it opens in the middle of the viewport",
+    ],
+    title: "Popover",
+  },
+  {
+    css: `
+.menu {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(12rem, anchor-size(inline));
+  position-area: block-end span-inline-end;
+}`,
+    features: ["anchor-positioning"],
+    notes: [
+      "The invoker is the implicit anchor: no <code>anchor-name</code>, no ids to wire",
+      "<code>position-area</code> places it below, spanning towards the end",
+      "<code>anchor-size(inline)</code> keeps it at least as wide as the trigger, and never under <code>12rem</code>",
+    ],
+    title: "Anchor",
+  },
+  {
+    css: `
+.menu {
+  max-block-size: 60dvb;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  @supports (min-block-size: calc-size(fit-content, size)) {
+    max-block-size: min(60dvb, 100% - 0.5rem);
+    min-block-size: calc-size(fit-content, min(size, 12rem));
+  }
+}`,
+    features: ["calc-size", "overscroll-behavior"],
+    notes: [
+      "Scroll the trigger towards the bottom of the window and open it again",
+      "<code>100%</code> is the space below the trigger, minus the <code>0.25rem</code> margin on each side, so the menu shrinks to fit and scrolls",
+      "But never below <code>12rem</code>, or its content if that's shorter. Then it overflows, and that's what makes it flip",
+      "Without <code>calc-size()</code> it stays at <code>60dvb</code> and just flips",
+    ],
+    title: "Fit",
+  },
+  {
+    css: `
+.menu {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline,
+    --menu-block-end,
+    --menu-block-start;
+}
+
+@position-try --menu-block-end {
+  margin: 0.25rem 0;
+  position-area: block-end span-all;
+}
+
+@position-try --menu-block-start {
+  margin: 0.25rem 0;
+  position-area: block-start span-all;
+}`,
+    features: ["anchor-positioning"],
+    notes: [
+      "Scroll the trigger to the bottom of the window and open it again",
+      "The browser tries each fallback when the menu would overflow",
+      "Flipped above, it shrinks to fit the space there too",
+      "When no corner fits, the last two let it span the full width below or above",
+    ],
+    title: "Flip",
+  },
+  {
+    css: `
+.menu {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    display calc(0.15s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.15s * var(--motion, 1)),
+    overlay calc(0.15s * var(--motion, 1)) allow-discrete,
+    scale calc(0.15s * var(--motion, 1));
+}
+
+.menu:popover-open {
+  opacity: 1;
+  scale: 1;
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}`,
+    features: [
+      "individual-transforms",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
+    notes: [
+      "<code>@starting-style</code> gives the entry transition a starting point",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",
+      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+    ],
+    title: "Animate",
+  },
+]
+---
+
+<BuildUp id="build-menu" steps={steps}>
+  <Button
+    command="toggle-popover"
+    commandfor="build-menu-popover"
+    variant="outlined"
+  >
+    Options
+  </Button>
+  <menu class="menu" id="build-menu-popover" popover>
+    {
+      [
+        "Edit",
+        "Duplicate",
+        "Rename",
+        "Move",
+        "Share",
+        "Download",
+        "Archive",
+      ].map((item) => (
+        <li>
+          <button
+            commandfor="build-menu-popover"
+            command="hide-popover"
+            type="button"
+          >
+            {item}
+          </button>
+        </li>
+      ))
+    }
+  </menu>
+</BuildUp>
+
+<style>
+  .menu {
+    list-style: none;
+
+    & button {
+      background: none;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      inline-size: 100%;
+      padding: var(--size-2) var(--size-3);
+      text-align: start;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: oklch(from var(--primary) l c h / 15%);
+        }
+      }
+    }
+  }
+</style>
+
+<style is:global>
+  @position-try --menu-block-end {
+    margin: 0.25rem 0;
+    position-area: block-end span-all;
+  }
+
+  @position-try --menu-block-start {
+    margin: 0.25rem 0;
+    position-area: block-start span-all;
+  }
+</style>

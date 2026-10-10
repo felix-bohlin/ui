@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  css: ["text-field", "textarea"],
   model: {
     description: "The textarea value.",
     prop: "value",
@@ -9,43 +10,43 @@ export default {
   },
   notes: {
     astro:
-      "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
-    vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
+      "Textarea attributes go to the `<textarea>`: `cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows` and `value`. Other attributes go to the root `<label>`.",
+    svelte:
+      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.",
+    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes height depending on its content.",
+      description:
+        "Lets the width follow the content and allows resizing in both directions.",
       group: "Auto-fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "textarea",
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
@@ -54,6 +55,13 @@ export default {
         "Pushes the label and description to one side and the textarea to the other.",
       group: "Layout",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

@@ -1,0 +1,216 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.switch {
+  --dot-color: light-dark(var(--gray-11), var(--gray-14));
+
+  appearance: none;
+  block-size: 1.5rem;
+  cursor: pointer;
+  inline-size: var(--track-width);
+  margin: 0;
+  position: relative;
+}
+
+.switch::before {
+  background-color: light-dark(var(--gray-3), var(--gray-8));
+  border: 1px solid var(--dot-color);
+  border-radius: 1e5px;
+  content: "";
+  inset: 0;
+  position: absolute;
+}`,
+    features: ["appearance", "light-dark"],
+    html: `
+<label class="label">
+  <input class="switch" type="checkbox" role="switch" />
+  <span>Wi-Fi</span>
+</label>`,
+    notes: [
+      "A checkbox with <code>role=&quot;switch&quot;</code>: announced as on/off, same form value",
+      "<code>appearance: none</code> frees both pseudo-elements, <code>::before</code> is the track",
+      "<code>light-dark()</code> picks the colors per color scheme",
+    ],
+    title: "Track",
+  },
+  {
+    css: `
+.switch::after {
+  background-color: var(--dot-color);
+  block-size: 1rem;
+  border-radius: 50%;
+  content: "";
+  inline-size: 1rem;
+  inset-block-start: 0.25rem;
+  inset-inline-start: 0.25rem;
+  position: absolute;
+}
+
+.switch:checked::before {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.switch:checked::after {
+  --dot-color: var(--primary-contrast);
+
+  inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+}`,
+    features: ["logical-properties"],
+    notes: [
+      "<code>::after</code> is the dot",
+      "<code>:checked</code> moves it to the end: track − dot − gap",
+      "Logical insets, so it slides the other way in RTL",
+    ],
+    title: "Dot",
+  },
+  {
+    css: `
+.switch::before {
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.switch::after {
+  --ring: 0px;
+
+  outline: var(--ring) solid var(--dot-color);
+  outline-offset: -1px;
+  transition:
+    background-color 0.2s var(--ease),
+    inset-inline-start 0.2s var(--ease),
+    outline-color 0.2s var(--ease),
+    outline-width 0.2s var(--ease);
+}
+
+.switch:checked::after {
+  --ring: 3px;
+}
+
+.switch:active::after {
+  --ring: 5px;
+}`,
+    notes: [
+      "An <code>outline</code> in the dot's own color grows it without touching its box",
+      "Press and hold: <code>:active</code> grows it a little more",
+      "The transition lists position, color and outline, so nothing else animates by accident",
+    ],
+    title: "Motion",
+  },
+  {
+    css: `
+.label:has(.icon) {
+  .icon {
+    grid-column: 1;
+    grid-row: 1;
+    margin-block-start: 0.25rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .icon-checked {
+    display: none;
+    margin-inline-start: 0.25rem;
+  }
+
+  .icon-unchecked {
+    margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+  }
+
+  .switch {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  &:has(:checked) {
+    .icon-checked {
+      display: block;
+    }
+
+    .icon-unchecked {
+      display: none;
+    }
+  }
+}`,
+    features: ["has"],
+    html: `
+<label class="label">
+  <span class="icon icon-unchecked" aria-hidden="true"><svg>…</svg></span>
+  <span class="icon icon-checked" aria-hidden="true"><svg>…</svg></span>
+  <input class="switch" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Light theme</span>
+</label>`,
+    notes: [
+      "Icons and input share one grid cell, stacked on the track",
+      "<code>:has(:checked)</code> on the label swaps which icon shows",
+      "Each icon sits on the side the dot is not",
+      "<code>pointer-events: none</code> lets clicks through to the input",
+      "A <code>.ui-sr-only</code> span names the switch without showing text",
+    ],
+    title: "Icons",
+  },
+]
+
+const knobs = [
+  {
+    label: "Track width",
+    max: 72,
+    min: 40,
+    property: "--track-width",
+    step: 4,
+    unit: "px",
+    value: 48,
+  },
+]
+
+const moon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"/></svg>`
+const sun = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"/></svg>`
+---
+
+<BuildUp id="build-switch" knobs={knobs} steps={steps}>
+  <div class="stack">
+    <label class="label">
+      <input checked class="switch" role="switch" type="checkbox" />
+      <span class="text">Wi-Fi</span>
+    </label>
+    <label class="label">
+      <span class="icon icon-unchecked" aria-hidden="true"
+        ><Fragment set:html={moon} /></span
+      >
+      <span class="icon icon-checked" aria-hidden="true"
+        ><Fragment set:html={sun} /></span
+      >
+      <input class="switch" role="switch" type="checkbox" />
+      <span class="ui-sr-only">Light theme</span>
+    </label>
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .label {
+    align-items: start;
+    display: inline-grid;
+    gap: 0 var(--size-2);
+    grid-auto-flow: column;
+  }
+
+  .text {
+    line-height: 1.5rem;
+  }
+
+  .icon :global(svg) {
+    block-size: 1rem;
+    display: block;
+    inline-size: 1rem;
+  }
+</style>

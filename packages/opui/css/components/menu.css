@@ -1,0 +1,200 @@
+@layer components.extended {
+  :where(.ui-menu) {
+    --_motion: var(--motion, 1);
+    --_bg-color: var(--surface-elevated);
+    --_border-color: light-dark(
+      var(--border-color),
+      oklch(from var(--gray-6) l c h / 40%)
+    );
+    --_border-radius: var(--border-radius);
+    --_border-width: var(--border-width);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
+    --_margin-block: var(--_offset);
+    --_margin-inline: 0;
+    --_max-block-size: 60dvb;
+    --_min-block-size: 12rem;
+    --_min-inline-size: 12rem;
+    --_offset: var(--size-1);
+    --_side: block-end;
+    --_span: span-inline-end;
+    --_position-area: var(--_side) var(--_span);
+    --_shadow: var(--shadow-3);
+
+    background-color: var(--_bg-color);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_border-radius);
+    box-shadow: var(--_shadow);
+    color: var(--text-primary);
+    margin: 0;
+    max-block-size: var(--_max-block-size);
+    min-inline-size: var(--_min-inline-size);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-block: var(--size-1);
+    padding-inline: 0;
+
+    & > .ui-border-top::before,
+    &.ui-bordered > :where(li + li, option + option)::before {
+      border-block-start-color: var(--_border-color);
+    }
+
+    /* Popover - positioned against its invoker (implicit anchor) */
+    &[popover] {
+      inset: auto;
+      margin-block: var(--_margin-block);
+      margin-inline: var(--_margin-inline);
+      min-inline-size: max(var(--_min-inline-size), anchor-size(inline));
+
+      opacity: 0;
+      position-area: var(--anchor-position-area, var(--_position-area));
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline,
+        --ui-menu-block-end,
+        --ui-menu-block-start;
+      scale: 0.96;
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
+
+      /* Firefox and Safari fallback */
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        max-block-size: min(
+          var(--_max-block-size),
+          calc(100% - 2 * var(--_offset))
+        );
+        min-block-size: calc-size(
+          fit-content,
+          min(size, var(--_min-block-size))
+        );
+      }
+
+      &:popover-open {
+        opacity: 1;
+        scale: 1;
+
+        @starting-style {
+          opacity: 0;
+          scale: 0.96;
+        }
+      }
+    }
+
+    /* Placements */
+    &.ui-block-start {
+      --_side: block-start;
+    }
+
+    &.ui-inline-end {
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
+      --_side: inline-end;
+      --_span: span-block-end;
+    }
+
+    &.ui-inline-start {
+      --_margin-block: 0;
+      --_margin-inline: var(--_offset);
+      --_side: inline-start;
+      --_span: span-block-end;
+    }
+
+    &.ui-align-end {
+      --_span: span-inline-start;
+
+      &:is(.ui-inline-end, .ui-inline-start) {
+        --_span: span-block-start;
+      }
+    }
+
+    &:dir(rtl) li:has(> .ui-menu) > :is(a, button) > .ui-end {
+      scale: -1 1;
+    }
+
+    &:not(.ui-menu .ui-menu) {
+      anchor-name: --ui-menu-root;
+      anchor-scope: --ui-menu-root;
+    }
+
+    & .ui-menu .ui-menu[popover] {
+      inset-inline-end: max(
+        0px,
+        min(
+          anchor(--ui-menu-root start),
+          (anchor(end) - anchor(--ui-menu-root start)) * 1000
+        )
+      );
+      inset-inline-start: 0;
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      &:has(.ui-menu[popover]) {
+        anchor-name: --ui-menu;
+        anchor-scope: --ui-menu;
+      }
+
+      & .ui-menu[popover] {
+        position-anchor: --ui-menu;
+      }
+    }
+
+    /* Items */
+    li > :is(a, button):is([disabled], [aria-disabled="true"]) {
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    :where(li.ui-critical),
+    li > :is(a, button).ui-critical {
+      --_hover-bg-color: oklch(
+        from var(--critical) l c h / var(--state-hover-alpha-accent)
+      );
+      color: light-dark(
+        var(--critical),
+        oklch(from var(--critical) max(l, 0.75) c h)
+      );
+
+      @container style(--contrast: more) {
+        color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) max(l, 0.85) min(c, 0.1) h)
+        );
+      }
+    }
+
+    :where(li) > :where(a, button) > .ui-end {
+      margin-inline-start: auto;
+    }
+
+    /* Group label */
+    :where(li.ui-label) {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      font-weight: var(--font-weight-bold);
+      min-block-size: auto;
+      padding-block: var(--size-2) var(--size-1);
+    }
+  }
+}
+
+@position-try --ui-menu-block-end {
+  margin-block: var(--_offset);
+  margin-inline: 0;
+  position-area: block-end span-all;
+}
+
+@position-try --ui-menu-block-start {
+  margin-block: var(--_offset);
+  margin-inline: 0;
+  position-area: block-start span-all;
+}

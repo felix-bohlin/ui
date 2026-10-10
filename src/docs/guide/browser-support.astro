@@ -1,11 +1,15 @@
 ---
 import Guide from "../../layouts/Guide.astro"
-import Header from "../../components/Header.astro"
-import Baseline from "../../components/Baseline.astro"
 import {
   getCategorizedBaselineIds,
   getBaselineMappings,
 } from "../../utils/baseline"
+import { componentHrefFor } from "../../utils/components"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../../utils/framework-routing"
 import { Chip } from "@opui/astro"
 
 const categorized = await getCategorizedBaselineIds()
@@ -13,10 +17,12 @@ const { featureToComponents, componentToFeatures } = await getBaselineMappings()
 
 const allFeatures = Object.keys(featureToComponents).sort()
 const allComponents = Object.keys(componentToFeatures).sort()
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
 
 const years = Object.keys(categorized)
   .filter((k) => k !== "all" && k !== "limited")
-  .sort((a, b) => b.localeCompare(a)) // 2025, 2024...
+  .sort((a, b) => a.localeCompare(b)) // 2024, 2025...
 ---
 
 <Guide showToc={false}>
@@ -32,19 +38,26 @@ const years = Object.keys(categorized)
       <header>
         <h2 class="ui-h3">Features</h2>
         <button
+          type="button"
           id="clear-features"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
       </header>
-      <div class="chip-list" id="feature-chips">
+      <div
+        class="chip-list"
+        id="feature-chips"
+        role="group"
+        aria-label="Features"
+      >
         {
           allFeatures.map((id) => (
             <Chip
               variant="outlined"
               as="button"
+              type="button"
               data-id={id}
               class="filter-chip"
             >
@@ -59,19 +72,26 @@ const years = Object.keys(categorized)
       <header>
         <h2 class="ui-h3">Components</h2>
         <button
+          type="button"
           id="clear-components"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
       </header>
-      <div class="chip-list" id="component-chips">
+      <div
+        class="chip-list"
+        id="component-chips"
+        role="group"
+        aria-label="Components"
+      >
         {
           allComponents.map((name) => (
             <Chip
               variant="outlined"
               as="button"
+              type="button"
               data-id={name}
               class="filter-chip"
             >
@@ -86,27 +106,26 @@ const years = Object.keys(categorized)
       <header>
         <h2 class="ui-h3">Supported since</h2>
         <button
+          type="button"
           id="clear-years"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
       </header>
-      <div class="chip-list" id="year-chips">
-        <Chip
-          variant="outlined"
-          as="button"
-          data-id="limited"
-          class="filter-chip"
-        >
-          Limited
-        </Chip>
+      <div
+        class="chip-list"
+        id="year-chips"
+        role="group"
+        aria-label="Supported since"
+      >
         {
           years.map((year) => (
             <Chip
               variant="outlined"
               as="button"
+              type="button"
               data-id={year}
               class="filter-chip"
             >
@@ -114,17 +133,54 @@ const years = Object.keys(categorized)
             </Chip>
           ))
         }
+        <Chip
+          variant="outlined"
+          as="button"
+          type="button"
+          data-id="limited"
+          class="filter-chip"
+        >
+          Limited
+        </Chip>
       </div>
     </div>
 
-    <div
-      id="filter-results-container"
-      class="filter-results"
-      style="display: none;"
-    >
-      <div id="explorer-wrapper">
-        <Baseline ids={allFeatures} />
-      </div>
+    <div class="filter-results">
+      <p id="filter-count" class="filter-count" aria-live="polite">
+        {allFeatures.length} features
+      </p>
+      <article
+        id="explorer-wrapper"
+        class="feature-list ui-card ui-outlined ui-not-rich-text"
+      >
+        {
+          allFeatures.map((id) => (
+            <div class="feature" data-id={id}>
+              <baseline-status featureId={id} />
+              <p class="used-by">
+                Used by{" "}
+                {featureToComponents[id].map((component, index) => (
+                  <>
+                    {index > 0 && ", "}
+                    {componentHasFramework(currentFramework, component.slug) ? (
+                      <a
+                        href={componentHrefFor(
+                          currentFramework,
+                          component.slug,
+                        )}
+                      >
+                        {component.name}
+                      </a>
+                    ) : (
+                      component.name
+                    )}
+                  </>
+                ))}
+              </p>
+            </div>
+          ))
+        }
+      </article>
     </div>
   </section>
 
@@ -141,14 +197,6 @@ const years = Object.keys(categorized)
 </Guide>
 
 <style>
-  .container {
-    display: grid;
-    gap: var(--size-8);
-    margin-inline: auto;
-    max-inline-size: var(--_content-document);
-    padding: var(--size-5);
-  }
-
   .filter-section {
     display: grid;
     gap: var(--size-6);
@@ -167,6 +215,10 @@ const years = Object.keys(categorized)
       h2 {
         margin: 0;
       }
+
+      [hidden] {
+        display: none;
+      }
     }
   }
 
@@ -177,30 +229,54 @@ const years = Object.keys(categorized)
   }
 
   .filter-chip {
-    cursor: pointer;
     user-select: none;
-    transition: all 0.1s var(--ease-3);
 
-    &:active {
-      transform: scale(0.95);
-    }
-
-    &.selected {
-      background-color: var(--surface-3);
+    &[aria-pressed="true"] {
+      background-color: var(--surface-tonal);
       border-color: var(--primary);
-      box-shadow: var(--shadow-1);
+      box-shadow: var(--shadow-2);
     }
 
-    &.ui-disabled {
+    &[aria-disabled="true"] {
       opacity: 0.3;
-      pointer-events: none;
-      filter: grayscale(1);
     }
   }
 
   .filter-results {
     display: grid;
-    gap: var(--size-5);
+    gap: var(--size-3);
+  }
+
+  .filter-count {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .feature-list {
+    gap: 0;
+  }
+
+  .feature {
+    padding: var(--size-3);
+
+    &:nth-child(even of :not([hidden])) {
+      background-color: var(--surface-tonal);
+    }
+
+    baseline-status {
+      border-radius: 0;
+      display: block;
+      padding: 0;
+    }
+  }
+
+  .used-by {
+    font-size: var(--font-size-0);
+    margin: 0;
+
+    a {
+      color: inherit;
+    }
   }
 </style>
 
@@ -215,13 +291,27 @@ const years = Object.keys(categorized)
   if (!dataEl) throw new Error("Baseline data missing")
 
   const { featureToComponents, componentToFeatures, categorized } = JSON.parse(
-    dataEl.innerHTML,
+    dataEl.textContent!,
   )
 
+  const params = new URLSearchParams(location.search)
+  const fromParams = (key: string, valid: string[]) =>
+    new Set(
+      (params.get(key) ?? "")
+        .split(",")
+        .filter((value) => valid.includes(value)),
+    )
+
   const state = {
-    selectedFeatures: new Set<string>(),
-    selectedComponents: new Set<string>(),
-    selectedYears: new Set<string>(),
+    selectedFeatures: fromParams("features", Object.keys(featureToComponents)),
+    selectedComponents: fromParams(
+      "components",
+      Object.keys(componentToFeatures),
+    ),
+    selectedYears: fromParams(
+      "years",
+      Object.keys(categorized).filter((k) => k !== "all"),
+    ),
   }
 
   // FILTER EXPLORER LOGIC
@@ -235,9 +325,33 @@ const years = Object.keys(categorized)
     "#year-chips .filter-chip",
   ) as NodeListOf<HTMLElement>
   const explorerItems = document.querySelectorAll(
-    "#explorer-wrapper baseline-status",
+    "#explorer-wrapper .feature",
   ) as NodeListOf<HTMLElement>
-  const resultsContainer = document.getElementById("filter-results-container")
+  const filterCount = document.getElementById("filter-count")
+
+  function syncUrl() {
+    const url = new URL(location.href)
+    const entries = [
+      ["features", state.selectedFeatures],
+      ["components", state.selectedComponents],
+      ["years", state.selectedYears],
+    ] as const
+    entries.forEach(([key, set]) => {
+      if (set.size > 0) url.searchParams.set(key, Array.from(set).join(","))
+      else url.searchParams.delete(key)
+    })
+    history.replaceState(history.state, "", url)
+  }
+
+  function updateChip(
+    chip: HTMLElement,
+    isSelected: boolean,
+    isValid: boolean,
+  ) {
+    chip.setAttribute("aria-pressed", String(isSelected))
+    if (!isValid && !isSelected) chip.setAttribute("aria-disabled", "true")
+    else chip.removeAttribute("aria-disabled")
+  }
 
   function updateFilters() {
     const hasSelection =
@@ -250,16 +364,13 @@ const years = Object.keys(categorized)
     const clearComponentsBtn = document.getElementById("clear-components")
     const clearYearsBtn = document.getElementById("clear-years")
     if (clearFeaturesBtn) {
-      clearFeaturesBtn.style.display =
-        state.selectedFeatures.size > 0 ? "block" : "none"
+      clearFeaturesBtn.hidden = state.selectedFeatures.size === 0
     }
     if (clearComponentsBtn) {
-      clearComponentsBtn.style.display =
-        state.selectedComponents.size > 0 ? "block" : "none"
+      clearComponentsBtn.hidden = state.selectedComponents.size === 0
     }
     if (clearYearsBtn) {
-      clearYearsBtn.style.display =
-        state.selectedYears.size > 0 ? "block" : "none"
+      clearYearsBtn.hidden = state.selectedYears.size === 0
     }
 
     // A. Calculate Valid Interaction Sets
@@ -340,8 +451,7 @@ const years = Object.keys(categorized)
       const isSelected = state.selectedFeatures.has(id)
       const isValid = validFeatureIds.has(id)
 
-      chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
+      updateChip(chip, isSelected, isValid)
     })
 
     componentChips.forEach((chip) => {
@@ -349,74 +459,80 @@ const years = Object.keys(categorized)
       const isSelected = state.selectedComponents.has(id)
       const isValid = validComponentNames.has(id)
 
-      chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
+      updateChip(chip, isSelected, isValid)
     })
 
     yearChips.forEach((chip) => {
       const id = chip.dataset.id!
       const isSelected = state.selectedYears.has(id)
       const isValid = validYears.has(id)
-      chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
+      updateChip(chip, isSelected, isValid)
     })
 
     // C. Update Explorer Results
-    if (resultsContainer) {
-      resultsContainer.style.display = "grid"
+    const featuresToShow = new Set<string>()
 
-      const featuresToShow = new Set<string>()
+    // If nothing is selected, show all features
+    if (!hasSelection) {
+      Object.keys(featureToComponents).forEach((f) => featuresToShow.add(f))
+    } else {
+      // Add explicitly selected features
+      state.selectedFeatures.forEach((f) => featuresToShow.add(f))
 
-      // If nothing is selected, show all features
-      if (!hasSelection) {
-        Object.keys(featureToComponents).forEach((f) => featuresToShow.add(f))
-      } else {
-        // Add explicitly selected features
-        state.selectedFeatures.forEach((f) => featuresToShow.add(f))
-
-        // Add features from selected components
-        if (state.selectedComponents.size > 0) {
-          state.selectedComponents.forEach((c) => {
-            const cFeatures = componentToFeatures[c] as string[]
-            cFeatures.forEach((f) => featuresToShow.add(f))
-          })
-        }
-
-        // If years are selected
-        if (state.selectedYears.size > 0) {
-          const yearFeatureIds = new Set<string>()
-          state.selectedYears.forEach((year) => {
-            const yearFeatures = categorized[year] || []
-            yearFeatures.forEach((f: string) => yearFeatureIds.add(f))
-          })
-
-          // If only years are selected (no features or components), show all features from those years
-          if (
-            state.selectedFeatures.size === 0 &&
-            state.selectedComponents.size === 0
-          ) {
-            yearFeatureIds.forEach((f) => featuresToShow.add(f))
-          } else {
-            // Otherwise, filter existing features to only include those from selected years
-            const filteredFeatures = new Set<string>()
-            featuresToShow.forEach((f) => {
-              if (yearFeatureIds.has(f)) {
-                filteredFeatures.add(f)
-              }
-            })
-            featuresToShow.clear()
-            filteredFeatures.forEach((f) => featuresToShow.add(f))
-          }
-        }
+      // Add features from selected components
+      if (state.selectedComponents.size > 0) {
+        state.selectedComponents.forEach((c) => {
+          const cFeatures = componentToFeatures[c] as string[]
+          cFeatures.forEach((f) => featuresToShow.add(f))
+        })
       }
 
-      // Toggle visibility; zebra striping is handled by CSS nth-child(even of :not([hidden]))
-      explorerItems.forEach((item) => {
-        const id = item.getAttribute("featureId")!
-        const isVisible = featuresToShow.has(id)
-        item.toggleAttribute("hidden", !isVisible)
-      })
+      // If years are selected
+      if (state.selectedYears.size > 0) {
+        const yearFeatureIds = new Set<string>()
+        state.selectedYears.forEach((year) => {
+          const yearFeatures = categorized[year] || []
+          yearFeatures.forEach((f: string) => yearFeatureIds.add(f))
+        })
+
+        // If only years are selected (no features or components), show all features from those years
+        if (
+          state.selectedFeatures.size === 0 &&
+          state.selectedComponents.size === 0
+        ) {
+          yearFeatureIds.forEach((f) => featuresToShow.add(f))
+        } else {
+          // Otherwise, filter existing features to only include those from selected years
+          const filteredFeatures = new Set<string>()
+          featuresToShow.forEach((f) => {
+            if (yearFeatureIds.has(f)) {
+              filteredFeatures.add(f)
+            }
+          })
+          featuresToShow.clear()
+          filteredFeatures.forEach((f) => featuresToShow.add(f))
+        }
+      }
     }
+
+    // Toggle visibility; zebra striping is handled by CSS nth-child(even of :not([hidden]))
+    explorerItems.forEach((item) => {
+      const id = item.dataset.id!
+      const isVisible = featuresToShow.has(id)
+      item.toggleAttribute("hidden", !isVisible)
+    })
+
+    if (filterCount) {
+      const total = explorerItems.length
+      filterCount.textContent =
+        featuresToShow.size === 0
+          ? "No features match the current filters"
+          : hasSelection
+            ? `${featuresToShow.size} of ${total} features`
+            : `${total} features`
+    }
+
+    syncUrl()
   }
 
   // EVENT LISTENERS
@@ -426,7 +542,7 @@ const years = Object.keys(categorized)
       const chip = (e.target as HTMLElement).closest(
         ".filter-chip",
       ) as HTMLElement
-      if (!chip || chip.classList.contains("ui-disabled")) return
+      if (!chip || chip.getAttribute("aria-disabled") === "true") return
 
       const id = chip.dataset.id!
       if (stateSet.has(id)) stateSet.delete(id)
@@ -440,20 +556,27 @@ const years = Object.keys(categorized)
   setupChipGroup("component-chips", state.selectedComponents)
   setupChipGroup("year-chips", state.selectedYears)
 
+  function focusFirstChip(containerId: string) {
+    document.querySelector<HTMLElement>(`#${containerId} .filter-chip`)?.focus()
+  }
+
   // Clear button handlers
   document.getElementById("clear-features")?.addEventListener("click", () => {
     state.selectedFeatures.clear()
     updateFilters()
+    focusFirstChip("feature-chips")
   })
 
   document.getElementById("clear-components")?.addEventListener("click", () => {
     state.selectedComponents.clear()
     updateFilters()
+    focusFirstChip("component-chips")
   })
 
   document.getElementById("clear-years")?.addEventListener("click", () => {
     state.selectedYears.clear()
     updateFilters()
+    focusFirstChip("year-chips")
   })
 
   // INITIAL RENDER

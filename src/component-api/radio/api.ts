@@ -4,21 +4,33 @@ export default {
   component: "Radio",
   model: {
     description: "The selected value of the group.",
+    frameworks: {
+      svelte: [
+        {
+          description: "The selected value of the group.",
+          prop: "group",
+          type: "string | number | boolean",
+        },
+      ],
+    },
     prop: "value",
     type: "string | number | boolean",
   },
   notes: {
     astro:
-      "Other attributes, such as `checked`, `disabled`, `name` and `value`, go to the `<input>`.",
-    html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.",
-    vue: "Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`.",
+      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
+    html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
@@ -30,7 +42,18 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
+    },
+    {
+      class: ".ui-spread",
+      default: "false",
+      description: "Pushes the label and the input to opposite ends.",
+      group: "Layout",
+      prop: "spread",
     },
     {
       class: ".ui-stack",

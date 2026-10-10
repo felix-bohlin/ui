@@ -8,14 +8,16 @@ import {
   frameworkVariantsOf,
   type FrameworkId,
 } from "../utils/framework-routing"
+import { markdownPath } from "../utils/markdown.js"
 
 type Props = {
   title?: string
   description?: string
+  hasMarkdown?: boolean
   image?: string
 }
 
-const { title, description, image } = Astro.props
+const { title, description, hasMarkdown, image } = Astro.props
 const pathname = Astro.url.pathname
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -29,6 +31,9 @@ const currentNormalized = normalize(pathname)
 const siteTitle = title ? `${title} - Open Props UI` : "Open Props UI"
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const imageUrl = new URL(image || "/share-img.png", Astro.site)
+const markdownUrl = hasMarkdown
+  ? new URL(markdownPath(pathname), Astro.site)
+  : null
 ---
 
 <!doctype html>
@@ -36,10 +41,15 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
   <head>
     <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {
+      markdownUrl && (
+        <link rel="alternate" type="text/markdown" href={markdownUrl} />
+      )
+    }
     <title>{siteTitle}</title>
     {description && <meta name="description" content={description} />}
 
@@ -51,15 +61,11 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
     <meta property="og:image" content={imageUrl} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={siteTitle} />
-    {
-      description && (
-        <meta property="twitter:description" content={description} />
-      )
-    }
-    <meta property="twitter:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={siteTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={imageUrl} />
 
     {
       variants
@@ -111,4 +117,57 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
 <script>
   import { initToastManager } from "@opui/css/js/toast.js"
   initToastManager()
+</script>
+
+<script>
+  import {
+    DEFAULT_FRAMEWORK,
+    FRAMEWORK_IDS,
+    frameworkPrefixPattern,
+    isFrameworkFree,
+    pathHasFramework,
+    type FrameworkId,
+  } from "../utils/framework"
+
+  const KEY = "opui-last-framework"
+
+  const isFramework = (value: string | null): value is FrameworkId =>
+    (FRAMEWORK_IDS as (string | null)[]).includes(value)
+
+  function rememberFramework() {
+    const framework = location.pathname.match(frameworkPrefixPattern())?.[1]
+    if (!isFramework(framework ?? null)) return
+    try {
+      sessionStorage.setItem(KEY, framework!)
+    } catch (_) {}
+  }
+
+  function preferredFramework() {
+    try {
+      const last = sessionStorage.getItem(KEY)
+      if (isFramework(last)) return last
+      const saved = localStorage.getItem("opui-framework")
+      if (isFramework(saved)) return saved
+    } catch (_) {}
+    return DEFAULT_FRAMEWORK
+  }
+
+  function relinkDocs() {
+    if (!isFrameworkFree(location.pathname)) return
+    const framework = preferredFramework()
+    if (framework === DEFAULT_FRAMEWORK) return
+    const prefix = `/${DEFAULT_FRAMEWORK}`
+    document
+      .querySelectorAll<HTMLAnchorElement>(`a[href^="${prefix}/"]`)
+      .forEach((anchor) => {
+        const href = anchor.getAttribute("href")!.slice(prefix.length)
+        const path = href.split(/[?#]/)[0]
+        if (pathHasFramework(framework, path)) {
+          anchor.setAttribute("href", `/${framework}${href}`)
+        }
+      })
+  }
+
+  rememberFramework()
+  relinkDocs()
 </script>

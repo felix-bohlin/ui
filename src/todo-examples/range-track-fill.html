@@ -1,0 +1,72 @@
+<style>
+  .todo-ranges {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: min(100%, 28rem);
+  }
+
+  @supports (view-timeline: --a) {
+    .todo-css-only {
+      timeline-scope: --ui-range-thumb;
+
+      input[type="range"] {
+        animation: todo-range-fill linear both;
+        animation-range: contain;
+        animation-timeline: --ui-range-thumb;
+        block-size: calc(var(--_thumb-size) + 2 * var(--size-2));
+        margin-block: calc(
+          var(--size-4) / 2 - var(--_thumb-size) / 2 - var(--size-2)
+        );
+        overflow: hidden;
+
+        &:dir(rtl) {
+          animation-direction: reverse;
+        }
+
+        &::-webkit-slider-thumb {
+          view-timeline: --ui-range-thumb inline;
+        }
+      }
+    }
+  }
+
+  @keyframes todo-range-fill {
+    from {
+      --_track-fill: 100%;
+    }
+
+    to {
+      --_track-fill: 0%;
+    }
+  }
+</style>
+<div class="todo-ranges">
+  <label class="ui-range">
+    <span class="ui-label">Current: plain HTML, no script</span>
+    <input type="range" value="60" />
+  </label>
+  <label class="ui-range">
+    <span class="ui-label">Fix A: one-line <code>oninput</code></span>
+    <input
+      type="range"
+      value="60"
+      oninput="
+        this.style.setProperty(
+          '--_track-fill',
+          ((this.value - (this.min || 0)) /
+            ((this.max || 100) - (this.min || 0))) *
+            100 +
+            '%',
+        )
+      "
+    />
+  </label>
+  <label class="ui-range todo-css-only">
+    <span class="ui-label">Fix B: CSS only (scroll-driven animation)</span>
+    <input type="range" value="60" />
+  </label>
+</div>
+<script>
+  for (const input of document.querySelectorAll("input[oninput]"))
+    input.dispatchEvent(new Event("input"))
+</script>

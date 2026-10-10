@@ -1,0 +1,55 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Carousel"
+
+const {
+  align,
+  aspectRatio,
+  buttons = true,
+  class: className,
+  label,
+  markers,
+  orientation,
+  peek,
+  persistentButtons,
+  perView,
+  stretch,
+  style,
+  ...rest
+} = Astro.props
+
+const vars = {
+  ...(perView ? { "--_per-view": perView } : {}),
+  ...(aspectRatio ? { "--_media-aspect-ratio": aspectRatio } : {}),
+}
+const varStyle = Object.entries(vars)
+  .map(([name, value]) => `${name}: ${value};`)
+  .join(" ")
+const mergedStyle =
+  typeof style === "string" || !style
+    ? [varStyle, style].filter(Boolean).join(" ") || undefined
+    : { ...vars, ...style }
+---
+
+<ul
+  aria-label={label}
+  class:list={[
+    "ui-carousel",
+    {
+      "ui-buttons-outside": buttons === "outside",
+      "ui-buttons-persistent": persistentButtons,
+      "ui-peek": peek,
+      "ui-stretch": stretch,
+      "ui-vertical": orientation === "vertical",
+      "ui-with-buttons": buttons,
+      "ui-with-markers": markers,
+    },
+    align && align !== "start" && `ui-align-${align}`,
+    className,
+  ]}
+  style={mergedStyle}
+  {...rest}
+>
+  <slot />
+</ul>

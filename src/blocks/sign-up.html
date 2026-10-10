@@ -1,0 +1,326 @@
+<style>
+  .sign-up {
+    container-type: inline-size;
+    margin-inline: auto;
+    max-inline-size: 64rem;
+
+    .sign-up-layout {
+      align-items: start;
+      display: grid;
+      gap: var(--size-6);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 52rem) {
+        align-items: center;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      }
+    }
+
+    .ui-card {
+      padding-block: var(--size-3);
+    }
+
+    .ui-content {
+      display: grid;
+      gap: var(--size-4);
+    }
+
+    .sign-up-names {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    }
+
+    .sign-up-strength {
+      display: grid;
+      gap: var(--size-1);
+    }
+
+    .sign-up-strength-label {
+      display: flex;
+      font-size: var(--font-size-0);
+      justify-content: space-between;
+    }
+
+    .sign-up-strong {
+      color: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .sign-up-plans .ui-end {
+      gap: var(--size-3);
+    }
+
+    .sign-up-price {
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .sign-up-submit {
+      inline-size: 100%;
+      justify-content: center;
+    }
+
+    .sign-up-footer {
+      font-size: var(--font-size-1);
+      text-align: center;
+    }
+
+    .sign-up-aside {
+      display: grid;
+      gap: var(--size-5);
+      padding-inline: var(--size-2);
+    }
+  }
+</style>
+
+<div class="sign-up">
+  <div class="sign-up-layout">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h1 class="ui-h4">Create your Northwind account</h1>
+        <p>Free for 14 days. No credit card needed.</p>
+      </hgroup>
+      <div class="ui-content">
+        <form class="ui-form" action="#">
+          <div class="ui-field-group">
+            <div class="sign-up-names">
+              <label class="ui-text-field">
+                <span class="ui-label">First name</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="given-name"
+                    name="first-name"
+                    placeholder="Astrid"
+                    required
+                    type="text"
+                  />
+                </span>
+              </label>
+              <label class="ui-text-field">
+                <span class="ui-label">Last name</span>
+                <span class="ui-field">
+                  <input
+                    autocomplete="family-name"
+                    name="last-name"
+                    placeholder="Nyström"
+                    required
+                    type="text"
+                  />
+                </span>
+              </label>
+            </div>
+            <label class="ui-text-field">
+              <span class="ui-label">Work email</span>
+              <span class="ui-field">
+                <input
+                  autocomplete="email"
+                  name="email"
+                  placeholder="astrid@company.com"
+                  required
+                  type="email"
+                />
+              </span>
+            </label>
+            <label class="ui-text-field">
+              <span class="ui-label">Password</span>
+              <span class="ui-field">
+                <input
+                  aria-describedby="sign-up-password-hint"
+                  autocomplete="new-password"
+                  minlength="12"
+                  name="password"
+                  required
+                  type="password"
+                  value="correct-horse-42"
+                />
+              </span>
+              <span class="ui-end-text" id="sign-up-password-hint"
+                >At least 12 characters, with a number or a symbol.</span
+              >
+            </label>
+            <div class="sign-up-strength">
+              <span class="sign-up-strength-label" id="sign-up-strength"
+                ><span>Password strength</span
+                ><span class="sign-up-strong">Strong</span></span
+              >
+              <div class="ui-progress">
+                <progress
+                  aria-labelledby="sign-up-strength"
+                  max="4"
+                  value="3"
+                ></progress>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="ui-fieldset">
+            <legend>Plan</legend>
+            <p class="ui-field-description">
+              You can switch plans at any time.
+            </p>
+            <ul class="ui-list ui-bordered ui-transparent sign-up-plans">
+              <li>
+                <label class="ui-radio" for="sign-up-plan-starter">
+                  <div class="ui-text">
+                    <p>Starter</p>
+                    <p>Up to 3 projects for one person.</p>
+                  </div>
+                  <div class="ui-end">
+                    <span class="sign-up-price">€0</span>
+                    <input
+                      id="sign-up-plan-starter"
+                      name="sign-up-plan"
+                      type="radio"
+                      value="starter"
+                    />
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="ui-radio" for="sign-up-plan-team">
+                  <div class="ui-text">
+                    <p>Team</p>
+                    <p>Unlimited projects and shared workspaces.</p>
+                  </div>
+                  <div class="ui-end">
+                    <span class="sign-up-price">€12 / user</span>
+                    <input
+                      checked
+                      id="sign-up-plan-team"
+                      name="sign-up-plan"
+                      type="radio"
+                      value="team"
+                    />
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="ui-radio" for="sign-up-plan-business">
+                  <div class="ui-text">
+                    <p>Business</p>
+                    <p>SSO, audit logs and priority support.</p>
+                  </div>
+                  <div class="ui-end">
+                    <span class="sign-up-price">€29 / user</span>
+                    <input
+                      id="sign-up-plan-business"
+                      name="sign-up-plan"
+                      type="radio"
+                      value="business"
+                    />
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <div class="ui-field-group">
+            <label class="ui-checkbox">
+              <input name="terms" required type="checkbox" />
+              <span class="ui-label"
+                >I agree to the
+                <a class="ui-link" href="#sign-up-terms">Terms of Service</a>
+                and the
+                <a class="ui-link" href="#sign-up-privacy">Privacy Policy</a
+                >.</span
+              >
+            </label>
+            <label class="ui-checkbox">
+              <input name="updates" type="checkbox" />
+              <span class="ui-label"
+                >Send me product updates, about once a month.</span
+              >
+            </label>
+            <button class="ui-button ui-filled sign-up-submit" type="submit">
+              Create account
+            </button>
+          </div>
+        </form>
+
+        <p class="sign-up-footer">
+          Already have an account?
+          <a class="ui-link" href="#sign-up-sign-in">Sign in</a>
+        </p>
+      </div>
+    </div>
+
+    <aside aria-label="Why Northwind" class="sign-up-aside">
+      <hgroup class="ui-hgroup">
+        <p class="ui-overline">Why teams switch</p>
+        <h2 class="ui-h3">Plan, ship and report in one place</h2>
+      </hgroup>
+      <ul class="ui-list ui-transparent ui-gutterless">
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Set up in minutes</p>
+            <p>Import from Jira, Linear or a CSV file.</p>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Your data stays in the EU</p>
+            <p>Hosted in Stockholm and Frankfurt.</p>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Cancel any time</p>
+            <p>Export everything with one click.</p>
+          </div>
+        </li>
+      </ul>
+      <blockquote class="ui-blockquote">
+        “We moved 40 people over in an afternoon. Nobody has asked to go back.”
+        <footer>
+          — Mikael Sandberg, <cite>Head of Product at Lindqvist &amp; Co</cite>
+        </footer>
+      </blockquote>
+    </aside>
+  </div>
+</div>

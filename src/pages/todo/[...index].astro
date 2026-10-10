@@ -1,0 +1,602 @@
+---
+import {
+  Accordion,
+  Button,
+  Checkbox,
+  Chip,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+  Textarea,
+} from "@opui/astro"
+import Document from "../../layouts/Document.astro"
+import {
+  parseTodo,
+  slugify,
+  splitInlineCode,
+  splitLinks,
+  stressRefs,
+} from "../../utils/todo"
+import { todoExamplesFor } from "../../utils/todo-examples"
+import source from "../../../TODO.md?raw"
+
+export function getStaticPaths() {
+  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  return [{ params: { index: undefined } }, { params: { index: "done" } }]
+}
+
+const showDone = Astro.params.index === "done"
+const { done, intro, sections: open } = parseTodo(source)
+const sections = showDone ? done : open
+const doneCount = done.reduce(
+  (total, section) => total + section.items.length,
+  0,
+)
+const inline = (text: string) =>
+  splitInlineCode(text).flatMap((part) =>
+    part.code
+      ? [{ code: true, href: undefined, value: part.value }]
+      : splitLinks(part.value).map((link) => ({ code: false, ...link })),
+  )
+
+const plainText = (text: string) =>
+  splitInlineCode(text)
+    .map((part) => part.value)
+    .join("")
+
+const stressPages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<string>("../../stress-tests/*.html", {
+      eager: true,
+      import: "default",
+      query: "?raw",
+    }),
+  ).map(([path, html]) => [
+    path.match(/stress-tests\/([^/]+)\.html$/)![1],
+    new Set(
+      [...html.matchAll(/data-example="([^"]+)"/g)].map(([, name]) => name),
+    ),
+  ]),
+)
+
+const examplesFor = (text: string) => {
+  const scheme = /\bdark mode\b/i.test(text)
+    ? "dark"
+    : /\blight mode\b/i.test(text)
+      ? "light"
+      : undefined
+  const query = scheme ? `scheme=${scheme}` : ""
+
+  return [
+    ...stressRefs(text)
+      .filter(({ example, page }) => stressPages[page]?.has(example))
+      .map(({ example, page }) => ({
+        label: `${page} ${example}`,
+        scheme,
+        src: `/tests/${page}/?example=${example}${query && `&${query}`}`,
+      })),
+    ...todoExamplesFor(text).map((name) => ({
+      label: name,
+      scheme,
+      src: `/todo/example/${name}/${query && `?${query}`}`,
+    })),
+  ]
+}
+
+const todoSections = sections.map((section) => ({
+  ...section,
+  items: section.items.map((item) => ({
+    ...item,
+    examples: examplesFor(item.text),
+  })),
+}))
+
+const actions = [
+  "Explain further",
+  "Explain further and provide an example",
+  "Fix",
+  "Remove issue",
+]
+
+const count = sections.reduce(
+  (total, section) => total + section.items.length,
+  0,
+)
+---
+
+<Document
+  description={showDone
+    ? "Check the fixed todos in TODO.md against their examples."
+    : "Comment on the todos in TODO.md and copy them with your comments."}
+  showToc
+>
+  <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
+  {
+    showDone ? (
+      <p slot="preamble">
+        {count} fixed todos from <code>TODO.md</code>. Open the examples to
+        check each fix, and comment on any that need another look. Back to the{" "}
+        <a class="ui-link" href="/todo/">
+          open todos
+        </a>
+        .
+      </p>
+    ) : (
+      <p slot="preamble">
+        {count} open todos from <code>TODO.md</code>. Comment on any of them,
+        then copy the todos with your comments at the bottom of the page.
+        Comments are saved in this browser. The {doneCount} fixed todos are on{" "}
+        <a class="ui-link" href="/todo/done/">
+          Done
+        </a>
+        .
+      </p>
+    )
+  }
+
+  {
+    intro.map((paragraph) => (
+      <p>
+        {splitInlineCode(paragraph).map((part) =>
+          part.code ? <code>{part.value}</code> : part.value,
+        )}
+      </p>
+    ))
+  }
+
+  {
+    todoSections.map((section) => (
+      <section data-todo-section={section.title}>
+        <h2 id={slugify(section.title)}>{section.title}</h2>
+        <ol class="todo-list ui-not-rich-text">
+          {section.items.map((item, index) => (
+            <li class="todo-item" data-todo-line={item.line}>
+              <div class="todo-text">
+                {item.severity && (
+                  <Chip
+                    class="todo-severity"
+                    label={`Severity ${item.severity}`}
+                    size="small"
+                    variant="tonal"
+                  />
+                )}
+                <span>
+                  {splitInlineCode(item.text).map((part) =>
+                    part.code ? <code>{part.value}</code> : part.value,
+                  )}
+                </span>
+              </div>
+              {item.notes.length > 0 && (
+                <div class="todo-notes">
+                  {item.notes.map((note) =>
+                    note.kind === "code" ? (
+                      <pre
+                        class="todo-note ui-code-block"
+                        set:text={note.code}
+                        style={`--level: ${note.level}`}
+                      />
+                    ) : (
+                      <p
+                        class:list={["todo-note", `todo-note-${note.kind}`]}
+                        style={`--level: ${note.level}`}
+                      >
+                        {inline(note.text).map((part) =>
+                          part.code ? (
+                            <code>{part.value}</code>
+                          ) : part.href ? (
+                            <a class="ui-link" href={part.href}>
+                              {part.value}
+                            </a>
+                          ) : (
+                            part.value
+                          ),
+                        )}
+                      </p>
+                    ),
+                  )}
+                </div>
+              )}
+              {item.examples.length > 0 && (
+                <Accordion class="todo-examples" variant="outlined">
+                  <Fragment slot="summary">
+                    {item.examples.length === 1
+                      ? "Example"
+                      : `Examples (${item.examples.length})`}
+                  </Fragment>
+                  {item.examples.map((example) => (
+                    <figure class="todo-example">
+                      <figcaption>
+                        <code>{example.label}</code>
+                        <a
+                          class="ui-link"
+                          href={example.src}
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Open in a new tab
+                        </a>
+                      </figcaption>
+                      <iframe
+                        data-scheme={example.scheme}
+                        data-src={example.src}
+                        title={`${example.label} example`}
+                      />
+                    </figure>
+                  ))}
+                </Accordion>
+              )}
+              <Textarea autoFit placeholder="Comment" rows={1} size="small">
+                <span class="ui-sr-only" slot="label">
+                  {`Comment on: ${plainText(item.text)}`}
+                </span>
+                <span class="todo-saved" slot="end-text" />
+              </Textarea>
+              <FieldSet class="todo-actions-field">
+                <FieldLegend class="ui-sr-only">
+                  {`Actions for: ${plainText(item.text)}`}
+                </FieldLegend>
+                <FieldGroup
+                  direction="row"
+                  name={`todo-action-${slugify(section.title)}-${index}`}
+                >
+                  {actions.map((action) => (
+                    <Radio class="todo-action" size="small" value={action}>
+                      {action}
+                    </Radio>
+                  ))}
+                </FieldGroup>
+              </FieldSet>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+
+  <h2 id="copy">Copy</h2>
+
+  <section class="todo-actions ui-not-rich-text">
+    <Checkbox checked id="todo-only-commented">
+      Only todos I commented on
+    </Checkbox>
+    <div class="todo-buttons">
+      <Button id="todo-copy" variant="filled">Copy todos and comments</Button>
+      <Button id="todo-clear" variant="outlined">Clear comments</Button>
+    </div>
+    <p class="todo-status" id="todo-status" role="status"></p>
+  </section>
+</Document>
+
+<script>
+  const storageKey = "opui-todo-comments"
+  const actionsKey = "opui-todo-actions"
+
+  const read = <T,>(key: string): Record<string, T> => {
+    try {
+      return JSON.parse(localStorage.getItem(key) ?? "{}")
+    } catch {
+      return {}
+    }
+  }
+
+  const write = (key: string, value: Record<string, unknown>) => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value))
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  const readComments = () => read<string>(storageKey)
+  const writeComments = (comments: Record<string, string>) =>
+    write(storageKey, comments)
+  const readActions = () => read<string>(actionsKey)
+  const writeActions = (actions: Record<string, string>) =>
+    write(actionsKey, actions)
+
+  const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
+  const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
+  const actionsOf = (item: HTMLElement) => [
+    ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
+  ]
+  const checkedAction = (item: HTMLElement) =>
+    actionsOf(item).find((input) => input.checked)?.value
+  const status = document.querySelector("#todo-status")!
+  const onlyCommented = document.querySelector<HTMLInputElement>(
+    "#todo-only-commented",
+  )!
+
+  const pending = new Map<HTMLElement, number>()
+
+  const save = (item: HTMLElement) => {
+    clearTimeout(pending.get(item))
+    pending.delete(item)
+    const line = item.dataset.todoLine!
+    const value = fieldOf(item).value
+    const comments = readComments()
+    if (value.trim()) comments[line] = value
+    else delete comments[line]
+    const savedText = item.querySelector(".todo-saved")!
+    if (writeComments(comments)) {
+      savedText.textContent = value.trim() ? "Saved" : ""
+    } else {
+      savedText.textContent = "Not saved"
+      status.textContent =
+        "Comments can't be saved in this browser. Copy them before leaving the page."
+    }
+  }
+
+  const saveAll = () => [...pending.keys()].forEach(save)
+
+  const saveActions = (item: HTMLElement) => {
+    const line = item.dataset.todoLine!
+    const checked = checkedAction(item)
+    const actions = readActions()
+    if (checked) actions[line] = checked
+    else delete actions[line]
+    if (!writeActions(actions))
+      status.textContent =
+        "Comments can't be saved in this browser. Copy them before leaving the page."
+  }
+
+  const saved = readComments()
+  const savedActions = readActions()
+  for (const item of items) {
+    for (const input of actionsOf(item)) {
+      input.checked = savedActions[item.dataset.todoLine!] === input.value
+      input.addEventListener("change", () => saveActions(item))
+    }
+    const field = fieldOf(item)
+    field.value = saved[item.dataset.todoLine!] ?? ""
+    field.addEventListener("input", () => {
+      clearTimeout(pending.get(item))
+      pending.set(
+        item,
+        window.setTimeout(() => save(item), 500),
+      )
+    })
+    field.addEventListener("blur", () => {
+      if (pending.has(item)) save(item)
+    })
+  }
+
+  addEventListener("pagehide", saveAll)
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveAll()
+  })
+
+  const buildText = () => {
+    const blocks: string[] = []
+    let commented = 0
+
+    for (const section of document.querySelectorAll<HTMLElement>(
+      "[data-todo-section]",
+    )) {
+      const lines = [
+        ...section.querySelectorAll<HTMLElement>(".todo-item"),
+      ].flatMap((item) => {
+        const comment = fieldOf(item).value.trim()
+        const checked = checkedAction(item)
+        if (!comment && !checked && onlyCommented.checked) return []
+        if (comment || checked) commented++
+        return [
+          item.dataset.todoLine!,
+          ...(checked ? [`  > ${checked}`] : []),
+          ...(comment
+            ? comment.split("\n").map((line) => `  > ${line}`.trimEnd())
+            : []),
+        ]
+      })
+      if (lines.length)
+        blocks.push(`## ${section.dataset.todoSection}`, "", ...lines, "")
+    }
+
+    return {
+      commented,
+      text: ["TODO.md with my comments", "", ...blocks].join("\n").trim(),
+    }
+  }
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      const field = document.createElement("textarea")
+      field.value = text
+      field.setAttribute("readonly", "")
+      field.style.position = "fixed"
+      field.style.opacity = "0"
+      document.body.append(field)
+      field.select()
+      const copied = document.execCommand("copy")
+      field.remove()
+      return copied
+    }
+  }
+
+  const syncScheme = (frame: HTMLIFrameElement) => {
+    const root = frame.contentDocument?.documentElement
+    if (!root || frame.dataset.scheme) return
+    for (const scheme of ["dark", "light"])
+      root.classList.toggle(
+        `ui-${scheme}`,
+        document.documentElement.classList.contains(`ui-${scheme}`),
+      )
+  }
+
+  const frames = [
+    ...document.querySelectorAll<HTMLIFrameElement>(".todo-example iframe"),
+  ]
+
+  for (const frame of frames) {
+    frame.addEventListener("load", () => {
+      const root = frame.contentDocument?.documentElement
+      if (!root) return
+      syncScheme(frame)
+      new ResizeObserver(() => {
+        frame.style.blockSize = `${root.scrollHeight}px`
+      }).observe(root)
+    })
+  }
+
+  for (const details of document.querySelectorAll<HTMLDetailsElement>(
+    ".todo-examples",
+  )) {
+    details.addEventListener("toggle", () => {
+      if (!details.open) return
+      for (const frame of details.querySelectorAll<HTMLIFrameElement>(
+        "iframe:not([src])",
+      ))
+        frame.src = frame.dataset.src!
+    })
+  }
+
+  new MutationObserver(() => frames.forEach(syncScheme)).observe(
+    document.documentElement,
+    { attributeFilter: ["class"] },
+  )
+
+  document.querySelector("#todo-copy")!.addEventListener("click", async () => {
+    const { commented, text } = buildText()
+    if (onlyCommented.checked && !commented) {
+      status.textContent = "No comments yet."
+      return
+    }
+    status.textContent = (await copy(text))
+      ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
+      : "Copying failed."
+  })
+
+  document.querySelector("#todo-clear")!.addEventListener("click", () => {
+    if (!confirm("Clear all comments?")) return
+    for (const item of items) {
+      clearTimeout(pending.get(item))
+      fieldOf(item).value = ""
+      for (const input of actionsOf(item)) input.checked = false
+      item.querySelector(".todo-saved")!.textContent = ""
+    }
+    pending.clear()
+    writeComments({})
+    writeActions({})
+    status.textContent = "Comments cleared."
+  })
+</script>
+
+<style>
+  .todo-list {
+    display: grid;
+    gap: var(--size-4);
+    list-style: none;
+    margin: 0 0 var(--size-6);
+    padding: 0;
+  }
+
+  .todo-item {
+    border-block-end: var(--border-width) solid var(--border-color);
+    display: grid;
+    gap: var(--size-2);
+    padding-block-end: var(--size-4);
+  }
+
+  .todo-text {
+    :global(.todo-severity) {
+      margin-inline-end: var(--size-2);
+    }
+
+    code {
+      font-size: 0.875em;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .todo-notes {
+    display: grid;
+    font-size: var(--font-size-05);
+    gap: var(--size-2);
+
+    code {
+      font-size: 0.875em;
+      overflow-wrap: anywhere;
+    }
+
+    pre code {
+      overflow-wrap: normal;
+    }
+  }
+
+  .todo-note {
+    margin: 0;
+    margin-inline-start: calc(var(--level) * var(--size-4));
+    min-inline-size: 0;
+  }
+
+  .todo-note-item {
+    padding-inline-start: var(--size-3);
+    position: relative;
+
+    &::before {
+      content: "•";
+      inset-inline-start: 0;
+      position: absolute;
+    }
+  }
+
+  .todo-note-comment {
+    border-inline-start: var(--border-size-3) solid var(--border-color);
+    color: var(--text-muted);
+    font-style: italic;
+    padding-inline-start: var(--size-3);
+  }
+
+  .todo-example {
+    display: grid;
+    gap: var(--size-2);
+    margin: 0;
+
+    & + & {
+      margin-block-start: var(--size-4);
+    }
+
+    figcaption {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2) var(--size-3);
+      justify-content: space-between;
+    }
+
+    iframe {
+      background-color: var(--surface-default);
+      block-size: var(--size-13);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      inline-size: 100%;
+      max-block-size: 80dvb;
+    }
+  }
+
+  .todo-actions {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .todo-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .todo-saved:empty {
+    display: none;
+  }
+
+  .todo-status {
+    color: var(--text-muted);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+</style>

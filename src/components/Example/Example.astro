@@ -4,9 +4,11 @@ import {
   DEFAULT_FRAMEWORK,
   type FrameworkId,
 } from "../../utils/framework-routing"
-import { Code } from "astro-expressive-code/components"
+import Code from "../Code.astro"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
+import MountSvelteExamples from "./MountSvelteExamples.astro"
+import MountVueExamples from "./MountVueExamples.astro"
 
 const { $id } = Astro.locals
 
@@ -41,12 +43,12 @@ type Props = {
   class?: string
   column?: boolean
   exampleClass?: string
-  marks?: Record<string, any>
   output?: "always-show" | "toggled"
   richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  svelteExampleId?: string
   vueExampleId?: string
   wrapperClass?: string
 }
@@ -56,12 +58,12 @@ const {
   class: className,
   column,
   exampleClass,
-  marks = {},
   output = "toggled",
   richText = "not-rich-text",
   row,
   showCode = true,
   spacious,
+  svelteExampleId,
   vueExampleId,
   wrapperClass,
 } = Astro.props
@@ -113,6 +115,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
+const isLiveSveltePreview =
+  previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
@@ -157,9 +161,7 @@ const hasControls = !!controlsHtml
 
 const groupName = $id("example")
 const sourceId = `${groupName}-source`
-const sourcePanelId = `${groupName}-source-panel`
 const outputId = `${groupName}-output`
-const outputPanelId = `${groupName}-output-panel`
 ---
 
 <div
@@ -171,6 +173,8 @@ const outputPanelId = `${groupName}-output-panel`
   ]}
   data-expanded="false"
 >
+  {isLiveSveltePreview && <MountSvelteExamples />}
+  {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
   {
     hasPreview && (
@@ -192,6 +196,12 @@ const outputPanelId = `${groupName}-output-panel`
           <div
             class="preview-render"
             data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveSveltePreview ? (
+          <div
+            class="preview-render"
+            data-svelte-example={svelteExampleId}
             set:html={previewHtml}
           />
         ) : (
@@ -235,58 +245,33 @@ const outputPanelId = `${groupName}-output-panel`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs" name={groupName}>
-          <Tabs.Item
-            tabId={sourceId}
-            panelId={sourcePanelId}
-            name={groupName}
-            open
-          >
-            <Tabs.Tab tabId={sourceId} data-tab="source">
-              {codeLangLabel}
-            </Tabs.Tab>
-            <Tabs.Panel
-              panelId={sourcePanelId}
-              tabId={sourceId}
-              data-panel="source"
-            >
-              <div class="ui-tab-panel">
-                <Code
-                  code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
-                  mark={marks[codeLangId]}
-                />
-              </div>
-            </Tabs.Panel>
-          </Tabs.Item>
-
-          {showOutput && (
-            <Tabs.Item
-              tabId={outputId}
-              panelId={outputPanelId}
-              name={groupName}
-            >
-              <Tabs.Tab tabId={outputId} data-tab="output">
-                Output
+        <template class="example-code">
+          <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+            <Tabs.Item tabId={sourceId} name={groupName} open>
+              <Tabs.Tab tabId={sourceId} data-tab="source">
+                {codeLangLabel}
               </Tabs.Tab>
-              <Tabs.Panel
-                panelId={outputPanelId}
-                tabId={outputId}
-                data-panel="output"
-              >
+              <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code code={outputContent} lang="html" />
+                  <Code code={codeContent} lang={codeLangId} />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>
-          )}
-        </Tabs>
+
+            {showOutput && (
+              <Tabs.Item tabId={outputId} name={groupName}>
+                <Tabs.Tab tabId={outputId} data-tab="output">
+                  Output
+                </Tabs.Tab>
+                <Tabs.Panel data-panel="output">
+                  <div class="ui-tab-panel">
+                    <Code code={outputContent} lang="html" />
+                  </div>
+                </Tabs.Panel>
+              </Tabs.Item>
+            )}
+          </Tabs>
+        </template>
       </div>
     )
   }
@@ -347,14 +332,14 @@ const outputPanelId = `${groupName}-output-panel`
 
     .show-code-button {
       align-items: center;
+      bottom: anchor(bottom);
       display: flex;
       gap: var(--size-2);
-      position: fixed;
-      position-anchor: --example-preview;
-      bottom: anchor(bottom);
-      right: anchor(right);
       margin: var(--size-2);
       opacity: 0.64;
+      position: fixed;
+      position-anchor: --example-preview;
+      right: anchor(right);
       z-index: 10;
 
       &[aria-expanded="true"] svg {
@@ -431,7 +416,7 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <style is:global>
-  .ui-tab-panel .expressive-code pre {
+  .ui-tab-panel .code-block pre {
     border-radius: 0;
   }
 
@@ -450,8 +435,6 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <script>
-  import "./mount-vue-examples"
-
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing - no client-side language
   // toggle is needed here.
@@ -463,6 +446,14 @@ const outputPanelId = `${groupName}-output-panel`
 
     if (toggleBtn && !(toggleBtn as any)._hasListener) {
       toggleBtn.addEventListener("click", () => {
+        const template = container.querySelector<HTMLTemplateElement>(
+          "template.example-code",
+        )
+        if (template) {
+          template.replaceWith(template.content)
+          document.dispatchEvent(new Event("syntax-highlight"))
+        }
+
         const isExpanded = container.getAttribute("data-expanded") === "true"
         const nextState = !isExpanded
         container.setAttribute("data-expanded", String(nextState))
@@ -476,26 +467,6 @@ const outputPanelId = `${groupName}-output-panel`
       })
       ;(toggleBtn as any)._hasListener = true
     }
-
-    // Keep aria-selected on the source/output tab labels in sync with the
-    // checked state of the underlying inputs.
-    const tabs =
-      container.querySelectorAll<HTMLInputElement>(".ui-tab-input") || []
-    const syncAriaSelected = () => {
-      container.querySelectorAll('label[role="tab"]').forEach((lbl) => {
-        const forId = lbl.getAttribute("for")
-        if (!forId) return
-        const input = container.querySelector<HTMLInputElement>(
-          `#${CSS.escape(forId)}`,
-        )
-        if (input) lbl.setAttribute("aria-selected", String(input.checked))
-      })
-    }
-    tabs.forEach((tab) => {
-      tab.removeEventListener("change", syncAriaSelected)
-      tab.addEventListener("change", syncAriaSelected)
-    })
-    syncAriaSelected()
   }
 
   function init() {
@@ -505,5 +476,4 @@ const outputPanelId = `${groupName}-output-panel`
   }
 
   init()
-  document.addEventListener("astro:after-swap", init)
 </script>

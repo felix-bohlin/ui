@@ -18,7 +18,7 @@ const hasLabel = computed(
       props.type === "switch"),
 )
 const labelClass = computed(() => props.type || "")
-const Tag = computed(() => props.as)
+const Tag = computed(() => props.as ?? (props.href ? "a" : undefined))
 
 const liAttrs = computed(() => (Tag.value ? {} : attrs))
 const innerAttrs = computed(() => (Tag.value ? attrs : {}))
@@ -65,6 +65,7 @@ const disabled = computed(() =>
       v-else-if="Tag"
       :disabled="disabled"
       :href="props.href"
+      :type="Tag === 'button' ? 'button' : undefined"
       v-bind="innerAttrs"
     >
       <div v-if="slots.start" class="ui-start">
@@ -103,5 +104,6 @@ const disabled = computed(() =>
         <slot name="end"></slot>
       </div>
     </template>
+    <slot name="submenu"></slot>
   </li>
 </template>

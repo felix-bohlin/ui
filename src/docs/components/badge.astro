@@ -4,9 +4,11 @@ import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
 import BadgeVisibility from "../../component-examples/badge/Visibility.astro"
+import BadgeVisibilitySvelte from "../../component-examples/badge/Visibility.svelte"
 import BadgeVisibilityVue from "../../component-examples/badge/Visibility.vue"
 import BadgeVisibilityHTML from "../../component-examples/badge/Visibility.html?raw"
 import BadgeVisibilityAstro from "../../component-examples/badge/VisibilityCode.astro?raw"
+import BadgeVisibilitySvelteRaw from "../../component-examples/badge/VisibilityCode.svelte?raw"
 import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode.vue?raw"
 
 import Anatomy from "../../components/Anatomy.astro"
@@ -17,13 +19,22 @@ import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import badgeApi from "../../component-api/badge/api"
+import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
+export const description =
+  "Badges attach a small count or status dot to another element."
 ---
 
 <Component
+  description={description}
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}
-  browserSupport={["anchor-positioning"]}
+  browserSupport={[
+    "container-style-queries",
+    "dir-pseudo",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Badge/Badge.astro",
@@ -43,11 +54,6 @@ import badgeApi from "../../component-api/badge/api"
   ]}
 >
   <Fragment slot="title">Badge</Fragment>
-  <Fragment slot="preamble">
-    <p>
-      A badge is a small status indicator that can be placed on other elements.
-    </p>
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -58,12 +64,44 @@ import badgeApi from "../../component-api/badge/api"
       <Fragment slot="html">
         Default, and <code>.ui-dot</code>.
       </Fragment>
+      <Fragment slot="svelte">
+        Default, and <code>dot</code>.
+      </Fragment>
       <Fragment slot="vue">
         Default, and <code>dot</code>.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="severities">Severities</h2>
+    <Conditional>
+      <p slot="html">
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >,{" "}
+        <code>.ui-success</code>, <code>.ui-warning</code>.
+      </p>
+      <p slot="astro">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
+      <p slot="svelte">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
+      <p slot="vue">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
+    </Conditional>
+
+    <AutoExample name="Color" row />
   </section>
 
   <section>
@@ -80,6 +118,11 @@ import badgeApi from "../../component-api/badge/api"
           >.ui-anchor-floating</code
         >.
       </Fragment>
+      <Fragment slot="svelte">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > snippet. The <code>children</code> snippet holds the anchored element.
+      </Fragment>
       <Fragment slot="vue">
         Set indicator text with the <code>label</code> prop or the <code
           >indicator</code
@@ -91,42 +134,22 @@ import badgeApi from "../../component-api/badge/api"
   </section>
 
   <section>
-    <h2 id="severities">Severities</h2>
-    <Conditional>
-      <p slot="html">
-        <code>.ui-critical</code>, <code>.ui-info</code>, <code
-          >.ui-neutral</code
-        >,
-        <code>.ui-success</code>, <code>.ui-warning</code>.
-      </p>
-      <p slot="astro">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="vue">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-    </Conditional>
-
-    <AutoExample name="Color" row />
-  </section>
-
-  <section>
     <h2 id="visibility">Visibility</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the badge's visibility using the <code>.ui-invisible</code>
+        Change the badge's visibility using the <code>.ui-invisible</code>{" "}
         class.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the badge's visibility using the <code>invisible</code>{" "}
+        prop.
+      </Fragment>
       <Fragment slot="vue">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
     </Conditional>
@@ -139,15 +162,20 @@ import badgeApi from "../../component-api/badge/api"
         <UISwitch slot="astro" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
+        <UISwitch slot="svelte" id="badge-visibility-toggle"
+          ><code>invisible</code></UISwitch
+        >
         <UISwitch slot="vue" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
       </Conditional>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
       <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
+      <Example.Preview slot="preview-svelte" code={BadgeVisibilitySvelte} />
       <Example.Preview slot="preview-vue" code={BadgeVisibilityVue} />
       <Example.Code slot="code-html" code={BadgeVisibilityHTML} />
       <Example.Code slot="code-astro" code={BadgeVisibilityAstro} />
+      <Example.Code slot="code-svelte" code={BadgeVisibilitySvelteRaw} />
       <Example.Code slot="code-vue" code={BadgeVisibilityVueRaw} />
     </Example>
   </section>
@@ -157,22 +185,47 @@ import badgeApi from "../../component-api/badge/api"
     <p>Where the badge should be placed over the child.</p>
     <Conditional>
       <p slot="html">
-        <code>.ui-start-start</code>, default, <code>.ui-end-start</code>, <code
-          >.ui-end-end</code
-        >.
+        <code>.ui-start-start</code>, default (<code>start-end</code>, no
+        class),
+        <code>.ui-end-start</code>, <code>.ui-end-end</code>.
       </p>
       <p slot="astro">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
+        <code>end-start</code>, <code>end-end</code>.
+      </p>
+      <p slot="svelte">
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="vue">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
     </Conditional>
 
     <AutoExample name="Alignment" row spacious />
   </section>
+
+  <BadgeBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A count on its own is read without context, such as "5". Add visually
+        hidden text inside the indicator, so it's read as "5 unread messages":
+        <Conditional>
+          <Fragment slot="astro">the <code>srLabel</code> prop.</Fragment>
+          <Fragment slot="html"
+            >a <code>.ui-sr-only</code> element inside <code
+              >.ui-badge-indicator</code
+            >.</Fragment
+          >
+          <Fragment slot="svelte">the <code>srLabel</code> prop.</Fragment>
+          <Fragment slot="vue">the <code>srLabel</code> prop.</Fragment>
+        </Conditional>
+      </li>
+    </ul>
+  </Fragment>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>
@@ -222,5 +275,4 @@ import badgeApi from "../../component-api/badge/api"
   }
 
   setupBadgeVisibilityControls()
-  document.addEventListener("astro:after-swap", setupBadgeVisibilityControls)
 </script>

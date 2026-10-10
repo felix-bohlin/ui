@@ -1,0 +1,95 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      @media (forced-colors: active) {
+        :where(.ui-carousel).ui-with-markers > *::scroll-marker {
+          border: var(--border-width) solid ButtonText;
+        }
+
+        :where(.ui-carousel).ui-with-markers > *::scroll-marker:target-current {
+          background-color: SelectedItem;
+          border-color: SelectedItem;
+        }
+      }
+    }
+  }
+
+  .todo-frame {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Chrome DevTools > Rendering > Emulate CSS media feature forced-colors:
+      active. The markers under the slides disappear.
+    </p>
+    <div class="todo-frame">
+      <ul
+        class="ui-carousel ui-with-markers"
+        aria-label="Destinations, current"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      In forced colors, markers get a <code>ButtonText</code> ring and the
+      current one a <code>SelectedItem</code> fill.
+    </p>
+    <div class="todo-frame">
+      <ul class="ui-carousel ui-with-markers" aria-label="Destinations, fixed">
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  const measure = () => {
+    const forced = matchMedia("(forced-colors: active)").matches
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const items = [...panel.querySelectorAll(".ui-carousel > li")]
+      const lines = items.slice(0, 2).map((item, index) => {
+        const style = getComputedStyle(item, "::scroll-marker")
+        return `marker ${index + 1} at rest: bg ${style.backgroundColor}, border ${style.borderTopWidth} ${style.borderTopColor}`
+      })
+      lines.push(
+        `page bg: ${getComputedStyle(document.documentElement).backgroundColor}, forced colors: ${forced}`,
+      )
+      panel.querySelector("[data-measure]").textContent = lines.join("\n")
+    }
+  }
+  matchMedia("(forced-colors: active)").addEventListener("change", measure)
+  measure()
+</script>

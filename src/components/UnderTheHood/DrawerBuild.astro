@@ -1,0 +1,353 @@
+---
+import { Button, Checkbox } from "@opui/astro"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.drawer {
+  background-color: var(--surface-default);
+  border: none;
+  box-shadow: var(--shadow-2);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.drawer:not([open]) {
+  display: none;
+}
+
+.drawer > .content {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}`,
+    features: [
+      "dialog",
+      "dialog-closedby",
+      "invoker-commands",
+      "overscroll-behavior",
+    ],
+    html: `
+<button type="button" commandfor="drawer" command="show-modal">
+  Start
+</button>
+
+<dialog
+  class="drawer inline-start"
+  id="drawer"
+  aria-labelledby="drawer-title"
+  closedby="any"
+>
+  <div class="header">
+    <h2 id="drawer-title">Filters</h2>
+    …
+  </div>
+  <div class="content">…</div>
+  <div class="footer">…</div>
+</dialog>`,
+    notes: [
+      "A drawer is a modal <code>&lt;dialog&gt;</code>: top layer, focus trap and <kbd>Esc</kbd> for free",
+      "<code>closedby=&quot;any&quot;</code> closes it on a click outside",
+      "<code>aria-labelledby</code> names it after its heading",
+      "<code>:not([open])</code> brings back the <code>display: none</code> that <code>display: flex</code> overrode",
+    ],
+    title: "Modal",
+  },
+  {
+    css: `
+.drawer {
+  margin: 0;
+  max-inline-size: 100%;
+  position: fixed;
+}
+
+.drawer.inline-start {
+  block-size: 100dvb;
+  border-inline-end: 1px solid var(--border-color);
+  inline-size: min(375px, 100vi);
+  inset-block: 0;
+  inset-inline: 0 auto;
+  max-block-size: 100%;
+}
+
+.drawer.block-end {
+  block-size: min(80vb, 650px);
+  border-block-start: 1px solid var(--border-color);
+  inline-size: 100dvi;
+  inset-block: auto 0;
+  inset-inline: 0;
+  max-block-size: 80dvb;
+}`,
+    features: ["logical-properties", "viewport-unit-variants"],
+    notes: [
+      "<code>margin: 0</code> undoes the centering, <code>inset</code> pins it to an edge",
+      "Logical properties: <code>inline-start</code> is the left in LTR and the right in RTL",
+      "<code>dvb</code> and <code>dvi</code> follow the mobile browser toolbar",
+    ],
+    title: "Edge",
+  },
+  {
+    css: `
+.drawer > .content {
+  anchor-name: --content;
+  container-type: scroll-state;
+}
+
+.drawer > .content::before,
+.drawer > .content::after {
+  block-size: 0.5rem;
+  box-shadow: var(--shadow-4);
+  clip-path: inset(100% 0 -2rem);
+  content: "";
+  inset-inline: anchor(--content inside);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.drawer > .content::before {
+  inset-block-end: anchor(--content outside);
+}
+
+.drawer > .content::after {
+  inset-block-start: anchor(--content outside);
+  scale: 1 -1;
+}
+
+@container scroll-state(scrollable: block-start) {
+  .drawer > .content::before {
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: block-end) {
+  .drawer > .content::after {
+    opacity: 1;
+  }
+}`,
+    features: ["anchor-positioning", "container-scroll-state-queries"],
+    notes: [
+      "Scroll the filters: a shadow shows on each edge with more to scroll",
+      "<code>container-type: scroll-state</code> lets the pseudo-elements ask which way <code>.content</code> can scroll",
+      "<code>anchor()</code> pins them to the edges of <code>.content</code>, so they don't scroll away",
+    ],
+    title: "Shadow",
+  },
+  {
+    css: `
+.drawer {
+  --dir: 1;
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete,
+    translate 0.2s;
+}
+
+.drawer:dir(rtl) {
+  --dir: -1;
+}
+
+.drawer.inline-start {
+  translate: calc(-100% * var(--dir)) 0;
+}
+
+.drawer.block-end {
+  translate: 0 100%;
+}
+
+.drawer[open] {
+  translate: 0 0;
+
+  @starting-style {
+    &.inline-start {
+      translate: calc(-100% * var(--dir)) 0;
+    }
+
+    &.block-end {
+      translate: 0 100%;
+    }
+  }
+}`,
+    features: [
+      "dir-pseudo",
+      "display-animation",
+      "individual-transforms",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
+    notes: [
+      "Closed, it waits just past its edge",
+      "<code>@starting-style</code> slides it in from there",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive until it has slid out",
+      "<code>--dir</code> flips to <code>-1</code> under <code>:dir(rtl)</code>",
+    ],
+    title: "Slide",
+  },
+  {
+    css: `
+.drawer::backdrop {
+  backdrop-filter: blur(var(--backdrop-blur));
+  background-color: var(--backdrop-color);
+  opacity: 0;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete;
+}
+
+.drawer[open] {
+  &::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    &::backdrop {
+      opacity: 0;
+    }
+  }
+}`,
+    features: ["backdrop", "backdrop-filter"],
+    notes: [
+      "<code>::backdrop</code> gets its own transition, in step with the drawer",
+      "<code>backdrop-filter</code> blurs the page behind it",
+    ],
+    title: "Backdrop",
+  },
+]
+
+const drawers = [
+  { id: "build-drawer-start", side: "inline-start", title: "Start" },
+  { id: "build-drawer-bottom", side: "block-end", title: "Bottom" },
+]
+
+const filters = [
+  {
+    legend: "Status",
+    options: ["Open", "In progress", "In review", "Done", "Closed"],
+  },
+  { legend: "Owner", options: ["Ada", "Grace", "Linus", "Margaret", "Tim"] },
+  { legend: "Updated", options: ["Today", "This week", "This month"] },
+]
+
+const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg>`
+---
+
+<BuildUp id="build-drawer" steps={steps}>
+  <div class="row">
+    {
+      drawers.map((drawer) => (
+        <Button command="show-modal" commandfor={drawer.id} variant="outlined">
+          {drawer.title}
+        </Button>
+      ))
+    }
+  </div>
+  {
+    drawers.map((drawer) => (
+      <dialog
+        aria-labelledby={`${drawer.id}-title`}
+        class:list={["drawer", drawer.side]}
+        closedby="any"
+        id={drawer.id}
+      >
+        <div class="header">
+          <h3 id={`${drawer.id}-title`}>Filters</h3>
+          <Button
+            aria-label="Close"
+            command="close"
+            commandfor={drawer.id}
+            rounded
+            size="small"
+          >
+            <Fragment set:html={close} />
+          </Button>
+        </div>
+        <div class="content">
+          <p>
+            Narrow the results down by status, owner and date. Changes apply
+            when you press Apply.
+          </p>
+          {filters.map((filter) => (
+            <fieldset>
+              <legend>{filter.legend}</legend>
+              {filter.options.map((option) => (
+                <Checkbox name={`${drawer.id}-${filter.legend}`} value={option}>
+                  {option}
+                </Checkbox>
+              ))}
+            </fieldset>
+          ))}
+        </div>
+        <div class="footer">
+          <Button command="close" commandfor={drawer.id}>
+            Reset
+          </Button>
+          <Button command="close" commandfor={drawer.id} variant="filled">
+            Apply
+          </Button>
+        </div>
+      </dialog>
+    ))
+  }
+</BuildUp>
+
+<style>
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: center;
+  }
+
+  .drawer {
+    & .header {
+      align-items: center;
+      border-block-end: var(--border-width, 1px) solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      padding: var(--size-3);
+    }
+
+    & h3 {
+      font-size: var(--font-size-3);
+      margin: 0;
+    }
+
+    & .content {
+      display: grid;
+      gap: var(--size-4);
+      padding: var(--size-4);
+    }
+
+    & p {
+      margin: 0;
+    }
+
+    & fieldset {
+      border: 0;
+      display: grid;
+      gap: var(--size-1);
+      margin: 0;
+      padding: 0;
+    }
+
+    & legend {
+      font-weight: 600;
+      margin-block-end: var(--size-1);
+      padding: 0;
+    }
+
+    & .footer {
+      border-block-start: var(--border-width, 1px) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      justify-content: end;
+      padding: var(--size-3);
+    }
+  }
+</style>

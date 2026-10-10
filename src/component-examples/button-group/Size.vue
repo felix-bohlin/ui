@@ -3,6 +3,12 @@ import { Button, ButtonGroup } from "opui-css/vue"
 </script>
 
 <template>
+  <ButtonGroup size="x-small" variant="outlined">
+    <Button>x-small</Button>
+    <Button>x-small</Button>
+    <Button>x-small</Button>
+  </ButtonGroup>
+
   <ButtonGroup size="small" variant="outlined">
     <Button>Small</Button>
     <Button>Small</Button>

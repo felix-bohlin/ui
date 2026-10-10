@@ -11,11 +11,20 @@ export default {
       prop: "bordered",
       values: { dotted: ".ui-bordered.ui-dotted" },
     },
+    {
+      class: ".ui-inline",
+      default: "false",
+      description:
+        "Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
+      group: "Layout",
+      prop: "inline",
+    },
   ],
   parts: [
     {
       component: {
         astro: "DescriptionList.Item",
+        svelte: "DescriptionListItem",
         vue: "DescriptionListItem",
       },
       description: "Groups a term with its description.",
@@ -25,6 +34,7 @@ export default {
       code: "<dt>",
       component: {
         astro: "DescriptionList.Term",
+        svelte: "DescriptionListTerm",
         vue: "DescriptionListTerm",
       },
       description: "The term.",
@@ -34,7 +44,8 @@ export default {
       code: "<dd>",
       component: {
         astro: "DescriptionList.Description",
-        vue: "Description",
+        svelte: "DescriptionListDescription",
+        vue: "DescriptionListDescription",
       },
       description: "The description.",
       selector: "dd",

@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ButtonGroup",
+  css: ["button", "button-group"],
   notes: {
     html: 'The root needs `role="group"`.',
   },
@@ -19,10 +20,30 @@ export default {
       values: { vertical: ".ui-vertical" },
     },
     {
+      class: ".ui-scrollable",
+      default: "false",
+      description:
+        "Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.",
+      group: "Overflow",
+      prop: "scrollable",
+    },
+    {
+      class: ".ui-shrink",
+      default: "false",
+      description:
+        "Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size.",
+      group: "Overflow",
+      prop: "shrink",
+    },
+    {
       description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       description: "The variant of the buttons.",
@@ -37,8 +58,8 @@ export default {
   ],
   parts: [
     {
-      code: "& > button",
-      description: "The buttons.",
+      code: "& > .ui-button",
+      description: "The buttons and button links.",
       selector: ".ui-button-group > :first-child",
       slots: ["default"],
     },

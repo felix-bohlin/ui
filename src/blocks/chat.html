@@ -1,0 +1,605 @@
+<style>
+  .chat {
+    container-type: inline-size;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+
+    @container (inline-size >= 52rem) {
+      grid-template-columns: 20rem minmax(0, 1fr);
+    }
+
+    .chat-sidebar {
+      border-inline-end: var(--border-width) solid var(--border-color);
+      display: none;
+
+      @container (inline-size >= 52rem) {
+        display: block;
+      }
+    }
+
+    .chat-sidebar-header {
+      display: grid;
+      gap: var(--size-3);
+      padding: var(--size-4) var(--size-3) var(--size-2);
+    }
+
+    .chat-sidebar-title {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chat-unread {
+      background-color: var(--primary);
+      border-radius: var(--radius-round);
+      color: var(--primary-contrast);
+      font-size: var(--font-size-0);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1;
+      min-inline-size: var(--size-5);
+      padding: var(--size-1) var(--size-2);
+      text-align: center;
+    }
+
+    main {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-inline-size: 0;
+    }
+
+    .chat-thread-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-3);
+
+      hgroup {
+        flex: 1;
+        min-inline-size: 0;
+      }
+
+      h1 {
+        margin: 0;
+      }
+    }
+
+    .chat-conversations-button {
+      @container (inline-size >= 52rem) {
+        display: none;
+      }
+    }
+
+    .chat-online {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+
+      &::before {
+        background-color: var(--success);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--size-2);
+      }
+    }
+
+    .chat-thread-actions {
+      display: flex;
+      gap: var(--size-1);
+    }
+
+    .chat-messages {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-3);
+      list-style-type: none;
+      margin: 0;
+      padding: var(--size-4) var(--size-3);
+
+      @container (inline-size >= 40rem) {
+        padding-inline: var(--size-5);
+      }
+    }
+
+    .chat-day {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+
+      &::before,
+      &::after {
+        border-block-start: var(--border-width) solid var(--border-color);
+        content: "";
+        flex: 1;
+      }
+    }
+
+    .chat-message {
+      align-items: end;
+      display: flex;
+      gap: var(--size-2);
+      max-inline-size: min(100%, 34rem);
+    }
+
+    .chat-bubble {
+      background-color: var(--surface-tonal);
+      border-radius: var(--radius-3);
+      display: grid;
+      gap: var(--size-1);
+      padding: var(--size-2) var(--size-3);
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .chat-outgoing {
+      align-self: end;
+      flex-direction: row-reverse;
+
+      .chat-bubble {
+        background-color: var(--primary);
+        color: var(--primary-contrast);
+
+        .ui-caption {
+          color: inherit;
+          text-align: end;
+        }
+      }
+    }
+
+    .chat-attachment {
+      align-items: center;
+      background-color: var(--surface-default);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--radius-2);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-2);
+
+      svg {
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+
+      .ui-link {
+        font-weight: var(--font-weight-medium);
+      }
+    }
+
+    .chat-typing {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      margin: 0;
+      padding: 0 var(--size-3) var(--size-2);
+
+      @container (inline-size >= 40rem) {
+        padding-inline: var(--size-5);
+      }
+    }
+
+    .chat-composer {
+      align-items: end;
+      border-block-start: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-3);
+
+      .ui-textarea {
+        flex: 1;
+        min-inline-size: 0;
+      }
+    }
+  }
+</style>
+
+<div class="chat">
+  <aside aria-labelledby="chat-conversations-heading" class="chat-sidebar">
+    <div class="chat-sidebar-header">
+      <div class="chat-sidebar-title">
+        <h2 class="ui-h5" id="chat-conversations-heading">Messages</h2>
+        <button
+          aria-label="New message"
+          class="ui-button ui-rounded ui-small"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="ui-text-field ui-small">
+        <span class="ui-field">
+          <input
+            aria-label="Search messages"
+            name="chat-search"
+            placeholder="Search"
+            type="search"
+          />
+          <span class="ui-prefix">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+              ></path>
+            </svg>
+          </span>
+        </span>
+      </div>
+    </div>
+    <ul class="ui-list ui-transparent">
+      <li>
+        <a aria-current="page" href="#chat-saga">
+          <div class="ui-start">
+            <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+          </div>
+          <div class="ui-text">
+            <p>Saga Nyström</p>
+            <p>Perfect, I'll send the deck tonight</p>
+          </div>
+          <div class="ui-end">14:32</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-design-team">
+          <div class="ui-start">
+            <div class="ui-avatar" role="img" aria-label="Design team">DT</div>
+          </div>
+          <div class="ui-text">
+            <p><strong>Design team</strong></p>
+            <p>Mateo: New icons are in Figma</p>
+          </div>
+          <div class="ui-end">
+            <span class="chat-unread"
+              >3 <span class="ui-sr-only">unread</span></span
+            >
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-jonas">
+          <div class="ui-start">
+            <div class="ui-avatar" role="img" aria-label="Jonas Berg">JB</div>
+          </div>
+          <div class="ui-text">
+            <p>Jonas Berg</p>
+            <p>Can we move our 1:1 to Thursday?</p>
+          </div>
+          <div class="ui-end">11:05</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-priya">
+          <div class="ui-start">
+            <div class="ui-avatar" role="img" aria-label="Priya Shah">PS</div>
+          </div>
+          <div class="ui-text">
+            <p>Priya Shah</p>
+            <p>You: Thanks, merged!</p>
+          </div>
+          <div class="ui-end">Mon</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-launch">
+          <div class="ui-start">
+            <div class="ui-avatar" role="img" aria-label="Launch crew">LC</div>
+          </div>
+          <div class="ui-text">
+            <p>Launch crew</p>
+            <p>Elin: Press release is approved</p>
+          </div>
+          <div class="ui-end">Sun</div>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <main>
+    <header class="chat-thread-header">
+      <button
+        aria-label="Show conversations"
+        class="ui-button ui-rounded ui-small chat-conversations-button"
+        command="show-modal"
+        commandfor="chat-drawer"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"
+          ></path>
+        </svg>
+      </button>
+      <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+      <hgroup>
+        <h1 class="ui-h6">Saga Nyström</h1>
+        <p class="ui-caption chat-online">Online</p>
+      </hgroup>
+      <div class="chat-thread-actions">
+        <button
+          aria-label="Start call"
+          class="ui-button ui-rounded ui-small"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1A17 17 0 0 1 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          aria-label="Conversation options"
+          class="ui-button ui-rounded ui-small"
+          command="toggle-popover"
+          commandfor="chat-options"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+            ></path>
+          </svg>
+        </button>
+        <menu class="ui-menu ui-list ui-align-end" id="chat-options" popover>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="chat-options"
+              type="button"
+            >
+              <div class="ui-text"><p>Mute notifications</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="chat-options"
+              type="button"
+            >
+              <div class="ui-text"><p>Search in conversation</p></div>
+            </button>
+          </li>
+          <li class="ui-border-top ui-critical">
+            <button
+              command="hide-popover"
+              commandfor="chat-options"
+              type="button"
+            >
+              <div class="ui-text"><p>Delete conversation</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </header>
+
+    <ol aria-label="Messages with Saga Nyström" class="chat-messages">
+      <li class="chat-day">Today</li>
+      <li class="chat-message">
+        <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+        <div class="chat-bubble">
+          <p>
+            Hi! Did you get a chance to look at the pricing proposal for Tromsø
+            Outdoor?
+          </p>
+          <p class="ui-caption">
+            <time datetime="2026-10-08T14:02">14:02</time>
+          </p>
+        </div>
+      </li>
+      <li class="chat-message chat-outgoing">
+        <div class="chat-bubble">
+          <p>
+            Yes, looks good. I'd lead with the annual plan and keep the 3-seat
+            starter as a fallback.
+          </p>
+          <p class="ui-caption">
+            <time datetime="2026-10-08T14:18">14:18</time>
+          </p>
+        </div>
+      </li>
+      <li class="chat-message chat-outgoing">
+        <div class="chat-bubble">
+          <p>Can you add the case study from Bergen Bikes too?</p>
+          <p class="ui-caption">
+            <time datetime="2026-10-08T14:19">14:19</time> · Read
+          </p>
+        </div>
+      </li>
+      <li class="chat-message">
+        <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+        <div class="chat-bubble">
+          <p>Good call. Here's the current draft:</p>
+          <div class="chat-attachment">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm2 16H8v-2h8zm0-4H8v-2h8zm-3-5V3.5L18.5 9z"
+              ></path>
+            </svg>
+            <div>
+              <a class="ui-link" href="#chat-file-proposal"
+                >Tromso-Outdoor-proposal.pdf</a
+              >
+              <p class="ui-caption">PDF · 2.4 MB</p>
+            </div>
+          </div>
+          <p class="ui-caption">
+            <time datetime="2026-10-08T14:31">14:31</time>
+          </p>
+        </div>
+      </li>
+      <li class="chat-message">
+        <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
+        <div class="chat-bubble">
+          <p>Perfect, I'll send the deck tonight 🙌</p>
+          <p class="ui-caption">
+            <time datetime="2026-10-08T14:32">14:32</time>
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div>
+      <p aria-live="polite" class="chat-typing">Saga is typing…</p>
+      <form action="#" class="chat-composer">
+        <button
+          aria-label="Attach a file"
+          class="ui-button ui-rounded"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"
+            ></path>
+          </svg>
+        </button>
+        <div class="ui-textarea">
+          <span class="ui-field">
+            <textarea
+              aria-label="Message Saga Nyström"
+              name="chat-message"
+              placeholder="Write a message…"
+            ></textarea>
+          </span>
+        </div>
+        <button
+          aria-label="Send"
+          class="ui-button ui-primary ui-filled ui-rounded"
+          type="submit"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <dialog
+    aria-labelledby="chat-drawer-heading"
+    class="ui-drawer ui-scroll-lock ui-inline-start"
+    closedby="any"
+    id="chat-drawer"
+  >
+    <div class="ui-header">
+      <h2 id="chat-drawer-heading">Messages</h2>
+      <button
+        aria-label="Close"
+        class="ui-button ui-rounded ui-small"
+        command="close"
+        commandfor="chat-drawer"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <ul class="ui-list ui-transparent">
+      <li>
+        <a aria-current="page" href="#chat-saga">
+          <div class="ui-text"><p>Saga Nyström</p></div>
+          <div class="ui-end">14:32</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-design-team">
+          <div class="ui-text"><p>Design team</p></div>
+          <div class="ui-end">
+            <span class="chat-unread"
+              >3 <span class="ui-sr-only">unread</span></span
+            >
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-jonas">
+          <div class="ui-text"><p>Jonas Berg</p></div>
+          <div class="ui-end">11:05</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-priya">
+          <div class="ui-text"><p>Priya Shah</p></div>
+          <div class="ui-end">Mon</div>
+        </a>
+      </li>
+      <li>
+        <a href="#chat-launch">
+          <div class="ui-text"><p>Launch crew</p></div>
+          <div class="ui-end">Sun</div>
+        </a>
+      </li>
+    </ul>
+  </dialog>
+</div>

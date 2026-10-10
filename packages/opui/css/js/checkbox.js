@@ -7,6 +7,7 @@
  * Astro's view transitions swap the DOM.
  */
 
+/** @param {ParentNode} [root] */
 export function activateIndeterminate(root = document) {
   root
     .querySelectorAll('input[type="checkbox"][data-indeterminate]')
@@ -15,7 +16,16 @@ export function activateIndeterminate(root = document) {
     })
 }
 
+/** @param {HTMLInputElement} input */
+export function syncIndeterminate(input) {
+  input.indeterminate = input.hasAttribute("data-indeterminate")
+}
+
+let initialized = false
+
 export function initCheckbox() {
   activateIndeterminate()
+  if (initialized) return
+  initialized = true
   document.addEventListener("astro:after-swap", () => activateIndeterminate())
 }

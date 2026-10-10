@@ -10,7 +10,8 @@ import type { ComponentApi } from "../component-api/types"
 
 const root = path.resolve("packages/opui/components")
 
-const read = (source: string, file: string) => {
+const read = (source: string | undefined, file: string) => {
+  if (!source) return undefined
   const filePath = path.join(root, source, file)
   return fs.existsSync(filePath)
     ? fs.readFileSync(filePath, "utf-8")
@@ -52,7 +53,7 @@ const program = () => {
   return cache.program
 }
 
-const splitUnion = (text: string) => {
+export const splitUnion = (text: string) => {
   const parts: string[] = []
   let depth = 0
   let current = ""
@@ -77,11 +78,24 @@ const cleanType = (text: string) => {
   const hasString = parts.includes("string")
   return parts
     .filter((part) => !(hasString && /^\(string & .+\)$/.test(part)))
-    .map((part) => part.replace(/^Snippet<\[\]>$/, "Snippet"))
+    .map((part) => {
+      const types = [
+        ...new Set(
+          part
+            .replace(/^\((.*)\)$/, "$1")
+            .replaceAll("Snippet<[]>", "Snippet")
+            .split(" & "),
+        ),
+      ]
+      return types.length === 1 ? types[0] : part
+    })
     .join(" | ")
 }
 
 type Target = Pick<ComponentApi, "component" | "file" | "source">
+
+export const modelsFor = (api: ComponentApi, framework: ComponentFramework) =>
+  api.model ? (api.model.frameworks?.[framework] ?? [api.model]) : []
 
 const componentFile = (target: Target, framework: ComponentFramework) =>
   frameworks[framework].component(target.file ?? target.component)
@@ -94,6 +108,7 @@ export const frameworkProps = (
   framework: ComponentFramework,
 ) => {
   const props = new Map<string, string>()
+  if (!target.source) return props
   const filePath = path.join(root, target.source, frameworks[framework].types)
   const aliases = program()
     .getSourceFile(filePath)
@@ -125,6 +140,23 @@ export const frameworkProps = (
       props.set(symbol.name, cleanType(type))
     })
   return props
+}
+
+export const snippetNames = (target: Target, framework: ComponentFramework) => {
+  if (!frameworks[framework].slotsAreProps) return []
+  const text = read(target.source, componentFile(target, framework))
+  if (!text) return []
+
+  const local = new Set(
+    [...text.matchAll(/\{#snippet (\w+)\(\s*(\w*)/g)].flatMap(
+      ([, name, param]) => [name, param],
+    ),
+  )
+  const names = [
+    ...text.matchAll(/\{@render (\w+)(?:\?\.)?\(/g),
+    ...text.matchAll(/\{@render content\(\s*(\w+)/g),
+  ].map(([, name]) => name)
+  return [...new Set(names)].filter((name) => !local.has(name)).sort()
 }
 
 export const slotNames = (target: Target, framework: ComponentFramework) => {
@@ -161,12 +193,17 @@ export const describe = (
   if (kind === "prop") {
     const option = api.options.find((option) => option.prop === name)
     if (option) return option.description
+    const model = modelsFor(api, framework).find((model) => model.prop === name)
+    if (model) return model.description
   }
 
   for (const part of api.parts) {
     if (kind === "prop" && part.props?.includes(name)) return part.description
     if (kind === "prop" && part.legacy?.props?.includes(name)) {
       return legacyOf(part.props?.[0] ?? "")
+    }
+    if (kind === "prop" && part.snippets?.includes(name)) {
+      return part.description
     }
     if (part.slots?.some(matches)) return part.description
     if (part.legacy?.slots?.some(matches)) {
@@ -183,6 +220,7 @@ const warned = new Set<string>()
 const warn = (message: string) => {
   if (warned.has(message)) return
   warned.add(message)
+  if (import.meta.env.PROD) throw new Error(`[component-api] ${message}`)
   console.warn(`[component-api] ${message}`)
 }
 
@@ -196,9 +234,24 @@ export const checkApi = (api: ComponentApi) => {
 
   const all = Object.keys(frameworks) as ComponentFramework[]
   all
+    .filter((framework) => api.hydration?.[framework])
+    .filter((framework) => !shipped(api, framework))
+    .forEach((framework) =>
+      warn(
+        `${api.component} (${framework}): hydration for a missing component`,
+      ),
+    )
+  all
     .filter((framework) => shipped(api, framework))
     .forEach((framework) => {
       const props = frameworkProps(api, framework)
+      api.hydration?.[framework]?.forEach((entry) => {
+        if (!props.has(entry.prop)) {
+          warn(
+            `${api.component} (${framework}): hydration prop "${entry.prop}" does not exist`,
+          )
+        }
+      })
       props.forEach((_, prop) => {
         if (!describe(api, prop, framework, "prop")) {
           warn(
@@ -238,7 +291,16 @@ export const checkApi = (api: ComponentApi) => {
           )
       })
 
-      if (frameworks[framework].slotsAreProps) return
+      if (frameworks[framework].slotsAreProps) {
+        snippetNames(api, framework).forEach((snippet) => {
+          if (!describe(api, snippet, framework, "prop")) {
+            warn(
+              `${api.component} (${framework}): snippet "${snippet}" is not documented`,
+            )
+          }
+        })
+        return
+      }
 
       const slots = slotNames(api, framework)
       slots.forEach((slot) => {

@@ -1,0 +1,108 @@
+---
+import { Button } from "@opui/astro"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.card {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+  color: inherit;
+  inline-size: 18rem;
+  padding: 1rem;
+}`,
+    features: ["interest-invokers", "popover-hint"],
+    html: `
+<button type="button" interestfor="card">felix-bohlin/ui</button>
+
+<div class="card" id="card" popover="hint">…</div>`,
+    notes: [
+      "<code>interestfor</code> opens it on hover and keyboard focus, no JavaScript",
+      "Only <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code> and <code>&lt;area&gt;</code> can be interest invokers",
+      "<code>popover=&quot;hint&quot;</code> leaves open menus and dialogs alone",
+      "Without positioning it opens in the middle of the viewport",
+    ],
+    title: "Hint",
+  },
+  {
+    features: ["invoker-commands"],
+    html: `
+<button
+  type="button"
+  interestfor="card"
+  commandfor="card"
+  command="toggle-popover"
+>
+  felix-bohlin/ui
+</button>`,
+    notes: [
+      "Touch screens can't hover, so a tap toggles the card instead",
+      "A link can't take <code>commandfor</code>, so tapping a link follows it",
+    ],
+    title: "Tap",
+  },
+  {
+    css: `
+.card {
+  inset: auto;
+  margin: 0.5rem 0 0;
+  position-area: block-end span-inline-end;
+}`,
+    features: ["anchor-positioning"],
+    notes: [
+      "The invoker is the implicit anchor: no <code>anchor-name</code>, no <code>position-anchor</code>",
+      "<code>position-area</code> places it below, spanning towards the end",
+      "A card that's always visible has no invoker, so it needs <code>anchor-name</code> and <code>position-anchor</code>",
+    ],
+    title: "Anchor",
+  },
+  {
+    css: `
+.card {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+  position-visibility: anchors-visible;
+}`,
+    notes: [
+      "Scroll the trigger to the bottom of the window and hover it again",
+      "The browser tries each fallback when the card would overflow",
+      "<code>anchors-visible</code> hides it when the trigger scrolls out of view",
+    ],
+    title: "Flip",
+  },
+]
+---
+
+<BuildUp id="build-anchor" steps={steps}>
+  <Button
+    command="toggle-popover"
+    commandfor="build-anchor-card"
+    interestfor="build-anchor-card"
+    variant="outlined"
+  >
+    felix-bohlin/ui
+  </Button>
+  <div class="card" id="build-anchor-card" popover="hint">
+    <strong>felix-bohlin/ui</strong>
+    <p>
+      A CSS UI library exploring how next-gen HTML &amp; CSS features can change
+      the way we create components.
+    </p>
+    <p class="ui-caption">CSS · MIT license</p>
+  </div>
+</BuildUp>
+
+<style>
+  .card {
+    font-size: var(--font-size-05);
+
+    & p {
+      margin-block: var(--size-2) 0;
+    }
+  }
+</style>

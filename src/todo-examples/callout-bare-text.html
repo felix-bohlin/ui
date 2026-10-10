@@ -1,0 +1,65 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed .ui-callout > .ui-content {
+    display: flow-root;
+
+    & > * + * {
+      margin-block-start: var(--_content-gap);
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current: bare text and a link</p>
+    <div class="ui-callout ui-info">
+      <div class="ui-content">
+        Your trial ends in 3 days. <a href="#">Upgrade</a> to keep your
+        projects.
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">Current: the same text in a <code>p</code></p>
+    <div class="ui-callout ui-info">
+      <div class="ui-content">
+        <p>
+          Your trial ends in 3 days. <a href="#">Upgrade</a> to keep your
+          projects.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">
+      Proposed: flow layout, gap between element children
+    </p>
+    <div class="ui-callout ui-info">
+      <div class="ui-content">
+        Your trial ends in 3 days. <a href="#">Upgrade</a> to keep your
+        projects.
+      </div>
+    </div>
+    <div class="ui-callout ui-info">
+      <div class="ui-content">
+        <h3>Trial ending</h3>
+        <p>
+          Your trial ends in 3 days. <a href="#">Upgrade</a> to keep your
+          projects.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

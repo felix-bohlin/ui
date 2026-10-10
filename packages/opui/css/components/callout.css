@@ -2,7 +2,7 @@
   :where(.ui-callout) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--surface-tonal);
-    --_color: var(--text-primary);
+    --_text-color: var(--text-primary);
     --_icon-color: currentColor;
     --_link-hover-color: var(--primary);
     --_padding: var(--size-3);
@@ -11,18 +11,18 @@
     --_content-gap: var(--size-2);
     --_font-size: var(--font-size-05);
     --_title-font-size: var(--font-size-1);
-    --_icon-size: var(--size-4);
-    --_surface-bg: var(--surface-default);
+    --_icon-size: var(--icon-size);
+    --_surface-bg-color: var(--surface-default);
 
     --_outlined-bg-color: var(--surface-default);
     --_outlined-border-color: var(--border-color);
-    --_outlined-color: var(--text-primary);
+    --_outlined-text-color: var(--text-primary);
     --_outlined-icon-color: currentColor;
 
-    background-color: var(--_bg-color, var(--_surface-bg));
-    border: 1px solid var(--_border-color, var(--border-color));
+    background-color: var(--_surface-bg-color);
+    border: var(--border-width) solid var(--_border-color, var(--border-color));
     border-radius: var(--_border-radius);
-    color: var(--_color);
+    color: var(--_text-color);
     isolation: isolate;
     padding: var(--_padding);
     position: relative;
@@ -37,25 +37,28 @@
         oklch(from var(--color-6) l c h / 5%)
       );
       --_border-color: light-dark(var(--color-5), var(--color-11));
-      --_color: light-dark(var(--color-16), var(--color-1));
+      --_text-color: light-dark(var(--color-16), var(--color-1));
       --_icon-color: var(--color-9);
 
       --_outlined-bg-color: var(--surface-default);
       --_outlined-border-color: var(--color-9);
-      --_outlined-color: light-dark(var(--color-15), var(--color-1));
+      --_outlined-text-color: light-dark(var(--color-15), var(--color-1));
       --_outlined-icon-color: var(--color-9);
     }
 
     &.ui-outlined {
       --_bg-color: var(--_outlined-bg-color);
       --_border-color: var(--_outlined-border-color);
-      --_color: var(--_outlined-color);
+      --_text-color: var(--_outlined-text-color);
       --_icon-color: var(--_outlined-icon-color);
     }
 
     &::before {
       background-color: var(--_bg-color);
-      border-radius: inherit;
+      border-radius: max(
+        0px,
+        calc(var(--_border-radius) - var(--border-width))
+      );
       content: "";
       inset: 0;
       pointer-events: none;
@@ -76,7 +79,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
 
         * {
           font-size: inherit;
@@ -91,22 +94,36 @@
       a[href] {
         color: inherit;
 
-        &:hover {
+        @media (hover: hover) {
+          &:hover {
+            color: var(--_link-hover-color);
+          }
+        }
+
+        &:focus-visible {
           color: var(--_link-hover-color);
         }
       }
     }
 
     /* Icon */
-    &:has(svg) {
+    &:has(> svg) {
+      align-content: start;
       display: grid;
       gap: var(--_gap);
       grid-template-columns: var(--_icon-size) 1fr;
 
-      svg {
+      & > svg {
+        color: var(--_icon-color);
         margin-block-start: 0.15rem;
-        stroke: var(--_icon-color);
       }
+    }
+  }
+
+  @scope (.ui-rich-text) to (.ui-not-rich-text) {
+    .ui-callout > .ui-content,
+    .ui-callout > :scope.ui-content {
+      display: block;
     }
   }
 }

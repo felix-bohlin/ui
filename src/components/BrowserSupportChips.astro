@@ -15,7 +15,7 @@ type Props = {
 
 const { ids } = Astro.props
 const { $id } = Astro.locals
-const entries = computeEngineBrowserSupport(ids)
+const entries = ids.length > 0 ? computeEngineBrowserSupport(ids) : []
 
 const ICONS: Record<EngineId, any[]> = {
   chromium: [Chrome, Edge],
@@ -113,6 +113,7 @@ const HEADINGS = {
       )
     })
   }
+  <slot />
 </div>
 
 <style>
@@ -124,8 +125,8 @@ const HEADINGS = {
   }
 
   .engine-icons {
-    display: flex;
     align-items: center;
+    display: flex;
 
     > :global(*:not(:first-child)) {
       margin-inline-start: -0.25em;

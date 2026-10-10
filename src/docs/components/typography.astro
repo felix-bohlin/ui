@@ -1,24 +1,31 @@
 ---
-import { Code } from "astro-expressive-code/components"
+import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
-import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
-
+import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 ---
 
 <Component
   slug="typography"
   browserSupport={[
+    "attr",
     "box-decoration-break",
+    "container-style-queries",
+    "has",
     "light-dark",
+    "registered-custom-properties",
     "relative-color",
+    "round-mod-rem",
     "scope",
+    "scrollbar-width",
+    "text-wrap-pretty",
   ]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
@@ -31,6 +38,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   ]}
   installationTabs={[
     { title: "typography.css", code: TypographyCSS, lang: "css" },
+    { title: "link.css", code: LinkCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Typography</Fragment>
@@ -55,6 +63,15 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       <Example.Preview slot="preview-astro" code={BlockquoteHtml} />
     </Example>
 
+    <h3 id="link">Link</h3>
+    <p>
+      Use <code>.ui-link</code> for links outside <code>.ui-rich-text</code>.
+      Inside rich text, links get the same style without a class. On hover and
+      focus the underline gets thicker, and the color darkens in light mode and
+      lightens in dark mode.
+    </p>
+    <AutoExample name="Link" />
+
     <h3 id="code-block">Code block</h3>
     <Example column>
       <Example.Preview slot="preview-html" code={CodeBlockHtml} />
@@ -75,12 +92,12 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
         </thead>
         <tbody>
           <tr>
-            <td><abbr title="Abbreviation">Abbr.</abbr></td>
+            <td><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr></td>
             <td><code>&lt;abbr&gt;</code></td>
             <td><code>.ui-abbr</code></td>
           </tr>
           <tr>
-            <td><dfn title="Title">Definition</dfn></td>
+            <td><dfn class="ui-dfn" title="Title">Definition</dfn></td>
             <td><code>&lt;dfn&gt;</code></td>
             <td><code>.ui-dfn</code></td>
           </tr>
@@ -95,62 +112,67 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
             <td>—</td>
           </tr>
           <tr>
-            <td><cite>Citation</cite></td>
+            <td><cite class="ui-cite">Citation</cite></td>
             <td><code>&lt;cite&gt;</code></td>
             <td><code>.ui-cite</code></td>
           </tr>
           <tr>
-            <td><kbd>Ctrl + S</kbd></td>
+            <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
             <td><code>&lt;kbd&gt;</code></td>
             <td><code>.ui-kbd</code></td>
           </tr>
           <tr>
-            <td><mark>Highlight</mark></td>
+            <td><a class="ui-link" href="#link">Link</a></td>
+            <td><code>&lt;a href&gt;</code></td>
+            <td><code>.ui-link</code></td>
+          </tr>
+          <tr>
+            <td><mark class="ui-mark">Highlight</mark></td>
             <td><code>&lt;mark&gt;</code></td>
             <td><code>.ui-mark</code></td>
           </tr>
           <tr>
-            <td><s>Strikethrough</s></td>
+            <td><s class="ui-s">Strikethrough</s></td>
             <td><code>&lt;s&gt;</code></td>
             <td><code>.ui-s</code></td>
           </tr>
           <tr>
-            <td><small>Small</small></td>
+            <td><small class="ui-small">Small</small></td>
             <td><code>&lt;small&gt;</code></td>
             <td><code>.ui-small</code></td>
           </tr>
           <tr>
-            <td>Text <sub>Sub</sub></td>
+            <td>Text <sub class="ui-sub">Sub</sub></td>
             <td><code>&lt;sub&gt;</code></td>
             <td><code>.ui-sub</code></td>
           </tr>
           <tr>
-            <td>Text <sup>Sup</sup></td>
+            <td>Text <sup class="ui-sup">Sup</sup></td>
             <td><code>&lt;sup&gt;</code></td>
             <td><code>.ui-sup</code></td>
           </tr>
           <tr>
-            <td><u>Underline</u></td>
+            <td><u class="ui-u">Underline</u></td>
             <td><code>&lt;u&gt;</code></td>
             <td><code>.ui-u</code></td>
           </tr>
           <tr>
-            <td><del>Deleted</del></td>
+            <td><del class="ui-del">Deleted</del></td>
             <td><code>&lt;del&gt;</code></td>
             <td><code>.ui-del</code></td>
           </tr>
           <tr>
-            <td><ins>Inserted</ins></td>
+            <td><ins class="ui-ins">Inserted</ins></td>
             <td><code>&lt;ins&gt;</code></td>
             <td><code>.ui-ins</code></td>
           </tr>
           <tr>
-            <td><var>variable</var></td>
+            <td><var class="ui-var">variable</var></td>
             <td><code>&lt;var&gt;</code></td>
             <td><code>.ui-var</code></td>
           </tr>
           <tr>
-            <td><samp>sample output</samp></td>
+            <td><samp class="ui-samp">sample output</samp></td>
             <td><code>&lt;samp&gt;</code></td>
             <td><code>.ui-samp</code></td>
           </tr>
@@ -166,9 +188,14 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       children. It's extra handy when you can't control the contents yourself, like
       printing text from a CMS.
     </p>
+    <p>
+      Headings, lists and tables with a class keep their own styles, and
+      components look the same inside rich text as outside it. Wrap a part in
+      {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
+    </p>
     <Code
       lang="html"
-      code={`<article class="ui-rich-text">\n  <!-- -->\n</article>`}
+      code={`<article class="ui-rich-text">\n  <h2>Styled</h2>\n  <div class="ui-not-rich-text"><!-- not styled --></div>\n</article>`}
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
@@ -176,9 +203,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       Let's put everything together and see how all elements look in a
       classless, rich-text context.
     </p>
-    <Example>
-      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
-      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
-    </Example>
+    <AutoExample name="Default" />
   </section>
+  <RhythmBuild slot="under-the-hood" />
 </Component>

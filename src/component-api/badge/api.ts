@@ -2,18 +2,16 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Badge",
-  notes: {
-    html: "With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.",
-  },
   options: [
     {
-      cssVar: "--anchor-position-area",
+      default: '"start-end"',
       description: "Where the indicator is placed.",
       group: "Alignment",
       prop: "alignment",
       values: {
         "end-end": ".ui-end-end",
         "end-start": ".ui-end-start",
+        "start-end": null,
         "start-start": ".ui-start-start",
       },
     },
@@ -42,6 +40,13 @@ export default {
       description: "Hides the indicator.",
       group: "Visibility",
       prop: "invisible",
+    },
+    {
+      description:
+        'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
+      frameworks: ["astro", "svelte", "vue"],
+      prop: "srLabel",
+      type: "string",
     },
   ],
   parts: [

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { inject, useId } from "vue"
+import { computed, inject, useId } from "vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 import { ToggleGroupKey } from "../ToggleGroup/types.d.vue"
 import type { Props, Slots } from "./types.d.vue"
 
@@ -12,22 +13,18 @@ defineOptions({
 })
 
 const group = inject(ToggleGroupKey, undefined)
-const finalName = name || group?.name
-const finalType = type || group?.type || "checkbox"
-const inputId = id || useId()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const finalName = computed(() => name || group?.name || currentFieldName)
+const finalType = computed(() =>
+  group?.type === "radio" ? "radio" : type || group?.type || "checkbox",
+)
+const uid = useId()
+const inputId = computed(() => id || uid)
 </script>
 
 <template>
-  <label
-    :class="[
-      'ui-toggle-button',
-      { 'ui-disabled': disabled },
-      size && `ui-${size}`,
-      $props.class,
-    ]"
-  >
+  <label :class="['ui-toggle-button', size && `ui-${size}`, $props.class]">
     <input
-      :aria-pressed="finalType === 'checkbox' && pressed ? true : undefined"
       :checked="pressed"
       :disabled="disabled"
       :id="inputId"
@@ -36,6 +33,6 @@ const inputId = id || useId()
       :value="value || label"
       v-bind="$attrs"
     />
-    <slot></slot>
+    <slot>{{ label }}</slot>
   </label>
 </template>

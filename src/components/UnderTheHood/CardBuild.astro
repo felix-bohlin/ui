@@ -1,0 +1,158 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.card {
+  --card-bg: var(--surface-default);
+  --card-border: transparent;
+  --card-border-width: 0;
+  --card-shadow: none;
+  background-color: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border);
+  border-radius: var(--radius-2);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-inline-size: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.card > :is(hgroup, .content) {
+  margin-block: 0;
+  padding-inline: 0.75rem;
+}
+
+.card > :is(hgroup, .content):last-child {
+  padding-block-end: 0.75rem;
+}
+
+.card > hgroup {
+  padding-block-start: 0.75rem;
+}
+
+.card > hgroup > * {
+  margin-block: 0;
+}`,
+    html: `
+<div class="card">
+  <hgroup>
+    <p>Overline</p>
+    <h3>Headline</h3>
+  </hgroup>
+  <div class="content">…</div>
+  <div class="actions">…</div>
+</div>`,
+    features: ["flexbox-gap", "hgroup"],
+    notes: [
+      "A flex column: header, content and actions share one <code>gap</code>",
+      "Padding sits on the children, so media can go edge to edge",
+      "Without actions, the last child pads the bottom itself",
+      "<code>overflow: hidden</code> clips children to the rounded corners",
+    ],
+    title: "Base",
+  },
+  {
+    css: `
+.tonal {
+  --card-bg: var(--surface-tonal);
+  --card-border: var(--surface-default);
+  --card-border-width: 1px;
+}
+
+.elevated {
+  --card-bg: var(--surface-elevated);
+  --card-border: var(--surface-default);
+  --card-border-width: 1px;
+  --card-shadow: var(--shadow-3);
+
+  @container style(--color-scheme: dark) {
+    --card-shadow: var(--shadow-4);
+  }
+}`,
+    features: ["container-style-queries", "custom-properties"],
+    notes: [
+      "Variants only swap custom properties, the rules stay the same",
+      "<code>@container style(--color-scheme: dark)</code> picks a heavier shadow",
+      "Shadows barely show on dark surfaces, switch the site to dark mode to compare",
+    ],
+    title: "Variants",
+  },
+  {
+    css: `
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-start: auto;
+  padding: 0.5rem 0.75rem;
+}
+
+.actions:has(.ui-button:first-child[class="ui-button"]) {
+  padding-inline: 0.25rem 0.75rem;
+}`,
+    features: ["has"],
+    notes: [
+      "<code>margin-block-start: auto</code> pins the actions to the bottom of a stretched card",
+      "<code>[class=&quot;ui-button&quot;]</code> only matches a plain text button, no variant classes",
+      "A text button has no background, so the row shifts to line its label up with the text",
+    ],
+    title: "Actions",
+  },
+]
+---
+
+<BuildUp id="build-card" steps={steps}>
+  <div class="grid">
+    <div class="card tonal">
+      <hgroup>
+        <p>Tonal</p>
+        <h3>Text buttons</h3>
+      </hgroup>
+      <div class="content">Labels line up with this text.</div>
+      <div class="actions">
+        <button class="ui-button" type="button">Cancel</button>
+        <button class="ui-button" type="button">Save</button>
+      </div>
+    </div>
+    <div class="card elevated">
+      <hgroup>
+        <p>Elevated</p>
+        <h3>Filled buttons</h3>
+      </hgroup>
+      <div class="content">
+        Buttons with a background keep the regular padding, and the row stays at
+        the bottom.
+      </div>
+      <div class="actions">
+        <button class="ui-button ui-outlined" type="button">Cancel</button>
+        <button class="ui-button ui-filled" type="button">Save</button>
+      </div>
+    </div>
+  </div>
+</BuildUp>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    inline-size: min(100%, 26rem);
+  }
+
+  .card {
+    font-size: var(--font-size-05);
+
+    & hgroup > p {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+
+    & h3 {
+      font-size: var(--font-size-2);
+    }
+  }
+</style>

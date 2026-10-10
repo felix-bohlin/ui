@@ -1,0 +1,623 @@
+<style>
+  .project-overview {
+    container-type: inline-size;
+
+    .project-header {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      padding: var(--size-3) var(--size-4);
+
+      .ui-avatar {
+        margin-inline-start: auto;
+      }
+    }
+
+    .project-brand {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: var(--font-weight-bold);
+      gap: var(--size-2);
+      text-decoration: none;
+
+      svg {
+        block-size: var(--size-5);
+        color: var(--primary);
+        inline-size: var(--size-5);
+      }
+    }
+
+    main {
+      display: grid;
+      gap: var(--size-4);
+      margin-inline: auto;
+      max-inline-size: 80rem;
+      padding: var(--size-5) var(--size-4);
+    }
+
+    .project-title {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .project-name {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2) var(--size-3);
+
+      h1 {
+        margin: 0;
+      }
+    }
+
+    .project-status::before {
+      background-color: var(--success);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      content: "";
+      inline-size: var(--size-2);
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .project-stats {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      hgroup > p:last-child {
+        font-size: var(--font-size-0);
+      }
+    }
+
+    .project-grid {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 56rem) {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+    }
+
+    .project-column {
+      align-content: start;
+      display: grid;
+      gap: var(--size-4);
+    }
+
+    .project-milestones {
+      display: grid;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: grid;
+        gap: 0 var(--size-3);
+        grid-template-columns: var(--size-5) minmax(0, 1fr) auto;
+        padding-block-end: var(--size-4);
+        position: relative;
+
+        &:not(:last-child)::before {
+          background-color: var(--border-color);
+          content: "";
+          inline-size: 2px;
+          inset-block: var(--size-5) 0;
+          inset-inline-start: calc(var(--size-5) / 2 - 1px);
+          position: absolute;
+        }
+
+        &:last-child {
+          padding-block-end: 0;
+        }
+      }
+
+      svg {
+        block-size: var(--size-5);
+        inline-size: var(--size-5);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .ui-caption {
+        grid-column: 2;
+      }
+
+      time {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        font-variant-numeric: tabular-nums;
+        grid-column: 3;
+        grid-row: 1;
+        white-space: nowrap;
+      }
+
+      .ui-progress {
+        grid-column: 2 / -1;
+        margin-block-start: var(--size-2);
+      }
+    }
+
+    .project-done svg {
+      color: var(--success);
+    }
+
+    .project-current {
+      svg {
+        color: var(--primary);
+      }
+
+      p:first-of-type {
+        font-weight: var(--font-weight-semibold);
+      }
+    }
+
+    .project-upcoming svg {
+      color: var(--text-muted);
+    }
+
+    .project-card-list {
+      padding-inline: 0;
+    }
+  }
+</style>
+
+<div class="project-overview">
+  <header class="project-header">
+    <a class="project-brand" href="#project-overview">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M14.4 6 14 4H5v17h2v-7h5.6l.4 2h7V6z"
+        ></path>
+      </svg>
+      Milestone
+    </a>
+    <div class="ui-avatar" role="img" aria-label="Maja Eriksson">ME</div>
+  </header>
+
+  <main>
+    <div class="project-title">
+      <div class="ui-hgroup">
+        <p>Northwind · Client project</p>
+        <div class="project-name">
+          <h1 class="ui-h3">Mobile app 2.0</h1>
+          <span class="ui-chip ui-outlined ui-small project-status">
+            <span class="ui-text">On track</span>
+          </span>
+        </div>
+      </div>
+      <div class="project-actions">
+        <button class="ui-button ui-outlined ui-small" type="button">
+          Share
+        </button>
+        <button
+          class="ui-button ui-filled ui-small"
+          command="toggle-popover"
+          commandfor="project-overview-actions"
+          type="button"
+        >
+          <span class="ui-text">Actions</span>
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"
+            ></path>
+          </svg>
+        </button>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="project-overview-actions"
+          popover
+        >
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="project-overview-actions"
+              type="button"
+            >
+              <div class="ui-text"><p>Edit details</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="project-overview-actions"
+              type="button"
+            >
+              <div class="ui-text"><p>Add milestone</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              command="hide-popover"
+              commandfor="project-overview-actions"
+              type="button"
+            >
+              <div class="ui-text"><p>Export report</p></div>
+            </button>
+          </li>
+          <li class="ui-border-top ui-critical">
+            <button
+              command="hide-popover"
+              commandfor="project-overview-actions"
+              type="button"
+            >
+              <div class="ui-text"><p>Archive project</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+
+    <article class="ui-callout ui-warning">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z"
+        ></path>
+      </svg>
+      <div class="ui-content">
+        <p>
+          The beta review moved from 10 to 14 October.
+          <a class="ui-link" href="#project-overview-beta">See what changed</a>
+        </p>
+      </div>
+    </article>
+
+    <ul class="project-stats">
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p id="project-overview-progress-label">Progress</p>
+            <h2 class="ui-h4">64%</h2>
+          </hgroup>
+          <div class="ui-content">
+            <div class="ui-progress">
+              <progress
+                aria-labelledby="project-overview-progress-label"
+                max="100"
+                value="64"
+              ></progress>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Tasks completed</p>
+            <h2 class="ui-h4">86 of 134</h2>
+            <p>11 closed this week</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Time left</p>
+            <h2 class="ui-h4">23 days</h2>
+            <p>Launch on 31 October</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <p>Budget used</p>
+            <h2 class="ui-h4">412 000 kr</h2>
+            <p>69% of 600 000 kr</p>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+
+    <div class="project-grid">
+      <div class="project-column">
+        <section
+          aria-labelledby="project-overview-milestones-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="project-overview-milestones-heading">
+              Milestones
+            </h2>
+            <p>3 of 5 completed.</p>
+          </hgroup>
+          <div class="ui-content">
+            <ol class="project-milestones">
+              <li class="project-done">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+                <p>Discovery and research</p>
+                <time datetime="2026-08-14">14 Aug</time>
+                <p class="ui-caption">Completed · 12 user interviews</p>
+              </li>
+              <li class="project-done">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+                <p>Design system and prototypes</p>
+                <time datetime="2026-09-05">5 Sep</time>
+                <p class="ui-caption">Completed · Signed off by the client</p>
+              </li>
+              <li class="project-done">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"
+                  ></path>
+                </svg>
+                <p>Core features</p>
+                <time datetime="2026-09-26">26 Sep</time>
+                <p class="ui-caption">Completed · Two days late</p>
+              </li>
+              <li class="project-current">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16m0-14v12a6 6 0 0 0 0-12"
+                  ></path>
+                </svg>
+                <p id="project-overview-beta-label">Beta and user testing</p>
+                <time datetime="2026-10-14">14 Oct</time>
+                <p class="ui-caption">In progress · 18 of 26 tasks done</p>
+                <div class="ui-progress">
+                  <progress
+                    aria-labelledby="project-overview-beta-label"
+                    max="26"
+                    value="18"
+                  ></progress>
+                </div>
+              </li>
+              <li class="project-upcoming">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16"
+                  ></path>
+                </svg>
+                <p>App Store launch</p>
+                <time datetime="2026-10-31">31 Oct</time>
+                <p class="ui-caption">Upcoming</p>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="project-overview-activity-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="project-overview-activity-heading">
+              Recent activity
+            </h2>
+          </hgroup>
+          <div class="ui-content project-card-list">
+            <ul class="ui-list ui-transparent">
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Ravi Patel">
+                    RP
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Ravi closed “Offline mode for saved trips”</p>
+                  <p>Today, 10:24</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Tove Berglund">
+                    TB
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Tove uploaded “Beta onboarding v4.fig”</p>
+                  <p>Today, 08:51</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Maja Eriksson">
+                    ME
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Maja moved the beta review to 14 October</p>
+                  <p>Yesterday, 16:02</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div class="project-column">
+        <section
+          aria-labelledby="project-overview-team-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="project-overview-team-heading">Team</h2>
+            <p>5 people on this project.</p>
+          </hgroup>
+          <div class="ui-content project-card-list">
+            <ul class="ui-list ui-dense ui-transparent">
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Maja Eriksson">
+                    ME
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Maja Eriksson</p>
+                  <p>Project lead</p>
+                </div>
+                <div class="ui-end">
+                  <span class="ui-chip ui-tonal ui-x-small">
+                    <span class="ui-text">Owner</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Tove Berglund">
+                    TB
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Tove Berglund</p>
+                  <p>Product designer</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Ravi Patel">
+                    RP
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Ravi Patel</p>
+                  <p>iOS developer</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Chen Wei">
+                    CW
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Chen Wei</p>
+                  <p>Android developer</p>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <div class="ui-avatar" role="img" aria-label="Erik Johansson">
+                    EJ
+                  </div>
+                </div>
+                <div class="ui-text">
+                  <p>Erik Johansson</p>
+                  <p>QA engineer</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="ui-actions">
+            <button class="ui-button ui-small" type="button">
+              Invite people
+            </button>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="project-overview-details-heading"
+          class="ui-card ui-outlined"
+        >
+          <hgroup>
+            <h2 class="ui-h5" id="project-overview-details-heading">Details</h2>
+          </hgroup>
+          <div class="ui-content">
+            <dl class="ui-description-list ui-bordered">
+              <div class="ui-item">
+                <dt class="ui-term">Client</dt>
+                <dd class="ui-description">Northwind Travel AB</dd>
+              </div>
+              <div class="ui-item">
+                <dt class="ui-term">Started</dt>
+                <dd class="ui-description">4 August 2026</dd>
+              </div>
+              <div class="ui-item">
+                <dt class="ui-term">Launch</dt>
+                <dd class="ui-description">31 October 2026</dd>
+              </div>
+              <div class="ui-item">
+                <dt class="ui-term">Platforms</dt>
+                <dd class="ui-description">iOS, Android</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>

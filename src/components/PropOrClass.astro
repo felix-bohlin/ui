@@ -1,0 +1,15 @@
+---
+import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+
+type Props = {
+  class: string
+  prop: string
+}
+
+const { class: className, prop } = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+---
+
+<code>{currentFramework === "html" ? className : prop}</code>

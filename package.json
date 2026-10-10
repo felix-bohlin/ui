@@ -1,14 +1,18 @@
 {
   "name": "open-props-ui-docs",
+  "private": true,
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "build-search-index": "node --experimental-strip-types scripts/generate-search-index.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm typecheck && pnpm test && pnpm build",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build && pnpm build-skill",
+    "build-search-index": "node scripts/generate-search-index.mjs",
+    "build-skill": "node scripts/build-agent-skill.mjs",
+    "check": "pnpm check:fast && pnpm build",
+    "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm check-css-vars && pnpm typecheck && pnpm test",
     "check-browser-support": "node scripts/check-browser-support.mjs",
     "check-components": "node scripts/check-components.mjs",
+    "check-css-vars": "node scripts/check-css-vars.mjs",
     "dev": "astro dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -19,19 +23,18 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:record-a11y": "A11Y_RECORD=1 playwright test a11y --workers=1",
-    "test:e2e:serve": "OPUI_TEST_PAGES=1 astro build --outDir dist-test && astro preview --outDir dist-test --port 4322",
+    "test:e2e:serve": "OPUI_TEST_PAGES=1 astro build --outDir dist-test && ASTRO_PREVIEW_BACKGROUND=1 astro preview --outDir dist-test --port 4322 --ignore-lock",
     "test:e2e:update": "playwright test --update-snapshots=all",
     "test:record-drift": "PARITY_RECORD=1 vitest run -u",
     "test:update": "vitest run --update",
-    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json"
+    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "astro": "catalog:",
-    "astro-expressive-code": "^0.44.0",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
-    "highlight.js": "^11.11.1",
+    "microlighter": "^2.2.0",
     "minisearch": "^7.2.0",
     "open-props": "catalog:",
     "opui-css": "workspace:*",
@@ -40,24 +43,35 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/svelte": "^9.0.1",
     "@astrojs/vue": "^7.0.3",
     "@axe-core/playwright": "^4.13.0",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "1.63.0",
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
+    "hast-util-select": "^6.0.4",
+    "hast-util-to-text": "^4.0.2",
     "oxlint": "^1.85.0",
     "parse5": "^8.0.1",
     "postcss": "^8.5.28",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-svelte": "^3.5.2",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-stringify": "^11.0.0",
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",
+    "svelte": "catalog:",
+    "svelte-check": "^4.7.6",
+    "unified": "^11.0.5",
     "vitest": "^5.0.2",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": []
+  "engines": {
+    "node": ">=26.10.0"
   },
-  "packageManager": "pnpm@12.4.2+sha512.08adc6613180275c7c9edada39dcf08c9c61ad4e7eaf330a4f3461f102b0f907423454d117f98e72d47fef0616070644d7bffc973a6a57f5090a6d7c368b07c9"
+  "packageManager": "pnpm@12.9.1"
 }

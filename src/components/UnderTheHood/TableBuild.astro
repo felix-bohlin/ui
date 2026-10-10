@@ -1,0 +1,197 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.table {
+  border: 1px solid var(--border-color);
+  border-collapse: separate;
+  border-radius: var(--radius);
+  border-spacing: 0;
+  inline-size: 100%;
+}`,
+    features: ["border-radius", "table"],
+    notes: [
+      "<code>border-radius</code> is ignored on a <code>border-collapse: collapse</code> table",
+      "<code>separate</code> + <code>border-spacing: 0</code> keeps the corners round",
+    ],
+    title: "Separate",
+  },
+  {
+    css: `
+.table :is(th, td) {
+  background-color: var(--surface-default);
+  border-block-end: 1px solid var(--border-color);
+  border-inline-end: 1px solid var(--border-color);
+  padding: 0.25rem 0.5rem;
+  text-align: start;
+}
+
+.table th {
+  background-color: var(--surface-filled);
+}
+
+.table :is(th, td):last-child {
+  border-inline-end: none;
+}
+
+.table > :last-child tr:last-child > * {
+  border-block-end: none;
+}
+
+.table tbody > tr:hover > :is(th, td) {
+  background-color: oklch(from var(--surface-filled) l c h / 75%);
+}`,
+    features: ["logical-properties", "relative-color"],
+    notes: [
+      "Each cell draws only its end sides, so lines never double up",
+      "The last column and the last row drop theirs",
+      "Only body rows light up on hover",
+      "The cell backgrounds now poke out of the rounded corners",
+    ],
+    title: "Cells",
+  },
+  {
+    css: `
+.table > thead tr:first-child th:first-child {
+  border-start-start-radius: var(--radius);
+}
+
+.table > thead tr:first-child th:last-child {
+  border-start-end-radius: var(--radius);
+}
+
+.table > :last-child tr:last-child > :first-child {
+  border-end-start-radius: var(--radius);
+}
+
+.table > :last-child tr:last-child > :last-child {
+  border-end-end-radius: var(--radius);
+}`,
+    features: ["logical-properties"],
+    notes: [
+      "The four corner cells take the same radius as the table",
+      "<code>border-start-start-radius</code> follows the writing direction",
+      "Drag <strong>Radius</strong>: the corners stay in sync",
+    ],
+    title: "Corners",
+  },
+  {
+    css: `
+.table tfoot :is(th, td) {
+  background-color: var(--surface-filled);
+  border-block-start: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.table tbody:has(+ tfoot) tr:last-child > * {
+  border-block-end: none;
+}`,
+    features: ["has"],
+    notes: [
+      "The footer draws its own top border",
+      "<code>tbody:has(+ tfoot)</code> removes the one above it, so it stays a single line",
+    ],
+    title: "Footer",
+  },
+  {
+    css: `
+.table-scroll {
+  max-block-size: 12rem;
+  overflow: auto;
+}
+
+.table > thead {
+  container-type: scroll-state;
+  inset-block-start: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+@container scroll-state(stuck: block-start) {
+  .table > thead th {
+    box-shadow: var(--shadow-4);
+    clip-path: inset(0 0 -2rem);
+  }
+}`,
+    features: ["container-scroll-state-queries", "sticky-positioning"],
+    html: `
+<div aria-label="Components" class="table-scroll" role="region" tabindex="0">
+  <table class="table">…</table>
+</div>`,
+    notes: [
+      "<code>position: sticky</code> on <code>thead</code> keeps the header at the top of the scroll box",
+      "Don't give the table <code>overflow: hidden</code>: it makes the table a scroll container, so the header would stick to the table and never move. <code>overflow: clip</code> is safe",
+      "<code>scroll-state(stuck: block-start)</code> only shows the shadow while the header is stuck, <code>clip-path</code> lets it out below",
+      '<code>tabindex="0"</code> and a name let keyboard users scroll the box',
+    ],
+    title: "Sticky header",
+  },
+]
+
+const knobs = [
+  {
+    label: "Radius",
+    max: 24,
+    min: 0,
+    property: "--radius",
+    step: 2,
+    unit: "px",
+    value: 12,
+  },
+]
+
+const rows = [
+  { name: "Accordion", size: 1 },
+  { name: "Avatar", size: 2 },
+  { name: "Badge", size: 1 },
+  { name: "Button", size: 3 },
+  { name: "Card", size: 2 },
+  { name: "Dialog", size: 3 },
+  { name: "Menu", size: 4 },
+  { name: "Tabs", size: 4 },
+]
+
+const total = rows.reduce((sum, row) => sum + row.size, 0)
+---
+
+<BuildUp id="build-table" knobs={knobs} steps={steps}>
+  <div aria-label="Components" class="table-scroll" role="region" tabindex="0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Component</th>
+          <th scope="col">Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr>
+              <td>{row.name}</td>
+              <td>{row.size} kB</td>
+            </tr>
+          ))
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>{total} kB</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</BuildUp>
+
+<style>
+  .table {
+    font-size: var(--font-size-05);
+  }
+
+  .table-scroll {
+    inline-size: 100%;
+    max-inline-size: 22rem;
+  }
+</style>

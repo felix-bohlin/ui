@@ -2,91 +2,200 @@
   :where(.ui-chip) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
-    --_color: var(--text-primary);
+    --_dot-color: currentColor;
+    --_text-color: var(--text-primary);
 
     align-items: center;
-    background: var(--_bg-color) var(--ripple, none);
-
-    /* Ripple effect */
-    background-position: center;
-    block-size: var(--size-7, 2rem);
-    border: 1px solid var(--_border-color);
-    border-radius: var(--radius-2, 0.5rem);
-    color: var(--_color);
+    background-color: var(--_bg-color);
+    block-size: var(--chip-size);
+    border: var(--border-width) solid var(--_border-color);
+    border-radius: var(--border-radius);
+    color: var(--_text-color);
     display: inline-flex;
-    font-size: var(--font-size-0, 0.75rem);
+    font-size: var(--font-size-0);
     gap: var(--size-1);
+    max-inline-size: 100%;
     padding-inline: var(--size-2);
     text-decoration: none;
+
+    &:not(.ui-multiline) > .ui-text {
+      min-inline-size: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     /* Variants */
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
-      --_color: var(--text-primary);
+      --_text-color: var(--text-primary);
     }
 
     &.ui-outlined {
       --_bg-color: var(--surface-default);
-      --_color: var(--text-primary);
+      --_text-color: var(--text-primary);
     }
 
-    &:where(button, a):where(:not([disabled])) {
-      &:where(:not(:active)):hover {
-        --_bg-color: light-dark(
-          oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-          oklch(from var(--surface-tonal) calc(l * 1.1) c h)
-        );
+    &:where(button, a):where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled)
+      ) {
+      @media (hover: hover) {
+        &:hover {
+          --_bg-color: light-dark(
+            oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+          );
+        }
       }
     }
 
-    /* Icon */
-    &:has(svg:first-child) {
-      padding-inline: var(--size-1) var(--size-2);
+    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+      --_dot-color: light-dark(
+        oklch(from var(--_tone) min(l, 0.6) c h),
+        oklch(from var(--_tone) max(l, 0.72) c h)
+      );
+
+      &:where(:not(.ui-outlined)) {
+        --_bg-color: light-dark(
+          oklch(from var(--_tone) 0.96 calc(c * 0.25) h),
+          oklch(from var(--_tone) 0.3 calc(c * 0.35) h)
+        );
+        --_border-color: light-dark(
+          oklch(from var(--_tone) 0.86 calc(c * 0.5) h),
+          oklch(from var(--_tone) 0.42 calc(c * 0.5) h)
+        );
+        --_text-color: light-dark(
+          oklch(from var(--_tone) 0.4 c h),
+          oklch(from var(--_tone) 0.92 calc(c * 0.5) h)
+        );
+
+        &:where(button, a):where(
+            :not([disabled], [aria-disabled="true"], .ui-disabled)
+          ) {
+          @media (hover: hover) {
+            &:hover {
+              --_bg-color: light-dark(
+                oklch(from var(--_tone) 0.92 calc(c * 0.35) h),
+                oklch(from var(--_tone) 0.35 calc(c * 0.4) h)
+              );
+            }
+          }
+        }
+      }
     }
 
-    &:has(svg:last-child) {
-      padding-inline: var(--size-2) var(--size-1);
+    &.ui-critical {
+      --_tone: var(--critical);
+    }
+
+    &.ui-info {
+      --_tone: var(--info);
+    }
+
+    &.ui-neutral {
+      --_tone: var(--neutral);
+    }
+
+    &.ui-success {
+      --_tone: var(--success);
+    }
+
+    &.ui-warning {
+      --_tone: var(--warning);
+    }
+
+    &.ui-dot::before {
+      background-color: var(--_dot-color);
+      block-size: var(--size-2);
+      border-radius: var(--radius-round);
+      content: "";
+      flex-shrink: 0;
+      inline-size: var(--size-2);
+
+      @media (forced-colors: active) {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+    }
+
+    &.ui-dot.ui-critical::before {
+      border-radius: 0;
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+      scale: 1.25;
+    }
+
+    &.ui-dot.ui-neutral::before {
+      background-color: transparent;
+      border: 2px solid var(--_dot-color);
+
+      @media (forced-colors: active) {
+        border-color: CanvasText;
+      }
+    }
+
+    &.ui-dot.ui-warning::before {
+      border-radius: 0;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      scale: 1.25;
+    }
+
+    /* Icon */
+    &:has(> svg:first-child) {
+      padding-inline-start: var(--size-1);
+    }
+
+    &:has(> svg:last-child) {
+      padding-inline-end: var(--size-1);
     }
 
     &:has(svg) {
       svg {
         flex-shrink: 0;
-        inline-size: var(--size-3);
+        inline-size: var(--icon-size-small);
       }
     }
 
     /* Sizes */
+    &.ui-x-small {
+      block-size: var(--chip-size-x-small);
+    }
+
     &.ui-small {
-      block-size: var(--size-5);
+      block-size: var(--chip-size-small);
+    }
+
+    &.ui-large {
+      block-size: var(--chip-size-large);
+      font-size: var(--font-size-05);
+      padding-inline: var(--size-3);
+
+      &:has(> svg:first-child) {
+        padding-inline-start: var(--size-2);
+      }
+
+      &:has(> svg:last-child) {
+        padding-inline-end: var(--size-2);
+      }
+
+      svg {
+        inline-size: var(--icon-size);
+      }
     }
 
     &.ui-multiline {
       block-size: auto;
     }
 
-    &:where(:not([disabled])) {
-      &:where(:not(:active):hover) {
-        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
-          center/15000%;
+    /* Disabled */
+    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: var(--text-disabled);
 
-        transition: background var(--button-ripple-duration);
-      }
-
-      &:where(:hover:active) {
-        background-size: var(--button-ripple-size);
-        transition: background 0s;
-      }
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
     }
 
-    /* Disabled */
-    &:where([disabled]) {
-      opacity: 0.64;
-      --_color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
-      cursor: not-allowed;
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
   }
 }

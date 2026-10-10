@@ -1,0 +1,50 @@
+<style>
+  .todo-swatches {
+    display: grid;
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-swatches > .ui-palette {
+    display: grid;
+    gap: var(--size-1);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Token table: "Text color on a <code>--primary</code> background." Each
+      button sets a custom <code>--primary</code> on a <code>.ui-palette</code>,
+      lightness from 0.3 to 0.8.
+    </p>
+    <div class="todo-swatches"></div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      "Text color on <code>--primary</code>. Derived with relative color:
+      near-black when the primary's lightness is above 0.565, near-white below,
+      tinted with 15% of its chroma, so a custom <code>--primary</code> gets
+      readable text."
+    </p>
+    <div class="todo-swatches"></div>
+  </section>
+</div>
+<script>
+  const lightness = [0.3, 0.5, 0.56, 0.57, 0.6, 0.8]
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const swatches = panel.querySelector(".todo-swatches")
+    for (const l of lightness) {
+      const palette = document.createElement("div")
+      palette.className = "ui-palette"
+      palette.style.setProperty("--primary", `oklch(${l} 0.2 30)`)
+      palette.innerHTML = `<button type="button" class="ui-button ui-filled ui-primary">L ${l}</button><p class="todo-measure"></p>`
+      swatches.append(palette)
+      const button = palette.querySelector(".ui-button")
+      palette.querySelector(".todo-measure").textContent =
+        `text ${getComputedStyle(button).color}`
+    }
+  }
+</script>

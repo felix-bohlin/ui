@@ -22,7 +22,10 @@
   <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-2-label">
+    <select
+      aria-describedby="select-orientation-2-end-text"
+      aria-labelledby="select-orientation-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -73,11 +76,15 @@
   </span>
 </label>
 
-<label class="ui-select ui-spread" data-invalid>
+<label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-5-label">
+    <select
+      aria-describedby="select-orientation-5-end-text"
+      aria-invalid="true"
+      aria-labelledby="select-orientation-5-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -92,21 +99,22 @@
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-6-label">Currency</span>
-  <span class="ui-start-text">Used for billing</span>
+  <span class="ui-label" id="select-orientation-6-label">Time zone</span>
+  <span class="ui-start-text">Used for reminders and due dates</span>
   <span class="ui-field">
     <select aria-labelledby="select-orientation-6-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
-        <option value="">-</option>
-        <option>EUR</option>
-        <option>EUR</option>
-        <option>SEK</option>
+        <option>-03:00</option>
+        <option>+00:00</option>
+        <option>+01:00</option>
+        <option>+05:30</option>
+        <option>+09:00</option>
       </div>
     </select>
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">UTC</span>
   </span>
 </label>
 
@@ -114,7 +122,10 @@
   <span class="ui-label" id="select-orientation-7-label">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-7-label">
+    <select
+      aria-describedby="select-orientation-7-end-text"
+      aria-labelledby="select-orientation-7-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>

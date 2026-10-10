@@ -1,16 +1,27 @@
 export type Props = {
   color?: "critical" | "primary"
+  rounded?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 } & (
   | {
-      as?: "a"
-      href: string
-      disabled?: never
+      iconOnly: true
+      label: string
     }
   | {
-      as?: "button"
-      href?: never
-      disabled?: boolean
+      iconOnly?: false
+      label?: string
     }
-)
+) &
+  (
+    | {
+        as?: "a"
+        href: string
+        disabled?: boolean
+      }
+    | {
+        as?: "button"
+        href?: never
+        disabled?: boolean
+      }
+  )

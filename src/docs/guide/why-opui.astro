@@ -2,7 +2,6 @@
 import Guide from "../../layouts/Guide.astro"
 import { Callout } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
-import type { Props } from "astro"
 ---
 
 <Guide overline="Guide">
@@ -15,8 +14,9 @@ import type { Props } from "astro"
 
   <p>
     Everything is made with ease-of-use and scalability in mind. Last but not
-    least - you <strong>copy and paste the components</strong> into your repo. It's
-    the best way to have a complete understanding and ownership over your stuff.
+    least - you can <strong>copy and paste the components</strong> into your repo
+    instead of installing a package. It's the best way to have a complete understanding
+    and ownership over your code.
   </p>
 
   <section>
@@ -41,7 +41,7 @@ import type { Props } from "astro"
     <p>
       As I've been working on this I have gotten more convinced that right now, <DocLink
         href="/guide/browser-support">and going forwards</DocLink
-      >, frontend developers need to re-examine their assumtions. If nothing
+      >, frontend developers need to re-examine their assumptions. If nothing
       else, library developers have to look more closely at what the platform
       offers. AI has pushed developers into an architect kind of role, so if
       we're not as involved in how the code is written anymore, we need to make
@@ -72,8 +72,8 @@ import type { Props } from "astro"
   <div class="ui-not-rich-text">
     <Callout>
       <Fragment slot="title"
-        >"If you only use the latest features, that means this is can never
-        enter production"</Fragment
+        >"If you only use the latest features, that means this can never enter
+        production"</Fragment
       >
       <p>
         Yes and no. Right now that's true for many components. The point is to

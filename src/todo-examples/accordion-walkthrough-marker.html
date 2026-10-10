@@ -1,0 +1,167 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-walkthrough > summary {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  .todo-walkthrough > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .todo-walkthrough.ui-marker-turn[open]:dir(rtl) > summary svg {
+    rotate: 90deg;
+  }
+</style>
+<p>
+  A summary without an svg (the docs: "Leave it out to fall back to the native
+  arrow").
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough: marker always hidden</p>
+    <details class="ui-accordion ui-card ui-outlined todo-walkthrough">
+      <summary>No icon</summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>summary:has(svg)</code> only</p>
+    <details class="ui-accordion ui-card ui-outlined">
+      <summary>No icon</summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+</div>
+<p>
+  Turn marker, open, right to left. Open should point down. The library's
+  <code>-90deg</code> assumes the chevron is mirrored for RTL. The docs examples
+  use a right-pointing chevron and don't mirror it.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough <code>90deg</code>, right-pointing chevron (docs examples)
+    </p>
+    <details
+      class="ui-accordion ui-card ui-marker-turn ui-outlined todo-walkthrough"
+      dir="rtl"
+      open
+    >
+      <summary>
+        Turn
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+            fill="currentColor"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Library <code>-90deg</code>, right-pointing chevron (docs examples)
+    </p>
+    <details
+      class="ui-accordion ui-card ui-marker-turn ui-outlined"
+      dir="rtl"
+      open
+    >
+      <summary>
+        Turn
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+            fill="currentColor"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+  <div>
+    <p class="ui-caption">Walkthrough <code>90deg</code>, mirrored chevron</p>
+    <details
+      class="ui-accordion ui-card ui-marker-turn ui-outlined todo-walkthrough"
+      dir="rtl"
+      open
+    >
+      <summary>
+        Turn
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+            fill="currentColor"
+            transform="matrix(-1 0 0 1 24 0)"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+  <div>
+    <p class="ui-caption">Library <code>-90deg</code>, mirrored chevron</p>
+    <details
+      class="ui-accordion ui-card ui-marker-turn ui-outlined"
+      dir="rtl"
+      open
+    >
+      <summary>
+        Turn
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+            fill="currentColor"
+            transform="matrix(-1 0 0 1 24 0)"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Content</p></div>
+    </details>
+  </div>
+</div>

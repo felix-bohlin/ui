@@ -1,9 +1,13 @@
 @layer components.root {
-  label.ui-radio {
-    --_input-size: 1.125rem;
-    --_indicator-size: 50%;
+  :where(label.ui-radio) {
+    --_accent: light-dark(
+      var(--primary),
+      oklch(from var(--primary) min(l, 0.62) c h)
+    );
+    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+    --_input-size: var(--choice-size);
 
-    align-items: center;
+    align-items: start;
     color: var(--text-primary);
     cursor: pointer;
     display: inline-grid;
@@ -11,14 +15,18 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: 1.5;
+    line-height: var(--font-lineheight-3);
     transform: translateZ(0);
     user-select: none;
+
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
+    }
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input {
@@ -27,33 +35,61 @@
     }
 
     /* Required dot */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
-        inset: 0 -0.25ex auto auto;
-        position: absolute;
+        margin-inline-start: 0.25ex;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
+      margin-block-start: calc(
+        (var(--_input-size) - 1lh) / 2 + var(--choice-label-offset)
+      );
       padding-inline: 0 1ex;
       position: relative;
     }
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       z-index: 1;
+    }
+
+    /* Spread layout */
+    &.ui-spread {
+      align-items: start;
+      column-gap: var(--size-4);
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr auto;
+      inline-size: 100%;
+
+      .ui-label {
+        font-weight: var(--field-label-font-weight);
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: fit-content;
+      }
+
+      input {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      :where(.ui-end-text) {
+        grid-column: 1;
+        grid-row: 2;
+      }
     }
 
     /* Stacked layout */
@@ -66,11 +102,6 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
-
-        /* Required dot */
-        &::after {
-          inset: 0 -0.25ex auto auto;
-        }
       }
 
       .ui-end-text {
@@ -81,74 +112,99 @@
 
     /* Input */
     input[type="radio"] {
+      --_dir-rtl: -1;
+      --_dot-radius: calc(
+        var(--_input-size) / 2 - var(--field-border-width) -
+          round(
+            down,
+            (var(--_input-size) - 2 * var(--field-border-width)) / 4,
+            1px
+          )
+      );
+      --_ripple-size: 175%;
+
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border: 1px solid var(--field-border-color);
+      border: var(--field-border-width) solid var(--field-border-color);
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;
-      display: grid;
       inline-size: var(--_input-size);
       margin: 0;
       padding: 0;
-      place-items: center;
       position: relative;
-
-      &:checked {
-        background-color: var(--primary);
-        border-color: var(--primary);
-      }
+      transform-style: preserve-3d;
 
       /* Dot */
-      &::after {
-        background-color: var(--primary-contrast);
-        block-size: var(--_indicator-size);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--_indicator-size);
-        margin: auto;
-        opacity: 0;
+      &:checked {
+        background-color: var(--_accent);
+        background-image: radial-gradient(
+          circle,
+          var(--_accent-contrast) calc(var(--_dot-radius) - 0.25px),
+          var(--_accent) calc(var(--_dot-radius) + 0.25px)
+        );
+        border-color: var(--_accent);
       }
 
-      &:checked::after {
-        opacity: 1;
+      /* Hover and active effect */
+      &:dir(rtl) {
+        --_dir-rtl: 1;
       }
 
-      &::before {
-        --highlight-size: 175%;
+      &:where(:not([disabled], [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:hover::before {
+            --_thumb-scale: 1;
+          }
+        }
+
+        &:active::before {
+          --_thumb-scale: 1.1;
+        }
+
+        &::before {
+          --_thumb-scale: 0.01;
+
+          background-color: var(--ripple-color);
+          block-size: var(--_ripple-size, 150%);
+          clip-path: circle(50%);
+          content: "";
+          inline-size: var(--_ripple-size, 150%);
+          inset-block-start: 50%;
+          inset-inline-start: 50%;
+          position: absolute;
+          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+            translateZ(-1px) scale(var(--_thumb-scale));
+          transform-origin: center center;
+
+          transition: transform calc(var(--duration) * var(--motion, 1))
+            var(--ease);
+          will-change: transform;
+        }
       }
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
-      input[type="radio"] {
-        --_input-size: var(--size-3);
-      }
+      --_input-size: var(--choice-size-small);
     }
 
     &.ui-large {
-      input[type="radio"] {
-        --_input-size: var(--size-4);
-      }
+      --_input-size: var(--choice-size-large);
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
-      --primary: var(--critical);
+    &:has([aria-invalid="true"], :user-invalid) {
+      --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
-        color: var(--critical);
-      }
-    }
-
-    /* Touch devices */
-    @media (pointer: coarse) {
-      input[type="radio"] {
-        block-size: var(--size-4);
-        inline-size: var(--size-4);
+        color: var(--invalid-text-color);
       }
     }
 
@@ -157,12 +213,10 @@
         border: 1px solid CanvasText;
 
         &:checked {
-          background-color: SelectedItem;
-          border-color: SelectedItem;
+          --_accent: SelectedItem;
+          --_accent-contrast: SelectedItemText;
 
-          &::after {
-            background-color: SelectedItemText;
-          }
+          forced-color-adjust: none;
         }
       }
     }

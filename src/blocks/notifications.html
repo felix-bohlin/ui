@@ -1,0 +1,363 @@
+<style>
+  .notifications {
+    margin-inline: auto;
+    max-inline-size: 42rem;
+
+    .notifications-head {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: space-between;
+    }
+
+    .notifications-head-actions {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+    }
+
+    > .ui-card > .ui-content {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    .notifications-feed {
+      display: grid;
+      gap: var(--size-4);
+      padding-block-start: var(--size-3);
+    }
+
+    .notifications-day {
+      display: grid;
+      gap: var(--size-2);
+    }
+
+    .notifications-unread .ui-text > p:first-child {
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .notifications-quote {
+      border-inline-start: var(--border-width) solid var(--border-color);
+      padding-inline-start: var(--size-2);
+    }
+
+    .notifications-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      padding-block-start: var(--size-2);
+    }
+
+    time {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      white-space: nowrap;
+    }
+
+    .notifications-empty {
+      color: var(--text-muted);
+      display: grid;
+      gap: var(--size-2);
+      justify-items: center;
+      padding-block: var(--size-8);
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="notifications">
+  <div class="ui-card ui-outlined">
+    <div class="ui-content">
+      <div class="notifications-head">
+        <h1 class="ui-h4">Notifications</h1>
+        <div class="notifications-head-actions">
+          <button class="ui-button ui-small" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12zM.41 13.41 6 19l1.41-1.41L1.83 12z"
+              ></path></svg
+            ><span class="ui-text">Mark all as read</span>
+          </button>
+          <span class="ui-anchor ui-tooltip">
+            <a
+              aria-label="Notification settings"
+              class="ui-button ui-rounded ui-small"
+              href="#notifications-settings"
+              interestfor="notifications-settings-tip"
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.48.48 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6"
+                ></path></svg
+            ></a>
+            <span
+              class="ui-anchor-floating"
+              id="notifications-settings-tip"
+              popover="hint"
+              >Choose what you get notified about</span
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="ui-tabs">
+        <input
+          checked
+          class="ui-tab-input"
+          id="notifications-tab-all"
+          name="notifications-tabs"
+          type="radio"
+        />
+        <label class="ui-tab-label" for="notifications-tab-all">All</label>
+        <div class="ui-tab-panel">
+          <div class="notifications-feed">
+            <section
+              aria-labelledby="notifications-today"
+              class="notifications-day"
+            >
+              <h2 class="ui-overline" id="notifications-today">Today</h2>
+              <ul class="ui-list ui-transparent ui-gutterless">
+                <li class="notifications-unread">
+                  <div class="ui-start">
+                    <span class="ui-anchor ui-badge ui-dot">
+                      <span class="ui-avatar" aria-hidden="true">KM</span>
+                      <span class="ui-anchor-floating"
+                        ><span class="ui-badge-indicator"></span
+                      ></span>
+                    </span>
+                  </div>
+                  <div class="ui-text">
+                    <p>
+                      <span class="ui-sr-only">Unread: </span>Kwame Mensah
+                      mentioned you in Q4 launch plan
+                    </p>
+                    <p class="notifications-quote">
+                      @Astrid can you check the pricing copy before Friday?
+                    </p>
+                    <div class="notifications-actions">
+                      <button class="ui-button ui-tonal ui-small" type="button">
+                        Reply
+                      </button>
+                      <button class="ui-button ui-small" type="button">
+                        Mark as read
+                      </button>
+                    </div>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-08T10:42">10:42</time>
+                  </div>
+                </li>
+                <li class="notifications-unread">
+                  <div class="ui-start">
+                    <span class="ui-anchor ui-badge ui-dot">
+                      <span class="ui-avatar" aria-hidden="true">LH</span>
+                      <span class="ui-anchor-floating"
+                        ><span class="ui-badge-indicator"></span
+                      ></span>
+                    </span>
+                  </div>
+                  <div class="ui-text">
+                    <p>
+                      <span class="ui-sr-only">Unread: </span>Lina Haddad
+                      invited you to the Design guild workspace
+                    </p>
+                    <p>14 members, including Priya and Mats.</p>
+                    <div class="notifications-actions">
+                      <button
+                        class="ui-button ui-filled ui-small"
+                        type="button"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        class="ui-button ui-outlined ui-small"
+                        type="button"
+                      >
+                        Decline
+                      </button>
+                    </div>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-08T09:15">09:15</time>
+                  </div>
+                </li>
+                <li>
+                  <div class="ui-start">
+                    <span class="ui-avatar" aria-hidden="true">KM</span>
+                  </div>
+                  <div class="ui-text">
+                    <p>Kwame Mensah deployed to production</p>
+                    <p>northwind-web v4.12.0 is live in eu-north-1.</p>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-08T08:03">08:03</time>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <section
+              aria-labelledby="notifications-yesterday"
+              class="notifications-day"
+            >
+              <h2 class="ui-overline" id="notifications-yesterday">
+                Yesterday
+              </h2>
+              <ul class="ui-list ui-transparent ui-gutterless">
+                <li>
+                  <div class="ui-start">
+                    <span class="ui-avatar" aria-hidden="true">MB</span>
+                  </div>
+                  <div class="ui-text">
+                    <p>Mats Berg commented on Invoice NW-2026-0418</p>
+                    <p class="notifications-quote">
+                      Paid today, thanks for the quick turnaround!
+                    </p>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-07T16:20">16:20</time>
+                  </div>
+                </li>
+                <li>
+                  <div class="ui-start">
+                    <span class="ui-avatar" aria-hidden="true">SL</span>
+                  </div>
+                  <div class="ui-text">
+                    <p>Sofia Lund assigned you Update onboarding emails</p>
+                    <p>Due Friday 16 October.</p>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-07T11:05">11:05</time>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <section
+              aria-labelledby="notifications-earlier"
+              class="notifications-day"
+            >
+              <h2 class="ui-overline" id="notifications-earlier">
+                Monday 5 October
+              </h2>
+              <ul class="ui-list ui-transparent ui-gutterless">
+                <li>
+                  <div class="ui-start">
+                    <span class="ui-avatar ui-squircle" aria-hidden="true"
+                      >NW</span
+                    >
+                  </div>
+                  <div class="ui-text">
+                    <p>
+                      Northwind Billing: your card ending in 4242 expires next
+                      month
+                    </p>
+                    <p>Update it to avoid a pause in service.</p>
+                    <div class="notifications-actions">
+                      <a
+                        class="ui-button ui-outlined ui-small"
+                        href="#notifications-billing"
+                        >Update card</a
+                      >
+                    </div>
+                  </div>
+                  <div class="ui-end">
+                    <time datetime="2026-10-05T07:30">07:30</time>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+
+        <input
+          class="ui-tab-input"
+          id="notifications-tab-mentions"
+          name="notifications-tabs"
+          type="radio"
+        />
+        <label class="ui-tab-label" for="notifications-tab-mentions"
+          >Mentions</label
+        >
+        <div class="ui-tab-panel">
+          <div class="notifications-feed">
+            <ul class="ui-list ui-transparent ui-gutterless">
+              <li class="notifications-unread">
+                <div class="ui-start">
+                  <span class="ui-avatar" aria-hidden="true">KM</span>
+                </div>
+                <div class="ui-text">
+                  <p>
+                    <span class="ui-sr-only">Unread: </span>Kwame Mensah
+                    mentioned you in Q4 launch plan
+                  </p>
+                  <p class="notifications-quote">
+                    @Astrid can you check the pricing copy before Friday?
+                  </p>
+                </div>
+                <div class="ui-end">
+                  <time datetime="2026-10-08T10:42">10:42</time>
+                </div>
+              </li>
+              <li>
+                <div class="ui-start">
+                  <span class="ui-avatar" aria-hidden="true">PN</span>
+                </div>
+                <div class="ui-text">
+                  <p>Priya Nair mentioned you in Design critique</p>
+                  <p class="notifications-quote">
+                    Loved the new empty states, @Astrid.
+                  </p>
+                </div>
+                <div class="ui-end">
+                  <time datetime="2026-10-06T14:48">Tue</time>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <input
+          class="ui-tab-input"
+          id="notifications-tab-archived"
+          name="notifications-tabs"
+          type="radio"
+        />
+        <label class="ui-tab-label" for="notifications-tab-archived"
+          >Archived</label
+        >
+        <div class="ui-tab-panel">
+          <div class="notifications-empty">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2m0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19z"
+              ></path>
+            </svg>
+            <p>Nothing archived yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,16 @@
 ---
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
+import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 
 import dividerApi from "../../component-api/divider/api"
 ---
 
 <Component
   slug="divider"
+  browserSupport={["container-style-queries"]}
   apis={[{ title: "Divider API", api: dividerApi }]}
   changelogPaths={[
     {
@@ -28,12 +31,79 @@ import dividerApi from "../../component-api/divider/api"
   <Fragment slot="preamble"> It's just a line. </Fragment>
 
   <section>
-    <h2 class="default">Default</h2>
+    <h2 id="default">Default</h2>
     <AutoExample name="Default" />
   </section>
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
+      <p slot="html">
+        Use <code>.ui-filled</code>, <code>.ui-primary</code>, or <code
+          >.ui-tonal</code
+        > to change the line color.
+      </p>
+      <p slot="svelte">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
+      <p slot="vue">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" />
   </section>
+
+  <section>
+    <h2 id="content">Content</h2>
+    <Conditional>
+      <p slot="astro">
+        Put text or any element in the default slot to place it in the middle of
+        the line. The divider then renders a <code>&lt;div&gt;</code> instead of an
+        <code>&lt;hr&gt;</code>, so screen readers read the content in order.
+        Set <code>align</code> to <code>start</code> or <code>end</code> to move it
+        to one side. The lines follow the <code>variant</code>.
+      </p>
+      <p slot="html">
+        Put text or any element in a <code>&lt;div class="ui-divider"&gt;</code> or
+        <code>&lt;p class="ui-divider"&gt;</code> to place it in the middle of the
+        line, since an <code>&lt;hr&gt;</code> can't have content. Screen readers
+        read it in order. Add <code>.ui-align-start</code> or <code
+          >.ui-align-end</code
+        > to move it to one side. The lines follow the variant classes.
+      </p>
+      <p slot="svelte">
+        Pass text or any element as children to place it in the middle of the
+        line. The divider then renders a <code>&lt;div&gt;</code> instead of an <code
+          >&lt;hr&gt;</code
+        >, so screen readers read the content in order. Set <code>align</code> to
+        <code>start</code> or <code>end</code> to move it to one side. The lines follow
+        the <code>variant</code>.
+      </p>
+      <p slot="vue">
+        Put text or any element in the default slot to place it in the middle of
+        the line. The divider then renders a <code>&lt;div&gt;</code> instead of an
+        <code>&lt;hr&gt;</code>, so screen readers read the content in order.
+        Set <code>align</code> to <code>start</code> or <code>end</code> to move it
+        to one side. The lines follow the <code>variant</code>.
+      </p>
+    </Conditional>
+    <AutoExample name="Content" column />
+  </section>
+
+  <section>
+    <h2 id="spacing">Spacing</h2>
+    <p>
+      The space above and below a divider is <code>--divider-space</code>.
+      Cards, callouts, dialogs and drawers set a tighter value, and a divider
+      that is a direct child of a card has no margin, since the card's gap
+      already spaces it. Set <code>--divider-space</code> on any wrapper to change
+      it for every divider inside.
+    </p>
+    <AutoExample name="Spacing" column />
+  </section>
+
+  <DividerBuild slot="under-the-hood" />
 </Component>

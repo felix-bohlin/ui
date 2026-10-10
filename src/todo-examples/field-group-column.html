@@ -1,0 +1,43 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      API table: direction <code>column</code> has no class (<code
+        >values: { column: null, row: ".ui-row" }</code
+      >). Actions: "A field group with only buttons lines up in a row." An HTML
+      reader has no class to stack them.
+    </p>
+    <form class="ui-form">
+      <div class="ui-field-group">
+        <button type="button" class="ui-button">Save draft</button>
+        <button type="button" class="ui-button ui-filled">Publish</button>
+      </div>
+    </form>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      API table: <code>column: ".ui-column"</code>. Actions adds: "Add
+      <code>.ui-column</code> (<code>direction="column"</code>) to stack them."
+    </p>
+    <form class="ui-form">
+      <div class="ui-field-group ui-column">
+        <button type="button" class="ui-button">Save draft</button>
+        <button type="button" class="ui-button ui-filled">Publish</button>
+      </div>
+    </form>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const group = panel.querySelector(".ui-field-group")
+    const s = getComputedStyle(group)
+    const widths = [...group.children]
+      .map((b) => `${b.offsetWidth}px`)
+      .join(", ")
+    panel.querySelector("[data-measure]").textContent =
+      `class: ${group.className}\nflex-direction: ${s.flexDirection}, align-items: ${s.alignItems}\nbutton widths: ${widths}`
+  }
+</script>

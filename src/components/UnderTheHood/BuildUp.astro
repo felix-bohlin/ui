@@ -1,0 +1,497 @@
+---
+import { Button, ButtonGroup, ListItem, RadioInput, Range } from "@opui/astro"
+import Code from "../Code.astro"
+import FeatureSupport from "./FeatureSupport.astro"
+
+type Step = {
+  css?: string
+  features?: string[]
+  html?: string
+  notes?: string[]
+  title: string
+}
+
+type Knob = {
+  label: string
+  max: number
+  min: number
+  property: string
+  step?: number
+  unit?: string
+  value: number
+}
+
+type Props = {
+  id: string
+  knobs?: Knob[]
+  steps: Step[]
+}
+
+const { id, knobs = [], steps } = Astro.props
+
+const values = (from: number) =>
+  steps
+    .slice(from)
+    .map((_, offset) => `[value="${from + offset + 1}"]`)
+    .join(", ")
+
+const gatedCss = steps
+  .map(
+    (step, index) => `
+#${id}:has(.build-up-steps :is(${values(index)}):checked) .build-up-stage {
+${step.css ?? ""}
+}
+#${id}:has(.build-up-steps [value="${index + 1}"]:checked) .build-up-step[data-step="${index + 1}"] {
+  display: grid;
+}`,
+  )
+  .join("\n")
+
+const knobStyle = knobs
+  .map((knob) => `${knob.property}: ${knob.value}${knob.unit ?? ""}`)
+  .join("; ")
+
+const stepId = (index: number, part: string) =>
+  `${id}-step-${index + 1}-${part}`
+---
+
+<section class="build-up ui-card ui-outlined ui-not-rich-text" id={id}>
+  <div class="build-up-stage" style={knobStyle}>
+    <slot />
+  </div>
+
+  {
+    knobs.length > 0 && (
+      <fieldset class="build-up-knobs">
+        <legend class="ui-sr-only">Custom properties</legend>
+        {knobs.map((knob) => (
+          <Range
+            data-property={knob.property}
+            data-unit={knob.unit ?? ""}
+            label={knob.label}
+            max={knob.max}
+            min={knob.min}
+            step={knob.step ?? 1}
+            value={knob.value}
+            valueSuffix={knob.unit ?? ""}
+          >
+            <code slot="start-text">{knob.property}</code>
+          </Range>
+        ))}
+      </fieldset>
+    )
+  }
+
+  <fieldset class="build-up-steps">
+    <legend class="ui-sr-only">Steps</legend>
+    <ol class="ui-list ui-dense ui-transparent">
+      {
+        steps.map((step, index) => (
+          <ListItem>
+            <label>
+              <RadioInput
+                aria-describedby={
+                  step.notes ? stepId(index, "notes") : undefined
+                }
+                checked={index === 0}
+                class="ui-sr-only"
+                name={`${id}-step`}
+                value={index + 1}
+              />
+              <span aria-hidden="true" class="build-up-marker" />
+              <span class="build-up-step-name">{step.title}</span>
+            </label>
+            {step.notes && (
+              <ul class="build-up-notes" id={stepId(index, "notes")}>
+                {step.notes.map((note) => (
+                  <li set:html={note} />
+                ))}
+              </ul>
+            )}
+          </ListItem>
+        ))
+      }
+    </ol>
+  </fieldset>
+
+  <div class="build-up-detail">
+    {
+      steps.map((step, index) => (
+        <div class="build-up-step" data-step={index + 1}>
+          <p class="build-up-step-title">
+            Step {index + 1} of {steps.length}: {step.title}
+          </p>
+          {step.features && <FeatureSupport ids={step.features} />}
+          {step.html && <Code code={step.html.trim()} lang="html" />}
+          {step.css && <Code code={step.css.trim()} lang="css" />}
+        </div>
+      ))
+    }
+
+    <ButtonGroup
+      aria-label="Step navigation"
+      class="build-up-nav"
+      size="small"
+      variant="outlined"
+    >
+      <Button data-direction="-1" disabled>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"></path>
+        </svg>
+        <span>Previous</span>
+      </Button>
+      <Button data-direction="1">
+        <span>Next</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"></path>
+        </svg>
+      </Button>
+    </ButtonGroup>
+  </div>
+</section>
+
+<style is:inline set:html={gatedCss}></style>
+
+<style is:global>
+  .build-up {
+    --_accent: var(--primary);
+    --_marker: 1.75rem;
+    --_pad: var(--size-2);
+
+    box-shadow: var(--shadow-2);
+    container-type: inline-size;
+    display: grid;
+    gap: 0;
+    grid-template-areas:
+      "stage steps"
+      "knobs steps"
+      "detail detail";
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    grid-template-rows: 1fr auto auto;
+    margin-block: var(--size-6);
+    margin-inline: 0;
+    min-inline-size: 0;
+    padding: 0;
+    place-items: stretch;
+    text-align: start;
+
+    & fieldset {
+      border: 0;
+      border-radius: 0;
+      margin: 0;
+      min-inline-size: 0;
+    }
+
+    & svg {
+      fill: currentColor;
+    }
+  }
+
+  .build-up-stage {
+    align-items: center;
+    background-image: radial-gradient(
+      color-mix(in oklch, var(--text-muted) 5%, transparent) 1.45px,
+      transparent 1.45px
+    );
+    background-size: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    grid-area: stage;
+    justify-content: center;
+    min-block-size: 12rem;
+    min-inline-size: 0;
+    padding: var(--size-5) var(--size-4);
+    position: relative;
+  }
+
+  .build-up-knobs {
+    border-block-start: var(--border-width, 1px) solid var(--border-color);
+    display: grid;
+    gap: var(--size-3) var(--size-5);
+    grid-area: knobs;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    padding: var(--size-3) var(--size-4);
+
+    & code {
+      font-size: var(--font-size-0);
+    }
+  }
+
+  .build-up-steps {
+    border-inline-start: var(--border-width, 1px) solid var(--border-color);
+    grid-area: steps;
+    padding: var(--size-3);
+
+    & .ui-list {
+      counter-reset: build-up-step;
+      margin: 0;
+      padding: 0;
+    }
+
+    & .ui-list > li {
+      border-radius: var(--radius-2);
+      counter-increment: build-up-step;
+      transition: background-color 0.3s;
+
+      &:has(:checked) {
+        background-color: color-mix(in oklch, var(--_accent) 8%, transparent);
+      }
+
+      &:not(:last-child):after {
+        border-inline-start: 2px solid var(--border-color);
+        content: "";
+        inset-block: calc(var(--_pad) + var(--_marker) + 4px)
+          calc(4px - var(--_pad));
+        inset-inline-start: calc(var(--_pad) + var(--_marker) / 2 - 1px);
+        pointer-events: none;
+        position: absolute;
+        transition: border-color 0.3s;
+        z-index: 1;
+      }
+
+      &:has(~ li :checked):after {
+        border-color: var(--_accent);
+      }
+
+      & > label {
+        align-items: start;
+        border-radius: var(--radius-2);
+        padding: var(--_pad);
+
+        &:has(:focus-visible) {
+          outline: var(--focus-ring-width, 2px) solid
+            var(--focus-ring-color, var(--primary));
+          outline-offset: -2px;
+        }
+
+        &:has(:checked) {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .build-up-marker {
+    aspect-ratio: 1;
+    background-color: var(--surface-default);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-round);
+    box-sizing: border-box;
+    color: var(--text-muted);
+    display: grid;
+    flex-shrink: 0;
+    font-size: var(--font-size-0);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    inline-size: var(--_marker);
+    place-items: center;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s,
+      box-shadow 0.3s,
+      color 0.3s;
+
+    &:before {
+      content: counter(build-up-step);
+    }
+
+    li:has(~ li :checked) &,
+    label:has(:checked) & {
+      background-color: var(--_accent);
+      border-color: var(--_accent);
+      color: var(--primary-contrast);
+    }
+
+    label:has(:checked) & {
+      box-shadow: 0 0 0 4px color-mix(in oklch, var(--_accent) 25%, transparent);
+    }
+  }
+
+  .build-up-step-name {
+    color: var(--text-muted);
+    font-weight: 600;
+    min-inline-size: 0;
+    padding-block-start: calc((var(--_marker) - 1lh) / 2);
+    transition: color 0.3s;
+
+    label:has(:checked) &,
+    li:has(~ li :checked) & {
+      color: var(--text-primary);
+    }
+  }
+
+  .build-up-notes {
+    block-size: 0;
+    color: var(--text-muted);
+    display: grid;
+    font-size: var(--font-size-0);
+    gap: var(--size-1);
+    interpolate-size: allow-keywords;
+    list-style: disc;
+    margin: 0;
+    margin-inline-start: calc(var(--_pad) + var(--_marker) + var(--size-2));
+    overflow: hidden;
+    padding: 0 var(--_pad) 0 var(--size-3);
+    transition:
+      block-size 0.3s ease,
+      visibility 0.3s;
+    visibility: hidden;
+
+    li:has(:checked) > & {
+      block-size: auto;
+      visibility: visible;
+    }
+
+    & li {
+      background: none;
+      display: list-item;
+      line-height: var(--font-lineheight-3);
+      min-block-size: 0;
+      padding: 0;
+
+      &:last-child {
+        margin-block-end: var(--_pad);
+      }
+    }
+  }
+
+  .build-up-detail {
+    border-block-start: var(--border-width, 1px) solid var(--border-color);
+    display: grid;
+    gap: var(--size-3) var(--size-2);
+    grid-area: detail;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-inline-size: 0;
+    padding: var(--size-3) var(--size-4) var(--size-4);
+  }
+
+  .build-up-step {
+    display: none;
+    gap: var(--size-3) var(--size-2);
+    grid-column: 1 / -1;
+    grid-row: 1;
+    grid-template-columns: subgrid;
+    min-inline-size: 0;
+
+    & > * {
+      grid-column: 1 / -1;
+    }
+
+    & .build-up-step-title {
+      align-items: center;
+      display: flex;
+      font-size: var(--font-size-1);
+      font-weight: 700;
+      grid-column: 1;
+      margin: 0;
+      min-block-size: var(--button-size-small);
+    }
+  }
+
+  .build-up-nav {
+    align-self: start;
+    grid-column: 2;
+    grid-row: 1;
+
+    & svg {
+      block-size: 1.25em;
+      inline-size: 1.25em;
+    }
+  }
+
+  @container (inline-size < 40rem) {
+    .build-up {
+      grid-template-areas:
+        "stage"
+        "knobs"
+        "steps"
+        "detail";
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .build-up-steps {
+      border-block-start: var(--border-width, 1px) solid var(--border-color);
+      border-inline-start: 0;
+    }
+
+    .build-up-detail {
+      padding-inline: var(--size-3);
+    }
+
+    .build-up-nav span {
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .build-up-notes,
+    .build-up-marker,
+    .build-up-step-name,
+    .build-up-steps .ui-list > li,
+    .build-up-steps .ui-list > li:after {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initBuildUps() {
+    document.querySelectorAll<HTMLElement>(".build-up").forEach((buildUp) => {
+      if (buildUp.dataset.ready) return
+      buildUp.dataset.ready = ""
+
+      const stage = buildUp.querySelector<HTMLElement>(".build-up-stage")
+      const radios = [
+        ...buildUp.querySelectorAll<HTMLInputElement>(
+          ".build-up-steps input[type=radio]",
+        ),
+      ]
+      const buttons = [
+        ...buildUp.querySelectorAll<HTMLButtonElement>(".build-up-nav button"),
+      ]
+      const current = () => radios.findIndex((radio) => radio.checked)
+
+      const sync = () => {
+        const index = current()
+        const focused = document.activeElement
+        buttons.forEach((button) => {
+          const target = index + Number(button.dataset.direction)
+          button.disabled = target < 0 || target >= radios.length
+        })
+        if (buttons.some((button) => button.disabled && button === focused))
+          buttons.find((button) => !button.disabled)?.focus()
+      }
+
+      radios.forEach((radio) => radio.addEventListener("change", sync))
+      buttons.forEach((button) =>
+        button.addEventListener("click", () => {
+          const radio = radios[current() + Number(button.dataset.direction)]
+          if (!radio) return
+          radio.checked = true
+          sync()
+        }),
+      )
+      sync()
+
+      buildUp
+        .querySelectorAll<HTMLInputElement>(".build-up-knobs input[type=range]")
+        .forEach((input) => {
+          const update = () =>
+            stage?.style.setProperty(
+              input.dataset.property ?? "",
+              `${input.value}${input.dataset.unit ?? ""}`,
+            )
+          input.addEventListener("input", update)
+        })
+    })
+  }
+
+  initBuildUps()
+</script>

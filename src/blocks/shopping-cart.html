@@ -1,0 +1,582 @@
+<style>
+  .shopping-cart {
+    container-type: inline-size;
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    .cart-title {
+      margin-block-end: var(--size-5);
+    }
+
+    .cart-layout {
+      align-items: start;
+      display: grid;
+      gap: var(--size-5);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 56rem) {
+        gap: var(--size-6);
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      }
+    }
+
+    .cart-items {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li + li {
+        border-block-start: var(--border-width) solid var(--border-color);
+      }
+    }
+
+    .cart-item {
+      column-gap: var(--size-3);
+      display: grid;
+      grid-template-areas:
+        "thumb info"
+        "thumb buy";
+      grid-template-columns: auto minmax(0, 1fr);
+      padding: var(--size-3);
+      row-gap: var(--size-3);
+
+      @container (inline-size >= 36rem) {
+        grid-template-areas: "thumb info buy";
+        grid-template-columns: auto minmax(0, 1fr) auto;
+      }
+    }
+
+    .cart-thumb {
+      aspect-ratio: 1;
+      border-radius: var(--radius-2);
+      grid-area: thumb;
+      inline-size: var(--size-10);
+    }
+
+    .cart-thumb-1 {
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        oklch(from var(--primary) l c calc(h + 60))
+      );
+    }
+
+    .cart-thumb-2 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h - 80)),
+        oklch(from var(--primary) l c calc(h - 30))
+      );
+    }
+
+    .cart-thumb-3 {
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c calc(h + 140)),
+        oklch(from var(--primary) l c calc(h + 190))
+      );
+    }
+
+    .cart-info {
+      display: grid;
+      gap: var(--size-1);
+      grid-area: info;
+      justify-items: start;
+
+      h2,
+      p {
+        margin: 0;
+      }
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-1);
+      }
+    }
+
+    .cart-stock {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+
+      &::before {
+        background-color: var(--_dot);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--size-2);
+      }
+    }
+
+    .cart-in-stock {
+      --_dot: var(--success);
+    }
+
+    .cart-backorder {
+      --_dot: var(--warning);
+    }
+
+    .cart-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      margin-inline-start: calc(var(--size-2) * -1);
+    }
+
+    .cart-buy {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+      grid-area: buy;
+      justify-content: space-between;
+
+      @container (inline-size >= 36rem) {
+        align-items: end;
+        flex-direction: column-reverse;
+        justify-content: start;
+      }
+    }
+
+    .cart-qty {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+
+      .ui-text-field {
+        inline-size: 3.5rem;
+      }
+
+      input {
+        text-align: center;
+      }
+    }
+
+    .cart-line-price {
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--font-weight-semibold);
+      margin: 0;
+      text-align: end;
+
+      s {
+        color: var(--text-muted);
+        display: block;
+        font-size: var(--font-size-0);
+        font-weight: var(--font-weight-4);
+      }
+    }
+
+    .cart-summary {
+      @container (inline-size >= 56rem) {
+        inset-block-start: var(--size-4);
+        position: sticky;
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-4);
+      }
+    }
+
+    .cart-shipping {
+      display: grid;
+      gap: var(--size-2);
+
+      p {
+        font-size: var(--font-size-1);
+        margin: 0;
+      }
+    }
+
+    .cart-discount {
+      align-items: end;
+      display: flex;
+      gap: var(--size-2);
+
+      .ui-text-field {
+        flex: 1;
+      }
+    }
+
+    .cart-totals {
+      display: grid;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      margin: 0;
+
+      div {
+        display: flex;
+        gap: var(--size-3);
+        justify-content: space-between;
+      }
+
+      dt {
+        color: var(--text-muted);
+      }
+
+      dd {
+        font-variant-numeric: tabular-nums;
+        margin: 0;
+      }
+
+      .cart-total {
+        border-block-start: var(--border-width) solid var(--border-color);
+        font-size: var(--font-size-3);
+        font-weight: var(--font-weight-bold);
+        margin-block-start: var(--size-2);
+        padding-block-start: var(--size-3);
+
+        dd,
+        dt {
+          color: var(--text-primary);
+        }
+      }
+    }
+
+    .cart-checkout {
+      inline-size: 100%;
+      justify-content: center;
+    }
+
+    .cart-continue {
+      font-size: var(--font-size-1);
+      margin: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="shopping-cart">
+  <hgroup class="ui-hgroup cart-title">
+    <h1 class="ui-h3">Shopping cart</h1>
+    <p>3 items · Prices include VAT</p>
+  </hgroup>
+
+  <div class="cart-layout">
+    <section aria-label="Cart items" class="ui-card ui-outlined">
+      <ul class="cart-items">
+        <li class="cart-item">
+          <div
+            aria-label="Merino Trail Hoodie in Pine"
+            class="cart-thumb cart-thumb-1"
+            role="img"
+          ></div>
+          <div class="cart-info">
+            <h2 class="ui-h6">
+              <a class="ui-link" href="#shopping-cart-hoodie"
+                >Merino Trail Hoodie</a
+              >
+            </h2>
+            <p>Pine · Size M</p>
+            <p class="cart-stock cart-in-stock">In stock, ships today</p>
+            <div class="cart-links">
+              <button class="ui-button ui-x-small" type="button">
+                Save for later
+              </button>
+              <button class="ui-button ui-x-small ui-critical" type="button">
+                Remove
+              </button>
+            </div>
+          </div>
+          <div class="cart-buy">
+            <div
+              aria-label="Quantity of Merino Trail Hoodie"
+              class="cart-qty"
+              role="group"
+            >
+              <button
+                aria-label="Decrease"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                </svg>
+              </button>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field">
+                  <input
+                    aria-label="Quantity"
+                    inputmode="numeric"
+                    min="1"
+                    name="qty-hoodie"
+                    type="text"
+                    value="1"
+                  />
+                </span>
+              </div>
+              <button
+                aria-label="Increase"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <p class="cart-line-price">
+              €119.00 <s><span class="ui-sr-only">Was </span>€149.00</s>
+            </p>
+          </div>
+        </li>
+
+        <li class="cart-item">
+          <div
+            aria-label="Wool hiking socks in Fjord"
+            class="cart-thumb cart-thumb-3"
+            role="img"
+          ></div>
+          <div class="cart-info">
+            <h2 class="ui-h6">
+              <a class="ui-link" href="#shopping-cart-socks"
+                >Wool hiking socks</a
+              >
+            </h2>
+            <p>Fjord · 39–42</p>
+            <p class="cart-stock cart-in-stock">In stock, ships today</p>
+            <div class="cart-links">
+              <button class="ui-button ui-x-small" type="button">
+                Save for later
+              </button>
+              <button class="ui-button ui-x-small ui-critical" type="button">
+                Remove
+              </button>
+            </div>
+          </div>
+          <div class="cart-buy">
+            <div
+              aria-label="Quantity of Wool hiking socks"
+              class="cart-qty"
+              role="group"
+            >
+              <button
+                aria-label="Decrease"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                </svg>
+              </button>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field">
+                  <input
+                    aria-label="Quantity"
+                    inputmode="numeric"
+                    min="1"
+                    name="qty-socks"
+                    type="text"
+                    value="2"
+                  />
+                </span>
+              </div>
+              <button
+                aria-label="Increase"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <p class="cart-line-price">€48.00</p>
+          </div>
+        </li>
+
+        <li class="cart-item">
+          <div
+            aria-label="Trail running cap in Sand"
+            class="cart-thumb cart-thumb-2"
+            role="img"
+          ></div>
+          <div class="cart-info">
+            <h2 class="ui-h6">
+              <a class="ui-link" href="#shopping-cart-cap">Trail running cap</a>
+            </h2>
+            <p>Sand · One size</p>
+            <p class="cart-stock cart-backorder">Back in stock 21 Oct</p>
+            <div class="cart-links">
+              <button class="ui-button ui-x-small" type="button">
+                Save for later
+              </button>
+              <button class="ui-button ui-x-small ui-critical" type="button">
+                Remove
+              </button>
+            </div>
+          </div>
+          <div class="cart-buy">
+            <div
+              aria-label="Quantity of Trail running cap"
+              class="cart-qty"
+              role="group"
+            >
+              <button
+                aria-label="Decrease"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                disabled
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path fill="currentColor" d="M19 13H5v-2h14z"></path>
+                </svg>
+              </button>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field">
+                  <input
+                    aria-label="Quantity"
+                    inputmode="numeric"
+                    min="1"
+                    name="qty-cap"
+                    type="text"
+                    value="1"
+                  />
+                </span>
+              </div>
+              <button
+                aria-label="Increase"
+                class="ui-button ui-outlined ui-rounded ui-small"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <p class="cart-line-price">€29.00</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section
+      aria-labelledby="shopping-cart-summary-heading"
+      class="ui-card ui-outlined cart-summary"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="shopping-cart-summary-heading">Order summary</h2>
+      </hgroup>
+      <div class="ui-content">
+        <div class="cart-shipping">
+          <p id="shopping-cart-free-shipping">
+            You've unlocked <strong>free delivery</strong>.
+          </p>
+          <div class="ui-progress">
+            <progress
+              aria-labelledby="shopping-cart-free-shipping"
+              max="75"
+              value="75"
+            ></progress>
+          </div>
+        </div>
+
+        <div class="cart-discount">
+          <label class="ui-text-field ui-small">
+            <span class="ui-label">Discount code</span>
+            <span class="ui-field">
+              <input name="discount" placeholder="Enter code" type="text" />
+            </span>
+          </label>
+          <button class="ui-button ui-outlined ui-small" type="button">
+            Apply
+          </button>
+        </div>
+
+        <div>
+          <button
+            aria-label="Remove code HOSTEN10"
+            class="ui-chip ui-outlined"
+            type="button"
+          >
+            <span class="ui-text">HOSTEN10 · −10%</span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <dl class="cart-totals">
+          <div>
+            <dt>Subtotal</dt>
+            <dd>€196.00</dd>
+          </div>
+          <div>
+            <dt>Discount</dt>
+            <dd>−€19.60</dd>
+          </div>
+          <div>
+            <dt>Delivery</dt>
+            <dd>Free</dd>
+          </div>
+          <div class="cart-total">
+            <dt>Total</dt>
+            <dd>€176.40</dd>
+          </div>
+        </dl>
+
+        <a
+          class="ui-button ui-filled ui-large cart-checkout"
+          href="#shopping-cart-checkout"
+          >Go to checkout</a
+        >
+        <p class="cart-continue">
+          or <a class="ui-link" href="#shopping-cart-shop">continue shopping</a>
+        </p>
+      </div>
+    </section>
+  </div>
+</div>

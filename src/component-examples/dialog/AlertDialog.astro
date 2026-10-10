@@ -1,0 +1,38 @@
+---
+import { Dialog } from "@opui/astro"
+import { Button } from "@opui/astro"
+---
+
+<Button
+  color="critical"
+  commandfor="alert-dialog-example"
+  command="show-modal"
+  variant="outlined"
+>
+  Delete project
+</Button>
+
+<Dialog
+  id="alert-dialog-example"
+  role="alertdialog"
+  aria-describedby="alert-dialog-description"
+>
+  <h2 class="ui-h4" slot="header">Delete project?</h2>
+  <p id="alert-dialog-description" slot="content">
+    This deletes the project and all its files. You can't undo this.
+  </p>
+  <Fragment slot="actions">
+    <Button commandfor="alert-dialog-example" command="close" type="button">
+      Cancel
+    </Button>
+    <Button
+      color="critical"
+      commandfor="alert-dialog-example"
+      command="close"
+      type="button"
+      variant="filled"
+    >
+      Delete
+    </Button>
+  </Fragment>
+</Dialog>

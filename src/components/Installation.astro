@@ -1,4 +1,5 @@
 ---
+import Code from "./Code.astro"
 import CodeGroup from "./CodeGroup.astro"
 import { components } from "../utils/components"
 
@@ -11,10 +12,20 @@ export type Tab = {
 }
 
 type Props = {
+  imports?: { names: string[]; package: string }
   tabs: Tab[]
 }
 
-const { tabs } = Astro.props
+const { imports, tabs } = Astro.props
+
+const importLine = imports
+  ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
+  : ""
+const importCode =
+  imports && importLine.length > 80
+    ? `import {\n${imports.names.map((name) => `  ${name},`).join("\n")}\n} from "${imports.package}"`
+    : importLine
+
 const { link } = Astro.locals
 
 const dependencies = tabs
@@ -37,6 +48,19 @@ const seeAlsoLinks = tabs
 <section>
   <h2 id="installation">Installation</h2>
   <slot />
+
+  {
+    imports && imports.names.length > 0 && (
+      <>
+        <p>
+          Import{" "}
+          {imports.names.length === 1 ? "the component" : "the components"} from{" "}
+          <code>{imports.package}</code>:
+        </p>
+        <Code code={importCode} lang="ts" />
+      </>
+    )
+  }
 
   {
     dependencies.length > 0 && (

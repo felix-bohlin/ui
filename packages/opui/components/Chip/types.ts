@@ -1,9 +1,11 @@
 export type Props = {
-  [key: string]: any
-  as?: "a" | "button" | "div" | string
+  as?: "a" | "button" | "div" | (string & {})
+  color?: "critical" | "info" | "neutral" | "success" | "warning"
+  dot?: boolean
+  href?: string
   label?: string
   multiline?: boolean
-  size?: "small"
+  size?: "x-small" | "small" | "large"
   variant?: "tonal" | "outlined"
 }
 

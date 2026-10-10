@@ -4,21 +4,38 @@ export default {
   component: "Switch",
   model: {
     description: "The checked state, or the checked values of a group.",
+    frameworks: {
+      svelte: [
+        {
+          description: "The checked state.",
+          prop: "checked",
+          type: "boolean",
+        },
+        {
+          description: "The checked values of a group.",
+          prop: "group",
+          type: "(string | number)[]",
+        },
+      ],
+    },
     prop: "checked",
     type: "boolean | (string | number)[]",
   },
   notes: {
     astro:
-      "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.",
-    html: 'The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.',
-    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.",
+      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`. To hide the label, set `hideLabel` and keep the text in the slot.",
+    html: 'The input needs `type="checkbox"` and `role="switch"`. To hide the label, use `.ui-sr-only` instead of `.ui-label`.',
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
@@ -27,11 +44,14 @@ export default {
       prop: "hideLabel",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",

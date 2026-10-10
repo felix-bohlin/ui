@@ -1,0 +1,184 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-compare .todo-row {
+    align-items: start;
+  }
+
+  .todo-fixed
+    .ui-button-group.ui-vertical
+    > button:has(svg):not(:has(> svg:only-child)) {
+    aspect-ratio: auto;
+    padding: var(--size-2);
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current: <code>&amp;:has(svg)</code></p>
+    <div class="todo-row">
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" aria-label="Move up" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
+        <button type="button" aria-label="Move down" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7" /></svg
+          ><span class="ui-text">Move up</span>
+        </button>
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" /></svg
+          ><span class="ui-text">Move down</span>
+        </button>
+      </div>
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" class="ui-button">
+          <span class="ui-text">Move up</span>
+        </button>
+        <button type="button" class="ui-button">
+          <span class="ui-text">Move down</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="todo-fixed">
+    <p class="ui-caption">
+      Proposed: <code>&amp;:has(&gt; svg:only-child)</code>
+    </p>
+    <div class="todo-row">
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" aria-label="Move up" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
+        <button type="button" aria-label="Move down" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7" /></svg
+          ><span class="ui-text">Move up</span>
+        </button>
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" /></svg
+          ><span class="ui-text">Move down</span>
+        </button>
+      </div>
+      <div class="ui-button-group ui-outlined ui-vertical" role="group">
+        <button type="button" class="ui-button">
+          <span class="ui-text">Move up</span>
+        </button>
+        <button type="button" class="ui-button">
+          <span class="ui-text">Move down</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

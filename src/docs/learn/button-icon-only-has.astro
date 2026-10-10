@@ -1,0 +1,90 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="button-icon-only-has">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      An icon-only button needs to be square: no inline padding, the same width
+      as height, and a bigger icon. Most libraries ship a separate <code
+        >IconButton</code
+      > or an <code>iconOnly</code> prop for it, and every size, variant and state
+      gets implemented twice.
+    </p>
+    <p>
+      CSS couldn't style an element based on what's inside it, so the markup had
+      to say it. Now the button can look at its own children.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>:has(&gt; svg:only-child)</code> matches a button whose only child element
+        is an icon
+      </li>
+      <li>
+        The minimum width becomes the button's height, so it's square at every
+        size
+      </li>
+      <li>The icon scales with the height instead of the line</li>
+      <li>
+        <code>:where()</code> adds no specificity, so your overrides still win
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.button {
+  --icon-size: 0.7lh;
+  --min-height: var(--button-size);
+  min-block-size: var(--min-height);
+  padding-inline: 1.5ex;
+}
+
+.button:where(:has(> svg:only-child)) {
+  --icon-size: calc(var(--min-height) * 0.6);
+  min-inline-size: var(--min-height);
+  padding-inline: 0;
+}
+
+.button > svg {
+  max-block-size: var(--icon-size);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <ButtonBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without <code>:has()</code>, the icon-only rules are ignored
+      </li>
+      <li>
+        The button keeps its text padding and line-sized icon: wider than
+        square, but it works
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="gotchas">Gotchas</h2>
+    <ul>
+      <li>
+        <code>:only-child</code> only counts elements. In <code
+          >&lt;svg&gt; Download</code
+        >, the text node doesn't count, so the button is treated as icon-only.
+        Wrap the label in a <code>&lt;span&gt;</code>
+      </li>
+      <li>An icon-only button still needs an <code>aria-label</code></li>
+    </ul>
+  </section>
+</TechniquePost>

@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Toggle Button"
 
@@ -15,21 +16,13 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const finalType = type || "checkbox"
 const id = rest.id || $id("toggle")
 ---
 
-<label
-  class:list={[
-    "ui-toggle-button",
-    { "ui-disabled": disabled },
-    size && `ui-${size}`,
-    className,
-  ]}
->
+<label class:list={["ui-toggle-button", size && `ui-${size}`, className]}>
   <input
-    aria-pressed={finalType === "checkbox" ? pressed : undefined}
     checked={pressed}
     disabled={disabled}
     id={id}
@@ -38,5 +31,5 @@ const id = rest.id || $id("toggle")
     value={value || label}
     {...rest}
   />
-  <slot />
+  <slot>{label}</slot>
 </label>

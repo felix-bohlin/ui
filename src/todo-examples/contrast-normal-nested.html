@@ -1,0 +1,76 @@
+<style>
+  .todo-full {
+    inline-size: 100%;
+  }
+
+  .todo-nest {
+    border: var(--border-width) dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+    justify-items: start;
+    padding: var(--size-3);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Classes list: "<code>.ui-contrast-normal</code>: sets
+      <code>--contrast: normal</code>. Put it on <code>html</code> to ignore the
+      OS preference."
+    </p>
+    <div class="todo-nest" data-case="Default">
+      <p class="ui-caption">Default</p>
+      <button type="button" class="ui-button ui-primary ui-outlined">
+        Subscribe
+      </button>
+    </div>
+    <div class="ui-contrast-more todo-full">
+      <div class="ui-contrast-normal todo-nest" data-case="Nested normal">
+        <p class="ui-caption">.ui-contrast-normal inside .ui-contrast-more</p>
+        <button type="button" class="ui-button ui-primary ui-outlined">
+          Subscribe
+        </button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Added: "It doesn't lower the contrast inside a
+      <code>.ui-contrast-more</code> ancestor, since the tokens are already
+      resolved on the parent."
+    </p>
+    <div class="todo-nest" data-case="Default">
+      <p class="ui-caption">Default</p>
+      <button type="button" class="ui-button ui-primary ui-outlined">
+        Subscribe
+      </button>
+    </div>
+    <div class="ui-contrast-more todo-full">
+      <div class="ui-contrast-normal todo-nest" data-case="Nested normal">
+        <p class="ui-caption">.ui-contrast-normal inside .ui-contrast-more</p>
+        <button type="button" class="ui-button ui-primary ui-outlined">
+          Subscribe
+        </button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = []
+    for (const box of panel.querySelectorAll("[data-case]")) {
+      const style = getComputedStyle(box)
+      const button = getComputedStyle(box.querySelector(".ui-button"))
+      lines.push(
+        `${box.dataset.case}: --contrast ${style.getPropertyValue("--contrast").trim()}, border ${style.borderTopColor}, button ${button.color}`,
+      )
+    }
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

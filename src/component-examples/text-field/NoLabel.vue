@@ -1,7 +1,7 @@
 <template>
   <div class="ui-text-field">
     <span class="ui-field">
-      <input type="text" placeholder="Placeholder" />
+      <input aria-label="Search" placeholder="Search" type="text" />
     </span>
   </div>
 </template>

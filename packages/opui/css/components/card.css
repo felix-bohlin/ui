@@ -1,14 +1,14 @@
 @layer components.root {
   :where(.ui-card) {
-    --_bg-tonal: var(--surface-tonal);
-    --_bg-elevated: var(--surface-elevated);
-    --_bg-surface: var(--surface-default);
-    --_border-color: var(--border-color);
-    --_card-bg-color: var(--_bg-surface);
-    --_card-border-color: transparent;
-    --_card-border-width: 0;
+    --_elevated-bg-color: var(--surface-elevated);
+    --_outlined-border-color: var(--border-color);
+    --_surface-bg-color: var(--surface-default);
+    --_tonal-bg-color: var(--surface-tonal);
+    --_bg-color: var(--_surface-bg-color);
+    --_border-color: transparent;
+    --_border-width: 0;
 
-    --_card-shadow: none;
+    --_shadow: none;
     --_shadow-light: var(--shadow-3);
     --_shadow-dark: var(--shadow-4);
     --_shadow-elevated: var(--_shadow-light);
@@ -17,44 +17,50 @@
       --_shadow-elevated: var(--_shadow-dark);
     }
 
-    background-color: var(--_card-bg-color);
-    border-color: var(--_card-border-color);
+    background-color: var(--_bg-color);
+    border-color: var(--_border-color);
     border-radius: var(--border-radius);
     border-style: solid;
-    border-width: var(--_card-border-width);
-    box-shadow: var(--_card-shadow);
+    border-width: var(--_border-width);
+    box-shadow: var(--_shadow);
     display: flex;
     flex-direction: column;
     gap: var(--size-3);
+    min-inline-size: 0;
     overflow: hidden;
+    overflow-wrap: break-word;
     padding-inline: 0;
     position: relative;
 
     /* Variants */
     &.ui-text {
-      --_card-bg-color: transparent;
-      --_card-border-color: transparent;
-      --_card-border-width: 0;
-      --_card-shadow: none;
+      --_bg-color: transparent;
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_shadow: none;
     }
 
     &.ui-tonal {
-      --_card-bg-color: var(--_bg-tonal);
-      --_card-border-width: 1px;
+      --_bg-color: var(--_tonal-bg-color);
+      --_border-color: var(--_surface-bg-color);
+      --_border-width: var(--border-width);
     }
 
     &.ui-elevated {
-      --_card-bg-color: var(--_bg-elevated);
-      --_card-shadow: var(--_shadow-elevated);
+      --_bg-color: var(--_elevated-bg-color);
+      --_border-color: var(--_surface-bg-color);
+      --_border-width: var(--border-width);
+      --_shadow: var(--_shadow-elevated);
     }
 
     &.ui-outlined {
-      --_card-bg-color: var(--_bg-surface);
-      --_card-border-color: var(--_border-color);
-      --_card-border-width: 1px;
+      --_bg-color: var(--_surface-bg-color);
+      --_border-color: var(--_outlined-border-color);
+      --_border-width: var(--border-width);
     }
 
     & > :where(hgroup, .ui-content) {
+      margin-block: 0;
       padding-inline: var(--size-3);
 
       &:last-child {
@@ -65,6 +71,10 @@
     /* Header */
     & > hgroup {
       padding-block: var(--size-3) 0;
+
+      & > :where(h1, h2, h3, h4, h5, h6, p) {
+        margin-block: 0;
+      }
 
       /* Top paragraph */
       & > p:first-of-type:first-child {
@@ -90,17 +100,14 @@
     /* Actions */
     & > .ui-actions {
       display: flex;
+      flex-wrap: wrap;
       gap: var(--size-2);
-      margin-block: var(--size-2) 0;
-      padding-block-end: var(--size-2);
+      margin-block-start: auto;
+      padding-block: var(--size-2);
       padding-inline: var(--size-3);
 
       &:has(.ui-button:first-child[class="ui-button"]) {
         padding-inline: var(--size-1) var(--size-3);
-      }
-
-      &:has(.ui-button:not([class="ui-button"])) {
-        padding-block-end: var(--size-2);
       }
 
       /* Alignment */
@@ -108,9 +115,66 @@
         justify-content: end;
 
         &:has(.ui-button:first-child[class="ui-button"]) {
+          padding-inline: var(--size-3);
+        }
+
+        &:has(.ui-button:last-child[class="ui-button"]) {
           padding-inline: var(--size-3) var(--size-1);
         }
       }
+    }
+
+    &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
+      --_border-color: var(--text-muted);
+
+      @media (forced-colors: active) {
+        --_border-color: Highlight;
+      }
+    }
+
+    &:has(.ui-card-link:focus-visible):not(
+        :has(.ui-card .ui-card-link:focus-visible)
+      ) {
+      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, var(--_focus-visible-color));
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  :where(
+    .ui-card:has(.ui-card-link)
+      :is(
+        a[href],
+        button,
+        input,
+        label,
+        select,
+        summary,
+        textarea,
+        [tabindex]
+      ):not(.ui-card-link)
+  ) {
+    position: relative;
+    z-index: 1;
+  }
+
+  :where(.ui-card-link) {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

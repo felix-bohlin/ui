@@ -1,0 +1,90 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="anchor-hover-cards">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A hover card, like GitHub's repository preview, needs a lot of JavaScript:
+      timers for hover intent, listeners for focus and blur, a positioning
+      library that measures the trigger, and code that flips the card when it
+      would leave the viewport.
+    </p>
+    <p>
+      HTML and CSS now cover all of it. The trigger declares what it opens, the
+      browser handles hover and focus, and CSS places the card.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>interestfor</code> on a <code>&lt;button&gt;</code>, <code
+          >&lt;a href&gt;</code
+        > or <code>&lt;area&gt;</code> opens the popover on hover and keyboard focus
+      </li>
+      <li>
+        <code>popover="hint"</code> opens without closing menus and dialogs that are
+        already open
+      </li>
+      <li>
+        <code>commandfor</code> with <code>command="toggle-popover"</code> lets a
+        tap open it on touch screens
+      </li>
+      <li>
+        The invoker becomes the popover's implicit anchor, so <code
+          >position-area</code
+        > places the card next to the trigger without an <code>anchor-name</code
+        >
+      </li>
+      <li>
+        <code>position-try-fallbacks</code> flips it when there isn't room, <code
+          >position-visibility</code
+        > hides it when the trigger scrolls away
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.anchor > [popover] {
+  inset: unset;
+  margin: 0;
+  position: fixed;
+  position-area: var(--position-area, start end);
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+  position-visibility: anchors-visible;
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <AnchorBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without interest invokers, hover and focus do nothing. A trigger with <code
+          >commandfor</code
+        > still toggles the card on click, a link just follows its <code
+          >href</code
+        >
+      </li>
+      <li>
+        Without <code>popover="hint"</code>, the unknown value falls back to a
+        manual popover, which doesn't light dismiss
+      </li>
+      <li>
+        Without anchor positioning, the card opens, but not next to the trigger
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

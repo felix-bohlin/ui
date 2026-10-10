@@ -1,0 +1,44 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The Button page never mentions <code>aria-current</code>. The text "Home"
+      keeps the pressed background; the outlined "Home" shows nothing.
+    </p>
+    <nav aria-label="Main (current)" class="todo-row">
+      <a class="ui-button" href="#" aria-current="page">Home</a>
+      <a class="ui-button" href="#">Docs</a>
+      <a class="ui-button ui-outlined" href="#" aria-current="page">Home</a>
+      <a class="ui-button ui-outlined" href="#">Docs</a>
+    </nav>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Corrected wording (the proposed one claims it for every variant): "A text
+      button link with <code>aria-current="page"</code> keeps the pressed
+      background, for navigation. Outlined, tonal and filled buttons don't
+      change."
+    </p>
+    <nav aria-label="Main (fixed)" class="todo-row">
+      <a class="ui-button" href="#" aria-current="page">Home</a>
+      <a class="ui-button" href="#">Docs</a>
+      <a class="ui-button ui-outlined" href="#" aria-current="page">Home</a>
+      <a class="ui-button ui-outlined" href="#">Docs</a>
+    </nav>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll("nav a"),
+    ]
+      .map(
+        (a) =>
+          `${a.className.replace("ui-button", "").trim() || "text"} ${a.textContent}: ${getComputedStyle(a).backgroundColor}`,
+      )
+      .join("\n")
+  }
+</script>

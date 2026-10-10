@@ -1,0 +1,562 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import PropOrClass from "../../components/PropOrClass.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
+import {
+  Callout as UICallout,
+  Card as UICard,
+  Carousel as UICarousel,
+} from "@opui/astro"
+
+import CarouselCSS from "@opui/css/components/carousel.css?raw"
+
+import carouselApi from "../../component-api/carousel/api"
+
+const photos = [
+  { alt: "A deep blue fjord between steep mountains", id: 1015 },
+  { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
+  { alt: "Green cliffs and a winding road under a cloudy sky", id: 1018 },
+  { alt: "A snowy mountain ridge above the clouds", id: 1036 },
+  { alt: "A lake with a wooden pier at dawn", id: 1039 },
+  { alt: "A forest path covered in autumn leaves", id: 1043 },
+]
+
+const destinations = [
+  { text: "Temples, gardens and quiet lanes.", title: "Kyoto" },
+  {
+    text: "Ceviche by the Pacific, colonial plazas and clifftop parks above the ocean.",
+    title: "Lima",
+  },
+  { text: "Tiles, trams and custard tarts.", title: "Lisbon" },
+  { text: "Fjords, saunas and modern architecture.", title: "Oslo" },
+  {
+    text: "Medina markets, Mediterranean light and the ruins of Carthage a short train ride away.",
+    title: "Tunis",
+  },
+  { text: "Canals, bikes and brown cafés.", title: "Utrecht" },
+]
+
+export const description =
+  "A scrolling list with snap points, buttons and markers."
+---
+
+<Component
+  description={description}
+  slug="carousel"
+  heroAnatomy
+  apis={[{ title: "Carousel API", api: carouselApi }]}
+  browserSupport={[
+    "anchor-positioning",
+    "container-style-queries",
+    "dir-pseudo",
+    "light-dark",
+    "relative-color",
+    "scroll-buttons",
+    "scroll-marker-targets",
+    "scroll-markers",
+    "scroll-snap",
+    "scrollbar-width",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Carousel/Carousel.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/carousel.astro", type: "docs" },
+    { path: "src/component-examples/carousel", type: "docs" },
+    { path: "packages/opui/css/components/carousel.css", type: "css" },
+    { path: "src/component-api/carousel", type: "api" },
+  ]}
+  installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Carousel</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UICarousel
+        buttons="outside"
+        label="Destinations"
+        markers
+        perView={2}
+        persistentButtons
+      >
+        {
+          ["Kyoto", "Lima", "Lisbon"].map((title) => (
+            <li>
+              <UICard variant="tonal">
+                <Fragment slot="header">
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </Fragment>
+              </UICard>
+            </li>
+          ))
+        }
+      </UICarousel>
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >The carousel has previous and next buttons by default. Set <code
+          >markers</code
+        > to add a marker per item.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-with-buttons</code> for previous and next buttons, and <code
+          >.ui-with-markers</code
+        > for a marker per item.</Fragment
+      >
+      <Fragment slot="svelte"
+        >The carousel has previous and next buttons by default. Set <code
+          >markers</code
+        > to add a marker per item.</Fragment
+      >
+      <Fragment slot="vue"
+        >The carousel has previous and next buttons by default. Set <code
+          >markers</code
+        > to add a marker per item.</Fragment
+      >
+    </Conditional>
+    <p>
+      Browsers without <code>::scroll-button()</code> and <code
+        >::scroll-marker</code
+      > get a plain scroll-snap list with a scrollbar.
+    </p>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="per-view">Items per view</h2>
+    <p>
+      Set <PropOrClass prop="perView" class="--_per-view" /> to show more than one
+      item at a time.
+    </p>
+
+    <AutoExample name="PerView" />
+  </section>
+
+  <section>
+    <h2 id="stretch">Stretch</h2>
+    <p>
+      Items in a row are as tall as the tallest one, but their content keeps its
+      own height.
+    </p>
+    <p>
+      <PropOrClass prop="stretch" class=".ui-stretch" /> stretches the content of
+      each item, such as a card, to the item's height.
+    </p>
+
+    <AutoExample name="Stretch" />
+  </section>
+
+  <section>
+    <h2 id="peek">Peek</h2>
+    <p>
+      Use <PropOrClass prop="peek" class=".ui-peek" /> to show part of the neighbouring
+      items, and <PropOrClass prop='align="center"' class=".ui-align-center" /> to
+      snap items to the center.
+    </p>
+
+    <AutoExample name="Peek" />
+  </section>
+
+  <section>
+    <h2 id="vertical">Vertical</h2>
+    <p>
+      <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> scrolls on
+      the block axis. Set its height with <code>--_block-size</code>.
+    </p>
+
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section>
+    <h2 id="images">Images</h2>
+    <p>
+      <PropOrClass prop="aspectRatio" class="--_media-aspect-ratio" /> crops images
+      to the same shape, <code>16 / 9</code> by default.
+    </p>
+
+    <AutoExample name="Images" />
+    <AutoExample name="Gallery" />
+  </section>
+
+  <section>
+    <h2 id="video">Video</h2>
+    <p><code>video</code> and <code>iframe</code> fill the item too.</p>
+
+    <AutoExample name="Videos" />
+    <AutoExample name="Embeds" />
+  </section>
+
+  <section>
+    <h2 id="buttons-outside">Buttons outside</h2>
+    <p>
+      Use <PropOrClass prop='buttons="outside"' class=".ui-buttons-outside" /> to
+      keep the buttons off the content.
+    </p>
+
+    <AutoExample name="Actions" />
+  </section>
+
+  <section>
+    <h2 id="persistent-buttons">Persistent buttons</h2>
+    <p>
+      Use <PropOrClass
+        prop="persistentButtons"
+        class=".ui-buttons-persistent"
+      /> to keep both buttons visible at the ends. A disabled button has a muted border.
+    </p>
+
+    <AutoExample name="PersistentButtons" />
+  </section>
+
+  <section>
+    <h2 id="custom-buttons">Custom buttons</h2>
+    <p>
+      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> take any
+      SVG, for example from your icon library. Set <code
+        >--_button-icon-size</code
+      >
+      to scale them.
+    </p>
+
+    <AutoExample name="CustomButtons" />
+  </section>
+
+  <section>
+    <h2 id="playground">Playground</h2>
+    <p>
+      Try the options together. The code below the carousel updates as you go.
+    </p>
+
+    <Example showCode={false}>
+      <div class="carousel-playground-controls" slot="controls">
+        <label class="ui-select ui-small">
+          <span class="ui-label">Content</span>
+          <span class="ui-field">
+            <select data-control="content">
+              <option value="images">Images</option>
+              <option value="cards">Cards</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Buttons</span>
+          <span class="ui-field">
+            <select data-control="buttons">
+              <option value="inside">Inside</option>
+              <option value="outside">Outside</option>
+              <option value="none">None</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Items per view</span>
+          <span class="ui-field">
+            <select data-control="per-view">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </span>
+        </label>
+        <label class="ui-select ui-small">
+          <span class="ui-label">Aspect ratio</span>
+          <span class="ui-field">
+            <select data-control="aspect-ratio">
+              <option>16 / 9</option>
+              <option>4 / 3</option>
+              <option>1</option>
+              <option>3 / 4</option>
+            </select>
+          </span>
+        </label>
+        {
+          [
+            ["persistent", "Persistent buttons"],
+            ["markers", "Markers"],
+            ["peek", "Peek"],
+            ["stretch", "Stretch"],
+            ["vertical", "Vertical"],
+            ["center", "Center"],
+          ].map(([control, label]) => (
+            <label class="ui-switch ui-small">
+              <input data-control={control} role="switch" type="checkbox" />
+              <span class="ui-label">{label}</span>
+            </label>
+          ))
+        }
+      </div>
+      <div class="carousel-playground" data-carousel-playground>
+        <ul
+          aria-label="Photos"
+          class="ui-carousel ui-with-buttons"
+          data-content="images"
+          style="--_block-size: 20rem"
+        >
+          {
+            photos.map((photo) => (
+              <li>
+                <img
+                  alt={photo.alt}
+                  height="450"
+                  loading="lazy"
+                  src={`https://picsum.photos/id/${photo.id}/800/450`}
+                  width="800"
+                />
+              </li>
+            ))
+          }
+        </ul>
+        <ul
+          aria-label="Destinations"
+          class="ui-carousel ui-with-buttons"
+          data-content="cards"
+          hidden
+          style="--_block-size: 20rem"
+        >
+          {
+            destinations.map((destination) => (
+              <li>
+                <div class="ui-card ui-tonal">
+                  <hgroup>
+                    <p>Destination</p>
+                    <h3>{destination.title}</h3>
+                    <p>{destination.text}</p>
+                  </hgroup>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <pre
+          class="carousel-playground-code"><code data-playground-code /></pre>
+      </div>
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="grid-and-flex-layouts">Grid and flex layouts</h2>
+    <p>
+      With <PropOrClass prop="markers" class=".ui-with-markers" />, the markers
+      are a box next to the carousel, not inside it. In a grid or flex parent
+      they become an item of their own and land in the next cell. Wrap the
+      carousel in a <code>div</code> to keep them together.
+    </p>
+
+    <AutoExample name="GridLayout" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <div class="ui-not-rich-text">
+      <UICallout severity="warning">
+        <Fragment slot="title">Work in progress</Fragment>
+        <p>
+          The buttons and markers are generated by CSS, and browser vendors are
+          still working out how these are named, focused and shown in high
+          contrast. Until that settles, making a carousel accessible is up to
+          you: test it with the screen readers and settings your users rely on,
+          and add your own controls where it falls short.
+        </p>
+      </UICallout>
+    </div>
+    <p>
+      Screen readers announce the position of each item. The buttons and markers
+      have accessible names.
+    </p>
+    <p>
+      The buttons and markers get the library's focus ring. In forced colors
+      mode the markers get a border, and the current marker is filled with <code
+        >SelectedItem</code
+      >.
+    </p>
+    <p>
+      The buttons and markers scroll smoothly unless motion is off: with reduced
+      motion, <code>.ui-motion-off</code> on the carousel or a parent, or <code
+        >--motion: 0</code
+      > on a parent.
+    </p>
+  </Fragment>
+  <CarouselBuild slot="under-the-hood" />
+</Component>
+
+<script>
+  type State = {
+    align?: string
+    aspectRatio: string
+    buttons: string
+    content: string
+    markers: boolean
+    orientation?: string
+    peek: boolean
+    persistentButtons: boolean
+    perView: number
+    stretch: boolean
+  }
+
+  const htmlSnippet = (state: State, label: string) => {
+    const classes = [
+      "ui-carousel",
+      state.buttons === "outside" && "ui-buttons-outside",
+      state.persistentButtons && "ui-buttons-persistent",
+      state.peek && "ui-peek",
+      state.stretch && "ui-stretch",
+      state.orientation && "ui-vertical",
+      state.buttons !== "none" && "ui-with-buttons",
+      state.markers && "ui-with-markers",
+      state.align && "ui-align-center",
+    ].filter(Boolean)
+    const style = [
+      state.perView > 1 && `--_per-view: ${state.perView}`,
+      state.aspectRatio !== "16 / 9" &&
+        `--_media-aspect-ratio: ${state.aspectRatio}`,
+      state.orientation && "--_block-size: 20rem",
+    ].filter(Boolean)
+    return [
+      "<ul",
+      `  aria-label="${label}"`,
+      `  class="${classes.join(" ")}"`,
+      style.length > 0 && `  style="${style.join("; ")}"`,
+      ">",
+    ]
+      .filter(Boolean)
+      .join("\n")
+  }
+
+  const componentSnippet = (state: State, label: string, vue: boolean) => {
+    const name = (prop: string) =>
+      vue
+        ? prop.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+        : prop
+    const expression = (prop: string, value: string) =>
+      vue ? `:${name(prop)}="${value}"` : `${prop}={${value}}`
+    const props = [
+      `label="${label}"`,
+      state.align && `align="center"`,
+      state.aspectRatio !== "16 / 9" &&
+        `${name("aspectRatio")}="${state.aspectRatio}"`,
+      state.buttons === "outside" && `buttons="outside"`,
+      state.buttons === "none" && expression("buttons", "false"),
+      state.markers && "markers",
+      state.orientation && `orientation="vertical"`,
+      state.peek && "peek",
+      state.persistentButtons && name("persistentButtons"),
+      state.perView > 1 && expression("perView", String(state.perView)),
+      state.stretch && "stretch",
+      state.orientation && `style="--_block-size: 20rem"`,
+    ].filter(Boolean)
+    return ["<Carousel", ...props.map((prop) => `  ${prop}`), ">"].join("\n")
+  }
+
+  for (const playground of document.querySelectorAll<HTMLElement>(
+    "[data-carousel-playground]",
+  )) {
+    const container = playground.closest(".example-container") ?? playground
+    const carousels = playground.querySelectorAll<HTMLElement>(".ui-carousel")
+    const code = playground.querySelector("[data-playground-code]")
+    const framework = document.documentElement.dataset.framework ?? "html"
+
+    const control = (name: string) =>
+      container.querySelector<HTMLInputElement | HTMLSelectElement>(
+        `[data-control="${name}"]`,
+      )
+    const checked = (name: string) =>
+      control(name) instanceof HTMLInputElement &&
+      (control(name) as HTMLInputElement).checked
+    const value = (name: string) => control(name)?.value ?? ""
+
+    const update = () => {
+      const state: State = {
+        align: checked("center") ? "center" : undefined,
+        aspectRatio: value("aspect-ratio"),
+        buttons: value("buttons"),
+        content: value("content"),
+        markers: checked("markers"),
+        orientation: checked("vertical") ? "vertical" : undefined,
+        peek: checked("peek"),
+        persistentButtons: checked("persistent"),
+        perView: Number(value("per-view")),
+        stretch: checked("stretch"),
+      }
+
+      for (const carousel of carousels) {
+        carousel.hidden = carousel.dataset.content !== state.content
+        carousel.classList.toggle("ui-align-center", !!state.align)
+        carousel.classList.toggle(
+          "ui-buttons-outside",
+          state.buttons === "outside",
+        )
+        carousel.classList.toggle(
+          "ui-buttons-persistent",
+          state.persistentButtons,
+        )
+        carousel.classList.toggle("ui-peek", state.peek)
+        carousel.classList.toggle("ui-stretch", state.stretch)
+        carousel.classList.toggle("ui-vertical", !!state.orientation)
+        carousel.classList.toggle("ui-with-buttons", state.buttons !== "none")
+        carousel.classList.toggle("ui-with-markers", state.markers)
+        carousel.style.setProperty("--_per-view", String(state.perView))
+        carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
+      }
+
+      const label = state.content === "images" ? "Photos" : "Destinations"
+      if (code)
+        code.textContent =
+          framework === "html"
+            ? htmlSnippet(state, label)
+            : componentSnippet(state, label, framework === "vue")
+    }
+
+    container.addEventListener("change", update)
+    update()
+  }
+</script>
+
+<style>
+  .carousel-playground-controls {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+
+    .ui-select {
+      inline-size: 9rem;
+    }
+
+    .ui-switch {
+      align-self: end;
+      min-block-size: var(--control-size-small);
+    }
+  }
+
+  .carousel-playground {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+    min-inline-size: 0;
+
+    & > [hidden] {
+      display: none;
+    }
+  }
+
+  .carousel-playground-code {
+    background-color: var(--surface-tonal);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-0);
+    margin: 0;
+    overflow-x: auto;
+    padding: var(--size-3);
+  }
+</style>

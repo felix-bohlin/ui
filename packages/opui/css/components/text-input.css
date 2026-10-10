@@ -1,30 +1,4 @@
 @layer components.extended {
-  :where(
-    .ui-text-field:has(
-      :where(
-        input[type="date"],
-        input[type="datetime-local"],
-        input[type="email"],
-        input[type="month"],
-        input[type="number"],
-        input[type="password"],
-        input[type="search"],
-        input[type="tel"],
-        input[type="text"],
-        input[type="time"],
-        input[type="url"],
-        input[type="week"]
-      )
-    )
-  ) {
-    /* Sizes */
-    &.ui-small {
-      input {
-        padding-inline: var(--size-2);
-      }
-    }
-  }
-
   /* Autosuggest */
   :where(.ui-text-field:has(input[list])) {
     .ui-field {
@@ -44,24 +18,26 @@
     }
 
     .ui-field::after {
-      block-size: 0;
-      border-block-start: 5px solid;
-      border-inline: 5px solid transparent;
+      background-color: var(--text-primary);
+      block-size: var(--_chevron-size);
       content: "";
-      inline-size: 0;
-      inset: 50% var(--size-3) auto auto;
+      inline-size: var(--_chevron-size);
+      inset-block: 50% auto;
+      inset-inline: auto var(--_arrow-inset);
+      mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
-    &.ui-small {
+    &.ui-small,
+    &.ui-x-small {
       input[list] {
         padding-inline-end: var(--size-7);
-      }
-
-      .ui-field::after {
-        inset-inline-end: var(--size-2);
       }
     }
   }

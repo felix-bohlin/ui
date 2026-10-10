@@ -1,0 +1,94 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="description-list-leader-lines">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Spec sheets, price lists and receipts put the term on the left, the value
+      on the right and a dotted line in between. The old ways are a row of dots
+      clipped with <code>overflow: hidden</code>, a repeating background, or an
+      empty filler element.
+    </p>
+    <p>
+      Side by side also only works when there is room, and a media query knows
+      the viewport, not the column the list sits in.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        Each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is wrapped in
+        a <code>&lt;div&gt;</code>, which is valid in a
+        {" "}<code>&lt;dl&gt;</code>, so every pair is its own grid
+      </li>
+      <li>
+        <code>container-type: inline-size</code> on the list: wider than
+        {" "}<code>45ch</code>, term and description share a row
+      </li>
+      <li>
+        The pair's <code>::after</code> is a grid item too.
+        {" "}<code>order: 1</code> puts it between the term and the description, and
+        the
+        {" "}<code>1fr</code> column stretches it
+      </li>
+      <li>
+        Its bottom border is the line. The dotted variant only swaps the border
+        style and width
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.list {
+  container-type: inline-size;
+}
+
+@container (width > 45ch) {
+  .item {
+    align-items: baseline;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .item::after {
+    block-size: 2px;
+    border-block-end: 2px dotted var(--border-color);
+    content: "";
+    order: 1;
+  }
+
+  .item dd {
+    order: 2;
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <DescriptionListBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without container queries the <code>@container</code> block is skipped: every
+        pair stacks, term above description, with no line
+      </li>
+      <li>
+        That is also the layout in a narrow container, so an old browser and a
+        narrow column look the same
+      </li>
+      <li>
+        The line is an empty pseudo-element, so assistive tech still reads term,
+        then description
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

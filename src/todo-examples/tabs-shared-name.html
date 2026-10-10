@@ -1,0 +1,84 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML modifiers table, <code>[name]</code> row: "The name shared by the tab
+      inputs. Generated when omitted." Nothing generates it in HTML. Below, the
+      Basics markup with <code>name</code> omitted: click Settings, then
+      Profile. Both stay selected and both panels show.
+    </p>
+    <div class="ui-tabs">
+      <input
+        type="radio"
+        id="todo-name-profile-current"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-name-profile-current" class="ui-tab-label"
+        >Profile</label
+      >
+      <div class="ui-tab-panel">Profile settings and information.</div>
+      <input
+        type="radio"
+        id="todo-name-settings-current"
+        class="ui-tab-input"
+      />
+      <label for="todo-name-settings-current" class="ui-tab-label"
+        >Settings</label
+      >
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed: "The name shared by the tab inputs. Astro and Vue generate one
+      when omitted." The HTML markup writes the shared <code>name</code> on
+      every radio, so one tab is selected at a time.
+    </p>
+    <div class="ui-tabs">
+      <input
+        type="radio"
+        name="todo-name-fixed"
+        id="todo-name-profile-fixed"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="todo-name-profile-fixed" class="ui-tab-label">Profile</label>
+      <div class="ui-tab-panel">Profile settings and information.</div>
+      <input
+        type="radio"
+        name="todo-name-fixed"
+        id="todo-name-settings-fixed"
+        class="ui-tab-input"
+      />
+      <label for="todo-name-settings-fixed" class="ui-tab-label"
+        >Settings</label
+      >
+      <div class="ui-tab-panel">General account settings.</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const tabs = panel.querySelector(".ui-tabs")
+      const write = () => {
+        const checked = [...tabs.querySelectorAll("input:checked")]
+        const open = [...tabs.querySelectorAll(".ui-tab-panel")].filter(
+          (element) => getComputedStyle(element).display !== "none",
+        )
+        panel.querySelector("[data-measure]").textContent = [
+          `selected tabs: ${checked.length} (${checked.map((input) => input.labels[0].textContent.trim()).join(", ")})`,
+          `open panels: ${open.length}`,
+        ].join("\n")
+      }
+      write()
+      tabs.addEventListener("change", write)
+    }
+  }
+</script>

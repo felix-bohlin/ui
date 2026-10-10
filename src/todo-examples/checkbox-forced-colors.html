@@ -1,0 +1,111 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    padding: var(--size-3);
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-sim {
+    background-color: Canvas;
+    color: CanvasText;
+    forced-color-adjust: none;
+
+    .ui-label {
+      color: CanvasText;
+    }
+
+    input[type="checkbox"] {
+      background-color: Canvas;
+      border: 1px solid CanvasText;
+    }
+  }
+
+  .todo-sim.todo-before input[type="checkbox"]:checked::after {
+    background-color: SelectedItemText;
+  }
+
+  .todo-sim.todo-after input[type="checkbox"]:checked {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+
+    &::after {
+      background-color: SelectedItemText;
+    }
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    To see the real thing, open DevTools, press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> +
+    <kbd>Shift</kbd> + <kbd>P</kbd>, run "Show Rendering", and set "Emulate CSS
+    media feature forced-colors" to <code>active</code>. The live row uses the
+    current <code>checkbox.css</code>.
+  </p>
+  <p class="ui-caption">Live (current <code>checkbox.css</code>)</p>
+  <div class="todo-panel">
+    <label class="ui-checkbox">
+      <input type="checkbox" checked />
+      <span class="ui-label">Checked</span>
+    </label>
+    <label class="ui-checkbox">
+      <input type="checkbox" />
+      <span class="ui-label">Unchecked</span>
+    </label>
+    <label class="ui-checkbox">
+      <input type="checkbox" checked disabled />
+      <span class="ui-label">Checked, disabled</span>
+    </label>
+  </div>
+  <p class="ui-caption">Simulated forced colors</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        Before: the box stays <code>Canvas</code>, the checkmark is
+        <code>SelectedItemText</code>
+      </p>
+      <div class="todo-panel todo-sim todo-before">
+        <label class="ui-checkbox">
+          <input type="checkbox" checked />
+          <span class="ui-label">Checked</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Unchecked</span>
+        </label>
+      </div>
+    </div>
+    <div>
+      <p class="ui-caption">After: the box is <code>SelectedItem</code></p>
+      <div class="todo-panel todo-sim todo-after">
+        <label class="ui-checkbox">
+          <input type="checkbox" checked />
+          <span class="ui-label">Checked</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Unchecked</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

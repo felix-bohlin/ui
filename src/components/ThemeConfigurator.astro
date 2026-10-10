@@ -13,14 +13,13 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
+import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
+const radiusGroups = [
+  { name: "--border-radius", label: "Border radius" },
+  { name: "--field-border-radius", label: "Field border radius" },
+  { name: "--button-border-radius", label: "Button border radius" },
+] as const
 
 const { link } = Astro.locals
 ---
@@ -67,6 +66,31 @@ const { link } = Astro.locals
                 ></path></svg
               >
             </Switch>
+            <Switch spread id="contrast-switcher">
+              High contrast
+              <svg
+                slot="icon-checked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+                ></path></svg
+              >
+              <svg
+                slot="icon-unchecked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2a8 8 0 1 1 0 16a8 8 0 0 1 0-16"
+                ></path></svg
+              >
+            </Switch>
           </FieldGroup>
         </FieldSet>
 
@@ -81,7 +105,7 @@ const { link } = Astro.locals
               name="--palette-source-color"
               value="#000000"
               spread
-              small
+              size="small"
             />
             <Range
               label="Hue"
@@ -145,85 +169,35 @@ const { link } = Astro.locals
         <Divider />
 
         <FieldSet>
-          <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Field border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--field-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Button border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--button-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
+          <FieldLegend>Border radii</FieldLegend>
+          {
+            radiusGroups.map((group) => (
+              <FieldGroup>
+                <div class="chip-group-wrapper">
+                  <span class="ui-label">{group.label}</span>
+                  <div class="chip-group">
+                    {RADIUS_OPTIONS.map((item) => {
+                      const pressed =
+                        item.value === tokenDefaults("light")[group.name]
+                      return (
+                        <Chip
+                          as="button"
+                          type="button"
+                          size="small"
+                          variant={pressed ? "tonal" : "outlined"}
+                          aria-pressed={pressed ? "true" : "false"}
+                          data-name={group.name}
+                          data-value={item.value}
+                          label={item.text}
+                          title={item.value}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+              </FieldGroup>
+            ))
+          }
         </FieldSet>
       </form>
     </div>
@@ -247,11 +221,12 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
+    tokenDefaults,
     type Mode,
     type Token,
   } from "../utils/theme-store"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
+  import { skipOffscreenRendering } from "../utils/skip-offscreen-rendering"
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -262,14 +237,34 @@ const { link } = Astro.locals
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
+  const contrastSwitcher = document.getElementById(
+    "contrast-switcher",
+  ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
+
+  function setGrayInputsDisabled(disabled: boolean) {
+    form
+      ?.querySelectorAll<HTMLInputElement>(
+        '[name="--gray-chroma"], [name="--gray-hue"]',
+      )
+      .forEach((input) => {
+        input.disabled = disabled
+      })
+  }
+
+  function setChipPressed(chip: HTMLElement, pressed: boolean) {
+    chip.classList.toggle("ui-tonal", pressed)
+    chip.classList.toggle("ui-outlined", !pressed)
+    chip.setAttribute("aria-pressed", String(pressed))
+  }
 
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = tokenDefaults(mode)
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -278,42 +273,27 @@ const { link } = Astro.locals
         input.dispatchEvent(new Event("input", { bubbles: false }))
       }
 
-      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
-      chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
-      })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
+      form
+        .querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
+        .forEach((chip) => setChipPressed(chip, chip.dataset.value === value))
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
       '[name="enable-grays"]',
     )
-    if (enableGrays) enableGrays.checked = themeStore.isGraysEnabled(mode)
+    const graysEnabled = themeStore.isGraysEnabled(mode)
+    if (enableGrays) enableGrays.checked = graysEnabled
+    setGrayInputsDisabled(!graysEnabled)
 
     const colorPicker = form.querySelector<HTMLInputElement>(
       '[name="--palette-source-color"]',
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -337,6 +317,26 @@ const { link } = Astro.locals
     })
   }
 
+  function syncContrastSwitcher() {
+    if (!contrastSwitcher) return
+    contrastSwitcher.checked =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--contrast")
+        .trim() === "more"
+  }
+
+  syncContrastSwitcher()
+  matchMedia("(prefers-contrast: more)").addEventListener(
+    "change",
+    syncContrastSwitcher,
+  )
+
+  contrastSwitcher?.addEventListener("click", () => {
+    ;(window as any).themeUtils?.setContrast(
+      contrastSwitcher.checked ? "more" : "normal",
+    )
+  })
+
   form?.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement | null
     if (!target) return
@@ -348,6 +348,7 @@ const { link } = Astro.locals
     if (target.type === "checkbox") {
       if (name === "enable-grays") {
         themeStore.setEnableGrays(mode, target.checked)
+        setGrayInputsDisabled(!target.checked)
       }
       return
     }
@@ -366,6 +367,27 @@ const { link } = Astro.locals
     }
   })
 
+  let endDrag: (() => void) | undefined
+
+  form?.addEventListener("pointerdown", (e) => {
+    const target = e.target as HTMLInputElement
+    if (target.type !== "range" || endDrag) return
+
+    const restore = skipOffscreenRendering()
+    const controller = new AbortController()
+    endDrag = () => {
+      controller.abort()
+      restore()
+      endDrag = undefined
+    }
+    for (const type of ["pointerup", "pointercancel", "resize", "scroll"]) {
+      window.addEventListener(type, () => endDrag?.(), {
+        passive: true,
+        signal: controller.signal,
+      })
+    }
+  })
+
   form?.addEventListener("click", (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
@@ -380,36 +402,19 @@ const { link } = Astro.locals
       themeStore.setToken(themeStore.getActiveSiteMode(), name as Token, value)
     }
 
-    const chips = form.querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
-    chips.forEach((c) => {
-      if (c === chip) {
-        c.classList.add("ui-tonal")
-        c.classList.remove("ui-outlined")
-      } else {
-        c.classList.remove("ui-tonal")
-        c.classList.add("ui-outlined")
-      }
-    })
+    form
+      .querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
+      .forEach((c) => setChipPressed(c, c === chip))
   })
 
   resetBtn?.addEventListener("click", () => {
     themeStore.reset()
-    form?.reset()
     if (themeSwitcher) {
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")
     }
-    const allChips =
-      form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
-    allChips.forEach((chip) => {
-      if (chip.dataset.default === "true") {
-        chip.classList.add("ui-tonal")
-        chip.classList.remove("ui-outlined")
-      } else {
-        chip.classList.remove("ui-tonal")
-        chip.classList.add("ui-outlined")
-      }
-    })
+    ;(window as any).themeUtils?.setContrast(null)
+    syncContrastSwitcher()
   })
 
   themeStore.subscribe((detail) => {
@@ -420,6 +425,11 @@ const { link } = Astro.locals
 
 <style is:global>
   html.no-grays {
+    --neutral: var(--color-9);
+    --text-primary: light-dark(var(--color-15), var(--color-1));
+    --text-primary-contrast: light-dark(var(--color-2), var(--color-15));
+    --text-muted: light-dark(var(--color-13), var(--color-4));
+    --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
     --surface-default: light-dark(var(--color-1), var(--color-14));
     --surface-filled: light-dark(var(--color-5), var(--color-16));
     --surface-tonal: light-dark(var(--color-4), var(--color-12));

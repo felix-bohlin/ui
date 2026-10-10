@@ -1,0 +1,221 @@
+---
+import { Button } from "@opui/astro"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.tooltip {
+  background-color: var(--surface-inverse);
+  border: 0;
+  border-radius: var(--radius-2);
+  color: var(--text-inverse);
+  font-size: var(--font-size-05);
+  inset: auto;
+  line-height: 1.3;
+  margin: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  position-area: block-start;
+}`,
+    features: [
+      "anchor-positioning",
+      "interest-invokers",
+      "invoker-commands",
+      "popover-hint",
+    ],
+    html: `
+<button
+  type="button"
+  interestfor="tooltip"
+  commandfor="tooltip"
+  command="toggle-popover"
+>
+  Save
+</button>
+
+<span class="tooltip" id="tooltip" popover="hint">Save changes</span>`,
+    notes: [
+      "<code>interestfor</code> + <code>popover=&quot;hint&quot;</code>: opens on hover and focus, no JavaScript",
+      "<code>commandfor</code> toggles it on tap, where there is no hover",
+      "The invoker is the implicit anchor: no <code>anchor-name</code>, no ids to wire",
+      "<code>position-area: block-start</code> centers it above the trigger",
+    ],
+    title: "Hint",
+  },
+  {
+    css: `
+.tooltip {
+  max-inline-size: 240px;
+  min-inline-size: calc-size(max-content, min(size, 10rem));
+  text-align: center;
+  text-wrap: pretty;
+}`,
+    features: ["calc-size", "text-wrap-pretty"],
+    notes: [
+      "Hover the icon: long text wraps at <code>240px</code>",
+      "<code>calc-size()</code> keeps long text at least <code>10rem</code> wide near an edge, short text stays snug",
+      "<code>text-wrap: pretty</code> avoids a lonely last word",
+    ],
+    title: "Size",
+  },
+  {
+    css: `
+.tooltip {
+  position-try-fallbacks:
+    flip-block,
+    --build-tooltip-shift-start,
+    --build-tooltip-shift-end,
+    --build-tooltip-shift-start flip-block,
+    --build-tooltip-shift-end flip-block;
+  position-visibility: anchors-visible;
+}`,
+    notes: [
+      "Scroll the trigger to the top of the window and hover it again",
+      "The two <code>@position-try</code> rules slide it sideways at the edge of the window, keeping it over the trigger",
+      "<code>anchors-visible</code> hides it when the trigger scrolls out of view",
+    ],
+    title: "Shift",
+  },
+  {
+    css: `
+.anchor {
+  anchor-name: --anchor;
+  anchor-scope: --anchor;
+}
+
+.tooltip.arrow {
+  anchor-name: --tooltip;
+  anchor-scope: --tooltip;
+  margin: 0.75rem;
+}
+
+.tooltip.arrow::before {
+  background-color: inherit;
+  block-size: 0.5rem;
+  content: "";
+  inline-size: 0.5rem;
+  inset-block-start: clamp(
+    anchor(--tooltip self-start),
+    anchor(--anchor center),
+    anchor(--tooltip self-end)
+  );
+  inset-inline-start: clamp(
+    anchor(--tooltip self-start),
+    anchor(--anchor center),
+    anchor(--tooltip self-end)
+  );
+  margin: -0.25rem;
+  position: fixed;
+  rotate: 45deg;
+}`,
+    features: ["anchor-positioning", "min-max-clamp"],
+    html: `
+<span class="anchor">
+  <button type="button" interestfor="share" …>Share</button>
+  <span class="tooltip arrow" id="share" popover="hint">Copy a link</span>
+</span>`,
+    notes: [
+      "Hover Share: a rotated square, centered on the tooltip's edge",
+      "The tooltip is its own anchor, the wrapper names the trigger",
+      "<code>clamp()</code> moves the arrow towards the trigger's center but keeps it on the tooltip's edge",
+      "So it still points at the trigger after a flip or a shift",
+    ],
+    title: "Arrow",
+  },
+  {
+    css: `
+.tooltip {
+  opacity: 0;
+  transition:
+    display calc(0.2s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.2s * var(--motion, 1)),
+    overlay calc(0.2s * var(--motion, 1)) allow-discrete;
+}
+
+.tooltip:popover-open {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}`,
+    features: [
+      "display-animation",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
+    notes: [
+      "<code>@starting-style</code> fades it in from <code>opacity: 0</code>",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive while it fades out",
+      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+    ],
+    title: "Fade",
+  },
+]
+
+const sync = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.3 0 6 2.7 6 6 0 1-.3 2-.7 2.8l1.5 1.5C19.5 15 20 13.6 20 12c0-4.4-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6 0-1 .3-2 .7-2.8L5.2 7.7C4.5 9 4 10.4 4 12c0 4.4 3.6 8 8 8v3l4-4-4-4v3z"/></svg>`
+---
+
+<BuildUp id="build-tooltip" steps={steps}>
+  <div class="row">
+    <Button
+      command="toggle-popover"
+      commandfor="build-tooltip-save"
+      interestfor="build-tooltip-save"
+      variant="outlined"
+    >
+      Save
+    </Button>
+    <span class="tooltip" id="build-tooltip-save" popover="hint">
+      Save changes
+    </span>
+    <Button
+      aria-label="Sync"
+      command="toggle-popover"
+      commandfor="build-tooltip-sync"
+      interestfor="build-tooltip-sync"
+      variant="outlined"
+    >
+      <Fragment set:html={sync} />
+    </Button>
+    <span class="tooltip" id="build-tooltip-sync" popover="hint">
+      Keeps your settings in sync on every device signed in to this account
+    </span>
+    <span class="anchor">
+      <Button
+        command="toggle-popover"
+        commandfor="build-tooltip-share"
+        interestfor="build-tooltip-share"
+        variant="outlined"
+      >
+        Share
+      </Button>
+      <span class="tooltip arrow" id="build-tooltip-share" popover="hint">
+        Copy a link
+      </span>
+    </span>
+  </div>
+</BuildUp>
+
+<style>
+  .row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: center;
+  }
+</style>
+
+<style is:global>
+  @position-try --build-tooltip-shift-start {
+    margin-inline: 0 calc(anchor-size(inline) / 2 - 1rem);
+    position-area: block-start span-inline-start;
+  }
+
+  @position-try --build-tooltip-shift-end {
+    margin-inline: calc(anchor-size(inline) / 2 - 1rem) 0;
+    position-area: block-start span-inline-end;
+  }
+</style>

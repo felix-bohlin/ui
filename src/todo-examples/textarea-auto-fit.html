@@ -1,0 +1,87 @@
+<style>
+  .todo-compare .ui-textarea:not(.ui-auto-fit) {
+    inline-size: 12rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Docs: "When enabled the Field changes size depending on its content." API:
+      "Changes height depending on its content." Both textareas grow in height.
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <label class="ui-textarea">
+        <span class="ui-label">Default</span>
+        <span class="ui-field">
+          <textarea>
+One
+Two
+Three
+Four
+Five</textarea>
+        </span>
+      </label>
+      <label class="ui-textarea ui-auto-fit">
+        <span class="ui-label">Auto-fit</span>
+        <span class="ui-field">
+          <textarea>
+One
+Two
+Three
+Four
+Five</textarea>
+        </span>
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Docs: "Textareas grow with their content, from 3 to 20 lines; set
+      <code>--_max-block-size</code> on the root to change the cap.
+      <code>.ui-auto-fit</code> also lets the width follow the longest line,
+      from 25ch, and allows resizing in both directions."
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <label class="ui-textarea" style="--_max-block-size: 4lh">
+        <span class="ui-label">--_max-block-size: 4lh</span>
+        <span class="ui-field">
+          <textarea>
+One
+Two
+Three
+Four
+Five</textarea>
+        </span>
+      </label>
+      <label class="ui-textarea ui-auto-fit">
+        <span class="ui-label">Auto-fit</span>
+        <span class="ui-field">
+          <textarea>
+One
+Two
+Three
+Four
+Five, the longest line sets the width</textarea>
+        </span>
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-textarea")].map((root) => {
+      const textarea = root.querySelector("textarea")
+      const style = getComputedStyle(textarea)
+      const { height, width } = textarea.getBoundingClientRect()
+      const name = root.classList.contains("ui-auto-fit")
+        ? "auto-fit"
+        : "default"
+      return `${name}: field-sizing ${style.fieldSizing}, ${Math.round(width)} × ${Math.round(height)}px, resize ${style.resize}`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

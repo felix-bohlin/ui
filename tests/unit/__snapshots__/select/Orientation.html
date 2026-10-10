@@ -16,7 +16,7 @@
   <span class="ui-label" id="id-2">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select aria-labelledby="id-2">
+    <select aria-describedby="id-3" aria-labelledby="id-2">
       <option value>Select a language</option>
       <option>Danish</option>
       <option>Finnish</option>
@@ -47,34 +47,35 @@
     </select>
   </span>
 </label>
-<label class="ui-select ui-spread" data-invalid>
+<label class="ui-select ui-spread">
   <span class="ui-label" id="id-6">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select aria-labelledby="id-6">
+    <select aria-describedby="id-7" aria-invalid="true" aria-labelledby="id-6">
       <option>Option 1</option>
     </select>
   </span>
   <span class="ui-end-text" id="id-7">Please select a valid option.</span>
 </label>
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="id-8">Currency</span>
-  <span class="ui-start-text">Used for billing</span>
+  <span class="ui-label" id="id-8">Time zone</span>
+  <span class="ui-start-text">Used for reminders and due dates</span>
   <span class="ui-field">
     <select aria-labelledby="id-8">
-      <option value>-</option>
-      <option>EUR</option>
-      <option>EUR</option>
-      <option>SEK</option>
+      <option>-03:00</option>
+      <option>+00:00</option>
+      <option>+01:00</option>
+      <option>+05:30</option>
+      <option>+09:00</option>
     </select>
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">UTC</span>
   </span>
 </label>
 <label class="ui-filled ui-select ui-spread">
   <span class="ui-label" id="id-9">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select aria-labelledby="id-9">
+    <select aria-describedby="id-10" aria-labelledby="id-9">
       <option value>-</option>
       <option>eu-north-1</option>
       <option>us-east-1</option>

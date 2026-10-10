@@ -1,0 +1,12 @@
+---
+import { Radio } from "@opui/astro"
+---
+
+<Radio name="radio-supporting-text" value="default" checked>
+  Default
+  <Fragment slot="end-text">Supporting text</Fragment>
+</Radio>
+<Radio name="radio-supporting-text" value="stack" stack>
+  Stack
+  <Fragment slot="end-text">Supporting text</Fragment>
+</Radio>

@@ -1,0 +1,112 @@
+---
+import Code from "../../components/Code.astro"
+import { Table } from "@opui/astro"
+import DocLink from "../../components/DocLink.astro"
+import Guide from "../../layouts/Guide.astro"
+import { formatInline } from "../../utils/format-inline"
+import { themeTokenDescriptions } from "../../utils/theme-token-descriptions"
+import { parseThemeTokens } from "../../utils/theme-tokens"
+
+const sections = parseThemeTokens().filter(
+  (section) => section.tokens.length > 0,
+)
+const slug = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Theme tokens</Fragment>
+  <Fragment slot="preamble">
+    Every custom property that <code>theme.css</code> declares, with its default.
+    Override any of them on <code>html</code>, or on a subtree, unlayered or in
+    a layer after <code>utils</code>.
+  </Fragment>
+
+  <section>
+    <h2 id="overriding">Overriding tokens</h2>
+    <p>
+      Tokens cascade like any custom property. Set them once on{" "}
+      <code>html</code> for a whole site, or on an element to theme a part of the
+      page. The <DocLink href="/guide/theme-generator">theme generator</DocLink
+      >{" "}
+      writes a complete <code>theme.css</code> for you.
+    </p>
+    <Code
+      code={`/* Unlayered, or in a layer after utils (see Customizing) */
+html {
+  --palette-hue: 30;
+  --border-radius: var(--radius-3);
+  --duration: 0.15s;
+}`}
+      lang="css"
+    />
+    <p>
+      <DocLink href="/guide/customizing#unlayered-or-your-own-layer"
+        >Customizing</DocLink
+      > explains where to put your own styles. <DocLink href="/guide/theming"
+        >Theming</DocLink
+      > explains the palette, density, motion and contrast, and the classes that change
+      them for one part of the page.
+    </p>
+  </section>
+
+  {
+    sections.map((section) => (
+      <section>
+        <h2 id={slug(section.title)}>{section.title}</h2>
+        {section.note && (
+          <p set:html={formatInline(section.note, Astro.locals.link)} />
+        )}
+        <div class="table-scroll wide">
+          <Table>
+            <Table.ColumnGroup>
+              <Table.Column width="min-width: 220px" />
+              <Table.Column width="min-width: 200px" />
+              <Table.Column width="min-width: 300px" />
+            </Table.ColumnGroup>
+            <Table.Head>
+              <Table.Row>
+                <Table.HeaderCell>Token</Table.HeaderCell>
+                <Table.HeaderCell>Default</Table.HeaderCell>
+                <Table.HeaderCell>Description</Table.HeaderCell>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {section.tokens.map((token) => (
+                <Table.Row>
+                  <Table.Cell>
+                    <code>{token.name}</code>
+                  </Table.Cell>
+                  <Table.Cell>
+                    {token.optional ? (
+                      <Fragment>
+                        Unset. For example <code>{token.value}</code>
+                      </Fragment>
+                    ) : (
+                      <code>{token.value}</code>
+                    )}
+                    {token.dark && (
+                      <Fragment>
+                        <br />
+                        <code>{token.dark}</code> in dark mode
+                      </Fragment>
+                    )}
+                  </Table.Cell>
+                  <Table.Cell
+                    set:html={formatInline(
+                      themeTokenDescriptions[token.name] ?? "",
+                      Astro.locals.link,
+                    )}
+                  />
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
+      </section>
+    ))
+  }
+</Guide>

@@ -1,0 +1,78 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="avatar-squircles">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>border-radius</code> only draws round arcs. A squircle, the smooth superellipse
+      you know from app icons, used to need an SVG mask or a <code
+        >clip-path</code
+      > path. Both are fixed shapes: they don't follow the element's size, and they
+      clip borders and shadows along with everything else.
+    </p>
+    <p>
+      An avatar also has to hold a photo, initials or an icon, and stay square
+      whatever you put in it.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>aspect-ratio: 1</code>: set the width, the height follows
+      </li>
+      <li>
+        The photo is absolutely positioned with <code>object-fit: cover</code>,
+        so it never sizes the avatar
+      </li>
+      <li>
+        <code>:has(img)</code> drops the fallback color behind the photo
+      </li>
+      <li>
+        <code>corner-shape: squircle</code> changes how the corner is drawn, <code
+          >border-radius</code
+        > still sets how big it is. A full radius gives a full squircle
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.avatar {
+  aspect-ratio: 1;
+  border-radius: var(--radius-round);
+  overflow: clip;
+}
+
+.avatar:has(img) {
+  background-color: transparent;
+}
+
+.avatar.squircle {
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <AvatarBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without <code>corner-shape</code>, the full radius draws a circle
+      </li>
+      <li>
+        Without <code>:has()</code>, the background color stays behind the
+        photo. It only shows through transparent images
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

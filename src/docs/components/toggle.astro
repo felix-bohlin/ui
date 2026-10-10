@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   ToggleButton as UIToggleButton,
@@ -12,16 +13,27 @@ import Conditional from "../../components/Conditional.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
+export const description =
+  "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
 
 <Component
+  description={description}
   slug="toggle"
   heroAnatomy
   apis={[
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -41,7 +53,8 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       path: "packages/opui/css/components/toggle-group.css",
       type: "css",
     },
-    { path: "src/component-api/toggle", type: "api" },
+    { path: "src/component-api/toggle-button", type: "api" },
+    { path: "src/component-api/toggle-group", type: "api" },
   ]}
   installationTabs={[
     {
@@ -59,11 +72,57 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
   <Fragment slot="title">Toggle</Fragment>
   <Fragment slot="preamble"
     >Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+    Use them for options in a toolbar, like bold or text alignment. For a
+    setting that applies right away, use a <DocLink href="/components/switch"
+      >Switch</DocLink
+    >, and for choices in a form a <DocLink href="/components/checkbox"
+      >Checkbox</DocLink
+    >. To switch between panels of content, use <DocLink href="/components/tabs"
+      >Tabs</DocLink
+    >. For uncontrolled buttons that just run actions, use a <DocLink
+      href="/components/button-group">Button group</DocLink
+    >.
   </Fragment>
 
   <section>
     <h2 id="toggle-button">Toggle button</h2>
     <AutoExample name="Standalone" centered />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Add the class to a <code
+          >.ui-toggle-button</code
+        >, or to a <code>.ui-toggle-group</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>. Set it on a <code
+          >ToggleButton</code
+        >, or on a <code>ToggleGroup</code> to size all its buttons.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" centered row />
   </section>
 
   <section>
@@ -76,6 +135,9 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
         Group toggle buttons by wrapping them in a <code
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
+      </Fragment>
+      <Fragment slot="svelte">
+        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
       </Fragment>
       <Fragment slot="vue">
         Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
@@ -90,6 +152,9 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       <p slot="astro">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
+      <p slot="svelte">
+        Use <code>selection="multiple"</code> for multi-select groups.
+      </p>
       <p slot="vue">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
@@ -99,18 +164,54 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
 
     <h3 id="single-select">Single-select</h3>
     <Conditional>
-      <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
+      <p slot="html">
+        Use <code>type="radio"</code> for single-select groups. Add <code
+          >checked</code
+        > to the input that starts pressed.
+      </p>
       <p slot="astro">
-        Use <code>selection="single"</code> for single-select groups.
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
+      </p>
+      <p slot="svelte">
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
       </p>
       <p slot="vue">
-        Use <code>selection="single"</code> for single-select groups.
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
       </p>
     </Conditional>
 
     <AutoExample name="Alignment" centered />
 
     <h3 id="text-icon">Text + icon</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+      <Fragment slot="html">
+        Put an <code>svg</code> before the text. Icon-only buttons need an <code
+          >aria-label</code
+        > on the input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Put an <code>svg</code> before the text in <code>children</code>.
+        Icon-only buttons need an <code>aria-label</code>, which the component
+        passes to the input.
+      </Fragment>
+      <Fragment slot="vue">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Interactive" centered />
 
@@ -124,6 +225,11 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
       </p>
+      <p slot="svelte">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
+      </p>
       <p slot="vue">
         Change the layout of the group with the <code
           >orientation="vertical"</code
@@ -132,15 +238,45 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
     </Conditional>
     <AutoExample name="Vertical" centered />
 
-    <h3 id="sizes">Sizes</h3>
-    <p>
-      Choose between three sizes: default, <code>.ui-x-small</code> and <code
-        >.ui-small</code
-      >.
-    </p>
-
-    <AutoExample name="Sizes" centered row />
+    <h3 id="overflow">Overflow</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="html">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Add <code
+          >.ui-scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="svelte">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="vue">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
   </section>
+
+  <ToggleBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
@@ -152,11 +288,3 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-toggle-group
-    .ui-toggle-button:has(input:checked).has-text
-    svg:nth-of-type(2) {
-    display: none;
-  }
-</style>

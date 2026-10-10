@@ -1,0 +1,193 @@
+<style>
+  .todo-rows {
+    display: grid;
+    gap: var(--size-4);
+  }
+
+  .todo-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-8);
+  }
+
+  .todo-badge {
+    --dot: 0.5rem;
+    --tx: -50%;
+    --ty: 50%;
+
+    display: inline-flex;
+    position: relative;
+    vertical-align: middle;
+
+    &.start-start {
+      --tx: 50%;
+    }
+
+    &.end-start {
+      --tx: 50%;
+      --ty: -50%;
+    }
+
+    &.end-end {
+      --ty: -50%;
+    }
+
+    &.dot {
+      --tx: calc((var(--dot) - 2px) * -1);
+      --ty: var(--dot);
+    }
+  }
+
+  .todo-indicator {
+    background-color: var(--primary);
+    block-size: var(--dot);
+    border-radius: var(--radius-round);
+    inline-size: var(--dot);
+    inset-block: auto 100%;
+    inset-inline: 100% auto;
+    position: absolute;
+    translate: var(--tx) var(--ty);
+
+    :is(.start-start, .end-start) > & {
+      inset-inline: auto 100%;
+    }
+
+    :is(.end-start, .end-end) > & {
+      inset-block: 100% auto;
+    }
+  }
+</style>
+<p>
+  Dots in the four corners: top end (default), top start, bottom start, bottom
+  end.
+</p>
+<div class="todo-rows">
+  <p class="ui-caption">
+    Walkthrough: alignments swap the insets and
+    <code>--tx</code>/<code>--ty</code>, then <code>.dot</code> sets fixed signs
+  </p>
+  <div class="todo-row">
+    <span class="todo-badge dot"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="todo-indicator"></span
+    ></span>
+    <span class="todo-badge dot start-start"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="todo-indicator"></span
+    ></span>
+    <span class="todo-badge dot end-start"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="todo-indicator"></span
+    ></span>
+    <span class="todo-badge dot end-end"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="todo-indicator"></span
+    ></span>
+  </div>
+  <p class="ui-caption">
+    Library: <code>--_sign-x</code>/<code>--_sign-y</code> follow the alignment
+  </p>
+  <div class="todo-row">
+    <span class="ui-anchor ui-badge ui-dot"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+    <span class="ui-anchor ui-badge ui-dot ui-start-start"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+    <span class="ui-anchor ui-badge ui-dot ui-end-start"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+    <span class="ui-anchor ui-badge ui-dot ui-end-end"
+      ><svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          fill="currentColor"
+        /></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+  </div>
+</div>

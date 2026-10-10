@@ -4,7 +4,7 @@ import type { Props } from "./types.astro"
 export const title = "List Item"
 
 const {
-  as: Tag,
+  as: Tag = Astro.props.href ? "a" : undefined,
   borderTop,
   class: className,
   description,
@@ -57,7 +57,10 @@ const innerProps = Tag ? rest : {}
       </label>
     ) : // With custom tag
     Tag ? (
-      <Tag {...(innerProps as any)}>
+      <Tag
+        type={Tag === "button" ? "button" : undefined}
+        {...(innerProps as any)}
+      >
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />
@@ -105,4 +108,5 @@ const innerProps = Tag ? rest : {}
       </>
     )
   }
+  <slot name="submenu" />
 </li>

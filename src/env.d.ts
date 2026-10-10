@@ -3,6 +3,10 @@
 // which aren't in Astro's typings yet. Keeps example pages typecheck-clean
 // without per-call casts.
 declare namespace astroHTML.JSX {
+  interface AnchorHTMLAttributes {
+    interestfor?: string
+  }
+
   interface ButtonHTMLAttributes {
     command?: string
     commandfor?: string

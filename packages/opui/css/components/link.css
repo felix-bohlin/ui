@@ -2,20 +2,25 @@
   :where(.ui-link) {
     color: var(--primary);
     cursor: pointer;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     text-decoration: underline;
     text-decoration-color: var(--primary);
     text-underline-offset: 2px;
 
     &[href] {
-      &:hover,
-      &:focus-visible {
-        color: var(--primary-light);
+      @media (hover: hover) {
+        &:hover {
+          color: light-dark(var(--primary-dark), var(--primary-light));
+          text-decoration-color: currentColor;
+          text-decoration-thickness: 3px;
+        }
       }
-    }
 
-    @supports (-moz-appearance: none) {
-      text-underline-offset: 2px;
+      &:focus-visible {
+        color: light-dark(var(--primary-dark), var(--primary-light));
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 3px;
+      }
     }
   }
 }

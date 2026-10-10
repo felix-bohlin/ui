@@ -1,0 +1,164 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import CodeGroup from "../../../components/CodeGroup.astro"
+import DocLink from "../../../components/DocLink.astro"
+import Code from "../../../components/Code.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Svelte 5 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
+
+  <section>
+    <h2 id="installation">Install via NPM</h2>
+    <p>
+      The components ship as uncompiled Svelte components (<code>.svelte</code> and
+      <code>.ts</code>), so your build has to compile them. They need Svelte
+      5.29 or later. Any setup with Svelte support works, for example SvelteKit,
+      Vite with <code>@sveltejs/vite-plugin-svelte</code>, or Astro with <code
+        >@astrojs/svelte</code
+      >.
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "pnpm",
+          code: "pnpm add opui-css open-props svelte -S",
+          lang: "sh",
+        },
+        {
+          title: "npm",
+          code: "npm install opui-css open-props svelte -S",
+          lang: "sh",
+        },
+      ]}
+    />
+  </section>
+
+  <section>
+    <h2 id="css">Import the CSS</h2>
+    <p>
+      Svelte components ship markup only - the CSS still has to be imported
+      once, in your root layout or the entry file that mounts your app. Import
+      everything:
+    </p>
+    <Code
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "opui-css/css/imports.css"
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
+      lang="svelte"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in your layout
+      instead:
+    </p>
+    <Code
+      code={`/* src/styles/main.css */
+@import "opui-css/css/layers.css";
+@import "opui-css/open-props.css";
+@import "opui-css/core/palette.css";
+@import "opui-css/css/theme.css";
+@import "opui-css/core/normalize.css";
+@import "opui-css/css/components.css";
+@import "opui-css/core/utils.css";`}
+      lang="css"
+    />
+    <Code
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "../styles/main.css"
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
+      lang="svelte"
+    />
+  </section>
+
+  <section>
+    <h2 id="usage">How to use</h2>
+    <Code
+      code={`<script lang="ts">
+  import { Button } from "opui-css/svelte"
+</script>
+
+<Button variant="filled">Click me</Button>`}
+      lang="svelte"
+    />
+    <p>
+      Slots are snippets: the default slot is <code>children</code> and named slots
+      are camelCased, such as <code>endText</code>. <code>TextField</code>, <code
+        >Textarea</code
+      >, <code>Select</code>, <code>ClassicSelect</code> and <code>Range</code> support
+      <code>bind:value</code>. <code>Checkbox</code> and <code>Switch</code> support
+      <code>bind:checked</code> and <code>bind:group</code>, and <code
+        >Radio</code
+      > supports <code>bind:group</code>.
+    </p>
+    <p>
+      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
+      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
+        href="/components">components</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
+      motion and contrast.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="ssr">Server rendering</h2>
+    <p>
+      Without hydration (SvelteKit with <code>csr = false</code>, or Astro with <code
+        >@astrojs/svelte</code
+      > and no <code>client:*</code> directive), every component renders complete
+      HTML. The native controls work and submit with their form. A few things only
+      update on the client:
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/checkbox#indeterminate">Checkbox</DocLink>
+        <code>indeterminate</code>: it's a DOM property, so the box looks
+        unchecked. Or call <code>activateIndeterminate()</code> from <code
+          >opui-css/css/js/checkbox.js</code
+        >.
+      </li>
+      <li>
+        <DocLink href="/components/range#value">Range</DocLink> value: the <code
+          >&lt;output&gt;</code
+        > doesn't follow the thumb. The track fill is CSS, so it's fine.
+      </li>
+      <li>
+        <DocLink href="/components/drawer">Drawer</DocLink> with your own heading
+        in <code>header</code>: <code>aria-labelledby</code> points at it after hydration.
+        A <code>DrawerHeader</code> with <code>heading</code> works without it.
+      </li>
+      <li>
+        <code>bind:</code> on <DocLink href="/components/checkbox"
+          >Checkbox</DocLink
+        >, <DocLink href="/components/select#classic-select"
+          >Classic select</DocLink
+        >, <DocLink href="/components/radio">Radio</DocLink>, <DocLink
+          href="/components/range">Range</DocLink
+        >, <DocLink href="/components/select">Select</DocLink>, <DocLink
+          href="/components/switch">Switch</DocLink
+        >, <DocLink href="/components/text-field">Text field</DocLink> and <DocLink
+          href="/components/textarea">Textarea</DocLink
+        >: the bound state stays put. The native value still changes and
+        submits.
+      </li>
+    </ul>
+    <p>
+      Hydrate those (<code>client:load</code> in Astro) or keep client-side rendering
+      on. Component pages say what needs hydration next to the browser support chips,
+      and the API tables mark each prop with a crossed-out server icon.
+    </p>
+  </section>
+</Guide>

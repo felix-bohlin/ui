@@ -1,29 +1,35 @@
 @layer components.root {
   :where(.ui-progress) {
     --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
+    --_accent: var(--primary);
     --_bg-color: var(--surface-tonal);
 
     background-color: var(--_bg-color);
     block-size: var(--size-1);
-    border-radius: var(--border-radius, 0.25rem);
+    border-radius: var(--border-radius);
     display: inline-block;
     inline-size: 100%;
     overflow: hidden;
     position: relative;
-    vertical-align: baseline;
+    vertical-align: middle;
 
     /* Color */
     &.ui-filled {
       --_bg-color: var(--surface-filled);
     }
 
-    &.ui-default {
-      --_bg-color: var(--surface-default);
-    }
-
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
+    }
+
+    @container style(--contrast: more) {
+      outline: var(--border-width) solid var(--border-color);
+    }
+
+    @media (forced-colors: active) {
+      --_accent: SelectedItem;
+
+      outline: 1px solid CanvasText;
     }
 
     & > progress {
@@ -36,29 +42,36 @@
 
       &::-webkit-progress-bar {
         background: none;
-        border-radius: var(--border-radius, 0.25rem);
+        border-radius: var(--border-radius);
       }
 
       &[value]::-webkit-progress-value {
-        background-color: var(--_accent-color);
-        transition: inline-size calc(0.2s * var(--_motion))
-          var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+        background-color: var(--_accent);
+        transition: inline-size calc(var(--duration) * var(--_motion))
+          var(--ease-enter);
       }
 
       &::-moz-progress-bar {
-        background-color: var(--_accent-color);
+        background-color: var(--_accent);
       }
     }
   }
 
   :where(.ui-progress):has(> progress:indeterminate) {
     &::after {
-      animation: indeterminate calc(2s * var(--motion, 1)) linear infinite;
-      background-color: var(--_accent-color);
+      animation: ui-indeterminate calc(2s * var(--_motion)) linear infinite;
+      background-color: var(--_accent);
       content: "";
-      inset: 0 auto 0 0;
+      inset-block: 0;
       position: absolute;
       will-change: inset-inline-start, inset-inline-end;
+    }
+
+    @container style(--motion: 0) {
+      &::after {
+        animation: ui-indeterminate-pulse 2s ease-in-out infinite;
+        inset-inline: 0;
+      }
     }
 
     & > progress {
@@ -72,15 +85,13 @@
     }
   }
 
-  [dir="rtl"] {
-    :where(.ui-progress):has(> progress:indeterminate) {
-      &::after {
-        animation-direction: reverse;
-      }
+  @keyframes ui-indeterminate-pulse {
+    50% {
+      opacity: 0.4;
     }
   }
 
-  @keyframes indeterminate {
+  @keyframes ui-indeterminate {
     0% {
       inset-inline-end: 100%;
       inset-inline-start: -200%;

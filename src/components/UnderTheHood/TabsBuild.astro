@@ -1,0 +1,196 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.tab-panel {
+  display: none;
+}
+
+.tab-input:checked + .tab-label + .tab-panel {
+  display: block;
+}`,
+    html: `
+<div aria-label="Account" class="tabs" role="radiogroup">
+  <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
+  <label class="tab-label" for="tab-1">Profile</label>
+  <div class="tab-panel">…</div>
+  …
+</div>`,
+    notes: [
+      "One radio group holds the state",
+      "<code>:checked + label + panel</code> shows the matching panel",
+    ],
+    title: "Radios",
+  },
+  {
+    css: `
+.tabs {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab-label {
+  order: 1;
+}
+
+.tab-panel {
+  inline-size: 100%;
+  order: 2;
+}`,
+    notes: [
+      "The markup interleaves label, panel, label, panel",
+      "<code>order</code> pulls every label into one row and drops the panel below",
+    ],
+    title: "Order",
+  },
+  {
+    css: `
+.tab-input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.tab-input:focus-visible + .tab-label {
+  outline: 2px solid var(--text-muted);
+}`,
+    features: ["clip-path", "focus-visible"],
+    notes: [
+      "Visually hidden, still focusable: arrow keys move between tabs",
+      "Focus ring on the label, for now",
+    ],
+    title: "Hide radios",
+  },
+  {
+    css: `
+.tab-label {
+  background-color: var(--surface-tonal);
+  isolation: isolate;
+  padding: calc(0.25rem + var(--inset)) 0.75rem;
+  position: relative;
+}
+
+.tab-label::before {
+  border-radius: calc(var(--radius) - var(--inset));
+  content: "";
+  inset: var(--inset) 0;
+  position: absolute;
+  transition: background-color 0.1s;
+  z-index: -1;
+}
+
+.tab-label:nth-child(1 of .tab-label) {
+  border-end-start-radius: var(--radius);
+  border-start-start-radius: var(--radius);
+  padding-inline-start: calc(0.75rem + var(--inset));
+
+  &::before {
+    inset-inline-start: var(--inset);
+  }
+}
+
+.tab-label:nth-last-child(1 of .tab-label) {
+  border-end-end-radius: var(--radius);
+  border-start-end-radius: var(--radius);
+  padding-inline-end: calc(0.75rem + var(--inset));
+
+  &::before {
+    inset-inline-end: var(--inset);
+  }
+}
+
+.tab-input:checked + .tab-label::before {
+  background-color: var(--surface-default);
+  box-shadow: var(--shadow-1);
+}
+
+.tab-input:focus-visible + .tab-label {
+  outline: none;
+}
+
+.tab-input:focus-visible + .tab-label::before {
+  outline: 2px solid var(--text-muted);
+}`,
+    features: ["isolation", "nth-child-of"],
+    notes: [
+      "Each label paints its slice of the track",
+      "The pill is a <code>::before</code> inset from the track",
+      "<code>:nth-child(1 of .tab-label)</code> finds the first label among the radios and panels",
+      "Inner radius = outer radius − inset",
+      "Logical radii round the ends in right-to-left too",
+      "The focus ring moves onto the pill",
+    ],
+    title: "Segmented",
+  },
+]
+
+const knobs = [
+  {
+    label: "Inset",
+    max: 8,
+    min: 0,
+    property: "--inset",
+    unit: "px",
+    value: 3,
+  },
+  {
+    label: "Radius",
+    max: 24,
+    min: 4,
+    property: "--radius",
+    step: 2,
+    unit: "px",
+    value: 10,
+  },
+]
+
+const tabs = [
+  { label: "Profile", panel: "Profile settings and information." },
+  { label: "Settings", panel: "General account settings." },
+  { label: "Billing", panel: "Plans, invoices and payment methods." },
+]
+---
+
+<BuildUp id="build-tabs" knobs={knobs} steps={steps}>
+  <div aria-label="Account" class="tabs" role="radiogroup">
+    {
+      tabs.map((tab, index) => (
+        <>
+          <input
+            checked={index === 0}
+            class="tab-input"
+            id={`build-tab-${index}`}
+            name="build-tabs"
+            type="radio"
+          />
+          <label class="tab-label" for={`build-tab-${index}`}>
+            {tab.label}
+          </label>
+          <div class="tab-panel">{tab.panel}</div>
+        </>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .tabs {
+    inline-size: min(100%, 24rem);
+  }
+
+  .tab-label {
+    cursor: pointer;
+    font-size: var(--font-size-1);
+    font-weight: 500;
+  }
+
+  .tab-panel {
+    margin-block-start: var(--size-2);
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.checkbox {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: var(--size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-1);
+  box-sizing: border-box;
+  display: grid;
+  inline-size: var(--size);
+  margin: 0;
+  position: relative;
+}
+
+.checkbox:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}`,
+    features: ["appearance", "light-dark", "relative-color"],
+    notes: [
+      "<code>appearance: none</code> drops the native box, the input keeps focus, keyboard and form value",
+      "<code>:checked</code> still matches: the fill is plain CSS",
+      "In dark mode <code>--accent</code> caps the primary's lightness, so the light check keeps 3:1",
+    ],
+    title: "Appearance",
+  },
+  {
+    css: `
+.checkbox::after {
+  background-color: var(--accent-contrast);
+  clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox:checked::after {
+  opacity: 1;
+}`,
+    features: ["clip-path"],
+    notes: [
+      "Without native appearance the input can take a <code>::after</code>",
+      "The check is a <code>clip-path: polygon()</code> over a solid fill, no SVG",
+      "Points in percentages, so it scales with the box",
+    ],
+    title: "Checkmark",
+  },
+  {
+    css: `
+.checkbox:indeterminate {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.checkbox:indeterminate::after {
+  clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
+  opacity: 1;
+}`,
+    features: ["indeterminate"],
+    html: `
+<input class="checkbox" type="checkbox" data-indeterminate />
+
+<script>
+  for (const input of document.querySelectorAll("[data-indeterminate]")) {
+    input.indeterminate = true
+  }
+</script>`,
+    notes: [
+      "Same pseudo-element, a different polygon: a dash",
+      "<code>indeterminate</code> is a JavaScript-only property, there is no attribute",
+      "The component renders <code>data-indeterminate</code> and sets the property on load",
+    ],
+    title: "Indeterminate",
+  },
+  {
+    css: `
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+.label:has([disabled]) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+.label > span {
+  margin-block-start: calc((var(--size) - 1lh) / 2);
+}`,
+    features: ["has", "lh"],
+    notes: [
+      "The <code>&lt;label&gt;</code> wraps the input, so the text is part of the hit area",
+      "<code>:has([disabled])</code> dims the whole row from the input's state",
+      "<code>(size − 1lh) / 2</code> centers the first line on the box, in every browser",
+      "Drag the size: the text stays centered",
+    ],
+    title: "Label",
+  },
+  {
+    css: `
+@media (forced-colors: active) {
+  .checkbox {
+    border-color: CanvasText;
+  }
+
+  .checkbox:is(:checked, :indeterminate) {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+  }
+
+  .checkbox:is(:checked, :indeterminate)::after {
+    background-color: SelectedItemText;
+  }
+}`,
+    features: ["forced-colors", "system-color"],
+    notes: [
+      "Forced colors swap author colors for the user's palette, so the fill and the check, both backgrounds, disappear",
+      "System colors are kept: <code>SelectedItem</code> for the fill, <code>SelectedItemText</code> for the check",
+      "Try it with forced colors emulation in DevTools",
+    ],
+    title: "Forced colors",
+  },
+]
+
+const knobs = [
+  {
+    label: "Size",
+    max: 40,
+    min: 16,
+    property: "--size",
+    step: 4,
+    unit: "px",
+    value: 20,
+  },
+]
+
+const items = [
+  { checked: true, label: "Notifications" },
+  { label: "Newsletter" },
+  { indeterminate: true, label: "Select all" },
+  { checked: true, disabled: true, label: "Disabled" },
+]
+---
+
+<BuildUp id="build-checkbox" knobs={knobs} steps={steps}>
+  <div class="stack">
+    {
+      items.map((item) => (
+        <label class="label">
+          <input
+            checked={item.checked}
+            class="checkbox"
+            data-indeterminate={item.indeterminate ? "" : undefined}
+            disabled={item.disabled}
+            type="checkbox"
+          />
+          <span>{item.label}</span>
+        </label>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .label {
+    align-items: start;
+    display: flex;
+    gap: var(--size-2);
+  }
+</style>
+
+<script>
+  import { initCheckbox } from "@opui/css/js/checkbox.js"
+  initCheckbox()
+</script>

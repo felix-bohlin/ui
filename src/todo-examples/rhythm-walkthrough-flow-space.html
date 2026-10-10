@@ -1,0 +1,100 @@
+<style>
+  @property --todo-flow-space {
+    inherits: true;
+    initial-value: 0px;
+    syntax: "<length>";
+  }
+
+  .todo-compare {
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-prose {
+    --rhythm-step: 8px;
+    --size: 29px;
+
+    background-image: linear-gradient(
+      to bottom,
+      oklch(from var(--primary) l c h / 70%) 1px,
+      transparent 1px
+    );
+    background-repeat: repeat;
+    background-size: 100% var(--rhythm-step);
+    font-size: 16px;
+    line-height: 24px;
+    padding-block-start: var(--rhythm-step);
+
+    & > * {
+      margin-block: 0 var(--flow-space);
+      outline: 1px solid oklch(from var(--critical) l c h / 60%);
+    }
+
+    & h2 {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        oklch(from var(--primary) l c h / 15%) 0 1lh,
+        transparent 1lh 2lh
+      );
+      font-size: round(var(--size), var(--rhythm-step) / 2);
+      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+      text-wrap: balance;
+    }
+  }
+
+  .todo-current {
+    --flow-space: 1.25em;
+
+    & h2 {
+      margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+    }
+  }
+
+  .todo-proposed {
+    --flow-space: var(--todo-flow-space);
+    --todo-flow-space: round(1.25em, var(--rhythm-step));
+
+    & h2 {
+      margin-block: calc(var(--flow-space) * 3)
+        round(var(--flow-space) * 0.75, var(--rhythm-step));
+    }
+  }
+</style>
+<p>
+  16px body text, 8px grid (green lines), 29px heading. Red outlines are the
+  block edges, which should sit on a grid line. Stripes mark the heading's line
+  boxes.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough: unregistered <code>--flow-space: 1.25em</code>
+    </p>
+    <div class="todo-prose todo-current">
+      <p>Body text sets the flow space for everything around it.</p>
+      <h2>A heading that wraps onto two lines</h2>
+      <p>Text that follows the heading it belongs to.</p>
+      <p>The next paragraph.</p>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Library: registered <code>&lt;length&gt;</code>, rounded to the step
+    </p>
+    <div class="todo-prose todo-proposed">
+      <p>Body text sets the flow space for everything around it.</p>
+      <h2>A heading that wraps onto two lines</h2>
+      <p>Text that follows the heading it belongs to.</p>
+      <p>The next paragraph.</p>
+    </div>
+  </div>
+</div>

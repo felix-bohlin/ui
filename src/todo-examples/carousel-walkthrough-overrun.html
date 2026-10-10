@@ -1,0 +1,73 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 20rem);
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-track {
+    --gap: 32px;
+    --per-view: 3;
+
+    display: grid;
+    gap: var(--gap);
+    grid-auto-columns: calc(
+      (100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view)
+    );
+    grid-auto-flow: column;
+    inline-size: 18rem;
+    outline: 1px dashed var(--border-color);
+    overflow-x: auto;
+    padding-block: var(--size-2);
+
+    & > li {
+      background-color: var(--surface-tonal);
+      border-radius: var(--radius-2);
+      display: grid;
+      font-weight: 600;
+      list-style: none;
+      min-block-size: 5rem;
+      place-items: center;
+    }
+  }
+
+  .todo-current > li {
+    min-inline-size: 7rem;
+  }
+
+  .todo-library > li {
+    min-inline-size: 0;
+  }
+</style>
+<p>
+  3 per view, 32px gap, an 18rem track. The note says item width = (track −
+  gaps) ÷ items per view, about 4.6rem here.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough demo: <code>min-inline-size: 7rem</code>, slides overrun the
+      gap
+    </p>
+    <ul class="todo-track todo-current">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>min-inline-size: 0</code></p>
+    <ul class="todo-track todo-library">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </div>
+</div>

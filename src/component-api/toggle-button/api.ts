@@ -2,32 +2,31 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
-  notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
-  },
   options: [
     {
-      class: ".ui-disabled",
+      attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "svelte", "vue"],
       group: "State",
+      part: "input",
       prop: "disabled",
       type: "boolean",
     },
     {
       description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      description: "The input value when `value` is omitted.",
+      description:
+        "The button text when there is no child content, and the input value when `value` is omitted.",
       prop: "label",
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "name",
       type: "string",
     },
@@ -43,7 +42,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"checkbox"',
@@ -55,7 +58,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "value",
       type: "string",
     },

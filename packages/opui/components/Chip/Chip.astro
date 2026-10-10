@@ -6,6 +6,8 @@ export const title = "Chip"
 const {
   as: Tag = Astro.props.href ? "a" : "div",
   class: className,
+  color,
+  dot,
   label,
   multiline,
   size,
@@ -18,12 +20,15 @@ const {
   class:list={[
     "ui-chip",
     {
+      "ui-dot": dot,
       "ui-multiline": multiline,
     },
+    color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     className,
   ]}
+  type={Tag === "button" ? "button" : undefined}
   {...rest as any}
   ><slot name="start" /><slot />{
     label && <span class="ui-text">{label}</span>

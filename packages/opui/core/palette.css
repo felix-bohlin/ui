@@ -1,225 +1,38 @@
-@property --color-1 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-2 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-3 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-4 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-5 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-6 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-7 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-8 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-9 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-10 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-11 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-12 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-13 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-14 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-15 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --color-16 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-1 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-2 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-3 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-4 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-5 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-6 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-7 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-8 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-9 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-10 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-11 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-12 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-13 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-14 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-15 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --gray-16 {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --palette-source {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: transparent;
-}
-
-@property --palette-hue {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 240;
-}
-
 @layer theme.palette {
+  :where(:root) {
+    --palette-hue: 250;
+    --palette-hue-rotate-by: 0;
+    --palette-chroma: 0.15;
+    --gray-chroma: 0.01;
+    --gray-hue: 255;
+  }
+
   :where(
     :root,
     .ui-warning,
     .ui-critical,
     .ui-info,
     .ui-success,
-    [data-invalid],
+    .ui-neutral,
+    .ui-del,
+    .ui-ins,
+    :is(
+      .ui-checkbox,
+      .ui-radio,
+      .ui-range,
+      .ui-select,
+      .ui-switch,
+      .ui-text-field,
+      .ui-textarea
+    ):has([aria-invalid="true"]),
     del,
     ins,
     abbr,
     dfn,
+    .ui-abbr,
+    .ui-dfn,
     .ui-palette
   ) {
-    --palette-hue: 250;
-    --palette-hue-rotate-by: 0;
-    --palette-chroma: 0.15;
-
     --palette-source: oklch(
       58% calc(0.21 * var(--palette-chroma, 1)) var(--palette-hue, 250)
     );
@@ -291,9 +104,6 @@
     );
 
     /* Grays */
-    --gray-chroma: 0.01;
-    --gray-hue: 255;
-
     --gray-1: oklch(from var(--color-1) l var(--gray-chroma) var(--gray-hue));
     --gray-2: oklch(from var(--color-2) l var(--gray-chroma) var(--gray-hue));
     --gray-3: oklch(from var(--color-3) l var(--gray-chroma) var(--gray-hue));

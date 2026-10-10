@@ -11,26 +11,27 @@ for (const [path, loader] of Object.entries(loaders)) {
   if (match) registry.set(match[1], loader)
 }
 
+async function mount(el: HTMLElement) {
+  const id = el.getAttribute("data-vue-example")
+  if (!id) return
+
+  const loader = registry.get(id)
+  if (!loader) return
+
+  el.setAttribute("data-vue-mounted", "")
+  const mod = await loader()
+  el.innerHTML = ""
+  const app = createApp(mod.default as Parameters<typeof createApp>[0])
+  app.config.idPrefix = id.replace(/[^\w-]/g, "-")
+  app.mount(el)
+}
+
 async function mountAll() {
   const targets = document.querySelectorAll<HTMLElement>(
     "[data-vue-example]:not([data-vue-mounted])",
   )
 
-  for (const el of targets) {
-    const id = el.getAttribute("data-vue-example")
-    if (!id) continue
-
-    const loader = registry.get(id)
-    if (!loader) continue
-
-    el.setAttribute("data-vue-mounted", "")
-    const mod = await loader()
-    el.innerHTML = ""
-    const app = createApp(mod.default as Parameters<typeof createApp>[0])
-    app.config.idPrefix = id.replace(/[^\w-]/g, "-")
-    app.mount(el)
-  }
+  await Promise.all([...targets].map(mount))
 }
 
 mountAll()
-document.addEventListener("astro:after-swap", mountAll)

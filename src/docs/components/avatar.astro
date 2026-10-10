@@ -1,18 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import DocLink from "../../components/DocLink.astro"
 
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import avatarApi from "../../component-api/avatar/api"
+import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
+export const description =
+  "Avatars show a person or entity as an image, initials or icon."
 ---
 
 <Component
+  description={description}
   slug="avatar"
   apis={[{ title: "Avatar API", api: avatarApi }]}
-  browserSupport={["has"]}
+  browserSupport={["corner-shape", "has", "overflow-clip"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Avatar/Avatar.astro",
@@ -60,12 +66,30 @@ import avatarApi from "../../component-api/avatar/api"
           >.ui-rounded</code
         > and <code>.ui-squircle</code> classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the shape of the avatar with the <code>variant</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the shape of the avatar with the <code>variant</code> prop.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+
+    <p>
+      Use <PropOrClass prop='size="x-small"' class=".ui-x-small" />, <PropOrClass
+        prop='size="small"'
+        class=".ui-small"
+      /> or <PropOrClass prop='size="large"' class=".ui-large" /> to match the control
+      sizes, for example in dense lists, table rows and bylines. Letters and icons
+      scale with the avatar.
+    </p>
+
+    <AutoExample name="Sizes" row />
   </section>
 
   <section>
@@ -77,7 +101,12 @@ import avatarApi from "../../component-api/avatar/api"
         container.
       </Fragment>
       <Fragment slot="html">
-        Group multiple avatars by adding <code>role="group"</code> to a parent container.
+        Group multiple avatars in a <code>.ui-avatar-group</code> element with
+        <code>role="group"</code> and an <code>aria-label</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
+        container.
       </Fragment>
       <Fragment slot="vue">
         Group multiple avatars by setting the <code>isGroup</code> prop on a parent
@@ -86,5 +115,33 @@ import avatarApi from "../../component-api/avatar/api"
     </Conditional>
 
     <AutoExample name="Grouped" row />
+
+    <p>
+      A <DocLink href="/components/badge">Badge</DocLink> on an avatar in a group
+      sits on the avatar's start side, the part the next avatar doesn't cover.
+    </p>
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Give an image avatar the person's name as its <code>alt</code>, not
+        "Avatar". When the name is already shown next to it, use <code
+          >alt=""</code
+        > so it isn't read twice.
+      </li>
+      <li>
+        Initials and icons have no name on their own. Add <code>role="img"</code
+        > and an <code>aria-label</code> with the full name, or <code
+          >aria-hidden="true"</code
+        > when the name is next to it.
+      </li>
+      <li>
+        A link or button avatar needs an <code>aria-label</code> that names the person,
+        and a group of avatars an <code>aria-label</code> that names the group.
+      </li>
+    </ul>
+  </Fragment>
+
+  <AvatarBuild slot="under-the-hood" />
 </Component>

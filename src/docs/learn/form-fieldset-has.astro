@@ -1,0 +1,88 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="form-fieldset-has">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> are the right
+      markup for a group of fields, but they come with a border, padding and a legend
+      notched into the border.
+    </p>
+    <p>
+      The spacing also depends on what is inside: a description under the
+      legend, a list of checkboxes, a row of buttons, a required field. That
+      usually means modifier classes or props kept in sync with the content.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>all: unset</code> on both drops the native box and the notch. What's
+        left is a grid
+      </li>
+      <li>
+        <code>legend:has(+ .description)</code> moves the spacing from the legend
+        to the description
+      </li>
+      <li>
+        <code>:has(&gt; .checkbox):not(:has(&gt; :not(.checkbox)))</code>{" "}
+        matches a group of only checkboxes, radios or switches, and tightens the gap
+      </li>
+      <li>The same pattern turns a group of only buttons into a row</li>
+      <li>
+        <code>fieldset:has(:required)</code> adds an asterisk to the legend
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.fieldset {
+  all: unset;
+  display: grid;
+  gap: 0.25rem;
+  min-inline-size: 0;
+}
+
+.fieldset legend:has(+ .description) {
+  margin-block-end: 0;
+}
+
+.group:has(> .checkbox):not(:has(> :not(.checkbox))) {
+  gap: 0.5rem;
+}
+
+.fieldset:has(:required) legend::after {
+  color: var(--field-required-color);
+  content: "*";
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <FormBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        <code>:has()</code> and <code>all</code> are widely available
+      </li>
+      <li>
+        Each <code>:has()</code> rule stands alone, so a browser without it drops
+        only those rules: the legend keeps its margin, groups keep the default gap,
+        buttons stack and the asterisk is gone
+      </li>
+      <li>
+        The <code>required</code> attribute still tells assistive tech, the asterisk
+        is only visual
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

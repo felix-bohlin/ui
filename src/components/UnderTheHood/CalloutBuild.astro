@@ -1,0 +1,190 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.callout {
+  --border: var(--surface-tonal);
+  background-color: var(--surface-default);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  color: var(--text-primary);
+  padding: 0.75rem;
+}
+
+.callout > .content {
+  display: grid;
+  font-size: var(--font-size-05);
+  gap: 0.5rem;
+}`,
+    html: `
+<article class="callout">
+  <div class="content">
+    <h3>Heads up</h3>
+    <p>…</p>
+  </div>
+</article>`,
+    notes: [
+      "<code>&lt;article&gt;</code>: self-contained content in the flow, not an interruption",
+      "An opaque surface first, the tint comes next",
+      "Colors live in custom properties so variants only swap values",
+    ],
+    title: "Surface",
+  },
+  {
+    css: `
+.callout {
+  --bg: var(--surface-tonal);
+  isolation: isolate;
+  position: relative;
+}
+
+.callout::before {
+  background-color: var(--bg);
+  border-radius: calc(var(--radius-2) - 1px);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}`,
+    features: ["before-after", "isolation"],
+    notes: [
+      "The tint is a <code>::before</code> layer, so it can be translucent over the opaque surface",
+      "<code>z-index: -1</code> puts it behind the text, <code>isolation: isolate</code> keeps it from falling behind the callout",
+      "Inner radius = outer radius − border width",
+    ],
+    title: "Tint layer",
+  },
+  {
+    css: `
+.callout:has(> svg) {
+  align-content: start;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: var(--icon-size) 1fr;
+}
+
+.callout > svg {
+  margin-block-start: 0.15rem;
+}`,
+    features: ["has"],
+    notes: [
+      "<code>:has(&gt; svg)</code> switches to a two-column grid only when there's an icon",
+      "No icon prop or modifier class: put an <code>&lt;svg&gt;</code> first and the layout follows",
+    ],
+    title: "Icon",
+  },
+  {
+    css: `
+.info {
+  --tone: oklch(58% 0.21 var(--hue-blue));
+}
+
+.warning {
+  --tone: oklch(58% 0.21 var(--hue-orange));
+}
+
+.callout:is(.info, .warning) {
+  --bg: light-dark(
+    oklch(from var(--tone) 97% 0.06 h / 20%),
+    oklch(from var(--tone) 71% 0.19 h / 5%)
+  );
+  --border: light-dark(
+    oklch(from var(--tone) 80% 0.16 h),
+    oklch(from var(--tone) 42% 0.17 h)
+  );
+  --icon: oklch(from var(--tone) 53% 0.2 h);
+  color: light-dark(
+    oklch(from var(--tone) 10% 0.05 h),
+    oklch(from var(--tone) 98% 0.03 h)
+  );
+}
+
+.callout > svg {
+  color: var(--icon, currentColor);
+}`,
+    features: ["light-dark", "relative-color"],
+    notes: [
+      "One source color per severity, every shade derived with <code>oklch(from …)</code>",
+      "<code>light-dark()</code> picks the shade for each color scheme, no media query",
+      "A 20% tint in light, 5% in dark: the opaque surface underneath does the rest",
+      "The real palette derives 16 shades from <code>--palette-source</code>, here seven are inlined",
+      "The icon draws with <code>currentColor</code>, so <code>color</code> tints fill and stroke icons alike",
+    ],
+    title: "Severity",
+  },
+]
+
+const icons = {
+  info: "M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4",
+  warning:
+    "M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z",
+}
+
+const callouts = [
+  {
+    icon: icons.info,
+    severity: "info",
+    text: "Callouts sit in the flow of the page.",
+    title: "Heads up",
+  },
+  {
+    icon: icons.warning,
+    severity: "warning",
+    text: "Use both color and an icon to convey severity.",
+    title: "Careful",
+  },
+  {
+    text: "No icon, no severity: a plain tonal surface.",
+    title: "Note",
+  },
+]
+---
+
+<BuildUp id="build-callout" steps={steps}>
+  <div class="stack">
+    {
+      callouts.map((callout) => (
+        <article class:list={["callout", callout.severity]}>
+          {callout.icon && (
+            <svg
+              aria-hidden="true"
+              height="32"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d={callout.icon} fill="currentColor" />
+            </svg>
+          )}
+          <div class="content">
+            <h3>{callout.title}</h3>
+            <p>{callout.text}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: min(100%, 24rem);
+  }
+
+  .content {
+    & > * {
+      margin: 0;
+    }
+
+    & h3 {
+      color: inherit;
+      font-size: var(--font-size-1);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+</style>

@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Select",
+  css: ["select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",
@@ -9,9 +10,11 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.",
-    html: "The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.",
-    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
+      "Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.",
+    html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    svelte:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
+    vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
   },
   options: [
     {
@@ -23,28 +26,33 @@ export default {
       prop: "dense",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "select",
       prop: "error",
     },
     {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
     {
       default: "[]",
-      description: "The options, as `{ text, value }` objects.",
+      description: "The options, as `{ selected, text, value }` objects.",
       prop: "items",
     },
     {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",

@@ -75,7 +75,8 @@
     padding: var(--size-3);
   }
 
-  :where(input, button, select, textarea) {
+  :where(input, button, select, textarea),
+  :where(input[type="file"])::file-selector-button {
     color: inherit;
     font: inherit;
     letter-spacing: inherit;

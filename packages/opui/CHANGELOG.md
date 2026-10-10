@@ -52,7 +52,7 @@
 - `Avatar` squircle no longer falls back to a rounded square. Without `corner-shape` it is a circle.
 - `Range` no longer wraps the scroll-driven track fill in `@supports (animation-timeline: view())`.
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
-- `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`, and sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields.
+- `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`, sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and sets font and color inheritance on `::file-selector-button`.
 - `normalize.css` no longer falls back to `--text-color-2` when `--text-muted` is unset.
 - `normalize.css` no longer sets `text-rendering: optimizeLegibility` on `body`.
 - `Select` no longer hides `option::before`.

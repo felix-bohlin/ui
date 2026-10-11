@@ -6,11 +6,28 @@
     min-block-size: 20rem;
   }
 
+  .stress-overlays-row-actions {
+    align-items: center;
+    display: flex;
+    gap: var(--size-1);
+  }
+
   .stress-overlays-spread {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-3);
     justify-content: space-between;
+  }
+
+  .stress-overlays-table-scroll {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  .stress-overlays-table-sticky {
+    max-block-size: 12rem;
+    overflow: auto;
+    scroll-padding-block-start: 3rem;
   }
 </style>
 
@@ -3188,6 +3205,2136 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
         </svg>
       </button></div
   ></output>
+</section>
+
+<section class="stress" data-example="SplitButtonMenu">
+  <h2>Split button menus</h2>
+  <p>
+    Filled and outlined split buttons in every size, each with an end aligned
+    menu, spread across a toolbar, in a dialog footer and in a block end drawer
+    footer. Every menu lines up with the end of its group, flips away from the
+    viewport edge and sits above the dialog or drawer.
+  </p>
+  <div class="stress-overlays-spread">
+    <div role="group" class="ui-button-group ui-x-small ui-filled">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-filled-x-small"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-filled-x-small"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-small ui-filled">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-filled-small"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-filled-small"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-filled">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-filled-default"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-filled-default"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-large ui-filled">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-filled-large"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-filled-large"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-filled-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+  </div>
+  <div class="stress-overlays-spread">
+    <div role="group" class="ui-button-group ui-x-small ui-outlined">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-outlined-x-small"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-outlined-x-small"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-x-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-small ui-outlined">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-outlined-small"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-outlined-small"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-small"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-outlined">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-outlined-default"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-outlined-default"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-default"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div role="group" class="ui-button-group ui-large ui-outlined">
+      <button type="button" class="ui-button">Save</button
+      ><button
+        class="ui-button"
+        type="button"
+        aria-label="More save options"
+        commandfor="stress-overlays-split-outlined-large"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-split-outlined-large"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save and publish</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Save as draft</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-split-outlined-large"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Schedule</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+  </div>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-split-dialog"
+      command="show-modal"
+    >
+      Publish post</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-split-drawer"
+      command="show-modal"
+    >
+      Bulk edit
+    </button>
+  </div>
+  <dialog
+    id="stress-overlays-split-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-split-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-split-dialog-heading" class="ui-h4">
+        Publish post
+      </h2>
+    </hgroup>
+    <div class="ui-content">
+      <p>The post goes live for everyone who follows the blog.</p>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-split-dialog"
+        command="close"
+      >
+        Cancel
+      </button>
+      <div role="group" class="ui-button-group ui-filled">
+        <button type="button" class="ui-button">Save</button
+        ><button
+          class="ui-button"
+          type="button"
+          aria-label="More save options"
+          commandfor="stress-overlays-split-dialog-menu"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </button>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="stress-overlays-split-dialog-menu"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save and publish</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save as draft</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Schedule</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-block-end"
+    id="stress-overlays-split-drawer"
+    aria-labelledby="stress-overlays-split-drawer-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-split-drawer-heading">3 posts selected</h2>
+      <button
+        class="ui-button ui-rounded ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-split-drawer"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content"><p>Changes apply to every selected post.</p></div>
+    <div class="ui-footer">
+      <div role="group" class="ui-button-group ui-small ui-outlined">
+        <button type="button" class="ui-button">Save</button
+        ><button
+          class="ui-button"
+          type="button"
+          aria-label="More save options"
+          commandfor="stress-overlays-split-drawer-outlined"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </button>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="stress-overlays-split-drawer-outlined"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-outlined"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save and publish</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-outlined"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save as draft</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-outlined"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Schedule</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+      <div role="group" class="ui-button-group ui-small ui-filled">
+        <button type="button" class="ui-button">Save</button
+        ><button
+          class="ui-button"
+          type="button"
+          aria-label="More save options"
+          commandfor="stress-overlays-split-drawer-filled"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </button>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="stress-overlays-split-drawer-filled"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-filled"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save and publish</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-filled"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Save as draft</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-split-drawer-filled"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Schedule</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="TableRowMenus">
+  <h2>Menus and tooltips in table rows</h2>
+  <p>
+    Row actions that open menus and tooltips, in a wide table inside its
+    horizontal scroll wrapper and in a sticky header table inside a scroll box.
+    Scroll either box so a trigger sits against a clipped edge or right below
+    the sticky header: the overlay escapes the box, stays on its trigger and
+    covers the sticky header.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <h3>Scroll wrapper</h3>
+      <div
+        class="stress-overlays-table-scroll"
+        role="region"
+        aria-label="Commits"
+        tabindex="0"
+      >
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Commit</th>
+              <th>Author</th>
+              <th>Message</th>
+              <th><span class="ui-sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9f86d081884c7d659a2feaa0c55ad015</td>
+              <td>Ada Lovelace</td>
+              <td>Fix overflow</td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 9f86d08"
+                      interestfor="stress-overlays-table-scroll-tip-1"
+                      commandfor="stress-overlays-table-scroll-tip-1"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-scroll-tip-1"
+                      popover="hint"
+                      >Copy a link to this commit</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 9f86d08"
+                    commandfor="stress-overlays-table-scroll-menu-1"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-scroll-menu-1"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Cherry-pick</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Revert</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View diff</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>e3b0c44298fc1c149afbf4c8996fb924</td>
+              <td>Alan Turing</td>
+              <td>Add tests</td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share e3b0c44"
+                      interestfor="stress-overlays-table-scroll-tip-2"
+                      commandfor="stress-overlays-table-scroll-tip-2"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-scroll-tip-2"
+                      popover="hint"
+                      >Copy a link to this commit</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for e3b0c44"
+                    commandfor="stress-overlays-table-scroll-menu-2"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-scroll-menu-2"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Cherry-pick</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Revert</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View diff</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2c26b46b68ffc68ff99b453c1d304134</td>
+              <td>Grace Hopper</td>
+              <td>Update docs</td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2c26b46"
+                      interestfor="stress-overlays-table-scroll-tip-3"
+                      commandfor="stress-overlays-table-scroll-tip-3"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-scroll-tip-3"
+                      popover="hint"
+                      >Copy a link to this commit</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2c26b46"
+                    commandfor="stress-overlays-table-scroll-menu-3"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-scroll-menu-3"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Cherry-pick</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Revert</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-scroll-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View diff</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stress-wide-column">
+      <h3>Sticky header</h3>
+      <div
+        class="stress-overlays-table-sticky"
+        role="region"
+        aria-label="Deployments"
+        tabindex="0"
+      >
+        <table class="ui-table ui-sticky-header">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Environment</th>
+              <th>
+                <div class="stress-overlays-row-actions">
+                  Status<span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="About status"
+                      interestfor="stress-overlays-table-sticky-tip-status"
+                      commandfor="stress-overlays-table-sticky-tip-status"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-status"
+                      popover="hint"
+                      >Degraded means at least one health check failed</span
+                    ></span
+                  >
+                </div>
+              </th>
+              <th><span class="ui-sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-09-21</td>
+              <td>Production</td>
+              <td>
+                <span class="ui-chip ui-small"
+                  ><span class="ui-text">Healthy</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-21"
+                      interestfor="stress-overlays-table-sticky-tip-1"
+                      commandfor="stress-overlays-table-sticky-tip-1"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-1"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-21"
+                    commandfor="stress-overlays-table-sticky-menu-1"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-1"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-1"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2026-09-22</td>
+              <td>Staging</td>
+              <td>
+                <span class="ui-chip ui-small"
+                  ><span class="ui-text">Healthy</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-22"
+                      interestfor="stress-overlays-table-sticky-tip-2"
+                      commandfor="stress-overlays-table-sticky-tip-2"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-2"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-22"
+                    commandfor="stress-overlays-table-sticky-menu-2"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-2"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-2"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2026-09-23</td>
+              <td>Production</td>
+              <td>
+                <span class="ui-chip ui-small ui-outlined"
+                  ><span class="ui-text">Degraded</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-23"
+                      interestfor="stress-overlays-table-sticky-tip-3"
+                      commandfor="stress-overlays-table-sticky-tip-3"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-3"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-23"
+                    commandfor="stress-overlays-table-sticky-menu-3"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-3"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-3"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2026-09-24</td>
+              <td>Staging</td>
+              <td>
+                <span class="ui-chip ui-small"
+                  ><span class="ui-text">Healthy</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-24"
+                      interestfor="stress-overlays-table-sticky-tip-4"
+                      commandfor="stress-overlays-table-sticky-tip-4"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-4"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-24"
+                    commandfor="stress-overlays-table-sticky-menu-4"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-4"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-4"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-4"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-4"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2026-09-25</td>
+              <td>Production</td>
+              <td>
+                <span class="ui-chip ui-small"
+                  ><span class="ui-text">Healthy</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-25"
+                      interestfor="stress-overlays-table-sticky-tip-5"
+                      commandfor="stress-overlays-table-sticky-tip-5"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-5"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-25"
+                    commandfor="stress-overlays-table-sticky-menu-5"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-5"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-5"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-5"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-5"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2026-09-26</td>
+              <td>Staging</td>
+              <td>
+                <span class="ui-chip ui-small ui-outlined"
+                  ><span class="ui-text">Degraded</span></span
+                >
+              </td>
+              <td>
+                <div class="stress-overlays-row-actions">
+                  <span class="ui-anchor ui-tooltip"
+                    ><button
+                      class="ui-button ui-rounded ui-x-small"
+                      type="button"
+                      aria-label="Share 2026-09-26"
+                      interestfor="stress-overlays-table-sticky-tip-6"
+                      commandfor="stress-overlays-table-sticky-tip-6"
+                      command="toggle-popover"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+                        />
+                      </svg></button
+                    ><span
+                      class="ui-anchor-floating"
+                      id="stress-overlays-table-sticky-tip-6"
+                      popover="hint"
+                      >Copy a link to this deployment</span
+                    ></span
+                  ><button
+                    class="ui-button ui-rounded ui-x-small"
+                    type="button"
+                    aria-label="More actions for 2026-09-26"
+                    commandfor="stress-overlays-table-sticky-menu-6"
+                    command="toggle-popover"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                      />
+                    </svg>
+                  </button>
+                  <menu
+                    class="ui-menu ui-list ui-align-end"
+                    id="stress-overlays-table-sticky-menu-6"
+                    popover
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-6"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Redeploy</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-6"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>Roll back</p></div>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        commandfor="stress-overlays-table-sticky-menu-6"
+                        command="hide-popover"
+                      >
+                        <div class="ui-text"><p>View logs</p></div>
+                      </button>
+                    </li>
+                  </menu>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="ToolbarTooltips">
+  <h2>Toolbar tooltips</h2>
+  <p>
+    Icon only square and rounded buttons with tooltips in a button group, next
+    to a menu, inside a dialog and in a drawer header, including tooltips on
+    <code>aria-disabled</code> buttons. Open the menu and hover the button next
+    to it: the tooltip opens below, over the menu, and the menu stays open.
+  </p>
+  <div class="stress-row stress-center">
+    <span class="ui-anchor ui-tooltip"
+      ><div
+        role="group"
+        class="ui-button-group ui-outlined"
+        aria-label="Alignment"
+      >
+        <button
+          class="ui-button"
+          type="button"
+          aria-label="Align left"
+          interestfor="stress-overlays-toolbar-tip-align-left"
+          commandfor="stress-overlays-toolbar-tip-align-left"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 21h18v-2H3v2zm0-4h12v-2H3v2zm0-4h18v-2H3v2zm0-4h12v-2H3v2zm0-6v2h18V3H3z"
+            />
+          </svg></button
+        ><button
+          class="ui-button"
+          type="button"
+          aria-label="Align center"
+          interestfor="stress-overlays-toolbar-tip-align-center"
+          commandfor="stress-overlays-toolbar-tip-align-center"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 21h18v-2H3v2zm4-4h10v-2H7v2zm-4-4h18v-2H3v2zm4-4h10v-2H7v2zM3 3v2h18V3H3z"
+            />
+          </svg></button
+        ><button
+          class="ui-button"
+          type="button"
+          aria-label="Align right"
+          interestfor="stress-overlays-toolbar-tip-align-right"
+          commandfor="stress-overlays-toolbar-tip-align-right"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12v-2H9v2zM3 3v2h18V3H3z"
+            />
+          </svg>
+        </button>
+      </div>
+      <span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-align-left"
+        popover="hint"
+        >Align to the start</span
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-align-center"
+        popover="hint"
+        >Align to the center</span
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-align-right"
+        popover="hint"
+        >Align to the end</span
+      ></span
+    ><span class="ui-anchor ui-tooltip"
+      ><button
+        class="ui-button ui-outlined"
+        type="button"
+        aria-label="Edit"
+        interestfor="stress-overlays-toolbar-tip-edit"
+        commandfor="stress-overlays-toolbar-tip-edit"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+          />
+        </svg></button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-edit"
+        popover="hint"
+        >Edit the caption</span
+      ></span
+    ><span class="ui-anchor ui-tooltip"
+      ><button
+        class="ui-button ui-outlined"
+        type="button"
+        aria-label="Delete"
+        aria-disabled="true"
+        interestfor="stress-overlays-toolbar-tip-delete"
+        commandfor="stress-overlays-toolbar-tip-delete"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
+          />
+        </svg></button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-delete"
+        popover="hint"
+        >Select an image to delete it</span
+      ></span
+    ><button
+      class="ui-button ui-rounded"
+      type="button"
+      aria-label="More actions"
+      commandfor="stress-overlays-toolbar-menu"
+      command="toggle-popover"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+        />
+      </svg>
+    </button>
+    <menu class="ui-menu ui-list" id="stress-overlays-toolbar-menu" popover>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-toolbar-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Download</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-toolbar-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Duplicate</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-toolbar-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Move to</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-toolbar-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Rename</p></div>
+        </button>
+      </li>
+    </menu>
+    <span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-end"
+      ><button
+        class="ui-button ui-rounded"
+        type="button"
+        aria-label="Share"
+        interestfor="stress-overlays-toolbar-tip-share"
+        commandfor="stress-overlays-toolbar-tip-share"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+          />
+        </svg></button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-share"
+        popover="hint"
+        >Share a link to the image</span
+      ></span
+    ><span class="ui-anchor ui-tooltip"
+      ><button
+        class="ui-button ui-rounded"
+        type="button"
+        aria-label="Favorite"
+        interestfor="stress-overlays-toolbar-tip-favorite"
+        commandfor="stress-overlays-toolbar-tip-favorite"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
+          />
+        </svg></button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-toolbar-tip-favorite"
+        popover="hint"
+        >Add to favorites</span
+      ></span
+    >
+  </div>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-toolbar-dialog"
+      command="show-modal"
+    >
+      Edit caption</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-toolbar-drawer"
+      command="show-modal"
+    >
+      Image details
+    </button>
+  </div>
+  <dialog
+    id="stress-overlays-toolbar-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-toolbar-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-toolbar-dialog-heading" class="ui-h4">
+        Edit caption
+      </h2>
+    </hgroup>
+    <div class="ui-content">
+      <div class="stress-row stress-center">
+        <span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-button ui-small"
+            type="button"
+            aria-label="Align left"
+            interestfor="stress-overlays-toolbar-dialog-tip-align-left"
+            commandfor="stress-overlays-toolbar-dialog-tip-align-left"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M3 21h18v-2H3v2zm0-4h12v-2H3v2zm0-4h18v-2H3v2zm0-4h12v-2H3v2zm0-6v2h18V3H3z"
+              />
+            </svg></button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-toolbar-dialog-tip-align-left"
+            popover="hint"
+            >Align to the start</span
+          ></span
+        ><span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-button ui-small"
+            type="button"
+            aria-label="Align center"
+            interestfor="stress-overlays-toolbar-dialog-tip-align-center"
+            commandfor="stress-overlays-toolbar-dialog-tip-align-center"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M3 21h18v-2H3v2zm4-4h10v-2H7v2zm-4-4h18v-2H3v2zm4-4h10v-2H7v2zM3 3v2h18V3H3z"
+              />
+            </svg></button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-toolbar-dialog-tip-align-center"
+            popover="hint"
+            >Align to the center</span
+          ></span
+        ><span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-button ui-small"
+            type="button"
+            aria-label="Align right"
+            interestfor="stress-overlays-toolbar-dialog-tip-align-right"
+            commandfor="stress-overlays-toolbar-dialog-tip-align-right"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12v-2H9v2zM3 3v2h18V3H3z"
+              />
+            </svg></button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-toolbar-dialog-tip-align-right"
+            popover="hint"
+            >Align to the end</span
+          ></span
+        ><span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-button ui-rounded ui-small"
+            type="button"
+            aria-label="Clear"
+            aria-disabled="true"
+            interestfor="stress-overlays-toolbar-dialog-tip-clear"
+            commandfor="stress-overlays-toolbar-dialog-tip-clear"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
+              />
+            </svg></button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-toolbar-dialog-tip-clear"
+            popover="hint"
+            >The caption is already empty</span
+          ></span
+        >
+      </div>
+      <p>A sunset over the archipelago, taken from the ferry.</p>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-toolbar-dialog"
+        command="close"
+      >
+        Done
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-end"
+    id="stress-overlays-toolbar-drawer"
+    aria-labelledby="stress-overlays-toolbar-drawer-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-toolbar-drawer-heading">Image details</h2>
+      <span class="ui-anchor ui-tooltip"
+        ><button
+          class="ui-button ui-small"
+          type="button"
+          aria-label="Edit"
+          interestfor="stress-overlays-toolbar-drawer-tip-edit"
+          commandfor="stress-overlays-toolbar-drawer-tip-edit"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+            />
+          </svg></button
+        ><span
+          class="ui-anchor-floating"
+          id="stress-overlays-toolbar-drawer-tip-edit"
+          popover="hint"
+          >Edit the details</span
+        ></span
+      ><span class="ui-anchor ui-tooltip"
+        ><button
+          class="ui-button ui-rounded ui-small"
+          type="button"
+          aria-label="Share"
+          aria-disabled="true"
+          interestfor="stress-overlays-toolbar-drawer-tip-share"
+          commandfor="stress-overlays-toolbar-drawer-tip-share"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+            />
+          </svg></button
+        ><span
+          class="ui-anchor-floating"
+          id="stress-overlays-toolbar-drawer-tip-share"
+          popover="hint"
+          >Only the owner can share this image</span
+        ></span
+      ><span class="ui-anchor ui-tooltip"
+        ><button
+          class="ui-button ui-rounded ui-small"
+          type="button"
+          aria-label="Close"
+          interestfor="stress-overlays-toolbar-drawer-tip-close"
+          commandfor="stress-overlays-toolbar-drawer"
+          command="close"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            />
+          </svg></button
+        ><span
+          class="ui-anchor-floating"
+          id="stress-overlays-toolbar-drawer-tip-close"
+          popover="hint"
+          >Close details</span
+        ></span
+      >
+    </div>
+    <div class="ui-content"><p>Taken on 2026-09-21 with a 35 mm lens.</p></div>
+  </dialog>
 </section>
 
 <section class="stress" data-example="Rtl">

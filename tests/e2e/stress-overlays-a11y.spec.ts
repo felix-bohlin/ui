@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
-import { SCENARIOS, id, opened, run } from "./stress-overlays"
+import { SCENARIOS, id, isOpen, opened, run } from "./stress-overlays"
 
 const CHECKED = [
   "block-start drawer",
@@ -50,10 +50,13 @@ for (const { name, steps } of SCENARIOS.filter((scenario) =>
     await openFixture(page, "html", "stress/overlays")
     for (const step of steps) await run(page, step)
     await page.evaluate(() =>
-      Promise.all(
+      Promise.allSettled(
         document.getAnimations().map((animation) => animation.finished),
       ),
     )
+    for (const overlay of opened(steps)) {
+      expect(await isOpen(page, id(overlay)), overlay).toBe(true)
+    }
 
     const builder = new AxeBuilder({ page }).exclude('iframe[src*="youtube"]')
     for (const overlay of opened(steps)) builder.include(id(overlay))

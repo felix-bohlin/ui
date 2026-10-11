@@ -265,6 +265,15 @@ const count = sections.reduce(
       <Button id="todo-clear" variant="outlined">Clear comments</Button>
     </div>
     <p class="todo-status" id="todo-status" role="status"></p>
+    <div class="todo-copy-fallback" hidden id="todo-copy-fallback">
+      <Textarea
+        id="todo-copy-text"
+        label="Todos and comments"
+        readonly
+        rows={8}
+        spread
+      />
+    </div>
   </section>
 </Document>
 
@@ -399,21 +408,37 @@ const count = sections.reduce(
     }
   }
 
+  const copyFallback = document.querySelector<HTMLElement>(
+    "#todo-copy-fallback",
+  )!
+  const copyField =
+    document.querySelector<HTMLTextAreaElement>("#todo-copy-text")!
+
+  const copyWithSelection = (text: string) => {
+    const field = document.createElement("textarea")
+    field.value = text
+    field.inputMode = "none"
+    field.style.fontSize = "16px"
+    field.style.opacity = "0"
+    field.style.position = "fixed"
+    document.body.append(field)
+    field.focus()
+    field.setSelectionRange(0, text.length)
+    const copied = document.execCommand("copy")
+    field.remove()
+    return copied
+  }
+
   const copy = async (text: string) => {
+    if (!navigator.clipboard?.writeText) return copyWithSelection(text)
     try {
-      await navigator.clipboard.writeText(text)
+      await Promise.race([
+        navigator.clipboard.writeText(text),
+        new Promise((_, reject) => setTimeout(reject, 2000)),
+      ])
       return true
     } catch {
-      const field = document.createElement("textarea")
-      field.value = text
-      field.setAttribute("readonly", "")
-      field.style.position = "fixed"
-      field.style.opacity = "0"
-      document.body.append(field)
-      field.select()
-      const copied = document.execCommand("copy")
-      field.remove()
-      return copied
+      return copyWithSelection(text)
     }
   }
 
@@ -465,9 +490,17 @@ const count = sections.reduce(
       status.textContent = "No comments yet."
       return
     }
-    status.textContent = (await copy(text))
-      ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
-      : "Copying failed."
+    const copied = await copy(text)
+    copyFallback.hidden = copied
+    if (copied) {
+      status.textContent = `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
+      return
+    }
+    copyField.value = text
+    copyField.focus()
+    copyField.setSelectionRange(0, text.length)
+    status.textContent =
+      "This browser blocked copying. The text is selected below: press and hold it, then copy."
   })
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {
@@ -582,6 +615,10 @@ const count = sections.reduce(
     display: grid;
     gap: var(--size-3);
     justify-items: start;
+  }
+
+  .todo-copy-fallback {
+    inline-size: 100%;
   }
 
   .todo-buttons {

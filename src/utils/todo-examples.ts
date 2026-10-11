@@ -4,6 +4,7 @@ import accordionActionsPadding from "../todo-examples/accordion-actions-padding.
 import accordionFocusRing from "../todo-examples/accordion-focus-ring.html?raw"
 import accordionHtmlMarker from "../todo-examples/accordion-html-marker.html?raw"
 import accordionPlainGroup from "../todo-examples/accordion-plain-group.html?raw"
+import accordionSummaryBadgeIcon from "../todo-examples/accordion-summary-badge-icon.html?raw"
 import accordionWalkthroughMarker from "../todo-examples/accordion-walkthrough-marker.html?raw"
 import autosuggestSizes from "../todo-examples/autosuggest-sizes.html?raw"
 import avatarGroupOverlap from "../todo-examples/avatar-group-overlap.html?raw"
@@ -42,8 +43,11 @@ import checkboxRadioWalkthroughLabel from "../todo-examples/checkbox-radio-walkt
 import checkboxWalkthroughForcedColors from "../todo-examples/checkbox-walkthrough-forced-colors.html?raw"
 import chipDisabledText from "../todo-examples/chip-disabled-text.html?raw"
 import chipIconPadding from "../todo-examples/chip-icon-padding.html?raw"
+import chipStaticDisabledContrast from "../todo-examples/chip-static-disabled-contrast.html?raw"
 import chipTruncation from "../todo-examples/chip-truncation.html?raw"
+import choiceAriaDisabled from "../todo-examples/choice-aria-disabled.html?raw"
 import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
+import choiceInvalidUncheckedBorder from "../todo-examples/choice-invalid-unchecked-border.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
 import contrastCustomValues from "../todo-examples/contrast-custom-values.html?raw"
 import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
@@ -63,6 +67,7 @@ import drawerTransparentScrollLock from "../todo-examples/drawer-transparent-scr
 import fieldGroupColumn from "../todo-examples/field-group-column.html?raw"
 import fieldUserInvalid from "../todo-examples/field-user-invalid.html?raw"
 import fieldsInTables from "../todo-examples/fields-in-tables.html?raw"
+import fieldsetChoiceErrorColor from "../todo-examples/fieldset-choice-error-color.html?raw"
 import fieldsetTextFieldRow from "../todo-examples/fieldset-text-field-row.html?raw"
 import filledBorders from "../todo-examples/filled-borders.html?raw"
 import forcedColorsDivider from "../todo-examples/forced-colors-divider.html?raw"
@@ -79,6 +84,7 @@ import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import maskIconsForcedColors from "../todo-examples/mask-icons-forced-colors.html?raw"
 import menuAccessibility from "../todo-examples/menu-accessibility.html?raw"
+import menuCriticalDarkContrast from "../todo-examples/menu-critical-dark-contrast.html?raw"
 import menuShrink from "../todo-examples/menu-shrink.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
 import paletteHueRotate from "../todo-examples/palette-hue-rotate.html?raw"
@@ -119,6 +125,7 @@ import tabsScrollableLimit from "../todo-examples/tabs-scrollable-limit.html?raw
 import tabsSharedName from "../todo-examples/tabs-shared-name.html?raw"
 import tabsWalkthroughRtl from "../todo-examples/tabs-walkthrough-rtl.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
+import textFieldAutoFitWidth from "../todo-examples/text-field-auto-fit-width.html?raw"
 import textFieldDescription from "../todo-examples/text-field-description.html?raw"
 import textFieldFilledDisabledHover from "../todo-examples/text-field-filled-disabled-hover.html?raw"
 import textFieldLabelWidth from "../todo-examples/text-field-label-width.html?raw"
@@ -126,6 +133,8 @@ import textareaAutoFit from "../todo-examples/textarea-auto-fit.html?raw"
 import textareaMinBlockSize from "../todo-examples/textarea-min-block-size.html?raw"
 import textareaWalkthroughMaxSize from "../todo-examples/textarea-walkthrough-max-size.html?raw"
 import toggleButtonSelectedHover from "../todo-examples/toggle-button-selected-hover.html?raw"
+import toggleGroupForcedColorsHeight from "../todo-examples/toggle-group-forced-colors-height.html?raw"
+import toggleGroupVerticalStretch from "../todo-examples/toggle-group-vertical-stretch.html?raw"
 import tooltipForcedColorsBorder from "../todo-examples/tooltip-forced-colors-border.html?raw"
 import tooltipWalkthroughArrow from "../todo-examples/tooltip-walkthrough-arrow.html?raw"
 import typographyInlineTable from "../todo-examples/typography-inline-table.html?raw"
@@ -153,6 +162,10 @@ export const todoExamples = {
   "accordion-plain-group": {
     match: 'Accordion: in a plain `.ui-card[role="group"]`',
     source: accordionPlainGroup,
+  },
+  "accordion-summary-badge-icon": {
+    match: "Accordion: an icon with a badge in the summary collapses",
+    source: accordionSummaryBadgeIcon,
   },
   "accordion-walkthrough-marker": {
     match: "Accordion walkthrough:",
@@ -310,13 +323,26 @@ export const todoExamples = {
     match: "Chip: a chip with a start and an end icon gets",
     source: chipIconPadding,
   },
+  "chip-static-disabled-contrast": {
+    match: "Chip: a static `.ui-disabled` chip fails color contrast",
+    source: chipStaticDisabledContrast,
+  },
   "chip-truncation": {
     match: "Chip: the Sizes example shows `multiline`",
     source: chipTruncation,
   },
+  "choice-aria-disabled": {
+    match:
+      "Toggle button, Checkbox, Radio, Switch: `aria-disabled` doesn't dim",
+    source: choiceAriaDisabled,
+  },
   "choice-halo-layer": {
     match: "Checkbox and Radio: the hover/active halo",
     source: choiceHaloLayer,
+  },
+  "choice-invalid-unchecked-border": {
+    match: "Checkbox, Radio: an invalid unchecked control has no red border",
+    source: choiceInvalidUncheckedBorder,
   },
   "classic-select-label-slot": {
     match: "Astro ClassicSelect: `aria-labelledby` also points",
@@ -394,6 +420,11 @@ export const todoExamples = {
     match: "Fields and selects collapse",
     source: fieldsInTables,
   },
+  "fieldset-choice-error-color": {
+    match:
+      "Form: inside `.ui-fieldset`, the error text of an invalid checkbox, radio or switch",
+    source: fieldsetChoiceErrorColor,
+  },
   "fieldset-text-field-row": {
     match: "Dead CSS: `.ui-form:has(.ui-text-field.ui-row)`",
     source: fieldsetTextFieldRow,
@@ -457,6 +488,10 @@ export const todoExamples = {
   "menu-accessibility": {
     match: "Menu: the Accessibility section is",
     source: menuAccessibility,
+  },
+  "menu-critical-dark-contrast": {
+    match: "Menu: a critical item fails contrast in dark mode",
+    source: menuCriticalDarkContrast,
   },
   "menu-shrink": {
     match: "Menu doesn't shrink to the space",
@@ -618,6 +653,10 @@ export const todoExamples = {
     match: "A tall menu runs off the viewport",
     source: tallMenu,
   },
+  "text-field-auto-fit-width": {
+    match: "Text field, Textarea: `.ui-auto-fit` doesn't shrink the field",
+    source: textFieldAutoFitWidth,
+  },
   "text-field-description": {
     match:
       "Text field, Textarea: `description` (`.ui-start-text`) has no section",
@@ -646,6 +685,14 @@ export const todoExamples = {
   "toggle-button-selected-hover": {
     match: "ToggleButton: hovering a selected toggle button drops its tint",
     source: toggleButtonSelectedHover,
+  },
+  "toggle-group-forced-colors-height": {
+    match: "Toggle group: forced colors make each group one border width short",
+    source: toggleGroupForcedColorsHeight,
+  },
+  "toggle-group-vertical-stretch": {
+    match: "Toggle group: `.ui-vertical` items don't stretch",
+    source: toggleGroupVerticalStretch,
   },
   "tooltip-forced-colors-border": {
     match: "Tooltip: no border in forced colors",

@@ -1,0 +1,303 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(label.ui-checkbox, label.ui-radio, .ui-switch) {
+        &:has([disabled], input[aria-disabled="true"]) {
+          cursor: not-allowed;
+          opacity: var(--disabled-opacity);
+          user-select: none;
+
+          input {
+            cursor: not-allowed;
+          }
+        }
+      }
+
+      :where(.ui-switch) {
+        @media (forced-colors: active) {
+          &:has([disabled], input[aria-disabled="true"]) {
+            --_accent: GrayText;
+            --_dot-bg-color: GrayText;
+          }
+        }
+      }
+
+      :where(.ui-toggle-button) {
+        @media (hover: hover) {
+          &:hover:has(input[aria-disabled="true"]) {
+            --_bg-color: transparent;
+          }
+        }
+
+        &:has(input:is(:disabled, [aria-disabled="true"])) {
+          border-color: color-mix(
+            in oklch,
+            var(--border-color) 50%,
+            transparent
+          );
+          color: color-mix(in oklch, var(--text-primary) 30%, transparent);
+          cursor: not-allowed;
+        }
+
+        &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
+          @media (hover: hover) {
+            &:hover:has(input[aria-disabled="true"]) {
+              --_bg-color: oklch(from var(--primary) l c h / 25%);
+            }
+          }
+
+          @container style(--contrast: more) {
+            @media (hover: hover) {
+              &:hover:has(input[aria-disabled="true"]) {
+                --_bg-color: var(--primary);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      In each row the first control has <code>disabled</code>, the second
+      <code>aria-disabled="true"</code>. Only the first is dimmed. The second
+      looks enabled, keeps the pointer cursor, and the toggles still get the
+      hover color. The <code>disabled</code> checkbox and radio inputs show
+      <code>pointer</code> too: the base <code>input[type=…]</code> rule beats
+      the disabled <code>input</code> rule.
+    </p>
+    <div class="todo-row">
+      <label class="ui-checkbox" data-name="Checkbox, disabled">
+        <input
+          type="checkbox"
+          name="checkbox-disabled-current"
+          checked
+          disabled
+        />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, aria-disabled">
+        <input
+          type="checkbox"
+          name="checkbox-aria-current"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-radio" data-name="Radio, disabled">
+        <input type="radio" name="radio-disabled-current" checked disabled />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, aria-disabled">
+        <input
+          type="radio"
+          name="radio-aria-current"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-switch" data-name="Switch, disabled">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-disabled-current"
+          checked
+          disabled
+        />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-switch" data-name="Switch, aria-disabled">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-aria-current"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-toggle-button" data-name="Toggle, selected, disabled">
+        <input
+          type="checkbox"
+          name="toggle-disabled-current"
+          checked
+          disabled
+        />
+        disabled
+      </label>
+      <label
+        class="ui-toggle-button"
+        data-name="Toggle, selected, aria-disabled"
+      >
+        <input
+          type="checkbox"
+          name="toggle-aria-current"
+          checked
+          aria-disabled="true"
+        />
+        aria-disabled
+      </label>
+    </div>
+    <div
+      class="ui-toggle-group"
+      role="group"
+      aria-label="Toggle group, current"
+    >
+      <label class="ui-toggle-button" data-name="Group, enabled">
+        <input type="checkbox" name="group-enabled-current" />
+        Enabled
+      </label>
+      <label class="ui-toggle-button" data-name="Group, disabled">
+        <input type="checkbox" name="group-disabled-current" disabled />
+        disabled
+      </label>
+      <label class="ui-toggle-button" data-name="Group, aria-disabled">
+        <input type="checkbox" name="group-aria-current" aria-disabled="true" />
+        aria-disabled
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+    <p class="todo-measure" data-hover>Hover a toggle.</p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The disabled rules also match <code>input[aria-disabled="true"]</code>,
+      and the toggle hover skips it. The real fix changes the
+      <code>input:disabled</code> hover guards in
+      <code>toggle-button.css</code>; here the old hover is reset instead.
+      Clicks on the <code>aria-disabled</code> controls are blocked by a script
+      in both panels: they stay focusable, and CSS only handles the look.
+    </p>
+    <div class="todo-row">
+      <label class="ui-checkbox" data-name="Checkbox, disabled">
+        <input
+          type="checkbox"
+          name="checkbox-disabled-fixed"
+          checked
+          disabled
+        />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, aria-disabled">
+        <input
+          type="checkbox"
+          name="checkbox-aria-fixed"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-radio" data-name="Radio, disabled">
+        <input type="radio" name="radio-disabled-fixed" checked disabled />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, aria-disabled">
+        <input
+          type="radio"
+          name="radio-aria-fixed"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-switch" data-name="Switch, disabled">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-disabled-fixed"
+          checked
+          disabled
+        />
+        <span class="ui-label">disabled</span>
+      </label>
+      <label class="ui-switch" data-name="Switch, aria-disabled">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-aria-fixed"
+          checked
+          aria-disabled="true"
+        />
+        <span class="ui-label">aria-disabled</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-toggle-button" data-name="Toggle, selected, disabled">
+        <input type="checkbox" name="toggle-disabled-fixed" checked disabled />
+        disabled
+      </label>
+      <label
+        class="ui-toggle-button"
+        data-name="Toggle, selected, aria-disabled"
+      >
+        <input
+          type="checkbox"
+          name="toggle-aria-fixed"
+          checked
+          aria-disabled="true"
+        />
+        aria-disabled
+      </label>
+    </div>
+    <div class="ui-toggle-group" role="group" aria-label="Toggle group, fixed">
+      <label class="ui-toggle-button" data-name="Group, enabled">
+        <input type="checkbox" name="group-enabled-fixed" />
+        Enabled
+      </label>
+      <label class="ui-toggle-button" data-name="Group, disabled">
+        <input type="checkbox" name="group-disabled-fixed" disabled />
+        disabled
+      </label>
+      <label class="ui-toggle-button" data-name="Group, aria-disabled">
+        <input type="checkbox" name="group-aria-fixed" aria-disabled="true" />
+        aria-disabled
+      </label>
+    </div>
+    <p class="todo-measure" data-measure></p>
+    <p class="todo-measure" data-hover>Hover a toggle.</p>
+  </section>
+</div>
+<script>
+  for (const input of document.querySelectorAll(
+    '.todo-compare input[aria-disabled="true"]',
+  )) {
+    input.addEventListener("click", (event) => event.preventDefault())
+  }
+
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll("[data-name]")]
+      .filter((root) => !root.dataset.name.startsWith("Group, enabled"))
+      .map((root) => {
+        const style = getComputedStyle(root)
+        const input = getComputedStyle(root.querySelector("input"))
+        return root.classList.contains("ui-toggle-button")
+          ? `${root.dataset.name}: color ${style.color}, cursor ${style.cursor}`
+          : `${root.dataset.name}: opacity ${style.opacity}, cursor ${input.cursor}`
+      })
+    panel.querySelector("[data-measure]").textContent = rows.join("\n")
+
+    const hover = panel.querySelector("[data-hover]")
+    for (const toggle of panel.querySelectorAll(".ui-toggle-button")) {
+      const rest = getComputedStyle(toggle).backgroundColor
+      toggle.addEventListener("mouseenter", () => {
+        hover.textContent = `${toggle.dataset.name}\nat rest: ${rest}\nhovered: ${getComputedStyle(toggle).backgroundColor}`
+      })
+    }
+  }
+</script>

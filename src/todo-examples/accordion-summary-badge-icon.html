@@ -1,0 +1,293 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-badge) {
+        flex-shrink: 0;
+      }
+
+      :where(details.ui-accordion) > summary > :is(img, svg) {
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .todo-current > .ui-accordion,
+  .todo-fixed > .ui-accordion {
+    inline-size: min(100%, 18rem);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Each accordion is 18rem wide. With the long summary the badge wrapper
+      shrinks to a sliver, so only the count shows, and a bare 32px icon shrinks
+      too. Only the marker has <code>flex-shrink: 0</code>. The short summary
+      has room and looks right.
+    </p>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Badge, chip"
+    >
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">unread rules</span></span
+            ></span
+          ></span
+        >
+        <span>Inbox rules for shared mailboxes and forwarded messages</span>
+        <span class="ui-chip ui-outlined ui-small"
+          ><span class="ui-text">12 active</span></span
+        >
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Icon"
+    >
+      <summary>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span>Inbox rules for shared mailboxes and forwarded messages</span>
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Short"
+    >
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">unread rules</span></span
+            ></span
+          ></span
+        >
+        <span>Inbox rules</span>
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      A badge doesn't shrink, like Avatar, and neither does an image or icon in
+      the summary, so only the text wraps. The short summary doesn't change.
+    </p>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Badge, chip"
+    >
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">unread rules</span></span
+            ></span
+          ></span
+        >
+        <span>Inbox rules for shared mailboxes and forwarded messages</span>
+        <span class="ui-chip ui-outlined ui-small"
+          ><span class="ui-text">12 active</span></span
+        >
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Icon"
+    >
+      <summary>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span>Inbox rules for shared mailboxes and forwarded messages</span>
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <details
+      class="ui-accordion ui-card ui-marker-rotate ui-outlined"
+      data-name="Short"
+    >
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">unread rules</span></span
+            ></span
+          ></span
+        >
+        <span>Inbox rules</span>
+        <svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content"><p>Rules run in order.</p></div>
+    </details>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = [...panel.querySelectorAll("details")].map((details) => {
+      const summary = details.querySelector("summary")
+      const parts = [...summary.children].map((child) => {
+        const name = child.matches(".ui-badge")
+          ? "badge"
+          : child.matches(".ui-chip")
+            ? "chip"
+            : child.matches(".ui-marker")
+              ? "marker"
+              : child.matches("svg")
+                ? "icon"
+                : "text"
+        return `${name} ${Math.round(child.getBoundingClientRect().width)}px`
+      })
+      return `${details.dataset.name}: ${parts.join(", ")}`
+    })
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

@@ -1,6 +1,8 @@
 import { expect, type Page, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
 
+const TOGGLE_GROUP = ":scope > .ui-toggle-group"
+
 const CONTROLS = [
   ":scope > .ui-button",
   ":scope > .ui-button-group",
@@ -8,10 +10,10 @@ const CONTROLS = [
   ":scope > .ui-text-field > .ui-field",
   ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",
   ":scope > .ui-toggle-button",
-  ":scope > .ui-toggle-group",
-].join(", ")
+  TOGGLE_GROUP,
+]
 
-const measureRows = (page: Page) =>
+const measureRows = (page: Page, controls = CONTROLS) =>
   page.locator("[data-size]").evaluateAll(
     (elements, selector) =>
       elements.map((row) => {
@@ -35,8 +37,52 @@ const measureRows = (page: Page) =>
           size,
         }
       }),
-    CONTROLS,
+    controls.join(", "),
   )
+
+const measureChips = (page: Page) =>
+  page.locator("[data-size]").evaluateAll((elements) => {
+    const SIZES = ["x-small", "small", "default", "large"]
+    const measure = (row: Element, token: string) => {
+      const probe = document.createElement("div")
+      probe.style.blockSize = `var(${token})`
+      probe.style.position = "absolute"
+      row.append(probe)
+      const height = `${probe.getBoundingClientRect().height}px`
+      probe.remove()
+      return height
+    }
+    return elements.flatMap((row) => {
+      const size = row.getAttribute("data-size")!
+      const controlHeight = measure(
+        row,
+        size === "default" ? "--control-size" : `--control-size-${size}`,
+      )
+      const example = row
+        .closest("[data-example]")!
+        .getAttribute("data-example")
+      return [...row.querySelectorAll<HTMLElement>(":scope > .ui-chip")].map(
+        (chip) => {
+          const chipSize =
+            SIZES.find((name) => chip.classList.contains(`ui-${name}`)) ??
+            "default"
+          return {
+            chip: `${example} ${size} > ${chip.className} "${chip.textContent!.trim()}"`,
+            controlHeight,
+            expected: measure(
+              row,
+              chipSize === "default"
+                ? "--chip-size"
+                : `--chip-size-${chipSize}`,
+            ),
+            height: `${chip.getBoundingClientRect().height}px`,
+            matchesControl: SIZES.indexOf(chipSize) === SIZES.indexOf(size) + 1,
+            size,
+          }
+        },
+      )
+    })
+  })
 
 const expectSharedHeights = (rows: Awaited<ReturnType<typeof measureRows>>) => {
   expect(rows.length).toBeGreaterThan(0)
@@ -49,10 +95,45 @@ const expectSharedHeights = (rows: Awaited<ReturnType<typeof measureRows>>) => {
   }
 }
 
+const expectChipHeights = (chips: Awaited<ReturnType<typeof measureChips>>) => {
+  expect(
+    chips.filter(({ expected, height }) => height !== expected),
+    "chips should match their chip size token",
+  ).toEqual([])
+  expect(
+    chips.filter(
+      ({ controlHeight, height, matchesControl }) =>
+        matchesControl && height !== controlHeight,
+    ),
+    "chips one size step up should match the row's control size",
+  ).toEqual([])
+}
+
+const expectSizedRows = async (page: Page) => {
+  expectSharedHeights(await measureRows(page))
+  expectChipHeights(await measureChips(page))
+}
+
 test("form controls of one size share one height", async ({ page }) => {
   await openFixture(page, "html", "stress/forms")
 
-  expectSharedHeights(await measureRows(page))
+  await expectSizedRows(page)
+})
+
+test("chips one size step up match the control size", async ({ page }) => {
+  await openFixture(page, "html", "stress/forms")
+
+  const chips = await measureChips(page)
+  expect(
+    [
+      ...new Set(
+        chips
+          .filter(({ matchesControl }) => matchesControl)
+          .map(({ size }) => size),
+      ),
+    ].toSorted(),
+  ).toEqual(["default", "small", "x-small"])
+  expectChipHeights(chips)
 })
 
 test("form controls keep their height in high contrast mode", async ({
@@ -60,8 +141,48 @@ test("form controls keep their height in high contrast mode", async ({
 }) => {
   await openFixture(page, "html", "stress/contrast")
 
-  expectSharedHeights(await measureRows(page))
+  await expectSizedRows(page)
 })
+
+test("busy controls keep their height", async ({ page }) => {
+  await openFixture(page, "html", "stress/data-display")
+
+  await expectSizedRows(page)
+})
+
+for (const fixture of ["contrast", "forms"]) {
+  test(`${fixture} controls keep their height in forced colors mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors: "active" })
+    await openFixture(page, "html", `stress/${fixture}`)
+
+    expectSharedHeights(
+      await measureRows(
+        page,
+        CONTROLS.filter((control) => control !== TOGGLE_GROUP),
+      ),
+    )
+    expectChipHeights(await measureChips(page))
+  })
+
+  test(`${fixture} toggle groups keep their height in forced colors mode`, async ({
+    page,
+  }) => {
+    test.fail(
+      true,
+      "toggle-group.css pulls each toggle button up by the border width in forced colors, so groups are one border width short",
+    )
+    await page.emulateMedia({ forcedColors: "active" })
+    await openFixture(page, "html", `stress/${fixture}`)
+
+    expectSharedHeights(
+      (await measureRows(page, [TOGGLE_GROUP])).filter(
+        ({ controls }) => controls.length > 0,
+      ),
+    )
+  })
+}
 
 const DENSITIES = {
   "0.875": {

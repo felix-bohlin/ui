@@ -25,6 +25,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+        env:
+          OPUI_TEST_PAGES: ${{ github.event_name == 'pull_request' && '1' || '' }}
       - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references
       - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

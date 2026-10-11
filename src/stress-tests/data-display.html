@@ -21,6 +21,10 @@
     font-size: var(--font-size-0);
   }
 
+  .stress-data-nowrap {
+    white-space: nowrap;
+  }
+
   .stress-data-num {
     font-variant-numeric: tabular-nums;
     text-align: end;
@@ -465,7 +469,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>x-small</td>
+            <td class="stress-data-nowrap">x-small</td>
             <td>
               <div class="ui-text-field ui-x-small">
                 <span class="ui-field"
@@ -654,7 +658,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>x-small</td>
+            <td class="stress-data-nowrap">x-small</td>
             <td>
               <div class="ui-text-field ui-x-small">
                 <span class="ui-field"
@@ -843,7 +847,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>x-small</td>
+            <td class="stress-data-nowrap">x-small</td>
             <td>
               <div class="ui-text-field ui-x-small">
                 <span class="ui-field"
@@ -1853,7 +1857,8 @@
   <p>
     Description lists with long terms and values, rich values and nesting, in a
     wide column, a narrow column and a narrow size container. In a narrow
-    column, terms and values should stack instead of squeezing side by side.
+    column, terms and values should stack instead of squeezing side by side,
+    unless the list is inline.
   </p>
   <div class="stress-stack">
     <div class="stress-wide-column stress-stack">
@@ -1969,6 +1974,25 @@
           </div>
         </dl>
       </div>
+      <div class="stress-narrow">
+        <h3>Narrow column, inline</h3>
+        <dl class="ui-description-list ui-bordered ui-inline">
+          <div class="ui-item">
+            <dt class="ui-term">Owner</dt>
+            <dd class="ui-description">Ada Lovelace</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">A long term that keeps going</dt>
+            <dd class="ui-description">A long value that keeps going too</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">Checksum</dt>
+            <dd class="ui-description">
+              9f86d081884c7d659a2feaa0c55ad015a3bf4f1b
+            </dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </div>
   <h3>Side by side</h3>
@@ -2011,7 +2035,9 @@
   <p>
     Avatars, chips, badges and buttons on one center aligned row, and the same
     things inline in running text. Shapes of the same height should share one
-    center line and inline items should not push the line height apart.
+    center line and inline items should not push the line height apart. Badges
+    in every corner should sit on their anchor's edge, and invisible badges
+    should keep their anchor's size and position.
   </p>
   <div class="stress-row stress-center">
     <span class="stress-tag">Center aligned</span>
@@ -2107,6 +2133,84 @@
     >
     on a line that wraps onto a second line so the spacing between lines shows.
   </p>
+  <h3>Badge corners and visibility</h3>
+  <div class="stress-row stress-center">
+    <span class="stress-tag"
+      >start-start, end-start, end-end, top end, invisible</span
+    >
+    <span class="ui-anchor ui-badge ui-critical ui-start-start"
+      ><span class="ui-avatar">AL</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">3</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-critical ui-end-start"
+      ><span class="ui-avatar">AL</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">12</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-critical ui-end-end"
+      ><span class="ui-avatar">AL</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">99+</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-critical"
+      ><span class="ui-avatar">AL</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">7</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-critical ui-invisible"
+      ><span class="ui-avatar">AL</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">5</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-info ui-end-start"
+      ><button class="ui-button ui-outlined" type="button">Inbox</button
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">4</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-info ui-invisible"
+      ><button class="ui-button ui-outlined" type="button">Inbox</button
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">4</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-dot ui-success ui-end-start"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+        ></path></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+    <span class="ui-anchor ui-badge ui-dot ui-success ui-invisible"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+        ></path></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+  </div>
   <h3>Avatar groups</h3>
   <div class="stress-row stress-center">
     <div class="ui-avatar-group" role="group" aria-label="Team">
@@ -2153,26 +2257,20 @@
 <section class="stress" data-example="BusyStates">
   <h2>Busy states</h2>
   <p>
-    Spinners and progress bars inside buttons, chips, table cells and list
-    items. Busy buttons should keep their size, spinners should center, and
-    progress bars should fill their cell without changing the row height.
+    Spinners and progress bars inside buttons, button groups, chips, table cells
+    and list items. Busy buttons should keep the height of the idle button next
+    to them at every size, spinners should center, and progress bars should fill
+    their cell without changing the row height.
   </p>
-  <div class="stress-row stress-center">
+  <div class="stress-row stress-center" data-size="x-small">
+    <span class="stress-tag">x-small</span>
+    <button class="ui-button ui-x-small ui-filled" type="button">Idle</button>
     <button
       class="ui-button ui-x-small ui-filled"
       type="button"
       aria-busy="true"
     >
-      x-small
-    </button>
-    <button class="ui-button ui-small ui-filled" type="button" aria-busy="true">
-      Small
-    </button>
-    <button class="ui-button ui-filled" type="button" aria-busy="true">
-      Default
-    </button>
-    <button class="ui-button ui-large ui-filled" type="button" aria-busy="true">
-      Large
+      Saving
     </button>
     <button
       class="ui-button ui-x-small ui-outlined"
@@ -2181,6 +2279,24 @@
     >
       <span class="ui-sr-only">Loading x-small</span>
     </button>
+    <div
+      role="group"
+      aria-label="Busy group, x-small"
+      class="ui-button-group ui-x-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Retry</button
+      ><button class="ui-button" type="button" aria-busy="true">Syncing</button>
+    </div>
+    <span class="ui-chip ui-small" aria-busy="true"
+      ><span class="ui-text">Syncing</span></span
+    >
+  </div>
+  <div class="stress-row stress-center" data-size="small">
+    <span class="stress-tag">Small</span>
+    <button class="ui-button ui-small ui-filled" type="button">Idle</button>
+    <button class="ui-button ui-small ui-filled" type="button" aria-busy="true">
+      Saving
+    </button>
     <button
       class="ui-button ui-small ui-outlined"
       type="button"
@@ -2188,13 +2304,61 @@
     >
       <span class="ui-sr-only">Loading small</span>
     </button>
+    <div
+      role="group"
+      aria-label="Busy group, small"
+      class="ui-button-group ui-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Retry</button
+      ><button class="ui-button" type="button" aria-busy="true">Syncing</button>
+    </div>
+    <span class="ui-chip" aria-busy="true"
+      ><span class="ui-text">Syncing</span></span
+    >
+  </div>
+  <div class="stress-row stress-center" data-size="default">
+    <span class="stress-tag">Default</span>
+    <button class="ui-button ui-filled" type="button">Idle</button>
+    <button class="ui-button ui-filled" type="button" aria-busy="true">
+      Saving
+    </button>
     <button class="ui-button ui-outlined" type="button" aria-busy="true">
       <span class="ui-sr-only">Loading default</span>
     </button>
-    <span class="ui-chip ui-small" aria-busy="true"
+    <div
+      role="group"
+      aria-label="Busy group, default"
+      class="ui-button-group ui-outlined"
+    >
+      <button class="ui-button" type="button">Retry</button
+      ><button class="ui-button" type="button" aria-busy="true">Syncing</button>
+    </div>
+    <span class="ui-chip ui-large" aria-busy="true"
       ><span class="ui-text">Syncing</span></span
     >
-    <span class="ui-chip" aria-busy="true"
+  </div>
+  <div class="stress-row stress-center" data-size="large">
+    <span class="stress-tag">Large</span>
+    <button class="ui-button ui-large ui-filled" type="button">Idle</button>
+    <button class="ui-button ui-large ui-filled" type="button" aria-busy="true">
+      Saving
+    </button>
+    <button
+      class="ui-button ui-large ui-outlined"
+      type="button"
+      aria-busy="true"
+    >
+      <span class="ui-sr-only">Loading large</span>
+    </button>
+    <div
+      role="group"
+      aria-label="Busy group, large"
+      class="ui-button-group ui-large ui-outlined"
+    >
+      <button class="ui-button" type="button">Retry</button
+      ><button class="ui-button" type="button" aria-busy="true">Syncing</button>
+    </div>
+    <span class="ui-chip ui-large" aria-busy="true"
       ><span class="ui-text">Syncing</span></span
     >
   </div>

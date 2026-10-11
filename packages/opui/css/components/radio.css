@@ -203,6 +203,10 @@
     &:has([aria-invalid="true"], :user-invalid) {
       --primary: var(--invalid-color);
 
+      input[type="radio"]:not(:checked) {
+        border-color: var(--invalid-color);
+      }
+
       :where(.ui-end-text) {
         color: var(--invalid-text-color);
       }

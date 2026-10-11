@@ -793,7 +793,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed as proposed: the actions use the content's inline padding (`--_actions-padding-inline: var(--_content-padding-inline)`), no top margin, and the summary's block padding below them (`--_actions-padding-block-end: var(--_summary-padding-block)`) (`accordion.css`).
   - Measured in Chromium on the outlined example: the last button ends 17px from the edge, like the chevron and the text (was 5px), with 24px above the buttons (was 40px) and 20px below (was 5px). Without a variant the buttons end at the chevron instead of 4px short of it.
   - CHANGELOG (Changed) and What's new link to Actions. The example shows the old padding next to the library default (`accordion-actions-padding`).
-- [ ] (2) Callout: `.ui-content` is a grid, so bare text with an inline link splits into stacked rows. It only works when the text is wrapped in a `<p>`. Found while building the blocks (`packages/opui/css/components/callout.css:69-70`)
+- [x] (2) Callout: `.ui-content` is a grid, so bare text with an inline link splits into stacked rows. It only works when the text is wrapped in a `<p>`. Found while building the blocks (`packages/opui/css/components/callout.css:69-70`)
   - Fix: `display: grid` only when the content has block children (`:has(> :is(p, ul, ol, h1, h2, h3, h4, h5, h6))`), or say in the docs that text goes in a `<p>`.
   > Explain further and provide an example
   - Each child of a grid is its own grid item, and a run of bare text becomes an anonymous grid item. So this is three items, stacked with `--_content-gap` (8px) between them:
@@ -844,6 +844,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     The `revert-layer` rule keeps rich text callouts on the rich text flow margins. Without it, the `typography` ProseInComponents callout and the Callout docs "What's new" callout get 8px more under their heading.
   - The only remaining difference is on the Callout docs page: the "Icons and accessibility" callout starts with a bare `<strong>` before a `<p>`. The `strong` is no longer blockified, so it's an inline box in a line of its own. The text and the paragraph stay in the same place, and the callout keeps its height.
   - None of the stress tests or blocks has bare text in a callout today, so they don't show the fix itself. `callout-bare-text` does.
+  > Fix
+  - Fixed: `.ui-content` is `display: flow-root` with `margin-block-start: var(--_content-gap)` between children, and rich text reverts that margin with `revert-layer` (`callout.css`). Measured every callout on the contrast, layout and typography stress pages, the Callout docs (all frameworks) and the 9 blocks at 1280px and 390px: same child positions and heights. Bare text with a link in `callout-bare-text` is one paragraph, 83px instead of 124px. The only other change is the docs "Icons and accessibility" callout, whose leading `<strong>` is now inline, with the same callout height.
 - [x] (2) Dialog: setting `max-inline-size` on a `.ui-dialog` replaces `calc(100% - var(--size-4))`, so a wider or narrower dialog loses its mobile margin and goes edge to edge on phones. Found while building the server-status block (`packages/opui/css/components/dialog.css:12-20`)
   - Fix: a `--_max-inline-size` hook (default `60ch`) used as `min(var(--_max-inline-size), 100% - var(--size-4))`.
   > Explain further and provide an example
@@ -1861,7 +1863,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: TextField, Textarea and Dialog use `createId(Astro.locals)`. No component reads `Astro.locals.$id` directly anymore.
 
-- [ ] (4) Accordion: an icon with a badge in the summary collapses with a long summary text. The summary is a flex row and only `.ui-marker` gets `flex-shrink: 0`. normalize.css gives `svg` `max-inline-size: 100%`, so its min-content width is 0 and the `.ui-badge` wrapper shrinks until only the count shows (`packages/opui/css/components/accordion.css:105-119`, `badge.css:2-20`, `core/normalize.css:158-161`, `layout` AccordionMarkers)
+- [x] (4) Accordion: an icon with a badge in the summary collapses with a long summary text. The summary is a flex row and only `.ui-marker` gets `flex-shrink: 0`. normalize.css gives `svg` `max-inline-size: 100%`, so its min-content width is 0 and the `.ui-badge` wrapper shrinks until only the count shows (`packages/opui/css/components/accordion.css:105-119`, `badge.css:2-20`, `core/normalize.css:158-161`, `layout` AccordionMarkers)
   - Measured in Chromium at 18rem: the badge wrapper is 9px instead of 32px, and a bare 32px icon in the summary is 14px. The chip and the marker keep their size, and a short summary is fine.
   - Avatar had the same problem in flex rows and got `flex-shrink: 0` on its root (`avatar.css:15`). A badge wraps fixed-size things (an icon, avatar or button), so it shouldn't shrink in any flex row.
   - Fix: in `badge.css`
@@ -1877,6 +1879,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - With the fix: badge 32px, icon 32px, and only the text wraps (105px and 182px). Light and dark checked. An accordion-only `& > summary > :is(.ui-badge, img, svg) { flex-shrink: 0 }` is smaller but leaves badges shrinking in other flex rows.
+
+  > Fix
+  - Fixed: `badge.css` gives `.ui-badge` `flex-shrink: 0` and `accordion.css` gives `& > :is(img, svg)` in the summary `flex-shrink: 0`. Measured: badge 9px → 32px and icon 14px → 32px in the example, and badge 0–15px → 32px in layout AccordionMarkers at 18rem and 1280px. Only the text wraps. No other badge on the stress, docs or fixture pages changes width at 320px or 1280px (`badge.css`, `accordion.css`).
 
 - [ ] (4) Toggle button, Checkbox, Radio, Switch: `aria-disabled` doesn't dim them. Their disabled styles only match `[disabled]` or `input:disabled`, so a control with `aria-disabled="true"` looks enabled, keeps the pointer cursor, and a toggle button (and so a ToggleGroup item) still gets its hover color. Button, ButtonGroup and Chip already match `[aria-disabled="true"]` (`checkbox.css:27`, `radio.css:27`, `switch.css:186,316`, `toggle-button.css:40,54,72,82`, `button.css:268`)
   - Measured in Chromium. With `aria-disabled`, checkbox, radio and switch have opacity `1` (`0.64` with `disabled`). The toggle text is `oklch(0.16 0.01 255)` (`/ 0.3` with `disabled`). On hover an unselected toggle gets the 4% background and a selected one goes from 25% to 35%. The checkbox and radio halo already skips `aria-disabled` (`checkbox.css:173`, `radio.css:156`).
@@ -1913,7 +1918,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 
-- [ ] (4) Checkbox, Radio: an invalid unchecked control has no red border. Invalid only sets `--primary` to `--invalid-color`, which only reaches the checked fill, so an unchecked checkbox or radio with `aria-invalid="true"` or `:user-invalid` looks valid. The switch gets a red ring and the text field a red border whatever their value (`checkbox.css:219-226`, `radio.css:202-209`, `switch.css:292-307`, `text-field.css:343-352`)
+  > Explain further
+  > Why should aria-disabled work when disabled should be enough?
+  - Explained: for most forms `disabled` is enough, and it does more than `aria-disabled`: the browser blocks the change, skips the control with Tab and leaves it out of the submitted form. The library only uses `aria-disabled` today where `disabled` can't be used, on links (`button.astro`, `chip.astro`). `aria-disabled="true"` is for the cases where those native effects are what you don't want:
+    - The control should stay focusable, so keyboard and screen reader users find it and hear why it's unavailable. A tooltip or description on a disabled control is never reached by Tab. This is the APG advice for toolbars (ToggleGroup used as a formatting bar) and for options that are temporarily unavailable.
+    - Radios and toggle groups: arrow keys skip disabled radios, so a screen reader user moving through the group never learns the option exists. With `aria-disabled` it's announced as "dimmed" or "unavailable" in place.
+    - The value should still submit: checkboxes and radios have no `readonly`, and a disabled one is left out of the form data. `aria-disabled` plus a script that blocks the change is the usual read-only checkbox.
+  - Either way the look should match: today an `aria-disabled` checkbox, radio, switch or toggle looks and hovers like an enabled one, while Button, ButtonGroup, Chip and Menu items already dim for it. Two options: support it (the CSS above, about one selector per component, and the docs say a script must block the change), or don't, and the docs say choice controls only style `disabled` and the `DisabledAndBusy` stress section drops its `aria-disabled` choice controls.
+
+- [x] (4) Checkbox, Radio: an invalid unchecked control has no red border. Invalid only sets `--primary` to `--invalid-color`, which only reaches the checked fill, so an unchecked checkbox or radio with `aria-invalid="true"` or `:user-invalid` looks valid. The switch gets a red ring and the text field a red border whatever their value (`checkbox.css:219-226`, `radio.css:202-209`, `switch.css:292-307`, `text-field.css:343-352`)
   - A `required` checkbox is `:user-invalid` only while unchecked, so the docs' "Checkboxes also get the invalid styles from the browser's own validation" shows nothing on the box (`src/docs/components/checkbox.astro:186-205`). The Checkbox Validation example's unchecked invalid "Stack" box and the Radio FieldGroupValidation radios also look valid (`src/component-examples/checkbox/Validation.html:28-38`, `radio/FieldGroupValidation.html`). So do the Delivery radios on the stress page (`src/stress-tests/forms.html:2179-2217`).
   - Measured in Chromium: the unchecked invalid border is `oklch(0.84 0.01 255)` in light (1.54:1 against the page) and `oklch(0.35 0.01 255)` in dark (1.33:1). With the fix it's `oklch(0.53 0.2 25)`: 5.54:1 in light and 2.56:1 in dark, the same as the switch ring and text field border. Checked, valid and forced colors are unchanged.
   - Also: a checked invalid switch keeps the primary track, while checkbox and radio turn red when checked.
@@ -1934,7 +1947,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 
-- [ ] (3) Chip: a static `.ui-disabled` chip fails color contrast. `--text-disabled` plus `opacity: var(--disabled-opacity)` gives 1.75–2.10:1 in light and dark (2.25–2.79:1 with more contrast). A `div.ui-chip` isn't a disabled control, so the WCAG exemption doesn't apply, and axe flags it (`packages/opui/css/components/chip.css:189-195`)
+  > Fix
+  - Fixed: an unchecked invalid checkbox or radio gets an `--invalid-color` border under the Validation rule (unchecked only, so checked and forced colors keep their border). Measured on 26 invalid unchecked controls (forms stress, checkbox/radio/form docs and fixtures): light `oklch(0.84 0.01 255)` → `oklch(0.53 0.2 25)`, dark `oklch(0.35 0.01 255)` → `oklch(0.53 0.2 25)`, more contrast → `oklch(0.42 0.2 25)`. Checked invalid, valid and forced colors are unchanged, and a required checkbox turns red once it's `:user-invalid` (`checkbox.css`, `radio.css`).
+
+- [x] (3) Chip: a static `.ui-disabled` chip fails color contrast. `--text-disabled` plus `opacity: var(--disabled-opacity)` gives 1.75–2.10:1 in light and dark (2.25–2.79:1 with more contrast). A `div.ui-chip` isn't a disabled control, so the WCAG exemption doesn't apply, and axe flags it (`packages/opui/css/components/chip.css:189-195`)
   - The documented use is "dims a static chip" (`src/component-api/chip/api.ts:27`, `src/docs/components/chip.astro:212-227`). It's still information ("Archived") and has to stay readable. Disabled button chips (`[disabled]`) are exempt and don't change.
   - `aria-disabled="true"` would silence axe, but ARIA 1.2 doesn't allow it on a generic `div`, and it would announce a control that isn't there.
   - Fix: a static chip keeps the opacity but uses the primary text color, and the default cursor. With more contrast it drops the opacity and uses muted text.
@@ -1954,7 +1970,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Measured: tonal, outlined and critical 5.21–5.73:1 in light, 5.58–6.69:1 in dark, and 8.60–15.43:1 with more contrast. The critical chip's text turns primary, but its tinted background, border and dot stay.
   - Trade-off: a static chip that passes 4.5:1 can only be dimmed a little. `--text-muted` without opacity passes easily but barely looks dimmed in light mode, and `--text-muted` at 0.64 opacity fails (3.91–4.69:1). With more contrast it looks almost like an enabled chip.
 
-- [ ] (5) Form: inside `.ui-fieldset`, the error text of an invalid checkbox, radio or switch shows in the normal helper color instead of red. The choice components color their end text red in `components.root` (`checkbox.css:219-226`, `radio.css:202-209`, `switch.css:292-307`). But `form.css` sets `:where(.ui-fieldset) :where(.ui-end-text) { color: var(--field-helper-color) }` on every end text in the fieldset, and `components.extended` comes later in the layer order, so it wins whatever the specificity (`form.css:48-53`, `layers.css`)
+  > Fix
+  - Fixed: `chip.css` gives `&.ui-disabled:not(a, button)` `--text-primary` and `cursor: auto`, and with more contrast `--text-muted` at `opacity: 1`. axe passes: light 5.26–5.80:1, dark 5.56–6.67:1, more contrast 8.59–15.43:1 (AAA), up from 1.75–2.79:1. Disabled button and link chips are unchanged. The Disabled prose and the `.ui-disabled` api row say it only dims a little and keeps the text readable (`chip.css`, `chip.astro`, `chip/api.ts`).
+
+- [x] (5) Form: inside `.ui-fieldset`, the error text of an invalid checkbox, radio or switch shows in the normal helper color instead of red. The choice components color their end text red in `components.root` (`checkbox.css:219-226`, `radio.css:202-209`, `switch.css:292-307`). But `form.css` sets `:where(.ui-fieldset) :where(.ui-end-text) { color: var(--field-helper-color) }` on every end text in the fieldset, and `components.extended` comes later in the layer order, so it wins whatever the specificity (`form.css:48-53`, `layers.css`)
   - Measured in Chromium: inside the fieldset the end text is `oklch(0.27 0.01 255)` in light and `oklch(0.84 0.01 255)` in dark. Outside it, or with the fix, it's the red `--invalid-text-color`, `oklch(0.53 0.2 25)` in light and `oklch(0.75 0.2 25)` in dark. The fieldset's own end text stays red.
   - Text fields aren't affected, but only because `text-field.css` is in the same layer and imported after `form.css` (`components.css:35,39`).
   - It shows up in the Consent fieldset of the ValidationInContext stress page (`src/stress-tests/forms.html:2219-2245`). It also shows up in the Form KitchenSink terms checkbox once it's `:user-invalid` (`src/component-examples/form/KitchenSink.html:127-142`).
@@ -1970,7 +1989,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 
-- [ ] (3) Menu: a critical item fails contrast in dark mode. The lightness floor (`max(l, 0.75)`, `max(l, 0.85)` with more contrast) is tuned for the page surface, but menus sit on the lighter `--surface-elevated` (`gray-12`) (`packages/opui/css/components/menu.css:157-172`, `theme.css:101`)
+  > Fix
+  - Fixed: the fieldset's helper color, font-size and line-height only apply to its own end text (`> :where(.ui-end-text)`). Measured all 42 end texts inside fieldsets (forms stress, form/checkbox/radio/switch/text-field docs, form/checkbox/radio fixtures) in light, dark, more contrast and forced colors: only the invalid Consent checkbox and switch end texts changed, `oklch(0.27 0.01 255)` → `oklch(0.53 0.2 25)` in light and `oklch(0.84 0.01 255)` → `oklch(0.75 0.2 25)` in dark. Font sizes and line heights are unchanged (12px/18px) (`form.css`).
+
+- [x] (3) Menu: a critical item fails contrast in dark mode. The lightness floor (`max(l, 0.75)`, `max(l, 0.85)` with more contrast) is tuned for the page surface, but menus sit on the lighter `--surface-elevated` (`gray-12`) (`packages/opui/css/components/menu.css:157-172`, `theme.css:101`)
   - Measured in Chromium on the menu surface (`#373b40`): 4.18:1 (`#ff706a`, needs 4.5:1), and 6.65:1 (`#ffb4ad`, needs 7:1) with more contrast. axe flags the normal one.
   - Light mode passes at rest (5.54:1, 8.09:1). The 15% red hover tint drops it to 4.32:1 and 6.05:1 with more contrast.
   - Same floors as `--invalid-text-color` (`theme.css:71-74,327-330`), which sits on the page surface and passes there.
@@ -1990,6 +2012,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - With the fix, at rest / hovered: light 6.77 / 5.27:1, light with more contrast 9.61 / 7.20:1, dark 4.66 / 4.58:1, dark with more contrast 7.46 / 7.34:1. `0.79` and `0.88` still fail hovered (4.47:1, 7.03:1 is too tight).
+
+  > Fix
+  - Fixed: `menu.css` uses `light-dark(min(l, 0.48), max(l, 0.8))`, and `min(l, 0.36)` / `max(l, 0.9) min(c, 0.1)` with more contrast. Measured at rest / hovered: light 6.77 / 5.28:1, light with more contrast 9.61 / 7.17:1, dark 4.65 / 4.51:1, dark with more contrast 7.45 / 7.23:1. The "menu in dialog" and "submenu in dialog" axe tests no longer expect a failure, and the `stress/contrast` menus have a critical Delete again (AAA 9.61:1 light, 7.45:1 dark) (`menu.css`, `stress-overlays-a11y.spec.ts`, `contrast.html`).
 
 - [ ] (3) Text field, Textarea: `.ui-auto-fit` doesn't shrink the field. Only the input gets `field-sizing: content`. The root (`display: grid`) gets `inline-size: auto`, which is already its default, so in a block container or a `.ui-field-group` the root and `.ui-field` still fill the container. The input stretches with them, because it's an `auto`-width item in the field's `1fr` column. The docs ("lets the field's width follow its content, from `25ch`") only hold because the example is a flex row (`packages/opui/css/components/text-field.css:327-340`, `textarea.css:12-16`, `src/docs/components/text-field.astro:343-349`, `textarea.astro:282-291`)
   - Measured in Chromium in a 576px container, in a block container and in a field group: every auto-fit field is 576px (input 574px), the same as one without auto-fit. With the fix: a short value is 254px (input 252px = `25ch`), a long value 356px, a textarea 254px. At 286px the long value stops at 286px (`max-inline-size: 100%`).
@@ -2033,7 +2058,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 
-- [ ] (3) Toggle group: `.ui-vertical` items don't stretch. `.ui-toggle-button` is `inline-size: fit-content` and `.ui-vertical` only sets `flex-direction: column`, so each button keeps its own width. The dividers (`box-shadow`) and the checked and hover backgrounds stop at different widths. ButtonGroup `.ui-vertical` buttons do stretch (`packages/opui/css/components/toggle-group.css:50-52`, `toggle-button.css:111`, `button-group.css:352-367`)
+  > Double check again so this conclusion isn’t a mistake
+  - Checked again: confirmed. Re-measured in Chromium with `forcedColors: "active"` on `/tests/forms/`, `/tests/contrast/` and the toggle fixture: groups are 27/31/39/45px while Button, ButtonGroup, Select, TextField and a standalone ToggleButton in the same rows stay 28/32/40/46px (all exact outside forced colors). Each button is a 40px border box (`box-sizing: border-box`) at −1px, so the line's margin box is 39px and the top border is clipped by `overflow: hidden`; icon-only and vertical groups lose 1px per button (117×39, 39×117). Forced colors only change colors and drop `box-shadow`, never border widths or margins, so real Windows High Contrast gives the same geometry. The proposed fix, injected, restores every group to its normal size (28/32/40/46, two rows 80px, 120×40, 40×120) with unchanged text widths and nothing outside forced colors.
+  - Also: the checked button's `forced-color-adjust: none` keeps its gray `box-shadow` divider in forced colors, a 1px line before the selected item. `box-shadow: none` in the group's forced-colors rule would remove it.
+
+- [x] (3) Toggle group: `.ui-vertical` items don't stretch. `.ui-toggle-button` is `inline-size: fit-content` and `.ui-vertical` only sets `flex-direction: column`, so each button keeps its own width. The dividers (`box-shadow`) and the checked and hover backgrounds stop at different widths. ButtonGroup `.ui-vertical` buttons do stretch (`packages/opui/css/components/toggle-group.css:50-52`, `toggle-button.css:111`, `button-group.css:352-367`)
   - Measured in Chromium: Day/Week/Month/"Custom range" are 45, 58, 64 and 150px wide in a 150px group. A small Bold/Strikethrough/Code group is 46, 105 and 51px in a 105px group. The ButtonGroup with the same labels is 156px for every button.
   - With the fix every item is the group's width (150px, 105px), like ButtonGroup. Horizontal groups don't change.
   - Fix:
@@ -2046,6 +2075,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
+  > Fix
+  - Fixed: `.ui-vertical` sets `inline-size: auto` on its toggle buttons, so they stretch. Measured: the layout ScrollableGroups vertical group went from 96.97/85.84/142.19/115.44px items to 142.19px each, vertical with `ui-scrollable`, `ui-shrink` (70px box) and every size fills the group, and the 92 horizontal groups on the toggle fixture, layout, forms, contrast and toggle docs pages don't change (`toggle-group.css`).
 
 ## Docs
 
@@ -4049,14 +4080,19 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: `::picker(select)` gets `background: transparent` and `border-radius: var(--field-border-radius)` (`select.css`). The walkthrough's Picker step does the same. Checked in Chromium: the open picker's background is `rgba(0, 0, 0, 0)` and its radius is 8px.
-- [ ] (2) Contrast: `ui-link` on `--surface-tonal` or a light primary tint fails axe contrast in light mode, and a text `ui-button.ui-critical` on `--surface-tonal` fails in dark mode. Reported while building the blocks; the blocks avoid those combinations.
+- [x] (2) Contrast: `ui-link` on `--surface-tonal` or a light primary tint fails axe contrast in light mode, and a text `ui-button.ui-critical` on `--surface-tonal` fails in dark mode. Reported while building the blocks; the blocks avoid those combinations.
   > Explain further and provide an example
   - Explained: `--primary` is tuned for 4.5:1 on the page surface (4.76 in light), so any darker surface drops a primary link under AA. Measured with axe: light link on `--surface-tonal` 4.09, on a 15% primary tint 3.93; dark link on tonal 4.52 (passes, barely). The critical text button reads `--_accent-text`, which is `max(l, 0.75)` of `--critical` in dark mode: 4.17 on tonal.
   - Proposed: a text-safe primary, `light-dark(oklch(from var(--primary) min(l, 0.47) c h), oklch(from var(--primary) max(l, 0.78) c h))`, for `.ui-link` (could be a `--primary-text` theme token, also usable by text buttons), and `max(l, 0.8)` for the critical button's dark text. Measured: links 5.31 / 5.11 in light and 5.84 / 5.95 in dark on tonal / tint, the critical button 4.65 in dark. On the page surface the link gets darker in light mode (still the same hue), which is the visible trade-off. Example: contrast-tinted-surfaces
-- [ ] (2) List: in `.ui-list.ui-bordered.ui-tonal`, the separators are nearly invisible in dark mode. Reported while building the error-page and two-factor blocks (`packages/opui/css/components/list.css:37-55`)
+  > Fix
+  - Fixed: `.ui-link` uses a text-safe primary, `light-dark(oklch(from var(--primary) min(l, 0.47) c h), oklch(from var(--primary) max(l, 0.78) c h))`, as a private `--_text-color` (no theme token) (`link.css`). The critical button's dark `--_accent-text` is `max(l, 0.8)`, and contrast-more keeps `max(l, 0.85)` (`button.css`). Measured: links 5.32 / 5.11 in light and 5.72 / 5.90 in dark on tonal / tint (were 4.09 / 3.93 / 4.46 / 4.60), the critical button 4.66 on tonal in dark (was 4.18). Contrast-more is unchanged.
+  - Still failing: the primary text button (`ui-button ui-primary`) in light reads raw `--primary` (4.09 on tonal, 3.93 on tint); the same clamp in its `--_accent-text` would fix it. On `--surface-filled` in light, links (4.01), primary text buttons (3.09) and critical text buttons (3.59) still fail.
+- [x] (2) List: in `.ui-list.ui-bordered.ui-tonal`, the separators are nearly invisible in dark mode. Reported while building the error-page and two-factor blocks (`packages/opui/css/components/list.css:37-55`)
   > Explain further and provide an example
   - Explained: the separators use `--border-color`, which is `--gray-12` in dark mode, the same color as `--surface-tonal` in dark mode. On a tonal list in dark mode the line is exactly the background (contrast 1.00, invisible, not faint). Elsewhere it varies with the surface: 1.33 on tonal in light, 1.58 on the filled list in light, 1.72 on the filled list in dark.
   - Proposed: draw the separator from the list's own text color, `color-mix(in oklch, currentColor 18%, transparent)`, so it adapts to whatever surface it sits on. Measured: 1.47 tonal light, 1.45 filled light, 1.70 tonal dark, 1.64 filled dark, so every list gets about the same visible line. Applies to `.ui-bordered` and `.ui-border-top`. Example: list-separator-surfaces
+  > Fix
+  - Fixed: separators use a private `--_separator-color`, `color-mix(in oklch, currentColor 18%, transparent)`, and keep `--border-color` under `--contrast: more` (`list.css`). Measured: tonal dark 1.00 to 1.71, tonal light 1.33 to 1.47, filled light 1.58 to 1.44, filled dark 1.72 to 1.65, transparent 1.48 / 1.76. Contrast-more is unchanged, and forced colors still draw CanvasText. Separators no longer read `--border-color` outside contrast-more.
 - [x] (3) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
   - Yes, and most of it is in place. `text-input.css` already hides the browser's datalist indicator (Chromium only, Firefox has none and Safari draws its own) and draws a CSS triangle with `.ui-field::after`, like Select's `::picker-icon`. The arrow sits closer to the edge at `x-small`/`small` on purpose: the inset drops from `--size-3` to `--size-2` with the field padding.

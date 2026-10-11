@@ -22,14 +22,6 @@ const CHECKED = [
   "tooltip over an open menu in the same toolbar",
 ]
 
-const CRITICAL_ITEM =
-  "the critical menu item text has a 4.17:1 contrast against the dark elevated menu surface"
-
-const FAILING: Record<string, Record<string, string>> = {
-  "menu in dialog": { dark: CRITICAL_ITEM },
-  "submenu in dialog": { dark: CRITICAL_ITEM },
-}
-
 const isCarousel = (html: string) =>
   /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
 
@@ -44,9 +36,7 @@ test("every checked overlay scenario exists", () => {
 for (const { name, steps } of SCENARIOS.filter((scenario) =>
   CHECKED.includes(scenario.name),
 )) {
-  test(`open ${name} has no axe violations`, async ({ page }, testInfo) => {
-    const failing = FAILING[name]?.[testInfo.project.name]
-    test.fail(!!failing, failing)
+  test(`open ${name} has no axe violations`, async ({ page }) => {
     await openFixture(page, "html", "stress/overlays")
     for (const step of steps) await run(page, step)
     await page.evaluate(() =>

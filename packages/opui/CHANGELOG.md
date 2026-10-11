@@ -187,6 +187,16 @@
 
 ### Fixed
 
+- `Badge` no longer shrinks in flex rows, so an icon with a badge in an `Accordion` summary keeps its size next to long text. A bare `img` or `svg` in the summary keeps its size too.
+- `Button` critical text buttons have readable text on tonal surfaces in dark mode.
+- `Callout` keeps bare text and inline elements like links on one line instead of stacking them as separate rows.
+- `Checkbox` and `Radio` show a red border when invalid and unchecked (`aria-invalid="true"` or `:user-invalid`), like Switch and TextField. Before, only a checked control turned red.
+- `Chip` static `.ui-disabled` chips keep readable text: primary text at reduced opacity, muted text without opacity with more contrast, and the default cursor. Disabled button and link chips are unchanged.
+- `FieldSet` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
+- `Link` text stays readable on tonal and tinted surfaces: darker in light mode, lighter in dark mode.
+- `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode and look the same on every list surface.
+- `Menu` critical items pass contrast on the menu surface in dark mode and when hovered in light mode, also with more contrast.
+- `ToggleGroup` `.ui-vertical` items stretch to the group's width, like `ButtonGroup`, so dividers and the checked background line up.
 - `Menu` dividers (`.ui-border-top`, `.ui-bordered`) are visible in dark mode.
 - `Progress` pulses in place under reduced motion (`--motion: 0`) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--motion: 0`) instead of ignoring it.

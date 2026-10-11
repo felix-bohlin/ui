@@ -16,6 +16,7 @@
     --_text-color: var(--primary-contrast);
 
     display: inline-flex;
+    flex-shrink: 0;
     position: relative;
     vertical-align: middle;
 

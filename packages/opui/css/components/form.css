@@ -46,7 +46,7 @@
     }
 
     /* End text */
-    :where(.ui-end-text) {
+    > :where(.ui-end-text) {
       color: var(--field-helper-color);
       font-size: var(--field-helper-font-size);
       line-height: var(--field-helper-line-height);

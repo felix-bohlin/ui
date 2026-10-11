@@ -49,6 +49,10 @@
 
     &.ui-vertical {
       flex-direction: column;
+
+      .ui-toggle-button {
+        inline-size: auto;
+      }
     }
 
     /* Overflow */

@@ -115,6 +115,10 @@
         }
       }
 
+      & > :is(img, svg) {
+        flex-shrink: 0;
+      }
+
       .ui-marker {
         flex-shrink: 0;
         margin-inline-start: auto;

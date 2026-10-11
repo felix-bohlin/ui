@@ -242,7 +242,7 @@ import { Chip } from "opui-css/vue"
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` just dims it.
+Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` only dims it a little and keeps its text readable.
 
 ```vue
 <script setup lang="ts">
@@ -302,6 +302,7 @@ import { Chip } from "opui-css/vue"
 | `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
 | `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                            | Body text color.                                                                                      |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
 | `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 

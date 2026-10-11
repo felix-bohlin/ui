@@ -160,14 +160,14 @@
         from var(--critical) l c h / var(--state-hover-alpha-accent)
       );
       color: light-dark(
-        var(--critical),
-        oklch(from var(--critical) max(l, 0.75) c h)
+        oklch(from var(--critical) min(l, 0.48) c h),
+        oklch(from var(--critical) max(l, 0.8) c h)
       );
 
       @container style(--contrast: more) {
         color: light-dark(
-          var(--critical),
-          oklch(from var(--critical) max(l, 0.85) min(c, 0.1) h)
+          oklch(from var(--critical) min(l, 0.36) c h),
+          oklch(from var(--critical) max(l, 0.9) min(c, 0.1) h)
         );
       }
     }

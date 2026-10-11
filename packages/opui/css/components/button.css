@@ -65,11 +65,19 @@
     :where(.ui-button-group.ui-critical) > & {
       --_accent: var(--critical);
       --_accent-contrast: var(--gray-1);
+      --_accent-text: light-dark(
+        var(--_accent),
+        oklch(from var(--_accent) max(l, 0.8) c h)
+      );
 
       @container style(--contrast: more) {
         --_accent: light-dark(
           var(--critical),
           oklch(from var(--critical) min(l, 0.45) c h)
+        );
+        --_accent-text: light-dark(
+          var(--_accent),
+          oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
         );
       }
     }

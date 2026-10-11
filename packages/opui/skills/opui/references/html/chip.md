@@ -246,7 +246,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class just dims it.
+Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
 
 ```html
 <div class="example-row">
@@ -263,14 +263,14 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 
 ### Chip API
 
-| Type     | Modifiers                                                               | Default     | Description                                                                |
-| -------- | ----------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                           |
-| Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                     |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                   |
-| State    | `.ui-disabled`                                                          | -           | Dims a static chip. Only changes the look. Use `disabled` on button chips. |
-| Variants | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.       |
-| Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                        |
+| Type     | Modifiers                                                               | Default     | Description                                                                                                     |
+| -------- | ----------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                                                                |
+| Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                                                          |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                                                        |
+| State    | `.ui-disabled`                                                          | -           | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips. |
+| Variants | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
+| Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                                                             |
 
 #### Parts
 
@@ -303,6 +303,7 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 | `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
 | `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                            | Body text color.                                                                                      |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
 | `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 

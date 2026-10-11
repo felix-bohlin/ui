@@ -24,7 +24,7 @@ export default {
       class: ".ui-disabled",
       default: "false",
       description:
-        "Dims a static chip. Only changes the look. Use `disabled` on button chips.",
+        "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",
       frameworks: ["html"],
       group: "State",
       prop: "disabled",

@@ -67,9 +67,12 @@
     }
 
     & > .ui-content {
-      display: grid;
+      display: flow-root;
       font-size: var(--_font-size);
-      gap: var(--_content-gap);
+
+      & > * + * {
+        margin-block-start: var(--_content-gap);
+      }
 
       h1,
       h2,
@@ -124,6 +127,11 @@
     .ui-callout > .ui-content,
     .ui-callout > :scope.ui-content {
       display: block;
+    }
+
+    .ui-callout > .ui-content > * + *,
+    .ui-callout > :scope.ui-content > * + * {
+      margin-block-start: revert-layer;
     }
   }
 }

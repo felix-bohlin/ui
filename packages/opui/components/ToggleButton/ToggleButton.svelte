@@ -6,7 +6,6 @@
   let {
     class: className,
     disabled,
-    id,
     label,
     name,
     pressed,
@@ -21,7 +20,6 @@
 
   const field = getFieldContext()
   const group = getToggleGroupContext()
-  const uid = $props.id()
 
   const finalName = $derived(name || group?.groupName || field?.name)
   const finalType = $derived(
@@ -35,7 +33,6 @@
   <input
     checked={pressed}
     {disabled}
-    id={id || `toggle-${uid}`}
     name={finalName}
     type={finalType}
     value={value || label}

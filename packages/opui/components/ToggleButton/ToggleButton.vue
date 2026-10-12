@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, useId } from "vue"
+import { computed, inject } from "vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 import { ToggleGroupKey } from "../ToggleGroup/types.d.vue"
 import type { Props, Slots } from "./types.d.vue"
@@ -18,8 +18,6 @@ const finalName = computed(() => name || group?.name || currentFieldName)
 const finalType = computed(() =>
   group?.type === "radio" ? "radio" : type || group?.type || "checkbox",
 )
-const uid = useId()
-const inputId = computed(() => id || uid)
 </script>
 
 <template>
@@ -27,7 +25,7 @@ const inputId = computed(() => id || uid)
     <input
       :checked="pressed"
       :disabled="disabled"
-      :id="inputId"
+      :id="id"
       :name="finalName"
       :type="finalType"
       :value="value || label"

@@ -52,7 +52,7 @@
   <SwitchInput
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : undefined}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
     bind:checked
     bind:group
   />

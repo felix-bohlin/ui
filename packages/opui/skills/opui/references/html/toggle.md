@@ -18,11 +18,11 @@ Day Week Month
 
 ```html
 <label class="ui-toggle-button">
-  <input type="checkbox" id="standalone-demo-1" name="standalone-demo-1" />
+  <input type="checkbox" name="standalone-demo-1" />
   Toggle me
 </label>
 <label class="ui-toggle-button">
-  <input type="checkbox" id="standalone-demo-2" name="standalone-demo-2" />
+  <input type="checkbox" name="standalone-demo-2" />
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -48,22 +48,22 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
 
 ```html
 <label class="ui-toggle-button ui-x-small">
-  <input type="checkbox" id="toggle-size-1" />
+  <input type="checkbox" />
   x-small
 </label>
 
 <label class="ui-toggle-button ui-small">
-  <input type="checkbox" id="toggle-size-2" />
+  <input type="checkbox" />
   small
 </label>
 
 <label class="ui-toggle-button">
-  <input type="checkbox" id="toggle-size-3" />
+  <input type="checkbox" />
   default
 </label>
 
 <label class="ui-toggle-button ui-large">
-  <input type="checkbox" id="toggle-size-4" />
+  <input type="checkbox" />
   large
 </label>
 ```
@@ -79,19 +79,12 @@ Use `type="checkbox"` for multi-select groups.
 ```html
 <div role="group" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input
-      type="checkbox"
-      id="text-style-bold"
-      name="text-style"
-      value="bold"
-      aria-label="Bold"
-    />
+    <input type="checkbox" name="text-style" value="bold" aria-label="Bold" />
     <strong>B</strong>
   </label>
   <label class="ui-toggle-button">
     <input
       type="checkbox"
-      id="text-style-italic"
       name="text-style"
       value="italic"
       aria-label="Italic"
@@ -101,7 +94,6 @@ Use `type="checkbox"` for multi-select groups.
   <label class="ui-toggle-button">
     <input
       type="checkbox"
-      id="text-style-underline"
       name="text-style"
       value="underline"
       aria-label="Underline"
@@ -118,13 +110,7 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
 ```html
 <div role="radiogroup" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      id="alignment-left"
-      name="alignment"
-      value="left"
-      aria-label="Align left"
-    />
+    <input type="radio" name="alignment" value="left" aria-label="Align left" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -140,7 +126,6 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
   <label class="ui-toggle-button">
     <input
       type="radio"
-      id="alignment-center"
       checked
       name="alignment"
       value="center"
@@ -161,7 +146,6 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
   <label class="ui-toggle-button">
     <input
       type="radio"
-      id="alignment-right"
       name="alignment"
       value="right"
       aria-label="Align right"
@@ -188,13 +172,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
 ```html
 <div role="radiogroup" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      id="transport-walking"
-      checked
-      name="transport"
-      value="walking"
-    />
+    <input type="radio" checked name="transport" value="walking" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -209,12 +187,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
     Walking
   </label>
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      id="transport-cycling"
-      name="transport"
-      value="cycling"
-    />
+    <input type="radio" name="transport" value="cycling" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -229,12 +202,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
     Cycling
   </label>
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      id="transport-commuting"
-      name="transport"
-      value="commuting"
-    />
+    <input type="radio" name="transport" value="commuting" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -260,7 +228,6 @@ Change the layout of the group with the `.ui-vertical` class.
   <label class="ui-toggle-button">
     <input
       type="radio"
-      id="alignment-vertical-left"
       name="alignment-vertical"
       value="left"
       aria-label="Align left"
@@ -280,7 +247,6 @@ Change the layout of the group with the `.ui-vertical` class.
   <label class="ui-toggle-button">
     <input
       type="radio"
-      id="alignment-vertical-center"
       checked
       name="alignment-vertical"
       value="center"
@@ -301,7 +267,6 @@ Change the layout of the group with the `.ui-vertical` class.
   <label class="ui-toggle-button">
     <input
       type="radio"
-      id="alignment-vertical-right"
       name="alignment-vertical"
       value="right"
       aria-label="Align right"
@@ -331,30 +296,15 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
     <p>Wrap</p>
     <div role="group" class="ui-toggle-group">
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-wrap-all"
-          name="overflow-wrap"
-          value="all"
-        />
+        <input type="checkbox" name="overflow-wrap" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-wrap-mentions"
-          name="overflow-wrap"
-          value="mentions"
-        />
+        <input type="checkbox" name="overflow-wrap" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-wrap-none"
-          name="overflow-wrap"
-          value="none"
-        />
+        <input type="checkbox" name="overflow-wrap" value="none" />
         Nothing at all
       </label>
     </div>
@@ -363,30 +313,15 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
     <p>Scroll</p>
     <div role="group" class="ui-toggle-group ui-scrollable">
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-scrollable-all"
-          name="overflow-scrollable"
-          value="all"
-        />
+        <input type="checkbox" name="overflow-scrollable" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-scrollable-mentions"
-          name="overflow-scrollable"
-          value="mentions"
-        />
+        <input type="checkbox" name="overflow-scrollable" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-scrollable-none"
-          name="overflow-scrollable"
-          value="none"
-        />
+        <input type="checkbox" name="overflow-scrollable" value="none" />
         Nothing at all
       </label>
     </div>
@@ -395,30 +330,15 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
     <p>Shrink</p>
     <div role="group" class="ui-toggle-group ui-shrink">
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-shrink-all"
-          name="overflow-shrink"
-          value="all"
-        />
+        <input type="checkbox" name="overflow-shrink" value="all" />
         Everything
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-shrink-mentions"
-          name="overflow-shrink"
-          value="mentions"
-        />
+        <input type="checkbox" name="overflow-shrink" value="mentions" />
         Mentions
       </label>
       <label class="ui-toggle-button">
-        <input
-          type="checkbox"
-          id="overflow-shrink-none"
-          name="overflow-shrink"
-          value="none"
-        />
+        <input type="checkbox" name="overflow-shrink" value="none" />
         Nothing at all
       </label>
     </div>

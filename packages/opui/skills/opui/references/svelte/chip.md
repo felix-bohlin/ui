@@ -218,10 +218,8 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
   import { Chip } from "opui-css/svelte"
 </script>
 
-<div class="example-row">
-  <Chip as="button" variant="tonal" label="Tonal" disabled />
-  <Chip as="button" variant="outlined" label="Outlined" disabled />
-</div>
+<Chip as="button" variant="tonal" label="Tonal" disabled />
+<Chip as="button" variant="outlined" label="Outlined" disabled />
 ```
 
 ## API

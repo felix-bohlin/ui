@@ -18,7 +18,7 @@ export default {
       type: "boolean",
     },
     {
-      description: "The id of the `<input>`. Generated when omitted.",
+      description: "The id of the `<input>`.",
       frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",

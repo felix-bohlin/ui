@@ -75,12 +75,12 @@
     <input
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : undefined}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
       bind:value
       {id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
+      inputmode={rest.inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
+      pattern={rest.pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
     />
     {#if prefix}

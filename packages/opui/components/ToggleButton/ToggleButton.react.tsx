@@ -1,6 +1,5 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
 import { useToggleGroupContext } from "../ToggleGroup/context.react"
@@ -9,7 +8,6 @@ import type { Props } from "./types.react"
 export default function ToggleButton({
   className,
   disabled,
-  id,
   label,
   name,
   pressed,
@@ -21,7 +19,6 @@ export default function ToggleButton({
 }: Props) {
   const field = useFieldContext()
   const group = useToggleGroupContext()
-  const uid = useId()
 
   const finalName = name || group?.groupName || field?.name
   const finalType =
@@ -36,7 +33,6 @@ export default function ToggleButton({
       <input
         defaultChecked={pressed}
         disabled={disabled}
-        id={id || `toggle-${uid}`}
         name={finalName}
         type={finalType}
         value={value || label}

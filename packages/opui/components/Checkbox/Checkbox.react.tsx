@@ -34,7 +34,7 @@ export default function Checkbox({
       <CheckboxInput
         {...rest}
         aria-describedby={describedBy}
-        aria-invalid={error ? "true" : undefined}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
       />
       {children && (
         <span className={hideLabel ? "ui-sr-only" : "ui-label"}>

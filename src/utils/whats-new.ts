@@ -441,6 +441,10 @@ const whatsNew = {
   ],
   toggle: [
     {
+      astro: `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+      vue: `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
+    },
+    {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>.`,
       html: `<a href="#sizes">Large</a> size with <code>.ui-large</code>.`,
     },

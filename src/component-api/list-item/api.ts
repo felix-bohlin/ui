@@ -25,11 +25,18 @@ export default {
     },
     {
       description: "The `for` attribute of the `<label>` when `type` is set.",
+      frameworks: ["astro", "svelte", "vue"],
       prop: "for",
     },
     {
       description: "The link to use. Renders an `<a>` inside the `<li>`.",
       prop: "href",
+    },
+    {
+      description: "The `for` attribute of the `<label>` when `type` is set.",
+      frameworks: ["react"],
+      prop: "htmlFor",
+      type: "string",
     },
     {
       class: ".ui-inset",

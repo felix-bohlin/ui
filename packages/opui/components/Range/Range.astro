@@ -137,6 +137,7 @@ const describedBy =
       output.textContent = `${input.value}${suffix}`
     }
     input.addEventListener("input", update)
+    input.form?.addEventListener("reset", () => setTimeout(update))
     update()
   }
 </script>

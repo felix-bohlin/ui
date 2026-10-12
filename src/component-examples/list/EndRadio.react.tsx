@@ -5,7 +5,7 @@ export default function EndRadio() {
     <List>
       <ListItem
         type="radio"
-        for="radio-example-1"
+        htmlFor="radio-example-1"
         text="Radio 1"
         end={
           <RadioInput
@@ -17,7 +17,7 @@ export default function EndRadio() {
       />
       <ListItem
         type="radio"
-        for="radio-example-2"
+        htmlFor="radio-example-2"
         text="Radio 2"
         end={
           <RadioInput

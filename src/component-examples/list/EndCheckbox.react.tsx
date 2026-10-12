@@ -5,13 +5,13 @@ export default function EndCheckbox() {
     <List>
       <ListItem
         type="checkbox"
-        for="checkbox-example-1"
+        htmlFor="checkbox-example-1"
         text="Checkbox 1"
         end={<CheckboxInput id="checkbox-example-1" />}
       />
       <ListItem
         type="checkbox"
-        for="checkbox-example-2"
+        htmlFor="checkbox-example-2"
         text="Checkbox 2"
         end={<CheckboxInput id="checkbox-example-2" />}
       />

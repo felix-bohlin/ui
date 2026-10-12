@@ -38,138 +38,171 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
 ### Default
 
 ```vue
+<script setup lang="ts">
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+
 <template>
-  <table class="ui-table">
+  <Table>
     <caption>
       Band Members
     </caption>
-    <thead>
-      <tr>
-        <th>Band</th>
-        <th>Name</th>
-        <th>Instrument</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Radiohead</td>
-        <td>Ed O'Brien</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-      <tr>
-        <td>Korn</td>
-        <td>Jonathan Davis</td>
-        <td>Vocals</td>
-      </tr>
-      <tr>
-        <td>Broken Bells</td>
-        <td>James Mercer</td>
-        <td>Vocals/Guitar</td>
-      </tr>
-      <tr>
-        <td>Pink Floyd</td>
-        <td>David Gilmour</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-    </tbody>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell>Band</TableHeaderCell>
+        <TableHeaderCell>Name</TableHeaderCell>
+        <TableHeaderCell>Instrument</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>Radiohead</TableCell>
+        <TableCell>Ed O'Brien</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Korn</TableCell>
+        <TableCell>Jonathan Davis</TableCell>
+        <TableCell>Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Broken Bells</TableCell>
+        <TableCell>James Mercer</TableCell>
+        <TableCell>Vocals/Guitar</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Pink Floyd</TableCell>
+        <TableCell>David Gilmour</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+    </TableBody>
     <tfoot>
-      <tr>
-        <td colspan="3">All great bands!</td>
-      </tr>
+      <TableRow>
+        <TableCell :colspan="3">All great bands!</TableCell>
+      </TableRow>
     </tfoot>
-  </table>
+  </Table>
 </template>
 ```
 
 ### Dense
 
 ```vue
+<script setup lang="ts">
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+
 <template>
-  <table class="ui-table ui-dense">
+  <Table variant="dense">
     <caption>
       Band Members
     </caption>
-    <thead>
-      <tr>
-        <th>Band</th>
-        <th>Name</th>
-        <th>Instrument</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Radiohead</td>
-        <td>Ed O'Brien</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-      <tr>
-        <td>Korn</td>
-        <td>Jonathan Davis</td>
-        <td>Vocals</td>
-      </tr>
-      <tr>
-        <td>Broken Bells</td>
-        <td>James Mercer</td>
-        <td>Vocals/Guitar</td>
-      </tr>
-      <tr>
-        <td>Pink Floyd</td>
-        <td>David Gilmour</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-    </tbody>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell>Band</TableHeaderCell>
+        <TableHeaderCell>Name</TableHeaderCell>
+        <TableHeaderCell>Instrument</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>Radiohead</TableCell>
+        <TableCell>Ed O'Brien</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Korn</TableCell>
+        <TableCell>Jonathan Davis</TableCell>
+        <TableCell>Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Broken Bells</TableCell>
+        <TableCell>James Mercer</TableCell>
+        <TableCell>Vocals/Guitar</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Pink Floyd</TableCell>
+        <TableCell>David Gilmour</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+    </TableBody>
     <tfoot>
-      <tr>
-        <td colspan="3">All great bands!</td>
-      </tr>
+      <TableRow>
+        <TableCell :colspan="3">All great bands!</TableCell>
+      </TableRow>
     </tfoot>
-  </table>
+  </Table>
 </template>
 ```
 
 ### Spacious
 
 ```vue
+<script setup lang="ts">
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+
 <template>
-  <table class="ui-table ui-spacious">
+  <Table variant="spacious">
     <caption>
       Band Members
     </caption>
-    <thead>
-      <tr>
-        <th>Band</th>
-        <th>Name</th>
-        <th>Instrument</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Radiohead</td>
-        <td>Ed O'Brien</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-      <tr>
-        <td>Korn</td>
-        <td>Jonathan Davis</td>
-        <td>Vocals</td>
-      </tr>
-      <tr>
-        <td>Broken Bells</td>
-        <td>James Mercer</td>
-        <td>Vocals/Guitar</td>
-      </tr>
-      <tr>
-        <td>Pink Floyd</td>
-        <td>David Gilmour</td>
-        <td>Guitar/Vocals</td>
-      </tr>
-    </tbody>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell>Band</TableHeaderCell>
+        <TableHeaderCell>Name</TableHeaderCell>
+        <TableHeaderCell>Instrument</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>Radiohead</TableCell>
+        <TableCell>Ed O'Brien</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Korn</TableCell>
+        <TableCell>Jonathan Davis</TableCell>
+        <TableCell>Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Broken Bells</TableCell>
+        <TableCell>James Mercer</TableCell>
+        <TableCell>Vocals/Guitar</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Pink Floyd</TableCell>
+        <TableCell>David Gilmour</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+    </TableBody>
     <tfoot>
-      <tr>
-        <td colspan="3">All great bands!</td>
-      </tr>
+      <TableRow>
+        <TableCell :colspan="3">All great bands!</TableCell>
+      </TableRow>
     </tfoot>
-  </table>
+  </Table>
 </template>
 ```
 
@@ -270,78 +303,91 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
 
 ```vue
+<script setup lang="ts">
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+
 <template>
-  <table class="ui-table">
+  <Table>
     <caption>
       Nordic Countries Overview
     </caption>
-    <colgroup>
-      <col />
-      <col />
-      <col />
-    </colgroup>
-    <thead>
-      <tr>
-        <th rowspan="2">Country</th>
-        <th colspan="3">Major Cities</th>
-        <th colspan="2">Nature</th>
-      </tr>
-      <tr>
-        <th>Capital</th>
-        <th>2nd Largest</th>
-        <th>3rd Largest</th>
-        <th>National Animal</th>
-        <th>National Bird</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Norway</th>
-        <td>Oslo</td>
-        <td>Bergen</td>
-        <td>Trondheim</td>
-        <td>Elk</td>
-        <td>White-throated Dipper</td>
-      </tr>
-      <tr>
-        <th scope="row">Sweden</th>
-        <td>Stockholm</td>
-        <td>Göteborg</td>
-        <td>Malmö</td>
-        <td>Elk</td>
-        <td>Common Blackbird</td>
-      </tr>
-      <tr>
-        <th scope="row">Denmark</th>
-        <td>København</td>
-        <td>Aarhus</td>
-        <td>Odense</td>
-        <td>Mute Swan</td>
-        <td>Mute Swan</td>
-      </tr>
-      <tr>
-        <th scope="row">Finland</th>
-        <td>Helsinki</td>
-        <td>Espoo</td>
-        <td>Tampere</td>
-        <td>Brown Bear</td>
-        <td>Whooper Swan</td>
-      </tr>
-      <tr>
-        <th scope="row">Iceland</th>
-        <td>Reykjavík</td>
-        <td>Kópavogur</td>
-        <td>Hafnarfjörður</td>
-        <td>Gyrfalcon</td>
-        <td>Gyrfalcon</td>
-      </tr>
-    </tbody>
+    <TableColumnGroup>
+      <TableColumn />
+      <TableColumn />
+      <TableColumn />
+    </TableColumnGroup>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell :rowspan="2">Country</TableHeaderCell>
+        <TableHeaderCell :colspan="3">Major Cities</TableHeaderCell>
+        <TableHeaderCell :colspan="2">Nature</TableHeaderCell>
+      </TableRow>
+      <TableRow>
+        <TableHeaderCell>Capital</TableHeaderCell>
+        <TableHeaderCell>2nd Largest</TableHeaderCell>
+        <TableHeaderCell>3rd Largest</TableHeaderCell>
+        <TableHeaderCell>National Animal</TableHeaderCell>
+        <TableHeaderCell>National Bird</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableHeaderCell scope="row">Norway</TableHeaderCell>
+        <TableCell>Oslo</TableCell>
+        <TableCell>Bergen</TableCell>
+        <TableCell>Trondheim</TableCell>
+        <TableCell>Elk</TableCell>
+        <TableCell>White-throated Dipper</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableHeaderCell scope="row">Sweden</TableHeaderCell>
+        <TableCell>Stockholm</TableCell>
+        <TableCell>Göteborg</TableCell>
+        <TableCell>Malmö</TableCell>
+        <TableCell>Elk</TableCell>
+        <TableCell>Common Blackbird</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableHeaderCell scope="row">Denmark</TableHeaderCell>
+        <TableCell>København</TableCell>
+        <TableCell>Aarhus</TableCell>
+        <TableCell>Odense</TableCell>
+        <TableCell>Mute Swan</TableCell>
+        <TableCell>Mute Swan</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableHeaderCell scope="row">Finland</TableHeaderCell>
+        <TableCell>Helsinki</TableCell>
+        <TableCell>Espoo</TableCell>
+        <TableCell>Tampere</TableCell>
+        <TableCell>Brown Bear</TableCell>
+        <TableCell>Whooper Swan</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableHeaderCell scope="row">Iceland</TableHeaderCell>
+        <TableCell>Reykjavík</TableCell>
+        <TableCell>Kópavogur</TableCell>
+        <TableCell>Hafnarfjörður</TableCell>
+        <TableCell>Gyrfalcon</TableCell>
+        <TableCell>Gyrfalcon</TableCell>
+      </TableRow>
+    </TableBody>
     <tfoot>
-      <tr>
-        <td colspan="6">Scandinavia != The Nordics</td>
-      </tr>
+      <TableRow>
+        <TableCell :colspan="6">Scandinavia != The Nordics</TableCell>
+      </TableRow>
     </tfoot>
-  </table>
+  </Table>
 </template>
 ```
 

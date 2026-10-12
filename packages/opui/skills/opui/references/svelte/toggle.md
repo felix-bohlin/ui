@@ -324,7 +324,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ---------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
 | `children` | `Snippet`                           | -            | The label and an optional icon.                                                              |
 | `disabled` | `boolean`                           | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.                                             |
+| `id`       | `string`                            | -            | The id of the `<input>`.                                                                     |
 | `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
 | `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
 | `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |

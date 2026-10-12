@@ -187,7 +187,7 @@ export default function ListAll({ prefix = "" }: { prefix?: string }) {
       <ListItem
         borderTop
         type="checkbox"
-        for={`${prefix}checkbox-all`}
+        htmlFor={`${prefix}checkbox-all`}
         text="Checkbox"
         end={<CheckboxInput id={`${prefix}checkbox-all`} />}
       />
@@ -195,7 +195,7 @@ export default function ListAll({ prefix = "" }: { prefix?: string }) {
       <ListItem
         borderTop
         type="radio"
-        for={`${prefix}radio-all-1`}
+        htmlFor={`${prefix}radio-all-1`}
         text="Radio 1"
         end={
           <RadioInput
@@ -208,7 +208,7 @@ export default function ListAll({ prefix = "" }: { prefix?: string }) {
 
       <ListItem
         type="radio"
-        for={`${prefix}radio-all-2`}
+        htmlFor={`${prefix}radio-all-2`}
         text="Radio 2"
         end={
           <RadioInput
@@ -222,7 +222,7 @@ export default function ListAll({ prefix = "" }: { prefix?: string }) {
       <ListItem
         borderTop
         type="switch"
-        for={`${prefix}switch-all-1`}
+        htmlFor={`${prefix}switch-all-1`}
         text="Switch 1"
         end={<SwitchInput id={`${prefix}switch-all-1`} />}
       />

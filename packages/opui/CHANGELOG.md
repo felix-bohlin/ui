@@ -7,6 +7,7 @@
 - `Accordion` markers only animate with a marker class on `details`, and the marker is the `svg` with `.ui-marker`. Add `.ui-marker-rotate` to keep the previous rotation and `.ui-marker` to the chevron. Other icons in the `summary` stay put.
 - `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot replaces it, so move a custom chevron from `summary` to the `marker` slot and give it `.ui-marker`, or it shows twice.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
+- `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. Rename any overrides to the new names.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
@@ -350,6 +351,7 @@
 - `Carousel` scroll buttons and markers show the library focus ring instead of the thin browser ring.
 - `Carousel` stops smooth scrolling with `.ui-motion-off` or `--motion: 0`, like its other transitions. Before, only `prefers-reduced-motion` turned it off.
 - `Carousel` keeps the space for its markers when it's vertical with buttons outside.
+- `Checkbox`, `Radio` and `Switch` in Astro keep an `aria-invalid` you pass instead of dropping it when `error` isn't set.
 - `Radio` dot stays centered at every zoom level and screen scale. It's a `radial-gradient()` on the input's background instead of a separate `::after` box.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb at both ends.
@@ -360,6 +362,8 @@
 - `List` only caps the start column at the icon size when it holds an `svg` directly, so an `Avatar` with an icon keeps its size.
 - `Table` row headers (`<th scope="row">`, or a `th` next to `td` cells in `tbody`) keep the body background instead of the header fill.
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `FieldSet` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
+- `Range` updates its value `<output>` after its form is reset.
+- `Table.Column` in Astro keeps `width` when `style` is an object.
 
 ## 5.5.0 - 2026-09-28
 

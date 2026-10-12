@@ -1,6 +1,5 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
 
 export const title = "Toggle Button"
 
@@ -16,16 +15,13 @@ const {
   ...rest
 } = Astro.props
 
-const $id = createId(Astro.locals)
 const finalType = type || "checkbox"
-const id = rest.id || $id("toggle")
 ---
 
 <label class:list={["ui-toggle-button", size && `ui-${size}`, className]}>
   <input
     checked={pressed}
     disabled={disabled}
-    id={id}
     name={name}
     type={finalType}
     value={value || label}

@@ -108,7 +108,7 @@ export default function Clickable() {
       <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
       <ListItem
         type="checkbox"
-        for="clickable-checkbox"
+        htmlFor="clickable-checkbox"
         headline="Checkbox list item"
         end={<CheckboxInput id="clickable-checkbox" />}
       />
@@ -380,13 +380,13 @@ export default function EndCheckbox() {
     <List>
       <ListItem
         type="checkbox"
-        for="checkbox-example-1"
+        htmlFor="checkbox-example-1"
         text="Checkbox 1"
         end={<CheckboxInput id="checkbox-example-1" />}
       />
       <ListItem
         type="checkbox"
-        for="checkbox-example-2"
+        htmlFor="checkbox-example-2"
         text="Checkbox 2"
         end={<CheckboxInput id="checkbox-example-2" />}
       />
@@ -411,7 +411,7 @@ export default function EndRadio() {
     <List>
       <ListItem
         type="radio"
-        for="radio-example-1"
+        htmlFor="radio-example-1"
         text="Radio 1"
         end={
           <RadioInput
@@ -423,7 +423,7 @@ export default function EndRadio() {
       />
       <ListItem
         type="radio"
-        for="radio-example-2"
+        htmlFor="radio-example-2"
         text="Radio 2"
         end={
           <RadioInput
@@ -450,13 +450,13 @@ export default function EndSwitch() {
     <List>
       <ListItem
         type="switch"
-        for="switch-example-1"
+        htmlFor="switch-example-1"
         text="Switch 1"
         end={<SwitchInput id="switch-example-1" />}
       />
       <ListItem
         type="switch"
-        for="switch-example-2"
+        htmlFor="switch-example-2"
         text="Switch 2"
         end={<SwitchInput id="switch-example-2" />}
       />
@@ -660,9 +660,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
 | `end`         | `ReactNode`                           | -       | Optional content at the end, such as a value or an action.                                                                                      |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
 | `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
 | `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
+| `htmlFor`     | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
 | `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
 | `start`       | `ReactNode`                           | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
 | `submenu`     | `ReactNode`                           | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |

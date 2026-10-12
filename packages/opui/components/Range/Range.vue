@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { computed, inject, useAttrs, useId, useSlots } from "vue"
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  useAttrs,
+  useId,
+  useSlots,
+  useTemplateRef,
+} from "vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
@@ -17,6 +26,18 @@ const model = computed({
     modelValue.value = value
   },
 })
+
+const input = useTemplateRef<HTMLInputElement>("input")
+let form: HTMLFormElement | null | undefined
+const syncAfterReset = () =>
+  setTimeout(() => {
+    if (input.value) model.value = input.value.valueAsNumber
+  })
+onMounted(() => {
+  form = input.value?.form
+  form?.addEventListener("reset", syncAfterReset)
+})
+onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
 
 const attrs = useAttrs()
 const defaultValue = computed(() => {
@@ -86,6 +107,7 @@ const endTextId = useId()
       :id="inputId"
       :list="props.list"
       :name="currentFieldName"
+      ref="input"
       type="range"
       v-bind="$attrs"
       v-model.number="model"

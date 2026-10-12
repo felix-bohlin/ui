@@ -8,10 +8,19 @@ const { style, width, ...rest } = Astro.props
 const widthStyle = width
   ? `${width.includes(":") ? width : `width: ${width}`};`
   : ""
+const widthDeclarations = Object.fromEntries(
+  widthStyle
+    .split(";")
+    .filter((declaration) => declaration.includes(":"))
+    .map((declaration) => {
+      const [name, ...value] = declaration.split(":")
+      return [name.trim(), value.join(":").trim()]
+    }),
+)
 const mergedStyle =
   typeof style === "string" || !style
     ? `${widthStyle}${style ?? ""}` || undefined
-    : style
+    : { ...widthDeclarations, ...style }
 ---
 
 <col style={mergedStyle} {...rest} />

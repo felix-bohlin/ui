@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
 import type { RangeProps as Props } from "./types.react"
@@ -27,11 +27,30 @@ export default function Range({
   children,
   datalist,
   valueText,
+  ref,
   ...rest
 }: Props) {
   const uid = useId()
   const field = useFieldContext()
   const [current, setCurrent] = useState(defaultValue)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const form = inputRef.current?.form
+    if (!form) return
+    const sync = () => setTimeout(() => setCurrent(inputRef.current?.value))
+    form.addEventListener("reset", sync)
+    return () => form.removeEventListener("reset", sync)
+  }, [])
+
+  const setRef = useCallback(
+    (input: HTMLInputElement | null) => {
+      inputRef.current = input
+      if (typeof ref === "function") return ref(input)
+      if (ref) ref.current = input
+    },
+    [ref],
+  )
 
   const hasLabel = !!label || !!children
   const hasValue = valueSuffix !== undefined || !!valueText
@@ -96,6 +115,7 @@ export default function Range({
           setCurrent(event.target.value)
           onChange?.(event)
         }}
+        ref={setRef}
         step={step}
         type="range"
         value={value}

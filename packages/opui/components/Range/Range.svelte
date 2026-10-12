@@ -89,6 +89,12 @@
     {step}
     type="range"
     bind:value
+    {@attach (input) => {
+      const form = input.form
+      const sync = () => setTimeout(() => (value = input.valueAsNumber))
+      form?.addEventListener("reset", sync)
+      return () => form?.removeEventListener("reset", sync)
+    }}
     {...rest}
   />
   {#if options || datalist}

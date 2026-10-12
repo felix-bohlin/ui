@@ -346,7 +346,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Prop       | Type                                | Default      | Description                                                                                  |
 | ---------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
 | `disabled` | `boolean`                           | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.                                             |
+| `id`       | `string`                            | -            | The id of the `<input>`.                                                                     |
 | `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
 | `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
 | `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |
@@ -531,6 +531,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`ToggleButton`](#toggle-button) no longer generates an input `id`. Pass [`id`](#api) when something outside the component references the input.
 - [Large](#sizes) size with `size="large"`.
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.

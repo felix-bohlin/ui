@@ -33,6 +33,14 @@ Utils that you can plop down wherever.
 
 ### Blockquote
 
+```svelte
+<blockquote class="ui-blockquote">
+  “Occupy your mind, don't stay home. Talk to all your friends, but don't look
+  at your phone”
+  <footer>— Marika Hackman, <cite>No Caffeine</cite></footer>
+</blockquote>
+```
+
 ### Link
 
 Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get the same style without a class. On hover and focus the underline gets thicker, and the color darkens in light mode and lightens in dark mode.

@@ -5,13 +5,13 @@ export default function EndSwitch() {
     <List>
       <ListItem
         type="switch"
-        for="switch-example-1"
+        htmlFor="switch-example-1"
         text="Switch 1"
         end={<SwitchInput id="switch-example-1" />}
       />
       <ListItem
         type="switch"
-        for="switch-example-2"
+        htmlFor="switch-example-2"
         text="Switch 2"
         end={<SwitchInput id="switch-example-2" />}
       />

@@ -58,6 +58,10 @@ import cardApi from "../../component-api/card/api"
         >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes. Without
         a variant class the card has the page surface color and no border.
       </Fragment>
+      <Fragment slot="react">
+        Change the card variant with the <code>variant</code> prop. Without a variant
+        the card has the page surface color and no border.
+      </Fragment>
       <Fragment slot="svelte">
         Change the card variant with the <code>variant</code> prop. Without a variant
         the card has the page surface color and no border.
@@ -89,6 +93,9 @@ import cardApi from "../../component-api/card/api"
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
+      <Fragment slot="react">
+        Using the <code>header</code> prop.
+      </Fragment>
       <Fragment slot="svelte">
         Using the <code>header</code> snippet.
       </Fragment>
@@ -105,6 +112,9 @@ import cardApi from "../../component-api/card/api"
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
+      </Fragment>
+      <Fragment slot="react">
+        Using the <code>actions</code> prop.
       </Fragment>
       <Fragment slot="svelte">
         Using the <code>actions</code> snippet.
@@ -127,6 +137,9 @@ import cardApi from "../../component-api/card/api"
       </Fragment>
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
+      </Fragment>
+      <Fragment slot="react">
+        Align actions to the end with the <code>actionsAlign="end"</code> prop.
       </Fragment>
       <Fragment slot="svelte">
         Align actions to the end with the <code>actionsAlign="end"</code> prop.

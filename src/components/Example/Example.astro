@@ -7,6 +7,7 @@ import {
 import Code from "../Code.astro"
 import { Tabs, Chip } from "@opui/astro"
 import { format } from "prettier"
+import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
 import MountVueExamples from "./MountVueExamples.astro"
 
@@ -48,6 +49,7 @@ type Props = {
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  reactExampleId?: string
   svelteExampleId?: string
   vueExampleId?: string
   wrapperClass?: string
@@ -63,6 +65,7 @@ const {
   row,
   showCode = true,
   spacious,
+  reactExampleId,
   svelteExampleId,
   vueExampleId,
   wrapperClass,
@@ -115,6 +118,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
+const isLiveReactPreview =
+  previewSlot?.name === "preview-react" && !!reactExampleId
 const isLiveSveltePreview =
   previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
@@ -173,6 +178,7 @@ const outputId = `${groupName}-output`
   ]}
   data-expanded="false"
 >
+  {isLiveReactPreview && <MountReactExamples />}
   {isLiveSveltePreview && <MountSvelteExamples />}
   {isLivePreview && <MountVueExamples />}
   {hasControls && <div class="controls" set:html={controlsHtml} />}
@@ -196,6 +202,12 @@ const outputId = `${groupName}-output`
           <div
             class="preview-render"
             data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : isLiveReactPreview ? (
+          <div
+            class="preview-render"
+            data-react-example={reactExampleId}
             set:html={previewHtml}
           />
         ) : isLiveSveltePreview ? (
@@ -253,7 +265,10 @@ const outputId = `${groupName}-output`
               </Tabs.Tab>
               <Tabs.Panel data-panel="source">
                 <div class="ui-tab-panel">
-                  <Code code={codeContent} lang={codeLangId} />
+                  <Code
+                    code={codeContent}
+                    lang={codeLangId === "react" ? "tsx" : codeLangId}
+                  />
                 </div>
               </Tabs.Panel>
             </Tabs.Item>

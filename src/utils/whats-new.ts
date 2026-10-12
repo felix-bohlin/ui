@@ -7,6 +7,7 @@ const whatsNew = {
     {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code>.ui-marker-turn</code>.`,
+      react: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       svelte: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
@@ -48,6 +49,7 @@ const whatsNew = {
     },
     {
       astro: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+      react: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
       svelte: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
       vue: `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
     },
@@ -56,6 +58,7 @@ const whatsNew = {
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
       html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-rounded</code> makes them round.`,
+      react: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
       svelte: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
       vue: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
     },
@@ -100,6 +103,7 @@ const whatsNew = {
   callout: [
     {
       astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      react: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
       svelte: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
       vue: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     },
@@ -140,6 +144,7 @@ const whatsNew = {
     {
       astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      react: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
@@ -161,12 +166,14 @@ const whatsNew = {
     {
       astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      react: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
     {
       astro: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
       html: `<a href="#colors">Colors</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
+      react: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
       svelte: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
       vue: `<a href="#colors">Colors</a> for statuses with <code>color</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
     },
@@ -193,6 +200,7 @@ const whatsNew = {
     {
       astro: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
       html: `<a href="#content">Content</a> in the middle of the line in a <code>div.ui-divider</code>, aligned with <code>.ui-align-start</code> or <code>.ui-align-end</code>.`,
+      react: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
       svelte: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
       vue: `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
     },
@@ -240,6 +248,7 @@ const whatsNew = {
     `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
     {
       astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
+      react: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
       svelte: `<a href="#submenu">Submenus</a> with the <code>submenu</code> snippet on <code>ListItem</code>.`,
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
@@ -269,6 +278,7 @@ const whatsNew = {
     {
       astro: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
+      react: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
@@ -287,6 +297,7 @@ const whatsNew = {
     },
     {
       astro: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
+      react: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
       svelte: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
       vue: `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
     },
@@ -338,6 +349,7 @@ const whatsNew = {
     {
       astro: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
       html: `Takes <code>.ui-x-small</code> and <code>.ui-large</code>. <a href="#sizes">Sizes</a>`,
+      react: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
       svelte: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code> and <code>"large"</code>. <a href="#sizes">Sizes</a>`,
     },
@@ -374,6 +386,7 @@ const whatsNew = {
     {
       default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      react: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
@@ -400,6 +413,7 @@ const whatsNew = {
     {
       default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
+      react: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
       svelte: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,

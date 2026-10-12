@@ -20,6 +20,16 @@
     "url": "/astro/components/accordion"
   },
   {
+    "id": "component-accordion-react",
+    "title": "Accordion",
+    "description": "Lets you show and hide content, on its own or as a group.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/accordion"
+  },
+  {
     "id": "component-accordion-svelte",
     "title": "Accordion",
     "description": "Lets you show and hide content, on its own or as a group.",
@@ -58,6 +68,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/anchor"
+  },
+  {
+    "id": "component-anchor-react",
+    "title": "Anchor",
+    "description": "",
+    "headings": "Always visible Hover trigger Link preview Used by",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/anchor"
   },
   {
     "id": "component-anchor-svelte",
@@ -100,6 +120,16 @@
     "url": "/astro/components/avatar"
   },
   {
+    "id": "component-avatar-react",
+    "title": "Avatar",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
+    "headings": "Image Letter Icon Variants Sizes Grouped",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/avatar"
+  },
+  {
     "id": "component-avatar-svelte",
     "title": "Avatar",
     "description": "Avatars show a person or entity as an image, initials or icon.",
@@ -138,6 +168,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-badge-react",
+    "title": "Badge",
+    "description": "Badges attach a small count or status dot to another element.",
+    "headings": "Variants Severities Indicator Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/badge"
   },
   {
     "id": "component-badge-svelte",
@@ -180,6 +220,16 @@
     "url": "/astro/components/button-group"
   },
   {
+    "id": "component-button-group-react",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "headings": "Variants Colors Sizes Icons Split button Disabled Vertical orientation Overflow",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/button-group"
+  },
+  {
     "id": "component-button-group-svelte",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -218,6 +268,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button"
+  },
+  {
+    "id": "component-button-react",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Sizes Buttons with icon and label Keyboard Icon-only Disabled File upload",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/button"
   },
   {
     "id": "component-button-svelte",
@@ -260,6 +320,16 @@
     "url": "/astro/components/callout"
   },
   {
+    "id": "component-callout-react",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "headings": "Variants Severities Icon",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/callout"
+  },
+  {
     "id": "component-callout-svelte",
     "title": "Callout",
     "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
@@ -298,6 +368,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/card"
+  },
+  {
+    "id": "component-card-react",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment Clickable card",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/card"
   },
   {
     "id": "component-card-svelte",
@@ -340,6 +420,16 @@
     "url": "/astro/components/carousel"
   },
   {
+    "id": "component-carousel-react",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "headings": "Basics Items per view Stretch Peek Vertical Images Video Buttons outside Persistent buttons Custom buttons Playground Grid and flex layouts",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/carousel"
+  },
+  {
     "id": "component-carousel-svelte",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers.",
@@ -378,6 +468,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/checkbox"
+  },
+  {
+    "id": "component-checkbox-react",
+    "title": "Checkbox",
+    "description": "Use a Checkbox for choices that are submitted with a form. For a setting\n    that applies right away, use a Switch, and for options in a toolbar a Toggle. See also: Checkbox field group.",
+    "headings": "Basics Sizes Visible label Label position End text Validation Indeterminate Spread Label alignment Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/checkbox"
   },
   {
     "id": "component-checkbox-svelte",
@@ -420,6 +520,16 @@
     "url": "/astro/components/chip"
   },
   {
+    "id": "component-chip-react",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
+    "headings": "Variants Colors Sizes Icon Dot Button Link Disabled",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/chip"
+  },
+  {
     "id": "component-chip-svelte",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.\n    Use them for filters, tags and choices. For the main action, like Save or\n    Send, use a Button.",
@@ -458,6 +568,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/description-list"
+  },
+  {
+    "id": "component-description-list-react",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "headings": "Basics Bordered Inline",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/description-list"
   },
   {
     "id": "component-description-list-svelte",
@@ -500,6 +620,16 @@
     "url": "/astro/components/dialog"
   },
   {
+    "id": "component-dialog-react",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/dialog"
+  },
+  {
     "id": "component-dialog-svelte",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
@@ -538,6 +668,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/divider"
+  },
+  {
+    "id": "component-divider-react",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "headings": "Default Variants Content Spacing",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/divider"
   },
   {
     "id": "component-divider-svelte",
@@ -580,6 +720,16 @@
     "url": "/astro/components/drawer"
   },
   {
+    "id": "component-drawer-react",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/drawer"
+  },
+  {
     "id": "component-drawer-svelte",
     "title": "Drawer",
     "description": "Slides in from the sides, top or bottom of the screen. Good for navigation,\n    filters and side content. For a question or a short task that needs the\n    user's full attention, use a Dialog.",
@@ -618,6 +768,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/form"
+  },
+  {
+    "id": "component-form-react",
+    "title": "Form",
+    "description": "Spacing and grouping for form fields.",
+    "headings": "Usage Fieldset Field group Row States Disabled Invalid Required Actions Without fieldset Kitchen sink",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/form"
   },
   {
     "id": "component-form-svelte",
@@ -660,6 +820,16 @@
     "url": "/astro/components/list"
   },
   {
+    "id": "component-list-react",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "headings": "Basics Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/list"
+  },
+  {
     "id": "component-list-svelte",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -698,6 +868,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/menu"
+  },
+  {
+    "id": "component-menu-react",
+    "title": "Menu",
+    "description": "A popover list of actions or links.",
+    "headings": "Basics Custom items Placement Submenu Manual Role Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/menu"
   },
   {
     "id": "component-menu-svelte",
@@ -740,6 +920,16 @@
     "url": "/astro/components/progress"
   },
   {
+    "id": "component-progress-react",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/progress"
+  },
+  {
     "id": "component-progress-svelte",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -778,6 +968,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/radio"
+  },
+  {
+    "id": "component-radio-react",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "headings": "Basics Sizes Visible label Label position End text Field description Disabled Required Validation Direction Spread Label alignment",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/radio"
   },
   {
     "id": "component-radio-svelte",
@@ -820,6 +1020,16 @@
     "url": "/astro/components/range"
   },
   {
+    "id": "component-range-react",
+    "title": "Range",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
+    "headings": "Basics Variants Start and end text Value Tick marks Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/range"
+  },
+  {
     "id": "component-range-svelte",
     "title": "Range",
     "description": "Range lets users pick a number by sliding a thumb along a track.",
@@ -858,6 +1068,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/select"
+  },
+  {
+    "id": "component-select-react",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover. Use a Select to pick a value in a\n    form. For actions, use a Menu.",
+    "headings": "Variants Sizes Dense End text Affix Header and footer Preselected Option groups Validation Spread Classic select Fallback",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/select"
   },
   {
     "id": "component-select-svelte",
@@ -900,6 +1120,16 @@
     "url": "/astro/components/spinner"
   },
   {
+    "id": "component-spinner-react",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "headings": "Basics Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/spinner"
+  },
+  {
     "id": "component-spinner-svelte",
     "title": "Spinner",
     "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
@@ -938,6 +1168,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/switch"
+  },
+  {
+    "id": "component-switch-react",
+    "title": "Switch",
+    "description": "Use a Switch for a setting that applies right away. Use a Checkbox for choices that are submitted with a form, and a Toggle for options in a toolbar. See also: Switch field group.",
+    "headings": "Basics Sizes Visible label Label position End text Icons Validation Spread Label alignment Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/switch"
   },
   {
     "id": "component-switch-svelte",
@@ -980,6 +1220,16 @@
     "url": "/astro/components/table"
   },
   {
+    "id": "component-table-react",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "headings": "Variants Default Dense Spacious Sticky header Advanced",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/table"
+  },
+  {
     "id": "component-table-svelte",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
@@ -1018,6 +1268,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tabs"
+  },
+  {
+    "id": "component-tabs-react",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state. Use Tabs to switch between\n    panels of content. To pick an option, like a list or grid view, use a Toggle group.",
+    "headings": "Basics Filled Line Outlined Scrollable Keyboard interaction",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/tabs"
   },
   {
     "id": "component-tabs-svelte",
@@ -1060,6 +1320,16 @@
     "url": "/astro/components/text-field"
   },
   {
+    "id": "component-text-field-react",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/text-field"
+  },
+  {
     "id": "component-text-field-svelte",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
@@ -1098,6 +1368,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/textarea"
+  },
+  {
+    "id": "component-textarea-react",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "headings": "Variants Sizes Description End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/textarea"
   },
   {
     "id": "component-textarea-svelte",
@@ -1150,6 +1430,16 @@
     "url": "/astro/components/toggle"
   },
   {
+    "id": "component-toggle-react",
+    "title": "Toggle",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
+    "headings": "Toggle button Sizes Toggle group Multi-select Single-select Text + icon Vertical orientation Overflow",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/toggle"
+  },
+  {
     "id": "component-toggle-svelte",
     "title": "Toggle",
     "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
@@ -1188,6 +1478,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-react",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the{\" \"}\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/tooltip"
   },
   {
     "id": "component-tooltip-svelte",
@@ -1230,6 +1530,16 @@
     "url": "/astro/components/typography"
   },
   {
+    "id": "component-typography-react",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Link Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/typography"
+  },
+  {
     "id": "component-typography-svelte",
     "title": "Typography",
     "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
@@ -1268,6 +1578,15 @@
     "url": "/astro/guide/accessibility"
   },
   {
+    "id": "guide-accessibility-react",
+    "title": "Accessibility",
+    "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
+    "headings": "Built on native elements Accessible names Keyboard Focus Contrast, forced colors and motion Per component Known gaps",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/accessibility"
+  },
+  {
     "id": "guide-accessibility-svelte",
     "title": "Accessibility",
     "description": "A few basics to get you started. OPUI leans on native HTML, so a lot comes\n    for free, but you still decide the names, the order and the content. Test\n    with a keyboard and a screen reader, it always depends.",
@@ -1302,6 +1621,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-react",
+    "title": "Acknowledgments",
+    "description": "Open Props UI stands on a lot of shoulders. These are the people, projects\n    and resources that made it possible.",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/acknowledgments"
   },
   {
     "id": "guide-acknowledgments-svelte",
@@ -1340,6 +1668,15 @@
     "url": "/astro/guide/browser-support"
   },
   {
+    "id": "guide-browser-support-react",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/browser-support"
+  },
+  {
     "id": "guide-browser-support-svelte",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
@@ -1374,6 +1711,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/concepts"
+  },
+  {
+    "id": "guide-concepts-react",
+    "title": "Concepts",
+    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
+    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/concepts"
   },
   {
     "id": "guide-concepts-svelte",
@@ -1412,6 +1758,15 @@
     "url": "/astro/guide/customizing"
   },
   {
+    "id": "guide-customizing-react",
+    "title": "Customizing",
+    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
+    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/customizing"
+  },
+  {
     "id": "guide-customizing-svelte",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
@@ -1446,6 +1801,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/migrating"
+  },
+  {
+    "id": "guide-migrating-react",
+    "title": "Migrating to v6",
+    "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/migrating"
   },
   {
     "id": "guide-migrating-svelte",
@@ -1484,6 +1848,15 @@
     "url": "/astro/guide/theme-generator"
   },
   {
+    "id": "guide-theme-generator-react",
+    "title": "Theme generator",
+    "description": "Edit the design tokens visually and download a theme.css.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/theme-generator"
+  },
+  {
     "id": "guide-theme-generator-svelte",
     "title": "Theme generator",
     "description": "Edit the design tokens visually and download a theme.css.",
@@ -1518,6 +1891,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-tokens"
+  },
+  {
+    "id": "guide-theme-tokens-react",
+    "title": "Theme tokens",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "headings": "Overriding tokens",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/theme-tokens"
   },
   {
     "id": "guide-theme-tokens-svelte",
@@ -1556,6 +1938,15 @@
     "url": "/astro/guide/theming"
   },
   {
+    "id": "guide-theming-react",
+    "title": "Theming",
+    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
+    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/theming"
+  },
+  {
     "id": "guide-theming-svelte",
     "title": "Theming",
     "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
@@ -1592,6 +1983,15 @@
     "url": "/astro/guide/why-opui"
   },
   {
+    "id": "guide-why-opui-react",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/why-opui"
+  },
+  {
     "id": "guide-why-opui-svelte",
     "title": "Why Open Props UI?",
     "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
@@ -1626,6 +2026,15 @@
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-react",
+    "title": "Getting started",
+    "description": "OPUI ships first-class React 19 components. Install the package, import what\n    you need, and you're set.",
+    "headings": "Install via NPM Import the CSS How to use Server rendering",
+    "category": "Guide",
+    "frameworkId": "react",
+    "url": "/react/guide/getting-started"
   },
   {
     "id": "guide-getting-started-svelte",
@@ -2162,6 +2571,16 @@
     "url": "/html/api#accordion"
   },
   {
+    "id": "api-accordion-react",
+    "title": "Accordion API",
+    "description": "Reference for Accordion React component.",
+    "headings": "Accordion Container element. The always visible header. summary The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. marker The collapsible content. default A group of actions, such as buttons. actions name Groups accordions so only one of them can be open at a time. markerAnimation How the marker animates when the accordion opens. open Whether the accordion is open. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#accordion"
+  },
+  {
     "id": "api-accordion-svelte",
     "title": "Accordion API",
     "description": "Reference for Accordion Svelte component.",
@@ -2200,6 +2619,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-anchor-react",
+    "title": "Anchor API",
+    "description": "Reference for Anchor React component.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. default The floating content. anchored alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the root. With `trigger=\"hover\"`, the id of the floating content. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#anchor"
   },
   {
     "id": "api-anchor-svelte",
@@ -2242,6 +2671,16 @@
     "url": "/html/api#avatar"
   },
   {
+    "id": "api-avatar-react",
+    "title": "Avatar API",
+    "description": "Reference for Avatar React component.",
+    "headings": "Avatar Container element. The avatar image. src alt alt Alternative text for the image. Required with src; use an empty string when the name is shown next to it. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. command The command to send to the `commandfor` target. commandfor The id of the element the command targets. disabled Disables the avatar when `as` is `\"button\"`. href The link to use. Renders an `<a>`. interestfor The id of the element to show on interest. isGroup Renders a container that groups avatars. size The size of the avatar. src The image source. Replaces the content. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#avatar"
+  },
+  {
     "id": "api-avatar-svelte",
     "title": "Avatar API",
     "description": "Reference for Avatar Svelte component.",
@@ -2280,6 +2719,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#badge"
+  },
+  {
+    "id": "api-badge-react",
+    "title": "Badge API",
+    "description": "Reference for Badge React component.",
+    "headings": "Badge Container element. Also takes `.ui-anchor`. The element the badge is anchored to. default The indicator, inside `.ui-anchor-floating`. label indicator alignment Where the indicator is placed. color Optional colors. dot Renders the indicator as a dot, without a label. invisible Hides the indicator. srLabel Visually hidden text that describes the badge to assistive technology, such as \"3 unread\".",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#badge"
   },
   {
     "id": "api-badge-svelte",
@@ -2322,6 +2771,16 @@
     "url": "/html/api#button-group"
   },
   {
+    "id": "api-button-group-react",
+    "title": "Button Group API",
+    "description": "Reference for Button Group React component.",
+    "headings": "ButtonGroup Container element. The buttons and button links. default color Optional colors for the buttons. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons. variant The variant of the buttons.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#button-group"
+  },
+  {
     "id": "api-button-group-svelte",
     "title": "Button Group API",
     "description": "Reference for Button Group Svelte component.",
@@ -2360,6 +2819,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button"
+  },
+  {
+    "id": "api-button-react",
+    "title": "Button API",
+    "description": "Reference for Button React component.",
+    "headings": "Button Container element. An optional icon. The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. as The element to render. Defaults to `\"a\"` with `href`, otherwise `\"button\"`. color Optional colors. disabled Disables the button. href The link to use. Renders an `<a>`. iconOnly Marks the button as icon-only, so `label` is required. Types only. label The accessible name. Use it on icon-only buttons. rounded Fully rounded corners, a circle when icon-only. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#button"
   },
   {
     "id": "api-button-svelte",
@@ -2402,6 +2871,16 @@
     "url": "/html/api#callout"
   },
   {
+    "id": "api-callout-react",
+    "title": "Callout API",
+    "description": "Reference for Callout React component.",
+    "headings": "Callout Container element. An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. icon The content. default An optional title inside the content. title headingLevel The heading level of the title. severity The severity. Sets the color, and in Astro, Svelte and Vue the default icon. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#callout"
+  },
+  {
     "id": "api-callout-svelte",
     "title": "Callout API",
     "description": "Reference for Callout Svelte component.",
@@ -2440,6 +2919,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#card"
+  },
+  {
+    "id": "api-card-react",
+    "title": "Card API",
+    "description": "Reference for Card React component.",
+    "headings": "Card Container element. The card header. header The card content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. variant The variant to use. Without one the card has the page surface color and no border.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#card"
   },
   {
     "id": "api-card-svelte",
@@ -2482,6 +2971,16 @@
     "url": "/html/api#carousel"
   },
   {
+    "id": "api-carousel-react",
+    "title": "Carousel API",
+    "description": "Reference for Carousel React component.",
+    "headings": "Carousel The scroller. An item. default The previous button. buttons The next button. buttons A marker, one per item. markers align Where items snap. aspectRatio Aspect ratio that images, videos and iframes are cropped to. buttons Previous and next buttons. `\"outside\"` places them beside the items. label Accessible name of the carousel. markers One marker per item, after the list. orientation Scroll direction. Vertical carousels need a block size, set with `--_block-size`. peek Shows part of the neighbouring items. persistentButtons Keeps the buttons visible at the ends. A disabled button has a muted border. perView Number of visible items. stretch Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#carousel"
+  },
+  {
     "id": "api-carousel-svelte",
     "title": "Carousel API",
     "description": "Reference for Carousel Svelte component.",
@@ -2520,6 +3019,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-react",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox React component.",
+    "headings": "Checkbox Container element. The checkbox input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. indeterminate Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#checkbox"
   },
   {
     "id": "api-checkbox-svelte",
@@ -2562,6 +3071,16 @@
     "url": "/html/api#chip"
   },
   {
+    "id": "api-chip-react",
+    "title": "Chip API",
+    "description": "Reference for Chip React component.",
+    "headings": "Chip Container element. Can be a `<div>`, `<a>` or `<button>`. Optional content at the start, such as an icon. start The label. label Optional content at the end, such as an icon. end as The element to render. Defaults to `\"a\"` with `href`. color Optional colors. dot Adds a leading dot in the chip's color. Its shape follows the color. href The link to use. Renders an `<a>`. multiline Lets the label wrap to multiple lines. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#chip"
+  },
+  {
     "id": "api-chip-svelte",
     "title": "Chip API",
     "description": "Reference for Chip Svelte component.",
@@ -2600,6 +3119,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-react",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select React component.",
+    "headings": "ClassicSelect Container element. The label for the field. label The boxed select area. A native select. Supporting text displayed below the field. endText error Marks the control invalid and shows error styles. id The id of the `<select>`. Generated when omitted. items The options, as `{ text, value }` objects. size The size of the element. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#classic-select"
   },
   {
     "id": "api-classic-select-svelte",
@@ -2642,6 +3171,16 @@
     "url": "/html/api#description-list"
   },
   {
+    "id": "api-description-list-react",
+    "title": "Description List API",
+    "description": "Reference for Description List React component.",
+    "headings": "DescriptionList Container element. Groups a term with its description. The term. The description. bordered Adds a border between the term and the description. inline Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#description-list"
+  },
+  {
     "id": "api-description-list-svelte",
     "title": "Description List API",
     "description": "Reference for Description List Svelte component.",
@@ -2680,6 +3219,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-react",
+    "title": "Dialog API",
+    "description": "Reference for Dialog React component.",
+    "headings": "Dialog Container element. The dialog header. header The dialog content. content A group of actions, such as buttons. actions actionsAlign Alignment for the actions. closedby How the dialog can be closed. `\"any\"` also closes it on a click outside.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#dialog"
   },
   {
     "id": "api-dialog-svelte",
@@ -2722,6 +3271,16 @@
     "url": "/html/api#divider"
   },
   {
+    "id": "api-divider-react",
+    "title": "Divider API",
+    "description": "Reference for Divider React component.",
+    "headings": "Divider The divider line. An `<hr>`, or a `<div>` or `<p>` with content in the middle. align Where the content sits on the line. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#divider"
+  },
+  {
     "id": "api-divider-svelte",
     "title": "Divider API",
     "description": "Reference for Divider Svelte component.",
@@ -2760,6 +3319,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer-footer"
+  },
+  {
+    "id": "api-drawer-footer-react",
+    "title": "Drawer Footer API",
+    "description": "Reference for Drawer Footer React component.",
+    "headings": "DrawerFooter Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#drawer-footer"
   },
   {
     "id": "api-drawer-footer-svelte",
@@ -2802,6 +3371,16 @@
     "url": "/html/api#drawer-header"
   },
   {
+    "id": "api-drawer-header-react",
+    "title": "Drawer Header API",
+    "description": "Reference for Drawer Header React component.",
+    "headings": "DrawerHeader Container element. The heading. heading Closes the drawer. closeLabel The accessible name of the close button. commandfor The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#drawer-header"
+  },
+  {
     "id": "api-drawer-header-svelte",
     "title": "Drawer Header API",
     "description": "Reference for Drawer Header Svelte component.",
@@ -2840,6 +3419,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer"
+  },
+  {
+    "id": "api-drawer-react",
+    "title": "Drawer API",
+    "description": "Reference for Drawer React component.",
+    "headings": "Drawer Container element. The header. `DrawerHeader` renders it with a close button. header The scrollable content. content The footer. `DrawerFooter` renders it. footer backdrop The backdrop style. `\"transparent\"` keeps the page behind it fully visible. closedby How the drawer can be closed. `\"any\"` also closes it on a click outside. id The id of the `<dialog>`. Generated when omitted. scrollLock Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. side The side it opens from.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#drawer"
   },
   {
     "id": "api-drawer-svelte",
@@ -2882,6 +3471,16 @@
     "url": "/html/api#field-description"
   },
   {
+    "id": "api-field-description-react",
+    "title": "Field Description API",
+    "description": "Reference for Field Description React component.",
+    "headings": "FieldDescription Supporting text for a fieldset.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#field-description"
+  },
+  {
     "id": "api-field-description-svelte",
     "title": "Field Description API",
     "description": "Reference for Field Description Svelte component.",
@@ -2920,6 +3519,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-group"
+  },
+  {
+    "id": "api-field-group-react",
+    "title": "Field Group API",
+    "description": "Reference for Field Group React component.",
+    "headings": "FieldGroup Container element. direction The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. name Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#field-group"
   },
   {
     "id": "api-field-group-svelte",
@@ -2962,6 +3571,16 @@
     "url": "/html/api#field-legend"
   },
   {
+    "id": "api-field-legend-react",
+    "title": "Field Legend API",
+    "description": "Reference for Field Legend React component.",
+    "headings": "FieldLegend The label of a fieldset. as The element to render. Adds `.ui-legend` when not `\"legend\"`.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#field-legend"
+  },
+  {
     "id": "api-field-legend-svelte",
     "title": "Field Legend API",
     "description": "Reference for Field Legend Svelte component.",
@@ -3000,6 +3619,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-set"
+  },
+  {
+    "id": "api-field-set-react",
+    "title": "Field Set API",
+    "description": "Reference for Field Set React component.",
+    "headings": "FieldSet Container element. The label of the fieldset. Supporting text displayed below the legend. as The element to render. Elements other than `fieldset` get `role=\"group\"`. Point their `aria-labelledby` at the legend. disabled Disables every field inside.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#field-set"
   },
   {
     "id": "api-field-set-svelte",
@@ -3042,6 +3671,16 @@
     "url": "/html/api#form"
   },
   {
+    "id": "api-form-react",
+    "title": "Form API",
+    "description": "Reference for Form React component.",
+    "headings": "Form Container element. Spaces its fieldsets and fields. as The element to render.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#form"
+  },
+  {
     "id": "api-form-svelte",
     "title": "Form API",
     "description": "Reference for Form Svelte component.",
@@ -3080,6 +3719,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#list-item"
+  },
+  {
+    "id": "api-list-item-react",
+    "title": "List Item API",
+    "description": "Reference for List Item React component.",
+    "headings": "ListItem The list item. Optional content at the start, such as an icon or avatar. start The text content. text The headline, the first paragraph. headline Supporting text, the second paragraph. description Optional content at the end, such as a value or an action. end as The element to render inside the `<li>`: `\"a\"`, `\"button\"` or `\"div\"`. Defaults to `\"a\"` when `href` is set. A `<button>` gets `type=\"button\"`. borderTop Adds a border above the item. disabled Disables the item when `as` is `\"button\"`. for The `for` attribute of the `<label>` when `type` is set. href The link to use. Renders an `<a>` inside the `<li>`. inset Aligns the text with items that have start content. type Wraps the content in a `<label>` for a checkbox, radio or switch.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#list-item"
   },
   {
     "id": "api-list-item-svelte",
@@ -3122,6 +3771,16 @@
     "url": "/html/api#list"
   },
   {
+    "id": "api-list-react",
+    "title": "List API",
+    "description": "Reference for List React component.",
+    "headings": "List Container element. A list item. bordered Adds a border between list items. dense Packs the list tighter. gutterless Removes the inline padding. variant The background color variant. Without one, the list uses the filled surface.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#list"
+  },
+  {
     "id": "api-list-svelte",
     "title": "List API",
     "description": "Reference for List Svelte component.",
@@ -3160,6 +3819,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#menu"
+  },
+  {
+    "id": "api-menu-react",
+    "title": "Menu API",
+    "description": "Reference for Menu React component.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. className string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\",{\" \"} \"block-start\",{\" \"} \"inline-end\",{\" \"} \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. With \"manual\", Esc and a click outside don't close the menu, and opening another menu doesn't either. children ReactNode - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#menu"
   },
   {
     "id": "api-menu-svelte",
@@ -3202,6 +3871,16 @@
     "url": "/html/api#progress"
   },
   {
+    "id": "api-progress-react",
+    "title": "Progress API",
+    "description": "Reference for Progress React component.",
+    "headings": "Progress Container element. The progress bar. value max max The maximum value. value The current value. Omit it for an indeterminate state. variant The track surface. Without one, the track looks the same as `tonal`.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#progress"
+  },
+  {
     "id": "api-progress-svelte",
     "title": "Progress API",
     "description": "Reference for Progress Svelte component.",
@@ -3240,6 +3919,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#radio"
+  },
+  {
+    "id": "api-radio-react",
+    "title": "Radio API",
+    "description": "Reference for Radio React component.",
+    "headings": "Radio Container element. The radio input. The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the input to opposite ends. stack Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#radio"
   },
   {
     "id": "api-radio-svelte",
@@ -3282,6 +3971,16 @@
     "url": "/html/api#range"
   },
   {
+    "id": "api-range-react",
+    "title": "Range API",
+    "description": "Reference for Range React component.",
+    "headings": "Range Container element. The label for the range. label default Shows the current value, with an optional `valueSuffix`. valueSuffix value Description text displayed above the input. startText start-text The range input. Supporting text displayed below the input. endText end-text error Marks the control invalid and shows error styles. id The id of the `<input>`. Generated when omitted and the value is shown. list The id of the `<datalist>`. Needed with `options`. options Tick marks, rendered as `<option>` elements in a `<datalist>`. spread Pushes the label and description to one side and the input to the other. value The current value. valueSuffix Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. variant The track surface. Without one, the track uses the field border color.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#range"
+  },
+  {
     "id": "api-range-svelte",
     "title": "Range API",
     "description": "Reference for Range Svelte component.",
@@ -3320,6 +4019,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
+  },
+  {
+    "id": "api-select-react",
+    "title": "Select API",
+    "description": "Reference for Select React component.",
+    "headings": "Select Container element. The label for the field. label label Description text displayed above the field. description description The boxed select area. Content above the select, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The select. Its options are in a popover list. Content at the inline-end of the field, inside the border. suffix Content below the select, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text dense Packs the options tighter. error Marks the control invalid and shows error styles. id The id of the `<select>`. items The options, as `{ selected, text, value }` objects. size The size of the element. spread Pushes the label and description to one side and the select to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#select"
   },
   {
     "id": "api-select-svelte",
@@ -3362,6 +4071,16 @@
     "url": "/html/api#spinner"
   },
   {
+    "id": "api-spinner-react",
+    "title": "Spinner API",
+    "description": "Reference for Spinner React component.",
+    "headings": "Spinner Renders a spinner pseudo-element on the element. Always indeterminate. font-size Spinner size follows the element's computed font size.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#spinner"
+  },
+  {
     "id": "api-spinner-svelte",
     "title": "Spinner API",
     "description": "Reference for Spinner Svelte component.",
@@ -3400,6 +4119,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
+  },
+  {
+    "id": "api-switch-react",
+    "title": "Switch API",
+    "description": "Reference for Switch React component.",
+    "headings": "Switch Container element. The switch input. An optional icon in the thumb when unchecked. icon-unchecked An optional icon in the thumb when checked. icon-checked The label. default Supporting text displayed below the label. end-text error Marks the control invalid and shows error styles. hideLabel Visually hides the label. size The size of the element. spread Pushes the label and the switch to opposite ends. stack Stacks the label under the switch.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#switch"
   },
   {
     "id": "api-switch-svelte",
@@ -3442,6 +4171,16 @@
     "url": "/html/api#table"
   },
   {
+    "id": "api-table-react",
+    "title": "Table API",
+    "description": "Reference for Table React component.",
+    "headings": "Table Container element. The header rows. A header cell. The body rows. A row. A data cell. stickyHeader Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#table"
+  },
+  {
     "id": "api-table-svelte",
     "title": "Table API",
     "description": "Reference for Table Svelte component.",
@@ -3480,6 +4219,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tabs-item"
+  },
+  {
+    "id": "api-tabs-item-react",
+    "title": "Tabs Item API",
+    "description": "Reference for Tabs Item React component.",
+    "headings": "Tabs.Item The radio input for a tab, followed by the tab and the panel. name Overrides the name shared by the tab inputs. open Selects the tab initially. tabId The id of the input. Generated when omitted.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#tabs-item"
   },
   {
     "id": "api-tabs-item-svelte",
@@ -3522,6 +4271,16 @@
     "url": "/html/api#tabs-panel"
   },
   {
+    "id": "api-tabs-panel-react",
+    "title": "Tabs Panel API",
+    "description": "Reference for Tabs Panel React component.",
+    "headings": "Tabs.Panel The panel.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#tabs-panel"
+  },
+  {
     "id": "api-tabs-panel-svelte",
     "title": "Tabs Panel API",
     "description": "Reference for Tabs Panel Svelte component.",
@@ -3560,6 +4319,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tabs-tab"
+  },
+  {
+    "id": "api-tabs-tab-react",
+    "title": "Tabs Tab API",
+    "description": "Reference for Tabs Tab React component.",
+    "headings": "Tabs.Tab The tab. tabId The id of the input it labels. Set by the item.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#tabs-tab"
   },
   {
     "id": "api-tabs-tab-svelte",
@@ -3602,6 +4371,16 @@
     "url": "/html/api#tabs"
   },
   {
+    "id": "api-tabs-react",
+    "title": "Tabs API",
+    "description": "Reference for Tabs React component.",
+    "headings": "Tabs Container element. A visually hidden radio input that holds a tab's state. The tab is its label. A tab. The panel of the selected tab. name The name shared by the tab inputs. Generated when omitted. scrollable Keeps the tabs on one row and scrolls them sideways when they don't fit. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#tabs"
+  },
+  {
     "id": "api-tabs-svelte",
     "title": "Tabs API",
     "description": "Reference for Tabs Svelte component.",
@@ -3640,6 +4419,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-field"
+  },
+  {
+    "id": "api-text-field-react",
+    "title": "Text Field API",
+    "description": "Reference for Text Field React component.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content, from `25ch`. error Marks the control invalid and shows error styles. id The id of the `<input>`. size The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#text-field"
   },
   {
     "id": "api-text-field-svelte",
@@ -3682,6 +4471,16 @@
     "url": "/html/api#text-input"
   },
   {
+    "id": "api-text-input-react",
+    "title": "Text Input API",
+    "description": "Reference for Text Input React component.",
+    "headings": "Text input A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#text-input"
+  },
+  {
     "id": "api-text-input-svelte",
     "title": "Text Input API",
     "description": "Reference for Text Input Svelte component.",
@@ -3720,6 +4519,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#textarea"
+  },
+  {
+    "id": "api-textarea-react",
+    "title": "Textarea API",
+    "description": "Reference for Textarea React component.",
+    "headings": "Textarea Container element. The label for the field. label label Description text displayed above the field. description description The boxed textarea area. Content above the textarea, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The textarea element. Content at the inline-end of the field, inside the border. suffix Content below the textarea, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Lets the width follow the content and allows resizing in both directions. error Marks the control invalid and shows error styles. id The id of the `<textarea>`. size The size of the element. spread Pushes the label and description to one side and the textarea to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#textarea"
   },
   {
     "id": "api-textarea-svelte",
@@ -3772,6 +4581,16 @@
     "url": "/html/api#toggle-button"
   },
   {
+    "id": "api-toggle-button-react",
+    "title": "Toggle Button API",
+    "description": "Reference for Toggle Button React component.",
+    "headings": "ToggleButton Container element. A visually hidden checkbox or radio input. disabled Disables the button. id The id of the `<input>`. Generated when omitted. label The button text when there is no child content, and the input value when `value` is omitted. name The name of the input. Set by the group. pressed Selects the button. size The size of the element. type The input type. `\"radio\"` allows one selection in a group. value The value of the input.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#toggle-button"
+  },
+  {
     "id": "api-toggle-button-svelte",
     "title": "Toggle Button API",
     "description": "Reference for Toggle Button Svelte component.",
@@ -3810,6 +4629,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle-group"
+  },
+  {
+    "id": "api-toggle-group-react",
+    "title": "Toggle Group API",
+    "description": "Reference for Toggle Group React component.",
+    "headings": "ToggleGroup Container element. A toggle button. name The name shared by the inputs. Generated when omitted. orientation The orientation of the element. scrollable Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows. selection Whether one or several buttons can be selected. `\"single\"` uses radio inputs. shrink Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. size The size of the buttons.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#toggle-group"
   },
   {
     "id": "api-toggle-group-svelte",
@@ -3852,6 +4681,16 @@
     "url": "/html/api#tooltip"
   },
   {
+    "id": "api-tooltip-react",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip React component.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. default The tooltip, a `popover=\"hint\"`. label content alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor` with the same id to the trigger.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#tooltip"
+  },
+  {
     "id": "api-tooltip-svelte",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Svelte component.",
@@ -3890,6 +4729,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-react",
+    "title": "Typography API",
+    "description": "Reference for Typography React component.",
+    "headings": "Typography Classless typography for uncontrolled child markup. blockquote Quoted block with a start border. caption Muted supporting text. codeBlock Monospace preformatted block. hgroup Groups an overline, heading, and optional body copy. heading Heading styles for any element. inline Inline text element utilities. link Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. overline Small uppercase label text. paragraph Body paragraph styling. size Size modifiers on `.ui-p`.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#typography"
   },
   {
     "id": "api-typography-svelte",

@@ -1,16 +1,21 @@
 import type { ComponentApi } from "../component-api/types"
 
-type ImportFramework = "astro" | "svelte" | "vue"
+type ImportFramework = "astro" | "react" | "svelte" | "vue"
 
-const extensions = { astro: "astro", svelte: "svelte", vue: "vue" }
+const extensions = {
+  astro: "astro",
+  react: "react.tsx",
+  svelte: "svelte",
+  vue: "vue",
+}
 
 const examples = import.meta.glob<string>(
-  "../component-examples/*/*.{astro,svelte,vue}",
+  "../component-examples/*/*.{astro,react.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 
 const indexes = import.meta.glob<string>(
-  "../../packages/opui/{astro,svelte,vue}/index.ts",
+  "../../packages/opui/{astro,react,svelte,vue}/index.ts",
   { eager: true, import: "default", query: "?raw" },
 )
 
@@ -65,7 +70,7 @@ export const componentImports = (framework: ImportFramework, slug: string) => {
     )
       continue
     for (const [, imported] of source.matchAll(
-      /import\s*\{([^}]*)\}\s*from\s*"(?:@opui|opui-css)\/(?:astro|svelte|vue)"/g,
+      /import\s*\{([^}]*)\}\s*from\s*"(?:@opui|opui-css)\/(?:astro|react|svelte|vue)"/g,
     )) {
       for (const name of imported.split(",")) {
         const trimmed = name.trim()

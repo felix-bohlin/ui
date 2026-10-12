@@ -149,11 +149,11 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 ## Docs site
 
 - [ ] Framework picker
-  - Switching between HTML, Astro, Svelte and Vue keeps you on the same page and section, and no page shows another framework's text.
+  - Switching between HTML, Astro, React, Svelte and Vue keeps you on the same page and section, and no page shows another framework's text.
 - [ ] Search
   - Finds components, guide pages and API props. Arrow keys, Enter and Esc work.
 - [ ] Code blocks
-  - Copy buttons copy the right code, and Astro, Svelte and Vue examples import from the right package.
+  - Copy buttons copy the right code, and Astro, React, Svelte and Vue examples import from the right package.
 - [ ] What's new
   - Callouts show on changed component pages, every link jumps to its section, and the sidebar shows New badges.
 - [ ] Under the hood walkthroughs
@@ -163,7 +163,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Guides
   - [Getting started](/html/guide/getting-started/), [Migrating](/html/guide/migrating/), [Browser support](/html/guide/browser-support/), [Accessibility](/html/guide/accessibility/) and the other guides read well per framework.
 - [ ] Markdown and llms.txt
-  - `/html/llms.txt`, `/html/llms-full.txt` and the `.md` version of a page load and match the page, also for Astro, Svelte and Vue.
+  - `/html/llms.txt`, `/html/llms-full.txt` and the `.md` version of a page load and match the page, also for Astro, React, Svelte and Vue.
 - [ ] Small screens
   - Header, local navigation, table of contents and examples work on a phone.
 - [ ] Home page

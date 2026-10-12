@@ -41,8 +41,8 @@ Before creating or refactoring a page, perform the following research:
 - **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell. There is no `src/pages/components/` directory - legacy `/components/...` URLs are handled by the `redirects` map in [astro.config.mjs](../../../astro.config.mjs).
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
-  - `Basics.astro`, `Basics.html`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all four: the parity test compares them, and a missing `.svelte` or `.vue` file silently leaves the example off the Svelte or Vue page.
-  - `Variants.astro`, `Variants.html`, `Variants.svelte`, `Variants.vue`, etc.
+  - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all five: the parity test compares them, and a missing `.react.tsx`, `.svelte` or `.vue` file silently leaves the example off the React, Svelte or Vue page.
+  - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), use a suffix like `Code.astro`.
 
@@ -87,7 +87,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 
 What the conventions handle automatically:
 
-- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
+- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
 - **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
@@ -116,6 +116,7 @@ The manual form remains supported and unchanged:
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
     - `.astro` files should contain UI components imported via the `@opui/astro` alias (e.g. `import { Button } from "@opui/astro"`).
     - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
+    - `.react.tsx` files default-export a function component named after the file that mirrors the Astro example with the components from `opui-css/react`.
     - `.svelte` files mirror the Astro example with the components from `opui-css/svelte`.
     - `.vue` files mirror the Astro example with the components from `opui-css/vue`.
     - Do not wrap the whole example in `<div class="example-row">` / `<div class="example-column">` - set `row` / `column` on `<AutoExample>` in the docs page instead. Multiple sibling `example-row` / `example-column` groups inside one example are fine.
@@ -208,7 +209,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 
 - **Data-driven**: The diagram reads `root` and `parts` from the component's `api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)), found from the page `slug`. Every part needs a `selector` that matches inside the rendered instance; keep parts in visual order. Pass `api={...}` when the diagram documents another component's parts, such as `listItemApi` on the List page.
 - **Subject**: Wrap one instance of the UI component from `@opui/astro` in `<Anatomy>`. Fill every part so each one has a box to frame, and use props or inline `style` to keep normally hidden parts visible (e.g. `open` on Accordion, `--_button-disabled-opacity: 1` on Carousel).
-- **Only Astro**: The subject is rendered once and shown on every framework page. Do not add HTML, Svelte or Vue variants, `<Example>` wrappers or code snippets.
+- **Only Astro**: The subject is rendered once and shown on every framework page. Do not add HTML, React, Svelte or Vue variants, `<Example>` wrappers or code snippets.
 - **Sizing**: Constrain the subject with `style` (e.g. `inline-size: 18rem`) when it would otherwise stretch, and use `zoom` for small components.
 - **Placement**: Set `heroAnatomy` on `<Component>` to render the diagram at the top of the page instead of in an "Anatomy" section.
 - **Checks**: `tests/e2e/anatomy.spec.ts` checks every `heroAnatomy` page for overflow, spacing and axe violations at 390, 920 and 1280px.
@@ -238,11 +239,11 @@ Place logic in a `<script>` tag.
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `svelte`, `vue`.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
 - **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
-For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, Svelte and Vue pages and `class` on HTML pages:
+For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
 
 ```astro
 <p>

@@ -84,6 +84,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           >&lt;label class="ui-checkbox"&gt;</code
         >.
       </Fragment>
+      <Fragment slot="react">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
@@ -110,6 +115,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <Fragment slot="html"
         >Render the label text inside an element with a <code>.ui-label</code> class.
         Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="react"
+        ><code>children</code> is the label. Also, don't miss the info on label <a
           href="#accessibility"
           class="ui-link">accessibility</a
         >.</Fragment
@@ -142,6 +153,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           Set <code>required</code> on the component to toggle required styles on
           the input.
         </li>
+        <li slot="react">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
         <li slot="svelte">
           Add the <code>required</code> attribute on the component. It is forwarded
           to the underlying <code>&lt;input&gt;</code>.
@@ -157,6 +172,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It sets <code
+            >aria-invalid="true"</code
+          > on the input, so screen readers announce it as invalid. Make use of the
+          end text to give extra feedback on the error.
+        </li>
+        <li slot="react">
           Use the <code>error</code> prop to toggle invalid styles. It sets <code
             >aria-invalid="true"</code
           > on the input, so screen readers announce it as invalid. Make use of the
@@ -184,6 +205,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
+          Checkboxes also get the invalid styles from the browser's own
+          validation (<code>:user-invalid</code>), after the user has edited
+          them. Use the <code>error</code> prop for server-side errors.
+        </li>
+        <li slot="react">
           Checkboxes also get the invalid styles from the browser's own
           validation (<code>:user-invalid</code>), after the user has edited
           them. Use the <code>error</code> prop for server-side errors.
@@ -237,6 +263,15 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         </div>
       </Fragment>
 
+      <Fragment slot="react">
+        <p>
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
+            >HTMLInputElement</code
+          >, so the component renders <code>data-indeterminate</code> and applies
+          the property at runtime.
+        </p>
+      </Fragment>
       <Fragment slot="svelte">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
@@ -298,6 +333,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         {" "}to push the label to the left and the checkbox to the right. This
         is useful for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>spread</code> prop to push the label to the left and the checkbox
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
       <Fragment slot="svelte">
         Use the <code>spread</code> prop to push the label to the left and the checkbox
         to the right. This is useful for full-width items like lists and menus.
@@ -333,6 +372,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <p slot="html">
         Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
         {" "}<code>name</code> attribute so they're submitted together.
+      </p>
+      <p slot="react">
+        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
       <p slot="svelte">
         The <code>name</code> prop will get passed down to each checkbox in the group.
@@ -378,6 +420,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
       <p slot="astro">
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="react">
         Set <code>error</code> on each <code>Checkbox</code> in the group. The end
         text of the <code>FieldSet</code> turns red with them.
       </p>

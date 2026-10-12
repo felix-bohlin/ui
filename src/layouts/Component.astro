@@ -90,7 +90,9 @@ const autoApis = (() => {
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
 const hydrationFramework =
-  currentFramework === "svelte" || currentFramework === "vue"
+  currentFramework === "react" ||
+  currentFramework === "svelte" ||
+  currentFramework === "vue"
     ? currentFramework
     : undefined
 const hydrationApis = hydrationFramework

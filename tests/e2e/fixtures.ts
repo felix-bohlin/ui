@@ -8,7 +8,7 @@ const PIXEL = Buffer.from(
   "base64",
 )
 
-export const FRAMEWORKS = ["astro", "html", "svelte", "vue"] as const
+export const FRAMEWORKS = ["astro", "html", "react", "svelte", "vue"] as const
 
 export type Framework = (typeof FRAMEWORKS)[number]
 
@@ -35,7 +35,13 @@ export const hasExample = (
   framework: Framework,
   component: string,
   name: string,
-) => existsSync(new URL(`${component}/${name}.${framework}`, examplesDir))
+) =>
+  existsSync(
+    new URL(
+      `${component}/${name}.${framework === "react" ? "react.tsx" : framework}`,
+      examplesDir,
+    ),
+  )
 
 export const openFixture = async (
   page: Page,
@@ -56,6 +62,13 @@ export const openFixture = async (
         ? `/tests/${component.slice("stress/".length)}/`
         : `/${framework}/test/${component}/`,
   )
+  if (framework === "react") {
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll("[data-react-example]")].every((el) =>
+        el.hasAttribute("data-react-mounted"),
+      ),
+    )
+  }
   if (framework === "svelte") {
     await page.waitForFunction(() =>
       [...document.querySelectorAll("[data-svelte-example]")].every((el) =>

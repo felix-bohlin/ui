@@ -74,6 +74,9 @@ export const description =
         >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
         change how it looks. Add <code>.ui-card</code> for the card styles.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>variant</code> prop to change how it looks.
+      </Fragment>
       <Fragment slot="svelte">
         Use the <code>variant</code> prop to change how it looks.
       </Fragment>
@@ -98,6 +101,11 @@ export const description =
         Group multiple accordions by wrapping them in a <code>.ui-card</code> element
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
+      </Fragment>
+      <Fragment slot="react">
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
       </Fragment>
       <Fragment slot="svelte">
         Group multiple accordions by wrapping them in a <code>Card</code>{" "}
@@ -125,6 +133,10 @@ export const description =
           >&lt;details&gt;</code
         > element to allow only one of them to be open at a time.
       </Fragment>
+      <Fragment slot="react">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
       <Fragment slot="svelte">
         Set the same <code>name</code> prop on each accordion to allow only one of
         them to be open at a time.
@@ -150,6 +162,10 @@ export const description =
         Add buttons or other interactive elements below the content in a <code
           >.ui-actions</code
         > element, after <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> prop.
       </Fragment>
       <Fragment slot="svelte">
         Add buttons or other interactive elements below the content with the
@@ -180,6 +196,11 @@ export const description =
         > animates, so other icons in the <code>summary</code>, such as a
         leading status icon, stay put.
       </Fragment>
+      <Fragment slot="react">
+        Replace the default marker with the <code>marker</code> prop, and give it
+        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
+        the <code>summary</code>, such as a leading status icon, stay put.
+      </Fragment>
       <Fragment slot="svelte">
         Replace the default marker with the <code>marker</code> snippet, and give
         it <code>.ui-marker</code> so it sits at the end and animates. Other icons
@@ -209,6 +230,10 @@ export const description =
         > to the <code>&lt;details&gt;</code> element to animate the <code
           >.ui-marker</code
         > when the accordion opens.
+      </Fragment>
+      <Fragment slot="react">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
       </Fragment>
       <Fragment slot="svelte">
         Set the <code>markerAnimation</code> prop to change how the marker animates

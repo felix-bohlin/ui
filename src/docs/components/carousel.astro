@@ -114,6 +114,11 @@ export const description =
           >.ui-with-markers</code
         > for a marker per item.</Fragment
       >
+      <Fragment slot="react"
+        >The carousel has previous and next buttons by default. Set <code
+          >markers</code
+        > to add a marker per item.</Fragment
+      >
       <Fragment slot="svelte"
         >The carousel has previous and next buttons by default. Set <code
           >markers</code
@@ -434,7 +439,8 @@ export const description =
       .join("\n")
   }
 
-  const componentSnippet = (state: State, label: string, vue: boolean) => {
+  const componentSnippet = (state: State, label: string, framework: string) => {
+    const vue = framework === "vue"
     const name = (prop: string) =>
       vue
         ? prop.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
@@ -454,7 +460,10 @@ export const description =
       state.persistentButtons && name("persistentButtons"),
       state.perView > 1 && expression("perView", String(state.perView)),
       state.stretch && "stretch",
-      state.orientation && `style="--_block-size: 20rem"`,
+      state.orientation &&
+        (framework === "react"
+          ? `style={{ "--_block-size": "20rem" }}`
+          : `style="--_block-size: 20rem"`),
     ].filter(Boolean)
     return ["<Carousel", ...props.map((prop) => `  ${prop}`), ">"].join("\n")
   }
@@ -515,7 +524,7 @@ export const description =
         code.textContent =
           framework === "html"
             ? htmlSnippet(state, label)
-            : componentSnippet(state, label, framework === "vue")
+            : componentSnippet(state, label, framework)
     }
 
     container.addEventListener("change", update)

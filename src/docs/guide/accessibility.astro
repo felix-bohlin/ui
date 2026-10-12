@@ -52,6 +52,7 @@ import DocLink from "../../components/DocLink.astro"
         <Conditional>
           <Fragment slot="astro">the <code>label</code> prop.</Fragment>
           <Fragment slot="html"><code>aria-label</code>.</Fragment>
+          <Fragment slot="react">the <code>label</code> prop.</Fragment>
           <Fragment slot="svelte">the <code>label</code> prop.</Fragment>
           <Fragment slot="vue">the <code>label</code> prop.</Fragment>
         </Conditional>
@@ -67,6 +68,9 @@ import DocLink from "../../components/DocLink.astro"
           >
           <Fragment slot="html"
             >put the text in a <code>.ui-sr-only</code> element.</Fragment
+          >
+          <Fragment slot="react"
+            >keep the text and set <code>hideLabel</code>.</Fragment
           >
           <Fragment slot="svelte"
             >keep the text and set <code>hideLabel</code>.</Fragment

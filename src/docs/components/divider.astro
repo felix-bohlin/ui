@@ -46,6 +46,9 @@ import dividerApi from "../../component-api/divider/api"
           >.ui-tonal</code
         > to change the line color.
       </p>
+      <p slot="react">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
       <p slot="svelte">
         Use the <code>variant</code> prop to change the line color.
       </p>
@@ -73,6 +76,14 @@ import dividerApi from "../../component-api/divider/api"
         read it in order. Add <code>.ui-align-start</code> or <code
           >.ui-align-end</code
         > to move it to one side. The lines follow the variant classes.
+      </p>
+      <p slot="react">
+        Pass text or any element as children to place it in the middle of the
+        line. The divider then renders a <code>&lt;div&gt;</code> instead of an <code
+          >&lt;hr&gt;</code
+        >, so screen readers read the content in order. Set <code>align</code> to
+        <code>start</code> or <code>end</code> to move it to one side. The lines follow
+        the <code>variant</code>.
       </p>
       <p slot="svelte">
         Pass text or any element as children to place it in the middle of the

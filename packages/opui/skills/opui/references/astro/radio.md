@@ -373,10 +373,10 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `va
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### Slots
 

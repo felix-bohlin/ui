@@ -287,7 +287,7 @@ export default function Link() {
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
+Disable a button chip with the `disabled` prop. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
 
 ```tsx
 import { Chip } from "opui-css/react"
@@ -309,6 +309,7 @@ export default function Disabled() {
 | Prop        | Type                                                              | Default   | Description                                                          |
 | ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
 | `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `children`  | `ReactNode`                                                       | -         | Content placed before the label.                                     |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
 | `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
 | `end`       | `ReactNode`                                                       | -         | Optional content at the end, such as an icon.                        |

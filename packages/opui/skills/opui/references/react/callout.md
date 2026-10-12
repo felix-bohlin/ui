@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `icon`
 
-  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
+  An optional icon before the content. Astro, React, Svelte and Vue render one by default for info, success, warning and critical.
 
 - `children`
 
@@ -142,13 +142,14 @@ export default function Icon() {
 
 ### Callout API
 
-| Prop           | Type                                                              | Default   | Description                                                                                                               |
-| -------------- | ----------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                                                           |
-| `icon`         | `ReactNode`                                                       | -         | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
-| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, Svelte and Vue the default icon.                                              |
-| `title`        | `ReactNode`                                                       | -         | An optional title inside the content.                                                                                     |
-| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                       |
+| Prop           | Type                                                              | Default   | Description                                                                                                                      |
+| -------------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `children`     | `ReactNode`                                                       | -         | The content.                                                                                                                     |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                                                                  |
+| `icon`         | `ReactNode`                                                       | -         | An optional icon before the content. Astro, React, Svelte and Vue render one by default for info, success, warning and critical. |
+| `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, React, Svelte and Vue the default icon.                                              |
+| `title`        | `ReactNode`                                                       | -         | An optional title inside the content.                                                                                            |
+| `variant`      | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                              |
 
 #### CSS variables
 

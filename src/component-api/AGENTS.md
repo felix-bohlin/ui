@@ -7,7 +7,7 @@ This guide defines the standards for documenting component APIs (HTML, Astro, Re
 When creating or updating a component API table, ensure:
 
 - [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `menu` and `toast` still use hand-written `.astro` tables.
-- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `Svelte.astro` and `Vue.astro` tables.
+- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `React.astro`, `Svelte.astro` and `Vue.astro` tables.
 - [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
 - [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
@@ -58,6 +58,7 @@ src/component-api/button/
 src/component-api/menu/
   Astro.astro
   HTML.astro
+  React.astro
   Svelte.astro
   Vue.astro
 ```

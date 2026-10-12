@@ -170,7 +170,7 @@ export default function Headers() {
 
 ## Validation
 
-Add the `required` attribute on the component. It is forwarded to the underlying `<textarea>`.
+Set the `required` prop on the component. It is forwarded to the underlying `<textarea>`.
 
 Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the textarea, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 
@@ -317,6 +317,7 @@ export default function AutoFit() {
 | Prop             | Type                                | Default      | Description                                                                 |
 | ---------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
 | `autoFit`        | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
+| `children`       | `ReactNode`                         | -            | Extra content inside the root.                                              |
 | `description`    | `ReactNode`                         | -            | Description text displayed above the field.                                 |
 | `endText`        | `ReactNode`                         | -            | Supporting text displayed below the field.                                  |
 | `error`          | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
@@ -369,7 +370,7 @@ export default function AutoFit() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Under the hood
 

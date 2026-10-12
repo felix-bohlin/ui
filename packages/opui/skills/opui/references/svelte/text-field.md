@@ -532,7 +532,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.
 
 ## Under the hood
 

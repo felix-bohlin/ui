@@ -53,7 +53,7 @@ export default function Textarea({
         <textarea
           {...rest}
           aria-describedby={describedBy}
-          aria-invalid={error ? "true" : undefined}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
           id={id}
           name={name ?? field?.name}
         />

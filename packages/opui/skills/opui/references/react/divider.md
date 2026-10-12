@@ -95,10 +95,11 @@ export default function Spacing() {
 
 ### Divider API
 
-| Prop      | Type                                 | Default    | Description                         |
-| --------- | ------------------------------------ | ---------- | ----------------------------------- |
-| `align`   | `"center"` , `"start"` , `"end"`     | `"center"` | Where the content sits on the line. |
-| `variant` | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                 |
+| Prop       | Type                                 | Default    | Description                                                    |
+| ---------- | ------------------------------------ | ---------- | -------------------------------------------------------------- |
+| `align`    | `"center"` , `"start"` , `"end"`     | `"center"` | Where the content sits on the line.                            |
+| `children` | `ReactNode`                          | -          | Optional content in the middle of the line. Renders a `<div>`. |
+| `variant`  | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                                            |
 
 #### CSS variables
 

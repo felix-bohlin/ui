@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `slot="marker"`
 
-  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
+  The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `slot="default"`
 
@@ -294,12 +294,12 @@ import { Accordion } from "opui-css/astro"
 
 #### Slots
 
-| Slot      | Description                                                                                |
-| --------- | ------------------------------------------------------------------------------------------ |
-| `actions` | A group of actions, such as buttons.                                                       |
-| `default` | The collapsible content.                                                                   |
-| `marker`  | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
-| `summary` | The always visible header.                                                                 |
+| Slot      | Description                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------- |
+| `actions` | A group of actions, such as buttons.                                                              |
+| `default` | The collapsible content.                                                                          |
+| `marker`  | The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `summary` | The always visible header.                                                                        |
 
 #### CSS variables
 

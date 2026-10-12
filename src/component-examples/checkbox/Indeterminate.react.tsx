@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
 

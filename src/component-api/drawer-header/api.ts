@@ -2,6 +2,16 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DrawerHeader",
+  hydration: {
+    react: [
+      {
+        description:
+          "Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration.",
+        fallback: "Set `commandfor` to the dialog's id.",
+        prop: "commandfor",
+      },
+    ],
+  },
   options: [
     {
       default: '"Close"',
@@ -12,7 +22,7 @@ export default {
     },
     {
       description:
-        "The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click.",
+        "The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click.",
       prop: "commandfor",
     },
   ],

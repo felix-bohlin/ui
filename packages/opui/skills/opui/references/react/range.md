@@ -205,6 +205,7 @@ export default function Row() {
 
 | Prop                                                                                                                                                                                                | Type                                                                                | Default | Description                                                                                   |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `children`                                                                                                                                                                                          | `ReactNode`                                                                         | -       | The label for the range.                                                                      |
 | `datalist`                                                                                                                                                                                          | `ReactNode`                                                                         | -       | Extra `<option>` elements for the `<datalist>`.                                               |
 | `endText`                                                                                                                                                                                           | `ReactNode`                                                                         | -       | Supporting text displayed below the input.                                                    |
 | `error`                                                                                                                                                                                             | `boolean`                                                                           | `false` | Marks the control invalid and shows error styles.                                             |
@@ -246,7 +247,7 @@ export default function Row() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
 
 ## Under the hood
 

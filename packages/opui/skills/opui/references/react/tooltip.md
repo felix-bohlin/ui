@@ -153,6 +153,7 @@ export default function Arrow() {
 | ----------- | ----------- | --------------- | ------------------------------------------------------------------------- |
 | `alignment` | `string`    | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
 | `arrow`     | `boolean`   | `false`         | Adds an arrow that points to the trigger.                                 |
+| `children`  | `ReactNode` | -               | The trigger that shows the tooltip on hover and focus.                    |
 | `content`   | `ReactNode` | -               | The tooltip, a `popover="hint"`.                                          |
 | `id`        | `string`    | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
 | `label`     | `string`    | -               | The tooltip, a `popover="hint"`.                                          |

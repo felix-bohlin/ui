@@ -38,7 +38,7 @@ export default {
       "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.",
     html: "Add a `<datalist>` after the input for tick marks.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     svelte:
       "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
     vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",

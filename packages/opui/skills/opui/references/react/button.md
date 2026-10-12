@@ -434,6 +434,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `children` | `ReactNode`                           | -       | The label and an optional icon.                                             |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
 | `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |

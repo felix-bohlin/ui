@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react"
 
 export type DrawerContextValue = {
-  headingId: string
+  headingId?: string
   id: string
 }
 

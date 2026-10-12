@@ -357,6 +357,7 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 | Prop           | Type                     | Default | Description                                                                                          |
 | -------------- | ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `children`     | `ReactNode`              | -       | The table sections.                                                                                  |
 | `stickyHeader` | `boolean`                | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 | `variant`      | `"dense"` , `"spacious"` | -       | The variant to use.                                                                                  |
 

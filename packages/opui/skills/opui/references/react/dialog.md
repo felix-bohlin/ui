@@ -265,6 +265,8 @@ Use the `closedby` prop to choose how the dialog can be closed.
 Without `closedby`, the browser picks: a modal dialog, opened with `command="show-modal"` or `showModal()`, acts like `closerequest`, and a non-modal one like `none`.
 
 ```tsx
+"use client"
+
 import { useState } from "react"
 import {
   Button,

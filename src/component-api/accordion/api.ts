@@ -66,7 +66,7 @@ export default {
     {
       code: '<svg class="ui-marker">',
       description:
-        "The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.",
+        "The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.",
       selector: "summary .ui-marker",
       slots: ["marker"],
     },

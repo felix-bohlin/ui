@@ -162,7 +162,7 @@ export default function SupportingText() {
 
 ### Validation
 
-- Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
+- Set the `required` prop on the component. It is forwarded to the underlying `<input>`.
 - Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
@@ -208,6 +208,8 @@ export default function Validation() {
 Set the `indeterminate` prop to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
 
 ```tsx
+"use client"
+
 import { useState } from "react"
 import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
 
@@ -528,15 +530,16 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                | Type                                | Default | Description                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `endText`                                                                                                                                                                                                                           | `ReactNode`                         | -       | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                             | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                         | `boolean`                           | `false` | Visually hides the label.                                                            |
-| `indeterminate` **Needs hydration** A DOM property, set in a callback ref. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                              | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                            | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                             | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| Prop                                                                                                                                                                                                                                 | Type                                | Default | Description                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `children`                                                                                                                                                                                                                           | `ReactNode`                         | -       | The label.                                                                           |
+| `endText`                                                                                                                                                                                                                            | `ReactNode`                         | -       | Supporting text displayed below the label.                                           |
+| `error`                                                                                                                                                                                                                              | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`                                                                                                                                                                                                                          | `boolean`                           | `false` | Visually hides the label.                                                            |
+| `indeterminate` **Needs hydration** A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`                                                                                                                                                                                                                               | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                             |
+| `spread`                                                                                                                                                                                                                             | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
+| `stack`                                                                                                                                                                                                                              | `boolean`                           | `false` | Stacks the label under the input.                                                    |
 
 #### CSS variables
 
@@ -570,14 +573,15 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

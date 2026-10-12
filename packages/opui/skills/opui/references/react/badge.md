@@ -282,6 +282,7 @@ export default function Alignment() {
 | Prop        | Type                                                              | Default       | Description                                                                                |
 | ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
 | `alignment` | `"start-start"` , `"start-end"` , `"end-start"` , `"end-end"`     | `"start-end"` | Where the indicator is placed.                                                             |
+| `children`  | `ReactNode`                                                       | -             | The element the badge is anchored to.                                                      |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                           |
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                           |
 | `indicator` | `ReactNode`                                                       | -             | The indicator, inside `.ui-anchor-floating`.                                               |

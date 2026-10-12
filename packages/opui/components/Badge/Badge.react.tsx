@@ -31,7 +31,12 @@ export default function Badge({
         <span className="ui-badge-indicator">
           {dot ? "" : label}
           {!dot && indicator}
-          {srLabel && <span className="ui-sr-only">{srLabel}</span>}
+          {srLabel && (
+            <>
+              {" "}
+              <span className="ui-sr-only">{srLabel}</span>
+            </>
+          )}
         </span>
       }
     >

@@ -265,7 +265,7 @@ export default function FieldGroupDisabled() {
 
 ## Required
 
-Add the `required` attribute on at least one `Radio`. It is forwarded to the underlying `<input>`.
+Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
 ```tsx
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
@@ -402,6 +402,7 @@ The radio lines up with the first line of its label and centers on the label's c
 
 | Prop        | Type                                | Default | Description                                       |
 | ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `children`  | `ReactNode`                         | -       | The label.                                        |
 | `endText`   | `ReactNode`                         | -       | Supporting text displayed below the label.        |
 | `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
@@ -441,14 +442,15 @@ The radio lines up with the first line of its label and centers on the label's c
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

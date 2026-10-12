@@ -320,7 +320,7 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`.
 
 ## Under the hood
 

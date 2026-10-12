@@ -388,6 +388,8 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
+`pressed` sets the starting state. To control it, pass `checked` and `onChange`.
+
 ## Under the hood
 
 1. Label

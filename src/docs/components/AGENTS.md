@@ -116,7 +116,7 @@ The manual form remains supported and unchanged:
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
     - `.astro` files should contain UI components imported via the `@opui/astro` alias (e.g. `import { Button } from "@opui/astro"`).
     - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
-    - `.react.tsx` files default-export a function component named after the file that mirrors the Astro example with the components from `opui-css/react`.
+    - `.react.tsx` files default-export a function component named after the file that mirrors the Astro example with the components from `opui-css/react`. When the file name clashes with an imported component, add `Example` to the function name (`FieldGroupExample`). Stateful examples start with `"use client"`.
     - `.svelte` files mirror the Astro example with the components from `opui-css/svelte`.
     - `.vue` files mirror the Astro example with the components from `opui-css/vue`.
     - Do not wrap the whole example in `<div class="example-row">` / `<div class="example-column">` - set `row` / `column` on `<AutoExample>` in the docs page instead. Multiple sibling `example-row` / `example-column` groups inside one example are fine.

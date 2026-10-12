@@ -169,7 +169,7 @@ export default function Headers() {
 
 ## Validation
 
-Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
+Set the `required` prop on the component. It is forwarded to the underlying `<input>`.
 
 Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 
@@ -547,6 +547,7 @@ export default function NoLabel() {
 | Prop             | Type                                | Default      | Description                                                               |
 | ---------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
 | `autoFit`        | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `children`       | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
 | `description`    | `ReactNode`                         | -            | Description text displayed above the field.                               |
 | `endText`        | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
 | `error`          | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
@@ -601,7 +602,7 @@ export default function NoLabel() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Under the hood
 

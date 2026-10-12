@@ -492,6 +492,7 @@ export default function Overflow() {
 
 | Prop          | Type                                  | Default | Description                                                                                                       |
 | ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| `children`    | `ReactNode`                           | -       | The buttons and button links.                                                                                     |
 | `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
 | `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
@@ -538,6 +539,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `children` | `ReactNode`                           | -       | The label and an optional icon.                                             |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
 | `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |

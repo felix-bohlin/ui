@@ -246,7 +246,7 @@ export default function Icons() {
 
 ## Validation
 
-- Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
+- Set the `required` prop on the component. It is forwarded to the underlying `<input>`.
 - Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Switches also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
@@ -577,14 +577,15 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

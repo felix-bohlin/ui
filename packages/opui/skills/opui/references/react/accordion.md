@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `marker`
 
-  The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
+  The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
 
 - `children`
 
@@ -296,16 +296,16 @@ export default function MarkerAnimation() {
 
 ### Accordion API
 
-| Prop              | Type                                                  | Default     | Description                                                                                |
-| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
-| `actions`         | `ReactNode`                                           | -           | A group of actions, such as buttons.                                                       |
-| `children`        | `ReactNode`                                           | -           | The collapsible content.                                                                   |
-| `marker`          | `ReactNode`                                           | -           | The marker. Astro, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.                                          |
-| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.                               |
-| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                                                             |
-| `summary`         | `ReactNode`                                           | -           | The always visible header.                                                                 |
-| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                                                        |
+| Prop              | Type                                                  | Default     | Description                                                                                       |
+| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
+| `actions`         | `ReactNode`                                           | -           | A group of actions, such as buttons.                                                              |
+| `children`        | `ReactNode`                                           | -           | The collapsible content.                                                                          |
+| `marker`          | `ReactNode`                                           | -           | The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.                                                 |
+| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.                                      |
+| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                                                                    |
+| `summary`         | `ReactNode`                                           | -           | The always visible header.                                                                        |
+| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                                                               |
 
 #### CSS variables
 

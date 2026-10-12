@@ -621,6 +621,7 @@ export default function Dense() {
 | Prop         | Type                        | Default | Description                                                                  |
 | ------------ | --------------------------- | ------- | ---------------------------------------------------------------------------- |
 | `bordered`   | `boolean`                   | `false` | Adds a border between list items.                                            |
+| `children`   | `ReactNode`                 | -       | The list items.                                                              |
 | `dense`      | `boolean`                   | `false` | Packs the list tighter.                                                      |
 | `gutterless` | `boolean`                   | `false` | Removes the inline padding.                                                  |
 | `variant`    | `"tonal"` , `"transparent"` | -       | The background color variant. Without one, the list uses the filled surface. |
@@ -655,6 +656,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
+| `children`    | `ReactNode`                           | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
 | `end`         | `ReactNode`                           | -       | Optional content at the end, such as a value or an action.                                                                                      |

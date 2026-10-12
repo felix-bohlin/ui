@@ -224,6 +224,7 @@ export default function LinkPreview() {
 | ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                |
 | `anchored`  | `ReactNode`            | -             | The floating content.                                                                                                          |
+| `children`  | `ReactNode`            | -             | The content the floating content is anchored to.                                                                               |
 | `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger. |
 | `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                |
 

@@ -236,6 +236,8 @@ export default function HeaderFooter() {
 Set `defaultValue`, or `value` with `onChange`, to preselect an option, or `selected: true` on an item.
 
 ```tsx
+"use client"
+
 import { useState } from "react"
 import { Select } from "opui-css/react"
 
@@ -296,7 +298,7 @@ export default function Grouped() {
 
 ## Validation
 
-- Add the `required` attribute on the component. It is forwarded to the underlying `<select>`.
+- Set the `required` prop on the component. It is forwarded to the underlying `<select>`.
 - Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the select, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
@@ -575,15 +577,16 @@ Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
 
 ### Classic select API
 
-| Prop      | Type                                | Default      | Description                                       |
-| --------- | ----------------------------------- | ------------ | ------------------------------------------------- |
-| `endText` | `string`                            | -            | Supporting text displayed below the field.        |
-| `error`   | `boolean`                           | `false`      | Marks the control invalid and shows error styles. |
-| `id`      | `string`                            | -            | The id of the `<select>`. Generated when omitted. |
-| `items`   | `Item[]`                            | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`   | `string`                            | -            | The label for the field.                          |
-| `size`    | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                          |
-| `variant` | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                               |
+| Prop       | Type                                | Default      | Description                                       |
+| ---------- | ----------------------------------- | ------------ | ------------------------------------------------- |
+| `children` | `ReactNode`                         | -            | Extra `<option>` and `<optgroup>` elements.       |
+| `endText`  | `string`                            | -            | Supporting text displayed below the field.        |
+| `error`    | `boolean`                           | `false`      | Marks the control invalid and shows error styles. |
+| `id`       | `string`                            | -            | The id of the `<select>`. Generated when omitted. |
+| `items`    | `Item[]`                            | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`    | `string`                            | -            | The label for the field.                          |
+| `size`     | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                          |
+| `variant`  | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                               |
 
 #### CSS variables
 
@@ -627,7 +630,7 @@ Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
+Attributes that aren't props go to the `<select>`, like `disabled` or `name`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Under the hood
 

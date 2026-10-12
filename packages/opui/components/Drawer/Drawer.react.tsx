@@ -4,7 +4,10 @@ import {
   Children,
   cloneElement,
   isValidElement,
+  useCallback,
   useId,
+  useLayoutEffect,
+  useRef,
   type ReactElement,
   type ReactNode,
 } from "react"
@@ -67,17 +70,38 @@ export default function Drawer({
       ? labelHeading(header, headingId)
       : { node: header }
 
-  const labelOwnHeading = (dialog: HTMLDialogElement | null) => {
-    if (!dialog || !header || labelled.id) return
-    if (rest["aria-label"] || rest["aria-labelledby"]) return
-    const heading = dialog.querySelector("h1, h2, h3, h4, h5, h6")
-    if (!heading) return
+  const ariaLabel = rest["aria-label"]
+  const ariaLabelledBy = rest["aria-labelledby"]
+  const dialogRef = useRef<HTMLDialogElement>(null)
+
+  useLayoutEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog || labelled.id || ariaLabelledBy) return
+    if (!header || ariaLabel) return dialog.removeAttribute("aria-labelledby")
+    const heading = [...dialog.querySelectorAll("h1, h2, h3, h4, h5, h6")].find(
+      (element) => !element.closest(".ui-content, .ui-footer"),
+    )
+    if (!heading) return dialog.removeAttribute("aria-labelledby")
     if (!heading.id) heading.id = headingId
     dialog.setAttribute("aria-labelledby", heading.id)
-  }
+  })
+
+  const setRef = useCallback(
+    (dialog: HTMLDialogElement | null) => {
+      dialogRef.current = dialog
+      if (typeof ref === "function") return ref(dialog)
+      if (ref) ref.current = dialog
+    },
+    [ref],
+  )
 
   return (
-    <DrawerContext value={{ headingId, id: drawerId }}>
+    <DrawerContext
+      value={{
+        headingId: labelled.id === headingId ? headingId : undefined,
+        id: drawerId,
+      }}
+    >
       <dialog
         className={cx([
           "ui-drawer",
@@ -91,11 +115,7 @@ export default function Drawer({
         aria-labelledby={labelled.id}
         closedby={closedby}
         id={drawerId}
-        ref={(dialog) => {
-          labelOwnHeading(dialog)
-          if (typeof ref === "function") return ref(dialog)
-          if (ref) ref.current = dialog
-        }}
+        ref={setRef}
         {...rest}
       >
         {labelled.node}

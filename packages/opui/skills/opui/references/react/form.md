@@ -333,6 +333,8 @@ export default function AdaptiveOutput() {
 Everything at once.
 
 ```tsx
+"use client"
+
 import { useState } from "react"
 import {
   Button,
@@ -499,9 +501,10 @@ export default function KitchenSink() {
 
 ### Form API
 
-| Prop | Type               | Default  | Description            |
-| ---- | ------------------ | -------- | ---------------------- |
-| `as` | `"div"` , `"form"` | `"form"` | The element to render. |
+| Prop       | Type               | Default  | Description               |
+| ---------- | ------------------ | -------- | ------------------------- |
+| `as`       | `"div"` , `"form"` | `"form"` | The element to render.    |
+| `children` | `ReactNode`        | -        | The fieldsets and fields. |
 
 #### CSS variables
 
@@ -525,6 +528,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Prop       | Type                   | Default      | Description                                                                                                            |
 | ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
 | `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
+| `children` | `ReactNode`            | -            | The legend, description and fields.                                                                                    |
 | `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                           |
 
 #### CSS variables
@@ -546,9 +550,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field legend API
 
-| Prop | Type               | Default    | Description                                                   |
-| ---- | ------------------ | ---------- | ------------------------------------------------------------- |
-| `as` | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| Prop       | Type               | Default    | Description                                                   |
+| ---------- | ------------------ | ---------- | ------------------------------------------------------------- |
+| `as`       | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| `children` | `ReactNode`        | -          | The label.                                                    |
 
 #### CSS variables
 
@@ -569,6 +574,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field description API
 
+| Prop       | Type        | Default | Description |
+| ---------- | ----------- | ------- | ----------- |
+| `children` | `ReactNode` | -       | The text.   |
+
 #### CSS variables
 
 | Variable                     | Default                                                                                 | Description                                                                                                               |
@@ -588,10 +597,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

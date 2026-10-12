@@ -2,6 +2,10 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
+  notes: {
+    react:
+      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`.",
+  },
   options: [
     {
       attribute: "[disabled]",

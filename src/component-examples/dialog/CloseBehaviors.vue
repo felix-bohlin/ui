@@ -2,6 +2,9 @@
 import {
   Button,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -36,8 +39,10 @@ onMounted(() => {
   </Button>
 
   <Dialog id="closing-behaviors-dialog" closedby="any">
-    <template #header><h2 class="ui-h4">How to close</h2></template>
-    <template #content>
+    <DialogHeader>
+      <h2 class="ui-h4">How to close</h2>
+    </DialogHeader>
+    <DialogContent>
       <FieldSet>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
         <FieldGroup name="closedby-demo">
@@ -46,11 +51,11 @@ onMounted(() => {
           <Radio value="none">none</Radio>
         </FieldGroup>
       </FieldSet>
-    </template>
-    <template #actions>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="closing-behaviors-dialog" command="close">
         Close manually
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>

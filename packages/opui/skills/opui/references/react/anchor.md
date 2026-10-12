@@ -23,7 +23,7 @@ Floating content
 Floating content that is always shown, like a coach mark beside a button. Set `alignment` to any `position-area` value to place it.
 
 ```tsx
-import { Anchor, Button, Card } from "opui-css/react"
+import { Anchor, Button, Card, CardContent } from "opui-css/react"
 
 export default function AlwaysVisible() {
   return (
@@ -31,15 +31,11 @@ export default function AlwaysVisible() {
       <Anchor
         alignment="inline-end"
         anchored={
-          <Card
-            variant="tonal"
-            className="coach-mark"
-            content={
-              <>
-                <strong>New</strong> Export to PDF and CSV from the same menu.
-              </>
-            }
-          />
+          <Card variant="tonal" className="coach-mark">
+            <CardContent>
+              <strong>New</strong> Export to PDF and CSV from the same menu.
+            </CardContent>
+          </Card>
         }
       >
         <Button variant="outlined">Export</Button>
@@ -65,7 +61,14 @@ Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the tri
 Put a [Card](https://open-props-ui.netlify.app/react/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room.
 
 ```tsx
-import { Anchor, Avatar, Button, Card } from "opui-css/react"
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/react"
 
 export default function RepoCard() {
   return (
@@ -77,35 +80,31 @@ export default function RepoCard() {
           trigger="hover"
           id="anchor-repo-card"
           anchored={
-            <Card
-              variant="elevated"
-              className="repo-card"
-              content={
-                <>
-                  <div className="repo-card-identity">
-                    <Avatar
-                      src="https://github.com/felix-bohlin.png"
-                      alt=""
-                      variant="rounded"
-                    />
-                    <div>
-                      <strong>felix-bohlin/ui</strong>
-                      <span className="ui-caption">Public repository</span>
-                    </div>
+            <Card variant="elevated" className="repo-card">
+              <CardContent>
+                <div className="repo-card-identity">
+                  <Avatar
+                    src="https://github.com/felix-bohlin.png"
+                    alt=""
+                    variant="rounded"
+                  />
+                  <div>
+                    <strong>felix-bohlin/ui</strong>
+                    <span className="ui-caption">Public repository</span>
                   </div>
-                  <p>
-                    A CSS UI library exploring how next-gen HTML & CSS
-                    features can change the way we create components.
-                  </p>
-                  <p className="ui-caption">CSS · MIT license</p>
-                </>
-              }
-              actions={
+                </div>
+                <p>
+                  A CSS UI library exploring how next-gen HTML & CSS
+                  features can change the way we create components.
+                </p>
+                <p className="ui-caption">CSS · MIT license</p>
+              </CardContent>
+              <CardActions>
                 <Button variant="outlined" size="small">
                   Star
                 </Button>
-              }
-            />
+              </CardActions>
+            </Card>
           }
         >
           <a
@@ -150,7 +149,7 @@ export default function RepoCard() {
 Preview where a link goes before following it. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
 
 ```tsx
-import { Anchor, Card } from "opui-css/react"
+import { Anchor, Card, CardHeader } from "opui-css/react"
 
 export default function LinkPreview() {
   return (
@@ -164,14 +163,14 @@ export default function LinkPreview() {
           anchored={
             <Card variant="elevated" className="link-preview">
               <img src="https://picsum.photos/id/1018/800/450" alt="" />
-              <hgroup>
+              <CardHeader>
                 <p className="ui-caption">developer.mozilla.org</p>
                 <h3>CSS anchor positioning</h3>
                 <p>
                   Tether elements to other elements on the page, without
                   JavaScript.
                 </p>
-              </hgroup>
+              </CardHeader>
             </Card>
           }
         >

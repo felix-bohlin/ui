@@ -8,8 +8,13 @@ import {
   ButtonGroup,
   Callout,
   Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Carousel,
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   Chip,
   DescriptionList,
   Divider,
@@ -28,6 +33,8 @@ import {
   Table,
   Tabs,
   TextField,
+  TextFieldControl,
+  TextFieldInput,
   Textarea,
   ToggleButton,
   ToggleGroup,
@@ -128,16 +135,16 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Card" href="/components/card" size="xl">
     <Card aria-hidden="true" inert variant="outlined">
-      <Fragment slot="header">
+      <CardHeader>
         <p>Article</p>
         <h3>Build something nice</h3>
-      </Fragment>
-      <Fragment slot="content">
+      </CardHeader>
+      <CardContent>
         Components you can copy-paste into your project.
-      </Fragment>
-      <Fragment slot="actions">
+      </CardContent>
+      <CardActions>
         <Button variant="tonal" size="small">Read</Button>
-      </Fragment>
+      </CardActions>
     </Card>
   </ComponentCard>
 
@@ -153,10 +160,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
           <li>
             <Card variant="tonal">
-              <Fragment slot="header">
+              <CardHeader>
                 <p>Destination</p>
                 <h3>{title}</h3>
-              </Fragment>
+              </CardHeader>
             </Card>
           </li>
         ))
@@ -165,7 +172,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
+    <Checkbox>
+      <CheckboxInput aria-hidden="true" inert checked />
+      <CheckboxLabel>This checks out</CheckboxLabel>
+    </Checkbox>
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
@@ -191,14 +201,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   <ComponentCard name="Dialog" href="/components/dialog" size="wide">
     <div class="showcase-backdrop" aria-hidden="true" inert>
       <Card variant="elevated" class="showcase-dialog">
-        <Fragment slot="header">
+        <CardHeader>
           <h3>Discard draft?</h3>
-        </Fragment>
-        <Fragment slot="content">You can't undo this.</Fragment>
-        <Fragment slot="actions">
+        </CardHeader>
+        <CardContent>You can't undo this.</CardContent>
+        <CardActions>
           <Button size="small">Cancel</Button>
           <Button size="small" variant="filled">Discard</Button>
-        </Fragment>
+        </CardActions>
       </Card>
     </div>
   </ComponentCard>
@@ -211,8 +221,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
       <div class="showcase-drawer-panel">
         <p>Filters</p>
-        <Checkbox checked>In stock</Checkbox>
-        <Checkbox>On sale</Checkbox>
+        <Checkbox>
+          <CheckboxInput checked />
+          <CheckboxLabel>In stock</CheckboxLabel>
+        </Checkbox>
+        <Checkbox>
+          <CheckboxInput />
+          <CheckboxLabel>On sale</CheckboxLabel>
+        </Checkbox>
       </div>
     </div>
   </ComponentCard>
@@ -223,7 +239,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         <FieldLegend>Newsletter</FieldLegend>
         <FieldDescription>We will spam you to hell.</FieldDescription>
         <div class="showcase-form-row">
-          <TextField placeholder="you@example.com" />
+          <TextField>
+            <TextFieldControl>
+              <TextFieldInput placeholder="you@example.com" />
+            </TextFieldControl>
+          </TextField>
           <Button variant="filled">Subscribe</Button>
         </div>
       </FieldSet>
@@ -347,7 +367,15 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Text Field" href="/components/text-field">
-    <TextField aria-hidden="true" inert placeholder="you@example.com" />
+    <TextField>
+      <TextFieldControl>
+        <TextFieldInput
+          aria-hidden="true"
+          inert
+          placeholder="you@example.com"
+        />
+      </TextFieldControl>
+    </TextField>
   </ComponentCard>
 
   <ComponentCard name="Textarea" href="/components/textarea">

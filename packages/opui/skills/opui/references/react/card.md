@@ -16,15 +16,15 @@ Explain more about the topic shown in the headline and subhead through supportin
 
   Container element.
 
-- `header`
+- `<CardHeader>`
 
   The card header.
 
-- `content`
+- `<CardContent>`
 
   The card content.
 
-- `actions`
+- `<CardActions>`
 
   A group of actions, such as buttons.
 
@@ -33,18 +33,26 @@ Explain more about the topic shown in the headline and subhead through supportin
 Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border.
 
 ```tsx
-import { Card } from "opui-css/react"
+import { Card, CardContent } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <Card variant="text" content="Text" />
+      <Card variant="text">
+        <CardContent>Text</CardContent>
+      </Card>
 
-      <Card variant="outlined" content="Outlined" />
+      <Card variant="outlined">
+        <CardContent>Outlined</CardContent>
+      </Card>
 
-      <Card variant="tonal" content="Tonal" />
+      <Card variant="tonal">
+        <CardContent>Tonal</CardContent>
+      </Card>
 
-      <Card variant="elevated" content="Elevated" />
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
+      </Card>
     </>
   )
 }
@@ -56,95 +64,85 @@ On the page you won't see a difference. Put a card on a tonal surface or in a di
 
 ## Header
 
-Using the `header` prop.
+Using `CardHeader`.
 
 ```tsx
-import { Card } from "opui-css/react"
+import { Card, CardHeader } from "opui-css/react"
 
 export default function Header() {
   return (
-    <Card
-      variant="outlined"
-      header={
-        <>
-          <p>Blog</p>
-          <h3>My ultra-great blog post</h3>
-          <p>Please read it.</p>
-        </>
-      }
-    />
+    <Card variant="outlined">
+      <CardHeader>
+        <p>Blog</p>
+        <h3>My ultra-great blog post</h3>
+        <p>Please read it.</p>
+      </CardHeader>
+    </Card>
   )
 }
 ```
 
 ## Actions
 
-Using the `actions` prop.
+Using `CardActions`.
 
 There are some basic styles here to get you going, but for more advanced use-cases (which always happen), you might want to add your own styles.
 
 ```tsx
-import { Button, Card } from "opui-css/react"
+import { Button, Card, CardActions, CardContent } from "opui-css/react"
 
 export default function Actions() {
   return (
     <>
-      <Card
-        variant="outlined"
-        content="Notice how the buttons are made to align with the text above."
-        actions={
-          <>
-            <Button>Cancel</Button>
-            <Button>Save</Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>
+          Notice how the buttons are made to align with the text above.
+        </CardContent>
+        <CardActions>
+          <Button>Cancel</Button>
+          <Button>Save</Button>
+        </CardActions>
+      </Card>
 
-      <Card
-        variant="outlined"
-        content="Trying other button types too. Look at that!"
-        actions={
-          <>
-            <Button variant="outlined">Cancel</Button>
-            <Button variant="filled">Save</Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>Trying other button types too. Look at that!</CardContent>
+        <CardActions>
+          <Button variant="outlined">Cancel</Button>
+          <Button variant="filled">Save</Button>
+        </CardActions>
+      </Card>
 
-      <Card
-        variant="outlined"
-        content="Icon buttons work too!"
-        actions={
-          <>
-            <Button rounded size="small" aria-label="Favorite">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
-                ></path>
-              </svg>
-            </Button>
-            <Button rounded size="small" aria-label="Share">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="currentColor"
-                  d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
-                ></path>
-              </svg>
-            </Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>Icon buttons work too!</CardContent>
+        <CardActions>
+          <Button rounded size="small" aria-label="Favorite">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
+              ></path>
+            </svg>
+          </Button>
+          <Button rounded size="small" aria-label="Share">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+              ></path>
+            </svg>
+          </Button>
+        </CardActions>
+      </Card>
     </>
   )
 }
@@ -152,73 +150,61 @@ export default function Actions() {
 
 ### Alignment
 
-Align actions to the end with the `actionsAlign="end"` prop.
+Align actions to the end with `align="end"` on `CardActions`.
 
 ```tsx
-import { Button, Card } from "opui-css/react"
+import { Button, Card, CardActions, CardContent } from "opui-css/react"
 
 export default function Alignment() {
   return (
     <>
-      <Card
-        variant="outlined"
-        actionsAlign="end"
-        content="Buttons aligned to the end. Works too!"
-        actions={
-          <>
-            <Button>Cancel</Button>
-            <Button>Save</Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>Buttons aligned to the end. Works too!</CardContent>
+        <CardActions align="end">
+          <Button>Cancel</Button>
+          <Button>Save</Button>
+        </CardActions>
+      </Card>
 
-      <Card
-        variant="outlined"
-        actionsAlign="end"
-        content="Again, buttons are aligned to the end!"
-        actions={
-          <>
-            <Button variant="outlined">Cancel</Button>
-            <Button variant="filled">Save</Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>Again, buttons are aligned to the end!</CardContent>
+        <CardActions align="end">
+          <Button variant="outlined">Cancel</Button>
+          <Button variant="filled">Save</Button>
+        </CardActions>
+      </Card>
 
-      <Card
-        variant="outlined"
-        actionsAlign="end"
-        content="Icon buttons aligned to the end!"
-        actions={
-          <>
-            <Button rounded size="small" aria-label="Favorite">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
-                ></path>
-              </svg>
-            </Button>
-            <Button rounded size="small" aria-label="Share">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="currentColor"
-                  d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
-                ></path>
-              </svg>
-            </Button>
-          </>
-        }
-      />
+      <Card variant="outlined">
+        <CardContent>Icon buttons aligned to the end!</CardContent>
+        <CardActions align="end">
+          <Button rounded size="small" aria-label="Favorite">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
+              ></path>
+            </svg>
+          </Button>
+          <Button rounded size="small" aria-label="Share">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
+              ></path>
+            </svg>
+          </Button>
+        </CardActions>
+      </Card>
     </>
   )
 }
@@ -229,35 +215,43 @@ export default function Alignment() {
 Add `.ui-card-link` to a link in the card, usually the one in the heading, and the whole card becomes clickable. The link stretches over the card, so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and screen readers only hear the link text. Other links and buttons in the card stay clickable.
 
 ```tsx
-import { Button, Card } from "opui-css/react"
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from "opui-css/react"
 
 export default function Clickable() {
   return (
     <>
-      <Card
-        variant="outlined"
-        header={
+      <Card variant="outlined">
+        <CardHeader>
           <h3>
             <a className="ui-card-link" href="#clickable">
               Pricing
             </a>
           </h3>
-        }
-        content="Plans for any team. Click anywhere on the card."
-      />
+        </CardHeader>
+        <CardContent>
+          Plans for any team. Click anywhere on the card.
+        </CardContent>
+      </Card>
 
-      <Card
-        variant="outlined"
-        header={
+      <Card variant="outlined">
+        <CardHeader>
           <h3>
             <a className="ui-card-link" href="#clickable">
               Changelog
             </a>
           </h3>
-        }
-        content="Every release in one place."
-        actions={<Button>Subscribe</Button>}
-      />
+        </CardHeader>
+        <CardContent>Every release in one place.</CardContent>
+        <CardActions>
+          <Button>Subscribe</Button>
+        </CardActions>
+      </Card>
     </>
   )
 }
@@ -269,14 +263,10 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop           | Type                                               | Default | Description                                                                        |
-| -------------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `actions`      | `ReactNode`                                        | -       | A group of actions, such as buttons.                                               |
-| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.                                                         |
-| `children`     | `ReactNode`                                        | -       | Raw content placed directly in the card.                                           |
-| `content`      | `ReactNode`                                        | -       | The card content.                                                                  |
-| `header`       | `ReactNode`                                        | -       | The card header.                                                                   |
-| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Prop       | Type                                               | Default | Description                                                                        |
+| ---------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `children` | `ReactNode`                                        | -       | The card parts, and any other content.                                             |
+| `variant`  | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### CSS variables
 
@@ -430,7 +420,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/react/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/react/components/dialog.md)
 
-Import the component from `opui-css/react`:
+Import the components from `opui-css/react`:
 
 - `opui-css/css/components/card.css`
 
@@ -438,6 +428,7 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- Breaking: [`CardHeader`, `CardContent` and `CardActions`](#api) replace the slots, and `align` on `CardActions` replaces `actionsAlign`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

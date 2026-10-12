@@ -16,15 +16,15 @@ Explain more about the topic shown in the headline and subhead through supportin
 
   Container element.
 
-- `header`
+- `<CardHeader>`
 
   The card header.
 
-- `content`
+- `<CardContent>`
 
   The card content.
 
-- `actions`
+- `<CardActions>`
 
   A group of actions, such as buttons.
 
@@ -34,23 +34,23 @@ Change the card variant with the `variant` prop. Without a variant the card has 
 
 ```svelte
 <script lang="ts">
-  import { Card } from "opui-css/svelte"
+  import { Card, CardContent } from "opui-css/svelte"
 </script>
 
 <Card variant="text">
-  {#snippet content()}Text{/snippet}
+  <CardContent>Text</CardContent>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Outlined{/snippet}
+  <CardContent>Outlined</CardContent>
 </Card>
 
 <Card variant="tonal">
-  {#snippet content()}Tonal{/snippet}
+  <CardContent>Tonal</CardContent>
 </Card>
 
 <Card variant="elevated">
-  {#snippet content()}Elevated{/snippet}
+  <CardContent>Elevated</CardContent>
 </Card>
 ```
 
@@ -60,54 +60,54 @@ On the page you won't see a difference. Put a card on a tonal surface or in a di
 
 ## Header
 
-Using the `header` snippet.
+Using `CardHeader`.
 
 ```svelte
 <script lang="ts">
-  import { Card } from "opui-css/svelte"
+  import { Card, CardHeader } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <p>Blog</p>
     <h3>My ultra-great blog post</h3>
     <p>Please read it.</p>
-  {/snippet}
+  </CardHeader>
 </Card>
 ```
 
 ## Actions
 
-Using the `actions` snippet.
+Using `CardActions`.
 
 There are some basic styles here to get you going, but for more advanced use-cases (which always happen), you might want to add your own styles.
 
 ```svelte
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import { Button, Card, CardActions, CardContent } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet content()}
+  <CardContent>
     Notice how the buttons are made to align with the text above.
-  {/snippet}
-  {#snippet actions()}
+  </CardContent>
+  <CardActions>
     <Button>Cancel</Button>
     <Button>Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Trying other button types too. Look at that!{/snippet}
-  {#snippet actions()}
+  <CardContent>Trying other button types too. Look at that!</CardContent>
+  <CardActions>
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Icon buttons work too!{/snippet}
-  {#snippet actions()}
+  <CardContent>Icon buttons work too!</CardContent>
+  <CardActions>
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -134,38 +134,38 @@ There are some basic styles here to get you going, but for more advanced use-cas
         ></path>
       </svg>
     </Button>
-  {/snippet}
+  </CardActions>
 </Card>
 ```
 
 ### Alignment
 
-Align actions to the end with the `actionsAlign="end"` prop.
+Align actions to the end with `align="end"` on `CardActions`.
 
 ```svelte
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import { Button, Card, CardActions, CardContent } from "opui-css/svelte"
 </script>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Buttons aligned to the end. Works too!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Buttons aligned to the end. Works too!</CardContent>
+  <CardActions align="end">
     <Button>Cancel</Button>
     <Button>Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Again, buttons are aligned to the end!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Again, buttons are aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Icon buttons aligned to the end!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Icon buttons aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +192,7 @@ Align actions to the end with the `actionsAlign="end"` prop.
         ></path>
       </svg>
     </Button>
-  {/snippet}
+  </CardActions>
 </Card>
 ```
 
@@ -202,26 +202,30 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 
 ```svelte
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
-  {/snippet}
-  {#snippet content()}
-    Plans for any team. Click anywhere on the card.
-  {/snippet}
+  </CardHeader>
+  <CardContent>Plans for any team. Click anywhere on the card.</CardContent>
 </Card>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
-  {/snippet}
-  {#snippet content()}Every release in one place.{/snippet}
-  {#snippet actions()}
+  </CardHeader>
+  <CardContent>Every release in one place.</CardContent>
+  <CardActions>
     <Button>Subscribe</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 ```
 
@@ -231,14 +235,10 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop           | Type                                               | Default | Description                                                                        |
-| -------------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `actions`      | `Snippet`                                          | -       | A group of actions, such as buttons.                                               |
-| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.                                                         |
-| `children`     | `Snippet`                                          | -       | Raw content placed directly in the card.                                           |
-| `content`      | `Snippet`                                          | -       | The card content.                                                                  |
-| `header`       | `Snippet`                                          | -       | The card header.                                                                   |
-| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Prop       | Type                                               | Default | Description                                                                        |
+| ---------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `children` | `Snippet`                                          | -       | The card parts, and any other content.                                             |
+| `variant`  | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### CSS variables
 
@@ -392,7 +392,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/svelte/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/svelte/components/dialog.md)
 
-Import the component from `opui-css/svelte`:
+Import the components from `opui-css/svelte`:
 
 - `opui-css/css/components/card.css`
 
@@ -400,6 +400,7 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
+- Breaking: [`CardHeader`, `CardContent` and `CardActions`](#api) replace the slots, and `align` on `CardActions` replaces `actionsAlign`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

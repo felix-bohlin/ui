@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -7,9 +15,18 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="checkbox-group-validation">
-        <Checkbox checked error>Checkbox 1</Checkbox>
-        <Checkbox error>Checkbox 2</Checkbox>
-        <Checkbox error>Checkbox 3</Checkbox>
+        <Checkbox error>
+          <CheckboxInput checked />
+          <CheckboxLabel>Checkbox 1</CheckboxLabel>
+        </Checkbox>
+        <Checkbox error>
+          <CheckboxInput />
+          <CheckboxLabel>Checkbox 2</CheckboxLabel>
+        </Checkbox>
+        <Checkbox error>
+          <CheckboxInput />
+          <CheckboxLabel>Checkbox 3</CheckboxLabel>
+        </Checkbox>
       </FieldGroup>
       <span class="ui-end-text">Something went wrong!</span>
     </FieldSet>

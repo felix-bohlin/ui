@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { Checkbox } from "opui-css/vue"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox name="checkbox-label-position">Default</Checkbox>
-  <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
+  <Checkbox>
+    <CheckboxInput name="checkbox-label-position" />
+    <CheckboxLabel>Default</CheckboxLabel>
+  </Checkbox>
+  <Checkbox stack>
+    <CheckboxInput name="checkbox-label-position" />
+    <CheckboxLabel>Stack</CheckboxLabel>
+  </Checkbox>
 </template>

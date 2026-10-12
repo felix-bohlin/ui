@@ -3,7 +3,12 @@ import {
   Button,
   Callout,
   Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   Chip,
   Divider,
   FieldGroup,
@@ -12,6 +17,9 @@ import {
   Range,
   Switch,
   TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -66,110 +74,116 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   <div class="generator-grid">
     <!-- Controls -->
     <Card variant="outlined" class="controls ui-not-rich-text">
-      <h3 slot="header">Theme controls</h3>
+      <CardHeader>
+        <h3>Theme controls</h3>
+      </CardHeader>
 
-      <form id="theme-generator-form" class="ui-form" slot="content">
-        <FieldSet>
-          <FieldLegend>Color Palette</FieldLegend>
-          <FieldGroup>
-            <TextField
-              type="color"
-              label="Source color"
-              name="--palette-source-color"
-              value="#000000"
-              spread
-              size="small"
-            />
-            <Range
-              label="Hue"
-              name="--palette-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="240"
-              valueSuffix="°"
-            />
-            <Range
-              label="Chroma"
-              name="--palette-chroma"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.5"
-              valueSuffix=""
-            />
-            <Range
-              label="Hue Rotation"
-              name="--palette-hue-rotate-by"
-              min="-10"
-              max="10"
-              step="1"
-              value="0"
-              valueSuffix=""
-            />
-          </FieldGroup>
-        </FieldSet>
+      <CardContent>
+        <form id="theme-generator-form" class="ui-form">
+          <FieldSet>
+            <FieldLegend>Color Palette</FieldLegend>
+            <FieldGroup>
+              <TextField spread size="small">
+                <TextFieldLabel>Source color</TextFieldLabel>
+                <TextFieldControl>
+                  <TextFieldInput
+                    type="color"
+                    name="--palette-source-color"
+                    value="#000000"
+                  />
+                </TextFieldControl>
+              </TextField>
+              <Range
+                label="Hue"
+                name="--palette-hue"
+                min="0"
+                max="360"
+                step="1"
+                value="240"
+                valueSuffix="°"
+              />
+              <Range
+                label="Chroma"
+                name="--palette-chroma"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.5"
+                valueSuffix=""
+              />
+              <Range
+                label="Hue Rotation"
+                name="--palette-hue-rotate-by"
+                min="-10"
+                max="10"
+                step="1"
+                value="0"
+                valueSuffix=""
+              />
+            </FieldGroup>
+          </FieldSet>
 
-        <Divider />
+          <Divider />
 
-        <FieldSet>
-          <FieldLegend>Grays</FieldLegend>
-          <FieldGroup>
-            <Switch name="enable-grays" checked size="small" spread
-              >Enable</Switch
-            >
-            <Range
-              label="Gray Chroma"
-              name="--gray-chroma"
-              min="0"
-              max="0.1"
-              step="0.001"
-              value="0.01"
-              valueSuffix=""
-            />
-            <Range
-              label="Gray Hue"
-              name="--gray-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="255"
-              valueSuffix="°"
-            />
-          </FieldGroup>
-        </FieldSet>
+          <FieldSet>
+            <FieldLegend>Grays</FieldLegend>
+            <FieldGroup>
+              <Switch name="enable-grays" checked size="small" spread
+                >Enable</Switch
+              >
+              <Range
+                label="Gray Chroma"
+                name="--gray-chroma"
+                min="0"
+                max="0.1"
+                step="0.001"
+                value="0.01"
+                valueSuffix=""
+              />
+              <Range
+                label="Gray Hue"
+                name="--gray-hue"
+                min="0"
+                max="360"
+                step="1"
+                value="255"
+                valueSuffix="°"
+              />
+            </FieldGroup>
+          </FieldSet>
 
-        <Divider />
+          <Divider />
 
-        {
-          radiusGroups.map((group) => (
-            <FieldSet>
-              <FieldLegend>{group.label}</FieldLegend>
-              <FieldGroup>
-                <div class="chip-group">
-                  {RADIUS_OPTIONS.map((item) => {
-                    const pressed =
-                      item.value === tokenDefaults("light")[group.name]
-                    return (
-                      <Chip
-                        as="button"
-                        type="button"
-                        size="small"
-                        variant={pressed ? "tonal" : "outlined"}
-                        aria-pressed={pressed ? "true" : "false"}
-                        data-name={group.name}
-                        data-value={item.value}
-                        label={item.text}
-                        title={item.value}
-                      />
-                    )
-                  })}
-                </div>
-              </FieldGroup>
-            </FieldSet>
-          ))
-        }
-      </form>
+          {
+            radiusGroups.map((group) => (
+              <FieldSet>
+                <FieldLegend>{group.label}</FieldLegend>
+                <FieldGroup>
+                  <div class="chip-group">
+                    {RADIUS_OPTIONS.map((item) => {
+                      const pressed =
+                        item.value === tokenDefaults("light")[group.name]
+                      return (
+                        <Chip
+                          as="button"
+                          type="button"
+                          size="small"
+                          variant={pressed ? "tonal" : "outlined"}
+                          aria-pressed={pressed ? "true" : "false"}
+                          data-name={group.name}
+                          data-value={item.value}
+                          label={item.text}
+                          title={item.value}
+                        />
+                      )
+                    })}
+                  </div>
+                </FieldGroup>
+              </FieldSet>
+            ))
+          }
+        </form>
+      </CardContent>
     </Card>
 
     <!-- Preview -->
@@ -179,7 +193,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
       id="theme-generator-preview"
       style={previewStyle}
     >
-      <Fragment slot="header">
+      <CardHeader>
         <div class="card-header">
           <h3>Preview</h3>
           <Chip
@@ -189,70 +203,87 @@ const previewStyle = Object.entries(tokenDefaults("light"))
             label="Light mode"
           />
         </div>
-      </Fragment>
+      </CardHeader>
 
-      <div class="preview-pane" slot="content">
-        <h4 class="section-label">Palette</h4>
-        <div class="palette-grid">
-          {
-            steps.map((n) => (
-              <div class="swatch" style={`background-color: var(--color-${n})`}>
-                <span>{n}</span>
-              </div>
-            ))
-          }
-        </div>
-
-        <div class="gray-palette">
-          <Divider />
-          <h4 class="section-label">Grays</h4>
+      <CardContent>
+        <div class="preview-pane">
+          <h4 class="section-label">Palette</h4>
           <div class="palette-grid">
             {
               steps.map((n) => (
                 <div
                   class="swatch"
-                  style={`background-color: var(--gray-${n})`}
+                  style={`background-color: var(--color-${n})`}
                 >
                   <span>{n}</span>
                 </div>
               ))
             }
           </div>
-        </div>
 
-        <Divider />
-        <h4 class="section-label">Surfaces</h4>
-        <div class="surface-stack">
-          {
-            surfaces.map((s) => (
-              <div
-                class="surface-swatch"
-                style={`background-color: var(--surface-${s})`}
-              >
-                <span>{s}</span>
-              </div>
-            ))
-          }
-        </div>
+          <div class="gray-palette">
+            <Divider />
+            <h4 class="section-label">Grays</h4>
+            <div class="palette-grid">
+              {
+                steps.map((n) => (
+                  <div
+                    class="swatch"
+                    style={`background-color: var(--gray-${n})`}
+                  >
+                    <span>{n}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
 
-        <Divider />
-        <h4 class="section-label">Examples</h4>
-        <Card variant="outlined">
-          <h5 slot="header">Card</h5>
-          <p slot="content">Cards use border radius and surface colors.</p>
-          <Fragment slot="actions">
-            <Button variant="tonal">Cancel</Button>
-            <Button variant="filled">Save</Button>
-          </Fragment>
-        </Card>
-        <div class="form-showcase">
-          <TextField label="Label" placeholder="Input field..." />
-          <div class="ui-row">
-            <Switch checked>On</Switch>
-            <Checkbox checked>Pick</Checkbox>
+          <Divider />
+          <h4 class="section-label">Surfaces</h4>
+          <div class="surface-stack">
+            {
+              surfaces.map((s) => (
+                <div
+                  class="surface-swatch"
+                  style={`background-color: var(--surface-${s})`}
+                >
+                  <span>{s}</span>
+                </div>
+              ))
+            }
+          </div>
+
+          <Divider />
+          <h4 class="section-label">Examples</h4>
+          <Card variant="outlined">
+            <CardHeader>
+              <h5>Card</h5>
+            </CardHeader>
+            <CardContent>
+              <p>Cards use border radius and surface colors.</p>
+            </CardContent>
+            <CardActions>
+              <Button variant="tonal">Cancel</Button>
+              <Button variant="filled">Save</Button>
+            </CardActions>
+          </Card>
+          <div class="form-showcase">
+            <TextField>
+              <TextFieldLabel>Label</TextFieldLabel>
+              <TextFieldControl>
+                <TextFieldInput placeholder="Input field..." />
+              </TextFieldControl>
+            </TextField>
+            <div class="ui-row">
+              <Switch checked>On</Switch>
+              <Checkbox>
+                <CheckboxInput checked />
+                <CheckboxLabel>Pick</CheckboxLabel>
+              </Checkbox>
+            </div>
           </div>
         </div>
-      </div>
+      </CardContent>
     </Card>
   </div>
 
@@ -262,7 +293,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     class="css-output ui-not-rich-text"
     id="generated-css"
   >
-    <Fragment slot="header">
+    <CardHeader>
       <div class="card-header">
         <h3>theme.css</h3>
         <div class="css-actions">
@@ -304,9 +335,10 @@ const previewStyle = Object.entries(tokenDefaults("light"))
           </Button>
         </div>
       </div>
-    </Fragment>
-    <pre
-      slot="content"><code id="theme-generator-css-code" class="language-css">{PLACEHOLDER_CSS}</code></pre>
+    </CardHeader>
+    <CardContent>
+      <pre><code id="theme-generator-css-code" class="language-css">{PLACEHOLDER_CSS}</code></pre>
+    </CardContent>
   </Card>
 </div>
 

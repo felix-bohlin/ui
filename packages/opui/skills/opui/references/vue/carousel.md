@@ -42,7 +42,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -57,11 +57,11 @@ const places = [
   <Carousel buttons="outside" label="Destinations" markers>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -74,7 +74,7 @@ Set `perView` to show more than one item at a time.
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -89,11 +89,11 @@ const places = [
   <Carousel buttons="outside" label="Destinations" :per-view="3">
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -108,7 +108,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -127,11 +127,11 @@ const places = [
   <Carousel buttons="outside" label="Destinations" :per-view="3" stretch>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -144,7 +144,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -159,11 +159,11 @@ const places = [
   <Carousel align="center" :buttons="false" label="Destinations" markers peek>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -176,7 +176,7 @@ const places = [
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -196,11 +196,11 @@ const places = [
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -332,7 +332,7 @@ Use `buttons="outside"` to keep the buttons off the content.
 
 ```vue
 <script setup lang="ts">
-import { Button, Card, Carousel } from "opui-css/vue"
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/vue"
 
 const plans = [
   {
@@ -354,13 +354,13 @@ const plans = [
   <Carousel buttons="outside" label="Plans" :per-view="2">
     <li v-for="{ action, description, title } in plans" :key="title">
       <Card variant="outlined">
-        <template #header>
+        <CardHeader>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
-        <template #actions>
+        </CardHeader>
+        <CardActions>
           <Button variant="filled">{{ action }}</Button>
-        </template>
+        </CardActions>
       </Card>
     </li>
   </Carousel>
@@ -373,7 +373,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -392,11 +392,11 @@ const places = [
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -409,7 +409,7 @@ const places = [
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -429,11 +429,11 @@ const places = [
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
-        <template #header>
+        <CardHeader>
           <p>Destination</p>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
+        </CardHeader>
       </Card>
     </li>
   </Carousel>
@@ -458,7 +458,7 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
 
 ```vue
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 </script>
@@ -475,10 +475,10 @@ const places = ["Kyoto", "Lima", "Lisbon"]
       <Carousel label="Destinations" markers>
         <li v-for="title in places" :key="title">
           <Card variant="tonal">
-            <template #header>
+            <CardHeader>
               <p>Destination</p>
               <h3>{{ title }}</h3>
-            </template>
+            </CardHeader>
           </Card>
         </li>
       </Carousel>

@@ -10,34 +10,45 @@ Label End text
 
   Container element.
 
-- `bind:checked · bind:group`
+- `<CheckboxInput>`
 
   The checkbox input.
 
-- `children`
+- `<CheckboxLabel>`
 
   The label.
 
-- `endText`
+- `<CheckboxEndText>`
 
-  Supporting text displayed below the label.
+  Supporting text displayed below the label. Linked to the input through `aria-describedby`.
 
 ## Basics
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-variants" hideLabel
-  >Indeterminate</Checkbox
->
-<Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-variants" hideLabel
-  >Checked and disabled</Checkbox
->
+<Checkbox>
+  <CheckboxInput checked name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Checked</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Unchecked</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput indeterminate name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Indeterminate</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput disabled name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Disabled</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput checked disabled name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Checked and disabled</CheckboxLabel>
+</Checkbox>
 ```
 
 ## Sizes
@@ -46,45 +57,75 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/svelte"
 </script>
 
 <div class="example-row">
-  <Checkbox hideLabel size="x-small" checked name="checkbox-sizes"
-    >Label</Checkbox
-  >
-  <Checkbox hideLabel size="small" checked name="checkbox-sizes">Label</Checkbox
-  >
-  <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
-  <Checkbox hideLabel size="large" checked name="checkbox-sizes">Label</Checkbox
-  >
+  <Checkbox size="x-small">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+  </Checkbox>
+  <Checkbox size="small">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+  </Checkbox>
+  <Checkbox>
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+  </Checkbox>
+  <Checkbox size="large">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+  </Checkbox>
 </div>
 <div class="example-row">
-  <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
-  <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-  <Checkbox checked name="checkbox-sizes">Default</Checkbox>
-  <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
+  <Checkbox size="x-small">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel>x-small</CheckboxLabel>
+  </Checkbox>
+  <Checkbox size="small">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel>Small</CheckboxLabel>
+  </Checkbox>
+  <Checkbox>
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel>Default</CheckboxLabel>
+  </Checkbox>
+  <Checkbox size="large">
+    <CheckboxInput checked name="checkbox-sizes" />
+    <CheckboxLabel>Large</CheckboxLabel>
+  </Checkbox>
 </div>
 ```
 
 ## Visible label
 
-The `children` snippet is the label. Also, don't miss the info on label [accessibility](#accessibility).
+`CheckboxLabel` is the label. Also, don't miss the info on label [accessibility](#accessibility).
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-visible-label">Choice A</Checkbox>
-<Checkbox disabled name="checkbox-visible-label">Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-visible-label"
-  >Checked and disabled</Checkbox
->
-<Checkbox name="checkbox-visible-label">
-  Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-  semiotics artisan synth stumptown gastropub cornhole
-  <a class="ui-link" href="#visible-label">privacy policy ipsum</a>
+<Checkbox>
+  <CheckboxInput checked name="checkbox-visible-label" />
+  <CheckboxLabel>Choice A</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput disabled name="checkbox-visible-label" />
+  <CheckboxLabel>Disabled</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput checked disabled name="checkbox-visible-label" />
+  <CheckboxLabel>Checked and disabled</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput name="checkbox-visible-label" />
+  <CheckboxLabel>
+    Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
+    semiotics artisan synth stumptown gastropub cornhole
+    <a class="ui-link" href="#visible-label">privacy policy ipsum</a>
+  </CheckboxLabel>
 </Checkbox>
 ```
 
@@ -92,64 +133,97 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-label-position">Default</Checkbox>
-<Checkbox stack name="checkbox-label-position">Stack</Checkbox>
+<Checkbox>
+  <CheckboxInput name="checkbox-label-position" />
+  <CheckboxLabel>Default</CheckboxLabel>
+</Checkbox>
+<Checkbox stack>
+  <CheckboxInput name="checkbox-label-position" />
+  <CheckboxLabel>Stack</CheckboxLabel>
+</Checkbox>
 ```
 
 ### End text
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import {
+    Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
+  } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-supporting-text">
-  Default
-  {#snippet endText()}Supporting text{/snippet}
+<Checkbox>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Default</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
-  Stack
-  {#snippet endText()}Supporting text{/snippet}
+<Checkbox stack>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Stack</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>
 ```
 
 ### Validation
 
-- Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
+- Set `required` on `CheckboxInput`. It goes on the `<input>`.
 - Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import {
+    Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
+  } from "opui-css/svelte"
 </script>
 
 <div class="example-row ui-spacious">
-  <Checkbox required name="checkbox-validation">Default</Checkbox>
-  <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
+  <Checkbox>
+    <CheckboxInput required name="checkbox-validation" />
+    <CheckboxLabel>Default</CheckboxLabel>
+  </Checkbox>
+  <Checkbox stack>
+    <CheckboxInput required name="checkbox-validation" />
+    <CheckboxLabel>Stack</CheckboxLabel>
+  </Checkbox>
 </div>
 <div class="example-row ui-spacious">
-  <Checkbox error checked name="checkbox-validation">
-    Default
-    {#snippet endText()}Check yourself{/snippet}
+  <Checkbox error>
+    <CheckboxInput checked name="checkbox-validation" />
+    <CheckboxLabel>Default</CheckboxLabel>
+    <CheckboxEndText>Check yourself</CheckboxEndText>
   </Checkbox>
-  <Checkbox stack error name="checkbox-validation">
-    Stack
-    {#snippet endText()}Before you wreck yourself{/snippet}
+  <Checkbox stack error>
+    <CheckboxInput name="checkbox-validation" />
+    <CheckboxLabel>Stack</CheckboxLabel>
+    <CheckboxEndText>Before you wreck yourself</CheckboxEndText>
   </Checkbox>
 </div>
 ```
 
 ## Indeterminate
 
-Set the `indeterminate` prop to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
+Set `indeterminate` on `CheckboxInput` to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
 
 ```svelte
 <script lang="ts">
-  import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/svelte"
+  import {
+    Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+  } from "opui-css/svelte"
 
   const items = ["Apples", "Bananas", "Cherries"]
   let checked = $state([true, false, false])
@@ -166,15 +240,20 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 
 <FieldSet class="indeterminate-demo">
   <FieldLegend>
-    <Checkbox
-      class="parent"
-      bind:checked={() => allChecked, toggleAll}
-      {indeterminate}>Select all</Checkbox
-    >
+    <Checkbox class="parent">
+      <CheckboxInput
+        bind:checked={() => allChecked, toggleAll}
+        {indeterminate}
+      />
+      <CheckboxLabel>Select all</CheckboxLabel>
+    </Checkbox>
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
     {#each items as item, index (item)}
-      <Checkbox class="child" bind:checked={checked[index]}>{item}</Checkbox>
+      <Checkbox class="child">
+        <CheckboxInput bind:checked={checked[index]} />
+        <CheckboxLabel>{item}</CheckboxLabel>
+      </Checkbox>
     {/each}
   </FieldGroup>
 </FieldSet>
@@ -186,27 +265,37 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
 
 ```svelte
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import {
+    Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
+  } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-spread" spread>
-  Accept Terms & Conditions
-  {#snippet endText()}I have read and agree to the privacy policy.{/snippet}
+<Checkbox spread>
+  <CheckboxInput name="checkbox-spread" />
+  <CheckboxLabel>Accept Terms & Conditions</CheckboxLabel>
+  <CheckboxEndText>I have read and agree to the privacy policy.</CheckboxEndText
+  >
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread required>
-  Required
-  {#snippet endText()}You must accept this to continue.{/snippet}
+<Checkbox spread>
+  <CheckboxInput name="checkbox-spread" required />
+  <CheckboxLabel>Required</CheckboxLabel>
+  <CheckboxEndText>You must accept this to continue.</CheckboxEndText>
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread disabled>
-  Disabled
-  {#snippet endText()}This checkbox is disabled.{/snippet}
+<Checkbox spread>
+  <CheckboxInput name="checkbox-spread" disabled />
+  <CheckboxLabel>Disabled</CheckboxLabel>
+  <CheckboxEndText>This checkbox is disabled.</CheckboxEndText>
 </Checkbox>
 
-<Checkbox name="checkbox-spread" spread error>
-  Invalid Checkbox
-  {#snippet endText()}There is an error with this checkbox.{/snippet}
+<Checkbox spread error>
+  <CheckboxInput name="checkbox-spread" />
+  <CheckboxLabel>Invalid Checkbox</CheckboxLabel>
+  <CheckboxEndText>There is an error with this checkbox.</CheckboxEndText>
 </Checkbox>
 ```
 
@@ -232,6 +321,8 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -243,9 +334,18 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -257,6 +357,8 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -268,9 +370,18 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-direction">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -284,6 +395,8 @@ Can be placed above and below the fields.
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -297,18 +410,36 @@ Can be placed above and below the fields.
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup direction="row" name="checkbox-group-field-description-1">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-field-description-2">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
   </FieldSet>
@@ -325,6 +456,8 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -336,9 +469,18 @@ Attach the `disabled` attribute to the `<fieldset>` element.
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-disabled">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -352,6 +494,8 @@ Each checkbox with `required` must be checked before the form submits. There's n
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -363,9 +507,18 @@ Each checkbox with `required` must be checked before the form submits. There's n
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-required">
-      <Checkbox required>Checkbox 1</Checkbox>
-      <Checkbox required>Checkbox 2</Checkbox>
-      <Checkbox required>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput required />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput required />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput required />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -379,6 +532,8 @@ Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turn
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -390,9 +545,18 @@ Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turn
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-validation">
-      <Checkbox checked error>Checkbox 1</Checkbox>
-      <Checkbox error>Checkbox 2</Checkbox>
-      <Checkbox error>Checkbox 3</Checkbox>
+      <Checkbox error>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox error>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox error>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
     <span class="ui-end-text">Something went wrong!</span>
   </FieldSet>
@@ -421,18 +585,13 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                | Type                                | Default | Description                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`                           | -       | The checked state.                                                                   |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]`              | -       | The checked values of a group.                                                       |
-| `children`                                                                                                                                                                                                                          | `Snippet`                           | -       | The label.                                                                           |
-| `endText`                                                                                                                                                                                                                           | `string` , `Snippet`                | -       | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                             | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                         | `boolean`                           | `false` | Visually hides the label.                                                            |
-| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                              | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                            | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                             | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| Prop       | Type                                | Default | Description                                       |
+| ---------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `children` | `Snippet`                           | -       | The checkbox parts.                               |
+| `error`    | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
+| `size`     | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                          |
+| `spread`   | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
+| `stack`    | `boolean`                           | `false` | Stacks the label under the input.                 |
 
 #### CSS variables
 
@@ -466,7 +625,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.
 
 ### Field group API
 
@@ -662,7 +821,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/svelte`:
+Import the components from `opui-css/svelte`:
 
 ### See also
 
@@ -675,6 +834,7 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
+- Breaking: [`CheckboxInput`, `CheckboxLabel` and `CheckboxEndText`](#api) are parts. Input attributes go to `CheckboxInput`, and `visuallyHidden` on `CheckboxLabel` replaces `hideLabel`.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.

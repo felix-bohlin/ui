@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { Button, Card } from "opui-css/vue"
+import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Buttons aligned to the end. Works too!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Buttons aligned to the end. Works too!</CardContent>
+    <CardActions align="end">
       <Button>Cancel</Button>
       <Button>Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Again, buttons are aligned to the end!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Again, buttons are aligned to the end!</CardContent>
+    <CardActions align="end">
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Icon buttons aligned to the end!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Icon buttons aligned to the end!</CardContent>
+    <CardActions align="end">
       <Button rounded size="small" aria-label="Favorite">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +48,6 @@ import { Button, Card } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-    </template>
+    </CardActions>
   </Card>
 </template>

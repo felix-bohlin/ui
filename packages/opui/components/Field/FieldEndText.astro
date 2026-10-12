@@ -1,0 +1,13 @@
+---
+import type { FieldEndTextProps as Props } from "./types.astro"
+import { fieldContext } from "./context.astro"
+
+const { class: className, ...rest } = Astro.props
+
+const field = fieldContext.get()
+field?.parts.add("end-text")
+---
+
+<span class:list={["ui-end-text", className]} id={field?.endTextId} {...rest}>
+  <slot />
+</span>

@@ -41,7 +41,11 @@ Components documented on another component's page:
 
 | Component | File |
 | --- | --- |
+| CardActions | `card.md` |
+| CheckboxInput | `checkbox.md` |
+| CheckboxLabel | `checkbox.md` |
 | ClassicSelect | `select.md` |
+| DialogActions | `dialog.md` |
 | DrawerFooter | `drawer.md` |
 | DrawerHeader | `drawer.md` |
 | FieldDescription | `form.md` |
@@ -52,5 +56,7 @@ Components documented on another component's page:
 | Tabs.Item | `tabs.md` |
 | Tabs.Panel | `tabs.md` |
 | Tabs.Tab | `tabs.md` |
+| TextFieldInput | `text-field.md` |
+| TextFieldLabel | `text-field.md` |
 | ToggleButton | `toggle.md` |
 | ToggleGroup | `toggle.md` |

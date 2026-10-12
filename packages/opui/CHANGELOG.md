@@ -41,6 +41,10 @@
 - `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 - `TextField`, `Textarea`, `Select`, `ClassicSelect`, `Switch`, `Checkbox`, `Radio` and `Range` are marked invalid with `aria-invalid="true"` on the control instead of `data-invalid` on the root. `error` in Astro and Vue sets only `aria-invalid`. Replace `data-invalid` on the root with `aria-invalid="true"` on the `<input>`, `<select>` or `<textarea>`.
 - `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
+- `Card` in Astro, React, Svelte and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
+- `Checkbox` in Astro, React, Svelte and Vue takes parts: `CheckboxInput`, `CheckboxLabel` and `CheckboxEndText`. Input attributes, `v-model` and `bind:checked`/`bind:group` go to `CheckboxInput`, the label text goes in `CheckboxLabel`, and `hideLabel` is `visuallyHidden` on `CheckboxLabel`.
+- `Dialog` in Astro, React, Svelte and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`.
+- `TextField` in Astro, React, Svelte and Vue takes parts: `TextFieldLabel`, `TextFieldStartText`, `TextFieldControl`, `TextFieldInput`, `TextFieldPrefix`, `TextFieldSuffix`, `TextFieldHeader`, `TextFieldFooter` and `TextFieldEndText`. Input attributes, `v-model` and `bind:value` go to `TextFieldInput`, which sits in `TextFieldControl` with the affixes. `label`, `description`, `startText`, `endText` and `supportingText` are parts.
 
 ### Removed
 

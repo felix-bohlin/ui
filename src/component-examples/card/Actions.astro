@@ -1,31 +1,28 @@
 ---
-import { Card } from "@opui/astro"
-import { Button } from "@opui/astro"
+import { Button, Card, CardActions, CardContent } from "@opui/astro"
 ---
 
 <Card variant="outlined">
-  <Fragment slot="content">
+  <CardContent>
     Notice how the buttons are made to align with the text above.
-  </Fragment>
-  <Fragment slot="actions">
+  </CardContent>
+  <CardActions>
     <Button>Cancel</Button>
     <Button>Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="content"
-    >Trying other button types too. Look at that!</Fragment
-  >
-  <Fragment slot="actions">
+  <CardContent>Trying other button types too. Look at that!</CardContent>
+  <CardActions>
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="content">Icon buttons work too!</Fragment>
-  <Fragment slot="actions">
+  <CardContent>Icon buttons work too!</CardContent>
+  <CardActions>
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -51,5 +48,5 @@ import { Button } from "@opui/astro"
         ></path></svg
       >
     </Button>
-  </Fragment>
+  </CardActions>
 </Card>

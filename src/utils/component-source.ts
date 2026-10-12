@@ -172,6 +172,7 @@ export const slotNames = (target: Target, framework: ComponentFramework) => {
     ...[...text.matchAll(/Astro\.slots\.render\("([^"]+)"/g)].map(
       ([, name]) => name,
     ),
+    ...[...text.matchAll(/\bslots\.([\w-]+)\?\.\(/g)].map(([, name]) => name),
   ]
   return [...new Set(names)].sort()
 }

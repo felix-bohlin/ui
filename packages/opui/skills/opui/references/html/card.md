@@ -225,10 +225,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Type      | Modifiers                                               | Default | Description                                                                        |
-| --------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| Alignment | default, `.ui-actions.ui-align-end`                     | -       | Alignment for the actions.                                                         |
-| Variants  | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Type     | Modifiers                                               | Default | Description                                                                        |
+| -------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| Variants | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Parts
 

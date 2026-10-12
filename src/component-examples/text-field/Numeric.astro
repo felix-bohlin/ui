@@ -1,5 +1,15 @@
 ---
-import { TextField } from "@opui/astro"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "@opui/astro"
 ---
 
-<TextField label="Numeric" placeholder="Numeric" type="numeric" />
+<TextField>
+  <TextFieldLabel>Numeric</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Numeric" type="numeric" />
+  </TextFieldControl>
+</TextField>

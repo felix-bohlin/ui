@@ -1,7 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/react"
 
 const items = ["Apples", "Bananas", "Cherries"]
 
@@ -20,26 +27,25 @@ export default function Indeterminate() {
   return (
     <FieldSet className="indeterminate-demo">
       <FieldLegend>
-        <Checkbox
-          className="parent"
-          checked={allChecked}
-          onChange={toggleAll}
-          indeterminate={indeterminate}
-        >
-          Select all
+        <Checkbox className="parent">
+          <CheckboxInput
+            checked={allChecked}
+            onChange={toggleAll}
+            indeterminate={indeterminate}
+          />
+          <CheckboxLabel>Select all</CheckboxLabel>
         </Checkbox>
       </FieldLegend>
       <FieldGroup name="indeterminate-children">
         {items.map((item, index) => (
-          <Checkbox
-            className="child"
-            key={item}
-            checked={checked[index]}
-            onChange={(event) =>
-              setChecked(checked.with(index, event.currentTarget.checked))
-            }
-          >
-            {item}
+          <Checkbox className="child" key={item}>
+            <CheckboxInput
+              checked={checked[index]}
+              onChange={(event) =>
+                setChecked(checked.with(index, event.currentTarget.checked))
+              }
+            />
+            <CheckboxLabel>{item}</CheckboxLabel>
           </Checkbox>
         ))}
       </FieldGroup>

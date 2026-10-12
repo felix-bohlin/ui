@@ -1,19 +1,14 @@
 <script setup lang="ts">
-import CheckboxInput from "./CheckboxInput.vue"
+import { provideFieldRoot } from "../Field/root.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
-
-defineOptions({
-  inheritAttrs: false,
-})
 
 const props = defineProps<CheckboxProps>()
-defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[] | undefined>({
-  default: undefined,
-})
+const slots = defineSlots<Slots>()
 
-const endTextId = useId()
+const Content = provideFieldRoot(
+  () => slots.default?.(),
+  () => props.error,
+)
 </script>
 
 <template>
@@ -28,24 +23,6 @@ const endTextId = useId()
       props.class,
     ]"
   >
-    <CheckboxInput
-      :aria-invalid="props.error ? 'true' : undefined"
-      v-bind="$attrs"
-      v-model="modelValue"
-      :aria-describedby="
-        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
-          .filter(Boolean)
-          .join(' ') || undefined
-      "
-      :indeterminate="props.indeterminate"
-    />
-    <span
-      v-if="$slots.default"
-      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
-    ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
-      <slot name="end-text"></slot>
-    </span>
+    <Content />
   </label>
 </template>

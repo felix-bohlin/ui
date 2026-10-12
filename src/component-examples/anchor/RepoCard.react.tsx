@@ -1,4 +1,11 @@
-import { Anchor, Avatar, Button, Card } from "opui-css/react"
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/react"
 
 export default function RepoCard() {
   return (
@@ -10,35 +17,31 @@ export default function RepoCard() {
           trigger="hover"
           id="anchor-repo-card"
           anchored={
-            <Card
-              variant="elevated"
-              className="repo-card"
-              content={
-                <>
-                  <div className="repo-card-identity">
-                    <Avatar
-                      src="https://github.com/felix-bohlin.png"
-                      alt=""
-                      variant="rounded"
-                    />
-                    <div>
-                      <strong>felix-bohlin/ui</strong>
-                      <span className="ui-caption">Public repository</span>
-                    </div>
+            <Card variant="elevated" className="repo-card">
+              <CardContent>
+                <div className="repo-card-identity">
+                  <Avatar
+                    src="https://github.com/felix-bohlin.png"
+                    alt=""
+                    variant="rounded"
+                  />
+                  <div>
+                    <strong>felix-bohlin/ui</strong>
+                    <span className="ui-caption">Public repository</span>
                   </div>
-                  <p>
-                    A CSS UI library exploring how next-gen HTML &amp; CSS
-                    features can change the way we create components.
-                  </p>
-                  <p className="ui-caption">CSS · MIT license</p>
-                </>
-              }
-              actions={
+                </div>
+                <p>
+                  A CSS UI library exploring how next-gen HTML &amp; CSS
+                  features can change the way we create components.
+                </p>
+                <p className="ui-caption">CSS · MIT license</p>
+              </CardContent>
+              <CardActions>
                 <Button variant="outlined" size="small">
                   Star
                 </Button>
-              }
-            />
+              </CardActions>
+            </Card>
           }
         >
           <a

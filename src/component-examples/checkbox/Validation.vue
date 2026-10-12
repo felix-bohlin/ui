@@ -1,20 +1,33 @@
 <script setup lang="ts">
-import { Checkbox } from "opui-css/vue"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "opui-css/vue"
 </script>
 
 <template>
   <div class="example-row ui-spacious">
-    <Checkbox required name="checkbox-validation">Default</Checkbox>
-    <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
+    <Checkbox>
+      <CheckboxInput required name="checkbox-validation" />
+      <CheckboxLabel>Default</CheckboxLabel>
+    </Checkbox>
+    <Checkbox stack>
+      <CheckboxInput required name="checkbox-validation" />
+      <CheckboxLabel>Stack</CheckboxLabel>
+    </Checkbox>
   </div>
   <div class="example-row ui-spacious">
-    <Checkbox error checked name="checkbox-validation">
-      Default
-      <template #end-text>Check yourself</template>
+    <Checkbox error>
+      <CheckboxInput checked name="checkbox-validation" />
+      <CheckboxLabel>Default</CheckboxLabel>
+      <CheckboxEndText>Check yourself</CheckboxEndText>
     </Checkbox>
-    <Checkbox stack error name="checkbox-validation">
-      Stack
-      <template #end-text>Before you wreck yourself</template>
+    <Checkbox stack error>
+      <CheckboxInput name="checkbox-validation" />
+      <CheckboxLabel>Stack</CheckboxLabel>
+      <CheckboxEndText>Before you wreck yourself</CheckboxEndText>
     </Checkbox>
   </div>
 </template>

@@ -1,13 +1,24 @@
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-variants" hideLabel
-  >Indeterminate</Checkbox
->
-<Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-variants" hideLabel
-  >Checked and disabled</Checkbox
->
+<Checkbox>
+  <CheckboxInput checked name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Checked</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Unchecked</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput indeterminate name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Indeterminate</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput disabled name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Disabled</CheckboxLabel>
+</Checkbox>
+<Checkbox>
+  <CheckboxInput checked disabled name="checkbox-variants" />
+  <CheckboxLabel visuallyHidden>Checked and disabled</CheckboxLabel>
+</Checkbox>

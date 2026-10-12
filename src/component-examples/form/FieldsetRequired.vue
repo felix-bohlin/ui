@@ -6,6 +6,9 @@ import {
   FieldSet,
   Textarea,
   TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
 } from "opui-css/vue"
 </script>
 
@@ -14,7 +17,12 @@ import {
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup name="bio">
-      <TextField label="Name" name="name" />
+      <TextField>
+        <TextFieldLabel>Name</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput name="name" />
+        </TextFieldControl>
+      </TextField>
       <Textarea required label="Life story" />
     </FieldGroup>
   </FieldSet>

@@ -1,5 +1,5 @@
 ---
-import { Card, Carousel } from "@opui/astro"
+import { Card, CardHeader, Carousel } from "@opui/astro"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 ---
@@ -13,10 +13,10 @@ const places = ["Kyoto", "Lima", "Lisbon"]
         places.map((title) => (
           <li>
             <Card variant="tonal">
-              <Fragment slot="header">
+              <CardHeader>
                 <p>Destination</p>
                 <h3>{title}</h3>
-              </Fragment>
+              </CardHeader>
             </Card>
           </li>
         ))

@@ -1,12 +1,19 @@
 ---
-import { Checkbox } from "@opui/astro"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "@opui/astro"
 ---
 
-<Checkbox name="checkbox-supporting-text">
-  Default
-  <Fragment slot="end-text">Supporting text</Fragment>
+<Checkbox>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Default</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
-  Stack
-  <Fragment slot="end-text">Supporting text</Fragment>
+<Checkbox stack>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Stack</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>

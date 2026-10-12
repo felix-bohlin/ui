@@ -4,6 +4,9 @@ import { useState } from "react"
 import {
   Button,
   Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -15,6 +18,9 @@ import {
   Select,
   Switch,
   TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
   Textarea,
 } from "opui-css/react"
 
@@ -38,13 +44,22 @@ export default function KitchenSink() {
           Please provide your basic contact details.
         </FieldDescription>
         <FieldGroup>
-          <TextField label="Full Name" placeholder="Jane Doe" required />
-          <TextField
-            label="Email Address"
-            type="email"
-            placeholder="jane@example.com"
-            required
-          />
+          <TextField>
+            <TextFieldLabel>Full Name</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput placeholder="Jane Doe" required />
+            </TextFieldControl>
+          </TextField>
+          <TextField>
+            <TextFieldLabel>Email Address</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput
+                type="email"
+                placeholder="jane@example.com"
+                required
+              />
+            </TextFieldControl>
+          </TextField>
           <Select label="Role" items={roleItems} />
         </FieldGroup>
       </FieldSet>
@@ -143,8 +158,10 @@ export default function KitchenSink() {
       <FieldSet>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup name="legal">
-          <Checkbox name="terms" required endText="Support this text">
-            I agree to the terms and conditions
+          <Checkbox>
+            <CheckboxInput name="terms" required />
+            <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
+            <CheckboxEndText>Support this text</CheckboxEndText>
           </Checkbox>
         </FieldGroup>
       </FieldSet>

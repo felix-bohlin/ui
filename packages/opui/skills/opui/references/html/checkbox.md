@@ -20,7 +20,7 @@ Label End text
 
 - `.ui-end-text`
 
-  Supporting text displayed below the label.
+  Supporting text displayed below the label. Linked to the input through `aria-describedby`.
 
 ## Basics
 
@@ -579,22 +579,21 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Type       | Modifiers                               | Default | Description                                                                          |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.                                     |
-| Layout     | `.ui-stack`                             | -       | Stacks the label under the input.                                                    |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                             |
-| State      | `input[data-indeterminate]`             | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                                    |
+| Type       | Modifiers                               | Default | Description                                       |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.  |
+| Layout     | `.ui-stack`                             | -       | Stacks the label under the input.                 |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
+| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles. |
 
 #### Parts
 
-| Part                | Description                                |
-| ------------------- | ------------------------------------------ |
-| `label.ui-checkbox` | Container element.                         |
-| `<input>`           | The checkbox input.                        |
-| `.ui-label`         | The label.                                 |
-| `.ui-end-text`      | Supporting text displayed below the label. |
+| Part                | Description                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------ |
+| `label.ui-checkbox` | Container element.                                                                         |
+| `<input>`           | The checkbox input.                                                                        |
+| `.ui-label`         | The label.                                                                                 |
+| `.ui-end-text`      | Supporting text displayed below the label. Linked to the input through `aria-describedby`. |
 
 #### CSS variables
 

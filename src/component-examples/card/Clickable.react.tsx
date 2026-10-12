@@ -1,32 +1,40 @@
-import { Button, Card } from "opui-css/react"
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from "opui-css/react"
 
 export default function Clickable() {
   return (
     <>
-      <Card
-        variant="outlined"
-        header={
+      <Card variant="outlined">
+        <CardHeader>
           <h3>
             <a className="ui-card-link" href="#clickable">
               Pricing
             </a>
           </h3>
-        }
-        content="Plans for any team. Click anywhere on the card."
-      />
+        </CardHeader>
+        <CardContent>
+          Plans for any team. Click anywhere on the card.
+        </CardContent>
+      </Card>
 
-      <Card
-        variant="outlined"
-        header={
+      <Card variant="outlined">
+        <CardHeader>
           <h3>
             <a className="ui-card-link" href="#clickable">
               Changelog
             </a>
           </h3>
-        }
-        content="Every release in one place."
-        actions={<Button>Subscribe</Button>}
-      />
+        </CardHeader>
+        <CardContent>Every release in one place.</CardContent>
+        <CardActions>
+          <Button>Subscribe</Button>
+        </CardActions>
+      </Card>
     </>
   )
 }

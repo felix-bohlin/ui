@@ -41,7 +41,7 @@ The carousel has previous and next buttons by default. Set `markers` to add a ma
 Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-snap list with a scrollbar.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -56,16 +56,13 @@ export default function Basics() {
     <Carousel buttons="outside" label="Destinations" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -78,7 +75,7 @@ export default function Basics() {
 Set `perView` to show more than one item at a time.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -93,16 +90,13 @@ export default function PerView() {
     <Carousel buttons="outside" label="Destinations" perView={3}>
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -117,7 +111,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 `stretch` stretches the content of each item, such as a card, to the item's height.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -136,16 +130,13 @@ export default function Stretch() {
     <Carousel buttons="outside" label="Destinations" perView={3} stretch>
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -158,7 +149,7 @@ export default function Stretch() {
 Use `peek` to show part of the neighbouring items, and `align="center"` to snap items to the center.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -173,16 +164,13 @@ export default function Peek() {
     <Carousel align="center" buttons={false} label="Destinations" markers peek>
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -195,7 +183,7 @@ export default function Peek() {
 `orientation="vertical"` scrolls on the block axis. Set its height with `--_block-size`.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -215,16 +203,13 @@ export default function Vertical() {
     >
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -367,7 +352,7 @@ export default function Embeds() {
 Use `buttons="outside"` to keep the buttons off the content.
 
 ```tsx
-import { Button, Card, Carousel } from "opui-css/react"
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/react"
 
 const plans = [
   {
@@ -389,16 +374,15 @@ export default function Actions() {
     <Carousel buttons="outside" label="Plans" perView={2}>
       {plans.map(({ action, description, title }) => (
         <li key={title}>
-          <Card
-            variant="outlined"
-            header={
-              <>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-            actions={<Button variant="filled">{action}</Button>}
-          />
+          <Card variant="outlined">
+            <CardHeader>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+            <CardActions>
+              <Button variant="filled">{action}</Button>
+            </CardActions>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -411,7 +395,7 @@ export default function Actions() {
 Use `persistentButtons` to keep both buttons visible at the ends. A disabled button has a muted border.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -430,16 +414,13 @@ export default function PersistentButtons() {
     >
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>
@@ -452,7 +433,7 @@ export default function PersistentButtons() {
 `--_button-prev-icon` and `--_button-next-icon` take any SVG, for example from your icon library. Set `--_button-icon-size` to scale them.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -473,16 +454,13 @@ export default function CustomButtons() {
       >
         {places.map(({ description, title }) => (
           <li key={title}>
-            <Card
-              variant="tonal"
-              header={
-                <>
-                  <p>Destination</p>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </>
-              }
-            />
+            <Card variant="tonal">
+              <CardHeader>
+                <p>Destination</p>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </CardHeader>
+            </Card>
           </li>
         ))}
       </Carousel>
@@ -507,7 +485,7 @@ Try the options together. The code below the carousel updates as you go.
 With `markers`, the markers are a box next to the carousel, not inside it. In a grid or flex parent they become an item of their own and land in the next cell. Wrap the carousel in a `div` to keep them together.
 
 ```tsx
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 
@@ -524,15 +502,12 @@ export default function GridLayout() {
         <Carousel label="Destinations" markers>
           {places.map((title) => (
             <li key={title}>
-              <Card
-                variant="tonal"
-                header={
-                  <>
-                    <p>Destination</p>
-                    <h3>{title}</h3>
-                  </>
-                }
-              />
+              <Card variant="tonal">
+                <CardHeader>
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </CardHeader>
+              </Card>
             </li>
           ))}
         </Carousel>

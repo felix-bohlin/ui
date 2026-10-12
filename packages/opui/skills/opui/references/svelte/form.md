@@ -91,6 +91,9 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -116,25 +119,32 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
-      <Checkbox value="the-smile">
-        The Smile
-        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
+      <Checkbox>
+        <CheckboxInput value="the-smile" />
+        <CheckboxLabel>The Smile</CheckboxLabel>
+        <CheckboxEndText
+          >Thom Yorke, Jonny Greenwood, Tom Skinner</CheckboxEndText
+        >
       </Checkbox>
-      <Checkbox value="atoms-for-peace">
-        Atoms for Peace
-        {#snippet endText()}Thom Yorke, Flea, Nigel Godrich{/snippet}
+      <Checkbox>
+        <CheckboxInput value="atoms-for-peace" />
+        <CheckboxLabel>Atoms for Peace</CheckboxLabel>
+        <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="eob">
-        EOB
-        {#snippet endText()}Ed O'Brien solo{/snippet}
+      <Checkbox>
+        <CheckboxInput value="eob" />
+        <CheckboxLabel>EOB</CheckboxLabel>
+        <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="jonny-scores">
-        Film Scores
-        {#snippet endText()}Film compositions by Jonny Greenwood{/snippet}
+      <Checkbox>
+        <CheckboxInput value="jonny-scores" />
+        <CheckboxLabel>Film Scores</CheckboxLabel>
+        <CheckboxEndText>Film compositions by Jonny Greenwood</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="selway-solo">
-        Philip Selway
-        {#snippet endText()}Philip Selway solo albums{/snippet}
+      <Checkbox>
+        <CheckboxInput value="selway-solo" />
+        <CheckboxLabel>Philip Selway</CheckboxLabel>
+        <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
       </Checkbox>
     </FieldGroup>
   </FieldSet>
@@ -149,6 +159,8 @@ Set `direction="row"` to lay out fields horizontally.
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -160,9 +172,18 @@ Set `direction="row"` to lay out fields horizontally.
   <FieldSet>
     <FieldLegend>Options</FieldLegend>
     <FieldGroup direction="row">
-      <Checkbox>Option 1</Checkbox>
-      <Checkbox>Option 2</Checkbox>
-      <Checkbox>Option 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -178,6 +199,8 @@ Set `disabled` on `FieldSet` to disable every field inside.
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -189,8 +212,14 @@ Set `disabled` on `FieldSet` to disable every field inside.
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
   <FieldGroup name="notifications">
-    <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
-    <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
+    <Checkbox>
+      <CheckboxInput value="horse-tinder" checked />
+      <CheckboxLabel>Horse Tinder</CheckboxLabel>
+    </Checkbox>
+    <Checkbox>
+      <CheckboxInput value="onlyhorsefans" checked />
+      <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
+    </Checkbox>
   </FieldGroup>
 </FieldSet>
 ```
@@ -203,6 +232,8 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -214,8 +245,14 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
-    <Checkbox error value="kibble">Kibble</Checkbox>
-    <Checkbox error value="wet-food">Wet food</Checkbox>
+    <Checkbox error>
+      <CheckboxInput value="kibble" />
+      <CheckboxLabel>Kibble</CheckboxLabel>
+    </Checkbox>
+    <Checkbox error>
+      <CheckboxInput value="wet-food" />
+      <CheckboxLabel>Wet food</CheckboxLabel>
+    </Checkbox>
   </FieldGroup>
   <span class="ui-end-text">Your pet is hungry.</span>
 </FieldSet>
@@ -234,6 +271,9 @@ The legend gets an asterisk when a field inside is required.
     FieldSet,
     Textarea,
     TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
   } from "opui-css/svelte"
 </script>
 
@@ -241,7 +281,12 @@ The legend gets an asterisk when a field inside is required.
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
   <FieldGroup name="bio">
-    <TextField label="Name" name="name" />
+    <TextField>
+      <TextFieldLabel>Name</TextFieldLabel>
+      <TextFieldControl>
+        <TextFieldInput name="name" />
+      </TextFieldControl>
+    </TextField>
     <Textarea required label="Life story" />
   </FieldGroup>
 </FieldSet>
@@ -261,6 +306,9 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
     FieldSet,
     Form,
     TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
   } from "opui-css/svelte"
 </script>
 
@@ -268,7 +316,12 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
   <FieldSet>
     <FieldLegend>Post Content</FieldLegend>
     <FieldGroup>
-      <TextField label="Title" placeholder="My new post" />
+      <TextField>
+        <TextFieldLabel>Title</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="My new post" />
+        </TextFieldControl>
+      </TextField>
     </FieldGroup>
   </FieldSet>
 
@@ -312,6 +365,9 @@ Everything at once.
   import {
     Button,
     Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
     Divider,
     FieldDescription,
     FieldGroup,
@@ -323,6 +379,9 @@ Everything at once.
     Select,
     Switch,
     TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
     Textarea,
   } from "opui-css/svelte"
 
@@ -345,13 +404,22 @@ Everything at once.
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
-      <TextField
-        label="Email Address"
-        type="email"
-        placeholder="jane@example.com"
-        required
-      />
+      <TextField>
+        <TextFieldLabel>Full Name</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Jane Doe" required />
+        </TextFieldControl>
+      </TextField>
+      <TextField>
+        <TextFieldLabel>Email Address</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
+        </TextFieldControl>
+      </TextField>
       <Select label="Role" items={roleItems} />
     </FieldGroup>
   </FieldSet>
@@ -423,9 +491,10 @@ Everything at once.
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup name="legal">
-      <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        {#snippet endText()}Support this text{/snippet}
+      <Checkbox>
+        <CheckboxInput name="terms" required />
+        <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
+        <CheckboxEndText>Support this text</CheckboxEndText>
       </Checkbox>
     </FieldGroup>
   </FieldSet>

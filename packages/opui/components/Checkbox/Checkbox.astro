@@ -1,34 +1,24 @@
 ---
 import type { CheckboxProps as Props } from "./types.astro"
-import { createId } from "../id"
-import CheckboxInput from "./CheckboxInput.astro"
+import { renderFieldRoot } from "../Field/root.astro"
 
 export const title = "Checkbox"
 
-const {
-  class: className,
-  error,
-  hideLabel,
-  name,
-  size,
-  spread,
-  stack,
-  ...rest
-} = Astro.props
+const { class: className, error, size, spread, stack, ...rest } = Astro.props
 
-const $id = createId(Astro.locals)
-const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
-const describedBy =
-  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+const { html, parts } = await renderFieldRoot(
+  Astro.locals,
+  () => Astro.slots.render("default"),
+  error,
+)
 
 if (
   import.meta.env.DEV &&
-  !Astro.slots.has("default") &&
-  !Astro.props["aria-label"] &&
-  !Astro.props["aria-labelledby"]
+  !parts.has("label") &&
+  !/\saria-label(?:ledby)?=/.test(html)
 ) {
   console.warn(
-    "[OPUI Checkbox] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+    "[OPUI Checkbox] Missing accessible name. Add a CheckboxLabel, and set `visuallyHidden` to hide it visually.",
   )
 }
 ---
@@ -43,25 +33,7 @@ if (
     },
     className,
   ]}
+  {...rest}
 >
-  <CheckboxInput
-    {...rest}
-    aria-describedby={describedBy}
-    aria-invalid={error ? "true" : rest["aria-invalid"]}
-    name={name}
-  />
-  {
-    Astro.slots.has("default") && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-        <slot />
-      </span>
-    )
-  }
-  {
-    Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
-        <slot name="end-text" />
-      </span>
-    )
-  }
+  <Fragment set:html={html} />
 </label>

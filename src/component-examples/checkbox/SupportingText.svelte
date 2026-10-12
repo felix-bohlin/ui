@@ -1,12 +1,19 @@
 <script lang="ts">
-  import { Checkbox } from "opui-css/svelte"
+  import {
+    Checkbox,
+    CheckboxEndText,
+    CheckboxInput,
+    CheckboxLabel,
+  } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-supporting-text">
-  Default
-  {#snippet endText()}Supporting text{/snippet}
+<Checkbox>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Default</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
-  Stack
-  {#snippet endText()}Supporting text{/snippet}
+<Checkbox stack>
+  <CheckboxInput name="checkbox-supporting-text" />
+  <CheckboxLabel>Stack</CheckboxLabel>
+  <CheckboxEndText>Supporting text</CheckboxEndText>
 </Checkbox>

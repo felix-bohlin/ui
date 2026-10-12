@@ -16,15 +16,15 @@ Explain more about the topic shown in the headline and subhead through supportin
 
   Container element.
 
-- `slot="header"`
+- `<CardHeader>`
 
   The card header.
 
-- `slot="content"`
+- `<CardContent>`
 
   The card content.
 
-- `slot="actions"`
+- `<CardActions>`
 
   A group of actions, such as buttons.
 
@@ -34,23 +34,23 @@ Change the card variant with the `variant` prop. Without a variant the card has 
 
 ```astro
 ---
-import { Card } from "opui-css/astro"
+import { Card, CardContent } from "opui-css/astro"
 ---
 
 <Card variant="text">
-  <Fragment slot="content">Text</Fragment>
+  <CardContent>Text</CardContent>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="content">Outlined</Fragment>
+  <CardContent>Outlined</CardContent>
 </Card>
 
 <Card variant="tonal">
-  <Fragment slot="content">Tonal</Fragment>
+  <CardContent>Tonal</CardContent>
 </Card>
 
 <Card variant="elevated">
-  <Fragment slot="content">Elevated</Fragment>
+  <CardContent>Elevated</CardContent>
 </Card>
 ```
 
@@ -60,57 +60,54 @@ On the page you won't see a difference. Put a card on a tonal surface or in a di
 
 ## Header
 
-Using the `header` slot.
+Using `CardHeader`.
 
 ```astro
 ---
-import { Card } from "opui-css/astro"
+import { Card, CardHeader } from "opui-css/astro"
 ---
 
 <Card variant="outlined">
-  <Fragment slot="header">
+  <CardHeader>
     <p>Blog</p>
     <h3>My ultra-great blog post</h3>
     <p>Please read it.</p>
-  </Fragment>
+  </CardHeader>
 </Card>
 ```
 
 ## Actions
 
-Using the `actions` slot.
+Using `CardActions`.
 
 There are some basic styles here to get you going, but for more advanced use-cases (which always happen), you might want to add your own styles.
 
 ```astro
 ---
-import { Card } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, Card, CardActions, CardContent } from "opui-css/astro"
 ---
 
 <Card variant="outlined">
-  <Fragment slot="content">
+  <CardContent>
     Notice how the buttons are made to align with the text above.
-  </Fragment>
-  <Fragment slot="actions">
+  </CardContent>
+  <CardActions>
     <Button>Cancel</Button>
     <Button>Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="content"
-    >Trying other button types too. Look at that!</Fragment
-  >
-  <Fragment slot="actions">
+  <CardContent>Trying other button types too. Look at that!</CardContent>
+  <CardActions>
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="content">Icon buttons work too!</Fragment>
-  <Fragment slot="actions">
+  <CardContent>Icon buttons work too!</CardContent>
+  <CardActions>
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -136,39 +133,38 @@ import { Button } from "opui-css/astro"
         ></path></svg
       >
     </Button>
-  </Fragment>
+  </CardActions>
 </Card>
 ```
 
 ### Alignment
 
-Align actions to the end with the `actionsAlign="end"` prop.
+Align actions to the end with `align="end"` on `CardActions`.
 
 ```astro
 ---
-import { Card } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, Card, CardActions, CardContent } from "opui-css/astro"
 ---
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Buttons aligned to the end. Works too!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Buttons aligned to the end. Works too!</CardContent>
+  <CardActions align="end">
     <Button>Cancel</Button>
     <Button>Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Again, buttons are aligned to the end!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Again, buttons are aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Icon buttons aligned to the end!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Icon buttons aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +190,7 @@ import { Button } from "opui-css/astro"
         ></path></svg
       >
     </Button>
-  </Fragment>
+  </CardActions>
 </Card>
 ```
 
@@ -204,26 +200,24 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 
 ```astro
 ---
-import { Button, Card } from "opui-css/astro"
+import { Button, Card, CardActions, CardContent, CardHeader } from "opui-css/astro"
 ---
 
 <Card variant="outlined">
-  <Fragment slot="header">
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
-  </Fragment>
-  <Fragment slot="content">
-    Plans for any team. Click anywhere on the card.
-  </Fragment>
+  </CardHeader>
+  <CardContent> Plans for any team. Click anywhere on the card. </CardContent>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="header">
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
-  </Fragment>
-  <Fragment slot="content">Every release in one place.</Fragment>
-  <Fragment slot="actions">
+  </CardHeader>
+  <CardContent>Every release in one place.</CardContent>
+  <CardActions>
     <Button>Subscribe</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 ```
 
@@ -233,19 +227,15 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop           | Type                                               | Default | Description                                                                        |
-| -------------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.                                                         |
-| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Prop      | Type                                               | Default | Description                                                                        |
+| --------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `variant` | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Slots
 
-| Slot      | Description                              |
-| --------- | ---------------------------------------- |
-| `actions` | A group of actions, such as buttons.     |
-| `content` | The card content.                        |
-| `default` | Raw content placed directly in the card. |
-| `header`  | The card header.                         |
+| Slot      | Description                            |
+| --------- | -------------------------------------- |
+| `default` | The card parts, and any other content. |
 
 #### CSS variables
 
@@ -399,7 +389,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/astro/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md)
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/card.css`
 
@@ -407,6 +397,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: [`CardHeader`, `CardContent` and `CardActions`](#api) replace the slots, and `align` on `CardActions` replaces `actionsAlign`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

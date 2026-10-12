@@ -1,44 +1,24 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
+import { renderFieldRoot } from "../Field/root.astro"
 
 export const title = "Text Field"
 
 const {
-  "aria-describedby": ariaDescribedBy,
   autoFit,
   class: className,
-  description,
-  disabled,
-  endText,
   error,
-  id,
-  label,
-  list,
-  max,
-  min,
-  name,
-  placeholder,
-  required,
   size,
   spread,
-  startText,
-  step,
-  style,
-  type = "text",
-  value,
   variant,
   ...rest
 } = Astro.props
 
-const startTextValue = description || startText
-const $id = createId(Astro.locals)
-const endTextId =
-  endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
-    ? $id("end-text")
-    : undefined
-const describedBy =
-  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
+const { html } = await renderFieldRoot(
+  Astro.locals,
+  () => Astro.slots.render("default"),
+  error,
+)
 ---
 
 <label
@@ -52,82 +32,7 @@ const describedBy =
     },
     className,
   ]}
-  style={style}
+  {...rest}
 >
-  {
-    (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
-        {label}
-        <slot name="label" />
-      </span>
-    )
-  }
-  {
-    (startTextValue || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {startTextValue}
-        <slot name="description" />
-      </span>
-    )
-  }
-  <span class="ui-field">
-    <input
-      {...rest}
-      aria-describedby={describedBy}
-      aria-invalid={error ? "true" : undefined}
-      disabled={disabled}
-      id={id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
-      list={list}
-      max={max}
-      min={min}
-      name={name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
-      placeholder={placeholder}
-      required={required}
-      step={step}
-      type={type === "numeric" ? "text" : type}
-      value={value}
-    />
-    {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("header") && (
-        <span class="ui-header">
-          <slot name="header" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer">
-          <slot name="footer" />
-        </span>
-      )
-    }
-  </span>
-  {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
-        <slot name="end-text" />
-        <slot name="supporting-text" />
-      </span>
-    )
-  }
-  <slot />
+  <Fragment set:html={html} />
 </label>

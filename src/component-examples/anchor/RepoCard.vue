@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Anchor, Avatar, Button, Card } from "opui-css/vue"
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -18,7 +25,7 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
       >
       <template #anchored>
         <Card variant="elevated" class="repo-card">
-          <template #content>
+          <CardContent>
             <div class="repo-card-identity">
               <Avatar
                 src="https://github.com/felix-bohlin.png"
@@ -35,10 +42,10 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
               can change the way we create components.
             </p>
             <p class="ui-caption">CSS · MIT license</p>
-          </template>
-          <template #actions>
+          </CardContent>
+          <CardActions>
             <Button variant="outlined" size="small">Star</Button>
-          </template>
+          </CardActions>
         </Card>
       </template>
     </Anchor>

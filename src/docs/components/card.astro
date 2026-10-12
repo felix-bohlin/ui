@@ -6,6 +6,9 @@ import {
   Button as UIButton,
   Callout as UICallout,
   Card as UICard,
+  CardActions as UICardActions,
+  CardContent as UICardContent,
+  CardHeader as UICardHeader,
 } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
@@ -89,17 +92,17 @@ import cardApi from "../../component-api/card/api"
   <section>
     <h2 id="header">Header</h2>
     <Conditional as="p">
-      <Fragment slot="astro"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="astro"> Using <code>CardHeader</code>. </Fragment>
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
       <Fragment slot="react">
-        Using the <code>header</code> prop.
+        Using <code>CardHeader</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Using the <code>header</code> snippet.
+        Using <code>CardHeader</code>.
       </Fragment>
-      <Fragment slot="vue"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="vue"> Using <code>CardHeader</code>. </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
   </section>
@@ -108,19 +111,19 @@ import cardApi from "../../component-api/card/api"
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Using the <code>actions</code> slot.
+        Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
       </Fragment>
       <Fragment slot="react">
-        Using the <code>actions</code> prop.
+        Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Using the <code>actions</code> snippet.
+        Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="vue">
-        Using the <code>actions</code> slot.
+        Using <code>CardActions</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -133,19 +136,27 @@ import cardApi from "../../component-api/card/api"
     <h3 id="actions-alignment">Alignment</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
       </Fragment>
       <Fragment slot="react">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
       <Fragment slot="svelte">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
       <Fragment slot="vue">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -178,19 +189,19 @@ import cardApi from "../../component-api/card/api"
   <Fragment slot="anatomy">
     <Anatomy>
       <UICard variant="elevated">
-        <Fragment slot="header">
+        <UICardHeader>
           <p>Overline</p>
           <h2 class="ui-h3">Headline</h2>
           <p>Subhead</p>
-        </Fragment>
-        <Fragment slot="content">
+        </UICardHeader>
+        <UICardContent>
           Explain more about the topic shown in the headline and subhead through
           supporting text.
-        </Fragment>
-        <Fragment slot="actions">
+        </UICardContent>
+        <UICardActions>
           <UIButton>Share</UIButton>
           <UIButton>Learn more</UIButton>
-        </Fragment>
+        </UICardActions>
       </UICard>
     </Anatomy>
   </Fragment>

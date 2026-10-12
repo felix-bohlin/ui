@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Card, Carousel } from "opui-css/vue"
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/vue"
 
 const plans = [
   {
@@ -21,13 +21,13 @@ const plans = [
   <Carousel buttons="outside" label="Plans" :per-view="2">
     <li v-for="{ action, description, title } in plans" :key="title">
       <Card variant="outlined">
-        <template #header>
+        <CardHeader>
           <h3>{{ title }}</h3>
           <p>{{ description }}</p>
-        </template>
-        <template #actions>
+        </CardHeader>
+        <CardActions>
           <Button variant="filled">{{ action }}</Button>
-        </template>
+        </CardActions>
       </Card>
     </li>
   </Carousel>

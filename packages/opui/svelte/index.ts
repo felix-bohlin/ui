@@ -8,9 +8,14 @@ export { default as Button } from "../components/Button/Button.svelte"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
 export { default as Card } from "../components/Card/Card.svelte"
+export { default as CardActions } from "../components/Card/CardActions.svelte"
+export { default as CardContent } from "../components/Card/CardContent.svelte"
+export { default as CardHeader } from "../components/Card/CardHeader.svelte"
 export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
+export { default as CheckboxEndText } from "../components/Field/FieldEndText.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
+export { default as CheckboxLabel } from "../components/Field/FieldLabel.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
@@ -18,6 +23,9 @@ export { default as DescriptionListDescription } from "../components/Description
 export { default as DescriptionListItem } from "../components/DescriptionList/Item.svelte"
 export { default as DescriptionListTerm } from "../components/DescriptionList/Term.svelte"
 export { default as Dialog } from "../components/Dialog/Dialog.svelte"
+export { default as DialogActions } from "../components/Dialog/DialogActions.svelte"
+export { default as DialogContent } from "../components/Dialog/DialogContent.svelte"
+export { default as DialogHeader } from "../components/Dialog/DialogHeader.svelte"
 export { default as Divider } from "../components/Divider/Divider.svelte"
 export { default as Drawer } from "../components/Drawer/Drawer.svelte"
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.svelte"
@@ -51,6 +59,15 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
 export { default as TabsTab } from "../components/Tabs/TabsTab.svelte"
 export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
+export { default as TextFieldControl } from "../components/Field/FieldControl.svelte"
+export { default as TextFieldEndText } from "../components/Field/FieldEndText.svelte"
+export { default as TextFieldFooter } from "../components/Field/FieldFooter.svelte"
+export { default as TextFieldHeader } from "../components/Field/FieldHeader.svelte"
+export { default as TextFieldInput } from "../components/TextField/TextFieldInput.svelte"
+export { default as TextFieldLabel } from "../components/Field/FieldLabel.svelte"
+export { default as TextFieldPrefix } from "../components/Field/FieldPrefix.svelte"
+export { default as TextFieldStartText } from "../components/Field/FieldStartText.svelte"
+export { default as TextFieldSuffix } from "../components/Field/FieldSuffix.svelte"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.svelte"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"
@@ -62,11 +79,20 @@ export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"
 export type { Props as CalloutProps } from "../components/Callout/types.svelte"
 export type { Props as CardProps } from "../components/Card/types.svelte"
+export type {
+  CardActionsProps,
+  CardContentProps,
+  CardHeaderProps,
+} from "../components/Card/types.svelte"
 export type { Props as CarouselProps } from "../components/Carousel/types.svelte"
 export type {
   CheckboxInputProps,
   CheckboxProps,
 } from "../components/Checkbox/types.svelte"
+export type {
+  FieldEndTextProps as CheckboxEndTextProps,
+  FieldLabelProps as CheckboxLabelProps,
+} from "../components/Field/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
@@ -77,6 +103,11 @@ export type {
   TermProps as DescriptionListTermProps,
 } from "../components/DescriptionList/types.svelte"
 export type { Props as DialogProps } from "../components/Dialog/types.svelte"
+export type {
+  DialogActionsProps,
+  DialogContentProps,
+  DialogHeaderProps,
+} from "../components/Dialog/types.svelte"
 export type { Props as DividerProps } from "../components/Divider/types.svelte"
 export type {
   DrawerFooterProps,
@@ -117,6 +148,17 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
+export type { TextFieldInputProps } from "../components/TextField/types.svelte"
+export type {
+  FieldControlProps as TextFieldControlProps,
+  FieldEndTextProps as TextFieldEndTextProps,
+  FieldFooterProps as TextFieldFooterProps,
+  FieldHeaderProps as TextFieldHeaderProps,
+  FieldLabelProps as TextFieldLabelProps,
+  FieldPrefixProps as TextFieldPrefixProps,
+  FieldStartTextProps as TextFieldStartTextProps,
+  FieldSuffixProps as TextFieldSuffixProps,
+} from "../components/Field/types.svelte"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.svelte"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.svelte"
 export type { Props as TooltipProps } from "../components/Tooltip/types.svelte"

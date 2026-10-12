@@ -1,5 +1,19 @@
-import { TextField } from "opui-css/react"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+  TextFieldStartText,
+} from "opui-css/react"
 
 export default function Description() {
-  return <TextField description="As it appears on your ID" label="Name" />
+  return (
+    <TextField>
+      <TextFieldLabel>Name</TextFieldLabel>
+      <TextFieldStartText>As it appears on your ID</TextFieldStartText>
+      <TextFieldControl>
+        <TextFieldInput />
+      </TextFieldControl>
+    </TextField>
+  )
 }

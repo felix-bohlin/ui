@@ -5,5 +5,4 @@ export type CheckboxInputProps = Base.CheckboxInputProps &
   JSX.InputHTMLAttributes<HTMLInputElement>
 
 export type CheckboxProps = Base.CheckboxProps &
-  Partial<Base.CheckboxSlots<JSX.Element>> &
-  Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "size">
+  JSX.LabelHTMLAttributes<HTMLLabelElement>

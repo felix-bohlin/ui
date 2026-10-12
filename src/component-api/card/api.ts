@@ -14,13 +14,6 @@ export default {
   },
   options: [
     {
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: ".ui-align-end", start: null },
-    },
-    {
       description:
         "The variant to use. Without one the card has the page surface color and no border.",
       group: "Variants",
@@ -36,19 +29,34 @@ export default {
   parts: [
     {
       code: "<hgroup>",
+      component: {
+        astro: "CardHeader",
+        react: "CardHeader",
+        svelte: "CardHeader",
+        vue: "CardHeader",
+      },
       description: "The card header.",
       selector: "hgroup",
-      slots: ["header"],
     },
     {
+      component: {
+        astro: "CardContent",
+        react: "CardContent",
+        svelte: "CardContent",
+        vue: "CardContent",
+      },
       description: "The card content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
+      component: {
+        astro: "CardActions",
+        react: "CardActions",
+        svelte: "CardActions",
+        vue: "CardActions",
+      },
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
@@ -57,7 +65,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the card.",
+      description: "The card parts, and any other content.",
       name: "default",
     },
   ],

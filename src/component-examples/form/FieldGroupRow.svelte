@@ -1,6 +1,8 @@
 <script lang="ts">
   import {
     Checkbox,
+    CheckboxInput,
+    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -12,9 +14,18 @@
   <FieldSet>
     <FieldLegend>Options</FieldLegend>
     <FieldGroup direction="row">
-      <Checkbox>Option 1</Checkbox>
-      <Checkbox>Option 2</Checkbox>
-      <Checkbox>Option 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>

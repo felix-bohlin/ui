@@ -1,8 +1,33 @@
 <script lang="ts">
-  import { TextField } from "opui-css/svelte"
+  import {
+    TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
+  } from "opui-css/svelte"
 </script>
 
-<TextField label="x-small" placeholder="Placeholder" size="x-small" />
-<TextField label="Small" placeholder="Placeholder" size="small" />
-<TextField label="Default" placeholder="Placeholder" />
-<TextField label="Large" placeholder="Placeholder" size="large" />
+<TextField size="x-small">
+  <TextFieldLabel>x-small</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Placeholder" />
+  </TextFieldControl>
+</TextField>
+<TextField size="small">
+  <TextFieldLabel>Small</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Placeholder" />
+  </TextFieldControl>
+</TextField>
+<TextField>
+  <TextFieldLabel>Default</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Placeholder" />
+  </TextFieldControl>
+</TextField>
+<TextField size="large">
+  <TextFieldLabel>Large</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Placeholder" />
+  </TextFieldControl>
+</TextField>

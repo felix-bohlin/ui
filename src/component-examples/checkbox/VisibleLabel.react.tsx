@@ -1,23 +1,29 @@
-import { Checkbox } from "opui-css/react"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
 
 export default function VisibleLabel() {
   return (
     <>
-      <Checkbox defaultChecked name="checkbox-visible-label">
-        Choice A
+      <Checkbox>
+        <CheckboxInput defaultChecked name="checkbox-visible-label" />
+        <CheckboxLabel>Choice A</CheckboxLabel>
       </Checkbox>
-      <Checkbox disabled name="checkbox-visible-label">
-        Disabled
+      <Checkbox>
+        <CheckboxInput disabled name="checkbox-visible-label" />
+        <CheckboxLabel>Disabled</CheckboxLabel>
       </Checkbox>
-      <Checkbox defaultChecked disabled name="checkbox-visible-label">
-        Checked and disabled
+      <Checkbox>
+        <CheckboxInput defaultChecked disabled name="checkbox-visible-label" />
+        <CheckboxLabel>Checked and disabled</CheckboxLabel>
       </Checkbox>
-      <Checkbox name="checkbox-visible-label">
-        Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-        semiotics artisan synth stumptown gastropub cornhole{" "}
-        <a className="ui-link" href="#visible-label">
-          privacy policy ipsum
-        </a>
+      <Checkbox>
+        <CheckboxInput name="checkbox-visible-label" />
+        <CheckboxLabel>
+          Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
+          semiotics artisan synth stumptown gastropub cornhole{" "}
+          <a className="ui-link" href="#visible-label">
+            privacy policy ipsum
+          </a>
+        </CheckboxLabel>
       </Checkbox>
     </>
   )

@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Button, Dialog } from "opui-css/svelte"
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
@@ -7,11 +13,15 @@
 </Button>
 
 <Dialog id="example-dialog">
-  {#snippet header()}<h2 class="ui-h4">Newsletter</h2>{/snippet}
-  {#snippet content()}<p>
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
       Get a short email when we ship something new. No more than once a month.
-    </p>{/snippet}
-  {#snippet actions()}
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog" command="close" type="button">
       Not now
     </Button>
@@ -23,5 +33,5 @@
     >
       Subscribe
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>

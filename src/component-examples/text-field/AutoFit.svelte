@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { TextField } from "opui-css/svelte"
+  import {
+    TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
+  } from "opui-css/svelte"
 </script>
 
-<TextField label="Label" placeholder="Auto-fit" autoFit />
+<TextField autoFit>
+  <TextFieldLabel>Label</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput placeholder="Auto-fit" />
+  </TextFieldControl>
+</TextField>

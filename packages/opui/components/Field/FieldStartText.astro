@@ -1,0 +1,9 @@
+---
+import type { FieldStartTextProps as Props } from "./types.astro"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<span class:list={["ui-start-text", className]} {...rest}>
+  <slot />
+</span>

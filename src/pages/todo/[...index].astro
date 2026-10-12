@@ -3,6 +3,8 @@ import {
   Accordion,
   Button,
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   Chip,
   FieldGroup,
   FieldLegend,
@@ -257,8 +259,9 @@ const count = sections.reduce(
   <h2 id="copy">Copy</h2>
 
   <section class="todo-actions ui-not-rich-text">
-    <Checkbox checked id="todo-only-commented">
-      Only todos I commented on
+    <Checkbox>
+      <CheckboxInput checked id="todo-only-commented" />
+      <CheckboxLabel>Only todos I commented on</CheckboxLabel>
     </Checkbox>
     <div class="todo-buttons">
       <Button id="todo-copy" variant="filled">Copy todos and comments</Button>

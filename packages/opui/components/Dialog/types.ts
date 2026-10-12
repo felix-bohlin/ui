@@ -1,10 +1,9 @@
-export type Props = {
-  actionsAlign?: "start" | "end"
+export type Props = {}
+
+export type DialogActionsProps = {
+  align?: "start" | "end"
 }
 
-export type Slots<S> = {
-  actions?: S
-  children?: S
-  content?: S
-  header?: string | S
-}
+export type DialogContentProps = {}
+
+export type DialogHeaderProps = {}

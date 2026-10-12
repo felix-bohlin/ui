@@ -1,22 +1,20 @@
 ---
-import { Button, Card } from "@opui/astro"
+import { Button, Card, CardActions, CardContent, CardHeader } from "@opui/astro"
 ---
 
 <Card variant="outlined">
-  <Fragment slot="header">
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
-  </Fragment>
-  <Fragment slot="content">
-    Plans for any team. Click anywhere on the card.
-  </Fragment>
+  </CardHeader>
+  <CardContent> Plans for any team. Click anywhere on the card. </CardContent>
 </Card>
 
 <Card variant="outlined">
-  <Fragment slot="header">
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
-  </Fragment>
-  <Fragment slot="content">Every release in one place.</Fragment>
-  <Fragment slot="actions">
+  </CardHeader>
+  <CardContent>Every release in one place.</CardContent>
+  <CardActions>
     <Button>Subscribe</Button>
-  </Fragment>
+  </CardActions>
 </Card>

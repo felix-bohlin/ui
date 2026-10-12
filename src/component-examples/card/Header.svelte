@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Card } from "opui-css/svelte"
+  import { Card, CardHeader } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <p>Blog</p>
     <h3>My ultra-great blog post</h3>
     <p>Please read it.</p>
-  {/snippet}
+  </CardHeader>
 </Card>

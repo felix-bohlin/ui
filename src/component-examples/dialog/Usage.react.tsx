@@ -1,4 +1,10 @@
-import { Button, Dialog } from "opui-css/react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
 
 export default function Usage() {
   return (
@@ -10,31 +16,31 @@ export default function Usage() {
       >
         Open dialog
       </Button>
-      <Dialog
-        id="example-dialog"
-        header={<h2 className="ui-h4">Newsletter</h2>}
-        content={
+
+      <Dialog id="example-dialog">
+        <DialogHeader>
+          <h2 className="ui-h4">Newsletter</h2>
+        </DialogHeader>
+        <DialogContent>
           <p>
             Get a short email when we ship something new. No more than once a
             month.
           </p>
-        }
-        actions={
-          <>
-            <Button commandfor="example-dialog" command="close" type="button">
-              Not now
-            </Button>
-            <Button
-              commandfor="example-dialog"
-              command="close"
-              type="button"
-              variant="filled"
-            >
-              Subscribe
-            </Button>
-          </>
-        }
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button commandfor="example-dialog" command="close" type="button">
+            Not now
+          </Button>
+          <Button
+            commandfor="example-dialog"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

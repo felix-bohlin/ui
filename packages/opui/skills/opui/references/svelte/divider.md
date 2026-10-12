@@ -59,17 +59,17 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 
 ```svelte
 <script lang="ts">
-  import { Card, Divider } from "opui-css/svelte"
+  import { Card, CardContent, Divider } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  <div class="ui-content">Inside a card, the gap spaces the divider.</div>
+  <CardContent>Inside a card, the gap spaces the divider.</CardContent>
   <Divider />
-  <div class="ui-content">
+  <CardContent>
     Nested deeper, it uses the card's tighter space.
     <Divider />
     So everything stays close together.
-  </div>
+  </CardContent>
 </Card>
 
 <div style="--divider-space: var(--size-1)">

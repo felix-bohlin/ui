@@ -1,13 +1,22 @@
-import { Checkbox } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "opui-css/react"
 
 export default function SupportingText() {
   return (
     <>
-      <Checkbox name="checkbox-supporting-text" endText="Supporting text">
-        Default
+      <Checkbox>
+        <CheckboxInput name="checkbox-supporting-text" />
+        <CheckboxLabel>Default</CheckboxLabel>
+        <CheckboxEndText>Supporting text</CheckboxEndText>
       </Checkbox>
-      <Checkbox stack name="checkbox-supporting-text" endText="Supporting text">
-        Stack
+      <Checkbox stack>
+        <CheckboxInput name="checkbox-supporting-text" />
+        <CheckboxLabel>Stack</CheckboxLabel>
+        <CheckboxEndText>Supporting text</CheckboxEndText>
       </Checkbox>
     </>
   )

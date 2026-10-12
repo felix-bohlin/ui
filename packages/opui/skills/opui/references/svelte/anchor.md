@@ -24,16 +24,16 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
 
 ```svelte
 <script lang="ts">
-  import { Anchor, Button, Card } from "opui-css/svelte"
+  import { Anchor, Button, Card, CardContent } from "opui-css/svelte"
 </script>
 
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
   {#snippet anchored()}
     <Card variant="tonal" class="coach-mark">
-      {#snippet content()}
+      <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
-      {/snippet}
+      </CardContent>
     </Card>
   {/snippet}
 </Anchor>
@@ -59,7 +59,14 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
 
 ```svelte
 <script lang="ts">
-  import { Anchor, Avatar, Button, Card } from "opui-css/svelte"
+  import {
+    Anchor,
+    Avatar,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+  } from "opui-css/svelte"
 </script>
 
 <div>
@@ -76,7 +83,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
     >
     {#snippet anchored()}
       <Card variant="elevated" class="repo-card">
-        {#snippet content()}
+        <CardContent>
           <div class="repo-card-identity">
             <Avatar
               src="https://github.com/felix-bohlin.png"
@@ -93,10 +100,10 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
             change the way we create components.
           </p>
           <p class="ui-caption">CSS · MIT license</p>
-        {/snippet}
-        {#snippet actions()}
+        </CardContent>
+        <CardActions>
           <Button variant="outlined" size="small">Star</Button>
-        {/snippet}
+        </CardActions>
       </Card>
     {/snippet}
   </Anchor>
@@ -135,7 +142,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ```svelte
 <script lang="ts">
-  import { Anchor, Card } from "opui-css/svelte"
+  import { Anchor, Card, CardHeader } from "opui-css/svelte"
 </script>
 
 <div>
@@ -153,13 +160,13 @@ Preview where a link goes before following it. The card keeps its interactive co
     {#snippet anchored()}
       <Card variant="elevated" class="link-preview">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
-        <hgroup>
+        <CardHeader>
           <p class="ui-caption">developer.mozilla.org</p>
           <h3>CSS anchor positioning</h3>
           <p>
             Tether elements to other elements on the page, without JavaScript.
           </p>
-        </hgroup>
+        </CardHeader>
       </Card>
     {/snippet}
   </Anchor>

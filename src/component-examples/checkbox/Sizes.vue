@@ -1,24 +1,42 @@
 <script setup lang="ts">
-import { Checkbox } from "opui-css/vue"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/vue"
 </script>
 
 <template>
   <div class="example-row">
-    <Checkbox hideLabel size="x-small" checked name="checkbox-sizes"
-      >Label</Checkbox
-    >
-    <Checkbox hideLabel size="small" checked name="checkbox-sizes"
-      >Label</Checkbox
-    >
-    <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
-    <Checkbox hideLabel size="large" checked name="checkbox-sizes"
-      >Label</Checkbox
-    >
+    <Checkbox size="x-small">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+    </Checkbox>
+    <Checkbox size="small">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+    </Checkbox>
+    <Checkbox>
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+    </Checkbox>
+    <Checkbox size="large">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+    </Checkbox>
   </div>
   <div class="example-row">
-    <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
-    <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
-    <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
+    <Checkbox size="x-small">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel>x-small</CheckboxLabel>
+    </Checkbox>
+    <Checkbox size="small">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel>Small</CheckboxLabel>
+    </Checkbox>
+    <Checkbox>
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel>Default</CheckboxLabel>
+    </Checkbox>
+    <Checkbox size="large">
+      <CheckboxInput checked name="checkbox-sizes" />
+      <CheckboxLabel>Large</CheckboxLabel>
+    </Checkbox>
   </div>
 </template>

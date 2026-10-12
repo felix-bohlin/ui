@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Users" list="users" placeholder="Placeholder">
+  <TextField>
+    <TextFieldLabel>Users</TextFieldLabel>
+    <TextFieldControl>
+      <TextFieldInput list="users" placeholder="Placeholder" />
+    </TextFieldControl>
     <datalist id="users">
       <option value="Ray Manzarek"></option>
       <option value="Jonny Greenwood"></option>
@@ -11,13 +20,15 @@ import { TextField } from "opui-css/vue"
     </datalist>
   </TextField>
 
-  <TextField
-    variant="filled"
-    label="Emails"
-    list="users-email"
-    placeholder="Placeholder"
-    type="email"
-  >
+  <TextField variant="filled">
+    <TextFieldLabel>Emails</TextFieldLabel>
+    <TextFieldControl>
+      <TextFieldInput
+        list="users-email"
+        placeholder="Placeholder"
+        type="email"
+      />
+    </TextFieldControl>
     <datalist id="users-email">
       <option value="ray.manzarek@the.doors"></option>
       <option value="jonny.greenwood@radio.head"></option>

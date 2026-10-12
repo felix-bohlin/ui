@@ -1,15 +1,25 @@
-import { TextField } from "opui-css/react"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/react"
 
 export default function File() {
   return (
     <>
-      <TextField type="file" placeholder="File" label="Label" />
-      <TextField
-        type="file"
-        placeholder="File"
-        label="Label"
-        variant="filled"
-      />
+      <TextField>
+        <TextFieldLabel>Label</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput type="file" placeholder="File" />
+        </TextFieldControl>
+      </TextField>
+      <TextField variant="filled">
+        <TextFieldLabel>Label</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput type="file" placeholder="File" />
+        </TextFieldControl>
+      </TextField>
     </>
   )
 }

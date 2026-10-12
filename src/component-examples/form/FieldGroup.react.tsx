@@ -1,5 +1,8 @@
 import {
   Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -26,29 +29,34 @@ export default function FieldGroupExample() {
         <FieldLegend>Which side projects do you follow?</FieldLegend>
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
-          <Checkbox
-            value="the-smile"
-            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
-          >
-            The Smile
+          <Checkbox>
+            <CheckboxInput value="the-smile" />
+            <CheckboxLabel>The Smile</CheckboxLabel>
+            <CheckboxEndText>
+              Thom Yorke, Jonny Greenwood, Tom Skinner
+            </CheckboxEndText>
           </Checkbox>
-          <Checkbox
-            value="atoms-for-peace"
-            endText="Thom Yorke, Flea, Nigel Godrich"
-          >
-            Atoms for Peace
+          <Checkbox>
+            <CheckboxInput value="atoms-for-peace" />
+            <CheckboxLabel>Atoms for Peace</CheckboxLabel>
+            <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
           </Checkbox>
-          <Checkbox value="eob" endText="Ed O'Brien solo">
-            EOB
+          <Checkbox>
+            <CheckboxInput value="eob" />
+            <CheckboxLabel>EOB</CheckboxLabel>
+            <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
           </Checkbox>
-          <Checkbox
-            value="jonny-scores"
-            endText="Film compositions by Jonny Greenwood"
-          >
-            Film Scores
+          <Checkbox>
+            <CheckboxInput value="jonny-scores" />
+            <CheckboxLabel>Film Scores</CheckboxLabel>
+            <CheckboxEndText>
+              Film compositions by Jonny Greenwood
+            </CheckboxEndText>
           </Checkbox>
-          <Checkbox value="selway-solo" endText="Philip Selway solo albums">
-            Philip Selway
+          <Checkbox>
+            <CheckboxInput value="selway-solo" />
+            <CheckboxLabel>Philip Selway</CheckboxLabel>
+            <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
           </Checkbox>
         </FieldGroup>
       </FieldSet>

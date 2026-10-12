@@ -10,40 +10,45 @@ Label End text
 
   Container element.
 
-- `<input>`
+- `<CheckboxInput>`
 
   The checkbox input.
 
-- `children`
+- `<CheckboxLabel>`
 
   The label.
 
-- `endText`
+- `<CheckboxEndText>`
 
-  Supporting text displayed below the label.
+  Supporting text displayed below the label. Linked to the input through `aria-describedby`.
 
 ## Basics
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <Checkbox defaultChecked name="checkbox-variants" hideLabel>
-        Checked
+      <Checkbox>
+        <CheckboxInput defaultChecked name="checkbox-variants" />
+        <CheckboxLabel visuallyHidden>Checked</CheckboxLabel>
       </Checkbox>
-      <Checkbox name="checkbox-variants" hideLabel>
-        Unchecked
+      <Checkbox>
+        <CheckboxInput name="checkbox-variants" />
+        <CheckboxLabel visuallyHidden>Unchecked</CheckboxLabel>
       </Checkbox>
-      <Checkbox indeterminate name="checkbox-variants" hideLabel>
-        Indeterminate
+      <Checkbox>
+        <CheckboxInput indeterminate name="checkbox-variants" />
+        <CheckboxLabel visuallyHidden>Indeterminate</CheckboxLabel>
       </Checkbox>
-      <Checkbox disabled name="checkbox-variants" hideLabel>
-        Disabled
+      <Checkbox>
+        <CheckboxInput disabled name="checkbox-variants" />
+        <CheckboxLabel visuallyHidden>Disabled</CheckboxLabel>
       </Checkbox>
-      <Checkbox defaultChecked disabled name="checkbox-variants" hideLabel>
-        Checked and disabled
+      <Checkbox>
+        <CheckboxInput defaultChecked disabled name="checkbox-variants" />
+        <CheckboxLabel visuallyHidden>Checked and disabled</CheckboxLabel>
       </Checkbox>
     </>
   )
@@ -55,37 +60,45 @@ export default function Variants() {
 Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
 
 export default function Sizes() {
   return (
     <>
       <div className="example-row">
-        <Checkbox hideLabel size="x-small" defaultChecked name="checkbox-sizes">
-          Label
+        <Checkbox size="x-small">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
         </Checkbox>
-        <Checkbox hideLabel size="small" defaultChecked name="checkbox-sizes">
-          Label
+        <Checkbox size="small">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
         </Checkbox>
-        <Checkbox hideLabel defaultChecked name="checkbox-sizes">
-          Label
+        <Checkbox>
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
         </Checkbox>
-        <Checkbox hideLabel size="large" defaultChecked name="checkbox-sizes">
-          Label
+        <Checkbox size="large">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
         </Checkbox>
       </div>
       <div className="example-row">
-        <Checkbox size="x-small" defaultChecked name="checkbox-sizes">
-          x-small
+        <Checkbox size="x-small">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel>x-small</CheckboxLabel>
         </Checkbox>
-        <Checkbox size="small" defaultChecked name="checkbox-sizes">
-          Small
+        <Checkbox size="small">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel>Small</CheckboxLabel>
         </Checkbox>
-        <Checkbox defaultChecked name="checkbox-sizes">
-          Default
+        <Checkbox>
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel>Default</CheckboxLabel>
         </Checkbox>
-        <Checkbox size="large" defaultChecked name="checkbox-sizes">
-          Large
+        <Checkbox size="large">
+          <CheckboxInput defaultChecked name="checkbox-sizes" />
+          <CheckboxLabel>Large</CheckboxLabel>
         </Checkbox>
       </div>
     </>
@@ -95,29 +108,35 @@ export default function Sizes() {
 
 ## Visible label
 
-`children` is the label. Also, don't miss the info on label [accessibility](#accessibility).
+`CheckboxLabel` is the label. Also, don't miss the info on label [accessibility](#accessibility).
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
 
 export default function VisibleLabel() {
   return (
     <>
-      <Checkbox defaultChecked name="checkbox-visible-label">
-        Choice A
+      <Checkbox>
+        <CheckboxInput defaultChecked name="checkbox-visible-label" />
+        <CheckboxLabel>Choice A</CheckboxLabel>
       </Checkbox>
-      <Checkbox disabled name="checkbox-visible-label">
-        Disabled
+      <Checkbox>
+        <CheckboxInput disabled name="checkbox-visible-label" />
+        <CheckboxLabel>Disabled</CheckboxLabel>
       </Checkbox>
-      <Checkbox defaultChecked disabled name="checkbox-visible-label">
-        Checked and disabled
+      <Checkbox>
+        <CheckboxInput defaultChecked disabled name="checkbox-visible-label" />
+        <CheckboxLabel>Checked and disabled</CheckboxLabel>
       </Checkbox>
-      <Checkbox name="checkbox-visible-label">
-        Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-        semiotics artisan synth stumptown gastropub cornhole{" "}
-        <a className="ui-link" href="#visible-label">
-          privacy policy ipsum
-        </a>
+      <Checkbox>
+        <CheckboxInput name="checkbox-visible-label" />
+        <CheckboxLabel>
+          Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
+          semiotics artisan synth stumptown gastropub cornhole{" "}
+          <a className="ui-link" href="#visible-label">
+            privacy policy ipsum
+          </a>
+        </CheckboxLabel>
       </Checkbox>
     </>
   )
@@ -127,14 +146,18 @@ export default function VisibleLabel() {
 ### Label position
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
 
 export default function LabelPosition() {
   return (
     <>
-      <Checkbox name="checkbox-label-position">Default</Checkbox>
-      <Checkbox stack name="checkbox-label-position">
-        Stack
+      <Checkbox>
+        <CheckboxInput name="checkbox-label-position" />
+        <CheckboxLabel>Default</CheckboxLabel>
+      </Checkbox>
+      <Checkbox stack>
+        <CheckboxInput name="checkbox-label-position" />
+        <CheckboxLabel>Stack</CheckboxLabel>
       </Checkbox>
     </>
   )
@@ -144,16 +167,25 @@ export default function LabelPosition() {
 ### End text
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "opui-css/react"
 
 export default function SupportingText() {
   return (
     <>
-      <Checkbox name="checkbox-supporting-text" endText="Supporting text">
-        Default
+      <Checkbox>
+        <CheckboxInput name="checkbox-supporting-text" />
+        <CheckboxLabel>Default</CheckboxLabel>
+        <CheckboxEndText>Supporting text</CheckboxEndText>
       </Checkbox>
-      <Checkbox stack name="checkbox-supporting-text" endText="Supporting text">
-        Stack
+      <Checkbox stack>
+        <CheckboxInput name="checkbox-supporting-text" />
+        <CheckboxLabel>Stack</CheckboxLabel>
+        <CheckboxEndText>Supporting text</CheckboxEndText>
       </Checkbox>
     </>
   )
@@ -162,40 +194,41 @@ export default function SupportingText() {
 
 ### Validation
 
-- Set the `required` prop on the component. It is forwarded to the underlying `<input>`.
+- Set `required` on `CheckboxInput`. It goes on the `<input>`.
 - Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "opui-css/react"
 
 export default function Validation() {
   return (
     <>
       <div className="example-row ui-spacious">
-        <Checkbox required name="checkbox-validation">
-          Default
+        <Checkbox>
+          <CheckboxInput required name="checkbox-validation" />
+          <CheckboxLabel>Default</CheckboxLabel>
         </Checkbox>
-        <Checkbox stack required name="checkbox-validation">
-          Stack
+        <Checkbox stack>
+          <CheckboxInput required name="checkbox-validation" />
+          <CheckboxLabel>Stack</CheckboxLabel>
         </Checkbox>
       </div>
       <div className="example-row ui-spacious">
-        <Checkbox
-          error
-          defaultChecked
-          name="checkbox-validation"
-          endText="Check yourself"
-        >
-          Default
+        <Checkbox error>
+          <CheckboxInput defaultChecked name="checkbox-validation" />
+          <CheckboxLabel>Default</CheckboxLabel>
+          <CheckboxEndText>Check yourself</CheckboxEndText>
         </Checkbox>
-        <Checkbox
-          stack
-          error
-          name="checkbox-validation"
-          endText="Before you wreck yourself"
-        >
-          Stack
+        <Checkbox stack error>
+          <CheckboxInput name="checkbox-validation" />
+          <CheckboxLabel>Stack</CheckboxLabel>
+          <CheckboxEndText>Before you wreck yourself</CheckboxEndText>
         </Checkbox>
       </div>
     </>
@@ -205,13 +238,20 @@ export default function Validation() {
 
 ## Indeterminate
 
-Set the `indeterminate` prop to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
+Set `indeterminate` on `CheckboxInput` to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
 
 ```tsx
 "use client"
 
 import { useState } from "react"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/react"
 
 const items = ["Apples", "Bananas", "Cherries"]
 
@@ -230,26 +270,25 @@ export default function Indeterminate() {
   return (
     <FieldSet className="indeterminate-demo">
       <FieldLegend>
-        <Checkbox
-          className="parent"
-          checked={allChecked}
-          onChange={toggleAll}
-          indeterminate={indeterminate}
-        >
-          Select all
+        <Checkbox className="parent">
+          <CheckboxInput
+            checked={allChecked}
+            onChange={toggleAll}
+            indeterminate={indeterminate}
+          />
+          <CheckboxLabel>Select all</CheckboxLabel>
         </Checkbox>
       </FieldLegend>
       <FieldGroup name="indeterminate-children">
         {items.map((item, index) => (
-          <Checkbox
-            className="child"
-            key={item}
-            checked={checked[index]}
-            onChange={(event) =>
-              setChecked(checked.with(index, event.currentTarget.checked))
-            }
-          >
-            {item}
+          <Checkbox className="child" key={item}>
+            <CheckboxInput
+              checked={checked[index]}
+              onChange={(event) =>
+                setChecked(checked.with(index, event.currentTarget.checked))
+              }
+            />
+            <CheckboxLabel>{item}</CheckboxLabel>
           </Checkbox>
         ))}
       </FieldGroup>
@@ -263,44 +302,40 @@ export default function Indeterminate() {
 Use the `spread` prop to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
 
 ```tsx
-import { Checkbox } from "opui-css/react"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+} from "opui-css/react"
 
 export default function Spread() {
   return (
     <>
-      <Checkbox
-        name="checkbox-spread"
-        spread
-        endText="I have read and agree to the privacy policy."
-      >
-        Accept Terms & Conditions
+      <Checkbox spread>
+        <CheckboxInput name="checkbox-spread" />
+        <CheckboxLabel>Accept Terms & Conditions</CheckboxLabel>
+        <CheckboxEndText>
+          I have read and agree to the privacy policy.
+        </CheckboxEndText>
       </Checkbox>
 
-      <Checkbox
-        name="checkbox-spread"
-        spread
-        required
-        endText="You must accept this to continue."
-      >
-        Required
+      <Checkbox spread>
+        <CheckboxInput name="checkbox-spread" required />
+        <CheckboxLabel>Required</CheckboxLabel>
+        <CheckboxEndText>You must accept this to continue.</CheckboxEndText>
       </Checkbox>
 
-      <Checkbox
-        name="checkbox-spread"
-        spread
-        disabled
-        endText="This checkbox is disabled."
-      >
-        Disabled
+      <Checkbox spread>
+        <CheckboxInput name="checkbox-spread" disabled />
+        <CheckboxLabel>Disabled</CheckboxLabel>
+        <CheckboxEndText>This checkbox is disabled.</CheckboxEndText>
       </Checkbox>
 
-      <Checkbox
-        name="checkbox-spread"
-        spread
-        error
-        endText="There is an error with this checkbox."
-      >
-        Invalid Checkbox
+      <Checkbox spread error>
+        <CheckboxInput name="checkbox-spread" />
+        <CheckboxLabel>Invalid Checkbox</CheckboxLabel>
+        <CheckboxEndText>There is an error with this checkbox.</CheckboxEndText>
       </Checkbox>
     </>
   )
@@ -328,6 +363,8 @@ See also: [Form documentation](https://open-props-ui.netlify.app/react/component
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -340,9 +377,18 @@ export default function FieldGroupExample() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="checkbox-group">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>
@@ -355,6 +401,8 @@ export default function FieldGroupExample() {
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -367,9 +415,18 @@ export default function FieldGroupDirection() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-direction">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>
@@ -384,6 +441,8 @@ Can be placed above and below the fields.
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -398,18 +457,36 @@ export default function FieldGroupFieldDescription() {
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup direction="row" name="checkbox-group-field-description-1">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-field-description-2">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
       </FieldSet>
@@ -427,6 +504,8 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -439,9 +518,18 @@ export default function FieldGroupDisabled() {
       <FieldSet disabled>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-disabled">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>
@@ -456,6 +544,8 @@ Each checkbox with `required` must be checked before the form submits. There's n
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -468,9 +558,18 @@ export default function FieldGroupRequired() {
       <FieldSet>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-required">
-          <Checkbox required>Checkbox 1</Checkbox>
-          <Checkbox required>Checkbox 2</Checkbox>
-          <Checkbox required>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput required />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput required />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput required />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>
@@ -485,6 +584,8 @@ Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turn
 ```tsx
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -497,11 +598,18 @@ export default function FieldGroupValidation() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-validation">
-          <Checkbox defaultChecked error>
-            Checkbox 1
+          <Checkbox error>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
           </Checkbox>
-          <Checkbox error>Checkbox 2</Checkbox>
-          <Checkbox error>Checkbox 3</Checkbox>
+          <Checkbox error>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox error>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
         <span className="ui-end-text">Something went wrong!</span>
       </FieldSet>
@@ -532,16 +640,13 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                 | Type                                | Default | Description                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `children`                                                                                                                                                                                                                           | `ReactNode`                         | -       | The label.                                                                           |
-| `endText`                                                                                                                                                                                                                            | `ReactNode`                         | -       | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                              | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                          | `boolean`                           | `false` | Visually hides the label.                                                            |
-| `indeterminate` **Needs hydration** A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                               | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                             | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                              | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| Prop       | Type                                | Default | Description                                       |
+| ---------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `children` | `ReactNode`                         | -       | The checkbox parts.                               |
+| `error`    | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
+| `size`     | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                          |
+| `spread`   | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
+| `stack`    | `boolean`                           | `false` | Stacks the label under the input.                 |
 
 #### CSS variables
 
@@ -575,7 +680,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
+Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.
 
 ### Field group API
 
@@ -771,7 +876,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/react`:
+Import the components from `opui-css/react`:
 
 ### See also
 
@@ -784,6 +889,7 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- Breaking: [`CheckboxInput`, `CheckboxLabel` and `CheckboxEndText`](#api) are parts. Input attributes go to `CheckboxInput`, and `visuallyHidden` on `CheckboxLabel` replaces `hideLabel`.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.

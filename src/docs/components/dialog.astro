@@ -7,6 +7,9 @@ import {
   Button as UIButton,
   Callout as UICallout,
   Dialog as UIDialog,
+  DialogActions as UIDialogActions,
+  DialogContent as UIDialogContent,
+  DialogHeader as UIDialogHeader,
   Table,
 } from "@opui/astro"
 
@@ -136,23 +139,26 @@ export const description =
 
     <Conditional>
       <p slot="astro">
-        The header slot names the dialog: it gets an <code>aria-labelledby</code
+        The <code>DialogHeader</code> names the dialog: it gets an <code
+          >aria-labelledby</code
         > that points at the header.
       </p>
       <p slot="html">
         Name the dialog by pointing <code>aria-labelledby</code> at its title.
       </p>
       <p slot="react">
-        The header prop names the dialog: it gets an <code>aria-labelledby</code
+        The <code>DialogHeader</code> names the dialog: it gets an <code
+          >aria-labelledby</code
         > that points at the header.
       </p>
       <p slot="svelte">
-        The header snippet names the dialog: it gets an <code
+        The <code>DialogHeader</code> names the dialog: it gets an <code
           >aria-labelledby</code
         > that points at the header.
       </p>
       <p slot="vue">
-        The header slot names the dialog: it gets an <code>aria-labelledby</code
+        The <code>DialogHeader</code> names the dialog: it gets an <code
+          >aria-labelledby</code
         > that points at the header.
       </p>
     </Conditional>
@@ -189,7 +195,7 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>content</code> slot scrolls, with a shadow
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
       <Fragment slot="html">
@@ -199,17 +205,17 @@ export const description =
       </Fragment>
       <Fragment slot="react">
         The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>content</code> prop scrolls, with a shadow
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
       <Fragment slot="svelte">
         The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>content</code> snippet scrolls, with a shadow
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
       <Fragment slot="vue">
         The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>content</code> slot scrolls, with a shadow
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
     </Conditional>
@@ -231,15 +237,19 @@ export const description =
         open
         style="inline-size: 22rem; margin: 0; position: static"
       >
-        <h2 class="ui-h4" slot="header">Newsletter</h2>
-        <p slot="content">
-          Get a short email when we ship something new. No more than once a
-          month.
-        </p>
-        <Fragment slot="actions">
+        <UIDialogHeader>
+          <h2 class="ui-h4">Newsletter</h2>
+        </UIDialogHeader>
+        <UIDialogContent>
+          <p>
+            Get a short email when we ship something new. No more than once a
+            month.
+          </p>
+        </UIDialogContent>
+        <UIDialogActions>
           <UIButton>Not now</UIButton>
           <UIButton variant="filled">Subscribe</UIButton>
-        </Fragment>
+        </UIDialogActions>
       </UIDialog>
     </Anatomy>
   </Fragment>

@@ -1,19 +1,30 @@
-import { TextField } from "opui-css/react"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldFooter,
+  TextFieldHeader,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/react"
 
 export default function Headers() {
   return (
     <>
-      <TextField
-        label="Username"
-        placeholder="Enter your name"
-        header="Full Name"
-      />
+      <TextField>
+        <TextFieldLabel>Username</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Enter your name" />
+          <TextFieldHeader>Full Name</TextFieldHeader>
+        </TextFieldControl>
+      </TextField>
 
-      <TextField
-        label="Tagline"
-        placeholder="A short description"
-        footer="0 / 80"
-      />
+      <TextField>
+        <TextFieldLabel>Tagline</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="A short description" />
+          <TextFieldFooter>0 / 80</TextFieldFooter>
+        </TextFieldControl>
+      </TextField>
     </>
   )
 }

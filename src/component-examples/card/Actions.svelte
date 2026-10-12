@@ -1,28 +1,28 @@
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import { Button, Card, CardActions, CardContent } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet content()}
+  <CardContent>
     Notice how the buttons are made to align with the text above.
-  {/snippet}
-  {#snippet actions()}
+  </CardContent>
+  <CardActions>
     <Button>Cancel</Button>
     <Button>Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Trying other button types too. Look at that!{/snippet}
-  {#snippet actions()}
+  <CardContent>Trying other button types too. Look at that!</CardContent>
+  <CardActions>
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Icon buttons work too!{/snippet}
-  {#snippet actions()}
+  <CardContent>Icon buttons work too!</CardContent>
+  <CardActions>
     <Button rounded size="small" aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -49,5 +49,5 @@
         ></path>
       </svg>
     </Button>
-  {/snippet}
+  </CardActions>
 </Card>

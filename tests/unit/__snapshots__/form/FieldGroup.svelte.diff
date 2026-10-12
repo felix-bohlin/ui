@@ -1,0 +1,34 @@
+===================================================================
+--- astro
++++ svelte
+@@ -27,25 +27,25 @@
+     <div class="ui-field-group">
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-1" name="projects" type="checkbox" value="the-smile">
++        <input name="projects" type="checkbox" value="the-smile">
+         <span class="ui-label">The Smile</span>
+         <span class="ui-end-text" id="id-1">Thom Yorke, Jonny Greenwood, Tom Skinner</span>
+       </label>
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-2" name="projects" type="checkbox" value="atoms-for-peace">
++        <input name="projects" type="checkbox" value="atoms-for-peace">
+         <span class="ui-label">Atoms for Peace</span>
+         <span class="ui-end-text" id="id-2">Thom Yorke, Flea, Nigel Godrich</span>
+       </label>
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-3" name="projects" type="checkbox" value="eob">
++        <input name="projects" type="checkbox" value="eob">
+         <span class="ui-label">EOB</span>
+         <span class="ui-end-text" id="id-3">Ed O'Brien solo</span>
+       </label>
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-4" name="projects" type="checkbox" value="jonny-scores">
++        <input name="projects" type="checkbox" value="jonny-scores">
+         <span class="ui-label">Film Scores</span>
+         <span class="ui-end-text" id="id-4">Film compositions by Jonny Greenwood</span>
+       </label>
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-5" name="projects" type="checkbox" value="selway-solo">
++        <input name="projects" type="checkbox" value="selway-solo">
+         <span class="ui-label">Philip Selway</span>
+         <span class="ui-end-text" id="id-5">Philip Selway solo albums</span>

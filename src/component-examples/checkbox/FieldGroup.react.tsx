@@ -1,5 +1,7 @@
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -12,9 +14,18 @@ export default function FieldGroupExample() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="checkbox-group">
-          <Checkbox defaultChecked>Checkbox 1</Checkbox>
-          <Checkbox>Checkbox 2</Checkbox>
-          <Checkbox>Checkbox 3</Checkbox>
+          <Checkbox>
+            <CheckboxInput defaultChecked />
+            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 2</CheckboxLabel>
+          </Checkbox>
+          <Checkbox>
+            <CheckboxInput />
+            <CheckboxLabel>Checkbox 3</CheckboxLabel>
+          </Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>

@@ -1,0 +1,10 @@
+===================================================================
+--- astro
++++ svelte
+@@ -92,5 +92,5 @@
+     <div class="ui-field-group">
+       <label class="ui-checkbox">
+-        <input aria-describedby="id-5" name="terms" required type="checkbox">
++        <input name="terms" required type="checkbox">
+         <span class="ui-label">I agree to the terms and conditions</span>
+         <span class="ui-end-text" id="id-5">Support this text</span>

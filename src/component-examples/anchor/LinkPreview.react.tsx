@@ -1,4 +1,4 @@
-import { Anchor, Card } from "opui-css/react"
+import { Anchor, Card, CardHeader } from "opui-css/react"
 
 export default function LinkPreview() {
   return (
@@ -12,14 +12,14 @@ export default function LinkPreview() {
           anchored={
             <Card variant="elevated" className="link-preview">
               <img src="https://picsum.photos/id/1018/800/450" alt="" />
-              <hgroup>
+              <CardHeader>
                 <p className="ui-caption">developer.mozilla.org</p>
                 <h3>CSS anchor positioning</h3>
                 <p>
                   Tether elements to other elements on the page, without
                   JavaScript.
                 </p>
-              </hgroup>
+              </CardHeader>
             </Card>
           }
         >

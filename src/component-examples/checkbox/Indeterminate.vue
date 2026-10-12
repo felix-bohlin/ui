@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/vue"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/vue"
 
 const items = ["Apples", "Bananas", "Cherries"]
 const checked = ref([true, false, false])
@@ -18,22 +25,20 @@ function toggleAll() {
 <template>
   <FieldSet class="indeterminate-demo">
     <FieldLegend>
-      <Checkbox
-        class="parent"
-        :model-value="allChecked"
-        :indeterminate="indeterminate"
-        @update:model-value="toggleAll"
-        >Select all</Checkbox
-      >
+      <Checkbox class="parent">
+        <CheckboxInput
+          :model-value="allChecked"
+          :indeterminate="indeterminate"
+          @update:model-value="toggleAll"
+        />
+        <CheckboxLabel>Select all</CheckboxLabel>
+      </Checkbox>
     </FieldLegend>
     <FieldGroup name="indeterminate-children">
-      <Checkbox
-        class="child"
-        v-for="(item, index) in items"
-        :key="item"
-        v-model="checked[index]"
-        >{{ item }}</Checkbox
-      >
+      <Checkbox class="child" v-for="(item, index) in items" :key="item">
+        <CheckboxInput v-model="checked[index]" />
+        <CheckboxLabel>{{ item }}</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </template>

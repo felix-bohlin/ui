@@ -1,4 +1,4 @@
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 
@@ -15,15 +15,12 @@ export default function GridLayout() {
         <Carousel label="Destinations" markers>
           {places.map((title) => (
             <li key={title}>
-              <Card
-                variant="tonal"
-                header={
-                  <>
-                    <p>Destination</p>
-                    <h3>{title}</h3>
-                  </>
-                }
-              />
+              <Card variant="tonal">
+                <CardHeader>
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </CardHeader>
+              </Card>
             </li>
           ))}
         </Carousel>

@@ -3,20 +3,16 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Dialog",
   notes: {
+    astro:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
-    react: "Attributes that aren't props go to the `<dialog>`, like `id`.",
-    svelte: "Attributes that aren't props go to the `<dialog>`, like `id`.",
-    vue: "Attributes that aren't props go to the `<dialog>`, like `id`.",
+    react:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
+    svelte:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
+    vue: "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
   },
   options: [
-    {
-      default: '"end"',
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: null, start: ".ui-align-start" },
-    },
     {
       attribute: "[closedby]",
       description:
@@ -30,19 +26,35 @@ export default {
   parts: [
     {
       code: "<hgroup>",
-      description: "The dialog header.",
+      component: {
+        astro: "DialogHeader",
+        react: "DialogHeader",
+        svelte: "DialogHeader",
+        vue: "DialogHeader",
+      },
+      description:
+        "The dialog header. Names the dialog through `aria-labelledby`.",
       selector: "hgroup",
-      slots: ["header"],
     },
     {
+      component: {
+        astro: "DialogContent",
+        react: "DialogContent",
+        svelte: "DialogContent",
+        vue: "DialogContent",
+      },
       description: "The dialog content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
+      component: {
+        astro: "DialogActions",
+        react: "DialogActions",
+        svelte: "DialogActions",
+        vue: "DialogActions",
+      },
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
@@ -51,7 +63,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the dialog.",
+      description: "The dialog parts, and any other content.",
       name: "default",
     },
   ],

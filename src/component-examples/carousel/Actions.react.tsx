@@ -1,4 +1,4 @@
-import { Button, Card, Carousel } from "opui-css/react"
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/react"
 
 const plans = [
   {
@@ -20,16 +20,15 @@ export default function Actions() {
     <Carousel buttons="outside" label="Plans" perView={2}>
       {plans.map(({ action, description, title }) => (
         <li key={title}>
-          <Card
-            variant="outlined"
-            header={
-              <>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-            actions={<Button variant="filled">{action}</Button>}
-          />
+          <Card variant="outlined">
+            <CardHeader>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+            <CardActions>
+              <Button variant="filled">{action}</Button>
+            </CardActions>
+          </Card>
         </li>
       ))}
     </Carousel>

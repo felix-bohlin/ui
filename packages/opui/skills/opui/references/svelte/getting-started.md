@@ -64,7 +64,7 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 <Button variant="filled">Click me</Button>
 ```
 
-Slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`.
+Slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextFieldInput`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`. `CheckboxInput` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`.
 
 [Concepts](https://open-props-ui.netlify.app/svelte/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/svelte/components.md). [Theming](https://open-props-ui.netlify.app/svelte/guide/theming.md) covers colors, density, motion and contrast.
 

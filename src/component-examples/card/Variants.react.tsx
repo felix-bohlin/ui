@@ -1,15 +1,23 @@
-import { Card } from "opui-css/react"
+import { Card, CardContent } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <Card variant="text" content="Text" />
+      <Card variant="text">
+        <CardContent>Text</CardContent>
+      </Card>
 
-      <Card variant="outlined" content="Outlined" />
+      <Card variant="outlined">
+        <CardContent>Outlined</CardContent>
+      </Card>
 
-      <Card variant="tonal" content="Tonal" />
+      <Card variant="tonal">
+        <CardContent>Tonal</CardContent>
+      </Card>
 
-      <Card variant="elevated" content="Elevated" />
+      <Card variant="elevated">
+        <CardContent>Elevated</CardContent>
+      </Card>
     </>
   )
 }

@@ -10,6 +10,7 @@ import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
 import {
   Callout as UICallout,
   Card as UICard,
+  CardHeader as UICardHeader,
   Carousel as UICarousel,
 } from "@opui/astro"
 
@@ -89,10 +90,10 @@ export const description =
           ["Kyoto", "Lima", "Lisbon"].map((title) => (
             <li>
               <UICard variant="tonal">
-                <Fragment slot="header">
+                <UICardHeader>
                   <p>Destination</p>
                   <h3>{title}</h3>
-                </Fragment>
+                </UICardHeader>
               </UICard>
             </li>
           ))

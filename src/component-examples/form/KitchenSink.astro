@@ -1,18 +1,26 @@
 ---
-import { Form } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldDescription } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { TextField } from "@opui/astro"
-import { Select } from "@opui/astro"
-import { Switch } from "@opui/astro"
-import { Radio } from "@opui/astro"
-import { Textarea } from "@opui/astro"
-import { Checkbox } from "@opui/astro"
-import { Range } from "@opui/astro"
-import { Button } from "@opui/astro"
-import { Divider } from "@opui/astro"
+import {
+  Button,
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+  Divider,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Textarea,
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "@opui/astro"
 ---
 
 <Form id="kitchen-sink-example">
@@ -22,13 +30,22 @@ import { Divider } from "@opui/astro"
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
-      <TextField
-        label="Email Address"
-        type="email"
-        placeholder="jane@example.com"
-        required
-      />
+      <TextField>
+        <TextFieldLabel>Full Name</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Jane Doe" required />
+        </TextFieldControl>
+      </TextField>
+      <TextField>
+        <TextFieldLabel>Email Address</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
+        </TextFieldControl>
+      </TextField>
       <Select
         label="Role"
         items={[
@@ -103,9 +120,10 @@ import { Divider } from "@opui/astro"
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup name="legal">
-      <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
+      <Checkbox>
+        <CheckboxInput name="terms" required />
+        <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
+        <CheckboxEndText>Support this text</CheckboxEndText>
       </Checkbox>
     </FieldGroup>
   </FieldSet>

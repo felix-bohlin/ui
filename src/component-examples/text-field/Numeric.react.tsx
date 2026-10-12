@@ -1,5 +1,17 @@
-import { TextField } from "opui-css/react"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/react"
 
 export default function Numeric() {
-  return <TextField label="Numeric" placeholder="Numeric" type="numeric" />
+  return (
+    <TextField>
+      <TextFieldLabel>Numeric</TextFieldLabel>
+      <TextFieldControl>
+        <TextFieldInput placeholder="Numeric" type="numeric" />
+      </TextFieldControl>
+    </TextField>
+  )
 }

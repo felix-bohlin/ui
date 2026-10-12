@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { Anchor, Button, Card } from "opui-css/svelte"
+  import { Anchor, Button, Card, CardContent } from "opui-css/svelte"
 </script>
 
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
   {#snippet anchored()}
     <Card variant="tonal" class="coach-mark">
-      {#snippet content()}
+      <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
-      {/snippet}
+      </CardContent>
     </Card>
   {/snippet}
 </Anchor>

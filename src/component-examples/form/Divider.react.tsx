@@ -6,6 +6,9 @@ import {
   FieldSet,
   Form,
   TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
 } from "opui-css/react"
 
 export default function DividerExample() {
@@ -14,7 +17,12 @@ export default function DividerExample() {
       <FieldSet>
         <FieldLegend>Post Content</FieldLegend>
         <FieldGroup>
-          <TextField label="Title" placeholder="My new post" />
+          <TextField>
+            <TextFieldLabel>Title</TextFieldLabel>
+            <TextFieldControl>
+              <TextFieldInput placeholder="My new post" />
+            </TextFieldControl>
+          </TextField>
         </FieldGroup>
       </FieldSet>
 

@@ -2,6 +2,9 @@
   import {
     Button,
     Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -20,8 +23,10 @@
 </Button>
 
 <Dialog id="closing-behaviors-dialog" {closedby}>
-  {#snippet header()}<h2 class="ui-h4">How to close</h2>{/snippet}
-  {#snippet content()}
+  <DialogHeader>
+    <h2 class="ui-h4">How to close</h2>
+  </DialogHeader>
+  <DialogContent>
     <FieldSet>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
@@ -30,10 +35,10 @@
         <Radio bind:group={closedby} value="none">none</Radio>
       </FieldGroup>
     </FieldSet>
-  {/snippet}
-  {#snippet actions()}
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="closing-behaviors-dialog" command="close">
       Close manually
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>

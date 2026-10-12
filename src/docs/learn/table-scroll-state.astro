@@ -1,6 +1,12 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import { Button, Dialog } from "@opui/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "@opui/astro"
 import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
@@ -157,18 +163,22 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
         id="scroll-state-dialog"
         style="max-block-size: 24rem"
       >
-        <h2 class="ui-h4" slot="header">Terms</h2>
-        <div class="ui-rich-text" slot="content">
-          {
-            Array.from({ length: 8 }, (_, index) => (
-              <p>
-                Section {index + 1}. The shadow at the top shows once you scroll
-                down, and the one at the bottom goes away at the end.
-              </p>
-            ))
-          }
-        </div>
-        <Fragment slot="actions">
+        <DialogHeader>
+          <h2 class="ui-h4">Terms</h2>
+        </DialogHeader>
+        <DialogContent>
+          <div class="ui-rich-text">
+            {
+              Array.from({ length: 8 }, (_, index) => (
+                <p>
+                  Section {index + 1}. The shadow at the top shows once you
+                  scroll down, and the one at the bottom goes away at the end.
+                </p>
+              ))
+            }
+          </div>
+        </DialogContent>
+        <DialogActions>
           <Button
             commandfor="scroll-state-dialog"
             command="close"
@@ -177,7 +187,7 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
           >
             Close
           </Button>
-        </Fragment>
+        </DialogActions>
       </Dialog>
     </Example>
   </section>

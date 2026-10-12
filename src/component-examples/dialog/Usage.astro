@@ -1,6 +1,11 @@
 ---
-import { Dialog } from "@opui/astro"
-import { Button } from "@opui/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "@opui/astro"
 ---
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
@@ -8,11 +13,15 @@ import { Button } from "@opui/astro"
 </Button>
 
 <Dialog id="example-dialog">
-  <h2 class="ui-h4" slot="header">Newsletter</h2>
-  <p slot="content">
-    Get a short email when we ship something new. No more than once a month.
-  </p>
-  <Fragment slot="actions">
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog" command="close" type="button">
       Not now
     </Button>
@@ -24,5 +33,5 @@ import { Button } from "@opui/astro"
     >
       Subscribe
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>

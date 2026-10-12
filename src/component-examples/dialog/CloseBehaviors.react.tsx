@@ -4,6 +4,9 @@ import { useState } from "react"
 import {
   Button,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -24,11 +27,11 @@ export default function CloseBehaviors() {
       >
         Open dialog
       </Button>
-      <Dialog
-        id="closing-behaviors-dialog"
-        closedby={closedby}
-        header={<h2 className="ui-h4">How to close</h2>}
-        content={
+      <Dialog id="closing-behaviors-dialog" closedby={closedby}>
+        <DialogHeader>
+          <h2 className="ui-h4">How to close</h2>
+        </DialogHeader>
+        <DialogContent>
           <FieldSet>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
             <FieldGroup name="closedby-demo">
@@ -44,13 +47,13 @@ export default function CloseBehaviors() {
               ))}
             </FieldGroup>
           </FieldSet>
-        }
-        actions={
+        </DialogContent>
+        <DialogActions>
           <Button commandfor="closing-behaviors-dialog" command="close">
             Close manually
           </Button>
-        }
-      />
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

@@ -85,13 +85,18 @@ Lays out related fields and passes a shared `name` to the inputs inside. Wrap it
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { Form } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
+import {
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -110,28 +115,32 @@ import { Radio } from "opui-css/astro"
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
-      <Checkbox value="the-smile">
-        The Smile
-        <Fragment slot="end-text"
-          >Thom Yorke, Jonny Greenwood, Tom Skinner</Fragment
+      <Checkbox>
+        <CheckboxInput value="the-smile" />
+        <CheckboxLabel>The Smile</CheckboxLabel>
+        <CheckboxEndText
+          >Thom Yorke, Jonny Greenwood, Tom Skinner</CheckboxEndText
         >
       </Checkbox>
-      <Checkbox value="atoms-for-peace">
-        Atoms for Peace
-        <Fragment slot="end-text">Thom Yorke, Flea, Nigel Godrich</Fragment>
+      <Checkbox>
+        <CheckboxInput value="atoms-for-peace" />
+        <CheckboxLabel>Atoms for Peace</CheckboxLabel>
+        <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="eob">
-        EOB
-        <Fragment slot="end-text">Ed O'Brien solo</Fragment>
+      <Checkbox>
+        <CheckboxInput value="eob" />
+        <CheckboxLabel>EOB</CheckboxLabel>
+        <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="jonny-scores">
-        Film Scores
-        <Fragment slot="end-text">Film compositions by Jonny Greenwood</Fragment
-        >
+      <Checkbox>
+        <CheckboxInput value="jonny-scores" />
+        <CheckboxLabel>Film Scores</CheckboxLabel>
+        <CheckboxEndText>Film compositions by Jonny Greenwood</CheckboxEndText>
       </Checkbox>
-      <Checkbox value="selway-solo">
-        Philip Selway
-        <Fragment slot="end-text">Philip Selway solo albums</Fragment>
+      <Checkbox>
+        <CheckboxInput value="selway-solo" />
+        <CheckboxLabel>Philip Selway</CheckboxLabel>
+        <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
       </Checkbox>
     </FieldGroup>
   </FieldSet>
@@ -144,20 +153,33 @@ Set `direction="row"` to lay out fields horizontally.
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
   <FieldSet>
     <FieldLegend>Options</FieldLegend>
     <FieldGroup direction="row">
-      <Checkbox>Option 1</Checkbox>
-      <Checkbox>Option 2</Checkbox>
-      <Checkbox>Option 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Option 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>
@@ -171,19 +193,29 @@ Set `disabled` on `FieldSet` to disable every field inside.
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/astro"
 ---
 
 <FieldSet disabled>
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
   <FieldGroup name="notifications">
-    <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
-    <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
+    <Checkbox>
+      <CheckboxInput value="horse-tinder" checked />
+      <CheckboxLabel>Horse Tinder</CheckboxLabel>
+    </Checkbox>
+    <Checkbox>
+      <CheckboxInput value="onlyhorsefans" checked />
+      <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
+    </Checkbox>
   </FieldGroup>
 </FieldSet>
 ```
@@ -194,19 +226,29 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/astro"
 ---
 
 <FieldSet>
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
-    <Checkbox error value="kibble">Kibble</Checkbox>
-    <Checkbox error value="wet-food">Wet food</Checkbox>
+    <Checkbox error>
+      <CheckboxInput value="kibble" />
+      <CheckboxLabel>Kibble</CheckboxLabel>
+    </Checkbox>
+    <Checkbox error>
+      <CheckboxInput value="wet-food" />
+      <CheckboxLabel>Wet food</CheckboxLabel>
+    </Checkbox>
   </FieldGroup>
   <span class="ui-end-text">Your pet is hungry.</span>
 </FieldSet>
@@ -218,19 +260,29 @@ The legend gets an asterisk when a field inside is required.
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Textarea } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Textarea,
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/astro"
 ---
 
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
   <FieldGroup name="bio">
-    <TextField label="Name" name="name" />
+    <TextField>
+      <TextFieldLabel>Name</TextFieldLabel>
+      <TextFieldControl>
+        <TextFieldInput name="name" />
+      </TextFieldControl>
+    </TextField>
     <Textarea required label="Life story" />
   </FieldGroup>
 </FieldSet>
@@ -242,20 +294,30 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
-import { Button } from "opui-css/astro"
-import { Divider } from "opui-css/astro"
+import {
+  Button,
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/astro"
 ---
 
 <Form>
   <FieldSet>
     <FieldLegend>Post Content</FieldLegend>
     <FieldGroup>
-      <TextField label="Title" placeholder="My new post" />
+      <TextField>
+        <TextFieldLabel>Title</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="My new post" />
+        </TextFieldControl>
+      </TextField>
     </FieldGroup>
   </FieldSet>
 
@@ -291,20 +353,28 @@ Everything at once.
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
-import { Select } from "opui-css/astro"
-import { Switch } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
-import { Textarea } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
-import { Range } from "opui-css/astro"
-import { Button } from "opui-css/astro"
-import { Divider } from "opui-css/astro"
+import {
+  Button,
+  Checkbox,
+  CheckboxEndText,
+  CheckboxInput,
+  CheckboxLabel,
+  Divider,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Textarea,
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/astro"
 ---
 
 <Form id="kitchen-sink-example">
@@ -314,13 +384,22 @@ import { Divider } from "opui-css/astro"
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
-      <TextField
-        label="Email Address"
-        type="email"
-        placeholder="jane@example.com"
-        required
-      />
+      <TextField>
+        <TextFieldLabel>Full Name</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Jane Doe" required />
+        </TextFieldControl>
+      </TextField>
+      <TextField>
+        <TextFieldLabel>Email Address</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
+        </TextFieldControl>
+      </TextField>
       <Select
         label="Role"
         items={[
@@ -395,9 +474,10 @@ import { Divider } from "opui-css/astro"
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup name="legal">
-      <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
+      <Checkbox>
+        <CheckboxInput name="terms" required />
+        <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
+        <CheckboxEndText>Support this text</CheckboxEndText>
       </Checkbox>
     </FieldGroup>
   </FieldSet>

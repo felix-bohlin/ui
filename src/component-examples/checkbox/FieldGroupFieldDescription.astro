@@ -1,10 +1,14 @@
 ---
-import { Checkbox } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldDescription } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { Form } from "@opui/astro"
+import {
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "@opui/astro"
 ---
 
 <Form>
@@ -12,18 +16,36 @@ import { Form } from "@opui/astro"
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup direction="row" name="checkbox-group-field-description-1">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
   </FieldSet>
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-field-description-2">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox>
+        <CheckboxInput checked />
+        <CheckboxLabel>Checkbox 1</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 2</CheckboxLabel>
+      </Checkbox>
+      <Checkbox>
+        <CheckboxInput />
+        <CheckboxLabel>Checkbox 3</CheckboxLabel>
+      </Checkbox>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
   </FieldSet>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Anchor, Button, Card } from "opui-css/vue"
+import { Anchor, Button, Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
@@ -7,9 +7,9 @@ import { Anchor, Button, Card } from "opui-css/vue"
     <Button variant="outlined">Export</Button>
     <template #anchored>
       <Card variant="tonal" class="coach-mark">
-        <template #content>
+        <CardContent>
           <strong>New</strong> Export to PDF and CSV from the same menu.
-        </template>
+        </CardContent>
       </Card>
     </template>
   </Anchor>

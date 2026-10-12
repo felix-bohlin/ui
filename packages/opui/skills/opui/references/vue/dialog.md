@@ -8,15 +8,15 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `v-slot:header`
+- `<DialogHeader>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
-- `v-slot:content`
+- `<DialogContent>`
 
   The dialog content.
 
-- `v-slot:actions`
+- `<DialogActions>`
 
   A group of actions, such as buttons.
 
@@ -32,11 +32,17 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-The header slot names the dialog: it gets an `aria-labelledby` that points at the header.
+The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header.
 
 ```vue
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -45,13 +51,15 @@ import { Button, Dialog } from "opui-css/vue"
   </Button>
 
   <Dialog id="example-dialog">
-    <template #header><h2 class="ui-h4">Newsletter</h2></template>
-    <template #content
-      ><p>
+    <DialogHeader>
+      <h2 class="ui-h4">Newsletter</h2>
+    </DialogHeader>
+    <DialogContent>
+      <p>
         Get a short email when we ship something new. No more than once a month.
-      </p></template
-    >
-    <template #actions>
+      </p>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="example-dialog" command="close" type="button">
         Not now
       </Button>
@@ -63,7 +71,7 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Subscribe
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>
 ```
@@ -74,7 +82,13 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 
 ```vue
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -92,13 +106,15 @@ import { Button, Dialog } from "opui-css/vue"
     role="alertdialog"
     aria-describedby="alert-dialog-description"
   >
-    <template #header><h2 class="ui-h4">Delete project?</h2></template>
-    <template #content
-      ><p id="alert-dialog-description">
+    <DialogHeader>
+      <h2 class="ui-h4">Delete project?</h2>
+    </DialogHeader>
+    <DialogContent>
+      <p id="alert-dialog-description">
         This deletes the project and all its files. You can't undo this.
-      </p></template
-    >
-    <template #actions>
+      </p>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="alert-dialog-example" command="close" type="button">
         Cancel
       </Button>
@@ -111,7 +127,7 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Delete
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>
 ```
@@ -122,11 +138,17 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
 
 ## Long content
 
-The dialog grows up to 85% of the viewport height. The header and actions stay put while the `content` slot scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
+The dialog grows up to 85% of the viewport height. The header and actions stay put while the `DialogContent` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
 
 ```vue
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -139,8 +161,10 @@ import { Button, Dialog } from "opui-css/vue"
   </Button>
 
   <Dialog id="example-dialog-long">
-    <template #header><h2 class="ui-h4">Terms of service</h2></template>
-    <template #content>
+    <DialogHeader>
+      <h2 class="ui-h4">Terms of service</h2>
+    </DialogHeader>
+    <DialogContent>
       <p>
         These terms cover your use of the service and any content you upload. By
         creating an account you agree to them, and to any updates we publish on
@@ -205,8 +229,8 @@ import { Button, Dialog } from "opui-css/vue"
         Questions about these terms go to our support team. We answer within two
         working days.
       </p>
-    </template>
-    <template #actions>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="example-dialog-long" command="close" type="button">
         Decline
       </Button>
@@ -218,7 +242,7 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Accept
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>
 ```
@@ -240,6 +264,9 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 import {
   Button,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -274,8 +301,10 @@ onMounted(() => {
   </Button>
 
   <Dialog id="closing-behaviors-dialog" closedby="any">
-    <template #header><h2 class="ui-h4">How to close</h2></template>
-    <template #content>
+    <DialogHeader>
+      <h2 class="ui-h4">How to close</h2>
+    </DialogHeader>
+    <DialogContent>
       <FieldSet>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
         <FieldGroup name="closedby-demo">
@@ -284,12 +313,12 @@ onMounted(() => {
           <Radio value="none">none</Radio>
         </FieldGroup>
       </FieldSet>
-    </template>
-    <template #actions>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="closing-behaviors-dialog" command="close">
         Close manually
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>
 ```
@@ -320,19 +349,15 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Prop           | Type                                  | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `actionsAlign` | `"start"` , `"end"`                   | `"end"` | Alignment for the actions.                                               |
-| `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Prop       | Type                                  | Default | Description                                                              |
+| ---------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `closedby` | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Slots
 
-| Slot      | Description                                |
-| --------- | ------------------------------------------ |
-| `actions` | A group of actions, such as buttons.       |
-| `content` | The dialog content.                        |
-| `default` | Raw content placed directly in the dialog. |
-| `header`  | The dialog header.                         |
+| Slot      | Description                              |
+| --------- | ---------------------------------------- |
+| `default` | The dialog parts, and any other content. |
 
 #### CSS variables
 
@@ -346,7 +371,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<dialog>`, like `id`.
+Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.
 
 ## Under the hood
 
@@ -554,7 +579,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/vue`:
+Import the components from `opui-css/vue`:
 
 ### Dependencies
 
@@ -567,6 +592,7 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`DialogHeader`, `DialogContent` and `DialogActions`](#api) replace the slots, and `align` on `DialogActions` replaces `actionsAlign`.
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.

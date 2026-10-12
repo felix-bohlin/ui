@@ -2,63 +2,15 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
-  hydration: {
-    react: [
-      {
-        description:
-          "A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
-        prop: "indeterminate",
-      },
-    ],
-    svelte: [
-      {
-        description:
-          "A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
-        prop: "indeterminate",
-      },
-    ],
-    vue: [
-      {
-        description:
-          "A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
-        fallback:
-          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
-        prop: "indeterminate",
-      },
-    ],
-  },
-  model: {
-    description: "The checked state, or the checked values of a group.",
-    frameworks: {
-      svelte: [
-        {
-          description: "The checked state.",
-          prop: "checked",
-          type: "boolean",
-        },
-        {
-          description: "The checked values of a group.",
-          prop: "group",
-          type: "(string | number)[]",
-        },
-      ],
-    },
-    prop: "checked",
-    type: "boolean | (string | number)[]",
-  },
   notes: {
     astro:
-      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.",
     html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
+      "Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.",
+    vue: "Attributes go to the root `<label>`. Input attributes go on `CheckboxInput`.",
   },
   options: [
     {
@@ -68,20 +20,6 @@ export default {
       group: "Validation",
       part: "input",
       prop: "error",
-    },
-    {
-      default: "false",
-      description: "Visually hides the label.",
-      prop: "hideLabel",
-    },
-    {
-      attribute: "[data-indeterminate]",
-      default: "false",
-      description:
-        "Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
-      group: "State",
-      part: "input",
-      prop: "indeterminate",
     },
     {
       description: "The size of the element.",
@@ -111,24 +49,46 @@ export default {
   parts: [
     {
       code: "<input>",
+      component: {
+        astro: "CheckboxInput",
+        react: "CheckboxInput",
+        svelte: "CheckboxInput",
+        vue: "CheckboxInput",
+      },
       description: "The checkbox input.",
-      model: true,
       selector: "input",
     },
     {
+      component: {
+        astro: "CheckboxLabel",
+        react: "CheckboxLabel",
+        svelte: "CheckboxLabel",
+        vue: "CheckboxLabel",
+      },
       description: "The label.",
       selector: ".ui-label",
-      slots: ["default"],
     },
     {
-      description: "Supporting text displayed below the label.",
+      component: {
+        astro: "CheckboxEndText",
+        react: "CheckboxEndText",
+        svelte: "CheckboxEndText",
+        vue: "CheckboxEndText",
+      },
+      description:
+        "Supporting text displayed below the label. Linked to the input through `aria-describedby`.",
       selector: ".ui-end-text",
-      slots: ["end-text"],
     },
   ],
   root: {
     description: "Container element.",
     selector: "label.ui-checkbox",
   },
+  slots: [
+    {
+      description: "The checkbox parts.",
+      name: "default",
+    },
+  ],
   source: "Checkbox",
 } satisfies ComponentApi

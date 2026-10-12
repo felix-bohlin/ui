@@ -1,5 +1,7 @@
 import {
   Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -12,11 +14,13 @@ export default function FieldsetDisabled() {
       <FieldLegend>Pet dating</FieldLegend>
       <FieldDescription>You can't change these settings</FieldDescription>
       <FieldGroup name="notifications">
-        <Checkbox value="horse-tinder" defaultChecked>
-          Horse Tinder
+        <Checkbox>
+          <CheckboxInput value="horse-tinder" defaultChecked />
+          <CheckboxLabel>Horse Tinder</CheckboxLabel>
         </Checkbox>
-        <Checkbox value="onlyhorsefans" defaultChecked>
-          OnlyHorseFans
+        <Checkbox>
+          <CheckboxInput value="onlyhorsefans" defaultChecked />
+          <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
         </Checkbox>
       </FieldGroup>
     </FieldSet>

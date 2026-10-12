@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+  TextFieldStartText,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <TextField description="As it appears on your ID" label="Name" />
+  <TextField>
+    <TextFieldLabel>Name</TextFieldLabel>
+    <TextFieldStartText>As it appears on your ID</TextFieldStartText>
+    <TextFieldControl>
+      <TextFieldInput />
+    </TextFieldControl>
+  </TextField>
 </template>

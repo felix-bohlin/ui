@@ -1,10 +1,25 @@
-import { TextField } from "opui-css/react"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <TextField label="Outlined" placeholder="Placeholder" />
-      <TextField label="Filled" placeholder="Placeholder" variant="filled" />
+      <TextField>
+        <TextFieldLabel>Outlined</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Placeholder" />
+        </TextFieldControl>
+      </TextField>
+      <TextField variant="filled">
+        <TextFieldLabel>Filled</TextFieldLabel>
+        <TextFieldControl>
+          <TextFieldInput placeholder="Placeholder" />
+        </TextFieldControl>
+      </TextField>
     </>
   )
 }

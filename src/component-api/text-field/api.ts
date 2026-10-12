@@ -2,20 +2,15 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TextField",
-  model: {
-    description: "The input value.",
-    prop: "value",
-    type: "string | number",
-  },
   notes: {
     astro:
-      "Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.",
+      "Attributes go to the root `<label>`. Input attributes go on `TextFieldInput`.",
     html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
+      "Attributes go to the root `<label>`. Input attributes go on `TextFieldInput`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
+      "Attributes go to the root `<label>`. Input attributes go on `TextFieldInput`.",
+    vue: "Attributes go to the root `<label>`. Input attributes go on `TextFieldInput`.",
   },
   options: [
     {
@@ -32,12 +27,6 @@ export default {
       group: "Validation",
       part: "input",
       prop: "error",
-    },
-    {
-      description: "The id of the `<input>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
-      prop: "id",
-      type: "string",
     },
     {
       description: "The size of the element.",
@@ -58,14 +47,6 @@ export default {
       prop: "spread",
     },
     {
-      default: '"text"',
-      description:
-        'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "react", "svelte", "vue"],
-      prop: "type",
-      type: '"numeric" | string',
-    },
-    {
       default: '"outlined"',
       description: "The variant to use.",
       group: "Variants",
@@ -75,57 +56,99 @@ export default {
   ],
   parts: [
     {
+      component: {
+        astro: "TextFieldLabel",
+        react: "TextFieldLabel",
+        svelte: "TextFieldLabel",
+        vue: "TextFieldLabel",
+      },
       description: "The label for the field.",
-      props: ["label"],
       selector: ".ui-label",
-      slots: ["label"],
     },
     {
+      component: {
+        astro: "TextFieldStartText",
+        react: "TextFieldStartText",
+        svelte: "TextFieldStartText",
+        vue: "TextFieldStartText",
+      },
       description: "Description text displayed above the field.",
-      legacy: { props: ["startText"] },
-      props: ["description"],
       selector: ".ui-start-text",
-      slots: ["description"],
     },
     {
-      description: "The boxed input area.",
+      component: {
+        astro: "TextFieldControl",
+        react: "TextFieldControl",
+        svelte: "TextFieldControl",
+        vue: "TextFieldControl",
+      },
+      description: "The boxed input area. Holds the input and the affixes.",
       selector: ".ui-field",
     },
     {
+      component: {
+        astro: "TextFieldHeader",
+        react: "TextFieldHeader",
+        svelte: "TextFieldHeader",
+        vue: "TextFieldHeader",
+      },
       description:
         "Content above the input, inside the border, with a divider.",
       selector: ".ui-header",
-      slots: ["header"],
     },
     {
+      component: {
+        astro: "TextFieldPrefix",
+        react: "TextFieldPrefix",
+        svelte: "TextFieldPrefix",
+        vue: "TextFieldPrefix",
+      },
       description:
         "Content at the inline-start of the field, inside the border.",
       selector: ".ui-prefix",
-      slots: ["prefix"],
     },
     {
       code: "<input>",
+      component: {
+        astro: "TextFieldInput",
+        react: "TextFieldInput",
+        svelte: "TextFieldInput",
+        vue: "TextFieldInput",
+      },
       description: "The input element.",
-      model: true,
       selector: "input",
     },
     {
+      component: {
+        astro: "TextFieldSuffix",
+        react: "TextFieldSuffix",
+        svelte: "TextFieldSuffix",
+        vue: "TextFieldSuffix",
+      },
       description: "Content at the inline-end of the field, inside the border.",
       selector: ".ui-suffix",
-      slots: ["suffix"],
     },
     {
+      component: {
+        astro: "TextFieldFooter",
+        react: "TextFieldFooter",
+        svelte: "TextFieldFooter",
+        vue: "TextFieldFooter",
+      },
       description:
         "Content below the input, inside the border, with a divider.",
       selector: ".ui-footer",
-      slots: ["footer"],
     },
     {
-      description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
-      props: ["endText"],
+      component: {
+        astro: "TextFieldEndText",
+        react: "TextFieldEndText",
+        svelte: "TextFieldEndText",
+        vue: "TextFieldEndText",
+      },
+      description:
+        "Supporting text displayed below the field. Linked to the input through `aria-describedby`.",
       selector: ".ui-end-text",
-      slots: ["end-text"],
     },
   ],
   root: {
@@ -134,7 +157,7 @@ export default {
   },
   slots: [
     {
-      description: "Extra content inside the root, such as a `<datalist>`.",
+      description: "The field parts, and extra content such as a `<datalist>`.",
       name: "default",
     },
   ],

@@ -1,22 +1,26 @@
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
-  {/snippet}
-  {#snippet content()}
-    Plans for any team. Click anywhere on the card.
-  {/snippet}
+  </CardHeader>
+  <CardContent>Plans for any team. Click anywhere on the card.</CardContent>
 </Card>
 
 <Card variant="outlined">
-  {#snippet header()}
+  <CardHeader>
     <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
-  {/snippet}
-  {#snippet content()}Every release in one place.{/snippet}
-  {#snippet actions()}
+  </CardHeader>
+  <CardContent>Every release in one place.</CardContent>
+  <CardActions>
     <Button>Subscribe</Button>
-  {/snippet}
+  </CardActions>
 </Card>

@@ -42,7 +42,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -57,11 +57,11 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -74,7 +74,7 @@ Set `perView` to show more than one item at a time.
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -89,11 +89,11 @@ Set `perView` to show more than one item at a time.
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -108,7 +108,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -127,11 +127,11 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -144,7 +144,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -159,11 +159,11 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -176,7 +176,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -196,11 +196,11 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -335,7 +335,13 @@ Use `buttons="outside"` to keep the buttons off the content.
 
 ```svelte
 <script lang="ts">
-  import { Button, Card, Carousel } from "opui-css/svelte"
+  import {
+    Button,
+    Card,
+    CardActions,
+    CardHeader,
+    Carousel,
+  } from "opui-css/svelte"
 
   const plans = [
     {
@@ -357,13 +363,13 @@ Use `buttons="outside"` to keep the buttons off the content.
   {#each plans as { action, description, title } (title)}
     <li>
       <Card variant="outlined">
-        {#snippet header()}
+        <CardHeader>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
-        {#snippet actions()}
+        </CardHeader>
+        <CardActions>
           <Button variant="filled">{action}</Button>
-        {/snippet}
+        </CardActions>
       </Card>
     </li>
   {/each}
@@ -376,7 +382,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -390,11 +396,11 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -407,7 +413,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = [
     { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -427,11 +433,11 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
-        {#snippet header()}
+        <CardHeader>
           <p>Destination</p>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
+        </CardHeader>
       </Card>
     </li>
   {/each}
@@ -458,7 +464,7 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
 
 ```svelte
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = ["Kyoto", "Lima", "Lisbon"]
 </script>
@@ -471,10 +477,10 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
       {#each places as title (title)}
         <li>
           <Card variant="tonal">
-            {#snippet header()}
+            <CardHeader>
               <p>Destination</p>
               <h3>{title}</h3>
-            {/snippet}
+            </CardHeader>
           </Card>
         </li>
       {/each}

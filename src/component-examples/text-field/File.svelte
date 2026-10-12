@@ -1,6 +1,21 @@
 <script lang="ts">
-  import { TextField } from "opui-css/svelte"
+  import {
+    TextField,
+    TextFieldControl,
+    TextFieldInput,
+    TextFieldLabel,
+  } from "opui-css/svelte"
 </script>
 
-<TextField type="file" placeholder="File" label="Label" />
-<TextField type="file" placeholder="File" label="Label" variant="filled" />
+<TextField>
+  <TextFieldLabel>Label</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput type="file" placeholder="File" />
+  </TextFieldControl>
+</TextField>
+<TextField variant="filled">
+  <TextFieldLabel>Label</TextFieldLabel>
+  <TextFieldControl>
+    <TextFieldInput type="file" placeholder="File" />
+  </TextFieldControl>
+</TextField>

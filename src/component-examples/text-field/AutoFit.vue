@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { TextField } from "opui-css/vue"
+import {
+  TextField,
+  TextFieldControl,
+  TextFieldInput,
+  TextFieldLabel,
+} from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Label" placeholder="Auto-fit" autoFit />
+  <TextField autoFit>
+    <TextFieldLabel>Label</TextFieldLabel>
+    <TextFieldControl>
+      <TextFieldInput placeholder="Auto-fit" />
+    </TextFieldControl>
+  </TextField>
 </template>

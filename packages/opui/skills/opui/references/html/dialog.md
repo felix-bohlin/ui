@@ -10,7 +10,7 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
 - `<hgroup>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
 - `.ui-content`
 
@@ -348,19 +348,18 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Type           | Modifiers                             | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Alignment      | default, `.ui-actions.ui-align-start` | default | Alignment for the actions.                                               |
-| Close behavior | `[closedby]`                          | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Type           | Modifiers    | Default | Description                                                              |
+| -------------- | ------------ | ------- | ------------------------------------------------------------------------ |
+| Close behavior | `[closedby]` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Parts
 
-| Part               | Description                          |
-| ------------------ | ------------------------------------ |
-| `dialog.ui-dialog` | Container element.                   |
-| `<hgroup>`         | The dialog header.                   |
-| `.ui-content`      | The dialog content.                  |
-| `.ui-actions`      | A group of actions, such as buttons. |
+| Part               | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `dialog.ui-dialog` | Container element.                                             |
+| `<hgroup>`         | The dialog header. Names the dialog through `aria-labelledby`. |
+| `.ui-content`      | The dialog content.                                            |
+| `.ui-actions`      | A group of actions, such as buttons.                           |
 
 #### CSS variables
 

@@ -24,15 +24,15 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
 
 ```astro
 ---
-import { Anchor, Button, Card } from "opui-css/astro"
+import { Anchor, Button, Card, CardContent } from "opui-css/astro"
 ---
 
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
   <Card slot="anchored" variant="tonal" class="coach-mark">
-    <Fragment slot="content">
+    <CardContent>
       <strong>New</strong> Export to PDF and CSV from the same menu.
-    </Fragment>
+    </CardContent>
   </Card>
 </Anchor>
 
@@ -55,7 +55,14 @@ Put a [Card](https://open-props-ui.netlify.app/astro/components/card.md) in the 
 
 ```astro
 ---
-import { Anchor, Avatar, Button, Card } from "opui-css/astro"
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/astro"
 ---
 
 <div>
@@ -71,7 +78,7 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
       interestfor="anchor-repo-card">felix-bohlin/ui</a
     >
     <Card slot="anchored" variant="elevated" class="repo-card">
-      <Fragment slot="content">
+      <CardContent>
         <div class="repo-card-identity">
           <Avatar
             src="https://github.com/felix-bohlin.png"
@@ -88,8 +95,10 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
           change the way we create components.
         </p>
         <p class="ui-caption">CSS · MIT license</p>
-      </Fragment>
-      <Button slot="actions" variant="outlined" size="small">Star</Button>
+      </CardContent>
+      <CardActions>
+        <Button variant="outlined" size="small">Star</Button>
+      </CardActions>
     </Card>
   </Anchor>
   on GitHub.
@@ -125,7 +134,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ```astro
 ---
-import { Anchor, Card } from "opui-css/astro"
+import { Anchor, Card, CardHeader } from "opui-css/astro"
 ---
 
 <div>
@@ -142,13 +151,13 @@ import { Anchor, Card } from "opui-css/astro"
     >
     <Card slot="anchored" variant="elevated" class="link-preview">
       <img src="https://picsum.photos/id/1018/800/450" alt="" />
-      <hgroup>
+      <CardHeader>
         <p class="ui-caption">developer.mozilla.org</p>
         <h3>CSS anchor positioning</h3>
         <p>
           Tether elements to other elements on the page, without JavaScript.
         </p>
-      </hgroup>
+      </CardHeader>
     </Card>
   </Anchor>
   on MDN.

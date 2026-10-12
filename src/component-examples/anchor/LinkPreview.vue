@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Anchor, Card } from "opui-css/vue"
+import { Anchor, Card, CardHeader } from "opui-css/vue"
 </script>
 
 <template>
@@ -19,13 +19,13 @@ import { Anchor, Card } from "opui-css/vue"
       <template #anchored>
         <Card variant="elevated" class="link-preview">
           <img src="https://picsum.photos/id/1018/800/450" alt="" />
-          <hgroup>
+          <CardHeader>
             <p class="ui-caption">developer.mozilla.org</p>
             <h3>CSS anchor positioning</h3>
             <p>
               Tether elements to other elements on the page, without JavaScript.
             </p>
-          </hgroup>
+          </CardHeader>
         </Card>
       </template>
     </Anchor>

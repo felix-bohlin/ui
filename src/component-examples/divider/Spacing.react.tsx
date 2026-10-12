@@ -1,17 +1,15 @@
-import { Card, Divider } from "opui-css/react"
+import { Card, CardContent, Divider } from "opui-css/react"
 
 export default function Spacing() {
   return (
     <>
       <Card variant="outlined">
-        <div className="ui-content">
-          Inside a card, the gap spaces the divider.
-        </div>
+        <CardContent>Inside a card, the gap spaces the divider.</CardContent>
         <Divider />
-        <div className="ui-content">
+        <CardContent>
           Nested deeper, it uses the card's tighter space. <Divider /> So
           everything stays close together.
-        </div>
+        </CardContent>
       </Card>
 
       <div style={{ "--divider-space": "var(--size-1)" }}>

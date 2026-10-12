@@ -1,5 +1,5 @@
 ---
-import { Button, Card, Carousel } from "@opui/astro"
+import { Button, Card, CardActions, CardHeader, Carousel } from "@opui/astro"
 
 const plans = [
   {
@@ -22,13 +22,13 @@ const plans = [
     plans.map(({ action, description, title }) => (
       <li>
         <Card variant="outlined">
-          <Fragment slot="header">
+          <CardHeader>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
-          <Fragment slot="actions">
+          </CardHeader>
+          <CardActions>
             <Button variant="filled">{action}</Button>
-          </Fragment>
+          </CardActions>
         </Card>
       </li>
     ))

@@ -1,4 +1,10 @@
-import { Button, Dialog } from "opui-css/react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
 
 export default function AlertDialog() {
   return (
@@ -15,33 +21,34 @@ export default function AlertDialog() {
         id="alert-dialog-example"
         role="alertdialog"
         aria-describedby="alert-dialog-description"
-        header={<h2 className="ui-h4">Delete project?</h2>}
-        content={
+      >
+        <DialogHeader>
+          <h2 className="ui-h4">Delete project?</h2>
+        </DialogHeader>
+        <DialogContent>
           <p id="alert-dialog-description">
             This deletes the project and all its files. You can't undo this.
           </p>
-        }
-        actions={
-          <>
-            <Button
-              commandfor="alert-dialog-example"
-              command="close"
-              type="button"
-            >
-              Cancel
-            </Button>
-            <Button
-              color="critical"
-              commandfor="alert-dialog-example"
-              command="close"
-              type="button"
-              variant="filled"
-            >
-              Delete
-            </Button>
-          </>
-        }
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            commandfor="alert-dialog-example"
+            command="close"
+            type="button"
+          >
+            Cancel
+          </Button>
+          <Button
+            color="critical"
+            commandfor="alert-dialog-example"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

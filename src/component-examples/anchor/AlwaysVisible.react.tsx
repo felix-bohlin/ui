@@ -1,4 +1,4 @@
-import { Anchor, Button, Card } from "opui-css/react"
+import { Anchor, Button, Card, CardContent } from "opui-css/react"
 
 export default function AlwaysVisible() {
   return (
@@ -6,15 +6,11 @@ export default function AlwaysVisible() {
       <Anchor
         alignment="inline-end"
         anchored={
-          <Card
-            variant="tonal"
-            className="coach-mark"
-            content={
-              <>
-                <strong>New</strong> Export to PDF and CSV from the same menu.
-              </>
-            }
-          />
+          <Card variant="tonal" className="coach-mark">
+            <CardContent>
+              <strong>New</strong> Export to PDF and CSV from the same menu.
+            </CardContent>
+          </Card>
         }
       >
         <Button variant="outlined">Export</Button>

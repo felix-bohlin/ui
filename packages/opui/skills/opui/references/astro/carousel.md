@@ -42,7 +42,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -58,11 +58,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -76,7 +76,7 @@ Set `perView` to show more than one item at a time.
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -92,11 +92,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -112,7 +112,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -132,11 +132,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -150,7 +150,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -166,11 +166,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -184,7 +184,7 @@ const places = [
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -205,11 +205,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -350,7 +350,7 @@ Use `buttons="outside"` to keep the buttons off the content.
 
 ```astro
 ---
-import { Button, Card, Carousel } from "opui-css/astro"
+import { Button, Card, CardActions, CardHeader, Carousel } from "opui-css/astro"
 
 const plans = [
   {
@@ -373,13 +373,13 @@ const plans = [
     plans.map(({ action, description, title }) => (
       <li>
         <Card variant="outlined">
-          <Fragment slot="header">
+          <CardHeader>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
-          <Fragment slot="actions">
+          </CardHeader>
+          <CardActions>
             <Button variant="filled">{action}</Button>
-          </Fragment>
+          </CardActions>
         </Card>
       </li>
     ))
@@ -393,7 +393,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -408,11 +408,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -426,7 +426,7 @@ const places = [
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -447,11 +447,11 @@ const places = [
     places.map(({ description, title }) => (
       <li>
         <Card variant="tonal">
-          <Fragment slot="header">
+          <CardHeader>
             <p>Destination</p>
             <h3>{title}</h3>
             <p>{description}</p>
-          </Fragment>
+          </CardHeader>
         </Card>
       </li>
     ))
@@ -477,7 +477,7 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
 
 ```astro
 ---
-import { Card, Carousel } from "opui-css/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 ---
@@ -491,10 +491,10 @@ const places = ["Kyoto", "Lima", "Lisbon"]
         places.map((title) => (
           <li>
             <Card variant="tonal">
-              <Fragment slot="header">
+              <CardHeader>
                 <p>Destination</p>
                 <h3>{title}</h3>
-              </Fragment>
+              </CardHeader>
             </Card>
           </li>
         ))

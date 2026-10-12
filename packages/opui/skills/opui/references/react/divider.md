@@ -66,20 +66,18 @@ export default function Content() {
 The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
 
 ```tsx
-import { Card, Divider } from "opui-css/react"
+import { Card, CardContent, Divider } from "opui-css/react"
 
 export default function Spacing() {
   return (
     <>
       <Card variant="outlined">
-        <div className="ui-content">
-          Inside a card, the gap spaces the divider.
-        </div>
+        <CardContent>Inside a card, the gap spaces the divider.</CardContent>
         <Divider />
-        <div className="ui-content">
+        <CardContent>
           Nested deeper, it uses the card's tighter space. <Divider /> So
           everything stays close together.
-        </div>
+        </CardContent>
       </Card>
 
       <div style={{ "--divider-space": "var(--size-1)" }}>

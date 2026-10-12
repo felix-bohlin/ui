@@ -1,4 +1,4 @@
-import { Card, Carousel } from "opui-css/react"
+import { Card, CardHeader, Carousel } from "opui-css/react"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -17,16 +17,13 @@ export default function Stretch() {
     <Carousel buttons="outside" label="Destinations" perView={3} stretch>
       {places.map(({ description, title }) => (
         <li key={title}>
-          <Card
-            variant="tonal"
-            header={
-              <>
-                <p>Destination</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            }
-          />
+          <Card variant="tonal">
+            <CardHeader>
+              <p>Destination</p>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </CardHeader>
+          </Card>
         </li>
       ))}
     </Carousel>

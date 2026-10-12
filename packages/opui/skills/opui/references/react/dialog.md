@@ -8,15 +8,15 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `header`
+- `<DialogHeader>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
-- `content`
+- `<DialogContent>`
 
   The dialog content.
 
-- `actions`
+- `<DialogActions>`
 
   A group of actions, such as buttons.
 
@@ -32,10 +32,16 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-The header prop names the dialog: it gets an `aria-labelledby` that points at the header.
+The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header.
 
 ```tsx
-import { Button, Dialog } from "opui-css/react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
 
 export default function Usage() {
   return (
@@ -47,31 +53,31 @@ export default function Usage() {
       >
         Open dialog
       </Button>
-      <Dialog
-        id="example-dialog"
-        header={<h2 className="ui-h4">Newsletter</h2>}
-        content={
+
+      <Dialog id="example-dialog">
+        <DialogHeader>
+          <h2 className="ui-h4">Newsletter</h2>
+        </DialogHeader>
+        <DialogContent>
           <p>
             Get a short email when we ship something new. No more than once a
             month.
           </p>
-        }
-        actions={
-          <>
-            <Button commandfor="example-dialog" command="close" type="button">
-              Not now
-            </Button>
-            <Button
-              commandfor="example-dialog"
-              command="close"
-              type="button"
-              variant="filled"
-            >
-              Subscribe
-            </Button>
-          </>
-        }
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button commandfor="example-dialog" command="close" type="button">
+            Not now
+          </Button>
+          <Button
+            commandfor="example-dialog"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -82,7 +88,13 @@ export default function Usage() {
 Use `role="alertdialog"` when the dialog interrupts with something that needs a response, like confirming a destructive action. Point `aria-describedby` at the message so screen readers read it when the dialog opens.
 
 ```tsx
-import { Button, Dialog } from "opui-css/react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
 
 export default function AlertDialog() {
   return (
@@ -99,33 +111,34 @@ export default function AlertDialog() {
         id="alert-dialog-example"
         role="alertdialog"
         aria-describedby="alert-dialog-description"
-        header={<h2 className="ui-h4">Delete project?</h2>}
-        content={
+      >
+        <DialogHeader>
+          <h2 className="ui-h4">Delete project?</h2>
+        </DialogHeader>
+        <DialogContent>
           <p id="alert-dialog-description">
             This deletes the project and all its files. You can't undo this.
           </p>
-        }
-        actions={
-          <>
-            <Button
-              commandfor="alert-dialog-example"
-              command="close"
-              type="button"
-            >
-              Cancel
-            </Button>
-            <Button
-              color="critical"
-              commandfor="alert-dialog-example"
-              command="close"
-              type="button"
-              variant="filled"
-            >
-              Delete
-            </Button>
-          </>
-        }
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            commandfor="alert-dialog-example"
+            command="close"
+            type="button"
+          >
+            Cancel
+          </Button>
+          <Button
+            color="critical"
+            commandfor="alert-dialog-example"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -137,10 +150,16 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
 
 ## Long content
 
-The dialog grows up to 85% of the viewport height. The header and actions stay put while the `content` prop scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
+The dialog grows up to 85% of the viewport height. The header and actions stay put while the `DialogContent` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
 
 ```tsx
-import { Button, Dialog } from "opui-css/react"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
 
 export default function LongContent() {
   return (
@@ -152,101 +171,98 @@ export default function LongContent() {
       >
         Read the terms
       </Button>
-      <Dialog
-        id="example-dialog-long"
-        header={<h2 className="ui-h4">Terms of service</h2>}
-        content={
-          <>
-            <p>
-              These terms cover your use of the service and any content you
-              upload. By creating an account you agree to them, and to any
-              updates we publish on this page.
-            </p>
-            <p>
-              You own the files you upload. You give us permission to store,
-              copy and display them only as needed to run the service for you
-              and the people you share them with.
-            </p>
-            <p>
-              Keep your password safe and tell us right away if someone else
-              gets into your account. You are responsible for what happens in
-              your account until you do.
-            </p>
-            <p>
-              Don't use the service to break the law, to send spam, or to upload
-              anything that harms other people's devices or data. We may remove
-              content that does.
-            </p>
-            <p>
-              We back up your data every day, but we can't promise that nothing
-              will ever be lost. Keep your own copy of anything you can't afford
-              to lose.
-            </p>
-            <p>
-              Paid plans renew every month until you cancel. You can cancel at
-              any time from your account settings, and you keep access until the
-              end of the paid period.
-            </p>
-            <p>
-              We may change or stop parts of the service. When a change takes
-              something away from you, we tell you at least 30 days before it
-              happens.
-            </p>
-            <p>
-              You can close your account whenever you want. We delete your files
-              within 30 days, except where the law requires us to keep them
-              longer.
-            </p>
-            <p>
-              If something goes wrong, our liability is limited to what you paid
-              us in the last 12 months. Some places don't allow this limit, and
-              then it doesn't apply.
-            </p>
-            <p>
-              We use cookies to keep you signed in and to remember your
-              settings. We don't use them to show you ads, and we don't sell
-              what we learn from them.
-            </p>
-            <p>
-              We may ask partners to help run parts of the service, like
-              payments and email. They only get the data they need for that job,
-              and they have to protect it like we do.
-            </p>
-            <p>
-              When we get a legal request for your data, we check that it's
-              valid and tell you about it, unless the law doesn't let us.
-            </p>
-            <p>
-              These terms are governed by the law of the country where our
-              company is registered. If a part of them can't be enforced, the
-              rest still applies.
-            </p>
-            <p>
-              Questions about these terms go to our support team. We answer
-              within two working days.
-            </p>
-          </>
-        }
-        actions={
-          <>
-            <Button
-              commandfor="example-dialog-long"
-              command="close"
-              type="button"
-            >
-              Decline
-            </Button>
-            <Button
-              commandfor="example-dialog-long"
-              command="close"
-              type="button"
-              variant="filled"
-            >
-              Accept
-            </Button>
-          </>
-        }
-      />
+      <Dialog id="example-dialog-long">
+        <DialogHeader>
+          <h2 className="ui-h4">Terms of service</h2>
+        </DialogHeader>
+        <DialogContent>
+          <p>
+            These terms cover your use of the service and any content you
+            upload. By creating an account you agree to them, and to any updates
+            we publish on this page.
+          </p>
+          <p>
+            You own the files you upload. You give us permission to store, copy
+            and display them only as needed to run the service for you and the
+            people you share them with.
+          </p>
+          <p>
+            Keep your password safe and tell us right away if someone else gets
+            into your account. You are responsible for what happens in your
+            account until you do.
+          </p>
+          <p>
+            Don't use the service to break the law, to send spam, or to upload
+            anything that harms other people's devices or data. We may remove
+            content that does.
+          </p>
+          <p>
+            We back up your data every day, but we can't promise that nothing
+            will ever be lost. Keep your own copy of anything you can't afford
+            to lose.
+          </p>
+          <p>
+            Paid plans renew every month until you cancel. You can cancel at any
+            time from your account settings, and you keep access until the end
+            of the paid period.
+          </p>
+          <p>
+            We may change or stop parts of the service. When a change takes
+            something away from you, we tell you at least 30 days before it
+            happens.
+          </p>
+          <p>
+            You can close your account whenever you want. We delete your files
+            within 30 days, except where the law requires us to keep them
+            longer.
+          </p>
+          <p>
+            If something goes wrong, our liability is limited to what you paid
+            us in the last 12 months. Some places don't allow this limit, and
+            then it doesn't apply.
+          </p>
+          <p>
+            We use cookies to keep you signed in and to remember your settings.
+            We don't use them to show you ads, and we don't sell what we learn
+            from them.
+          </p>
+          <p>
+            We may ask partners to help run parts of the service, like payments
+            and email. They only get the data they need for that job, and they
+            have to protect it like we do.
+          </p>
+          <p>
+            When we get a legal request for your data, we check that it's valid
+            and tell you about it, unless the law doesn't let us.
+          </p>
+          <p>
+            These terms are governed by the law of the country where our company
+            is registered. If a part of them can't be enforced, the rest still
+            applies.
+          </p>
+          <p>
+            Questions about these terms go to our support team. We answer within
+            two working days.
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            commandfor="example-dialog-long"
+            command="close"
+            type="button"
+          >
+            Decline
+          </Button>
+          <Button
+            commandfor="example-dialog-long"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Accept
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -271,6 +287,9 @@ import { useState } from "react"
 import {
   Button,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -291,11 +310,11 @@ export default function CloseBehaviors() {
       >
         Open dialog
       </Button>
-      <Dialog
-        id="closing-behaviors-dialog"
-        closedby={closedby}
-        header={<h2 className="ui-h4">How to close</h2>}
-        content={
+      <Dialog id="closing-behaviors-dialog" closedby={closedby}>
+        <DialogHeader>
+          <h2 className="ui-h4">How to close</h2>
+        </DialogHeader>
+        <DialogContent>
           <FieldSet>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
             <FieldGroup name="closedby-demo">
@@ -311,13 +330,13 @@ export default function CloseBehaviors() {
               ))}
             </FieldGroup>
           </FieldSet>
-        }
-        actions={
+        </DialogContent>
+        <DialogActions>
           <Button commandfor="closing-behaviors-dialog" command="close">
             Close manually
           </Button>
-        }
-      />
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
@@ -349,14 +368,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Prop           | Type                                  | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `actions`      | `ReactNode`                           | -       | A group of actions, such as buttons.                                     |
-| `actionsAlign` | `"start"` , `"end"`                   | `"end"` | Alignment for the actions.                                               |
-| `children`     | `ReactNode`                           | -       | Raw content placed directly in the dialog.                               |
-| `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
-| `content`      | `ReactNode`                           | -       | The dialog content.                                                      |
-| `header`       | `ReactNode`                           | -       | The dialog header.                                                       |
+| Prop       | Type                                  | Default | Description                                                              |
+| ---------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `children` | `ReactNode`                           | -       | The dialog parts, and any other content.                                 |
+| `closedby` | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### CSS variables
 
@@ -370,7 +385,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<dialog>`, like `id`.
+Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.
 
 ## Under the hood
 
@@ -578,7 +593,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/react`:
+Import the components from `opui-css/react`:
 
 ### Dependencies
 
@@ -591,6 +606,7 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- Breaking: [`DialogHeader`, `DialogContent` and `DialogActions`](#api) replace the slots, and `align` on `DialogActions` replaces `actionsAlign`.
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.

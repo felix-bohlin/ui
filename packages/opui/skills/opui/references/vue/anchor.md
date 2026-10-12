@@ -24,7 +24,7 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Button, Card } from "opui-css/vue"
+import { Anchor, Button, Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
@@ -32,9 +32,9 @@ import { Anchor, Button, Card } from "opui-css/vue"
     <Button variant="outlined">Export</Button>
     <template #anchored>
       <Card variant="tonal" class="coach-mark">
-        <template #content>
+        <CardContent>
           <strong>New</strong> Export to PDF and CSV from the same menu.
-        </template>
+        </CardContent>
       </Card>
     </template>
   </Anchor>
@@ -59,7 +59,14 @@ Put a [Card](https://open-props-ui.netlify.app/vue/components/card.md) in the fl
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Avatar, Button, Card } from "opui-css/vue"
+import {
+  Anchor,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -78,7 +85,7 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
       >
       <template #anchored>
         <Card variant="elevated" class="repo-card">
-          <template #content>
+          <CardContent>
             <div class="repo-card-identity">
               <Avatar
                 src="https://github.com/felix-bohlin.png"
@@ -95,10 +102,10 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
               can change the way we create components.
             </p>
             <p class="ui-caption">CSS · MIT license</p>
-          </template>
-          <template #actions>
+          </CardContent>
+          <CardActions>
             <Button variant="outlined" size="small">Star</Button>
-          </template>
+          </CardActions>
         </Card>
       </template>
     </Anchor>
@@ -136,7 +143,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Card } from "opui-css/vue"
+import { Anchor, Card, CardHeader } from "opui-css/vue"
 </script>
 
 <template>
@@ -156,13 +163,13 @@ import { Anchor, Card } from "opui-css/vue"
       <template #anchored>
         <Card variant="elevated" class="link-preview">
           <img src="https://picsum.photos/id/1018/800/450" alt="" />
-          <hgroup>
+          <CardHeader>
             <p class="ui-caption">developer.mozilla.org</p>
             <h3>CSS anchor positioning</h3>
             <p>
               Tether elements to other elements on the page, without JavaScript.
             </p>
-          </hgroup>
+          </CardHeader>
         </Card>
       </template>
     </Anchor>

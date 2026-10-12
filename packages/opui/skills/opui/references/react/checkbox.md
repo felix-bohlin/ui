@@ -422,6 +422,8 @@ export default function FieldGroupFieldDescription() {
 
 Attach the `disabled` attribute to the `<fieldset>` element.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```tsx
 import {
   Checkbox,

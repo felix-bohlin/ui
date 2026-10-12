@@ -344,6 +344,8 @@ Can be placed above and below the fields.
 
 Attach the `disabled` attribute to the `<fieldset>` element.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```svelte
 <script lang="ts">
   import {

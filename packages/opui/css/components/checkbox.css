@@ -24,7 +24,7 @@
     }
 
     /* Disabled */
-    &:has([disabled]) {
+    &:has([disabled], input[aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
       user-select: none;

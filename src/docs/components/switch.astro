@@ -424,6 +424,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         >&lt;fieldset&gt;</code
       > element.
     </p>
+    <p>
+      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
+      same, but keeps the switch focusable and its value in the form. It doesn't stop
+      the change, so block it with a script.
+    </p>
     <AutoExample name="FieldGroupDisabled" row />
 
     <h3 id="field-group-required">Required</h3>

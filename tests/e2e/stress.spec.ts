@@ -1,8 +1,6 @@
 import { expect, type Page, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
 
-const TOGGLE_GROUP = ":scope > .ui-toggle-group"
-
 const CONTROLS = [
   ":scope > .ui-button",
   ":scope > .ui-button-group",
@@ -10,10 +8,10 @@ const CONTROLS = [
   ":scope > .ui-text-field > .ui-field",
   ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",
   ":scope > .ui-toggle-button",
-  TOGGLE_GROUP,
-]
+  ":scope > .ui-toggle-group",
+].join(", ")
 
-const measureRows = (page: Page, controls = CONTROLS) =>
+const measureRows = (page: Page) =>
   page.locator("[data-size]").evaluateAll(
     (elements, selector) =>
       elements.map((row) => {
@@ -37,7 +35,7 @@ const measureRows = (page: Page, controls = CONTROLS) =>
           size,
         }
       }),
-    controls.join(", "),
+    CONTROLS,
   )
 
 const measureChips = (page: Page) =>
@@ -157,30 +155,7 @@ for (const fixture of ["contrast", "forms"]) {
     await page.emulateMedia({ forcedColors: "active" })
     await openFixture(page, "html", `stress/${fixture}`)
 
-    expectSharedHeights(
-      await measureRows(
-        page,
-        CONTROLS.filter((control) => control !== TOGGLE_GROUP),
-      ),
-    )
-    expectChipHeights(await measureChips(page))
-  })
-
-  test(`${fixture} toggle groups keep their height in forced colors mode`, async ({
-    page,
-  }) => {
-    test.fail(
-      true,
-      "toggle-group.css pulls each toggle button up by the border width in forced colors, so groups are one border width short",
-    )
-    await page.emulateMedia({ forcedColors: "active" })
-    await openFixture(page, "html", `stress/${fixture}`)
-
-    expectSharedHeights(
-      (await measureRows(page, [TOGGLE_GROUP])).filter(
-        ({ controls }) => controls.length > 0,
-      ),
-    )
+    await expectSizedRows(page)
   })
 }
 

@@ -337,6 +337,8 @@ import { Form } from "opui-css/astro"
 
 Attach the `disabled` attribute to the `<fieldset>` element.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```astro
 ---
 import { Checkbox } from "opui-css/astro"

@@ -338,6 +338,8 @@ import {
 
 Attach the `disabled` attribute to the `<fieldset>` element.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```vue
 <script setup lang="ts">
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"

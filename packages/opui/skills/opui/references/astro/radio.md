@@ -181,6 +181,8 @@ import { Form } from "opui-css/astro"
 
 Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```astro
 ---
 import { Radio } from "opui-css/astro"

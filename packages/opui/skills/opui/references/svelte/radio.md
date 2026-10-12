@@ -185,6 +185,8 @@ Can be placed above and below the fields.
 
 Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```svelte
 <script lang="ts">
   import {

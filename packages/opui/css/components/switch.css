@@ -183,7 +183,7 @@
     }
 
     /* Disabled */
-    &:has([disabled]) {
+    &:has([disabled], input[aria-disabled="true"]) {
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
       user-select: none;
@@ -313,7 +313,7 @@
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
-      &:has([disabled]) {
+      &:has([disabled], input[aria-disabled="true"]) {
         --_accent: GrayText;
         --_dot-bg-color: GrayText;
       }

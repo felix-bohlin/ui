@@ -311,6 +311,15 @@ export const description =
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" />
+
+    <h3 id="disabled">Disabled</h3>
+    <p>
+      <code>disabled</code> on a toggle button dims it and skips it with Tab and the
+      arrow keys. <code>aria-disabled="true"</code> on the <code
+        >&lt;input&gt;</code
+      > looks the same, but keeps the toggle button focusable and its value in the
+      form. It doesn't stop the change, so block it with a script.
+    </p>
   </section>
 
   <ToggleBuild slot="under-the-hood" />

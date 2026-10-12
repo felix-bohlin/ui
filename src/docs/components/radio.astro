@@ -237,6 +237,11 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       </Fragment>
     </Conditional>
 
+    <p>
+      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
+      same, but keeps the radio focusable and its value in the form. It doesn't stop
+      the change, so block it with a script.
+    </p>
     <AutoExample name="FieldGroupDisabled" row />
   </section>
 

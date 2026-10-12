@@ -269,6 +269,10 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 </div>
 ```
 
+### Disabled
+
+`disabled` on a toggle button dims it and skips it with Tab and the arrow keys. `aria-disabled="true"` on the `<input>` looks the same, but keeps the toggle button focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ## API
 
 ### Toggle group API

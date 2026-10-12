@@ -37,7 +37,7 @@
 
     /* Element states */
     @media (hover: hover) {
-      &:hover:not(:has(input:disabled)) {
+      &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
         --_bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
       }
     }
@@ -51,7 +51,7 @@
     }
 
     /* Disabled */
-    &:has(input:disabled) {
+    &:has(input:is(:disabled, [aria-disabled="true"])) {
       border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
       color: color-mix(in oklch, var(--text-primary) 30%, transparent);
       cursor: not-allowed;
@@ -69,7 +69,7 @@
       --_bg-color: oklch(from var(--primary) l c h / 25%);
 
       @media (hover: hover) {
-        &:hover:not(:has(input:disabled)) {
+        &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
           --_bg-color: oklch(from var(--primary) l c h / 35%);
         }
       }
@@ -79,7 +79,7 @@
         color: var(--primary-contrast);
 
         @media (hover: hover) {
-          &:hover:not(:has(input:disabled)) {
+          &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
             --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
           }
         }

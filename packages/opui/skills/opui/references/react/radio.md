@@ -242,6 +242,8 @@ export default function FieldGroupFieldDescription() {
 
 Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
 
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
+
 ```tsx
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
 

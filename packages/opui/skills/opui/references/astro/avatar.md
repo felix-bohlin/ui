@@ -155,14 +155,14 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | Prop          | Type                                     | Default | Description                                                                                               |
 | ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
 | `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `as`          | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
 | `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
 | `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
 | `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
 | `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
 | `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
 | `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
+| `size`        | `"small"` , `"x-small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
 | `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
 | `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 

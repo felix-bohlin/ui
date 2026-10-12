@@ -4,6 +4,7 @@ export default {
   component: "Dialog",
   notes: {
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
+    react: "Attributes that aren't props go to the `<dialog>`, like `id`.",
     svelte: "Attributes that aren't props go to the `<dialog>`, like `id`.",
     vue: "Attributes that aren't props go to the `<dialog>`, like `id`.",
   },
@@ -20,7 +21,7 @@ export default {
       attribute: "[closedby]",
       description:
         'How the dialog can be closed. `"any"` also closes it on a click outside.',
-      frameworks: ["astro", "html", "svelte", "vue"],
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "Close behavior",
       prop: "closedby",
       type: '"any" | "closerequest" | "none"',

@@ -57,6 +57,7 @@ export default {
       code: ".ui-toggle-button",
       component: {
         astro: "ToggleButton",
+        react: "ToggleButton",
         svelte: "ToggleButton",
         vue: "ToggleButton",
       },

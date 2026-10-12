@@ -24,6 +24,7 @@ export default {
     {
       component: {
         astro: "DescriptionList.Item",
+        react: "DescriptionListItem",
         svelte: "DescriptionListItem",
         vue: "DescriptionListItem",
       },
@@ -34,6 +35,7 @@ export default {
       code: "<dt>",
       component: {
         astro: "DescriptionList.Term",
+        react: "DescriptionListTerm",
         svelte: "DescriptionListTerm",
         vue: "DescriptionListTerm",
       },
@@ -44,6 +46,7 @@ export default {
       code: "<dd>",
       component: {
         astro: "DescriptionList.Description",
+        react: "DescriptionListDescription",
         svelte: "DescriptionListDescription",
         vue: "DescriptionListDescription",
       },

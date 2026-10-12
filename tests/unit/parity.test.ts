@@ -3,6 +3,8 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { getContainerRenderer } from "@astrojs/vue/container-renderer"
 import { loadRenderers } from "astro:container"
 import { createTwoFilesPatch } from "diff"
+import { createElement } from "react"
+import { renderToString as renderReact } from "react-dom/server"
 import { render } from "svelte/server"
 import { createSSRApp } from "vue"
 import { renderToString } from "vue/server-renderer"
@@ -14,6 +16,9 @@ const RECORD = !!process.env.PARITY_RECORD
 const astroModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.astro",
 )
+const reactModules = import.meta.glob<{ default: any }>(
+  "../../src/component-examples/**/*.react.tsx",
+)
 const svelteModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.svelte",
 )
@@ -21,7 +26,7 @@ const vueModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,svelte,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -36,19 +41,20 @@ const EXAMPLE_CLASSES = new Set([
   "header",
   "indent",
   ...Object.values(exampleSources).flatMap((source) =>
-    [...source.matchAll(/\bclass="([^"{]+)"/g)].flatMap((match) =>
+    [...source.matchAll(/\b(?:class|className)="([^"{]+)"/g)].flatMap((match) =>
       match[1].split(/\s+/),
     ),
   ),
 ])
 
-const FRAMEWORKS = ["html", "astro", "svelte", "vue"] as const
+const FRAMEWORKS = ["html", "astro", "react", "svelte", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
   html: [],
+  react: ["astro", "html"],
   svelte: ["astro", "html"],
   vue: ["astro", "html"],
 }
@@ -59,7 +65,9 @@ type Example = {
 }
 
 const keyOf = (path: string) =>
-  path.replace("../../src/component-examples/", "").replace(/\.[a-z]+$/, "")
+  path
+    .replace("../../src/component-examples/", "")
+    .replace(/(\.react)?\.[a-z]+$/, "")
 
 const examples = new Map<string, Example>()
 const register = (
@@ -74,6 +82,7 @@ const register = (
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("react", reactModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
@@ -110,6 +119,11 @@ const renderers: Record<
       },
     }),
   html: async (loaded) => loaded,
+  react: async (loaded) =>
+    renderReact(createElement(loaded.default)).replace(
+      /<link rel="preload" as="image"[^>]*\/>/g,
+      "",
+    ),
   svelte: async (loaded) => render(loaded.default).body,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }

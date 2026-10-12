@@ -272,7 +272,7 @@ import { Textarea } from "opui-css/astro"
 | `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
 | `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
 | `label`       | `string`                            | -            | The label for the field.                                                    |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                    |
+| `size`        | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                    |
 | `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
 | `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
 

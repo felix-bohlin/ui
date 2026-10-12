@@ -85,7 +85,7 @@ import { Card, Divider } from "opui-css/astro"
 
 | Prop      | Type                                 | Default    | Description                         |
 | --------- | ------------------------------------ | ---------- | ----------------------------------- |
-| `align`   | `"start"` , `"end"` , `"center"`     | `"center"` | Where the content sits on the line. |
+| `align`   | `"center"` , `"start"` , `"end"`     | `"center"` | Where the content sits on the line. |
 | `variant` | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                 |
 
 #### Slots

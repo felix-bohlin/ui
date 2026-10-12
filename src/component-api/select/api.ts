@@ -12,6 +12,8 @@ export default {
     astro:
       "Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.",
     html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    react:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
     svelte:
       "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
     vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
@@ -35,7 +37,7 @@ export default {
     },
     {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },

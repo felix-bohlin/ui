@@ -467,7 +467,7 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 | `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"x-small"` , `"small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
+| `size`        | `"small"` , `"x-small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
 | `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
 
 #### CSS variables
@@ -508,7 +508,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
 | `children` | `Snippet`                             | -       | The label and an optional icon.                                             |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
@@ -516,7 +516,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
 | `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
 | `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"` , `"small"` , `"large"`   | -       | The size of the element.                                                    |
+| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
 | `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
 
 #### CSS variables

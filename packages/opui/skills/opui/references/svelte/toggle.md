@@ -289,7 +289,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 | `scrollable`  | `boolean`                                         | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `selection`   | `"multiple"` , `"single"`                         | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | `shrink`      | `boolean`                                         | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"default"` , `"x-small"` , `"small"` , `"large"` | `"default"`  | The size of the buttons.                                                                                          |
+| `size`        | `"default"` , `"small"` , `"x-small"` , `"large"` | `"default"`  | The size of the buttons.                                                                                          |
 
 #### CSS variables
 
@@ -328,7 +328,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
 | `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
 | `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |
-| `size`     | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                                     |
+| `size`     | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                                     |
 | `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
 | `value`    | `string`                            | -            | The value of the input.                                                                      |
 

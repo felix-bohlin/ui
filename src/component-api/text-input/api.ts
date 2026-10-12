@@ -7,6 +7,8 @@ export default {
     astro:
       "Styles a Text field with a `list`. There is no separate Astro component.",
     html: "Needs `text-field.css`. It holds the field, variant and size styles.",
+    react:
+      "Styles a Text field with a `list`. There is no separate React component.",
     svelte:
       "Styles a Text field with a `list`. There is no separate Svelte component.",
     vue: "Styles a Text field with a `list`. There is no separate Vue component.",

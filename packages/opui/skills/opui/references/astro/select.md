@@ -444,7 +444,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `id`          | `string`                            | -            | The id of the `<select>`.                                                 |
 | `items`       | `Item[]`                            | `[]`         | The options, as `{ selected, text, value }` objects.                      |
 | `label`       | `string`                            | -            | The label for the field.                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `size`        | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
 | `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the select to the other. |
 | `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
@@ -514,7 +514,7 @@ Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `
 | `id`      | `string`                            | -            | The id of the `<select>`. Generated when omitted. |
 | `items`   | `Item[]`                            | `[]`         | The options, as `{ text, value }` objects.        |
 | `label`   | `string`                            | -            | The label for the field.                          |
-| `size`    | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                          |
+| `size`    | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                          |
 | `variant` | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                               |
 
 #### Slots

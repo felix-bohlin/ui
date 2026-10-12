@@ -44,7 +44,7 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
-const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+)$/
+const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
 
 const isElement = (node: Node): node is Element => "tagName" in node
 
@@ -112,12 +112,20 @@ const serialize = (
   const indent = "  ".repeat(depth)
   const lines: string[] = []
 
+  let pending = ""
+  const flush = () => {
+    const text = pending.replace(/\s+/g, " ").trim()
+    if (text) lines.push(indent + text)
+    pending = ""
+  }
+
   for (const node of nodes) {
     if (node.nodeName === "#text" && "value" in node) {
-      const text = node.value.replace(/\s+/g, " ").trim()
-      if (text) lines.push(indent + text)
+      pending += node.value
       continue
     }
+    if (node.nodeName === "#comment") continue
+    flush()
     if (!isElement(node) || DROPPED_ELEMENTS.has(node.tagName)) continue
 
     const attrs = node.attrs
@@ -148,6 +156,7 @@ const serialize = (
       lines.push(indent + open, ...children, `${indent}</${node.tagName}>`)
     }
   }
+  flush()
 
   return lines
 }

@@ -11,6 +11,8 @@ export default {
     astro:
       "Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.",
     html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
     svelte:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
     vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
@@ -33,7 +35,7 @@ export default {
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -59,7 +61,7 @@ export default {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "type",
       type: '"numeric" | string',
     },

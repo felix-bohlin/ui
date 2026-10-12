@@ -7,6 +7,7 @@ import {
   passthroughImageService,
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
+import react from "@astrojs/react"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
@@ -61,7 +62,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true },
   },
   redirects: legacyRedirects,
-  integrations: [vue(), sitemap(), svelte(), llms()],
+  integrations: [vue(), sitemap(), svelte(), react(), llms()],
   vite: {
     build: {
       dynamicImportVarsOptions: {

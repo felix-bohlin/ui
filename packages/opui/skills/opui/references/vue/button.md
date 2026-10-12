@@ -381,14 +381,14 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
 | `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
 | `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
 | `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
 | `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"` , `"small"` , `"large"`   | -       | The size of the element.                                                    |
+| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
 | `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
 
 #### Slots

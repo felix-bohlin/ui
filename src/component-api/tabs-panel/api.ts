@@ -7,7 +7,12 @@ export default {
   page: "tabs",
   parts: [],
   root: {
-    component: { astro: "Tabs.Panel", svelte: "TabsPanel", vue: "TabsPanel" },
+    component: {
+      astro: "Tabs.Panel",
+      react: "TabsPanel",
+      svelte: "TabsPanel",
+      vue: "TabsPanel",
+    },
     description: "The panel.",
     selector: ".ui-tab-panel",
   },

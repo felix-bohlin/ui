@@ -6,7 +6,7 @@ export default {
     {
       default: "3",
       description: "The heading level of the title.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "headingLevel",
       type: "2 | 3 | 4 | 5 | 6",
     },

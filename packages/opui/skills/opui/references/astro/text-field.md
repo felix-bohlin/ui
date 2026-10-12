@@ -484,7 +484,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
 | `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
 | `label`       | `string`                            | -            | The label for the field.                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `size`        | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
 | `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
 | `startText`   | `string`                            | -            | Legacy alias of `description`.                                            |
 | `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |

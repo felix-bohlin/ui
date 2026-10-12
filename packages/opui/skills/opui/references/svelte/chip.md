@@ -230,7 +230,7 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 
 | Prop        | Type                                                              | Default   | Description                                                          |
 | ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"div"` , `"button"` , `"a"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
 | `children`  | `Snippet`                                                         | -         | Content placed before the label.                                     |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
 | `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
@@ -238,7 +238,7 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 | `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
 | `label`     | `string`                                                          | -         | The label.                                                           |
 | `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"x-small"` , `"small"` , `"large"`                               | -         | The size of the element.                                             |
+| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
 | `start`     | `Snippet`                                                         | -         | Optional content at the start, such as an icon.                      |
 | `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
 

@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
+    react:
+      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
     svelte:
       "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",
     vue: "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.",

@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "Set column widths with `Table.ColumnGroup` and `Table.Column`. `Table.Column` takes a `width`.",
+    react:
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
     svelte:
       "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
     vue: "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
@@ -28,7 +30,12 @@ export default {
   parts: [
     {
       code: "<thead>",
-      component: { astro: "Table.Head", svelte: "TableHead", vue: "TableHead" },
+      component: {
+        astro: "Table.Head",
+        react: "TableHead",
+        svelte: "TableHead",
+        vue: "TableHead",
+      },
       description: "The header rows.",
       selector: "thead",
     },
@@ -36,6 +43,7 @@ export default {
       code: "<th>",
       component: {
         astro: "Table.HeaderCell",
+        react: "TableHeaderCell",
         svelte: "TableHeaderCell",
         vue: "TableHeaderCell",
       },
@@ -44,19 +52,34 @@ export default {
     },
     {
       code: "<tbody>",
-      component: { astro: "Table.Body", svelte: "TableBody", vue: "TableBody" },
+      component: {
+        astro: "Table.Body",
+        react: "TableBody",
+        svelte: "TableBody",
+        vue: "TableBody",
+      },
       description: "The body rows.",
       selector: "tbody",
     },
     {
       code: "<tr>",
-      component: { astro: "Table.Row", svelte: "TableRow", vue: "TableRow" },
+      component: {
+        astro: "Table.Row",
+        react: "TableRow",
+        svelte: "TableRow",
+        vue: "TableRow",
+      },
       description: "A row.",
       selector: "tbody tr:first-child",
     },
     {
       code: "<td>",
-      component: { astro: "Table.Cell", svelte: "TableCell", vue: "TableCell" },
+      component: {
+        astro: "Table.Cell",
+        react: "TableCell",
+        svelte: "TableCell",
+        vue: "TableCell",
+      },
       description: "A data cell.",
       selector: "tbody tr:first-child td:last-child",
     },

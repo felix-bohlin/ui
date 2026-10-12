@@ -18,10 +18,12 @@ const OBJECT_TYPE = /export type (\w+)(?:<\w+>)? = \{\n([\s\S]*?)\n\}/g
 const KEY = /^ {2}(?:"([^"]+)"|(\w+))\??:/
 
 const CLASS_LIST = /class:list=\{\[/g
+const CX = /\bcx\(\[/g
 
 const TYPE_FILES = [
   "types.astro.ts",
   "types.d.vue.ts",
+  "types.react.ts",
   "types.solid.ts",
   "types.svelte.ts",
   "types.ts",
@@ -52,8 +54,8 @@ const splitTopLevel = (body) => {
   return items
 }
 
-const checkClassOrder = (file, source) => {
-  for (const match of source.matchAll(CLASS_LIST)) {
+const checkClassOrder = (file, source, pattern, label) => {
+  for (const match of source.matchAll(pattern)) {
     let depth = 1
     let end = match.index + match[0].length
     while (end < source.length && depth > 0) {
@@ -66,7 +68,7 @@ const checkClassOrder = (file, source) => {
     )
     const index = items.indexOf("className")
     if (index !== -1 && index !== items.length - 1) {
-      report(file, "className must be the last entry in class:list")
+      report(file, `className must be the last entry in ${label}`)
     }
   }
 }
@@ -103,13 +105,22 @@ for (const folder of folders) {
       .map((file) => basename(file, ext))
 
   const astro = names(".astro")
+  const react = files
+    .filter((file) => file.endsWith(".react.tsx"))
+    .map((file) => basename(file, ".react.tsx"))
   const svelte = names(".svelte")
   const vue = names(".vue")
+  for (const name of astro.filter((name) => !react.includes(name))) {
+    report(join(dir, `${name}.astro`), "has no matching .react.tsx component")
+  }
   for (const name of astro.filter((name) => !svelte.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .svelte component")
   }
   for (const name of astro.filter((name) => !vue.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .vue component")
+  }
+  for (const name of react.filter((name) => !astro.includes(name))) {
+    report(join(dir, `${name}.react.tsx`), "has no matching .astro component")
   }
   for (const name of svelte.filter((name) => !astro.includes(name))) {
     report(join(dir, `${name}.svelte`), "has no matching .astro component")
@@ -130,7 +141,10 @@ for (const folder of folders) {
     }
     if (file === "types.ts") checkSortedKeys(path, source)
     if (extname(file) === ".ts") checkIndexSignature(path, source)
-    if (extname(file) === ".astro") checkClassOrder(path, source)
+    if (extname(file) === ".astro") {
+      checkClassOrder(path, source, CLASS_LIST, "class:list")
+    }
+    if (file.endsWith(".react.tsx")) checkClassOrder(path, source, CX, "cx")
     if (file === `${folder}.astro` && !/export const title = "/.test(source)) {
       report(path, 'is missing `export const title = "..."`')
     }

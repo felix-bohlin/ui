@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "Add the classes to elements in your templates. There is no Astro component.",
+    react:
+      "Add the classes to elements in your markup. There is no React component.",
     svelte:
       "Add the classes to elements in your markup. There is no Svelte component.",
     vue: "Add the classes to elements in your templates. There is no Vue component.",

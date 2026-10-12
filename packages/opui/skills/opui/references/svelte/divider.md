@@ -85,7 +85,7 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 
 | Prop       | Type                                 | Default    | Description                                                    |
 | ---------- | ------------------------------------ | ---------- | -------------------------------------------------------------- |
-| `align`    | `"start"` , `"end"` , `"center"`     | `"center"` | Where the content sits on the line.                            |
+| `align`    | `"center"` , `"start"` , `"end"`     | `"center"` | Where the content sits on the line.                            |
 | `children` | `Snippet`                            | -          | Optional content in the middle of the line. Renders a `<div>`. |
 | `variant`  | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                                            |
 

@@ -326,7 +326,7 @@ The radio lines up with the first line of its label and centers on the label's c
 | ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
 | `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
-| `size`      | `"x-small"` , `"small"` , `"large"` | -       | The size of the element.                          |
+| `size`      | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                          |
 | `spread`    | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
 | `stack`     | `boolean`                           | `false` | Stacks the label under the input.                 |
 

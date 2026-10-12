@@ -158,7 +158,7 @@ A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an av
 | Prop          | Type                                     | Default | Description                                                                                               |
 | ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
 | `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `as`          | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
 | `children`    | `Snippet`                                | -       | Letters or an icon, when there's no image.                                                                |
 | `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
 | `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
@@ -166,7 +166,7 @@ A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an av
 | `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
 | `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
 | `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
+| `size`        | `"small"` , `"x-small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
 | `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
 | `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 

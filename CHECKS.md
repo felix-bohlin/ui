@@ -172,9 +172,11 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 ## Package
 
 - [ ] Package contents
-  - `npm pack --dry-run` in `packages/opui`: `dist`, `css`, `core`, `astro`, `svelte`, `vue`, `components` and `skills` are in, and `AGENTS.md` files and tests are out.
+  - `npm pack --dry-run` in `packages/opui`: `dist`, `css`, `core`, `astro`, `react`, `svelte`, `vue`, `components` and `skills` are in, and `AGENTS.md` files and tests are out.
 - [ ] Fresh Astro project
   - Install the packed tarball, import the CSS once, render Button, Dialog, Menu and Tabs from `opui-css/astro`, and run `astro check`.
+- [ ] Fresh React project
+  - The same with `opui-css/react` in a Vite project and a Next.js App Router project (with `transpilePackages`), and run `tsc --noEmit`.
 - [ ] Fresh Svelte project
   - The same with `opui-css/svelte` in a SvelteKit project, and run `svelte-check`.
 - [ ] Fresh Vue project

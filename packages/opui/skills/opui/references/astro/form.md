@@ -476,7 +476,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 | Prop | Type               | Default    | Description                                                   |
 | ---- | ------------------ | ---------- | ------------------------------------------------------------- |
-| `as` | `"p"` , `"legend"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| `as` | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
 
 #### Slots
 

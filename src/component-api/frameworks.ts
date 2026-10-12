@@ -1,4 +1,4 @@
-export type ComponentFramework = "astro" | "solid" | "svelte" | "vue"
+export type ComponentFramework = "astro" | "react" | "solid" | "svelte" | "vue"
 
 export type Framework = ComponentFramework | "html"
 
@@ -22,6 +22,12 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     slot: (name) => `slot="${name}"`,
     slotsAreProps: false,
     types: "types.astro.ts",
+  },
+  react: {
+    component: (source) => `${source}.react.tsx`,
+    slot: slotProp,
+    slotsAreProps: true,
+    types: "types.react.ts",
   },
   solid: {
     component: (source) => `${source}.tsx`,

@@ -3,6 +3,14 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Drawer",
   hydration: {
+    react: [
+      {
+        description:
+          "A heading in `header` is found on the server. When your own component renders it, `aria-labelledby` only points at it after hydration.",
+        fallback: "Pass `aria-labelledby` or `aria-label`.",
+        prop: "header",
+      },
+    ],
     svelte: [
       {
         description:
@@ -14,6 +22,7 @@ export default {
   },
   notes: {
     html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
+    react: "Attributes that aren't props go to the `<dialog>`.",
     svelte: "Attributes that aren't props go to the `<dialog>`.",
     vue: "Attributes that aren't props go to the `<dialog>`.",
   },

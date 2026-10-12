@@ -22,7 +22,7 @@ export default {
       attribute: "[disabled]",
       default: "false",
       description: "Disables every field inside.",
-      frameworks: ["astro", "html", "svelte", "vue"],
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "State",
       prop: "disabled",
       type: "boolean",
@@ -34,6 +34,7 @@ export default {
       code: "<legend>",
       component: {
         astro: "FieldLegend",
+        react: "FieldLegend",
         svelte: "FieldLegend",
         vue: "FieldLegend",
       },
@@ -43,6 +44,7 @@ export default {
     {
       component: {
         astro: "FieldDescription",
+        react: "FieldDescription",
         svelte: "FieldDescription",
         vue: "FieldDescription",
       },

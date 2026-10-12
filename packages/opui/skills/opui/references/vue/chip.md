@@ -263,13 +263,13 @@ import { Chip } from "opui-css/vue"
 
 | Prop        | Type                                                              | Default   | Description                                                          |
 | ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"div"` , `"button"` , `"a"` , `(string & {})`                    | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `as`        | `"a"` , `"button"` , `"div"` , `(string & {})`                    | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
 | `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
 | `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
 | `label`     | `string`                                                          | -         | The label.                                                           |
 | `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"x-small"` , `"small"` , `"large"`                               | -         | The size of the element.                                             |
+| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
 | `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
 
 #### Slots

@@ -17,7 +17,7 @@ export default {
     {
       description:
         'The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger.',
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },

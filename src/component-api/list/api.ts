@@ -38,7 +38,12 @@ export default {
   parts: [
     {
       code: "<li>",
-      component: { astro: "ListItem", svelte: "ListItem", vue: "ListItem" },
+      component: {
+        astro: "ListItem",
+        react: "ListItem",
+        svelte: "ListItem",
+        vue: "ListItem",
+      },
       description: "A list item.",
       selector: ".ui-list > li",
     },

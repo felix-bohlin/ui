@@ -19,7 +19,7 @@ Run the review agents and merge what they find. The agents only report; you don'
 | `changelog`        | anything in `packages/opui/`                                                                                                         |
 | `css`              | `packages/opui/css/`, `packages/opui/core/`                                                                                          |
 | `examples`         | `src/component-examples/`, `src/docs/components/`                                                                                    |
-| `framework-parity` | `packages/opui/components/`, `packages/opui/{astro,svelte,vue}/`, `src/component-examples/`, `tests/unit/__snapshots__/`             |
+| `framework-parity` | `packages/opui/components/`, `packages/opui/{astro,react,svelte,vue}/`, `src/component-examples/`, `tests/unit/__snapshots__/`       |
 
 ## Modes
 

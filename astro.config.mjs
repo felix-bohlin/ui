@@ -62,7 +62,13 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true },
   },
   redirects: legacyRedirects,
-  integrations: [vue(), sitemap(), svelte(), react(), llms()],
+  integrations: [
+    vue(),
+    sitemap(),
+    svelte(),
+    react({ include: [/\.react\.tsx$/] }),
+    llms(),
+  ],
   vite: {
     build: {
       dynamicImportVarsOptions: {
@@ -71,6 +77,11 @@ export default defineConfig({
     },
     optimizeDeps: { exclude: ["microlighter"] },
     plugins: [
+      {
+        name: "opui-no-react-refresh",
+        enforce: "post",
+        config: () => ({ oxc: { jsx: { refresh: false } } }),
+      },
       {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {

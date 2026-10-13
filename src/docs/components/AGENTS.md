@@ -22,7 +22,7 @@ Before creating or refactoring a page, perform the following research:
     - Supported props (e.g., `variant`, `size`, `color`).
     - Default prop values.
     - Default HTML structure and class names.
-    - Provided slots (e.g., `title`, `summary`, `controls`).
+    - Provided parts (e.g., `CardHeader`, `AccordionSummary`) for containers, and slots (e.g., `label`, `end-text`) for form controls.
 2.  **Analyze the CSS**: Read `packages/opui/css/components/[name].css` to identify:
     - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
     - Modern CSS features being used (to populate `browserSupport`).
@@ -200,6 +200,7 @@ import buttonApi from "../../component-api/button/api"
 ### 5.3 `<UICallout>` (Alerts & Info)
 
 - **Severity**: `info`, `success`, `warning`, `critical`, `neutral`, or none for a plain surface.
+- **Parts**: Add `<UICalloutIcon />` for the severity icon, and put the text in `<UICalloutContent>`, with an optional `<UICalloutTitle>` first.
 - **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
 - **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 
@@ -218,11 +219,11 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 <Fragment slot="anatomy">
   <Anatomy>
     <UIAccordion open variant="outlined">
-      <Fragment slot="summary">Accordion title</Fragment>
-      <p>Supporting text.</p>
-      <Fragment slot="actions">
+      <UIAccordionSummary>Accordion title</UIAccordionSummary>
+      <UIAccordionContent><p>Supporting text.</p></UIAccordionContent>
+      <UIAccordionActions>
         <UIButton>Agree</UIButton>
-      </Fragment>
+      </UIAccordionActions>
     </UIAccordion>
   </Anatomy>
 </Fragment>

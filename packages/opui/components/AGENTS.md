@@ -15,7 +15,7 @@ When implementing or updating a component, ensure:
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
-- [ ] **Slot Strategy**: Named slots are used for structural content (icons, actions).
+- [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
 - [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted.
 
 ---
@@ -171,10 +171,31 @@ Native states use native attributes, not classes: a disabled `<button>` gets `di
 
 ---
 
-## 4. Slot Patterns
+## 4. Parts and Slots
 
-### Default Slots vs Label Props
-For simple text-based components, provide both a `label` prop and a default slot.
+Containers compose, controls configure. Each component has one way to use it.
+
+### Parts (containers)
+Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor, Tooltip) expose a part per region, with flat names: `CardHeader`, `DialogActions`, `AccordionSummary`.
+
+- A part's name is its root's name plus the region, and it renders that region's element and class (`CardActions` renders `.ui-actions`).
+- Each part renders its own wrapper. The root renders its children as they are, and never wraps, reorders or inspects them.
+- Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
+- Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on.
+- Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `types.d.vue.ts` (Vue). Ids are deterministic, so every framework renders the same markup on the server.
+- Parts without context stay React server components.
+- Every part is exported from all four barrels with its `Props` type.
+
+```astro
+<Card variant="outlined">
+  <CardHeader><h3>Title</h3></CardHeader>
+  <CardContent>Text</CardContent>
+  <CardActions align="end"><Button>Open</Button></CardActions>
+</Card>
+```
+
+### Props and slots (form controls and small components)
+Form controls (TextField, Textarea, Select, ClassicSelect, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
 
 ```astro
 <div class="ui-component">
@@ -187,16 +208,7 @@ For simple text-based components, provide both a `label` prop and a default slot
 </div>
 ```
 
-### Named Slots (Icons & Actions)
-Use named slots for specific functional areas. Check for existence before rendering wrapper tags.
-
-```astro
-<div class="ui-card">
-  {Astro.slots.has("header") && <header><slot name="header" /></header>}
-  <slot />
-  {Astro.slots.has("actions") && <footer class="ui-actions"><slot name="actions" /></footer>}
-</div>
-```
+Check that a named slot exists before rendering its wrapper.
 
 ---
 
@@ -283,12 +295,13 @@ const groupName = name || $id("tabs") // Prefer the passed value if available
 ```
 
 ### Default Icons
-Components like `Callout` should provide default SVG icons within their named slots, while allowing users to override them.
+A part renders the default icon, so users can leave it out or put their own `svg` in its place. `CalloutIcon` reads the severity from context:
 
 ```astro
-<slot name="icon">
-  {severity === "critical" && <svg>...</svg>}
-</slot>
+---
+const callout = calloutContext.get()
+---
+{callout?.severity === "info" && <svg>...</svg>}
 ```
 
 ---

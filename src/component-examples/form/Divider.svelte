@@ -7,9 +7,6 @@
     FieldSet,
     Form,
     TextField,
-    TextFieldControl,
-    TextFieldInput,
-    TextFieldLabel,
   } from "opui-css/svelte"
 </script>
 
@@ -17,12 +14,7 @@
   <FieldSet>
     <FieldLegend>Post Content</FieldLegend>
     <FieldGroup>
-      <TextField>
-        <TextFieldLabel>Title</TextFieldLabel>
-        <TextFieldControl>
-          <TextFieldInput placeholder="My new post" />
-        </TextFieldControl>
-      </TextField>
+      <TextField label="Title" placeholder="My new post" />
     </FieldGroup>
   </FieldSet>
 

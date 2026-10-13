@@ -1,114 +1,73 @@
 <script lang="ts">
-  import {
-    TextField,
-    TextFieldControl,
-    TextFieldEndText,
-    TextFieldFooter,
-    TextFieldHeader,
-    TextFieldInput,
-    TextFieldLabel,
-    TextFieldPrefix,
-    TextFieldStartText,
-    TextFieldSuffix,
-  } from "opui-css/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField spread>
-  <TextFieldLabel>Name</TextFieldLabel>
-  <TextFieldStartText
-    >Provide your full name for identification</TextFieldStartText
-  >
-  <TextFieldControl>
-    <TextFieldInput placeholder="Evil Rabbit" />
-  </TextFieldControl>
+<TextField spread placeholder="Evil Rabbit">
+  {#snippet label()}Name{/snippet}
+  {#snippet description()}Provide your full name for identification{/snippet}
 </TextField>
 
-<TextField spread variant="filled">
-  <TextFieldLabel>Email</TextFieldLabel>
-  <TextFieldStartText>We'll use this to contact you</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput placeholder="you@example.com" type="email" />
-  </TextFieldControl>
-  <TextFieldEndText>Please use a valid email address</TextFieldEndText>
+<TextField spread placeholder="you@example.com" type="email" variant="filled">
+  {#snippet label()}Email{/snippet}
+  {#snippet description()}We'll use this to contact you{/snippet}
+  {#snippet endText()}Please use a valid email address{/snippet}
 </TextField>
 
-<TextField spread>
-  <TextFieldLabel>Required</TextFieldLabel>
-  <TextFieldStartText>You must fill this in</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput required />
-  </TextFieldControl>
+<TextField spread required label="Required">
+  {#snippet description()}You must fill this in{/snippet}
 </TextField>
 
-<TextField spread>
-  <TextFieldLabel>Disabled</TextFieldLabel>
-  <TextFieldStartText>This field is disabled</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput disabled />
-  </TextFieldControl>
+<TextField spread disabled label="Disabled">
+  {#snippet description()}This field is disabled{/snippet}
 </TextField>
 
-<TextField spread error>
-  <TextFieldLabel>Invalid Name</TextFieldLabel>
-  <TextFieldStartText>This field has an error</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput />
-  </TextFieldControl>
-  <TextFieldEndText>This value is too short.</TextFieldEndText>
+<TextField spread error label="Invalid Name">
+  {#snippet description()}This field has an error{/snippet}
+  {#snippet endText()}This value is too short.{/snippet}
 </TextField>
 
-<TextField spread>
-  <TextFieldLabel>Amount</TextFieldLabel>
-  <TextFieldStartText>Daily spending limit</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput placeholder="0.00" />
-    <TextFieldPrefix>¢</TextFieldPrefix>
-    <TextFieldSuffix>EUR</TextFieldSuffix>
-  </TextFieldControl>
+<TextField spread label="Amount" placeholder="0.00">
+  {#snippet description()}Daily spending limit{/snippet}
+  {#snippet prefix()}¢{/snippet}
+  {#snippet suffix()}EUR{/snippet}
 </TextField>
 
-<TextField spread variant="filled">
-  <TextFieldLabel>Website</TextFieldLabel>
-  <TextFieldStartText>Your public profile URL</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput placeholder="example.com" />
-    <TextFieldPrefix>https://</TextFieldPrefix>
-  </TextFieldControl>
-  <TextFieldEndText>Must include a valid domain</TextFieldEndText>
+<TextField spread label="Website" placeholder="example.com" variant="filled">
+  {#snippet description()}Your public profile URL{/snippet}
+  {#snippet prefix()}https://{/snippet}
+  {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
-<TextField spread>
-  <TextFieldLabel>Project name</TextFieldLabel>
-  <TextFieldStartText>Used to generate the project URL</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput placeholder="my-project" />
-    <TextFieldHeader>acme.dev/</TextFieldHeader>
-    <TextFieldFooter>Lowercase letters and dashes only</TextFieldFooter>
-  </TextFieldControl>
+<TextField spread label="Project name" placeholder="my-project">
+  {#snippet description()}Used to generate the project URL{/snippet}
+  {#snippet header()}acme.dev/{/snippet}
+  {#snippet footer()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
-<TextField spread variant="filled">
-  <TextFieldLabel>API key</TextFieldLabel>
-  <TextFieldStartText>Stored encrypted at rest</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput placeholder="Paste your key" type="password" />
-    <TextFieldPrefix>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-      </svg>
-    </TextFieldPrefix>
-    <TextFieldHeader>Secret</TextFieldHeader>
-    <TextFieldFooter>Rotates every 90 days</TextFieldFooter>
-  </TextFieldControl>
-  <TextFieldEndText>Treat like a password</TextFieldEndText>
+<TextField
+  spread
+  variant="filled"
+  label="API key"
+  placeholder="Paste your key"
+  type="password"
+>
+  {#snippet description()}Stored encrypted at rest{/snippet}
+  {#snippet prefix()}
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+  {/snippet}
+  {#snippet header()}Secret{/snippet}
+  {#snippet footer()}Rotates every 90 days{/snippet}
+  {#snippet endText()}Treat like a password{/snippet}
 </TextField>

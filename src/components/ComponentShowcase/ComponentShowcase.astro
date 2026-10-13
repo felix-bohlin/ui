@@ -13,8 +13,6 @@ import {
   CardHeader,
   Carousel,
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   Chip,
   DescriptionList,
   Divider,
@@ -33,8 +31,6 @@ import {
   Table,
   Tabs,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
   Textarea,
   ToggleButton,
   ToggleGroup,
@@ -172,10 +168,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox>
-      <CheckboxInput aria-hidden="true" inert checked />
-      <CheckboxLabel>This checks out</CheckboxLabel>
-    </Checkbox>
+    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
@@ -221,14 +214,8 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
       <div class="showcase-drawer-panel">
         <p>Filters</p>
-        <Checkbox>
-          <CheckboxInput checked />
-          <CheckboxLabel>In stock</CheckboxLabel>
-        </Checkbox>
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>On sale</CheckboxLabel>
-        </Checkbox>
+        <Checkbox checked>In stock</Checkbox>
+        <Checkbox>On sale</Checkbox>
       </div>
     </div>
   </ComponentCard>
@@ -239,11 +226,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         <FieldLegend>Newsletter</FieldLegend>
         <FieldDescription>We will spam you to hell.</FieldDescription>
         <div class="showcase-form-row">
-          <TextField>
-            <TextFieldControl>
-              <TextFieldInput placeholder="you@example.com" />
-            </TextFieldControl>
-          </TextField>
+          <TextField placeholder="you@example.com" />
           <Button variant="filled">Subscribe</Button>
         </div>
       </FieldSet>
@@ -367,15 +350,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Text Field" href="/components/text-field">
-    <TextField>
-      <TextFieldControl>
-        <TextFieldInput
-          aria-hidden="true"
-          inert
-          placeholder="you@example.com"
-        />
-      </TextFieldControl>
-    </TextField>
+    <TextField aria-hidden="true" inert placeholder="you@example.com" />
   </ComponentCard>
 
   <ComponentCard name="Textarea" href="/components/textarea">

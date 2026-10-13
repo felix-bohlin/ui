@@ -11,9 +11,7 @@ export { default as CardContent } from "../components/Card/CardContent.astro"
 export { default as CardHeader } from "../components/Card/CardHeader.astro"
 export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
-export { default as CheckboxEndText } from "../components/Field/FieldEndText.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
-export { default as CheckboxLabel } from "../components/Field/FieldLabel.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.astro"
 export { default as DescriptionList } from "../components/DescriptionList/index"
@@ -44,15 +42,6 @@ export { default as Table } from "../components/Table/index"
 export { default as Tabs } from "../components/Tabs/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
-export { default as TextFieldControl } from "../components/Field/FieldControl.astro"
-export { default as TextFieldEndText } from "../components/Field/FieldEndText.astro"
-export { default as TextFieldFooter } from "../components/Field/FieldFooter.astro"
-export { default as TextFieldHeader } from "../components/Field/FieldHeader.astro"
-export { default as TextFieldInput } from "../components/TextField/TextFieldInput.astro"
-export { default as TextFieldLabel } from "../components/Field/FieldLabel.astro"
-export { default as TextFieldPrefix } from "../components/Field/FieldPrefix.astro"
-export { default as TextFieldStartText } from "../components/Field/FieldStartText.astro"
-export { default as TextFieldSuffix } from "../components/Field/FieldSuffix.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
@@ -93,10 +82,6 @@ export type {
   CheckboxInputProps,
   CheckboxProps,
 } from "../components/Checkbox/types.astro"
-export type {
-  FieldEndTextProps as CheckboxEndTextProps,
-  FieldLabelProps as CheckboxLabelProps,
-} from "../components/Field/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.astro"
@@ -152,17 +137,6 @@ export type {
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"
-export type { TextFieldInputProps } from "../components/TextField/types.astro"
-export type {
-  FieldControlProps as TextFieldControlProps,
-  FieldEndTextProps as TextFieldEndTextProps,
-  FieldFooterProps as TextFieldFooterProps,
-  FieldHeaderProps as TextFieldHeaderProps,
-  FieldLabelProps as TextFieldLabelProps,
-  FieldPrefixProps as TextFieldPrefixProps,
-  FieldStartTextProps as TextFieldStartTextProps,
-  FieldSuffixProps as TextFieldSuffixProps,
-} from "../components/Field/types.astro"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"
 export type { Props as TooltipProps } from "../components/Tooltip/types.astro"

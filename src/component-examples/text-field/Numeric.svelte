@@ -1,15 +1,5 @@
 <script lang="ts">
-  import {
-    TextField,
-    TextFieldControl,
-    TextFieldInput,
-    TextFieldLabel,
-  } from "opui-css/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField>
-  <TextFieldLabel>Numeric</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput placeholder="Numeric" type="numeric" />
-  </TextFieldControl>
-</TextField>
+<TextField label="Numeric" placeholder="Numeric" type="numeric" />

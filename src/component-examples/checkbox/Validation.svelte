@@ -1,31 +1,18 @@
 <script lang="ts">
-  import {
-    Checkbox,
-    CheckboxEndText,
-    CheckboxInput,
-    CheckboxLabel,
-  } from "opui-css/svelte"
+  import { Checkbox } from "opui-css/svelte"
 </script>
 
 <div class="example-row ui-spacious">
-  <Checkbox>
-    <CheckboxInput required name="checkbox-validation" />
-    <CheckboxLabel>Default</CheckboxLabel>
-  </Checkbox>
-  <Checkbox stack>
-    <CheckboxInput required name="checkbox-validation" />
-    <CheckboxLabel>Stack</CheckboxLabel>
-  </Checkbox>
+  <Checkbox required name="checkbox-validation">Default</Checkbox>
+  <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
 </div>
 <div class="example-row ui-spacious">
-  <Checkbox error>
-    <CheckboxInput checked name="checkbox-validation" />
-    <CheckboxLabel>Default</CheckboxLabel>
-    <CheckboxEndText>Check yourself</CheckboxEndText>
+  <Checkbox error checked name="checkbox-validation">
+    Default
+    {#snippet endText()}Check yourself{/snippet}
   </Checkbox>
-  <Checkbox stack error>
-    <CheckboxInput name="checkbox-validation" />
-    <CheckboxLabel>Stack</CheckboxLabel>
-    <CheckboxEndText>Before you wreck yourself</CheckboxEndText>
+  <Checkbox stack error name="checkbox-validation">
+    Stack
+    {#snippet endText()}Before you wreck yourself{/snippet}
   </Checkbox>
 </div>

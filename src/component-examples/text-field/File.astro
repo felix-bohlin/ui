@@ -1,21 +1,6 @@
 ---
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "@opui/astro"
+import { TextField } from "@opui/astro"
 ---
 
-<TextField>
-  <TextFieldLabel>Label</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput type="file" placeholder="File" />
-  </TextFieldControl>
-</TextField>
-<TextField variant="filled">
-  <TextFieldLabel>Label</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput type="file" placeholder="File" />
-  </TextFieldControl>
-</TextField>
+<TextField type="file" placeholder="File" label="Label" />
+<TextField type="file" placeholder="File" label="Label" variant="filled" />

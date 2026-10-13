@@ -1,17 +1,7 @@
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Numeric</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Numeric" type="numeric" />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="Numeric" placeholder="Numeric" type="numeric" />
 </template>

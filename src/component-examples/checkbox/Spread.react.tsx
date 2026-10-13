@@ -1,37 +1,41 @@
-import {
-  Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
-} from "opui-css/react"
+import { Checkbox } from "opui-css/react"
 
 export default function Spread() {
   return (
     <>
-      <Checkbox spread>
-        <CheckboxInput name="checkbox-spread" />
-        <CheckboxLabel>Accept Terms & Conditions</CheckboxLabel>
-        <CheckboxEndText>
-          I have read and agree to the privacy policy.
-        </CheckboxEndText>
+      <Checkbox
+        name="checkbox-spread"
+        spread
+        endText="I have read and agree to the privacy policy."
+      >
+        Accept Terms & Conditions
       </Checkbox>
 
-      <Checkbox spread>
-        <CheckboxInput name="checkbox-spread" required />
-        <CheckboxLabel>Required</CheckboxLabel>
-        <CheckboxEndText>You must accept this to continue.</CheckboxEndText>
+      <Checkbox
+        name="checkbox-spread"
+        spread
+        required
+        endText="You must accept this to continue."
+      >
+        Required
       </Checkbox>
 
-      <Checkbox spread>
-        <CheckboxInput name="checkbox-spread" disabled />
-        <CheckboxLabel>Disabled</CheckboxLabel>
-        <CheckboxEndText>This checkbox is disabled.</CheckboxEndText>
+      <Checkbox
+        name="checkbox-spread"
+        spread
+        disabled
+        endText="This checkbox is disabled."
+      >
+        Disabled
       </Checkbox>
 
-      <Checkbox spread error>
-        <CheckboxInput name="checkbox-spread" />
-        <CheckboxLabel>Invalid Checkbox</CheckboxLabel>
-        <CheckboxEndText>There is an error with this checkbox.</CheckboxEndText>
+      <Checkbox
+        name="checkbox-spread"
+        spread
+        error
+        endText="There is an error with this checkbox."
+      >
+        Invalid Checkbox
       </Checkbox>
     </>
   )

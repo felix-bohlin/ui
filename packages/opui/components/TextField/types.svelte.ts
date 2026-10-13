@@ -1,9 +1,20 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
+import type { Snippet } from "svelte"
 
-export type Props = Base.Props & SvelteHTMLElements["label"]
-
-export type TextFieldInputProps = Base.TextFieldInputProps & {
+type InputProps = {
   // Add 'numeric' as valid input type
   type?: SvelteHTMLElements["input"]["type"] | "numeric"
-} & Omit<SvelteHTMLElements["input"], "type">
+} &
+  // include the rest
+  Omit<SvelteHTMLElements["input"], "size" | "type">
+
+type Snippets = Partial<Base.Slots<Snippet>>
+
+export type Props =
+  // Unique component props, except snippets
+  Omit<Base.Props, keyof Snippets> &
+    // Input attributes
+    Omit<InputProps, keyof Snippets> &
+    // Snippets
+    Snippets

@@ -1,34 +1,15 @@
 ---
-import {
-  Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from "@opui/astro"
+import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "@opui/astro"
 ---
 
 <FieldSet class="indeterminate-demo">
   <FieldLegend>
-    <Checkbox class="parent">
-      <CheckboxInput indeterminate />
-      <CheckboxLabel>Select all</CheckboxLabel>
-    </Checkbox>
+    <Checkbox class="parent" indeterminate>Select all</Checkbox>
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
-    <Checkbox class="child">
-      <CheckboxInput checked />
-      <CheckboxLabel>Apples</CheckboxLabel>
-    </Checkbox>
-    <Checkbox class="child">
-      <CheckboxInput />
-      <CheckboxLabel>Bananas</CheckboxLabel>
-    </Checkbox>
-    <Checkbox class="child">
-      <CheckboxInput />
-      <CheckboxLabel>Cherries</CheckboxLabel>
-    </Checkbox>
+    <Checkbox class="child" checked>Apples</Checkbox>
+    <Checkbox class="child">Bananas</Checkbox>
+    <Checkbox class="child">Cherries</Checkbox>
   </FieldGroup>
 </FieldSet>
 

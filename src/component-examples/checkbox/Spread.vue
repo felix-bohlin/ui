@@ -1,36 +1,25 @@
 <script setup lang="ts">
-import {
-  Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
-} from "opui-css/vue"
+import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox spread>
-    <CheckboxInput name="checkbox-spread" />
-    <CheckboxLabel>Accept Terms & Conditions</CheckboxLabel>
-    <CheckboxEndText
-      >I have read and agree to the privacy policy.</CheckboxEndText
-    >
+  <Checkbox name="checkbox-spread" spread>
+    Accept Terms & Conditions
+    <template #end-text>I have read and agree to the privacy policy.</template>
   </Checkbox>
 
-  <Checkbox spread>
-    <CheckboxInput name="checkbox-spread" required />
-    <CheckboxLabel>Required</CheckboxLabel>
-    <CheckboxEndText>You must accept this to continue.</CheckboxEndText>
+  <Checkbox name="checkbox-spread" spread required>
+    Required
+    <template #end-text>You must accept this to continue.</template>
   </Checkbox>
 
-  <Checkbox spread>
-    <CheckboxInput name="checkbox-spread" disabled />
-    <CheckboxLabel>Disabled</CheckboxLabel>
-    <CheckboxEndText>This checkbox is disabled.</CheckboxEndText>
+  <Checkbox name="checkbox-spread" spread disabled>
+    Disabled
+    <template #end-text>This checkbox is disabled.</template>
   </Checkbox>
 
-  <Checkbox spread error>
-    <CheckboxInput name="checkbox-spread" />
-    <CheckboxLabel>Invalid Checkbox</CheckboxLabel>
-    <CheckboxEndText>There is an error with this checkbox.</CheckboxEndText>
+  <Checkbox name="checkbox-spread" spread error>
+    Invalid Checkbox
+    <template #end-text>There is an error with this checkbox.</template>
   </Checkbox>
 </template>

@@ -1,17 +1,5 @@
 ---
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-  TextFieldStartText,
-} from "@opui/astro"
+import { TextField } from "@opui/astro"
 ---
 
-<TextField>
-  <TextFieldLabel>Name</TextFieldLabel>
-  <TextFieldStartText>As it appears on your ID</TextFieldStartText>
-  <TextFieldControl>
-    <TextFieldInput />
-  </TextFieldControl>
-</TextField>
+<TextField description="As it appears on your ID" label="Name" />

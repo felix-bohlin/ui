@@ -4,13 +4,7 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import {
-  Callout as UICallout,
-  Checkbox as UICheckbox,
-  CheckboxEndText as UICheckboxEndText,
-  CheckboxInput as UICheckboxInput,
-  CheckboxLabel as UICheckboxLabel,
-} from "@opui/astro"
+import { Callout as UICallout, Checkbox as UICheckbox } from "@opui/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
@@ -113,8 +107,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
       <Fragment slot="astro"
-        ><code>CheckboxLabel</code> is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
       >
       <Fragment slot="html"
         >Render the label text inside an element with a <code>.ui-label</code> class.
@@ -124,16 +120,21 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         >.</Fragment
       >
       <Fragment slot="react"
-        ><code>CheckboxLabel</code> is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
+        ><code>children</code> is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
       >
       <Fragment slot="svelte"
-        ><code>CheckboxLabel</code> is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
+        >The <code>children</code> snippet is the label. Also, don't miss the info
+        on label <a href="#accessibility" class="ui-link">accessibility</a
+        >.</Fragment
       >
       <Fragment slot="vue"
-        ><code>CheckboxLabel</code> is the label. Also, don't miss the info on label
-        <a href="#accessibility" class="ui-link">accessibility</a>.</Fragment
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
       >
     </Conditional>
 
@@ -149,20 +150,20 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <ul>
       <Conditional>
         <li slot="astro">
-          Set <code>required</code> on <code>CheckboxInput</code>. It goes on
-          the <code>&lt;input&gt;</code>.
+          Set <code>required</code> on the component to toggle required styles on
+          the input.
         </li>
         <li slot="react">
-          Set <code>required</code> on <code>CheckboxInput</code>. It goes on
-          the <code>&lt;input&gt;</code>.
+          Set the <code>required</code> prop on the component. It is forwarded to
+          the underlying <code>&lt;input&gt;</code>.
         </li>
         <li slot="svelte">
-          Set <code>required</code> on <code>CheckboxInput</code>. It goes on
-          the <code>&lt;input&gt;</code>.
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
         </li>
         <li slot="vue">
-          Set <code>required</code> on <code>CheckboxInput</code>. It goes on
-          the <code>&lt;input&gt;</code>.
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
         </li>
         <li slot="html">
           Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
@@ -239,8 +240,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <Conditional>
       <Fragment slot="astro">
         <p>
-          Set <code>indeterminate</code> on <code>CheckboxInput</code> to render a
-          partially-selected state.
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
@@ -265,8 +265,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
       <Fragment slot="react">
         <p>
-          Set <code>indeterminate</code> on <code>CheckboxInput</code> to render a
-          partially-selected state.
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
@@ -275,8 +274,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </Fragment>
       <Fragment slot="svelte">
         <p>
-          Set <code>indeterminate</code> on <code>CheckboxInput</code> to render a
-          partially-selected state.
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
@@ -285,8 +283,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       </Fragment>
       <Fragment slot="vue">
         <p>
-          Set <code>indeterminate</code> on <code>CheckboxInput</code> to render a
-          partially-selected state.
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
@@ -516,10 +513,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
-      <UICheckbox>
-        <UICheckboxInput checked />
-        <UICheckboxLabel>Label</UICheckboxLabel>
-        <UICheckboxEndText>End text</UICheckboxEndText>
+      <UICheckbox checked>
+        Label
+        <Fragment slot="end-text">End text</Fragment>
       </UICheckbox>
     </Anatomy>
   </Fragment>

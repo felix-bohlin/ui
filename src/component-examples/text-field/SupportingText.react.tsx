@@ -1,19 +1,7 @@
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/react"
+import { TextField } from "opui-css/react"
 
 export default function SupportingText() {
   return (
-    <TextField>
-      <TextFieldLabel>Label</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Outlined" />
-      </TextFieldControl>
-      <TextFieldEndText>Supporting text</TextFieldEndText>
-    </TextField>
+    <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
   )
 }

@@ -1,26 +1,11 @@
 <script lang="ts">
-  import {
-    TextField,
-    TextFieldControl,
-    TextFieldFooter,
-    TextFieldHeader,
-    TextFieldInput,
-    TextFieldLabel,
-  } from "opui-css/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField>
-  <TextFieldLabel>Username</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput placeholder="Enter your name" />
-    <TextFieldHeader>Full Name</TextFieldHeader>
-  </TextFieldControl>
+<TextField label="Username" placeholder="Enter your name">
+  {#snippet header()}Full Name{/snippet}
 </TextField>
 
-<TextField>
-  <TextFieldLabel>Tagline</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput placeholder="A short description" />
-    <TextFieldFooter>0 / 80</TextFieldFooter>
-  </TextFieldControl>
+<TextField label="Tagline" placeholder="A short description">
+  {#snippet footer()}0 / 80{/snippet}
 </TextField>

@@ -12,9 +12,7 @@ export { default as CardContent } from "../components/Card/CardContent.react"
 export { default as CardHeader } from "../components/Card/CardHeader.react"
 export { default as Carousel } from "../components/Carousel/Carousel.react"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.react"
-export { default as CheckboxEndText } from "../components/Field/FieldEndText.react"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.react"
-export { default as CheckboxLabel } from "../components/Field/FieldLabel.react"
 export { default as Chip } from "../components/Chip/Chip.react"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.react"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.react"
@@ -58,15 +56,6 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.react"
 export { default as TabsTab } from "../components/Tabs/TabsTab.react"
 export { default as Textarea } from "../components/Textarea/Textarea.react"
 export { default as TextField } from "../components/TextField/TextField.react"
-export { default as TextFieldControl } from "../components/Field/FieldControl.react"
-export { default as TextFieldEndText } from "../components/Field/FieldEndText.react"
-export { default as TextFieldFooter } from "../components/Field/FieldFooter.react"
-export { default as TextFieldHeader } from "../components/Field/FieldHeader.react"
-export { default as TextFieldInput } from "../components/TextField/TextFieldInput.react"
-export { default as TextFieldLabel } from "../components/Field/FieldLabel.react"
-export { default as TextFieldPrefix } from "../components/Field/FieldPrefix.react"
-export { default as TextFieldStartText } from "../components/Field/FieldStartText.react"
-export { default as TextFieldSuffix } from "../components/Field/FieldSuffix.react"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.react"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.react"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.react"
@@ -88,10 +77,6 @@ export type {
   CheckboxInputProps,
   CheckboxProps,
 } from "../components/Checkbox/types.react"
-export type {
-  FieldEndTextProps as CheckboxEndTextProps,
-  FieldLabelProps as CheckboxLabelProps,
-} from "../components/Field/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.react"
@@ -147,17 +132,6 @@ export type {
 } from "../components/Tabs/types.react"
 export type { Props as TextareaProps } from "../components/Textarea/types.react"
 export type { Props as TextFieldProps } from "../components/TextField/types.react"
-export type { TextFieldInputProps } from "../components/TextField/types.react"
-export type {
-  FieldControlProps as TextFieldControlProps,
-  FieldEndTextProps as TextFieldEndTextProps,
-  FieldFooterProps as TextFieldFooterProps,
-  FieldHeaderProps as TextFieldHeaderProps,
-  FieldLabelProps as TextFieldLabelProps,
-  FieldPrefixProps as TextFieldPrefixProps,
-  FieldStartTextProps as TextFieldStartTextProps,
-  FieldSuffixProps as TextFieldSuffixProps,
-} from "../components/Field/types.react"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.react"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.react"
 export type { Props as TooltipProps } from "../components/Tooltip/types.react"

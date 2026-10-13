@@ -11,9 +11,7 @@ export { default as CardContent } from "../components/Card/CardContent.vue"
 export { default as CardHeader } from "../components/Card/CardHeader.vue"
 export { default as Carousel } from "../components/Carousel/Carousel.vue"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
-export { default as CheckboxEndText } from "../components/Field/FieldEndText.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
-export { default as CheckboxLabel } from "../components/Field/FieldLabel.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
@@ -57,15 +55,6 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
 export { default as TabsTab } from "../components/Tabs/TabsTab.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
-export { default as TextFieldControl } from "../components/Field/FieldControl.vue"
-export { default as TextFieldEndText } from "../components/Field/FieldEndText.vue"
-export { default as TextFieldFooter } from "../components/Field/FieldFooter.vue"
-export { default as TextFieldHeader } from "../components/Field/FieldHeader.vue"
-export { default as TextFieldInput } from "../components/TextField/TextFieldInput.vue"
-export { default as TextFieldLabel } from "../components/Field/FieldLabel.vue"
-export { default as TextFieldPrefix } from "../components/Field/FieldPrefix.vue"
-export { default as TextFieldStartText } from "../components/Field/FieldStartText.vue"
-export { default as TextFieldSuffix } from "../components/Field/FieldSuffix.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
@@ -85,10 +74,6 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
 export type { CheckboxInputProps } from "../components/Checkbox/types"
 export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
-export type {
-  FieldEndTextProps as CheckboxEndTextProps,
-  FieldLabelProps as CheckboxLabelProps,
-} from "../components/Field/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.d.vue"
@@ -132,17 +117,6 @@ export type {
 } from "../components/Tabs/types.d.vue"
 export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
 export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"
-export type { TextFieldInputProps } from "../components/TextField/types.d.vue"
-export type {
-  FieldControlProps as TextFieldControlProps,
-  FieldEndTextProps as TextFieldEndTextProps,
-  FieldFooterProps as TextFieldFooterProps,
-  FieldHeaderProps as TextFieldHeaderProps,
-  FieldLabelProps as TextFieldLabelProps,
-  FieldPrefixProps as TextFieldPrefixProps,
-  FieldStartTextProps as TextFieldStartTextProps,
-  FieldSuffixProps as TextFieldSuffixProps,
-} from "../components/Field/types.d.vue"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.d.vue"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.d.vue"
 export type { Props as TooltipProps } from "../components/Tooltip/types.d.vue"

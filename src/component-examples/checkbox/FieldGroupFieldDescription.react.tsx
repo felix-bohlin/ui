@@ -1,7 +1,5 @@
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -16,36 +14,18 @@ export default function FieldGroupFieldDescription() {
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup direction="row" name="checkbox-group-field-description-1">
-          <Checkbox>
-            <CheckboxInput defaultChecked />
-            <CheckboxLabel>Checkbox 1</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 2</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 3</CheckboxLabel>
-          </Checkbox>
+          <Checkbox defaultChecked>Checkbox 1</Checkbox>
+          <Checkbox>Checkbox 2</Checkbox>
+          <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
       </FieldSet>
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-field-description-2">
-          <Checkbox>
-            <CheckboxInput defaultChecked />
-            <CheckboxLabel>Checkbox 1</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 2</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 3</CheckboxLabel>
-          </Checkbox>
+          <Checkbox defaultChecked>Checkbox 1</Checkbox>
+          <Checkbox>Checkbox 2</Checkbox>
+          <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
       </FieldSet>

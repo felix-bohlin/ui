@@ -1,8 +1,6 @@
 <script lang="ts">
   import {
     Checkbox,
-    CheckboxInput,
-    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -14,14 +12,8 @@
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
-    <Checkbox error>
-      <CheckboxInput value="kibble" />
-      <CheckboxLabel>Kibble</CheckboxLabel>
-    </Checkbox>
-    <Checkbox error>
-      <CheckboxInput value="wet-food" />
-      <CheckboxLabel>Wet food</CheckboxLabel>
-    </Checkbox>
+    <Checkbox error value="kibble">Kibble</Checkbox>
+    <Checkbox error value="wet-food">Wet food</Checkbox>
   </FieldGroup>
   <span class="ui-end-text">Your pet is hungry.</span>
 </FieldSet>

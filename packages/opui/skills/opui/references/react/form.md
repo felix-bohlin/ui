@@ -92,9 +92,6 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
 ```tsx
 import {
   Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -121,34 +118,29 @@ export default function FieldGroupExample() {
         <FieldLegend>Which side projects do you follow?</FieldLegend>
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
-          <Checkbox>
-            <CheckboxInput value="the-smile" />
-            <CheckboxLabel>The Smile</CheckboxLabel>
-            <CheckboxEndText>
-              Thom Yorke, Jonny Greenwood, Tom Skinner
-            </CheckboxEndText>
+          <Checkbox
+            value="the-smile"
+            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
+          >
+            The Smile
           </Checkbox>
-          <Checkbox>
-            <CheckboxInput value="atoms-for-peace" />
-            <CheckboxLabel>Atoms for Peace</CheckboxLabel>
-            <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
+          <Checkbox
+            value="atoms-for-peace"
+            endText="Thom Yorke, Flea, Nigel Godrich"
+          >
+            Atoms for Peace
           </Checkbox>
-          <Checkbox>
-            <CheckboxInput value="eob" />
-            <CheckboxLabel>EOB</CheckboxLabel>
-            <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
+          <Checkbox value="eob" endText="Ed O'Brien solo">
+            EOB
           </Checkbox>
-          <Checkbox>
-            <CheckboxInput value="jonny-scores" />
-            <CheckboxLabel>Film Scores</CheckboxLabel>
-            <CheckboxEndText>
-              Film compositions by Jonny Greenwood
-            </CheckboxEndText>
+          <Checkbox
+            value="jonny-scores"
+            endText="Film compositions by Jonny Greenwood"
+          >
+            Film Scores
           </Checkbox>
-          <Checkbox>
-            <CheckboxInput value="selway-solo" />
-            <CheckboxLabel>Philip Selway</CheckboxLabel>
-            <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
+          <Checkbox value="selway-solo" endText="Philip Selway solo albums">
+            Philip Selway
           </Checkbox>
         </FieldGroup>
       </FieldSet>
@@ -164,8 +156,6 @@ Set `direction="row"` to lay out fields horizontally.
 ```tsx
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -178,18 +168,9 @@ export default function FieldGroupRow() {
       <FieldSet>
         <FieldLegend>Options</FieldLegend>
         <FieldGroup direction="row">
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Option 1</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Option 2</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput />
-            <CheckboxLabel>Option 3</CheckboxLabel>
-          </Checkbox>
+          <Checkbox>Option 1</Checkbox>
+          <Checkbox>Option 2</Checkbox>
+          <Checkbox>Option 3</Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>
@@ -206,8 +187,6 @@ Set `disabled` on `FieldSet` to disable every field inside.
 ```tsx
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -220,13 +199,11 @@ export default function FieldsetDisabled() {
       <FieldLegend>Pet dating</FieldLegend>
       <FieldDescription>You can't change these settings</FieldDescription>
       <FieldGroup name="notifications">
-        <Checkbox>
-          <CheckboxInput value="horse-tinder" defaultChecked />
-          <CheckboxLabel>Horse Tinder</CheckboxLabel>
+        <Checkbox value="horse-tinder" defaultChecked>
+          Horse Tinder
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput value="onlyhorsefans" defaultChecked />
-          <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
+        <Checkbox value="onlyhorsefans" defaultChecked>
+          OnlyHorseFans
         </Checkbox>
       </FieldGroup>
     </FieldSet>
@@ -241,8 +218,6 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
 ```tsx
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -255,13 +230,11 @@ export default function FieldsetInvalid() {
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
-        <Checkbox error>
-          <CheckboxInput value="kibble" />
-          <CheckboxLabel>Kibble</CheckboxLabel>
+        <Checkbox error value="kibble">
+          Kibble
         </Checkbox>
-        <Checkbox error>
-          <CheckboxInput value="wet-food" />
-          <CheckboxLabel>Wet food</CheckboxLabel>
+        <Checkbox error value="wet-food">
+          Wet food
         </Checkbox>
       </FieldGroup>
       <span className="ui-end-text">Your pet is hungry.</span>
@@ -282,9 +255,6 @@ import {
   FieldSet,
   Textarea,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "opui-css/react"
 
 export default function FieldsetRequired() {
@@ -293,12 +263,7 @@ export default function FieldsetRequired() {
       <FieldLegend>Pet info</FieldLegend>
       <FieldDescription>We must know your pet's information.</FieldDescription>
       <FieldGroup name="bio">
-        <TextField>
-          <TextFieldLabel>Name</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput name="name" />
-          </TextFieldControl>
-        </TextField>
+        <TextField label="Name" name="name" />
         <Textarea required label="Life story" />
       </FieldGroup>
     </FieldSet>
@@ -319,9 +284,6 @@ import {
   FieldSet,
   Form,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "opui-css/react"
 
 export default function DividerExample() {
@@ -330,12 +292,7 @@ export default function DividerExample() {
       <FieldSet>
         <FieldLegend>Post Content</FieldLegend>
         <FieldGroup>
-          <TextField>
-            <TextFieldLabel>Title</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput placeholder="My new post" />
-            </TextFieldControl>
-          </TextField>
+          <TextField label="Title" placeholder="My new post" />
         </FieldGroup>
       </FieldSet>
 
@@ -382,9 +339,6 @@ import { useState } from "react"
 import {
   Button,
   Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -396,9 +350,6 @@ import {
   Select,
   Switch,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
   Textarea,
 } from "opui-css/react"
 
@@ -422,22 +373,13 @@ export default function KitchenSink() {
           Please provide your basic contact details.
         </FieldDescription>
         <FieldGroup>
-          <TextField>
-            <TextFieldLabel>Full Name</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput placeholder="Jane Doe" required />
-            </TextFieldControl>
-          </TextField>
-          <TextField>
-            <TextFieldLabel>Email Address</TextFieldLabel>
-            <TextFieldControl>
-              <TextFieldInput
-                type="email"
-                placeholder="jane@example.com"
-                required
-              />
-            </TextFieldControl>
-          </TextField>
+          <TextField label="Full Name" placeholder="Jane Doe" required />
+          <TextField
+            label="Email Address"
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
           <Select label="Role" items={roleItems} />
         </FieldGroup>
       </FieldSet>
@@ -536,10 +478,8 @@ export default function KitchenSink() {
       <FieldSet>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup name="legal">
-          <Checkbox>
-            <CheckboxInput name="terms" required />
-            <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
-            <CheckboxEndText>Support this text</CheckboxEndText>
+          <Checkbox name="terms" required endText="Support this text">
+            I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>
       </FieldSet>

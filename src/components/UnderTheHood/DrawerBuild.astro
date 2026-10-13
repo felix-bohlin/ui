@@ -1,5 +1,5 @@
 ---
-import { Button, Checkbox, CheckboxInput, CheckboxLabel } from "@opui/astro"
+import { Button, Checkbox } from "@opui/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -276,12 +276,8 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
             <fieldset>
               <legend>{filter.legend}</legend>
               {filter.options.map((option) => (
-                <Checkbox>
-                  <CheckboxInput
-                    name={`${drawer.id}-${filter.legend}`}
-                    value={option}
-                  />
-                  <CheckboxLabel>{option}</CheckboxLabel>
+                <Checkbox name={`${drawer.id}-${filter.legend}`} value={option}>
+                  {option}
                 </Checkbox>
               ))}
             </fieldset>

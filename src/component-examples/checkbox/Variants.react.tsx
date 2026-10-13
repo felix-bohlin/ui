@@ -1,27 +1,22 @@
-import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
+import { Checkbox } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <Checkbox>
-        <CheckboxInput defaultChecked name="checkbox-variants" />
-        <CheckboxLabel visuallyHidden>Checked</CheckboxLabel>
+      <Checkbox defaultChecked name="checkbox-variants" hideLabel>
+        Checked
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput name="checkbox-variants" />
-        <CheckboxLabel visuallyHidden>Unchecked</CheckboxLabel>
+      <Checkbox name="checkbox-variants" hideLabel>
+        Unchecked
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput indeterminate name="checkbox-variants" />
-        <CheckboxLabel visuallyHidden>Indeterminate</CheckboxLabel>
+      <Checkbox indeterminate name="checkbox-variants" hideLabel>
+        Indeterminate
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput disabled name="checkbox-variants" />
-        <CheckboxLabel visuallyHidden>Disabled</CheckboxLabel>
+      <Checkbox disabled name="checkbox-variants" hideLabel>
+        Disabled
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput defaultChecked disabled name="checkbox-variants" />
-        <CheckboxLabel visuallyHidden>Checked and disabled</CheckboxLabel>
+      <Checkbox defaultChecked disabled name="checkbox-variants" hideLabel>
+        Checked and disabled
       </Checkbox>
     </>
   )

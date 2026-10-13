@@ -1,19 +1,7 @@
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Outlined" />
-    </TextFieldControl>
-    <TextFieldEndText>Supporting text</TextFieldEndText>
-  </TextField>
+  <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
 </template>

@@ -1,8 +1,6 @@
 <script lang="ts">
   import {
     Checkbox,
-    CheckboxInput,
-    CheckboxLabel,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -14,18 +12,9 @@
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group">
-      <Checkbox>
-        <CheckboxInput checked />
-        <CheckboxLabel>Checkbox 1</CheckboxLabel>
-      </Checkbox>
-      <Checkbox>
-        <CheckboxInput />
-        <CheckboxLabel>Checkbox 2</CheckboxLabel>
-      </Checkbox>
-      <Checkbox>
-        <CheckboxInput />
-        <CheckboxLabel>Checkbox 3</CheckboxLabel>
-      </Checkbox>
+      <Checkbox checked>Checkbox 1</Checkbox>
+      <Checkbox>Checkbox 2</Checkbox>
+      <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
   </FieldSet>
 </Form>

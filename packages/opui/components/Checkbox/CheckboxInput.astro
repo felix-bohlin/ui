@@ -1,24 +1,11 @@
 ---
 import type { CheckboxInputProps as Props } from "./types.astro"
-import { fieldContext } from "../Field/context.astro"
 
-const {
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
-  indeterminate,
-  ...rest
-} = Astro.props as Props
-
-const field = fieldContext.get()
-const describedBy =
-  [field?.describedByToken, ariaDescribedBy].filter(Boolean).join(" ") ||
-  undefined
+const { indeterminate, ...rest } = Astro.props as Props
 ---
 
 <input
   type="checkbox"
-  aria-describedby={describedBy}
-  aria-invalid={field?.invalid ? "true" : ariaInvalid}
   data-indeterminate={indeterminate ? "" : undefined}
   {...rest}
 />

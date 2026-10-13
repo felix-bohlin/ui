@@ -1,9 +1,0 @@
----
-import type { FieldSuffixProps as Props } from "./types.astro"
-
-const { class: className, ...rest } = Astro.props
----
-
-<span class:list={["ui-suffix", className]} {...rest}>
-  <slot />
-</span>

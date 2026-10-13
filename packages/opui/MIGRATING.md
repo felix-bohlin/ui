@@ -124,23 +124,9 @@ Internal variables are private. Rename any overrides:
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
-Without a visible label the checkbox aligns to the middle, so it centers in table cells. Give it a hidden label (`visuallyHidden` on `CheckboxLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot, and warn in dev when there's no accessible name.
+Without a visible label the checkbox aligns to the middle, so it centers in table cells. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot, and warn in dev when there's no accessible name.
 
 `aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-checkbox`.
-
-In Astro, React, Svelte and Vue the input, label and end text are parts. Input attributes, `v-model` and `bind:checked`/`bind:group` go to `CheckboxInput`. `class`, `error`, `size`, `spread` and `stack` stay on `Checkbox`. `hideLabel` is `visuallyHidden` on `CheckboxLabel`.
-
-```diff
-- <Checkbox name="terms" required hideLabel>
--   Accept
--   <span slot="end-text">Required</span>
-- </Checkbox>
-+ <Checkbox>
-+   <CheckboxInput name="terms" required />
-+   <CheckboxLabel visuallyHidden>Accept</CheckboxLabel>
-+   <CheckboxEndText>Required</CheckboxEndText>
-+ </Checkbox>
-```
 
 ## Chip
 
@@ -362,36 +348,14 @@ Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`
 
 ```diff
 - <TextField small label="Name" />
-+ <TextField size="small">
-+   <TextFieldLabel>Name</TextFieldLabel>
-+   <TextFieldControl><TextFieldInput /></TextFieldControl>
-+ </TextField>
++ <TextField size="small" label="Name" />
 ```
 
 Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component references the input.
 
 In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
 
-In Astro, React, Svelte and Vue every region is a part. Input attributes, `v-model` and `bind:value` go to `TextFieldInput`, which sits in `TextFieldControl` with the affixes. `autoFit`, `class`, `error`, `size`, `spread`, `style` and `variant` stay on `TextField`.
-
-| v5                                     | v6                                                                                               |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `label`                                | `TextFieldLabel` (`visuallyHidden` hides it)                                                     |
-| `description`, `startText`             | `TextFieldStartText`                                                                             |
-| `endText`, `supportingText`            | `TextFieldEndText`                                                                               |
-| `prefix`, `suffix`, `header`, `footer` | `TextFieldPrefix`, `TextFieldSuffix`, `TextFieldHeader`, `TextFieldFooter` in `TextFieldControl` |
-| input attributes on `TextField`        | `TextFieldInput`                                                                                 |
-
-```diff
-- <TextField label="Email" name="email" type="email" endText="We never share it." />
-+ <TextField>
-+   <TextFieldLabel>Email</TextFieldLabel>
-+   <TextFieldControl>
-+     <TextFieldInput name="email" type="email" />
-+   </TextFieldControl>
-+   <TextFieldEndText>We never share it.</TextFieldEndText>
-+ </TextField>
-```
+The `startText` slot is gone (it was never rendered). The `startText` prop stays.
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
@@ -399,10 +363,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 
 ```diff
 - <TextField filled label="Name" />
-+ <TextField variant="filled">
-+   <TextFieldLabel>Name</TextFieldLabel>
-+   <TextFieldControl><TextFieldInput /></TextFieldControl>
-+ </TextField>
++ <TextField variant="filled" label="Name" />
 ```
 
 `data-invalid` on `.ui-text-field` no longer does anything. Put `aria-invalid="true"` on the `<input>` (Astro and Vue: `error`, unchanged). Styles that targeted `[data-invalid]` should target `:has([aria-invalid="true"])`.

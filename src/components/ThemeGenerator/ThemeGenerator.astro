@@ -7,8 +7,6 @@ import {
   CardContent,
   CardHeader,
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   Chip,
   Divider,
   FieldGroup,
@@ -17,9 +15,6 @@ import {
   Range,
   Switch,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -83,16 +78,14 @@ const previewStyle = Object.entries(tokenDefaults("light"))
           <FieldSet>
             <FieldLegend>Color Palette</FieldLegend>
             <FieldGroup>
-              <TextField spread size="small">
-                <TextFieldLabel>Source color</TextFieldLabel>
-                <TextFieldControl>
-                  <TextFieldInput
-                    type="color"
-                    name="--palette-source-color"
-                    value="#000000"
-                  />
-                </TextFieldControl>
-              </TextField>
+              <TextField
+                type="color"
+                label="Source color"
+                name="--palette-source-color"
+                value="#000000"
+                spread
+                size="small"
+              />
               <Range
                 label="Hue"
                 name="--palette-hue"
@@ -268,18 +261,10 @@ const previewStyle = Object.entries(tokenDefaults("light"))
             </CardActions>
           </Card>
           <div class="form-showcase">
-            <TextField>
-              <TextFieldLabel>Label</TextFieldLabel>
-              <TextFieldControl>
-                <TextFieldInput placeholder="Input field..." />
-              </TextFieldControl>
-            </TextField>
+            <TextField label="Label" placeholder="Input field..." />
             <div class="ui-row">
               <Switch checked>On</Switch>
-              <Checkbox>
-                <CheckboxInput checked />
-                <CheckboxLabel>Pick</CheckboxLabel>
-              </Checkbox>
+              <Checkbox checked>Pick</Checkbox>
             </div>
           </div>
         </div>

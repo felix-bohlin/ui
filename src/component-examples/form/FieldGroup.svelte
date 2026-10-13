@@ -1,9 +1,6 @@
 <script lang="ts">
   import {
     Checkbox,
-    CheckboxEndText,
-    CheckboxInput,
-    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -29,32 +26,25 @@
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
-      <Checkbox>
-        <CheckboxInput value="the-smile" />
-        <CheckboxLabel>The Smile</CheckboxLabel>
-        <CheckboxEndText
-          >Thom Yorke, Jonny Greenwood, Tom Skinner</CheckboxEndText
-        >
+      <Checkbox value="the-smile">
+        The Smile
+        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput value="atoms-for-peace" />
-        <CheckboxLabel>Atoms for Peace</CheckboxLabel>
-        <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
+      <Checkbox value="atoms-for-peace">
+        Atoms for Peace
+        {#snippet endText()}Thom Yorke, Flea, Nigel Godrich{/snippet}
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput value="eob" />
-        <CheckboxLabel>EOB</CheckboxLabel>
-        <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
+      <Checkbox value="eob">
+        EOB
+        {#snippet endText()}Ed O'Brien solo{/snippet}
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput value="jonny-scores" />
-        <CheckboxLabel>Film Scores</CheckboxLabel>
-        <CheckboxEndText>Film compositions by Jonny Greenwood</CheckboxEndText>
+      <Checkbox value="jonny-scores">
+        Film Scores
+        {#snippet endText()}Film compositions by Jonny Greenwood{/snippet}
       </Checkbox>
-      <Checkbox>
-        <CheckboxInput value="selway-solo" />
-        <CheckboxLabel>Philip Selway</CheckboxLabel>
-        <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
+      <Checkbox value="selway-solo">
+        Philip Selway
+        {#snippet endText()}Philip Selway solo albums{/snippet}
       </Checkbox>
     </FieldGroup>
   </FieldSet>

@@ -1,27 +1,17 @@
 ---
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Textarea,
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldDescription } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Textarea } from "@opui/astro"
+import { TextField } from "@opui/astro"
 ---
 
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
   <FieldGroup name="bio">
-    <TextField>
-      <TextFieldLabel>Name</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput name="name" />
-      </TextFieldControl>
-    </TextField>
+    <TextField label="Name" name="name" />
     <Textarea required label="Life story" />
   </FieldGroup>
 </FieldSet>

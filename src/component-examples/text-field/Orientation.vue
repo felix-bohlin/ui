@@ -1,116 +1,75 @@
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldFooter,
-  TextFieldHeader,
-  TextFieldInput,
-  TextFieldLabel,
-  TextFieldPrefix,
-  TextFieldStartText,
-  TextFieldSuffix,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField spread>
-    <TextFieldLabel>Name</TextFieldLabel>
-    <TextFieldStartText
-      >Provide your full name for identification</TextFieldStartText
-    >
-    <TextFieldControl>
-      <TextFieldInput placeholder="Evil Rabbit" />
-    </TextFieldControl>
+  <TextField spread placeholder="Evil Rabbit">
+    <template #label>Name</template>
+    <template #description>Provide your full name for identification</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>Email</TextFieldLabel>
-    <TextFieldStartText>We'll use this to contact you</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="you@example.com" type="email" />
-    </TextFieldControl>
-    <TextFieldEndText>Please use a valid email address</TextFieldEndText>
+  <TextField spread placeholder="you@example.com" type="email" variant="filled">
+    <template #label>Email</template>
+    <template #description>We'll use this to contact you</template>
+    <template #end-text>Please use a valid email address</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Required</TextFieldLabel>
-    <TextFieldStartText>You must fill this in</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput required />
-    </TextFieldControl>
+  <TextField spread required label="Required">
+    <template #description>You must fill this in</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Disabled</TextFieldLabel>
-    <TextFieldStartText>This field is disabled</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput disabled />
-    </TextFieldControl>
+  <TextField spread disabled label="Disabled">
+    <template #description>This field is disabled</template>
   </TextField>
 
-  <TextField spread error>
-    <TextFieldLabel>Invalid Name</TextFieldLabel>
-    <TextFieldStartText>This field has an error</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput />
-    </TextFieldControl>
-    <TextFieldEndText>This value is too short.</TextFieldEndText>
+  <TextField spread error label="Invalid Name">
+    <template #description>This field has an error</template>
+    <template #end-text>This value is too short.</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Amount</TextFieldLabel>
-    <TextFieldStartText>Daily spending limit</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="0.00" />
-      <TextFieldPrefix>¢</TextFieldPrefix>
-      <TextFieldSuffix>EUR</TextFieldSuffix>
-    </TextFieldControl>
+  <TextField spread label="Amount" placeholder="0.00">
+    <template #description>Daily spending limit</template>
+    <template #prefix>¢</template>
+    <template #suffix>EUR</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>Website</TextFieldLabel>
-    <TextFieldStartText>Your public profile URL</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="example.com" />
-      <TextFieldPrefix>https://</TextFieldPrefix>
-    </TextFieldControl>
-    <TextFieldEndText>Must include a valid domain</TextFieldEndText>
+  <TextField spread label="Website" placeholder="example.com" variant="filled">
+    <template #description>Your public profile URL</template>
+    <template #prefix>https://</template>
+    <template #end-text>Must include a valid domain</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Project name</TextFieldLabel>
-    <TextFieldStartText>Used to generate the project URL</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="my-project" />
-      <TextFieldHeader>acme.dev/</TextFieldHeader>
-      <TextFieldFooter>Lowercase letters and dashes only</TextFieldFooter>
-    </TextFieldControl>
+  <TextField spread label="Project name" placeholder="my-project">
+    <template #description>Used to generate the project URL</template>
+    <template #header>acme.dev/</template>
+    <template #footer>Lowercase letters and dashes only</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>API key</TextFieldLabel>
-    <TextFieldStartText>Stored encrypted at rest</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Paste your key" type="password" />
-      <TextFieldPrefix>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-      </TextFieldPrefix>
-      <TextFieldHeader>Secret</TextFieldHeader>
-      <TextFieldFooter>Rotates every 90 days</TextFieldFooter>
-    </TextFieldControl>
-    <TextFieldEndText>Treat like a password</TextFieldEndText>
+  <TextField
+    spread
+    variant="filled"
+    label="API key"
+    placeholder="Paste your key"
+    type="password"
+  >
+    <template #description>Stored encrypted at rest</template>
+    <template #prefix>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </template>
+    <template #header>Secret</template>
+    <template #footer>Rotates every 90 days</template>
+    <template #end-text>Treat like a password</template>
   </TextField>
 </template>

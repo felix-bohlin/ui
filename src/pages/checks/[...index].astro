@@ -1,11 +1,5 @@
 ---
-import {
-  Button,
-  Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
-  Textarea,
-} from "@opui/astro"
+import { Button, Checkbox, Textarea } from "@opui/astro"
 import Document from "../../layouts/Document.astro"
 import {
   parseTodo,
@@ -65,10 +59,7 @@ const count = sections.reduce(
     <p class="checks-progress" id="checks-progress" role="status">
       0 of {count} checked
     </p>
-    <Checkbox size="small">
-      <CheckboxInput id="checks-hide-done" />
-      <CheckboxLabel>Hide checked</CheckboxLabel>
-    </Checkbox>
+    <Checkbox id="checks-hide-done" size="small">Hide checked</Checkbox>
   </section>
 
   {
@@ -80,12 +71,9 @@ const count = sections.reduce(
           {section.items.map((item) => (
             <li class="checks-item" data-check-line={item.line}>
               <Checkbox class="checks-done">
-                <CheckboxInput />
-                <CheckboxLabel>
-                  {splitInlineCode(item.text).map((part) =>
-                    part.code ? <code>{part.value}</code> : part.value,
-                  )}
-                </CheckboxLabel>
+                {splitInlineCode(item.text).map((part) =>
+                  part.code ? <code>{part.value}</code> : part.value,
+                )}
               </Checkbox>
               {item.notes.length > 0 && (
                 <div class="checks-notes">
@@ -133,9 +121,8 @@ const count = sections.reduce(
   <h2 id="copy">Copy</h2>
 
   <section class="checks-actions ui-not-rich-text">
-    <Checkbox>
-      <CheckboxInput checked id="checks-only-commented" />
-      <CheckboxLabel>Only checks I commented on</CheckboxLabel>
+    <Checkbox checked id="checks-only-commented">
+      Only checks I commented on
     </Checkbox>
     <div class="checks-buttons">
       <Button id="checks-copy" variant="filled">Copy checks and comments</Button

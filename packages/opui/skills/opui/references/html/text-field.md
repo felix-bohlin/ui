@@ -18,7 +18,7 @@ Label Description ¢ EUR Header Footer Supporting text
 
 - `.ui-field`
 
-  The boxed input area. Holds the input and the affixes.
+  The boxed input area.
 
 - `.ui-header`
 
@@ -42,7 +42,7 @@ Label Description ¢ EUR Header Footer Supporting text
 
 - `.ui-end-text`
 
-  Supporting text displayed below the field. Linked to the input through `aria-describedby`.
+  Supporting text displayed below the field.
 
 ## Variants
 
@@ -611,18 +611,18 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 #### Parts
 
-| Part                  | Description                                                                                |
-| --------------------- | ------------------------------------------------------------------------------------------ |
-| `label.ui-text-field` | Container element.                                                                         |
-| `.ui-label`           | The label for the field.                                                                   |
-| `.ui-start-text`      | Description text displayed above the field.                                                |
-| `.ui-field`           | The boxed input area. Holds the input and the affixes.                                     |
-| `.ui-header`          | Content above the input, inside the border, with a divider.                                |
-| `.ui-prefix`          | Content at the inline-start of the field, inside the border.                               |
-| `<input>`             | The input element.                                                                         |
-| `.ui-suffix`          | Content at the inline-end of the field, inside the border.                                 |
-| `.ui-footer`          | Content below the input, inside the border, with a divider.                                |
-| `.ui-end-text`        | Supporting text displayed below the field. Linked to the input through `aria-describedby`. |
+| Part                  | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| `label.ui-text-field` | Container element.                                           |
+| `.ui-label`           | The label for the field.                                     |
+| `.ui-start-text`      | Description text displayed above the field.                  |
+| `.ui-field`           | The boxed input area.                                        |
+| `.ui-header`          | Content above the input, inside the border, with a divider.  |
+| `.ui-prefix`          | Content at the inline-start of the field, inside the border. |
+| `<input>`             | The input element.                                           |
+| `.ui-suffix`          | Content at the inline-end of the field, inside the border.   |
+| `.ui-footer`          | Content below the input, inside the border, with a divider.  |
+| `.ui-end-text`        | Supporting text displayed below the field.                   |
 
 #### CSS variables
 

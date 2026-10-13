@@ -1,33 +1,32 @@
-import {
-  Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
-} from "opui-css/react"
+import { Checkbox } from "opui-css/react"
 
 export default function Validation() {
   return (
     <>
       <div className="example-row ui-spacious">
-        <Checkbox>
-          <CheckboxInput required name="checkbox-validation" />
-          <CheckboxLabel>Default</CheckboxLabel>
+        <Checkbox required name="checkbox-validation">
+          Default
         </Checkbox>
-        <Checkbox stack>
-          <CheckboxInput required name="checkbox-validation" />
-          <CheckboxLabel>Stack</CheckboxLabel>
+        <Checkbox stack required name="checkbox-validation">
+          Stack
         </Checkbox>
       </div>
       <div className="example-row ui-spacious">
-        <Checkbox error>
-          <CheckboxInput defaultChecked name="checkbox-validation" />
-          <CheckboxLabel>Default</CheckboxLabel>
-          <CheckboxEndText>Check yourself</CheckboxEndText>
+        <Checkbox
+          error
+          defaultChecked
+          name="checkbox-validation"
+          endText="Check yourself"
+        >
+          Default
         </Checkbox>
-        <Checkbox stack error>
-          <CheckboxInput name="checkbox-validation" />
-          <CheckboxLabel>Stack</CheckboxLabel>
-          <CheckboxEndText>Before you wreck yourself</CheckboxEndText>
+        <Checkbox
+          stack
+          error
+          name="checkbox-validation"
+          endText="Before you wreck yourself"
+        >
+          Stack
         </Checkbox>
       </div>
     </>

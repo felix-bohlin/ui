@@ -1,9 +1,0 @@
----
-import type { FieldControlProps as Props } from "./types.astro"
-
-const { class: className, ...rest } = Astro.props
----
-
-<span class:list={["ui-field", className]} {...rest}>
-  <slot />
-</span>

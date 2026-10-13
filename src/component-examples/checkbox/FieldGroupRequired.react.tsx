@@ -1,7 +1,5 @@
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -14,18 +12,9 @@ export default function FieldGroupRequired() {
       <FieldSet>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-required">
-          <Checkbox>
-            <CheckboxInput required />
-            <CheckboxLabel>Checkbox 1</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput required />
-            <CheckboxLabel>Checkbox 2</CheckboxLabel>
-          </Checkbox>
-          <Checkbox>
-            <CheckboxInput required />
-            <CheckboxLabel>Checkbox 3</CheckboxLabel>
-          </Checkbox>
+          <Checkbox required>Checkbox 1</Checkbox>
+          <Checkbox required>Checkbox 2</Checkbox>
+          <Checkbox required>Checkbox 3</Checkbox>
         </FieldGroup>
       </FieldSet>
     </Form>

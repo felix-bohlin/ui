@@ -1,8 +1,6 @@
 <script lang="ts">
   import {
     Checkbox,
-    CheckboxInput,
-    CheckboxLabel,
     FieldDescription,
     FieldGroup,
     FieldLegend,
@@ -14,13 +12,7 @@
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
   <FieldGroup name="notifications">
-    <Checkbox>
-      <CheckboxInput value="horse-tinder" checked />
-      <CheckboxLabel>Horse Tinder</CheckboxLabel>
-    </Checkbox>
-    <Checkbox>
-      <CheckboxInput value="onlyhorsefans" checked />
-      <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
-    </Checkbox>
+    <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
+    <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
   </FieldGroup>
 </FieldSet>

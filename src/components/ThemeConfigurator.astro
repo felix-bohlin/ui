@@ -12,9 +12,6 @@ import {
   Range,
   Switch,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "@opui/astro"
 import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 
@@ -102,16 +99,14 @@ const { link } = Astro.locals
         <FieldSet>
           <FieldLegend>Color palette</FieldLegend>
           <FieldGroup>
-            <TextField spread size="small">
-              <TextFieldLabel>Source color</TextFieldLabel>
-              <TextFieldControl>
-                <TextFieldInput
-                  type="color"
-                  name="--palette-source-color"
-                  value="#000000"
-                />
-              </TextFieldControl>
-            </TextField>
+            <TextField
+              type="color"
+              label="Source color"
+              name="--palette-source-color"
+              value="#000000"
+              spread
+              size="small"
+            />
             <Range
               label="Hue"
               name="--palette-hue"

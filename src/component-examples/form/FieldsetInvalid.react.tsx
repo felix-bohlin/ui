@@ -1,7 +1,5 @@
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -14,13 +12,11 @@ export default function FieldsetInvalid() {
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
-        <Checkbox error>
-          <CheckboxInput value="kibble" />
-          <CheckboxLabel>Kibble</CheckboxLabel>
+        <Checkbox error value="kibble">
+          Kibble
         </Checkbox>
-        <Checkbox error>
-          <CheckboxInput value="wet-food" />
-          <CheckboxLabel>Wet food</CheckboxLabel>
+        <Checkbox error value="wet-food">
+          Wet food
         </Checkbox>
       </FieldGroup>
       <span className="ui-end-text">Your pet is hungry.</span>

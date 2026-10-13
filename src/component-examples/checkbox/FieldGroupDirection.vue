@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Form,
-} from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
 
 <template>
@@ -15,18 +7,9 @@ import {
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="checkbox-group-direction">
-        <Checkbox>
-          <CheckboxInput checked />
-          <CheckboxLabel>Checkbox 1</CheckboxLabel>
-        </Checkbox>
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>Checkbox 2</CheckboxLabel>
-        </Checkbox>
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>Checkbox 3</CheckboxLabel>
-        </Checkbox>
+        <Checkbox checked>Checkbox 1</Checkbox>
+        <Checkbox>Checkbox 2</Checkbox>
+        <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
     </FieldSet>
   </Form>

@@ -1,21 +1,49 @@
 <script lang="ts">
-  import { provideFieldRoot } from "../Field/root.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import type { Props } from "./types.svelte"
+  import type { Snippet } from "svelte"
 
   let {
+    "aria-describedby": ariaDescribedBy,
     autoFit,
-    children,
     class: className,
     error,
+    id,
+    name,
     size,
     spread,
+    startText,
+    style,
+    type = "text",
+    value = $bindable(),
     variant,
+
+    // Snippets
+    children,
+    description,
+    endText,
+    footer,
+    header,
+    label,
+    prefix,
+    suffix,
+    supportingText,
     ...rest
   }: Props = $props()
 
   const uid = $props.id()
-  provideFieldRoot(`end-text-${uid}`, () => error)
+  const field = getFieldContext()
+  const endTextId = $derived(
+    endText || supportingText ? `end-text-${uid}` : undefined,
+  )
+  const describedBy = $derived(
+    [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined,
+  )
 </script>
+
+{#snippet content(
+  part: string | Snippet,
+)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
   class={[
@@ -28,7 +56,51 @@
     },
     className,
   ]}
-  {...rest}
+  {style}
 >
+  {#if label}
+    <span class="ui-label">{@render content(label)}</span>
+  {/if}
+  {#if description || startText}
+    <span class="ui-start-text">
+      {#if typeof description === "function"}
+        {startText}
+        {@render description()}
+      {:else}
+        {description || startText}
+      {/if}
+    </span>
+  {/if}
+  <span class="ui-field">
+    <input
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      bind:value
+      {id}
+      inputmode={rest.inputmode ?? (type === "numeric" ? "numeric" : undefined)}
+      name={name ?? field?.name}
+      pattern={rest.pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
+      type={type === "numeric" ? "text" : type}
+    />
+    {#if prefix}
+      <span class="ui-prefix">{@render content(prefix)}</span>
+    {/if}
+    {#if suffix}
+      <span class="ui-suffix">{@render content(suffix)}</span>
+    {/if}
+    {#if header}
+      <span class="ui-header">{@render content(header)}</span>
+    {/if}
+    {#if footer}
+      <span class="ui-footer">{@render content(footer)}</span>
+    {/if}
+  </span>
+  {#if endText || supportingText}
+    <span class="ui-end-text" id={endTextId}>
+      {#if endText}{@render content(endText)}{/if}
+      {#if supportingText}{@render content(supportingText)}{/if}
+    </span>
+  {/if}
   {@render children?.()}
 </label>

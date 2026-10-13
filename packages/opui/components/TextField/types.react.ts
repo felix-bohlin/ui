@@ -1,8 +1,12 @@
 import type * as Base from "./types"
-import type { ComponentProps } from "react"
+import type { ComponentProps, ReactNode } from "react"
 
-export type Props = Base.Props & ComponentProps<"label">
-
-export type TextFieldInputProps = Base.TextFieldInputProps & {
+type InputProps = {
   type?: ComponentProps<"input">["type"] | "numeric"
-} & Omit<ComponentProps<"input">, "type">
+} & Omit<ComponentProps<"input">, "size" | "type">
+
+type Slots = Partial<Base.Slots<ReactNode>>
+
+export type Props = Omit<Base.Props, keyof Slots> &
+  Omit<InputProps, keyof Slots> &
+  Slots

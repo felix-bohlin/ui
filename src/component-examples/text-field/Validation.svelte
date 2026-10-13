@@ -1,43 +1,31 @@
 <script lang="ts">
-  import {
-    TextField,
-    TextFieldControl,
-    TextFieldEndText,
-    TextFieldInput,
-    TextFieldLabel,
-  } from "opui-css/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
 <div class="example-row">
-  <TextField>
-    <TextFieldLabel>I'm required</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" required />
-    </TextFieldControl>
-  </TextField>
-  <TextField variant="filled">
-    <TextFieldLabel>So am I!</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" required />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="I'm required" placeholder="Placeholder" required />
+  <TextField
+    label="So am I!"
+    placeholder="Placeholder"
+    required
+    variant="filled"
+  />
 </div>
 
 <div class="example-row">
-  <TextField error>
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" value="This isn't right" />
-    </TextFieldControl>
-    <TextFieldEndText>Only double-negatives are allowed.</TextFieldEndText>
-  </TextField>
-  <TextField error variant="filled">
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" value="Uh-oh" />
-    </TextFieldControl>
-    <TextFieldEndText
-      >Only letters from the first half of the alphabet are allowed.</TextFieldEndText
-    >
-  </TextField>
+  <TextField
+    label="Label"
+    placeholder="Placeholder"
+    value="This isn't right"
+    endText="Only double-negatives are allowed."
+    error
+  />
+  <TextField
+    label="Label"
+    placeholder="Placeholder"
+    value="Uh-oh"
+    endText="Only letters from the first half of the alphabet are allowed."
+    error
+    variant="filled"
+  />
 </div>

@@ -1,12 +1,5 @@
 <script lang="ts">
-  import {
-    Checkbox,
-    CheckboxInput,
-    CheckboxLabel,
-    FieldGroup,
-    FieldLegend,
-    FieldSet,
-  } from "opui-css/svelte"
+  import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/svelte"
 
   const items = ["Apples", "Bananas", "Cherries"]
   let checked = $state([true, false, false])
@@ -23,20 +16,15 @@
 
 <FieldSet class="indeterminate-demo">
   <FieldLegend>
-    <Checkbox class="parent">
-      <CheckboxInput
-        bind:checked={() => allChecked, toggleAll}
-        {indeterminate}
-      />
-      <CheckboxLabel>Select all</CheckboxLabel>
-    </Checkbox>
+    <Checkbox
+      class="parent"
+      bind:checked={() => allChecked, toggleAll}
+      {indeterminate}>Select all</Checkbox
+    >
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
     {#each items as item, index (item)}
-      <Checkbox class="child">
-        <CheckboxInput bind:checked={checked[index]} />
-        <CheckboxLabel>{item}</CheckboxLabel>
-      </Checkbox>
+      <Checkbox class="child" bind:checked={checked[index]}>{item}</Checkbox>
     {/each}
   </FieldGroup>
 </FieldSet>

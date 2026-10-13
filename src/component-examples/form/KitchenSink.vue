@@ -2,9 +2,6 @@
 import {
   Button,
   Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -16,9 +13,6 @@ import {
   Select,
   Switch,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
   Textarea,
 } from "opui-css/vue"
 import { ref } from "vue"
@@ -43,22 +37,13 @@ const experience = ref(5)
         Please provide your basic contact details.
       </FieldDescription>
       <FieldGroup>
-        <TextField>
-          <TextFieldLabel>Full Name</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput placeholder="Jane Doe" required />
-          </TextFieldControl>
-        </TextField>
-        <TextField>
-          <TextFieldLabel>Email Address</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput
-              type="email"
-              placeholder="jane@example.com"
-              required
-            />
-          </TextFieldControl>
-        </TextField>
+        <TextField label="Full Name" placeholder="Jane Doe" required />
+        <TextField
+          label="Email Address"
+          type="email"
+          placeholder="jane@example.com"
+          required
+        />
         <Select label="Role" :items="roleItems" />
       </FieldGroup>
     </FieldSet>
@@ -128,10 +113,9 @@ const experience = ref(5)
     <FieldSet>
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup name="legal">
-        <Checkbox>
-          <CheckboxInput name="terms" required />
-          <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
-          <CheckboxEndText>Support this text</CheckboxEndText>
+        <Checkbox name="terms" required>
+          I agree to the terms and conditions
+          <template #end-text>Support this text</template>
         </Checkbox>
       </FieldGroup>
     </FieldSet>

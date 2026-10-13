@@ -8,41 +8,41 @@ Label Description ¢ EUR Header Footer Supporting text
 
   Container element.
 
-- `<TextFieldLabel>`
+- `v-slot:label`
 
   The label for the field.
 
-- `<TextFieldStartText>`
+- `v-slot:description`
 
   Description text displayed above the field.
 
-- `<TextFieldControl>`
+- `.ui-field`
 
-  The boxed input area. Holds the input and the affixes.
+  The boxed input area.
 
-- `<TextFieldHeader>`
+- `v-slot:header`
 
   Content above the input, inside the border, with a divider.
 
-- `<TextFieldPrefix>`
+- `v-slot:prefix`
 
   Content at the inline-start of the field, inside the border.
 
-- `<TextFieldInput>`
+- `v-model`
 
   The input element.
 
-- `<TextFieldSuffix>`
+- `v-slot:suffix`
 
   Content at the inline-end of the field, inside the border.
 
-- `<TextFieldFooter>`
+- `v-slot:footer`
 
   Content below the input, inside the border, with a divider.
 
-- `<TextFieldEndText>`
+- `v-slot:end-text`
 
-  Supporting text displayed below the field. Linked to the input through `aria-describedby`.
+  Supporting text displayed below the field.
 
 ## Variants
 
@@ -50,27 +50,12 @@ Text fields are outlined by default. Set `variant="filled"` for a filled field.
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Outlined</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
-  <TextField variant="filled">
-    <TextFieldLabel>Filled</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="Outlined" placeholder="Placeholder" />
+  <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 </template>
 ```
 
@@ -80,65 +65,28 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField size="x-small">
-    <TextFieldLabel>x-small</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
-  <TextField size="small">
-    <TextFieldLabel>Small</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
-  <TextField>
-    <TextFieldLabel>Default</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
-  <TextField size="large">
-    <TextFieldLabel>Large</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Placeholder" />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="x-small" placeholder="Placeholder" size="x-small" />
+  <TextField label="Small" placeholder="Placeholder" size="small" />
+  <TextField label="Default" placeholder="Placeholder" />
+  <TextField label="Large" placeholder="Placeholder" size="large" />
 </template>
 ```
 
 ## Description
 
-Use `TextFieldStartText` for text between the label and the input.
+Use the `description` prop or slot for text between the label and the input.
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-  TextFieldStartText,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Name</TextFieldLabel>
-    <TextFieldStartText>As it appears on your ID</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput />
-    </TextFieldControl>
-  </TextField>
+  <TextField description="As it appears on your ID" label="Name" />
 </template>
 ```
 
@@ -146,23 +94,11 @@ import {
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Outlined" />
-    </TextFieldControl>
-    <TextFieldEndText>Supporting text</TextFieldEndText>
-  </TextField>
+  <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
 </template>
 ```
 
@@ -172,62 +108,38 @@ Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-  TextFieldPrefix,
-  TextFieldSuffix,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Amount</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="0.00" />
-      <TextFieldPrefix>¢</TextFieldPrefix>
-      <TextFieldSuffix>EUR</TextFieldSuffix>
-    </TextFieldControl>
+  <TextField label="Amount" placeholder="0.00">
+    <template #prefix>¢</template>
+    <template #suffix>EUR</template>
   </TextField>
 
-  <TextField>
-    <TextFieldLabel>Website</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="example.com" />
-      <TextFieldPrefix>https://</TextFieldPrefix>
-    </TextFieldControl>
+  <TextField label="Website" placeholder="example.com">
+    <template #prefix>https://</template>
   </TextField>
 
-  <TextField>
-    <TextFieldLabel>Weight</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput type="numeric" placeholder="0" />
-      <TextFieldSuffix>kg</TextFieldSuffix>
-    </TextFieldControl>
+  <TextField label="Weight" type="numeric" placeholder="0">
+    <template #suffix>kg</template>
   </TextField>
 
-  <TextField>
-    <TextFieldLabel>Search</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Search..." />
-      <TextFieldPrefix>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.3-4.3"></path>
-        </svg>
-      </TextFieldPrefix>
-    </TextFieldControl>
+  <TextField label="Search" placeholder="Search...">
+    <template #prefix
+      ><svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path></svg
+    ></template>
   </TextField>
 </template>
 ```
@@ -238,38 +150,23 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldFooter,
-  TextFieldHeader,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Username</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Enter your name" />
-      <TextFieldHeader>Full Name</TextFieldHeader>
-    </TextFieldControl>
+  <TextField label="Username" placeholder="Enter your name">
+    <template #header>Full Name</template>
   </TextField>
 
-  <TextField>
-    <TextFieldLabel>Tagline</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="A short description" />
-      <TextFieldFooter>0 / 80</TextFieldFooter>
-    </TextFieldControl>
+  <TextField label="Tagline" placeholder="A short description">
+    <template #footer>0 / 80</template>
   </TextField>
 </template>
 ```
 
 ## Validation
 
-Set `required` on `TextFieldInput`. It goes on the `<input>`.
+Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
 
 Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
 
@@ -277,49 +174,36 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
   <div class="example-row">
-    <TextField>
-      <TextFieldLabel>I'm required</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Placeholder" required />
-      </TextFieldControl>
-    </TextField>
-    <TextField variant="filled">
-      <TextFieldLabel>So am I!</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Placeholder" required />
-      </TextFieldControl>
-    </TextField>
+    <TextField label="I'm required" placeholder="Placeholder" required />
+    <TextField
+      label="So am I!"
+      placeholder="Placeholder"
+      required
+      variant="filled"
+    />
   </div>
 
   <div class="example-row">
-    <TextField error>
-      <TextFieldLabel>Label</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Placeholder" value="This isn't right" />
-      </TextFieldControl>
-      <TextFieldEndText>Only double-negatives are allowed.</TextFieldEndText>
-    </TextField>
-    <TextField error variant="filled">
-      <TextFieldLabel>Label</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Placeholder" value="Uh-oh" />
-      </TextFieldControl>
-      <TextFieldEndText
-        >Only letters from the first half of the alphabet are
-        allowed.</TextFieldEndText
-      >
-    </TextField>
+    <TextField
+      label="Label"
+      placeholder="Placeholder"
+      value="This isn't right"
+      endText="Only double-negatives are allowed."
+      error
+    />
+    <TextField
+      label="Label"
+      placeholder="Placeholder"
+      value="Uh-oh"
+      endText="Only letters from the first half of the alphabet are allowed."
+      error
+      variant="filled"
+    />
   </div>
 </template>
 ```
@@ -330,119 +214,78 @@ Use the `spread` boolean prop to display the label and description on the left w
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldFooter,
-  TextFieldHeader,
-  TextFieldInput,
-  TextFieldLabel,
-  TextFieldPrefix,
-  TextFieldStartText,
-  TextFieldSuffix,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField spread>
-    <TextFieldLabel>Name</TextFieldLabel>
-    <TextFieldStartText
-      >Provide your full name for identification</TextFieldStartText
-    >
-    <TextFieldControl>
-      <TextFieldInput placeholder="Evil Rabbit" />
-    </TextFieldControl>
+  <TextField spread placeholder="Evil Rabbit">
+    <template #label>Name</template>
+    <template #description>Provide your full name for identification</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>Email</TextFieldLabel>
-    <TextFieldStartText>We'll use this to contact you</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="you@example.com" type="email" />
-    </TextFieldControl>
-    <TextFieldEndText>Please use a valid email address</TextFieldEndText>
+  <TextField spread placeholder="you@example.com" type="email" variant="filled">
+    <template #label>Email</template>
+    <template #description>We'll use this to contact you</template>
+    <template #end-text>Please use a valid email address</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Required</TextFieldLabel>
-    <TextFieldStartText>You must fill this in</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput required />
-    </TextFieldControl>
+  <TextField spread required label="Required">
+    <template #description>You must fill this in</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Disabled</TextFieldLabel>
-    <TextFieldStartText>This field is disabled</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput disabled />
-    </TextFieldControl>
+  <TextField spread disabled label="Disabled">
+    <template #description>This field is disabled</template>
   </TextField>
 
-  <TextField spread error>
-    <TextFieldLabel>Invalid Name</TextFieldLabel>
-    <TextFieldStartText>This field has an error</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput />
-    </TextFieldControl>
-    <TextFieldEndText>This value is too short.</TextFieldEndText>
+  <TextField spread error label="Invalid Name">
+    <template #description>This field has an error</template>
+    <template #end-text>This value is too short.</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Amount</TextFieldLabel>
-    <TextFieldStartText>Daily spending limit</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="0.00" />
-      <TextFieldPrefix>¢</TextFieldPrefix>
-      <TextFieldSuffix>EUR</TextFieldSuffix>
-    </TextFieldControl>
+  <TextField spread label="Amount" placeholder="0.00">
+    <template #description>Daily spending limit</template>
+    <template #prefix>¢</template>
+    <template #suffix>EUR</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>Website</TextFieldLabel>
-    <TextFieldStartText>Your public profile URL</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="example.com" />
-      <TextFieldPrefix>https://</TextFieldPrefix>
-    </TextFieldControl>
-    <TextFieldEndText>Must include a valid domain</TextFieldEndText>
+  <TextField spread label="Website" placeholder="example.com" variant="filled">
+    <template #description>Your public profile URL</template>
+    <template #prefix>https://</template>
+    <template #end-text>Must include a valid domain</template>
   </TextField>
 
-  <TextField spread>
-    <TextFieldLabel>Project name</TextFieldLabel>
-    <TextFieldStartText>Used to generate the project URL</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="my-project" />
-      <TextFieldHeader>acme.dev/</TextFieldHeader>
-      <TextFieldFooter>Lowercase letters and dashes only</TextFieldFooter>
-    </TextFieldControl>
+  <TextField spread label="Project name" placeholder="my-project">
+    <template #description>Used to generate the project URL</template>
+    <template #header>acme.dev/</template>
+    <template #footer>Lowercase letters and dashes only</template>
   </TextField>
 
-  <TextField spread variant="filled">
-    <TextFieldLabel>API key</TextFieldLabel>
-    <TextFieldStartText>Stored encrypted at rest</TextFieldStartText>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Paste your key" type="password" />
-      <TextFieldPrefix>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-      </TextFieldPrefix>
-      <TextFieldHeader>Secret</TextFieldHeader>
-      <TextFieldFooter>Rotates every 90 days</TextFieldFooter>
-    </TextFieldControl>
-    <TextFieldEndText>Treat like a password</TextFieldEndText>
+  <TextField
+    spread
+    variant="filled"
+    label="API key"
+    placeholder="Paste your key"
+    type="password"
+  >
+    <template #description>Stored encrypted at rest</template>
+    <template #prefix>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </template>
+    <template #header>Secret</template>
+    <template #footer>Rotates every 90 days</template>
+    <template #end-text>Treat like a password</template>
   </TextField>
 </template>
 ```
@@ -453,21 +296,11 @@ Use `autoFit` to let the field's width follow its content, from `25ch`.
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField autoFit>
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Auto-fit" />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="Label" placeholder="Auto-fit" autoFit />
 </template>
 ```
 
@@ -565,21 +398,11 @@ Date-related inputs never show as empty, so the label is always visible. There a
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Numeric</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput placeholder="Numeric" type="numeric" />
-    </TextFieldControl>
-  </TextField>
+  <TextField label="Numeric" placeholder="Numeric" type="numeric" />
 </template>
 ```
 
@@ -607,27 +430,12 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput type="file" placeholder="File" />
-    </TextFieldControl>
-  </TextField>
-  <TextField variant="filled">
-    <TextFieldLabel>Label</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput type="file" placeholder="File" />
-    </TextFieldControl>
-  </TextField>
+  <TextField type="file" placeholder="File" label="Label" />
+  <TextField type="file" placeholder="File" label="Label" variant="filled" />
 </template>
 ```
 
@@ -640,20 +448,11 @@ Leverages the `<input>` + `<datalist>` element combo.
 
 ```vue
 <script setup lang="ts">
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/vue"
+import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField>
-    <TextFieldLabel>Users</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput list="users" placeholder="Placeholder" />
-    </TextFieldControl>
+  <TextField label="Users" list="users" placeholder="Placeholder">
     <datalist id="users">
       <option value="Ray Manzarek"></option>
       <option value="Jonny Greenwood"></option>
@@ -661,15 +460,13 @@ import {
     </datalist>
   </TextField>
 
-  <TextField variant="filled">
-    <TextFieldLabel>Emails</TextFieldLabel>
-    <TextFieldControl>
-      <TextFieldInput
-        list="users-email"
-        placeholder="Placeholder"
-        type="email"
-      />
-    </TextFieldControl>
+  <TextField
+    variant="filled"
+    label="Emails"
+    list="users-email"
+    placeholder="Placeholder"
+    type="email"
+  >
     <datalist id="users-email">
       <option value="ray.manzarek@the.doors"></option>
       <option value="jonny.greenwood@radio.head"></option>
@@ -707,19 +504,34 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop      | Type                                | Default      | Description                                                              |
-| --------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------ |
-| `autoFit` | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                          |
-| `error`   | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                        |
-| `size`    | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                 |
-| `spread`  | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other. |
-| `variant` | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                      |
+| Prop                                                                                                                                                                        | Type                                | Default      | Description                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`                                                                                                                                                                   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `description`                                                                                                                                                               | `string`                            | -            | Description text displayed above the field.                               |
+| `endText`                                                                                                                                                                   | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`                                                                                                                                                                     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
+| `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                  |
+| `size`                                                                                                                                                                      | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `startText`                                                                                                                                                                 | `string`                            | -            | Legacy alias of `description`.                                            |
+| `type`                                                                                                                                                                      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
+| `variant`                                                                                                                                                                   | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
-| Slot      | Description                                                |
-| --------- | ---------------------------------------------------------- |
-| `default` | The field parts, and extra content such as a `<datalist>`. |
+| Slot              | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| `default`         | Extra content inside the root, such as a `<datalist>`.       |
+| `description`     | Description text displayed above the field.                  |
+| `end-text`        | Supporting text displayed below the field.                   |
+| `footer`          | Content below the input, inside the border, with a divider.  |
+| `header`          | Content above the input, inside the border, with a divider.  |
+| `label`           | The label for the field.                                     |
+| `prefix`          | Content at the inline-start of the field, inside the border. |
+| `suffix`          | Content at the inline-end of the field, inside the border.   |
+| `supporting-text` | Legacy alias of the `end-text` slot.                         |
 
 #### CSS variables
 
@@ -759,7 +571,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes go to the root `<label>`. Input attributes go on `TextFieldInput`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.
 
 ## Under the hood
 
@@ -927,7 +739,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the components from `opui-css/vue`:
+Import the component from `opui-css/vue`:
 
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/text-input.css`
@@ -936,7 +748,6 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
-- Breaking: the label, texts, affixes and input are [parts](#api), such as `TextFieldLabel`, `TextFieldControl`, `TextFieldInput` and `TextFieldEndText`. Input attributes go to `TextFieldInput`.
 - [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: `style` goes to the label instead of the input ([API](#api)).

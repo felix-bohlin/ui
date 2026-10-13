@@ -1,17 +1,5 @@
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "opui-css/react"
+import { TextField } from "opui-css/react"
 
 export default function AutoFit() {
-  return (
-    <TextField autoFit>
-      <TextFieldLabel>Label</TextFieldLabel>
-      <TextFieldControl>
-        <TextFieldInput placeholder="Auto-fit" />
-      </TextFieldControl>
-    </TextField>
-  )
+  return <TextField label="Label" placeholder="Auto-fit" autoFit />
 }

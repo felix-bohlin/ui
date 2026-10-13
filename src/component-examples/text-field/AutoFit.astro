@@ -1,15 +1,5 @@
 ---
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
-} from "@opui/astro"
+import { TextField } from "@opui/astro"
 ---
 
-<TextField autoFit>
-  <TextFieldLabel>Label</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput placeholder="Auto-fit" />
-  </TextFieldControl>
-</TextField>
+<TextField label="Label" placeholder="Auto-fit" autoFit />

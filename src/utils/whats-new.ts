@@ -139,12 +139,6 @@ const whatsNew = {
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
   ],
   checkbox: [
-    {
-      astro: `Breaking: <a href="#api"><code>CheckboxInput</code>, <code>CheckboxLabel</code> and <code>CheckboxEndText</code></a> are parts. Input attributes go to <code>CheckboxInput</code>, and <code>visuallyHidden</code> on <code>CheckboxLabel</code> replaces <code>hideLabel</code>.`,
-      react: `Breaking: <a href="#api"><code>CheckboxInput</code>, <code>CheckboxLabel</code> and <code>CheckboxEndText</code></a> are parts. Input attributes go to <code>CheckboxInput</code>, and <code>visuallyHidden</code> on <code>CheckboxLabel</code> replaces <code>hideLabel</code>.`,
-      svelte: `Breaking: <a href="#api"><code>CheckboxInput</code>, <code>CheckboxLabel</code> and <code>CheckboxEndText</code></a> are parts. Input attributes go to <code>CheckboxInput</code>, and <code>visuallyHidden</code> on <code>CheckboxLabel</code> replaces <code>hideLabel</code>.`,
-      vue: `Breaking: <a href="#api"><code>CheckboxInput</code>, <code>CheckboxLabel</code> and <code>CheckboxEndText</code></a> are parts. Input attributes go to <code>CheckboxInput</code>, and <code>visuallyHidden</code> on <code>CheckboxLabel</code> replaces <code>hideLabel</code>.`,
-    },
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text.`,
@@ -401,12 +395,6 @@ const whatsNew = {
     },
   ],
   "text-field": [
-    {
-      astro: `Breaking: the label, texts, affixes and input are <a href="#api">parts</a>, such as <code>TextFieldLabel</code>, <code>TextFieldControl</code>, <code>TextFieldInput</code> and <code>TextFieldEndText</code>. Input attributes go to <code>TextFieldInput</code>.`,
-      react: `Breaking: the label, texts, affixes and input are <a href="#api">parts</a>, such as <code>TextFieldLabel</code>, <code>TextFieldControl</code>, <code>TextFieldInput</code> and <code>TextFieldEndText</code>. Input attributes go to <code>TextFieldInput</code>.`,
-      svelte: `Breaking: the label, texts, affixes and input are <a href="#api">parts</a>, such as <code>TextFieldLabel</code>, <code>TextFieldControl</code>, <code>TextFieldInput</code> and <code>TextFieldEndText</code>. Input attributes go to <code>TextFieldInput</code>.`,
-      vue: `Breaking: the label, texts, affixes and input are <a href="#api">parts</a>, such as <code>TextFieldLabel</code>, <code>TextFieldControl</code>, <code>TextFieldInput</code> and <code>TextFieldEndText</code>. Input attributes go to <code>TextFieldInput</code>.`,
-    },
     {
       default: `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
       html: `<a href="#sizes">x-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,

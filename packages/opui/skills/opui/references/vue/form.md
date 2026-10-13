@@ -97,9 +97,6 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
 <script setup lang="ts">
 import {
   Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -126,34 +123,27 @@ import {
       <FieldLegend>Which side projects do you follow?</FieldLegend>
       <FieldDescription>Some are better than others.</FieldDescription>
       <FieldGroup name="projects">
-        <Checkbox>
-          <CheckboxInput value="the-smile" />
-          <CheckboxLabel>The Smile</CheckboxLabel>
-          <CheckboxEndText
-            >Thom Yorke, Jonny Greenwood, Tom Skinner</CheckboxEndText
+        <Checkbox value="the-smile">
+          The Smile
+          <template #end-text
+            >Thom Yorke, Jonny Greenwood, Tom Skinner</template
           >
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput value="atoms-for-peace" />
-          <CheckboxLabel>Atoms for Peace</CheckboxLabel>
-          <CheckboxEndText>Thom Yorke, Flea, Nigel Godrich</CheckboxEndText>
+        <Checkbox value="atoms-for-peace">
+          Atoms for Peace
+          <template #end-text>Thom Yorke, Flea, Nigel Godrich</template>
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput value="eob" />
-          <CheckboxLabel>EOB</CheckboxLabel>
-          <CheckboxEndText>Ed O'Brien solo</CheckboxEndText>
+        <Checkbox value="eob">
+          EOB
+          <template #end-text>Ed O'Brien solo</template>
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput value="jonny-scores" />
-          <CheckboxLabel>Film Scores</CheckboxLabel>
-          <CheckboxEndText
-            >Film compositions by Jonny Greenwood</CheckboxEndText
-          >
+        <Checkbox value="jonny-scores">
+          Film Scores
+          <template #end-text>Film compositions by Jonny Greenwood</template>
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput value="selway-solo" />
-          <CheckboxLabel>Philip Selway</CheckboxLabel>
-          <CheckboxEndText>Philip Selway solo albums</CheckboxEndText>
+        <Checkbox value="selway-solo">
+          Philip Selway
+          <template #end-text>Philip Selway solo albums</template>
         </Checkbox>
       </FieldGroup>
     </FieldSet>
@@ -167,15 +157,7 @@ Set `direction="row"` to lay out fields horizontally.
 
 ```vue
 <script setup lang="ts">
-import {
-  Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Form,
-} from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </script>
 
 <template>
@@ -183,18 +165,9 @@ import {
     <FieldSet>
       <FieldLegend>Options</FieldLegend>
       <FieldGroup direction="row">
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>Option 1</CheckboxLabel>
-        </Checkbox>
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>Option 2</CheckboxLabel>
-        </Checkbox>
-        <Checkbox>
-          <CheckboxInput />
-          <CheckboxLabel>Option 3</CheckboxLabel>
-        </Checkbox>
+        <Checkbox>Option 1</Checkbox>
+        <Checkbox>Option 2</Checkbox>
+        <Checkbox>Option 3</Checkbox>
       </FieldGroup>
     </FieldSet>
   </Form>
@@ -211,8 +184,6 @@ Set `disabled` on `FieldSet` to disable every field inside.
 <script setup lang="ts">
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -225,14 +196,8 @@ import {
     <FieldLegend>Pet dating</FieldLegend>
     <FieldDescription>You can't change these settings</FieldDescription>
     <FieldGroup name="notifications">
-      <Checkbox>
-        <CheckboxInput value="horse-tinder" checked />
-        <CheckboxLabel>Horse Tinder</CheckboxLabel>
-      </Checkbox>
-      <Checkbox>
-        <CheckboxInput value="onlyhorsefans" checked />
-        <CheckboxLabel>OnlyHorseFans</CheckboxLabel>
-      </Checkbox>
+      <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
+      <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
     </FieldGroup>
   </FieldSet>
 </template>
@@ -246,8 +211,6 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
 <script setup lang="ts">
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldDescription,
   FieldGroup,
   FieldLegend,
@@ -260,14 +223,8 @@ import {
     <FieldLegend>Pet food</FieldLegend>
     <FieldDescription>Pick at least one.</FieldDescription>
     <FieldGroup name="food">
-      <Checkbox error>
-        <CheckboxInput value="kibble" />
-        <CheckboxLabel>Kibble</CheckboxLabel>
-      </Checkbox>
-      <Checkbox error>
-        <CheckboxInput value="wet-food" />
-        <CheckboxLabel>Wet food</CheckboxLabel>
-      </Checkbox>
+      <Checkbox error value="kibble">Kibble</Checkbox>
+      <Checkbox error value="wet-food">Wet food</Checkbox>
     </FieldGroup>
     <span class="ui-end-text">Your pet is hungry.</span>
   </FieldSet>
@@ -287,9 +244,6 @@ import {
   FieldSet,
   Textarea,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "opui-css/vue"
 </script>
 
@@ -298,12 +252,7 @@ import {
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup name="bio">
-      <TextField>
-        <TextFieldLabel>Name</TextFieldLabel>
-        <TextFieldControl>
-          <TextFieldInput name="name" />
-        </TextFieldControl>
-      </TextField>
+      <TextField label="Name" name="name" />
       <Textarea required label="Life story" />
     </FieldGroup>
   </FieldSet>
@@ -324,9 +273,6 @@ import {
   FieldSet,
   Form,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "opui-css/vue"
 </script>
 
@@ -335,12 +281,7 @@ import {
     <FieldSet>
       <FieldLegend>Post Content</FieldLegend>
       <FieldGroup>
-        <TextField>
-          <TextFieldLabel>Title</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput placeholder="My new post" />
-          </TextFieldControl>
-        </TextField>
+        <TextField label="Title" placeholder="My new post" />
       </FieldGroup>
     </FieldSet>
 
@@ -382,9 +323,6 @@ Everything at once.
 import {
   Button,
   Checkbox,
-  CheckboxEndText,
-  CheckboxInput,
-  CheckboxLabel,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -396,9 +334,6 @@ import {
   Select,
   Switch,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
   Textarea,
 } from "opui-css/vue"
 import { ref } from "vue"
@@ -423,22 +358,13 @@ const experience = ref(5)
         Please provide your basic contact details.
       </FieldDescription>
       <FieldGroup>
-        <TextField>
-          <TextFieldLabel>Full Name</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput placeholder="Jane Doe" required />
-          </TextFieldControl>
-        </TextField>
-        <TextField>
-          <TextFieldLabel>Email Address</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput
-              type="email"
-              placeholder="jane@example.com"
-              required
-            />
-          </TextFieldControl>
-        </TextField>
+        <TextField label="Full Name" placeholder="Jane Doe" required />
+        <TextField
+          label="Email Address"
+          type="email"
+          placeholder="jane@example.com"
+          required
+        />
         <Select label="Role" :items="roleItems" />
       </FieldGroup>
     </FieldSet>
@@ -508,10 +434,9 @@ const experience = ref(5)
     <FieldSet>
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup name="legal">
-        <Checkbox>
-          <CheckboxInput name="terms" required />
-          <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
-          <CheckboxEndText>Support this text</CheckboxEndText>
+        <Checkbox name="terms" required>
+          I agree to the terms and conditions
+          <template #end-text>Support this text</template>
         </Checkbox>
       </FieldGroup>
     </FieldSet>

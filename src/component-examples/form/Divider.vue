@@ -7,9 +7,6 @@ import {
   FieldSet,
   Form,
   TextField,
-  TextFieldControl,
-  TextFieldInput,
-  TextFieldLabel,
 } from "opui-css/vue"
 </script>
 
@@ -18,12 +15,7 @@ import {
     <FieldSet>
       <FieldLegend>Post Content</FieldLegend>
       <FieldGroup>
-        <TextField>
-          <TextFieldLabel>Title</TextFieldLabel>
-          <TextFieldControl>
-            <TextFieldInput placeholder="My new post" />
-          </TextFieldControl>
-        </TextField>
+        <TextField label="Title" placeholder="My new post" />
       </FieldGroup>
     </FieldSet>
 

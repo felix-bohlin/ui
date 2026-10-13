@@ -7,15 +7,6 @@ import {
   Callout as UICallout,
   Switch as UISwitch,
   TextField as UITextField,
-  TextFieldControl as UITextFieldControl,
-  TextFieldEndText as UITextFieldEndText,
-  TextFieldFooter as UITextFieldFooter,
-  TextFieldHeader as UITextFieldHeader,
-  TextFieldInput as UITextFieldInput,
-  TextFieldLabel as UITextFieldLabel,
-  TextFieldPrefix as UITextFieldPrefix,
-  TextFieldStartText as UITextFieldStartText,
-  TextFieldSuffix as UITextFieldSuffix,
 } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
@@ -196,20 +187,23 @@ export const description =
     <h2 id="description">Description</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use <code>TextFieldStartText</code> for text between the label and the input.
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
       </Fragment>
       <Fragment slot="html">
         Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
         {" "}<code>.ui-field</code> for text between the label and the input.
       </Fragment>
       <Fragment slot="react">
-        Use <code>TextFieldStartText</code> for text between the label and the input.
+        Use the <code>description</code> prop for text between the label and the input.
       </Fragment>
       <Fragment slot="svelte">
-        Use <code>TextFieldStartText</code> for text between the label and the input.
+        Use the <code>description</code> prop or snippet for text between the label
+        and the input.
       </Fragment>
       <Fragment slot="vue">
-        Use <code>TextFieldStartText</code> for text between the label and the input.
+        Use the <code>description</code> prop or slot for text between the label and
+        the input.
       </Fragment>
     </Conditional>
     <AutoExample name="Description" row />
@@ -272,24 +266,20 @@ export const description =
     <h2 id="validation">Validation</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Set <code>required</code> on <code>TextFieldInput</code>. It goes on the <code
-          >&lt;input&gt;</code
-        >.
+        Set <code>required</code> on the component to toggle required styles on the
+        input.
       </Fragment>
       <Fragment slot="react">
-        Set <code>required</code> on <code>TextFieldInput</code>. It goes on the <code
-          >&lt;input&gt;</code
-        >.
+        Set the <code>required</code> prop on the component. It is forwarded to the
+        underlying <code>&lt;input&gt;</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Set <code>required</code> on <code>TextFieldInput</code>. It goes on the <code
-          >&lt;input&gt;</code
-        >.
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
       <Fragment slot="vue">
-        Set <code>required</code> on <code>TextFieldInput</code>. It goes on the <code
-          >&lt;input&gt;</code
-        >.
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
       <Fragment slot="html">
         Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
@@ -617,17 +607,17 @@ export const description =
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
-      <UITextField>
-        <UITextFieldLabel>Label</UITextFieldLabel>
-        <UITextFieldStartText>Description</UITextFieldStartText>
-        <UITextFieldControl>
-          <UITextFieldInput placeholder="Placeholder" value="Value" />
-          <UITextFieldPrefix>¢</UITextFieldPrefix>
-          <UITextFieldSuffix>EUR</UITextFieldSuffix>
-          <UITextFieldHeader>Header</UITextFieldHeader>
-          <UITextFieldFooter>Footer</UITextFieldFooter>
-        </UITextFieldControl>
-        <UITextFieldEndText>Supporting text</UITextFieldEndText>
+      <UITextField
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+        value="Value"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
       </UITextField>
     </Anatomy>
   </Fragment>

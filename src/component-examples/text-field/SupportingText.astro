@@ -1,17 +1,5 @@
 ---
-import {
-  TextField,
-  TextFieldControl,
-  TextFieldEndText,
-  TextFieldInput,
-  TextFieldLabel,
-} from "@opui/astro"
+import { TextField } from "@opui/astro"
 ---
 
-<TextField>
-  <TextFieldLabel>Label</TextFieldLabel>
-  <TextFieldControl>
-    <TextFieldInput placeholder="Outlined" />
-  </TextFieldControl>
-  <TextFieldEndText>Supporting text</TextFieldEndText>
-</TextField>
+<TextField label="Label" placeholder="Outlined" endText="Supporting text" />

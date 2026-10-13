@@ -1,9 +1,7 @@
 import type * as Base from "./types"
 import type { JSX } from "solid-js"
 
-export type Props = Base.Props & JSX.LabelHTMLAttributes<HTMLLabelElement>
-
-export type TextFieldInputProps = Base.TextFieldInputProps &
+export type Props = Base.Props &
   Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "type"> & {
     type?:
       | "text"
@@ -21,4 +19,4 @@ export type TextFieldInputProps = Base.TextFieldInputProps &
       | "week"
       | "color"
       | string
-  }
+  } & Partial<Base.Slots<JSX.Element>>

@@ -1,7 +1,5 @@
 import {
   Checkbox,
-  CheckboxInput,
-  CheckboxLabel,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -14,18 +12,11 @@ export default function FieldGroupValidation() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-validation">
-          <Checkbox error>
-            <CheckboxInput defaultChecked />
-            <CheckboxLabel>Checkbox 1</CheckboxLabel>
+          <Checkbox defaultChecked error>
+            Checkbox 1
           </Checkbox>
-          <Checkbox error>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 2</CheckboxLabel>
-          </Checkbox>
-          <Checkbox error>
-            <CheckboxInput />
-            <CheckboxLabel>Checkbox 3</CheckboxLabel>
-          </Checkbox>
+          <Checkbox error>Checkbox 2</Checkbox>
+          <Checkbox error>Checkbox 3</Checkbox>
         </FieldGroup>
         <span className="ui-end-text">Something went wrong!</span>
       </FieldSet>

@@ -1,35 +1,51 @@
-"use client"
-
+import { useId } from "react"
 import { cx } from "../cx"
-import { FieldRootContext } from "../Field/context.react"
-import { useFieldRootValue } from "../Field/root.react"
+import CheckboxInput from "./CheckboxInput.react"
 import type { CheckboxProps as Props } from "./types.react"
 
 export default function Checkbox({
-  children,
   className,
   error,
+  hideLabel,
   size,
   spread,
   stack,
+  children,
+  endText,
   ...rest
 }: Props) {
+  const uid = useId()
+  const endTextId = endText ? `end-text-${uid}` : undefined
+  const describedBy =
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+
   return (
-    <FieldRootContext value={useFieldRootValue(children, error)}>
-      <label
-        className={cx([
-          "ui-checkbox",
-          size && `ui-${size}`,
-          {
-            "ui-stack": stack,
-            "ui-spread": spread,
-          },
-          className,
-        ])}
+    <label
+      className={cx([
+        "ui-checkbox",
+        size && `ui-${size}`,
+        {
+          "ui-stack": stack,
+          "ui-spread": spread,
+        },
+        className,
+      ])}
+    >
+      <CheckboxInput
         {...rest}
-      >
-        {children}
-      </label>
-    </FieldRootContext>
+        aria-describedby={describedBy}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
+      />
+      {children && (
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+          {children}
+        </span>
+      )}
+      {endText && (
+        <span id={endTextId} className="ui-end-text">
+          {endText}
+        </span>
+      )}
+    </label>
   )
 }

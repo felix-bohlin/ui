@@ -1,42 +1,34 @@
-import { Checkbox, CheckboxInput, CheckboxLabel } from "opui-css/react"
+import { Checkbox } from "opui-css/react"
 
 export default function Sizes() {
   return (
     <>
       <div className="example-row">
-        <Checkbox size="x-small">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+        <Checkbox hideLabel size="x-small" defaultChecked name="checkbox-sizes">
+          Label
         </Checkbox>
-        <Checkbox size="small">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+        <Checkbox hideLabel size="small" defaultChecked name="checkbox-sizes">
+          Label
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+        <Checkbox hideLabel defaultChecked name="checkbox-sizes">
+          Label
         </Checkbox>
-        <Checkbox size="large">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel visuallyHidden>Label</CheckboxLabel>
+        <Checkbox hideLabel size="large" defaultChecked name="checkbox-sizes">
+          Label
         </Checkbox>
       </div>
       <div className="example-row">
-        <Checkbox size="x-small">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel>x-small</CheckboxLabel>
+        <Checkbox size="x-small" defaultChecked name="checkbox-sizes">
+          x-small
         </Checkbox>
-        <Checkbox size="small">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel>Small</CheckboxLabel>
+        <Checkbox size="small" defaultChecked name="checkbox-sizes">
+          Small
         </Checkbox>
-        <Checkbox>
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel>Default</CheckboxLabel>
+        <Checkbox defaultChecked name="checkbox-sizes">
+          Default
         </Checkbox>
-        <Checkbox size="large">
-          <CheckboxInput defaultChecked name="checkbox-sizes" />
-          <CheckboxLabel>Large</CheckboxLabel>
+        <Checkbox size="large" defaultChecked name="checkbox-sizes">
+          Large
         </Checkbox>
       </div>
     </>

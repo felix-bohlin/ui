@@ -4,6 +4,35 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Accessibility
 
+- [ ] (1) Card: the heart and share icons in the icon-only buttons have no `aria-hidden="true"`. The buttons are named by `aria-label`, so nothing extra is read today, but every other decorative icon in the library (Callout, the Drawer close button) is hidden, and people copy these examples (`src/component-examples/card/Actions.html:25-44`, `src/component-examples/card/Alignment.html:25-42`, plus the `.astro`, `.react.tsx`, `.svelte` and `.vue` siblings)
+  - Today:
+    ```html
+    <button class="ui-button" aria-label="Favorite">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        …
+      </svg>
+    </button>
+    ```
+  - Fix: add `aria-hidden="true"` to each icon, in all five formats. The parity snapshots change, which is intended.
+    ```html
+    <button class="ui-button" aria-label="Favorite">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        …
+      </svg>
+    </button>
+    ```
+
 - [x] (2) Form: the "Without fieldset" example's `div.ui-fieldset[role="group"]` has no name, since its `.ui-legend` is a `p` that nothing references. `FieldSet as="div"` and `FieldLegend as="p"` don't connect them either (`src/component-examples/form/AdaptiveOutput.html:2-3`, `src/docs/components/form.astro:232-237`, `FieldSet.astro:9-12`, `FieldLegend.astro:8`)
   - Fix:
     ```html
@@ -38,6 +67,76 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: add `aria-hidden="true"` to both.
   > Fix
   - Fixed: Both inline callouts on the Callout page (Alternatives and Icons and accessibility) pass `aria-hidden="true"` on their icon svg.
+- [ ] (2) Accordion: the chevron `svg.ui-marker` has no `aria-hidden="true"`, in the default marker `AccordionSummary` renders and in every HTML example. The custom markers in the examples leave it out too, and the Custom marker docs only say "give it `.ui-marker`". `CalloutIcon` and the Drawer close icon are hidden (`packages/opui/components/Accordion/AccordionSummary.astro:9-14`, `AccordionSummary.react.tsx:14-20`, `AccordionSummary.svelte:8`, `AccordionSummary.vue:15`, `src/component-examples/accordion/Basics.html`, `CustomMarker.html:4`, `MarkerAnimation.html:4,29,54`, `src/docs/components/accordion.astro:226-262`)
+  - Today:
+    ```html
+    <summary>
+      Shipping
+      <svg
+        class="ui-marker"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        …
+      </svg>
+    </summary>
+    ```
+  - Fix: add `aria-hidden="true"` to the default marker in the four `AccordionSummary` files, to every marker in the accordion examples (all five formats), and say "give it `.ui-marker` and `aria-hidden="true"`" in the Custom marker prose. The parity snapshots change, which is intended.
+    ```html
+    <summary>
+      Shipping
+      <svg
+        class="ui-marker"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        …
+      </svg>
+    </summary>
+    ```
+- [ ] (2) Dialog, Drawer: a `Dialog` without a `DialogHeader`, or a `Drawer` without a `DrawerTitle`, still gets `aria-labelledby` pointing at the title id, which nothing renders, so the dialog has no name. It's documented ("needs an `aria-label`"), but nothing warns, and axe only reports a missing idref as "needs review", so the e2e run passes (`packages/opui/components/Dialog/Dialog.astro:11-19`, `Dialog.react.tsx:11-16`, `Dialog.svelte:10-21`, `Dialog.vue:15-23`, `packages/opui/components/Drawer/Drawer.astro:21-40`, `Drawer.react.tsx:21-35`, `Drawer.svelte:22-46`, `Drawer.vue:23-32`)
+  - Today:
+    ```astro
+    <Dialog id="confirm">
+      <DialogContent>Discard the draft?</DialogContent>
+    </Dialog>
+    ```
+    ```html
+    <dialog
+      aria-labelledby="dialog-header-1"
+      class="ui-dialog ui-card ui-elevated"
+      id="confirm"
+    >
+      <div class="ui-content">Discard the draft?</div>
+    </dialog>
+    <!-- no #dialog-header-1 anywhere -->
+    ```
+  - Fix: Astro renders the slot before it writes the `<dialog>`, so the title part can mark the context and the root can read the mark. Vue can scan its slot vnodes (like `flatten` in `Drawer.vue` before the parts). React and Svelte write the root's attributes before the children run, so they warn in development instead.
+    ```astro
+    ---
+    const context = { headerId, hasHeader: false }
+    const html = await dialogContext.provide(context, () =>
+      Astro.slots.render("default"),
+    )
+    const labelledBy =
+      rest["aria-label"] || rest["aria-labelledby"] || !context.hasHeader
+        ? undefined
+        : headerId
+    ---
+    ```
+    ```tsx
+    useEffect(() => {
+      if (labelledBy && !document.getElementById(labelledBy)) {
+        console.warn("[OPUI Dialog] Add a DialogHeader or an aria-label.")
+      }
+    }, [labelledBy])
+    ```
+    `DialogHeader` sets `dialog.hasHeader = true`, and `DrawerTitle` does the same for Drawer.
 - [x] (3) Badge: a count is announced without context. The `Indicator` example is an icon with "5", so screen readers say just "5" (`src/component-examples/badge/Indicator.{astro,html,vue}`)
   - What I meant: `aria-label` on the indicator `<span>` doesn't fix it. A `<span>` has no role, and ARIA doesn't allow naming generic elements, so screen readers ignore the label and read the text ("5"). Badge used to do this, and now has `srLabel` (visually hidden text) instead.
   - What works: text that is in the content. Either visually hidden (`srLabel` in Astro and Vue, `.ui-sr-only` in HTML), or visible text next to the badge ("Inbox 5"). See the example: all three, with what Chromium's accessibility tree reads.
@@ -2656,6 +2755,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: new "Grid and flex layouts" section on the Carousel page. It says the markers are a box next to the carousel, so in a grid or flex parent they land in the next cell, and to wrap the carousel in a `div`. The example puts a wrapped carousel next to a heading in a two-column grid (`carousel/GridLayout.*`, `carousel.astro`).
   - Not changed in CSS: positioning the group absolutely, like the vertical carousel does, would need a fixed height for the markers, and they wrap onto more rows when there are many.
+- [ ] (2) Dialog: `DialogActions` `align="start"` (`.ui-actions.ui-align-start`) has prose in the Modal section and a row in the Dialog actions API, but no example shows it, unlike Card's Alignment example (`src/docs/components/dialog.astro:160-195`, `src/component-api/dialog-actions/api.ts`, `src/component-examples/dialog/Usage.astro:24-36`)
+  - Today: every dialog example uses the default end alignment.
+    ```astro
+    <DialogActions>
+      <Button command="close" commandfor="newsletter">Not now</Button>
+      <Button variant="filled">Subscribe</Button>
+    </DialogActions>
+    ```
+  - Fix: add an `ActionsAlignment` example (five formats) with one dialog whose actions start, and show it under the prose with `<AutoExample name="ActionsAlignment" row />`.
+    ```html
+    <div class="ui-actions ui-align-start">
+      <button class="ui-button" command="close" commandfor="dialog-start">
+        Cancel
+      </button>
+      <button class="ui-button ui-filled">Save</button>
+    </div>
+    ```
 - [x] (3) Progress walkthrough: the step's `<progress>` snippets have no accessible name. The demo and docs use `aria-label` (`ProgressBuild.astro:8-14`, `progress.astro:100`)
   > Explain further and provide an example
   - `<progress>` has the `progressbar` role, and a progress bar needs a name (axe `aria-progressbar-name`, WCAG 4.1.2). Without one, a screen reader only says "progress bar, 60%", and the user has no idea what is at 60%.
@@ -3199,6 +3315,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) `packages/opui/components/AGENTS.md:3` still says Astro and Vue "must render the same markup as the HTML examples"; the same claim in SKILL.md was qualified earlier because recorded `.diff` drift is allowed. Qualify it here too? (`packages/opui/components/AGENTS.md:3`, `AGENTS.md:45,47`)
   > i don't understand, but yes, they should render the same things. i understand if frameworks generate some things because of how they work but in general they should be the same.
   - Fixed: the intro now says Astro and Vue should render the same markup as the HTML examples. A framework can add some markup of its own because of how it works (recorded as `.diff` drift), but in general the output is the same.
+- [ ] (1) List item: keep props, or move to parts like the containers? `ListItem` kept `headline`, `description`, `as`/`href`/`for` and its `start`/`text`/`end`/`submenu` slots, while Card, Dialog, Drawer, Accordion, Callout, Anchor and Tooltip moved to parts (`packages/opui/components/ListItem/ListItem.astro`, `src/component-api/list-item/api.ts`)
+  - Today (51 `headline` props in the Astro examples):
+    ```astro
+    <ListItem href="/inbox" headline="Inbox" description="3 unread">
+      <Icon slot="start" />
+    </ListItem>
+    ```
+  - With parts:
+    ```astro
+    <ListItem>
+      <ListItemAction href="/inbox">
+        <ListItemStart><Icon /></ListItemStart>
+        <ListItemText><p>Inbox</p><p>3 unread</p></ListItemText>
+      </ListItemAction>
+    </ListItem>
+    ```
+  - Proposal: keep props. Most items are one `headline` string, the `text` slot already takes rich content, and parts would make every row five lines, the same trade-off that kept TextField and Checkbox on props.
 - [x] (2) Theming, Motion and Contrast are rendered on all three Getting started pages from `_theming.astro`. Should they be a guide page of their own ("Theming"), so Concepts, Customizing and the token descriptions have one place to link, and Getting started ends at the first component?
   > Fix
   > yes
@@ -3356,6 +3489,20 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) `.vscode/extensions.json` recommends Astro and Prettier but not `Vue.volar`, though every component has a `.vue` twin (`.vscode/extensions.json:2-6`)
   > Fix
   - Fixed: added `Vue.volar` to the recommended extensions.
+- [ ] (1) Learn: the table scroll-state post shows no Read more links. `TechniquePost` only renders them when `references.ts` has a key for the post's `component`, and there's no `table` key, so none of the features it teaches get a link (`src/layouts/TechniquePost.astro:34-36,59`, `src/components/UnderTheHood/references.ts:456-482`, `src/docs/learn/table-scroll-state.astro`)
+  - Today: the post ends with only "Table docs" and "Every component, under the hood".
+  - Fix: add a `table` entry between `switch` and `tabs`.
+    ```ts
+    table: [
+      { code: true, href: mdn("Web/CSS/@container"), label: "@container" },
+      { code: true, href: mdn("Web/CSS/anchor"), label: "anchor()" },
+      { code: true, href: mdn("Web/CSS/anchor-name"), label: "anchor-name" },
+      { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
+      { code: true, href: mdn("Web/CSS/clip-path"), label: "clip-path" },
+      { code: true, href: mdn("Web/CSS/container-type"), label: "container-type" },
+      { code: true, href: mdn("Web/CSS/position"), label: "position: sticky" },
+    ],
+    ```
 - [x] (2) `text-box: trim-both cap alphabetic` on Button/Chip/Badge only works if the label is wrapped in its own element (flex/grid containers ignore it)
   > is that a problem? explain more and show examples here in the todo page.
   - `text-box` trims the space above the cap height and below the baseline of a block's first and last line, so text is centered on its letters instead of its line box. It looks optically centered no matter the font's ascender and descender metrics.
@@ -4075,6 +4222,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## To check
 
+- [ ] (1) Accordion: with VoiceOver in Safari on `/html/components/accordion/`, check whether the summary announces the unnamed chevron `svg` (for example as "image") before the `aria-hidden` item in Accessibility is fixed, and that it's silent after.
+
 - [x] (2) Select: `::picker(select)` keeps the UA `background-color: Field` and square corners while the `.ui-list` inside is rounded with `var(--field-border-radius)`, so the picker's square corners and its `box-shadow` show outside the rounded list (`select.css:27-46,69-72`)
   - Confirmed in Chromium 141 with the Grouped example, light and dark.
   - Fix:
@@ -4099,6 +4248,26 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Proposed: draw the separator from the list's own text color, `color-mix(in oklch, currentColor 18%, transparent)`, so it adapts to whatever surface it sits on. Measured: 1.47 tonal light, 1.45 filled light, 1.70 tonal dark, 1.64 filled dark, so every list gets about the same visible line. Applies to `.ui-bordered` and `.ui-border-top`. Example: list-separator-surfaces
   > Fix
   - Fixed: separators use a private `--_separator-color`, `color-mix(in oklch, currentColor 18%, transparent)`, and keep `--border-color` under `--contrast: more` (`list.css`). Measured: tonal dark 1.00 to 1.71, tonal light 1.33 to 1.47, filled light 1.58 to 1.44, filled dark 1.72 to 1.65, transparent 1.48 / 1.76. Contrast-more is unchanged, and forced colors still draw CanvasText. Separators no longer read `--border-color` outside contrast-more.
+- [ ] (2) Drawer: `DrawerHeader` inside a `Drawer` now closes it with `command="close"` and `commandfor` set to the drawer id, in Astro and Vue too (before: an inline `onclick` when `commandfor` wasn't passed). On `/astro/test/drawer`, `/vue/test/drawer` (`OPUI_TEST_PAGES=1 pnpm dev`) and the site's mobile menu, check in Chromium, Firefox 144+ and Safari 26.2+ that Tab to the close button, then Enter, closes the drawer and focus goes back to the trigger. Also check that `commandfor` matches the `<dialog>` id when no `id` is passed (`packages/opui/components/Drawer/DrawerHeader.astro:16-20`, `DrawerHeader.vue:15-19`)
+  - Renders:
+    ```html
+    <dialog
+      class="ui-drawer ui-inline-start"
+      id="drawer-1"
+      aria-labelledby="drawer-1-heading"
+    >
+      <div class="ui-header">
+        <h2 id="drawer-1-heading">Filters</h2>
+        <button aria-label="Close" command="close" commandfor="drawer-1">
+          …
+        </button>
+      </div>
+    </dialog>
+    ```
+  - Fix if a browser fails: load an Invoker Commands polyfill, or keep the `onclick` fallback next to `command` in Astro and Vue.
+- [ ] (2) Dialog, Drawer: in the Chromium accessibility tree, check that the dialogs on `/react/test/dialog`, `/svelte/test/dialog` and `/vue/test/dialog` are named by their heading ("Newsletter"), the drawers on the matching drawer pages by their `DrawerTitle` ("Inline Start"), and the site drawers by their new labels: "Menu", "On this page" and "Sidebar" (`src/components/Header.astro:242`, `src/components/LocalNav.astro:65`, `src/layouts/Document.astro:72`)
+  - Expected: `dialog "Newsletter"`, `dialog "Inline Start"`, `dialog "Menu"`, `dialog "On this page"`, `dialog "Sidebar"`.
+  - Fix if a name is missing: check that the title part renders the id the root's `aria-labelledby` points at (it's provided through context only when the root links it).
 - [x] (3) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
   - Yes, and most of it is in place. `text-input.css` already hides the browser's datalist indicator (Chromium only, Firefox has none and Safari draws its own) and draws a CSS triangle with `.ui-field::after`, like Select's `::picker-icon`. The arrow sits closer to the edge at `x-small`/`small` on purpose: the inset drops from `--size-3` to `--size-2` with the field padding.

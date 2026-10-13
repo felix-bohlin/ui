@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Anchor",
   notes: {
-    html: 'To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the anchor content.',
+    html: 'To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
   },
   options: [
     {

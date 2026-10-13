@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<CalloutIcon>`
 
-  An optional icon before the content. CalloutIcon renders the default one for info, success, warning and critical.
+  An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.
 
 - `<CalloutContent>`
 
@@ -149,11 +149,11 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 ### Callout API
 
-| Prop       | Type                                                              | Default   | Description                                                                                     |
-| ---------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------- |
-| `children` | `Snippet`                                                         | -         | The callout parts, and any other content.                                                       |
-| `severity` | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon CalloutIcon renders. |
-| `variant`  | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                             |
+| Prop       | Type                                                              | Default   | Description                                                                                       |
+| ---------- | ----------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| `children` | `Snippet`                                                         | -         | The callout parts, and any other content.                                                         |
+| `severity` | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. |
+| `variant`  | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                               |
 
 #### CSS variables
 
@@ -172,7 +172,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of CalloutIcon, before CalloutContent.
+For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
 
 ### Callout title API
 
@@ -349,5 +349,4 @@ Import the components from `opui-css/svelte`:
 
 ### What's new
 
-- Breaking: [`CalloutIcon`](#icon), `CalloutContent` and `CalloutTitle` replace the automatic icon, the content wrapper and the slots, and `level` on `CalloutTitle` replaces `headingLevel`.
-- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.
+- [`CalloutIcon`](#icon) has a `success` icon, like `info`, `warning` and `critical`.

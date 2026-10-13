@@ -71,7 +71,7 @@ export default {
     {
       code: '<svg class="ui-marker">',
       description:
-        "The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.",
+        "The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.",
       selector: "summary .ui-marker",
     },
     {

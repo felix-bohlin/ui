@@ -1,7 +1,7 @@
 import { getContext, setContext } from "svelte"
 
 export type DialogContext = {
-  headerId: string
+  headerId?: string
 }
 
 const key = Symbol()

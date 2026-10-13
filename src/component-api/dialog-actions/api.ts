@@ -2,7 +2,6 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DialogActions",
-  file: "DialogActions",
   options: [
     {
       default: '"end"',

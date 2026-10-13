@@ -17,13 +17,13 @@ defineOptions({
 
 const attrs = useAttrs()
 const uid = useId()
-const drawerId = computed(() => id || uid)
+const drawerId = computed(() => id || `drawer-${uid}`)
 const titleId = computed(() => `${drawerId.value}-heading`)
 const labelledBy = computed(() =>
   attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : titleId.value,
 )
 
-provide(DrawerKey, reactive({ id: drawerId, titleId }))
+provide(DrawerKey, reactive({ id: drawerId, titleId: labelledBy }))
 </script>
 
 <template>

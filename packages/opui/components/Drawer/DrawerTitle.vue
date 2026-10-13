@@ -9,11 +9,19 @@ import {
 defineProps<Props>()
 defineSlots<Slots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const drawer = inject(DrawerKey, undefined)
 </script>
 
 <template>
-  <h2 :class="[$props.class]" :id="drawer?.titleId">
+  <h2
+    :class="[$props.class]"
+    v-bind="$attrs"
+    :id="drawer?.titleId ?? ($attrs.id as string | undefined)"
+  >
     <slot></slot>
   </h2>
 </template>

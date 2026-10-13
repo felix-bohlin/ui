@@ -20,8 +20,9 @@ const drawerId = id || $id("drawer")
 const titleId = `${drawerId}-heading`
 const labelledBy =
   rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId
-const html = await drawerContext.provide({ id: drawerId, titleId }, () =>
-  Astro.slots.render("default"),
+const html = await drawerContext.provide(
+  { id: drawerId, titleId: labelledBy },
+  () => Astro.slots.render("default"),
 )
 ---
 

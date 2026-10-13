@@ -26,7 +26,7 @@ import {
   </div>
 
   <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-    <DrawerHeader commandfor="drawer-inline-start">
+    <DrawerHeader>
       <DrawerTitle>Inline Start</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -56,7 +56,7 @@ import {
   </Drawer>
 
   <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-    <DrawerHeader commandfor="drawer-inline-end">
+    <DrawerHeader>
       <DrawerTitle>Inline End</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -86,7 +86,7 @@ import {
   </Drawer>
 
   <Drawer id="drawer-block-start" side="block-start" closedby="any">
-    <DrawerHeader commandfor="drawer-block-start">
+    <DrawerHeader>
       <DrawerTitle>Block Start</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
@@ -110,7 +110,7 @@ import {
   </Drawer>
 
   <Drawer id="drawer-block-end" side="block-end" closedby="any">
-    <DrawerHeader commandfor="drawer-block-end">
+    <DrawerHeader>
       <DrawerTitle>Block End</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>

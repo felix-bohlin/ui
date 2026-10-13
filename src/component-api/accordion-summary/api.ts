@@ -2,7 +2,6 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "AccordionSummary",
-  file: "AccordionSummary",
   options: [],
   page: "accordion",
   parts: [

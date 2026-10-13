@@ -27,7 +27,7 @@
       return drawerId
     },
     get titleId() {
-      return titleId
+      return labelledBy
     },
   })
 </script>

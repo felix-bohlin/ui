@@ -64,7 +64,7 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 </div>
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-  <DrawerHeader commandfor="drawer-inline-start">
+  <DrawerHeader>
     <DrawerTitle>Inline Start</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -93,7 +93,7 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 </Drawer>
 
 <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-  <DrawerHeader commandfor="drawer-inline-end">
+  <DrawerHeader>
     <DrawerTitle>Inline End</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -122,7 +122,7 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 </Drawer>
 
 <Drawer id="drawer-block-start" side="block-start" closedby="any">
-  <DrawerHeader commandfor="drawer-block-start">
+  <DrawerHeader>
     <DrawerTitle>Block Start</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -146,7 +146,7 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 </Drawer>
 
 <Drawer id="drawer-block-end" side="block-end" closedby="any">
-  <DrawerHeader commandfor="drawer-block-end">
+  <DrawerHeader>
     <DrawerTitle>Block End</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
@@ -239,11 +239,11 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 
 ### Drawer header API
 
-| Prop         | Type      | Default   | Description                                                                                                                             |
-| ------------ | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `children`   | `Snippet` | -         | The `DrawerTitle`, and any other content before the close button.                                                                       |
-| `closeLabel` | `string`  | `"Close"` | The accessible name of the close button.                                                                                                |
-| `commandfor` | `string`  | -         | The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click. |
+| Prop                                                                                                                                                                                                                | Type      | Default   | Description                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`                                                                                                                                                                                                          | `Snippet` | -         | The `DrawerTitle`, and any other content before the close button.                                                                       |
+| `closeLabel`                                                                                                                                                                                                        | `string`  | `"Close"` | The accessible name of the close button.                                                                                                |
+| `commandfor` **Needs hydration** Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Set `commandfor` to the dialog's id. | `string`  | -         | The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click. |
 
 #### CSS variables
 
@@ -536,6 +536,5 @@ Import the components from `opui-css/svelte`:
 
 ### What's new
 
-- Breaking: [`DrawerTitle` and `DrawerContent`](#usage) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`.
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
-- Named by the header heading through [`aria-labelledby`](#accessibility).
+- Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.

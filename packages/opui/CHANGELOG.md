@@ -41,16 +41,18 @@
 - `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 - `TextField`, `Textarea`, `Select`, `ClassicSelect`, `Switch`, `Checkbox`, `Radio` and `Range` are marked invalid with `aria-invalid="true"` on the control instead of `data-invalid` on the root. `error` in Astro and Vue sets only `aria-invalid`. Replace `data-invalid` on the root with `aria-invalid="true"` on the `<input>`, `<select>` or `<textarea>`.
 - `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
-- `Card` in Astro, React, Svelte and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
-- `Dialog` in Astro, React, Svelte and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`.
-- `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue.
-- `Accordion` in Astro, React, Svelte and Vue takes parts instead of slots: `AccordionSummary`, `AccordionContent` and `AccordionActions`. The root no longer wraps its children in `.ui-content`, and the `marker` slot moves to `AccordionSummary`.
-- `Anchor` in Astro, React, Svelte and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders.
-- `Tooltip` in Astro, React, Svelte and Vue takes `TooltipContent` instead of `label` and the `content` slot.
-- `Callout` in Astro, React, Svelte and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon, `CalloutContent` the content and `CalloutTitle` the title. The root no longer renders an icon or wraps its children in `.ui-content`, `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout`.
-- `Drawer` in Astro, React, Svelte and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. In Astro and Vue, `DrawerHeader` closes its drawer with `command="close"` instead of a click handler.
+- `Card` in Astro and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
+- `Dialog` in Astro and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`.
+- `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue. The `components/{Tabs,Table,DescriptionList}/index.ts` files that held the aliases are gone.
+- `Accordion` in Astro and Vue takes parts instead of slots: `AccordionSummary`, `AccordionContent` and `AccordionActions`. The root no longer wraps its children in `.ui-content`, and the `marker` slot moves to `AccordionSummary`.
+- `Anchor` in Astro and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders.
+- `Tooltip` in Astro and Vue takes `TooltipContent` instead of `label` and the `content` slot.
+- `Callout` in Astro and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon, `CalloutContent` the content and `CalloutTitle` the title. The root no longer renders an icon or wraps its children in `.ui-content`, `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout`.
+- `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so browsers without Invoker Commands need a polyfill.
 
 ### Removed
+
+- `Accordion`, `Anchor`, `Callout`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, and the Vue `Drawer` types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 
 - `Button` `ripple` prop (`.ui-ripple`). Icon-only buttons get the same hover background as other buttons, so drop the prop or class.
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
@@ -69,15 +71,15 @@
 ### Added
 
 - `Carousel` takes an `aspectRatio` prop that crops media, like `--_media-aspect-ratio`.
-- Svelte 5 components for every Astro and Vue component, exported from `opui-css/svelte`. Slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
-- React 19 components for every Astro and Vue component, exported from `opui-css/react`. Slots are props (`children`, and camelCased names such as `endText`), form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and components that need context, state or effects are marked `"use client"` so the rest also render as React Server Components. `react` and `react-dom` `^19` are optional peer dependencies.
+- Svelte 5 components for every Astro and Vue component, exported from `opui-css/svelte`. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
+- React 19 components for every Astro and Vue component, exported from `opui-css/react`. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props (`children`, and camelCased names such as `endText`), form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and components that need context, state or effects are marked `"use client"` so the rest also render as React Server Components. `react` and `react-dom` `^19` are optional peer dependencies.
 - `Accordion` takes a `markerAnimation` prop (`.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn`) that sets how the marker animates when it opens. Defaults to `rotate`.
 - `Button` takes a `rounded` prop (`.ui-rounded`). Icon size is set with `--_icon-size`.
 - `Carousel` component (`ul.ui-carousel`). Scroll snap, with previous/next buttons (`::scroll-button()`) and markers (`::scroll-marker`) generated by CSS. Buttons use inverted colors with a gray border derived from the button color so they contrast with any item, show an SVG chevron that follows the color scheme, and sit over or beside the items (`.ui-buttons-outside`). Images, videos and iframes fill the item with a configurable aspect ratio. Supports items per view, peek, center alignment, RTL, and custom properties for every size, color, icon and label. No JavaScript needed, with Astro, React, Svelte and Vue components, and it falls back to a snapping scroller.
 - `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, flips when it runs out of space, and moves below or above its trigger when neither side fits. Supports an `items` prop, custom `ListItem` content, placements, end alignment (`align="end"`, `.ui-align-end`), `--anchor-position-area` and critical items. Items are built like `List` items, with the label in `.ui-text` and shortcuts in `.ui-end`. Group labels are HTML and CSS only. Submenus go in the `submenu` slot of a `ListItem`. On iOS, submenus anchor to their parent menu instead of their trigger item.
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
 - `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
-- `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
+- `DrawerHeader` takes a `commandfor` prop (the drawer `id`). Inside a `Drawer` it defaults to the drawer's `id`, and the close button uses `command="close"` (Invoker Commands). Outside a `Drawer` without `commandfor`, it closes the nearest `<dialog>` with a script.
 - `Button` links with `aria-disabled="true"` no longer receive clicks.
 - `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. They default to the chevron and swap in RTL.
@@ -113,7 +115,7 @@
 - `Button` takes `iconOnly` (types only), which makes `label` required for icon-only buttons.
 - `Range` takes an `error` prop (`aria-invalid="true"` on the input) for the invalid state, like the other fields.
 - `theme.css` adds `--ripple-color` for the `Checkbox` and `Radio` hover halo.
-- `Callout` with `severity="success"` shows a default check icon in Astro, React, Svelte and Vue, like `info`, `warning` and `critical`.
+- `CalloutIcon` renders a check icon for `severity="success"`, like `info`, `warning` and `critical`.
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
 - `Card` takes `.ui-card-link` on a link to make the whole card clickable. Other links and buttons in the card stay clickable.
 - `Checkbox` and `Radio` take `size="x-small"` (`.ui-x-small`), 14px from the new `--choice-size-x-small` token.
@@ -301,8 +303,7 @@
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
 - `Badge` dots sit in the corner of every alignment, not only the default one.
 - `Badge` and `Anchor` no longer write the unused `--_anchor-inset`, and aligned badges no longer write `--anchor-position-area`.
-- `Drawer` is named by its header heading through `aria-labelledby`, in Astro (first heading in the `header` slot) and Vue (`DrawerHeader` `heading`).
-- `Dialog` `actionsAlign="start"` aligns the actions to the start.
+- `DialogActions` `align="start"` aligns the actions to the start.
 - `FieldGroup` `direction="column"` stacks a group of only buttons.
 - `FieldGroup` `name` skips button, hidden, image, reset and submit inputs in Astro, and reaches `ClassicSelect` in Vue.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.

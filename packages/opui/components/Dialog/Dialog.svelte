@@ -10,7 +10,11 @@
     rest["aria-label"] || rest["aria-labelledby"] ? undefined : headerId,
   )
 
-  setDialogContext({ headerId })
+  setDialogContext({
+    get headerId() {
+      return labelledBy
+    },
+  })
 </script>
 
 <dialog

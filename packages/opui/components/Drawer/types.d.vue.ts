@@ -27,5 +27,5 @@ export type Slots = {
 
 export const DrawerKey = Symbol() as InjectionKey<{
   id: string
-  titleId: string
+  titleId?: string
 }>

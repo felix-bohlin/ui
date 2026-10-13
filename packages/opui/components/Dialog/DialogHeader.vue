@@ -9,11 +9,19 @@ import {
 defineProps<Props>()
 defineSlots<Slots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const headerId = inject(DialogHeaderIdKey, undefined)
 </script>
 
 <template>
-  <hgroup :class="[$props.class]" :id="headerId">
+  <hgroup
+    :class="[$props.class]"
+    v-bind="$attrs"
+    :id="headerId ?? ($attrs.id as string | undefined)"
+  >
     <slot></slot>
   </hgroup>
 </template>

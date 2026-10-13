@@ -355,5 +355,4 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
-- Breaking: [`TooltipContent`](#api) replaces `label` and the `content` slot.
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.

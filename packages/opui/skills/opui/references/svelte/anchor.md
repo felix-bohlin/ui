@@ -325,8 +325,3 @@ Import the components from `opui-css/svelte`:
 
 - `opui-css/css/components/anchor.css`
 
-## Changelog
-
-### What's new
-
-- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.

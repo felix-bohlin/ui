@@ -10,7 +10,7 @@ const { class: className, closedby, ...rest } = Astro.props
 const headerId = createId(Astro.locals)("dialog-header")
 const labelledBy =
   rest["aria-label"] || rest["aria-labelledby"] ? undefined : headerId
-const html = await dialogContext.provide({ headerId }, () =>
+const html = await dialogContext.provide({ headerId: labelledBy }, () =>
   Astro.slots.render("default"),
 )
 ---

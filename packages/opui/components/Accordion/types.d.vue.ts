@@ -3,6 +3,7 @@ import type {
   AccordionActionsProps as BaseAccordionActionsProps,
   AccordionContentProps as BaseAccordionContentProps,
   AccordionSummaryProps as BaseAccordionSummaryProps,
+  AccordionSummarySlots as BaseAccordionSummarySlots,
   Props as BaseProps,
 } from "./types"
 
@@ -26,7 +27,6 @@ export type Slots = {
   default?: Slot
 }
 
-export type AccordionSummarySlots = {
+export type AccordionSummarySlots = BaseAccordionSummarySlots<Slot> & {
   default?: Slot
-  marker?: Slot
 }

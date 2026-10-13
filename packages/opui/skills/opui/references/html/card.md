@@ -30,7 +30,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border.
+Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border. Put the body in `.ui-content`.
 
 ```html
 <div class="ui-card ui-text">

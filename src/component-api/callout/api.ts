@@ -4,17 +4,17 @@ export default {
   component: "Callout",
   notes: {
     astro:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of CalloutIcon, before CalloutContent.',
+      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
     react:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of CalloutIcon, before CalloutContent.',
+      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
     svelte:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of CalloutIcon, before CalloutContent.',
-    vue: 'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of CalloutIcon, before CalloutContent.',
+      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
+    vue: 'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
   },
   options: [
     {
       description:
-        "The severity. Sets the color, and in Astro, React, Svelte and Vue the icon CalloutIcon renders.",
+        "The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders.",
       group: "Severities",
       prop: "severity",
       values: {
@@ -43,7 +43,7 @@ export default {
         vue: "CalloutIcon",
       },
       description:
-        "An optional icon before the content. CalloutIcon renders the default one for info, success, warning and critical.",
+        "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.",
       selector: ".ui-callout > svg",
     },
     {

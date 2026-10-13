@@ -81,7 +81,7 @@ export default function Usage() {
       </div>
 
       <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-        <DrawerHeader commandfor="drawer-inline-start">
+        <DrawerHeader>
           <DrawerTitle>Inline Start</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -112,7 +112,7 @@ export default function Usage() {
       </Drawer>
 
       <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-        <DrawerHeader commandfor="drawer-inline-end">
+        <DrawerHeader>
           <DrawerTitle>Inline End</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -143,7 +143,7 @@ export default function Usage() {
       </Drawer>
 
       <Drawer id="drawer-block-start" side="block-start" closedby="any">
-        <DrawerHeader commandfor="drawer-block-start">
+        <DrawerHeader>
           <DrawerTitle>Block Start</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -168,7 +168,7 @@ export default function Usage() {
       </Drawer>
 
       <Drawer id="drawer-block-end" side="block-end" closedby="any">
-        <DrawerHeader commandfor="drawer-block-end">
+        <DrawerHeader>
           <DrawerTitle>Block End</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
@@ -562,6 +562,5 @@ Import the components from `opui-css/react`:
 
 ### What's new
 
-- Breaking: [`DrawerTitle` and `DrawerContent`](#usage) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`.
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
-- Named by the header heading through [`aria-labelledby`](#accessibility).
+- Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.

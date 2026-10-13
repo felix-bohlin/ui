@@ -130,7 +130,9 @@ const ThemeCSS = `/* ... */
         >; set <code>level</code> for another heading level.
       </Fragment>
       <Fragment slot="html">
-        Tonal (default) and <code>.ui-outlined</code> variants.
+        Tonal (default) and <code>.ui-outlined</code> variants. Put the text in <code
+          >.ui-content</code
+        >, with an optional <code>&lt;h3 class="ui-title"&gt;</code> first.
       </Fragment>
       <Fragment slot="react">
         Tonal (default) and outlined variants are available via the <code
@@ -201,17 +203,7 @@ const ThemeCSS = `/* ... */
 
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          ><path
-            fill="currentColor"
-            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-          ></path></svg
-        >
+        <UICalloutIcon />
         <UICalloutContent>
           <strong>Icons and accessibility</strong>
           <p>

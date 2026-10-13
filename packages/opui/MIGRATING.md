@@ -15,7 +15,7 @@ Markers only animate with a marker class on `details`, and only the `svg` with `
     </summary>
 ```
 
-In Astro, React, Svelte and Vue the regions are parts instead of slots. The root no longer wraps its children in `.ui-content`, so put them in `AccordionContent`.
+In Astro and Vue the regions are parts instead of slots. The root no longer wraps its children in `.ui-content`, so put them in `AccordionContent`.
 
 ```diff
   <Accordion>
@@ -42,7 +42,7 @@ In Astro, React, Svelte and Vue the regions are parts instead of slots. The root
 
 `Anchor` with `trigger="hover"` no longer wraps the trigger in a `<span interestfor>`. Give the anchor an `id` and add `interestfor` with that id to the trigger, like `Tooltip`.
 
-In Astro, React, Svelte and Vue the floating content goes in `AnchorContent` instead of the `anchored` slot.
+In Astro and Vue the floating content goes in `AnchorContent` instead of the `anchored` slot.
 
 ```diff
   <Anchor>
@@ -118,7 +118,7 @@ Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scr
 
 ## Callout
 
-In Astro, React, Svelte and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
+In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
 
 ```diff
 - <Callout severity="info" headingLevel={4}>
@@ -138,7 +138,7 @@ In Astro, React, Svelte and Vue the regions are parts instead of slots. The root
 
 Tonal and elevated cards have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them use the page background too. Actions stick to the bottom of stretched cards and wrap.
 
-In Astro, React, Svelte and Vue the regions are parts instead of slots. `actionsAlign` is `align` on `CardActions`.
+In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `align` on `CardActions`.
 
 ```diff
 - <Card actionsAlign="end">
@@ -203,7 +203,20 @@ In Astro, import the parts by their flat names. The `DescriptionList.Item`, `Des
 
 Dialogs have a maximum height. The header and actions stay in place and the content scrolls. Dialogs also get a border in the page background color.
 
-In Astro, React, Svelte and Vue the regions are parts instead of slots, like `Card`: `DialogHeader`, `DialogContent` and `DialogActions` (`align` replaces `actionsAlign`). `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`.
+In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHeader`, `DialogContent` and `DialogActions` (`align` replaces `actionsAlign`). `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`.
+
+```diff
+- <Dialog actionsAlign="end">
+-   <h2 slot="header">Title</h2>
+-   <p slot="content">Text</p>
+-   <Button slot="actions">Close</Button>
+- </Dialog>
++ <Dialog>
++   <DialogHeader><h2>Title</h2></DialogHeader>
++   <DialogContent><p>Text</p></DialogContent>
++   <DialogActions align="end"><Button>Close</Button></DialogActions>
++ </Dialog>
+```
 
 ## Divider
 
@@ -222,7 +235,7 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 
 The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
-In Astro, React, Svelte and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`.
+In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`. `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill.
 
 ```diff
   <Drawer id="filters">
@@ -384,15 +397,20 @@ Dense cells have less block padding.
 In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` and `TableCell`. The `Table.Head`-style aliases are gone.
 
 ```diff
-- import { Table } from "@opui/astro"
+- import { Table } from "opui-css/astro"
 - <Table.Head>
-+ import { Table, TableHead } from "@opui/astro"
++ import { Table, TableHead } from "opui-css/astro"
 + <TableHead>
 ```
 
 ## Tabs
 
 In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
+
+```diff
+- <Tabs.Item>
++ <TabsItem>
+```
 
 Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--size-2` top margin, so remove any spacing you added above it.
 
@@ -492,7 +510,7 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
 
-In Astro, React, Svelte and Vue the text goes in `TooltipContent` instead of `label` or the `content` slot.
+In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `content` slot.
 
 ```diff
 - <Tooltip label="Save your changes">

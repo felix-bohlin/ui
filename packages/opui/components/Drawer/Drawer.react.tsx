@@ -21,7 +21,7 @@ export default function Drawer({
     rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId
 
   return (
-    <DrawerContext value={{ id: drawerId, titleId }}>
+    <DrawerContext value={{ id: drawerId, titleId: labelledBy }}>
       <dialog
         className={cx([
           "ui-drawer",

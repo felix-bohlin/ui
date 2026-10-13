@@ -2,7 +2,6 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "CardActions",
-  file: "CardActions",
   options: [
     {
       description: "Alignment for the actions.",

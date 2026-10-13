@@ -11,6 +11,14 @@ export default {
         prop: "commandfor",
       },
     ],
+    svelte: [
+      {
+        description:
+          "Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration.",
+        fallback: "Set `commandfor` to the dialog's id.",
+        prop: "commandfor",
+      },
+    ],
   },
   options: [
     {

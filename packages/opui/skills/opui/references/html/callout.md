@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<svg>`
 
-  An optional icon before the content. CalloutIcon renders the default one for info, success, warning and critical.
+  An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.
 
 - `.ui-content`
 
@@ -33,7 +33,7 @@ You might want to check out:
 
 ## Variants
 
-Tonal (default) and `.ui-outlined` variants.
+Tonal (default) and `.ui-outlined` variants. Put the text in `.ui-content`, with an optional `<h3 class="ui-title">` first.
 
 ```html
 <article class="ui-callout">
@@ -237,19 +237,19 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 
 ### Callout API
 
-| Type       | Modifiers                                                               | Default | Description                                                                                     |
-| ---------- | ----------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon CalloutIcon renders. |
-| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                                             |
+| Type       | Modifiers                                                               | Default | Description                                                                                       |
+| ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. |
+| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                                               |
 
 #### Parts
 
-| Part          | Description                                                                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `.ui-callout` | Container element.                                                                                                |
-| `<svg>`       | An optional icon before the content. CalloutIcon renders the default one for info, success, warning and critical. |
-| `.ui-content` | The content.                                                                                                      |
-| `<h3>`        | An optional title inside the content.                                                                             |
+| Part          | Description                                                                                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.ui-callout` | Container element.                                                                                                                                   |
+| `<svg>`       | An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. |
+| `.ui-content` | The content.                                                                                                                                         |
+| `<h3>`        | An optional title inside the content.                                                                                                                |
 
 #### CSS variables
 

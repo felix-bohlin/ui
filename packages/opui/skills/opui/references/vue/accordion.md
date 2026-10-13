@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `<svg class="ui-marker">`
 
-  The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+  The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 
 - `<AccordionContent>`
 

@@ -2,7 +2,7 @@ import { getContext, setContext } from "svelte"
 
 export type DrawerContext = {
   id: string
-  titleId: string
+  titleId?: string
 }
 
 const key = Symbol()

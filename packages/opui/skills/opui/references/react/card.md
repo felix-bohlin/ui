@@ -30,7 +30,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border.
+Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border. Put the body in `CardContent`.
 
 ```tsx
 import { Card, CardContent } from "opui-css/react"
@@ -456,7 +456,6 @@ Import the components from `opui-css/react`:
 
 ### What's new
 
-- Breaking: [`CardHeader`, `CardContent` and `CardActions`](#api) replace the slots, and `align` on `CardActions` replaces `actionsAlign`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

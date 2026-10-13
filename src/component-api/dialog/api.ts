@@ -4,13 +4,13 @@ export default {
   component: "Dialog",
   notes: {
     astro:
-      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
     react:
-      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
     svelte:
-      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
-    vue: "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.",
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
+    vue: "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
   },
   options: [
     {
@@ -37,6 +37,7 @@ export default {
       selector: "hgroup",
     },
     {
+      anchorName: "--ui-dialog-content",
       component: {
         astro: "DialogContent",
         react: "DialogContent",

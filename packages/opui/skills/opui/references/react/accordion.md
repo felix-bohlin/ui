@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `<svg class="ui-marker">`
 
-  The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+  The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 
 - `<AccordionContent>`
 
@@ -537,6 +537,5 @@ Import the components from `opui-css/react`:
 
 ### What's new
 
-- Breaking: [`AccordionSummary`, `AccordionContent`](#basics) and [`AccordionActions`](#actions) replace the slots, and the root no longer wraps its children in `.ui-content`.
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - [Actions](#actions) line up with the content and the chevron.

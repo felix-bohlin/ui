@@ -335,8 +335,3 @@ Import the components from `opui-css/react`:
 
 - `opui-css/css/components/anchor.css`
 
-## Changelog
-
-### What's new
-
-- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.

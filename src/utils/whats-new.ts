@@ -6,8 +6,6 @@ const whatsNew = {
   accordion: [
     {
       astro: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
-      react: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
-      svelte: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
       vue: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
     },
     {
@@ -29,8 +27,6 @@ const whatsNew = {
   anchor: [
     {
       astro: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
-      react: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
-      svelte: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
       vue: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
     },
     {
@@ -115,15 +111,13 @@ const whatsNew = {
   callout: [
     {
       astro: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
-      react: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
-      svelte: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
       vue: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
     },
     {
-      astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
-      react: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
-      svelte: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
-      vue: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      astro: `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      react: `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      svelte: `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      vue: `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     },
   ],
   carousel: [
@@ -148,8 +142,6 @@ const whatsNew = {
   card: [
     {
       astro: `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
-      react: `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
-      svelte: `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
       vue: `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
     },
     `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
@@ -217,8 +209,6 @@ const whatsNew = {
   dialog: [
     {
       astro: `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
-      react: `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
-      svelte: `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
       vue: `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
     },
     `<a href="#long-content">Long content</a> scrolls between a fixed header and actions.`,
@@ -240,14 +230,12 @@ const whatsNew = {
   ],
   drawer: [
     {
-      astro: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
-      react: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
-      svelte: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
-      vue: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
+      astro: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>.`,
+      vue: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>.`,
     },
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls (<a href="#usage">Usage</a>).`,
     {
-      default: `Named by the header heading through <a href="#accessibility"><code>aria-labelledby</code></a>.`,
+      default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
   ],
@@ -503,8 +491,6 @@ const whatsNew = {
   tooltip: [
     {
       astro: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
-      react: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
-      svelte: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
       vue: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
     },
     {

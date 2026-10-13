@@ -2,11 +2,11 @@
   import { getDialogContext } from "./context"
   import type { DialogHeaderProps as Props } from "./types.svelte"
 
-  let { children, class: className, ...rest }: Props = $props()
+  let { children, class: className, id, ...rest }: Props = $props()
 
   const dialog = getDialogContext()
 </script>
 
-<hgroup class={[className]} id={dialog?.headerId} {...rest}>
+<hgroup class={[className]} id={dialog?.headerId ?? id} {...rest}>
   {@render children?.()}
 </hgroup>

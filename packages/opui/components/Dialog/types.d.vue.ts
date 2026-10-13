@@ -1,4 +1,4 @@
-import type { HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
 import type {
   DialogActionsProps as BaseDialogActionsProps,
   DialogContentProps as BaseDialogContentProps,
@@ -22,4 +22,6 @@ export type Slots = {
   default?: Slot
 }
 
-export const DialogHeaderIdKey = Symbol() as InjectionKey<string>
+export const DialogHeaderIdKey = Symbol() as InjectionKey<
+  Readonly<Ref<string | undefined>>
+>

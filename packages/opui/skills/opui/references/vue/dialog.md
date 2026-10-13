@@ -32,7 +32,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header.
+Build it from `DialogHeader`, `DialogContent` and `DialogActions`, and set `align="start"` on `DialogActions` to move the actions to the start. The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ```vue
 <script setup lang="ts">
@@ -371,7 +371,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.
+Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ### Dialog actions API
 

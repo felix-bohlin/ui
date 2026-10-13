@@ -36,7 +36,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Name the dialog by pointing `aria-labelledby` at its title.
+Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions` (`.ui-align-start` moves them to the start). Name the dialog by pointing `aria-labelledby` at its title.
 
 ```html
 <button

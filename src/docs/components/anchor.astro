@@ -9,6 +9,7 @@ import {
   AnchorContent as UIAnchorContent,
   Button as UIButton,
   Card as UICard,
+  CardContent as UICardContent,
 } from "@opui/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
@@ -160,7 +161,7 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
         <UIButton variant="outlined">Anchor</UIButton>
         <UIAnchorContent>
           <UICard variant="tonal">
-            <div class="ui-content">Floating content</div>
+            <UICardContent>Floating content</UICardContent>
           </UICard>
         </UIAnchorContent>
       </UIAnchor>

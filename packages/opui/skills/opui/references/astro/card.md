@@ -30,7 +30,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border.
+Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border. Put the body in `CardContent`.
 
 ```astro
 ---

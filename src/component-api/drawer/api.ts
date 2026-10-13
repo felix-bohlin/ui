@@ -77,6 +77,7 @@ export default {
       selector: ".ui-header > h2",
     },
     {
+      anchorName: "--ui-drawer-content",
       component: {
         astro: "DrawerContent",
         react: "DrawerContent",

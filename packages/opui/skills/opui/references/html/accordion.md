@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `<svg class="ui-marker">`
 
-  The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
+  The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 
 - `.ui-content`
 
@@ -499,13 +499,13 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 #### Parts
 
-| Part                      | Description                                                                              |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| `details.ui-accordion`    | Container element.                                                                       |
-| `<summary>`               | The always visible header.                                                               |
-| `<svg class="ui-marker">` | The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. |
-| `.ui-content`             | The collapsible content.                                                                 |
-| `.ui-actions`             | A group of actions, such as buttons.                                                     |
+| Part                      | Description                                                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `details.ui-accordion`    | Container element.                                                                                                        |
+| `<summary>`               | The always visible header.                                                                                                |
+| `<svg class="ui-marker">` | The marker. In Astro, React, Svelte and Vue, `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. |
+| `.ui-content`             | The collapsible content.                                                                                                  |
+| `.ui-actions`             | A group of actions, such as buttons.                                                                                      |
 
 #### CSS variables
 

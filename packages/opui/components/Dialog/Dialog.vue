@@ -15,7 +15,7 @@ const labelledBy = computed(() =>
   attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : headerId,
 )
 
-provide(DialogHeaderIdKey, headerId)
+provide(DialogHeaderIdKey, labelledBy)
 </script>
 
 <template>

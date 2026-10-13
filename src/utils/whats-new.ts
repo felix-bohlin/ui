@@ -5,6 +5,12 @@ type Note = string | Partial<Record<FrameworkId | "default", string>>
 const whatsNew = {
   accordion: [
     {
+      astro: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
+      react: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
+      svelte: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
+      vue: `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
+    },
+    {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code>.ui-marker-turn</code>.`,
       react: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
@@ -12,8 +18,8 @@ const whatsNew = {
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
     {
-      astro: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
-      vue: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
+      astro: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> on <code>AccordionSummary</code> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
+      vue: `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> on <code>AccordionSummary</code> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
     },
     {
       html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
@@ -21,6 +27,12 @@ const whatsNew = {
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
   ],
   anchor: [
+    {
+      astro: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
+      react: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
+      svelte: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
+      vue: `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
+    },
     {
       astro: `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
       vue: `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
@@ -101,6 +113,12 @@ const whatsNew = {
     },
   ],
   callout: [
+    {
+      astro: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
+      react: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
+      svelte: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
+      vue: `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
+    },
     {
       astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
       react: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
@@ -221,6 +239,12 @@ const whatsNew = {
     },
   ],
   drawer: [
+    {
+      astro: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
+      react: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
+      svelte: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
+      vue: `Breaking: <a href="#usage"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>.`,
+    },
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls (<a href="#usage">Usage</a>).`,
     {
       default: `Named by the header heading through <a href="#accessibility"><code>aria-labelledby</code></a>.`,
@@ -477,6 +501,12 @@ const whatsNew = {
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
   ],
   tooltip: [
+    {
+      astro: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
+      react: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
+      svelte: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
+      vue: `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
+    },
     {
       astro: `Breaking: <a href="#api"><code>id</code></a> is required.`,
       vue: `Breaking: <a href="#api"><code>id</code></a> is required.`,

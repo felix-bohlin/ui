@@ -3,6 +3,4 @@ export type Props = {
   trigger?: "always" | "hover"
 }
 
-export type Slots<S> = {
-  anchored?: S
-}
+export type AnchorContentProps = {}

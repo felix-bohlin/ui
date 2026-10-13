@@ -3,6 +3,7 @@ import GithubLogo from "./GithubLogo.astro"
 import {
   Button,
   Drawer,
+  DrawerContent,
   DrawerFooter,
   DrawerHeader,
   List,
@@ -237,9 +238,14 @@ const { link } = Astro.locals
   </div>
 </div>
 
-<Drawer id="mobile-menu-drawer" side="inline-end" closedby="any">
-  <DrawerHeader slot="header" />
-  <Fragment slot="content">
+<Drawer
+  aria-label="Menu"
+  id="mobile-menu-drawer"
+  side="inline-end"
+  closedby="any"
+>
+  <DrawerHeader />
+  <DrawerContent>
     <nav aria-label="Mobile navigation">
       <List variant="transparent">
         {
@@ -268,9 +274,9 @@ const { link } = Astro.locals
     <hr class="ui-divider" />
 
     <FrameworkPicker />
-  </Fragment>
+  </DrawerContent>
 
-  <DrawerFooter slot="footer">
+  <DrawerFooter>
     <Button size="small" commandfor="mobile-menu-drawer" command="close"
       >Close</Button
     >

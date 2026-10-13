@@ -85,8 +85,11 @@ export default function App() {
       lang="tsx"
     />
     <p>
-      Slots are props: the default slot is <code>children</code> and named slots are
-      camelCased, such as <code>endText</code>. Form controls take the native
+      Containers take parts, such as <code>CardHeader</code> and <code
+        >DialogActions</code
+      >. Other slots are props: the default slot is <code>children</code> and named
+      slots are camelCased, such as <code>endText</code>. Form controls take the
+      native
       <code>value</code> or <code>defaultValue</code>, <code>checked</code> or <code
         >defaultChecked</code
       >, and <code>onChange</code> props.
@@ -104,10 +107,14 @@ export default function App() {
     <h2 id="ssr">Server rendering</h2>
     <p>
       Components that need context, state or effects (<DocLink
-        href="/components/tabs">Tabs</DocLink
-      >, <DocLink href="/components/toggle">Toggle group</DocLink>, <DocLink
-        href="/components/drawer">Drawer</DocLink
-      >, <DocLink href="/components/form">Field group</DocLink> and the form controls)
+        href="/components/anchor">Anchor</DocLink
+      >, <DocLink href="/components/callout">Callout</DocLink>, <DocLink
+        href="/components/dialog">Dialog</DocLink
+      >, <DocLink href="/components/drawer">Drawer</DocLink>, <DocLink
+        href="/components/form">Field group</DocLink
+      >, <DocLink href="/components/tabs">Tabs</DocLink>, <DocLink
+        href="/components/toggle">Toggle group</DocLink
+      >, <DocLink href="/components/tooltip">Tooltip</DocLink> and the form controls)
       are marked <code>"use client"</code>. The rest also render as React Server
       Components.
     </p>
@@ -130,14 +137,6 @@ export default function App() {
         <DocLink href="/components/range#value">Range</DocLink> value: the <code
           >&lt;output&gt;</code
         > doesn't follow the thumb. The track fill is CSS, so it's fine.
-      </li>
-      <li>
-        <DocLink href="/components/drawer">Drawer</DocLink> with a heading rendered
-        by your own component in <code>header</code>: <code
-          >aria-labelledby</code
-        > points at it after hydration. A <code>DrawerHeader</code> with <code
-          >heading</code
-        >, or a heading element passed directly, works without it.
       </li>
     </ul>
     <p>

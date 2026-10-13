@@ -10,35 +10,39 @@ Floating content
 
   Container element. Scopes the anchor to its content.
 
-- `children`
+- `& > :first-child`
 
   The content the floating content is anchored to.
 
-- `anchored`
+- `<AnchorContent>`
 
   The floating content.
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Set `alignment` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `alignment` to any `position-area` value to place it.
 
 ```tsx
-import { Anchor, Button, Card, CardContent } from "opui-css/react"
+import {
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent,
+} from "opui-css/react"
 
 export default function AlwaysVisible() {
   return (
     <>
-      <Anchor
-        alignment="inline-end"
-        anchored={
+      <Anchor alignment="inline-end">
+        <Button variant="outlined">Export</Button>
+        <AnchorContent>
           <Card variant="tonal" className="coach-mark">
             <CardContent>
               <strong>New</strong> Export to PDF and CSV from the same menu.
             </CardContent>
           </Card>
-        }
-      >
-        <Button variant="outlined">Export</Button>
+        </AnchorContent>
       </Anchor>
       <style>{`
         .coach-mark {
@@ -54,7 +58,7 @@ export default function AlwaysVisible() {
 
 ## Hover trigger
 
-Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
+Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. `AnchorContent` gets the id and `popover="hint"`.
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
@@ -63,6 +67,7 @@ Put a [Card](https://open-props-ui.netlify.app/react/components/card.md) in the 
 ```tsx
 import {
   Anchor,
+  AnchorContent,
   Avatar,
   Button,
   Card,
@@ -79,7 +84,15 @@ export default function RepoCard() {
           alignment="block-end span-inline-end"
           trigger="hover"
           id="anchor-repo-card"
-          anchored={
+        >
+          <a
+            className="ui-link"
+            href="https://github.com/felix-bohlin/ui"
+            interestfor="anchor-repo-card"
+          >
+            felix-bohlin/ui
+          </a>
+          <AnchorContent>
             <Card variant="elevated" className="repo-card">
               <CardContent>
                 <div className="repo-card-identity">
@@ -105,15 +118,7 @@ export default function RepoCard() {
                 </Button>
               </CardActions>
             </Card>
-          }
-        >
-          <a
-            className="ui-link"
-            href="https://github.com/felix-bohlin/ui"
-            interestfor="anchor-repo-card"
-          >
-            felix-bohlin/ui
-          </a>
+          </AnchorContent>
         </Anchor>{" "}
         on GitHub.
       </div>
@@ -149,7 +154,7 @@ export default function RepoCard() {
 Preview where a link goes before following it. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
 
 ```tsx
-import { Anchor, Card, CardHeader } from "opui-css/react"
+import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/react"
 
 export default function LinkPreview() {
   return (
@@ -160,7 +165,15 @@ export default function LinkPreview() {
           alignment="block-end span-inline-end"
           trigger="hover"
           id="anchor-link-preview"
-          anchored={
+        >
+          <a
+            className="ui-link"
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
+            interestfor="anchor-link-preview"
+          >
+            CSS anchor positioning
+          </a>
+          <AnchorContent>
             <Card variant="elevated" className="link-preview">
               <img src="https://picsum.photos/id/1018/800/450" alt="" />
               <CardHeader>
@@ -172,15 +185,7 @@ export default function LinkPreview() {
                 </p>
               </CardHeader>
             </Card>
-          }
-        >
-          <a
-            className="ui-link"
-            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-            interestfor="anchor-link-preview"
-          >
-            CSS anchor positioning
-          </a>
+          </AnchorContent>
         </Anchor>{" "}
         on MDN.
       </div>
@@ -219,13 +224,12 @@ export default function LinkPreview() {
 
 ### Anchor API
 
-| Prop        | Type                   | Default       | Description                                                                                                                    |
-| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                |
-| `anchored`  | `ReactNode`            | -             | The floating content.                                                                                                          |
-| `children`  | `ReactNode`            | -             | The content the floating content is anchored to.                                                                               |
-| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger. |
-| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                |
+| Prop        | Type                   | Default       | Description                                                                                                               |
+| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                           |
+| `children`  | `ReactNode`            | -             | The content to anchor to, followed by `AnchorContent`.                                                                    |
+| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. |
+| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                           |
 
 ## Under the hood
 
@@ -327,7 +331,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/react`:
+Import the components from `opui-css/react`:
 
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.

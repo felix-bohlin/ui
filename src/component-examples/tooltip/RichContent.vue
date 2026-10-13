@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
@@ -10,8 +10,8 @@ import { Button, Tooltip } from "opui-css/vue"
       command="toggle-popover"
       >Keyboard shortcuts</Button
     >
-    <template #content>
+    <TooltipContent>
       Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-    </template>
+    </TooltipContent>
   </Tooltip>
 </template>

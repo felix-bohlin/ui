@@ -10,32 +10,38 @@ Floating content
 
   Container element. Scopes the anchor to its content.
 
-- `children`
+- `& > :first-child`
 
   The content the floating content is anchored to.
 
-- `anchored`
+- `<AnchorContent>`
 
   The floating content.
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Set `alignment` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `alignment` to any `position-area` value to place it.
 
 ```svelte
 <script lang="ts">
-  import { Anchor, Button, Card, CardContent } from "opui-css/svelte"
+  import {
+    Anchor,
+    AnchorContent,
+    Button,
+    Card,
+    CardContent,
+  } from "opui-css/svelte"
 </script>
 
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
-  {#snippet anchored()}
+  <AnchorContent>
     <Card variant="tonal" class="coach-mark">
       <CardContent>
         <strong>New</strong> Export to PDF and CSV from the same menu.
       </CardContent>
     </Card>
-  {/snippet}
+  </AnchorContent>
 </Anchor>
 
 <style>
@@ -51,7 +57,7 @@ Floating content that is always shown, like a coach mark beside a button. Set `a
 
 ## Hover trigger
 
-Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
+Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. `AnchorContent` gets the id and `popover="hint"`.
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
@@ -61,6 +67,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
 <script lang="ts">
   import {
     Anchor,
+    AnchorContent,
     Avatar,
     Button,
     Card,
@@ -81,7 +88,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
       href="https://github.com/felix-bohlin/ui"
       interestfor="anchor-repo-card">felix-bohlin/ui</a
     >
-    {#snippet anchored()}
+    <AnchorContent>
       <Card variant="elevated" class="repo-card">
         <CardContent>
           <div class="repo-card-identity">
@@ -105,7 +112,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
           <Button variant="outlined" size="small">Star</Button>
         </CardActions>
       </Card>
-    {/snippet}
+    </AnchorContent>
   </Anchor>
   on GitHub.
 </div>
@@ -142,7 +149,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ```svelte
 <script lang="ts">
-  import { Anchor, Card, CardHeader } from "opui-css/svelte"
+  import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/svelte"
 </script>
 
 <div>
@@ -157,7 +164,7 @@ Preview where a link goes before following it. The card keeps its interactive co
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
       interestfor="anchor-link-preview">CSS anchor positioning</a
     >
-    {#snippet anchored()}
+    <AnchorContent>
       <Card variant="elevated" class="link-preview">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <CardHeader>
@@ -168,7 +175,7 @@ Preview where a link goes before following it. The card keeps its interactive co
           </p>
         </CardHeader>
       </Card>
-    {/snippet}
+    </AnchorContent>
   </Anchor>
   on MDN.
 </div>
@@ -207,13 +214,12 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ### Anchor API
 
-| Prop        | Type                   | Default       | Description                                                                                                                    |
-| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                |
-| `anchored`  | `Snippet`              | -             | The floating content.                                                                                                          |
-| `children`  | `Snippet`              | -             | The content the floating content is anchored to.                                                                               |
-| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of the floating content. Add `interestfor` with the same id to the trigger. |
-| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                |
+| Prop        | Type                   | Default       | Description                                                                                                               |
+| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                           |
+| `children`  | `Snippet`              | -             | The content to anchor to, followed by `AnchorContent`.                                                                    |
+| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. |
+| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                           |
 
 ## Under the hood
 
@@ -315,7 +321,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/svelte`:
+Import the components from `opui-css/svelte`:
 
 - `opui-css/css/components/anchor.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.

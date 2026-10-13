@@ -1,6 +1,14 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-type Slots = Base.Slots<ReactNode>
+export type Props = Base.Props & ComponentProps<"details">
 
-export type Props = Base.Props & Slots & ComponentProps<"details">
+export type AccordionActionsProps = Base.AccordionActionsProps &
+  ComponentProps<"div">
+
+export type AccordionContentProps = Base.AccordionContentProps &
+  ComponentProps<"div">
+
+export type AccordionSummaryProps = Base.AccordionSummaryProps &
+  Base.AccordionSummarySlots<ReactNode> &
+  ComponentProps<"summary">

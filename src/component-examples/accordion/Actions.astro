@@ -1,17 +1,24 @@
 ---
-import { Accordion } from "@opui/astro"
-import { Button } from "@opui/astro"
+import {
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+} from "@opui/astro"
 ---
 
 <Accordion open variant="elevated">
-  <Fragment slot="summary">Accordion with actions</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo. Nam tempor euismod nisi ac ornare.
-  </p>
-  <Fragment slot="actions">
+  <AccordionSummary>Accordion with actions</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo. Nam tempor euismod nisi ac ornare.
+    </p>
+  </AccordionContent>
+  <AccordionActions>
     <Button>Cancel</Button>
     <Button>Agree</Button>
-  </Fragment>
+  </AccordionActions>
 </Accordion>

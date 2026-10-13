@@ -8,7 +8,17 @@ import ComponentAPI from "../components/ComponentAPI.astro"
 import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
-import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  CalloutTitle,
+  Chip,
+  Divider,
+  List,
+  ListItem,
+} from "@opui/astro"
 import { componentImports, packageFor } from "../utils/component-imports"
 import { shipped } from "../utils/component-source"
 import {
@@ -270,12 +280,15 @@ const learnPost = currentSlug
         <h2 id="changelog">Changelog</h2>
         {whatsNew.length > 0 && (
           <Callout severity="info" variant="tonal" class="whats-new">
-            <Fragment slot="title">What's new</Fragment>
-            <ul>
-              {whatsNew.map((note) => (
-                <li set:html={note} />
-              ))}
-            </ul>
+            <CalloutIcon />
+            <CalloutContent>
+              <CalloutTitle>What's new</CalloutTitle>
+              <ul>
+                {whatsNew.map((note) => (
+                  <li set:html={note} />
+                ))}
+              </ul>
+            </CalloutContent>
           </Callout>
         )}
         {changelog.length > 0 && (

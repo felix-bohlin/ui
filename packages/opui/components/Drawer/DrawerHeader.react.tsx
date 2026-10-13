@@ -10,7 +10,6 @@ export default function DrawerHeader({
   className,
   closeLabel = "Close",
   commandfor,
-  heading,
   ...rest
 }: Props) {
   const drawer = useDrawerContext()
@@ -24,7 +23,6 @@ export default function DrawerHeader({
 
   return (
     <div className={cx(["ui-header", className])} {...rest}>
-      {heading && <h2 id={drawer?.headingId}>{heading}</h2>}
       {children}
       <Button aria-label={closeLabel} rounded size="small" {...closeProps}>
         <svg

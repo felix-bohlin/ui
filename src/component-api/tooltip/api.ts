@@ -32,13 +32,16 @@ export default {
       code: "& > :first-child",
       description: "The trigger that shows the tooltip on hover and focus.",
       selector: ".ui-tooltip > :first-child",
-      slots: ["default"],
     },
     {
+      component: {
+        astro: "TooltipContent",
+        react: "TooltipContent",
+        svelte: "TooltipContent",
+        vue: "TooltipContent",
+      },
       description: 'The tooltip, a `popover="hint"`.',
-      props: ["label"],
       selector: ".ui-anchor-floating",
-      slots: ["content"],
     },
   ],
   root: {
@@ -46,5 +49,11 @@ export default {
     description: "Container element.",
     selector: ".ui-tooltip",
   },
+  slots: [
+    {
+      description: "The trigger, followed by `TooltipContent`.",
+      name: "default",
+    },
+  ],
   source: "Tooltip",
 } satisfies ComponentApi

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Anchor, Card, CardHeader } from "opui-css/svelte"
+  import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/svelte"
 </script>
 
 <div>
@@ -14,7 +14,7 @@
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
       interestfor="anchor-link-preview">CSS anchor positioning</a
     >
-    {#snippet anchored()}
+    <AnchorContent>
       <Card variant="elevated" class="link-preview">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <CardHeader>
@@ -25,7 +25,7 @@
           </p>
         </CardHeader>
       </Card>
-    {/snippet}
+    </AnchorContent>
   </Anchor>
   on MDN.
 </div>

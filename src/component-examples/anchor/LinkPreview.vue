@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Anchor, Card, CardHeader } from "opui-css/vue"
+import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import { Anchor, Card, CardHeader } from "opui-css/vue"
         interestfor="anchor-link-preview"
         >CSS anchor positioning</a
       >
-      <template #anchored>
+      <AnchorContent>
         <Card variant="elevated" class="link-preview">
           <img src="https://picsum.photos/id/1018/800/450" alt="" />
           <CardHeader>
@@ -27,7 +27,7 @@ import { Anchor, Card, CardHeader } from "opui-css/vue"
             </p>
           </CardHeader>
         </Card>
-      </template>
+      </AnchorContent>
     </Anchor>
     on MDN.
   </div>

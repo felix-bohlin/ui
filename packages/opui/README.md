@@ -59,7 +59,7 @@ export default function App() {
 }
 ```
 
-Slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Tabs, ToggleGroup, Drawer, FieldGroup and the form controls) are marked `"use client"`; the rest also render as React Server Components.
+Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Dialog, Drawer, FieldGroup, Tabs, ToggleGroup, Tooltip and the form controls) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 

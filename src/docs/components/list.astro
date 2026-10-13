@@ -4,7 +4,14 @@ import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout, List as UIList, ListItem, Switch } from "@opui/astro"
+import {
+  Callout,
+  CalloutContent,
+  CalloutTitle,
+  List as UIList,
+  ListItem,
+  Switch,
+} from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import ListDense from "../../component-examples/list/Dense.astro"
@@ -138,12 +145,14 @@ export const description =
 
     <div class="ui-not-rich-text">
       <Callout>
-        <Fragment slot="title">With great power...</Fragment>
-        <p>
-          The List component is <em>extremely</em> flexible and versatile. Be careful
-          if you start creating new configurations on your own. Maybe an existing
-          one can solve your problem, but in another way?
-        </p>
+        <CalloutContent>
+          <CalloutTitle>With great power...</CalloutTitle>
+          <p>
+            The List component is <em>extremely</em> flexible and versatile. Be careful
+            if you start creating new configurations on your own. Maybe an existing
+            one can solve your problem, but in another way?
+          </p>
+        </CalloutContent>
       </Callout>
     </div>
   </section>
@@ -170,13 +179,15 @@ export const description =
     </Conditional>
 
     <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled by default</Fragment>
-      <p>
-        Without a color class the list uses the filled surface, because lists
-        usually sit in popovers and selects that need to contrast against the
-        page. Pick <code>tonal</code>, or <code>transparent</code> to show the surface
-        behind the list.
-      </p>
+      <CalloutContent>
+        <CalloutTitle>Filled by default</CalloutTitle>
+        <p>
+          Without a color class the list uses the filled surface, because lists
+          usually sit in popovers and selects that need to contrast against the
+          page. Pick <code>tonal</code>, or <code>transparent</code> to show the surface
+          behind the list.
+        </p>
+      </CalloutContent>
     </Callout>
 
     <AutoExample name="Variants" />

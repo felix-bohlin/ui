@@ -4,8 +4,10 @@ import {
   Chip,
   Divider,
   Drawer,
+  DrawerContent,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   FieldGroup,
   FieldLegend,
   FieldSet,
@@ -31,10 +33,10 @@ const { link } = Astro.locals
   scrollLock={false}
   side="inline-end"
 >
-  <DrawerHeader slot="header">
-    <h3>Theme config</h3>
+  <DrawerHeader>
+    <DrawerTitle>Theme config</DrawerTitle>
   </DrawerHeader>
-  <Fragment slot="content">
+  <DrawerContent>
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
         <FieldSet>
@@ -201,9 +203,9 @@ const { link } = Astro.locals
         </FieldSet>
       </form>
     </div>
-  </Fragment>
+  </DrawerContent>
 
-  <DrawerFooter slot="footer">
+  <DrawerFooter>
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
       >Close</Button
     >

@@ -12,40 +12,24 @@
 
     // Snippets
     children,
-    content,
-    footer,
-    header,
     ...rest
   }: Props = $props()
 
   const uid = $props.id()
   const drawerId = $derived(id || `drawer-${uid}`)
-  const headingId = $derived(`${drawerId}-heading`)
+  const titleId = $derived(`${drawerId}-heading`)
   const labelledBy = $derived(
-    header && !rest["aria-label"] && !rest["aria-labelledby"]
-      ? headingId
-      : undefined,
+    rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId,
   )
 
   setDrawerContext({
-    get headingId() {
-      return headingId
-    },
     get id() {
       return drawerId
     },
+    get titleId() {
+      return titleId
+    },
   })
-
-  const labelHeading = (dialog: HTMLDialogElement) => {
-    if (!labelledBy || dialog.querySelector(`[id="${labelledBy}"]`)) return
-    const heading = dialog.querySelector("h1, h2, h3, h4, h5, h6")
-    if (!heading) {
-      dialog.removeAttribute("aria-labelledby")
-      return
-    }
-    if (!heading.id) heading.id = labelledBy
-    dialog.setAttribute("aria-labelledby", heading.id)
-  }
 </script>
 
 <dialog
@@ -61,18 +45,7 @@
   ]}
   aria-labelledby={labelledBy}
   id={drawerId}
-  {@attach labelHeading}
   {...rest}
 >
-  {@render header?.()}
-
-  {#if content}
-    <div class="ui-content">
-      {@render content()}
-    </div>
-  {/if}
-
   {@render children?.()}
-
-  {@render footer?.()}
 </dialog>

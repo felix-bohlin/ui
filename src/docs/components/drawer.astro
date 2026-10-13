@@ -6,8 +6,10 @@ import Anatomy from "../../components/Anatomy.astro"
 import {
   Button as UIButton,
   Drawer as UIDrawer,
+  DrawerContent as UIDrawerContent,
   DrawerFooter as UIDrawerFooter,
   DrawerHeader as UIDrawerHeader,
+  DrawerTitle as UIDrawerTitle,
   Switch,
   Table,
   TableBody,
@@ -91,9 +93,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="astro">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
-          heading and a close button. Put actions in the <code>footer</code> slot,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -139,9 +141,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="react">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> prop to add a
-          heading and a close button. Put actions in the <code>footer</code> prop,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -162,9 +164,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="svelte">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> snippet to add
-          a heading and a close button. Put actions in the <code>footer</code> snippet,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -185,9 +187,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="vue">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
-          heading and a close button. Put actions in the <code>footer</code> slot,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -242,9 +244,13 @@ import Conditional from "../../components/Conditional.astro"
         scrollLock={false}
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader slot="header" heading="Filters" />
-        <p slot="content">Narrow the list by status, owner and date.</p>
-        <UIDrawerFooter slot="footer">
+        <UIDrawerHeader>
+          <UIDrawerTitle>Filters</UIDrawerTitle>
+        </UIDrawerHeader>
+        <UIDrawerContent>
+          <p>Narrow the list by status, owner and date.</p>
+        </UIDrawerContent>
+        <UIDrawerFooter>
           <UIButton size="small">Reset</UIButton>
           <UIButton size="small" variant="filled">Apply</UIButton>
         </UIDrawerFooter>
@@ -259,9 +265,11 @@ import Conditional from "../../components/Conditional.astro"
       <li>
         <Conditional>
           <Fragment slot="astro"
-            >The drawer is named by the first heading in the <code>header</code> slot,
-            through <code>aria-labelledby</code>. Pass <code>aria-label</code> or
-            <code>aria-labelledby</code> to name it yourself.</Fragment
+            >The <code>DrawerTitle</code> names the drawer through <code
+              >aria-labelledby</code
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
           <Fragment slot="html"
             >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
@@ -269,33 +277,25 @@ import Conditional from "../../components/Conditional.astro"
             the close button.</Fragment
           >
           <Fragment slot="react"
-            >The drawer is named by the <code>heading</code> of a <code
-              >DrawerHeader</code
-            > in the <code>header</code> prop, through <code
+            >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
-            >. With your own heading in the <code>header</code> prop, it points at
-            that heading. When your own component renders the heading, it points at
-            the first heading once the drawer mounts. Pass <code
-              >aria-label</code
-            > or
-            <code>aria-labelledby</code> to name it yourself.</Fragment
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
           <Fragment slot="svelte"
-            >The drawer is named by the <code>heading</code> of a <code
-              >DrawerHeader</code
-            > in the <code>header</code> snippet, through <code
+            >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
-            >. With your own heading, it points at the first heading once the
-            drawer mounts. Pass <code>aria-label</code> or
-            <code>aria-labelledby</code> to name it yourself.</Fragment
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
           <Fragment slot="vue"
-            >The drawer is named by the <code>heading</code> of a <code
-              >DrawerHeader</code
-            > in the <code>header</code> slot, through <code
+            >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
-            >. With your own heading, pass <code>aria-labelledby</code> or
-            <code>aria-label</code> to <code>Drawer</code>.</Fragment
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
         </Conditional>
       </li>

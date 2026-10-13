@@ -1,4 +1,4 @@
-import { Anchor, Card, CardHeader } from "opui-css/react"
+import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/react"
 
 export default function LinkPreview() {
   return (
@@ -9,7 +9,15 @@ export default function LinkPreview() {
           alignment="block-end span-inline-end"
           trigger="hover"
           id="anchor-link-preview"
-          anchored={
+        >
+          <a
+            className="ui-link"
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
+            interestfor="anchor-link-preview"
+          >
+            CSS anchor positioning
+          </a>
+          <AnchorContent>
             <Card variant="elevated" className="link-preview">
               <img src="https://picsum.photos/id/1018/800/450" alt="" />
               <CardHeader>
@@ -21,15 +29,7 @@ export default function LinkPreview() {
                 </p>
               </CardHeader>
             </Card>
-          }
-        >
-          <a
-            className="ui-link"
-            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-            interestfor="anchor-link-preview"
-          >
-            CSS anchor positioning
-          </a>
+          </AnchorContent>
         </Anchor>{" "}
         on MDN.
       </div>

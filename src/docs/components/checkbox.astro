@@ -4,7 +4,12 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Checkbox as UICheckbox } from "@opui/astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutTitle as UICalloutTitle,
+  Checkbox as UICheckbox,
+} from "@opui/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
@@ -249,16 +254,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
         <div class="ui-not-rich-text">
           <UICallout>
-            <Fragment slot="title">JavaScript required</Fragment>
-            <div class="ui-rich-text">
-              The <code>indeterminate</code> state cannot be set with HTML or CSS
-              alone. The browser only exposes it as a property on <code
-                >HTMLInputElement</code
-              >, so a small script is needed to flip <code
-                >el.indeterminate = true</code
-              > after the element is in the DOM. The <code>:indeterminate</code> CSS
-              pseudo-class then matches and the dash glyph appears.
-            </div>
+            <UICalloutContent>
+              <UICalloutTitle>JavaScript required</UICalloutTitle>
+              <div class="ui-rich-text">
+                The <code>indeterminate</code> state cannot be set with HTML or CSS
+                alone. The browser only exposes it as a property on <code
+                  >HTMLInputElement</code
+                >, so a small script is needed to flip <code
+                  >el.indeterminate = true</code
+                > after the element is in the DOM. The <code
+                  >:indeterminate</code
+                > CSS pseudo-class then matches and the dash glyph appears.
+              </div>
+            </UICalloutContent>
           </UICallout>
         </div>
       </Fragment>
@@ -301,17 +309,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         </p>
 
         <UICallout>
-          <Fragment slot="title">JavaScript required</Fragment>
-          <div class="ui-rich-text">
-            The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
-            The browser only exposes it as a property on <code
-              >HTMLInputElement</code
-            >, so <code>activateIndeterminate()</code> sets <code
-              >el.indeterminate = true</code
-            > on every input with <code>data-indeterminate</code>. The <code
-              >:indeterminate</code
-            > CSS pseudo-class then matches and the dash glyph appears.
-          </div>
+          <UICalloutContent>
+            <UICalloutTitle>JavaScript required</UICalloutTitle>
+            <div class="ui-rich-text">
+              The <code>indeterminate</code> state cannot be set with HTML or CSS
+              alone. The browser only exposes it as a property on <code
+                >HTMLInputElement</code
+              >, so <code>activateIndeterminate()</code> sets <code
+                >el.indeterminate = true</code
+              > on every input with <code>data-indeterminate</code>. The <code
+                >:indeterminate</code
+              > CSS pseudo-class then matches and the dash glyph appears.
+            </div>
+          </UICalloutContent>
         </UICallout>
       </div>
     </Conditional>

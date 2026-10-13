@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, useId } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { computed, provide, useId } from "vue"
+import { AnchorKey, type Props, type Slots } from "./types.d.vue"
 
 const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
 defineSlots<Slots>()
@@ -12,6 +12,14 @@ const id = computed(() => (isHover.value ? (idProp ?? uid) : undefined))
 const positionArea = computed(() =>
   alignment ? { "--anchor-position-area": alignment } : undefined,
 )
+
+provide(
+  AnchorKey,
+  computed(() => ({
+    floatingId: id.value,
+    popover: isHover.value ? ("hint" as const) : undefined,
+  })),
+)
 </script>
 
 <template>
@@ -21,12 +29,5 @@ const positionArea = computed(() =>
     v-bind="positionArea && { style: positionArea }"
   >
     <slot></slot>
-    <span
-      class="ui-anchor-floating"
-      :id="id"
-      :popover="isHover ? 'hint' : undefined"
-    >
-      <slot name="anchored"></slot>
-    </span>
   </span>
 </template>

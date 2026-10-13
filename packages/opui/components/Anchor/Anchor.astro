@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { createId } from "../id"
+import { anchorContext } from "./context.astro"
 
 export const title = "Anchor"
 
@@ -27,6 +28,10 @@ const mergedStyle =
   typeof style === "string" || !style
     ? `${positionAreaString}${style ?? ""}` || undefined
     : { ...positionArea, ...style }
+const html = await anchorContext.provide(
+  { floatingId: id, popover: isHover ? "hint" : undefined },
+  () => Astro.slots.render("default"),
+)
 ---
 
 <span
@@ -35,12 +40,5 @@ const mergedStyle =
   style={mergedStyle}
   {...rest}
 >
-  <slot />
-  <span
-    class="ui-anchor-floating"
-    id={id}
-    popover={isHover ? "hint" : undefined}
-  >
-    <slot name="anchored" />
-  </span>
+  <Fragment set:html={html} />
 </span>

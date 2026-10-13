@@ -2,20 +2,20 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/react/components/anchor.md).
 
-Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` prop for richer markup.
+Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Put the tooltip in `TooltipContent` after the trigger.
 
 ## Basics
 
 ### Text only...
 
-Pass plain text via the `label` prop.
+Put plain text in `TooltipContent`.
 
 ```tsx
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Tooltip label="Save your changes" id="tooltip-basic">
+    <Tooltip id="tooltip-basic">
       <Button
         interestfor="tooltip-basic"
         commandfor="tooltip-basic"
@@ -23,6 +23,7 @@ export default function Basics() {
       >
         Save
       </Button>
+      <TooltipContent>Save your changes</TooltipContent>
     </Tooltip>
   )
 }
@@ -30,21 +31,14 @@ export default function Basics() {
 
 ### ... or any markup you want
 
-Use the `content` prop instead, and it lets you put anything in the tooltip.
+`TooltipContent` takes any markup, not only text.
 
 ```tsx
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function RichContent() {
   return (
-    <Tooltip
-      id="tooltip-rich"
-      content={
-        <>
-          Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-        </>
-      }
-    >
+    <Tooltip id="tooltip-rich">
       <Button
         interestfor="tooltip-rich"
         commandfor="tooltip-rich"
@@ -52,6 +46,9 @@ export default function RichContent() {
       >
         Keyboard shortcuts
       </Button>
+      <TooltipContent>
+        Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
+      </TooltipContent>
     </Tooltip>
   )
 }
@@ -62,7 +59,7 @@ export default function RichContent() {
 Use the `alignment` prop.
 
 ```tsx
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 const tooltips = [
   { alignment: "block-start", id: "tooltip-top", label: "Above", text: "Top" },
@@ -86,10 +83,11 @@ export default function Alignment() {
     <>
       <div className="tooltip-alignment-grid">
         {tooltips.map(({ alignment, id, label, text }) => (
-          <Tooltip key={id} label={label} alignment={alignment} id={id}>
+          <Tooltip key={id} alignment={alignment} id={id}>
             <Button interestfor={id} commandfor={id} command="toggle-popover">
               {text}
             </Button>
+            <TooltipContent>{label}</TooltipContent>
           </Tooltip>
         ))}
       </div>
@@ -128,11 +126,11 @@ export default function Alignment() {
 Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 ```tsx
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function Arrow() {
   return (
-    <Tooltip arrow label="Save your changes" id="tooltip-arrow">
+    <Tooltip arrow id="tooltip-arrow">
       <Button
         interestfor="tooltip-arrow"
         commandfor="tooltip-arrow"
@@ -140,6 +138,7 @@ export default function Arrow() {
       >
         Save
       </Button>
+      <TooltipContent>Save your changes</TooltipContent>
     </Tooltip>
   )
 }
@@ -153,10 +152,8 @@ export default function Arrow() {
 | ----------- | ----------- | --------------- | ------------------------------------------------------------------------- |
 | `alignment` | `string`    | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
 | `arrow`     | `boolean`   | `false`         | Adds an arrow that points to the trigger.                                 |
-| `children`  | `ReactNode` | -               | The trigger that shows the tooltip on hover and focus.                    |
-| `content`   | `ReactNode` | -               | The tooltip, a `popover="hint"`.                                          |
+| `children`  | `ReactNode` | -               | The trigger, followed by `TooltipContent`.                                |
 | `id`        | `string`    | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
-| `label`     | `string`    | -               | The tooltip, a `popover="hint"`.                                          |
 
 #### CSS variables
 
@@ -364,4 +361,5 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- Breaking: [`TooltipContent`](#api) replaces `label` and the `content` slot.
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.

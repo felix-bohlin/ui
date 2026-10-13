@@ -5,7 +5,7 @@
 ### Breaking
 
 - `Accordion` markers only animate with a marker class on `details`, and the marker is the `svg` with `.ui-marker`. Add `.ui-marker-rotate` to keep the previous rotation and `.ui-marker` to the chevron. Other icons in the `summary` stay put.
-- `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot replaces it, so move a custom chevron from `summary` to the `marker` slot and give it `.ui-marker`, or it shows twice.
+- `Accordion` renders a chevron marker by default in Astro and Vue. The `marker` slot on `AccordionSummary` replaces it, so move a custom chevron there and give it `.ui-marker`, or it shows twice.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. Rename any overrides to the new names.
@@ -44,6 +44,11 @@
 - `Card` in Astro, React, Svelte and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
 - `Dialog` in Astro, React, Svelte and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`.
 - `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue.
+- `Accordion` in Astro, React, Svelte and Vue takes parts instead of slots: `AccordionSummary`, `AccordionContent` and `AccordionActions`. The root no longer wraps its children in `.ui-content`, and the `marker` slot moves to `AccordionSummary`.
+- `Anchor` in Astro, React, Svelte and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders.
+- `Tooltip` in Astro, React, Svelte and Vue takes `TooltipContent` instead of `label` and the `content` slot.
+- `Callout` in Astro, React, Svelte and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon, `CalloutContent` the content and `CalloutTitle` the title. The root no longer renders an icon or wraps its children in `.ui-content`, `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout`.
+- `Drawer` in Astro, React, Svelte and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. In Astro and Vue, `DrawerHeader` closes its drawer with `command="close"` instead of a click handler.
 
 ### Removed
 

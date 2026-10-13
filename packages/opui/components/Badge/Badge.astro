@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 
 import Anchor from "../Anchor/Anchor.astro"
+import AnchorContent from "../Anchor/AnchorContent.astro"
 
 export const title = "Badge"
 
@@ -31,9 +32,11 @@ const {
   {...rest as any}
 >
   <slot />
-  <span class="ui-badge-indicator" slot="anchored">
-    {dot ? "" : label}
-    {!dot && <slot name="indicator" />}
-    {srLabel && <span class="ui-sr-only">{srLabel}</span>}
-  </span>
+  <AnchorContent>
+    <span class="ui-badge-indicator">
+      {dot ? "" : label}
+      {!dot && <slot name="indicator" />}
+      {srLabel && <span class="ui-sr-only">{srLabel}</span>}
+    </span>
+  </AnchorContent>
 </Anchor>

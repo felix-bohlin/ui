@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   Anchor,
+  AnchorContent,
   Avatar,
   Button,
   Card,
@@ -23,7 +24,7 @@ import {
         interestfor="anchor-repo-card"
         >felix-bohlin/ui</a
       >
-      <template #anchored>
+      <AnchorContent>
         <Card variant="elevated" class="repo-card">
           <CardContent>
             <div class="repo-card-identity">
@@ -47,7 +48,7 @@ import {
             <Button variant="outlined" size="small">Star</Button>
           </CardActions>
         </Card>
-      </template>
+      </AnchorContent>
     </Anchor>
     on GitHub.
   </div>

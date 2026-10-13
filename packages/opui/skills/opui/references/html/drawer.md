@@ -10,7 +10,11 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 - `.ui-header`
 
-  The header. `DrawerHeader` renders it with a close button.
+  The header, with a close button.
+
+- `<h2>`
+
+  The title. Names the drawer through `aria-labelledby`.
 
 - `.ui-content`
 
@@ -18,7 +22,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 - `.ui-footer`
 
-  The footer. `DrawerFooter` renders it.
+  The footer.
 
 ## Usage
 
@@ -373,12 +377,13 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 #### Parts
 
-| Part               | Description                                                |
-| ------------------ | ---------------------------------------------------------- |
-| `dialog.ui-drawer` | Container element.                                         |
-| `.ui-header`       | The header. `DrawerHeader` renders it with a close button. |
-| `.ui-content`      | The scrollable content.                                    |
-| `.ui-footer`       | The footer. `DrawerFooter` renders it.                     |
+| Part               | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `dialog.ui-drawer` | Container element.                                     |
+| `.ui-header`       | The header, with a close button.                       |
+| `<h2>`             | The title. Names the drawer through `aria-labelledby`. |
+| `.ui-content`      | The scrollable content.                                |
+| `.ui-footer`       | The footer.                                            |
 
 #### CSS variables
 
@@ -405,7 +410,6 @@ Add `autofocus` to the element that gets focus on open. It can be the root or an
 | Part         | Description        |
 | ------------ | ------------------ |
 | `.ui-header` | Container element. |
-| `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
 
 #### CSS variables

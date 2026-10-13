@@ -15,19 +15,42 @@ Markers only animate with a marker class on `details`, and only the `svg` with `
     </summary>
 ```
 
-Astro and Vue render a chevron marker by default. If you put your own chevron in the `summary` slot, you get two: move it to the `marker` slot and give it `.ui-marker`.
+In Astro, React, Svelte and Vue the regions are parts instead of slots. The root no longer wraps its children in `.ui-content`, so put them in `AccordionContent`.
 
 ```diff
   <Accordion>
--   <Fragment slot="summary">Title <svg>…</svg></Fragment>
-+   <Fragment slot="summary">Title</Fragment>
-+   <svg slot="marker" class="ui-marker">…</svg>
+-   <Fragment slot="summary">Title</Fragment>
+-   <p>Text</p>
+-   <Button slot="actions">Agree</Button>
++   <AccordionSummary>Title</AccordionSummary>
++   <AccordionContent><p>Text</p></AccordionContent>
++   <AccordionActions><Button>Agree</Button></AccordionActions>
   </Accordion>
+```
+
+`AccordionSummary` renders a chevron marker by default. If you put your own chevron in the summary, you get two: move it to the `marker` slot on `AccordionSummary` and give it `.ui-marker`.
+
+```diff
+- <AccordionSummary>Title <svg>…</svg></AccordionSummary>
++ <AccordionSummary>
++   Title
++   <svg slot="marker" class="ui-marker">…</svg>
++ </AccordionSummary>
 ```
 
 ## Anchor
 
 `Anchor` with `trigger="hover"` no longer wraps the trigger in a `<span interestfor>`. Give the anchor an `id` and add `interestfor` with that id to the trigger, like `Tooltip`.
+
+In Astro, React, Svelte and Vue the floating content goes in `AnchorContent` instead of the `anchored` slot.
+
+```diff
+  <Anchor>
+    <Button>Profile</Button>
+-   <Card slot="anchored">…</Card>
++   <AnchorContent><Card>…</Card></AnchorContent>
+  </Anchor>
+```
 
 ## Avatar
 
@@ -92,6 +115,24 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 ```
 
 Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--button-size-small` (32px) instead of 30px.
+
+## Callout
+
+In Astro, React, Svelte and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
+
+```diff
+- <Callout severity="info" headingLevel={4}>
+-   <Fragment slot="title">Heads up</Fragment>
+-   Text
+- </Callout>
++ <Callout severity="info">
++   <CalloutIcon />
++   <CalloutContent>
++     <CalloutTitle level={4}>Heads up</CalloutTitle>
++     Text
++   </CalloutContent>
++ </Callout>
+```
 
 ## Card
 
@@ -180,6 +221,21 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 ## Drawer
 
 The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
+
+In Astro, React, Svelte and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`.
+
+```diff
+  <Drawer id="filters">
+-   <DrawerHeader slot="header" heading="Filters" />
+-   <Fragment slot="content">…</Fragment>
+-   <DrawerFooter slot="footer">…</DrawerFooter>
++   <DrawerHeader>
++     <DrawerTitle>Filters</DrawerTitle>
++   </DrawerHeader>
++   <DrawerContent>…</DrawerContent>
++   <DrawerFooter>…</DrawerFooter>
+  </Drawer>
+```
 
 ## Field group and field set
 
@@ -436,11 +492,14 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
 
+In Astro, React, Svelte and Vue the text goes in `TooltipContent` instead of `label` or the `content` slot.
+
 ```diff
 - <Tooltip label="Save your changes">
 -   <Button>Save</Button>
-+ <Tooltip label="Save your changes" id="save-tooltip">
++ <Tooltip id="save-tooltip">
 +   <Button interestfor="save-tooltip">Save</Button>
++   <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 ```
 

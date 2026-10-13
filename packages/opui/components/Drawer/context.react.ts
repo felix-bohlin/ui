@@ -3,8 +3,8 @@
 import { createContext, useContext } from "react"
 
 export type DrawerContextValue = {
-  headingId?: string
   id: string
+  titleId: string
 }
 
 export const DrawerContext = createContext<DrawerContextValue | undefined>(

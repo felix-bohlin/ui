@@ -10,38 +10,43 @@ Explain more about the topic shown in the summary through supporting text.
 
   Container element.
 
-- `summary`
+- `<AccordionSummary>`
 
   The always visible header.
 
-- `marker`
+- `<svg class="ui-marker">`
 
-  The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
+  The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 
-- `children`
+- `<AccordionContent>`
 
   The collapsible content.
 
-- `actions`
+- `<AccordionActions>`
 
   A group of actions, such as buttons.
 
 ## Basics
 
+Put the header in `AccordionSummary` and the body in `AccordionContent`.
+
 ```tsx
-import { Accordion } from "opui-css/react"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Accordion summary="Accordion">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-        Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-        dolor.
-      </p>
+    <Accordion>
+      <AccordionSummary>Accordion</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
+          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
+          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
+          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
+          dolor.
+        </p>
+      </AccordionContent>
     </Accordion>
   )
 }
@@ -52,38 +57,50 @@ export default function Basics() {
 Use the `variant` prop to change how it looks.
 
 ```tsx
-import { Accordion } from "opui-css/react"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
-      <Accordion summary="Text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion>
+        <AccordionSummary>Text</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion variant="elevated" summary="Elevated">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion variant="elevated">
+        <AccordionSummary>Elevated</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion variant="outlined" summary="Outlined">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion variant="outlined">
+        <AccordionSummary>Outlined</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion variant="tonal" summary="Tonal">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion variant="tonal">
+        <AccordionSummary>Tonal</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
     </>
   )
@@ -95,31 +112,45 @@ export default function Variants() {
 Group multiple accordions by wrapping them in a `Card` component with `role="group"`. To theme the entire group, apply the `variant` prop to the parent container.
 
 ```tsx
-import { Accordion, Card } from "opui-css/react"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+} from "opui-css/react"
 
 export default function Group() {
   return (
     <Card variant="outlined" role="group">
-      <Accordion summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion>
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
     </Card>
   )
@@ -131,31 +162,45 @@ export default function Group() {
 Set the same `name` prop on each accordion to allow only one of them to be open at a time.
 
 ```tsx
-import { Accordion, Card } from "opui-css/react"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Card,
+} from "opui-css/react"
 
 export default function GroupSingle() {
   return (
     <Card variant="outlined" role="group">
-      <Accordion name="example-group" summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion name="example-group">
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion name="example-group" summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion name="example-group">
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
-      <Accordion name="example-group" summary="Accordion title">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
+      <Accordion name="example-group">
+        <AccordionSummary>Accordion title</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
     </Card>
   )
@@ -164,29 +209,32 @@ export default function GroupSingle() {
 
 ## Actions
 
-Add buttons or other interactive elements below the content with the `actions` prop.
+Add buttons or other interactive elements below the content with `AccordionActions`, after `AccordionContent`.
 
 ```tsx
-import { Accordion, Button } from "opui-css/react"
+import {
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+} from "opui-css/react"
 
 export default function Actions() {
   return (
-    <Accordion
-      open
-      variant="elevated"
-      summary="Accordion with actions"
-      actions={
-        <>
-          <Button>Cancel</Button>
-          <Button>Agree</Button>
-        </>
-      }
-    >
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-      </p>
+    <Accordion open variant="elevated">
+      <AccordionSummary>Accordion with actions</AccordionSummary>
+      <AccordionContent>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
+          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
+        </p>
+      </AccordionContent>
+      <AccordionActions>
+        <Button>Cancel</Button>
+        <Button>Agree</Button>
+      </AccordionActions>
     </Accordion>
   )
 }
@@ -194,73 +242,15 @@ export default function Actions() {
 
 ## Custom marker
 
-Replace the default marker with the `marker` prop, and give it `.ui-marker` so it sits at the end and animates. Other icons in the `summary`, such as a leading status icon, stay put.
+Replace the default marker with the `marker` prop on `AccordionSummary`, and give it `.ui-marker` so it sits at the end and animates. Other icons in `AccordionSummary`, such as a leading status icon, stay put.
 
 ```tsx
-import { Accordion } from "opui-css/react"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
 
 export default function CustomMarker() {
   return (
-    <Accordion
-      variant="outlined"
-      summary="Custom marker"
-      marker={
-        <svg
-          className="ui-marker"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
-          <path
-            fill="currentColor"
-            d="M11.5 3.5a1 1 0 0 0-1 1v7.502a.75.75 0 0 1-1.02.7l-2.513-.966a2.84 2.84 0 0 0-3.254.895c5.488 2.461 7.557 4.81 8.477 6.833c.33.725.977 1.113 1.578 1.02l3.456-.532a1.25 1.25 0 0 0 1.022-.934l1.153-4.633a3.25 3.25 0 0 0-2.65-3.995l-3.616-.569a.75.75 0 0 1-.633-.74V4.5a1 1 0 0 0-1-1M9 4.5a2.5 2.5 0 1 1 5 0v3.94l2.983.468a4.75 4.75 0 0 1 3.872 5.84l-1.153 4.632a2.75 2.75 0 0 1-2.25 2.054l-3.455.533c-1.442.222-2.646-.726-3.173-1.882c-.735-1.617-2.527-3.834-8.19-6.29a1.055 1.055 0 0 1-.511-1.463a4.34 4.34 0 0 1 5.382-1.996L9 10.91z"
-          ></path>
-        </svg>
-      }
-    >
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
-        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
-        Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
-        dolor.
-      </p>
-    </Accordion>
-  )
-}
-```
-
-## Marker animation
-
-Set the `markerAnimation` prop to change how the marker animates when the accordion opens.
-
-```tsx
-import { Accordion } from "opui-css/react"
-
-export default function MarkerAnimation() {
-  return (
-    <>
-      <Accordion markerAnimation="flip" variant="outlined" summary="Flip">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
-      </Accordion>
-      <Accordion markerAnimation="rotate" variant="outlined" summary="Rotate">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
-        </p>
-      </Accordion>
-      <Accordion
-        markerAnimation="turn"
-        variant="outlined"
-        summary="Turn"
+    <Accordion variant="outlined">
+      <AccordionSummary
         marker={
           <svg
             className="ui-marker"
@@ -269,18 +259,87 @@ export default function MarkerAnimation() {
             height="24"
             viewBox="0 0 24 24"
           >
+            {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
             <path
               fill="currentColor"
-              d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+              d="M11.5 3.5a1 1 0 0 0-1 1v7.502a.75.75 0 0 1-1.02.7l-2.513-.966a2.84 2.84 0 0 0-3.254.895c5.488 2.461 7.557 4.81 8.477 6.833c.33.725.977 1.113 1.578 1.02l3.456-.532a1.25 1.25 0 0 0 1.022-.934l1.153-4.633a3.25 3.25 0 0 0-2.65-3.995l-3.616-.569a.75.75 0 0 1-.633-.74V4.5a1 1 0 0 0-1-1M9 4.5a2.5 2.5 0 1 1 5 0v3.94l2.983.468a4.75 4.75 0 0 1 3.872 5.84l-1.153 4.632a2.75 2.75 0 0 1-2.25 2.054l-3.455.533c-1.442.222-2.646-.726-3.173-1.882c-.735-1.617-2.527-3.834-8.19-6.29a1.055 1.055 0 0 1-.511-1.463a4.34 4.34 0 0 1 5.382-1.996L9 10.91z"
             ></path>
           </svg>
         }
       >
+        Custom marker
+      </AccordionSummary>
+      <AccordionContent>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-          ac mollis neque ante id justo.
+          ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
+          Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
+          Suspendisse potenti. Cras ut ante in libero tempus sodales sed quis
+          dolor.
         </p>
+      </AccordionContent>
+    </Accordion>
+  )
+}
+```
+
+## Marker animation
+
+Set the `markerAnimation` prop to change how the marker animates when the accordion opens. A custom marker in the `marker` prop on `AccordionSummary` animates too, as long as it has `.ui-marker`.
+
+```tsx
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
+
+export default function MarkerAnimation() {
+  return (
+    <>
+      <Accordion markerAnimation="flip" variant="outlined">
+        <AccordionSummary>Flip</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
+      </Accordion>
+      <Accordion markerAnimation="rotate" variant="outlined">
+        <AccordionSummary>Rotate</AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
+      </Accordion>
+      <Accordion markerAnimation="turn" variant="outlined">
+        <AccordionSummary
+          marker={
+            <svg
+              className="ui-marker"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+              ></path>
+            </svg>
+          }
+        >
+          Turn
+        </AccordionSummary>
+        <AccordionContent>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum
+            libero, ac mollis neque ante id justo.
+          </p>
+        </AccordionContent>
       </Accordion>
     </>
   )
@@ -296,16 +355,13 @@ export default function MarkerAnimation() {
 
 ### Accordion API
 
-| Prop              | Type                                                  | Default     | Description                                                                                       |
-| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
-| `actions`         | `ReactNode`                                           | -           | A group of actions, such as buttons.                                                              |
-| `children`        | `ReactNode`                                           | -           | The collapsible content.                                                                          |
-| `marker`          | `ReactNode`                                           | -           | The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.                                                 |
-| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.                                      |
-| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                                                                    |
-| `summary`         | `ReactNode`                                           | -           | The always visible header.                                                                        |
-| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                                                               |
+| Prop              | Type                                                  | Default     | Description                                                  |
+| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `children`        | `ReactNode`                                           | -           | The accordion parts.                                         |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time. |
+| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                               |
+| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                          |
 
 #### CSS variables
 
@@ -326,7 +382,33 @@ export default function MarkerAnimation() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.
+Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.
+
+### Accordion summary API
+
+| Prop       | Type        | Default | Description                                                           |
+| ---------- | ----------- | ------- | --------------------------------------------------------------------- |
+| `children` | `ReactNode` | -       | The summary text.                                                     |
+| `marker`   | `ReactNode` | -       | The marker. Renders a chevron by default. Only `.ui-marker` animates. |
+
+#### CSS variables
+
+| Variable              | Default                                     | Description                                                                                                                                                                                               |
+| --------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                           |
+| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                            |
+| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                  |
+| `--font-weight-bold`  | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                                                                                                              |
+| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                 |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                              |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                             |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -442,7 +524,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/react`:
+Import the components from `opui-css/react`:
 
 ### Dependencies
 
@@ -455,5 +537,6 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- Breaking: [`AccordionSummary`, `AccordionContent`](#basics) and [`AccordionActions`](#actions) replace the slots, and the root no longer wraps its children in `.ui-content`.
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - [Actions](#actions) line up with the content and the chevron.

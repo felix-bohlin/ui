@@ -41,6 +41,8 @@ Components documented on another component's page:
 
 | Component | File |
 | --- | --- |
+| AccordionSummary | `accordion.md` |
+| CalloutTitle | `callout.md` |
 | CardActions | `card.md` |
 | ClassicSelect | `select.md` |
 | DialogActions | `dialog.md` |

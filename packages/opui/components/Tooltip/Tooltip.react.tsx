@@ -7,9 +7,6 @@ export default function Tooltip({
   arrow,
   className,
   id,
-  label,
-  children,
-  content,
   ...rest
 }: Props) {
   return (
@@ -18,15 +15,7 @@ export default function Tooltip({
       className={cx(["ui-tooltip", { "ui-with-arrow": arrow }, className])}
       id={id}
       trigger="hover"
-      anchored={
-        <>
-          {label}
-          {content}
-        </>
-      }
       {...rest}
-    >
-      {children}
-    </Anchor>
+    />
   )
 }

@@ -5,6 +5,7 @@ import DocLink from "../../components/DocLink.astro"
 import {
   Button as UIButton,
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
   Card as UICard,
   CardActions as UICardActions,
   CardContent as UICardContent,
@@ -79,12 +80,14 @@ import cardApi from "../../component-api/card/api"
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          <p><strong>Why does a text variant exist?</strong></p>
-          On the page you won't see a difference. Put a card on a tonal surface or
-          in a dialog, though, and the default one turns into a page-colored box.
-          The text variant stays see-through.
-        </div>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            <p><strong>Why does a text variant exist?</strong></p>
+            On the page you won't see a difference. Put a card on a tonal surface
+            or in a dialog, though, and the default one turns into a page-colored
+            box. The text variant stays see-through.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
@@ -176,10 +179,12 @@ import cardApi from "../../component-api/card/api"
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          Only one <code>.ui-card-link</code> per card. The link covers the text,
-          so selecting text in the card won't work. Fair trade.
-        </div>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            Only one <code>.ui-card-link</code> per card. The link covers the text,
+            so selecting text in the card won't work. Fair trade.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
@@ -208,11 +213,14 @@ import cardApi from "../../component-api/card/api"
 
   <div slot="installation" class="ui-not-rich-text">
     <UICallout>
-      <div class="ui-rich-text">
-        Other components might depend on the card component. Be mindful when
-        making changes. <DocLink href="/components/accordion">Accordion</DocLink
-        >, <DocLink href="/components/dialog">Dialog</DocLink>
-      </div>
+      <UICalloutContent>
+        <div class="ui-rich-text">
+          Other components might depend on the card component. Be mindful when
+          making changes. <DocLink href="/components/accordion"
+            >Accordion</DocLink
+          >, <DocLink href="/components/dialog">Dialog</DocLink>
+        </div>
+      </UICalloutContent>
     </UICallout>
   </div>
 </Component>

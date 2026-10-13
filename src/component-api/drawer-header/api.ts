@@ -29,12 +29,6 @@ export default {
   page: "drawer",
   parts: [
     {
-      code: "<h2>",
-      description: "The heading.",
-      props: ["heading"],
-      selector: ".ui-header > h2",
-    },
-    {
       code: "<button>",
       description: "Closes the drawer.",
       selector: ".ui-header > .ui-button",
@@ -46,7 +40,8 @@ export default {
   },
   slots: [
     {
-      description: "Content placed between the heading and the close button.",
+      description:
+        "The `DrawerTitle`, and any other content before the close button.",
       name: "default",
     },
   ],

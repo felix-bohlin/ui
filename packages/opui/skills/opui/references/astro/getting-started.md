@@ -54,4 +54,6 @@ import { Button } from "opui-css/astro"
 <Button variant="filled">Click me</Button>
 ```
 
+Containers take parts, such as `CardHeader` and `DialogActions`. Other components take named slots for rich content, such as `end-text` on a `TextField`.
+
 [Concepts](https://open-props-ui.netlify.app/astro/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/astro/components.md). [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) covers colors, density, motion and contrast.

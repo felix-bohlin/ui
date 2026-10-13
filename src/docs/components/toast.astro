@@ -6,7 +6,13 @@ import AutoExample from "../../components/AutoExample.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
-import { Badge, Callout as UICallout } from "@opui/astro"
+import {
+  Badge,
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  CalloutTitle as UICalloutTitle,
+} from "@opui/astro"
 import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
 
 export const description =
@@ -40,8 +46,11 @@ export const description =
 
   <div class="ui-not-rich-text">
     <UICallout severity="warning">
-      <Fragment slot="title">Alpha stage</Fragment>
-      <p>This is in no way finished, just an idea put out in the open.</p>
+      <UICalloutIcon />
+      <UICalloutContent>
+        <UICalloutTitle>Alpha stage</UICalloutTitle>
+        <p>This is in no way finished, just an idea put out in the open.</p>
+      </UICalloutContent>
     </UICallout>
   </div>
 

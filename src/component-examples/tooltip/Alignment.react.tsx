@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 const tooltips = [
   { alignment: "block-start", id: "tooltip-top", label: "Above", text: "Top" },
@@ -22,10 +22,11 @@ export default function Alignment() {
     <>
       <div className="tooltip-alignment-grid">
         {tooltips.map(({ alignment, id, label, text }) => (
-          <Tooltip key={id} label={label} alignment={alignment} id={id}>
+          <Tooltip key={id} alignment={alignment} id={id}>
             <Button interestfor={id} commandfor={id} command="toggle-popover">
               {text}
             </Button>
+            <TooltipContent>{label}</TooltipContent>
           </Tooltip>
         ))}
       </div>

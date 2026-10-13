@@ -1,5 +1,6 @@
 import {
   Anchor,
+  AnchorContent,
   Avatar,
   Button,
   Card,
@@ -16,7 +17,15 @@ export default function RepoCard() {
           alignment="block-end span-inline-end"
           trigger="hover"
           id="anchor-repo-card"
-          anchored={
+        >
+          <a
+            className="ui-link"
+            href="https://github.com/felix-bohlin/ui"
+            interestfor="anchor-repo-card"
+          >
+            felix-bohlin/ui
+          </a>
+          <AnchorContent>
             <Card variant="elevated" className="repo-card">
               <CardContent>
                 <div className="repo-card-identity">
@@ -42,15 +51,7 @@ export default function RepoCard() {
                 </Button>
               </CardActions>
             </Card>
-          }
-        >
-          <a
-            className="ui-link"
-            href="https://github.com/felix-bohlin/ui"
-            interestfor="anchor-repo-card"
-          >
-            felix-bohlin/ui
-          </a>
+          </AnchorContent>
         </Anchor>{" "}
         on GitHub.
       </div>

@@ -1,32 +1,26 @@
 <script setup lang="ts">
 import { computed, inject } from "vue"
 import Button from "../Button/Button.vue"
-import { DrawerHeadingIdKey } from "./types.d.vue"
-import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
+import { DrawerKey, type DrawerHeaderProps, type Slots } from "./types.d.vue"
 
-const {
-  closeLabel = "Close",
-  commandfor,
-  heading,
-} = defineProps<DrawerHeaderProps>()
-defineSlots<DrawerHeaderSlots>()
+const { closeLabel = "Close", commandfor } = defineProps<DrawerHeaderProps>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const headingId = inject(DrawerHeadingIdKey, undefined)
+const drawer = inject(DrawerKey, undefined)
 
 const closeAttrs = computed(() =>
-  commandfor
-    ? { command: "close", commandfor }
+  commandfor || drawer
+    ? { command: "close", commandfor: commandfor ?? drawer?.id }
     : { onclick: "this.closest('dialog').close()" },
 )
 </script>
 
 <template>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
-    <h2 v-if="heading" :id="headingId">{{ heading }}</h2>
     <slot></slot>
     <Button :aria-label="closeLabel" rounded size="small" v-bind="closeAttrs">
       <svg

@@ -5,6 +5,8 @@ import AutoExample from "../../components/AutoExample.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   Accordion as UIAccordion,
+  AccordionContent as UIAccordionContent,
+  AccordionSummary as UIAccordionSummary,
   Button as UIButton,
   ButtonGroup as UIButtonGroup,
 } from "@opui/astro"
@@ -86,17 +88,19 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
 
   <div class="ui-not-rich-text">
     <UIAccordion variant="tonal">
-      <Fragment slot="summary">Button group or Toggle group?</Fragment>
-      <p>
-        If your buttons depend on state (controlled) - use <DocLink
-          href="/components/toggle"
-          class="ui-link">Toggle group</DocLink
-        >.
-      </p>
-      <p>
-        If you just need to group a bunch of "dumb" (uncontrolled) buttons - use
-        Button group.
-      </p>
+      <UIAccordionSummary>Button group or Toggle group?</UIAccordionSummary>
+      <UIAccordionContent>
+        <p>
+          If your buttons depend on state (controlled) - use <DocLink
+            href="/components/toggle"
+            class="ui-link">Toggle group</DocLink
+          >.
+        </p>
+        <p>
+          If you just need to group a bunch of "dumb" (uncontrolled) buttons -
+          use Button group.
+        </p>
+      </UIAccordionContent>
     </UIAccordion>
   </div>
 

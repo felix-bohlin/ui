@@ -1,5 +1,8 @@
+"use client"
+
 import { useId } from "react"
 import { cx } from "../cx"
+import { AnchorContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Anchor({
@@ -8,8 +11,6 @@ export default function Anchor({
   id: idProp,
   style,
   trigger = "always",
-  anchored,
-  children,
   ...rest
 }: Props) {
   const uid = useId()
@@ -21,20 +22,15 @@ export default function Anchor({
     : undefined
 
   return (
-    <span
-      className={cx(["ui-anchor", className])}
-      id={isHover ? undefined : idProp}
-      style={positionArea ? { ...positionArea, ...style } : style}
-      {...rest}
+    <AnchorContext
+      value={{ floatingId: id, popover: isHover ? "hint" : undefined }}
     >
-      {children}
       <span
-        className="ui-anchor-floating"
-        id={id}
-        popover={isHover ? "hint" : undefined}
-      >
-        {anchored}
-      </span>
-    </span>
+        className={cx(["ui-anchor", className])}
+        id={isHover ? undefined : idProp}
+        style={positionArea ? { ...positionArea, ...style } : style}
+        {...rest}
+      />
+    </AnchorContext>
   )
 }

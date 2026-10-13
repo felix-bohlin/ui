@@ -8,23 +8,27 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   Container element.
 
-- `v-slot:header`
+- `<DrawerHeader>`
 
-  The header. `DrawerHeader` renders it with a close button.
+  The header, with a close button.
 
-- `v-slot:content`
+- `<DrawerTitle>`
+
+  The title. Names the drawer through `aria-labelledby`.
+
+- `<DrawerContent>`
 
   The scrollable content.
 
-- `v-slot:footer`
+- `<DrawerFooter>`
 
-  The footer. `DrawerFooter` renders it.
+  The footer.
 
 ## Usage
 
 Change the opening side with the `side` prop.
 
-Put a `DrawerHeader` in the `header` slot to add a heading and a close button. Put actions in the `footer` slot, wrapped in a `DrawerFooter`.
+Build it from `DrawerHeader`, `DrawerContent` and `DrawerFooter`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer.
 
 The header and footer stay put while the content scrolls, with a shadow on the scrolled edge.
 
@@ -34,7 +38,14 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 
 ```vue
 <script setup lang="ts">
-import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
+import {
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -54,10 +65,10 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
   </div>
 
   <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-inline-start">
+      <DrawerTitle>Inline Start</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -75,21 +86,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         illo inventore veritatis et quasi architecto beatae vitae dicta sunt
         explicabo.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-inline-start" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-inline-start" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-inline-end">
+      <DrawerTitle>Inline End</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -107,21 +116,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         illo inventore veritatis et quasi architecto beatae vitae dicta sunt
         explicabo.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-inline-end" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-inline-end" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-block-start" side="block-start" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-block-start">
+      <DrawerTitle>Block Start</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -133,21 +140,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-block-start" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-block-start" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-block-end" side="block-end" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-block-end" heading="Block End" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-block-end">
+      <DrawerTitle>Block End</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -159,14 +164,12 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-block-end" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-block-end" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 </template>
 ```
@@ -185,7 +188,7 @@ The drawer sets `closedby="any"` when you leave it out.
 
 ## Accessibility
 
-- The drawer is named by the `heading` of a `DrawerHeader` in the `header` slot, through `aria-labelledby`. With your own heading, pass `aria-labelledby` or `aria-label` to `Drawer`.
+- The `DrawerTitle` names the drawer through `aria-labelledby`. A drawer without one needs an `aria-label`. Pass `aria-labelledby` to name it after another element.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
 
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
@@ -221,12 +224,9 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 #### Slots
 
-| Slot      | Description                                                |
-| --------- | ---------------------------------------------------------- |
-| `content` | The scrollable content.                                    |
-| `default` | Raw content placed directly in the drawer.                 |
-| `footer`  | The footer. `DrawerFooter` renders it.                     |
-| `header`  | The header. `DrawerHeader` renders it with a close button. |
+| Slot      | Description                              |
+| --------- | ---------------------------------------- |
+| `default` | The drawer parts, and any other content. |
 
 #### CSS variables
 
@@ -244,7 +244,7 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<dialog>`.
+Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.
 
 ### Drawer header API
 
@@ -252,13 +252,12 @@ Attributes that aren't props go to the `<dialog>`.
 | ------------ | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `closeLabel` | `string` | `"Close"` | The accessible name of the close button.                                                                                                |
 | `commandfor` | `string` | -         | The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click. |
-| `heading`    | `string` | -         | The heading.                                                                                                                            |
 
 #### Slots
 
-| Slot      | Description                                              |
-| --------- | -------------------------------------------------------- |
-| `default` | Content placed between the heading and the close button. |
+| Slot      | Description                                                       |
+| --------- | ----------------------------------------------------------------- |
+| `default` | The `DrawerTitle`, and any other content before the close button. |
 
 #### CSS variables
 
@@ -553,5 +552,6 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`DrawerTitle` and `DrawerContent`](#usage) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`.
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
 - Named by the header heading through [`aria-labelledby`](#accessibility).

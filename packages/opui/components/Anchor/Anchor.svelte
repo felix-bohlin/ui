@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { setAnchorContext } from "./context"
   import type { Props } from "./types.svelte"
 
   let {
@@ -9,7 +10,6 @@
     trigger = "always",
 
     // Snippets
-    anchored,
     children,
     ...rest
   }: Props = $props()
@@ -18,6 +18,15 @@
 
   const isHover = $derived(trigger === "hover")
   const id = $derived(isHover ? (idProp ?? uid) : undefined)
+
+  setAnchorContext({
+    get floatingId() {
+      return id
+    },
+    get popover() {
+      return isHover ? ("hint" as const) : undefined
+    },
+  })
 </script>
 
 <span
@@ -28,7 +37,4 @@
   {...rest}
 >
   {@render children?.()}
-  <span class="ui-anchor-floating" {id} popover={isHover ? "hint" : undefined}>
-    {@render anchored?.()}
-  </span>
 </span>

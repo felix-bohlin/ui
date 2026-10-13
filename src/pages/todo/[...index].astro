@@ -1,6 +1,8 @@
 ---
 import {
   Accordion,
+  AccordionContent,
+  AccordionSummary,
   Button,
   Checkbox,
   Chip,
@@ -199,31 +201,33 @@ const count = sections.reduce(
               )}
               {item.examples.length > 0 && (
                 <Accordion class="todo-examples" variant="outlined">
-                  <Fragment slot="summary">
+                  <AccordionSummary>
                     {item.examples.length === 1
                       ? "Example"
                       : `Examples (${item.examples.length})`}
-                  </Fragment>
-                  {item.examples.map((example) => (
-                    <figure class="todo-example">
-                      <figcaption>
-                        <code>{example.label}</code>
-                        <a
-                          class="ui-link"
-                          href={example.src}
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Open in a new tab
-                        </a>
-                      </figcaption>
-                      <iframe
-                        data-scheme={example.scheme}
-                        data-src={example.src}
-                        title={`${example.label} example`}
-                      />
-                    </figure>
-                  ))}
+                  </AccordionSummary>
+                  <AccordionContent>
+                    {item.examples.map((example) => (
+                      <figure class="todo-example">
+                        <figcaption>
+                          <code>{example.label}</code>
+                          <a
+                            class="ui-link"
+                            href={example.src}
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Open in a new tab
+                          </a>
+                        </figcaption>
+                        <iframe
+                          data-scheme={example.scheme}
+                          data-src={example.src}
+                          title={`${example.label} example`}
+                        />
+                      </figure>
+                    ))}
+                  </AccordionContent>
                 </Accordion>
               )}
               <Textarea autoFit placeholder="Comment" rows={1} size="small">

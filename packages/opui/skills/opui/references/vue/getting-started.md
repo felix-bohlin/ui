@@ -60,6 +60,8 @@ import { Button } from "opui-css/vue"
 </template>
 ```
 
+Containers take parts, such as `CardHeader` and `DialogActions`. Other components take named slots for rich content, such as `end-text` on a `TextField`.
+
 [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md) explains how props map to classes, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/vue/components.md). [Theming](https://open-props-ui.netlify.app/vue/guide/theming.md) covers colors, density, motion and contrast.
 
 ## Server rendering

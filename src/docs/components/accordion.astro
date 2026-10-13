@@ -1,7 +1,13 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Accordion as UIAccordion, Button as UIButton } from "@opui/astro"
+import {
+  Accordion as UIAccordion,
+  AccordionActions as UIAccordionActions,
+  AccordionContent as UIAccordionContent,
+  AccordionSummary as UIAccordionSummary,
+  Button as UIButton,
+} from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
@@ -11,6 +17,7 @@ import Conditional from "../../components/Conditional.astro"
 import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
   "Lets you show and hide content, on its own or as a group."
 ---
@@ -19,7 +26,10 @@ export const description =
   description={description}
   slug="accordion"
   heroAnatomy
-  apis={[{ title: "Accordion API", api: accordionApi }]}
+  apis={[
+    { title: "Accordion API", api: accordionApi },
+    { title: "Accordion summary API", api: accordionSummaryApi },
+  ]}
   browserSupport={[
     "container-style-queries",
     "content-visibility",
@@ -57,6 +67,34 @@ export const description =
   <Fragment slot="title">Accordion</Fragment>
   <section>
     <h2 id="basics">Basics</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Put the header in <code>AccordionSummary</code> and the body in <code
+          >AccordionContent</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Put the header in the <code>&lt;summary&gt;</code> and the body in a <code
+          >.ui-content</code
+        > element.
+      </Fragment>
+      <Fragment slot="react">
+        Put the header in <code>AccordionSummary</code> and the body in <code
+          >AccordionContent</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Put the header in <code>AccordionSummary</code> and the body in <code
+          >AccordionContent</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Put the header in <code>AccordionSummary</code> and the body in <code
+          >AccordionContent</code
+        >.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Basics" column />
   </section>
@@ -155,8 +193,9 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Add buttons or other interactive elements below the content with the
-        <code>actions</code> slot.
+        Add buttons or other interactive elements below the content with <code
+          >AccordionActions</code
+        >, after <code>AccordionContent</code>.
       </Fragment>
       <Fragment slot="html">
         Add buttons or other interactive elements below the content in a <code
@@ -164,16 +203,19 @@ export const description =
         > element, after <code>.ui-content</code>.
       </Fragment>
       <Fragment slot="react">
-        Add buttons or other interactive elements below the content with the
-        <code>actions</code> prop.
+        Add buttons or other interactive elements below the content with <code
+          >AccordionActions</code
+        >, after <code>AccordionContent</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Add buttons or other interactive elements below the content with the
-        <code>actions</code> snippet.
+        Add buttons or other interactive elements below the content with <code
+          >AccordionActions</code
+        >, after <code>AccordionContent</code>.
       </Fragment>
       <Fragment slot="vue">
-        Add buttons or other interactive elements below the content with the
-        <code>actions</code> slot.
+        Add buttons or other interactive elements below the content with <code
+          >AccordionActions</code
+        >, after <code>AccordionContent</code>.
       </Fragment>
     </Conditional>
 
@@ -185,9 +227,11 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Replace the default marker with the <code>marker</code> slot, and give it
-        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
-        the <code>summary</code>, such as a leading status icon, stay put.
+        Replace the default marker with the <code>marker</code> slot on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
+        Other icons in <code>AccordionSummary</code>, such as a leading status
+        icon, stay put.
       </Fragment>
       <Fragment slot="html">
         Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
@@ -197,19 +241,25 @@ export const description =
         leading status icon, stay put.
       </Fragment>
       <Fragment slot="react">
-        Replace the default marker with the <code>marker</code> prop, and give it
-        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
-        the <code>summary</code>, such as a leading status icon, stay put.
+        Replace the default marker with the <code>marker</code> prop on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
+        Other icons in <code>AccordionSummary</code>, such as a leading status
+        icon, stay put.
       </Fragment>
       <Fragment slot="svelte">
-        Replace the default marker with the <code>marker</code> snippet, and give
-        it <code>.ui-marker</code> so it sits at the end and animates. Other icons
-        in the <code>summary</code>, such as a leading status icon, stay put.
+        Replace the default marker with the <code>marker</code> snippet on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
+        Other icons in <code>AccordionSummary</code>, such as a leading status
+        icon, stay put.
       </Fragment>
       <Fragment slot="vue">
-        Replace the default marker with the <code>marker</code> slot, and give it
-        <code>.ui-marker</code> so it sits at the end and animates. Other icons in
-        the <code>summary</code>, such as a leading status icon, stay put.
+        Replace the default marker with the <code>marker</code> slot on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
+        Other icons in <code>AccordionSummary</code>, such as a leading status
+        icon, stay put.
       </Fragment>
     </Conditional>
 
@@ -222,7 +272,9 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens.
+        when the accordion opens. A custom marker in the <code>marker</code>
+        slot on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code
@@ -233,15 +285,21 @@ export const description =
       </Fragment>
       <Fragment slot="react">
         Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens.
+        when the accordion opens. A custom marker in the <code>marker</code>
+        prop on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
       </Fragment>
       <Fragment slot="svelte">
         Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens.
+        when the accordion opens. A custom marker in the <code>marker</code>
+        snippet on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens.
+        when the accordion opens. A custom marker in the <code>marker</code>
+        slot on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
       </Fragment>
     </Conditional>
 
@@ -266,15 +324,17 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy>
       <UIAccordion open variant="outlined">
-        <Fragment slot="summary">Accordion title</Fragment>
-        <p>
-          Explain more about the topic shown in the summary through supporting
-          text.
-        </p>
-        <Fragment slot="actions">
+        <UIAccordionSummary>Accordion title</UIAccordionSummary>
+        <UIAccordionContent>
+          <p>
+            Explain more about the topic shown in the summary through supporting
+            text.
+          </p>
+        </UIAccordionContent>
+        <UIAccordionActions>
           <UIButton>Cancel</UIButton>
           <UIButton>Agree</UIButton>
-        </Fragment>
+        </UIAccordionActions>
       </UIAccordion>
     </Anatomy>
   </Fragment>

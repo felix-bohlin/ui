@@ -2,35 +2,36 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/astro/components/anchor.md).
 
-Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
+Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Put the tooltip in `TooltipContent` after the trigger.
 
 ## Basics
 
 ### Text only...
 
-Pass plain text via the `label` prop.
+Put plain text in `TooltipContent`.
 
 ```astro
 ---
-import { Button, Tooltip } from "opui-css/astro"
+import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
-<Tooltip label="Save your changes" id="tooltip-basic">
+<Tooltip id="tooltip-basic">
   <Button
     interestfor="tooltip-basic"
     commandfor="tooltip-basic"
     command="toggle-popover">Save</Button
   >
+  <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it lets you put anything in the tooltip.
+`TooltipContent` takes any markup, not only text.
 
 ```astro
 ---
-import { Button, Tooltip } from "opui-css/astro"
+import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
 <Tooltip id="tooltip-rich">
@@ -39,9 +40,9 @@ import { Button, Tooltip } from "opui-css/astro"
     commandfor="tooltip-rich"
     command="toggle-popover">Keyboard shortcuts</Button
   >
-  <Fragment slot="content">
+  <TooltipContent>
     Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-  </Fragment>
+  </TooltipContent>
 </Tooltip>
 ```
 
@@ -51,37 +52,41 @@ Use the `alignment` prop.
 
 ```astro
 ---
-import { Button, Tooltip } from "opui-css/astro"
+import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
 <div class="tooltip-alignment-grid">
-  <Tooltip label="Above" alignment="block-start" id="tooltip-top">
+  <Tooltip alignment="block-start" id="tooltip-top">
     <Button
       interestfor="tooltip-top"
       commandfor="tooltip-top"
       command="toggle-popover">Top</Button
     >
+    <TooltipContent>Above</TooltipContent>
   </Tooltip>
-  <Tooltip label="Before" alignment="inline-start" id="tooltip-start">
+  <Tooltip alignment="inline-start" id="tooltip-start">
     <Button
       interestfor="tooltip-start"
       commandfor="tooltip-start"
       command="toggle-popover">Start</Button
     >
+    <TooltipContent>Before</TooltipContent>
   </Tooltip>
-  <Tooltip label="After" alignment="inline-end" id="tooltip-end">
+  <Tooltip alignment="inline-end" id="tooltip-end">
     <Button
       interestfor="tooltip-end"
       commandfor="tooltip-end"
       command="toggle-popover">End</Button
     >
+    <TooltipContent>After</TooltipContent>
   </Tooltip>
-  <Tooltip label="Below" alignment="block-end" id="tooltip-bottom">
+  <Tooltip alignment="block-end" id="tooltip-bottom">
     <Button
       interestfor="tooltip-bottom"
       commandfor="tooltip-bottom"
       command="toggle-popover">Bottom</Button
     >
+    <TooltipContent>Below</TooltipContent>
   </Tooltip>
 </div>
 
@@ -118,15 +123,16 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 ```astro
 ---
-import { Button, Tooltip } from "opui-css/astro"
+import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
-<Tooltip arrow label="Save your changes" id="tooltip-arrow">
+<Tooltip arrow id="tooltip-arrow">
   <Button
     interestfor="tooltip-arrow"
     commandfor="tooltip-arrow"
     command="toggle-popover">Save</Button
   >
+  <TooltipContent>Save your changes</TooltipContent>
 </Tooltip>
 ```
 
@@ -139,14 +145,12 @@ import { Button, Tooltip } from "opui-css/astro"
 | `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
 | `arrow`     | `boolean` | `false`         | Adds an arrow that points to the trigger.                                 |
 | `id`        | `string`  | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
-| `label`     | `string`  | -               | The tooltip, a `popover="hint"`.                                          |
 
 #### Slots
 
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `content` | The tooltip, a `popover="hint"`.                       |
-| `default` | The trigger that shows the tooltip on hover and focus. |
+| Slot      | Description                                |
+| --------- | ------------------------------------------ |
+| `default` | The trigger, followed by `TooltipContent`. |
 
 #### CSS variables
 
@@ -354,6 +358,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: [`TooltipContent`](#api) replaces `label` and the `content` slot.
 - Breaking: [`id`](#api) is required.
 - Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.

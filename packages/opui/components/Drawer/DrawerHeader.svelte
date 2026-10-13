@@ -8,7 +8,6 @@
     class: className,
     closeLabel = "Close",
     commandfor,
-    heading,
     ...rest
   }: Props = $props()
 
@@ -25,9 +24,6 @@
 </script>
 
 <div class={["ui-header", className]} {...rest}>
-  {#if heading}
-    <h2 id={drawer?.headingId}>{heading}</h2>
-  {/if}
   {@render children?.()}
   <Button aria-label={closeLabel} rounded size="small" {...closeAttrs}>
     <svg

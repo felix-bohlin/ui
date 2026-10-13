@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Tooltip } from "opui-css/svelte"
+  import { Button, Tooltip, TooltipContent } from "opui-css/svelte"
 </script>
 
 <Tooltip id="tooltip-rich">
@@ -8,7 +8,7 @@
     commandfor="tooltip-rich"
     command="toggle-popover">Keyboard shortcuts</Button
   >
-  {#snippet content()}
+  <TooltipContent>
     Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-  {/snippet}
+  </TooltipContent>
 </Tooltip>

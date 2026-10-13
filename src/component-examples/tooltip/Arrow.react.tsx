@@ -1,8 +1,8 @@
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function Arrow() {
   return (
-    <Tooltip arrow label="Save your changes" id="tooltip-arrow">
+    <Tooltip arrow id="tooltip-arrow">
       <Button
         interestfor="tooltip-arrow"
         commandfor="tooltip-arrow"
@@ -10,6 +10,7 @@ export default function Arrow() {
       >
         Save
       </Button>
+      <TooltipContent>Save your changes</TooltipContent>
     </Tooltip>
   )
 }

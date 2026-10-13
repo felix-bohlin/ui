@@ -5,7 +5,7 @@ import Anchor from "../Anchor/Anchor.astro"
 
 export const title = "Tooltip"
 
-const { alignment, arrow, class: className, id, label, ...rest } = Astro.props
+const { alignment, arrow, class: className, id, ...rest } = Astro.props
 ---
 
 <Anchor
@@ -16,8 +16,4 @@ const { alignment, arrow, class: className, id, label, ...rest } = Astro.props
   {...rest}
 >
   <slot />
-  <Fragment slot="anchored">
-    {label}
-    <slot name="content" />
-  </Fragment>
 </Anchor>

@@ -16,7 +16,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `<svg class="ui-marker">`
 
-  The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.
+  The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.
 
 - `.ui-content`
 
@@ -27,6 +27,8 @@ Explain more about the topic shown in the summary through supporting text.
   A group of actions, such as buttons.
 
 ## Basics
+
+Put the header in the `<summary>` and the body in a `.ui-content` element.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate">
@@ -497,13 +499,13 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 #### Parts
 
-| Part                      | Description                                                                                       |
-| ------------------------- | ------------------------------------------------------------------------------------------------- |
-| `details.ui-accordion`    | Container element.                                                                                |
-| `<summary>`               | The always visible header.                                                                        |
-| `<svg class="ui-marker">` | The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates. |
-| `.ui-content`             | The collapsible content.                                                                          |
-| `.ui-actions`             | A group of actions, such as buttons.                                                              |
+| Part                      | Description                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------------------- |
+| `details.ui-accordion`    | Container element.                                                                       |
+| `<summary>`               | The always visible header.                                                               |
+| `<svg class="ui-marker">` | The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates. |
+| `.ui-content`             | The collapsible content.                                                                 |
+| `.ui-actions`             | A group of actions, such as buttons.                                                     |
 
 #### CSS variables
 
@@ -525,6 +527,34 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 Add `.ui-card` to the root for card styles. To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.
+
+### Accordion summary API
+
+#### Parts
+
+| Part                      | Description                                                           |
+| ------------------------- | --------------------------------------------------------------------- |
+| `<summary>`               | The always visible header.                                            |
+| `<svg class="ui-marker">` | The marker. Renders a chevron by default. Only `.ui-marker` animates. |
+
+#### CSS variables
+
+| Variable              | Default                                     | Description                                                                                                                                                                                              |
+| --------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                  |
+| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                          |
+| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                           |
+| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                 |
+| `--font-weight-bold`  | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                                                                                                             |
+| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                             |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                            |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     Anchor,
+    AnchorContent,
     Avatar,
     Button,
     Card,
@@ -21,7 +22,7 @@
       href="https://github.com/felix-bohlin/ui"
       interestfor="anchor-repo-card">felix-bohlin/ui</a
     >
-    {#snippet anchored()}
+    <AnchorContent>
       <Card variant="elevated" class="repo-card">
         <CardContent>
           <div class="repo-card-identity">
@@ -45,7 +46,7 @@
           <Button variant="outlined" size="small">Star</Button>
         </CardActions>
       </Card>
-    {/snippet}
+    </AnchorContent>
   </Anchor>
   on GitHub.
 </div>

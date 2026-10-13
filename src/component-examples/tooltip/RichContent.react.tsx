@@ -1,15 +1,8 @@
-import { Button, Tooltip } from "opui-css/react"
+import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function RichContent() {
   return (
-    <Tooltip
-      id="tooltip-rich"
-      content={
-        <>
-          Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-        </>
-      }
-    >
+    <Tooltip id="tooltip-rich">
       <Button
         interestfor="tooltip-rich"
         commandfor="tooltip-rich"
@@ -17,6 +10,9 @@ export default function RichContent() {
       >
         Keyboard shortcuts
       </Button>
+      <TooltipContent>
+        Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
+      </TooltipContent>
     </Tooltip>
   )
 }

@@ -6,6 +6,9 @@ import Anatomy from "../../components/Anatomy.astro"
 import {
   Button as UIButton,
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  CalloutTitle as UICalloutTitle,
   Dialog as UIDialog,
   DialogActions as UIDialogActions,
   DialogContent as UIDialogContent,
@@ -91,21 +94,23 @@ export const description =
 
   <div class="ui-not-rich-text">
     <UICallout>
-      <Fragment slot="title">Modal vs dialog</Fragment>
-      <p>
-        The terms "modal" and "dialog" are often used interchangeably, but
-        there's an important difference. A modal window describes parts of a UI
-        that <a href="#modal" class="ui-link">blocks user interaction</a>. A
-        dialog {
-          hasToast ? (
-            <a href="#non-modal" class="ui-link">
-              doesn't have to be blocking
-            </a>
-          ) : (
-            "doesn't have to be blocking"
-          )
-        }.
-      </p>
+      <UICalloutContent>
+        <UICalloutTitle>Modal vs dialog</UICalloutTitle>
+        <p>
+          The terms "modal" and "dialog" are often used interchangeably, but
+          there's an important difference. A modal window describes parts of a
+          UI that <a href="#modal" class="ui-link">blocks user interaction</a>.
+          A dialog {
+            hasToast ? (
+              <a href="#non-modal" class="ui-link">
+                doesn't have to be blocking
+              </a>
+            ) : (
+              "doesn't have to be blocking"
+            )
+          }.
+        </p>
+      </UICalloutContent>
     </UICallout>
   </div>
 
@@ -133,14 +138,17 @@ export const description =
     <h3 id="modal">Modal</h3>
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <Fragment slot="title">HTML only</Fragment>
-        <p>
-          In browsers that support <a
-            href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-            class="ui-link">Invoker Commands</a
-          > you can toggle a <code>&lt;dialog&gt;</code> with HTML only, using the
-          {" "}<code>commandfor</code> and <code>command</code> attributes.
-        </p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <UICalloutTitle>HTML only</UICalloutTitle>
+          <p>
+            In browsers that support <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
+              class="ui-link">Invoker Commands</a
+            > you can toggle a <code>&lt;dialog&gt;</code> with HTML only, using the
+            {" "}<code>commandfor</code> and <code>command</code> attributes.
+          </p>
+        </UICalloutContent>
       </UICallout>
     </div>
 

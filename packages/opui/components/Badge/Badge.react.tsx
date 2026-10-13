@@ -1,4 +1,5 @@
 import Anchor from "../Anchor/Anchor.react"
+import AnchorContent from "../Anchor/AnchorContent.react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
@@ -27,7 +28,9 @@ export default function Badge({
         className,
       ])}
       {...rest}
-      anchored={
+    >
+      {children}
+      <AnchorContent>
         <span className="ui-badge-indicator">
           {dot ? "" : label}
           {!dot && indicator}
@@ -38,9 +41,7 @@ export default function Badge({
             </>
           )}
         </span>
-      }
-    >
-      {children}
+      </AnchorContent>
     </Anchor>
   )
 }

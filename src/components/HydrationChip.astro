@@ -1,5 +1,5 @@
 ---
-import { Chip, Tooltip } from "@opui/astro"
+import { Chip, Tooltip, TooltipContent } from "@opui/astro"
 import type { ComponentFramework } from "../component-api/frameworks"
 import { hydrationRows } from "../component-api/rows"
 import type { ComponentApi } from "../component-api/types"
@@ -59,7 +59,7 @@ const label = needs.length
     <Server slot="start" crossed={needs.length > 0} />
     <span class="ui-text" set:html={label} />
   </Chip>
-  <Fragment slot="content">
+  <TooltipContent>
     <strong class="tooltip-heading"
       >{needs.length ? "Needs hydration" : "No hydration needed"}</strong
     >
@@ -75,7 +75,7 @@ const label = needs.length
       )
     }
     {lines.map((line) => <span class="tooltip-line" set:html={line} />)}
-  </Fragment>
+  </TooltipContent>
 </Tooltip>
 
 <style>

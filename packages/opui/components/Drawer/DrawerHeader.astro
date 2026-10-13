@@ -2,6 +2,7 @@
 import Button from "../Button/Button.astro"
 
 import type { DrawerHeaderProps as Props } from "./types.astro"
+import { drawerContext } from "./context.astro"
 
 export const title = "Drawer Header"
 
@@ -9,17 +10,17 @@ const {
   class: className,
   closeLabel = "Close",
   commandfor,
-  heading,
   ...rest
 } = Astro.props
 
-const closeAttrs = commandfor
-  ? { command: "close", commandfor }
-  : { onclick: "this.closest('dialog').close()" }
+const drawer = drawerContext.get()
+const closeAttrs =
+  commandfor || drawer
+    ? { command: "close", commandfor: commandfor ?? drawer?.id }
+    : { onclick: "this.closest('dialog').close()" }
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  {heading && <h2>{heading}</h2>}
   <slot />
   <Button aria-label={closeLabel} rounded size="small" {...closeAttrs}>
     <svg

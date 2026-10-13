@@ -6,17 +6,13 @@ export type Props = {
   side?: "inline-start" | "inline-end" | "block-start" | "block-end"
 }
 
-export type DrawerHeaderProps = {
-  closeLabel?: string
-  commandfor?: string
-  heading?: string
-}
+export type DrawerContentProps = {}
 
 export type DrawerFooterProps = {}
 
-export type Slots<S> = {
-  children?: S
-  content?: S
-  footer?: S
-  header?: S
+export type DrawerHeaderProps = {
+  closeLabel?: string
+  commandfor?: string
 }
+
+export type DrawerTitleProps = {}

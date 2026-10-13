@@ -4,13 +4,13 @@ export default {
   component: "Accordion",
   notes: {
     astro:
-      'To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
+      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
     html: 'Add `.ui-card` to the root for card styles. To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
     react:
-      'To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
+      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
     svelte:
-      'To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    vue: 'To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
+      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
+    vue: 'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
   },
   options: [
     {
@@ -59,31 +59,51 @@ export default {
   parts: [
     {
       code: "<summary>",
+      component: {
+        astro: "AccordionSummary",
+        react: "AccordionSummary",
+        svelte: "AccordionSummary",
+        vue: "AccordionSummary",
+      },
       description: "The always visible header.",
       selector: "summary",
-      slots: ["summary"],
     },
     {
       code: '<svg class="ui-marker">',
       description:
-        "The marker. Astro, React, Svelte and Vue render a chevron by default. Only `.ui-marker` animates.",
+        "The marker. `AccordionSummary` renders a chevron by default. Only `.ui-marker` animates.",
       selector: "summary .ui-marker",
-      slots: ["marker"],
     },
     {
+      component: {
+        astro: "AccordionContent",
+        react: "AccordionContent",
+        svelte: "AccordionContent",
+        vue: "AccordionContent",
+      },
       description: "The collapsible content.",
       selector: ".ui-content",
-      slots: ["default"],
     },
     {
+      component: {
+        astro: "AccordionActions",
+        react: "AccordionActions",
+        svelte: "AccordionActions",
+        vue: "AccordionActions",
+      },
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
     description: "Container element.",
     selector: "details.ui-accordion",
   },
+  slots: [
+    {
+      description: "The accordion parts.",
+      name: "default",
+    },
+  ],
   source: "Accordion",
 } satisfies ComponentApi

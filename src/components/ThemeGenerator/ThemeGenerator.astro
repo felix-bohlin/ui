@@ -2,6 +2,8 @@
 import {
   Button,
   Callout,
+  CalloutContent,
+  CalloutIcon,
   Card,
   CardActions,
   CardContent,
@@ -62,8 +64,11 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     severity="info"
     hidden
   >
-    Light and dark have different values. The controls show the mode in the
-    preview, and each change applies to both modes.
+    <CalloutIcon />
+    <CalloutContent>
+      Light and dark have different values. The controls show the mode in the
+      preview, and each change applies to both modes.
+    </CalloutContent>
   </Callout>
 
   <div class="generator-grid">

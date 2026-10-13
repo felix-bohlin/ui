@@ -1,12 +1,17 @@
 ---
 import {
   Accordion,
+  AccordionContent,
+  AccordionSummary,
   Anchor,
+  AnchorContent,
   Avatar,
   Badge,
   Button,
   ButtonGroup,
   Callout,
+  CalloutContent,
+  CalloutTitle,
   Card,
   CardActions,
   CardContent,
@@ -41,8 +46,8 @@ import {
   TabsItem,
   TabsPanel,
   TabsTab,
-  Textarea,
   TextField,
+  Textarea,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -57,8 +62,8 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
     <Accordion aria-hidden="true" inert variant="outlined">
-      <Fragment slot="summary">How does it work?</Fragment>
-      It's pretty simple, actually.
+      <AccordionSummary>How does it work?</AccordionSummary>
+      <AccordionContent>It's pretty simple, actually.</AccordionContent>
     </Accordion>
   </ComponentCard>
 
@@ -135,8 +140,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Callout" href="/components/callout" size="wide">
     <Callout aria-hidden="true" variant="tonal" severity="neutral">
-      <Fragment slot="title">Heads up!</Fragment>
-      Nah, just kidding. It wasn't important.
+      <CalloutContent>
+        <CalloutTitle>Heads up!</CalloutTitle>
+        Nah, just kidding. It wasn't important.
+      </CalloutContent>
     </Callout>
   </ComponentCard>
 
@@ -401,7 +408,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       aria-hidden="true"
     >
       <Button variant="outlined" inert>Save</Button>
-      <Fragment slot="anchored">Save your changes</Fragment>
+      <AnchorContent>Save your changes</AnchorContent>
     </Anchor>
   </ComponentCard>
 

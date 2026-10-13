@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
+import {
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -19,10 +26,10 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
   </div>
 
   <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-inline-start">
+      <DrawerTitle>Inline Start</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -40,21 +47,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         illo inventore veritatis et quasi architecto beatae vitae dicta sunt
         explicabo.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-inline-start" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-inline-start" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-inline-end">
+      <DrawerTitle>Inline End</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -72,21 +77,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         illo inventore veritatis et quasi architecto beatae vitae dicta sunt
         explicabo.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-inline-end" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-inline-end" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-block-start" side="block-start" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-block-start">
+      <DrawerTitle>Block Start</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -98,21 +101,19 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-block-start" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-block-start" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-block-end" side="block-end" closedby="any">
-    <template #header>
-      <DrawerHeader commandfor="drawer-block-end" heading="Block End" />
-    </template>
-    <template #content>
+    <DrawerHeader commandfor="drawer-block-end">
+      <DrawerTitle>Block End</DrawerTitle>
+    </DrawerHeader>
+    <DrawerContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -124,13 +125,11 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
-    </template>
-    <template #footer
-      ><DrawerFooter>
-        <Button size="small" commandfor="drawer-block-end" command="close"
-          >Close</Button
-        >
-      </DrawerFooter></template
-    >
+    </DrawerContent>
+    <DrawerFooter>
+      <Button size="small" commandfor="drawer-block-end" command="close"
+        >Close</Button
+      >
+    </DrawerFooter>
   </Drawer>
 </template>

@@ -1,5 +1,5 @@
 ---
-import { Anchor, Card, CardHeader } from "@opui/astro"
+import { Anchor, AnchorContent, Card, CardHeader } from "@opui/astro"
 ---
 
 <div>
@@ -14,16 +14,18 @@ import { Anchor, Card, CardHeader } from "@opui/astro"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
       interestfor="anchor-link-preview">CSS anchor positioning</a
     >
-    <Card slot="anchored" variant="elevated" class="link-preview">
-      <img src="https://picsum.photos/id/1018/800/450" alt="" />
-      <CardHeader>
-        <p class="ui-caption">developer.mozilla.org</p>
-        <h3>CSS anchor positioning</h3>
-        <p>
-          Tether elements to other elements on the page, without JavaScript.
-        </p>
-      </CardHeader>
-    </Card>
+    <AnchorContent>
+      <Card variant="elevated" class="link-preview">
+        <img src="https://picsum.photos/id/1018/800/450" alt="" />
+        <CardHeader>
+          <p class="ui-caption">developer.mozilla.org</p>
+          <h3>CSS anchor positioning</h3>
+          <p>
+            Tether elements to other elements on the page, without JavaScript.
+          </p>
+        </CardHeader>
+      </Card>
+    </AnchorContent>
   </Anchor>
   on MDN.
 </div>

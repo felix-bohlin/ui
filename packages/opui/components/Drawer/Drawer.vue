@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { computed, provide, useAttrs, useId } from "vue"
-import type { VNode } from "vue"
-import DrawerHeader from "./DrawerHeader.vue"
-import { DrawerHeadingIdKey } from "./types.d.vue"
-import type { DrawerSlots, Props } from "./types.d.vue"
+import { computed, provide, reactive, useAttrs, useId } from "vue"
+import { DrawerKey, type Props, type Slots } from "./types.d.vue"
 
 const {
   backdrop = "blurred",
@@ -12,7 +9,7 @@ const {
   scrollLock = true,
   side = "inline-start",
 } = defineProps<Props>()
-const slots = defineSlots<DrawerSlots>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
@@ -21,32 +18,18 @@ defineOptions({
 const attrs = useAttrs()
 const uid = useId()
 const drawerId = computed(() => id || uid)
-const headingId = computed(() => `${drawerId.value}-heading`)
-provide(DrawerHeadingIdKey, headingId)
+const titleId = computed(() => `${drawerId.value}-heading`)
+const labelledBy = computed(() =>
+  attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : titleId.value,
+)
 
-const flatten = (nodes: VNode[]): VNode[] =>
-  nodes.flatMap((node) =>
-    Array.isArray(node.children)
-      ? [node, ...flatten(node.children as VNode[])]
-      : [node],
-  )
-
-const labelledBy = () => {
-  if (attrs["aria-label"] || attrs["aria-labelledby"]) return undefined
-  for (const node of flatten(slots.header?.() ?? [])) {
-    if (node.type === DrawerHeader && node.props?.heading)
-      return headingId.value
-    if (typeof node.type === "string" && /^h[1-6]$/.test(node.type))
-      return node.props?.id
-  }
-  return undefined
-}
+provide(DrawerKey, reactive({ id: drawerId, titleId }))
 </script>
 
 <template>
   <dialog
     :id="drawerId"
-    :aria-labelledby="labelledBy()"
+    :aria-labelledby="labelledBy"
     :class="[
       'ui-drawer',
       side && `ui-${side}`,
@@ -59,14 +42,6 @@ const labelledBy = () => {
     :closedby="closedby"
     v-bind="$attrs"
   >
-    <slot v-if="slots.header" name="header"></slot>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <slot v-if="slots.footer" name="footer"></slot>
   </dialog>
 </template>

@@ -1,8 +1,4 @@
 import type * as Base from "./types"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps } from "react"
 
-type Slots = Base.Slots<ReactNode>
-
-export type Props = Base.Props &
-  Slots &
-  Omit<ComponentProps<"span">, keyof Slots>
+export type Props = Base.Props & ComponentProps<"span">

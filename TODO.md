@@ -4,7 +4,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Accessibility
 
-- [ ] (1) Card: the heart and share icons in the icon-only buttons have no `aria-hidden="true"`. The buttons are named by `aria-label`, so nothing extra is read today, but every other decorative icon in the library (Callout, the Drawer close button) is hidden, and people copy these examples (`src/component-examples/card/Actions.html:25-44`, `src/component-examples/card/Alignment.html:25-42`, plus the `.astro`, `.react.tsx`, `.svelte` and `.vue` siblings)
+- [x] (1) Card: the heart and share icons in the icon-only buttons have no `aria-hidden="true"`. The buttons are named by `aria-label`, so nothing extra is read today, but every other decorative icon in the library (Callout, the Drawer close button) is hidden, and people copy these examples (`src/component-examples/card/Actions.html:25-44`, `src/component-examples/card/Alignment.html:25-42`, plus the `.astro`, `.react.tsx`, `.svelte` and `.vue` siblings)
   - Today:
     ```html
     <button class="ui-button" aria-label="Favorite">
@@ -32,7 +32,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       </svg>
     </button>
     ```
-
+  > Fix
+  - Fixed: the heart and share icons in `card/Actions` and `card/Alignment` have `aria-hidden="true"` in all five formats. The HTML parity snapshots changed (intended).
 - [x] (2) Form: the "Without fieldset" example's `div.ui-fieldset[role="group"]` has no name, since its `.ui-legend` is a `p` that nothing references. `FieldSet as="div"` and `FieldLegend as="p"` don't connect them either (`src/component-examples/form/AdaptiveOutput.html:2-3`, `src/docs/components/form.astro:232-237`, `FieldSet.astro:9-12`, `FieldLegend.astro:8`)
   - Fix:
     ```html
@@ -67,7 +68,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: add `aria-hidden="true"` to both.
   > Fix
   - Fixed: Both inline callouts on the Callout page (Alternatives and Icons and accessibility) pass `aria-hidden="true"` on their icon svg.
-- [ ] (2) Accordion: the chevron `svg.ui-marker` has no `aria-hidden="true"`, in the default marker `AccordionSummary` renders and in every HTML example. The custom markers in the examples leave it out too, and the Custom marker docs only say "give it `.ui-marker`". `CalloutIcon` and the Drawer close icon are hidden (`packages/opui/components/Accordion/AccordionSummary.astro:9-14`, `AccordionSummary.react.tsx:14-20`, `AccordionSummary.svelte:8`, `AccordionSummary.vue:15`, `src/component-examples/accordion/Basics.html`, `CustomMarker.html:4`, `MarkerAnimation.html:4,29,54`, `src/docs/components/accordion.astro:226-262`)
+- [x] (2) Accordion: the chevron `svg.ui-marker` has no `aria-hidden="true"`, in the default marker `AccordionSummary` renders and in every HTML example. The custom markers in the examples leave it out too, and the Custom marker docs only say "give it `.ui-marker`". `CalloutIcon` and the Drawer close icon are hidden (`packages/opui/components/Accordion/AccordionSummary.astro:9-14`, `AccordionSummary.react.tsx:14-20`, `AccordionSummary.svelte:8`, `AccordionSummary.vue:15`, `src/component-examples/accordion/Basics.html`, `CustomMarker.html:4`, `MarkerAnimation.html:4,29,54`, `src/docs/components/accordion.astro:226-262`)
   - Today:
     ```html
     <summary>
@@ -99,7 +100,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
       </svg>
     </summary>
     ```
-- [ ] (2) Dialog, Drawer: a `Dialog` without a `DialogHeader`, or a `Drawer` without a `DrawerTitle`, still gets `aria-labelledby` pointing at the title id, which nothing renders, so the dialog has no name. It's documented ("needs an `aria-label`"), but nothing warns, and axe only reports a missing idref as "needs review", so the e2e run passes (`packages/opui/components/Dialog/Dialog.astro:11-19`, `Dialog.react.tsx:11-16`, `Dialog.svelte:10-21`, `Dialog.vue:15-23`, `packages/opui/components/Drawer/Drawer.astro:21-40`, `Drawer.react.tsx:21-35`, `Drawer.svelte:22-46`, `Drawer.vue:23-32`)
+  > Fix
+  - Fixed: the default chevron in the four `AccordionSummary` files, every marker in the accordion examples (all five formats) and the custom markers have `aria-hidden="true"`. The Custom marker prose says to add it to your own marker. The HTML parity snapshots changed (intended); the stress tests already had it. Logged in the CHANGELOG (Fixed).
+- [x] (2) Dialog, Drawer: a `Dialog` without a `DialogHeader`, or a `Drawer` without a `DrawerTitle`, still gets `aria-labelledby` pointing at the title id, which nothing renders, so the dialog has no name. It's documented ("needs an `aria-label`"), but nothing warns, and axe only reports a missing idref as "needs review", so the e2e run passes (`packages/opui/components/Dialog/Dialog.astro:11-19`, `Dialog.react.tsx:11-16`, `Dialog.svelte:10-21`, `Dialog.vue:15-23`, `packages/opui/components/Drawer/Drawer.astro:21-40`, `Drawer.react.tsx:21-35`, `Drawer.svelte:22-46`, `Drawer.vue:23-32`)
   - Today:
     ```astro
     <Dialog id="confirm">
@@ -137,6 +140,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }, [labelledBy])
     ```
     `DialogHeader` sets `dialog.hasHeader = true`, and `DrawerTitle` does the same for Drawer.
+  > Fix
+  > useEffect feels like a heavy price to pay. Maybe not automate it and just keep it in the docs
+  - Kept in the docs, no code: the Dialog and Drawer pages and the `dialog`/`drawer` API notes say a dialog without a `DialogHeader` or a drawer without a `DrawerTitle` needs an `aria-label`. No detection in Astro or Vue either, so the four frameworks behave the same.
 - [x] (3) Badge: a count is announced without context. The `Indicator` example is an icon with "5", so screen readers say just "5" (`src/component-examples/badge/Indicator.{astro,html,vue}`)
   - What I meant: `aria-label` on the indicator `<span>` doesn't fix it. A `<span>` has no role, and ARIA doesn't allow naming generic elements, so screen readers ignore the label and read the text ("5"). Badge used to do this, and now has `srLabel` (visually hidden text) instead.
   - What works: text that is in the content. Either visually hidden (`srLabel` in Astro and Vue, `.ui-sr-only` in HTML), or visible text next to the badge ("Inbox 5"). See the example: all three, with what Chromium's accessibility tree reads.
@@ -2755,7 +2761,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: new "Grid and flex layouts" section on the Carousel page. It says the markers are a box next to the carousel, so in a grid or flex parent they land in the next cell, and to wrap the carousel in a `div`. The example puts a wrapped carousel next to a heading in a two-column grid (`carousel/GridLayout.*`, `carousel.astro`).
   - Not changed in CSS: positioning the group absolutely, like the vertical carousel does, would need a fixed height for the markers, and they wrap onto more rows when there are many.
-- [ ] (2) Dialog: `DialogActions` `align="start"` (`.ui-actions.ui-align-start`) has prose in the Modal section and a row in the Dialog actions API, but no example shows it, unlike Card's Alignment example (`src/docs/components/dialog.astro:160-195`, `src/component-api/dialog-actions/api.ts`, `src/component-examples/dialog/Usage.astro:24-36`)
+- [x] (2) Dialog: `DialogActions` `align="start"` (`.ui-actions.ui-align-start`) has prose in the Modal section and a row in the Dialog actions API, but no example shows it, unlike Card's Alignment example (`src/docs/components/dialog.astro:160-195`, `src/component-api/dialog-actions/api.ts`, `src/component-examples/dialog/Usage.astro:24-36`)
   - Today: every dialog example uses the default end alignment.
     ```astro
     <DialogActions>
@@ -2772,6 +2778,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       <button class="ui-button ui-filled">Save</button>
     </div>
     ```
+  > Fix
+  - Fixed: new `dialog/ActionsAlignment` example (five formats, a "Keyboard shortcuts" dialog with one start-aligned action) in a new Actions section on the Dialog page. The `align="start"` sentence moved there from Usage. New parity snapshot `dialog/ActionsAlignment.html`.
 - [x] (3) Progress walkthrough: the step's `<progress>` snippets have no accessible name. The demo and docs use `aria-label` (`ProgressBuild.astro:8-14`, `progress.astro:100`)
   > Explain further and provide an example
   - `<progress>` has the `progressbar` role, and a progress bar needs a name (axe `aria-progressbar-name`, WCAG 4.1.2). Without one, a screen reader only says "progress bar, 60%", and the user has no idea what is at 60%.

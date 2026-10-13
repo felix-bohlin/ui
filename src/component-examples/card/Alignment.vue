@@ -24,6 +24,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
     <CardActions align="end">
       <Button rounded size="small" aria-label="Favorite">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -37,6 +38,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
       </Button>
       <Button rounded size="small" aria-label="Share">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

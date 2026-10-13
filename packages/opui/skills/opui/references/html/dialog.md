@@ -36,7 +36,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions` (`.ui-align-start` moves them to the start). Name the dialog by pointing `aria-labelledby` at its title.
+Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
 
 ```html
 <button
@@ -77,6 +77,44 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
       type="button"
     >
       Subscribe
+    </button>
+  </div>
+</dialog>
+```
+
+## Actions
+
+Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to the start.
+
+```html
+<button
+  type="button"
+  commandfor="actions-alignment-html"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Show shortcuts
+</button>
+
+<dialog
+  id="actions-alignment-html"
+  class="ui-dialog ui-card ui-elevated"
+  aria-labelledby="actions-alignment-title-html"
+>
+  <hgroup id="actions-alignment-title-html">
+    <h2 class="ui-h4">Keyboard shortcuts</h2>
+  </hgroup>
+  <div class="ui-content">
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  </div>
+  <div class="ui-actions ui-align-start">
+    <button
+      commandfor="actions-alignment-html"
+      command="close"
+      class="ui-button ui-filled"
+      type="button"
+    >
+      Got it
     </button>
   </div>
 </dialog>

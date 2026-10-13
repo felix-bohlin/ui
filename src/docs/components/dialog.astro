@@ -159,56 +159,70 @@ export const description =
     <Conditional>
       <p slot="astro">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>, and set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move the actions to the start. The <code>DialogHeader</code> names the
-        dialog: it gets an <code>aria-labelledby</code> that points at the header.
-        A dialog without a <code>DialogHeader</code> needs an <code
-          >aria-label</code
-        >.
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
       </p>
       <p slot="html">
         Put the title in an <code>hgroup</code>, the body in <code
           >.ui-content</code
-        > and the buttons in <code>.ui-actions</code> (<code
-          >.ui-align-start</code
-        > moves them to the start). Name the dialog by pointing <code
-          >aria-labelledby</code
-        > at its title.
+        > and the buttons in <code>.ui-actions</code>. Name the dialog by
+        pointing <code>aria-labelledby</code> at its title.
       </p>
       <p slot="react">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>, and set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move the actions to the start. The <code>DialogHeader</code> names the
-        dialog: it gets an <code>aria-labelledby</code> that points at the header.
-        A dialog without a <code>DialogHeader</code> needs an <code
-          >aria-label</code
-        >.
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
       </p>
       <p slot="svelte">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>, and set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move the actions to the start. The <code>DialogHeader</code> names the
-        dialog: it gets an <code>aria-labelledby</code> that points at the header.
-        A dialog without a <code>DialogHeader</code> needs an <code
-          >aria-label</code
-        >.
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
       </p>
       <p slot="vue">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>, and set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move the actions to the start. The <code>DialogHeader</code> names the
-        dialog: it gets an <code>aria-labelledby</code> that points at the header.
-        A dialog without a <code>DialogHeader</code> needs an <code
-          >aria-label</code
-        >.
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
       </p>
     </Conditional>
 
     <AutoExample name="Usage" row />
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="html">
+        Actions sit at the end. Add <code>.ui-align-start</code> to <code
+          >.ui-actions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="react">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="svelte">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="vue">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="ActionsAlignment" row />
   </section>
 
   <section>

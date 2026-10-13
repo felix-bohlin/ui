@@ -35,6 +35,7 @@ Put the header in the `<summary>` and the body in a `.ui-content` element.
   <summary>
     Accordion
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -69,6 +70,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Text
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -95,6 +97,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Elevated
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -121,6 +124,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Outlined
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -147,6 +151,7 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   <summary>
     Tonal
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -179,6 +184,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -203,6 +209,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -227,6 +234,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -260,6 +268,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -284,6 +293,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -308,6 +318,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
     <summary>
       Accordion title
       <svg
+        aria-hidden="true"
         class="ui-marker"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -340,6 +351,7 @@ Add buttons or other interactive elements below the content in a `.ui-actions` e
   <summary>
     Accordion with actions
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -368,13 +380,14 @@ Add buttons or other interactive elements below the content in a `.ui-actions` e
 
 ## Custom marker
 
-Replace the `svg.ui-marker` inside the `summary` to change the marker. Leave it out to fall back to the native arrow. Only `.ui-marker` animates, so other icons in the `summary`, such as a leading status icon, stay put.
+Replace the `svg.ui-marker` inside the `summary` to change the marker, and keep `aria-hidden="true"` on it since it's decorative. Leave it out to fall back to the native arrow. Only `.ui-marker` animates, so other icons in the `summary`, such as a leading status icon, stay put.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
   <summary>
     Custom marker
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -409,6 +422,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   <summary>
     Flip
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -434,6 +448,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   <summary>
     Rotate
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -459,6 +474,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   <summary>
     Turn
     <svg
+      aria-hidden="true"
       class="ui-marker"
       xmlns="http://www.w3.org/2000/svg"
       width="24"

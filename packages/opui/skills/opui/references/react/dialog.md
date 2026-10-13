@@ -32,7 +32,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Build it from `DialogHeader`, `DialogContent` and `DialogActions`, and set `align="start"` on `DialogActions` to move the actions to the start. The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header. A dialog without a `DialogHeader` needs an `aria-label`.
+Build it from `DialogHeader`, `DialogContent` and `DialogActions`. The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ```tsx
 import {
@@ -75,6 +75,54 @@ export default function Usage() {
             variant="filled"
           >
             Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}
+```
+
+## Actions
+
+Actions sit at the end. Set `align="start"` on `DialogActions` to move them to the start.
+
+```tsx
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/react"
+
+export default function ActionsAlignment() {
+  return (
+    <>
+      <Button
+        commandfor="actions-alignment-example"
+        command="show-modal"
+        variant="outlined"
+      >
+        Show shortcuts
+      </Button>
+      <Dialog id="actions-alignment-example">
+        <DialogHeader>
+          <h2 className="ui-h4">Keyboard shortcuts</h2>
+        </DialogHeader>
+        <DialogContent>
+          <p>
+            Press <kbd>?</kbd> anywhere to open this list again.
+          </p>
+        </DialogContent>
+        <DialogActions align="start">
+          <Button
+            commandfor="actions-alignment-example"
+            command="close"
+            type="button"
+            variant="filled"
+          >
+            Got it
           </Button>
         </DialogActions>
       </Dialog>

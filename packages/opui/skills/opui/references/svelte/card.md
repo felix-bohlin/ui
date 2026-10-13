@@ -110,6 +110,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
   <CardActions>
     <Button rounded size="small" aria-label="Favorite">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -123,6 +124,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
     </Button>
     <Button rounded size="small" aria-label="Share">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -168,6 +170,7 @@ Align actions to the end with `align="end"` on `CardActions`.
   <CardActions align="end">
     <Button rounded size="small" aria-label="Favorite">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -181,6 +184,7 @@ Align actions to the end with `align="end"` on `CardActions`.
     </Button>
     <Button rounded size="small" aria-label="Share">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

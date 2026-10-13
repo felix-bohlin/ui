@@ -229,13 +229,14 @@ export const description =
       <Fragment slot="astro">
         Replace the default marker with the <code>marker</code> slot on <code
           >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
-        Other icons in <code>AccordionSummary</code>, such as a leading status
-        icon, stay put.
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="html">
         Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
-        change the marker. Leave it out to fall back to the native arrow. Only <code
+        change the marker, and keep <code>aria-hidden="true"</code> on it since it's
+        decorative. Leave it out to fall back to the native arrow. Only <code
           >.ui-marker</code
         > animates, so other icons in the <code>summary</code>, such as a
         leading status icon, stay put.
@@ -243,23 +244,23 @@ export const description =
       <Fragment slot="react">
         Replace the default marker with the <code>marker</code> prop on <code
           >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
-        Other icons in <code>AccordionSummary</code>, such as a leading status
-        icon, stay put.
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="svelte">
         Replace the default marker with the <code>marker</code> snippet on <code
           >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
-        Other icons in <code>AccordionSummary</code>, such as a leading status
-        icon, stay put.
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
       </Fragment>
       <Fragment slot="vue">
         Replace the default marker with the <code>marker</code> slot on <code
           >AccordionSummary</code
-        >, and give it <code>.ui-marker</code> so it sits at the end and animates.
-        Other icons in <code>AccordionSummary</code>, such as a leading status
-        icon, stay put.
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
       </Fragment>
     </Conditional>
 

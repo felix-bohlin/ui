@@ -199,6 +199,7 @@
 
 ### Fixed
 
+- `AccordionSummary` marks its default chevron `aria-hidden="true"`, so screen readers skip it.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.
 - `Badge` no longer shrinks in flex rows, so an icon with a badge in an `Accordion` summary keeps its size next to long text. A bare `img` or `svg` in the summary keeps its size too.

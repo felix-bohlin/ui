@@ -117,6 +117,7 @@ export default function Actions() {
         <CardActions>
           <Button rounded size="small" aria-label="Favorite">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -130,6 +131,7 @@ export default function Actions() {
           </Button>
           <Button rounded size="small" aria-label="Share">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -179,6 +181,7 @@ export default function Alignment() {
         <CardActions align="end">
           <Button rounded size="small" aria-label="Favorite">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -192,6 +195,7 @@ export default function Alignment() {
           </Button>
           <Button rounded size="small" aria-label="Share">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"

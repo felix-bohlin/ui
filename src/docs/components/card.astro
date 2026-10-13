@@ -18,12 +18,16 @@ import Conditional from "../../components/Conditional.astro"
 import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
 
 import cardApi from "../../component-api/card/api"
+import cardActionsApi from "../../component-api/card-actions/api"
 ---
 
 <Component
   slug="card"
   heroAnatomy
-  apis={[{ title: "Card API", api: cardApi }]}
+  apis={[
+    { title: "Card API", api: cardApi },
+    { title: "Card actions API", api: cardActionsApi },
+  ]}
   browserSupport={["container-style-queries", "has"]}
   changelogPaths={[
     {

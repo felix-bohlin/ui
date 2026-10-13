@@ -344,6 +344,25 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the DialogHeader names the dialog.
 
+### Dialog actions API
+
+| Prop       | Type                | Default | Description                   |
+| ---------- | ------------------- | ------- | ----------------------------- |
+| `align`    | `"start"` , `"end"` | `"end"` | Alignment for the actions.    |
+| `children` | `Snippet`           | -       | The actions, such as buttons. |
+
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                                                                                                |
+| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
 ## Under the hood
 
 Read the post: [Dialogs without JavaScript](https://open-props-ui.netlify.app/learn/dialog-closedby)

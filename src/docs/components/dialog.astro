@@ -40,6 +40,7 @@ const hasToast = componentHasFramework(
 )
 
 import dialogApi from "../../component-api/dialog/api"
+import dialogActionsApi from "../../component-api/dialog-actions/api"
 import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
@@ -50,7 +51,10 @@ export const description =
   description={description}
   heroAnatomy
   slug="dialog"
-  apis={[{ title: "Dialog API", api: dialogApi }]}
+  apis={[
+    { title: "Dialog API", api: dialogApi },
+    { title: "Dialog actions API", api: dialogActionsApi },
+  ]}
   browserSupport={[
     "anchor-positioning",
     "backdrop-filter",

@@ -261,6 +261,39 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
 
+### Card actions API
+
+| Type      | Modifiers                | Default | Description                |
+| --------- | ------------------------ | ------- | -------------------------- |
+| Alignment | default, `.ui-align-end` | -       | Alignment for the actions. |
+
+#### Parts
+
+| Part          | Description                          |
+| ------------- | ------------------------------------ |
+| `.ui-actions` | A group of actions, such as buttons. |
+
+#### CSS variables
+
+| Variable              | Default                                     | Description                                                                                                                                                                                              |
+| --------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                  |
+| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                          |
+| `--focus-ring-color`  | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                          |
+| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                           |
+| `--focus-ring-style`  | `solid`                                     | Outline style of the focus ring.                                                                                                                                                                         |
+| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                 |
+| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                             |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                            |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                         |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
 ## Under the hood
 
 Read the post: [Cards that know their color scheme](https://open-props-ui.netlify.app/learn/card-style-queries)

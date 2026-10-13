@@ -13,6 +13,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
 
 import calloutApi from "../../component-api/callout/api"
+import calloutTitleApi from "../../component-api/callout-title/api"
 
 import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
@@ -50,7 +51,10 @@ const ThemeCSS = `/* ... */
 <Component
   slug="callout"
   heroAnatomy
-  apis={[{ title: "Callout API", api: calloutApi }]}
+  apis={[
+    { title: "Callout API", api: calloutApi },
+    { title: "Callout title API", api: calloutTitleApi },
+  ]}
   browserSupport={["has", "light-dark", "relative-color", "scope"]}
   changelogPaths={[
     {

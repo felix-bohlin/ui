@@ -3323,7 +3323,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) `packages/opui/components/AGENTS.md:3` still says Astro and Vue "must render the same markup as the HTML examples"; the same claim in SKILL.md was qualified earlier because recorded `.diff` drift is allowed. Qualify it here too? (`packages/opui/components/AGENTS.md:3`, `AGENTS.md:45,47`)
   > i don't understand, but yes, they should render the same things. i understand if frameworks generate some things because of how they work but in general they should be the same.
   - Fixed: the intro now says Astro and Vue should render the same markup as the HTML examples. A framework can add some markup of its own because of how it works (recorded as `.diff` drift), but in general the output is the same.
-- [ ] (1) List item: keep props, or move to parts like the containers? `ListItem` kept `headline`, `description`, `as`/`href`/`for` and its `start`/`text`/`end`/`submenu` slots, while Card, Dialog, Drawer, Accordion, Callout, Anchor and Tooltip moved to parts (`packages/opui/components/ListItem/ListItem.astro`, `src/component-api/list-item/api.ts`)
+- [x] (1) List item: keep props, or move to parts like the containers? `ListItem` kept `headline`, `description`, `as`/`href`/`for` and its `start`/`text`/`end`/`submenu` slots, while Card, Dialog, Drawer, Accordion, Callout, Anchor and Tooltip moved to parts (`packages/opui/components/ListItem/ListItem.astro`, `src/component-api/list-item/api.ts`)
   - Today (51 `headline` props in the Astro examples):
     ```astro
     <ListItem href="/inbox" headline="Inbox" description="3 unread">
@@ -3340,6 +3340,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     </ListItem>
     ```
   - Proposal: keep props. Most items are one `headline` string, the `text` slot already takes rich content, and parts would make every row five lines, the same trade-off that kept TextField and Checkbox on props.
+  > Fix
+  > Keep props
+  - Kept: `ListItem` stays on props and slots (`headline`, `description`, `as`/`href`/`for`, `start`/`text`/`end`/`submenu`), like the form controls. No code change.
 - [x] (2) Theming, Motion and Contrast are rendered on all three Getting started pages from `_theming.astro`. Should they be a guide page of their own ("Theming"), so Concepts, Customizing and the token descriptions have one place to link, and Getting started ends at the first component?
   > Fix
   > yes
@@ -3497,7 +3500,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) `.vscode/extensions.json` recommends Astro and Prettier but not `Vue.volar`, though every component has a `.vue` twin (`.vscode/extensions.json:2-6`)
   > Fix
   - Fixed: added `Vue.volar` to the recommended extensions.
-- [ ] (1) Learn: the table scroll-state post shows no Read more links. `TechniquePost` only renders them when `references.ts` has a key for the post's `component`, and there's no `table` key, so none of the features it teaches get a link (`src/layouts/TechniquePost.astro:34-36,59`, `src/components/UnderTheHood/references.ts:456-482`, `src/docs/learn/table-scroll-state.astro`)
+- [x] (1) Learn: the table scroll-state post shows no Read more links. `TechniquePost` only renders them when `references.ts` has a key for the post's `component`, and there's no `table` key, so none of the features it teaches get a link (`src/layouts/TechniquePost.astro:34-36,59`, `src/components/UnderTheHood/references.ts:456-482`, `src/docs/learn/table-scroll-state.astro`)
   - Today: the post ends with only "Table docs" and "Every component, under the hood".
   - Fix: add a `table` entry between `switch` and `tabs`.
     ```ts
@@ -3511,6 +3514,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
       { code: true, href: mdn("Web/CSS/position"), label: "position: sticky" },
     ],
     ```
+  > Fix
+  - Fixed: `references.ts` has a `table` entry between `switch` and `tabs` with `@container`, `anchor()`, `anchor-name`, `anchor-scope`, `clip-path`, `container-type` and `position: sticky`, so the table scroll-state post shows Read more links.
 - [x] (2) `text-box: trim-both cap alphabetic` on Button/Chip/Badge only works if the label is wrapped in its own element (flex/grid containers ignore it)
   > is that a problem? explain more and show examples here in the todo page.
   - `text-box` trims the space above the cap height and below the baseline of a block's first and last line, so text is centered on its letters instead of its line box. It looks optically centered no matter the font's ascender and descender metrics.

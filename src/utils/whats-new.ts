@@ -186,6 +186,9 @@ const whatsNew = {
   ],
   "description-list": [
     {
+      astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>DescriptionListItem</code></a>. The <code>DescriptionList.Item</code> aliases are gone.`,
+    },
+    {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
     {
@@ -367,6 +370,9 @@ const whatsNew = {
     },
   ],
   table: [
+    {
+      astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TableHead</code></a>. The <code>Table.Head</code> aliases are gone.`,
+    },
     `A checkbox alone in a cell is centered (<a href="#default">Default</a>).`,
     {
       default: `<a href="#variants">Dense</a> tables have less block padding.`,
@@ -379,6 +385,9 @@ const whatsNew = {
     },
   ],
   tabs: [
+    {
+      astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
+    },
     `Breaking: <a href="#basics">restyled</a> as a segmented control. <code>--_accent-color</code> and <code>--_bg-color</code> are gone, use a <a href="#filled">variant</a> or <code>--_active-bg-color</code>, <code>--_active-text-color</code>, <code>--_indicator-color</code> and <code>--_track-color</code>.`,
     {
       astro: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,

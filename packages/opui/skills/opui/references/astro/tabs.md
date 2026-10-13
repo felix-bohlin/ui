@@ -12,15 +12,15 @@ General account settings.
 
   Container element.
 
-- `<Tabs.Item>`
+- `<TabsItem>`
 
   A visually hidden radio input that holds a tab's state. The tab is its label.
 
-- `<Tabs.Tab>`
+- `<TabsTab>`
 
   A tab.
 
-- `<Tabs.Panel>`
+- `<TabsPanel>`
 
   The panel of the selected tab.
 
@@ -28,22 +28,22 @@ General account settings.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="basic-tabs">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -53,22 +53,22 @@ Use `variant="filled"` to fill the selected tab with the primary color.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="filled-tabs" variant="filled">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -78,22 +78,22 @@ Use `variant="line"` for tabs without a background, marking the selected tab wit
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="line-tabs" variant="line">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -103,22 +103,22 @@ Use `variant="outlined"` for a bordered track without a background.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="outlined-tabs" variant="outlined">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -128,42 +128,42 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on o
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="scrollable-tabs" scrollable>
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Billing</Tabs.Tab>
-    <Tabs.Panel>Plans, invoices and payment methods.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Security</Tabs.Tab>
-    <Tabs.Panel>Passwords, sessions and two-factor authentication.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Integrations</Tabs.Tab>
-    <Tabs.Panel>Connected apps and webhooks.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Team</Tabs.Tab>
-    <Tabs.Panel>Members and roles.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Advanced</Tabs.Tab>
-    <Tabs.Panel>Export data or delete the account.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Billing</TabsTab>
+    <TabsPanel>Plans, invoices and payment methods.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Security</TabsTab>
+    <TabsPanel>Passwords, sessions and two-factor authentication.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Integrations</TabsTab>
+    <TabsPanel>Connected apps and webhooks.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Team</TabsTab>
+    <TabsPanel>Members and roles.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Advanced</TabsTab>
+    <TabsPanel>Export data or delete the account.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -487,7 +487,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/tabs.css`
 
@@ -495,6 +495,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: import the parts by their flat names, such as [`TabsItem`](#api). The `Tabs.Item` aliases are gone.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
 - [Scrollable](#scrollable) tabs with the `scrollable` prop.

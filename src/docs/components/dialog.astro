@@ -11,6 +11,13 @@ import {
   DialogContent as UIDialogContent,
   DialogHeader as UIDialogHeader,
   Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
 } from "@opui/astro"
 
 import DialogCSS from "@opui/css/components/dialog.css?raw"
@@ -264,82 +271,82 @@ export const description =
       it modal and the page behind it inert.
     </p>
     <Table style="table-layout: fixed">
-      <Table.ColumnGroup>
-        <Table.Column width="30%" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Role/attribute</Table.HeaderCell>
-          <Table.HeaderCell>Usage</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
-          <Table.Cell>
+      <TableColumnGroup>
+        <TableColumn width="30%" />
+        <TableColumn />
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+          <TableCell>
             Gives the dialog an accessible name by referring to the element that
             provides the dialog title.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
-          <Table.Cell>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+          <TableCell>
             Optional. Gives the dialog an accessible description by referring to
             the dialog content that describes the primary message or purpose of
             the dialog.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>role="alertdialog"</code></Table.Cell>
-          <Table.Cell>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>role="alertdialog"</code></TableCell>
+          <TableCell>
             Only if the dialog is a confirmation window communicating an
             important message that requires a confirmation or other user
             response. See <a href="#alert-dialog">alert dialog</a>.
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
-        <Table.ColumnGroup>
-          <Table.Column width="30%" />
-          <Table.Column />
-        </Table.ColumnGroup>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeaderCell>Key</Table.HeaderCell>
-            <Table.HeaderCell>Function</Table.HeaderCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell><kbd>Tab</kbd></Table.Cell>
-            <Table.Cell>
+        <TableColumnGroup>
+          <TableColumn width="30%" />
+          <TableColumn />
+        </TableColumnGroup>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
               Moves focus to the next focusable element in the dialog. After the
               last one, focus moves to the browser's own controls (like the
               address bar), then back to the first element in the dialog. The
               page behind it is inert.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Shift + Tab</kbd></TableCell>
+            <TableCell>
               Moves focus to the previous focusable element. Before the first
               one, focus moves to the browser's controls, then to the last
               element in the dialog.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Esc</kbd></TableCell>
+            <TableCell>
               Closes the dialog, unless <code>closedby="none"</code>, and
               returns focus to the element that opened it.
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
     </div>
 

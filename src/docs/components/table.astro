@@ -3,7 +3,14 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
-import { Table as UITable } from "@opui/astro"
+import {
+  Table as UITable,
+  TableBody as UITableBody,
+  TableCell as UITableCell,
+  TableHead as UITableHead,
+  TableHeaderCell as UITableHeaderCell,
+  TableRow as UITableRow,
+} from "@opui/astro"
 
 import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
@@ -44,22 +51,22 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITable>
-        <UITable.Head>
-          <UITable.Row>
-            <UITable.HeaderCell>Name</UITable.HeaderCell>
-            <UITable.HeaderCell>Size</UITable.HeaderCell>
-          </UITable.Row>
-        </UITable.Head>
-        <UITable.Body>
-          <UITable.Row>
-            <UITable.Cell>Card</UITable.Cell>
-            <UITable.Cell>2 kB</UITable.Cell>
-          </UITable.Row>
-          <UITable.Row>
-            <UITable.Cell>Dialog</UITable.Cell>
-            <UITable.Cell>3 kB</UITable.Cell>
-          </UITable.Row>
-        </UITable.Body>
+        <UITableHead>
+          <UITableRow>
+            <UITableHeaderCell>Name</UITableHeaderCell>
+            <UITableHeaderCell>Size</UITableHeaderCell>
+          </UITableRow>
+        </UITableHead>
+        <UITableBody>
+          <UITableRow>
+            <UITableCell>Card</UITableCell>
+            <UITableCell>2 kB</UITableCell>
+          </UITableRow>
+          <UITableRow>
+            <UITableCell>Dialog</UITableCell>
+            <UITableCell>3 kB</UITableCell>
+          </UITableRow>
+        </UITableBody>
       </UITable>
     </Anatomy>
   </Fragment>

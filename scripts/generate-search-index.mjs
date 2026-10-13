@@ -227,7 +227,7 @@ async function generateIndex() {
       .join(" ")
 
     const cellMatches = content.matchAll(
-      /<Table\.Cell\b[^>]*>(.*?)<\/Table\.Cell\s*>/gs,
+      /<TableCell\b[^>]*>(.*?)<\/TableCell\s*>/gs,
     )
     const apiContent = []
     for (const cellMatch of cellMatches) {

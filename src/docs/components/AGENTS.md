@@ -150,7 +150,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 4.1 Props
 
-- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `Tabs.Item`). Hand-written `.astro` tables can still be passed as `{ title, component }` objects or a framework-keyed `{ astro, html }` object.
+- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as `{ title, component }` objects or a framework-keyed `{ astro, html }` object.
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.

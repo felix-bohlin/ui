@@ -37,7 +37,7 @@ export default {
     {
       code: ".ui-tab-input",
       component: {
-        astro: "Tabs.Item",
+        astro: "TabsItem",
         react: "TabsItem",
         svelte: "TabsItem",
         vue: "TabsItem",
@@ -49,7 +49,7 @@ export default {
     {
       code: ".ui-tab-label",
       component: {
-        astro: "Tabs.Tab",
+        astro: "TabsTab",
         react: "TabsTab",
         svelte: "TabsTab",
         vue: "TabsTab",
@@ -60,7 +60,7 @@ export default {
     {
       code: ".ui-tab-panel",
       component: {
-        astro: "Tabs.Panel",
+        astro: "TabsPanel",
         react: "TabsPanel",
         svelte: "TabsPanel",
         vue: "TabsPanel",

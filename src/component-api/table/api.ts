@@ -4,7 +4,7 @@ export default {
   component: "Table",
   notes: {
     astro:
-      "Set column widths with `Table.ColumnGroup` and `Table.Column`. `Table.Column` takes a `width`.",
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
     react:
       "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
     svelte:
@@ -31,7 +31,7 @@ export default {
     {
       code: "<thead>",
       component: {
-        astro: "Table.Head",
+        astro: "TableHead",
         react: "TableHead",
         svelte: "TableHead",
         vue: "TableHead",
@@ -42,7 +42,7 @@ export default {
     {
       code: "<th>",
       component: {
-        astro: "Table.HeaderCell",
+        astro: "TableHeaderCell",
         react: "TableHeaderCell",
         svelte: "TableHeaderCell",
         vue: "TableHeaderCell",
@@ -53,7 +53,7 @@ export default {
     {
       code: "<tbody>",
       component: {
-        astro: "Table.Body",
+        astro: "TableBody",
         react: "TableBody",
         svelte: "TableBody",
         vue: "TableBody",
@@ -64,7 +64,7 @@ export default {
     {
       code: "<tr>",
       component: {
-        astro: "Table.Row",
+        astro: "TableRow",
         react: "TableRow",
         svelte: "TableRow",
         vue: "TableRow",
@@ -75,7 +75,7 @@ export default {
     {
       code: "<td>",
       component: {
-        astro: "Table.Cell",
+        astro: "TableCell",
         react: "TableCell",
         svelte: "TableCell",
         vue: "TableCell",

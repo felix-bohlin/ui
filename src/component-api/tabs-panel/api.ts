@@ -1,14 +1,13 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Tabs.Panel",
-  file: "TabsPanel",
+  component: "TabsPanel",
   options: [],
   page: "tabs",
   parts: [],
   root: {
     component: {
-      astro: "Tabs.Panel",
+      astro: "TabsPanel",
       react: "TabsPanel",
       svelte: "TabsPanel",
       vue: "TabsPanel",

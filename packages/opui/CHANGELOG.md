@@ -43,6 +43,7 @@
 - `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
 - `Card` in Astro, React, Svelte and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
 - `Dialog` in Astro, React, Svelte and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`.
+- `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue.
 
 ### Removed
 

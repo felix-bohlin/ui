@@ -5,7 +5,7 @@ import {
   type FrameworkId,
 } from "../../utils/framework-routing"
 import Code from "../Code.astro"
-import { Tabs, Chip } from "@opui/astro"
+import { Chip, Tabs, TabsItem, TabsPanel, TabsTab } from "@opui/astro"
 import { format } from "prettier"
 import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
@@ -259,31 +259,31 @@ const outputId = `${groupName}-output`
       <div class="example-code-area">
         <template class="example-code">
           <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-            <Tabs.Item tabId={sourceId} name={groupName} open>
-              <Tabs.Tab tabId={sourceId} data-tab="source">
+            <TabsItem tabId={sourceId} name={groupName} open>
+              <TabsTab tabId={sourceId} data-tab="source">
                 {codeLangLabel}
-              </Tabs.Tab>
-              <Tabs.Panel data-panel="source">
+              </TabsTab>
+              <TabsPanel data-panel="source">
                 <div class="ui-tab-panel">
                   <Code
                     code={codeContent}
                     lang={codeLangId === "react" ? "tsx" : codeLangId}
                   />
                 </div>
-              </Tabs.Panel>
-            </Tabs.Item>
+              </TabsPanel>
+            </TabsItem>
 
             {showOutput && (
-              <Tabs.Item tabId={outputId} name={groupName}>
-                <Tabs.Tab tabId={outputId} data-tab="output">
+              <TabsItem tabId={outputId} name={groupName}>
+                <TabsTab tabId={outputId} data-tab="output">
                   Output
-                </Tabs.Tab>
-                <Tabs.Panel data-panel="output">
+                </TabsTab>
+                <TabsPanel data-panel="output">
                   <div class="ui-tab-panel">
                     <Code code={outputContent} lang="html" />
                   </div>
-                </Tabs.Panel>
-              </Tabs.Item>
+                </TabsPanel>
+              </TabsItem>
             )}
           </Tabs>
         </template>

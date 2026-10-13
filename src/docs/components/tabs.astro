@@ -5,7 +5,20 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
-import { Table, Tabs as UITabs } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tabs as UITabs,
+  TabsItem as UITabsItem,
+  TabsPanel as UITabsPanel,
+  TabsTab as UITabsTab,
+} from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
 
@@ -53,14 +66,14 @@ import tabsApi from "../../component-api/tabs/api"
   <Fragment slot="anatomy">
     <Anatomy>
       <UITabs name="tabs-anatomy">
-        <UITabs.Item open>
-          <UITabs.Tab>Profile</UITabs.Tab>
-          <UITabs.Panel>Profile settings and information.</UITabs.Panel>
-        </UITabs.Item>
-        <UITabs.Item>
-          <UITabs.Tab>Settings</UITabs.Tab>
-          <UITabs.Panel>General account settings.</UITabs.Panel>
-        </UITabs.Item>
+        <UITabsItem open>
+          <UITabsTab>Profile</UITabsTab>
+          <UITabsPanel>Profile settings and information.</UITabsPanel>
+        </UITabsItem>
+        <UITabsItem>
+          <UITabsTab>Settings</UITabsTab>
+          <UITabsPanel>General account settings.</UITabsPanel>
+        </UITabsItem>
       </UITabs>
     </Anatomy>
   </Fragment>
@@ -137,37 +150,37 @@ import tabsApi from "../../component-api/tabs/api"
     </p>
 
     <Table>
-      <Table.ColumnGroup>
-        <Table.Column width="150px" />
-        <Table.Column width="150px" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Element</Table.HeaderCell>
-          <Table.HeaderCell>Attribute</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>input</code></Table.Cell>
-          <Table.Cell><code>name</code></Table.Cell>
-          <Table.Cell
-            >Groups the radio buttons together for exclusive selection.</Table.Cell
+      <TableColumnGroup>
+        <TableColumn width="150px" />
+        <TableColumn width="150px" />
+        <TableColumn />
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Element</TableHeaderCell>
+          <TableHeaderCell>Attribute</TableHeaderCell>
+          <TableHeaderCell>Description</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>input</code></TableCell>
+          <TableCell><code>name</code></TableCell>
+          <TableCell
+            >Groups the radio buttons together for exclusive selection.</TableCell
           >
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>input</code></Table.Cell>
-          <Table.Cell><code>checked</code></Table.Cell>
-          <Table.Cell>Selects the tab that is open initially.</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>label</code></Table.Cell>
-          <Table.Cell><code>for</code></Table.Cell>
-          <Table.Cell>Names the radio button after the tab.</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>input</code></TableCell>
+          <TableCell><code>checked</code></TableCell>
+          <TableCell>Selects the tab that is open initially.</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>label</code></TableCell>
+          <TableCell><code>for</code></TableCell>
+          <TableCell>Names the radio button after the tab.</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
 
     <h3 id="keyboard-interaction">Keyboard interaction</h3>

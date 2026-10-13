@@ -10,15 +10,15 @@
 
   Container element.
 
-* `<DescriptionList.Item>`
+* `<DescriptionListItem>`
 
   Groups a term with its description.
 
-* `<DescriptionList.Term>`
+* `<DescriptionListTerm>`
 
   The term.
 
-* `<DescriptionList.Description>`
+* `<DescriptionListDescription>`
 
   The description.
 
@@ -26,22 +26,27 @@
 
 ```astro
 ---
-import { DescriptionList } from "opui-css/astro"
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/astro"
 ---
 
 <DescriptionList>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Price</DescriptionList.Term>
-    <DescriptionList.Description>6 950 000</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Size</DescriptionList.Term>
-    <DescriptionList.Description>64 m²</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Rooms</DescriptionList.Term>
-    <DescriptionList.Description>3</DescriptionList.Description>
-  </DescriptionList.Item>
+  <DescriptionListItem>
+    <DescriptionListTerm>Price</DescriptionListTerm>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Size</DescriptionListTerm>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Rooms</DescriptionListTerm>
+    <DescriptionListDescription>3</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>
 ```
 
@@ -53,37 +58,42 @@ Above `45ch` the term and description share a row and the border fills the gap b
 
 ```astro
 ---
-import { DescriptionList } from "opui-css/astro"
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/astro"
 ---
 
 <DescriptionList bordered>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Price</DescriptionList.Term>
-    <DescriptionList.Description>6 950 000</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Size</DescriptionList.Term>
-    <DescriptionList.Description>64 m²</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Rooms</DescriptionList.Term>
-    <DescriptionList.Description>3</DescriptionList.Description>
-  </DescriptionList.Item>
+  <DescriptionListItem>
+    <DescriptionListTerm>Price</DescriptionListTerm>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Size</DescriptionListTerm>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Rooms</DescriptionListTerm>
+    <DescriptionListDescription>3</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>
 
 <DescriptionList bordered="dotted">
-  <DescriptionList.Item>
-    <DescriptionList.Term>Price</DescriptionList.Term>
-    <DescriptionList.Description>6 950 000</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Size</DescriptionList.Term>
-    <DescriptionList.Description>64 m²</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Rooms</DescriptionList.Term>
-    <DescriptionList.Description>3</DescriptionList.Description>
-  </DescriptionList.Item>
+  <DescriptionListItem>
+    <DescriptionListTerm>Price</DescriptionListTerm>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Size</DescriptionListTerm>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Rooms</DescriptionListTerm>
+    <DescriptionListDescription>3</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>
 ```
 
@@ -93,22 +103,27 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 ```astro
 ---
-import { DescriptionList } from "opui-css/astro"
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/astro"
 ---
 
 <DescriptionList bordered inline style="max-inline-size: 18rem">
-  <DescriptionList.Item>
-    <DescriptionList.Term>Subtotal</DescriptionList.Term>
-    <DescriptionList.Description>$120.00</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Shipping</DescriptionList.Term>
-    <DescriptionList.Description>$8.00</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Total</DescriptionList.Term>
-    <DescriptionList.Description>$128.00</DescriptionList.Description>
-  </DescriptionList.Item>
+  <DescriptionListItem>
+    <DescriptionListTerm>Subtotal</DescriptionListTerm>
+    <DescriptionListDescription>$120.00</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Shipping</DescriptionListTerm>
+    <DescriptionListDescription>$8.00</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Total</DescriptionListTerm>
+    <DescriptionListDescription>$128.00</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>
 ```
 
@@ -269,7 +284,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/description-list.css`
 
@@ -277,4 +292,5 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: import the parts by their flat names, such as [`DescriptionListItem`](#api). The `DescriptionList.Item` aliases are gone.
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.

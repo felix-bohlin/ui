@@ -151,6 +151,13 @@ In Vue, the description part is exported as `DescriptionListDescription` instead
 + import { DescriptionListDescription } from "opui-css/vue"
 ```
 
+In Astro, import the parts by their flat names. The `DescriptionList.Item`, `DescriptionList.Term` and `DescriptionList.Description` aliases are gone.
+
+```diff
+- <DescriptionList.Item>
++ <DescriptionListItem>
+```
+
 ## Dialog
 
 Dialogs have a maximum height. The header and actions stay in place and the content scrolls. Dialogs also get a border in the page background color.
@@ -318,7 +325,18 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 Dense cells have less block padding.
 
+In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` and `TableCell`. The `Table.Head`-style aliases are gone.
+
+```diff
+- import { Table } from "@opui/astro"
+- <Table.Head>
++ import { Table, TableHead } from "@opui/astro"
++ <TableHead>
+```
+
 ## Tabs
+
+In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
 
 Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--size-2` top margin, so remove any spacing you added above it.
 

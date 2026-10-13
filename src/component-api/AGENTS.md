@@ -9,8 +9,8 @@ When creating or updating a component API table, ensure:
 - [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `menu` and `toast` still use hand-written `.astro` tables.
 - [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `React.astro`, `Svelte.astro` and `Vue.astro` tables.
 - [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
-- [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
-- [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
+- [ ] **Table Sub-components**: Use `TableHead`, `TableBody`, `TableRow`, `TableCell`, `TableHeaderCell`, `TableColumnGroup`, and `TableColumn` for table structure.
+- [ ] **Column Widths**: Use `TableColumnGroup` and `TableColumn` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
 - [ ] **Dots on Classes**: Every CSS class modifier starts with a dot (e.g., `.ui-primary`).
 - [ ] **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props are wrapped in `<code>` tags (exception: `default` and group names like `Slots`).
@@ -91,12 +91,12 @@ import buttonGroupApi from "../../component-api/button-group/api"
 
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
-- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `Tabs.Item`. Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`.
+- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `TabsItem`. Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`.
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
-- `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
+- `file`: the component file name when it differs from `component`, such as `Head` for `TableHead`. Props are read from the `<file>Props` type, or `Props`.
 - `hydration`: per-framework props that need a client directive, each with a `description` and an optional `fallback`. They get a marker in the props table.
-- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", react: "DescriptionListTerm", svelte: "DescriptionListTerm", vue: "DescriptionListTerm" }`. `snippets` lists Svelte snippets that fill the part when they differ from the slots, such as `valueText` for the Range `value` slot. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
+- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionListTerm", react: "DescriptionListTerm", svelte: "DescriptionListTerm", vue: "DescriptionListTerm" }`. `snippets` lists Svelte snippets that fill the part when they differ from the slots, such as `valueText` for the Range `value` slot. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
@@ -117,38 +117,47 @@ Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, o
 
 ```astro
 ---
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 ---
 
 <Table>
-  <Table.ColumnGroup>
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 300px" />
-  </Table.ColumnGroup>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Prop</Table.HeaderCell>
-      <Table.HeaderCell>Type</Table.HeaderCell>
-      <Table.HeaderCell>Default</Table.HeaderCell>
-      <Table.HeaderCell>Description</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell><code>align</code></Table.Cell>
-      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
-      <Table.Cell><code>"start"</code></Table.Cell>
-      <Table.Cell>Which edge of the trigger the menu lines up with.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>dense</code></Table.Cell>
-      <Table.Cell><code>boolean</code></Table.Cell>
-      <Table.Cell><code>false</code></Table.Cell>
-      <Table.Cell>Less spacing.</Table.Cell>
-    </Table.Row>
-  </Table.Body>
+  <TableColumnGroup>
+    <TableColumn width="min-width: 20%" />
+    <TableColumn width="min-width: 20%" />
+    <TableColumn width="min-width: 20%" />
+    <TableColumn width="min-width: 300px" />
+  </TableColumnGroup>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Prop</TableHeaderCell>
+      <TableHeaderCell>Type</TableHeaderCell>
+      <TableHeaderCell>Default</TableHeaderCell>
+      <TableHeaderCell>Description</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>align</code></TableCell>
+      <TableCell><code>"start"</code>, <code>"end"</code></TableCell>
+      <TableCell><code>"start"</code></TableCell>
+      <TableCell>Which edge of the trigger the menu lines up with.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>dense</code></TableCell>
+      <TableCell><code>boolean</code></TableCell>
+      <TableCell><code>false</code></TableCell>
+      <TableCell>Less spacing.</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 ```
 

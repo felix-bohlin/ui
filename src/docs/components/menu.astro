@@ -4,7 +4,16 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
@@ -224,52 +233,52 @@ export const description = "A popover list of actions or links."
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
-        <Table.ColumnGroup>
-          <Table.Column width="30%" />
-          <Table.Column />
-        </Table.ColumnGroup>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeaderCell>Key</Table.HeaderCell>
-            <Table.HeaderCell>Function</Table.HeaderCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell><kbd>Enter</kbd>, <kbd>Space</kbd></Table.Cell>
-            <Table.Cell>
+        <TableColumnGroup>
+          <TableColumn width="30%" />
+          <TableColumn />
+        </TableColumnGroup>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Enter</kbd>, <kbd>Space</kbd></TableCell>
+            <TableCell>
               On the trigger, opens or closes the menu. Focus stays on the
               trigger. On an item, activates it.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
               From the trigger, moves into the open menu, because the browser
               puts a popover opened with <code>commandfor</code> right after its trigger
               in the focus order. Then moves to the next item, and after the last
               one, out of the menu. The menu stays open.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Shift + Tab</kbd></TableCell>
+            <TableCell>
               Moves to the previous item, and from the first item back to the
               trigger.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Arrow keys</Table.Cell>
-            <Table.Cell>Do nothing.</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Arrow keys</TableCell>
+            <TableCell>Do nothing.</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Esc</kbd></TableCell>
+            <TableCell>
               Closes the menu and returns focus to the trigger. A click outside
               closes it too. Neither works with <code>popover="manual"</code>.
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
     </div>
   </Fragment>

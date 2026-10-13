@@ -1,8 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Tabs.Tab",
-  file: "TabsTab",
+  component: "TabsTab",
   options: [
     {
       description: "The id of the input it labels. Set by the item.",
@@ -13,7 +12,7 @@ export default {
   parts: [],
   root: {
     component: {
-      astro: "Tabs.Tab",
+      astro: "TabsTab",
       react: "TabsTab",
       svelte: "TabsTab",
       vue: "TabsTab",

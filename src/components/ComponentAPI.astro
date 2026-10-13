@@ -1,5 +1,14 @@
 ---
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 import ApiTables from "./ApiTables.astro"
 import {
   DEFAULT_FRAMEWORK,
@@ -76,42 +85,42 @@ const hasFrameworkSpecificApi =
               ) : apiData?.rows ? (
                 <div class="api-table-container">
                   <Table class="api-table">
-                    <Table.ColumnGroup>
+                    <TableColumnGroup>
                       {apiData.columns ? (
                         apiData.columns.map((col: any) => (
-                          <Table.Column width={col.width} />
+                          <TableColumn width={col.width} />
                         ))
                       ) : (
                         <Fragment>
-                          <Table.Column width="min-width: 20%" />
-                          <Table.Column width="min-width: 20%" />
-                          <Table.Column width="min-width: 20%" />
-                          <Table.Column width="min-width: 300px" />
+                          <TableColumn width="min-width: 20%" />
+                          <TableColumn width="min-width: 20%" />
+                          <TableColumn width="min-width: 20%" />
+                          <TableColumn width="min-width: 300px" />
                         </Fragment>
                       )}
-                    </Table.ColumnGroup>
-                    <Table.Head>
-                      <Table.Row>
+                    </TableColumnGroup>
+                    <TableHead>
+                      <TableRow>
                         {apiData.headers ? (
                           apiData.headers.map((header: any) => (
-                            <Table.HeaderCell>{header}</Table.HeaderCell>
+                            <TableHeaderCell>{header}</TableHeaderCell>
                           ))
                         ) : (
                           <Fragment>
-                            <Table.HeaderCell>Type</Table.HeaderCell>
-                            <Table.HeaderCell>Modifiers</Table.HeaderCell>
-                            <Table.HeaderCell>Default</Table.HeaderCell>
-                            <Table.HeaderCell>Description</Table.HeaderCell>
+                            <TableHeaderCell>Type</TableHeaderCell>
+                            <TableHeaderCell>Modifiers</TableHeaderCell>
+                            <TableHeaderCell>Default</TableHeaderCell>
+                            <TableHeaderCell>Description</TableHeaderCell>
                           </Fragment>
                         )}
-                      </Table.Row>
-                    </Table.Head>
-                    <Table.Body>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
                       {apiData.rows.map((row: any) => (
-                        <Table.Row>
+                        <TableRow>
                           {row.cells ? (
                             row.cells.map((cell: any) => (
-                              <Table.Cell>
+                              <TableCell>
                                 {cell.code ? (
                                   <code>{cell.text}</code>
                                 ) : cell.href ? (
@@ -119,38 +128,38 @@ const hasFrameworkSpecificApi =
                                 ) : (
                                   cell
                                 )}
-                              </Table.Cell>
+                              </TableCell>
                             ))
                           ) : (
                             <Fragment>
-                              <Table.Cell>
+                              <TableCell>
                                 {row.href ? (
                                   <a href={row.href}>{row.type}</a>
                                 ) : (
                                   row.type
                                 )}
-                              </Table.Cell>
-                              <Table.Cell>
+                              </TableCell>
+                              <TableCell>
                                 {row.modifiers.map((m: any, i: number) => (
                                   <Fragment>
                                     {i > 0 && ", "}
                                     <code>{m}</code>
                                   </Fragment>
                                 ))}
-                              </Table.Cell>
-                              <Table.Cell>
+                              </TableCell>
+                              <TableCell>
                                 {row.default === "-" ? (
                                   "-"
                                 ) : (
                                   <code>{row.default}</code>
                                 )}
-                              </Table.Cell>
-                              <Table.Cell>{row.description}</Table.Cell>
+                              </TableCell>
+                              <TableCell>{row.description}</TableCell>
                             </Fragment>
                           )}
-                        </Table.Row>
+                        </TableRow>
                       ))}
-                    </Table.Body>
+                    </TableBody>
                   </Table>
                 </div>
               ) : ApiComponent ? (

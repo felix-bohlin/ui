@@ -29,6 +29,30 @@ const TYPE_FILES = [
   "types.ts",
 ]
 
+const BARRELS = {
+  astro: ".astro",
+  react: ".react",
+  svelte: ".svelte",
+  vue: ".vue",
+}
+
+const barrels = Object.fromEntries(
+  await Promise.all(
+    Object.keys(BARRELS).map(async (framework) => [
+      framework,
+      await readFile(
+        join(root, "packages/opui", framework, "index.ts"),
+        "utf-8",
+      ),
+    ]),
+  ),
+)
+
+const exportedNames = (source) =>
+  [...source.matchAll(/^export \{ default as (\w+) \}/gm)]
+    .map((match) => match[1])
+    .toSorted()
+
 const splitTopLevel = (body) => {
   const items = []
   let depth = 0
@@ -131,6 +155,16 @@ for (const folder of folders) {
   for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
     report(join(dir, name), "is missing")
   }
+  for (const [framework, extension] of Object.entries(BARRELS)) {
+    for (const name of astro) {
+      if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
+        report(
+          join(dir, `${name}.astro`),
+          `is not exported from packages/opui/${framework}/index.ts`,
+        )
+      }
+    }
+  }
 
   for (const file of files) {
     const path = join(dir, file)
@@ -148,6 +182,19 @@ for (const folder of folders) {
     if (file === `${folder}.astro` && !/export const title = "/.test(source)) {
       report(path, 'is missing `export const title = "..."`')
     }
+  }
+}
+
+const astroNames = exportedNames(barrels.astro)
+for (const [framework, source] of Object.entries(barrels)) {
+  const names = exportedNames(source)
+  const missing = astroNames.filter((name) => !names.includes(name))
+  const extra = names.filter((name) => !astroNames.includes(name))
+  if (missing.length || extra.length) {
+    report(
+      join(root, "packages/opui", framework, "index.ts"),
+      `exports differ from astro (missing: ${missing.join(", ") || "none"}, extra: ${extra.join(", ") || "none"})`,
+    )
   }
 }
 

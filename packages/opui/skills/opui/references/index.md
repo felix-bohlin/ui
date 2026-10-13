@@ -51,8 +51,8 @@ Components documented on another component's page:
 | FieldLegend | `form.md` |
 | FieldSet | `form.md` |
 | ListItem | `list.md` |
-| Tabs.Item | `tabs.md` |
-| Tabs.Panel | `tabs.md` |
-| Tabs.Tab | `tabs.md` |
+| TabsItem | `tabs.md` |
+| TabsPanel | `tabs.md` |
+| TabsTab | `tabs.md` |
 | ToggleButton | `toggle.md` |
 | ToggleGroup | `toggle.md` |

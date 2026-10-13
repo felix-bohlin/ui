@@ -15,6 +15,9 @@ import {
   Checkbox,
   Chip,
   DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -29,9 +32,17 @@ import {
   Select,
   Switch,
   Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
   Tabs,
-  TextField,
+  TabsItem,
+  TabsPanel,
+  TabsTab,
   Textarea,
+  TextField,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -180,14 +191,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Description List" href="/components/description-list">
     <DescriptionList aria-hidden="true" bordered="dotted">
-      <DescriptionList.Item>
-        <DescriptionList.Term>Name</DescriptionList.Term>
-        <DescriptionList.Description>Open Props UI</DescriptionList.Description>
-      </DescriptionList.Item>
-      <DescriptionList.Item>
-        <DescriptionList.Term>Status</DescriptionList.Term>
-        <DescriptionList.Description>Awesome</DescriptionList.Description>
-      </DescriptionList.Item>
+      <DescriptionListItem>
+        <DescriptionListTerm>Name</DescriptionListTerm>
+        <DescriptionListDescription>Open Props UI</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Awesome</DescriptionListDescription>
+      </DescriptionListItem>
     </DescriptionList>
   </ComponentCard>
 
@@ -310,42 +321,42 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Table" href="/components/table" size="wide">
     <Table aria-hidden="true" variant="dense">
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Band</Table.HeaderCell>
-          <Table.HeaderCell>Name</Table.HeaderCell>
-          <Table.HeaderCell>Instrument</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>Broken Bells</Table.Cell>
-          <Table.Cell>James Mercer</Table.Cell>
-          <Table.Cell>Vocals</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Radiohead</Table.Cell>
-          <Table.Cell>Ed O'Brien</Table.Cell>
-          <Table.Cell>Guitar</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
   </ComponentCard>
 
   <ComponentCard name="Tabs" href="/components/tabs" size="wide">
     <Tabs aria-hidden="true" inert name="index-tabs-showcase">
-      <Tabs.Item open>
-        <Tabs.Tab>Profile</Tabs.Tab>
-        <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-      </Tabs.Item>
-      <Tabs.Item>
-        <Tabs.Tab>Settings</Tabs.Tab>
-        <Tabs.Panel>General account settings.</Tabs.Panel>
-      </Tabs.Item>
-      <Tabs.Item>
-        <Tabs.Tab>Notifications</Tabs.Tab>
-        <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-      </Tabs.Item>
+      <TabsItem open>
+        <TabsTab>Profile</TabsTab>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Settings</TabsTab>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Notifications</TabsTab>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
     </Tabs>
   </ComponentCard>
 

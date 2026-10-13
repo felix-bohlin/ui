@@ -1,8 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Tabs.Item",
-  file: "TabsItem",
+  component: "TabsItem",
   options: [
     {
       description: "Overrides the name shared by the tab inputs.",
@@ -24,7 +23,7 @@ export default {
   parts: [],
   root: {
     component: {
-      astro: "Tabs.Item",
+      astro: "TabsItem",
       react: "TabsItem",
       svelte: "TabsItem",
       vue: "TabsItem",

@@ -1,7 +1,12 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { DescriptionList as UIDescriptionList } from "@opui/astro"
+import {
+  DescriptionList as UIDescriptionList,
+  DescriptionListDescription as UIDescriptionListDescription,
+  DescriptionListItem as UIDescriptionListItem,
+  DescriptionListTerm as UIDescriptionListTerm,
+} from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
@@ -112,12 +117,10 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UIDescriptionList style="inline-size: 16rem">
-        <UIDescriptionList.Item>
-          <UIDescriptionList.Term>Price</UIDescriptionList.Term>
-          <UIDescriptionList.Description
-            >6 950 000</UIDescriptionList.Description
-          >
-        </UIDescriptionList.Item>
+        <UIDescriptionListItem>
+          <UIDescriptionListTerm>Price</UIDescriptionListTerm>
+          <UIDescriptionListDescription>6 950 000</UIDescriptionListDescription>
+        </UIDescriptionListItem>
       </UIDescriptionList>
     </Anatomy>
   </Fragment>

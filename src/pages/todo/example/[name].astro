@@ -1,4 +1,5 @@
 ---
+import SchemeFromQuery from "../../../components/SchemeFromQuery.astro"
 import "@opui/css/imports.css"
 import { testPagesEnabled } from "../../../utils/test-pages"
 import {
@@ -25,13 +26,7 @@ const source = todoExampleSource(name)
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
     <title>{`${name} example`}</title>
-    <script is:inline>
-      {
-        const scheme = new URLSearchParams(location.search).get("scheme")
-        if (scheme === "dark" || scheme === "light")
-          document.documentElement.classList.add(`ui-${scheme}`)
-      }
-    </script>
+    <SchemeFromQuery />
   </head>
   <body>
     <main>

@@ -84,6 +84,7 @@ const FRAMEWORK_BRANDING: Record<
 
 <script>
   import { hexToOklch } from "../utils/color-utils"
+  import { FRAMEWORK_STORAGE_KEY } from "../utils/framework"
   import { themeStore, tokenDefaults } from "../utils/theme-store"
 
   // Clicking a framework chip in the hero re-tints the site to match that
@@ -98,7 +99,7 @@ const FRAMEWORK_BRANDING: Record<
         const framework = chip.dataset.framework
         if (framework) {
           try {
-            localStorage.setItem("opui-framework", framework)
+            localStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
           } catch (_) {
             // private mode / storage disabled - non-fatal
           }

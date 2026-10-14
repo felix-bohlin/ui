@@ -24,11 +24,16 @@ describe("theme tokens", () => {
         .map((section) => section.title),
     ).toEqual([
       "Palette",
+      "Named colors (no severity meaning)",
+      "Intent tokens",
+      "Primary",
+      "Text",
+      "Surfaces",
       "Borders",
+      "Field / input",
       "Focus ring",
       "Typography",
       "Control sizes",
-      "Field / input",
       "Button",
       "Divider",
       "Motion",
@@ -37,11 +42,6 @@ describe("theme tokens", () => {
       "Icons",
       "Choice controls",
       "Overlays",
-      "Named colors (no severity meaning)",
-      "Intent tokens",
-      "Primary",
-      "Text",
-      "Surfaces",
     ])
   })
 

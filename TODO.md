@@ -5292,16 +5292,21 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (3) Dependencies: `hast-util-to-text` is in `package.json` but nothing imports it; `src/integrations/html-to-markdown.mjs` uses `hast-util-select` and its own `textContent()` (`package.json:56`)
   - Fix: `pnpm remove hast-util-to-text`.
   - Fixed: `pnpm remove hast-util-to-text`.
-- [ ] (2) Theme tokens guide: merging the two `:where(html)` blocks in `theme.css` moved the color block after it, and the guide orders sections by their first header, so Named colors, Intent tokens, Primary, Text and Surfaces now come last instead of right after Palette (`packages/opui/css/theme.css`, `src/utils/theme-tokens.ts`, `src/docs/guide/theme-tokens.astro`, `tests/unit/theme-tokens.test.ts:20-45`)
+- [x] (2) Theme tokens guide: merging the two `:where(html)` blocks in `theme.css` moved the color block after it, and the guide orders sections by their first header, so Named colors, Intent tokens, Primary, Text and Surfaces now come last instead of right after Palette (`packages/opui/css/theme.css`, `src/utils/theme-tokens.ts`, `src/docs/guide/theme-tokens.astro`, `tests/unit/theme-tokens.test.ts:20-45`)
   - Fix: an explicit section order in `theme-tokens.ts` (an array of titles the parser sorts by, with unknown titles last), so the docs order no longer depends on the cascade order in `theme.css`.
-- [ ] (1) Test pages: the `?scheme=` inline script that applies `.ui-light`/`.ui-dark` from the query is duplicated in `src/pages/tests/[name].astro` and `src/pages/todo/example/[name].astro`
+  - Fixed: `theme-tokens.ts` sorts the parsed sections by an explicit `SECTION_ORDER` list (unknown titles last), so the guide reads Palette, the color sections, then Borders onwards again, whatever the cascade order in `theme.css`. The test expects that order.
+- [x] (1) Test pages: the `?scheme=` inline script that applies `.ui-light`/`.ui-dark` from the query is duplicated in `src/pages/tests/[name].astro` and `src/pages/todo/example/[name].astro`
   - Fix: one `src/components/SchemeFromQuery.astro` used by both.
-- [ ] (1) Framework storage key: `src/docs/Home.astro:107` and `src/pages/index.astro:33` still write the literal `"opui-framework"` where `Layout.astro` and `FrameworkPicker.astro` read `FRAMEWORK_STORAGE_KEY` from `src/utils/framework.js`. Same value today, so nothing breaks until the constant changes
+  - Fixed: `src/components/SchemeFromQuery.astro` holds the inline script; both pages render it.
+- [x] (1) Framework storage key: `src/docs/Home.astro:107` and `src/pages/index.astro:33` still write the literal `"opui-framework"` where `Layout.astro` and `FrameworkPicker.astro` read `FRAMEWORK_STORAGE_KEY` from `src/utils/framework.js`. Same value today, so nothing breaks until the constant changes
   - Fix: import the constant in `Home.astro`; `index.astro` is an inline script, so pass it with `define:vars`.
-- [ ] (1) Anchor: Astro renders generated ids as `anchor-…`, React, Svelte and Vue render the bare uid, the one component left with a different id prefix per framework (`packages/opui/components/Anchor/Anchor.astro`, `Anchor.react.tsx`, `Anchor.svelte`, `Anchor.vue`)
+  - Fixed: `Home.astro` imports `FRAMEWORK_STORAGE_KEY` in its module script and `index.astro` passes it through `define:vars` as `storageKey`.
+- [x] (1) Anchor: Astro renders generated ids as `anchor-…`, React, Svelte and Vue render the bare uid, the one component left with a different id prefix per framework (`packages/opui/components/Anchor/Anchor.astro`, `Anchor.react.tsx`, `Anchor.svelte`, `Anchor.vue`)
   - Fix: `anchor-${uid}` in the three frameworks, like Menu and Tabs do now.
-- [ ] (1) Browser support: `src/utils/browser-support.ts` still casts `features as Record<string, any>`, the last `any` outside `src/utils`
+  - Fixed: React, Svelte and Vue render `anchor-${uid}` like Astro.
+- [x] (1) Browser support: `src/utils/browser-support.ts` still casts `features as Record<string, any>`, the last `any` outside `src/utils`
   - Fix: type it from the `web-features` package's exported `features` type.
+  - Fixed: a `featureOf(id)` helper indexes `features` with its own `web-features` type and narrows to entries that carry `status`, so the cast is gone.
 - [ ] (1) Tabs: `--_inset: 3px` is the one hard-coded size left after the tokens item (`packages/opui/css/components/tabs.css:13`)
   - Fix: a private `--_inset: calc(var(--size-1) - 1px)` is not clearer; either keep it and say so here, or derive it from `--_indicator-size` (`calc(var(--_indicator-size) + 1px)`).
 

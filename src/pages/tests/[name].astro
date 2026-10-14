@@ -1,4 +1,5 @@
 ---
+import SchemeFromQuery from "../../components/SchemeFromQuery.astro"
 import "@opui/css/imports.css"
 import {
   stressPages,
@@ -28,13 +29,10 @@ const { source } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
     <title>{`${name} stress test`}</title>
+    <SchemeFromQuery />
     <script is:inline>
       {
-        const params = new URLSearchParams(location.search)
-        const example = params.get("example")
-        const scheme = params.get("scheme")
-        if (scheme === "dark" || scheme === "light")
-          document.documentElement.classList.add(`ui-${scheme}`)
+        const example = new URLSearchParams(location.search).get("example")
         if (example) {
           const style = document.createElement("style")
           style.textContent = `main > h1, .stress:not([data-example="${CSS.escape(example)}"]) { display: none; } .stress { border: 0; padding-block-start: 0; }`

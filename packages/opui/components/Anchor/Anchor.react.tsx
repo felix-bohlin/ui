@@ -16,7 +16,7 @@ export default function Anchor({
   const uid = useId()
 
   const isHover = trigger === "hover"
-  const id = isHover ? (idProp ?? uid) : undefined
+  const id = isHover ? (idProp ?? `anchor-${uid}`) : undefined
   const positionArea = alignment
     ? { "--anchor-position-area": alignment }
     : undefined

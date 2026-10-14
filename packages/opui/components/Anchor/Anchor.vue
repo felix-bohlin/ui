@@ -8,7 +8,9 @@ defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
 const uid = useId()
-const id = computed(() => (isHover.value ? (idProp ?? uid) : undefined))
+const id = computed(() =>
+  isHover.value ? (idProp ?? `anchor-${uid}`) : undefined,
+)
 
 const positionArea = computed(() =>
   alignment ? { "--anchor-position-area": alignment } : undefined,

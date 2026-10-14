@@ -18,7 +18,7 @@
   const uid = $props.id()
 
   const isHover = $derived(trigger === "hover")
-  const id = $derived(isHover ? (idProp ?? uid) : undefined)
+  const id = $derived(isHover ? (idProp ?? `anchor-${uid}`) : undefined)
 
   setAnchorContext({
     get floatingId() {

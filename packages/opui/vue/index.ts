@@ -120,7 +120,7 @@ export type {
   DataGridSort,
 } from "../components/DataGrid/types"
 export type { Props as DataGridProps } from "../components/DataGrid/types.d.vue"
-
+export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,
   Props as DescriptionListProps,

@@ -26,11 +26,7 @@ import {
   getComponentChangelog,
   type ChangelogPathEntry,
 } from "../utils/changelog"
-import {
-  DEFAULT_FRAMEWORK,
-  FRAMEWORKS,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 
@@ -64,8 +60,7 @@ const {
   image,
 } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const { link } = Astro.locals
 
@@ -101,12 +96,9 @@ const autoApis = ((): Apis | null => {
 
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
-const hydrationFramework =
-  currentFramework === "react" ||
-  currentFramework === "svelte" ||
-  currentFramework === "vue"
-    ? currentFramework
-    : undefined
+const hydrationFramework = isHydratedFramework(currentFramework)
+  ? currentFramework
+  : undefined
 const hydrationApis = hydrationFramework
   ? [apis ?? []]
       .flat()

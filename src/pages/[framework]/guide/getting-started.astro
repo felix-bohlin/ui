@@ -1,14 +1,10 @@
 ---
 import type { AstroInstance } from "astro"
-import {
-  DEFAULT_FRAMEWORK,
-  frameworkPaths,
-  type FrameworkId,
-} from "../../../utils/framework-routing"
+import { frameworkPaths, type FrameworkId } from "../../../utils/framework"
 
 export const getStaticPaths = frameworkPaths
 
-const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId
+const framework = Astro.locals.framework
 
 const modules = import.meta.glob<AstroInstance>(
   "../../../docs/guide/getting-started/*.astro",

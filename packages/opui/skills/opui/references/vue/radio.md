@@ -151,6 +151,71 @@ import { Radio } from "opui-css/vue"
 </template>
 ```
 
+## Spread
+
+Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```vue
+<script setup lang="ts">
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <FieldSet>
+      <FieldLegend>Delivery</FieldLegend>
+      <FieldGroup name="radio-spread">
+        <Radio value="standard" checked spread>
+          Standard
+          <template #end-text>Arrives in 3 to 5 days.</template>
+        </Radio>
+        <Radio value="express" spread>
+          Express
+          <template #end-text>Arrives tomorrow.</template>
+        </Radio>
+        <Radio value="pickup" spread disabled>
+          Pickup
+          <template #end-text>Not available in your area.</template>
+        </Radio>
+      </FieldGroup>
+    </FieldSet>
+  </Form>
+</template>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
+## Direction
+
+Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
+
+```vue
+<script setup lang="ts">
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <FieldSet>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldGroup direction="row" name="radio-group-direction">
+        <Radio value="1" checked>Radio 1</Radio>
+        <Radio value="2">Radio 2</Radio>
+        <Radio value="3">Radio 3</Radio>
+      </FieldGroup>
+    </FieldSet>
+  </Form>
+</template>
+```
+
 ## Field description
 
 Can be placed above and below the fields.
@@ -262,71 +327,6 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
     </FieldSet>
   </Form>
 </template>
-```
-
-## Direction
-
-Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
-
-```vue
-<script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
-</script>
-
-<template>
-  <Form>
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="radio-group-direction">
-        <Radio value="1" checked>Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
-      </FieldGroup>
-    </FieldSet>
-  </Form>
-</template>
-```
-
-## Spread
-
-Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
-
-```vue
-<script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
-</script>
-
-<template>
-  <Form>
-    <FieldSet>
-      <FieldLegend>Delivery</FieldLegend>
-      <FieldGroup name="radio-spread">
-        <Radio value="standard" checked spread>
-          Standard
-          <template #end-text>Arrives in 3 to 5 days.</template>
-        </Radio>
-        <Radio value="express" spread>
-          Express
-          <template #end-text>Arrives tomorrow.</template>
-        </Radio>
-        <Radio value="pickup" spread disabled>
-          Pickup
-          <template #end-text>Not available in your area.</template>
-        </Radio>
-      </FieldGroup>
-    </FieldSet>
-  </Form>
-</template>
-```
-
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
 ```
 
 ## API
@@ -552,6 +552,6 @@ Import the component from `opui-css/vue`:
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
 - [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
-- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#validation)).
+- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#field-group-validation)).
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.

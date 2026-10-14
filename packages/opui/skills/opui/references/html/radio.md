@@ -172,6 +172,94 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
 </label>
 ```
 
+## Spread
+
+Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Delivery</legend>
+    <div class="ui-field-group">
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="standard"
+          checked
+          aria-describedby="radio-spread-end-text-1"
+        />
+        <span class="ui-label">Standard</span>
+        <span class="ui-end-text" id="radio-spread-end-text-1"
+          >Arrives in 3 to 5 days.</span
+        >
+      </label>
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="express"
+          aria-describedby="radio-spread-end-text-2"
+        />
+        <span class="ui-label">Express</span>
+        <span class="ui-end-text" id="radio-spread-end-text-2"
+          >Arrives tomorrow.</span
+        >
+      </label>
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="pickup"
+          disabled
+          aria-describedby="radio-spread-end-text-3"
+        />
+        <span class="ui-label">Pickup</span>
+        <span class="ui-end-text" id="radio-spread-end-text-3"
+          >Not available in your area.</span
+        >
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
+## Direction
+
+Radios stack vertically by default. Add `.ui-row` to the `.ui-field-group` to put them in a row.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row">
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="1" checked />
+        <span class="ui-label">Radio 1</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="2" />
+        <span class="ui-label">Radio 2</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="3" />
+        <span class="ui-label">Radio 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
 ## Field description
 
 Can be placed above and below the fields.
@@ -323,94 +411,6 @@ Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.
     <span class="ui-end-text">Something went wrong!</span>
   </fieldset>
 </form>
-```
-
-## Direction
-
-Radios stack vertically by default. Add `.ui-row` to the `.ui-field-group` to put them in a row.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="1" checked />
-        <span class="ui-label">Radio 1</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="2" />
-        <span class="ui-label">Radio 2</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="3" />
-        <span class="ui-label">Radio 3</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-## Spread
-
-Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Delivery</legend>
-    <div class="ui-field-group">
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="standard"
-          checked
-          aria-describedby="radio-spread-end-text-1"
-        />
-        <span class="ui-label">Standard</span>
-        <span class="ui-end-text" id="radio-spread-end-text-1"
-          >Arrives in 3 to 5 days.</span
-        >
-      </label>
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="express"
-          aria-describedby="radio-spread-end-text-2"
-        />
-        <span class="ui-label">Express</span>
-        <span class="ui-end-text" id="radio-spread-end-text-2"
-          >Arrives tomorrow.</span
-        >
-      </label>
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="pickup"
-          disabled
-          aria-describedby="radio-spread-end-text-3"
-        />
-        <span class="ui-label">Pickup</span>
-        <span class="ui-end-text" id="radio-spread-end-text-3"
-          >Not available in your area.</span
-        >
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
 ```
 
 ## API
@@ -635,6 +635,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
 - [Spread](#spread) with `.ui-spread`, like Checkbox and Switch.
-- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#validation)).
+- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#field-group-validation)).
 - Takes `.ui-x-small`. [Sizes](#sizes)
 - [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch. Import it before `radio.css`.

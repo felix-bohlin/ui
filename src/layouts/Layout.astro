@@ -3,11 +3,7 @@ import "@opui/css/imports.css"
 import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
-import {
-  DEFAULT_FRAMEWORK,
-  frameworkVariantsOf,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { frameworkVariantsOf } from "../utils/framework"
 import { markdownPath } from "../utils/markdown.js"
 
 type Props = {
@@ -19,8 +15,7 @@ type Props = {
 
 const { title, description, hasMarkdown, image } = Astro.props
 const pathname = Astro.url.pathname
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 // Every route is mirrored across frameworks, so every page advertises its
 // alternates. Each variant self-canonicalizes; rel=alternate covers the rest.
@@ -122,20 +117,16 @@ const markdownUrl = hasMarkdown
 <script>
   import {
     DEFAULT_FRAMEWORK,
-    FRAMEWORK_IDS,
     FRAMEWORK_STORAGE_KEY,
     frameworkPrefixPattern,
     isFrameworkFree,
+    isFrameworkId,
     pathHasFramework,
-    type FrameworkId,
   } from "../utils/framework"
-
-  const isFramework = (value: string | null): value is FrameworkId =>
-    (FRAMEWORK_IDS as (string | null)[]).includes(value)
 
   function rememberFramework() {
     const framework = location.pathname.match(frameworkPrefixPattern())?.[1]
-    if (!isFramework(framework ?? null)) return
+    if (!isFrameworkId(framework)) return
     try {
       sessionStorage.setItem(FRAMEWORK_STORAGE_KEY, framework!)
     } catch (_) {}
@@ -144,9 +135,9 @@ const markdownUrl = hasMarkdown
   function preferredFramework() {
     try {
       const last = sessionStorage.getItem(FRAMEWORK_STORAGE_KEY)
-      if (isFramework(last)) return last
+      if (isFrameworkId(last)) return last
       const saved = localStorage.getItem(FRAMEWORK_STORAGE_KEY)
-      if (isFramework(saved)) return saved
+      if (isFrameworkId(saved)) return saved
     } catch (_) {}
     return DEFAULT_FRAMEWORK
   }

@@ -142,6 +142,79 @@ Use the `endText` snippet for supporting text under a single radio's label. The 
 </Radio>
 ```
 
+## Spread
+
+Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```svelte
+<script lang="ts">
+  import {
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <FieldSet>
+    <FieldLegend>Delivery</FieldLegend>
+    <FieldGroup name="radio-spread">
+      <Radio value="standard" checked spread>
+        Standard
+        {#snippet endText()}Arrives in 3 to 5 days.{/snippet}
+      </Radio>
+      <Radio value="express" spread>
+        Express
+        {#snippet endText()}Arrives tomorrow.{/snippet}
+      </Radio>
+      <Radio value="pickup" spread disabled>
+        Pickup
+        {#snippet endText()}Not available in your area.{/snippet}
+      </Radio>
+    </FieldGroup>
+  </FieldSet>
+</Form>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
+## Direction
+
+Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
+
+```svelte
+<script lang="ts">
+  import {
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <FieldSet>
+    <FieldLegend>Legend</FieldLegend>
+    <FieldGroup direction="row" name="radio-group-direction">
+      <Radio value="1" checked>Radio 1</Radio>
+      <Radio value="2">Radio 2</Radio>
+      <Radio value="3">Radio 3</Radio>
+    </FieldGroup>
+  </FieldSet>
+</Form>
+```
+
 ## Field description
 
 Can be placed above and below the fields.
@@ -263,79 +336,6 @@ Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns r
     <span class="ui-end-text">Something went wrong!</span>
   </FieldSet>
 </Form>
-```
-
-## Direction
-
-Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
-
-```svelte
-<script lang="ts">
-  import {
-    FieldGroup,
-    FieldLegend,
-    FieldSet,
-    Form,
-    Radio,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <FieldSet>
-    <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-direction">
-      <Radio value="1" checked>Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
-    </FieldGroup>
-  </FieldSet>
-</Form>
-```
-
-## Spread
-
-Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
-
-```svelte
-<script lang="ts">
-  import {
-    FieldGroup,
-    FieldLegend,
-    FieldSet,
-    Form,
-    Radio,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <FieldSet>
-    <FieldLegend>Delivery</FieldLegend>
-    <FieldGroup name="radio-spread">
-      <Radio value="standard" checked spread>
-        Standard
-        {#snippet endText()}Arrives in 3 to 5 days.{/snippet}
-      </Radio>
-      <Radio value="express" spread>
-        Express
-        {#snippet endText()}Arrives tomorrow.{/snippet}
-      </Radio>
-      <Radio value="pickup" spread disabled>
-        Pickup
-        {#snippet endText()}Not available in your area.{/snippet}
-      </Radio>
-    </FieldGroup>
-  </FieldSet>
-</Form>
-```
-
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
 ```
 
 ## API

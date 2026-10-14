@@ -1,5 +1,5 @@
 ---
-import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+import { DEFAULT_FRAMEWORK } from "../utils/framework"
 
 type Props = {
   [key: string]: any
@@ -8,8 +8,7 @@ type Props = {
 
 const { as: Tag = "span" } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 // Find the slot for the active framework. Fall back to the default framework
 // (currently HTML) if the page didn't author one for the active framework, so

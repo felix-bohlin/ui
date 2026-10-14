@@ -4,7 +4,7 @@ import {
   hrefFor,
   isFrameworkId,
   type FrameworkId,
-} from "./utils/framework-routing"
+} from "./utils/framework"
 import { createIdGenerator } from "./utils/id"
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -17,15 +17,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // framework; `Layout.astro` `relinkDocs()` repoints their framework-prefixed
   // links to the visitor's framework (`FRAMEWORK_STORAGE_KEY`) at runtime.
   //
-  // We derive the framework from the URL prefix rather than
-  // `context.currentLocale`. Astro's `currentLocale` is unreliable in
-  // middleware (often `undefined` for prerendered pages because routing
-  // metadata hasn't resolved yet at this stage), so we parse the pathname
-  // ourselves - it's the same source of truth Astro uses anyway.
+  // We derive the framework from the URL prefix. Pages read it from
+  // `Astro.locals.framework`.
   const firstSegment = context.url.pathname.split("/")[1] ?? ""
   const framework: FrameworkId = isFrameworkId(firstSegment)
     ? firstSegment
     : DEFAULT_FRAMEWORK
+  context.locals.framework = framework
   context.locals.link = (path: string) => hrefFor(framework, path)
 
   return await next()

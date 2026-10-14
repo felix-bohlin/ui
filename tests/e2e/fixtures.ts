@@ -1,6 +1,11 @@
 import { existsSync, readdirSync } from "node:fs"
 import type AxeBuilder from "@axe-core/playwright"
 import type { Page } from "@playwright/test"
+import {
+  exampleExtension,
+  FRAMEWORK_IDS,
+  type FrameworkId,
+} from "../../src/utils/framework"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
 
@@ -29,9 +34,9 @@ const PIXEL = Buffer.from(
   "base64",
 )
 
-export const FRAMEWORKS = ["astro", "html", "react", "svelte", "vue"] as const
+export const FRAMEWORKS = FRAMEWORK_IDS
 
-export type Framework = (typeof FRAMEWORKS)[number]
+export type Framework = FrameworkId
 
 export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -58,10 +63,7 @@ export const hasExample = (
   name: string,
 ) =>
   existsSync(
-    new URL(
-      `${component}/${name}.${framework === "react" ? "react.tsx" : framework}`,
-      examplesDir,
-    ),
+    new URL(`${component}/${name}.${exampleExtension(framework)}`, examplesDir),
   )
 
 export const openFixture = async (

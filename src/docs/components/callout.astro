@@ -17,16 +17,9 @@ import calloutTitleApi from "../../component-api/callout-title/api"
 
 import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+import { componentHasFramework } from "../../utils/framework"
 
-const hasToast = componentHasFramework(
-  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
-  "toast",
-)
+const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 const ThemeCSS = `/* ... */
 .ui-critical {

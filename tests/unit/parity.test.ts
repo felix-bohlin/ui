@@ -11,6 +11,11 @@ import { render } from "svelte/server"
 import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
 import { beforeAll, describe, expect, test } from "vitest"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_IDS as FRAMEWORKS,
+  type FrameworkId as Framework,
+} from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
 
@@ -49,10 +54,6 @@ const EXAMPLE_CLASSES = new Set([
     ),
   ),
 ])
-
-const FRAMEWORKS = ["html", "astro", "react", "svelte", "vue"] as const
-
-type Framework = (typeof FRAMEWORKS)[number]
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
@@ -116,6 +117,7 @@ const renderers: {
       locals: {
         $id: createIdGenerator(),
         componentSlug: key.split("/")[0],
+        framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
     }),

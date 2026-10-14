@@ -7,10 +7,10 @@ This document is the definitive guide for creating and refactoring component doc
 The docs site uses **URL-based framework routing**, not client-side toggling:
 
 - Every framework lives under its own URL prefix (e.g. `/html/components/button`, `/astro/components/button`).
-- Configured in [astro.config.mjs](../../../astro.config.mjs) under `i18n` (`defaultLocale: "html"`, `prefixDefaultLocale: true`).
+- The pages live under `src/pages/[framework]/` and get one route per framework from `frameworkPaths()` in [src/utils/framework.js](../../utils/framework.js). The default framework (`html`) has a prefix too.
 - Legacy unprefixed paths (e.g. `/components/button`) are 301-equivalent meta-refresh pages that point at the default framework variant, declared via the `redirects` map in [astro.config.mjs](../../../astro.config.mjs). The map is built by enumerating component and guide slugs from `src/docs/`, so adding a new component or guide page automatically gets a redirect.
-- The active framework is exposed server-side as `Astro.currentLocale`.
-- Each per-component documentation file is rendered **once per framework**. `<Conditional>`, `<Example>`, and `<ComponentAPI>` read `Astro.currentLocale` and emit only the matching slot.
+- The active framework is exposed server-side as `Astro.locals.framework`, set by [src/middleware.ts](../../middleware.ts) from the URL prefix.
+- Each per-component documentation file is rendered **once per framework**. `<Conditional>`, `<Example>`, and `<ComponentAPI>` read `Astro.locals.framework` and emit only the matching slot.
 
 Practical implication: **author each page once with all framework slots populated.** The router and these components decide what gets rendered for any given URL.
 
@@ -243,7 +243,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 
 - **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
-- **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
+- **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
 For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
 
@@ -269,7 +269,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 
 ## 7. Key Learnings & Debugging
 
-- **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
+- **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.locals.framework` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
 - **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.

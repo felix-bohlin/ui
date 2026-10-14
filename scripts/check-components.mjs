@@ -1,6 +1,7 @@
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
+import { PACKAGE_FRAMEWORK_IDS } from "../src/utils/framework.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -29,12 +30,9 @@ const TYPE_FILES = [
   "types.ts",
 ]
 
-const BARRELS = {
-  astro: ".astro",
-  react: ".react",
-  svelte: ".svelte",
-  vue: ".vue",
-}
+const BARRELS = Object.fromEntries(
+  PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
+)
 
 const barrels = Object.fromEntries(
   await Promise.all(

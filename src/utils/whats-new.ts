@@ -1,4 +1,4 @@
-import type { FrameworkId } from "./framework-routing"
+import type { FrameworkId } from "./framework"
 
 type Note = string | Partial<Record<FrameworkId | "default", string>>
 
@@ -325,9 +325,9 @@ const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#validation">Validation</a>).`,
+        `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#field-group-validation">Validation</a>).`,
       ),
-      html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#validation">Validation</a>).`,
+      html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#field-group-validation">Validation</a>).`,
     },
     {
       default: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,

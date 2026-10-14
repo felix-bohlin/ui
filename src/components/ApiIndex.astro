@@ -8,10 +8,9 @@ import { components } from "../utils/components"
 import { componentName } from "../utils/names"
 import {
   componentHasFramework,
-  DEFAULT_FRAMEWORK,
   FRAMEWORKS,
   type FrameworkId,
-} from "../utils/framework-routing"
+} from "../utils/framework"
 
 const apiModules = import.meta.glob<AstroInstance>(
   "../component-api/**/*.astro",
@@ -69,8 +68,7 @@ for (const path in apiData) {
 }
 
 const { link } = Astro.locals
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 const pages = new Set(components.map((component) => component.slug))
 
 const apiList = Object.values(groups)

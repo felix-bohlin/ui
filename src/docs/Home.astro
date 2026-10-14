@@ -8,18 +8,12 @@ import ReactLogo from "../components/ReactLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
-import {
-  DEFAULT_FRAMEWORK,
-  FRAMEWORKS,
-  hrefFor,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import opuiPackage from "../../packages/opui/package.json"
 
 const version = opuiPackage.version
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
 const migratingHref = hrefFor(currentFramework, "/guide/migrating")

@@ -5,7 +5,11 @@ import { pathToFileURL } from "node:url"
 import config from "../astro.config.mjs"
 import { parseHtml } from "../src/integrations/html-to-markdown.mjs"
 import { hrefRewriter, pageFrom } from "../src/integrations/llms.mjs"
-import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
+import {
+  componentHasFramework,
+  FRAMEWORK_IDS,
+  FRAMEWORKS,
+} from "../src/utils/framework.js"
 
 const DIST = path.resolve(process.cwd(), "dist")
 const REFERENCES = path.resolve(
@@ -95,7 +99,7 @@ async function buildSkill() {
   const index = [
     "# Components",
     "",
-    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>`, `react/<file>`, `svelte/<file>` and `vue/<file>`.",
+    `Each component has one reference per listed framework: ${new Intl.ListFormat("en-GB").format(FRAMEWORK_IDS.map((id) => `\`${id}/<file>\``))}.`,
     "",
     "| Component | File | Frameworks | Description |",
     "| --- | --- | --- | --- |",

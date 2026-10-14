@@ -205,14 +205,77 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   </section>
 
   <section>
-    <h2 id="field-description">Field description</h2>
-    <p>Can be placed above and below the fields.</p>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-radio"&gt;</code
+        >
+        {" "}to push the label to the left and the radio to the right. Handy for
+        settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> prop to push the label to the left and the radio
+        to the right. Handy for settings cards next to spread checkboxes and switches.
+      </Fragment>
+    </Conditional>
 
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section>
+    <h2 id="label-alignment">Label alignment</h2>
+    <LabelAlignment control="radio" />
+  </section>
+
+  <section>
+    <h2 id="field-group-direction">Direction</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="html">
+        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
+          >.ui-field-group</code
+        > to put them in a row.
+      </Fragment>
+      <Fragment slot="react">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="svelte">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="vue">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupDirection" row />
+  </section>
+
+  <section>
+    <h2 id="field-group-field-description">Field description</h2>
+    <p>Can be placed above and below the fields.</p>
     <AutoExample name="FieldGroupFieldDescription" column centered spacious />
   </section>
 
   <section>
-    <h2 id="disabled">Disabled</h2>
+    <h2 id="field-group-disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
@@ -248,7 +311,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   </section>
 
   <section>
-    <h2 id="required">Required</h2>
+    <h2 id="field-group-required">Required</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Set <code>required</code> on at least one <code>Radio</code> in the group.
@@ -273,12 +336,11 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         > elements.
       </Fragment>
     </Conditional>
-
     <AutoExample name="FieldGroupRequired" row />
   </section>
 
   <section>
-    <h2 id="validation">Validation</h2>
+    <h2 id="field-group-validation">Validation</h2>
     <Conditional>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
@@ -301,73 +363,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
-
     <AutoExample name="FieldGroupValidation" row />
-  </section>
-
-  <section>
-    <h2 id="direction">Direction</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="html">
-        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
-          >.ui-field-group</code
-        > to put them in a row.
-      </Fragment>
-      <Fragment slot="react">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="svelte">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="vue">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="FieldGroupDirection" row />
-  </section>
-
-  <section>
-    <h2 id="spread">Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to the <code
-          >&lt;label class="ui-radio"&gt;</code
-        >
-        {" "}to push the label to the left and the radio to the right. Handy for
-        settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Spread" column />
-  </section>
-
-  <section>
-    <h2 id="label-alignment">Label alignment</h2>
-    <LabelAlignment control="radio" />
   </section>
 
   <RadioBuild slot="under-the-hood" />

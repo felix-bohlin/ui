@@ -7,7 +7,7 @@ import {
   FRAMEWORKS,
   FRAMEWORK_IDS,
   type FrameworkId,
-} from "../utils/framework-routing"
+} from "../utils/framework"
 
 export type FrameworkApis = Partial<
   Record<FrameworkId, AstroInstance["default"]>
@@ -28,8 +28,7 @@ const { apis, title: titleProp, hideTitle = false } = Astro.props
 
 const apiList = Array.isArray(apis) ? apis : apis ? [apis] : []
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const isFrameworkKeyedApi = (value: ApiEntry): value is FrameworkApis =>
   !("api" in value) &&

@@ -193,6 +193,80 @@ export default function EndText() {
 }
 ```
 
+## Spread
+
+Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```tsx
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+
+export default function Spread() {
+  return (
+    <Form>
+      <FieldSet>
+        <FieldLegend>Delivery</FieldLegend>
+        <FieldGroup name="radio-spread">
+          <Radio
+            value="standard"
+            defaultChecked
+            spread
+            endText="Arrives in 3 to 5 days."
+          >
+            Standard
+          </Radio>
+          <Radio value="express" spread endText="Arrives tomorrow.">
+            Express
+          </Radio>
+          <Radio
+            value="pickup"
+            spread
+            disabled
+            endText="Not available in your area."
+          >
+            Pickup
+          </Radio>
+        </FieldGroup>
+      </FieldSet>
+    </Form>
+  )
+}
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
+## Direction
+
+Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
+
+```tsx
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+
+export default function FieldGroupDirection() {
+  return (
+    <Form>
+      <FieldSet>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup direction="row" name="radio-group-direction">
+          <Radio value="1" defaultChecked>
+            Radio 1
+          </Radio>
+          <Radio value="2">Radio 2</Radio>
+          <Radio value="3">Radio 3</Radio>
+        </FieldGroup>
+      </FieldSet>
+    </Form>
+  )
+}
+```
+
 ## Field description
 
 Can be placed above and below the fields.
@@ -321,80 +395,6 @@ export default function FieldGroupValidation() {
       </FieldSet>
     </Form>
   )
-}
-```
-
-## Direction
-
-Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
-
-```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
-
-export default function FieldGroupDirection() {
-  return (
-    <Form>
-      <FieldSet>
-        <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-direction">
-          <Radio value="1" defaultChecked>
-            Radio 1
-          </Radio>
-          <Radio value="2">Radio 2</Radio>
-          <Radio value="3">Radio 3</Radio>
-        </FieldGroup>
-      </FieldSet>
-    </Form>
-  )
-}
-```
-
-## Spread
-
-Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
-
-```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
-
-export default function Spread() {
-  return (
-    <Form>
-      <FieldSet>
-        <FieldLegend>Delivery</FieldLegend>
-        <FieldGroup name="radio-spread">
-          <Radio
-            value="standard"
-            defaultChecked
-            spread
-            endText="Arrives in 3 to 5 days."
-          >
-            Standard
-          </Radio>
-          <Radio value="express" spread endText="Arrives tomorrow.">
-            Express
-          </Radio>
-          <Radio
-            value="pickup"
-            spread
-            disabled
-            endText="Not available in your area."
-          >
-            Pickup
-          </Radio>
-        </FieldGroup>
-      </FieldSet>
-    </Form>
-  )
-}
-```
-
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
 }
 ```
 

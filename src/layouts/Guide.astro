@@ -1,11 +1,6 @@
 ---
 import Document from "./Document.astro"
-import {
-  DEFAULT_FRAMEWORK,
-  hrefFor,
-  stripFrameworkPrefix,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { hrefFor, stripFrameworkPrefix } from "../utils/framework"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import { Divider } from "@opui/astro"
 
@@ -25,8 +20,7 @@ const {
   image,
 } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const links = [
   { href: "/guide/why-opui", label: "Why Open Props UI?" },

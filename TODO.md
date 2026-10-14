@@ -3563,7 +3563,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: one `table/Variants` example with a dense and a spacious table (as `accordion/Variants` does), or keep `Default` and make Dense and Spacious short two-row tables. Same choice for the three pairs.
   > Fix
   - Fixed: the second example of each pair is short: `table/Dense` and `Spacious` are two-row tables, `badge/Visibility` shows one badge, `toggle/Vertical` is a three-item text group and `accordion/GroupSingle` two short accordions. No example was deleted; the snapshots changed (intended).
-- [ ] (2) Radio: the page structure differs from Checkbox and Switch for the same group examples. Those have a "Field group" `h2` with Direction, Field description, Disabled, Required and Validation `h3`s (`#field-group-disabled`), Radio puts `FieldGroup` under "Basics" and the rest as `h2`s with different ids (`#disabled`) and a different order (Direction after Validation) (`src/docs/components/radio.astro:65-90,206-332` vs `checkbox.astro:376-454`, `switch.astro:384-465`)
+- [x] (2) Radio: the page structure differs from Checkbox and Switch for the same group examples. Those have a "Field group" `h2` with Direction, Field description, Disabled, Required and Validation `h3`s (`#field-group-disabled`), Radio puts `FieldGroup` under "Basics" and the rest as `h2`s with different ids (`#disabled`) and a different order (Direction after Validation) (`src/docs/components/radio.astro:65-90,206-332` vs `checkbox.astro:376-454`, `switch.astro:384-465`)
   - Fix: same order and ids on all three: Field description, Direction, Disabled, Required, Validation, with `id="field-group-…"`. Radio can keep them as `h2`s since the group is the basic case, but the order and the per-section prose should match.
   > Explain further and provide an example
   > The reason is that radios always come in groups. You can’t use a radio by itself. Agree?
@@ -3585,6 +3585,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     <h2 id="field-group-required">Required</h2>
     <h2 id="field-group-validation">Validation</h2>
     ```
+  > Fix
+  - Fixed: Direction, Field description, Disabled, Required and Validation are `h2`s with the Checkbox and Switch ids (`#field-group-direction`, `#field-group-field-description`, `#field-group-disabled`, `#field-group-required`, `#field-group-validation`) and in their order, after Spread and Label alignment as on those pages. The group stays under Basics, so there's no Field group parent. The two Radio What's new notes link `#field-group-validation` (`radio.astro`, `whats-new.ts`).
 - [x] (2) Menu: `menu.css` styles `.ui-menu.ui-bordered`, but no example, no page prose and no API table mentions it, and `Menu` has no `bordered` prop (List does) (`packages/opui/css/components/menu.css:38`, `src/docs/components/menu.astro`, `src/component-api/menu/HTML.astro`)
   - Fix: either add a `bordered` row to the Menu API and a Bordered example, or drop the selector from `menu.css`.
   > Fix
@@ -3806,8 +3808,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (3) Carousel: vertical orientation
   - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated icons, also outside), markers and peek. Markers sit in a column at the inline end of the items, centered (anchored to the carousel, so they follow RTL). Docs section and example added.
   - Scroll and snap are checked in Chromium 141. The button positions aren't: Carousel buttons need Chromium 144+. Check them in the docs.
-- [ ] (1) Dev server: every framework-free route (`/todo/`, `/checks/`, `/tests/*`, `/learn/*`, `/blocks/*`) returns 404 under `astro dev`, because the i18n config prefixes the default locale in dev; it was so before this branch too. `pnpm test:e2e:serve` (build plus preview) is the way to view them (`astro.config.mjs`, `src/pages/todo/[...index].astro`)
+- [x] (1) Dev server: every framework-free route (`/todo/`, `/checks/`, `/tests/*`, `/learn/*`, `/blocks/*`) returns 404 under `astro dev`, because the i18n config prefixes the default locale in dev; it was so before this branch too. `pnpm test:e2e:serve` (build plus preview) is the way to view them (`astro.config.mjs`, `src/pages/todo/[...index].astro`)
   - Fix if wanted: a note in `README.md` next to the `OPUI_TEST_PAGES` instructions, or a dev-only redirect from `/<default>/todo/` to `/todo/`.
+  > Fix
+  - Fixed: the `i18n` config is gone from `astro.config.mjs`. Its prefix-always routing 404'd every unprefixed route in dev, and nothing needs it: the `[framework]` pages already get one route per framework from `frameworkPaths()`, `hrefFor()` builds `/<framework>/…/` itself, and pages read the framework from `Astro.locals.framework` (see Framework from locale). Under `OPUI_TEST_PAGES=1 pnpm dev`, `/`, `/todo/`, `/todo/done/`, `/checks/`, `/tests/`, `/learn/`, `/learn/under-the-hood/` and `/blocks/` return 200, `/components/button` still redirects and unknown paths still 404.
+  - Compared all 646 built pages with the build before the change: the same apart from asset hashes and the Radio and Todo/Checks changes here.
 
 ## Questions
 
@@ -5130,9 +5135,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Private custom properties aren't in ascending order while every other declaration is sorted; `css-declaration-sorter` leaves `--*` untouched (`packages/opui/css/components/button.css:92-100`, `card.css:2-9`, `carousel.css:27-33`, `menu.css:19-21`, `text-field.css:22-23`)
   - Fix: sort them (order never matters for custom properties), or extend `scripts/sort-css.mjs` to sort `--*` declarations too so it stays sorted.
   - Fixed: sorted in `button.css`, `card.css`, `carousel.css`, `menu.css` and `text-field.css` (`--_motion` stays first, as every file does).
-- [ ] (6) Framework list: the framework constants and helpers are re-implemented instead of imported from `src/utils/framework.js`. `tests/unit/parity.test.ts:50` and `tests/e2e/fixtures.ts:11` each declare their own `FRAMEWORKS` (in different orders), `FrameworkPicker.astro:37-44` re-implements `stripFrameworkPrefix`, `src/integrations/llms.mjs:233-237` re-implements `isFrameworkFree` while importing from the same module, `scripts/build-agent-skill.mjs:94` hard-codes the list in prose, `scripts/check-components.mjs:32-37` has `BARRELS = { astro, react, svelte, vue }`, `src/utils/component-imports.ts:3-10,18` a `"astro" | "react" | "svelte" | "vue"` union and glob, and `src/layouts/Component.astro:102-107` compares `currentFramework === "react" || === "svelte" || === "vue"`
+- [x] (6) Framework list: the framework constants and helpers are re-implemented instead of imported from `src/utils/framework.js`. `tests/unit/parity.test.ts:50` and `tests/e2e/fixtures.ts:11` each declare their own `FRAMEWORKS` (in different orders), `FrameworkPicker.astro:37-44` re-implements `stripFrameworkPrefix`, `src/integrations/llms.mjs:233-237` re-implements `isFrameworkFree` while importing from the same module, `scripts/build-agent-skill.mjs:94` hard-codes the list in prose, `scripts/check-components.mjs:32-37` has `BARRELS = { astro, react, svelte, vue }`, `src/utils/component-imports.ts:3-10,18` a `"astro" | "react" | "svelte" | "vue"` union and glob, and `src/layouts/Component.astro:102-107` compares `currentFramework === "react" || === "svelte" || === "vue"`
   - Fix: move `stripFrameworkPrefix` into `framework.js` (no `astro:i18n` dependency) and re-export it from `framework-routing.ts`; `import { FRAMEWORK_IDS } from "../../src/utils/framework.js"` in both test files (Node 26 already type-strips the `.ts` imports in `generate-search-index.mjs`); derive the rest: `FRAMEWORK_IDS.filter((id) => id !== DEFAULT_FRAMEWORK)`, and in `build-agent-skill.mjs` ``FRAMEWORKS.map((f) => `\`${f.id}/<file>\``).join(", ")``.
-- [ ] (6) Framework from locale: `(Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId` is repeated in 7 files (Header, Layout, Guide, Component, Learn, FrameworkPicker, …) although `src/middleware.ts` already derives the framework from the URL, and its own comment says `currentLocale` is unreliable. It only exposes `locals.link` (`src/middleware.ts:29-33`)
+  > Fix
+  - Fixed: `framework-routing.ts` is merged into `framework.js`. It was only separate because of `astro:i18n`, which is gone. New in `framework.js`: `PACKAGE_FRAMEWORK_IDS`, `isHydratedFramework()` and `exampleExtension()`, and `isFrameworkId()` also takes `null`.
+  - `parity.test.ts` and `tests/e2e/fixtures.ts` use `FRAMEWORK_IDS` (the e2e tests now run in that order, default first), `FrameworkPicker.astro` imports `stripFrameworkPrefix`, `llms.mjs` uses `isFrameworkFree()`, the skill index builds its framework list from `FRAMEWORK_IDS` (same text), `check-components.mjs` builds `BARRELS` from `PACKAGE_FRAMEWORK_IDS`, `component-imports.ts` uses `PackageFrameworkId` and `exampleExtension()` and builds its import pattern from the list, and `Component.astro` uses `isHydratedFramework()`. Layout, Search and FrameworkPicker had their own `FRAMEWORK_IDS.includes()` checks, they use `isFrameworkId()` now.
+  - Left: the examples glob in `component-imports.ts` (`*.{astro,react.tsx,svelte,vue}`), since `import.meta.glob` only takes literals. The barrels glob is `packages/opui/*/index.ts`.
+- [x] (6) Framework from locale: `(Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId` is repeated in 7 files (Header, Layout, Guide, Component, Learn, FrameworkPicker, …) although `src/middleware.ts` already derives the framework from the URL, and its own comment says `currentLocale` is unreliable. It only exposes `locals.link` (`src/middleware.ts:29-33`)
   - Fix:
     ```ts
     // middleware.ts
@@ -5141,7 +5150,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     // env.d.ts: framework: FrameworkId
     // layouts: const { framework, link } = Astro.locals
     ```
-- [ ] (6) Header: duplicates the theme `TOKENS` list and is kept in sync by a unit test that regex-parses the inline script (`tests/unit/header-tokens.test.ts:11-14` vs `src/utils/theme-store.ts:32-41`). `let hue, chroma` are assigned and never read, and the `applyCustomTheme` body duplicates `themeStore.applyMode()` (`src/components/Header.astro:94-103,110,123-124`, `src/utils/theme-store.ts:187-202`)
+  > Fix
+  - Fixed: the middleware sets `locals.framework` (typed in `src/env.d.ts`), and all 24 `Astro.currentLocale ?? DEFAULT_FRAMEWORK` reads in components, layouts, docs pages and routes are `Astro.locals.framework`. The parity test passes it to the Astro container, and `src/docs/components/AGENTS.md` describes it.
+- [x] (6) Header: duplicates the theme `TOKENS` list and is kept in sync by a unit test that regex-parses the inline script (`tests/unit/header-tokens.test.ts:11-14` vs `src/utils/theme-store.ts:32-41`). `let hue, chroma` are assigned and never read, and the `applyCustomTheme` body duplicates `themeStore.applyMode()` (`src/components/Header.astro:94-103,110,123-124`, `src/utils/theme-store.ts:187-202`)
   - Today:
     ```
     <script is:inline>
@@ -5161,8 +5172,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
     </script>
     ```
     and delete `header-tokens.test.ts` and `let hue, chroma`.
-- [ ] (6) Todo and Checks pages: `src/pages/todo/[...index].astro` and `src/pages/checks/[...index].astro` are a copy of each other: identical `inline()` and `plainText()` helpers, the same 60-line notes/`<pre>`/`<p class="…-note-${kind}">` markup, and duplicated localStorage, debounce and copy scripts (`src/pages/todo/[...index].astro:38-50,150-215`, `src/pages/checks/[...index].astro:19-32,66-125`)
+  > Fix
+  - Fixed: the bootstrap gets `TOKENS` from `theme-store.ts` through `define:vars`, and `header-tokens.test.ts` is gone. `let hue, chroma` was already removed.
+  - The bootstrap is now the only code that reads and applies a saved config: `themeUtils.getCustomTheme(mode)`, with the legacy `--gray-hue-offset` and `var(--radius-N)` handling moved there from `readConfig()`, and `applyCustomTheme(mode)`. `themeStore` reads through `getCustomTheme()`, and `applyMode()` and `reset()` call `applyCustomTheme()`. This also fixes first paint for legacy configs, which the bootstrap applied as stored until the configurator re-applied them. Dropped the `--palette-source` reset, since nothing sets it.
+  - Checked in Chromium: a saved light config with a legacy radius, `--gray-hue-offset` and grays off applies `--border-radius: var(--size-2)` and `no-grays` on load, and `setTheme("dark")` clears them.
+- [x] (6) Todo and Checks pages: `src/pages/todo/[...index].astro` and `src/pages/checks/[...index].astro` are a copy of each other: identical `inline()` and `plainText()` helpers, the same 60-line notes/`<pre>`/`<p class="…-note-${kind}">` markup, and duplicated localStorage, debounce and copy scripts (`src/pages/todo/[...index].astro:38-50,150-215`, `src/pages/checks/[...index].astro:19-32,66-125`)
   - Fix: move `inline`/`plainText` into `src/utils/todo.ts` next to `splitInlineCode`, extract `src/components/TodoNotes.astro` (`notes`, `classPrefix`) used by both pages, and share the storage/debounce script as `src/utils/todo-comments.ts`.
+  > Fix
+  - Fixed: the shared parts live in `src/components/Todo/`: `InlineText.astro` (inline code, links optional), `TodoNotes.astro` (the notes markup and styles), `CommentField.astro` (the comment textarea with its Saved text) and `comments.ts` (`readStored()`, `writeStored()`, `copyText()`, and `trackComments()` with the debounced saving, the pagehide flush and clearing). `plainText()` is in `src/utils/todo.ts`. Each page keeps its own checkboxes or actions, copy text and layout. The Checks copy now also gives up after 2 seconds, like the Todo one.
+  - Checked in Chromium on both pages: a comment is saved, comes back after a reload, is in the copied text, and Clear comments removes it.
 - [x] (5) Test pages: the `OPUI_TEST_PAGES` gate and the stress-test slug regex are copy-pasted seven times with inconsistent semantics. `todo/[...index].astro:27`, `todo/example/[name].astro:9`, `tests/[...index].astro:5`, `tests/[name].astro:5` and `checks/[...index].astro:13` use `!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV`; `[framework]/test/[component].astro:52` and `test/theming.astro:6` only `!process.env.OPUI_TEST_PAGES`. `path.match(/stress-tests\/([^/]+)\.html$/)![1]` appears in three pages and the `?scheme=` inline script in two (`src/pages/tests/[...index].astro:10`, `tests/[name].astro:16`, `todo/[...index].astro:58`, `todo/example/[name].astro`)
   - Fix:
     ```ts

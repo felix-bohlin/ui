@@ -1,12 +1,10 @@
 ---
-import { Button, Checkbox, Textarea } from "@opui/astro"
+import { Button, Checkbox } from "@opui/astro"
+import CommentField from "../../components/Todo/CommentField.astro"
+import InlineText from "../../components/Todo/InlineText.astro"
+import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
-import {
-  parseTodo,
-  slugify,
-  splitInlineCode,
-  splitLinks,
-} from "../../utils/todo"
+import { parseTodo, slugify } from "../../utils/todo"
 import { testPagesEnabled } from "../../utils/test-pages"
 import source from "../../../CHECKS.md?raw"
 
@@ -16,18 +14,6 @@ export function getStaticPaths() {
 }
 
 const { intro, sections } = parseTodo(source)
-
-const inline = (text: string) =>
-  splitInlineCode(text).flatMap((part) =>
-    part.code
-      ? [{ code: true, href: undefined, value: part.value }]
-      : splitLinks(part.value).map((link) => ({ code: false, ...link })),
-  )
-
-const plainText = (text: string) =>
-  splitInlineCode(text)
-    .map((part) => part.value)
-    .join("")
 
 const count = sections.reduce(
   (total, section) => total + section.items.length,
@@ -49,9 +35,7 @@ const count = sections.reduce(
   {
     intro.map((paragraph) => (
       <p>
-        {splitInlineCode(paragraph).map((part) =>
-          part.code ? <code>{part.value}</code> : part.value,
-        )}
+        <InlineText text={paragraph} />
       </p>
     ))
   }
@@ -76,46 +60,10 @@ const count = sections.reduce(
               data-check-line={item.line}
             >
               <Checkbox class="checks-done">
-                {splitInlineCode(item.text).map((part) =>
-                  part.code ? <code>{part.value}</code> : part.value,
-                )}
+                <InlineText text={item.text} />
               </Checkbox>
-              {item.notes.length > 0 && (
-                <div class="checks-notes">
-                  {item.notes.map((note) =>
-                    note.kind === "code" ? (
-                      <pre
-                        class="checks-note ui-code-block"
-                        set:text={note.code}
-                        style={`--level: ${note.level}`}
-                      />
-                    ) : (
-                      <p
-                        class:list={["checks-note", `checks-note-${note.kind}`]}
-                        style={`--level: ${note.level}`}
-                      >
-                        {inline(note.text).map((part) =>
-                          part.code ? (
-                            <code>{part.value}</code>
-                          ) : part.href ? (
-                            <a class="ui-link" href={part.href}>
-                              {part.value}
-                            </a>
-                          ) : (
-                            part.value
-                          ),
-                        )}
-                      </p>
-                    ),
-                  )}
-                </div>
-              )}
-              <Textarea autoFit placeholder="Comment" rows={1} size="small">
-                <span class="ui-sr-only" slot="label">
-                  {`Comment on: ${plainText(item.text)}`}
-                </span>
-                <span class="checks-saved" slot="end-text" />
-              </Textarea>
+              <TodoNotes class="checks-notes" notes={item.notes} />
+              <CommentField text={item.text} />
             </li>
           ))}
         </ol>
@@ -142,32 +90,20 @@ const count = sections.reduce(
 </Document>
 
 <script>
+  import {
+    copyText,
+    readStored as read,
+    trackComments,
+    writeStored as write,
+  } from "../../components/Todo/comments"
+
   const commentsKey = "opui-checks-comments"
   const doneKey = "opui-checks-done"
   const hideKey = "opui-checks-hide-done"
 
-  const read = <T,>(key: string, fallback: T): T => {
-    try {
-      const value = localStorage.getItem(key)
-      return value === null ? fallback : JSON.parse(value)
-    } catch {
-      return fallback
-    }
-  }
-
-  const write = (key: string, value: unknown) => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value))
-      return true
-    } catch {
-      return false
-    }
-  }
-
   const items = [...document.querySelectorAll<HTMLElement>(".checks-item")]
   const keyOf = (item: HTMLElement) => item.dataset.checkKey!
   const lineOf = (item: HTMLElement) => item.dataset.checkLine!
-  const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
   const doneOf = (item: HTMLElement) =>
     item.querySelector<HTMLInputElement>(".checks-done input")!
   const status = document.querySelector("#checks-status")!
@@ -201,46 +137,21 @@ const count = sections.reduce(
     updateProgress()
   }
 
-  const pending = new Map<HTMLElement, number>()
-
-  const saveComment = (item: HTMLElement) => {
-    clearTimeout(pending.get(item))
-    pending.delete(item)
-    const value = fieldOf(item).value
-    const comments = read<Record<string, string>>(commentsKey, {})
-    if (value.trim()) comments[keyOf(item)] = value
-    else delete comments[keyOf(item)]
-    const savedText = item.querySelector(".checks-saved")!
-    if (write(commentsKey, comments)) {
-      savedText.textContent = value.trim() ? "Saved" : ""
-    } else {
-      savedText.textContent = "Not saved"
+  const comments = trackComments({
+    items,
+    keyOf,
+    onError: () => {
       status.textContent = notSaved
-    }
-  }
-
-  const saveAll = () => [...pending.keys()].forEach(saveComment)
+    },
+    storageKey: commentsKey,
+  })
 
   const savedDone = new Set(read<string[]>(doneKey, []))
-  const savedComments = read<Record<string, string>>(commentsKey, {})
 
   for (const item of items) {
     const done = doneOf(item)
     done.checked = savedDone.has(keyOf(item))
     done.addEventListener("change", saveDone)
-
-    const field = fieldOf(item)
-    field.value = savedComments[keyOf(item)] ?? ""
-    field.addEventListener("input", () => {
-      clearTimeout(pending.get(item))
-      pending.set(
-        item,
-        window.setTimeout(() => saveComment(item), 500),
-      )
-    })
-    field.addEventListener("blur", () => {
-      if (pending.has(item)) saveComment(item)
-    })
   }
 
   const applyHide = () =>
@@ -254,11 +165,6 @@ const count = sections.reduce(
   applyHide()
   updateProgress()
 
-  addEventListener("pagehide", saveAll)
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") saveAll()
-  })
-
   const buildText = () => {
     const blocks: string[] = []
     let commented = 0
@@ -269,7 +175,7 @@ const count = sections.reduce(
       const lines = [
         ...section.querySelectorAll<HTMLElement>(".checks-item"),
       ].flatMap((item) => {
-        const comment = fieldOf(item).value.trim()
+        const comment = comments.commentOf(item)
         if (!comment && onlyCommented.checked) return []
         if (comment) commented++
         const line = lineOf(item).replace(
@@ -293,25 +199,16 @@ const count = sections.reduce(
     }
   }
 
-  const copy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      return true
-    } catch {
-      return false
-    }
-  }
-
   document
     .querySelector("#checks-copy")!
     .addEventListener("click", async () => {
-      saveAll()
+      comments.saveAll()
       const { commented, text } = buildText()
       if (onlyCommented.checked && !commented) {
         status.textContent = "No comments yet."
         return
       }
-      status.textContent = (await copy(text))
+      status.textContent = (await copyText(text))
         ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
         : "Copying failed."
     })
@@ -320,13 +217,7 @@ const count = sections.reduce(
     .querySelector("#checks-clear-comments")!
     .addEventListener("click", () => {
       if (!confirm("Clear all comments?")) return
-      for (const item of items) {
-        clearTimeout(pending.get(item))
-        fieldOf(item).value = ""
-        item.querySelector(".checks-saved")!.textContent = ""
-      }
-      pending.clear()
-      write(commentsKey, {})
+      comments.clear()
       status.textContent = "Comments cleared."
     })
 
@@ -378,7 +269,7 @@ const count = sections.reduce(
       text-decoration: line-through;
     }
 
-    code {
+    :global(code) {
       font-size: 0.875em;
       overflow-wrap: anywhere;
     }
@@ -388,39 +279,8 @@ const count = sections.reduce(
     display: none;
   }
 
-  .checks-notes {
-    display: grid;
-    font-size: var(--font-size-05);
-    gap: var(--size-2);
+  .checks-item :global(.checks-notes) {
     padding-inline-start: calc(var(--choice-size) + var(--size-2));
-
-    pre code {
-      overflow-wrap: normal;
-    }
-  }
-
-  .checks-note {
-    margin: 0;
-    margin-inline-start: calc(var(--level) * var(--size-4));
-    min-inline-size: 0;
-  }
-
-  .checks-note-item {
-    padding-inline-start: var(--size-3);
-    position: relative;
-
-    &::before {
-      content: "•";
-      inset-inline-start: 0;
-      position: absolute;
-    }
-  }
-
-  .checks-note-comment {
-    border-inline-start: var(--border-size-3) solid var(--border-color);
-    color: var(--text-muted);
-    font-style: italic;
-    padding-inline-start: var(--size-3);
   }
 
   .checks-actions {
@@ -433,10 +293,6 @@ const count = sections.reduce(
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
-  }
-
-  .checks-saved:empty {
-    display: none;
   }
 
   .checks-status {

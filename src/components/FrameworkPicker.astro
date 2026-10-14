@@ -1,10 +1,6 @@
 ---
 import { Select } from "@opui/astro"
-import {
-  DEFAULT_FRAMEWORK,
-  FRAMEWORKS,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { FRAMEWORKS } from "../utils/framework"
 
 type Props = {
   size?: "small"
@@ -12,8 +8,7 @@ type Props = {
 
 const { size } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 ---
 
 <Select aria-label="Framework" class="framework-picker" size={size}>
@@ -28,22 +23,13 @@ const currentFramework = (Astro.currentLocale ??
 
 <script>
   import {
-    FRAMEWORK_IDS,
     FRAMEWORK_STORAGE_KEY,
-    frameworkPrefixPattern,
     isFrameworkFree,
+    isFrameworkId,
     pathHasFramework,
+    stripFrameworkPrefix,
     type FrameworkId,
   } from "../utils/framework"
-
-  function stripFrameworkPrefix(pathname: string): string {
-    const match = pathname.match(frameworkPrefixPattern())
-    if (!match) return pathname || "/"
-    const stripped = pathname.slice(
-      match[0].length - (match[2] === "/" ? 1 : 0),
-    )
-    return stripped || "/"
-  }
 
   function urlForFramework(framework: FrameworkId): string {
     const { hash, pathname, search } = window.location
@@ -64,8 +50,8 @@ const currentFramework = (Astro.currentLocale ??
       if (select.dataset.bound === "true") return
       select.dataset.bound = "true"
       select.addEventListener("change", () => {
-        const framework = select.value as FrameworkId
-        if (!(FRAMEWORK_IDS as string[]).includes(framework)) return
+        const framework = select.value
+        if (!isFrameworkId(framework)) return
         // Persist explicit picker choice so future visits to the bare
         // homepage land on the user's preferred variant. Writes ONLY on
         // explicit change - never on plain URL navigation, so deep links

@@ -118,8 +118,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   import MiniSearch from "minisearch"
   import {
     DEFAULT_FRAMEWORK,
-    FRAMEWORK_IDS,
     frameworkPrefixPattern,
+    isFrameworkId,
     type FrameworkId,
   } from "../utils/framework"
   import {
@@ -144,29 +144,20 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
   function getActiveFrameworkId(): FrameworkId {
     const fromDataset = document.documentElement.dataset.framework
-    if (fromDataset && (FRAMEWORK_IDS as string[]).includes(fromDataset)) {
-      return fromDataset as FrameworkId
-    }
-    const match = window.location.pathname.match(frameworkPrefixPattern())
-    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
-      return match[1] as FrameworkId
-    }
+    if (isFrameworkId(fromDataset)) return fromDataset
+    const fromPath = window.location.pathname.match(
+      frameworkPrefixPattern(),
+    )?.[1]
+    if (isFrameworkId(fromPath)) return fromPath
     return DEFAULT_FRAMEWORK
   }
 
   function getItemFrameworkId(
     item: Pick<SearchItem, "frameworkId" | "url">,
   ): FrameworkId | undefined {
-    if (
-      item.frameworkId &&
-      (FRAMEWORK_IDS as string[]).includes(item.frameworkId)
-    ) {
-      return item.frameworkId as FrameworkId
-    }
-    const match = item.url?.match(frameworkPrefixPattern())
-    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
-      return match[1] as FrameworkId
-    }
+    if (isFrameworkId(item.frameworkId)) return item.frameworkId
+    const fromUrl = item.url?.match(frameworkPrefixPattern())?.[1]
+    if (isFrameworkId(fromUrl)) return fromUrl
     return undefined
   }
 

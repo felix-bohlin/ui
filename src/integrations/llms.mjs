@@ -7,6 +7,7 @@ import {
   DEFAULT_FRAMEWORK,
   FRAMEWORK_FREE_PREFIXES,
   FRAMEWORKS,
+  isFrameworkFree,
 } from "../utils/framework.js"
 import { markdownPath } from "../utils/markdown.js"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
@@ -230,12 +231,9 @@ export default function llms() {
             )
             return
           }
-          const isFrameworkFree = FRAMEWORK_FREE_PREFIXES.some((p) =>
-            pathname.startsWith(`${p}/`),
-          )
           const framework =
             FRAMEWORKS.find((f) => pathname.startsWith(`/${f.id}/`)) ??
-            (isFrameworkFree
+            (isFrameworkFree(pathname)
               ? FRAMEWORKS.find((f) => f.id === DEFAULT_FRAMEWORK)
               : undefined)
           if (!framework || !pathname.endsWith(".md")) return next()

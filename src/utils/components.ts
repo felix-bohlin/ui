@@ -1,8 +1,4 @@
-import {
-  componentHasFramework,
-  hrefFor,
-  type FrameworkId,
-} from "./framework-routing"
+import { componentHasFramework, hrefFor, type FrameworkId } from "./framework"
 import { componentName } from "./names"
 
 const docModules = import.meta.glob("../docs/components/*.astro")

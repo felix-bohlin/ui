@@ -1,6 +1,12 @@
 {
+  "dark/html/stress/feedback": [
+    "color-contrast"
+  ],
   "dark/html/stress/typography/HostileContent": [
     "scrollable-region-focusable"
+  ],
+  "light/html/stress/feedback": [
+    "color-contrast"
   ],
   "light/html/stress/typography/HostileContent": [
     "scrollable-region-focusable"

@@ -4,16 +4,19 @@ import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
 import BadgeVisibility from "../../component-examples/badge/Visibility.astro"
+import BadgeVisibilityReact from "../../component-examples/badge/Visibility.react.tsx"
 import BadgeVisibilitySvelte from "../../component-examples/badge/Visibility.svelte"
 import BadgeVisibilityVue from "../../component-examples/badge/Visibility.vue"
 import BadgeVisibilityHTML from "../../component-examples/badge/Visibility.html?raw"
 import BadgeVisibilityAstro from "../../component-examples/badge/VisibilityCode.astro?raw"
+import BadgeVisibilityReactRaw from "../../component-examples/badge/VisibilityCode.react.tsx?raw"
 import BadgeVisibilitySvelteRaw from "../../component-examples/badge/VisibilityCode.svelte?raw"
 import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode.vue?raw"
 
 import Anatomy from "../../components/Anatomy.astro"
 import { Badge as UIBadge, Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
@@ -64,6 +67,9 @@ export const description =
       <Fragment slot="html">
         Default, and <code>.ui-dot</code>.
       </Fragment>
+      <Fragment slot="react">
+        Default, and <code>dot</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Default, and <code>dot</code>.
       </Fragment>
@@ -76,32 +82,21 @@ export const description =
   </section>
 
   <section>
-    <h2 id="severities">Severities</h2>
-    <Conditional>
-      <p slot="html">
-        <code>.ui-critical</code>, <code>.ui-info</code>, <code
-          >.ui-neutral</code
-        >,{" "}
-        <code>.ui-success</code>, <code>.ui-warning</code>.
-      </p>
-      <p slot="astro">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="svelte">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="vue">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-    </Conditional>
+    <h2 id="colors">Colors</h2>
+    <p>
+      Color the indicator with <PropOrClass
+        prop='color="critical"'
+        class=".ui-critical"
+      />, <PropOrClass prop='color="info"' class=".ui-info" />, <PropOrClass
+        prop='color="neutral"'
+        class=".ui-neutral"
+      />, <PropOrClass prop='color="success"' class=".ui-success" /> or <PropOrClass
+        prop='color="warning"'
+        class=".ui-warning"
+      />.
+    </p>
 
-    <AutoExample name="Color" row />
+    <AutoExample name="Colors" row />
   </section>
 
   <section>
@@ -117,6 +112,11 @@ export const description =
         element is the badge's direct child before <code
           >.ui-anchor-floating</code
         >.
+      </Fragment>
+      <Fragment slot="react">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > prop. <code>children</code> is the anchored element.
       </Fragment>
       <Fragment slot="svelte">
         Set indicator text with the <code>label</code> prop or the <code
@@ -144,6 +144,10 @@ export const description =
         Change the badge's visibility using the <code>.ui-invisible</code>{" "}
         class.
       </Fragment>
+      <Fragment slot="react">
+        Change the badge's visibility using the <code>invisible</code>{" "}
+        prop.
+      </Fragment>
       <Fragment slot="svelte">
         Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
@@ -162,6 +166,9 @@ export const description =
         <UISwitch slot="astro" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
+        <UISwitch slot="react" id="badge-visibility-toggle"
+          ><code>invisible</code></UISwitch
+        >
         <UISwitch slot="svelte" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
@@ -171,10 +178,12 @@ export const description =
       </Conditional>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
       <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
+      <Example.Preview slot="preview-react" code={BadgeVisibilityReact} />
       <Example.Preview slot="preview-svelte" code={BadgeVisibilitySvelte} />
       <Example.Preview slot="preview-vue" code={BadgeVisibilityVue} />
       <Example.Code slot="code-html" code={BadgeVisibilityHTML} />
       <Example.Code slot="code-astro" code={BadgeVisibilityAstro} />
+      <Example.Code slot="code-react" code={BadgeVisibilityReactRaw} />
       <Example.Code slot="code-svelte" code={BadgeVisibilitySvelteRaw} />
       <Example.Code slot="code-vue" code={BadgeVisibilityVueRaw} />
     </Example>
@@ -190,6 +199,10 @@ export const description =
         <code>.ui-end-start</code>, <code>.ui-end-end</code>.
       </p>
       <p slot="astro">
+        <code>start-start</code>, default (<code>start-end</code>),{" "}
+        <code>end-start</code>, <code>end-end</code>.
+      </p>
+      <p slot="react">
         <code>start-start</code>, default (<code>start-end</code>),{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
@@ -220,14 +233,10 @@ export const description =
               >.ui-badge-indicator</code
             >.</Fragment
           >
+          <Fragment slot="react">the <code>srLabel</code> prop.</Fragment>
           <Fragment slot="svelte">the <code>srLabel</code> prop.</Fragment>
           <Fragment slot="vue">the <code>srLabel</code> prop.</Fragment>
         </Conditional>
-      </li>
-      <li>
-        Don't use <code>aria-label</code> on the indicator. It's a{" "}
-        <code>&lt;span&gt;</code> without a role, so screen readers ignore the label
-        and read the text.
       </li>
     </ul>
   </Fragment>

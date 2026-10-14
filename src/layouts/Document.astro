@@ -2,7 +2,7 @@
 import Default from "./Default.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
-import { Button, Drawer, DrawerFooter } from "@opui/astro"
+import { Button, Drawer, DrawerContent, DrawerFooter } from "@opui/astro"
 
 type Props = {
   title?: string
@@ -69,13 +69,16 @@ const descText =
     {
       hasSidebarDrawer && (
         <Drawer
+          aria-label="Sidebar"
           id="sidebar-drawer"
           backdrop="transparent"
           side="inline-start"
           closedby="any"
         >
-          <Fragment slot="content" set:html={sidebar} />
-          <DrawerFooter slot="footer">
+          <DrawerContent>
+            <Fragment set:html={sidebar} />
+          </DrawerContent>
+          <DrawerFooter>
             <Button size="small" commandfor="sidebar-drawer" command="close">
               Close
             </Button>

@@ -1,35 +1,26 @@
-import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
+import type { HTMLAttributes, Slot } from "vue"
 import type {
+  DrawerContentProps as BaseDrawerContentProps,
   DrawerFooterProps as BaseDrawerFooterProps,
   DrawerHeaderProps as BaseDrawerHeaderProps,
+  DrawerTitleProps as BaseDrawerTitleProps,
   Props as BaseProps,
-  Slots as BaseSlots,
 } from "./types"
 
-export type Props = BaseProps & {
+type Class = {
   class?: HTMLAttributes["class"]
 }
 
-export type DrawerHeaderProps = BaseDrawerHeaderProps & {
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps & Class
 
-export type DrawerFooterProps = BaseDrawerFooterProps & {
-  class?: HTMLAttributes["class"]
-}
+export type DrawerContentProps = BaseDrawerContentProps & Class
 
-export type DrawerSlots = BaseSlots<Slot> & {
+export type DrawerFooterProps = BaseDrawerFooterProps & Class
+
+export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
+
+export type DrawerTitleProps = BaseDrawerTitleProps & Class
+
+export type Slots = {
   default?: Slot
 }
-
-export type DrawerHeaderSlots = {
-  default?: Slot
-}
-
-export type DrawerFooterSlots = {
-  default?: Slot
-}
-
-export const DrawerHeadingIdKey = Symbol() as InjectionKey<
-  Readonly<Ref<string>>
->

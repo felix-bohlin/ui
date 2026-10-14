@@ -1,31 +1,32 @@
 <script setup lang="ts">
-import { Button, Card } from "opui-css/vue"
+import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="outlined">
-    <template #content>
+    <CardContent>
       Notice how the buttons are made to align with the text above.
-    </template>
-    <template #actions>
+    </CardContent>
+    <CardActions>
       <Button>Cancel</Button>
       <Button>Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Trying other button types too. Look at that!</template>
-    <template #actions>
+    <CardContent>Trying other button types too. Look at that!</CardContent>
+    <CardActions>
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Icon buttons work too!</template>
-    <template #actions>
+    <CardContent>Icon buttons work too!</CardContent>
+    <CardActions>
       <Button rounded size="small" aria-label="Favorite">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -39,6 +40,7 @@ import { Button, Card } from "opui-css/vue"
       </Button>
       <Button rounded size="small" aria-label="Share">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -50,6 +52,6 @@ import { Button, Card } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-    </template>
+    </CardActions>
   </Card>
 </template>

@@ -64,27 +64,36 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
         and <code>command="toggle-popover"</code> on the trigger element itself (these
         attributes are only valid on real invokers like{" "}
-        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
-        <code>label</code> prop for plain text or use the <code>content</code> slot
-        for richer markup.
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
+        in
+        <code>TooltipContent</code> after the trigger.
+      </Fragment>
+      <Fragment slot="react">
+        Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
+        <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
+        and <code>command="toggle-popover"</code> on the trigger element itself (these
+        attributes are only valid on real invokers like{" "}
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
+        in
+        <code>TooltipContent</code> after the trigger.
       </Fragment>
       <Fragment slot="svelte">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
         <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
         and <code>command="toggle-popover"</code> on the trigger element itself (these
         attributes are only valid on real invokers like{" "}
-        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
-        <code>label</code> prop for plain text or use the <code>content</code> snippet
-        for richer markup.
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
+        in
+        <code>TooltipContent</code> after the trigger.
       </Fragment>
       <Fragment slot="vue">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
         <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
         and <code>command="toggle-popover"</code> on the trigger element itself (these
         attributes are only valid on real invokers like{" "}
-        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
-        <code>label</code> prop for plain text or use the <code>content</code> slot
-        for richer markup.
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Put the tooltip
+        in
+        <code>TooltipContent</code> after the trigger.
       </Fragment>
     </Conditional>
   </Fragment>
@@ -99,13 +108,16 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         >.
       </Fragment>
       <Fragment slot="astro">
-        Pass plain text via the <code>label</code> prop.
+        Put plain text in <code>TooltipContent</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Put plain text in <code>TooltipContent</code>.
       </Fragment>
       <Fragment slot="svelte">
-        Pass plain text via the <code>label</code> prop.
+        Put plain text in <code>TooltipContent</code>.
       </Fragment>
       <Fragment slot="vue">
-        Pass plain text via the <code>label</code> prop.
+        Put plain text in <code>TooltipContent</code>.
       </Fragment>
     </Conditional>
 
@@ -119,16 +131,16 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         >, not only text.
       </Fragment>
       <Fragment slot="astro">
-        Use the <code>content</code> slot instead, and it lets you put anything in
-        the tooltip.
+        <code>TooltipContent</code> takes any markup, not only text.
+      </Fragment>
+      <Fragment slot="react">
+        <code>TooltipContent</code> takes any markup, not only text.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>content</code> snippet instead, and it lets you put anything
-        in the tooltip.
+        <code>TooltipContent</code> takes any markup, not only text.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>content</code> slot instead, and it lets you put anything in
-        the tooltip.
+        <code>TooltipContent</code> takes any markup, not only text.
       </Fragment>
     </Conditional>
 
@@ -143,6 +155,9 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         {" "}<code>position-area</code> value.
       </Fragment>
       <Fragment slot="astro">
+        Use the <code>alignment</code> prop.
+      </Fragment>
+      <Fragment slot="react">
         Use the <code>alignment</code> prop.
       </Fragment>
       <Fragment slot="svelte">
@@ -164,6 +179,12 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         >. This would be cool to solve with <code>corner-shape</code> one day.
       </Fragment>
       <Fragment slot="astro">
+        Set the <code>arrow</code> prop. This would be cool to solve with <code
+          >corner-shape</code
+        >
+        {" "}one day.
+      </Fragment>
+      <Fragment slot="react">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >

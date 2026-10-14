@@ -7,10 +7,19 @@
     padding: var(--size-4);
   }
 
+  .stress-contrast-dialog {
+    margin: 0;
+    position: static;
+  }
+
   .stress-contrast-grid {
     display: grid;
     gap: var(--size-6);
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+
+  .stress-contrast-tooltip {
+    padding-block-start: var(--size-8);
   }
 </style>
 
@@ -1862,6 +1871,374 @@
           Filled
         </button>
       </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="OverlaysShown" id="contrast-overlays">
+  <h2>Overlays shown</h2>
+  <p>
+    Overlay surfaces rendered without script under
+    <code>.ui-contrast-more</code>: a non-modal dialog shown in place, a menu
+    and a tooltip rendered without a popover, toasts outside the toast manager,
+    an avatar group and a carousel. The triggers open the real menu and tooltip
+    popovers, which the contrast test checks too.
+  </p>
+  <div class="ui-contrast-more stress-contrast-grid">
+    <div class="stress-stack">
+      <p class="ui-caption">Dialog, open and non-modal</p>
+      <dialog
+        open
+        class="ui-dialog ui-card ui-elevated stress-contrast-dialog"
+        aria-labelledby="contrast-overlays-dialog-title"
+      >
+        <hgroup>
+          <p>Newsletter</p>
+          <h3 id="contrast-overlays-dialog-title" class="ui-h4">
+            Stay in the loop
+          </h3>
+          <p>Once a month at most.</p>
+        </hgroup>
+        <div class="ui-content">
+          <p>
+            Get a short email when we ship something new.
+            <a class="ui-link" href="#contrast-overlays">Read past issues</a>.
+          </p>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Not now</button
+          ><button class="ui-button ui-filled" type="button">Subscribe</button>
+        </div>
+      </dialog>
+    </div>
+    <div class="stress-stack">
+      <p class="ui-caption">Menu without a popover</p>
+      <menu class="ui-menu ui-list" aria-label="Document actions">
+        <li class="ui-label">Document</li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Rename</p></div>
+            <div class="ui-end"><kbd>F2</kbd></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text">
+              <p>Duplicate</p>
+              <p>Keeps comments and history</p>
+            </div>
+            <div class="ui-end"><kbd>Ctrl D</kbd></div>
+          </button>
+        </li>
+        <li>
+          <a href="#contrast-overlays"
+            ><div class="ui-text"><p>Open in new tab</p></div></a
+          >
+        </li>
+        <li class="ui-border-top ui-critical">
+          <button type="button">
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+      <div class="stress-actions-end">
+        <button
+          class="ui-button ui-rounded ui-small"
+          type="button"
+          aria-label="Document actions"
+          commandfor="contrast-overlays-menu"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+            ></path>
+          </svg>
+        </button>
+        <menu class="ui-menu ui-list" id="contrast-overlays-menu" popover>
+          <li class="ui-label">Document</li>
+          <li>
+            <button
+              type="button"
+              commandfor="contrast-overlays-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Rename</p></div>
+              <div class="ui-end"><kbd>F2</kbd></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="contrast-overlays-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text">
+                <p>Duplicate</p>
+                <p>Keeps comments and history</p>
+              </div>
+              <div class="ui-end"><kbd>Ctrl D</kbd></div>
+            </button>
+          </li>
+          <li>
+            <a href="#contrast-overlays"
+              ><div class="ui-text"><p>Open in new tab</p></div></a
+            >
+          </li>
+          <li class="ui-border-top ui-critical">
+            <button
+              type="button"
+              commandfor="contrast-overlays-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Delete</p></div>
+            </button>
+          </li>
+        </menu>
+        <span class="ui-anchor ui-tooltip ui-with-arrow"
+          ><button
+            class="ui-button ui-outlined"
+            type="button"
+            interestfor="contrast-overlays-tooltip"
+            commandfor="contrast-overlays-tooltip"
+            command="toggle-popover"
+          >
+            Save</button
+          ><span
+            class="ui-anchor-floating"
+            id="contrast-overlays-tooltip"
+            popover="hint"
+            >Save your changes</span
+          ></span
+        >
+      </div>
+      <p class="ui-caption">Tooltip without a popover</p>
+      <div class="stress-contrast-tooltip">
+        <span class="ui-anchor ui-tooltip"
+          ><button class="ui-button ui-outlined" type="button">Publish</button
+          ><span class="ui-anchor-floating"
+            >Publishing makes the page public</span
+          ></span
+        >
+      </div>
+    </div>
+    <div class="stress-stack">
+      <p class="ui-caption">Toasts outside the toast manager</p>
+      <div
+        class="ui-toast"
+        role="status"
+        data-severity="success"
+        data-duration="600s"
+      >
+        <span class="ui-icon"></span>
+        <div class="ui-content">
+          <div class="ui-title">Published</div>
+          <div class="ui-description">Your project is live.</div>
+        </div>
+        <button
+          class="ui-close-button"
+          type="button"
+          aria-label="Close published toast"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="ui-toast"
+        role="status"
+        data-severity="critical"
+        data-duration="600s"
+      >
+        <span class="ui-icon"></span>
+        <div class="ui-content">
+          <div class="ui-title">Sync failed</div>
+          <div class="ui-description">
+            The connection dropped while saving the last 12 changes.
+          </div>
+        </div>
+        <button
+          class="ui-close-button"
+          type="button"
+          aria-label="Close sync toast"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="ui-toast"
+        role="status"
+        data-severity="info"
+        data-duration="600s"
+      >
+        <span class="ui-icon"></span>
+        <div class="ui-content">
+          <div class="ui-title">New version</div>
+          <div class="ui-description">Reload to get the latest features.</div>
+        </div>
+        <button
+          class="ui-close-button"
+          type="button"
+          aria-label="Close version toast"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="ui-toast" role="status" data-duration="600s">
+        <span class="ui-icon"></span>
+        <div class="ui-content"><div class="ui-title">Copied link</div></div>
+        <button
+          class="ui-close-button"
+          type="button"
+          aria-label="Close copied toast"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="stress-stack">
+      <p class="ui-caption">Avatar group</p>
+      <div class="ui-avatar-group" role="group" aria-label="Team">
+        <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
+        <button type="button" class="ui-avatar" aria-label="Carl Dahl">
+          CD
+        </button>
+        <a href="#contrast-overlays" class="ui-avatar" aria-label="Eva Falk"
+          >EF</a
+        >
+        <span class="ui-anchor ui-badge ui-critical"
+          ><span class="ui-avatar" role="img" aria-label="Gustav Holm">GH</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">messages</span></span
+            ></span
+          ></span
+        >
+        <div class="ui-avatar" role="img" aria-label="Four more people">+4</div>
+      </div>
+      <div
+        class="ui-avatar-group ui-palette"
+        role="group"
+        aria-label="Reviewers"
+        style="--palette-hue: 150"
+      >
+        <div class="ui-avatar ui-small" role="img" aria-label="Ida Jansson">
+          IJ
+        </div>
+        <div class="ui-avatar ui-small" role="img" aria-label="Karl Lund">
+          KL
+        </div>
+        <div
+          class="ui-avatar ui-small"
+          role="img"
+          aria-label="Two more reviewers"
+        >
+          +2
+        </div>
+      </div>
+      <p class="ui-caption">Carousel</p>
+      <ul
+        class="ui-carousel ui-buttons-outside ui-buttons-persistent ui-with-buttons ui-with-markers"
+        aria-label="Destinations"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Destination</p>
+              <h4>Kyoto</h4>
+              <p>Temples, gardens and quiet lanes.</p>
+            </hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Destination</p>
+              <h4>Lima</h4>
+              <p>Ceviche by the Pacific.</p>
+            </hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Destination</p>
+              <h4>Lisbon</h4>
+              <p>Tiles, trams and custard tarts.</p>
+            </hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Destination</p>
+              <h4>Oslo</h4>
+              <p>Fjords, saunas and modern architecture.</p>
+            </hgroup>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </section>

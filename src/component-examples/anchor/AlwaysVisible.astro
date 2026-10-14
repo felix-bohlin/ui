@@ -1,14 +1,16 @@
 ---
-import { Anchor, Button, Card } from "@opui/astro"
+import { Anchor, AnchorContent, Button, Card, CardContent } from "@opui/astro"
 ---
 
 <Anchor alignment="inline-end">
   <Button variant="outlined">Export</Button>
-  <Card slot="anchored" variant="tonal" class="coach-mark">
-    <Fragment slot="content">
-      <strong>New</strong> Export to PDF and CSV from the same menu.
-    </Fragment>
-  </Card>
+  <AnchorContent>
+    <Card variant="tonal" class="coach-mark">
+      <CardContent>
+        <strong>New</strong> Export to PDF and CSV from the same menu.
+      </CardContent>
+    </Card>
+  </AnchorContent>
 </Anchor>
 
 <style>

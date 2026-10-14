@@ -1,17 +1,24 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Checkbox as UICheckbox } from "@opui/astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutTitle as UICalloutTitle,
+  Checkbox as UICheckbox,
+} from "@opui/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 ---
 
@@ -50,6 +57,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   ]}
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
   ]}
 >
@@ -84,6 +92,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           >&lt;label class="ui-checkbox"&gt;</code
         >.
       </Fragment>
+      <Fragment slot="react">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
@@ -114,6 +127,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           class="ui-link">accessibility</a
         >.</Fragment
       >
+      <Fragment slot="react"
+        ><code>children</code> is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
       <Fragment slot="svelte"
         >The <code>children</code> snippet is the label. Also, don't miss the info
         on label <a href="#accessibility" class="ui-link">accessibility</a
@@ -133,78 +152,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="svelte">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="svelte">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
-          toggle invalid styles. Screen readers announce it as invalid. Make use of
-          the end text to give extra feedback on the error, and point <code
-            >aria-describedby</code
-          > at it.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="svelte">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="vue">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="html">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use <code>aria-invalid="true"</code> for server-side errors.
-        </li>
-      </Conditional>
-    </ul>
+    <ValidationNotes element="input" subject="Checkboxes" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -223,20 +174,32 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
         <div class="ui-not-rich-text">
           <UICallout>
-            <Fragment slot="title">JavaScript required</Fragment>
-            <div class="ui-rich-text">
-              The <code>indeterminate</code> state cannot be set with HTML or CSS
-              alone. The browser only exposes it as a property on <code
-                >HTMLInputElement</code
-              >, so a small script is needed to flip <code
-                >el.indeterminate = true</code
-              > after the element is in the DOM. The <code>:indeterminate</code> CSS
-              pseudo-class then matches and the dash glyph appears.
-            </div>
+            <UICalloutContent>
+              <UICalloutTitle>JavaScript required</UICalloutTitle>
+              <div class="ui-rich-text">
+                The <code>indeterminate</code> state cannot be set with HTML or CSS
+                alone. The browser only exposes it as a property on <code
+                  >HTMLInputElement</code
+                >, so a small script is needed to flip <code
+                  >el.indeterminate = true</code
+                > after the element is in the DOM. The <code
+                  >:indeterminate</code
+                > CSS pseudo-class then matches and the dash glyph appears.
+              </div>
+            </UICalloutContent>
           </UICallout>
         </div>
       </Fragment>
 
+      <Fragment slot="react">
+        <p>
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
+            >HTMLInputElement</code
+          >, so the component renders <code>data-indeterminate</code> and applies
+          the property at runtime.
+        </p>
+      </Fragment>
       <Fragment slot="svelte">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
@@ -266,17 +229,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         </p>
 
         <UICallout>
-          <Fragment slot="title">JavaScript required</Fragment>
-          <div class="ui-rich-text">
-            The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
-            The browser only exposes it as a property on <code
-              >HTMLInputElement</code
-            >, so <code>activateIndeterminate()</code> sets <code
-              >el.indeterminate = true</code
-            > on every input with <code>data-indeterminate</code>. The <code
-              >:indeterminate</code
-            > CSS pseudo-class then matches and the dash glyph appears.
-          </div>
+          <UICalloutContent>
+            <UICalloutTitle>JavaScript required</UICalloutTitle>
+            <div class="ui-rich-text">
+              The <code>indeterminate</code> state cannot be set with HTML or CSS
+              alone. The browser only exposes it as a property on <code
+                >HTMLInputElement</code
+              >, so <code>activateIndeterminate()</code> sets <code
+                >el.indeterminate = true</code
+              > on every input with <code>data-indeterminate</code>. The <code
+                >:indeterminate</code
+              > CSS pseudo-class then matches and the dash glyph appears.
+            </div>
+          </UICalloutContent>
         </UICallout>
       </div>
     </Conditional>
@@ -298,6 +263,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         {" "}to push the label to the left and the checkbox to the right. This
         is useful for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>spread</code> prop to push the label to the left and the checkbox
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
       <Fragment slot="svelte">
         Use the <code>spread</code> prop to push the label to the left and the checkbox
         to the right. This is useful for full-width items like lists and menus.
@@ -313,14 +282,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
-    <p>
-      The checkbox lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
-    </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <LabelAlignment control="checkbox" />
   </section>
 
   <section>
@@ -333,6 +295,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <p slot="html">
         Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
         {" "}<code>name</code> attribute so they're submitted together.
+      </p>
+      <p slot="react">
+        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
       <p slot="svelte">
         The <code>name</code> prop will get passed down to each checkbox in the group.
@@ -362,6 +327,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         >&lt;fieldset&gt;</code
       > element.
     </p>
+    <p>
+      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
+      same, but keeps the checkbox focusable and its value in the form. It doesn't
+      stop the change, so block it with a script.
+    </p>
     <AutoExample name="FieldGroupDisabled" row />
 
     <h3 id="field-group-required">Required</h3>
@@ -378,6 +348,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
       <p slot="astro">
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="react">
         Set <code>error</code> on each <code>Checkbox</code> in the group. The end
         text of the <code>FieldSet</code> turns red with them.
       </p>

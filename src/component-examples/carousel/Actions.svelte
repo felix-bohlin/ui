@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Button, Card, Carousel } from "opui-css/svelte"
+  import {
+    Button,
+    Card,
+    CardActions,
+    CardHeader,
+    Carousel,
+  } from "opui-css/svelte"
 
   const plans = [
     {
@@ -21,13 +27,13 @@
   {#each plans as { action, description, title } (title)}
     <li>
       <Card variant="outlined">
-        {#snippet header()}
+        <CardHeader>
           <h3>{title}</h3>
           <p>{description}</p>
-        {/snippet}
-        {#snippet actions()}
+        </CardHeader>
+        <CardActions>
           <Button variant="filled">{action}</Button>
-        {/snippet}
+        </CardActions>
       </Card>
     </li>
   {/each}

@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -17,13 +23,15 @@ import { Button, Dialog } from "opui-css/vue"
     role="alertdialog"
     aria-describedby="alert-dialog-description"
   >
-    <template #header><h2 class="ui-h4">Delete project?</h2></template>
-    <template #content
-      ><p id="alert-dialog-description">
+    <DialogHeader>
+      <h2 class="ui-h4">Delete project?</h2>
+    </DialogHeader>
+    <DialogContent>
+      <p id="alert-dialog-description">
         This deletes the project and all its files. You can't undo this.
-      </p></template
-    >
-    <template #actions>
+      </p>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="alert-dialog-example" command="close" type="button">
         Cancel
       </Button>
@@ -36,6 +44,6 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Delete
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>

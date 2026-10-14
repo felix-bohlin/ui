@@ -1,0 +1,30 @@
+---
+import { splitInlineCode, splitLinks } from "../../utils/todo"
+
+type Props = {
+  links?: boolean
+  text: string
+}
+
+const { links, text } = Astro.props
+
+const parts = splitInlineCode(text).flatMap((part) =>
+  part.code || !links
+    ? [{ ...part, href: undefined }]
+    : splitLinks(part.value).map((link) => ({ code: false, ...link })),
+)
+---
+
+{
+  parts.map((part) =>
+    part.code ? (
+      <code>{part.value}</code>
+    ) : part.href ? (
+      <a class="ui-link" href={part.href}>
+        {part.value}
+      </a>
+    ) : (
+      part.value
+    ),
+  )
+}

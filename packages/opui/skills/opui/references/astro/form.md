@@ -440,14 +440,14 @@ import { Divider } from "opui-css/astro"
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Field set API
 
-| Prop       | Type                   | Default      | Description                                                                                                                       |
-| ---------- | ---------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`, and needs `aria-labelledby` pointing at its legend. |
-| `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                                      |
+| Prop       | Type                   | Default      | Description                                                                                                            |
+| ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
+| `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                           |
 
 #### Slots
 
@@ -470,13 +470,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Field legend API
 
 | Prop | Type               | Default    | Description                                                   |
 | ---- | ------------------ | ---------- | ------------------------------------------------------------- |
-| `as` | `"p"` , `"legend"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| `as` | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
 
 #### Slots
 
@@ -499,7 +499,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Field description API
 
@@ -524,14 +524,14 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                         |
-| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                            |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                                |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
 
 #### Slots
 
@@ -554,7 +554,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -721,7 +721,7 @@ Import the components from `opui-css/astro`:
 - [Textarea](https://open-props-ui.netlify.app/astro/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 
-- `opui-css/css/components/form.css`
+* `opui-css/css/components/form.css`
 
 ## Changelog
 
@@ -729,3 +729,4 @@ Import the components from `opui-css/astro`:
 
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
+- [`FieldGroup`](#field-group) names its inputs through context, so a bare `input`, `select` or `textarea` no longer gets the group `name`, like in React, Svelte and Vue.

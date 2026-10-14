@@ -52,12 +52,8 @@ import Code from "../../components/Code.astro"
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-3);
-
-  @supports (corner-shape: squircle) {
-    border-radius: var(--radius-round);
-    corner-shape: squircle;
-  }
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
 }`}
     />
   </section>
@@ -71,12 +67,7 @@ import Code from "../../components/Code.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without <code>corner-shape</code>, the <code>@supports</code> block is skipped
-        and the squircle becomes a rounded square
-      </li>
-      <li>
-        The full radius sits inside the block, because on its own it would draw
-        a circle
+        Without <code>corner-shape</code>, the full radius draws a circle
       </li>
       <li>
         Without <code>:has()</code>, the background color stays behind the

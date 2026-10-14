@@ -10,33 +10,33 @@ Floating content
 
   Container element. Scopes the anchor to its content.
 
-- `v-slot:default`
+- `& > :first-child`
 
   The content the floating content is anchored to.
 
-- `v-slot:anchored`
+- `<AnchorContent>`
 
   The floating content.
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Set `alignment` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `alignment` to any `position-area` value to place it.
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Button, Card } from "opui-css/vue"
+import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
   <Anchor alignment="inline-end">
     <Button variant="outlined">Export</Button>
-    <template #anchored>
+    <AnchorContent>
       <Card variant="tonal" class="coach-mark">
-        <template #content>
+        <CardContent>
           <strong>New</strong> Export to PDF and CSV from the same menu.
-        </template>
+        </CardContent>
       </Card>
-    </template>
+    </AnchorContent>
   </Anchor>
 </template>
 
@@ -51,7 +51,7 @@ import { Anchor, Button, Card } from "opui-css/vue"
 
 ## Hover trigger
 
-Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
+Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. `AnchorContent` gets the id and `popover="hint"`.
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
@@ -59,7 +59,15 @@ Put a [Card](https://open-props-ui.netlify.app/vue/components/card.md) in the fl
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Avatar, Button, Card } from "opui-css/vue"
+import {
+  Anchor,
+  AnchorContent,
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -76,9 +84,9 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
         interestfor="anchor-repo-card"
         >felix-bohlin/ui</a
       >
-      <template #anchored>
+      <AnchorContent>
         <Card variant="elevated" class="repo-card">
-          <template #content>
+          <CardContent>
             <div class="repo-card-identity">
               <Avatar
                 src="https://github.com/felix-bohlin.png"
@@ -95,12 +103,12 @@ import { Anchor, Avatar, Button, Card } from "opui-css/vue"
               can change the way we create components.
             </p>
             <p class="ui-caption">CSS · MIT license</p>
-          </template>
-          <template #actions>
+          </CardContent>
+          <CardActions>
             <Button variant="outlined" size="small">Star</Button>
-          </template>
+          </CardActions>
         </Card>
-      </template>
+      </AnchorContent>
     </Anchor>
     on GitHub.
   </div>
@@ -136,7 +144,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 
 ```vue
 <script setup lang="ts">
-import { Anchor, Card } from "opui-css/vue"
+import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 </script>
 
 <template>
@@ -153,18 +161,18 @@ import { Anchor, Card } from "opui-css/vue"
         interestfor="anchor-link-preview"
         >CSS anchor positioning</a
       >
-      <template #anchored>
+      <AnchorContent>
         <Card variant="elevated" class="link-preview">
           <img src="https://picsum.photos/id/1018/800/450" alt="" />
-          <hgroup>
+          <CardHeader>
             <p class="ui-caption">developer.mozilla.org</p>
             <h3>CSS anchor positioning</h3>
             <p>
               Tether elements to other elements on the page, without JavaScript.
             </p>
-          </hgroup>
+          </CardHeader>
         </Card>
-      </template>
+      </AnchorContent>
     </Anchor>
     on MDN.
   </div>
@@ -202,18 +210,17 @@ import { Anchor, Card } from "opui-css/vue"
 
 ### Anchor API
 
-| Prop        | Type                   | Default       | Description                                                                                                                                   |
-| ----------- | ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                               |
-| `id`        | `string`               | -             | The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. |
-| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                               |
+| Prop        | Type                   | Default       | Description                                                                                                               |
+| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                           |
+| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. |
+| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                           |
 
 #### Slots
 
-| Slot       | Description                                      |
-| ---------- | ------------------------------------------------ |
-| `anchored` | The floating content.                            |
-| `default`  | The content the floating content is anchored to. |
+| Slot      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `default` | The content to anchor to, followed by `AnchorContent`. |
 
 ## Under the hood
 
@@ -315,7 +322,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/vue`:
+Import the components from `opui-css/vue`:
 
 - `opui-css/css/components/anchor.css`
 
@@ -323,4 +330,5 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.

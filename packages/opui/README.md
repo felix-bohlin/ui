@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -15,6 +15,7 @@ Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23`
+- `react` and `react-dom` `^19` (only required if you use the React components)
 - `solid-js` `^1.9` (optional; only the Solid type files ship today, there are no Solid components yet)
 - `svelte` `^5.29` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
@@ -35,6 +36,30 @@ import { Button, Card } from "opui-css/astro"
   <Button color="primary" variant="filled">Click me</Button>
 </Card>
 ```
+
+### React components
+
+React components ship markup only, so import the CSS once in your app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```tsx
+import { Button, Card } from "opui-css/react"
+
+export default function App() {
+  return (
+    <Card>
+      <Button color="primary" variant="filled">
+        Click me
+      </Button>
+    </Card>
+  )
+}
+```
+
+Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Dialog, Drawer, FieldGroup, Tabs, ToggleGroup, Tooltip and the form controls) are marked `"use client"`; the rest also render as React Server Components.
 
 ### Svelte components
 
@@ -74,7 +99,7 @@ import { Button, Card } from "opui-css/vue"
 </template>
 ```
 
-`opui-css/astro`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`.
+`opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.tsx`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@vitejs/plugin-react`, `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`. In Next.js, add `transpilePackages: ["opui-css"]` to `next.config`.
 
 #### Ids in Astro
 

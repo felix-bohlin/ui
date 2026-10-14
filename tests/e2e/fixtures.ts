@@ -1,16 +1,42 @@
 import { existsSync, readdirSync } from "node:fs"
+import type AxeBuilder from "@axe-core/playwright"
 import type { Page } from "@playwright/test"
+import {
+  exampleExtension,
+  FRAMEWORK_IDS,
+  type FrameworkId,
+} from "../../src/utils/framework"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
+
+const isCarousel = (html: string) =>
+  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
+
+export const axeNodes = (
+  violations: Awaited<ReturnType<AxeBuilder["analyze"]>>["violations"],
+) =>
+  violations.flatMap((violation) =>
+    violation.nodes
+      .filter(
+        (node) =>
+          violation.id !== "scrollable-region-focusable" ||
+          !isCarousel(node.html),
+      )
+      .map((node) => ({
+        help: violation.help,
+        id: violation.id,
+        target: node.target.join(" "),
+      })),
+  )
 
 const PIXEL = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
   "base64",
 )
 
-export const FRAMEWORKS = ["astro", "html", "svelte", "vue"] as const
+export const FRAMEWORKS = FRAMEWORK_IDS
 
-export type Framework = (typeof FRAMEWORKS)[number]
+export type Framework = FrameworkId
 
 export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -35,7 +61,10 @@ export const hasExample = (
   framework: Framework,
   component: string,
   name: string,
-) => existsSync(new URL(`${component}/${name}.${framework}`, examplesDir))
+) =>
+  existsSync(
+    new URL(`${component}/${name}.${exampleExtension(framework)}`, examplesDir),
+  )
 
 export const openFixture = async (
   page: Page,
@@ -54,20 +83,17 @@ export const openFixture = async (
       ? `/${component}/preview/`
       : component.startsWith("stress/")
         ? `/tests/${component.slice("stress/".length)}/`
-        : `/${framework}/test/${component}/`,
+        : component === "theming"
+          ? "/tests/theming/"
+          : `/${framework}/test/${component}/`,
   )
-  if (framework === "svelte") {
-    await page.waitForFunction(() =>
-      [...document.querySelectorAll("[data-svelte-example]")].every((el) =>
-        el.hasAttribute("data-svelte-mounted"),
-      ),
-    )
-  }
-  if (framework === "vue") {
-    await page.waitForFunction(() =>
-      [...document.querySelectorAll("[data-vue-example]")].every(
-        (el) => "__vue_app__" in el,
-      ),
+  if (framework !== "astro" && framework !== "html") {
+    await page.waitForFunction(
+      (name) =>
+        [...document.querySelectorAll(`[data-${name}-example]`)].every((el) =>
+          el.hasAttribute(`data-${name}-mounted`),
+        ),
+      framework,
     )
   }
   await page.evaluate(() => document.fonts.ready)

@@ -19,4 +19,4 @@ export type Props = Base.Props &
       | "week"
       | "color"
       | string
-  } & Partial<Base.Slots<JSX.Element>>
+  } & Base.Slots<JSX.Element>

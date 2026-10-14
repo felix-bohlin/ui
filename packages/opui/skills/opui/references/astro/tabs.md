@@ -12,15 +12,15 @@ General account settings.
 
   Container element.
 
-- `<Tabs.Item>`
+- `<TabsItem>`
 
   A visually hidden radio input that holds a tab's state. The tab is its label.
 
-- `<Tabs.Tab>`
+- `<TabsTab>`
 
   A tab.
 
-- `<Tabs.Panel>`
+- `<TabsPanel>`
 
   The panel of the selected tab.
 
@@ -28,22 +28,22 @@ General account settings.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="basic-tabs">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -53,22 +53,22 @@ Use `variant="filled"` to fill the selected tab with the primary color.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="filled-tabs" variant="filled">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -78,22 +78,22 @@ Use `variant="line"` for tabs without a background, marking the selected tab wit
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="line-tabs" variant="line">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -103,22 +103,22 @@ Use `variant="outlined"` for a bordered track without a background.
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="outlined-tabs" variant="outlined">
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -128,42 +128,42 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on o
 
 ```astro
 ---
-import { Tabs } from "opui-css/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="scrollable-tabs" scrollable>
-  <Tabs.Item open>
-    <Tabs.Tab>Profile</Tabs.Tab>
-    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Settings</Tabs.Tab>
-    <Tabs.Panel>General account settings.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Notifications</Tabs.Tab>
-    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Billing</Tabs.Tab>
-    <Tabs.Panel>Plans, invoices and payment methods.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Security</Tabs.Tab>
-    <Tabs.Panel>Passwords, sessions and two-factor authentication.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Integrations</Tabs.Tab>
-    <Tabs.Panel>Connected apps and webhooks.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Team</Tabs.Tab>
-    <Tabs.Panel>Members and roles.</Tabs.Panel>
-  </Tabs.Item>
-  <Tabs.Item>
-    <Tabs.Tab>Advanced</Tabs.Tab>
-    <Tabs.Panel>Export data or delete the account.</Tabs.Panel>
-  </Tabs.Item>
+  <TabsItem open>
+    <TabsTab>Profile</TabsTab>
+    <TabsPanel>Profile settings and information.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Settings</TabsTab>
+    <TabsPanel>General account settings.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Notifications</TabsTab>
+    <TabsPanel>Manage your notifications.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Billing</TabsTab>
+    <TabsPanel>Plans, invoices and payment methods.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Security</TabsTab>
+    <TabsPanel>Passwords, sessions and two-factor authentication.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Integrations</TabsTab>
+    <TabsPanel>Connected apps and webhooks.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Team</TabsTab>
+    <TabsPanel>Members and roles.</TabsPanel>
+  </TabsItem>
+  <TabsItem>
+    <TabsTab>Advanced</TabsTab>
+    <TabsPanel>Export data or delete the account.</TabsPanel>
+  </TabsItem>
 </Tabs>
 ```
 
@@ -191,11 +191,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                 | Default | Description                                                              |
-| ------------ | ------------------------------------ | ------- | ------------------------------------------------------------------------ |
-| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.               |
-| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. |
-| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                      |
+| Prop         | Type                                 | Default | Description                                                                                          |
+| ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                           |
+| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
+| `variant`    | `"outlined"` , `"line"` , `"filled"` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### Slots
 
@@ -209,10 +209,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                            |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
@@ -220,12 +221,13 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).    |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Tabs item API
 
@@ -247,10 +249,11 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                            |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
@@ -258,12 +261,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).    |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Tabs tab API
 
@@ -283,10 +287,11 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                            |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
@@ -294,12 +299,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).    |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ### Tabs panel API
 
@@ -315,10 +321,11 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                            |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
@@ -326,12 +333,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).    |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -487,7 +495,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/tabs.css`
 
@@ -495,6 +503,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: import the parts by their flat names, such as [`TabsItem`](#api). The `Tabs.Item` aliases are gone.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
 - [Scrollable](#scrollable) tabs with the `scrollable` prop.

@@ -2,20 +2,24 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
+  notes: {
+    react:
+      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`.",
+  },
   options: [
     {
       attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "svelte", "vue"],
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "State",
       part: "input",
       prop: "disabled",
       type: "boolean",
     },
     {
-      description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "svelte", "vue"],
+      description: "The id of the `<input>`.",
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -26,7 +30,7 @@ export default {
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "name",
       type: "string",
     },
@@ -58,7 +62,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "value",
       type: "string",
     },

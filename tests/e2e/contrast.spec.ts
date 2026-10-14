@@ -177,23 +177,51 @@ test.describe("forced-colors", () => {
   })
 })
 
+const enhancedContrastViolations = async (page: Page, selector: string) => {
+  const violations = []
+  for (const colorScheme of ["light", "dark"] as const) {
+    await page.emulateMedia({ colorScheme, reducedMotion: "reduce" })
+    const result = await new AxeBuilder({ page })
+      .include(selector)
+      .withRules(["color-contrast-enhanced"])
+      .analyze()
+    violations.push(
+      ...result.violations.flatMap((violation) =>
+        violation.nodes.map((node) => `${colorScheme}: ${node.target}`),
+      ),
+    )
+  }
+  return violations
+}
+
 test("stress/contrast has no AAA contrast violations inside .ui-contrast-more", async ({
   page,
 }) => {
   await openFixture(page, "html", "stress/contrast")
-  for (const colorScheme of ["light", "dark"] as const) {
-    await page.emulateMedia({ colorScheme, reducedMotion: "reduce" })
-    const { violations } = await new AxeBuilder({ page })
-      .include(".ui-contrast-more")
-      .withRules(["color-contrast-enhanced"])
-      .analyze()
-    expect(
-      violations.flatMap((violation) =>
-        violation.nodes.map((node) => `${colorScheme}: ${node.target}`),
-      ),
-    ).toEqual([])
-  }
+  expect(await enhancedContrastViolations(page, ".ui-contrast-more")).toEqual(
+    [],
+  )
 })
+
+for (const id of ["contrast-overlays-menu", "contrast-overlays-tooltip"]) {
+  test(`stress/contrast #${id} has no AAA contrast violations when open`, async ({
+    page,
+  }) => {
+    await openFixture(page, "html", "stress/contrast")
+    const popover = page.locator(`#${id}`)
+    await page.locator(`[commandfor="${id}"][command="toggle-popover"]`).click()
+    await expect(popover).toBeVisible()
+    expect(
+      await popover.evaluate((element) => element.matches(":popover-open")),
+    ).toBe(true)
+    expect(
+      await popover.evaluate((element) =>
+        Boolean(element.closest(".ui-contrast-more")),
+      ),
+    ).toBe(true)
+    expect(await enhancedContrastViolations(page, `#${id}`)).toEqual([])
+  })
+}
 
 for (const component of COMPONENTS) {
   test(`html/${component} has no AAA contrast violations with prefers-contrast: more`, async ({

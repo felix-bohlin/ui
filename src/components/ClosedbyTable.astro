@@ -1,6 +1,14 @@
 ---
-import { Table } from "@opui/astro"
-import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 
 type Props = {
   componentDefault?: "any" | "closerequest" | "none"
@@ -9,7 +17,7 @@ type Props = {
 
 const { componentDefault, name } = Astro.props
 
-const isHtml = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+const isHtml = Astro.locals.framework === "html"
 const defaultValue = isHtml ? undefined : componentDefault
 
 const rows = [
@@ -44,31 +52,31 @@ const rows = [
   }
 </p>
 <Table style="table-layout: fixed">
-  <Table.ColumnGroup>
-    <Table.Column width="30%" />
-    <Table.Column />
-  </Table.ColumnGroup>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Value</Table.HeaderCell>
-      <Table.HeaderCell>Closes with</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
+  <TableColumnGroup>
+    <TableColumn width="30%" />
+    <TableColumn />
+  </TableColumnGroup>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Value</TableHeaderCell>
+      <TableHeaderCell>Closes with</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
     {
       rows.map((row) => (
-        <Table.Row>
-          <Table.Cell>
+        <TableRow>
+          <TableCell>
             <code>closedby="{row.value}"</code>
             {row.value === defaultValue && " (default)"}
-          </Table.Cell>
-          <Table.Cell>
+          </TableCell>
+          <TableCell>
             <Fragment set:html={row.description} />
-          </Table.Cell>
-        </Table.Row>
+          </TableCell>
+        </TableRow>
       ))
     }
-  </Table.Body>
+  </TableBody>
 </Table>
 <p>
   {

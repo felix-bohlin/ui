@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { Card } from "opui-css/svelte"
+  import { Card, CardContent } from "opui-css/svelte"
 </script>
 
 <Card variant="text">
-  {#snippet content()}Text{/snippet}
+  <CardContent>Text</CardContent>
 </Card>
 
 <Card variant="outlined">
-  {#snippet content()}Outlined{/snippet}
+  <CardContent>Outlined</CardContent>
 </Card>
 
 <Card variant="tonal">
-  {#snippet content()}Tonal{/snippet}
+  <CardContent>Tonal</CardContent>
 </Card>
 
 <Card variant="elevated">
-  {#snippet content()}Elevated{/snippet}
+  <CardContent>Elevated</CardContent>
 </Card>

@@ -2,38 +2,39 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md).
 
-Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
+Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Put the tooltip in `TooltipContent` after the trigger.
 
 ## Basics
 
 ### Text only...
 
-Pass plain text via the `label` prop.
+Put plain text in `TooltipContent`.
 
 ```vue
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip label="Save your changes" id="tooltip-basic">
+  <Tooltip id="tooltip-basic">
     <Button
       interestfor="tooltip-basic"
       commandfor="tooltip-basic"
       command="toggle-popover"
       >Save</Button
     >
+    <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 </template>
 ```
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it lets you put anything in the tooltip.
+`TooltipContent` takes any markup, not only text.
 
 ```vue
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
@@ -44,9 +45,9 @@ import { Button, Tooltip } from "opui-css/vue"
       command="toggle-popover"
       >Keyboard shortcuts</Button
     >
-    <template #content>
+    <TooltipContent>
       Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-    </template>
+    </TooltipContent>
   </Tooltip>
 </template>
 ```
@@ -57,42 +58,46 @@ Use the `alignment` prop.
 
 ```vue
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
   <div class="tooltip-alignment-grid">
-    <Tooltip label="Above" alignment="block-start" id="tooltip-top">
+    <Tooltip alignment="block-start" id="tooltip-top">
       <Button
         interestfor="tooltip-top"
         commandfor="tooltip-top"
         command="toggle-popover"
         >Top</Button
       >
+      <TooltipContent>Above</TooltipContent>
     </Tooltip>
-    <Tooltip label="Before" alignment="inline-start" id="tooltip-start">
+    <Tooltip alignment="inline-start" id="tooltip-start">
       <Button
         interestfor="tooltip-start"
         commandfor="tooltip-start"
         command="toggle-popover"
         >Start</Button
       >
+      <TooltipContent>Before</TooltipContent>
     </Tooltip>
-    <Tooltip label="After" alignment="inline-end" id="tooltip-end">
+    <Tooltip alignment="inline-end" id="tooltip-end">
       <Button
         interestfor="tooltip-end"
         commandfor="tooltip-end"
         command="toggle-popover"
         >End</Button
       >
+      <TooltipContent>After</TooltipContent>
     </Tooltip>
-    <Tooltip label="Below" alignment="block-end" id="tooltip-bottom">
+    <Tooltip alignment="block-end" id="tooltip-bottom">
       <Button
         interestfor="tooltip-bottom"
         commandfor="tooltip-bottom"
         command="toggle-popover"
         >Bottom</Button
       >
+      <TooltipContent>Below</TooltipContent>
     </Tooltip>
   </div>
 </template>
@@ -130,17 +135,18 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 ```vue
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip arrow label="Save your changes" id="tooltip-arrow">
+  <Tooltip arrow id="tooltip-arrow">
     <Button
       interestfor="tooltip-arrow"
       commandfor="tooltip-arrow"
       command="toggle-popover"
       >Save</Button
     >
+    <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 </template>
 ```
@@ -154,14 +160,12 @@ import { Button, Tooltip } from "opui-css/vue"
 | `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
 | `arrow`     | `boolean` | `false`         | Adds an arrow that points to the trigger.                                 |
 | `id`        | `string`  | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
-| `label`     | `string`  | -               | The tooltip, a `popover="hint"`.                                          |
 
 #### Slots
 
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `content` | The tooltip, a `popover="hint"`.                       |
-| `default` | The trigger that shows the tooltip on hover and focus. |
+| Slot      | Description                                |
+| --------- | ------------------------------------------ |
+| `default` | The trigger, followed by `TooltipContent`. |
 
 #### CSS variables
 
@@ -175,7 +179,7 @@ import { Button, Tooltip } from "opui-css/vue"
 | `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                         |
 | `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                                                                                                      |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -369,6 +373,8 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`TooltipContent`](#api) replaces `label` and the `content` slot.
 - Breaking: [`id`](#api) is required.
 - Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
+- Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-min-inline-size`, `--_tooltip-offset` and `--_tooltip-shift` are `--_min-inline-size`, `--_offset` and `--_shift` ([Under the hood](#under-the-hood)).

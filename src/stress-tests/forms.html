@@ -795,16 +795,36 @@
   <p>
     Filter chips in a toolbar. Chip sizes sit one step below the control scale:
     small chips match x-small controls, default chips match small controls and
-    large chips match default controls.
+    large chips match default controls. x-small chips (24px) are shorter than
+    any control and large controls (46px) are taller than any chip, so those
+    rows center chips that don't match.
   </p>
-  <div class="stress-row stress-center">
+  <div class="stress-row stress-center" data-size="x-small">
+    <span class="stress-tag">x-small controls, x-small chips</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-field"
+        ><input
+          type="search"
+          placeholder="Filter"
+          aria-label="Filter, x-small chips" /></span></label
+    ><button class="ui-chip ui-outlined ui-x-small" type="button">
+      <span class="ui-text">Open</span></button
+    ><button class="ui-chip ui-outlined ui-x-small" type="button">
+      <span class="ui-text">Assigned to me</span></button
+    ><button class="ui-chip ui-outlined ui-x-small" type="button">
+      <span class="ui-text">Due this week</span></button
+    ><button class="ui-button ui-outlined ui-x-small" type="button">
+      Clear
+    </button>
+  </div>
+  <div class="stress-row stress-center" data-size="x-small">
     <span class="stress-tag">x-small controls, small chips</span
     ><label class="ui-text-field ui-x-small"
       ><span class="ui-field"
         ><input
           type="search"
           placeholder="Filter"
-          aria-label="Filter" /></span></label
+          aria-label="Filter, small chips" /></span></label
     ><button class="ui-chip ui-outlined ui-small" type="button">
       <span class="ui-text">Open</span></button
     ><button class="ui-chip ui-outlined ui-small" type="button">
@@ -815,14 +835,14 @@
       Clear
     </button>
   </div>
-  <div class="stress-row stress-center">
+  <div class="stress-row stress-center" data-size="small">
     <span class="stress-tag">Small controls, default chips</span
     ><label class="ui-text-field ui-small"
       ><span class="ui-field"
         ><input
           type="search"
           placeholder="Filter"
-          aria-label="Filter" /></span></label
+          aria-label="Filter, default chips" /></span></label
     ><button class="ui-chip ui-outlined" type="button">
       <span class="ui-text">Open</span></button
     ><button class="ui-chip ui-outlined" type="button">
@@ -831,14 +851,14 @@
       <span class="ui-text">Due this week</span></button
     ><button class="ui-button ui-outlined ui-small" type="button">Clear</button>
   </div>
-  <div class="stress-row stress-center">
+  <div class="stress-row stress-center" data-size="default">
     <span class="stress-tag">Default controls, large chips</span
     ><label class="ui-text-field"
       ><span class="ui-field"
         ><input
           type="search"
           placeholder="Filter"
-          aria-label="Filter" /></span></label
+          aria-label="Filter, large chips" /></span></label
     ><button class="ui-chip ui-outlined ui-large" type="button">
       <span class="ui-text">Open</span></button
     ><button class="ui-chip ui-outlined ui-large" type="button">
@@ -846,6 +866,22 @@
     ><button class="ui-chip ui-outlined ui-large" type="button">
       <span class="ui-text">Due this week</span></button
     ><button class="ui-button ui-outlined" type="button">Clear</button>
+  </div>
+  <div class="stress-row stress-center" data-size="large">
+    <span class="stress-tag">Large controls, large chips</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-field"
+        ><input
+          type="search"
+          placeholder="Filter"
+          aria-label="Filter, large controls" /></span></label
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Open</span></button
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Assigned to me</span></button
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Due this week</span></button
+    ><button class="ui-button ui-outlined ui-large" type="button">Clear</button>
   </div>
 </section>
 <section class="stress" data-example="FieldAndButton">
@@ -1566,6 +1602,656 @@ of text</textarea>
     <label class="ui-toggle-button"
       ><input type="checkbox" checked />Pressed</label
     >
+  </div>
+</section>
+<section class="stress" data-example="DisabledAndBusy" id="stress-disabled">
+  <h2>Disabled and busy</h2>
+  <p>
+    The disabled attribute next to aria-disabled for buttons, links, button
+    group segments, chips, toggles, checkboxes, radios and switches, plus busy
+    buttons, at every size. Both should look the same, and neither should change
+    a control's size. Chips are one size step down, so they match the row's
+    controls up to default.
+  </p>
+  <div class="stress-row" data-size="x-small">
+    <span class="stress-tag">x-small</span
+    ><button class="ui-button ui-x-small ui-filled" type="button" disabled>
+      disabled</button
+    ><button
+      class="ui-button ui-x-small ui-filled"
+      type="button"
+      aria-disabled="true"
+    >
+      aria-disabled</button
+    ><a
+      class="ui-button ui-x-small ui-outlined"
+      href="#stress-disabled"
+      aria-disabled="true"
+      >Link</a
+    >
+    <div
+      role="group"
+      aria-label="Segments, x-small"
+      class="ui-button-group ui-x-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Enabled</button
+      ><button class="ui-button" type="button" disabled>disabled</button
+      ><button class="ui-button" type="button" aria-disabled="true">
+        aria-disabled
+      </button>
+    </div>
+    <button class="ui-chip ui-small" type="button" disabled>
+      <span class="ui-text">disabled</span></button
+    ><button class="ui-chip ui-small" type="button" aria-disabled="true">
+      <span class="ui-text">aria-disabled</span></button
+    ><a
+      class="ui-chip ui-small ui-disabled"
+      href="#stress-disabled"
+      aria-disabled="true"
+      ><span class="ui-text">ui-disabled link</span></a
+    ><label class="ui-toggle-button ui-x-small"
+      ><input type="checkbox" disabled />disabled</label
+    ><label class="ui-toggle-button ui-x-small"
+      ><input type="checkbox" aria-disabled="true" />aria-disabled</label
+    >
+    <div
+      role="radiogroup"
+      aria-label="Period, x-small"
+      class="ui-toggle-group ui-x-small"
+    >
+      <label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-x-small"
+          checked
+        />Day</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-x-small"
+          disabled
+        />Week</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-x-small"
+          aria-disabled="true"
+        />Month</label
+      >
+    </div>
+    <label class="ui-checkbox ui-x-small"
+      ><input type="checkbox" checked disabled /><span class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-checkbox ui-x-small"
+      ><input type="checkbox" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><label class="ui-radio ui-x-small"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-x-small"
+        checked
+        disabled
+      /><span class="ui-label">disabled</span></label
+    ><label class="ui-radio ui-x-small"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-x-small"
+        aria-disabled="true"
+      /><span class="ui-label">aria-disabled</span></label
+    ><label class="ui-switch ui-x-small"
+      ><input type="checkbox" role="switch" checked disabled /><span
+        class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-switch ui-x-small"
+      ><input type="checkbox" role="switch" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><button
+      class="ui-button ui-x-small ui-filled"
+      type="button"
+      aria-busy="true"
+    >
+      Saving</button
+    ><button
+      class="ui-button ui-x-small ui-outlined"
+      type="button"
+      aria-busy="true"
+      aria-disabled="true"
+    >
+      Saving</button
+    ><button
+      class="ui-button ui-x-small ui-tonal"
+      type="button"
+      aria-busy="true"
+    >
+      <span class="ui-sr-only">Saving, x-small</span>
+    </button>
+  </div>
+  <div class="stress-row" data-size="small">
+    <span class="stress-tag">Small</span
+    ><button class="ui-button ui-small ui-filled" type="button" disabled>
+      disabled</button
+    ><button
+      class="ui-button ui-small ui-filled"
+      type="button"
+      aria-disabled="true"
+    >
+      aria-disabled</button
+    ><a
+      class="ui-button ui-small ui-outlined"
+      href="#stress-disabled"
+      aria-disabled="true"
+      >Link</a
+    >
+    <div
+      role="group"
+      aria-label="Segments, small"
+      class="ui-button-group ui-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Enabled</button
+      ><button class="ui-button" type="button" disabled>disabled</button
+      ><button class="ui-button" type="button" aria-disabled="true">
+        aria-disabled
+      </button>
+    </div>
+    <button class="ui-chip" type="button" disabled>
+      <span class="ui-text">disabled</span></button
+    ><button class="ui-chip" type="button" aria-disabled="true">
+      <span class="ui-text">aria-disabled</span></button
+    ><a class="ui-chip ui-disabled" href="#stress-disabled" aria-disabled="true"
+      ><span class="ui-text">ui-disabled link</span></a
+    ><label class="ui-toggle-button ui-small"
+      ><input type="checkbox" disabled />disabled</label
+    ><label class="ui-toggle-button ui-small"
+      ><input type="checkbox" aria-disabled="true" />aria-disabled</label
+    >
+    <div
+      role="radiogroup"
+      aria-label="Period, small"
+      class="ui-toggle-group ui-small"
+    >
+      <label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-small"
+          checked
+        />Day</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-small"
+          disabled
+        />Week</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-small"
+          aria-disabled="true"
+        />Month</label
+      >
+    </div>
+    <label class="ui-checkbox ui-small"
+      ><input type="checkbox" checked disabled /><span class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-checkbox ui-small"
+      ><input type="checkbox" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><label class="ui-radio ui-small"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-small"
+        checked
+        disabled
+      /><span class="ui-label">disabled</span></label
+    ><label class="ui-radio ui-small"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-small"
+        aria-disabled="true"
+      /><span class="ui-label">aria-disabled</span></label
+    ><label class="ui-switch ui-small"
+      ><input type="checkbox" role="switch" checked disabled /><span
+        class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-switch ui-small"
+      ><input type="checkbox" role="switch" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><button
+      class="ui-button ui-small ui-filled"
+      type="button"
+      aria-busy="true"
+    >
+      Saving</button
+    ><button
+      class="ui-button ui-small ui-outlined"
+      type="button"
+      aria-busy="true"
+      aria-disabled="true"
+    >
+      Saving</button
+    ><button class="ui-button ui-small ui-tonal" type="button" aria-busy="true">
+      <span class="ui-sr-only">Saving, small</span>
+    </button>
+  </div>
+  <div class="stress-row" data-size="default">
+    <span class="stress-tag">Default</span
+    ><button class="ui-button ui-filled" type="button" disabled>disabled</button
+    ><button class="ui-button ui-filled" type="button" aria-disabled="true">
+      aria-disabled</button
+    ><a
+      class="ui-button ui-outlined"
+      href="#stress-disabled"
+      aria-disabled="true"
+      >Link</a
+    >
+    <div
+      role="group"
+      aria-label="Segments, default"
+      class="ui-button-group ui-outlined"
+    >
+      <button class="ui-button" type="button">Enabled</button
+      ><button class="ui-button" type="button" disabled>disabled</button
+      ><button class="ui-button" type="button" aria-disabled="true">
+        aria-disabled
+      </button>
+    </div>
+    <button class="ui-chip ui-large" type="button" disabled>
+      <span class="ui-text">disabled</span></button
+    ><button class="ui-chip ui-large" type="button" aria-disabled="true">
+      <span class="ui-text">aria-disabled</span></button
+    ><a
+      class="ui-chip ui-large ui-disabled"
+      href="#stress-disabled"
+      aria-disabled="true"
+      ><span class="ui-text">ui-disabled link</span></a
+    ><label class="ui-toggle-button"
+      ><input type="checkbox" disabled />disabled</label
+    ><label class="ui-toggle-button"
+      ><input type="checkbox" aria-disabled="true" />aria-disabled</label
+    >
+    <div role="radiogroup" aria-label="Period, default" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-default"
+          checked
+        />Day</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-default"
+          disabled
+        />Week</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-default"
+          aria-disabled="true"
+        />Month</label
+      >
+    </div>
+    <label class="ui-checkbox"
+      ><input type="checkbox" checked disabled /><span class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-checkbox"
+      ><input type="checkbox" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><label class="ui-radio"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-default"
+        checked
+        disabled
+      /><span class="ui-label">disabled</span></label
+    ><label class="ui-radio"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-default"
+        aria-disabled="true"
+      /><span class="ui-label">aria-disabled</span></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" checked disabled /><span
+        class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><button class="ui-button ui-filled" type="button" aria-busy="true">
+      Saving</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      aria-busy="true"
+      aria-disabled="true"
+    >
+      Saving</button
+    ><button class="ui-button ui-tonal" type="button" aria-busy="true">
+      <span class="ui-sr-only">Saving, default</span>
+    </button>
+  </div>
+  <div class="stress-row" data-size="large">
+    <span class="stress-tag">Large</span
+    ><button class="ui-button ui-large ui-filled" type="button" disabled>
+      disabled</button
+    ><button
+      class="ui-button ui-large ui-filled"
+      type="button"
+      aria-disabled="true"
+    >
+      aria-disabled</button
+    ><a
+      class="ui-button ui-large ui-outlined"
+      href="#stress-disabled"
+      aria-disabled="true"
+      >Link</a
+    >
+    <div
+      role="group"
+      aria-label="Segments, large"
+      class="ui-button-group ui-large ui-outlined"
+    >
+      <button class="ui-button" type="button">Enabled</button
+      ><button class="ui-button" type="button" disabled>disabled</button
+      ><button class="ui-button" type="button" aria-disabled="true">
+        aria-disabled
+      </button>
+    </div>
+    <button class="ui-chip ui-large" type="button" disabled>
+      <span class="ui-text">disabled</span></button
+    ><button class="ui-chip ui-large" type="button" aria-disabled="true">
+      <span class="ui-text">aria-disabled</span></button
+    ><a
+      class="ui-chip ui-large ui-disabled"
+      href="#stress-disabled"
+      aria-disabled="true"
+      ><span class="ui-text">ui-disabled link</span></a
+    ><label class="ui-toggle-button ui-large"
+      ><input type="checkbox" disabled />disabled</label
+    ><label class="ui-toggle-button ui-large"
+      ><input type="checkbox" aria-disabled="true" />aria-disabled</label
+    >
+    <div
+      role="radiogroup"
+      aria-label="Period, large"
+      class="ui-toggle-group ui-large"
+    >
+      <label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-large"
+          checked
+        />Day</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-large"
+          disabled
+        />Week</label
+      ><label class="ui-toggle-button"
+        ><input
+          type="radio"
+          name="stress-disabled-toggle-large"
+          aria-disabled="true"
+        />Month</label
+      >
+    </div>
+    <label class="ui-checkbox ui-large"
+      ><input type="checkbox" checked disabled /><span class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-checkbox ui-large"
+      ><input type="checkbox" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><label class="ui-radio ui-large"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-large"
+        checked
+        disabled
+      /><span class="ui-label">disabled</span></label
+    ><label class="ui-radio ui-large"
+      ><input
+        type="radio"
+        name="stress-disabled-radio-large"
+        aria-disabled="true"
+      /><span class="ui-label">aria-disabled</span></label
+    ><label class="ui-switch ui-large"
+      ><input type="checkbox" role="switch" checked disabled /><span
+        class="ui-label"
+        >disabled</span
+      ></label
+    ><label class="ui-switch ui-large"
+      ><input type="checkbox" role="switch" checked aria-disabled="true" /><span
+        class="ui-label"
+        >aria-disabled</span
+      ></label
+    ><button
+      class="ui-button ui-large ui-filled"
+      type="button"
+      aria-busy="true"
+    >
+      Saving</button
+    ><button
+      class="ui-button ui-large ui-outlined"
+      type="button"
+      aria-busy="true"
+      aria-disabled="true"
+    >
+      Saving</button
+    ><button class="ui-button ui-large ui-tonal" type="button" aria-busy="true">
+      <span class="ui-sr-only">Saving, large</span>
+    </button>
+  </div>
+</section>
+<section class="stress" data-example="ValidationInContext">
+  <h2>Validation in context</h2>
+  <p>
+    A form inside a card after a failed submit: an error summary callout with
+    links to the fields, invalid fields with long errors, auto-fit text field
+    and textarea, a group built with ui-legend, stacked choices and a column of
+    actions. Errors should wrap inside the card and keep the fields aligned.
+  </p>
+  <div class="ui-card ui-outlined stress-form">
+    <hgroup>
+      <p>Checkout</p>
+      <h3>Shipping details</h3>
+    </hgroup>
+    <div class="ui-content">
+      <form class="ui-form" action="#">
+        <article
+          class="ui-callout ui-critical"
+          aria-labelledby="stress-validation-summary"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 48 48"
+          >
+            <path
+              fill="currentColor"
+              d="M24 13c.69 0 1.25.56 1.25 1.25v12.5a1.25 1.25 0 1 1-2.5 0v-12.5c0-.69.56-1.25 1.25-1.25m0 21a2 2 0 1 0 0-4a2 2 0 0 0 0 4M4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20S4 35.046 4 24M24 6.5C14.335 6.5 6.5 14.335 6.5 24S14.335 41.5 24 41.5S41.5 33.665 41.5 24S33.665 6.5 24 6.5"
+            ></path>
+          </svg>
+          <div class="ui-content">
+            <h4 id="stress-validation-summary">Fix 5 problems to continue</h4>
+            <ul>
+              <li>
+                <a href="#stress-validation-email"
+                  >Email address is missing a domain</a
+                >
+              </li>
+              <li>
+                <a href="#stress-validation-postal"
+                  >Postal code has too many digits</a
+                >
+              </li>
+              <li>
+                <a href="#stress-validation-notes"
+                  >Delivery notes are too long for the courier label</a
+                >
+              </li>
+              <li>
+                <a href="#stress-validation-standard"
+                  >Choose a delivery option</a
+                >
+              </li>
+              <li>
+                <a href="#stress-validation-terms">Accept the terms of sale</a>
+              </li>
+            </ul>
+          </div>
+        </article>
+        <fieldset class="ui-fieldset">
+          <legend>Contact</legend>
+          <p class="ui-field-description">
+            We only use these to reach you about this order.
+          </p>
+          <div class="ui-field-group">
+            <label class="ui-text-field"
+              ><span class="ui-label">Email</span
+              ><span class="ui-field"
+                ><input
+                  id="stress-validation-email"
+                  aria-invalid="true"
+                  type="email"
+                  value="jane.doe@"
+                  required
+                  aria-describedby="stress-validation-email-end" /></span
+              ><span class="ui-end-text" id="stress-validation-email-end"
+                >Enter an email address with a domain after the @, like
+                jane.doe@example.com, so the courier can send tracking updates
+                and delivery notifications to the right inbox.</span
+              ></label
+            ><label class="ui-text-field ui-auto-fit"
+              ><span class="ui-label">Postal code</span
+              ><span class="ui-field"
+                ><input
+                  id="stress-validation-postal"
+                  aria-invalid="true"
+                  type="text"
+                  inputmode="numeric"
+                  value="111 222 333"
+                  required
+                  aria-describedby="stress-validation-postal-end" /></span
+              ><span class="ui-end-text" id="stress-validation-postal-end"
+                >Use five digits.</span
+              ></label
+            ><label class="ui-textarea ui-auto-fit"
+              ><span class="ui-label">Delivery notes</span
+              ><span class="ui-field">
+                <textarea
+                  id="stress-validation-notes"
+                  aria-invalid="true"
+                  aria-describedby="stress-validation-notes-end"
+                >
+Leave the parcel with the neighbour on the second floor, the one with the green door, unless it is raining, in which case ring twice and wait.</textarea
+                ><span class="ui-footer">142 / 100</span></span
+              ><span class="ui-end-text" id="stress-validation-notes-end"
+                >Notes are printed on the courier label, which fits 100
+                characters. Shorten them by 42 characters or move the details to
+                a phone call when the courier arrives.</span
+              ></label
+            >
+          </div>
+        </fieldset>
+        <div
+          class="ui-fieldset"
+          role="group"
+          aria-labelledby="stress-validation-delivery"
+        >
+          <p class="ui-legend" id="stress-validation-delivery">Delivery</p>
+          <p class="ui-field-description">Prices include tax.</p>
+          <div class="ui-field-group ui-row">
+            <label class="ui-radio ui-stack"
+              ><input
+                id="stress-validation-standard"
+                aria-invalid="true"
+                type="radio"
+                name="stress-validation-delivery"
+                required
+                aria-describedby="stress-validation-delivery-end"
+              /><span class="ui-label">Standard</span></label
+            ><label class="ui-radio ui-stack"
+              ><input
+                aria-invalid="true"
+                type="radio"
+                name="stress-validation-delivery"
+                required
+                aria-describedby="stress-validation-delivery-end"
+              /><span class="ui-label">Express</span></label
+            ><label class="ui-radio ui-stack"
+              ><input
+                aria-invalid="true"
+                type="radio"
+                name="stress-validation-delivery"
+                required
+                aria-describedby="stress-validation-delivery-end"
+              /><span class="ui-label">Pick-up point</span></label
+            >
+          </div>
+          <span class="ui-end-text" id="stress-validation-delivery-end"
+            >Choose a delivery option. Express isn't available for addresses
+            outside the city, and pick-up points hold parcels for seven days
+            before returning them to the sender.</span
+          >
+        </div>
+        <fieldset class="ui-fieldset">
+          <legend>Consent</legend>
+          <div class="ui-field-group ui-row">
+            <label class="ui-checkbox ui-stack"
+              ><input
+                id="stress-validation-terms"
+                aria-invalid="true"
+                type="checkbox"
+                required
+                aria-describedby="stress-validation-terms-end"
+              /><span class="ui-label">Terms of sale</span
+              ><span class="ui-end-text" id="stress-validation-terms-end"
+                >Required to place the order.</span
+              ></label
+            ><label class="ui-switch ui-stack"
+              ><input
+                aria-invalid="true"
+                type="checkbox"
+                role="switch"
+                aria-describedby="stress-validation-sms-end"
+              /><span class="ui-label">SMS updates</span
+              ><span class="ui-end-text" id="stress-validation-sms-end"
+                >Add a phone number first.</span
+              ></label
+            >
+          </div>
+        </fieldset>
+        <div class="ui-field-group ui-column">
+          <button class="ui-button ui-filled ui-primary" type="submit">
+            Continue to payment</button
+          ><button class="ui-button ui-outlined" type="button">
+            Back to cart
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 <section class="stress" data-example="LongContent">
@@ -2420,6 +3106,8 @@ Designer and developer.</textarea
             class="ui-button"
             type="button"
             aria-label="More save options"
+            commandfor="stress-ks-save-menu"
+            command="toggle-popover"
           >
             <svg
               aria-hidden="true"
@@ -2433,8 +3121,38 @@ Designer and developer.</textarea
                 d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
               ></path>
             </svg>
-          </button></div
-      ></span>
+          </button>
+          <menu
+            id="stress-ks-save-menu"
+            class="ui-menu ui-list ui-align-end"
+            popover
+          >
+            <li>
+              <button
+                type="button"
+                command="hide-popover"
+                commandfor="stress-ks-save-menu"
+              >
+                <div class="ui-text"><p>Save and close</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                command="hide-popover"
+                commandfor="stress-ks-save-menu"
+              >
+                <div class="ui-text"><p>Save as draft</p></div>
+              </button>
+            </li>
+            <li>
+              <button type="button" disabled>
+                <div class="ui-text"><p>Save as template</p></div>
+              </button>
+            </li>
+          </menu>
+        </div></span
+      >
     </div>
   </form>
 </section>

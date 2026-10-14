@@ -1,7 +1,4 @@
 export type Props = {
-  command?: string
-  commandfor?: string
-  interestfor?: string
   isGroup?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "squared" | "rounded" | "squircle"

@@ -2,25 +2,24 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import { Callout as UICallout } from "@opui/astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  CalloutTitle as UICalloutTitle,
+} from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
 
 import calloutApi from "../../component-api/callout/api"
+import calloutTitleApi from "../../component-api/callout-title/api"
 
 import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+import { componentHasFramework } from "../../utils/framework"
 
-const hasToast = componentHasFramework(
-  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
-  "toast",
-)
+const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 const ThemeCSS = `/* ... */
 .ui-critical {
@@ -45,7 +44,10 @@ const ThemeCSS = `/* ... */
 <Component
   slug="callout"
   heroAnatomy
-  apis={[{ title: "Callout API", api: calloutApi }]}
+  apis={[
+    { title: "Callout API", api: calloutApi },
+    { title: "Callout title API", api: calloutTitleApi },
+  ]}
   browserSupport={["has", "light-dark", "relative-color", "scope"]}
   changelogPaths={[
     {
@@ -75,7 +77,6 @@ const ThemeCSS = `/* ... */
   <div class="ui-not-rich-text">
     <UICallout>
       <svg
-        slot="icon"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -86,26 +87,28 @@ const ThemeCSS = `/* ... */
           d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
         ></path></svg
       >
-      <h3>Alternatives</h3>
-      <p>You might want to check out:</p>
-      <ul>
-        <li>
-          <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
-          takes over completely
-        </li>
-        {
-          hasToast && (
-            <li>
-              <DocLink
-                href="/components/toast"
-                class="ui-link"
-                set:text="Toast"
-              />
-              : informative but non-interruptive
-            </li>
-          )
-        }
-      </ul>
+      <UICalloutContent>
+        <h3>Alternatives</h3>
+        <p>You might want to check out:</p>
+        <ul>
+          <li>
+            <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
+            takes over completely
+          </li>
+          {
+            hasToast && (
+              <li>
+                <DocLink
+                  href="/components/toast"
+                  class="ui-link"
+                  set:text="Toast"
+                />
+                : informative but non-interruptive
+              </li>
+            )
+          }
+        </ul>
+      </UICalloutContent>
     </UICallout>
   </div>
 
@@ -115,20 +118,35 @@ const ThemeCSS = `/* ... */
       <Fragment slot="astro">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
-        > prop.
+        > prop. Put the text in <code>CalloutContent</code>, with an optional
+        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
+        >; set <code>level</code> for another heading level.
       </Fragment>
       <Fragment slot="html">
-        Tonal (default) and <code>.ui-outlined</code> variants.
+        Tonal (default) and <code>.ui-outlined</code> variants. Put the text in <code
+          >.ui-content</code
+        >, with an optional <code>&lt;h3 class="ui-title"&gt;</code> first.
+      </Fragment>
+      <Fragment slot="react">
+        Tonal (default) and outlined variants are available via the <code
+          >variant</code
+        > prop. Put the text in <code>CalloutContent</code>, with an optional
+        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
+        >; set <code>level</code> for another heading level.
       </Fragment>
       <Fragment slot="svelte">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
-        > prop.
+        > prop. Put the text in <code>CalloutContent</code>, with an optional
+        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
+        >; set <code>level</code> for another heading level.
       </Fragment>
       <Fragment slot="vue">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
-        > prop.
+        > prop. Put the text in <code>CalloutContent</code>, with an optional
+        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
+        >; set <code>level</code> for another heading level.
       </Fragment>
     </Conditional>
 
@@ -153,6 +171,13 @@ const ThemeCSS = `/* ... */
         >
         {" "}tone for brand-tinted attention. The default is a plain surface.
       </Fragment>
+      <Fragment slot="react">
+        The <code>severity</code> prop accepts <code>info</code>, <code
+          >success</code
+        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
+      </Fragment>
       <Fragment slot="svelte">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
@@ -171,25 +196,16 @@ const ThemeCSS = `/* ... */
 
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <svg
-          slot="icon"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          ><path
-            fill="currentColor"
-            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-          ></path></svg
-        >
-        <strong>Icons and accessibility</strong>
-        <p>
-          Omitting an icon is possible. However, it helps having one if you need
-          to convey a specific kind of severity in your Callout message. For
-          instance, colorblind users might be left confused if there's not
-          enough visual guidance.
-        </p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <strong>Icons and accessibility</strong>
+          <p>
+            Omitting an icon is possible. However, it helps having one if you
+            need to convey a specific kind of severity in your Callout message.
+            For instance, colorblind users might be left confused if there's not
+            enough visual guidance.
+          </p>
+        </UICalloutContent>
       </UICallout>
     </div>
 
@@ -200,24 +216,41 @@ const ThemeCSS = `/* ... */
     <h2 id="icon">Icon</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        <code>info</code>, <code>success</code>, <code>warning</code> and <code
-          >critical</code
-        > have a default icon. Replace it with the <code>icon</code> slot.
+        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
+        <code>success</code>, <code>warning</code> and <code>critical</code>.
+        For a custom icon, put your own <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > in the <code>Callout</code> instead, before <code>CalloutContent</code
+        >.
       </Fragment>
       <Fragment slot="html">
         There are no default icons in HTML: put an <code
           >&lt;svg aria-hidden="true"&gt;</code
         > before <code>.ui-content</code>.
       </Fragment>
+      <Fragment slot="react">
+        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
+        <code>success</code>, <code>warning</code> and <code>critical</code>.
+        For a custom icon, put your own <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > in the <code>Callout</code> instead, before <code>CalloutContent</code
+        >.
+      </Fragment>
       <Fragment slot="svelte">
-        <code>info</code>, <code>success</code>, <code>warning</code> and <code
-          >critical</code
-        > have a default icon. Replace it with the <code>icon</code> snippet.
+        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
+        <code>success</code>, <code>warning</code> and <code>critical</code>.
+        For a custom icon, put your own <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > in the <code>Callout</code> instead, before <code>CalloutContent</code
+        >.
       </Fragment>
       <Fragment slot="vue">
-        <code>info</code>, <code>success</code>, <code>warning</code> and <code
-          >critical</code
-        > have a default icon. Replace it with the <code>icon</code> slot.
+        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
+        <code>success</code>, <code>warning</code> and <code>critical</code>.
+        For a custom icon, put your own <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > in the <code>Callout</code> instead, before <code>CalloutContent</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -255,8 +288,11 @@ const ThemeCSS = `/* ... */
   <Fragment slot="anatomy">
     <Anatomy>
       <UICallout severity="info" variant="outlined">
-        <Fragment slot="title">Title</Fragment>
-        <p>Supporting text that explains the callout in more detail.</p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <UICalloutTitle>Title</UICalloutTitle>
+          <p>Supporting text that explains the callout in more detail.</p>
+        </UICalloutContent>
       </UICallout>
     </Anatomy>
   </Fragment>

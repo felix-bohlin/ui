@@ -6,10 +6,19 @@ import Anatomy from "../../components/Anatomy.astro"
 import {
   Button as UIButton,
   Drawer as UIDrawer,
+  DrawerContent as UIDrawerContent,
   DrawerFooter as UIDrawerFooter,
   DrawerHeader as UIDrawerHeader,
+  DrawerTitle as UIDrawerTitle,
   Switch,
   Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
 } from "@opui/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
@@ -19,9 +28,11 @@ import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
+import ExampleUsageReact from "../../component-examples/drawer/Usage.react.tsx"
 import ExampleUsageSvelte from "../../component-examples/drawer/Usage.svelte"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
 import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
+import ExampleUsageReactRaw from "../../component-examples/drawer/Usage.react.tsx?raw"
 import ExampleUsageSvelteRaw from "../../component-examples/drawer/Usage.svelte?raw"
 import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
@@ -82,9 +93,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="astro">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
-          heading and a close button. Put actions in the <code>footer</code> slot,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -127,12 +138,35 @@ import Conditional from "../../components/Conditional.astro"
           class to allow background scrolling.
         </p>
       </Fragment>
+      <Fragment slot="react">
+        <p>Change the opening side with the <code>side</code> prop.</p>
+        <p>
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
+        </p>
+        <p>
+          The header and footer stay put while the content scrolls, with a
+          shadow on the scrolled edge.
+        </p>
+        <p>
+          The backdrop dims and blurs the page by default. Use <code
+            >backdrop="transparent"</code
+          > to keep the page behind it fully visible.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. With a
+          transparent backdrop the page stays scrollable, except on screens
+          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
+          allow scrolling on every screen.
+        </p>
+      </Fragment>
       <Fragment slot="svelte">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> snippet to add
-          a heading and a close button. Put actions in the <code>footer</code> snippet,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -153,9 +187,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="vue">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
-          heading and a close button. Put actions in the <code>footer</code> slot,
-          wrapped in a <code>DrawerFooter</code>.
+          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
+          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
         </p>
         <p>
           The header and footer stay put while the content scrolls, with a
@@ -179,16 +213,19 @@ import Conditional from "../../components/Conditional.astro"
         <Conditional>
           <span slot="astro"><code>backdrop="transparent"</code></span>
           <span slot="html"><code>.ui-backdrop-transparent</code></span>
+          <span slot="react"><code>backdrop="transparent"</code></span>
           <span slot="svelte"><code>backdrop="transparent"</code></span>
           <span slot="vue"><code>backdrop="transparent"</code></span>
         </Conditional>
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
       <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
+      <Example.Preview slot="preview-react" code={ExampleUsageReact} />
       <Example.Preview slot="preview-svelte" code={ExampleUsageSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleUsageVue} />
       <Example.Code slot="code-html" code={ExampleUsageHTML} />
       <Example.Code slot="code-astro" code={ExampleUsageAstro} />
+      <Example.Code slot="code-react" code={ExampleUsageReactRaw} />
       <Example.Code slot="code-svelte" code={ExampleUsageSvelteRaw} />
       <Example.Code slot="code-vue" code={ExampleUsageVueRaw} />
     </Example>
@@ -207,9 +244,13 @@ import Conditional from "../../components/Conditional.astro"
         scrollLock={false}
         style="block-size: auto; inline-size: 18rem; position: static"
       >
-        <UIDrawerHeader slot="header" heading="Filters" />
-        <p slot="content">Narrow the list by status, owner and date.</p>
-        <UIDrawerFooter slot="footer">
+        <UIDrawerHeader>
+          <UIDrawerTitle>Filters</UIDrawerTitle>
+        </UIDrawerHeader>
+        <UIDrawerContent>
+          <p>Narrow the list by status, owner and date.</p>
+        </UIDrawerContent>
+        <UIDrawerFooter>
           <UIButton size="small">Reset</UIButton>
           <UIButton size="small" variant="filled">Apply</UIButton>
         </UIDrawerFooter>
@@ -224,35 +265,37 @@ import Conditional from "../../components/Conditional.astro"
       <li>
         <Conditional>
           <Fragment slot="astro"
-            >The drawer is named by the first heading in the <code>header</code> slot,
-            through <code>aria-labelledby</code>. Pass <code>aria-label</code> or{
-              " "
-            }
-            <code>aria-labelledby</code> to name it yourself.</Fragment
+            >The <code>DrawerTitle</code> names the drawer through <code
+              >aria-labelledby</code
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
           <Fragment slot="html"
-            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's{
-              " "
-            }
+            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
             <code>id</code>, not at <code>.ui-header</code>, which also holds
             the close button.</Fragment
           >
-          <Fragment slot="svelte"
-            >The drawer is named by the <code>heading</code> of a <code
-              >DrawerHeader</code
-            > in the <code>header</code> snippet, through <code
+          <Fragment slot="react"
+            >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
-            >. With your own heading, it points at the first heading once the
-            drawer mounts. Pass <code>aria-label</code> or
-            <code>aria-labelledby</code> to name it yourself.</Fragment
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
+          >
+          <Fragment slot="svelte"
+            >The <code>DrawerTitle</code> names the drawer through <code
+              >aria-labelledby</code
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
           <Fragment slot="vue"
-            >The drawer is named by the <code>heading</code> of a <code
-              >DrawerHeader</code
-            > in the <code>header</code> slot, through <code
+            >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
-            >. With your own heading, pass <code>aria-labelledby</code> or{" "}
-            <code>aria-label</code> to <code>Drawer</code>.</Fragment
+            >. A drawer without one needs an <code>aria-label</code>. Pass <code
+              >aria-labelledby</code
+            > to name it after another element.</Fragment
           >
         </Conditional>
       </li>
@@ -262,12 +305,6 @@ import Conditional from "../../components/Conditional.astro"
         other element involves more immediate interaction, it is recommended to add
         autofocus to the close button inside the dialog, or the dialog itself if the
         user is expected to click/activate it to dismiss.
-      </li>
-      <li>
-        Do not add the <code>tabindex</code> property to the{" "}
-        <code>&lt;dialog&gt;</code> element as it is not interactive and does not
-        receive focus. The dialog's contents, including the close button contained
-        in the dialog, can receive focus and be interactive.
       </li>
     </ul>
 
@@ -282,80 +319,79 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="role-attributes">Role & attributes</h3>
     <p>
-      Don't add <code>role="dialog"</code> or <code>aria-modal="true"</code>.
       The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
       with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
       it modal and the page behind it inert.
     </p>
     <Table style="table-layout: fixed">
-      <Table.ColumnGroup>
-        <Table.Column width="30%" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Role/attribute</Table.HeaderCell>
-          <Table.HeaderCell>Usage</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
-          <Table.Cell>
+      <TableColumnGroup>
+        <TableColumn width="30%" />
+        <TableColumn />
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+          <TableCell>
             Gives the drawer an accessible name by referring to the element that
             provides the drawer title.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
-          <Table.Cell>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+          <TableCell>
             Optional. Gives the drawer an accessible description by referring to
             the drawer content that describes the primary message or purpose of
             the drawer.
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
-        <Table.ColumnGroup>
-          <Table.Column width="30%" />
-          <Table.Column />
-        </Table.ColumnGroup>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeaderCell>Key</Table.HeaderCell>
-            <Table.HeaderCell>Function</Table.HeaderCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell><kbd>Tab</kbd></Table.Cell>
-            <Table.Cell>
+        <TableColumnGroup>
+          <TableColumn width="30%" />
+          <TableColumn />
+        </TableColumnGroup>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
               Moves focus to the next focusable element in the drawer. After the
               last one, focus moves to the browser's own controls (like the
               address bar), then back to the first element in the drawer. The
               page behind it is inert.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Shift + Tab</kbd></TableCell>
+            <TableCell>
               Moves focus to the previous focusable element. Before the first
               one, focus moves to the browser's controls, then to the last
               element in the drawer.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Esc</kbd></TableCell>
+            <TableCell>
               Closes the drawer, unless <code>closedby="none"</code>, and
               returns focus to the element that opened it.
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
     </div>
   </Fragment>

@@ -479,6 +479,19 @@ export const references = {
       label: "outline-offset",
     },
   ],
+  table: [
+    { code: true, href: mdn("Web/CSS/@container"), label: "@container" },
+    { code: true, href: mdn("Web/CSS/anchor"), label: "anchor()" },
+    { code: true, href: mdn("Web/CSS/anchor-name"), label: "anchor-name" },
+    { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
+    { code: true, href: mdn("Web/CSS/clip-path"), label: "clip-path" },
+    {
+      code: true,
+      href: mdn("Web/CSS/container-type"),
+      label: "container-type",
+    },
+    { code: true, href: mdn("Web/CSS/position"), label: "position: sticky" },
+  ],
   tabs: [
     { code: true, href: mdn("Web/CSS/:checked"), label: ":checked" },
     {

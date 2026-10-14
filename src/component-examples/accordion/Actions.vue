@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import { Accordion, Button } from "opui-css/vue"
+import {
+  Accordion,
+  AccordionActions,
+  AccordionContent,
+  AccordionSummary,
+  Button,
+} from "opui-css/vue"
 </script>
 
 <template>
   <Accordion open variant="elevated">
-    <template #summary>Accordion with actions</template>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare.
-    </p>
-    <template #actions>
+    <AccordionSummary>Accordion with actions</AccordionSummary>
+    <AccordionContent>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
+        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
+      </p>
+    </AccordionContent>
+    <AccordionActions>
       <Button>Cancel</Button>
       <Button>Agree</Button>
-    </template>
+    </AccordionActions>
   </Accordion>
 </template>

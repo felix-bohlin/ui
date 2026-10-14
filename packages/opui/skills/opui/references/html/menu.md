@@ -41,6 +41,50 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 </menu>
 ```
 
+## Bordered
+
+`.ui-bordered` draws a line between every item.
+
+```html
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="menu-bordered-html"
+  command="toggle-popover"
+>
+  Options
+</button>
+<menu class="ui-menu ui-bordered ui-list" id="menu-bordered-html" popover>
+  <li>
+    <button
+      type="button"
+      commandfor="menu-bordered-html"
+      command="hide-popover"
+    >
+      <div class="ui-text"><p>Edit</p></div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      commandfor="menu-bordered-html"
+      command="hide-popover"
+    >
+      <div class="ui-text"><p>Duplicate</p></div>
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      commandfor="menu-bordered-html"
+      command="hide-popover"
+    >
+      <div class="ui-text"><p>Archive</p></div>
+    </button>
+  </li>
+</menu>
+```
+
 ## Custom items
 
 If you want to decide yourself what goes into your list.
@@ -409,20 +453,65 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
-| Type      | Modifiers                                               | Default                     | Description                                                                            |
-| --------- | ------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                                                                      |
-| Behavior  | `popover="manual"`                                      | `popover`                   | Esc and a click outside don't close the menu, and opening another menu doesn't either. |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                                                                        |
-| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                                                                            |
-| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.                                                              |
-| Children  | `li.ui-label`                                           | -                           | Group label.                                                                           |
-| Children  | `.ui-start`, `.ui-text`, `.ui-end`                      | -                           | Icons, text and shortcuts, as in a List item.                                          |
-| Colors    | `.ui-critical`                                          | -                           | Destructive item.                                                                      |
-| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                                                                  |
-| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge.                                                  |
-| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.                                                       |
-| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                                                                          |
+| Type           | Modifiers                                                        | Default                     | Description                                                                                                                    |
+| -------------- | ---------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                              |
+| Behavior       | default, `[popover="manual"]`                                    | default                     | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.      |
+| Borders        | `.ui-bordered`, `li.ui-border-top`                               | -                           | A border between every item (`bordered`), or above one item (`borderTop` on an item).                                          |
+| Close on click | `li > button[command="hide-popover"]`                            | -                           | Closes the menu when the item is clicked, with `commandfor` set to the menu id (`closeOnClick` on an item, `true` by default). |
+| Colors         | `li.ui-critical`                                                 | -                           | A destructive item (`critical` on an item).                                                                                    |
+| Dense          | `.ui-dense`                                                      | -                           | Less spacing.                                                                                                                  |
+| Placement      | default, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | default                     | Where the menu opens.                                                                                                          |
+| Position       | `--anchor-position-area`                                         | `block-end span-inline-end` | Any valid `position-area` value. Overrides the placement and alignment classes.                                                |
+| State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                       |
+| Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                                   |
+
+### Parts
+
+| Part                            | Description                                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `menu.ui-menu.ui-list[popover]` | The menu surface, a popover anchored to its trigger.                                                               |
+| `<li>`                          | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. |
+| `.ui-start`                     | Optional content at the start, such as an icon.                                                                    |
+| `.ui-text`                      | The label (`label` on an item).                                                                                    |
+| `.ui-end`                       | Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).                              |
+| `li.ui-label`                   | A group label. HTML and CSS only.                                                                                  |
+
+### CSS variables
+
+| Variable                      | Default                                      | Description                                                                                                                                                                                              |
+| ----------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`             | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                  |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                    |
+| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                                            |
+| `--critical`                  | `var(--red)`                                 | Severity color for errors and destructive actions.                                                                                                                                                       |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                                                    |
+| `--duration`                  | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease-enter`                | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                 |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                        |
+| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                    |
+| `--font-weight-bold`          | `var(--font-weight-7)`                       | Font weight for headings, buttons and terms.                                                                                                                                                             |
+| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                             |
+| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                     |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                                                 |
+| `--motion`                    | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                        |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                          |
+| `--surface-elevated`          | `light-dark(var(--gray-1), var(--gray-12))`  | Background of elevated cards and accordions.                                                                                                                                                             |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                            |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                         |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                         |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                          |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                         |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                   |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+Items are built like `List` items: icons in `.ui-start`, the label in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.
 
 ## Under the hood
 
@@ -588,8 +677,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Description List](https://open-props-ui.netlify.app/html/components/description-list.md)
 
-- `opui-css/css/components/menu.css`
-- `opui-css/css/components/list.css`
+* `opui-css/css/components/menu.css`
+* `opui-css/css/components/list.css`
 
 ## See also
 
@@ -603,3 +692,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
 - Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
+- Breaking: `--_bg-color-hover` is `--_hover-bg-color`, and `--_transition-duration` is `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- [Dividers between items](#bordered) with `.ui-bordered`.

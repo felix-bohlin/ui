@@ -3,7 +3,11 @@ import "@opui/css/imports.css"
 import "/src/styles/base.css"
 import { Font } from "astro:assets"
 import { Progress } from "@opui/astro"
-import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "../utils/framework-routing"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_IDS,
+  FRAMEWORK_STORAGE_KEY,
+} from "../utils/framework"
 
 const fallback = `/${DEFAULT_FRAMEWORK}/`
 ---
@@ -25,12 +29,13 @@ const fallback = `/${DEFAULT_FRAMEWORK}/`
         defaultFramework: DEFAULT_FRAMEWORK,
         frameworkIds: FRAMEWORK_IDS,
         fallback,
+        storageKey: FRAMEWORK_STORAGE_KEY,
       }}
     >
       ;(function () {
         var target = fallback
         try {
-          var saved = localStorage.getItem("opui-framework")
+          var saved = localStorage.getItem(storageKey)
           if (saved && frameworkIds.indexOf(saved) !== -1) {
             target = "/" + saved + "/"
           }

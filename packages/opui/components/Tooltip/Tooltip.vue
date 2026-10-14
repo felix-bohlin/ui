@@ -2,7 +2,7 @@
 import Anchor from "../Anchor/Anchor.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, arrow, id, label } = defineProps<Props>()
+const { alignment, arrow, id } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -14,9 +14,5 @@ defineSlots<Slots>()
     trigger="hover"
   >
     <slot></slot>
-    <template #anchored>
-      {{ label }}
-      <slot name="content"></slot>
-    </template>
   </Anchor>
 </template>

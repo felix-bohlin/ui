@@ -8,8 +8,11 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);
-    --_hover-bg-color: oklch(from var(--primary) l c h / 15%);
+    --_hover-bg-color: oklch(
+      from var(--primary) l c h / var(--state-hover-alpha-accent)
+    );
     --_item-gap: var(--size-3);
+    --_separator-color: color-mix(in oklch, currentColor 18%, transparent);
     --_start-size: var(--icon-size);
 
     background-color: var(--_bg-color);
@@ -24,6 +27,10 @@ Lists meant to be used stand-alone or as part of Select elements
       * {
         user-select: none;
       }
+    }
+
+    @container style(--contrast: more) {
+      --_separator-color: var(--border-color);
     }
 
     /* Background color */
@@ -43,7 +50,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: var(--border-width) solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--_separator-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -95,7 +102,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
 
           &:where(.ui-checkbox, .ui-radio) {
-            --_input-size: var(--choice-size-small);
+            --choice-size: var(--choice-size-small);
           }
         }
 
@@ -113,7 +120,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
           .ui-checkbox,
           .ui-radio {
-            --_input-size: var(--choice-size-small);
+            --choice-size: var(--choice-size-small);
           }
         }
       }
@@ -197,7 +204,9 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         &:checked {
-          background-color: oklch(from var(--primary) l c h / 30%);
+          background-color: oklch(
+            from var(--primary) l c h / var(--state-active-alpha-accent)
+          );
         }
       }
 
@@ -249,9 +258,9 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --_dot-size: var(--switch-dot-size-small);
-          --_track-height: var(--switch-track-height-small);
-          --_track-width: var(--switch-track-width-small);
+          --switch-dot-size: var(--switch-dot-size-small);
+          --switch-track-height: var(--switch-track-height-small);
+          --switch-track-width: var(--switch-track-width-small);
         }
       }
 
@@ -267,7 +276,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: var(--border-width) solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--_separator-color);
           content: "";
           display: block;
           inline-size: 100%;

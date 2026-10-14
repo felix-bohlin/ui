@@ -114,9 +114,9 @@ Set the `disabled` prop to disable the slider. The whole range dims and shows a 
 
 ## Validation
 
-- Use the `error` prop to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid.
-- Say what's wrong in the end text. The component points `aria-describedby` at it.
-- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+- The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```svelte
 <script lang="ts">
@@ -223,9 +223,9 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                              |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.
 
 ## Under the hood
 
@@ -251,7 +251,7 @@ Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify
    - The thumb's position drives the animation: `--track-fill` is registered as a `<percentage>`, so it animates. No JavaScript
    - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`
    - In right-to-left the animation runs in reverse and the gradient moves to the right edge
-   - `@supports` keeps the scroller out where scroll-driven animations aren't supported: no fill, the slider still works
+   - Without scroll-driven animations there's no fill, the slider still works
    - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
 
 4. Halo
@@ -350,29 +350,27 @@ Step 3 of 5: Fill
 ```
 
 ```css
-@supports (animation-timeline: view()) {
-  .range {
-    animation-fill-mode: both;
-    animation-name: build-range-fill;
-    animation-range: contain;
-    animation-timeline: --thumb;
-    animation-timing-function: linear;
-    box-sizing: content-box;
-    margin: -0.75rem;
-    outline-offset: -0.75rem;
-    overflow: hidden;
-    padding: 0.75rem;
-    timeline-scope: --thumb;
-  }
+.range {
+  animation-fill-mode: both;
+  animation-name: build-range-fill;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  animation-timing-function: linear;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
 
-  .range:dir(rtl) {
-    animation-direction: reverse;
-  }
+.range:dir(rtl) {
+  animation-direction: reverse;
+}
 
-  .range::-webkit-slider-thumb {
-    view-timeline: --thumb inline;
-    view-timeline-inset: 0.75rem;
-  }
+.range::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
 }
 
 .range::-webkit-slider-runnable-track {
@@ -482,3 +480,4 @@ Import the component from `opui-css/svelte`:
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
+- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Anchor from "../Anchor/Anchor.vue"
+import AnchorContent from "../Anchor/AnchorContent.vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { alignment, color, dot, invisible, label, srLabel } =
@@ -21,12 +22,12 @@ defineSlots<Slots>()
     ]"
   >
     <slot></slot>
-    <template #anchored>
+    <AnchorContent>
       <span class="ui-badge-indicator">
         {{ dot ? "" : label }}
         <slot v-if="!dot" name="indicator"></slot>
         <span v-if="srLabel" class="ui-sr-only">{{ srLabel }}</span>
       </span>
-    </template>
+    </AnchorContent>
   </Anchor>
 </template>

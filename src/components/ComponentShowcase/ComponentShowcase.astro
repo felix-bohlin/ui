@@ -1,18 +1,29 @@
 ---
 import {
   Accordion,
+  AccordionContent,
+  AccordionSummary,
   Anchor,
+  AnchorContent,
   Avatar,
   Badge,
   BarChart,
   Button,
   ButtonGroup,
   Callout,
+  CalloutContent,
+  CalloutTitle,
   Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Carousel,
   Checkbox,
   Chip,
   DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
   Divider,
   FieldDescription,
   FieldGroup,
@@ -28,11 +39,18 @@ import {
   Radio,
   Range,
   Rating,
-  Select,
   Stepper,
   Switch,
   Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
   Tabs,
+  TabsItem,
+  TabsPanel,
+  TabsTab,
   TextField,
   Textarea,
   Timeline,
@@ -50,8 +68,8 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
     <Accordion aria-hidden="true" inert variant="outlined">
-      <Fragment slot="summary">How does it work?</Fragment>
-      It's pretty simple, actually.
+      <AccordionSummary>How does it work?</AccordionSummary>
+      <AccordionContent>It's pretty simple, actually.</AccordionContent>
     </Accordion>
   </ComponentCard>
 
@@ -146,23 +164,25 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Callout" href="/components/callout" size="wide">
     <Callout aria-hidden="true" variant="tonal" severity="neutral">
-      <Fragment slot="title">Heads up!</Fragment>
-      Nah, just kidding. It wasn't important.
+      <CalloutContent>
+        <CalloutTitle>Heads up!</CalloutTitle>
+        Nah, just kidding. It wasn't important.
+      </CalloutContent>
     </Callout>
   </ComponentCard>
 
   <ComponentCard name="Card" href="/components/card" size="xl">
     <Card aria-hidden="true" inert variant="outlined">
-      <Fragment slot="header">
+      <CardHeader>
         <p>Article</p>
         <h3>Build something nice</h3>
-      </Fragment>
-      <Fragment slot="content">
+      </CardHeader>
+      <CardContent>
         Components you can copy-paste into your project.
-      </Fragment>
-      <Fragment slot="actions">
+      </CardContent>
+      <CardActions>
         <Button variant="tonal" size="small">Read</Button>
-      </Fragment>
+      </CardActions>
     </Card>
   </ComponentCard>
 
@@ -178,10 +198,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
           <li>
             <Card variant="tonal">
-              <Fragment slot="header">
+              <CardHeader>
                 <p>Destination</p>
                 <h3>{title}</h3>
-              </Fragment>
+              </CardHeader>
             </Card>
           </li>
         ))
@@ -202,28 +222,28 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Description List" href="/components/description-list">
     <DescriptionList aria-hidden="true" bordered="dotted">
-      <DescriptionList.Item>
-        <DescriptionList.Term>Name</DescriptionList.Term>
-        <DescriptionList.Description>Open Props UI</DescriptionList.Description>
-      </DescriptionList.Item>
-      <DescriptionList.Item>
-        <DescriptionList.Term>Status</DescriptionList.Term>
-        <DescriptionList.Description>Awesome</DescriptionList.Description>
-      </DescriptionList.Item>
+      <DescriptionListItem>
+        <DescriptionListTerm>Name</DescriptionListTerm>
+        <DescriptionListDescription>Open Props UI</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Awesome</DescriptionListDescription>
+      </DescriptionListItem>
     </DescriptionList>
   </ComponentCard>
 
   <ComponentCard name="Dialog" href="/components/dialog" size="wide">
     <div class="showcase-backdrop" aria-hidden="true" inert>
       <Card variant="elevated" class="showcase-dialog">
-        <Fragment slot="header">
+        <CardHeader>
           <h3>Discard draft?</h3>
-        </Fragment>
-        <Fragment slot="content">You can't undo this.</Fragment>
-        <Fragment slot="actions">
+        </CardHeader>
+        <CardContent>You can't undo this.</CardContent>
+        <CardActions>
           <Button size="small">Cancel</Button>
           <Button size="small" variant="filled">Discard</Button>
-        </Fragment>
+        </CardActions>
       </Card>
     </div>
   </ComponentCard>
@@ -368,42 +388,42 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Table" href="/components/table" size="wide">
     <Table aria-hidden="true" variant="dense">
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Band</Table.HeaderCell>
-          <Table.HeaderCell>Name</Table.HeaderCell>
-          <Table.HeaderCell>Instrument</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>Broken Bells</Table.Cell>
-          <Table.Cell>James Mercer</Table.Cell>
-          <Table.Cell>Vocals</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Radiohead</Table.Cell>
-          <Table.Cell>Ed O'Brien</Table.Cell>
-          <Table.Cell>Guitar</Table.Cell>
-        </Table.Row>
-      </Table.Body>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar</TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
   </ComponentCard>
 
   <ComponentCard name="Tabs" href="/components/tabs" size="wide">
     <Tabs aria-hidden="true" inert name="index-tabs-showcase">
-      <Tabs.Item open>
-        <Tabs.Tab>Profile</Tabs.Tab>
-        <Tabs.Panel>Profile settings and information.</Tabs.Panel>
-      </Tabs.Item>
-      <Tabs.Item>
-        <Tabs.Tab>Settings</Tabs.Tab>
-        <Tabs.Panel>General account settings.</Tabs.Panel>
-      </Tabs.Item>
-      <Tabs.Item>
-        <Tabs.Tab>Notifications</Tabs.Tab>
-        <Tabs.Panel>Manage your notifications.</Tabs.Panel>
-      </Tabs.Item>
+      <TabsItem open>
+        <TabsTab>Profile</TabsTab>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Settings</TabsTab>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Notifications</TabsTab>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
     </Tabs>
   </ComponentCard>
 
@@ -462,7 +482,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       aria-hidden="true"
     >
       <Button variant="outlined" inert>Save</Button>
-      <Fragment slot="anchored">Save your changes</Fragment>
+      <AnchorContent>Save your changes</AnchorContent>
     </Anchor>
   </ComponentCard>
 

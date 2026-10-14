@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card, Carousel } from "opui-css/vue"
+import { Card, CardHeader, Carousel } from "opui-css/vue"
 
 const places = ["Kyoto", "Lima", "Lisbon"]
 </script>
@@ -16,10 +16,10 @@ const places = ["Kyoto", "Lima", "Lisbon"]
       <Carousel label="Destinations" markers>
         <li v-for="title in places" :key="title">
           <Card variant="tonal">
-            <template #header>
+            <CardHeader>
               <p>Destination</p>
               <h3>{{ title }}</h3>
-            </template>
+            </CardHeader>
           </Card>
         </li>
       </Carousel>

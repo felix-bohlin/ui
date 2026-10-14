@@ -5,7 +5,11 @@ import DocLink from "../../components/DocLink.astro"
 import {
   Button as UIButton,
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
   Card as UICard,
+  CardActions as UICardActions,
+  CardContent as UICardContent,
+  CardHeader as UICardHeader,
 } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
@@ -14,12 +18,16 @@ import Conditional from "../../components/Conditional.astro"
 import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
 
 import cardApi from "../../component-api/card/api"
+import cardActionsApi from "../../component-api/card-actions/api"
 ---
 
 <Component
   slug="card"
   heroAnatomy
-  apis={[{ title: "Card API", api: cardApi }]}
+  apis={[
+    { title: "Card API", api: cardApi },
+    { title: "Card actions API", api: cardActionsApi },
+  ]}
   browserSupport={["container-style-queries", "has"]}
   changelogPaths={[
     {
@@ -50,21 +58,34 @@ import cardApi from "../../component-api/card/api"
     <Conditional as="p">
       <Fragment slot="astro">
         Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border.
+        the card has the page surface color and no border. Put the body in <code
+          >CardContent</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Change the card variant with the <code>.ui-text</code>, <code
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes. Without
-        a variant class the card has the page surface color and no border.
+        a variant class the card has the page surface color and no border. Put the
+        body in <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Change the card variant with the <code>variant</code> prop. Without a variant
+        the card has the page surface color and no border. Put the body in <code
+          >CardContent</code
+        >.
       </Fragment>
       <Fragment slot="svelte">
         Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border.
+        the card has the page surface color and no border. Put the body in <code
+          >CardContent</code
+        >.
       </Fragment>
       <Fragment slot="vue">
         Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border.
+        the card has the page surface color and no border. Put the body in <code
+          >CardContent</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -72,12 +93,14 @@ import cardApi from "../../component-api/card/api"
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          <p><strong>Why does a text variant exist?</strong></p>
-          On the page you won't see a difference. Put a card on a tonal surface or
-          in a dialog, though, and the default one turns into a page-colored box.
-          The text variant stays see-through.
-        </div>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            <p><strong>Why does a text variant exist?</strong></p>
+            On the page you won't see a difference. Put a card on a tonal surface
+            or in a dialog, though, and the default one turns into a page-colored
+            box. The text variant stays see-through.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
@@ -85,14 +108,17 @@ import cardApi from "../../component-api/card/api"
   <section>
     <h2 id="header">Header</h2>
     <Conditional as="p">
-      <Fragment slot="astro"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="astro"> Using <code>CardHeader</code>. </Fragment>
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
-      <Fragment slot="svelte">
-        Using the <code>header</code> snippet.
+      <Fragment slot="react">
+        Using <code>CardHeader</code>.
       </Fragment>
-      <Fragment slot="vue"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="svelte">
+        Using <code>CardHeader</code>.
+      </Fragment>
+      <Fragment slot="vue"> Using <code>CardHeader</code>. </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
   </section>
@@ -101,16 +127,19 @@ import cardApi from "../../component-api/card/api"
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Using the <code>actions</code> slot.
+        Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
       </Fragment>
+      <Fragment slot="react">
+        Using <code>CardActions</code>.
+      </Fragment>
       <Fragment slot="svelte">
-        Using the <code>actions</code> snippet.
+        Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="vue">
-        Using the <code>actions</code> slot.
+        Using <code>CardActions</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -123,16 +152,27 @@ import cardApi from "../../component-api/card/api"
     <h3 id="actions-alignment">Alignment</h3>
     <Conditional as="p">
       <Fragment slot="astro">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
       </Fragment>
+      <Fragment slot="react">
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
+      </Fragment>
       <Fragment slot="svelte">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
       <Fragment slot="vue">
-        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+        Align actions to the end with <code>align="end"</code> on <code
+          >CardActions</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -152,10 +192,12 @@ import cardApi from "../../component-api/card/api"
 
     <div class="ui-not-rich-text">
       <UICallout>
-        <div class="ui-rich-text">
-          Only one <code>.ui-card-link</code> per card. The link covers the text,
-          so selecting text in the card won't work. Fair trade.
-        </div>
+        <UICalloutContent>
+          <div class="ui-rich-text">
+            Only one <code>.ui-card-link</code> per card. The link covers the text,
+            so selecting text in the card won't work. Fair trade.
+          </div>
+        </UICalloutContent>
       </UICallout>
     </div>
   </section>
@@ -165,30 +207,33 @@ import cardApi from "../../component-api/card/api"
   <Fragment slot="anatomy">
     <Anatomy>
       <UICard variant="elevated">
-        <Fragment slot="header">
+        <UICardHeader>
           <p>Overline</p>
           <h2 class="ui-h3">Headline</h2>
           <p>Subhead</p>
-        </Fragment>
-        <Fragment slot="content">
+        </UICardHeader>
+        <UICardContent>
           Explain more about the topic shown in the headline and subhead through
           supporting text.
-        </Fragment>
-        <Fragment slot="actions">
+        </UICardContent>
+        <UICardActions>
           <UIButton>Share</UIButton>
           <UIButton>Learn more</UIButton>
-        </Fragment>
+        </UICardActions>
       </UICard>
     </Anatomy>
   </Fragment>
 
   <div slot="installation" class="ui-not-rich-text">
     <UICallout>
-      <div class="ui-rich-text">
-        Other components might depend on the card component. Be mindful when
-        making changes. <DocLink href="/components/accordion">Accordion</DocLink
-        >, <DocLink href="/components/dialog">Dialog</DocLink>
-      </div>
+      <UICalloutContent>
+        <div class="ui-rich-text">
+          Other components might depend on the card component. Be mindful when
+          making changes. <DocLink href="/components/accordion"
+            >Accordion</DocLink
+          >, <DocLink href="/components/dialog">Dialog</DocLink>
+        </div>
+      </UICalloutContent>
     </UICallout>
   </div>
 </Component>

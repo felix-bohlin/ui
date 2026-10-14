@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { createId } from "../id"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Text Field"
 
@@ -31,7 +32,7 @@ const {
   ...rest
 } = Astro.props
 
-const startTextValue = description || startText
+const field = fieldContext.get()
 const $id = createId(Astro.locals)
 const endTextId =
   endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
@@ -63,9 +64,10 @@ const describedBy =
     )
   }
   {
-    (startTextValue || Astro.slots.has("description")) && (
+    (startText || description || Astro.slots.has("description")) && (
       <span class="ui-start-text">
-        {startTextValue}
+        {startText}
+        {description}
         <slot name="description" />
       </span>
     )
@@ -74,14 +76,14 @@ const describedBy =
     <input
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : undefined}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
       disabled={disabled}
       id={id}
       inputmode={type === "numeric" ? "numeric" : undefined}
       list={list}
       max={max}
       min={min}
-      name={name}
+      name={name ?? field?.name}
       pattern={type === "numeric" ? "[0-9]*" : undefined}
       placeholder={placeholder}
       required={required}

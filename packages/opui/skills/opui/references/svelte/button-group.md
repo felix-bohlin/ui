@@ -467,7 +467,7 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 | `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"x-small"` , `"small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
+| `size`        | `"small"` , `"x-small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
 | `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
 
 #### CSS variables
@@ -502,27 +502,28 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `children` | `Snippet`                             | -       | The label and an optional icon.                                             |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"` , `"small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop       | Type                                  | Default    | Description                                                        |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.              |
+| `children` | `Snippet`                             | -          | The label and an optional icon.                                    |
+| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                   |
+| `disabled` | `boolean`                             | `false`    | Disables the button.                                               |
+| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                 |
+| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
+| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
+| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
+| `size`     | `"small"` , `"x-small"` , `"large"`   | -          | The size of the element.                                           |
+| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -          | The variant to use.                                                |
 
 #### CSS variables
 
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
@@ -549,7 +550,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -657,8 +658,8 @@ Import the component from `opui-css/svelte`:
 
 - [Button](https://open-props-ui.netlify.app/svelte/components/button.md)
 
-- `opui-css/css/components/button-group.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/button-group.css`
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
@@ -673,3 +674,4 @@ Import the component from `opui-css/svelte`:
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
+- [Icon-only buttons](#icons) in a group use the button's icon size.

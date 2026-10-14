@@ -338,9 +338,9 @@
 <section class="stress" data-example="Columns">
   <h2>Narrow, medium and wide columns</h2>
   <p>
-    The same profile block in a 16rem, 24rem and 40rem column. Nothing should
-    overflow its column, and the description list should only go side by side
-    when the column is wide.
+    The same profile block in a 16rem, 24rem and 40rem column. The long name,
+    email and chips should wrap, the button group should break onto more rows
+    and nothing should overflow its column.
   </p>
   <div class="stress-columns">
     <div class="stress-narrow">
@@ -360,17 +360,19 @@
             <div class="ui-end">Primary</div>
           </li>
         </ul>
-        <div class="ui-content stress-layout-container">
-          <dl class="ui-description-list ui-bordered ui-dotted">
-            <div class="ui-item">
-              <dt class="ui-term">Location</dt>
-              <dd class="ui-description">Helsinki</dd>
-            </div>
-            <div class="ui-item">
-              <dt class="ui-term">Time zone</dt>
-              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
-            </div>
-          </dl>
+        <div class="ui-content stress-chips">
+          <span class="ui-chip ui-tonal ui-small"
+            ><span class="ui-text">Platform</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Infrastructure on-call</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Mentor</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Helsinki office</span></span
+          >
         </div>
         <div class="ui-actions">
           <button class="ui-button" type="button">Message</button
@@ -419,17 +421,19 @@
             <div class="ui-end">Primary</div>
           </li>
         </ul>
-        <div class="ui-content stress-layout-container">
-          <dl class="ui-description-list ui-bordered ui-dotted">
-            <div class="ui-item">
-              <dt class="ui-term">Location</dt>
-              <dd class="ui-description">Helsinki</dd>
-            </div>
-            <div class="ui-item">
-              <dt class="ui-term">Time zone</dt>
-              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
-            </div>
-          </dl>
+        <div class="ui-content stress-chips">
+          <span class="ui-chip ui-tonal ui-small"
+            ><span class="ui-text">Platform</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Infrastructure on-call</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Mentor</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Helsinki office</span></span
+          >
         </div>
         <div class="ui-actions">
           <button class="ui-button" type="button">Message</button
@@ -478,17 +482,19 @@
             <div class="ui-end">Primary</div>
           </li>
         </ul>
-        <div class="ui-content stress-layout-container">
-          <dl class="ui-description-list ui-bordered ui-dotted">
-            <div class="ui-item">
-              <dt class="ui-term">Location</dt>
-              <dd class="ui-description">Helsinki</dd>
-            </div>
-            <div class="ui-item">
-              <dt class="ui-term">Time zone</dt>
-              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
-            </div>
-          </dl>
+        <div class="ui-content stress-chips">
+          <span class="ui-chip ui-tonal ui-small"
+            ><span class="ui-text">Platform</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Infrastructure on-call</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Mentor</span></span
+          >
+          <span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">Helsinki office</span></span
+          >
         </div>
         <div class="ui-actions">
           <button class="ui-button" type="button">Message</button
@@ -527,7 +533,8 @@
   <p>
     The description list goes side by side through a container query. In 16rem
     columns, the list without its own size container follows the page width and
-    goes side by side anyway; the one with a container stays stacked.
+    goes side by side anyway; the one with a container stays stacked. In a 40rem
+    column, the list with a container goes side by side again.
   </p>
   <div class="stress-columns">
     <div class="stress-narrow">
@@ -557,6 +564,29 @@
       <div class="ui-card ui-outlined">
         <hgroup>
           <h3>Inline size container</h3>
+        </hgroup>
+        <div class="ui-content stress-layout-container">
+          <dl class="ui-description-list ui-bordered">
+            <div class="ui-item">
+              <dt class="ui-term">Price</dt>
+              <dd class="ui-description">6 950 000</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Rooms</dt>
+              <dd class="ui-description">3</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="stress-wide-column">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <h3>Wide, inline size container</h3>
         </hgroup>
         <div class="ui-content stress-layout-container">
           <dl class="ui-description-list ui-bordered">
@@ -847,7 +877,8 @@
     A header row with avatar, title, badges, a button group and a menu trigger,
     at three widths. Items should wrap cleanly, the title should truncate or
     wrap without pushing controls out, and everything should be vertically
-    centered.
+    centered. Each trigger opens an end aligned menu with a group label,
+    shortcuts, a link, a divider and a critical item.
   </p>
   <div class="stress-stack">
     <span class="stress-tag">Wide</span>
@@ -915,14 +946,64 @@
             ></path>
           </svg>
         </button>
-        <menu class="ui-menu ui-list" id="stress-layout-menu-1" popover>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="stress-layout-menu-1"
+          popover
+        >
+          <li class="ui-label">Project</li>
           <li>
             <button
               type="button"
               commandfor="stress-layout-menu-1"
               command="hide-popover"
             >
-              <div class="ui-text"><p>Export</p></div>
+              <div class="ui-text"><p>Rename project</p></div>
+              <div class="ui-end"><kbd>F2</kbd></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-layout-menu-1"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Duplicate</p></div>
+              <div class="ui-end"><kbd>Ctrl D</kbd></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-layout-menu-1"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Export as CSV</p></div>
+              <div class="ui-end"><kbd>Ctrl E</kbd></div>
+            </button>
+          </li>
+          <li>
+            <a href="#stress-layout-menu-1">
+              <div class="ui-text"><p>Open project settings</p></div>
+            </a>
+          </li>
+          <li class="ui-border-top">
+            <button
+              type="button"
+              commandfor="stress-layout-menu-1"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Archive</p></div>
+            </button>
+          </li>
+          <li class="ui-critical">
+            <button
+              type="button"
+              commandfor="stress-layout-menu-1"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Delete project permanently</p></div>
+              <div class="ui-end"><kbd>Ctrl Delete</kbd></div>
             </button>
           </li>
         </menu>
@@ -994,14 +1075,64 @@
               ></path>
             </svg>
           </button>
-          <menu class="ui-menu ui-list" id="stress-layout-menu-2" popover>
+          <menu
+            class="ui-menu ui-list ui-align-end"
+            id="stress-layout-menu-2"
+            popover
+          >
+            <li class="ui-label">Project</li>
             <li>
               <button
                 type="button"
                 commandfor="stress-layout-menu-2"
                 command="hide-popover"
               >
-                <div class="ui-text"><p>Export</p></div>
+                <div class="ui-text"><p>Rename project</p></div>
+                <div class="ui-end"><kbd>F2</kbd></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-2"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Duplicate</p></div>
+                <div class="ui-end"><kbd>Ctrl D</kbd></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-2"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Export as CSV</p></div>
+                <div class="ui-end"><kbd>Ctrl E</kbd></div>
+              </button>
+            </li>
+            <li>
+              <a href="#stress-layout-menu-2">
+                <div class="ui-text"><p>Open project settings</p></div>
+              </a>
+            </li>
+            <li class="ui-border-top">
+              <button
+                type="button"
+                commandfor="stress-layout-menu-2"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Archive</p></div>
+              </button>
+            </li>
+            <li class="ui-critical">
+              <button
+                type="button"
+                commandfor="stress-layout-menu-2"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Delete project permanently</p></div>
+                <div class="ui-end"><kbd>Ctrl Delete</kbd></div>
               </button>
             </li>
           </menu>
@@ -1074,14 +1205,64 @@
               ></path>
             </svg>
           </button>
-          <menu class="ui-menu ui-list" id="stress-layout-menu-3" popover>
+          <menu
+            class="ui-menu ui-list ui-align-end"
+            id="stress-layout-menu-3"
+            popover
+          >
+            <li class="ui-label">Project</li>
             <li>
               <button
                 type="button"
                 commandfor="stress-layout-menu-3"
                 command="hide-popover"
               >
-                <div class="ui-text"><p>Export</p></div>
+                <div class="ui-text"><p>Rename project</p></div>
+                <div class="ui-end"><kbd>F2</kbd></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-3"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Duplicate</p></div>
+                <div class="ui-end"><kbd>Ctrl D</kbd></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-3"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Export as CSV</p></div>
+                <div class="ui-end"><kbd>Ctrl E</kbd></div>
+              </button>
+            </li>
+            <li>
+              <a href="#stress-layout-menu-3">
+                <div class="ui-text"><p>Open project settings</p></div>
+              </a>
+            </li>
+            <li class="ui-border-top">
+              <button
+                type="button"
+                commandfor="stress-layout-menu-3"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Archive</p></div>
+              </button>
+            </li>
+            <li class="ui-critical">
+              <button
+                type="button"
+                commandfor="stress-layout-menu-3"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Delete project permanently</p></div>
+                <div class="ui-end"><kbd>Ctrl Delete</kbd></div>
               </button>
             </li>
           </menu>
@@ -1934,6 +2115,1517 @@
         >
           <button class="ui-button" type="button">First</button
           ><button class="ui-button" type="button">Last</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="AccordionMarkers">
+  <h2>Accordion markers</h2>
+  <p>
+    Rotate, flip, turn and custom markers next to long wrapping summaries, a
+    badge and a chip in the summary and an actions row below the content, in
+    right to left and as an accordion group in a card. Markers should stay at
+    the inline end, keep their size and point the right way when open; turn
+    markers mirror in right to left.
+  </p>
+  <div class="stress-grid">
+    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+      <summary>
+        <span
+          >Rotate: A summary long enough to wrap onto several lines next to its
+          marker, which should stay on the same side and keep its size</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-flip ui-tonal" open>
+      <summary>
+        <span
+          >Flip: A summary long enough to wrap onto several lines next to its
+          marker, which should stay on the same side and keep its size</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-turn ui-elevated" open>
+      <summary>
+        <span
+          >Turn: A summary long enough to wrap onto several lines next to its
+          marker, which should stay on the same side and keep its size</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+      <summary>
+        <span
+          >Custom marker: A summary long enough to wrap onto several lines next
+          to its marker, which should stay on the same side and keep its
+          size</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.5 3.5a1 1 0 0 0-1 1v7.502a.75.75 0 0 1-1.02.7l-2.513-.966a2.84 2.84 0 0 0-3.254.895c5.488 2.461 7.557 4.81 8.477 6.833c.33.725.977 1.113 1.578 1.02l3.456-.532a1.25 1.25 0 0 0 1.022-.934l1.153-4.633a3.25 3.25 0 0 0-2.65-3.995l-3.616-.569a.75.75 0 0 1-.633-.74V4.5a1 1 0 0 0-1-1M9 4.5a2.5 2.5 0 1 1 5 0v3.94l2.983.468a4.75 4.75 0 0 1 3.872 5.84l-1.153 4.632a2.75 2.75 0 0 1-2.25 2.054l-3.455.533c-1.442.222-2.646-.726-3.173-1.882c-.735-1.617-2.527-3.834-8.19-6.29a1.055 1.055 0 0 1-.511-1.463a4.34 4.34 0 0 1 5.382-1.996L9 10.91z"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3 <span class="ui-sr-only">unread rules</span></span
+            ></span
+          ></span
+        ><span>Inbox rules for shared mailboxes and forwarded messages</span
+        ><span class="ui-chip ui-outlined ui-small"
+          ><span class="ui-text">12 active</span></span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Cancel</button
+        ><button class="ui-button" type="button">Apply</button>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+      <summary>
+        <span>Closed turn marker</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+  </div>
+  <span class="stress-tag">Right to left</span>
+  <div class="stress-grid" dir="rtl">
+    <details class="ui-accordion ui-card ui-marker-turn ui-outlined" open>
+      <summary>
+        <span
+          >Turn, open: A summary long enough to wrap onto several lines next to
+          its marker, which should stay on the same side and keep its size</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+      <summary>
+        <span>Turn, closed</span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+    <details class="ui-accordion ui-card ui-marker-flip ui-tonal" open>
+      <summary>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"
+              >3
+              <span class="ui-sr-only">unread rules, right to left</span></span
+            ></span
+          ></span
+        ><span>Inbox rules for shared mailboxes and forwarded messages</span
+        ><span class="ui-chip ui-outlined ui-small"
+          ><span class="ui-text">12 active</span></span
+        ><svg
+          class="ui-marker"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </summary>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          sodales, nulla sit amet porttitor rhoncus.
+        </p>
+      </div>
+    </details>
+  </div>
+  <span class="stress-tag">Group in a card</span>
+  <div class="stress-layout-medium">
+    <div class="ui-card ui-outlined">
+      <hgroup><h3>Mail settings</h3></hgroup>
+      <div class="ui-content">
+        <div class="ui-card ui-outlined" role="group">
+          <details class="ui-accordion ui-card ui-marker-turn" open>
+            <summary>
+              <span class="ui-anchor ui-badge ui-critical"
+                ><svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                  ></path></svg
+                ><span class="ui-anchor-floating"
+                  ><span class="ui-badge-indicator"
+                    >3
+                    <span class="ui-sr-only">unread rules in group</span></span
+                  ></span
+                ></span
+              ><span
+                >Inbox rules for shared mailboxes and forwarded messages</span
+              ><span class="ui-chip ui-outlined ui-small"
+                ><span class="ui-text">12 active</span></span
+              ><svg
+                class="ui-marker"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                sodales, nulla sit amet porttitor rhoncus.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion ui-card ui-marker-turn">
+            <summary>
+              <span
+                >A summary long enough to wrap onto several lines next to its
+                marker, which should stay on the same side and keep its
+                size</span
+              ><svg
+                class="ui-marker"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                sodales, nulla sit amet porttitor rhoncus.
+              </p>
+            </div>
+          </details>
+          <details class="ui-accordion ui-card ui-marker-turn">
+            <summary>
+              <span>Short</span
+              ><svg
+                class="ui-marker"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                sodales, nulla sit amet porttitor rhoncus.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="CardLinks" id="stress-layout-card-links">
+  <h2>Card links</h2>
+  <p>
+    Cards made clickable with <code>.ui-card-link</code> that also hold buttons,
+    chips, a switch, a nested card link and description lists. The nested
+    controls sit above the link overlay so they stay clickable, and an inline
+    description list stays side by side in a 16rem column where the default one
+    stacks.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Guide</p>
+        <h3>
+          <a class="ui-card-link" href="#stress-layout-card-links"
+            >Getting started with design tokens</a
+          >
+        </h3>
+      </hgroup>
+      <div class="ui-content">
+        The whole card is clickable, the buttons below stay clickable on their
+        own.
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Save</button
+        ><button class="ui-button" type="button" aria-label="Favorite">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <p>Article</p>
+        <h3>
+          <a class="ui-card-link" href="#stress-layout-card-links"
+            >Chips inside a clickable card</a
+          >
+        </h3>
+      </hgroup>
+      <div class="ui-content stress-chips">
+        <button class="ui-chip ui-outlined ui-small" type="button">
+          <span class="ui-text">Filter by tokens</span></button
+        ><a
+          class="ui-chip ui-outlined ui-small"
+          href="#stress-layout-card-links"
+          ><span class="ui-text">Linked chip</span></a
+        ><span class="ui-chip ui-tonal ui-small"
+          ><span class="ui-text">Static chip</span></span
+        >
+      </div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'%3E%3Crect width='600' height='200' fill='%2386efac'/%3E%3Ccircle cx='300' cy='100' r='66' fill='%2314532d'/%3E%3C/svg%3E"
+        alt="Green product shot"
+      />
+      <hgroup>
+        <h3>
+          <a class="ui-card-link" href="#stress-layout-card-links"
+            >Product with an inline description list</a
+          >
+        </h3>
+      </hgroup>
+      <div class="ui-content">
+        <dl class="ui-description-list ui-bordered ui-inline">
+          <div class="ui-item">
+            <dt class="ui-term">Price</dt>
+            <dd class="ui-description">€ 129.00</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">In stock</dt>
+            <dd class="ui-description">12</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">Delivery</dt>
+            <dd class="ui-description">2 to 4 working days</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button ui-filled" type="button">Add to cart</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Outer card</p>
+        <h3>
+          <a class="ui-card-link" href="#stress-layout-card-links"
+            >Card link around a nested card link</a
+          >
+        </h3>
+      </hgroup>
+      <div class="ui-content">
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h4>
+              <a class="ui-card-link" href="#stress-layout-card-links"
+                >Inner card link</a
+              >
+            </h4>
+          </hgroup>
+          <div class="ui-content">
+            Hovering here highlights only the inner card.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content stress-layout-header">
+        <span class="ui-avatar">ML</span>
+        <div class="stress-layout-header-title">
+          <h3>
+            <a class="ui-card-link" href="#stress-layout-card-links"
+              >Maria Johanna Lindqvist-Andersson</a
+            >
+          </h3>
+          <p>Senior principal staff engineer, platform</p>
+        </div>
+        <label class="ui-switch"
+          ><input type="checkbox" role="switch" /><span class="ui-label"
+            >Follow</span
+          ></label
+        >
+      </div>
+    </div>
+  </div>
+  <span class="stress-tag">Narrow</span>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <h3>
+            <a class="ui-card-link" href="#stress-layout-card-links"
+              >Stacked description list</a
+            >
+          </h3>
+        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-description-list ui-bordered">
+            <div class="ui-item">
+              <dt class="ui-term">Subtotal</dt>
+              <dd class="ui-description">€ 120.00</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Shipping</dt>
+              <dd class="ui-description">€ 8.00</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Total</dt>
+              <dd class="ui-description">€ 128.00</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <h3>
+            <a class="ui-card-link" href="#stress-layout-card-links"
+              >Inline description list</a
+            >
+          </h3>
+        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-description-list ui-bordered ui-inline">
+            <div class="ui-item">
+              <dt class="ui-term">Subtotal</dt>
+              <dd class="ui-description">€ 120.00</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Shipping</dt>
+              <dd class="ui-description">€ 8.00</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Total including all taxes and fees</dt>
+              <dd class="ui-description">€ 128.00</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="CarouselStress">
+  <h2>Carousel options</h2>
+  <p>
+    Carousels with peek and center alignment, three items per view, a vertical
+    carousel, persistent buttons and many markers, all in 16rem columns, plus a
+    right to left carousel and buttons outside the slides inside a card. Markers
+    should wrap instead of overflowing, buttons should not cover the markers and
+    right to left should flip the button icons.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <span class="stress-tag">Peek, centered, 20 markers</span>
+      <ul
+        class="ui-carousel ui-align-center ui-peek ui-with-buttons ui-with-markers"
+        aria-label="Peek with many slides"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 1</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 2</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 3</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 4</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 5</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 6</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 7</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 8</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 9</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 10</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 11</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 12</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 13</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 14</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 15</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 16</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 17</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 18</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 19</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Slide 20</h3></hgroup>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="stress-narrow">
+      <span class="stress-tag">Three per view, persistent buttons</span>
+      <ul
+        class="ui-carousel ui-buttons-persistent ui-with-buttons ui-with-markers"
+        aria-label="Forecast"
+        style="--_per-view: 3"
+      >
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Mon</h3>
+              <p>12°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Tue</h3>
+              <p>13°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Wed</h3>
+              <p>14°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Thu</h3>
+              <p>15°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Fri</h3>
+              <p>16°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Sat</h3>
+              <p>17°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Sun</h3>
+              <p>18°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Mon</h3>
+              <p>19°</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-outlined">
+            <div class="ui-content">
+              <h3>Tue</h3>
+              <p>20°</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="stress-narrow">
+      <span class="stress-tag">Vertical, peek, 12 markers</span>
+      <ul
+        class="ui-carousel ui-peek ui-vertical ui-with-buttons ui-with-markers"
+        aria-label="Vertical with many slides"
+        style="--_block-size: 16rem"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 1</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 2</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 3</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 4</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 5</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 6</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 7</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 8</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 9</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 10</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 11</h3></hgroup>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup><h3>Row 12</h3></hgroup>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <span class="stress-tag">Right to left</span>
+  <div class="stress-wide-column" dir="rtl">
+    <ul
+      class="ui-carousel ui-align-center ui-buttons-outside ui-buttons-persistent ui-with-buttons ui-with-markers"
+      aria-label="Right to left"
+      style="--_per-view: 2"
+    >
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 1</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 2</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 3</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 4</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 5</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 6</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 7</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 8</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 9</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h3>Slide 10</h3>
+            <p>Starts on the right</p>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <span class="stress-tag">Buttons outside, in a card</span>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup><h3>Forecast</h3></hgroup>
+        <div class="ui-content">
+          <ul
+            class="ui-carousel ui-buttons-outside ui-buttons-persistent ui-with-buttons ui-with-markers"
+            aria-label="Forecast in a card"
+            style="--_per-view: 2"
+          >
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Mon</h4>
+                  <p>12°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Tue</h4>
+                  <p>13°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Wed</h4>
+                  <p>14°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Thu</h4>
+                  <p>15°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Fri</h4>
+                  <p>16°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Sat</h4>
+                  <p>17°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Sun</h4>
+                  <p>18°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Mon</h4>
+                  <p>19°</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-outlined">
+                <div class="ui-content">
+                  <h4>Tue</h4>
+                  <p>20°</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup><h3>Vertical</h3></hgroup>
+        <div class="ui-content">
+          <ul
+            class="ui-carousel ui-buttons-outside ui-vertical ui-with-buttons ui-with-markers"
+            aria-label="Vertical in a card"
+            style="--_block-size: 12rem"
+          >
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 1</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 2</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 3</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 4</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 5</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 6</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 7</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 8</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 9</h4></hgroup>
+              </div>
+            </li>
+            <li>
+              <div class="ui-card ui-tonal">
+                <hgroup><h4>Row 10</h4></hgroup>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="ScrollableGroups">
+  <h2>Scrollable and shrinking groups</h2>
+  <p>
+    Tabs, button groups and toggle groups with long labels in a 16rem column and
+    in a card header. Scrollable groups stay on one row and scroll, shrinking
+    groups stay on one row and truncate their labels, and vertical groups stack
+    with their labels wrapping or truncating inside the column.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <span class="stress-tag">Scrollable</span>
+      <div class="ui-tabs ui-scrollable">
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-1"
+          class="ui-tab-input"
+          checked
+        /><label for="stress-layout-scroll-tabs-1" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-2"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-tabs-2" class="ui-tab-label"
+          >Notifications</label
+        >
+        <div class="ui-tab-panel">Notifications panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-3"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-tabs-3" class="ui-tab-label"
+          >Billing and invoices</label
+        >
+        <div class="ui-tab-panel">Billing and invoices panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-4"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-tabs-4" class="ui-tab-label"
+          >Connected applications</label
+        >
+        <div class="ui-tab-panel">Connected applications panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-5"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-tabs-5" class="ui-tab-label"
+          >Security</label
+        >
+        <div class="ui-tab-panel">Security panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-tabs"
+          id="stress-layout-scroll-tabs-6"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-tabs-6" class="ui-tab-label"
+          >Advanced</label
+        >
+        <div class="ui-tab-panel">Advanced panel.</div>
+      </div>
+      <div class="ui-tabs ui-line ui-scrollable">
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-1"
+          class="ui-tab-input"
+          checked
+        /><label for="stress-layout-scroll-line-tabs-1" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-2"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-line-tabs-2" class="ui-tab-label"
+          >Notifications</label
+        >
+        <div class="ui-tab-panel">Notifications panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-3"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-line-tabs-3" class="ui-tab-label"
+          >Billing and invoices</label
+        >
+        <div class="ui-tab-panel">Billing and invoices panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-4"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-line-tabs-4" class="ui-tab-label"
+          >Connected applications</label
+        >
+        <div class="ui-tab-panel">Connected applications panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-5"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-line-tabs-5" class="ui-tab-label"
+          >Security</label
+        >
+        <div class="ui-tab-panel">Security panel.</div>
+        <input
+          type="radio"
+          name="stress-layout-scroll-line-tabs"
+          id="stress-layout-scroll-line-tabs-6"
+          class="ui-tab-input"
+        /><label for="stress-layout-scroll-line-tabs-6" class="ui-tab-label"
+          >Advanced</label
+        >
+        <div class="ui-tab-panel">Advanced panel.</div>
+      </div>
+      <div
+        role="group"
+        aria-label="Scrollable actions"
+        class="ui-button-group ui-outlined ui-scrollable"
+      >
+        <button class="ui-button" type="button">Archive</button
+        ><button class="ui-button" type="button">Move to folder</button
+        ><button class="ui-button" type="button">Mark as unread</button
+        ><button class="ui-button" type="button">Delete</button>
+      </div>
+      <div
+        role="radiogroup"
+        aria-label="Scrollable notifications"
+        class="ui-toggle-group ui-scrollable"
+      >
+        <label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-scroll-toggle"
+            value="0"
+          />Everything</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-scroll-toggle"
+            value="1"
+            checked
+          />Mentions</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-scroll-toggle"
+            value="2"
+          />Direct messages</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-scroll-toggle"
+            value="3"
+          />Nothing at all</label
+        >
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <span class="stress-tag">Shrink</span>
+      <div
+        role="group"
+        aria-label="Shrinking actions"
+        class="ui-button-group ui-outlined ui-shrink"
+      >
+        <button class="ui-button" type="button">Archive</button
+        ><button class="ui-button" type="button">Move to folder</button
+        ><button class="ui-button" type="button">Mark as unread</button
+        ><button class="ui-button" type="button">Delete</button>
+      </div>
+      <div
+        role="group"
+        aria-label="Shrinking formatting"
+        class="ui-button-group ui-tonal ui-shrink"
+      >
+        <button class="ui-button" type="button" aria-label="Align left">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 21h18v-2H3v2zm0-4h12v-2H3v2zm0-4h18v-2H3v2zm0-4h12v-2H3v2zm0-6v2h18V3H3z"
+            ></path>
+          </svg></button
+        ><button class="ui-button" type="button" aria-label="Align center">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 21h18v-2H3v2zm4-4h10v-2H7v2zm-4-4h18v-2H3v2zm4-4h10v-2H7v2zM3 3v2h18V3H3z"
+            ></path>
+          </svg></button
+        ><button class="ui-button" type="button">Paragraph style</button
+        ><button class="ui-button" type="button">Insert link</button>
+      </div>
+      <div
+        role="radiogroup"
+        aria-label="Shrinking notifications"
+        class="ui-toggle-group ui-shrink"
+      >
+        <label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-shrink-toggle"
+            value="0"
+          />Everything</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-shrink-toggle"
+            value="1"
+            checked
+          />Mentions</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-shrink-toggle"
+            value="2"
+          />Direct messages</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-layout-shrink-toggle"
+            value="3"
+          />Nothing at all</label
+        >
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <span class="stress-tag">Vertical</span>
+      <div class="stress-row">
+        <div
+          role="group"
+          aria-label="Vertical actions"
+          class="ui-button-group ui-outlined ui-vertical"
+        >
+          <button class="ui-button" type="button">Archive</button
+          ><button class="ui-button" type="button">Move to folder</button
+          ><button class="ui-button" type="button">Mark as unread</button
+          ><button class="ui-button" type="button">Delete</button>
+        </div>
+        <div
+          role="radiogroup"
+          aria-label="Vertical notifications"
+          class="ui-toggle-group ui-vertical"
+        >
+          <label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-vertical-toggle"
+              value="0"
+            />Everything</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-vertical-toggle"
+              value="1"
+            />Mentions</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-vertical-toggle"
+              value="2"
+              checked
+            />Direct messages</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-vertical-toggle"
+              value="3"
+            />Nothing at all</label
+          >
+        </div>
+      </div>
+      <div
+        role="group"
+        aria-label="Vertical shrinking actions"
+        class="ui-button-group ui-filled ui-shrink ui-vertical"
+      >
+        <button class="ui-button" type="button">Archive</button
+        ><button class="ui-button" type="button">Move to folder</button
+        ><button class="ui-button" type="button">Mark as unread</button
+        ><button class="ui-button" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+  <span class="stress-tag">Card header</span>
+  <div class="stress-layout-medium">
+    <div class="ui-card ui-outlined">
+      <div class="ui-content stress-layout-header">
+        <div class="stress-layout-header-title">
+          <h3>Notification preferences for shared workspaces</h3>
+        </div>
+        <div
+          role="radiogroup"
+          aria-label="Header notifications"
+          class="ui-toggle-group ui-small ui-scrollable"
+        >
+          <label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-header-toggle"
+              value="0"
+            />Everything</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-header-toggle"
+              value="1"
+              checked
+            />Mentions</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-header-toggle"
+              value="2"
+            />Direct messages</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-layout-header-toggle"
+              value="3"
+            />Nothing at all</label
+          >
+        </div>
+        <div
+          role="group"
+          aria-label="Header actions"
+          class="ui-button-group ui-outlined ui-small ui-shrink"
+        >
+          <button class="ui-button" type="button">Archive</button
+          ><button class="ui-button" type="button">Move to folder</button
+          ><button class="ui-button" type="button">Mark as unread</button
+          ><button class="ui-button" type="button">Delete</button>
+        </div>
+      </div>
+      <div class="ui-content">
+        <div class="ui-tabs ui-outlined ui-scrollable">
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-1"
+            class="ui-tab-input"
+            checked
+          /><label for="stress-layout-header-tabs-1" class="ui-tab-label"
+            >Profile</label
+          >
+          <div class="ui-tab-panel">Profile panel.</div>
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-2"
+            class="ui-tab-input"
+          /><label for="stress-layout-header-tabs-2" class="ui-tab-label"
+            >Notifications</label
+          >
+          <div class="ui-tab-panel">Notifications panel.</div>
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-3"
+            class="ui-tab-input"
+          /><label for="stress-layout-header-tabs-3" class="ui-tab-label"
+            >Billing and invoices</label
+          >
+          <div class="ui-tab-panel">Billing and invoices panel.</div>
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-4"
+            class="ui-tab-input"
+          /><label for="stress-layout-header-tabs-4" class="ui-tab-label"
+            >Connected applications</label
+          >
+          <div class="ui-tab-panel">Connected applications panel.</div>
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-5"
+            class="ui-tab-input"
+          /><label for="stress-layout-header-tabs-5" class="ui-tab-label"
+            >Security</label
+          >
+          <div class="ui-tab-panel">Security panel.</div>
+          <input
+            type="radio"
+            name="stress-layout-header-tabs"
+            id="stress-layout-header-tabs-6"
+            class="ui-tab-input"
+          /><label for="stress-layout-header-tabs-6" class="ui-tab-label"
+            >Advanced</label
+          >
+          <div class="ui-tab-panel">Advanced panel.</div>
         </div>
       </div>
     </div>

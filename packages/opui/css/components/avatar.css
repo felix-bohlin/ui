@@ -63,12 +63,8 @@
     }
 
     &.ui-squircle {
-      border-radius: var(--radius-3);
-
-      @supports (corner-shape: squircle) {
-        border-radius: var(--radius-round);
-        corner-shape: squircle;
-      }
+      border-radius: var(--radius-round);
+      corner-shape: squircle;
     }
 
     @media (forced-colors: active) {

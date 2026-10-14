@@ -1,5 +1,5 @@
 ---
-import { Avatar, Tooltip } from "@opui/astro"
+import { Avatar, Tooltip, TooltipContent } from "@opui/astro"
 
 type Contributor = {
   login: string
@@ -54,10 +54,7 @@ try {
     <div class="contributors">
       {contributors.length > 0
         ? contributors.map((contributor) => (
-            <Tooltip
-              label={contributor.login}
-              id={`tooltip-${contributor.login}`}
-            >
+            <Tooltip id={`tooltip-${contributor.login}`}>
               <Avatar
                 src={contributor.avatar_url}
                 alt={contributor.login}
@@ -66,6 +63,7 @@ try {
                 commandfor={`tooltip-${contributor.login}`}
                 command="toggle-popover"
               />
+              <TooltipContent>{contributor.login}</TooltipContent>
             </Tooltip>
           ))
         : !error && <p>Loading contributors...</p>}

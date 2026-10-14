@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -12,8 +18,10 @@ import { Button, Dialog } from "opui-css/vue"
   </Button>
 
   <Dialog id="example-dialog-long">
-    <template #header><h2 class="ui-h4">Terms of service</h2></template>
-    <template #content>
+    <DialogHeader>
+      <h2 class="ui-h4">Terms of service</h2>
+    </DialogHeader>
+    <DialogContent>
       <p>
         These terms cover your use of the service and any content you upload. By
         creating an account you agree to them, and to any updates we publish on
@@ -78,8 +86,8 @@ import { Button, Dialog } from "opui-css/vue"
         Questions about these terms go to our support team. We answer within two
         working days.
       </p>
-    </template>
-    <template #actions>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="example-dialog-long" command="close" type="button">
         Decline
       </Button>
@@ -91,6 +99,6 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Accept
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>

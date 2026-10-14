@@ -1,0 +1,190 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-toggle-group).ui-vertical .ui-toggle-button {
+        inline-size: auto;
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Each toggle button keeps its own width (<code
+        >inline-size: fit-content</code
+      >), so the dividers stop short and the checked and hover backgrounds are
+      ragged. Hover "Day" and "Month". The ButtonGroup next to it stretches.
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <div
+        class="ui-toggle-group ui-vertical"
+        role="radiogroup"
+        aria-label="Period"
+        data-name="ToggleGroup, radio"
+      >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-current-period" />Day</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-current-period" checked />Week</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-current-period" />Month</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-current-period" /><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" /></svg
+          >Custom range</label
+        >
+      </div>
+      <div
+        class="ui-toggle-group ui-vertical ui-small"
+        role="group"
+        aria-label="Formatting"
+        data-name="ToggleGroup, small checkbox"
+      >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" checked />Bold</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" />Strikethrough</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" checked />Code</label
+        >
+      </div>
+      <div
+        class="ui-button-group ui-outlined ui-vertical"
+        role="group"
+        data-name="ButtonGroup, for comparison"
+      >
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" /></svg
+          ><span class="ui-text">Custom range</span>
+        </button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The toggle buttons stretch to the widest one, like the ButtonGroup's
+      buttons, so the dividers and backgrounds run edge to edge.
+    </p>
+    <div class="todo-row" style="align-items: start">
+      <div
+        class="ui-toggle-group ui-vertical"
+        role="radiogroup"
+        aria-label="Period"
+        data-name="ToggleGroup, radio"
+      >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-fixed-period" />Day</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-fixed-period" checked />Week</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-fixed-period" />Month</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="radio" name="vs-fixed-period" /><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" /></svg
+          >Custom range</label
+        >
+      </div>
+      <div
+        class="ui-toggle-group ui-vertical ui-small"
+        role="group"
+        aria-label="Formatting"
+        data-name="ToggleGroup, small checkbox"
+      >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" checked />Bold</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" />Strikethrough</label
+        >
+        <label class="ui-toggle-button"
+          ><input type="checkbox" checked />Code</label
+        >
+      </div>
+      <div
+        class="ui-button-group ui-outlined ui-vertical"
+        role="group"
+        data-name="ButtonGroup, for comparison"
+      >
+        <button type="button" class="ui-button">Day</button>
+        <button type="button" class="ui-button">Week</button>
+        <button type="button" class="ui-button">Month</button>
+        <button type="button" class="ui-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" /></svg
+          ><span class="ui-text">Custom range</span>
+        </button>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-vertical")].map((group) => {
+      const widths = [...group.children].map((item) =>
+        Math.round(item.getBoundingClientRect().width),
+      )
+      return `${group.dataset.name}: group ${Math.round(group.getBoundingClientRect().width)}px, items ${widths.join(", ")}px`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("\n")
+  }
+</script>

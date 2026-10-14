@@ -30,7 +30,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border.
+Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border. Put the body in `.ui-content`.
 
 ```html
 <div class="ui-card ui-text">
@@ -102,6 +102,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
       aria-label="Favorite"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -119,6 +120,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
       aria-label="Share"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -164,6 +166,7 @@ Align actions to the end with the `.ui-align-end` class.
       aria-label="Favorite"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -181,6 +184,7 @@ Align actions to the end with the `.ui-align-end` class.
       aria-label="Share"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -225,10 +229,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Type      | Modifiers                                               | Default | Description                                                                        |
-| --------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| Alignment | default, `.ui-actions.ui-align-end`                     | -       | Alignment for the actions.                                                         |
-| Variants  | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Type     | Modifiers                                               | Default | Description                                                                        |
+| -------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| Variants | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Parts
 
@@ -241,26 +244,59 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 #### CSS variables
 
-| Variable              | Default                                     | Description                                                                                                                                                                                              |
-| --------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
-| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
-| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                  |
-| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
-| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                          |
-| `--focus-ring-color`  | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                          |
-| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                           |
-| `--focus-ring-style`  | `solid`                                     | Outline style of the focus ring.                                                                                                                                                                         |
-| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                 |
-| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                             |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                            |
-| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                         |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`     | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                  |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                          |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                         |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                           |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                         |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                 |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                             |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                            |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                         |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.
+To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
+
+### Card actions API
+
+| Type      | Modifiers                | Default | Description                |
+| --------- | ------------------------ | ------- | -------------------------- |
+| Alignment | default, `.ui-align-end` | -       | Alignment for the actions. |
+
+#### Parts
+
+| Part          | Description                          |
+| ------------- | ------------------------------------ |
+| `.ui-actions` | A group of actions, such as buttons. |
+
+#### CSS variables
+
+| Variable              | Default                                                                        | Description                                                                                                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`     | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                  |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                          |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                         |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                           |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                         |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                 |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                             |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                            |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                         |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -400,3 +436,4 @@ Other components might depend on the card component. Be mindful when making chan
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color` ([Under the hood](#under-the-hood)).

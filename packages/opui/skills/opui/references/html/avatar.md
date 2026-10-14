@@ -142,7 +142,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
 | Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the avatar.                  |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element.                 |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts
@@ -168,7 +168,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
 | `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -190,7 +190,7 @@ Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlif
 
    - A shape is just a different `border-radius`
    - `corner-shape: squircle` turns a full radius into a superellipse
-   - `@supports` falls back to a rounded square
+   - Without `corner-shape`, the squircle is a circle
 
 4. Group
 
@@ -257,12 +257,8 @@ Step 3 of 4: Shapes
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-3);
-
-  @supports (corner-shape: squircle) {
-    border-radius: var(--radius-round);
-    corner-shape: squircle;
-  }
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
 }
 ```
 
@@ -306,3 +302,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).

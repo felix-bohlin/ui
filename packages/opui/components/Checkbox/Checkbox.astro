@@ -9,7 +9,6 @@ const {
   class: className,
   error,
   hideLabel,
-  name,
   size,
   spread,
   stack,
@@ -47,8 +46,7 @@ if (
   <CheckboxInput
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : undefined}
-    name={name}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
   />
   {
     Astro.slots.has("default") && (

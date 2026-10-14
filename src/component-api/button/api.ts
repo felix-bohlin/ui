@@ -4,8 +4,8 @@ export default {
   component: "Button",
   options: [
     {
-      description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"button"`.',
+      default: '"button"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
@@ -15,11 +15,18 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
-      attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      group: "State",
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "disabled",
+    },
+    {
+      description:
+        'Disables the button. A link button, which can\'t take `disabled`, takes `aria-disabled="true"` instead and looks and acts disabled.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabledState",
+      values: { button: "[disabled]", link: 'a[aria-disabled="true"]' },
     },
     {
       description: "The link to use. Renders an `<a>`.",
@@ -29,13 +36,13 @@ export default {
       default: "false",
       description:
         "Marks the button as icon-only, so `label` is required. Types only.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "iconOnly",
       type: "boolean",
     },
     {
       description: "The accessible name. Use it on icon-only buttons.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "label",
       type: "string",
     },

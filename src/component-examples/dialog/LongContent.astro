@@ -1,5 +1,11 @@
 ---
-import { Button, Dialog } from "@opui/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "@opui/astro"
 ---
 
 <Button
@@ -11,8 +17,10 @@ import { Button, Dialog } from "@opui/astro"
 </Button>
 
 <Dialog id="example-dialog-long">
-  <h2 class="ui-h4" slot="header">Terms of service</h2>
-  <Fragment slot="content">
+  <DialogHeader>
+    <h2 class="ui-h4">Terms of service</h2>
+  </DialogHeader>
+  <DialogContent>
     <p>
       These terms cover your use of the service and any content you upload. By
       creating an account you agree to them, and to any updates we publish on
@@ -76,8 +84,8 @@ import { Button, Dialog } from "@opui/astro"
       Questions about these terms go to our support team. We answer within two
       working days.
     </p>
-  </Fragment>
-  <Fragment slot="actions">
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog-long" command="close" type="button">
       Decline
     </Button>
@@ -89,5 +97,5 @@ import { Button, Dialog } from "@opui/astro"
     >
       Accept
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>

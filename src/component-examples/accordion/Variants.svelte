@@ -1,39 +1,51 @@
 <script lang="ts">
-  import { Accordion } from "opui-css/svelte"
+  import {
+    Accordion,
+    AccordionContent,
+    AccordionSummary,
+  } from "opui-css/svelte"
 </script>
 
 <Accordion>
-  {#snippet summary()}Text{/snippet}
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Text</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="elevated">
-  {#snippet summary()}Elevated{/snippet}
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Elevated</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="outlined">
-  {#snippet summary()}Outlined{/snippet}
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Outlined</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="tonal">
-  {#snippet summary()}Tonal{/snippet}
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Tonal</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>

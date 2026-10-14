@@ -21,16 +21,17 @@ The project is managed as a monorepo with two main parts:
 
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
-  - `components/`: UI components organized by folder. Each folder contains the Astro, Svelte and Vue templates (e.g., `Button.astro`, `Button.svelte`, `Button.vue`) and their types.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
+  - `react/`: Public entry point and barrel exports for React-based projects.
   - `scripts/`: The build that writes the pre-bundled files to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
   - `svelte/`: Public entry point and barrel exports for Svelte-based projects.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.
 - **The Documentation Site (`src/`)**: The Astro site.
   - `src/component-api/`: API table data for each component (`api.ts`).
-  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
+  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.react.tsx`, `.svelte`, `.vue`), shown on the docs pages and used by the parity tests.
   - `src/components/`, `src/layouts/`: Docs site components and page layouts.
   - `src/docs/`: Page content for the components, guide and learn sections.
   - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
@@ -51,7 +52,7 @@ pnpm dev
 
 Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
 
-The fixture pages at `/<framework>/test/<component>` and `/<framework>/test/theming` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+The fixture pages at `/<framework>/test/<component>` and `/tests/theming/` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 `pnpm test:e2e` needs a Playwright Chromium. Install it once with `pnpm exec playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
 

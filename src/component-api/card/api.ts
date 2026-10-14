@@ -4,20 +4,15 @@ export default {
   component: "Card",
   notes: {
     astro:
-      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
-    html: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
+    html: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
+    react:
+      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
     svelte:
-      "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
-    vue: "Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.",
+      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
+    vue: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
   },
   options: [
-    {
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: ".ui-align-end", start: null },
-    },
     {
       description:
         "The variant to use. Without one the card has the page surface color and no border.",
@@ -34,19 +29,34 @@ export default {
   parts: [
     {
       code: "<hgroup>",
+      component: {
+        astro: "CardHeader",
+        react: "CardHeader",
+        svelte: "CardHeader",
+        vue: "CardHeader",
+      },
       description: "The card header.",
       selector: "hgroup",
-      slots: ["header"],
     },
     {
+      component: {
+        astro: "CardContent",
+        react: "CardContent",
+        svelte: "CardContent",
+        vue: "CardContent",
+      },
       description: "The card content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
+      component: {
+        astro: "CardActions",
+        react: "CardActions",
+        svelte: "CardActions",
+        vue: "CardActions",
+      },
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
@@ -55,7 +65,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the card.",
+      description: "The card parts, and any other content.",
       name: "default",
     },
   ],

@@ -1,0 +1,202 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-menu) {
+        :where(li.ui-critical),
+        li > :is(a, button).ui-critical {
+          color: light-dark(
+            oklch(from var(--critical) min(l, 0.48) c h),
+            oklch(from var(--critical) max(l, 0.8) c h)
+          );
+
+          @container style(--contrast: more) {
+            color: light-dark(
+              oklch(from var(--critical) min(l, 0.36) c h),
+              oklch(from var(--critical) max(l, 0.9) min(c, 0.1) h)
+            );
+          }
+        }
+      }
+    }
+  }
+
+  .todo-menu-grid {
+    display: grid;
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-menu-grid > div {
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-2);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Compare Delete on the dark menus: the floor (<code>0.75</code>,
+      <code>0.85</code> with more contrast) is tuned for the page surface, but
+      the menu sits on the lighter <code>--surface-elevated</code>. Hover Delete
+      in light mode too: the red hover tint drops it below the target.
+    </p>
+    <div class="todo-menu-grid">
+      <div class="ui-light" data-case="Light">
+        <menu class="ui-menu ui-list">
+          <li><button type="button">Rename</button></li>
+          <li class="ui-border-top ui-critical">
+            <button type="button">Delete</button>
+          </li>
+        </menu>
+      </div>
+      <div class="ui-light" data-case="Light, more contrast">
+        <div class="ui-contrast-more">
+          <menu class="ui-menu ui-list">
+            <li><button type="button">Rename</button></li>
+            <li class="ui-border-top ui-critical">
+              <button type="button">Delete</button>
+            </li>
+          </menu>
+        </div>
+      </div>
+      <div class="ui-dark" data-case="Dark">
+        <menu class="ui-menu ui-list">
+          <li><button type="button">Rename</button></li>
+          <li class="ui-border-top ui-critical">
+            <button type="button">Delete</button>
+          </li>
+        </menu>
+      </div>
+      <div class="ui-dark" data-case="Dark, more contrast">
+        <div class="ui-contrast-more">
+          <menu class="ui-menu ui-list">
+            <li><button type="button">Rename</button></li>
+            <li class="ui-border-top ui-critical">
+              <button type="button">Delete</button>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Dark mode lifts the floor to <code>0.8</code> and <code>0.9</code>, light
+      mode caps at <code>0.48</code> (like Badge) and <code>0.36</code>, so
+      Delete passes 4.5:1 and 7:1 at rest and while hovered.
+    </p>
+    <div class="todo-menu-grid">
+      <div class="ui-light" data-case="Light">
+        <menu class="ui-menu ui-list">
+          <li><button type="button">Rename</button></li>
+          <li class="ui-border-top ui-critical">
+            <button type="button">Delete</button>
+          </li>
+        </menu>
+      </div>
+      <div class="ui-light" data-case="Light, more contrast">
+        <div class="ui-contrast-more">
+          <menu class="ui-menu ui-list">
+            <li><button type="button">Rename</button></li>
+            <li class="ui-border-top ui-critical">
+              <button type="button">Delete</button>
+            </li>
+          </menu>
+        </div>
+      </div>
+      <div class="ui-dark" data-case="Dark">
+        <menu class="ui-menu ui-list">
+          <li><button type="button">Rename</button></li>
+          <li class="ui-border-top ui-critical">
+            <button type="button">Delete</button>
+          </li>
+        </menu>
+      </div>
+      <div class="ui-dark" data-case="Dark, more contrast">
+        <div class="ui-contrast-more">
+          <menu class="ui-menu ui-list">
+            <li><button type="button">Rename</button></li>
+            <li class="ui-border-top ui-critical">
+              <button type="button">Delete</button>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    const canvas = document.createElement("canvas")
+    canvas.width = canvas.height = 1
+    const context = canvas.getContext("2d", { willReadFrequently: true })
+    const probe = document.createElement("span")
+    document.body.append(probe)
+
+    const paint = (...colors) => {
+      context.clearRect(0, 0, 1, 1)
+      for (const color of colors) {
+        context.fillStyle = color
+        context.fillRect(0, 0, 1, 1)
+      }
+      return [...context.getImageData(0, 0, 1, 1).data.slice(0, 3)]
+    }
+
+    const luminance = (rgb) => {
+      const [r, g, b] = rgb.map((value) => {
+        const channel = value / 255
+        return channel <= 0.04045
+          ? channel / 12.92
+          : ((channel + 0.055) / 1.055) ** 2.4
+      })
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b
+    }
+
+    const ratio = (a, b) => {
+      const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+      return (light + 0.05) / (dark + 0.05)
+    }
+
+    const hex = (rgb) =>
+      `#${rgb.map((value) => value.toString(16).padStart(2, "0")).join("")}`
+
+    const resolve = (element, value) => {
+      probe.style.backgroundColor = value
+      element.append(probe)
+      return getComputedStyle(probe).backgroundColor
+    }
+
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const lines = [...panel.querySelectorAll("[data-case]")].map((box) => {
+        const menu = box.querySelector(".ui-menu")
+        const item = menu.querySelector(".ui-critical")
+        const button = item.querySelector("button")
+        const bg = paint(getComputedStyle(menu).backgroundColor)
+        const text = paint(getComputedStyle(button).color)
+        const hover = paint(
+          getComputedStyle(menu).backgroundColor,
+          resolve(
+            item,
+            getComputedStyle(item).getPropertyValue("--_hover-bg-color"),
+          ),
+        )
+        const more = box.dataset.case.includes("more")
+        const target = more ? 7 : 4.5
+        const rest = ratio(text, bg)
+        const hovered = ratio(text, hover)
+        const verdict = Math.min(rest, hovered) >= target ? "pass" : "FAIL"
+        return `${box.dataset.case}: ${hex(text)} on ${hex(bg)} ${rest.toFixed(2)}:1, hovered ${hovered.toFixed(2)}:1 (needs ${target}:1, ${verdict})`
+      })
+      panel.querySelector("[data-measure]").textContent = lines.join("\n")
+    }
+    probe.remove()
+  }
+</script>

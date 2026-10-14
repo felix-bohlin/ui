@@ -4,10 +4,12 @@ export default {
   component: "Table",
   notes: {
     astro:
-      "Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.",
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
+    react:
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
     svelte:
-      "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
-    vue: "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
+      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
+    vue: "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
   },
   options: [
     {
@@ -28,14 +30,20 @@ export default {
   parts: [
     {
       code: "<thead>",
-      component: { astro: "Table.Head", svelte: "TableHead", vue: "TableHead" },
+      component: {
+        astro: "TableHead",
+        react: "TableHead",
+        svelte: "TableHead",
+        vue: "TableHead",
+      },
       description: "The header rows.",
       selector: "thead",
     },
     {
       code: "<th>",
       component: {
-        astro: "Table.HeaderCell",
+        astro: "TableHeaderCell",
+        react: "TableHeaderCell",
         svelte: "TableHeaderCell",
         vue: "TableHeaderCell",
       },
@@ -44,19 +52,34 @@ export default {
     },
     {
       code: "<tbody>",
-      component: { astro: "Table.Body", svelte: "TableBody", vue: "TableBody" },
+      component: {
+        astro: "TableBody",
+        react: "TableBody",
+        svelte: "TableBody",
+        vue: "TableBody",
+      },
       description: "The body rows.",
       selector: "tbody",
     },
     {
       code: "<tr>",
-      component: { astro: "Table.Row", svelte: "TableRow", vue: "TableRow" },
+      component: {
+        astro: "TableRow",
+        react: "TableRow",
+        svelte: "TableRow",
+        vue: "TableRow",
+      },
       description: "A row.",
       selector: "tbody tr:first-child",
     },
     {
       code: "<td>",
-      component: { astro: "Table.Cell", svelte: "TableCell", vue: "TableCell" },
+      component: {
+        astro: "TableCell",
+        react: "TableCell",
+        svelte: "TableCell",
+        vue: "TableCell",
+      },
       description: "A data cell.",
       selector: "tbody tr:first-child td:last-child",
     },

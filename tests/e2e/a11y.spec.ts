@@ -6,6 +6,7 @@ import {
   COMPONENTS,
   FRAMEWORKS,
   STRESS_TESTS,
+  axeNodes,
   openFixture,
 } from "./fixtures"
 
@@ -18,12 +19,11 @@ const RECORD = !!process.env.A11Y_RECORD
 const readKnown = (): Record<string, string[]> =>
   JSON.parse(readFileSync(KNOWN_VIOLATIONS_FILE, "utf-8"))
 
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
-
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
 let scheme = ""
+
+if (RECORD) test.describe.configure({ mode: "serial" })
 
 const TARGETS = [
   ...FRAMEWORKS.flatMap((framework) =>
@@ -39,27 +39,21 @@ for (const { component, framework } of TARGETS) {
   test(`${framework}/${component} has no new axe violations`, async ({
     page,
   }, testInfo) => {
+    if (RECORD) {
+      expect(
+        testInfo.config.workers,
+        "recording the ledger needs --workers=1",
+      ).toBe(1)
+    }
     scheme = testInfo.project.name
-    const prefix = `${scheme}/${component}`
+    const prefix = `${scheme}/${framework}/${component}`
     await openFixture(page, framework, component)
 
     const { violations } = await new AxeBuilder({ page })
       .include(component.startsWith("blocks/") ? "body" : "main")
       .exclude('iframe[src*="youtube"]')
       .analyze()
-    const nodes = violations.flatMap((violation) =>
-      violation.nodes
-        .filter(
-          (node) =>
-            violation.id !== "scrollable-region-focusable" ||
-            !isCarousel(node.html),
-        )
-        .map((node) => ({
-          help: violation.help,
-          id: violation.id,
-          target: node.target.join(" "),
-        })),
-    )
+    const nodes = axeNodes(violations)
     const examples = await page.evaluate(
       (targets) =>
         targets.map((target) => {

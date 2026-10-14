@@ -1,6 +1,15 @@
 ---
 import Code from "../../components/Code.astro"
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import Guide from "../../layouts/Guide.astro"
 import { formatInline } from "../../utils/format-inline"
@@ -62,25 +71,25 @@ html {
         )}
         <div class="table-scroll wide">
           <Table>
-            <Table.ColumnGroup>
-              <Table.Column width="min-width: 220px" />
-              <Table.Column width="min-width: 200px" />
-              <Table.Column width="min-width: 300px" />
-            </Table.ColumnGroup>
-            <Table.Head>
-              <Table.Row>
-                <Table.HeaderCell>Token</Table.HeaderCell>
-                <Table.HeaderCell>Default</Table.HeaderCell>
-                <Table.HeaderCell>Description</Table.HeaderCell>
-              </Table.Row>
-            </Table.Head>
-            <Table.Body>
+            <TableColumnGroup>
+              <TableColumn width="min-width: 220px" />
+              <TableColumn width="min-width: 200px" />
+              <TableColumn width="min-width: 300px" />
+            </TableColumnGroup>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Token</TableHeaderCell>
+                <TableHeaderCell>Default</TableHeaderCell>
+                <TableHeaderCell>Description</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {section.tokens.map((token) => (
-                <Table.Row>
-                  <Table.Cell>
+                <TableRow>
+                  <TableCell>
                     <code>{token.name}</code>
-                  </Table.Cell>
-                  <Table.Cell>
+                  </TableCell>
+                  <TableCell>
                     {token.optional ? (
                       <Fragment>
                         Unset. For example <code>{token.value}</code>
@@ -94,16 +103,16 @@ html {
                         <code>{token.dark}</code> in dark mode
                       </Fragment>
                     )}
-                  </Table.Cell>
-                  <Table.Cell
+                  </TableCell>
+                  <TableCell
                     set:html={formatInline(
                       themeTokenDescriptions[token.name] ?? "",
                       Astro.locals.link,
                     )}
                   />
-                </Table.Row>
+                </TableRow>
               ))}
-            </Table.Body>
+            </TableBody>
           </Table>
         </div>
       </section>

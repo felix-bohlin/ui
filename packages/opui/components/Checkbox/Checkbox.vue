@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<CheckboxProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+if (
+  import.meta.env.DEV &&
+  !slots.default &&
+  !attrs["aria-label"] &&
+  !attrs["aria-labelledby"]
+) {
+  console.warn(
+    "[OPUI Checkbox] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+  )
+}
 </script>
 
 <template>
@@ -29,7 +42,6 @@ const endTextId = useId()
     ]"
   >
     <CheckboxInput
-      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="
@@ -37,6 +49,7 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
       :indeterminate="props.indeterminate"
     />
     <span

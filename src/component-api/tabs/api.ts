@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs",
   notes: {
-    html: 'Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.',
+    html: 'Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `label.ui-tab-label` and `.ui-tab-panel`.',
   },
   options: [
     {
@@ -23,7 +23,8 @@ export default {
       prop: "scrollable",
     },
     {
-      description: "The variant to use.",
+      description:
+        "The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -36,20 +37,35 @@ export default {
   parts: [
     {
       code: ".ui-tab-input",
-      component: { astro: "Tabs.Item", svelte: "TabsItem", vue: "TabsItem" },
+      component: {
+        astro: "TabsItem",
+        react: "TabsItem",
+        svelte: "TabsItem",
+        vue: "TabsItem",
+      },
       description:
         "A visually hidden radio input that holds a tab's state. The tab is its label.",
       selector: ".ui-tab-input:not(:checked) + .ui-tab-label",
     },
     {
       code: ".ui-tab-label",
-      component: { astro: "Tabs.Tab", svelte: "TabsTab", vue: "TabsTab" },
+      component: {
+        astro: "TabsTab",
+        react: "TabsTab",
+        svelte: "TabsTab",
+        vue: "TabsTab",
+      },
       description: "A tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label",
     },
     {
       code: ".ui-tab-panel",
-      component: { astro: "Tabs.Panel", svelte: "TabsPanel", vue: "TabsPanel" },
+      component: {
+        astro: "TabsPanel",
+        react: "TabsPanel",
+        svelte: "TabsPanel",
+        vue: "TabsPanel",
+      },
       description: "The panel of the selected tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label + .ui-tab-panel",
     },

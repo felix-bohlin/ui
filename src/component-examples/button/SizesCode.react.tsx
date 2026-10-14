@@ -1,0 +1,40 @@
+import { Button } from "opui-css/react"
+
+export default function SizesCode() {
+  return (
+    <>
+      <Button size="x-small">x-small</Button>
+      <Button size="small">Small</Button>
+      <Button>Default</Button>
+      <Button size="large">Large</Button>
+
+      <Button variant="filled" size="x-small">
+        x-small
+      </Button>
+      <Button variant="filled" size="small">
+        Small
+      </Button>
+      <Button variant="filled">Default</Button>
+      <Button variant="filled" size="large">
+        Large
+      </Button>
+
+      <Button size="x-small" variant="outlined">
+        <span className="ui-text">x-small</span>
+        <svg>{/* */}</svg>
+      </Button>
+      <Button size="small" variant="outlined">
+        <span className="ui-text">Small</span>
+        <svg>{/* */}</svg>
+      </Button>
+      <Button variant="outlined">
+        <span className="ui-text">Default</span>
+        <svg>{/* */}</svg>
+      </Button>
+      <Button variant="outlined" size="large">
+        <span className="ui-text">Large</span>
+        <svg>{/* */}</svg>
+      </Button>
+    </>
+  )
+}

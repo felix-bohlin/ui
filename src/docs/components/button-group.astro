@@ -5,6 +5,8 @@ import AutoExample from "../../components/AutoExample.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   Accordion as UIAccordion,
+  AccordionContent as UIAccordionContent,
+  AccordionSummary as UIAccordionSummary,
   Button as UIButton,
   ButtonGroup as UIButtonGroup,
 } from "@opui/astro"
@@ -62,6 +64,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > and <code>role="group"</code>.
       </Fragment>
       <Fragment slot="astro">Groups related buttons.</Fragment>
+      <Fragment slot="react">Groups related buttons.</Fragment>
       <Fragment slot="svelte">Groups related buttons.</Fragment>
       <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
@@ -85,17 +88,19 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
 
   <div class="ui-not-rich-text">
     <UIAccordion variant="tonal">
-      <Fragment slot="summary">Button group or Toggle group?</Fragment>
-      <p>
-        If your buttons depend on state (controlled) - use <DocLink
-          href="/components/toggle"
-          class="ui-link">Toggle group</DocLink
-        >.
-      </p>
-      <p>
-        If you just need to group a bunch of "dumb" (uncontrolled) buttons - use
-        Button group.
-      </p>
+      <UIAccordionSummary>Button group or Toggle group?</UIAccordionSummary>
+      <UIAccordionContent>
+        <p>
+          If your buttons depend on state (controlled) - use <DocLink
+            href="/components/toggle"
+            class="ui-link">Toggle group</DocLink
+          >.
+        </p>
+        <p>
+          If you just need to group a bunch of "dumb" (uncontrolled) buttons -
+          use Button group.
+        </p>
+      </UIAccordionContent>
     </UIAccordion>
   </div>
 
@@ -110,6 +115,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Change the appearance of the entire group with the <code
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
+      </Fragment>
+      <Fragment slot="react">
+        Change the appearance of the entire group with the <code>variant</code>
+        {" "}prop.
       </Fragment>
       <Fragment slot="svelte">
         Change the appearance of the entire group with the <code>variant</code>
@@ -134,6 +143,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
         the entire group. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="react">
+        Set the <code>color</code> prop to <code>primary</code> or <code
+          >critical</code
+        > to recolor the entire group. The default is a neutral gray.
       </Fragment>
       <Fragment slot="svelte">
         Set the <code>color</code> prop to <code>primary</code> or <code
@@ -160,6 +174,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Adjust the size of all buttons in the group using the <code
           >.ui-x-small</code
         >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="react">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
       </Fragment>
       <Fragment slot="svelte">
         Adjust the size of all buttons in the group using the <code>size</code>
@@ -197,6 +215,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
+      <Fragment slot="react">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
       <Fragment slot="svelte">
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
@@ -224,6 +246,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         >
         {" "}attribute to each <code>&lt;button&gt;</code>.
       </Fragment>
+      <Fragment slot="react">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Disable individual buttons within a group by setting the <code
           >disabled</code
@@ -250,6 +278,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
       <Fragment slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </Fragment>
+      <Fragment slot="react">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </Fragment>
       <Fragment slot="svelte">
         Change the layout of the group with the <code
@@ -282,6 +315,14 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-scrollable</code
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="react">
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>

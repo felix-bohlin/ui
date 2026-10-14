@@ -1,0 +1,12 @@
+---
+import { Button, Menu } from "@opui/astro"
+---
+
+<Button commandfor="menu-bordered" command="toggle-popover" variant="outlined">
+  Options
+</Button>
+<Menu
+  bordered
+  id="menu-bordered"
+  items={[{ label: "Edit" }, { label: "Duplicate" }, { label: "Archive" }]}
+/>

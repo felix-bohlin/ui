@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Button, Dialog } from "opui-css/svelte"
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Button
@@ -11,8 +17,10 @@
 </Button>
 
 <Dialog id="example-dialog-long">
-  {#snippet header()}<h2 class="ui-h4">Terms of service</h2>{/snippet}
-  {#snippet content()}
+  <DialogHeader>
+    <h2 class="ui-h4">Terms of service</h2>
+  </DialogHeader>
+  <DialogContent>
     <p>
       These terms cover your use of the service and any content you upload. By
       creating an account you agree to them, and to any updates we publish on
@@ -76,8 +84,8 @@
       Questions about these terms go to our support team. We answer within two
       working days.
     </p>
-  {/snippet}
-  {#snippet actions()}
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog-long" command="close" type="button">
       Decline
     </Button>
@@ -89,5 +97,5 @@
     >
       Accept
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>

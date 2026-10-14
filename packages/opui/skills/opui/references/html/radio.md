@@ -172,6 +172,94 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
 </label>
 ```
 
+## Spread
+
+Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Delivery</legend>
+    <div class="ui-field-group">
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="standard"
+          checked
+          aria-describedby="radio-spread-end-text-1"
+        />
+        <span class="ui-label">Standard</span>
+        <span class="ui-end-text" id="radio-spread-end-text-1"
+          >Arrives in 3 to 5 days.</span
+        >
+      </label>
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="express"
+          aria-describedby="radio-spread-end-text-2"
+        />
+        <span class="ui-label">Express</span>
+        <span class="ui-end-text" id="radio-spread-end-text-2"
+          >Arrives tomorrow.</span
+        >
+      </label>
+      <label class="ui-radio ui-spread">
+        <input
+          name="radio-spread"
+          type="radio"
+          value="pickup"
+          disabled
+          aria-describedby="radio-spread-end-text-3"
+        />
+        <span class="ui-label">Pickup</span>
+        <span class="ui-end-text" id="radio-spread-end-text-3"
+          >Not available in your area.</span
+        >
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
+## Direction
+
+Radios stack vertically by default. Add `.ui-row` to the `.ui-field-group` to put them in a row.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row">
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="1" checked />
+        <span class="ui-label">Radio 1</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="2" />
+        <span class="ui-label">Radio 2</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="3" />
+        <span class="ui-label">Radio 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
 ## Field description
 
 Can be placed above and below the fields.
@@ -231,6 +319,8 @@ Can be placed above and below the fields.
 ## Disabled
 
 Attach the `disabled` attribute to the `<fieldset>` element to disable every radio in it, or to a single `<input>`.
+
+`aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
 ```html
 <form class="ui-form">
@@ -323,94 +413,6 @@ Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.
 </form>
 ```
 
-## Direction
-
-Radios stack vertically by default. Add `.ui-row` to the `.ui-field-group` to put them in a row.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="1" checked />
-        <span class="ui-label">Radio 1</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="2" />
-        <span class="ui-label">Radio 2</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="3" />
-        <span class="ui-label">Radio 3</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-## Spread
-
-Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Delivery</legend>
-    <div class="ui-field-group">
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="standard"
-          checked
-          aria-describedby="radio-spread-end-text-1"
-        />
-        <span class="ui-label">Standard</span>
-        <span class="ui-end-text" id="radio-spread-end-text-1"
-          >Arrives in 3 to 5 days.</span
-        >
-      </label>
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="express"
-          aria-describedby="radio-spread-end-text-2"
-        />
-        <span class="ui-label">Express</span>
-        <span class="ui-end-text" id="radio-spread-end-text-2"
-          >Arrives tomorrow.</span
-        >
-      </label>
-      <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="pickup"
-          disabled
-          aria-describedby="radio-spread-end-text-3"
-        />
-        <span class="ui-label">Pickup</span>
-        <span class="ui-end-text" id="radio-spread-end-text-3"
-          >Not available in your area.</span
-        >
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
-```
-
 ## API
 
 ### Radio API
@@ -433,37 +435,46 @@ The radio lines up with the first line of its label and centers on the label's c
 
 #### CSS variables
 
-| Variable                     | Default                                                                                 | Description                                                                                                                                                                                                  |
-| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--choice-label-offset`      | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
-| `--choice-size`              | `var(--size-4)`                                                                         | Default `Checkbox` and `Radio` input size.                                                                                                                                                                   |
-| `--choice-size-large`        | `var(--size-5)`                                                                         | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                          |
-| `--choice-size-small`        | `var(--size-3)`                                                                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                        |
-| `--choice-size-x-small`      | `0.875rem`                                                                              | `Checkbox` and `Radio` input size with `.ui-x-small`.                                                                                                                                                        |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                     |
-| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                           |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                 |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
-| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--ripple-color`             | `oklch(0.6 0 0 / 0.2)`                                                                  | Halo color for the `Checkbox` and `Radio` hover effect.                                                                                                                                                      |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                    |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+| Variable                        | Default                                                                                 | Description                                                                                                                                                                                                  |
+| ------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--choice-label-offset`         | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
+| `--choice-size`                 | `calc(var(--size-4) * var(--density))`                                                  | Default `Checkbox` and `Radio` input size.                                                                                                                                                                   |
+| `--choice-size-large`           | `calc(var(--size-5) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                          |
+| `--choice-size-small`           | `calc(var(--size-3) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                        |
+| `--choice-size-x-small`         | `calc(0.875rem * var(--density))`                                                       | `Checkbox` and `Radio` input size with `.ui-x-small`.                                                                                                                                                        |
+| `--disabled-opacity`            | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration`                    | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                        | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
+| `--field-border-color`          | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                     |
+| `--field-border-width`          | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
+| `--field-helper-color`          | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
+| `--field-helper-font-size`      | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
+| `--field-helper-line-height`    | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                           |
+| `--field-label-color`           | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                 |
+| `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
+| `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
+| `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
+| `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
+| `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
+| `--motion`                      | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                     | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`            | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--ripple-color`                | `oklch(0.6 0 0 / 0.2)`                                                                  | Halo color for the `Checkbox` and `Radio` hover effect.                                                                                                                                                      |
+| `--surface-default`             | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                    |
+| `--switch-dot-size-large`       | `calc(var(--size-4) * var(--density))`                                                  | Diameter of the `Switch` dot with `.ui-large`.                                                                                                                                                               |
+| `--switch-dot-size-small`       | `calc(0.75rem * var(--density))`                                                        | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-dot-size-x-small`     | `calc(0.625rem * var(--density))`                                                       | Diameter of the `Switch` dot with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-height-large`   | `calc(var(--size-6) * var(--density))`                                                  | Height of the `Switch` track with `.ui-large`.                                                                                                                                                               |
+| `--switch-track-height-small`   | `calc(var(--size-4) * var(--density))`                                                  | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-track-height-x-small` | `calc(var(--size-3) * var(--density))`                                                  | Height of the `Switch` track with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-width-large`    | `calc(3.5rem * var(--density))`                                                         | Width of the `Switch` track with `.ui-large`.                                                                                                                                                                |
+| `--switch-track-width-small`    | `calc(2.5rem * var(--density))`                                                         | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                              |
+| `--switch-track-width-x-small`  | `calc(var(--size-7) * var(--density))`                                                  | Width of the `Switch` track with `.ui-x-small`.                                                                                                                                                              |
+| `--text-primary`                | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.
+To hide the label, use `.ui-sr-only` instead of `.ui-label`.
 
 ### Field group API
 
@@ -492,9 +503,9 @@ Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
+To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.
 
 ## Under the hood
 
@@ -612,8 +623,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Form](https://open-props-ui.netlify.app/html/components/form.md)
 
-- `opui-css/css/components/radio.css`
-- `opui-css/css/components/form.css`
+* `opui-css/css/components/radio.css`
+* `opui-css/css/components/choice.css`
+* `opui-css/css/components/form.css`
 
 ## Changelog
 
@@ -623,5 +635,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
 - [Spread](#spread) with `.ui-spread`, like Checkbox and Switch.
-- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#validation)).
+- Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#field-group-validation)).
 - Takes `.ui-x-small`. [Sizes](#sizes)
+- [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch. Import it before `radio.css`.

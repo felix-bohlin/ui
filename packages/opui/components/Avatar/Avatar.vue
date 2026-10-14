@@ -2,19 +2,8 @@
 import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const {
-  alt,
-  as,
-  command,
-  commandfor,
-  disabled,
-  href,
-  interestfor,
-  isGroup,
-  size,
-  src,
-  variant,
-} = defineProps<Props>()
+const { alt, as, disabled, href, isGroup, size, src, variant } =
+  defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = computed(() => as || (href ? "a" : "div"))
@@ -29,11 +18,8 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"
-    :command="command"
-    :commandfor="commandfor"
     :disabled="disabled"
     :href="href"
-    :interestfor="interestfor"
     :role="isGroup ? 'group' : undefined"
     :type="Tag === 'button' ? 'button' : undefined"
   >

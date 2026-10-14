@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -8,13 +14,15 @@ import { Button, Dialog } from "opui-css/vue"
   </Button>
 
   <Dialog id="example-dialog">
-    <template #header><h2 class="ui-h4">Newsletter</h2></template>
-    <template #content
-      ><p>
+    <DialogHeader>
+      <h2 class="ui-h4">Newsletter</h2>
+    </DialogHeader>
+    <DialogContent>
+      <p>
         Get a short email when we ship something new. No more than once a month.
-      </p></template
-    >
-    <template #actions>
+      </p>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="example-dialog" command="close" type="button">
         Not now
       </Button>
@@ -26,6 +34,6 @@ import { Button, Dialog } from "opui-css/vue"
       >
         Subscribe
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>

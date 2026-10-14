@@ -8,23 +8,27 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   Container element.
 
-- `header`
+- `<DrawerHeader>`
 
-  The header. `DrawerHeader` renders it with a close button.
+  The header, with a close button.
 
-- `content`
+- `<DrawerTitle>`
+
+  The title. Names the drawer through `aria-labelledby`.
+
+- `<DrawerContent>`
 
   The scrollable content.
 
-- `footer`
+- `<DrawerFooter>`
 
-  The footer. `DrawerFooter` renders it.
+  The footer.
 
 ## Usage
 
 Change the opening side with the `side` prop.
 
-Put a `DrawerHeader` in the `header` snippet to add a heading and a close button. Put actions in the `footer` snippet, wrapped in a `DrawerFooter`.
+Build it from `DrawerHeader`, `DrawerContent` and `DrawerFooter`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer.
 
 The header and footer stay put while the content scrolls, with a shadow on the scrolled edge.
 
@@ -34,7 +38,14 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 
 ```svelte
 <script lang="ts">
-  import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/svelte"
+  import {
+    Button,
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+  } from "opui-css/svelte"
 </script>
 
 <div class="drawer-examples">
@@ -53,10 +64,10 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
 </div>
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Inline Start</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -73,19 +84,19 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-start" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-inline-start" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Inline End</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -102,19 +113,19 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-end" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-inline-end" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-block-start" side="block-start" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Block Start</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -126,19 +137,19 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-block-start" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-block-start" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-block-end" side="block-end" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-block-end" heading="Block End" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Block End</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -150,12 +161,12 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-block-end" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-block-end" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 ```
 
@@ -173,15 +184,14 @@ The drawer sets `closedby="any"` when you leave it out.
 
 ## Accessibility
 
-- The drawer is named by the `heading` of a `DrawerHeader` in the `header` snippet, through `aria-labelledby`. With your own heading, it points at the first heading once the drawer mounts. Pass `aria-label` or `aria-labelledby` to name it yourself.
+- The `DrawerTitle` names the drawer through `aria-labelledby`. A drawer without one needs an `aria-label`. Pass `aria-labelledby` to name it after another element.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
-- Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -200,17 +210,14 @@ Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the
 
 ### Drawer API
 
-| Prop                                                                                                                                                                                   | Type                                                                | Default          | Description                                                                                                                               |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `backdrop`                                                                                                                                                                             | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
-| `children`                                                                                                                                                                             | `Snippet`                                                           | -                | Raw content placed directly in the drawer.                                                                                                |
-| `closedby`                                                                                                                                                                             | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
-| `content`                                                                                                                                                                              | `Snippet`                                                           | -                | The scrollable content.                                                                                                                   |
-| `footer`                                                                                                                                                                               | `Snippet`                                                           | -                | The footer. `DrawerFooter` renders it.                                                                                                    |
-| `header` **Needs hydration** With your own heading instead of a `DrawerHeader` `heading`, `aria-labelledby` only points at it after hydration. Pass `aria-labelledby` or `aria-label`. | `Snippet`                                                           | -                | The header. `DrawerHeader` renders it with a close button.                                                                                |
-| `id`                                                                                                                                                                                   | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
-| `scrollLock`                                                                                                                                                                           | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
-| `side`                                                                                                                                                                                 | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                                                                                   |
+| Prop         | Type                                                                | Default          | Description                                                                                                                               |
+| ------------ | ------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| `children`   | `Snippet`                                                           | -                | The drawer parts, and any other content.                                                                                                  |
+| `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
+| `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
+| `side`       | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
 #### CSS variables
 
@@ -226,18 +233,17 @@ Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<dialog>`.
+Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.
 
 ### Drawer header API
 
-| Prop         | Type      | Default   | Description                                                                                                            |
-| ------------ | --------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `children`   | `Snippet` | -         | Content placed between the heading and the close button.                                                               |
-| `closeLabel` | `string`  | `"Close"` | The accessible name of the close button.                                                                               |
-| `commandfor` | `string`  | -         | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
-| `heading`    | `string`  | -         | The heading.                                                                                                           |
+| Prop                                                                                                                                                                                                                | Type      | Default   | Description                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`                                                                                                                                                                                                          | `Snippet` | -         | The `DrawerTitle`, and any other content before the close button.                                                                       |
+| `closeLabel`                                                                                                                                                                                                        | `string`  | `"Close"` | The accessible name of the close button.                                                                                                |
+| `commandfor` **Needs hydration** Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Set `commandfor` to the dialog's id. | `string`  | -         | The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click. |
 
 #### CSS variables
 
@@ -253,7 +259,7 @@ Attributes that aren't props go to the `<dialog>`.
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ### Drawer footer API
 
@@ -275,7 +281,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -531,4 +537,6 @@ Import the components from `opui-css/svelte`:
 ### What's new
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
-- Named by the header heading through [`aria-labelledby`](#accessibility).
+- Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.
+- The [backdrop](#usage) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).

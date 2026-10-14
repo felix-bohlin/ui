@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<svg>`
 
-  An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical.
+  An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.
 
 - `.ui-content`
 
@@ -33,7 +33,7 @@ You might want to check out:
 
 ## Variants
 
-Tonal (default) and `.ui-outlined` variants.
+Tonal (default) and `.ui-outlined` variants. Put the text in `.ui-content`, with an optional `<h3 class="ui-title">` first.
 
 ```html
 <article class="ui-callout">
@@ -237,19 +237,19 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 
 ### Callout API
 
-| Type       | Modifiers                                                               | Default | Description                                                                  |
-| ---------- | ----------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro, Svelte and Vue the default icon. |
-| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                          |
+| Type       | Modifiers                                                               | Default | Description                                                                                       |
+| ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. |
+| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                                               |
 
 #### Parts
 
-| Part          | Description                                                                                                               |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `.ui-callout` | Container element.                                                                                                        |
-| `<svg>`       | An optional icon before the content. Astro, Svelte and Vue render one by default for info, success, warning and critical. |
-| `.ui-content` | The content.                                                                                                              |
-| `<h3>`        | An optional title inside the content.                                                                                     |
+| Part          | Description                                                                                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.ui-callout` | Container element.                                                                                                                                   |
+| `<svg>`       | An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. |
+| `.ui-content` | The content.                                                                                                                                         |
+| `<h3>`        | An optional title inside the content.                                                                                                                |
 
 #### CSS variables
 
@@ -266,7 +266,32 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 | `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+### Callout title API
+
+#### Parts
+
+| Part   | Description                           |
+| ------ | ------------------------------------- |
+| `<h3>` | An optional title inside the content. |
+
+#### CSS variables
+
+| Variable                 | Default                                      | Description                                                                                           |
+| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`        | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                     |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -411,5 +436,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 - `opui-css/css/components/callout.css`
+
 `theme tokens (snippet)`
 
+## Changelog
+
+### What's new
+
+- Breaking: `--_color` is `--_text-color`, `--_outlined-color` is `--_outlined-text-color` and `--_surface-bg` is `--_surface-bg-color` ([Under the hood](#under-the-hood)).

@@ -1,58 +1,71 @@
 <script setup lang="ts">
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 import type { ClassicSelectProps, Slots } from "./types.d.vue"
-import { inject, useId } from "vue"
+import {
+  computed,
+  inject,
+  type SelectHTMLAttributes,
+  useAttrs,
+  useId,
+} from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ClassicSelectProps>(), {
-  items: () => [],
-  variant: "outlined",
-})
+const {
+  endText,
+  error,
+  id,
+  items = [],
+  label,
+  size,
+  variant = "outlined",
+} = defineProps<ClassicSelectProps>()
 defineSlots<Slots>()
+const attrs = useAttrs() as SelectHTMLAttributes
 const modelValue = defineModel<string | number | (string | number)[]>()
 
-const fieldName = inject(CurrentFieldNameKey, undefined)
+const fieldName = inject(FieldGroupKey, undefined)
 
-const selectId = props.id || useId()
-const endTextId = useId()
+const uid = useId()
+const selectId = computed(() => id || `select-${uid}`)
+const endTextId = `end-text-${uid}`
 </script>
 
 <template>
   <label
     :class="[
       'ui-select',
-      props.size && `ui-${props.size}`,
+      size && `ui-${size}`,
       {
-        'ui-filled': props.variant === 'filled',
+        'ui-filled': variant === 'filled',
       },
-      props.class,
+      $props.class,
     ]"
   >
-    <span v-if="props.label" class="ui-label">{{ props.label }}</span>
+    <span v-if="label" class="ui-label">{{ label }}</span>
     <span class="ui-field">
       <select
-        :aria-describedby="props.endText ? endTextId : undefined"
-        :aria-invalid="props.error ? 'true' : undefined"
-        :id="selectId"
-        :name="fieldName"
         v-bind="$attrs"
         v-model="modelValue"
+        :aria-describedby="
+          [endText ? endTextId : undefined, attrs['aria-describedby']]
+            .filter(Boolean)
+            .join(' ') || undefined
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="selectId"
+        :name="attrs.name ?? fieldName"
       >
-        <option
-          v-for="item in props.items"
-          :key="item.value"
-          :value="item.value"
-        >
+        <option v-for="item in items" :key="item.value" :value="item.value">
           {{ item.text }}
         </option>
         <slot></slot>
       </select>
     </span>
-    <span v-if="props.endText" :id="endTextId" class="ui-end-text">{{
-      props.endText
+    <span v-if="endText" :id="endTextId" class="ui-end-text">{{
+      endText
     }}</span>
   </label>
 </template>

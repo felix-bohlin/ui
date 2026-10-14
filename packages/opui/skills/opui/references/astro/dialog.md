@@ -8,15 +8,15 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `slot="header"`
+- `<DialogHeader>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
-- `slot="content"`
+- `<DialogContent>`
 
   The dialog content.
 
-- `slot="actions"`
+- `<DialogActions>`
 
   A group of actions, such as buttons.
 
@@ -32,12 +32,17 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-The header slot names the dialog: it gets an `aria-labelledby` that points at the header.
+Build it from `DialogHeader`, `DialogContent` and `DialogActions`. The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ```astro
 ---
-import { Dialog } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
 ---
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
@@ -45,11 +50,15 @@ import { Button } from "opui-css/astro"
 </Button>
 
 <Dialog id="example-dialog">
-  <h2 class="ui-h4" slot="header">Newsletter</h2>
-  <p slot="content">
-    Get a short email when we ship something new. No more than once a month.
-  </p>
-  <Fragment slot="actions">
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog" command="close" type="button">
       Not now
     </Button>
@@ -61,7 +70,50 @@ import { Button } from "opui-css/astro"
     >
       Subscribe
     </Button>
-  </Fragment>
+  </DialogActions>
+</Dialog>
+```
+
+## Actions
+
+Actions sit at the end. Set `align="start"` on `DialogActions` to move them to the start.
+
+```astro
+---
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
+---
+
+<Button
+  commandfor="actions-alignment-example"
+  command="show-modal"
+  variant="outlined"
+>
+  Show shortcuts
+</Button>
+
+<Dialog id="actions-alignment-example">
+  <DialogHeader>
+    <h2 class="ui-h4">Keyboard shortcuts</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  </DialogContent>
+  <DialogActions align="start">
+    <Button
+      commandfor="actions-alignment-example"
+      command="close"
+      type="button"
+      variant="filled"
+    >
+      Got it
+    </Button>
+  </DialogActions>
 </Dialog>
 ```
 
@@ -71,8 +123,13 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 
 ```astro
 ---
-import { Dialog } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
 ---
 
 <Button
@@ -89,11 +146,15 @@ import { Button } from "opui-css/astro"
   role="alertdialog"
   aria-describedby="alert-dialog-description"
 >
-  <h2 class="ui-h4" slot="header">Delete project?</h2>
-  <p id="alert-dialog-description" slot="content">
-    This deletes the project and all its files. You can't undo this.
-  </p>
-  <Fragment slot="actions">
+  <DialogHeader>
+    <h2 class="ui-h4">Delete project?</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p id="alert-dialog-description">
+      This deletes the project and all its files. You can't undo this.
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="alert-dialog-example" command="close" type="button">
       Cancel
     </Button>
@@ -106,7 +167,7 @@ import { Button } from "opui-css/astro"
     >
       Delete
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>
 ```
 
@@ -116,11 +177,17 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
 
 ## Long content
 
-The dialog grows up to 85% of the viewport height. The header and actions stay put while the `content` slot scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
+The dialog grows up to 85% of the viewport height. The header and actions stay put while the `DialogContent` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
 
 ```astro
 ---
-import { Button, Dialog } from "opui-css/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
 ---
 
 <Button
@@ -132,8 +199,10 @@ import { Button, Dialog } from "opui-css/astro"
 </Button>
 
 <Dialog id="example-dialog-long">
-  <h2 class="ui-h4" slot="header">Terms of service</h2>
-  <Fragment slot="content">
+  <DialogHeader>
+    <h2 class="ui-h4">Terms of service</h2>
+  </DialogHeader>
+  <DialogContent>
     <p>
       These terms cover your use of the service and any content you upload. By
       creating an account you agree to them, and to any updates we publish on
@@ -197,8 +266,8 @@ import { Button, Dialog } from "opui-css/astro"
       Questions about these terms go to our support team. We answer within two
       working days.
     </p>
-  </Fragment>
-  <Fragment slot="actions">
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog-long" command="close" type="button">
       Decline
     </Button>
@@ -210,7 +279,7 @@ import { Button, Dialog } from "opui-css/astro"
     >
       Accept
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>
 ```
 
@@ -228,12 +297,17 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 
 ```astro
 ---
-import { Dialog } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
-import { Button } from "opui-css/astro"
-import { FieldSet as Fieldset } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Button
@@ -245,20 +319,24 @@ import { FieldLegend } from "opui-css/astro"
 </Button>
 
 <Dialog id="closing-behaviors-dialog" closedby="any">
-  <h2 class="ui-h4" slot="header">How to close</h2>
-  <Fieldset slot="content">
-    <FieldLegend>Choose a closing behavior:</FieldLegend>
-    <FieldGroup name="closedby-demo">
-      <Radio value="any" checked>any</Radio>
-      <Radio value="closerequest">closerequest</Radio>
-      <Radio value="none">none</Radio>
-    </FieldGroup>
-  </Fieldset>
-  <Fragment slot="actions">
+  <DialogHeader>
+    <h2 class="ui-h4">How to close</h2>
+  </DialogHeader>
+  <DialogContent>
+    <FieldSet>
+      <FieldLegend>Choose a closing behavior:</FieldLegend>
+      <FieldGroup name="closedby-demo">
+        <Radio value="any" checked>any</Radio>
+        <Radio value="closerequest">closerequest</Radio>
+        <Radio value="none">none</Radio>
+      </FieldGroup>
+    </FieldSet>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="closing-behaviors-dialog" command="close">
       Close manually
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>
 
 <script>
@@ -280,11 +358,9 @@ import { FieldLegend } from "opui-css/astro"
 
 ## Accessibility
 
-- The `tabindex` attribute must **not** be used on the `<dialog>` element.
-
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                                  |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -306,19 +382,15 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Prop           | Type                                  | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `actionsAlign` | `"start"` , `"end"`                   | `"end"` | Alignment for the actions.                                               |
-| `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Prop       | Type                                  | Default | Description                                                              |
+| ---------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `closedby` | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Slots
 
-| Slot      | Description                                |
-| --------- | ------------------------------------------ |
-| `actions` | A group of actions, such as buttons.       |
-| `content` | The dialog content.                        |
-| `default` | Raw content placed directly in the dialog. |
-| `header`  | The dialog header.                         |
+| Slot      | Description                              |
+| --------- | ---------------------------------------- |
+| `default` | The dialog parts, and any other content. |
 
 #### CSS variables
 
@@ -330,7 +402,33 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                  |
 | `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.
+
+### Dialog actions API
+
+| Prop    | Type                | Default | Description                |
+| ------- | ------------------- | ------- | -------------------------- |
+| `align` | `"start"` , `"end"` | `"end"` | Alignment for the actions. |
+
+#### Slots
+
+| Slot      | Description                   |
+| --------- | ----------------------------- |
+| `default` | The actions, such as buttons. |
+
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                                                                                               |
+| ------------------ | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                          |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                  |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -538,19 +636,20 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/astro/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
 ### What's new
 
+- Breaking: [`DialogHeader`, `DialogContent` and `DialogActions`](#api) replace the slots, and `align` on `DialogActions` replaces `actionsAlign`.
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.

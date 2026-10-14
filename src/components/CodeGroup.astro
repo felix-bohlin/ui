@@ -1,6 +1,6 @@
 ---
 import Code from "./Code.astro"
-import { Tabs } from "@opui/astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "@opui/astro"
 
 type Tab = {
   title: string
@@ -19,12 +19,12 @@ const { tabs } = Astro.props
   <Tabs variant="line" class="code-tabs">
     {
       tabs.map((tab, index) => (
-        <Tabs.Item open={index === 0}>
-          <Tabs.Tab>{tab.title}</Tabs.Tab>
-          <Tabs.Panel>
+        <TabsItem open={index === 0}>
+          <TabsTab>{tab.title}</TabsTab>
+          <TabsPanel>
             {tab.code && <Code code={tab.code} lang={tab.lang} />}
-          </Tabs.Panel>
-        </Tabs.Item>
+          </TabsPanel>
+        </TabsItem>
       ))
     }
   </Tabs>

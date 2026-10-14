@@ -10,7 +10,11 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 - `.ui-header`
 
-  The header. `DrawerHeader` renders it with a close button.
+  The header, with a close button.
+
+- `<h2>`
+
+  The title. Names the drawer through `aria-labelledby`.
 
 - `.ui-content`
 
@@ -18,7 +22,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 - `.ui-footer`
 
-  The footer. `DrawerFooter` renders it.
+  The footer.
 
 ## Usage
 
@@ -340,13 +344,12 @@ Without `closedby`, the browser picks: a modal drawer, opened with `command="sho
 
 - Name the drawer with `aria-labelledby` pointing at the heading's `id`, not at `.ui-header`, which also holds the close button.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
-- Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)
 
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -374,12 +377,13 @@ Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the
 
 #### Parts
 
-| Part               | Description                                                |
-| ------------------ | ---------------------------------------------------------- |
-| `dialog.ui-drawer` | Container element.                                         |
-| `.ui-header`       | The header. `DrawerHeader` renders it with a close button. |
-| `.ui-content`      | The scrollable content.                                    |
-| `.ui-footer`       | The footer. `DrawerFooter` renders it.                     |
+| Part               | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `dialog.ui-drawer` | Container element.                                     |
+| `.ui-header`       | The header, with a close button.                       |
+| `<h2>`             | The title. Names the drawer through `aria-labelledby`. |
+| `.ui-content`      | The scrollable content.                                |
+| `.ui-footer`       | The footer.                                            |
 
 #### CSS variables
 
@@ -395,9 +399,9 @@ Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.
+Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.
 
 ### Drawer header API
 
@@ -406,7 +410,6 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | Part         | Description        |
 | ------------ | ------------------ |
 | `.ui-header` | Container element. |
-| `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
 
 #### CSS variables
@@ -423,7 +426,7 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ### Drawer footer API
 
@@ -447,7 +450,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -702,3 +705,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
+- The [backdrop](#usage) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).

@@ -6,6 +6,7 @@ export const title = "Menu"
 
 const {
   align,
+  bordered,
   class: className,
   dense,
   id,
@@ -23,12 +24,16 @@ const menuId = id || $id("menu")
   class:list={[
     "ui-menu",
     "ui-list",
-    { "ui-align-end": align === "end", "ui-dense": dense },
+    {
+      "ui-align-end": align === "end",
+      "ui-bordered": bordered,
+      "ui-dense": dense,
+    },
     placement && placement !== "block-end" && `ui-${placement}`,
     className,
   ]}
   id={menuId}
-  popover={popover === "auto" ? true : popover}
+  popover={popover === "auto" ? "" : popover}
   {...rest}
 >
   {
@@ -59,7 +64,7 @@ const menuId = id || $id("menu")
               disabled={!href && disabled ? true : undefined}
               href={href && !disabled ? href : undefined}
               type={href ? undefined : "button"}
-              {...(itemRest as any)}
+              {...itemRest}
             >
               <div class="ui-text">
                 <p>{label}</p>

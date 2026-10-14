@@ -63,11 +63,11 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop      | Type                                        | Default   | Description                                                          |
-| --------- | ------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`                         | -         | The maximum value.                                                   |
-| `value`   | `string` , `number` , `(number & string[])` | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"`                      | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| Prop      | Type                   | Default   | Description                                                          |
+| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
+| `max`     | `string` , `number`    | -         | The maximum value.                                                   |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 
@@ -89,9 +89,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
 | `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.
+Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
 
 ## Under the hood
 
@@ -247,3 +247,4 @@ Import the component from `opui-css/astro`:
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).

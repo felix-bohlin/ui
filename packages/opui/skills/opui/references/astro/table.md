@@ -11,23 +11,23 @@
 
   Container element.
 
-- `<Table.Head>`
+- `<TableHead>`
 
   The header rows.
 
-- `<Table.HeaderCell>`
+- `<TableHeaderCell>`
 
   A header cell.
 
-- `<Table.Body>`
+- `<TableBody>`
 
   The body rows.
 
-- `<Table.Row>`
+- `<TableRow>`
 
   A row.
 
-- `<Table.Cell>`
+- `<TableCell>`
 
   A data cell.
 
@@ -39,44 +39,51 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
 
 ```astro
 ---
-import { Table } from "opui-css/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
 <Table>
   <caption>Band Members</caption>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Band</Table.HeaderCell>
-      <Table.HeaderCell>Name</Table.HeaderCell>
-      <Table.HeaderCell>Instrument</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell>Radiohead</Table.Cell>
-      <Table.Cell>Ed O'Brien</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Korn</Table.Cell>
-      <Table.Cell>Jonathan Davis</Table.Cell>
-      <Table.Cell>Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Broken Bells</Table.Cell>
-      <Table.Cell>James Mercer</Table.Cell>
-      <Table.Cell>Vocals/Guitar</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Pink Floyd</Table.Cell>
-      <Table.Cell>David Gilmour</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-  </Table.Body>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Band</TableHeaderCell>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Instrument</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Korn</TableCell>
+      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Broken Bells</TableCell>
+      <TableCell>James Mercer</TableCell>
+      <TableCell>Vocals/Guitar</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Pink Floyd</TableCell>
+      <TableCell>David Gilmour</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+  </TableBody>
   <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={3}>All great bands!</Table.Cell>
-    </Table.Row>
+    <TableRow>
+      <TableCell colspan={3}>All great bands!</TableCell>
+    </TableRow>
   </tfoot>
 </Table>
 ```
@@ -85,45 +92,37 @@ import { Table } from "opui-css/astro"
 
 ```astro
 ---
-import { Table } from "opui-css/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
 <Table variant="dense">
   <caption>Band Members</caption>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Band</Table.HeaderCell>
-      <Table.HeaderCell>Name</Table.HeaderCell>
-      <Table.HeaderCell>Instrument</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell>Radiohead</Table.Cell>
-      <Table.Cell>Ed O'Brien</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Korn</Table.Cell>
-      <Table.Cell>Jonathan Davis</Table.Cell>
-      <Table.Cell>Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Broken Bells</Table.Cell>
-      <Table.Cell>James Mercer</Table.Cell>
-      <Table.Cell>Vocals/Guitar</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Pink Floyd</Table.Cell>
-      <Table.Cell>David Gilmour</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-  </Table.Body>
-  <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={3}>All great bands!</Table.Cell>
-    </Table.Row>
-  </tfoot>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Band</TableHeaderCell>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Instrument</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Korn</TableCell>
+      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>Vocals</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 ```
 
@@ -131,45 +130,37 @@ import { Table } from "opui-css/astro"
 
 ```astro
 ---
-import { Table } from "opui-css/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
 <Table variant="spacious">
   <caption>Band Members</caption>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Band</Table.HeaderCell>
-      <Table.HeaderCell>Name</Table.HeaderCell>
-      <Table.HeaderCell>Instrument</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell>Radiohead</Table.Cell>
-      <Table.Cell>Ed O'Brien</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Korn</Table.Cell>
-      <Table.Cell>Jonathan Davis</Table.Cell>
-      <Table.Cell>Vocals</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Broken Bells</Table.Cell>
-      <Table.Cell>James Mercer</Table.Cell>
-      <Table.Cell>Vocals/Guitar</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell>Pink Floyd</Table.Cell>
-      <Table.Cell>David Gilmour</Table.Cell>
-      <Table.Cell>Guitar/Vocals</Table.Cell>
-    </Table.Row>
-  </Table.Body>
-  <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={3}>All great bands!</Table.Cell>
-    </Table.Row>
-  </tfoot>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Band</TableHeaderCell>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Instrument</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Korn</TableCell>
+      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>Vocals</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 ```
 
@@ -181,7 +172,14 @@ The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table 
 
 ```astro
 ---
-import { Table } from "opui-css/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
 <div
@@ -191,65 +189,65 @@ import { Table } from "opui-css/astro"
   style="max-block-size: 15rem; overflow: auto"
 >
   <Table stickyHeader>
-    <Table.Head>
-      <Table.Row>
-        <Table.HeaderCell>Invoice</Table.HeaderCell>
-        <Table.HeaderCell>Customer</Table.HeaderCell>
-        <Table.HeaderCell>Amount</Table.HeaderCell>
-      </Table.Row>
-    </Table.Head>
-    <Table.Body>
-      <Table.Row>
-        <Table.Cell>INV-1000</Table.Cell>
-        <Table.Cell>Ada</Table.Cell>
-        <Table.Cell>€130</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1001</Table.Cell>
-        <Table.Cell>Grace</Table.Cell>
-        <Table.Cell>€260</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1002</Table.Cell>
-        <Table.Cell>Linus</Table.Cell>
-        <Table.Cell>€390</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1003</Table.Cell>
-        <Table.Cell>Margaret</Table.Cell>
-        <Table.Cell>€520</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1004</Table.Cell>
-        <Table.Cell>Alan</Table.Cell>
-        <Table.Cell>€650</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1005</Table.Cell>
-        <Table.Cell>Barbara</Table.Cell>
-        <Table.Cell>€780</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1006</Table.Cell>
-        <Table.Cell>Ken</Table.Cell>
-        <Table.Cell>€910</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1007</Table.Cell>
-        <Table.Cell>Frances</Table.Cell>
-        <Table.Cell>€1,040</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1008</Table.Cell>
-        <Table.Cell>Dennis</Table.Cell>
-        <Table.Cell>€1,170</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>INV-1009</Table.Cell>
-        <Table.Cell>Radia</Table.Cell>
-        <Table.Cell>€1,300</Table.Cell>
-      </Table.Row>
-    </Table.Body>
+    <TableHead>
+      <TableRow>
+        <TableHeaderCell>Invoice</TableHeaderCell>
+        <TableHeaderCell>Customer</TableHeaderCell>
+        <TableHeaderCell>Amount</TableHeaderCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell>INV-1000</TableCell>
+        <TableCell>Ada</TableCell>
+        <TableCell>€130</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1001</TableCell>
+        <TableCell>Grace</TableCell>
+        <TableCell>€260</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1002</TableCell>
+        <TableCell>Linus</TableCell>
+        <TableCell>€390</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1003</TableCell>
+        <TableCell>Margaret</TableCell>
+        <TableCell>€520</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1004</TableCell>
+        <TableCell>Alan</TableCell>
+        <TableCell>€650</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1005</TableCell>
+        <TableCell>Barbara</TableCell>
+        <TableCell>€780</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1006</TableCell>
+        <TableCell>Ken</TableCell>
+        <TableCell>€910</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1007</TableCell>
+        <TableCell>Frances</TableCell>
+        <TableCell>€1,040</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1008</TableCell>
+        <TableCell>Dennis</TableCell>
+        <TableCell>€1,170</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>INV-1009</TableCell>
+        <TableCell>Radia</TableCell>
+        <TableCell>€1,300</TableCell>
+      </TableRow>
+    </TableBody>
   </Table>
 </div>
 ```
@@ -262,76 +260,85 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
 
 ```astro
 ---
-import { Table } from "opui-css/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 ---
 
 <Table>
   <caption>Nordic Countries Overview</caption>
-  <Table.ColumnGroup>
-    <Table.Column />
-    <Table.Column />
-    <Table.Column />
-  </Table.ColumnGroup>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell rowspan={2}>Country</Table.HeaderCell>
-      <Table.HeaderCell colspan={3}>Major Cities</Table.HeaderCell>
-      <Table.HeaderCell colspan={2}>Nature</Table.HeaderCell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell>Capital</Table.HeaderCell>
-      <Table.HeaderCell>2nd Largest</Table.HeaderCell>
-      <Table.HeaderCell>3rd Largest</Table.HeaderCell>
-      <Table.HeaderCell>National Animal</Table.HeaderCell>
-      <Table.HeaderCell>National Bird</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.HeaderCell scope="row">Norway</Table.HeaderCell>
-      <Table.Cell>Oslo</Table.Cell>
-      <Table.Cell>Bergen</Table.Cell>
-      <Table.Cell>Trondheim</Table.Cell>
-      <Table.Cell>Elk</Table.Cell>
-      <Table.Cell>White-throated Dipper</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell scope="row">Sweden</Table.HeaderCell>
-      <Table.Cell>Stockholm</Table.Cell>
-      <Table.Cell>Göteborg</Table.Cell>
-      <Table.Cell>Malmö</Table.Cell>
-      <Table.Cell>Elk</Table.Cell>
-      <Table.Cell>Common Blackbird</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell scope="row">Denmark</Table.HeaderCell>
-      <Table.Cell>København</Table.Cell>
-      <Table.Cell>Aarhus</Table.Cell>
-      <Table.Cell>Odense</Table.Cell>
-      <Table.Cell>Mute Swan</Table.Cell>
-      <Table.Cell>Mute Swan</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell scope="row">Finland</Table.HeaderCell>
-      <Table.Cell>Helsinki</Table.Cell>
-      <Table.Cell>Espoo</Table.Cell>
-      <Table.Cell>Tampere</Table.Cell>
-      <Table.Cell>Brown Bear</Table.Cell>
-      <Table.Cell>Whooper Swan</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.HeaderCell scope="row">Iceland</Table.HeaderCell>
-      <Table.Cell>Reykjavík</Table.Cell>
-      <Table.Cell>Kópavogur</Table.Cell>
-      <Table.Cell>Hafnarfjörður</Table.Cell>
-      <Table.Cell>Gyrfalcon</Table.Cell>
-      <Table.Cell>Gyrfalcon</Table.Cell>
-    </Table.Row>
-  </Table.Body>
+  <TableColumnGroup>
+    <TableColumn />
+    <TableColumn />
+    <TableColumn />
+  </TableColumnGroup>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell rowspan={2}>Country</TableHeaderCell>
+      <TableHeaderCell colspan={3}>Major Cities</TableHeaderCell>
+      <TableHeaderCell colspan={2}>Nature</TableHeaderCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell>Capital</TableHeaderCell>
+      <TableHeaderCell>2nd Largest</TableHeaderCell>
+      <TableHeaderCell>3rd Largest</TableHeaderCell>
+      <TableHeaderCell>National Animal</TableHeaderCell>
+      <TableHeaderCell>National Bird</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableHeaderCell scope="row">Norway</TableHeaderCell>
+      <TableCell>Oslo</TableCell>
+      <TableCell>Bergen</TableCell>
+      <TableCell>Trondheim</TableCell>
+      <TableCell>Elk</TableCell>
+      <TableCell>White-throated Dipper</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Sweden</TableHeaderCell>
+      <TableCell>Stockholm</TableCell>
+      <TableCell>Göteborg</TableCell>
+      <TableCell>Malmö</TableCell>
+      <TableCell>Elk</TableCell>
+      <TableCell>Common Blackbird</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Denmark</TableHeaderCell>
+      <TableCell>København</TableCell>
+      <TableCell>Aarhus</TableCell>
+      <TableCell>Odense</TableCell>
+      <TableCell>Mute Swan</TableCell>
+      <TableCell>Mute Swan</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Finland</TableHeaderCell>
+      <TableCell>Helsinki</TableCell>
+      <TableCell>Espoo</TableCell>
+      <TableCell>Tampere</TableCell>
+      <TableCell>Brown Bear</TableCell>
+      <TableCell>Whooper Swan</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Iceland</TableHeaderCell>
+      <TableCell>Reykjavík</TableCell>
+      <TableCell>Kópavogur</TableCell>
+      <TableCell>Hafnarfjörður</TableCell>
+      <TableCell>Gyrfalcon</TableCell>
+      <TableCell>Gyrfalcon</TableCell>
+    </TableRow>
+  </TableBody>
   <tfoot>
-    <Table.Row>
-      <Table.Cell colspan={6}>Scandinavia != The Nordics</Table.Cell>
-    </Table.Row>
+    <TableRow>
+      <TableCell colspan={6}>Scandinavia != The Nordics</TableCell>
+    </TableRow>
   </tfoot>
 </Table>
 ```
@@ -373,9 +380,9 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                          |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.
+Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.
 
 ## Under the hood
 
@@ -537,7 +544,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/table.css`
 
@@ -545,7 +552,10 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- Breaking: import the parts by their flat names, such as [`TableHead`](#api). The `Table.Head` aliases are gone.
 - A checkbox alone in a cell is centered ([Default](#default)).
 - [Dense](#variants) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
+- Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
+- Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.

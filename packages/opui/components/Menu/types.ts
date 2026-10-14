@@ -10,6 +10,7 @@ export type MenuItem = {
 
 export type Props = {
   align?: "start" | "end"
+  bordered?: boolean
   dense?: boolean
   id?: string
   items?: MenuItem[]

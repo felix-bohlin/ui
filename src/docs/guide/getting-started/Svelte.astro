@@ -95,10 +95,12 @@ import Code from "../../../components/Code.astro"
       lang="svelte"
     />
     <p>
-      Slots are snippets: the default slot is <code>children</code> and named slots
-      are camelCased, such as <code>endText</code>. <code>TextField</code>, <code
-        >Textarea</code
-      >, <code>Select</code>, <code>ClassicSelect</code> and <code>Range</code> support
+      Containers take parts, such as <code>CardHeader</code> and <code
+        >DialogActions</code
+      >. Other slots are snippets: the default slot is <code>children</code> and named
+      slots are camelCased, such as <code>endText</code>. <code>TextField</code
+      >, <code>Textarea</code>, <code>Select</code>, <code>ClassicSelect</code> and
+      <code>Range</code> support
       <code>bind:value</code>. <code>Checkbox</code> and <code>Switch</code> support
       <code>bind:checked</code> and <code>bind:group</code>, and <code
         >Radio</code
@@ -134,11 +136,6 @@ import Code from "../../../components/Code.astro"
         <DocLink href="/components/range#value">Range</DocLink> value: the <code
           >&lt;output&gt;</code
         > doesn't follow the thumb. The track fill is CSS, so it's fine.
-      </li>
-      <li>
-        <DocLink href="/components/drawer">Drawer</DocLink> with your own heading
-        in <code>header</code>: <code>aria-labelledby</code> points at it after hydration.
-        A <code>DrawerHeader</code> with <code>heading</code> works without it.
       </li>
       <li>
         <code>bind:</code> on <DocLink href="/components/checkbox"

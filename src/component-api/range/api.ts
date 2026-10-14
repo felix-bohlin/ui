@@ -3,6 +3,14 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Range",
   hydration: {
+    react: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+    ],
     svelte: [
       {
         description:
@@ -27,11 +35,13 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
+      "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.",
     html: "Add a `<datalist>` after the input for tick marks.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     svelte:
-      "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
-    vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
   },
   options: [
     {

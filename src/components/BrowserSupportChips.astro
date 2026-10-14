@@ -1,5 +1,5 @@
 ---
-import { Chip, Tooltip } from "@opui/astro"
+import { Chip, Tooltip, TooltipContent } from "@opui/astro"
 import {
   computeEngineBrowserSupport,
   type EngineId,
@@ -92,7 +92,7 @@ const HEADINGS = {
               )}
             </svg>
           </Chip>
-          <Fragment slot="content">
+          <TooltipContent>
             <strong class="tooltip-heading">{heading}</strong>
             {entry.level === "full" && entry.sinceVersion && (
               <span>Supported since v{entry.sinceVersion}.</span>
@@ -108,7 +108,7 @@ const HEADINGS = {
                 <code>{entry.unsupportedFeatures.join(", ")}</code>.
               </span>
             )}
-          </Fragment>
+          </TooltipContent>
         </Tooltip>
       )
     })

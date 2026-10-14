@@ -81,9 +81,19 @@ export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
   const bound = new Set(
     modelIsProp ? modelsFor(api, framework).map((entry) => entry.prop) : [],
   )
-  const snippets = snippetNames(api, framework)
+  const reactChildren =
+    framework === "react" &&
+    (api.slots?.some((slot) => slot.name === "default") ||
+      api.parts.some((part) => part.slots?.includes("default")))
+  const snippets = [
+    ...snippetNames(api, framework),
+    ...(reactChildren ? ["children"] : []),
+  ]
     .filter((name) => !props.has(name) && !bound.has(name))
-    .map((name) => [name, "Snippet"] as const)
+    .map(
+      (name) =>
+        [name, framework === "react" ? "ReactNode" : "Snippet"] as const,
+    )
   return [
     ...[...props, ...scoped, ...snippets]
       .filter(([name]) => !bound.has(name))

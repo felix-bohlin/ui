@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, useId } from "vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
-import { ToggleGroupKey } from "../ToggleGroup/types.d.vue"
+import { computed, inject } from "vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { disabled, id, label, name, pressed, size, type, value } =
@@ -12,14 +12,14 @@ defineOptions({
   inheritAttrs: false,
 })
 
+const field = inject(FieldGroupKey, undefined)
 const group = inject(ToggleGroupKey, undefined)
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
-const finalName = computed(() => name || group?.name || currentFieldName)
+const finalName = computed(() => name || group?.groupName || field?.value)
 const finalType = computed(() =>
-  group?.type === "radio" ? "radio" : type || group?.type || "checkbox",
+  group?.inputType === "radio"
+    ? "radio"
+    : type || group?.inputType || "checkbox",
 )
-const uid = useId()
-const inputId = computed(() => id || uid)
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const inputId = computed(() => id || uid)
     <input
       :checked="pressed"
       :disabled="disabled"
-      :id="inputId"
+      :id="id"
       :name="finalName"
       :type="finalType"
       :value="value || label"

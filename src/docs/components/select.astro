@@ -5,6 +5,7 @@ import { Select as UISelect } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
@@ -105,6 +106,11 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
           >.ui-small</code
         >, default and <code>.ui-large</code>.
       </Fragment>
+      <Fragment slot="react">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
@@ -129,6 +135,9 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         Add <code>.ui-dense</code> to the <code>.ui-list</code> to pack the options
         tighter.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
       <Fragment slot="svelte">
         Use the <code>dense</code> prop to pack the options tighter.
       </Fragment>
@@ -145,7 +154,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
       below the select.
     </p>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
@@ -158,6 +167,10 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       <Fragment slot="html">
         Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
         {" "}<code>.ui-field</code> to affix content alongside the select.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>prefix</code> and <code>suffix</code> props to affix icons or
+        short text alongside the select inside the field's border.
       </Fragment>
       <Fragment slot="svelte">
         Use the <code>prefix</code> and <code>suffix</code> snippets to affix icons
@@ -184,6 +197,11 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         Add a <code>.ui-header</code> or <code>.ui-footer</code> element inside
         {" "}<code>.ui-field</code> for short text or a link above and below the select,
         inside the field's border and set off by a divider.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>header</code> and <code>footer</code> props for short text or
+        a link above and below the select, inside the field's border and set off by
+        a divider.
       </Fragment>
       <Fragment slot="svelte">
         Use the <code>header</code> and <code>footer</code> snippets for short text
@@ -213,6 +231,12 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       <Fragment slot="html">
         Add <code>selected</code> to the <code>option</code> to preselect it.
       </Fragment>
+      <Fragment slot="react">
+        Set <code>defaultValue</code>, or <code>value</code> with <code
+          >onChange</code
+        >, to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
       <Fragment slot="svelte">
         Set <code>value</code> or <code>bind:value</code> to preselect an option,
         or
@@ -239,87 +263,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
   <section>
     <h2 id="validation">Validation</h2>
-    <Conditional>
-      <Fragment slot="astro">
-        <ul>
-          <li>
-            Set <code>required</code> on the component to toggle required styles on
-            the select.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="svelte">
-        <ul>
-          <li>
-            Add the <code>required</code> attribute on the component. It is forwarded
-            to the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="vue">
-        <ul>
-          <li>
-            Add the <code>required</code> attribute on the component. It is forwarded
-            to the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="html">
-        <ul>
-          <li>
-            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
-            to toggle required styles.
-          </li>
-          <li>
-            Add <code>aria-invalid="true"</code> to the <code
-              >&lt;select&gt;</code
-            > to toggle invalid styles. Screen readers announce it as invalid. Make
-            use of the end text to give extra feedback on the error, and point <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use <code
-              >aria-invalid="true"</code
-            > for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-    </Conditional>
+    <ValidationNotes element="select" subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -337,6 +281,11 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the select on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
       <Fragment slot="svelte">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the select on the right. The layout collapses to a column
@@ -349,7 +298,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
   <section>

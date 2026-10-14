@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Card, Carousel } from "opui-css/svelte"
+  import { Card, CardHeader, Carousel } from "opui-css/svelte"
 
   const places = ["Kyoto", "Lima", "Lisbon"]
 </script>
@@ -12,10 +12,10 @@
       {#each places as title (title)}
         <li>
           <Card variant="tonal">
-            {#snippet header()}
+            <CardHeader>
               <p>Destination</p>
               <h3>{title}</h3>
-            {/snippet}
+            </CardHeader>
           </Card>
         </li>
       {/each}

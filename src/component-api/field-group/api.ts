@@ -4,7 +4,7 @@ export default {
   component: "FieldGroup",
   css: ["form"],
   notes: {
-    html: "Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.",
+    html: "To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.",
   },
   options: [
     {
@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components.",
+        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components.",
       prop: "name",
     },
   ],

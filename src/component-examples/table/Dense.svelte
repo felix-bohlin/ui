@@ -1,37 +1,33 @@
-<table class="ui-table ui-dense">
-  <caption> Band Members </caption>
-  <thead>
-    <tr>
-      <th>Band</th>
-      <th>Name</th>
-      <th>Instrument</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Radiohead</td>
-      <td>Ed O'Brien</td>
-      <td>Guitar/Vocals</td>
-    </tr>
-    <tr>
-      <td>Korn</td>
-      <td>Jonathan Davis</td>
-      <td>Vocals</td>
-    </tr>
-    <tr>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">All great bands!</td>
-    </tr>
-  </tfoot>
-</table>
+<script lang="ts">
+  import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeaderCell,
+    TableRow,
+  } from "opui-css/svelte"
+</script>
+
+<Table variant="dense">
+  <caption>Band Members</caption>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Band</TableHeaderCell>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Instrument</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Korn</TableCell>
+      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>Vocals</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>

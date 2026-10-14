@@ -3,6 +3,8 @@ import { readdir, readFile } from "node:fs/promises"
 import { join, basename } from "node:path"
 import { fileURLToPath } from "node:url"
 
+import { computeBrowserSupport } from "../src/utils/browser-support.ts"
+
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
 )
@@ -29,47 +31,16 @@ if (unknown.length > 0) {
   process.exit(1)
 }
 
-const BROWSERS = ["chrome", "edge", "firefox", "safari"]
-
-function getSupport(featureId, browser) {
-  const f = features[featureId]
-  if (!f) return undefined
-  const direct = f.status?.support?.[browser]
-  if (direct !== undefined) return direct
-  const byCompat = f.status?.by_compat_key
-  if (!byCompat) return undefined
-  let worst,
-    sawAny = false
-  for (const entry of Object.values(byCompat)) {
-    const v = entry.support?.[browser]
-    if (v === undefined) continue
-    sawAny = true
-    if (v === false) return false
-    if (!worst || parseInt(v) > parseInt(worst)) worst = v
-  }
-  return sawAny ? worst : undefined
-}
-
-const partials = []
-
-for (const [comp, ids] of Object.entries(components)) {
-  for (const browser of BROWSERS) {
-    const supported = []
-    const unsupported = []
-    for (const id of ids) {
-      const v = getSupport(id, browser)
-      if (typeof v === "string" && parseInt(v)) supported.push(id)
-      else unsupported.push(id)
-    }
-    let level
-    if (unsupported.length === 0) level = "full"
-    else if (supported.length === 0) level = "none"
-    else level = "partial"
-    if (level === "partial") {
-      partials.push({ comp, browser, supported, unsupported })
-    }
-  }
-}
+const partials = Object.entries(components).flatMap(([comp, ids]) =>
+  computeBrowserSupport(ids)
+    .filter((entry) => entry.level === "partial")
+    .map((entry) => ({
+      browser: entry.browser,
+      comp,
+      supported: entry.supportedFeatures,
+      unsupported: entry.unsupportedFeatures,
+    })),
+)
 
 if (partials.length === 0) {
   console.log("No components have partial support in any browser.")

@@ -1,0 +1,179 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(label.ui-checkbox):has([aria-invalid="true"], :user-invalid) {
+        input[type="checkbox"]:not(:checked, :indeterminate) {
+          border-color: var(--invalid-color);
+        }
+      }
+
+      :where(label.ui-radio):has([aria-invalid="true"], :user-invalid) {
+        input[type="radio"]:not(:checked) {
+          border-color: var(--invalid-color);
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      All but the last control in each row have
+      <code>aria-invalid="true"</code>. Invalid only sets
+      <code>--primary</code> to red, so checkboxes and radios turn red when
+      checked, and an unchecked one looks valid. The switch gets a red ring
+      either way. Check the required checkbox and uncheck it: it is now
+      <code>:user-invalid</code>, but nothing on the box changes.
+    </p>
+    <div class="todo-row">
+      <label class="ui-checkbox" data-name="Checkbox, invalid">
+        <input type="checkbox" name="checkbox-1-current" aria-invalid="true" />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, invalid, checked">
+        <input
+          type="checkbox"
+          name="checkbox-2-current"
+          aria-invalid="true"
+          checked
+        />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, valid">
+        <input type="checkbox" name="checkbox-3-current" />
+        <span class="ui-label">Valid</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-radio" data-name="Radio, invalid">
+        <input type="radio" name="radio-1-current" aria-invalid="true" />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, invalid, checked">
+        <input
+          type="radio"
+          name="radio-2-current"
+          aria-invalid="true"
+          checked
+        />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, valid">
+        <input type="radio" name="radio-3-current" />
+        <span class="ui-label">Valid</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-switch" data-name="Switch, invalid">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-1-current"
+          aria-invalid="true"
+        />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-switch" data-name="Switch, invalid, checked">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-2-current"
+          aria-invalid="true"
+          checked
+        />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+    </div>
+    <label class="ui-checkbox" data-name="Checkbox, required">
+      <input type="checkbox" name="checkbox-required-current" required />
+      <span class="ui-label">Required: check, then uncheck</span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      An unchecked invalid checkbox or radio gets a red border
+      (<code>--invalid-color</code>, like the text field border and the switch
+      ring), so it reads as invalid in every state. The required checkbox turns
+      red once it is unchecked again.
+    </p>
+    <div class="todo-row">
+      <label class="ui-checkbox" data-name="Checkbox, invalid">
+        <input type="checkbox" name="checkbox-1-fixed" aria-invalid="true" />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, invalid, checked">
+        <input
+          type="checkbox"
+          name="checkbox-2-fixed"
+          aria-invalid="true"
+          checked
+        />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+      <label class="ui-checkbox" data-name="Checkbox, valid">
+        <input type="checkbox" name="checkbox-3-fixed" />
+        <span class="ui-label">Valid</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-radio" data-name="Radio, invalid">
+        <input type="radio" name="radio-1-fixed" aria-invalid="true" />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, invalid, checked">
+        <input type="radio" name="radio-2-fixed" aria-invalid="true" checked />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+      <label class="ui-radio" data-name="Radio, valid">
+        <input type="radio" name="radio-3-fixed" />
+        <span class="ui-label">Valid</span>
+      </label>
+    </div>
+    <div class="todo-row">
+      <label class="ui-switch" data-name="Switch, invalid">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-1-fixed"
+          aria-invalid="true"
+        />
+        <span class="ui-label">Invalid</span>
+      </label>
+      <label class="ui-switch" data-name="Switch, invalid, checked">
+        <input
+          type="checkbox"
+          role="switch"
+          name="switch-2-fixed"
+          aria-invalid="true"
+          checked
+        />
+        <span class="ui-label">Invalid, checked</span>
+      </label>
+    </div>
+    <label class="ui-checkbox" data-name="Checkbox, required">
+      <input type="checkbox" name="checkbox-required-fixed" required />
+      <span class="ui-label">Required: check, then uncheck</span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const write = () => {
+      const rows = [...panel.querySelectorAll("[data-name]")].map((root) => {
+        const input = root.querySelector("input")
+        const style = getComputedStyle(input)
+        const value = root.matches(".ui-switch")
+          ? `ring ${style.boxShadow === "none" ? "none" : style.boxShadow.split(")")[0] + ")"}`
+          : `border ${style.borderColor}`
+        return `${root.dataset.name}: ${value}`
+      })
+      panel.querySelector("[data-measure]").textContent = rows.join("\n")
+    }
+    write()
+    panel.addEventListener("change", () => setTimeout(write, 100))
+  }
+</script>

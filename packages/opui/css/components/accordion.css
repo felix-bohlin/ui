@@ -13,10 +13,10 @@
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease);
-    --_focus-ring-offset: var(--focus-ring-offset, 2px);
+    --_focus-ring-offset: var(--focus-ring-offset);
     --_margin-inline: var(--size-1);
     --_overflow: visible;
-    --_padding-inline: initial;
+    --_padding-inline: 0;
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
     --_summary-padding-inline: var(--_padding-inline);
@@ -39,12 +39,15 @@
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
     interpolate-size: allow-keywords;
 
-    &.ui-elevated {
-      --_bg-color: var(--surface-elevated);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
+    &:is(.ui-elevated, .ui-outlined, .ui-tonal) {
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
       --_margin-inline: 0;
       --_overflow: hidden;
       --_padding-inline: var(--size-3);
+    }
+
+    &.ui-elevated {
+      --_bg-color: var(--surface-elevated);
       --_shadow: var(--shadow-3);
     }
 
@@ -52,18 +55,10 @@
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
       --_border-width: var(--border-width);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
-      --_margin-inline: 0;
-      --_overflow: hidden;
-      --_padding-inline: var(--size-3);
     }
 
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
-      --_margin-inline: 0;
-      --_overflow: hidden;
-      --_padding-inline: var(--size-3);
     }
 
     @media (forced-colors: active) {
@@ -108,10 +103,15 @@
         gap: var(--size-2);
         list-style: none;
 
+        /* Safari fallback */
         &::marker,
         &::-webkit-details-marker {
           display: none;
         }
+      }
+
+      & > :is(img, svg) {
+        flex-shrink: 0;
       }
 
       .ui-marker {
@@ -182,7 +182,7 @@
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;

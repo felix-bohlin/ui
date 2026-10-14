@@ -10,7 +10,7 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
 - `<hgroup>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
 - `.ui-content`
 
@@ -36,7 +36,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Name the dialog by pointing `aria-labelledby` at its title.
+Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
 
 ```html
 <button
@@ -77,6 +77,44 @@ Name the dialog by pointing `aria-labelledby` at its title.
       type="button"
     >
       Subscribe
+    </button>
+  </div>
+</dialog>
+```
+
+## Actions
+
+Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to the start.
+
+```html
+<button
+  type="button"
+  commandfor="actions-alignment-html"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Show shortcuts
+</button>
+
+<dialog
+  id="actions-alignment-html"
+  class="ui-dialog ui-card ui-elevated"
+  aria-labelledby="actions-alignment-title-html"
+>
+  <hgroup id="actions-alignment-title-html">
+    <h2 class="ui-h4">Keyboard shortcuts</h2>
+  </hgroup>
+  <div class="ui-content">
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  </div>
+  <div class="ui-actions ui-align-start">
+    <button
+      commandfor="actions-alignment-html"
+      command="close"
+      class="ui-button ui-filled"
+      type="button"
+    >
+      Got it
     </button>
   </div>
 </dialog>
@@ -307,16 +345,12 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </dialog>
 
 <script>
+  const dialog = document.getElementById("closing-behaviors-dialog-html")
   const radios = document.querySelectorAll('input[name="closedby-demo"]')
 
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      const dialog = radio
-        .closest(".example-preview")
-        ?.querySelector("#closing-behaviors-dialog-html")
-      if (dialog instanceof HTMLDialogElement) {
-        dialog.setAttribute("closedby", radio.value)
-      }
+      dialog?.setAttribute("closedby", radio.value)
     })
   })
 </script>
@@ -324,11 +358,9 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 
 ## Accessibility
 
-- The `tabindex` attribute must **not** be used on the `<dialog>` element.
-
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                                  |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -350,19 +382,18 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Type           | Modifiers                             | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Alignment      | default, `.ui-actions.ui-align-start` | default | Alignment for the actions.                                               |
-| Close behavior | `[closedby]`                          | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Type           | Modifiers    | Default | Description                                                              |
+| -------------- | ------------ | ------- | ------------------------------------------------------------------------ |
+| Close behavior | `[closedby]` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Parts
 
-| Part               | Description                          |
-| ------------------ | ------------------------------------ |
-| `dialog.ui-dialog` | Container element.                   |
-| `<hgroup>`         | The dialog header.                   |
-| `.ui-content`      | The dialog content.                  |
-| `.ui-actions`      | A group of actions, such as buttons. |
+| Part               | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `dialog.ui-dialog` | Container element.                                             |
+| `<hgroup>`         | The dialog header. Names the dialog through `aria-labelledby`. |
+| `.ui-content`      | The dialog content.                                            |
+| `.ui-actions`      | A group of actions, such as buttons.                           |
 
 #### CSS variables
 
@@ -374,9 +405,33 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                 |
 | `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 Add `.ui-card` and `.ui-elevated` to the root for card styles.
+
+### Dialog actions API
+
+| Type      | Modifiers                  | Default | Description                |
+| --------- | -------------------------- | ------- | -------------------------- |
+| Alignment | default, `.ui-align-start` | default | Alignment for the actions. |
+
+#### Parts
+
+| Part          | Description                          |
+| ------------- | ------------------------------------ |
+| `.ui-actions` | A group of actions, such as buttons. |
+
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                                                                                              |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                       |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                 |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -588,8 +643,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Card](https://open-props-ui.netlify.app/html/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

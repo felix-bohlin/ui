@@ -16,42 +16,42 @@ Explain more about the topic shown in the headline and subhead through supportin
 
   Container element.
 
-- `v-slot:header`
+- `<CardHeader>`
 
   The card header.
 
-- `v-slot:content`
+- `<CardContent>`
 
   The card content.
 
-- `v-slot:actions`
+- `<CardActions>`
 
   A group of actions, such as buttons.
 
 ## Variants
 
-Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border.
+Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border. Put the body in `CardContent`.
 
 ```vue
 <script setup lang="ts">
-import { Card } from "opui-css/vue"
+import { Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="text">
-    <template #content>Text</template>
+    <CardContent>Text</CardContent>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Outlined</template>
+    <CardContent>Outlined</CardContent>
   </Card>
 
   <Card variant="tonal">
-    <template #content>Tonal</template>
+    <CardContent>Tonal</CardContent>
   </Card>
 
   <Card variant="elevated">
-    <template #content>Elevated</template>
+    <CardContent>Elevated</CardContent>
   </Card>
 </template>
 ```
@@ -62,59 +62,60 @@ On the page you won't see a difference. Put a card on a tonal surface or in a di
 
 ## Header
 
-Using the `header` slot.
+Using `CardHeader`.
 
 ```vue
 <script setup lang="ts">
-import { Card } from "opui-css/vue"
+import { Card, CardHeader } from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="outlined">
-    <template #header>
+    <CardHeader>
       <p>Blog</p>
       <h3>My ultra-great blog post</h3>
       <p>Please read it.</p>
-    </template>
+    </CardHeader>
   </Card>
 </template>
 ```
 
 ## Actions
 
-Using the `actions` slot.
+Using `CardActions`.
 
 There are some basic styles here to get you going, but for more advanced use-cases (which always happen), you might want to add your own styles.
 
 ```vue
 <script setup lang="ts">
-import { Button, Card } from "opui-css/vue"
+import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="outlined">
-    <template #content>
+    <CardContent>
       Notice how the buttons are made to align with the text above.
-    </template>
-    <template #actions>
+    </CardContent>
+    <CardActions>
       <Button>Cancel</Button>
       <Button>Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Trying other button types too. Look at that!</template>
-    <template #actions>
+    <CardContent>Trying other button types too. Look at that!</CardContent>
+    <CardActions>
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Icon buttons work too!</template>
-    <template #actions>
+    <CardContent>Icon buttons work too!</CardContent>
+    <CardActions>
       <Button rounded size="small" aria-label="Favorite">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -128,6 +129,7 @@ import { Button, Card } from "opui-css/vue"
       </Button>
       <Button rounded size="small" aria-label="Share">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -139,42 +141,43 @@ import { Button, Card } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-    </template>
+    </CardActions>
   </Card>
 </template>
 ```
 
 ### Alignment
 
-Align actions to the end with the `actionsAlign="end"` prop.
+Align actions to the end with `align="end"` on `CardActions`.
 
 ```vue
 <script setup lang="ts">
-import { Button, Card } from "opui-css/vue"
+import { Button, Card, CardActions, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Buttons aligned to the end. Works too!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Buttons aligned to the end. Works too!</CardContent>
+    <CardActions align="end">
       <Button>Cancel</Button>
       <Button>Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Again, buttons are aligned to the end!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Again, buttons are aligned to the end!</CardContent>
+    <CardActions align="end">
       <Button variant="outlined">Cancel</Button>
       <Button variant="filled">Save</Button>
-    </template>
+    </CardActions>
   </Card>
 
-  <Card variant="outlined" actionsAlign="end">
-    <template #content>Icon buttons aligned to the end!</template>
-    <template #actions>
+  <Card variant="outlined">
+    <CardContent>Icon buttons aligned to the end!</CardContent>
+    <CardActions align="end">
       <Button rounded size="small" aria-label="Favorite">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -188,6 +191,7 @@ import { Button, Card } from "opui-css/vue"
       </Button>
       <Button rounded size="small" aria-label="Share">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -199,7 +203,7 @@ import { Button, Card } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-    </template>
+    </CardActions>
   </Card>
 </template>
 ```
@@ -210,27 +214,31 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 
 ```vue
 <script setup lang="ts">
-import { Button, Card } from "opui-css/vue"
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
   <Card variant="outlined">
-    <template #header>
+    <CardHeader>
       <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
-    </template>
-    <template #content>
-      Plans for any team. Click anywhere on the card.
-    </template>
+    </CardHeader>
+    <CardContent> Plans for any team. Click anywhere on the card. </CardContent>
   </Card>
 
   <Card variant="outlined">
-    <template #header>
+    <CardHeader>
       <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
-    </template>
-    <template #content>Every release in one place.</template>
-    <template #actions>
+    </CardHeader>
+    <CardContent>Every release in one place.</CardContent>
+    <CardActions>
       <Button>Subscribe</Button>
-    </template>
+    </CardActions>
   </Card>
 </template>
 ```
@@ -241,42 +249,71 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop           | Type                                               | Default | Description                                                                        |
-| -------------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.                                                         |
-| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Prop      | Type                                               | Default | Description                                                                        |
+| --------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `variant` | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Slots
 
-| Slot      | Description                              |
-| --------- | ---------------------------------------- |
-| `actions` | A group of actions, such as buttons.     |
-| `content` | The card content.                        |
-| `default` | Raw content placed directly in the card. |
-| `header`  | The card header.                         |
+| Slot      | Description                            |
+| --------- | -------------------------------------- |
+| `default` | The card parts, and any other content. |
 
 #### CSS variables
 
-| Variable              | Default                                     | Description                                                                                                                                                                                             |
-| --------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
-| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                       |
-| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
-| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
-| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                         |
-| `--focus-ring-color`  | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                         |
-| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                          |
-| `--focus-ring-style`  | `solid`                                     | Outline style of the focus ring.                                                                                                                                                                        |
-| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                |
-| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                            |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                           |
-| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                        |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-radius`     | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                       |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                         |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                        |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                          |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                        |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                               |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                            |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                           |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                        |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Add `.ui-card-link` to one link in the card to make the whole card clickable. Other links and buttons stay clickable.
+To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
+
+### Card actions API
+
+| Prop    | Type                | Default | Description                |
+| ------- | ------------------- | ------- | -------------------------- |
+| `align` | `"start"` , `"end"` | -       | Alignment for the actions. |
+
+#### Slots
+
+| Slot      | Description                   |
+| --------- | ----------------------------- |
+| `default` | The actions, such as buttons. |
+
+#### CSS variables
+
+| Variable              | Default                                                                        | Description                                                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--border-radius`     | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                       |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                 |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                         |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                        |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                          |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                        |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                               |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                            |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                           |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                        |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -407,7 +444,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/vue/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md)
 
-Import the component from `opui-css/vue`:
+Import the components from `opui-css/vue`:
 
 - `opui-css/css/components/card.css`
 
@@ -415,6 +452,8 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: [`CardHeader`, `CardContent` and `CardActions`](#api) replace the slots, and `align` on `CardActions` replaces `actionsAlign`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color` ([Under the hood](#under-the-hood)).

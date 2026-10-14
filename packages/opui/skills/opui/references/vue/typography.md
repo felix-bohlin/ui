@@ -37,6 +37,16 @@ Utils that you can plop down wherever.
 
 ### Blockquote
 
+```vue
+<template>
+  <blockquote class="ui-blockquote">
+    “Occupy your mind, don't stay home. Talk to all your friends, but don't look
+    at your phone”
+    <footer>— Marika Hackman, <cite>No Caffeine</cite></footer>
+  </blockquote>
+</template>
+```
+
 ### Link
 
 Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get the same style without a class. On hover and focus the underline gets thicker, and the color darkens in light mode and lightens in dark mode.
@@ -48,6 +58,20 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 ```
 
 ### Code block
+
+```vue
+<script setup lang="ts">
+const code = `.ui-card {
+  background: var(--surface-elevated);
+  border-radius: var(--radius-3);
+  padding: var(--size-4);
+}`
+</script>
+
+<template>
+  <pre class="ui-code-block"><code>{{ code }}</code></pre>
+</template>
+```
 
 ## Inline text elements
 
@@ -589,18 +613,18 @@ cold-brew 1.0.0</samp></pre>
 
 ## API
 
-| Type          | Modifiers                                                                                                                                                  | Default | Description                                                                                                                             |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Blockquote    | `.ui-blockquote`                                                                                                                                           | -       | Quoted block with a start border.                                                                                                       |
-| Caption       | `.ui-caption`                                                                                                                                              | -       | Muted supporting text.                                                                                                                  |
-| Code block    | `pre.ui-code-block`                                                                                                                                        | -       | Monospace preformatted block.                                                                                                           |
-| Heading group | `.ui-hgroup`                                                                                                                                               | -       | Groups an overline, heading, and optional body copy.                                                                                    |
-| Headings      | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6`                                                                                                 | -       | Heading styles for any element.                                                                                                         |
-| Inline        | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | -       | Inline text element utilities.                                                                                                          |
-| Link          | `.ui-link`                                                                                                                                                 | -       | Link styles outside `.ui-rich-text`. Hover and focus darken the color in light mode, lighten it in dark mode and thicken the underline. |
-| Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                                                                                                             |
-| Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                 |
-| Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                              |
+| Type          | Modifiers                                                                                                                                                  | Default | Description                                                                                                                                        |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blockquote    | `.ui-blockquote`                                                                                                                                           | -       | Quoted block with a start border.                                                                                                                  |
+| Caption       | `.ui-caption`                                                                                                                                              | -       | Muted supporting text.                                                                                                                             |
+| Code block    | `pre.ui-code-block`                                                                                                                                        | -       | Monospace preformatted block.                                                                                                                      |
+| Heading group | `.ui-hgroup`                                                                                                                                               | -       | Groups an overline, heading, and optional body copy.                                                                                               |
+| Headings      | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6`                                                                                                 | -       | Heading styles for any element.                                                                                                                    |
+| Inline        | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | -       | Inline text element utilities.                                                                                                                     |
+| Link          | `.ui-link`                                                                                                                                                 | -       | Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. |
+| Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                                                                                                                        |
+| Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
+| Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                                         |
 
 ### Parts
 
@@ -608,7 +632,7 @@ cold-brew 1.0.0</samp></pre>
 | --------------- | --------------------------------------------------- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
 
-CSS-only typography. Apply the classes on elements in templates; no Vue component.
+Add the classes to elements in your templates. There is no Vue component.
 
 ## Under the hood
 

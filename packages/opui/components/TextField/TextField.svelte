@@ -61,26 +61,21 @@
   {#if label}
     <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if description || startText}
+  {#if startText || description}
     <span class="ui-start-text">
-      {#if typeof description === "function"}
-        {startText}
-        {@render description()}
-      {:else}
-        {description || startText}
-      {/if}
+      {startText}{#if description}{@render content(description)}{/if}
     </span>
   {/if}
   <span class="ui-field">
     <input
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : undefined}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
       bind:value
       {id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
+      inputmode={rest.inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       name={name ?? field?.name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
+      pattern={rest.pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
     />
     {#if prefix}

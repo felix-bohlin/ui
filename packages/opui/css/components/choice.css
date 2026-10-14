@@ -1,0 +1,174 @@
+@layer components.root {
+  :where(label.ui-checkbox, label.ui-radio, .ui-switch) {
+    --_accent: light-dark(
+      var(--primary),
+      oklch(from var(--primary) min(l, 0.62) c h)
+    );
+    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+    --_input-size: var(--choice-size);
+
+    align-items: start;
+    color: var(--text-primary);
+    display: inline-grid;
+    gap: 0 var(--size-2);
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    inline-size: fit-content;
+
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
+    }
+
+    /* Disabled */
+    &:has([disabled], input[aria-disabled="true"]) {
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+      user-select: none;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Required dot */
+    &:has(:required) {
+      .ui-label:after {
+        color: var(--field-required-color);
+        content: "*";
+        margin-inline-start: 0.25ex;
+      }
+    }
+
+    /* Label */
+    .ui-label {
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
+      grid-column: 2;
+      grid-row: 1;
+      margin-block-start: calc(
+        (var(--_input-size) - 1lh) / 2 + var(--choice-label-offset)
+      );
+      padding-inline: 0 1ex;
+      position: relative;
+    }
+
+    /* End text */
+    :where(.ui-end-text) {
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
+      grid-column: 2;
+      grid-row: 2;
+      line-height: var(--field-helper-line-height);
+      z-index: 1;
+    }
+
+    /* Hover and active effect */
+    &:where(.ui-checkbox, .ui-radio)
+      input:is([type="checkbox"], [type="radio"]) {
+      --_dir-rtl: -1;
+      --_ripple-size: 175%;
+
+      &:dir(rtl) {
+        --_dir-rtl: 1;
+      }
+
+      &:where(:not([disabled], [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:hover::before {
+            --_thumb-scale: 1;
+          }
+        }
+
+        &:active::before {
+          --_thumb-scale: 1.1;
+        }
+
+        &::before {
+          --_thumb-scale: 0.01;
+
+          background-color: var(--ripple-color);
+          block-size: var(--_ripple-size, 150%);
+          clip-path: circle(50%);
+          content: "";
+          inline-size: var(--_ripple-size, 150%);
+          inset-block-start: 50%;
+          inset-inline-start: 50%;
+          position: absolute;
+          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+            translateZ(-1px) scale(var(--_thumb-scale));
+          transform-origin: center center;
+
+          transition: transform calc(var(--duration) * var(--motion, 1))
+            var(--ease);
+          will-change: transform;
+        }
+      }
+    }
+
+    /* Sizes */
+    &.ui-x-small {
+      --choice-size: var(--choice-size-x-small);
+      --switch-dot-size: var(--switch-dot-size-x-small);
+      --switch-track-height: var(--switch-track-height-x-small);
+      --switch-track-width: var(--switch-track-width-x-small);
+    }
+
+    &.ui-small {
+      --choice-size: var(--choice-size-small);
+      --switch-dot-size: var(--switch-dot-size-small);
+      --switch-track-height: var(--switch-track-height-small);
+      --switch-track-width: var(--switch-track-width-small);
+    }
+
+    &.ui-large {
+      --choice-size: var(--choice-size-large);
+      --switch-dot-size: var(--switch-dot-size-large);
+      --switch-track-height: var(--switch-track-height-large);
+      --switch-track-width: var(--switch-track-width-large);
+    }
+
+    /* Spread layout */
+    &.ui-spread {
+      align-items: start;
+      column-gap: var(--size-4);
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr auto;
+      inline-size: 100%;
+
+      .ui-label {
+        font-weight: var(--field-label-font-weight);
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: fit-content;
+      }
+
+      input {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      :where(.ui-end-text) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    /* Stacked layout */
+    &.ui-stack {
+      grid-auto-columns: unset;
+      justify-items: center;
+
+      .ui-label {
+        grid-column: 1/-1;
+        grid-row: 2;
+        margin-block-start: var(--size-1);
+        padding-inline: 1ex;
+      }
+
+      .ui-end-text {
+        grid-column: 1/-1;
+        grid-row: 3;
+      }
+    }
+  }
+}

@@ -1,28 +1,29 @@
 <script lang="ts">
-  import { Button, Card } from "opui-css/svelte"
+  import { Button, Card, CardActions, CardContent } from "opui-css/svelte"
 </script>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Buttons aligned to the end. Works too!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Buttons aligned to the end. Works too!</CardContent>
+  <CardActions align="end">
     <Button>Cancel</Button>
     <Button>Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Again, buttons are aligned to the end!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Again, buttons are aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  {/snippet}
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  {#snippet content()}Icon buttons aligned to the end!{/snippet}
-  {#snippet actions()}
+<Card variant="outlined">
+  <CardContent>Icon buttons aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button rounded size="small" aria-label="Favorite">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -36,6 +37,7 @@
     </Button>
     <Button rounded size="small" aria-label="Share">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -47,5 +49,5 @@
         ></path>
       </svg>
     </Button>
-  {/snippet}
+  </CardActions>
 </Card>

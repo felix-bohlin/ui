@@ -242,7 +242,7 @@ import { Chip } from "opui-css/vue"
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` just dims it.
+Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` only dims it a little and keeps its text readable.
 
 ```vue
 <script setup lang="ts">
@@ -250,10 +250,8 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <div class="example-row">
-    <Chip as="button" variant="tonal" label="Tonal" disabled />
-    <Chip as="button" variant="outlined" label="Outlined" disabled />
-  </div>
+  <Chip as="button" variant="tonal" label="Tonal" disabled />
+  <Chip as="button" variant="outlined" label="Outlined" disabled />
 </template>
 ```
 
@@ -263,13 +261,13 @@ import { Chip } from "opui-css/vue"
 
 | Prop        | Type                                                              | Default   | Description                                                          |
 | ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"div"` , `"button"` , `"a"` , `(string & {})`                    | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
 | `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
 | `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
 | `label`     | `string`                                                          | -         | The label.                                                           |
 | `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"x-small"` , `"small"` , `"large"`                               | -         | The size of the element.                                             |
+| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
 | `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
 
 #### Slots
@@ -302,10 +300,11 @@ import { Chip } from "opui-css/vue"
 | `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                             |
 | `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                         |
 | `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                             |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                            | Body text color.                                                                                      |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                |
 | `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                          |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -430,7 +429,10 @@ Import the component from `opui-css/vue`:
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Breaking: [`as="button"`](#button) renders `type="button"` by default.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).

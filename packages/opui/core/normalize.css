@@ -12,23 +12,19 @@
   }
 
   :where(html) {
-    /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(
-      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
-    );
     --_page-bg-color: var(--surface-default);
 
     accent-color: var(--primary);
     background-color: var(--_page-bg-color);
     block-size: 100%;
     caret-color: var(--primary);
-    color: var(--text-muted, var(--text-color-2));
-    /* text-color-2 is for backwards compatibility */
+    color: var(--text-muted);
     font-family: var(--font-sans);
     interpolate-size: allow-keywords;
     line-height: var(--font-lineheight-4);
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+    /* Firefox and Safari fallback */
     -moz-text-size-adjust: none;
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
@@ -50,7 +46,6 @@
     min-block-size: 100%;
     min-inline-size: 320px;
     position: relative;
-    text-rendering: optimizeLegibility;
   }
 
   :where(:not(dialog, [popover])) {
@@ -77,21 +72,12 @@
   }
 
   :where(input, button, select, textarea),
-  :where(input[type="file"])::-webkit-file-upload-button {
+  :where(input[type="file"])::file-selector-button {
     color: inherit;
     font: inherit;
     letter-spacing: inherit;
   }
 
-  :where(input):-webkit-autofill,
-  :where(input):-webkit-autofill:hover,
-  :where(input):-webkit-autofill:focus,
-  :where(textarea):-webkit-autofill,
-  :where(textarea):-webkit-autofill:hover,
-  :where(textarea):-webkit-autofill:focus,
-  :where(select):-webkit-autofill,
-  :where(select):-webkit-autofill:hover,
-  :where(select):-webkit-autofill:focus,
   :where(input):autofill,
   :where(input):autofill:hover,
   :where(input):autofill:focus,
@@ -101,23 +87,19 @@
   :where(select):autofill,
   :where(select):autofill:hover,
   :where(select):autofill:focus {
-    -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
-    -webkit-box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
+    -webkit-text-fill-color: var(--text-muted);
+    box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
   ::placeholder {
-    color: var(--text-muted, var(--text-color-2));
-  }
-
-  ::-moz-placeholder {
-    opacity: 1;
+    color: var(--text-muted);
   }
 
   :focus-visible {
     animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
     outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
-      var(--focus-ring-color, var(--_focus-visible-color));
+      var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset, 2px);
   }
 

@@ -1,6 +1,7 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
 import { createId } from "../id"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Range"
 
@@ -25,6 +26,7 @@ const {
   ...rest
 } = Astro.props
 
+const field = fieldContext.get()
 const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")
@@ -49,7 +51,9 @@ const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
 
 const describedBy =
-  [startTextId, endTextId].filter(Boolean).join(" ") || undefined
+  [startTextId, endTextId, rest["aria-describedby"]]
+    .filter(Boolean)
+    .join(" ") || undefined
 ---
 
 <label
@@ -84,19 +88,19 @@ const describedBy =
     )
   }
   <input
+    {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : undefined}
-    aria-labelledby={labelId}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
+    aria-labelledby={labelId ?? rest["aria-labelledby"]}
     disabled={disabled}
     id={inputId}
     list={list}
     max={max}
     min={min}
-    name={name}
+    name={name ?? field?.name}
     step={step}
     type="range"
     value={value}
-    {...rest}
   />
   {
     (options || Astro.slots.has("datalist")) && (
@@ -137,6 +141,7 @@ const describedBy =
       output.textContent = `${input.value}${suffix}`
     }
     input.addEventListener("input", update)
+    input.form?.addEventListener("reset", () => setTimeout(update))
     update()
   }
 </script>

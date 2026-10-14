@@ -1,29 +1,42 @@
 export { default as Accordion } from "../components/Accordion/Accordion.astro"
+export { default as AccordionActions } from "../components/Accordion/AccordionActions.astro"
+export { default as AccordionContent } from "../components/Accordion/AccordionContent.astro"
+export { default as AccordionSummary } from "../components/Accordion/AccordionSummary.astro"
 export { default as Anchor } from "../components/Anchor/Anchor.astro"
+export { default as AnchorContent } from "../components/Anchor/AnchorContent.astro"
 export { default as Avatar } from "../components/Avatar/Avatar.astro"
 export { default as Badge } from "../components/Badge/Badge.astro"
 export { default as BarChart } from "../components/BarChart/BarChart.astro"
 export { default as Button } from "../components/Button/Button.astro"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
+export { default as CalloutContent } from "../components/Callout/CalloutContent.astro"
+export { default as CalloutIcon } from "../components/Callout/CalloutIcon.astro"
+export { default as CalloutTitle } from "../components/Callout/CalloutTitle.astro"
 export { default as Card } from "../components/Card/Card.astro"
+export { default as CardActions } from "../components/Card/CardActions.astro"
+export { default as CardContent } from "../components/Card/CardContent.astro"
+export { default as CardHeader } from "../components/Card/CardHeader.astro"
 export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.astro"
-export { default as DescriptionList } from "../components/DescriptionList/index"
-export {
-  Description as DescriptionListDescription,
-  Item as DescriptionListItem,
-  Term as DescriptionListTerm,
-} from "../components/DescriptionList/index"
-export { default as Dialog } from "../components/Dialog/Dialog.astro"
 export { default as DataGrid } from "../components/DataGrid/DataGrid.astro"
+export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.astro"
+export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.astro"
+export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.astro"
+export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.astro"
+export { default as Dialog } from "../components/Dialog/Dialog.astro"
+export { default as DialogActions } from "../components/Dialog/DialogActions.astro"
+export { default as DialogContent } from "../components/Dialog/DialogContent.astro"
+export { default as DialogHeader } from "../components/Dialog/DialogHeader.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
+export { default as DrawerContent } from "../components/Drawer/DrawerContent.astro"
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.astro"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.astro"
+export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.astro"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.astro"
 export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.astro"
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.astro"
@@ -44,22 +57,18 @@ export { default as Select } from "../components/Select/Select.astro"
 export { default as Stepper } from "../components/Stepper/Stepper.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
-export { default as Table } from "../components/Table/index"
-export {
-  Body as TableBody,
-  Cell as TableCell,
-  Column as TableColumn,
-  ColumnGroup as TableColumnGroup,
-  Head as TableHead,
-  HeaderCell as TableHeaderCell,
-  Row as TableRow,
-} from "../components/Table/index"
-export { default as Tabs } from "../components/Tabs/index"
-export {
-  TabsItem,
-  Panel as TabsPanel,
-  Tab as TabsTab,
-} from "../components/Tabs/index"
+export { default as Table } from "../components/Table/Table.astro"
+export { default as TableBody } from "../components/Table/TableBody.astro"
+export { default as TableCell } from "../components/Table/TableCell.astro"
+export { default as TableColumn } from "../components/Table/TableColumn.astro"
+export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.astro"
+export { default as TableHead } from "../components/Table/TableHead.astro"
+export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.astro"
+export { default as TableRow } from "../components/Table/TableRow.astro"
+export { default as Tabs } from "../components/Tabs/Tabs.astro"
+export { default as TabsItem } from "../components/Tabs/TabsItem.astro"
+export { default as TabsPanel } from "../components/Tabs/TabsPanel.astro"
+export { default as TabsTab } from "../components/Tabs/TabsTab.astro"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
 export { default as Timeline } from "../components/Timeline/index"
@@ -67,16 +76,36 @@ export { Item as TimelineItem } from "../components/Timeline/index"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
-export type { Props as AccordionProps } from "../components/Accordion/types.astro"
-export type { Props as AnchorProps } from "../components/Anchor/types.astro"
+export { default as TooltipContent } from "../components/Anchor/AnchorContent.astro"
+export type {
+  AccordionActionsProps,
+  AccordionContentProps,
+  Props as AccordionProps,
+  AccordionSummaryProps,
+} from "../components/Accordion/types.astro"
+export type {
+  AnchorContentProps,
+  Props as AnchorProps,
+  AnchorContentProps as TooltipContentProps,
+} from "../components/Anchor/types.astro"
 export type { Props as AvatarProps } from "../components/Avatar/types.astro"
 export type { Props as BadgeProps } from "../components/Badge/types.astro"
 export type { BarChartRow } from "../components/BarChart/types"
 export type { Props as BarChartProps } from "../components/BarChart/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"
-export type { Props as CalloutProps } from "../components/Callout/types.astro"
-export type { Props as CardProps } from "../components/Card/types.astro"
+export type {
+  CalloutContentProps,
+  CalloutIconProps,
+  Props as CalloutProps,
+  CalloutTitleProps,
+} from "../components/Callout/types.astro"
+export type {
+  CardActionsProps,
+  CardContentProps,
+  CardHeaderProps,
+  Props as CardProps,
+} from "../components/Card/types.astro"
 export type { Props as CarouselProps } from "../components/Carousel/types.astro"
 export type {
   CheckboxInputProps,
@@ -99,12 +128,19 @@ export type {
   Props as DescriptionListProps,
   TermProps as DescriptionListTermProps,
 } from "../components/DescriptionList/types.astro"
-export type { Props as DialogProps } from "../components/Dialog/types.astro"
+export type {
+  DialogActionsProps,
+  DialogContentProps,
+  DialogHeaderProps,
+  Props as DialogProps,
+} from "../components/Dialog/types.astro"
 export type { Props as DividerProps } from "../components/Divider/types.astro"
 export type {
+  DrawerContentProps,
   DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
+  DrawerTitleProps,
 } from "../components/Drawer/types.astro"
 export type { Props as FieldDescriptionProps } from "../components/FieldDescription/types.astro"
 export type { Props as FieldGroupProps } from "../components/FieldGroup/types.astro"
@@ -113,8 +149,10 @@ export type { Props as FieldSetProps } from "../components/FieldSet/types.astro"
 export type { Props as FormProps } from "../components/Form/types.astro"
 export type { Props as ListProps } from "../components/List/types.astro"
 export type { Props as ListItemProps } from "../components/ListItem/types.astro"
-export type { MenuItem } from "../components/Menu/types"
-export type { Props as MenuProps } from "../components/Menu/types.astro"
+export type {
+  MenuItem,
+  Props as MenuProps,
+} from "../components/Menu/types.astro"
 export type {
   Emoji as MessageEmoji,
   Reaction as MessageReaction,
@@ -124,6 +162,7 @@ export type {
   Props as MessageProps,
 } from "../components/Message/types.astro"
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.astro"
+
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,

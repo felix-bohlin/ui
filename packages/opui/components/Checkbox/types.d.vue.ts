@@ -1,9 +1,16 @@
 import type { HTMLAttributes, Slot } from "vue"
-import type { CheckboxProps as BaseCheckboxProps } from "./types"
+import type {
+  CheckboxInputProps as BaseCheckboxInputProps,
+  CheckboxProps as BaseCheckboxProps,
+} from "./types"
 
-export type CheckboxProps = BaseCheckboxProps & {
+type Class = {
   class?: HTMLAttributes["class"]
 }
+
+export type CheckboxProps = BaseCheckboxProps & Class
+
+export type CheckboxInputProps = BaseCheckboxInputProps & Class
 
 export type Slots = {
   default?: Slot

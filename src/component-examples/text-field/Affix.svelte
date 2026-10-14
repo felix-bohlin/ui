@@ -17,6 +17,7 @@
 
 <TextField label="Search" placeholder="Search...">
   {#snippet prefix()}<svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"

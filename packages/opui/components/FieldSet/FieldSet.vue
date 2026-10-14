@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const props = withDefaults(defineProps<Props>(), {
-  as: "fieldset",
-})
+const { as = "fieldset" } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -13,9 +11,9 @@ defineOptions({
 
 <template>
   <component
-    :is="props.as"
-    :class="['ui-fieldset', props.class]"
-    :role="props.as === 'fieldset' ? undefined : 'group'"
+    :is="as"
+    :class="['ui-fieldset', $props.class]"
+    :role="as === 'fieldset' ? undefined : 'group'"
     v-bind="$attrs"
   >
     <slot></slot>

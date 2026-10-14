@@ -1,11 +1,6 @@
 ---
 import Document from "./Document.astro"
-import {
-  DEFAULT_FRAMEWORK,
-  hrefFor,
-  stripFrameworkPrefix,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { hrefFor, stripFrameworkPrefix } from "../utils/framework"
 import { categories, componentName, posts } from "../utils/learn"
 
 type Props = {
@@ -24,8 +19,7 @@ const {
   wide,
 } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
   /\/$/,

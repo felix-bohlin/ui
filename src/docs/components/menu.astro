@@ -3,8 +3,18 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
@@ -68,6 +78,11 @@ export const description = "A popover list of actions or links."
           >disabled</code
         > and <code>shortcut</code>.</Fragment
       >
+      <Fragment slot="react"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
           >disabled</code
@@ -81,6 +96,16 @@ export const description = "A popover list of actions or links."
     </Conditional>
 
     <AutoExample name="Basics" centered row />
+  </section>
+
+  <section>
+    <h2 id="bordered">Bordered</h2>
+    <p>
+      <PropOrClass prop="bordered" class=".ui-bordered" /> draws a line between every
+      item.
+    </p>
+
+    <AutoExample name="Bordered" centered />
   </section>
 
   <section>
@@ -100,6 +125,11 @@ export const description = "A popover list of actions or links."
         > to line up with the end edge.</Fragment
       >
       <Fragment slot="astro"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
+      <Fragment slot="react"
         ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
           >align="end"</code
         > to line up with the end edge.</Fragment
@@ -132,6 +162,13 @@ export const description = "A popover list of actions or links."
       <Fragment slot="html">
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Pass a <code>Menu</code> to the <code>submenu</code> prop of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > prop.
       </Fragment>
       <Fragment slot="svelte">
         Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
@@ -168,6 +205,13 @@ export const description = "A popover list of actions or links."
         menu doesn't either. Give <code>command="hide-popover"</code> only to the
         items that should close it.</Fragment
       >
+      <Fragment slot="react"
+        ><code>popover="manual"</code> keeps the menu open until the trigger or an
+        item closes it. Esc and a click outside don't close it, and opening another
+        menu doesn't either. Items close the menu by default, so set <code
+          >closeOnClick: false</code
+        > on the ones that should keep it open.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>popover="manual"</code> keeps the menu open until the trigger or an
         item closes it. Esc and a click outside don't close it, and opening another
@@ -200,52 +244,52 @@ export const description = "A popover list of actions or links."
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
-        <Table.ColumnGroup>
-          <Table.Column width="30%" />
-          <Table.Column />
-        </Table.ColumnGroup>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeaderCell>Key</Table.HeaderCell>
-            <Table.HeaderCell>Function</Table.HeaderCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell><kbd>Enter</kbd>, <kbd>Space</kbd></Table.Cell>
-            <Table.Cell>
+        <TableColumnGroup>
+          <TableColumn width="30%" />
+          <TableColumn />
+        </TableColumnGroup>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Enter</kbd>, <kbd>Space</kbd></TableCell>
+            <TableCell>
               On the trigger, opens or closes the menu. Focus stays on the
               trigger. On an item, activates it.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
               From the trigger, moves into the open menu, because the browser
               puts a popover opened with <code>commandfor</code> right after its trigger
               in the focus order. Then moves to the next item, and after the last
               one, out of the menu. The menu stays open.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Shift + Tab</kbd></TableCell>
+            <TableCell>
               Moves to the previous item, and from the first item back to the
               trigger.
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Arrow keys</Table.Cell>
-            <Table.Cell>Do nothing.</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Arrow keys</TableCell>
+            <TableCell>Do nothing.</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Esc</kbd></TableCell>
+            <TableCell>
               Closes the menu and returns focus to the trigger. A click outside
               closes it too. Neither works with <code>popover="manual"</code>.
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
     </div>
   </Fragment>

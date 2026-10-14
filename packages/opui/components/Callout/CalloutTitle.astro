@@ -1,0 +1,11 @@
+---
+import type { CalloutTitleProps as Props } from "./types.astro"
+
+const { class: className, level = 3, ...rest } = Astro.props
+
+const Heading = `h${level}` as const
+---
+
+<Heading class:list={["ui-title", className]} {...rest}>
+  <slot />
+</Heading>

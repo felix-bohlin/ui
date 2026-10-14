@@ -28,6 +28,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge label="5">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -42,6 +43,7 @@ import { Badge } from "opui-css/vue"
 
   <Badge dot>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -56,9 +58,9 @@ import { Badge } from "opui-css/vue"
 </template>
 ```
 
-## Severities
+## Colors
 
-`critical`, `info`, `neutral`, `success`, `warning`.
+Color the indicator with `color="critical"`, `color="info"`, `color="neutral"`, `color="success"` or `color="warning"`.
 
 ```vue
 <script setup lang="ts">
@@ -68,6 +70,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge color="critical" label="5">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -81,32 +84,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge color="info" label="5">
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-      ></path>
-    </svg>
-  </Badge>
-  <Badge color="success" label="5">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-      ></path>
-    </svg>
-  </Badge>
-  <Badge color="warning" label="5">
-    <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -120,6 +98,35 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge color="neutral" label="5">
     <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+      ></path>
+    </svg>
+  </Badge>
+  <Badge color="success" label="5">
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+      ></path>
+    </svg>
+  </Badge>
+  <Badge color="warning" label="5">
+    <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -146,6 +153,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge label="5" sr-label="unread messages">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -160,6 +168,7 @@ import { Badge } from "opui-css/vue"
 
   <Badge sr-label="unread messages">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -188,10 +197,6 @@ import { Badge } from "opui-css/vue"
   <Badge label="5" invisible>
     <!-- -->
   </Badge>
-
-  <Badge dot invisible>
-    <!-- -->
-  </Badge>
 </template>
 ```
 
@@ -209,6 +214,7 @@ import { Badge } from "opui-css/vue"
 <template>
   <Badge alignment="start-start" label="35">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -222,6 +228,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge label="99+">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -235,6 +242,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge alignment="end-start" label="OK!">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -248,6 +256,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
   <Badge alignment="end-end" label="3K">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -265,7 +274,6 @@ import { Badge } from "opui-css/vue"
 ## Accessibility
 
 - A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages": the `srLabel` prop.
-- Don't use `aria-label` on the indicator. It's a `<span>` without a role, so screen readers ignore the label and read the text.
 
 ## API
 
@@ -304,7 +312,7 @@ import { Badge } from "opui-css/vue"
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -434,8 +442,8 @@ Import the component from `opui-css/vue`:
 
 - [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md)
 
-- `opui-css/css/components/badge.css`
-- `opui-css/css/components/anchor.css`
+* `opui-css/css/components/badge.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
@@ -444,3 +452,4 @@ Import the component from `opui-css/vue`:
 - Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `srLabel`.
 - [`alignment`](#alignment) takes `"start-end"`, the default placement.
+- Breaking: `--_badge-inset-block` and `--_badge-inset-inline` are `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).

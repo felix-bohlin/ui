@@ -1,9 +1,18 @@
 <style>
-  .stress-typography-columns {
-    align-items: start;
-    display: grid;
-    gap: var(--size-6);
-    grid-template-columns: minmax(0, 1fr) minmax(0, 40ch) minmax(0, 20ch);
+  .stress-typography-multicol {
+    column-gap: var(--size-6);
+    column-rule: var(--border-width) dashed var(--border-color);
+    columns: 14rem 3;
+  }
+
+  .stress-typography-multicol-narrow {
+    column-count: 2;
+    column-gap: var(--size-4);
+    column-rule: var(--border-width) dashed var(--border-color);
+  }
+
+  .stress-typography-narrow {
+    max-inline-size: 40ch;
   }
 
   .stress-typography-box {
@@ -1099,28 +1108,45 @@ const x = 1</code></pre>
 </section>
 
 <section class="stress" data-example="Columns">
-  <h2>Columns at different widths</h2>
+  <h2>Multi-column text</h2>
   <p>
-    The same article at a fluid width, 40ch and 20ch. Headings, lists, tables
-    and code should adapt without overflowing their column.
+    Rich text flowing through CSS columns: up to three 14rem columns at full
+    width, and two narrow columns in a 40ch box. Each column should start
+    without a leading gap, headings should stay with the text after them, and
+    code, tables, quotes and rules should stay inside their column.
   </p>
-  <div class="stress-typography-columns">
-    <article class="ui-rich-text stress-typography-box">
-      <h3>A heading that wraps in narrower columns</h3>
+  <div class="stress-stack">
+    <article
+      class="ui-rich-text stress-typography-multicol stress-typography-box"
+    >
+      <h3>Release notes flowing through columns</h3>
       <p>
-        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
-        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
+        Every column should start flush with the top of the box. A paragraph
+        with <code>inline code</code>, <kbd>Ctrl</kbd> + <kbd>K</kbd> and
+        <a href="#stress-typo-columns-end-wide">a link</a> may break across two
+        columns.
       </p>
-      <ol>
+      <h4>Added</h4>
+      <ul>
         <li>
-          First item
+          A heading should stay with the text below it instead of ending a
+          column on its own.
+        </li>
+        <li>
+          Nested lists
           <ul>
-            <li>Nested item that is long enough to wrap</li>
+            <li>keep their indent when they continue in the next column</li>
           </ul>
         </li>
-        <li>Second item</li>
-      </ol>
-      <blockquote>A short quote that wraps in narrow columns.</blockquote>
+      </ul>
+      <blockquote>
+        <p>
+          A quote that is long enough to wrap onto several lines in a narrow
+          column.
+        </p>
+      </blockquote>
+      <h4>Changed</h4>
+      <pre tabindex="0"><code>const columns = "14rem 3"</code></pre>
       <table>
         <thead>
           <tr>
@@ -1133,78 +1159,82 @@ const x = 1</code></pre>
             <td>Alpha</td>
             <td>1 024.00</td>
           </tr>
+          <tr>
+            <td>Beta</td>
+            <td>2 048.00</td>
+          </tr>
         </tbody>
       </table>
-      <pre><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
-    </article>
-    <article class="ui-rich-text stress-typography-box">
-      <h3>A heading that wraps in narrower columns</h3>
-      <p>
-        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
-        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
-      </p>
+      <hr />
+      <h4>Fixed</h4>
       <ol>
         <li>
-          First item
-          <ul>
-            <li>Nested item that is long enough to wrap</li>
-          </ul>
+          Margins between paragraphs should look the same in every column.
         </li>
-        <li>Second item</li>
+        <li>Rules and tables should not spill into the column gap.</li>
       </ol>
-      <blockquote>A short quote that wraps in narrow columns.</blockquote>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Alpha</td>
-            <td>1 024.00</td>
-          </tr>
-        </tbody>
-      </table>
-      <pre
-        tabindex="0"
-      ><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
+      <p id="stress-typo-columns-end-wide">End of the notes.</p>
     </article>
-    <article class="ui-rich-text stress-typography-box">
-      <h3>A heading that wraps in narrower columns</h3>
-      <p>
-        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
-        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
-      </p>
-      <ol>
-        <li>
-          First item
-          <ul>
-            <li>Nested item that is long enough to wrap</li>
-          </ul>
-        </li>
-        <li>Second item</li>
-      </ol>
-      <blockquote>A short quote that wraps in narrow columns.</blockquote>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Alpha</td>
-            <td>1 024.00</td>
-          </tr>
-        </tbody>
-      </table>
-      <pre
-        tabindex="0"
-      ><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
-      <p id="stress-typo-columns-end">End.</p>
-    </article>
+    <div class="stress-typography-narrow">
+      <article
+        class="ui-rich-text stress-typography-multicol-narrow stress-typography-box"
+      >
+        <h3>Release notes flowing through columns</h3>
+        <p>
+          Every column should start flush with the top of the box. A paragraph
+          with <code>inline code</code>, <kbd>Ctrl</kbd> + <kbd>K</kbd> and
+          <a href="#stress-typo-columns-end-narrow">a link</a> may break across
+          two columns.
+        </p>
+        <h4>Added</h4>
+        <ul>
+          <li>
+            A heading should stay with the text below it instead of ending a
+            column on its own.
+          </li>
+          <li>
+            Nested lists
+            <ul>
+              <li>keep their indent when they continue in the next column</li>
+            </ul>
+          </li>
+        </ul>
+        <blockquote>
+          <p>
+            A quote that is long enough to wrap onto several lines in a narrow
+            column.
+          </p>
+        </blockquote>
+        <h4>Changed</h4>
+        <pre tabindex="0"><code>const columns = "14rem 3"</code></pre>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alpha</td>
+              <td>1 024.00</td>
+            </tr>
+            <tr>
+              <td>Beta</td>
+              <td>2 048.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr />
+        <h4>Fixed</h4>
+        <ol>
+          <li>
+            Margins between paragraphs should look the same in every column.
+          </li>
+          <li>Rules and tables should not spill into the column gap.</li>
+        </ol>
+        <p id="stress-typo-columns-end-narrow">End of the notes.</p>
+      </article>
+    </div>
   </div>
 </section>

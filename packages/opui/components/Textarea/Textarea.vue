@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId } from "vue"
+import {
+  computed,
+  inject,
+  type TextareaHTMLAttributes,
+  useAttrs,
+  useId,
+} from "vue"
 import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -9,13 +15,9 @@ defineOptions({
 
 const props = defineProps<Props>()
 const slots = defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as TextareaHTMLAttributes
 const inputAttrs = computed(() =>
-  Object.fromEntries(
-    Object.entries(attrs).filter(
-      ([key]) => key !== "aria-describedby" && key !== "style",
-    ),
-  ),
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
 )
 const modelValue = defineModel<string>()
 
@@ -30,8 +32,10 @@ const uid = useId()
 const hasEndText = computed(
   () => !!props.endText || !!slots["end-text"] || !!slots["supporting-text"],
 )
-const endTextId = computed(() => (hasEndText.value ? uid : undefined))
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const endTextId = computed(() =>
+  hasEndText.value ? `end-text-${uid}` : undefined,
+)
+const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
@@ -58,15 +62,15 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <textarea
-        :aria-describedby="
-          [endTextId, $attrs['aria-describedby']].filter(Boolean).join(' ') ||
-          undefined
-        "
-        :aria-invalid="props.error ? 'true' : undefined"
-        :id="props.id"
-        :name="currentFieldName"
         v-bind="inputAttrs"
         v-model="model"
+        :aria-describedby="
+          [endTextId, attrs['aria-describedby']].filter(Boolean).join(' ') ||
+          undefined
+        "
+        :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
+        :id="props.id"
+        :name="attrs.name ?? fieldName"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot

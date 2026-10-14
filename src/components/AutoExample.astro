@@ -46,14 +46,21 @@ const previewModules = import.meta.glob(
   {
     eager: true,
   },
-) as Record<string, { default: any }>
+) as Record<string, { default: unknown }>
+
+const reactPreviewModules = import.meta.glob(
+  "../component-examples/**/*.react.tsx",
+  {
+    eager: true,
+  },
+) as Record<string, { default: unknown }>
 
 const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
   eager: true,
-}) as Record<string, { default: any }>
+}) as Record<string, { default: unknown }>
 
 const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,svelte,vue}",
+  "../component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
   {
     eager: true,
     query: "?raw",
@@ -63,27 +70,37 @@ const rawSources = import.meta.glob(
 
 const astroPath = `../component-examples/${slug}/${name}.astro`
 const htmlPath = `../component-examples/${slug}/${name}.html`
+const reactPath = `../component-examples/${slug}/${name}.react.tsx`
 const vuePath = `../component-examples/${slug}/${name}.vue`
 const sveltePath = `../component-examples/${slug}/${name}.svelte`
 
 const astroComponent = previewModules[astroPath]?.default
+const reactComponent = reactPreviewModules[reactPath]?.default
 const vueComponent = vuePreviewModules[vuePath]?.default
 const svelteComponent = previewModules[sveltePath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
+const reactSource = rawSources[reactPath]
 const vueSource = rawSources[vuePath]
 const svelteSource = rawSources[sveltePath]
 
-if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
+if (
+  !astroComponent &&
+  !htmlSource &&
+  !reactComponent &&
+  !vueComponent &&
+  !svelteComponent
+) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath}, ${htmlPath}, ${vuePath}, or ${sveltePath}.`,
+      `${astroPath}, ${htmlPath}, ${reactPath}, ${vuePath}, or ${sveltePath}.`,
   )
 }
 ---
 
 <Example
   {...rest}
+  reactExampleId={reactComponent ? `${slug}/${name}` : undefined}
   svelteExampleId={svelteComponent ? `${slug}/${name}` : undefined}
   vueExampleId={vueComponent ? `${slug}/${name}` : undefined}
 >
@@ -100,6 +117,11 @@ if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
     )
   }
   {
+    reactComponent && (
+      <Example.Preview slot="preview-react" code={reactComponent} />
+    )
+  }
+  {
     svelteComponent && (
       <Example.Preview slot="preview-svelte" code={svelteComponent} />
     )
@@ -108,6 +130,7 @@ if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
+  {reactSource && <Example.Code slot="code-react" code={reactSource} />}
   {svelteSource && <Example.Code slot="code-svelte" code={svelteSource} />}
   {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
 </Example>

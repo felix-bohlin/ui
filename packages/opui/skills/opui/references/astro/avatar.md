@@ -152,19 +152,16 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 
 ### Avatar API
 
-| Prop          | Type                                     | Default | Description                                                                                               |
-| ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
-| `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
-| `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
-| `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
-| `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
-| `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
-| `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
-| `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
-| `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
+| Prop       | Type                                     | Default | Description                                                                                               |
+| ---------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `alt`      | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
+| `as`       | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
+| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
+| `isGroup`  | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
+| `size`     | `"small"` , `"x-small"` , `"large"`      | -       | The size of the element.                                                                                  |
+| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
+| `variant`  | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### Slots
 
@@ -188,7 +185,7 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
 | `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -210,7 +207,7 @@ Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlif
 
    - A shape is just a different `border-radius`
    - `corner-shape: squircle` turns a full radius into a superellipse
-   - `@supports` falls back to a rounded square
+   - Without `corner-shape`, the squircle is a circle
 
 4. Group
 
@@ -277,12 +274,8 @@ Step 3 of 4: Shapes
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-3);
-
-  @supports (corner-shape: squircle) {
-    border-radius: var(--radius-round);
-    corner-shape: squircle;
-  }
+  border-radius: var(--radius-round);
+  corner-shape: squircle;
 }
 ```
 
@@ -330,3 +323,4 @@ Import the component from `opui-css/astro`:
 - Breaking: [`alt`](#image) is required when `src` is set.
 - Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).

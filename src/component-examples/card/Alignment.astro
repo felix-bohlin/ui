@@ -1,29 +1,29 @@
 ---
-import { Card } from "@opui/astro"
-import { Button } from "@opui/astro"
+import { Button, Card, CardActions, CardContent } from "@opui/astro"
 ---
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Buttons aligned to the end. Works too!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Buttons aligned to the end. Works too!</CardContent>
+  <CardActions align="end">
     <Button>Cancel</Button>
     <Button>Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Again, buttons are aligned to the end!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Again, buttons are aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
-  </Fragment>
+  </CardActions>
 </Card>
 
-<Card variant="outlined" actionsAlign="end">
-  <Fragment slot="content">Icon buttons aligned to the end!</Fragment>
-  <Fragment slot="actions">
+<Card variant="outlined">
+  <CardContent>Icon buttons aligned to the end!</CardContent>
+  <CardActions align="end">
     <Button rounded size="small" aria-label="Favorite">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -37,6 +37,7 @@ import { Button } from "@opui/astro"
     </Button>
     <Button rounded size="small" aria-label="Share">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -47,5 +48,5 @@ import { Button } from "@opui/astro"
         ></path></svg
       >
     </Button>
-  </Fragment>
+  </CardActions>
 </Card>

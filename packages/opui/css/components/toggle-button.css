@@ -2,7 +2,7 @@
   :where(.ui-toggle-button) {
     --_bg-color: transparent;
     --_font-size: var(--font-size-1);
-    --_size: var(--field-size);
+    --_size: var(--button-size);
     --_svg-size: var(--icon-size);
 
     align-items: center;
@@ -37,8 +37,11 @@
 
     /* Element states */
     @media (hover: hover) {
-      &:hover:not(:has(input:disabled)) {
-        --_bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+      &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
+        --_bg-color: light-dark(
+          oklch(0% 0 0 / var(--state-hover-alpha)),
+          oklch(100% 0 0 / var(--state-hover-alpha-dark))
+        );
       }
     }
 
@@ -46,15 +49,15 @@
       --focus-ring-offset: -6px;
       animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--_focus-visible-color));
+        var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
 
     /* Disabled */
-    &:has(input:disabled) {
-      border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
-      color: color-mix(in oklch, var(--text-primary) 30%, transparent);
+    &:has(input:is(:disabled, [aria-disabled="true"])) {
+      color: var(--text-disabled);
       cursor: not-allowed;
+      opacity: var(--disabled-opacity);
     }
 
     /* svgs */
@@ -66,11 +69,16 @@
 
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
-      --_bg-color: oklch(from var(--primary) l c h / 25%);
+      --_bg-color: oklch(
+        from var(--primary) l c h / var(--state-active-alpha-accent)
+      );
 
       @media (hover: hover) {
-        &:hover:not(:has(input:disabled)) {
-          --_bg-color: oklch(from var(--primary) l c h / 35%);
+        &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
+          --_bg-color: oklch(
+            from var(--primary) l c h /
+              calc(var(--state-active-alpha-accent) + var(--state-hover-alpha))
+          );
         }
       }
 
@@ -79,7 +87,7 @@
         color: var(--primary-contrast);
 
         @media (hover: hover) {
-          &:hover:not(:has(input:disabled)) {
+          &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
             --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
           }
         }
@@ -87,18 +95,21 @@
     }
 
     /* Sizes */
-    &.ui-small {
-      --_font-size: var(--font-size-05);
-      --_size: var(--field-size-small);
-    }
-
-    &.ui-x-small {
+    &.ui-x-small,
+    :where(.ui-toggle-group.ui-x-small) > & {
       --_font-size: var(--font-size-0);
-      --_size: var(--field-size-x-small);
+      --_size: var(--button-size-x-small);
     }
 
-    &.ui-large {
-      --_size: var(--field-size-large);
+    &.ui-small,
+    :where(.ui-toggle-group.ui-small) > & {
+      --_font-size: var(--font-size-05);
+      --_size: var(--button-size-small);
+    }
+
+    &.ui-large,
+    :where(.ui-toggle-group.ui-large) > & {
+      --_size: var(--button-size-large);
       padding-inline: var(--size-3);
     }
 

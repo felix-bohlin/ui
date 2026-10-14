@@ -1,6 +1,6 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import { Callout } from "@opui/astro"
+import { Callout, CalloutContent } from "@opui/astro"
 import Code from "../../../components/Code.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
 import DocLink from "../../../components/DocLink.astro"
@@ -17,15 +17,17 @@ import Example from "../../../components/Example/index"
 
   <div class="ui-not-rich-text">
     <Callout severity="neutral">
-      <p>
-        Open Props UI is <u>just CSS</u>. You can copy any <DocLink
-          class="ui-link"
-          href="/components">component</DocLink
-        > CSS straight from the docs - no install required. It reads tokens from Open
-        Props, <code>palette.css</code> and <code>theme.css</code>, so those
-        need to be on the page too. The CDN link below has all of it in one
-        file.
-      </p>
+      <CalloutContent>
+        <p>
+          Open Props UI is <u>just CSS</u>. You can copy any <DocLink
+            class="ui-link"
+            href="/components">component</DocLink
+          > CSS straight from the docs - no install required. It reads tokens from
+          Open Props, <code>palette.css</code> and <code>theme.css</code>, so
+          those need to be on the page too. The CDN link below has all of it in
+          one file.
+        </p>
+      </CalloutContent>
     </Callout>
   </div>
 

@@ -1,12 +1,6 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--motion, 1);
-    --_accent: light-dark(
-      var(--primary),
-      oklch(from var(--primary) min(l, 0.62) c h)
-    );
-    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
-
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
     --_dot-inset: round(
       down,
@@ -15,25 +9,16 @@
     );
     --_dot-outline-size: 0;
     --_dot-size: round(var(--switch-dot-size), 1px);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_icon-size: min(
       var(--_dot-size),
       max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
     );
-
+    --_input-size: var(--_track-height);
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
     --_track-height: round(var(--switch-track-height), 1px);
     --_track-width: round(var(--switch-track-width), 1px);
-
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
-
-    align-items: start;
-    color: var(--text-primary);
-    display: inline-grid;
-    gap: 0 var(--size-2);
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    inline-size: fit-content;
 
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;
@@ -53,12 +38,15 @@
         inline-size: var(--_track-width);
         inset: 0;
         position: absolute;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
 
       &:focus-visible {
         border-radius: var(--radius-round);
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color, var(--_focus-visible-color));
+          var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -74,6 +62,11 @@
         outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
         outline-offset: -1px;
         position: absolute;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--_ease),
+          outline-color var(--_duration) var(--_ease),
+          outline-width var(--_duration) var(--_ease);
       }
 
       /* Checked */
@@ -81,9 +74,6 @@
         &::before {
           background-color: var(--_accent);
           border-color: var(--_accent);
-          transition:
-            background-color var(--_duration) var(--_ease),
-            border-color var(--_duration) var(--_ease);
         }
 
         /* Dot */
@@ -95,23 +85,6 @@
             var(--_track-width) - var(--_dot-size) - var(--_dot-inset)
           );
         }
-      }
-
-      /* Animation */
-      /* Track */
-      &::before {
-        transition:
-          background-color var(--_duration) var(--_ease),
-          border-color var(--_duration) var(--_ease);
-      }
-
-      /* Dot */
-      &::after {
-        transition:
-          background-color var(--_duration) var(--_ease),
-          inset-inline-start var(--_duration) var(--_ease),
-          outline-color var(--_duration) var(--_ease),
-          outline-width var(--_duration) var(--_ease);
       }
 
       &:active:after {
@@ -138,6 +111,7 @@
 
       .ui-icon-checked {
         display: none;
+        margin-inline-start: var(--_dot-inset);
       }
 
       .ui-icon-unchecked,
@@ -163,129 +137,20 @@
           var(--_track-width) - var(--_icon-size) - var(--_dot-inset)
         );
       }
-
-      .ui-icon-checked {
-        margin-inline-start: var(--_dot-inset);
-      }
-    }
-
-    /* Required dot */
-    &:has(:required) {
-      .ui-label:after {
-        color: var(--field-required-color);
-        content: "*";
-        margin-inline-start: 0.25ex;
-      }
-    }
-
-    &:not(:has(.ui-label, .ui-text)) {
-      vertical-align: middle;
-    }
-
-    /* Disabled */
-    &:has([disabled]) {
-      cursor: not-allowed;
-      opacity: var(--disabled-opacity);
-      user-select: none;
-
-      input {
-        cursor: not-allowed;
-      }
     }
 
     /* Label */
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
-      grid-column: 2;
-      grid-row: 1;
-      margin-block-start: calc(
-        (var(--_track-height) - 1lh) / 2 + var(--choice-label-offset)
-      );
       min-inline-size: 0;
-      padding-inline: 0 1ex;
-      position: relative;
       user-select: none;
     }
 
-    /* End text */
-    :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
-      grid-column: 2;
-      grid-row: 2;
-      line-height: var(--field-helper-line-height);
-      z-index: 1;
-    }
-
-    /* Size */
-    &.ui-x-small {
-      --_dot-size: round(var(--switch-dot-size-x-small), 1px);
-      --_track-height: round(var(--switch-track-height-x-small), 1px);
-      --_track-width: round(var(--switch-track-width-x-small), 1px);
-    }
-
-    &.ui-small {
-      --_dot-size: round(var(--switch-dot-size-small), 1px);
-      --_track-height: round(var(--switch-track-height-small), 1px);
-      --_track-width: round(var(--switch-track-width-small), 1px);
-    }
-
-    &.ui-large {
-      --_dot-size: round(var(--switch-dot-size-large), 1px);
-      --_track-height: round(var(--switch-track-height-large), 1px);
-      --_track-width: round(var(--switch-track-width-large), 1px);
-    }
-
     /* Spread layout */
-    &.ui-spread {
-      align-items: start;
-      column-gap: var(--size-4);
-      grid-auto-flow: unset;
-      grid-template-columns: 1fr auto;
-      inline-size: 100%;
-
-      .ui-label {
-        font-weight: var(--field-label-font-weight);
-        grid-column: 1;
-        grid-row: 1;
-        inline-size: fit-content;
-      }
-
-      input[role="switch"] {
+    &.ui-spread:has(.ui-icon-checked, .ui-icon-unchecked) {
+      input[role="switch"],
+      .ui-icon-checked,
+      .ui-icon-unchecked {
         grid-column: 2;
-        grid-row: 1;
-      }
-
-      &:has(.ui-icon-checked, .ui-icon-unchecked) {
-        input[role="switch"],
-        .ui-icon-checked,
-        .ui-icon-unchecked {
-          grid-column: 2;
-        }
-      }
-
-      :where(.ui-end-text) {
-        grid-column: 1;
-        grid-row: 2;
-      }
-    }
-
-    /* Stacked layout */
-    &.ui-stack {
-      grid-auto-columns: unset;
-      justify-items: center;
-
-      .ui-label {
-        grid-column: 1/-1;
-        grid-row: 2;
-        margin-block-start: var(--size-1);
-        padding-inline: 1ex;
-      }
-
-      .ui-end-text {
-        grid-column: 1/-1;
-        grid-row: 3;
       }
     }
 
@@ -313,7 +178,7 @@
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
-      &:has([disabled]) {
+      &:has([disabled], input[aria-disabled="true"]) {
         --_accent: GrayText;
         --_dot-bg-color: GrayText;
       }

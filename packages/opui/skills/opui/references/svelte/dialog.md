@@ -8,15 +8,15 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `header`
+- `<DialogHeader>`
 
-  The dialog header.
+  The dialog header. Names the dialog through `aria-labelledby`.
 
-- `content`
+- `<DialogContent>`
 
   The dialog content.
 
-- `actions`
+- `<DialogActions>`
 
   A group of actions, such as buttons.
 
@@ -32,11 +32,17 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-The header snippet names the dialog: it gets an `aria-labelledby` that points at the header.
+Build it from `DialogHeader`, `DialogContent` and `DialogActions`. The `DialogHeader` names the dialog: it gets an `aria-labelledby` that points at the header. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ```svelte
 <script lang="ts">
-  import { Button, Dialog } from "opui-css/svelte"
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
@@ -44,11 +50,15 @@ The header snippet names the dialog: it gets an `aria-labelledby` that points at
 </Button>
 
 <Dialog id="example-dialog">
-  {#snippet header()}<h2 class="ui-h4">Newsletter</h2>{/snippet}
-  {#snippet content()}<p>
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
       Get a short email when we ship something new. No more than once a month.
-    </p>{/snippet}
-  {#snippet actions()}
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog" command="close" type="button">
       Not now
     </Button>
@@ -60,7 +70,50 @@ The header snippet names the dialog: it gets an `aria-labelledby` that points at
     >
       Subscribe
     </Button>
-  {/snippet}
+  </DialogActions>
+</Dialog>
+```
+
+## Actions
+
+Actions sit at the end. Set `align="start"` on `DialogActions` to move them to the start.
+
+```svelte
+<script lang="ts">
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
+</script>
+
+<Button
+  commandfor="actions-alignment-example"
+  command="show-modal"
+  variant="outlined"
+>
+  Show shortcuts
+</Button>
+
+<Dialog id="actions-alignment-example">
+  <DialogHeader>
+    <h2 class="ui-h4">Keyboard shortcuts</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  </DialogContent>
+  <DialogActions align="start">
+    <Button
+      commandfor="actions-alignment-example"
+      command="close"
+      type="button"
+      variant="filled"
+    >
+      Got it
+    </Button>
+  </DialogActions>
 </Dialog>
 ```
 
@@ -70,7 +123,13 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 
 ```svelte
 <script lang="ts">
-  import { Button, Dialog } from "opui-css/svelte"
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Button
@@ -87,11 +146,15 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
   role="alertdialog"
   aria-describedby="alert-dialog-description"
 >
-  {#snippet header()}<h2 class="ui-h4">Delete project?</h2>{/snippet}
-  {#snippet content()}<p id="alert-dialog-description">
+  <DialogHeader>
+    <h2 class="ui-h4">Delete project?</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p id="alert-dialog-description">
       This deletes the project and all its files. You can't undo this.
-    </p>{/snippet}
-  {#snippet actions()}
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="alert-dialog-example" command="close" type="button">
       Cancel
     </Button>
@@ -104,7 +167,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
     >
       Delete
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>
 ```
 
@@ -114,11 +177,17 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
 
 ## Long content
 
-The dialog grows up to 85% of the viewport height. The header and actions stay put while the `content` snippet scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
+The dialog grows up to 85% of the viewport height. The header and actions stay put while the `DialogContent` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
 
 ```svelte
 <script lang="ts">
-  import { Button, Dialog } from "opui-css/svelte"
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
 </script>
 
 <Button
@@ -130,8 +199,10 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 </Button>
 
 <Dialog id="example-dialog-long">
-  {#snippet header()}<h2 class="ui-h4">Terms of service</h2>{/snippet}
-  {#snippet content()}
+  <DialogHeader>
+    <h2 class="ui-h4">Terms of service</h2>
+  </DialogHeader>
+  <DialogContent>
     <p>
       These terms cover your use of the service and any content you upload. By
       creating an account you agree to them, and to any updates we publish on
@@ -195,8 +266,8 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
       Questions about these terms go to our support team. We answer within two
       working days.
     </p>
-  {/snippet}
-  {#snippet actions()}
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog-long" command="close" type="button">
       Decline
     </Button>
@@ -208,7 +279,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
     >
       Accept
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>
 ```
 
@@ -229,6 +300,9 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
   import {
     Button,
     Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
     FieldGroup,
     FieldLegend,
     FieldSet,
@@ -247,8 +321,10 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </Button>
 
 <Dialog id="closing-behaviors-dialog" {closedby}>
-  {#snippet header()}<h2 class="ui-h4">How to close</h2>{/snippet}
-  {#snippet content()}
+  <DialogHeader>
+    <h2 class="ui-h4">How to close</h2>
+  </DialogHeader>
+  <DialogContent>
     <FieldSet>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
@@ -257,22 +333,20 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
         <Radio bind:group={closedby} value="none">none</Radio>
       </FieldGroup>
     </FieldSet>
-  {/snippet}
-  {#snippet actions()}
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="closing-behaviors-dialog" command="close">
       Close manually
     </Button>
-  {/snippet}
+  </DialogActions>
 </Dialog>
 ```
 
 ## Accessibility
 
-- The `tabindex` attribute must **not** be used on the `<dialog>` element.
-
 ### Role & attributes
 
-Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
 
 | Role/attribute             | Usage                                                                                                                                                                  |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -294,14 +368,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Prop           | Type                                  | Default | Description                                                              |
-| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `actions`      | `Snippet`                             | -       | A group of actions, such as buttons.                                     |
-| `actionsAlign` | `"start"` , `"end"`                   | `"end"` | Alignment for the actions.                                               |
-| `children`     | `Snippet`                             | -       | Raw content placed directly in the dialog.                               |
-| `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
-| `content`      | `Snippet`                             | -       | The dialog content.                                                      |
-| `header`       | `string` , `Snippet`                  | -       | The dialog header.                                                       |
+| Prop       | Type                                  | Default | Description                                                              |
+| ---------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `children` | `Snippet`                             | -       | The dialog parts, and any other content.                                 |
+| `closedby` | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### CSS variables
 
@@ -313,9 +383,28 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                   |
 | `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props, such as `id`, go to the `<dialog>`.
+Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.
+
+### Dialog actions API
+
+| Prop       | Type                | Default | Description                   |
+| ---------- | ------------------- | ------- | ----------------------------- |
+| `align`    | `"start"` , `"end"` | `"end"` | Alignment for the actions.    |
+| `children` | `Snippet`           | -       | The actions, such as buttons. |
+
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                                                                                                |
+| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -523,14 +612,14 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/svelte`:
+Import the components from `opui-css/svelte`:
 
 ### Dependencies
 
 - [Card](https://open-props-ui.netlify.app/svelte/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

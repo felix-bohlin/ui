@@ -5,11 +5,7 @@ import {
   getBaselineMappings,
 } from "../../utils/baseline"
 import { componentHrefFor } from "../../utils/components"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+import { componentHasFramework } from "../../utils/framework"
 import { Chip } from "@opui/astro"
 
 const categorized = await getCategorizedBaselineIds()
@@ -17,8 +13,7 @@ const { featureToComponents, componentToFeatures } = await getBaselineMappings()
 
 const allFeatures = Object.keys(featureToComponents).sort()
 const allComponents = Object.keys(componentToFeatures).sort()
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const years = Object.keys(categorized)
   .filter((k) => k !== "all" && k !== "limited")

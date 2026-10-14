@@ -1,9 +1,16 @@
 import type { HTMLAttributes, Slot } from "vue"
-import type { SwitchProps as BaseSwitchProps } from "./types"
+import type {
+  SwitchInputProps as BaseSwitchInputProps,
+  SwitchProps as BaseSwitchProps,
+} from "./types"
 
-export type SwitchProps = BaseSwitchProps & {
+type Class = {
   class?: HTMLAttributes["class"]
 }
+
+export type SwitchProps = BaseSwitchProps & Class
+
+export type SwitchInputProps = BaseSwitchInputProps & Class
 
 export type Slots = {
   default?: Slot

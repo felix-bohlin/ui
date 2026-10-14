@@ -11,24 +11,12 @@ export type Props = {
 }
 
 export type Slots<S> = {
-  description: string | S
-  endText: string | S
-  footer: string | S
-  header: string | S
-  label: string | S
-  prefix: string | S
-  suffix: string | S
-  supportingText: string | S
+  description?: string | S
+  endText?: string | S
+  footer?: string | S
+  header?: string | S
+  label?: string | S
+  prefix?: string | S
+  suffix?: string | S
+  supportingText?: string | S
 }
-
-export type InputProps =
-  | "disabled"
-  | "list"
-  | "max"
-  | "min"
-  | "name"
-  | "placeholder"
-  | "required"
-  | "step"
-  | "type"
-  | "value"

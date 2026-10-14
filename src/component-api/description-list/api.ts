@@ -23,7 +23,8 @@ export default {
   parts: [
     {
       component: {
-        astro: "DescriptionList.Item",
+        astro: "DescriptionListItem",
+        react: "DescriptionListItem",
         svelte: "DescriptionListItem",
         vue: "DescriptionListItem",
       },
@@ -33,7 +34,8 @@ export default {
     {
       code: "<dt>",
       component: {
-        astro: "DescriptionList.Term",
+        astro: "DescriptionListTerm",
+        react: "DescriptionListTerm",
         svelte: "DescriptionListTerm",
         vue: "DescriptionListTerm",
       },
@@ -43,7 +45,8 @@ export default {
     {
       code: "<dd>",
       component: {
-        astro: "DescriptionList.Description",
+        astro: "DescriptionListDescription",
+        react: "DescriptionListDescription",
         svelte: "DescriptionListDescription",
         vue: "DescriptionListDescription",
       },

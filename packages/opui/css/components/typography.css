@@ -174,12 +174,12 @@
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: var(--radius-2);
-    border-width: var(--border-size-1);
+    border-width: var(--border-width);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
+    overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
-    word-break: break-word;
   }
 
   :where(.ui-mark) {
@@ -229,12 +229,12 @@
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: var(--radius-2);
-    border-width: var(--border-size-1);
+    border-width: var(--border-width);
     color: var(--text-muted-contrast);
     font-family: var(--font-mono);
+    overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
-    word-break: break-word;
   }
 
   :where(.ui-samp) {
@@ -472,7 +472,7 @@
     /* Horizontal rules */
     hr {
       &:not([class]) {
-        border-block-start: var(--border-size-1) solid var(--border-color);
+        border-block-start: var(--border-width) solid var(--border-color);
         margin-block: calc(var(--_flow-space) * 2);
       }
 
@@ -488,6 +488,7 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+      /* Firefox and Safari fallback */
       @supports (inline-size: calc(1px * 1em / 1rem)) {
         --_font-scale: calc(1em / 1rem);
       }
@@ -673,6 +674,7 @@
       }
 
       &[start] {
+        /* Firefox and Safari fallback */
         --_start-digits: 4;
 
         @supports (x: attr(x type(*))) {
@@ -744,7 +746,7 @@
       }
 
       :where(th, td) {
-        border-block-end: var(--border-size-1) solid var(--border-color);
+        border-block-end: var(--border-width) solid var(--border-color);
         overflow-wrap: break-word;
         padding-block: 0.5em;
         padding-inline: 0.75em;
@@ -862,7 +864,7 @@
       background-color: var(--text-muted);
       border-color: var(--text-muted);
       border-radius: var(--radius-2);
-      border-width: var(--border-size-1);
+      border-width: var(--border-width);
       color: var(--text-muted-contrast);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
@@ -870,7 +872,7 @@
 
     :not(pre) > code,
     kbd {
-      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     :not(pre) > code {

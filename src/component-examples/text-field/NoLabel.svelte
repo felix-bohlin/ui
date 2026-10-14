@@ -1,5 +1,5 @@
-<div class="ui-text-field">
-  <span class="ui-field">
-    <input aria-label="Search" placeholder="Search" type="text" />
-  </span>
-</div>
+<script lang="ts">
+  import { TextField } from "opui-css/svelte"
+</script>
+
+<TextField aria-label="Search" placeholder="Search" />

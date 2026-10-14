@@ -1,6 +1,7 @@
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
+import { PACKAGE_FRAMEWORK_IDS } from "../src/utils/framework.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -18,14 +19,37 @@ const OBJECT_TYPE = /export type (\w+)(?:<\w+>)? = \{\n([\s\S]*?)\n\}/g
 const KEY = /^ {2}(?:"([^"]+)"|(\w+))\??:/
 
 const CLASS_LIST = /class:list=\{\[/g
+const CX = /\bcx\(\[/g
 
 const TYPE_FILES = [
   "types.astro.ts",
   "types.d.vue.ts",
+  "types.react.ts",
   "types.solid.ts",
   "types.svelte.ts",
   "types.ts",
 ]
+
+const BARRELS = Object.fromEntries(
+  PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
+)
+
+const barrels = Object.fromEntries(
+  await Promise.all(
+    Object.keys(BARRELS).map(async (framework) => [
+      framework,
+      await readFile(
+        join(root, "packages/opui", framework, "index.ts"),
+        "utf-8",
+      ),
+    ]),
+  ),
+)
+
+const exportedNames = (source) =>
+  [...source.matchAll(/^export \{ default as (\w+) \}/gm)]
+    .map((match) => match[1])
+    .toSorted()
 
 const splitTopLevel = (body) => {
   const items = []
@@ -52,8 +76,8 @@ const splitTopLevel = (body) => {
   return items
 }
 
-const checkClassOrder = (file, source) => {
-  for (const match of source.matchAll(CLASS_LIST)) {
+const checkClassOrder = (file, source, pattern, label) => {
+  for (const match of source.matchAll(pattern)) {
     let depth = 1
     let end = match.index + match[0].length
     while (end < source.length && depth > 0) {
@@ -66,7 +90,7 @@ const checkClassOrder = (file, source) => {
     )
     const index = items.indexOf("className")
     if (index !== -1 && index !== items.length - 1) {
-      report(file, "className must be the last entry in class:list")
+      report(file, `className must be the last entry in ${label}`)
     }
   }
 }
@@ -103,13 +127,22 @@ for (const folder of folders) {
       .map((file) => basename(file, ext))
 
   const astro = names(".astro")
+  const react = files
+    .filter((file) => file.endsWith(".react.tsx"))
+    .map((file) => basename(file, ".react.tsx"))
   const svelte = names(".svelte")
   const vue = names(".vue")
+  for (const name of astro.filter((name) => !react.includes(name))) {
+    report(join(dir, `${name}.astro`), "has no matching .react.tsx component")
+  }
   for (const name of astro.filter((name) => !svelte.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .svelte component")
   }
   for (const name of astro.filter((name) => !vue.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .vue component")
+  }
+  for (const name of react.filter((name) => !astro.includes(name))) {
+    report(join(dir, `${name}.react.tsx`), "has no matching .astro component")
   }
   for (const name of svelte.filter((name) => !astro.includes(name))) {
     report(join(dir, `${name}.svelte`), "has no matching .astro component")
@@ -119,6 +152,16 @@ for (const folder of folders) {
   }
   for (const name of TYPE_FILES.filter((name) => !files.includes(name))) {
     report(join(dir, name), "is missing")
+  }
+  for (const [framework, extension] of Object.entries(BARRELS)) {
+    for (const name of astro) {
+      if (!barrels[framework].includes(`/${folder}/${name}${extension}"`)) {
+        report(
+          join(dir, `${name}.astro`),
+          `is not exported from packages/opui/${framework}/index.ts`,
+        )
+      }
+    }
   }
 
   for (const file of files) {
@@ -130,10 +173,26 @@ for (const folder of folders) {
     }
     if (file === "types.ts") checkSortedKeys(path, source)
     if (extname(file) === ".ts") checkIndexSignature(path, source)
-    if (extname(file) === ".astro") checkClassOrder(path, source)
+    if (extname(file) === ".astro") {
+      checkClassOrder(path, source, CLASS_LIST, "class:list")
+    }
+    if (file.endsWith(".react.tsx")) checkClassOrder(path, source, CX, "cx")
     if (file === `${folder}.astro` && !/export const title = "/.test(source)) {
       report(path, 'is missing `export const title = "..."`')
     }
+  }
+}
+
+const astroNames = exportedNames(barrels.astro)
+for (const [framework, source] of Object.entries(barrels)) {
+  const names = exportedNames(source)
+  const missing = astroNames.filter((name) => !names.includes(name))
+  const extra = names.filter((name) => !astroNames.includes(name))
+  if (missing.length || extra.length) {
+    report(
+      join(root, "packages/opui", framework, "index.ts"),
+      `exports differ from astro (missing: ${missing.join(", ") || "none"}, extra: ${extra.join(", ") || "none"})`,
+    )
   }
 }
 

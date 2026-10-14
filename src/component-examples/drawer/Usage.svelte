@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/svelte"
+  import {
+    Button,
+    Drawer,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+  } from "opui-css/svelte"
 </script>
 
 <div class="drawer-examples">
@@ -18,10 +25,10 @@
 </div>
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Inline Start</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -38,19 +45,19 @@
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-start" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-inline-start" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Inline End</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -67,19 +74,19 @@
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-end" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-inline-end" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-block-start" side="block-start" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Block Start</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -91,19 +98,19 @@
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-block-start" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-block-start" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-block-end" side="block-end" closedby="any">
-  {#snippet header()}
-    <DrawerHeader commandfor="drawer-block-end" heading="Block End" />
-  {/snippet}
-  {#snippet content()}
+  <DrawerHeader>
+    <DrawerTitle>Block End</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -115,10 +122,10 @@
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-  {/snippet}
-  {#snippet footer()}<DrawerFooter>
-      <Button size="small" commandfor="drawer-block-end" command="close"
-        >Close</Button
-      >
-    </DrawerFooter>{/snippet}
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-block-end" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
 </Drawer>

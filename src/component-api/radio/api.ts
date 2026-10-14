@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Radio",
+  css: ["choice", "radio"],
   model: {
     description: "The selected value of the group.",
     frameworks: {
@@ -18,11 +19,13 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes, such as `checked`, `disabled`, `name` and `value`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
-    html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.",
+      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
+    html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
     svelte:
-      "Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
-    vue: "Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
     {

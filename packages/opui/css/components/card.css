@@ -1,17 +1,16 @@
 @layer components.root {
   :where(.ui-card) {
-    --_elevated-bg-color: var(--surface-elevated);
-    --_outlined-border-color: var(--border-color);
-    --_surface-bg-color: var(--surface-default);
-    --_tonal-bg-color: var(--surface-tonal);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;
-
+    --_elevated-bg-color: var(--surface-elevated);
+    --_outlined-border-color: var(--border-color);
     --_shadow: none;
-    --_shadow-light: var(--shadow-3);
     --_shadow-dark: var(--shadow-4);
     --_shadow-elevated: var(--_shadow-light);
+    --_shadow-light: var(--shadow-3);
+    --_surface-bg-color: var(--surface-default);
+    --_tonal-bg-color: var(--surface-tonal);
 
     @container style(--color-scheme: dark) {
       --_shadow-elevated: var(--_shadow-dark);
@@ -106,7 +105,7 @@
       padding-block: var(--size-2);
       padding-inline: var(--size-3);
 
-      &:has(.ui-button:first-child[class="ui-button"]) {
+      &:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: var(--size-1) var(--size-3);
       }
 
@@ -114,11 +113,15 @@
       &.ui-align-end {
         justify-content: end;
 
-        &:has(.ui-button:first-child[class="ui-button"]) {
+        &:has(
+          > .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)
+        ) {
           padding-inline: var(--size-3);
         }
 
-        &:has(.ui-button:last-child[class="ui-button"]) {
+        &:has(
+          > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
+        ) {
           padding-inline: var(--size-3) var(--size-1);
         }
       }
@@ -137,7 +140,7 @@
       ) {
       animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--_focus-visible-color));
+        var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
   }

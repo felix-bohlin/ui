@@ -1,8 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Tabs.Item",
-  file: "TabsItem",
+  component: "TabsItem",
   options: [
     {
       description: "Overrides the name shared by the tab inputs.",
@@ -23,7 +22,12 @@ export default {
   page: "tabs",
   parts: [],
   root: {
-    component: { astro: "Tabs.Item", svelte: "TabsItem", vue: "TabsItem" },
+    component: {
+      astro: "TabsItem",
+      react: "TabsItem",
+      svelte: "TabsItem",
+      vue: "TabsItem",
+    },
     description:
       "The radio input for a tab, followed by the tab and the panel.",
     selector: "input.ui-tab-input",

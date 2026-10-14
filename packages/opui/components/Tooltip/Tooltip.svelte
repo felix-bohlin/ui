@@ -7,11 +7,9 @@
     arrow,
     class: className,
     id,
-    label,
 
     // Snippets
     children,
-    content,
     ...rest
   }: Props = $props()
 </script>
@@ -24,8 +22,4 @@
   {...rest}
 >
   {@render children?.()}
-  {#snippet anchored()}
-    {label}
-    {@render content?.()}
-  {/snippet}
 </Anchor>

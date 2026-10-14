@@ -1,16 +1,16 @@
 # Component API Documentation Guide
 
-This guide defines the standards for documenting component APIs (HTML, Astro, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files, or the few remaining hand-written `.astro` tables.
+This guide defines the standards for documenting component APIs (HTML, Astro, React, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files, or the few remaining hand-written `.astro` tables.
 
 ## Checklist for Documentation
 
 When creating or updating a component API table, ensure:
 
-- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `menu` and `toast` still use hand-written `.astro` tables.
-- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `Svelte.astro` and `Vue.astro` tables.
+- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `toast` still uses a hand-written `.astro` table.
+- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `React.astro`, `Svelte.astro` and `Vue.astro` tables.
 - [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
-- [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
-- [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
+- [ ] **Table Sub-components**: Use `TableHead`, `TableBody`, `TableRow`, `TableCell`, `TableHeaderCell`, `TableColumnGroup`, and `TableColumn` for table structure.
+- [ ] **Column Widths**: Use `TableColumnGroup` and `TableColumn` to specify widths: `style="min-width: 20%"`, `style="min-width: 20%"`, `style="min-width: 20%"`, `style="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
 - [ ] **Dots on Classes**: Every CSS class modifier starts with a dot (e.g., `.ui-primary`).
 - [ ] **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props are wrapped in `<code>` tags (exception: `default` and group names like `Slots`).
@@ -50,16 +50,13 @@ When creating or updating a component API table, ensure:
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `menu` and `toast` still use:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `toast` still uses:
 
 ```
 src/component-api/button/
   api.ts
-src/component-api/menu/
-  Astro.astro
+src/component-api/toast/
   HTML.astro
-  Svelte.astro
-  Vue.astro
 ```
 
 The doc page is just:
@@ -90,15 +87,15 @@ import buttonGroupApi from "../../component-api/button-group/api"
 
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
-- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `Tabs.Item`. Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`.
+- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `TabsItem`. Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`.
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
-- `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
+- `file`: the component file name when it differs from `component`, such as `Head` for `TableHead`. Props are read from the `<file>Props` type, or `Props`.
 - `hydration`: per-framework props that need a client directive, each with a `description` and an optional `fallback`. They get a marker in the props table.
-- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", svelte: "DescriptionListTerm", vue: "DescriptionListTerm" }`. `snippets` lists Svelte snippets that fill the part when they differ from the slots, such as `valueText` for the Range `value` slot. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
+- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionListTerm", react: "DescriptionListTerm", svelte: "DescriptionListTerm", vue: "DescriptionListTerm" }`. Container parts (`CardHeader`, `AccordionSummary`) always set `component`; a part with its own props or slots also gets its own `api.ts`, like `card-actions`. `snippets` lists Svelte snippets that fill the part when they differ from the slots, such as `valueText` for the Range `value` slot. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
-  - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
+  - `part` is the selector of the part that gets the modifier, such as `input` for the Checkbox `error` option.
   - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
   - `htmlDescription` replaces the description in the HTML table, for an option whose HTML use differs, such as a `name` that Astro, Svelte and Vue generate.
   - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
@@ -106,48 +103,57 @@ import buttonGroupApi from "../../component-api/button-group/api"
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model` and `notes`: the bound value and per-framework notes.
 
-Prop names and types are read from each framework's types file, Astro and Vue slots from the component source, and Svelte snippets from the `{@render}` tags in the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
+Prop names and types are read from each framework's types file, Astro and Vue slots from the component source, Svelte snippets from the `{@render}` tags in the component source, and React slot props from `types.react.ts`, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
 
 Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.
 
 ## Example Reference
 
-**Legacy Astro table (shortened from src/component-api/menu/Astro.astro)**
+**Legacy Astro table (the former src/component-api/menu/Astro.astro, shortened)**
 
 ```astro
 ---
-import { Table } from "@opui/astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
 ---
 
 <Table>
-  <Table.ColumnGroup>
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 20%" />
-    <Table.Column width="min-width: 300px" />
-  </Table.ColumnGroup>
-  <Table.Head>
-    <Table.Row>
-      <Table.HeaderCell>Prop</Table.HeaderCell>
-      <Table.HeaderCell>Type</Table.HeaderCell>
-      <Table.HeaderCell>Default</Table.HeaderCell>
-      <Table.HeaderCell>Description</Table.HeaderCell>
-    </Table.Row>
-  </Table.Head>
-  <Table.Body>
-    <Table.Row>
-      <Table.Cell><code>align</code></Table.Cell>
-      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
-      <Table.Cell><code>"start"</code></Table.Cell>
-      <Table.Cell>Which edge of the trigger the menu lines up with.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>dense</code></Table.Cell>
-      <Table.Cell><code>boolean</code></Table.Cell>
-      <Table.Cell><code>false</code></Table.Cell>
-      <Table.Cell>Less spacing.</Table.Cell>
-    </Table.Row>
-  </Table.Body>
+  <TableColumnGroup>
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 300px" />
+  </TableColumnGroup>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Prop</TableHeaderCell>
+      <TableHeaderCell>Type</TableHeaderCell>
+      <TableHeaderCell>Default</TableHeaderCell>
+      <TableHeaderCell>Description</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell><code>align</code></TableCell>
+      <TableCell><code>"start"</code>, <code>"end"</code></TableCell>
+      <TableCell><code>"start"</code></TableCell>
+      <TableCell>Which edge of the trigger the menu lines up with.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>dense</code></TableCell>
+      <TableCell><code>boolean</code></TableCell>
+      <TableCell><code>false</code></TableCell>
+      <TableCell>Less spacing.</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 ```
 

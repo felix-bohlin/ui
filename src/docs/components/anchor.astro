@@ -6,8 +6,10 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import {
   Anchor as UIAnchor,
+  AnchorContent as UIAnchorContent,
   Button as UIButton,
   Card as UICard,
+  CardContent as UICardContent,
 } from "@opui/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
@@ -58,18 +60,27 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       </Fragment>
       <Fragment slot="astro">
         Floating content that is always shown, like a coach mark beside a
-        button. Set <code>alignment</code> to any <code>position-area</code> value
-        to place it.
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >alignment</code
+        > to any <code>position-area</code> value to place it.
+      </Fragment>
+      <Fragment slot="react">
+        Floating content that is always shown, like a coach mark beside a
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >alignment</code
+        > to any <code>position-area</code> value to place it.
       </Fragment>
       <Fragment slot="svelte">
         Floating content that is always shown, like a coach mark beside a
-        button. Set <code>alignment</code> to any <code>position-area</code> value
-        to place it.
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >alignment</code
+        > to any <code>position-area</code> value to place it.
       </Fragment>
       <Fragment slot="vue">
         Floating content that is always shown, like a coach mark beside a
-        button. Set <code>alignment</code> to any <code>position-area</code> value
-        to place it.
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >alignment</code
+        > to any <code>position-area</code> value to place it.
       </Fragment>
     </Conditional>
 
@@ -87,23 +98,26 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       <Fragment slot="astro">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
           >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
+          >interestfor</code
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
       </Fragment>
       <Fragment slot="svelte">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
           >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
       </Fragment>
       <Fragment slot="vue">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
           >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -145,9 +159,11 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
     <Anatomy>
       <UIAnchor alignment="start center">
         <UIButton variant="outlined">Anchor</UIButton>
-        <UICard slot="anchored" variant="tonal">
-          <div class="ui-content">Floating content</div>
-        </UICard>
+        <UIAnchorContent>
+          <UICard variant="tonal">
+            <UICardContent>Floating content</UICardContent>
+          </UICard>
+        </UIAnchorContent>
       </UIAnchor>
     </Anatomy>
   </Fragment>

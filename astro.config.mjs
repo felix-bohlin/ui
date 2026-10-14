@@ -7,6 +7,7 @@ import {
   passthroughImageService,
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
+import react from "@astrojs/react"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 import llms from "./src/integrations/llms.mjs"
@@ -55,13 +56,14 @@ export default defineConfig({
   image: { service: passthroughImageService() },
   markdown: { syntaxHighlight: false },
   site: "https://open-props-ui.netlify.app/",
-  i18n: {
-    defaultLocale: DEFAULT_FRAMEWORK,
-    locales: FRAMEWORK_IDS,
-    routing: { prefixDefaultLocale: true },
-  },
   redirects: legacyRedirects,
-  integrations: [vue(), sitemap(), svelte(), llms()],
+  integrations: [
+    vue(),
+    sitemap(),
+    svelte(),
+    react({ include: [/\.react\.tsx$/] }),
+    llms(),
+  ],
   vite: {
     build: {
       dynamicImportVarsOptions: {
@@ -70,6 +72,11 @@ export default defineConfig({
     },
     optimizeDeps: { exclude: ["microlighter"] },
     plugins: [
+      {
+        name: "opui-no-react-refresh",
+        enforce: "post",
+        config: () => ({ oxc: { jsx: { refresh: false } } }),
+      },
       {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {

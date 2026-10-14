@@ -15,19 +15,46 @@ Markers only animate with a marker class on `details`, and only the `svg` with `
     </summary>
 ```
 
-Astro and Vue render a chevron marker by default. If you put your own chevron in the `summary` slot, you get two: move it to the `marker` slot and give it `.ui-marker`.
+In Astro and Vue the regions are parts instead of slots. The root no longer wraps its children in `.ui-content`, so put them in `AccordionContent`.
 
 ```diff
   <Accordion>
--   <Fragment slot="summary">Title <svg>…</svg></Fragment>
-+   <Fragment slot="summary">Title</Fragment>
-+   <svg slot="marker" class="ui-marker">…</svg>
+-   <Fragment slot="summary">Title</Fragment>
+-   <p>Text</p>
+-   <Button slot="actions">Agree</Button>
++   <AccordionSummary>Title</AccordionSummary>
++   <AccordionContent><p>Text</p></AccordionContent>
++   <AccordionActions><Button>Agree</Button></AccordionActions>
   </Accordion>
+```
+
+`types.ts` no longer exports a `Slots` type.
+
+`AccordionSummary` renders a chevron marker by default. If you put your own chevron in the summary, you get two: move it to the `marker` slot on `AccordionSummary` and give it `.ui-marker`.
+
+```diff
+- <AccordionSummary>Title <svg>…</svg></AccordionSummary>
++ <AccordionSummary>
++   Title
++   <svg slot="marker" class="ui-marker">…</svg>
++ </AccordionSummary>
 ```
 
 ## Anchor
 
 `Anchor` with `trigger="hover"` no longer wraps the trigger in a `<span interestfor>`. Give the anchor an `id` and add `interestfor` with that id to the trigger, like `Tooltip`.
+
+In Astro and Vue the floating content goes in `AnchorContent` instead of the `anchored` slot.
+
+```diff
+  <Anchor>
+    <Button>Profile</Button>
+-   <Card slot="anchored">…</Card>
++   <AnchorContent><Card>…</Card></AnchorContent>
+  </Anchor>
+```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Avatar
 
@@ -93,9 +120,46 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 
 Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--button-size-small` (32px) instead of 30px.
 
+## Callout
+
+In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
+
+```diff
+- <Callout severity="info" headingLevel={4}>
+-   <Fragment slot="title">Heads up</Fragment>
+-   Text
+- </Callout>
++ <Callout severity="info">
++   <CalloutIcon />
++   <CalloutContent>
++     <CalloutTitle level={4}>Heads up</CalloutTitle>
++     Text
++   </CalloutContent>
++ </Callout>
+```
+
+`types.ts` no longer exports a `Slots` type.
+
 ## Card
 
 Tonal and elevated cards have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them use the page background too. Actions stick to the bottom of stretched cards and wrap.
+
+In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `align` on `CardActions`.
+
+```diff
+- <Card actionsAlign="end">
+-   <h3 slot="header">Title</h3>
+-   <p slot="content">Text</p>
+-   <Button slot="actions">Open</Button>
+- </Card>
++ <Card>
++   <CardHeader><h3>Title</h3></CardHeader>
++   <CardContent><p>Text</p></CardContent>
++   <CardActions align="end"><Button>Open</Button></CardActions>
++ </Card>
+```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Checkbox
 
@@ -136,9 +200,33 @@ In Vue, the description part is exported as `DescriptionListDescription` instead
 + import { DescriptionListDescription } from "opui-css/vue"
 ```
 
+In Astro, import the parts by their flat names. The `DescriptionList.Item`, `DescriptionList.Term` and `DescriptionList.Description` aliases are gone.
+
+```diff
+- <DescriptionList.Item>
++ <DescriptionListItem>
+```
+
 ## Dialog
 
 Dialogs have a maximum height. The header and actions stay in place and the content scrolls. Dialogs also get a border in the page background color.
+
+In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHeader`, `DialogContent` and `DialogActions` (`align` replaces `actionsAlign`). `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`.
+
+```diff
+- <Dialog actionsAlign="end">
+-   <h2 slot="header">Title</h2>
+-   <p slot="content">Text</p>
+-   <Button slot="actions">Close</Button>
+- </Dialog>
++ <Dialog>
++   <DialogHeader><h2>Title</h2></DialogHeader>
++   <DialogContent><p>Text</p></DialogContent>
++   <DialogActions align="end"><Button>Close</Button></DialogActions>
++ </Dialog>
+```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Divider
 
@@ -156,6 +244,23 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 ## Drawer
 
 The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
+
+In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`. `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill.
+
+```diff
+  <Drawer id="filters">
+-   <DrawerHeader slot="header" heading="Filters" />
+-   <Fragment slot="content">…</Fragment>
+-   <DrawerFooter slot="footer">…</DrawerFooter>
++   <DrawerHeader>
++     <DrawerTitle>Filters</DrawerTitle>
++   </DrawerHeader>
++   <DrawerContent>…</DrawerContent>
++   <DrawerFooter>…</DrawerFooter>
+  </Drawer>
+```
+
+`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 
 ## Field group and field set
 
@@ -301,7 +406,23 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 Dense cells have less block padding.
 
+In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` and `TableCell`. The `Table.Head`-style aliases are gone.
+
+```diff
+- import { Table } from "opui-css/astro"
+- <Table.Head>
++ import { Table, TableHead } from "opui-css/astro"
++ <TableHead>
+```
+
 ## Tabs
+
+In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
+
+```diff
+- <Tabs.Item>
++ <TabsItem>
+```
 
 Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--size-2` top margin, so remove any spacing you added above it.
 
@@ -388,6 +509,8 @@ The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `to
 
 Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
+`ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
+
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
 
 `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`. `.ui-disabled` stays on `Chip`, to dim a static chip.
@@ -401,13 +524,18 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
 
+In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `content` slot.
+
 ```diff
 - <Tooltip label="Save your changes">
 -   <Button>Save</Button>
-+ <Tooltip label="Save your changes" id="save-tooltip">
++ <Tooltip id="save-tooltip">
 +   <Button interestfor="save-tooltip">Save</Button>
++   <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 ```
+
+`types.ts` no longer exports a `Slots` type.
 
 Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arrow shift along the edge like other tooltips.
 

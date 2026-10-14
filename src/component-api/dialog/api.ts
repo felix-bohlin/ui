@@ -3,24 +3,21 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Dialog",
   notes: {
+    astro:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
-    svelte: "Attributes that aren't props, such as `id`, go to the `<dialog>`.",
-    vue: "Attributes that aren't props, such as `id`, go to the `<dialog>`.",
+    react:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
+    svelte:
+      "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
+    vue: "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
   },
   options: [
-    {
-      default: '"end"',
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: null, start: ".ui-align-start" },
-    },
     {
       attribute: "[closedby]",
       description:
         'How the dialog can be closed. `"any"` also closes it on a click outside.',
-      frameworks: ["astro", "html", "svelte", "vue"],
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "Close behavior",
       prop: "closedby",
       type: '"any" | "closerequest" | "none"',
@@ -29,19 +26,36 @@ export default {
   parts: [
     {
       code: "<hgroup>",
-      description: "The dialog header.",
+      component: {
+        astro: "DialogHeader",
+        react: "DialogHeader",
+        svelte: "DialogHeader",
+        vue: "DialogHeader",
+      },
+      description:
+        "The dialog header. Names the dialog through `aria-labelledby`.",
       selector: "hgroup",
-      slots: ["header"],
     },
     {
+      anchorName: "--ui-dialog-content",
+      component: {
+        astro: "DialogContent",
+        react: "DialogContent",
+        svelte: "DialogContent",
+        vue: "DialogContent",
+      },
       description: "The dialog content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
+      component: {
+        astro: "DialogActions",
+        react: "DialogActions",
+        svelte: "DialogActions",
+        vue: "DialogActions",
+      },
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
@@ -50,7 +64,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the dialog.",
+      description: "The dialog parts, and any other content.",
       name: "default",
     },
   ],

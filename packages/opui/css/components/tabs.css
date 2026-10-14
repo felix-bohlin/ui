@@ -14,7 +14,7 @@
     --_border-radius: var(--border-radius);
     --_indicator-color: transparent;
     --_indicator-size: 2px;
-    --_inset: 3px;
+    --_inset: calc(var(--size-1) - var(--_track-border-width));
     --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
     --_track-border-color: transparent;
     --_track-border-width: var(--border-width);

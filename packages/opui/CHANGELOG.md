@@ -408,6 +408,7 @@
 - `DescriptionListDescription`, `DescriptionListItem` and `DescriptionListTerm` in Vue no longer accept the list's `bordered` and `inline` props.
 - `Card` actions keep the edge padding for a text button with extra classes.
 - `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists.
+- `Anchor` in React, Svelte and Vue renders generated ids with the `anchor-` prefix, like Astro.
 
 ## 5.5.0 - 2026-09-28
 

@@ -69,7 +69,7 @@ const whatsNew = {
     `Breaking: <code>--_badge-inset-block</code> and <code>--_badge-inset-inline</code> are <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   "bar-chart": [
-    `New component. A <a href="#basics">data table drawn as a column chart</a>, with a computed axis, grouped series and tooltips. HTML and CSS only.`,
+    `New component. A <a href="#basics">data table drawn as a column chart</a>, with a computed axis, grouped series and tooltips. No JavaScript needed.`,
   ],
   button: [
     {
@@ -219,7 +219,7 @@ const whatsNew = {
     },
   ],
   "data-grid": [
-    `New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and <code>:has()</code>. HTML and CSS only.`,
+    `New component. A <a href="#basics">data grid</a> with <a href="#sorting">sorting</a>, filtering, selection, <a href="#pinned-columns">pinned columns</a> and <a href="#detail-panel">detail panels</a>, built with subgrid and <code>:has()</code>. No JavaScript needed.`,
   ],
   dialog: [
     slots(
@@ -582,6 +582,7 @@ const highlighted = new Set([
   "bar-chart",
   "button",
   "carousel",
+  "data-grid",
   "menu",
   "message",
   "one-time-code",

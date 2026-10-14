@@ -115,6 +115,11 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.",
   "--primary-dark": "A darker `--primary`.",
   "--primary-light": "A lighter `--primary`.",
+  "--purple":
+    "A literal purple derived from the palette lightness. No severity meaning.",
+  "--rating-size": "Default `Rating` star size when it collects a rating.",
+  "--rating-size-large": "`Rating` star size with `.ui-large`.",
+  "--rating-size-small": "`Rating` star size with `.ui-small`.",
   "--red":
     "A literal red derived from the palette lightness. No severity meaning.",
   "--rhythm-step":

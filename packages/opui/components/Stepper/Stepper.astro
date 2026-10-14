@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { cssString } from "./css-string"
+import { mergeStyle } from "../style"
 
 export const title = "Stepper"
 
@@ -23,16 +24,6 @@ const check = Astro.slots.has("check")
 const done =
   complete ||
   (current !== undefined && items !== undefined && current >= items.length)
-const vars = completedLabel
-  ? { "--_completed-label": cssString(completedLabel) }
-  : {}
-const varStyle = Object.entries(vars)
-  .map(([name, value]) => `${name}: ${value};`)
-  .join(" ")
-const mergedStyle =
-  typeof style === "string" || !style
-    ? [varStyle, style].filter(Boolean).join(" ") || undefined
-    : { ...vars, ...style }
 ---
 
 <ol
@@ -43,7 +34,14 @@ const mergedStyle =
     size && `ui-${size}`,
     className,
   ]}
-  style={mergedStyle}
+  style={mergeStyle(
+    {
+      "--_completed-label": completedLabel
+        ? cssString(completedLabel)
+        : undefined,
+    },
+    style,
+  )}
   {...rest}
 >
   {

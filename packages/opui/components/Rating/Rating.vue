@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { computed, useAttrs } from "vue"
+import type { HTMLAttributes } from "vue"
 import type { Props } from "./types.d.vue"
-import { computed } from "vue"
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const {
   clearLabel = "No rating",
@@ -14,6 +19,12 @@ const {
   starLabel = (value: number) => (value === 1 ? "1 star" : `${value} stars`),
   value,
 } = defineProps<Props>()
+const attrs = useAttrs() as HTMLAttributes
+const fieldsetAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(([key]) => key !== "aria-describedby"),
+  ),
+)
 const modelValue = defineModel<number | string>()
 
 const count = computed(() => Number(max))
@@ -31,11 +42,13 @@ const select = (star: number) => {
     v-if="name"
     :class="['ui-rating', size && `ui-${size}`, $props.class]"
     :disabled="disabled"
+    v-bind="fieldsetAttrs"
   >
-    <legend v-if="label">{{ label }}</legend>
+    <legend>{{ label }}</legend>
     <input
       v-if="!required"
-      :aria-invalid="error ? 'true' : undefined"
+      :aria-describedby="attrs['aria-describedby']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-label="clearLabel"
       :checked="current === 0"
       :name="name"
@@ -46,7 +59,8 @@ const select = (star: number) => {
     <input
       v-for="star in stars"
       :key="star"
-      :aria-invalid="error ? 'true' : undefined"
+      :aria-describedby="attrs['aria-describedby']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-label="starLabel(star)"
       :checked="current === star"
       :name="name"
@@ -62,6 +76,7 @@ const select = (star: number) => {
     :class="['ui-rating', size && `ui-${size}`, $props.class]"
     :max="max"
     :style="count === 5 ? undefined : { '--_max': count }"
-    :value="modelValue ?? value"
+    :value="modelValue ?? value ?? 0"
+    v-bind="attrs"
   ></meter>
 </template>

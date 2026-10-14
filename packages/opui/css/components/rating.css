@@ -61,7 +61,7 @@
   :where(fieldset.ui-rating) {
     --_clear-color: var(--text-muted);
     --_clear-hover-color: var(--text-primary);
-    --_size: var(--size-6);
+    --_size: var(--rating-size);
 
     align-items: center;
     border: 0;
@@ -75,11 +75,11 @@
     padding: 0;
 
     &.ui-small {
-      --_size: var(--size-5);
+      --_size: var(--rating-size-small);
     }
 
     &.ui-large {
-      --_size: var(--size-7);
+      --_size: var(--rating-size-large);
     }
 
     & > legend {
@@ -114,7 +114,7 @@
 
       &:focus-visible {
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color, var(--_focus-visible-color));
+          var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
       }
     }
@@ -153,10 +153,14 @@
 
     &::after {
       color: var(--text-muted);
-      content: counter(ui-rating) "/" counter(ui-rating-max) / "";
+      content: counter(ui-rating) "/" counter(ui-rating-max);
       font-size: var(--font-size-0);
       font-variant-numeric: tabular-nums;
       margin-inline-start: var(--size-2);
+
+      @supports (content: "" / "") {
+        content: counter(ui-rating) "/" counter(ui-rating-max) / "";
+      }
     }
 
     &:disabled {
@@ -170,8 +174,12 @@
 
     &:has(:required) > legend::after {
       color: var(--field-required-color);
-      content: "*" / "";
+      content: "*";
       margin-inline-start: 0.25ex;
+
+      @supports (content: "" / "") {
+        content: "*" / "";
+      }
     }
 
     &:has([aria-invalid="true"], :user-invalid) {

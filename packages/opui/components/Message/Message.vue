@@ -17,7 +17,8 @@ const {
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
-const pickerId = useId()
+const uid = useId()
+const pickerId = `reactions-${uid}`
 const hasPicker = computed(() => !!picker?.length)
 </script>
 
@@ -84,7 +85,12 @@ const hasPicker = computed(() => !!picker?.length)
           />
         </svg>
       </Button>
-      <form :id="pickerId" class="ui-reaction-picker" popover="">
+      <form
+        :id="pickerId"
+        :aria-label="pickerLabel"
+        class="ui-reaction-picker"
+        popover=""
+      >
         <button
           v-for="{ emoji, label, value } in picker"
           :key="value ?? emoji"

@@ -2,6 +2,7 @@
   :where(.ui-bar-chart) {
     --_motion: var(--motion, 1);
     --_accent: var(--_series-1);
+    --_bar-gap: 2px;
     --_bar-size: 2.5rem;
     --_block-size: 12rem;
     --_data-max: var(--max, 100);
@@ -15,11 +16,9 @@
     --_series: 1;
     --_series-1: var(--primary);
     --_series-2: var(--orange);
-    --_series-3: light-dark(
-      oklch(from var(--color-9) l 0.2 330),
-      oklch(from var(--color-8) l 0.2 330)
-    );
-    --_step: calc(
+    --_series-3: var(--purple);
+    --_step: max(
+      1,
       var(--_mag) *
         (
           1 + clamp(0, (var(--_norm) - 1.41) * 1e6, 1) + 3 *
@@ -199,7 +198,7 @@
     }
 
     & > tbody > tr {
-      column-gap: 2px;
+      column-gap: var(--_bar-gap);
       container-type: inline-size;
       display: grid;
       grid-row: 1 / span 2;
@@ -269,7 +268,7 @@
         content: "";
         inline-size: min(
           var(--_bar-size),
-          (100cqi - 2px * (var(--_series) - 1)) / var(--_series)
+          (100cqi - var(--_bar-gap) * (var(--_series) - 1)) / var(--_series)
         );
         inset-block-start: calc(
           var(--_pos) * 100% - (1 - var(--_pos)) * var(--_bar)
@@ -292,7 +291,7 @@
         }
       }
 
-      &:is(:hover, :focus-visible) {
+      &:focus-visible {
         background-color: var(--surface-inverse);
         color: var(--text-inverse);
         z-index: 1;
@@ -301,6 +300,20 @@
           background-color: Canvas;
           color: CanvasText;
           outline: var(--border-width) solid CanvasText;
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--surface-inverse);
+          color: var(--text-inverse);
+          z-index: 1;
+
+          @media (forced-colors: active) {
+            background-color: Canvas;
+            color: CanvasText;
+            outline: var(--border-width) solid CanvasText;
+          }
         }
       }
     }
@@ -313,18 +326,28 @@
       grid-column: 4;
     }
 
-    &:has(td + td) > tbody td:not(:hover, :focus-visible) {
-      color: transparent;
-    }
-
-    &
-      > tbody:has(td:is(:hover, :focus-visible))
-      td:not(:hover, :focus-visible)::after {
+    & > tbody:has(td:focus-visible) td:not(:hover, :focus-visible)::after {
       opacity: 0.4;
     }
 
-    & > tbody > tr:has(> td:is(:hover, :focus-visible)) > th {
+    & > tbody > tr:has(> td:focus-visible) > th {
       color: var(--text-primary);
+    }
+
+    @media (hover: hover) {
+      & > tbody:has(td:hover) td:not(:hover, :focus-visible)::after {
+        opacity: 0.4;
+      }
+
+      & > tbody > tr:has(> td:hover) > th {
+        color: var(--text-primary);
+      }
+    }
+
+    @media (hover: hover) and (forced-colors: none) {
+      &:has(td + td) > tbody tr:not(:hover, :focus-within) td {
+        color: transparent;
+      }
     }
 
     &
@@ -350,9 +373,14 @@
         overflow: visible;
       }
 
-      & > tbody > tr:nth-child(even) > th,
-      & > tbody td:not(:hover, :focus-visible) {
+      & > tbody > tr:nth-child(even) > th {
         color: transparent;
+      }
+
+      @media (hover: hover) and (forced-colors: none) {
+        & > tbody tr:not(:hover, :focus-within) td {
+          color: transparent;
+        }
       }
     }
   }

@@ -6,9 +6,9 @@
     color,
     current,
     datetime,
+    heading,
     headingLevel = 3,
     time,
-    title,
 
     // Snippets
     children,
@@ -28,9 +28,9 @@
   {#if time}
     <time {datetime}>{time}</time>
   {/if}
-  {#if title}
+  {#if heading}
     <svelte:element this={`h${headingLevel}`} class="ui-h6">
-      {title}
+      {heading}
     </svelte:element>
   {/if}
   {@render children?.()}

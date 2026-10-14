@@ -1,8 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "Timeline.Item",
-  file: "TimelineItem",
+  component: "TimelineItem",
   options: [
     {
       description: "Optional colors. Fills the marker.",
@@ -34,8 +33,12 @@ export default {
       prop: "datetime",
     },
     {
+      description: "The heading. Renders a heading element with `.ui-h6`.",
+      prop: "heading",
+    },
+    {
       default: "3",
-      description: "The heading level of the title.",
+      description: "The level of the heading.",
       prop: "headingLevel",
       type: "2 | 3 | 4 | 5 | 6",
     },
@@ -43,17 +46,13 @@ export default {
       description: "The visible date or time. Renders a `<time>`.",
       prop: "time",
     },
-    {
-      description: "The title. Renders a heading with `.ui-h6`.",
-      prop: "title",
-    },
   ],
   page: "timeline",
   parts: [
     {
       code: "<time>",
       description:
-        "The date, in its own column. Above the title in narrow timelines.",
+        "The date, in its own column. Above the heading in narrow timelines.",
       props: ["time"],
       selector: "li:first-child > time",
     },
@@ -65,20 +64,21 @@ export default {
     },
     {
       code: "<h3>",
-      description: "The title.",
-      props: ["title"],
+      description: "The heading.",
+      props: ["heading"],
       selector: "li:first-child > h3",
     },
   ],
   root: {
     code: "<li>",
     component: {
-      astro: "Timeline.Item",
+      astro: "TimelineItem",
+      react: "TimelineItem",
       svelte: "TimelineItem",
       vue: "TimelineItem",
     },
     description:
-      "An event. Content after the title goes in the content column.",
+      "An event. Content after the heading goes in the content column.",
     selector: "li:first-child",
   },
   slots: [

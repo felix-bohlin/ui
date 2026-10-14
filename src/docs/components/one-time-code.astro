@@ -44,7 +44,6 @@ document.addEventListener("input", ({ target }) => {
   apis={[{ title: "One-time code API", api: oneTimeCodeApi }]}
   browserSupport={[
     "container-queries",
-    "container-style-queries",
     "field-sizing",
     "forced-colors",
     "has",
@@ -112,6 +111,14 @@ document.addEventListener("input", ({ target }) => {
           >inputmode="numeric"</code
         >, <code>maxlength</code> and a matching <code>pattern</code>.
       </Fragment>
+      <Fragment slot="react">
+        The code has 6 digits by default. The input gets <code
+          >inputmode="numeric"</code
+        >, <code>maxlength</code> and a matching <code>pattern</code>, so phones
+        show a number pad and the browser validates the code. Use <code
+          >onChange</code
+        > to read it.
+      </Fragment>
       <Fragment slot="svelte">
         The code has 6 digits by default. The input gets <code
           >inputmode="numeric"</code
@@ -163,6 +170,11 @@ document.addEventListener("input", ({ target }) => {
           >.ui-large</code
         >.
       </Fragment>
+      <Fragment slot="react">
+        Choose between three sizes with the <code>size</code> prop: <code
+          >small</code
+        >, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="svelte">
         Choose between three sizes with the <code>size</code> prop: <code
           >small</code
@@ -189,6 +201,11 @@ document.addEventListener("input", ({ target }) => {
       <Fragment slot="html">
         The number of boxes follows <code>maxlength</code>, from 4 to 8. Match
         the <code>pattern</code> to it, such as <code>[0-9]{"{4}"}</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
+          >maxlength</code
+        > and the <code>pattern</code>.
       </Fragment>
       <Fragment slot="svelte">
         Set <code>length</code> to 4, 5, 6, 7 or 8 characters. It sets <code
@@ -223,6 +240,13 @@ document.addEventListener("input", ({ target }) => {
         >, which also shows letters uppercase. The value keeps the case they
         were typed in. Leave <code>autocapitalize</code> out for case-sensitive codes.
       </Fragment>
+      <Fragment slot="react">
+        Set <code>alphanumeric</code> for codes with letters. The pattern accepts
+        letters and digits, the keyboard is a regular one, and letters show uppercase
+        (<code>autocapitalize="characters"</code>). The value keeps the case
+        they were typed in. Pass <code>autocapitalize="off"</code> for case-sensitive
+        codes.
+      </Fragment>
       <Fragment slot="svelte">
         Set <code>alphanumeric</code> for codes with letters. The pattern accepts
         letters and digits, the keyboard is a regular one, and letters show uppercase
@@ -255,6 +279,11 @@ document.addEventListener("input", ({ target }) => {
         and every box turns red. Explain the error in the end text and point <code
           >aria-describedby</code
         > at it.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>error</code> prop for server-side errors. It sets <code
+          >aria-invalid="true"</code
+        > on the input, and every box turns red. Explain the error in the end text.
       </Fragment>
       <Fragment slot="svelte">
         Use the <code>error</code> prop for server-side errors. It sets <code
@@ -340,6 +369,11 @@ document.addEventListener("input", ({ target }) => {
             >Mark errors with <code>aria-invalid="true"</code> and link the end text
             with <code>aria-describedby</code>.</Fragment
           >
+          <Fragment slot="react"
+            >The <code>error</code> prop sets <code>aria-invalid="true"</code>,
+            and <code>endText</code> is linked with <code>aria-describedby</code
+            >.</Fragment
+          >
           <Fragment slot="svelte"
             >The <code>error</code> prop sets <code>aria-invalid="true"</code>,
             and <code>endText</code> is linked with <code>aria-describedby</code
@@ -357,5 +391,31 @@ document.addEventListener("input", ({ target }) => {
         not only in the layout.
       </li>
     </ul>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      The root is an inline-size container. <code>--_length</code> follows <code
+        >maxlength</code
+      > through <code>:has([maxlength="4"])</code> and its siblings, and <code
+        >--_cell</code
+      > is the smaller of <code>--_max-cell</code> and the width that fits every box
+      in the container.
+    </p>
+    <p>
+      The boxes are one <code>.ui-field::before</code> with an SVG <code
+        >mask</code
+      >
+      that repeats every <code>--_cell</code>. The input is monospace with <code
+        >letter-spacing: calc(var(--_cell) - 1ch)</code
+      >, so each character lands in its box, and <code>.ui-grouped</code> draws the
+      dash as a background at the midpoint.
+    </p>
+    <p>
+      With <code>field-sizing: content</code> the input is as wide as its value, so
+      <code>.ui-field::after</code>, in the grid column right after it, is the
+      ring on the next empty box. Without it, <code>:focus-within</code> swaps the
+      mask for the thicker <code>--_box-focus</code> on every box.
+    </p>
   </Fragment>
 </Component>

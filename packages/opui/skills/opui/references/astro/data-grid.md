@@ -1,6 +1,6 @@
 # Data grid
 
-Sorting, filtering, selection, totals, pinned columns, resizing and detail panels without JavaScript. For static data, see [Table](https://open-props-ui.netlify.app/astro/components/table.md).
+Sorting, filtering, selection, totals, pinned columns, resizing and detail panels without JavaScript. For static data, see [Table](https://open-props-ui.netlify.app/astro/components/table.md). [Under the hood](#under-the-hood) explains the CSS behind it.
 
 ## Anatomy
 
@@ -52,7 +52,7 @@ selected rows
 
 - `filters`
 
-  Filter radios.
+  Filter radios, up to six custom filters.
 
 - `densityToggle`
 
@@ -88,7 +88,7 @@ selected rows
 
 - `slot="cell-[key]"`
 
-  A cell.
+  A cell. The `cell-[key]` slot of its column gets the row and the column.
 
 - `.ui-foot`
 
@@ -97,10 +97,6 @@ selected rows
 - `footer`
 
   Selected and visible row counts.
-
-### This is SO COOL!
-
-Don't miss the [Under the hood](#under-the-hood) section to see how it works!
 
 ## Basics
 
@@ -656,81 +652,81 @@ const filters = [
 
 ## Accessibility
 
-Uses ARIA table roles, and the table scrolls with the keyboard. Every control is a native checkbox, radio or input with a name. CSS can't update `aria-sort`, and sorting changes the visual order, so `reading-flow` keeps the reading and focus order in step where supported.
+Uses ARIA table roles, and the table scrolls with the keyboard. Sorting, filtering, selection, density and column visibility are native radios, checkboxes and inputs with a name. The header menu items are labels for the sort radios and column checkboxes, so keyboard users sort with the arrows in the header and hide columns in the Columns menu. CSS can't update `aria-sort`, and sorting changes the visual order, so `reading-flow` keeps the reading and focus order in step where supported.
 
 ## API
 
 ### Data grid API
 
-| Prop            | Type                                    | Default      | Description                                                                                         |
-| --------------- | --------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------- |
-| `columnGroups`  | `DataGridColumnGroup[]`                 | -            | Header cells that span several columns.                                                             |
-| `columns`       | `DataGridColumn[]`                      | -            | The columns.                                                                                        |
-| `columnsMenu`   | `boolean`                               | -            | Column checkboxes in a popover.                                                                     |
-| `density`       | `"dense"` , `"spacious"` , `"standard"` | `"standard"` | Row height and cell padding.                                                                        |
-| `densityToggle` | `boolean`                               | -            | Density radios.                                                                                     |
-| `filters`       | `DataGridFilter[]`                      | -            | Filter radios.                                                                                      |
-| `footer`        | `boolean`                               | -            | Selected and visible row counts.                                                                    |
-| `form`          | `string`                                | -            | The `id` of a form for the selection checkboxes and editable inputs.                                |
-| `headerMenus`   | `boolean`                               | `false`      | A menu in each header to sort or hide the column, made of labels for the existing controls.         |
-| `label`         | `string`                                | -            | Accessible name of the grid.                                                                        |
-| `labels`        | `Partial<DataGridLabels>`               | `{}`         | Text for the built-in labels.                                                                       |
-| `loading`       | `boolean`                               | `false`      | Dims the rows and shows a loading bar.                                                              |
-| `maxBlockSize`  | `string`                                | `none`       | Scrolls the rows below a sticky header.                                                             |
-| `numbered`      | `boolean`                               | -            | Row numbers, in sorted order.                                                                       |
-| `pinEnd`        | `boolean`                               | `false`      | Keeps the last column in view.                                                                      |
-| `pinStart`      | `boolean`                               | `false`      | Keeps the first column in view.                                                                     |
-| `resizable`     | `boolean`                               | `false`      | Lets users drag header cells to resize columns.                                                     |
-| `rowKey`        | `string`                                | -            | The row field used as the checkbox `value` and in editable input names, such as `name="role[ada]"`. |
-| `rows`          | `DataGridRow[]`                         | -            | The rows. Each row is an object keyed by column.                                                    |
-| `selectable`    | `boolean`                               | -            | Row selection checkboxes.                                                                           |
-| `sort`          | `DataGridSort`                          | `-`          | The initial sort.                                                                                   |
-| `wrap`          | `boolean`                               | `false`      | Wraps cell text instead of truncating it.                                                           |
+| Prop            | Type                      | Default | Description                                                                                         |
+| --------------- | ------------------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| `columnGroups`  | `DataGridColumnGroup[]`   | -       | Header cells that span several columns.                                                             |
+| `columns`       | `DataGridColumn[]`        | -       | The columns, up to 12.                                                                              |
+| `columnsMenu`   | `boolean`                 | -       | Column checkboxes in a popover.                                                                     |
+| `density`       | `"dense"` , `"spacious"`  | -       | Row height and cell padding.                                                                        |
+| `densityToggle` | `boolean`                 | -       | Density radios.                                                                                     |
+| `filters`       | `DataGridFilter[]`        | -       | Filter radios, up to six custom filters.                                                            |
+| `footer`        | `boolean`                 | -       | Selected and visible row counts.                                                                    |
+| `form`          | `string`                  | -       | The `id` of a form for the selection checkboxes and editable inputs.                                |
+| `headerMenus`   | `boolean`                 | `false` | A menu in each header to sort or hide the column, made of labels for the existing controls.         |
+| `label`         | `string`                  | -       | Accessible name of the grid.                                                                        |
+| `labels`        | `Partial<DataGridLabels>` | `{}`    | Text for the built-in labels.                                                                       |
+| `loading`       | `boolean`                 | `false` | Dims the rows and shows a loading bar.                                                              |
+| `maxBlockSize`  | `string`                  | `none`  | Scrolls the rows below a sticky header.                                                             |
+| `numbered`      | `boolean`                 | -       | Row numbers, in sorted order.                                                                       |
+| `pinEnd`        | `boolean`                 | `false` | Keeps the last column in view.                                                                      |
+| `pinStart`      | `boolean`                 | `false` | Keeps the first column in view.                                                                     |
+| `resizable`     | `boolean`                 | `false` | Lets users drag header cells to resize columns.                                                     |
+| `rowKey`        | `string`                  | -       | The row field used as the checkbox `value` and in editable input names, such as `name="role[ada]"`. |
+| `rows`          | `DataGridRow[]`           | -       | The rows. Each row is an object keyed by column.                                                    |
+| `selectable`    | `boolean`                 | -       | Row selection checkboxes.                                                                           |
+| `sort`          | `DataGridSort`            | -       | The initial sort.                                                                                   |
+| `wrap`          | `boolean`                 | `false` | Wraps cell text instead of truncating it.                                                           |
 
 #### Slots
 
-| Slot         | Description                                           |
-| ------------ | ----------------------------------------------------- |
-| `actions`    | Actions shown in the toolbar while rows are selected. |
-| `cell-[key]` | A cell.                                               |
-| `detail`     | Expandable detail panel.                              |
-| `empty`      | Content shown when no rows match.                     |
+| Slot         | Description                                                              |
+| ------------ | ------------------------------------------------------------------------ |
+| `actions`    | Actions shown in the toolbar while rows are selected.                    |
+| `cell-[key]` | A cell. The `cell-[key]` slot of its column gets the row and the column. |
+| `detail`     | Expandable detail panel.                                                 |
+| `empty`      | Content shown when no rows match.                                        |
 
 #### CSS variables
 
-| Variable                     | Default                                      | Description                                                                                                                                                                                               |
-| ---------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--border-radius`            | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
-| `--border-width`             | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
-| `--button-size-small`        | `var(--control-size-small)`                  | `Button` height with `.ui-small`.                                                                                                                                                                         |
-| `--button-size-x-small`      | `var(--control-size-x-small)`                | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                     |
-| `--choice-size`              | `var(--size-4)`                              | Default `Checkbox` and `Radio` input size.                                                                                                                                                                |
-| `--control-size`             | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                                             |
-| `--control-size-small`       | `calc(32px * var(--density))`                | Shared small height for fields and buttons.                                                                                                                                                               |
-| `--critical`                 | `var(--red)`                                 | Severity color for errors and destructive actions.                                                                                                                                                        |
-| `--disabled-opacity`         | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                                                     |
-| `--duration`                 | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
-| `--ease`                     | `ease`                                       | Default easing for transitions.                                                                                                                                                                           |
-| `--focus-ring-color`         | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
-| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
-| `--focus-ring-style`         | `solid`                                      | Outline style of the focus ring.                                                                                                                                                                          |
-| `--focus-ring-width`         | `2px`                                        | Width of the focus ring.                                                                                                                                                                                  |
-| `--font-size-05`             | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
-| `--font-weight-semibold`     | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                                                                                                                         |
-| `--icon-size`                | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                      |
-| `--motion`                   | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
-| `--state-active-alpha`       | `20%`                                        | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                        |
-| `--state-hover-alpha`        | `10%`                                        | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                          |
-| `--state-hover-alpha-accent` | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                           |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                                                                                                 |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                          |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                    |
+| Variable                     | Default                                                                        | Description                                                                                                                                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`            | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-width`             | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                   |
+| `--button-size-small`        | `var(--control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                         |
+| `--button-size-x-small`      | `var(--control-size-x-small)`                                                  | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                     |
+| `--choice-size`              | `calc(var(--size-4) * var(--density))`                                         | Default `Checkbox` and `Radio` input size.                                                                                                                                                                |
+| `--control-size`             | `calc(40px * var(--density))`                                                  | Shared default height for fields and buttons so they line up.                                                                                                                                             |
+| `--control-size-small`       | `calc(32px * var(--density))`                                                  | Shared small height for fields and buttons.                                                                                                                                                               |
+| `--critical`                 | `var(--red)`                                                                   | Severity color for errors and destructive actions.                                                                                                                                                        |
+| `--disabled-opacity`         | `0.64`                                                                         | Opacity applied to disabled controls.                                                                                                                                                                     |
+| `--duration`                 | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease`                     | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
+| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                           | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
+| `--focus-ring-style`         | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                          |
+| `--focus-ring-width`         | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                     | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                         | Font weight for labels, table headers and titles.                                                                                                                                                         |
+| `--icon-size`                | `var(--size-4)`                                                                | Default icon size inside components.                                                                                                                                                                      |
+| `--motion`                   | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                   | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--state-active-alpha`       | `20%`                                                                          | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                        |
+| `--state-hover-alpha`        | `10%`                                                                          | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                          |
+| `--state-hover-alpha-accent` | `15%`                                                                          | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                           |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                 |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                    | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                             |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                          |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                    | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering.
 
@@ -1043,4 +1039,4 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
-- New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and `:has()`. HTML and CSS only.
+- New component. A [data grid](#basics) with [sorting](#sorting), filtering, selection, [pinned columns](#pinned-columns) and [detail panels](#detail-panel), built with subgrid and `:has()`. No JavaScript needed.

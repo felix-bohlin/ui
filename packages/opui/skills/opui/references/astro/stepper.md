@@ -304,6 +304,7 @@ In forced colors mode, completed markers are filled with `CanvasText`, the curre
 | Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
 | ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
 | `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
@@ -315,7 +316,15 @@ In forced colors mode, completed markers are filled with `CanvasText`, the curre
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Under the hood
+
+`ol.ui-stepper` is a flex row of equal `li` grids and an inline-size container named `ui-stepper`. `li::before` is the marker, printing `counter(ui-stepper)`, and `li:not(:last-child)::after` the connector to the next step.
+
+`li:has(~ [aria-current="step"])` and `.ui-complete > li` mark the completed steps: the marker fills with `--_complete-color` and cuts `--_check-icon` out of it with `mask-composite: exclude`, and `content: "✓" / var(--_completed-label)` gives it the "Completed: " alternative text. A `.ui-check` child turns the mask off and shows instead.
+
+`@container ui-stepper (inline-size < 32rem)` gives every step the full row and turns the connector into an absolutely positioned vertical line, the same layout as `.ui-vertical`.
 
 ## Browser support
 

@@ -97,7 +97,12 @@ const hasPicker = !!picker?.length
   }
   {
     hasPicker && (
-      <form class="ui-reaction-picker" id={pickerId} popover>
+      <form
+        aria-label={pickerLabel}
+        class="ui-reaction-picker"
+        id={pickerId}
+        popover
+      >
         {picker?.map(({ emoji, label, value }) => (
           <button
             aria-label={label}

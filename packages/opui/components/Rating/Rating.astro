@@ -1,9 +1,11 @@
 ---
 import type { Props } from "./types.astro"
+import { mergeStyle } from "../style"
 
 export const title = "Rating"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   class: className,
   clearLabel = "No rating",
   disabled,
@@ -22,14 +24,6 @@ const {
 const count = Number(max)
 const stars = Array.from({ length: count }, (_, index) => index + 1)
 const current = Number(value)
-const vars = count === 5 ? {} : { "--_max": count }
-const varStyle = Object.entries(vars)
-  .map(([property, number]) => `${property}: ${number};`)
-  .join(" ")
-const mergedStyle =
-  typeof style === "string" || !style
-    ? [varStyle, style].filter(Boolean).join(" ") || undefined
-    : { ...vars, ...style }
 ---
 
 {
@@ -40,10 +34,11 @@ const mergedStyle =
       style={style}
       {...rest}
     >
-      {label && <legend>{label}</legend>}
+      <legend>{label}</legend>
       {!required && (
         <input
-          aria-invalid={error ? "true" : undefined}
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
           aria-label={clearLabel}
           checked={current === 0}
           name={name}
@@ -53,7 +48,8 @@ const mergedStyle =
       )}
       {stars.map((star) => (
         <input
-          aria-invalid={error ? "true" : undefined}
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
           aria-label={starLabel(star)}
           checked={current === star}
           name={name}
@@ -65,11 +61,12 @@ const mergedStyle =
     </fieldset>
   ) : (
     <meter
+      aria-describedby={ariaDescribedBy}
       aria-label={label}
       class:list={["ui-rating", size && `ui-${size}`, className]}
       max={max}
-      style={mergedStyle}
-      value={value}
+      style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
+      value={value ?? 0}
       {...rest}
     />
   )

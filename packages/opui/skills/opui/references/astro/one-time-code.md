@@ -186,16 +186,16 @@ document.addEventListener("input", ({ target }) => {
 
 ### One-time code API
 
-| Prop           | Type                        | Default | Description                                                                              |
-| -------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------- |
-| `alphanumeric` | `boolean`                   | `false` | Accepts letters and digits. Letters show uppercase and keep the case they were typed in. |
-| `endText`      | `string`                    | -       | Supporting text displayed below the field.                                               |
-| `error`        | `boolean`                   | `false` | Marks the control invalid and shows error styles.                                        |
-| `grouped`      | `boolean`                   | `false` | Draws a dash between the two halves of the code.                                         |
-| `id`           | `string`                    | -       | The id of the `<input>`.                                                                 |
-| `label`        | `string`                    | -       | The label for the field.                                                                 |
-| `length`       | `4` , `5` , `6` , `7` , `8` | `6`     | The number of characters and boxes.                                                      |
-| `size`         | `"small"` , `"large"`       | -       | The size of the element.                                                                 |
+| Prop           | Type                                | Default | Description                                                                              |
+| -------------- | ----------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `alphanumeric` | `boolean`                           | `false` | Accepts letters and digits. Letters show uppercase and keep the case they were typed in. |
+| `endText`      | `string`                            | -       | Supporting text displayed below the field.                                               |
+| `error`        | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                        |
+| `grouped`      | `boolean`                           | `false` | Draws a dash between the two halves of the code.                                         |
+| `id`           | `string`                            | -       | The id of the `<input>`.                                                                 |
+| `label`        | `string`                            | -       | The label for the field.                                                                 |
+| `length`       | `4` , `5` , `6` , `7` , `8`         | `6`     | The number of characters and boxes.                                                      |
+| `size`         | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                                 |
 
 #### Slots
 
@@ -208,6 +208,7 @@ document.addEventListener("input", ({ target }) => {
 
 | Variable                     | Default                                                                                 | Description                                                                                                                                                                                               |
 | ---------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-width`             | `1px`                                                                                   | Default border width for components that draw a border.                                                                                                                                                   |
 | `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                     |
 | `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
 | `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                           |
@@ -225,7 +226,7 @@ document.addEventListener("input", ({ target }) => {
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                  |
@@ -240,9 +241,17 @@ document.addEventListener("input", ({ target }) => {
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                          |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 Input attributes, such as `disabled`, `name`, `pattern`, `required` and `value`, go to the `<input>`. Other attributes go to the root `<label>`.
+
+## Under the hood
+
+The root is an inline-size container. `--_length` follows `maxlength` through `:has([maxlength="4"])` and its siblings, and `--_cell` is the smaller of `--_max-cell` and the width that fits every box in the container.
+
+The boxes are one `.ui-field::before` with an SVG `mask` that repeats every `--_cell`. The input is monospace with `letter-spacing: calc(var(--_cell) - 1ch)`, so each character lands in its box, and `.ui-grouped` draws the dash as a background at the midpoint.
+
+With `field-sizing: content` the input is as wide as its value, so `.ui-field::after`, in the grid column right after it, is the ring on the next empty box. Without it, `:focus-within` swaps the mask for the thicker `--_box-focus` on every box.
 
 ## Browser support
 
@@ -260,8 +269,8 @@ Import the component from `opui-css/astro`:
 
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/one-time-code.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/one-time-code.css`
 
 ## Changelog
 

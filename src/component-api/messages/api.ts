@@ -14,7 +14,12 @@ export default {
   parts: [
     {
       code: "<li>",
-      component: { astro: "Message", svelte: "Message", vue: "Message" },
+      component: {
+        astro: "Message",
+        react: "Message",
+        svelte: "Message",
+        vue: "Message",
+      },
       description: "A message.",
       selector: ".ui-messages > .ui-message",
     },

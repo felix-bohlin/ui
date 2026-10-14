@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import { computed, useAttrs, useId } from "vue"
+import type { InputHTMLAttributes } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<Props>(), {
-  length: 6,
-})
+const {
+  alphanumeric,
+  endText,
+  error,
+  grouped,
+  id,
+  label,
+  length = 6,
+  size,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = computed(() =>
   Object.fromEntries(
     Object.entries(attrs).filter(
@@ -29,12 +37,15 @@ const model = computed({
 
 const uid = useId()
 const endTextId = computed(() =>
-  props.endText || slots["end-text"] ? uid : undefined,
+  endText || slots["end-text"] ? `end-text-${uid}` : undefined,
+)
+const describedBy = computed(
+  () =>
+    [endTextId.value, attrs["aria-describedby"]].filter(Boolean).join(" ") ||
+    undefined,
 )
 const pattern = computed(() =>
-  props.alphanumeric
-    ? `[A-Za-z0-9]{${props.length}}`
-    : `[0-9]{${props.length}}`,
+  alphanumeric ? `[A-Za-z0-9]{${length}}` : `[0-9]{${length}}`,
 )
 </script>
 
@@ -44,43 +55,40 @@ const pattern = computed(() =>
       'ui-text-field',
       'ui-one-time-code',
       {
-        'ui-grouped': props.grouped,
+        'ui-grouped': grouped,
       },
-      props.size && `ui-${props.size}`,
-      props.class,
+      size && `ui-${size}`,
+      $props.class,
     ]"
     :style="$attrs.style"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
+    <span v-if="label || slots.label" class="ui-label">
+      <slot name="label">{{ label }}</slot>
     </span>
 
     <span class="ui-field">
       <input
-        :autocapitalize="props.alphanumeric ? 'characters' : undefined"
+        :autocapitalize="alphanumeric ? 'characters' : undefined"
         autocomplete="one-time-code"
-        :inputmode="props.alphanumeric ? undefined : 'numeric'"
+        :inputmode="alphanumeric ? undefined : 'numeric'"
         :pattern="pattern"
-        :spellcheck="props.alphanumeric ? 'false' : undefined"
+        :spellcheck="alphanumeric ? 'false' : undefined"
         v-bind="inputAttrs"
-        :aria-describedby="
-          [endTextId, $attrs['aria-describedby']].filter(Boolean).join(' ') ||
-          undefined
-        "
-        :aria-invalid="props.error ? 'true' : undefined"
-        :id="props.id"
-        :maxlength="props.length"
+        :aria-describedby="describedBy"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="id"
+        :maxlength="length"
         type="text"
         v-model="model"
       />
     </span>
 
     <span
-      v-if="props.endText || $slots['end-text']"
+      v-if="endText || slots['end-text']"
       :id="endTextId"
       class="ui-end-text"
     >
-      <slot name="end-text">{{ props.endText }}</slot>
+      <slot name="end-text">{{ endText }}</slot>
     </span>
   </label>
 </template>

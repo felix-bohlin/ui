@@ -22,7 +22,7 @@ Use it for dashboard-sized bar and column data: a few dozen bars in up to three 
 
 - `series`
 
-  The legend, one `<th>` per series. Hidden with a single series.
+  The legend, one `<th>` per series, up to three. Hidden with a single series.
 
 - `tbody::before`
 
@@ -104,7 +104,7 @@ Set `color` on a row to `"critical"`, `"info"`, `"neutral"`, `"success"` or `"wa
 </script>
 
 <BarChart
-  caption="Response time by region (ms)"
+  caption="Response time by region (ms). London is over the 120 ms target, Stockholm over the 200 ms limit."
   label="Region"
   {rows}
   series={["Response time"]}
@@ -228,7 +228,7 @@ Write the `<thead>` and `<tbody>` yourself as children. Give every `<td>` its nu
 
 The chart is a `<table>`: screen readers read the caption, the series headers, a row header per category and every value. The axis labels are generated content with empty alternative text, so they aren't read.
 
-Every bar is a Tab stop that shows its value on focus. Set `focusable={false}` when the values are shown elsewhere.
+In a chart with two or more series, where the values only show on hover and focus, every bar is a Tab stop that shows its value on focus. `focusable` turns the Tab stops on or off for any chart.
 
 The three series colors are told apart with color vision deficiencies, and the legend names them. In forced colors mode the bars use `CanvasText`, with the second and third series hatched in opposite directions.
 
@@ -238,18 +238,18 @@ The bars grow in unless motion is off: with reduced motion, `.ui-motion-off` on 
 
 ### Bar chart API
 
-| Prop        | Type                                       | Default  | Description                                                                                         |
-| ----------- | ------------------------------------------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `caption`   | `string`                                   | -        | The chart title.                                                                                    |
-| `children`  | `Snippet`                                  | -        | Your own `<thead>` and `<tbody>`, instead of `series` and `rows`.                                   |
-| `focusable` | `boolean`                                  | `true`   | Makes every bar a Tab stop that shows its value on focus.                                           |
-| `format`    | `((value: number) => string) \| undefined` | `String` | Turns a value into the text of its cell and tooltip, such as a currency or percentage.              |
-| `label`     | `string`                                   | -        | Header of the category column. Screen readers read it; it's hidden visually.                        |
-| `max`       | `number`                                   | -        | Largest value on the scale. Defaults to the largest value in `rows`.                                |
-| `min`       | `number`                                   | -        | Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`. |
-| `rows`      | `BarChartRow[]`                            | -        | The categories, each with a `label`, one value per series and an optional `color`.                  |
-| `series`    | `string[]`                                 | -        | The legend, one `<th>` per series. Hidden with a single series.                                     |
-| `size`      | `"small"` , `"large"`                      | -        | The size of the element.                                                                            |
+| Prop        | Type                                       | Default             | Description                                                                                                                                    |
+| ----------- | ------------------------------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `caption`   | `string`                                   | -                   | The chart title.                                                                                                                               |
+| `children`  | `Snippet`                                  | -                   | Your own `<thead>` and `<tbody>`, instead of `series` and `rows`.                                                                              |
+| `focusable` | `boolean`                                  | `series.length > 1` | Makes every bar a Tab stop that shows its value on focus. On by default with two or more series, where the values only show on hover or focus. |
+| `format`    | `((value: number) => string) \| undefined` | `String`            | Turns a value into the text of its cell and tooltip, such as a currency or percentage.                                                         |
+| `label`     | `string`                                   | -                   | Header of the category column. Screen readers read it; it's hidden visually.                                                                   |
+| `max`       | `number`                                   | -                   | Largest value on the scale. Defaults to the largest value in `rows`.                                                                           |
+| `min`       | `number`                                   | -                   | Smallest value on the scale, for negative values. Defaults to the smallest value in `rows`, or `0`.                                            |
+| `rows`      | `BarChartRow[]`                            | -                   | The categories, each with a `label`, one value per series (up to three) and an optional `color`.                                               |
+| `series`    | `string[]`                                 | -                   | The legend, one `<th>` per series, up to three. Hidden with a single series.                                                                   |
+| `size`      | `"small"` , `"large"`                      | -                   | The size of the element.                                                                                                                       |
 
 #### CSS variables
 
@@ -265,14 +265,23 @@ The bars grow in unless motion is off: with reduced motion, `.ui-motion-off` on 
 | `--motion`               | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 | `--orange`               | `oklch(from var(--color-7) l 0.2 75)`        | A literal orange derived from the palette lightness. No severity meaning.                                                                                                                                  |
 | `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                               |
+| `--purple`               | `oklch(from var(--color-9) l 0.2 310)`       | A literal purple derived from the palette lightness. No severity meaning.                                                                                                                                  |
 | `--surface-inverse`      | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                            |
 | `--text-inverse`         | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on `--surface-inverse`.                                                                                                                                                                         |
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                           |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 `max` and `min` default to the largest and smallest value in `rows`, and every cell gets its value as an inline `--value`, so the chart draws in every browser.
+
+## Under the hood
+
+The `table`, its `tbody` and each `tr` are grids. `--_step` picks a round 1, 2 or 5 step from `--max` and `--min` with `log()`, `pow()` and `round()`, and `--_lo`, `--_hi` and `--_range` follow from it.
+
+`tbody::before` prints the tick labels as counters, reset to `--_lo` plus one step each, with empty alternative text. `tbody::after` draws the gridlines and the zero line with gradients `--_tick` apart. Each `td` sits at the height of its value, `td::after` is the bar, `--_bar` tall, and `--_pos` flips it under the zero line for a negative value.
+
+`:has(td + td)` counts the series: it shows the `thead` as the legend, splits the group between the bars and hides the values until hover or focus. `@starting-style` grows the bars in, and a container query under `2.5rem` per category hides every other label.
 
 ## Browser support
 
@@ -292,4 +301,4 @@ Import the component from `opui-css/svelte`:
 
 ### What's new
 
-- New component. A [data table drawn as a column chart](#basics), with a computed axis, grouped series and tooltips. HTML and CSS only.
+- New component. A [data table drawn as a column chart](#basics), with a computed axis, grouped series and tooltips. No JavaScript needed.

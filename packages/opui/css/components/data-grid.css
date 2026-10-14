@@ -3,11 +3,12 @@
     --_motion: var(--motion, 1);
     --_bg-color: var(--surface-default);
     --_border-color: var(--border-color);
-    --_border-radius: var(--border-radius, var(--radius-2));
+    --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
     --_cell-padding-block: var(--size-2);
-    --_column-inline-size: var(--size-12);
     --_cell-padding-inline: var(--size-3);
+    --_column-inline-size: var(--size-12);
+    --_duration: calc(var(--duration) * var(--_motion));
     --_head-bg-color: color-mix(
       in oklch,
       var(--_bg-color),
@@ -37,9 +38,8 @@
       var(--_bg-color),
       var(--primary) var(--state-active-alpha)
     );
-    --_sort-icon-size: var(--icon-size);
+    --_sort-icon-size: var(--size-5);
     --_track: minmax(max-content, 1fr);
-    --_transition-duration: calc(var(--duration) * var(--_motion));
     --_utility-size: calc(var(--choice-size) + var(--size-3) * 2);
 
     background-color: var(--_bg-color);
@@ -88,7 +88,7 @@
       border-block-end: var(--_border-width) solid var(--_border-color);
       inset-block-start: 0;
       position: sticky;
-      transition: box-shadow var(--_transition-duration) var(--ease);
+      transition: box-shadow var(--_duration) var(--ease);
       z-index: 2;
 
       & > [role="row"] {
@@ -122,7 +122,7 @@
     [role="row"] {
       background-color: var(--_row-bg-color);
       min-block-size: var(--_row-min-block-size);
-      transition: background-color var(--_transition-duration) var(--ease);
+      transition: background-color var(--_duration) var(--ease);
     }
 
     .ui-body > [role="row"] {
@@ -212,12 +212,18 @@
         --_min-height: var(--button-size-x-small);
         flex: none;
         opacity: 0;
-        transition: opacity var(--_transition-duration) var(--ease);
+        transition: opacity var(--_duration) var(--ease);
       }
 
-      &:is(:hover, :focus-within) > .ui-button,
+      &:focus-within > .ui-button,
       & > .ui-button:is(:focus-visible, :has(+ :popover-open)) {
         opacity: 1;
+      }
+
+      @media (hover: hover) {
+        &:hover > .ui-button {
+          opacity: 1;
+        }
       }
 
       @media (hover: none) {
@@ -246,8 +252,8 @@
         opacity: 0;
         place-items: center;
         transition:
-          color var(--_transition-duration) var(--ease),
-          opacity var(--_transition-duration) var(--ease);
+          color var(--_duration) var(--ease),
+          opacity var(--_duration) var(--ease);
 
         &::before {
           background-color: currentColor;
@@ -262,8 +268,10 @@
           rotate: 180deg;
         }
 
-        &:hover {
-          color: var(--text-primary);
+        @media (hover: hover) {
+          &:hover {
+            color: var(--text-primary);
+          }
         }
 
         &:has(:checked) {
@@ -274,17 +282,7 @@
         &:has(:focus-visible) {
           opacity: 1;
           outline: var(--focus-ring-width) var(--focus-ring-style)
-            var(--focus-ring-color, var(--primary));
-        }
-
-        input {
-          block-size: 1px;
-          clip-path: inset(50%);
-          inline-size: 1px;
-          margin: 0;
-          overflow: hidden;
-          position: absolute;
-          white-space: nowrap;
+            var(--focus-ring-color);
         }
       }
 
@@ -293,9 +291,18 @@
       }
     }
 
-    [role="columnheader"]:hover .ui-sort label,
     [role="columnheader"]:focus-within .ui-sort label {
       opacity: 1;
+    }
+
+    @media (hover: hover) {
+      [role="columnheader"]:hover .ui-sort label {
+        opacity: 1;
+      }
+
+      .ui-sort:has(:checked):hover label:not(:has(:checked)) {
+        display: grid;
+      }
     }
 
     @media (hover: none) {
@@ -304,7 +311,6 @@
       }
     }
 
-    .ui-sort:has(:checked):hover label:not(:has(:checked)),
     .ui-sort:has(:checked):focus-within label:not(:has(:checked)) {
       display: grid;
     }
@@ -373,16 +379,18 @@
       padding: var(--size-1);
       text-align: inherit;
 
-      &:hover {
-        background-color: oklch(
-          from var(--text-primary) l c h / var(--state-hover-alpha)
-        );
+      @media (hover: hover) {
+        &:hover {
+          background-color: oklch(
+            from var(--text-primary) l c h / var(--state-hover-alpha)
+          );
+        }
       }
 
       &:focus-visible {
         background-color: var(--surface-default);
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color, var(--primary));
+          var(--focus-ring-color);
         outline-offset: 0;
       }
 
@@ -412,9 +420,9 @@
         opacity: 0;
         overflow: clip;
         transition:
-          block-size var(--_transition-duration) var(--ease),
-          content-visibility var(--_transition-duration) allow-discrete,
-          opacity var(--_transition-duration) var(--ease);
+          block-size var(--_duration) var(--ease),
+          content-visibility var(--_duration) allow-discrete,
+          opacity var(--_duration) var(--ease);
       }
 
       &[open]::details-content {
@@ -446,15 +454,17 @@
           inline-size: var(--icon-size);
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.6 16.6 13.2 12 8.6 7.4 10 6l6 6-6 6z'/%3E%3C/svg%3E")
             center / contain no-repeat;
-          transition: rotate var(--_transition-duration) var(--ease);
+          transition: rotate var(--_duration) var(--ease);
         }
 
         &:dir(rtl)::before {
           scale: -1 1;
         }
 
-        &:hover {
-          --_hover-size: calc(var(--button-size-small) / 2);
+        @media (hover: hover) {
+          &:hover {
+            --_hover-size: calc(var(--button-size-small) / 2);
+          }
         }
 
         &:focus-visible {
@@ -641,7 +651,7 @@
     &.ui-pin-start
       [role="row"]
       > :nth-child(1 of :not(.ui-expand, .ui-row-number, .ui-row-select)) {
-      transition: box-shadow var(--_transition-duration) var(--ease);
+      transition: box-shadow var(--_duration) var(--ease);
 
       @container ui-data-grid scroll-state(scrollable: inline-start) {
         box-shadow: calc(var(--_pin-shadow-size) * var(--_inline-direction)) 0
@@ -653,7 +663,7 @@
     &.ui-pin-end [role="row"]:not(.ui-empty) > :last-child {
       inset-inline-end: 0;
       position: sticky;
-      transition: box-shadow var(--_transition-duration) var(--ease);
+      transition: box-shadow var(--_duration) var(--ease);
       z-index: 1;
 
       @container ui-data-grid scroll-state(scrollable: inline-end) {
@@ -669,7 +679,7 @@
       --_inline-direction: -1;
     }
 
-    @container (width < 36rem) {
+    @container (inline-size < 36rem) {
       &.ui-pin-end [role="row"]:not(.ui-empty) > :last-child {
         box-shadow: none;
         position: static;
@@ -726,10 +736,6 @@
     }
 
     [role="table"][aria-busy="true"] {
-      &::before {
-        content: none;
-      }
-
       .ui-body {
         opacity: var(--disabled-opacity);
         pointer-events: none;
@@ -743,12 +749,29 @@
         animation: ui-data-grid-loading calc(1.4s * var(--_motion))
           var(--ease-in-out-3) infinite;
         background-color: var(--primary);
-        block-size: var(--border-size-2);
+        block-size: calc(var(--_border-width) * 2);
         content: "";
         inline-size: 30%;
         inset-block-end: calc(var(--_border-width) * -1);
         inset-inline-start: 0;
         position: absolute;
+      }
+    }
+
+    @media (forced-colors: active) {
+      .ui-expand details summary::before,
+      .ui-sort label::before {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      .ui-sort label:has(:checked)::before {
+        background-color: Highlight;
+      }
+
+      [role="table"][aria-busy="true"] .ui-head::after {
+        background-color: Highlight;
+        forced-color-adjust: none;
       }
     }
 
@@ -1433,11 +1456,11 @@
 
   @keyframes ui-data-grid-loading {
     from {
-      translate: -100%;
+      translate: calc(-100% * var(--_inline-direction));
     }
 
     to {
-      translate: 340%;
+      translate: calc(340% * var(--_inline-direction));
     }
   }
 }

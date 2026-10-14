@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
   import { cssString } from "./css-string"
 
@@ -19,7 +20,7 @@
     ...rest
   }: Props = $props()
 
-  let done = $derived(
+  const done = $derived(
     complete ||
       (current !== undefined && items !== undefined && current >= items.length),
   )
@@ -33,12 +34,14 @@
     size && `ui-${size}`,
     className,
   ]}
-  style={[
-    completedLabel && `--_completed-label: ${cssString(completedLabel)};`,
+  style={mergeStyle(
+    {
+      "--_completed-label": completedLabel
+        ? cssString(completedLabel)
+        : undefined,
+    },
     style,
-  ]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  )}
   {...rest}
 >
   {#each items ?? [] as { description, href, label: stepLabel }, index (index)}

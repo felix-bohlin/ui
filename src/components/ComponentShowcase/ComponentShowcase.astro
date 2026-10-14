@@ -20,6 +20,7 @@ import {
   Carousel,
   Checkbox,
   Chip,
+  DataGrid,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListItem,
@@ -54,6 +55,7 @@ import {
   TextField,
   Textarea,
   Timeline,
+  TimelineItem,
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
@@ -218,6 +220,25 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       <Chip variant="outlined">HTML</Chip>
       <Chip variant="outlined">CSS</Chip>
     </div>
+  </ComponentCard>
+
+  <ComponentCard name="Data Grid" href="/components/data-grid" size="wide">
+    <DataGrid
+      aria-hidden="true"
+      columns={[
+        { key: "name", label: "Name", rowHeader: true, sortable: true },
+        { key: "role", label: "Role" },
+        { key: "tickets", label: "Tickets", numeric: true, sortable: true },
+      ]}
+      density="dense"
+      inert
+      label="Team"
+      rows={[
+        { name: "Ada Lovelace", role: "Engineer", tickets: 42 },
+        { name: "Alan Turing", role: "Researcher", tickets: 37 },
+        { name: "Grace Hopper", role: "Admiral", tickets: 58 },
+      ]}
+    />
   </ComponentCard>
 
   <ComponentCard name="Description List" href="/components/description-list">
@@ -437,15 +458,15 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Timeline" href="/components/timeline">
     <Timeline aria-hidden="true" inert size="small">
-      <Timeline.Item color="success" datetime="2026-09-02" time="Sep 2">
+      <TimelineItem color="success" datetime="2026-09-02" time="Sep 2">
         <p>Design freeze</p>
-      </Timeline.Item>
-      <Timeline.Item current datetime="2026-10-14" time="Oct 14">
+      </TimelineItem>
+      <TimelineItem current datetime="2026-10-14" time="Oct 14">
         <p>Beta review</p>
-      </Timeline.Item>
-      <Timeline.Item datetime="2026-10-31" time="Oct 31">
+      </TimelineItem>
+      <TimelineItem datetime="2026-10-31" time="Oct 31">
         <p>Launch</p>
-      </Timeline.Item>
+      </TimelineItem>
     </Timeline>
   </ComponentCard>
 

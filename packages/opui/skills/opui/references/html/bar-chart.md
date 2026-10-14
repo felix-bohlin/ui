@@ -22,7 +22,7 @@ Use it for dashboard-sized bar and column data: a few dozen bars in up to three 
 
 - `<thead>`
 
-  The legend, one `<th>` per series. Hidden with a single series.
+  The legend, one `<th>` per series, up to three. Hidden with a single series.
 
 - `tbody::before`
 
@@ -58,27 +58,27 @@ Each `<tr>` is a category, with a row header and one `<td>` per series. Give eve
   <tbody>
     <tr>
       <th scope="row">Jan</th>
-      <td style="--value: 412" tabindex="0">412</td>
+      <td style="--value: 412">412</td>
     </tr>
     <tr>
       <th scope="row">Feb</th>
-      <td style="--value: 455" tabindex="0">455</td>
+      <td style="--value: 455">455</td>
     </tr>
     <tr>
       <th scope="row">Mar</th>
-      <td style="--value: 498" tabindex="0">498</td>
+      <td style="--value: 498">498</td>
     </tr>
     <tr>
       <th scope="row">Apr</th>
-      <td style="--value: 471" tabindex="0">471</td>
+      <td style="--value: 471">471</td>
     </tr>
     <tr>
       <th scope="row">May</th>
-      <td style="--value: 538" tabindex="0">538</td>
+      <td style="--value: 538">538</td>
     </tr>
     <tr>
       <th scope="row">Jun</th>
-      <td style="--value: 602" tabindex="0">602</td>
+      <td style="--value: 602">602</td>
     </tr>
   </tbody>
 </table>
@@ -137,7 +137,8 @@ Add `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning` to
 ```html
 <table class="ui-bar-chart" style="--max: 210">
   <caption>
-    Response time by region (ms)
+    Response time by region (ms). London is over the 120 ms target, Stockholm
+    over the 200 ms limit.
   </caption>
   <thead>
     <tr>
@@ -148,27 +149,27 @@ Add `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning` to
   <tbody>
     <tr>
       <th scope="row">Amsterdam</th>
-      <td style="--value: 84" tabindex="0">84</td>
+      <td style="--value: 84">84</td>
     </tr>
     <tr>
       <th scope="row">Frankfurt</th>
-      <td style="--value: 96" tabindex="0">96</td>
+      <td style="--value: 96">96</td>
     </tr>
     <tr class="ui-warning">
       <th scope="row">London</th>
-      <td style="--value: 142" tabindex="0">142</td>
+      <td style="--value: 142">142</td>
     </tr>
     <tr>
       <th scope="row">Paris</th>
-      <td style="--value: 88" tabindex="0">88</td>
+      <td style="--value: 88">88</td>
     </tr>
     <tr class="ui-critical">
       <th scope="row">Stockholm</th>
-      <td style="--value: 210" tabindex="0">210</td>
+      <td style="--value: 210">210</td>
     </tr>
     <tr>
       <th scope="row">Warsaw</th>
-      <td style="--value: 101" tabindex="0">101</td>
+      <td style="--value: 101">101</td>
     </tr>
   </tbody>
 </table>
@@ -192,23 +193,23 @@ Use `.ui-small` or `.ui-large` for a shorter or taller plot. Set `--_block-size`
   <tbody>
     <tr>
       <th scope="row">Mon</th>
-      <td style="--value: 4" tabindex="0">4</td>
+      <td style="--value: 4">4</td>
     </tr>
     <tr>
       <th scope="row">Tue</th>
-      <td style="--value: 7" tabindex="0">7</td>
+      <td style="--value: 7">7</td>
     </tr>
     <tr>
       <th scope="row">Wed</th>
-      <td style="--value: 5" tabindex="0">5</td>
+      <td style="--value: 5">5</td>
     </tr>
     <tr>
       <th scope="row">Thu</th>
-      <td style="--value: 9" tabindex="0">9</td>
+      <td style="--value: 9">9</td>
     </tr>
     <tr>
       <th scope="row">Fri</th>
-      <td style="--value: 3" tabindex="0">3</td>
+      <td style="--value: 3">3</td>
     </tr>
   </tbody>
 </table>
@@ -225,23 +226,23 @@ Use `.ui-small` or `.ui-large` for a shorter or taller plot. Set `--_block-size`
   <tbody>
     <tr>
       <th scope="row">Mon</th>
-      <td style="--value: 4" tabindex="0">4</td>
+      <td style="--value: 4">4</td>
     </tr>
     <tr>
       <th scope="row">Tue</th>
-      <td style="--value: 7" tabindex="0">7</td>
+      <td style="--value: 7">7</td>
     </tr>
     <tr>
       <th scope="row">Wed</th>
-      <td style="--value: 5" tabindex="0">5</td>
+      <td style="--value: 5">5</td>
     </tr>
     <tr>
       <th scope="row">Thu</th>
-      <td style="--value: 9" tabindex="0">9</td>
+      <td style="--value: 9">9</td>
     </tr>
     <tr>
       <th scope="row">Fri</th>
-      <td style="--value: 3" tabindex="0">3</td>
+      <td style="--value: 3">3</td>
     </tr>
   </tbody>
 </table>
@@ -265,43 +266,43 @@ Negative values hang from the zero line. Set the smallest value in `--min`. The 
   <tbody>
     <tr>
       <th scope="row">Jan</th>
-      <td style="--value: 120" tabindex="0">+120</td>
+      <td style="--value: 120">+120</td>
     </tr>
     <tr>
       <th scope="row">Feb</th>
-      <td style="--value: 85" tabindex="0">+85</td>
+      <td style="--value: 85">+85</td>
     </tr>
     <tr class="ui-critical">
       <th scope="row">Mar</th>
-      <td style="--value: -40" tabindex="0">-40</td>
+      <td style="--value: -40">-40</td>
     </tr>
     <tr>
       <th scope="row">Apr</th>
-      <td style="--value: 210" tabindex="0">+210</td>
+      <td style="--value: 210">+210</td>
     </tr>
     <tr>
       <th scope="row">May</th>
-      <td style="--value: 160" tabindex="0">+160</td>
+      <td style="--value: 160">+160</td>
     </tr>
     <tr class="ui-critical">
       <th scope="row">Jun</th>
-      <td style="--value: -120" tabindex="0">-120</td>
+      <td style="--value: -120">-120</td>
     </tr>
     <tr class="ui-critical">
       <th scope="row">Jul</th>
-      <td style="--value: -65" tabindex="0">-65</td>
+      <td style="--value: -65">-65</td>
     </tr>
     <tr>
       <th scope="row">Aug</th>
-      <td style="--value: 95" tabindex="0">+95</td>
+      <td style="--value: 95">+95</td>
     </tr>
     <tr>
       <th scope="row">Sep</th>
-      <td style="--value: 240" tabindex="0">+240</td>
+      <td style="--value: 240">+240</td>
     </tr>
     <tr>
       <th scope="row">Oct</th>
-      <td style="--value: 310" tabindex="0">+310</td>
+      <td style="--value: 310">+310</td>
     </tr>
   </tbody>
 </table>
@@ -355,7 +356,7 @@ The bar draws `--value`, and people read the cell text, so the text can carry a 
 
 The chart is a `<table>`: screen readers read the caption, the series headers, a row header per category and every value. The axis labels are generated content with empty alternative text, so they aren't read.
 
-With `tabindex="0"` on its `<td>`, every bar is a Tab stop that shows its value on focus. Leave it out when the values are shown elsewhere.
+Add `tabindex="0"` to the cells of a chart with two or more series, where the values only show on hover and focus.
 
 The three series colors are told apart with color vision deficiencies, and the legend names them. In forced colors mode the bars use `CanvasText`, with the second and third series hatched in opposite directions.
 
@@ -365,14 +366,14 @@ The bars grow in unless motion is off: with reduced motion, `.ui-motion-off` on 
 
 ### Bar chart API
 
-| Type          | Modifiers                                                                         | Default | Description                                                                          |
-| ------------- | --------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| Colors        | `tr.ui-critical`, `tr.ui-info`, `tr.ui-neutral`, `tr.ui-success`, `tr.ui-warning` | -       | Tone of a row's bars, such as `critical` for a loss.                                 |
-| Focus         | `td[tabindex="0"]`                                                                | -       | Makes every bar a Tab stop that shows its value on focus.                            |
-| Scale         | `[data-max]`, `--max`                                                             | `100`   | Largest value on the scale, rounded up to a tick. `data-max` only works in Chromium. |
-| Scale minimum | `[data-min]`, `--min`                                                             | `0`     | Smallest value on the scale, for negative values. `data-min` only works in Chromium. |
-| Sizes         | `.ui-large`, `.ui-small`                                                          | -       | The size of the element.                                                             |
-| Value         | `td[data-value]`, `--value`                                                       | -       | The number a cell's bar draws. `data-value` only works in Chromium.                  |
+| Type          | Modifiers                                                                         | Default | Description                                                                                                                                    |
+| ------------- | --------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Colors        | `tr.ui-critical`, `tr.ui-info`, `tr.ui-neutral`, `tr.ui-success`, `tr.ui-warning` | -       | Optional colors.                                                                                                                               |
+| Focus         | `td[tabindex="0"]`                                                                | -       | Makes every bar a Tab stop that shows its value on focus. On by default with two or more series, where the values only show on hover or focus. |
+| Scale         | `[data-max]`, `--max`                                                             | `100`   | Largest value on the scale, rounded up to a tick. `data-max` only works in Chromium.                                                           |
+| Scale minimum | `[data-min]`, `--min`                                                             | `0`     | Smallest value on the scale, for negative values. `data-min` only works in Chromium.                                                           |
+| Sizes         | `.ui-large`, `.ui-small`                                                          | -       | The size of the element.                                                                                                                       |
+| Value         | `td[data-value]`, `--value`                                                       | -       | The number a cell's bar draws. `data-value` only works in Chromium.                                                                            |
 
 #### Parts
 
@@ -380,7 +381,7 @@ The bars grow in unless motion is off: with reduced motion, `.ui-motion-off` on 
 | -------------------- | -------------------------------------------------------------------------------- |
 | `table.ui-bar-chart` | The data table.                                                                  |
 | `<caption>`          | The chart title.                                                                 |
-| `<thead>`            | The legend, one `<th>` per series. Hidden with a single series.                  |
+| `<thead>`            | The legend, one `<th>` per series, up to three. Hidden with a single series.     |
 | `tbody::before`      | The axis labels, computed from the scale.                                        |
 | `tbody::after`       | The gridlines and the zero line.                                                 |
 | `<td>`               | A value. Its `::after` is the bar, and it shows as a tooltip on hover and focus. |
@@ -400,14 +401,23 @@ The bars grow in unless motion is off: with reduced motion, `.ui-motion-off` on 
 | `--motion`               | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 | `--orange`               | `oklch(from var(--color-7) l 0.2 75)`        | A literal orange derived from the palette lightness. No severity meaning.                                                                                                                                |
 | `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--purple`               | `oklch(from var(--color-9) l 0.2 310)`       | A literal purple derived from the palette lightness. No severity meaning.                                                                                                                                |
 | `--surface-inverse`      | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                          |
 | `--text-inverse`         | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on `--surface-inverse`.                                                                                                                                                                       |
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                         |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 Give every `<td>` its number in `--value`, and the table the largest and smallest value in `--max` and `--min`. The `data-*` attributes need typed `attr()`, which only Chromium has.
+
+## Under the hood
+
+The `table`, its `tbody` and each `tr` are grids. `--_step` picks a round 1, 2 or 5 step from `--max` and `--min` with `log()`, `pow()` and `round()`, and `--_lo`, `--_hi` and `--_range` follow from it.
+
+`tbody::before` prints the tick labels as counters, reset to `--_lo` plus one step each, with empty alternative text. `tbody::after` draws the gridlines and the zero line with gradients `--_tick` apart. Each `td` sits at the height of its value, `td::after` is the bar, `--_bar` tall, and `--_pos` flips it under the zero line for a negative value.
+
+`:has(td + td)` counts the series: it shows the `thead` as the legend, splits the group between the bars and hides the values until hover or focus. `@starting-style` grows the bars in, and a container query under `2.5rem` per category hides every other label.
 
 ## Browser support
 
@@ -425,4 +435,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- New component. A [data table drawn as a column chart](#basics), with a computed axis, grouped series and tooltips. HTML and CSS only.
+- New component. A [data table drawn as a column chart](#basics), with a computed axis, grouped series and tooltips. No JavaScript needed.

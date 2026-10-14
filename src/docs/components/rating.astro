@@ -21,8 +21,11 @@ export const description =
   heroAnatomy
   apis={[{ title: "Rating API", api: ratingApi }]}
   browserSupport={[
+    "alt-text-generated-content",
     "attr",
+    "color-mix",
     "container-style-queries",
+    "counters",
     "has",
     "light-dark",
     "masks",
@@ -70,6 +73,11 @@ export const description =
         > and <code>value</code>. The <code>aria-label</code> is its accessible name,
         so put the score in it.</Fragment
       >
+      <Fragment slot="react"
+        >Without <code>name</code>, a rating is a read-only <code
+          >&lt;meter&gt;</code
+        >. The <code>label</code> is its accessible name, so put the score in it.</Fragment
+      >
       <Fragment slot="svelte"
         >Without <code>name</code>, a rating is a read-only <code
           >&lt;meter&gt;</code
@@ -97,6 +105,12 @@ export const description =
           >&lt;legend&gt;</code
         > and one radio per star, named with <code>aria-label</code>. The radio
         with <code>value="0"</code> clears the rating.</Fragment
+      >
+      <Fragment slot="react"
+        >Set <code>name</code> to collect a rating. It renders a <code
+          >&lt;fieldset&gt;</code
+        > of radios, with the <code>label</code> as its legend. Follow the rating
+        with <code>value</code> and <code>onChange</code>.</Fragment
       >
       <Fragment slot="svelte"
         >Set <code>name</code> to collect a rating. It renders a <code
@@ -152,6 +166,10 @@ export const description =
         >. Browsers without it need <code>--_max</code> with the same number, or they
         draw five stars.</Fragment
       >
+      <Fragment slot="react"
+        ><code>max</code> sets the number of stars. Defaults to <code>5</code
+        >.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>max</code> sets the number of stars. Defaults to <code>5</code
         >.</Fragment
@@ -185,6 +203,11 @@ export const description =
         so a star has to be picked. <code>aria-invalid="true"</code> on the radios
         tints the empty stars. Point <code>aria-describedby</code> at the error message.</Fragment
       >
+      <Fragment slot="react"
+        ><code>required</code> drops the no rating radio, so a star has to be picked.
+        <code>error</code> marks the radios invalid and tints the empty stars. Point
+        <code>aria-describedby</code> at the error message.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>required</code> drops the no rating radio, so a star has to be picked.
         <code>error</code> marks the radios invalid and tints the empty stars. Point
@@ -214,6 +237,12 @@ export const description =
       >
       <Fragment slot="html"
         >Translate the <code>aria-label</code> of each radio.</Fragment
+      >
+      <Fragment slot="react"
+        >The radios are named "No rating", "1 star", "2 stars" and so on.
+        Translate them with <code>clearLabel</code> and <code>starLabel</code>,
+        a function that gets the star's value. Use <code>Intl.PluralRules</code> for
+        languages with more plural forms.</Fragment
       >
       <Fragment slot="svelte"
         >The radios are named "No rating", "1 star", "2 stars" and so on.
@@ -249,6 +278,38 @@ export const description =
       input and <code>CanvasText</code> on the meter, and empty stars use <code
         >GrayText</code
       >.
+    </p>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      The meter and the radios draw their stars with one SVG <code>--_star</code
+      >
+      mask. <code>meter.ui-rating</code> is <code
+        >attr(max type(&lt;number&gt;), var(--_max, 5))</code
+      > stars wide and masked with <code>repeat-x</code>, so the browser's own
+      fill (<code>::-webkit-meter-optimum-value</code>, <code
+        >::-moz-meter-bar</code
+      >) shows through as filled stars, down to a fraction of one.
+    </p>
+    <p>
+      In <code>fieldset.ui-rating</code> each radio is <code
+        >appearance: none</code
+      >
+      with the star in <code>input::before</code>. <code
+        >input:is(:checked, :has(~ :checked))</code
+      > fills every star up to the checked one, and under <code
+        >(hover: hover)</code
+      >
+      <code>input:is(:hover, :has(~ input:hover))</code> previews a rating instead.
+      <code>input[value="0"]</code> is the clear icon.
+    </p>
+    <p>
+      The count after the stars is <code>fieldset::after</code> printing two counters,
+      <code>ui-rating</code>, incremented by the filled stars, and <code
+        >ui-rating-max</code
+      >, by every star but the clear radio, with empty alternative text so it
+      isn't read.
     </p>
   </Fragment>
 </Component>

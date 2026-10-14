@@ -13,7 +13,9 @@ export default {
         (warning.filename?.includes("component-examples") &&
           reviewedExampleWarnings.has(warning.code)) ||
         (warning.filename?.endsWith("DataGrid/DataGrid.svelte") &&
-          warning.code === "a11y_no_noninteractive_tabindex")
+          warning.code === "a11y_no_noninteractive_tabindex") ||
+        (warning.filename?.endsWith("Rating/Rating.svelte") &&
+          warning.code === "a11y_role_supports_aria_props_implicit")
       ),
   },
 }

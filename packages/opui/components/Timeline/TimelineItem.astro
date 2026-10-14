@@ -6,9 +6,9 @@ const {
   color,
   current,
   datetime,
+  heading,
   headingLevel = 3,
   time,
-  title,
   ...rest
 } = Astro.props
 
@@ -28,6 +28,6 @@ const Heading = `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6"
     )
   }
   {time && <time datetime={datetime}>{time}</time>}
-  {title && <Heading class="ui-h6">{title}</Heading>}
+  {heading && <Heading class="ui-h6">{heading}</Heading>}
   <slot />
 </li>

@@ -178,7 +178,6 @@ export const todoExamples = {
   },
   "data-grid-header-menus": {
     match: "Data grid header menus",
-    source: dataGridHeaderMenus,
   },
   "description-list-anatomy-width": {
     match: "Description list: the hero anatomy",
@@ -306,55 +305,42 @@ export const todoExamples = {
   },
   "proposal-bar-chart": {
     match: "Bar chart:",
-    source: proposalBarChart,
   },
   "proposal-breadcrumb": {
     match: "Breadcrumb:",
-    source: proposalBreadcrumb,
   },
   "proposal-chip-severity": {
     match: "Status pill:",
-    source: proposalChipSeverity,
   },
   "proposal-divider-label": {
     match: "Labeled divider:",
-    source: proposalDividerLabel,
   },
   "proposal-empty-state": {
     match: "Empty state:",
-    source: proposalEmptyState,
   },
   "proposal-message": {
     match: "Message:",
-    source: proposalMessage,
   },
   "proposal-number-field": {
     match: "Number field:",
-    source: proposalNumberField,
   },
   "proposal-one-time-code": {
     match: "One-time code:",
-    source: proposalOneTimeCode,
   },
   "proposal-pagination": {
     match: "Pagination:",
-    source: proposalPagination,
   },
   "proposal-rating": {
     match: "Rating:",
-    source: proposalRating,
   },
   "proposal-stat": {
     match: "Stat:",
-    source: proposalStat,
   },
   "proposal-steps": {
     match: "Steps:",
-    source: proposalSteps,
   },
   "proposal-timeline": {
     match: "Timeline:",
-    source: proposalTimeline,
   },
   "radio-coarse-sizes": {
     match: "Radio: on touch screens",

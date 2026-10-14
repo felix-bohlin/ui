@@ -12,6 +12,8 @@ export default {
     astro:
       "Input attributes, such as `disabled`, `name`, `pattern`, `required` and `value`, go to the `<input>`. Other attributes go to the root `<label>`.",
     html: 'Use one `<input>` with `autocomplete="one-time-code"`, `maxlength` and a matching `pattern`, such as `[0-9]{6}`, plus `inputmode="numeric"` for digits.',
+    react:
+      "Attributes that aren't props, such as `disabled`, `name`, `pattern` or `required`, go to the `<input>`.",
     svelte:
       "Attributes that aren't props, such as `disabled`, `name`, `pattern` or `required`, go to the `<input>`.",
     vue: "Attributes that aren't props, such as `disabled`, `name`, `pattern` or `required`, go to the `<input>`.",
@@ -45,7 +47,7 @@ export default {
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "svelte", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -66,6 +68,7 @@ export default {
       values: {
         large: ".ui-large",
         small: ".ui-small",
+        "x-small": ".ui-x-small",
       },
     },
   ],

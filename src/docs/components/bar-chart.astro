@@ -24,6 +24,7 @@ export const description =
     "alt-text-generated-content",
     "attr",
     "container-queries",
+    "counters",
     "exp-functions",
     "has",
     "light-dark",
@@ -98,6 +99,13 @@ export const description =
         the table the largest value in <code>--max</code>. The axis runs from
         zero to a round number above it.</Fragment
       >
+      <Fragment slot="react"
+        >Pass the categories in <code>rows</code>, each with a <code>label</code
+        > and its values, and name the series in <code>series</code>. <code
+          >label</code
+        > names the category column for screen readers. The axis runs from zero to
+        a round number above the largest value.</Fragment
+      >
       <Fragment slot="svelte"
         >Pass the categories in <code>rows</code>, each with a <code>label</code
         > and its values, and name the series in <code>series</code>. <code
@@ -143,6 +151,14 @@ export const description =
           >.ui-neutral</code
         >, <code>.ui-success</code> or <code>.ui-warning</code> to a <code
           >&lt;tr&gt;</code
+        > to color its bars. Use it with a single series, and say what the color means
+        in the caption or the text.</Fragment
+      >
+      <Fragment slot="react"
+        >Set <code>color</code> on a row to <code>"critical"</code>, <code
+          >"info"</code
+        >, <code>"neutral"</code>, <code>"success"</code> or <code
+          >"warning"</code
         > to color its bars. Use it with a single series, and say what the color means
         in the caption or the text.</Fragment
       >
@@ -194,6 +210,11 @@ export const description =
         >. The cell text is what people read, so write it the way it should
         show, here with a sign.</Fragment
       >
+      <Fragment slot="react"
+        >Negative values hang from the zero line. <code>min</code> defaults to the
+        smallest value. <code>format</code> turns each value into the text of its
+        cell, here with a sign.</Fragment
+      >
       <Fragment slot="svelte"
         >Negative values hang from the zero line. <code>min</code> defaults to the
         smallest value. <code>format</code> turns each value into the text of its
@@ -223,6 +244,13 @@ export const description =
         >The bar draws <code>--value</code>, and people read the cell text, so
         the text can carry a unit.</Fragment
       >
+      <Fragment slot="react"
+        >Write the <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> yourself
+        as children. Give every <code>&lt;td&gt;</code> its number in <code
+          >--value</code
+        >, and pass <code>max</code> (and <code>min</code> for negative values), since
+        the component can't read the children. The cell text can differ from the value.</Fragment
+      >
       <Fragment slot="svelte"
         >Write the <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> yourself
         as children. Give every <code>&lt;td&gt;</code> its number in <code
@@ -239,7 +267,7 @@ export const description =
       >
     </Conditional>
 
-    <AutoExample name="Markup" />
+    <AutoExample name="CellText" />
   </section>
 
   <section>
@@ -261,6 +289,12 @@ export const description =
             only, through typed <code>attr()</code>. Firefox and Safari then
             draw flat bars over the readable table, so use the inline custom
             properties.</Fragment
+          >
+          <Fragment slot="react"
+            >The component writes every value to an inline <code>--value</code>,
+            and <code>max</code> and <code>min</code> to <code>--max</code> and <code
+              >--min</code
+            >, so charts draw in all current browsers.</Fragment
           >
           <Fragment slot="svelte"
             >The component writes every value to an inline <code>--value</code>,
@@ -300,24 +334,32 @@ export const description =
     </p>
     <Conditional as="p">
       <Fragment slot="astro"
-        >Every bar is a Tab stop that shows its value on focus. Set <code
-          >focusable={"{false}"}</code
-        > when the values are shown elsewhere.</Fragment
+        >In a chart with two or more series, where the values only show on hover
+        and focus, every bar is a Tab stop that shows its value on focus. <code
+          >focusable</code
+        > turns the Tab stops on or off for any chart.</Fragment
       >
       <Fragment slot="html"
-        >With <code>tabindex="0"</code> on its <code>&lt;td&gt;</code>, every
-        bar is a Tab stop that shows its value on focus. Leave it out when the
-        values are shown elsewhere.</Fragment
+        >Add <code>tabindex="0"</code> to the cells of a chart with two or more series,
+        where the values only show on hover and focus.</Fragment
+      >
+      <Fragment slot="react"
+        >In a chart with two or more series, where the values only show on hover
+        and focus, every bar is a Tab stop that shows its value on focus. <code
+          >focusable</code
+        > turns the Tab stops on or off for any chart.</Fragment
       >
       <Fragment slot="svelte"
-        >Every bar is a Tab stop that shows its value on focus. Set <code
-          >focusable={"{false}"}</code
-        > when the values are shown elsewhere.</Fragment
+        >In a chart with two or more series, where the values only show on hover
+        and focus, every bar is a Tab stop that shows its value on focus. <code
+          >focusable</code
+        > turns the Tab stops on or off for any chart.</Fragment
       >
       <Fragment slot="vue"
-        >Every bar is a Tab stop that shows its value on focus. Set <code
-          >:focusable="false"</code
-        > when the values are shown elsewhere.</Fragment
+        >In a chart with two or more series, where the values only show on hover
+        and focus, every bar is a Tab stop that shows its value on focus. <code
+          >focusable</code
+        > turns the Tab stops on or off for any chart.</Fragment
       >
     </Conditional>
     <p>
@@ -331,6 +373,38 @@ export const description =
         >.ui-motion-off</code
       > on the chart or a parent, or <code>--motion: 0</code> on a parent. In right-to-left
       pages the axis moves to the right and the categories run right to left.
+    </p>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      The <code>table</code>, its <code>tbody</code> and each <code>tr</code> are
+      grids. <code>--_step</code> picks a round 1, 2 or 5 step from <code
+        >--max</code
+      > and <code>--min</code> with <code>log()</code>, <code>pow()</code> and <code
+        >round()</code
+      >, and <code>--_lo</code>, <code>--_hi</code> and <code>--_range</code> follow
+      from it.
+    </p>
+    <p>
+      <code>tbody::before</code> prints the tick labels as counters, reset to <code
+        >--_lo</code
+      > plus one step each, with empty alternative text. <code
+        >tbody::after</code
+      >
+      draws the gridlines and the zero line with gradients <code>--_tick</code> apart.
+      Each <code>td</code> sits at the height of its value, <code
+        >td::after</code
+      >
+      is the bar, <code>--_bar</code> tall, and <code>--_pos</code> flips it under
+      the zero line for a negative value.
+    </p>
+    <p>
+      <code>:has(td + td)</code> counts the series: it shows the <code
+        >thead</code
+      > as the legend, splits the group between the bars and hides the values until
+      hover or focus. <code>@starting-style</code> grows the bars in, and a container
+      query under <code>2.5rem</code> per category hides every other label.
     </p>
   </Fragment>
 </Component>

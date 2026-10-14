@@ -56,7 +56,7 @@ export type Props = {
   columnGroups?: DataGridColumnGroup[]
   columns: DataGridColumn[]
   columnsMenu?: boolean
-  density?: "dense" | "spacious" | "standard"
+  density?: "dense" | "spacious"
   densityToggle?: boolean
   filters?: DataGridFilter[]
   footer?: boolean
@@ -79,6 +79,7 @@ export type Props = {
 
 export type Slots<S> = {
   actions?: S
+  cells?: Record<string, S>
   detail?: S
   empty?: S
 }

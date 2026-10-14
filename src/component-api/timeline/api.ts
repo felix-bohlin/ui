@@ -5,7 +5,7 @@ export default {
   options: [
     {
       description:
-        "The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph.",
+        "The items, as `{ color, current, datetime, description, heading, headingLevel, time }` objects. `description` renders a paragraph.",
       prop: "items",
     },
     {
@@ -27,7 +27,8 @@ export default {
     {
       code: "<li>",
       component: {
-        astro: "Timeline.Item",
+        astro: "TimelineItem",
+        react: "TimelineItem",
         svelte: "TimelineItem",
         vue: "TimelineItem",
       },

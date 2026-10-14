@@ -258,79 +258,86 @@ To save reactions without JavaScript, make each pill a submit `button.ui-reactio
 
 `Message` renders checkbox pills. Write this markup yourself for button pills.
 
-```html
-<ol aria-label="Messages in #design" class="ui-messages">
-  <li class="ui-message">
-    <div aria-label="Leila Haddad" class="ui-avatar" role="img">LH</div>
-    <div class="ui-bubble">
-      <p class="ui-header">Leila</p>
-      <p>Can we review the new icons today?</p>
-      <p class="ui-footer"><time datetime="2026-10-08T09:13">09:13</time></p>
-    </div>
-    <div aria-label="Reactions" class="ui-reactions" role="group">
+```vue
+<script setup lang="ts">
+import { Messages } from "opui-css/vue"
+</script>
+
+<template>
+  <Messages label="Messages in #design">
+    <li class="ui-message">
+      <div aria-label="Leila Haddad" class="ui-avatar" role="img">LH</div>
+      <div class="ui-bubble">
+        <p class="ui-header">Leila</p>
+        <p>Can we review the new icons today?</p>
+        <p class="ui-footer"><time datetime="2026-10-08T09:13">09:13</time></p>
+      </div>
+      <div aria-label="Reactions" class="ui-reactions" role="group">
+        <button
+          aria-pressed="true"
+          class="ui-reaction"
+          data-count="2"
+          form="reactions-icons"
+          name="reaction"
+          type="submit"
+          value="+1"
+        >
+          <span aria-hidden="true">👍</span>
+          <span class="ui-sr-only">Thumbs up, 1 other</span>
+        </button>
+        <button
+          aria-pressed="false"
+          class="ui-reaction"
+          data-count="1"
+          form="reactions-icons"
+          name="reaction"
+          type="submit"
+          value="eyes"
+        >
+          <span aria-hidden="true">👀</span>
+          <span class="ui-sr-only">Eyes, 1 other</span>
+        </button>
+      </div>
       <button
-        aria-pressed="true"
-        class="ui-reaction"
-        data-count="2"
-        form="reactions-icons"
-        name="reaction"
-        type="submit"
-        value="+1"
+        aria-label="Add reaction"
+        class="ui-button ui-x-small ui-rounded ui-reaction-add"
+        command="toggle-popover"
+        commandfor="reactions-icons"
+        type="button"
       >
-        <span aria-hidden="true">👍</span>
-        <span class="ui-sr-only">Thumbs up, 1 other</span>
+        <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+          />
+        </svg>
       </button>
-      <button
-        aria-pressed="false"
-        class="ui-reaction"
-        data-count="1"
-        form="reactions-icons"
-        name="reaction"
-        type="submit"
-        value="eyes"
+      <form
+        action="/messages/42/reactions"
+        aria-label="Add reaction"
+        class="ui-reaction-picker"
+        id="reactions-icons"
+        method="post"
+        popover
       >
-        <span aria-hidden="true">👀</span>
-        <span class="ui-sr-only">Eyes, 1 other</span>
-      </button>
-    </div>
-    <button
-      aria-label="Add reaction"
-      class="ui-button ui-x-small ui-rounded ui-reaction-add"
-      command="toggle-popover"
-      commandfor="reactions-icons"
-      type="button"
-    >
-      <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
-        />
-      </svg>
-    </button>
-    <form
-      action="/messages/42/reactions"
-      class="ui-reaction-picker"
-      id="reactions-icons"
-      method="post"
-      popover
-    >
-      <button aria-label="Thumbs up" name="add" type="submit" value="+1">
-        👍
-      </button>
-      <button aria-label="Heart" name="add" type="submit" value="heart">
-        ❤️
-      </button>
-      <button aria-label="Laughing" name="add" type="submit" value="joy">
-        😂
-      </button>
-      <button aria-label="Party" name="add" type="submit" value="tada">
-        🎉
-      </button>
-      <button aria-label="Eyes" name="add" type="submit" value="eyes">
-        👀
-      </button>
-    </form>
-  </li>
-</ol>
+        <button aria-label="Thumbs up" name="add" type="submit" value="+1">
+          👍
+        </button>
+        <button aria-label="Heart" name="add" type="submit" value="heart">
+          ❤️
+        </button>
+        <button aria-label="Laughing" name="add" type="submit" value="joy">
+          😂
+        </button>
+        <button aria-label="Party" name="add" type="submit" value="tada">
+          🎉
+        </button>
+        <button aria-label="Eyes" name="add" type="submit" value="eyes">
+          👀
+        </button>
+      </form>
+    </li>
+  </Messages>
+</template>
 ```
 
 ## Typing indicator
@@ -446,30 +453,31 @@ Without `:has()`, messages don't group and your reaction isn't highlighted. With
 
 #### CSS variables
 
-| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
-| `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--ease-enter`           | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
-| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
-| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
-| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
-| `--font-weight-semibold` | `var(--font-weight-6)`                                                                | Font weight for labels, table headers and titles.                                                                                                                                                            |
-| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
-| `--motion`               | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).      |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--surface-elevated`     | `light-dark(var(--gray-1), var(--gray-12))`                                           | Background of elevated cards and accordions.                                                                                                                                                                 |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+| Variable                     | Default                                                                               | Description                                                                                                                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`             | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--control-size-small`       | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--duration`                 | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                     | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--ease-enter`               | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
+| `--focus-ring-offset`        | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
+| `--focus-ring-style`         | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
+| `--focus-ring-width`         | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                | Font weight for labels, table headers and titles.                                                                                                                                                            |
+| `--icon-size`                | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--motion`                   | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).      |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha-accent` | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                              |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                           | Background of elevated cards and accordions.                                                                                                                                                                 |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ### Message API
 
@@ -496,38 +504,47 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
-| `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--ease-enter`           | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
-| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
-| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
-| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
-| `--font-weight-semibold` | `var(--font-weight-6)`                                                                | Font weight for labels, table headers and titles.                                                                                                                                                            |
-| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
-| `--motion`               | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).      |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--surface-elevated`     | `light-dark(var(--gray-1), var(--gray-12))`                                           | Background of elevated cards and accordions.                                                                                                                                                                 |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+| Variable                     | Default                                                                               | Description                                                                                                                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`             | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--control-size-small`       | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--duration`                 | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                     | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--ease-enter`               | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
+| `--focus-ring-offset`        | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
+| `--focus-ring-style`         | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
+| `--focus-ring-width`         | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                | Font weight for labels, table headers and titles.                                                                                                                                                            |
+| `--icon-size`                | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--motion`                   | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).      |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-hover-alpha-accent` | `15%`                                                                                 | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                              |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                           | Background of elevated cards and accordions.                                                                                                                                                                 |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 `reactions` take `{ count, emoji, label, mine, value }` and `picker` takes `{ emoji, label, value }`. `value` defaults to the emoji. The picker form fires a `submit` event with the emoji button as `submitter`, and the reactions fire `change`. Both bubble to the `<li>`.
+
+## Under the hood
+
+`.ui-messages` is an inline-size container, so a bubble is at most `min(36rem, 85cqi)` wide. Each `.ui-message` is a grid with `avatar`, `bubble`, `add` and `reactions` areas, mirrored by `.ui-outgoing`.
+
+Runs are selectors. `.ui-message:has(+ .ui-message:not(.ui-outgoing, .ui-new-author))` tightens the bottom corners and hides the avatar of a message followed by one from the same side, and `.ui-message + .ui-message` tightens the top corners and visually hides `.ui-header` on the one that follows.
+
+`.ui-reaction::after` prints `data-count` with `attr()`. With typed `attr()` it is a counter instead, which `:has(input[checked]:not(:checked))` decrements and `:has(input:not([checked]):checked)` increments. `.ui-reaction-picker` is a popover placed with `position-area` and `position-try-fallbacks`, and transitions from `@starting-style` with `allow-discrete`. The typing dots are three radial gradients on `.ui-bubble::before`, held still by `@container style(--motion: 0)`.
 
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: corner-shape.
-- Safari: Partial support Missing: corner-shape.
+- Firefox: Partial support Missing: corner-shape, overlay.
+- Safari: Partial support Missing: corner-shape, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Message.md).
 
@@ -540,9 +557,9 @@ Import the components from `opui-css/vue`:
 - [Avatar](https://open-props-ui.netlify.app/vue/components/avatar.md)
 - [Button](https://open-props-ui.netlify.app/vue/components/button.md)
 
-- `opui-css/css/components/message.css`
-- `opui-css/css/components/avatar.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/message.css`
+* `opui-css/css/components/avatar.css`
+* `opui-css/css/components/button.css`
 
 ## See also
 

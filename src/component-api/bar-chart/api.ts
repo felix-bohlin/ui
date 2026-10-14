@@ -12,7 +12,7 @@ export default {
   },
   options: [
     {
-      description: "Tone of a row's bars, such as `critical` for a loss.",
+      description: "Optional colors.",
       frameworks: ["html"],
       group: "Colors",
       part: "tr",
@@ -27,8 +27,9 @@ export default {
     },
     {
       attribute: '[tabindex="0"]',
-      default: "true",
-      description: "Makes every bar a Tab stop that shows its value on focus.",
+      default: "series.length > 1",
+      description:
+        "Makes every bar a Tab stop that shows its value on focus. On by default with two or more series, where the values only show on hover or focus.",
       group: "Focus",
       part: "td",
       prop: "focusable",
@@ -68,7 +69,7 @@ export default {
     },
     {
       description:
-        "The categories, each with a `label`, one value per series and an optional `color`.",
+        "The categories, each with a `label`, one value per series (up to three) and an optional `color`.",
       prop: "rows",
     },
     {
@@ -98,7 +99,7 @@ export default {
     {
       code: "<thead>",
       description:
-        "The legend, one `<th>` per series. Hidden with a single series.",
+        "The legend, one `<th>` per series, up to three. Hidden with a single series.",
       props: ["series"],
       selector: ".ui-bar-chart > thead",
     },

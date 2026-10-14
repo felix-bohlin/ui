@@ -15,11 +15,11 @@ An ordered list of dated events with markers and a connecting line. The dates li
 
 - `<li>`
 
-  An event. Content after the title goes in the content column.
+  An event. Content after the heading goes in the content column.
 
 - `<time>`
 
-  The date, in its own column. Above the title in narrow timelines.
+  The date, in its own column. Above the heading in narrow timelines.
 
 - `.ui-marker`
 
@@ -27,7 +27,7 @@ An ordered list of dated events with markers and a connecting line. The dates li
 
 - `<h3>`
 
-  The title.
+  The heading.
 
 ## Basics
 
@@ -91,7 +91,7 @@ Set `.ui-critical` and the other tones on an item to fill its marker. Say the st
 </ol>
 ```
 
-## Small
+## Sizes
 
 `.ui-small` makes the markers and the spacing smaller, for logs and dense lists.
 
@@ -179,6 +179,7 @@ Put an icon in a `span.ui-marker` at the start of the `li` to replace the dot. I
   <li>
     <time datetime="2026-10-06">Oct 6</time>
     <h3 class="ui-h6">Delivered</h3>
+    <p>Expected</p>
   </li>
 </ol>
 ```
@@ -287,7 +288,7 @@ The markup the `items` prop renders in Astro, Svelte and Vue: one `li` per item,
 
 ## Accessibility
 
-The timeline is an `ol`, so screen readers announce the number of events and the position of each. Add `reversed` when the newest event comes first.
+The timeline is an `ol`, so screen readers announce the number of events and the position of each. Put the items in the order you want them read; the list has no visible numbers, so `reversed` changes nothing.
 
 Put dates in a `<time>` with a `datetime` attribute. The dots and the line are drawn with pseudo-elements and aren't announced. Give icons in a custom marker `aria-hidden="true"`.
 
@@ -313,15 +314,17 @@ In forced colors mode the line and markers use system colors, colored markers ar
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ### Timeline item API
 
@@ -333,24 +336,34 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### Parts
 
-| Part         | Description                                                       |
-| ------------ | ----------------------------------------------------------------- |
-| `<li>`       | An event. Content after the title goes in the content column.     |
-| `<time>`     | The date, in its own column. Above the title in narrow timelines. |
-| `.ui-marker` | Optional custom marker, such as an icon. Replaces the dot.        |
-| `<h3>`       | The title.                                                        |
+| Part         | Description                                                         |
+| ------------ | ------------------------------------------------------------------- |
+| `<li>`       | An event. Content after the heading goes in the content column.     |
+| `<time>`     | The date, in its own column. Above the heading in narrow timelines. |
+| `.ui-marker` | Optional custom marker, such as an icon. Replaces the dot.          |
+| `<h3>`       | The heading.                                                        |
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+## Under the hood
+
+`ol.ui-timeline` is a grid with `[date] auto [marker] auto [content] minmax(0, 1fr)` columns, and each `li` spans it with `grid-template-columns: subgrid`, so every date shares one column. The `time` goes in the `date` column and everything else in `content`.
+
+`li::before` is the dot and `li:not(:last-child)::after` the line, both in the `marker` column. The dot is centered on the first line of text with `margin-block-start: calc((1lh - var(--_marker-size)) / 2)`, and the line starts and ends relative to the markers above and below it, which `li:has(+ li > .ui-marker)` sizes for a custom marker. A `.ui-marker` child replaces the dot with `content: none`.
+
+`li[aria-current]` fills the marker with `--primary` and a translucent `box-shadow` halo, and `.ui-with-progress > li:has(~ li[aria-current])` colors the line and the uncolored markers before it. The container query under `24rem` moves `time` into the `content` column.
 
 ## Browser support
 

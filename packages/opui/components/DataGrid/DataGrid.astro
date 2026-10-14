@@ -1,5 +1,7 @@
 ---
 import { createGrid } from "./model"
+import { createId } from "../id"
+import { mergeStyle } from "../style"
 import type { Props } from "./types.astro"
 
 export const title = "Data Grid"
@@ -32,7 +34,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const expandable = Astro.slots.has("detail")
 const grid = createGrid({
   columns,
@@ -55,10 +57,6 @@ const headerMenuId = $id("header-menu")
 const hasActions = Astro.slots.has("actions")
 const toolbar =
   hasActions || grid.filters.length > 0 || densityToggle || columnsMenu
-const mergedStyle =
-  typeof style === "string" || !style
-    ? [grid.style, style].filter(Boolean).join("; ") || undefined
-    : style
 ---
 
 <div
@@ -70,10 +68,10 @@ const mergedStyle =
       "ui-resizable": resizable,
       "ui-wrap": wrap,
     },
-    !densityToggle && density && density !== "standard" && `ui-${density}`,
+    !densityToggle && density && `ui-${density}`,
     className,
   ]}
-  style={mergedStyle}
+  style={mergeStyle(grid.vars, style)}
   {...rest}
 >
   {
@@ -219,6 +217,7 @@ const mergedStyle =
                     <label>
                       <input
                         checked={grid.sorted(column, direction)}
+                        class="ui-sr-only"
                         id={`${sortName}-${column.position}-${direction}`}
                         name={sortName}
                         type="radio"

@@ -2,7 +2,7 @@ export type Props = {
   clearLabel?: string
   disabled?: boolean
   error?: boolean
-  label?: string
+  label: string
   max?: number | string
   name?: string
   required?: boolean

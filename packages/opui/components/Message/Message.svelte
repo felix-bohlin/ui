@@ -67,7 +67,6 @@
           <input
             checked={mine}
             class="ui-sr-only"
-            defaultChecked={mine}
             form={hasPicker ? pickerId : undefined}
             name="reaction"
             type="checkbox"
@@ -94,7 +93,12 @@
         />
       </svg>
     </Button>
-    <form class="ui-reaction-picker" id={pickerId} popover="">
+    <form
+      aria-label={pickerLabel}
+      class="ui-reaction-picker"
+      id={pickerId}
+      popover=""
+    >
       {#each picker ?? [] as { emoji, label, value } (value ?? emoji)}
         <button
           aria-label={label}

@@ -4,7 +4,7 @@ import type { Props, Slots } from "./types.d.vue"
 
 const {
   caption,
-  focusable = true,
+  focusable = undefined,
   format = String,
   label,
   max,
@@ -21,6 +21,7 @@ const chartMax = computed(
     max ?? (values.value.length > 0 ? Math.max(0, ...values.value) : undefined),
 )
 const chartMin = computed(() => min ?? Math.min(0, ...values.value))
+const cellFocusable = computed(() => focusable ?? (series?.length ?? 0) > 1)
 </script>
 
 <template>
@@ -56,7 +57,7 @@ const chartMin = computed(() => min ?? Math.min(0, ...values.value))
           v-for="(value, valueIndex) in row.values"
           :key="valueIndex"
           :style="`--value: ${value}`"
-          :tabindex="focusable ? 0 : undefined"
+          :tabindex="cellFocusable ? 0 : undefined"
         >
           {{ format(value) }}
         </td>

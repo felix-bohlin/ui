@@ -1,0 +1,946 @@
+<style>
+  .stress-feedback-chart {
+    inline-size: min(100%, 22rem);
+  }
+
+  .stress-feedback-steps {
+    inline-size: min(100%, 36rem);
+  }
+
+  .stress-feedback-thread {
+    inline-size: min(100%, 24rem);
+  }
+
+  .stress-feedback-timeline {
+    inline-size: min(100%, 26rem);
+  }
+</style>
+
+<section class="stress" data-example="Sizes">
+  <h2>Sizes</h2>
+  <p>
+    A button, a one-time code, a rating input and meter, a stepper, a timeline,
+    a bar chart and a message thread at each size. The code boxes, stars and
+    markers should grow with the row, and the message thread, which has no
+    sizes, should look the same in every row.
+  </p>
+  <div class="stress-row" data-size="small">
+    <span class="stress-tag">Small</span>
+    <button class="ui-button ui-small ui-outlined" type="button">
+      Resend code
+    </button>
+    <label class="ui-text-field ui-one-time-code ui-small">
+      <span class="ui-label">Code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="stress-feedback-code-small"
+          pattern="[0-9]{6}"
+          type="text"
+          value="482"
+        />
+      </span>
+    </label>
+    <fieldset class="ui-rating ui-small">
+      <legend>Small rating</legend>
+      <input
+        aria-label="No rating"
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="0"
+      />
+      <input
+        aria-label="1 star"
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="1"
+      />
+      <input
+        aria-label="2 stars"
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="2"
+      />
+      <input
+        aria-label="3 stars"
+        checked
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="3"
+      />
+      <input
+        aria-label="4 stars"
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="4"
+      />
+      <input
+        aria-label="5 stars"
+        name="stress-feedback-rating-small"
+        type="radio"
+        value="5"
+      />
+    </fieldset>
+    <meter
+      aria-label="Rated 3.5 out of 5"
+      class="ui-rating ui-small"
+      max="5"
+      value="3.5"
+    ></meter>
+    <ol
+      class="ui-stepper ui-small stress-feedback-steps"
+      aria-label="Checkout steps, small"
+    >
+      <li><a href="#cart">Cart</a></li>
+      <li aria-current="step">Shipping</li>
+      <li>Payment</li>
+    </ol>
+    <ol class="ui-timeline ui-small stress-feedback-timeline">
+      <li>
+        <time datetime="2026-10-08T09:12">09:12</time>
+        <p>Build started.</p>
+      </li>
+      <li class="ui-success">
+        <time datetime="2026-10-08T09:16">09:16</time>
+        <p>Deployed to production.</p>
+      </li>
+    </ol>
+    <table class="ui-bar-chart ui-small stress-feedback-chart" style="--max: 9">
+      <caption>
+        Deploys per day, small
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Deploys</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Mon</th>
+          <td style="--value: 4">4</td>
+        </tr>
+        <tr>
+          <th scope="row">Tue</th>
+          <td style="--value: 7">7</td>
+        </tr>
+        <tr>
+          <th scope="row">Wed</th>
+          <td style="--value: 9">9</td>
+        </tr>
+      </tbody>
+    </table>
+    <ol
+      aria-label="Messages with Saga, small row"
+      class="ui-messages stress-feedback-thread"
+    >
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>Did the small code field fit?</p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p class="ui-header">You</p>
+          <p>Yes, three boxes filled.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="stress-row" data-size="default">
+    <span class="stress-tag">Default</span>
+    <button class="ui-button ui-outlined" type="button">Resend code</button>
+    <label class="ui-text-field ui-one-time-code">
+      <span class="ui-label">Code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="stress-feedback-code-default"
+          pattern="[0-9]{6}"
+          type="text"
+          value="482"
+        />
+      </span>
+    </label>
+    <fieldset class="ui-rating">
+      <legend>Default rating</legend>
+      <input
+        aria-label="No rating"
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="0"
+      />
+      <input
+        aria-label="1 star"
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="1"
+      />
+      <input
+        aria-label="2 stars"
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="2"
+      />
+      <input
+        aria-label="3 stars"
+        checked
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="3"
+      />
+      <input
+        aria-label="4 stars"
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="4"
+      />
+      <input
+        aria-label="5 stars"
+        name="stress-feedback-rating-default"
+        type="radio"
+        value="5"
+      />
+    </fieldset>
+    <meter
+      aria-label="Rated 3.5 out of 5"
+      class="ui-rating"
+      max="5"
+      value="3.5"
+    ></meter>
+    <ol class="ui-stepper stress-feedback-steps" aria-label="Checkout steps">
+      <li><a href="#cart">Cart</a></li>
+      <li aria-current="step">Shipping</li>
+      <li>Payment</li>
+    </ol>
+    <ol class="ui-timeline stress-feedback-timeline">
+      <li>
+        <time datetime="2026-10-08T09:12">09:12</time>
+        <p>Build started.</p>
+      </li>
+      <li class="ui-success">
+        <time datetime="2026-10-08T09:16">09:16</time>
+        <p>Deployed to production.</p>
+      </li>
+    </ol>
+    <table class="ui-bar-chart stress-feedback-chart" style="--max: 9">
+      <caption>
+        Deploys per day
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Deploys</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Mon</th>
+          <td style="--value: 4">4</td>
+        </tr>
+        <tr>
+          <th scope="row">Tue</th>
+          <td style="--value: 7">7</td>
+        </tr>
+        <tr>
+          <th scope="row">Wed</th>
+          <td style="--value: 9">9</td>
+        </tr>
+      </tbody>
+    </table>
+    <ol
+      aria-label="Messages with Saga, default row"
+      class="ui-messages stress-feedback-thread"
+    >
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>Did the default code field fit?</p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p class="ui-header">You</p>
+          <p>Yes, three boxes filled.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="stress-row" data-size="large">
+    <span class="stress-tag">Large</span>
+    <button class="ui-button ui-large ui-outlined" type="button">
+      Resend code
+    </button>
+    <label class="ui-text-field ui-one-time-code ui-large">
+      <span class="ui-label">Code</span>
+      <span class="ui-field">
+        <input
+          autocomplete="one-time-code"
+          inputmode="numeric"
+          maxlength="6"
+          name="stress-feedback-code-large"
+          pattern="[0-9]{6}"
+          type="text"
+          value="482"
+        />
+      </span>
+    </label>
+    <fieldset class="ui-rating ui-large">
+      <legend>Large rating</legend>
+      <input
+        aria-label="No rating"
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="0"
+      />
+      <input
+        aria-label="1 star"
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="1"
+      />
+      <input
+        aria-label="2 stars"
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="2"
+      />
+      <input
+        aria-label="3 stars"
+        checked
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="3"
+      />
+      <input
+        aria-label="4 stars"
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="4"
+      />
+      <input
+        aria-label="5 stars"
+        name="stress-feedback-rating-large"
+        type="radio"
+        value="5"
+      />
+    </fieldset>
+    <meter
+      aria-label="Rated 3.5 out of 5"
+      class="ui-rating ui-large"
+      max="5"
+      value="3.5"
+    ></meter>
+    <ol
+      class="ui-stepper stress-feedback-steps"
+      aria-label="Checkout steps, large row"
+    >
+      <li><a href="#cart">Cart</a></li>
+      <li aria-current="step">Shipping</li>
+      <li>Payment</li>
+    </ol>
+    <ol class="ui-timeline stress-feedback-timeline">
+      <li>
+        <time datetime="2026-10-08T09:12">09:12</time>
+        <p>Build started.</p>
+      </li>
+      <li class="ui-success">
+        <time datetime="2026-10-08T09:16">09:16</time>
+        <p>Deployed to production.</p>
+      </li>
+    </ol>
+    <table class="ui-bar-chart ui-large stress-feedback-chart" style="--max: 9">
+      <caption>
+        Deploys per day, large
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Deploys</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Mon</th>
+          <td style="--value: 4">4</td>
+        </tr>
+        <tr>
+          <th scope="row">Tue</th>
+          <td style="--value: 7">7</td>
+        </tr>
+        <tr>
+          <th scope="row">Wed</th>
+          <td style="--value: 9">9</td>
+        </tr>
+      </tbody>
+    </table>
+    <ol
+      aria-label="Messages with Saga, large row"
+      class="ui-messages stress-feedback-thread"
+    >
+      <li class="ui-message">
+        <div aria-label="Saga Nyström" class="ui-avatar" role="img">SN</div>
+        <div class="ui-bubble">
+          <p class="ui-header">Saga</p>
+          <p>Did the large code field fit?</p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p class="ui-header">You</p>
+          <p>Yes, three boxes filled.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="stress" data-example="OrderTracking">
+  <h2>Order tracking</h2>
+  <p>
+    A stepper, a timeline with custom markers and a rating meter in a 16rem
+    column and in a wide one. In the narrow column the stepper should turn
+    vertical and the timeline dates should move above the titles, and the
+    stepper descriptions should stay under their labels in both.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <ol class="ui-stepper" aria-label="Order steps, narrow">
+        <li>
+          <a href="#ordered">Ordered</a>
+          <span class="ui-description">Oct 1</span>
+        </li>
+        <li>
+          <a href="#packed">Packed</a>
+          <span class="ui-description">Oct 2</span>
+        </li>
+        <li aria-current="step">
+          Shipped <span class="ui-description">On its way</span>
+        </li>
+        <li>Delivered <span class="ui-description">Expected Oct 6</span></li>
+      </ol>
+      <ol class="ui-timeline ui-with-progress">
+        <li class="ui-success">
+          <span class="ui-marker"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 6 9 17l-5-5"></path></svg
+          ></span>
+          <time datetime="2026-10-01">Oct 1</time>
+          <h3 class="ui-h6">Ordered</h3>
+        </li>
+        <li class="ui-success">
+          <span class="ui-marker"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 6 9 17l-5-5"></path></svg
+          ></span>
+          <time datetime="2026-10-02">Oct 2</time>
+          <h3 class="ui-h6">Packed</h3>
+        </li>
+        <li aria-current="step">
+          <time datetime="2026-10-03">Oct 3</time>
+          <h3 class="ui-h6">Shipped</h3>
+          <p>On its way from Gothenburg.</p>
+        </li>
+        <li>
+          <time datetime="2026-10-06">Oct 6</time>
+          <h3 class="ui-h6">Delivered</h3>
+          <p>Expected</p>
+        </li>
+      </ol>
+      <p>
+        Seller rating
+        <meter
+          aria-label="Seller rated 4.6 out of 5"
+          class="ui-rating ui-small"
+          max="5"
+          value="4.6"
+        ></meter>
+      </p>
+    </div>
+    <div class="stress-stack stress-wide-column">
+      <ol class="ui-stepper stress-feedback-steps" aria-label="Order steps">
+        <li>
+          <a href="#ordered">Ordered</a>
+          <span class="ui-description">Oct 1</span>
+        </li>
+        <li>
+          <a href="#packed">Packed</a>
+          <span class="ui-description">Oct 2</span>
+        </li>
+        <li aria-current="step">
+          Shipped <span class="ui-description">On its way</span>
+        </li>
+        <li>Delivered <span class="ui-description">Expected Oct 6</span></li>
+      </ol>
+      <ol class="ui-timeline ui-with-progress stress-feedback-timeline">
+        <li class="ui-success">
+          <time datetime="2026-10-01">Oct 1</time>
+          <h3 class="ui-h6">Ordered</h3>
+        </li>
+        <li class="ui-success">
+          <time datetime="2026-10-02">Oct 2</time>
+          <h3 class="ui-h6">Packed</h3>
+        </li>
+        <li aria-current="step">
+          <time datetime="2026-10-03">Oct 3</time>
+          <h3 class="ui-h6">Shipped</h3>
+          <p>On its way from Gothenburg.</p>
+        </li>
+        <li>
+          <time datetime="2026-10-06">Oct 6</time>
+          <h3 class="ui-h6">Delivered</h3>
+          <p>Expected</p>
+        </li>
+      </ol>
+      <p>
+        Seller rating
+        <meter
+          aria-label="Seller rated 4.6 out of 5"
+          class="ui-rating"
+          max="5"
+          value="4.6"
+        ></meter>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="SupportChat">
+  <h2>Support chat</h2>
+  <p>
+    A one-time code form and a rating input inside message bubbles, reactions
+    with a picker, and a typing indicator. The bubbles should stay within 85% of
+    the thread, the code boxes should shrink to fit the bubble, and the stars
+    should sit on one line with their count.
+  </p>
+  <ol aria-label="Messages with Support" class="ui-messages">
+    <li class="ui-message">
+      <div aria-label="Support" class="ui-avatar" role="img">S</div>
+      <div class="ui-bubble">
+        <p class="ui-header">Support</p>
+        <p>We sent a code to +46 70 ••• 12 34. Enter it here to continue.</p>
+        <p class="ui-footer"><time datetime="2026-10-08T14:02">14:02</time></p>
+      </div>
+    </li>
+    <li class="ui-message ui-outgoing">
+      <div class="ui-bubble">
+        <p class="ui-header">You</p>
+        <form class="stress-stack">
+          <label class="ui-text-field ui-one-time-code">
+            <span class="ui-label">Verification code</span>
+            <span class="ui-field">
+              <input
+                aria-describedby="stress-feedback-chat-code-end"
+                autocomplete="one-time-code"
+                inputmode="numeric"
+                maxlength="6"
+                name="stress-feedback-chat-code"
+                pattern="[0-9]{6}"
+                required
+                type="text"
+                value="48"
+              />
+            </span>
+            <span class="ui-end-text" id="stress-feedback-chat-code-end"
+              >Expires in 10 minutes.</span
+            >
+          </label>
+          <button class="ui-button ui-small ui-filled" type="submit">
+            Verify
+          </button>
+        </form>
+        <p class="ui-footer"><time datetime="2026-10-08T14:03">14:03</time></p>
+      </div>
+    </li>
+    <li class="ui-message">
+      <div aria-label="Support" class="ui-avatar" role="img">S</div>
+      <div class="ui-bubble">
+        <p class="ui-header">Support</p>
+        <p>Thanks, you're verified. How did we do today?</p>
+        <fieldset class="ui-rating">
+          <legend>Rate this chat</legend>
+          <input
+            aria-label="No rating"
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="0"
+          />
+          <input
+            aria-label="1 star"
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="1"
+          />
+          <input
+            aria-label="2 stars"
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="2"
+          />
+          <input
+            aria-label="3 stars"
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="3"
+          />
+          <input
+            aria-label="4 stars"
+            checked
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="4"
+          />
+          <input
+            aria-label="5 stars"
+            name="stress-feedback-chat-rating"
+            type="radio"
+            value="5"
+          />
+        </fieldset>
+        <p class="ui-footer"><time datetime="2026-10-08T14:04">14:04</time></p>
+      </div>
+      <div aria-label="Reactions" class="ui-reactions" role="group">
+        <label class="ui-reaction" data-count="1">
+          <input
+            checked
+            class="ui-sr-only"
+            form="stress-feedback-chat-picker"
+            name="reaction"
+            type="checkbox"
+            value="+1"
+          />
+          <span aria-hidden="true">👍</span>
+          <span class="ui-sr-only">Thumbs up</span>
+        </label>
+      </div>
+      <button
+        aria-label="Add reaction"
+        class="ui-button ui-x-small ui-rounded ui-reaction-add"
+        command="toggle-popover"
+        commandfor="stress-feedback-chat-picker"
+        type="button"
+      >
+        <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm-3.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m7 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M7 14a5.5 5.5 0 0 0 10 0zM19 1v3h-3v2h3v3h2V6h3V4h-3V1z"
+          />
+        </svg>
+      </button>
+      <form
+        aria-label="Pick a reaction"
+        class="ui-reaction-picker"
+        id="stress-feedback-chat-picker"
+        popover
+      >
+        <button aria-label="Thumbs up" name="add" type="submit" value="+1">
+          👍
+        </button>
+        <button aria-label="Heart" name="add" type="submit" value="heart">
+          ❤️
+        </button>
+        <button aria-label="Party" name="add" type="submit" value="tada">
+          🎉
+        </button>
+      </form>
+    </li>
+    <li class="ui-message ui-typing">
+      <div aria-label="Support" class="ui-avatar" role="img">S</div>
+      <div class="ui-bubble" role="status">
+        <span class="ui-sr-only">Support is typing…</span>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="stress" data-example="Dashboard">
+  <h2>Dashboard</h2>
+  <p>
+    A three-series bar chart next to a small timeline and a dense table with a
+    rating meter per row. The legend should name the series, the values should
+    stay hidden until hover or focus, and the meters should center on their
+    rows.
+  </p>
+  <div class="stress-columns">
+    <table class="ui-bar-chart stress-feedback-chart" style="--max: 455">
+      <caption>
+        Signups per quarter
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Quarter</th>
+          <th scope="col">Free</th>
+          <th scope="col">Pro</th>
+          <th scope="col">Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Q1</th>
+          <td style="--value: 320" tabindex="0">320</td>
+          <td style="--value: 140" tabindex="0">140</td>
+          <td style="--value: 45" tabindex="0">45</td>
+        </tr>
+        <tr>
+          <th scope="row">Q2</th>
+          <td style="--value: 380" tabindex="0">380</td>
+          <td style="--value: 165" tabindex="0">165</td>
+          <td style="--value: 60" tabindex="0">60</td>
+        </tr>
+        <tr>
+          <th scope="row">Q3</th>
+          <td style="--value: 410" tabindex="0">410</td>
+          <td style="--value: 190" tabindex="0">190</td>
+          <td style="--value: 85" tabindex="0">85</td>
+        </tr>
+        <tr>
+          <th scope="row">Q4</th>
+          <td style="--value: 455" tabindex="0">455</td>
+          <td style="--value: 230" tabindex="0">230</td>
+          <td style="--value: 110" tabindex="0">110</td>
+        </tr>
+      </tbody>
+    </table>
+    <ol class="ui-timeline ui-small stress-feedback-timeline">
+      <li>
+        <time datetime="2026-10-08T09:12">09:12</time>
+        <p>Build started.</p>
+      </li>
+      <li>
+        <time datetime="2026-10-08T09:15">09:15</time>
+        <p>Tests passed.</p>
+      </li>
+      <li class="ui-critical">
+        <time datetime="2026-10-08T09:16">09:16</time>
+        <p>Deploy failed: health check timed out.</p>
+      </li>
+      <li aria-current="true">
+        <time datetime="2026-10-08T09:21">09:21</time>
+        <p>Rolled back.</p>
+      </li>
+    </ol>
+    <table class="ui-table ui-dense">
+      <caption>
+        Plans by rating
+      </caption>
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Rating</th>
+          <th>Reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Free</td>
+          <td>
+            <meter
+              aria-label="Rated 3.8 out of 5"
+              class="ui-rating ui-small"
+              max="5"
+              value="3.8"
+            ></meter>
+          </td>
+          <td>1,204</td>
+        </tr>
+        <tr>
+          <td>Pro</td>
+          <td>
+            <meter
+              aria-label="Rated 4.6 out of 5"
+              class="ui-rating ui-small"
+              max="5"
+              value="4.6"
+            ></meter>
+          </td>
+          <td>388</td>
+        </tr>
+        <tr>
+          <td>Team</td>
+          <td>
+            <meter
+              aria-label="Rated 4.2 out of 5"
+              class="ui-rating ui-small"
+              max="5"
+              value="4.2"
+            ></meter>
+          </td>
+          <td>97</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="stress" data-example="RightToLeft">
+  <h2>Right to left</h2>
+  <p>
+    The six components with <code>dir="rtl"</code>. The stepper, timeline,
+    bubbles, stars and chart should mirror, while the code keeps its digits left
+    to right.
+  </p>
+  <div class="stress-columns" dir="rtl" lang="ar">
+    <div class="stress-stack stress-wide-column">
+      <ol class="ui-stepper stress-feedback-steps" aria-label="خطوات الدفع">
+        <li><a href="#cart">السلة</a></li>
+        <li aria-current="step">الشحن</li>
+        <li>الدفع</li>
+      </ol>
+      <ol class="ui-timeline stress-feedback-timeline">
+        <li class="ui-success">
+          <time datetime="2026-10-01">١ أكتوبر</time>
+          <h3 class="ui-h6">تم الطلب</h3>
+        </li>
+        <li aria-current="step">
+          <time datetime="2026-10-03">٣ أكتوبر</time>
+          <h3 class="ui-h6">تم الشحن</h3>
+          <p>في الطريق من غوتنبرغ.</p>
+        </li>
+        <li>
+          <time datetime="2026-10-06">٦ أكتوبر</time>
+          <h3 class="ui-h6">التسليم</h3>
+        </li>
+      </ol>
+      <table
+        class="ui-bar-chart ui-small stress-feedback-chart"
+        style="--max: 9"
+      >
+        <caption>
+          عمليات النشر في اليوم
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">اليوم</th>
+            <th scope="col">عمليات النشر</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">الاثنين</th>
+            <td style="--value: 4">4</td>
+          </tr>
+          <tr>
+            <th scope="row">الثلاثاء</th>
+            <td style="--value: 7">7</td>
+          </tr>
+          <tr>
+            <th scope="row">الأربعاء</th>
+            <td style="--value: 9">9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ol aria-label="رسائل مع ليلى" class="ui-messages stress-feedback-thread">
+      <li class="ui-message">
+        <div aria-label="ليلى حداد" class="ui-avatar" role="img">ل</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>أرسلنا رمز التحقق. أدخله هنا للمتابعة.</p>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:02">14:02</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message ui-outgoing">
+        <div class="ui-bubble">
+          <p class="ui-header">أنت</p>
+          <label class="ui-text-field ui-one-time-code ui-grouped">
+            <span class="ui-label">رمز التحقق</span>
+            <span class="ui-field">
+              <input
+                autocomplete="one-time-code"
+                inputmode="numeric"
+                maxlength="6"
+                name="stress-feedback-rtl-code"
+                pattern="[0-9]{6}"
+                type="text"
+                value="4821"
+              />
+            </span>
+          </label>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:03">14:03</time>
+          </p>
+        </div>
+      </li>
+      <li class="ui-message">
+        <div aria-label="ليلى حداد" class="ui-avatar" role="img">ل</div>
+        <div class="ui-bubble">
+          <p class="ui-header">ليلى</p>
+          <p>شكراً! كيف كانت تجربتك؟</p>
+          <fieldset class="ui-rating">
+            <legend>قيّم المحادثة</legend>
+            <input
+              aria-label="بدون تقييم"
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="0"
+            />
+            <input
+              aria-label="نجمة واحدة"
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="1"
+            />
+            <input
+              aria-label="نجمتان"
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="2"
+            />
+            <input
+              aria-label="٣ نجوم"
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="3"
+            />
+            <input
+              aria-label="٤ نجوم"
+              checked
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="4"
+            />
+            <input
+              aria-label="٥ نجوم"
+              name="stress-feedback-rtl-rating"
+              type="radio"
+              value="5"
+            />
+          </fieldset>
+          <p class="ui-footer">
+            <time datetime="2026-10-08T14:04">14:04</time>
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>

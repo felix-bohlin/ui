@@ -7,7 +7,7 @@
     color="success"
     datetime="2026-10-01"
     time="Oct 1"
-    title="Ordered"
+    heading="Ordered"
   >
     {#snippet marker()}<svg
         aria-hidden="true"
@@ -26,7 +26,7 @@
     color="success"
     datetime="2026-10-02"
     time="Oct 2"
-    title="Packed"
+    heading="Packed"
   >
     {#snippet marker()}<svg
         aria-hidden="true"
@@ -45,7 +45,7 @@
     color="success"
     datetime="2026-10-03"
     time="Oct 3"
-    title="Shipped"
+    heading="Shipped"
   >
     {#snippet marker()}<svg
         aria-hidden="true"
@@ -61,5 +61,7 @@
       >{/snippet}
     <p>On its way from Gothenburg.</p>
   </TimelineItem>
-  <TimelineItem datetime="2026-10-06" time="Oct 6" title="Delivered" />
+  <TimelineItem datetime="2026-10-06" time="Oct 6" heading="Delivered">
+    <p>Expected</p>
+  </TimelineItem>
 </Timeline>

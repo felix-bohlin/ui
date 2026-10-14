@@ -172,7 +172,10 @@ export function computeEngineBrowserSupport(
 
 export function computeFeatureSupport(featureId: string) {
   const feature = featureOf(featureId)
-  const baseline: "high" | "low" | false = feature?.status?.baseline ?? false
+  const baseline: "high" | "low" | false =
+    (["high", "low"] as const).find(
+      (level) => level === feature?.status?.baseline,
+    ) ?? false
 
   return {
     baseline,

@@ -1,5 +1,5 @@
 @layer components.extended {
-  .ui-one-time-code:where(.ui-text-field) {
+  :where(.ui-one-time-code) {
     --_box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
     --_box-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3CclipPath id='c'%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8'/%3E%3C/clipPath%3E%3Crect x='12.5%25' width='75%25' height='100%25' rx='8' clip-path='url(%23c)' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E");
     --_cell: min(var(--_max-cell), 100cqi / (var(--_length) - 0.25));
@@ -7,6 +7,7 @@
     --_dash-color: var(--text-muted);
     --_font-size: var(--font-size-3);
     --_length: 6;
+    --_line-width: calc(var(--border-width) * 2);
     --_max-cell: round(
       max(var(--_min-height) * 1.2, var(--_font-size) * 1.6),
       8px
@@ -49,7 +50,7 @@
     .ui-field input {
       background: var(--_dash)
         calc(var(--_length) * var(--_cell) / 2 - var(--_cell) / 16) 50% /
-        calc(var(--_cell) / 8) 2px no-repeat;
+        calc(var(--_cell) / 8) var(--_line-width) no-repeat;
       caret-color: var(--_accent);
       font-family: var(--font-mono);
       font-variant-numeric: tabular-nums;

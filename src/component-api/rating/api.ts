@@ -40,7 +40,7 @@ export default {
     },
     {
       description:
-        "The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label.",
+        "The `<legend>` of the input, or the `aria-label` of the meter. Required. Include the score in a meter label.",
       prop: "label",
     },
     {
@@ -55,6 +55,12 @@ export default {
       description:
         "Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.",
       prop: "name",
+    },
+    {
+      description: "Called when a star or the no rating radio is picked.",
+      frameworks: ["react"],
+      prop: "onChange",
+      type: "ChangeEventHandler<HTMLInputElement>",
     },
     {
       attribute: "[required]",

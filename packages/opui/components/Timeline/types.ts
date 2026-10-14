@@ -2,9 +2,9 @@ export type TimelineItemProps = {
   color?: "critical" | "info" | "neutral" | "success" | "warning"
   current?: boolean | "date" | "step" | "time"
   datetime?: string
+  heading?: string
   headingLevel?: 2 | 3 | 4 | 5 | 6
   time?: string
-  title?: string
 }
 
 export type Entry = TimelineItemProps & {

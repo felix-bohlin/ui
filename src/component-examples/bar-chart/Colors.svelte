@@ -12,7 +12,7 @@
 </script>
 
 <BarChart
-  caption="Response time by region (ms)"
+  caption="Response time by region (ms). London is over the 120 ms target, Stockholm over the 200 ms limit."
   label="Region"
   {rows}
   series={["Response time"]}

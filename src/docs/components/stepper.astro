@@ -24,6 +24,7 @@ export const description =
     "alt-text-generated-content",
     "container-queries",
     "container-style-queries",
+    "counters",
     "has",
     "masks",
     "relative-color",
@@ -91,6 +92,11 @@ export const description =
         Every step before it is complete, so moving that one attribute updates
         the whole stepper. Link the completed steps so people can go back.</Fragment
       >
+      <Fragment slot="react"
+        >Set <code>current</code> to the index of the current step, from 0. Every
+        step before it is complete. Completed steps with an <code>href</code> render
+        a link back, the current and later steps render text.</Fragment
+      >
       <Fragment slot="svelte"
         >Set <code>current</code> to the index of the current step, from 0. Every
         step before it is complete. Completed steps with an <code>href</code> render
@@ -117,6 +123,11 @@ export const description =
       <Fragment slot="html"
         >Add <code>.ui-complete</code> and leave out <code>aria-current</code> to
         mark every step complete.</Fragment
+      >
+      <Fragment slot="react"
+        >Set <code>current</code> to the number of steps, or set <code
+          >complete</code
+        >, to mark every step complete.</Fragment
       >
       <Fragment slot="svelte"
         >Set <code>current</code> to the number of steps, or set <code
@@ -151,6 +162,9 @@ export const description =
       <Fragment slot="html"
         >Add a <code>&lt;span class="ui-description"&gt;</code> after the label for
         a short line under it.</Fragment
+      >
+      <Fragment slot="react"
+        >Give a step a <code>description</code> for a short line under its label.</Fragment
       >
       <Fragment slot="svelte"
         >Give a step a <code>description</code> for a short line under its label.</Fragment
@@ -189,6 +203,15 @@ export const description =
           >&lt;span class="ui-check" aria-hidden="true"&gt;</code
         > first in each <code>li</code>. It shows on completed steps in place of
         the default check, in the marker's text color.</Fragment
+      >
+      <Fragment slot="react"
+        >To use your own icon component, pass it to the <code>check</code> prop. The
+        stepper renders it in a <code>.ui-check</code> in every step, hidden from
+        screen readers, and shows it on the completed ones. Steps you write in <code
+          >children</code
+        > need their own <code
+          >&lt;span class="ui-check" aria-hidden="true"&gt;</code
+        >.</Fragment
       >
       <Fragment slot="svelte"
         >To use your own icon component, pass it to the <code>check</code> snippet.
@@ -233,7 +256,7 @@ export const description =
       Browsers without container queries keep it horizontal, and the steps wrap.
     </p>
 
-    <AutoExample name="Responsive" />
+    <AutoExample name="Narrow" />
   </section>
 
   <section>
@@ -251,6 +274,12 @@ export const description =
         whole language with <code>:lang()</code>. The stepper follows the text
         direction.</Fragment
       >
+      <Fragment slot="react"
+        >Screen readers announce a completed step as "Completed: Cart".
+        Translate it with <code>completedLabel</code>, or for a whole language
+        with <code>--_completed-label</code> and <code>:lang()</code>, as below.
+        The stepper follows the text direction.</Fragment
+      >
       <Fragment slot="svelte"
         >Screen readers announce a completed step as "Completed: Cart".
         Translate it with <code>completedLabel</code>, or for a whole language
@@ -265,7 +294,7 @@ export const description =
       >
     </Conditional>
 
-    <AutoExample name="Translated" />
+    <AutoExample name="CompletedLabel" />
   </section>
 
   <Fragment slot="accessibility">
@@ -279,6 +308,7 @@ export const description =
       <Fragment slot="html"
         >Give it a name with <code>aria-label</code>.</Fragment
       >
+      <Fragment slot="react">Give it a name with <code>label</code>.</Fragment>
       <Fragment slot="svelte">Give it a name with <code>label</code>.</Fragment>
       <Fragment slot="vue">Give it a name with <code>label</code>.</Fragment>
     </Conditional>
@@ -299,6 +329,33 @@ export const description =
         >CanvasText</code
       >, the current marker gets a <code>Highlight</code> border, and the lines to
       later steps are <code>GrayText</code>.
+    </p>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>ol.ui-stepper</code> is a flex row of equal <code>li</code> grids and
+      an inline-size container named <code>ui-stepper</code>. <code
+        >li::before</code
+      > is the marker, printing <code>counter(ui-stepper)</code>, and <code
+        >li:not(:last-child)::after</code
+      > the connector to the next step.
+    </p>
+    <p>
+      <code>li:has(~ [aria-current="step"])</code> and <code
+        >.ui-complete &gt; li</code
+      > mark the completed steps: the marker fills with <code
+        >--_complete-color</code
+      > and cuts <code>--_check-icon</code> out of it with <code
+        >mask-composite: exclude</code
+      >, and <code>content: "✓" / var(--_completed-label)</code> gives it the "Completed:
+      " alternative text. A <code>.ui-check</code> child turns the mask off and shows
+      instead.
+    </p>
+    <p>
+      <code>@container ui-stepper (inline-size &lt; 32rem)</code> gives every step
+      the full row and turns the connector into an absolutely positioned vertical
+      line, the same layout as <code>.ui-vertical</code>.
     </p>
   </Fragment>
 </Component>

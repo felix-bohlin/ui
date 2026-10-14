@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createGrid } from "./model"
+  import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
@@ -61,9 +62,6 @@
   const toolbar = $derived(
     !!actions || grid.filters.length > 0 || densityToggle || columnsMenu,
   )
-  const mergedStyle = $derived(
-    [grid.style, style].filter(Boolean).join("; ") || undefined,
-  )
   const densities = ["dense", "standard", "spacious"] as const
   const directions = ["asc", "desc"] as const
 </script>
@@ -77,10 +75,10 @@
       "ui-resizable": resizable,
       "ui-wrap": wrap,
     },
-    !densityToggle && density && density !== "standard" && `ui-${density}`,
+    !densityToggle && density && `ui-${density}`,
     className,
   ]}
-  style={mergedStyle}
+  style={mergeStyle(grid.vars, style)}
   {...rest}
 >
   {#if toolbar}
@@ -211,6 +209,7 @@
                   <label>
                     <input
                       checked={grid.sorted(column, direction)}
+                      class="ui-sr-only"
                       id={`${sortName}-${column.position}-${direction}`}
                       name={sortName}
                       type="radio"

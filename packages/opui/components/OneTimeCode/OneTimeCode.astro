@@ -59,7 +59,7 @@ const describedBy =
     <input
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : undefined}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
       autocapitalize={autocapitalize ??
         (alphanumeric ? "characters" : undefined)}
       autocomplete={autocomplete}

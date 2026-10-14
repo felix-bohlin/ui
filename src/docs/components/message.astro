@@ -8,6 +8,9 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import {
   Avatar as UIAvatar,
   Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  CalloutTitle as UICalloutTitle,
   Message as UIMessage,
   Messages as UIMessages,
 } from "@opui/astro"
@@ -32,14 +35,20 @@ export const description =
     { title: "Message API", api: messageApi },
   ]}
   browserSupport={[
+    "alt-text-generated-content",
     "anchor-positioning",
     "attr",
+    "color-mix",
     "container-queries",
     "container-style-queries",
     "corner-shape",
+    "counters",
     "has",
     "invoker-commands",
+    "lh",
+    "overlay",
     "popover",
+    "relative-color",
     "starting-style",
   ]}
   changelogPaths={[
@@ -121,6 +130,11 @@ export const description =
           >outgoing</code
         > on the messages you sent.</Fragment
       >
+      <Fragment slot="react"
+        >Put each <code>Message</code> in <code>Messages</code>. Set <code
+          >outgoing</code
+        > on the messages you sent.</Fragment
+      >
       <Fragment slot="svelte"
         >Put each <code>Message</code> in <code>Messages</code>. Set <code
           >outgoing</code
@@ -176,6 +190,12 @@ export const description =
           >mine</code
         > marks your own reaction.</Fragment
       >
+      <Fragment slot="react"
+        ><code>reactions</code> renders a pill per reaction, a checkbox that toggles
+        right away. <code>count</code> is the total from your server, and <code
+          >mine</code
+        > marks your own reaction.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>reactions</code> renders a pill per reaction, a checkbox that toggles
         right away. <code>count</code> is the total from your server, and <code
@@ -205,6 +225,10 @@ export const description =
         holds every reaction of the message.</Fragment
       >
       <Fragment slot="astro"
+        ><code>picker</code> adds a button that opens a popover form of emoji buttons.
+        It shows on hover and focus, and always on touch screens.</Fragment
+      >
+      <Fragment slot="react"
         ><code>picker</code> adds a button that opens a popover form of emoji buttons.
         It shows on hover and focus, and always on touch screens.</Fragment
       >
@@ -243,6 +267,10 @@ export const description =
         ><code>Message</code> renders checkbox pills. Write this markup yourself for
         button pills.</Fragment
       >
+      <Fragment slot="react"
+        ><code>Message</code> renders checkbox pills. Write this markup yourself for
+        button pills.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>Message</code> renders checkbox pills. Write this markup yourself for
         button pills.</Fragment
@@ -267,6 +295,10 @@ export const description =
         ><code>typing</code> shows animated dots in the bubble. The default slot is
         the status text for screen readers.</Fragment
       >
+      <Fragment slot="react"
+        ><code>typing</code> shows animated dots in the bubble. The children are the
+        status text for screen readers.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>typing</code> shows animated dots in the bubble. The children are the
         status text for screen readers.</Fragment
@@ -282,13 +314,19 @@ export const description =
   </section>
 
   <section>
-    <h2 id="rtl">Right to left</h2>
+    <h2 id="right-to-left">Right to left</h2>
     <Conditional as="p">
       <Fragment slot="html"
         >Sides, corners and reactions follow <code>dir</code>. Translate the
         labels with <code>aria-label</code>.</Fragment
       >
       <Fragment slot="astro"
+        >Sides, corners and reactions follow <code>dir</code>. Translate the
+        labels with <code>label</code>, <code>pickerLabel</code> and <code
+          >reactionsLabel</code
+        >.</Fragment
+      >
+      <Fragment slot="react"
         >Sides, corners and reactions follow <code>dir</code>. Translate the
         labels with <code>label</code>, <code>pickerLabel</code> and <code
           >reactionsLabel</code
@@ -335,14 +373,47 @@ export const description =
     </p>
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <Fragment slot="title">Browser support</Fragment>
-        <p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <UICalloutTitle>Browser support</UICalloutTitle>
           Without <code>:has()</code>, messages don't group and your reaction
           isn't highlighted. Without anchor positioning, the picker opens in the
           middle of the screen.
-        </p>
+        </UICalloutContent>
       </UICallout>
     </div>
+  </Fragment>
+
+  <Fragment slot="under-the-hood">
+    <p>
+      <code>.ui-messages</code> is an inline-size container, so a bubble is at most
+      <code>min(36rem, 85cqi)</code> wide. Each <code>.ui-message</code> is a grid
+      with <code>avatar</code>, <code>bubble</code>, <code>add</code> and <code
+        >reactions</code
+      > areas, mirrored by <code>.ui-outgoing</code>.
+    </p>
+    <p>
+      Runs are selectors. <code
+        >.ui-message:has(+ .ui-message:not(.ui-outgoing, .ui-new-author))</code
+      > tightens the bottom corners and hides the avatar of a message followed by
+      one from the same side, and <code>.ui-message + .ui-message</code> tightens
+      the top corners and visually hides <code>.ui-header</code> on the one that follows.
+    </p>
+    <p>
+      <code>.ui-reaction::after</code> prints <code>data-count</code> with <code
+        >attr()</code
+      >. With typed <code>attr()</code> it is a counter instead, which <code
+        >:has(input[checked]:not(:checked))</code
+      > decrements and <code>:has(input:not([checked]):checked)</code> increments.
+      <code>.ui-reaction-picker</code> is a popover placed with <code
+        >position-area</code
+      > and <code>position-try-fallbacks</code>, and transitions from <code
+        >@starting-style</code
+      > with <code>allow-discrete</code>. The typing dots are three radial
+      gradients on <code>.ui-bubble::before</code>, held still by <code
+        >@container style(--motion: 0)</code
+      >.
+    </p>
   </Fragment>
 </Component>
 

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
+    "aria-describedby": ariaDescribedBy,
     class: className,
     clearLabel = "No rating",
     disabled,
@@ -19,8 +21,6 @@
 
   const count = $derived(Number(max))
   const stars = $derived(Array.from({ length: count }, (_, index) => index + 1))
-  const current = $derived(Number(value))
-  const invalid = $derived(error ? { "aria-invalid": "true" as const } : {})
 </script>
 
 {#if name}
@@ -30,42 +30,39 @@
     {style}
     {...rest}
   >
-    {#if label}
-      <legend>{label}</legend>
-    {/if}
+    <legend>{label}</legend>
     {#if !required}
       <input
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
         aria-label={clearLabel}
-        checked={current === 0}
+        bind:group={value}
         {name}
-        onchange={() => (value = 0)}
         type="radio"
-        value="0"
-        {...invalid}
+        value={0}
       />
     {/if}
     {#each stars as star (star)}
       <input
+        aria-describedby={ariaDescribedBy}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
         aria-label={starLabel(star)}
-        checked={current === star}
+        bind:group={value}
         {name}
-        onchange={() => (value = star)}
         {required}
         type="radio"
         value={star}
-        {...invalid}
       />
     {/each}
   </fieldset>
 {:else}
   <meter
+    aria-describedby={ariaDescribedBy}
     aria-label={label}
     class={["ui-rating", size && `ui-${size}`, className]}
     {max}
-    style={[count === 5 ? undefined : `--_max: ${count};`, style]
-      .filter(Boolean)
-      .join(" ") || undefined}
-    {value}
+    style={mergeStyle({ "--_max": count === 5 ? undefined : count }, style)}
+    value={value ?? 0}
     {...rest}
   ></meter>
 {/if}

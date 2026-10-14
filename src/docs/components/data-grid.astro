@@ -6,7 +6,15 @@ import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import DataGridBuild from "../../components/UnderTheHood/DataGridBuild.astro"
 import Code from "../../components/Code.astro"
-import { DataGrid as UIDataGrid, Table, Callout } from "@opui/astro"
+import {
+  DataGrid as UIDataGrid,
+  Table as UITable,
+  TableBody as UITableBody,
+  TableCell as UITableCell,
+  TableHead as UITableHead,
+  TableHeaderCell as UITableHeaderCell,
+  TableRow as UITableRow,
+} from "@opui/astro"
 import type { DataGridRow } from "@opui/astro"
 
 import DataGridCSS from "@opui/css/components/data-grid.css?raw"
@@ -15,7 +23,7 @@ import dataGridApi from "../../component-api/data-grid/api"
 import { people } from "../../component-examples/data-grid/data"
 
 export const description =
-  "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only."
+  "A data grid with sorting, filtering, selection, pinned columns and detail panels. No JavaScript needed."
 
 const anatomyColumns = [
   { key: "name", label: "Name", rowHeader: true, sortable: true },
@@ -190,16 +198,8 @@ const techniques = [
     panels without JavaScript. For static data, see <DocLink
       class="ui-link"
       href="/components/table">Table</DocLink
-    >.
+    >. <a href="#under-the-hood">Under the hood</a> explains the CSS behind it.
   </Fragment>
-
-  <Callout>
-    <Fragment slot="title">This is SO COOL!</Fragment>
-    <p>
-      Don't miss the <a href="#under-the-hood">Under the hood</a> section to see how
-      it works!
-    </p>
-  </Callout>
 
   <Fragment slot="anatomy">
     <Anatomy>
@@ -232,6 +232,10 @@ const techniques = [
         ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
         column widths are shared across the header, body and totals.</Fragment
       >
+      <Fragment slot="react"
+        ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
+        column widths are shared across the header, body and totals.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
         column widths are shared across the header, body and totals.</Fragment
@@ -254,6 +258,10 @@ const techniques = [
       >
       <Fragment slot="astro"
         >A <code>cell-[key]</code> slot with a function renders a column's cells.</Fragment
+      >
+      <Fragment slot="react"
+        ><code>cells</code> takes a render function per column <code>key</code>,
+        which gets the row and the column.</Fragment
       >
       <Fragment slot="svelte"
         ><code>cells</code> takes a snippet per column <code>key</code>, which
@@ -279,6 +287,10 @@ const techniques = [
         ><code>sortable</code> on a column, and <code>sort</code> for the initial
         sort.</Fragment
       >
+      <Fragment slot="react"
+        ><code>sortable</code> on a column, and <code>sort</code> for the initial
+        sort.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>sortable</code> on a column, and <code>sort</code> for the initial
         sort.</Fragment
@@ -300,6 +312,10 @@ const techniques = [
         order and stays with the row when a filter hides others.</Fragment
       >
       <Fragment slot="astro"
+        ><code>numbered</code>. The number follows the sort order and stays with
+        the row when a filter hides others.</Fragment
+      >
+      <Fragment slot="react"
         ><code>numbered</code>. The number follows the sort order and stays with
         the row when a filter hides others.</Fragment
       >
@@ -328,6 +344,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
       >
+      <Fragment slot="react"
+        ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
       >
@@ -351,6 +370,15 @@ const techniques = [
       >
       <Fragment slot="astro"
         >An <code>actions</code> slot only shows while rows are selected.{" "}
+        <code>rowKey</code> names the checkboxes and editable inputs, such as{
+          " "
+        }
+        <code>selected=ada</code> and <code>role[ada]</code>, and{" "}
+        <code>form</code> ties them to a form, so a reset button clears the selection
+        without touching sorting or filters.</Fragment
+      >
+      <Fragment slot="react"
+        >An <code>actions</code> prop only shows while rows are selected.{" "}
         <code>rowKey</code> names the checkboxes and editable inputs, such as{
           " "
         }
@@ -397,6 +425,12 @@ const techniques = [
         }
         <code>"selected"</code>.</Fragment
       >
+      <Fragment slot="react"
+        ><code>filters</code>. A filter's <code>match</code> is a function, or{
+          " "
+        }
+        <code>"selected"</code>.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>filters</code>. A filter's <code>match</code> is a function, or{
           " "
@@ -425,6 +459,10 @@ const techniques = [
         ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
         out.</Fragment
       >
+      <Fragment slot="react"
+        ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
+        out.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
         out.</Fragment
@@ -449,6 +487,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
       >
+      <Fragment slot="react"
+        ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
       >
@@ -468,6 +509,9 @@ const techniques = [
         <code>.ui-density</code>.</Fragment
       >
       <Fragment slot="astro"
+        ><code>density</code>, and <code>densityToggle</code> to switch it.</Fragment
+      >
+      <Fragment slot="react"
         ><code>density</code>, and <code>densityToggle</code> to switch it.</Fragment
       >
       <Fragment slot="svelte"
@@ -490,6 +534,11 @@ const techniques = [
         fits the column to its content.</Fragment
       >
       <Fragment slot="astro"
+        >Columns share the space and never get narrower than their content.{" "}
+        <code>width</code> sets a track size, and <code>fit</code> fits the column
+        to its content.</Fragment
+      >
+      <Fragment slot="react"
         >Columns share the space and never get narrower than their content.{" "}
         <code>width</code> sets a track size, and <code>fit</code> fits the column
         to its content.</Fragment
@@ -518,6 +567,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>resizable</code>. Drag the corner of a header.</Fragment
       >
+      <Fragment slot="react"
+        ><code>resizable</code>. Drag the corner of a header.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>resizable</code>. Drag the corner of a header.</Fragment
       >
@@ -538,6 +590,11 @@ const techniques = [
         is more to scroll.</Fragment
       >
       <Fragment slot="astro"
+        ><code>pinStart</code> and <code>pinEnd</code>, and{" "}
+        <code>maxBlockSize</code> for a sticky header. Shadows show when there is
+        more to scroll.</Fragment
+      >
+      <Fragment slot="react"
         ><code>pinStart</code> and <code>pinEnd</code>, and{" "}
         <code>maxBlockSize</code> for a sticky header. Shadows show when there is
         more to scroll.</Fragment
@@ -567,6 +624,9 @@ const techniques = [
       <Fragment slot="astro"
         >A <code>detail</code> slot with a function.</Fragment
       >
+      <Fragment slot="react"
+        >A <code>detail</code> render function, which gets the row.</Fragment
+      >
       <Fragment slot="svelte"
         >A <code>detail</code> snippet, which gets the row.</Fragment
       >
@@ -583,6 +643,7 @@ const techniques = [
         >An <code>input</code> in a cell looks like text until hovered or focused.</Fragment
       >
       <Fragment slot="astro"><code>editable</code> on a column.</Fragment>
+      <Fragment slot="react"><code>editable</code> on a column.</Fragment>
       <Fragment slot="svelte"><code>editable</code> on a column.</Fragment>
       <Fragment slot="vue"><code>editable</code> on a column.</Fragment>
     </Conditional>
@@ -598,6 +659,7 @@ const techniques = [
         <code>grid-column</code> span.</Fragment
       >
       <Fragment slot="astro"><code>columnGroups</code>.</Fragment>
+      <Fragment slot="react"><code>columnGroups</code>.</Fragment>
       <Fragment slot="svelte"><code>columnGroups</code>.</Fragment>
       <Fragment slot="vue"><code>column-groups</code>.</Fragment>
     </Conditional>
@@ -618,6 +680,9 @@ const techniques = [
       <Fragment slot="astro"
         ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
       >
+      <Fragment slot="react"
+        ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
+      >
       <Fragment slot="svelte"
         ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
       >
@@ -636,6 +701,7 @@ const techniques = [
         ><code>aria-busy="true"</code> on the table.</Fragment
       >
       <Fragment slot="astro"><code>loading</code>.</Fragment>
+      <Fragment slot="react"><code>loading</code>.</Fragment>
       <Fragment slot="svelte"><code>loading</code>.</Fragment>
       <Fragment slot="vue"><code>loading</code>.</Fragment>
     </Conditional>
@@ -652,6 +718,9 @@ const techniques = [
       <Fragment slot="astro"
         >The <code>empty</code> slot replaces the text shown when no rows match.</Fragment
       >
+      <Fragment slot="react"
+        >The <code>empty</code> prop replaces the text shown when no rows match.</Fragment
+      >
       <Fragment slot="svelte"
         >The <code>empty</code> snippet replaces the text shown when no rows match.</Fragment
       >
@@ -664,14 +733,14 @@ const techniques = [
   </section>
 
   <section>
-    <h2 id="rtl">Right to left</h2>
+    <h2 id="right-to-left">Right to left</h2>
     <p>
       {" "}
       <code>dir="rtl"</code> mirrors pinned columns, scroll shadows, sort arrows and
       the detail toggle.
     </p>
 
-    <AutoExample name="RTL" />
+    <AutoExample name="RightToLeft" />
   </section>
 
   <section>
@@ -692,29 +761,29 @@ const techniques = [
       root: the root is a size container, and its style containment would scope
       them away from the footer.
     </p>
-    <Table>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Feature</Table.HeaderCell>
-          <Table.HeaderCell>How</Table.HeaderCell>
-          <Table.HeaderCell>CSS</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
+    <UITable>
+      <UITableHead>
+        <UITableRow>
+          <UITableHeaderCell>Feature</UITableHeaderCell>
+          <UITableHeaderCell>How</UITableHeaderCell>
+          <UITableHeaderCell>CSS</UITableHeaderCell>
+        </UITableRow>
+      </UITableHead>
+      <UITableBody>
         {
           techniques.map(([feature, how, css]) => (
-            <Table.Row>
-              <Table.Cell>{feature}</Table.Cell>
-              <Table.Cell>{how}</Table.Cell>
-              <Table.Cell>
+            <UITableRow>
+              <UITableCell>{feature}</UITableCell>
+              <UITableCell>{how}</UITableCell>
+              <UITableCell>
                 {" "}
                 <code>{css}</code>
-              </Table.Cell>
-            </Table.Row>
+              </UITableCell>
+            </UITableRow>
           ))
         }
-      </Table.Body>
-    </Table>
+      </UITableBody>
+    </UITable>
 
     <h3 id="pinned-columns-and-shadows">Pinned columns and scroll shadows</h3>
     <p>
@@ -778,10 +847,12 @@ const techniques = [
 
   <Fragment slot="accessibility">
     <p>
-      Uses ARIA table roles, and the table scrolls with the keyboard. Every
-      control is a native checkbox, radio or input with a name. CSS can't update{
-        " "
-      }
+      Uses ARIA table roles, and the table scrolls with the keyboard. Sorting,
+      filtering, selection, density and column visibility are native radios,
+      checkboxes and inputs with a name. The header menu items are labels for
+      the sort radios and column checkboxes, so keyboard users sort with the
+      arrows in the header and hide columns in the Columns menu. CSS can't
+      update{" "}
       <code>aria-sort</code>, and sorting changes the visual order, so{" "}
       <code>reading-flow</code> keeps the reading and focus order in step where supported.
     </p>

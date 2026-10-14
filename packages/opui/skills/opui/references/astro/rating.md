@@ -171,18 +171,18 @@ Radios get the library's focus ring. Each input star is at least 24px wide. In f
 
 ### Rating API
 
-| Prop         | Type                                       | Default                           | Description                                                                                        |
-| ------------ | ------------------------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `clearLabel` | `string`                                   | `"No rating"`                     | Accessible name of the radio that clears the rating. Not rendered with `required`.                 |
-| `disabled`   | `boolean`                                  | `false`                           | Disables the input.                                                                                |
-| `error`      | `boolean`                                  | `false`                           | Marks the radios invalid and tints the empty stars.                                                |
-| `label`      | `string`                                   | -                                 | The `<legend>` of the input, or the `aria-label` of the meter. Include the score in a meter label. |
-| `max`        | `string` , `number`                        | `5`                               | Number of stars.                                                                                   |
-| `name`       | `string`                                   | -                                 | Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.     |
-| `required`   | `boolean`                                  | `false`                           | Requires a star and drops the no rating radio.                                                     |
-| `size`       | `"small"` , `"large"`                      | -                                 | The size of the element.                                                                           |
-| `starLabel`  | `((value: number) => string) \| undefined` | `(value) => "1 star", "2 stars"…` | Returns the accessible name of each star radio. Use it to translate.                               |
-| `value`      | `number` , `string`                        | -                                 | The score of the meter, fractions included, or the checked star of the input.                      |
+| Prop         | Type                                       | Default                           | Description                                                                                                  |
+| ------------ | ------------------------------------------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `clearLabel` | `string`                                   | `"No rating"`                     | Accessible name of the radio that clears the rating. Not rendered with `required`.                           |
+| `disabled`   | `boolean`                                  | `false`                           | Disables the input.                                                                                          |
+| `error`      | `boolean`                                  | `false`                           | Marks the radios invalid and tints the empty stars.                                                          |
+| `label`      | `string`                                   | -                                 | The `<legend>` of the input, or the `aria-label` of the meter. Required. Include the score in a meter label. |
+| `max`        | `string` , `number`                        | `5`                               | Number of stars.                                                                                             |
+| `name`       | `string`                                   | -                                 | Renders the input: a `<fieldset>` of radios with this name. Without it, a read-only `<meter>`.               |
+| `required`   | `boolean`                                  | `false`                           | Requires a star and drops the no rating radio.                                                               |
+| `size`       | `"small"` , `"large"`                      | -                                 | The size of the element.                                                                                     |
+| `starLabel`  | `((value: number) => string) \| undefined` | `(value) => "1 star", "2 stars"…` | Returns the accessible name of each star radio. Use it to translate.                                         |
+| `value`      | `number` , `string`                        | -                                 | The score of the meter, fractions included, or the checked star of the input.                                |
 
 #### CSS variables
 
@@ -195,7 +195,7 @@ Radios get the library's focus ring. Each input star is at least 24px wide. In f
 | `--field-label-font-size`   | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                               |
 | `--field-label-font-weight` | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                      |
 | `--field-required-color`    | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                           |
-| `--focus-ring-color`        | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`        | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-offset`       | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`        | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
 | `--focus-ring-width`        | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                  |
@@ -205,12 +205,23 @@ Radios get the library's focus ring. Each input star is at least 24px wide. In f
 | `--invalid-text-color`      | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                 |
 | `--motion`                  | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 | `--orange`                  | `oklch(from var(--color-7) l 0.2 75)`                                                   | A literal orange derived from the palette lightness. No severity meaning.                                                                                                                                 |
+| `--rating-size`             | `calc(var(--size-6) * var(--density))`                                                  | Default `Rating` star size when it collects a rating.                                                                                                                                                     |
+| `--rating-size-large`       | `calc(var(--size-7) * var(--density))`                                                  | `Rating` star size with `.ui-large`.                                                                                                                                                                      |
+| `--rating-size-small`       | `calc(var(--size-5) * var(--density))`                                                  | `Rating` star size with `.ui-small`.                                                                                                                                                                      |
 | `--text-muted`              | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                          |
 | `--text-primary`            | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 Without `name`, it renders a `<meter>` and other attributes go to it. With `name`, they go to the `<fieldset>`.
+
+## Under the hood
+
+The meter and the radios draw their stars with one SVG `--_star` mask. `meter.ui-rating` is `attr(max type(<number>), var(--_max, 5))` stars wide and masked with `repeat-x`, so the browser's own fill (`::-webkit-meter-optimum-value`, `::-moz-meter-bar`) shows through as filled stars, down to a fraction of one.
+
+In `fieldset.ui-rating` each radio is `appearance: none` with the star in `input::before`. `input:is(:checked, :has(~ :checked))` fills every star up to the checked one, and under `(hover: hover)` `input:is(:hover, :has(~ input:hover))` previews a rating instead. `input[value="0"]` is the clear icon.
+
+The count after the stars is `fieldset::after` printing two counters, `ui-rating`, incremented by the filled stars, and `ui-rating-max`, by every star but the clear radio, with empty alternative text so it isn't read.
 
 ## Browser support
 

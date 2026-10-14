@@ -1,13 +1,13 @@
 ---
-import { Timeline } from "@opui/astro"
+import { Timeline, TimelineItem } from "@opui/astro"
 ---
 
 <Timeline>
-  <Timeline.Item
+  <TimelineItem
     color="success"
     datetime="2026-10-01"
     time="Oct 1"
-    title="Ordered"
+    heading="Ordered"
   >
     <svg
       slot="marker"
@@ -22,12 +22,12 @@ import { Timeline } from "@opui/astro"
       stroke-linecap="round"
       stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
     >
-  </Timeline.Item>
-  <Timeline.Item
+  </TimelineItem>
+  <TimelineItem
     color="success"
     datetime="2026-10-02"
     time="Oct 2"
-    title="Packed"
+    heading="Packed"
   >
     <svg
       slot="marker"
@@ -42,12 +42,12 @@ import { Timeline } from "@opui/astro"
       stroke-linecap="round"
       stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
     >
-  </Timeline.Item>
-  <Timeline.Item
+  </TimelineItem>
+  <TimelineItem
     color="success"
     datetime="2026-10-03"
     time="Oct 3"
-    title="Shipped"
+    heading="Shipped"
   >
     <svg
       slot="marker"
@@ -63,6 +63,8 @@ import { Timeline } from "@opui/astro"
       stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg
     >
     <p>On its way from Gothenburg.</p>
-  </Timeline.Item>
-  <Timeline.Item datetime="2026-10-06" time="Oct 6" title="Delivered" />
+  </TimelineItem>
+  <TimelineItem datetime="2026-10-06" time="Oct 6" heading="Delivered">
+    <p>Expected</p>
+  </TimelineItem>
 </Timeline>

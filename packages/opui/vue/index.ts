@@ -107,7 +107,7 @@ export type {
   Props as CardProps,
 } from "../components/Card/types.d.vue"
 export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
-export type { CheckboxInputProps } from "../components/Checkbox/types"
+export type { CheckboxInputProps } from "../components/Checkbox/types.d.vue"
 export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
@@ -162,7 +162,7 @@ export type {
 export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.d.vue"
 
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
-export type { RadioInputProps } from "../components/Radio/types"
+export type { RadioInputProps } from "../components/Radio/types.d.vue"
 export type { RadioProps } from "../components/Radio/types.d.vue"
 export type { RangeProps } from "../components/Range/types.d.vue"
 export type { Props as RatingProps } from "../components/Rating/types.d.vue"
@@ -170,7 +170,7 @@ export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.d.vue"
 export type { StepperItem } from "../components/Stepper/types"
 export type { Props as StepperProps } from "../components/Stepper/types.d.vue"
-export type { SwitchInputProps } from "../components/Switch/types"
+export type { SwitchInputProps } from "../components/Switch/types.d.vue"
 export type { SwitchProps } from "../components/Switch/types.d.vue"
 export type {
   ColumnProps as TableColumnProps,

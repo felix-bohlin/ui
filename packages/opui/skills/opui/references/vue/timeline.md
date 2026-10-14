@@ -15,23 +15,23 @@ An ordered list of dated events with markers and a connecting line. The dates li
 
 - `<TimelineItem>`
 
-  An event. Content after the title goes in the content column.
+  An event. Content after the heading goes in the content column.
 
 - `time`
 
-  The date, in its own column. Above the title in narrow timelines.
+  The date, in its own column. Above the heading in narrow timelines.
 
 - `v-slot:marker`
 
   Optional custom marker, such as an icon. Replaces the dot.
 
-- `title`
+- `heading`
 
-  The title.
+  The heading.
 
 ## Basics
 
-Each `TimelineItem` takes a `time`, a `datetime` and a `title`, and its content in the default slot. The title is an `h3`. Set `headingLevel` to fit your page outline, or leave out `title` and put your own heading in the default slot.
+Each `TimelineItem` takes a `time`, a `datetime` and a `heading`, and its content in the default slot. The heading is an `h3`. Set `headingLevel` to fit your page outline, or leave out `heading` and put your own heading in the default slot.
 
 ```vue
 <script setup lang="ts">
@@ -40,16 +40,20 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 
 <template>
   <Timeline>
-    <TimelineItem datetime="2026-08-04" time="Aug 4, 2026" title="Bug fixes">
+    <TimelineItem datetime="2026-08-04" time="Aug 4, 2026" heading="Bug fixes">
       <p>Faster search and fewer duplicate notifications.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-09-12" time="Sep 12, 2026" title="Saved views">
+    <TimelineItem
+      datetime="2026-09-12"
+      time="Sep 12, 2026"
+      heading="Saved views"
+    >
       <p>Save filters and sorting as named views and share them with a link.</p>
     </TimelineItem>
     <TimelineItem
       datetime="2026-10-01"
       time="Oct 1, 2026"
-      title="Planning and a faster board"
+      heading="Planning and a faster board"
     >
       <p>
         Estimates from past work, and a board that renders three times faster.
@@ -76,7 +80,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="critical"
       datetime="2026-10-08T12:18"
       time="12:18"
-      title="Investigating"
+      heading="Investigating"
     >
       <p>Search is slower in eu-north.</p>
     </TimelineItem>
@@ -84,7 +88,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="warning"
       datetime="2026-10-08T13:40"
       time="13:40"
-      title="Identified"
+      heading="Identified"
     >
       <p>An index rebuild competes with live traffic.</p>
     </TimelineItem>
@@ -92,7 +96,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="info"
       datetime="2026-10-08T14:05"
       time="14:05"
-      title="Monitoring"
+      heading="Monitoring"
     >
       <p>Response times are back to normal.</p>
     </TimelineItem>
@@ -100,7 +104,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-08T15:30"
       time="15:30"
-      title="Resolved"
+      heading="Resolved"
     >
       <p>The rebuild finished. No data was lost.</p>
     </TimelineItem>
@@ -108,7 +112,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="neutral"
       datetime="2026-10-09T09:00"
       time="Oct 9"
-      title="Postmortem"
+      heading="Postmortem"
     >
       <p>A full report follows within a week.</p>
     </TimelineItem>
@@ -116,7 +120,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 </template>
 ```
 
-## Small
+## Sizes
 
 `size="small"` makes the markers and the spacing smaller, for logs and dense lists.
 
@@ -155,7 +159,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-01"
       time="Oct 1"
-      title="Ordered"
+      heading="Ordered"
     >
       <template #marker
         ><svg
@@ -177,7 +181,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-02"
       time="Oct 2"
-      title="Packed"
+      heading="Packed"
     >
       <template #marker
         ><svg
@@ -199,7 +203,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-03"
       time="Oct 3"
-      title="Shipped"
+      heading="Shipped"
     >
       <template #marker
         ><svg
@@ -218,7 +222,9 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       ></template>
       <p>On its way from Gothenburg.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-06" time="Oct 6" title="Delivered" />
+    <TimelineItem datetime="2026-10-06" time="Oct 6" heading="Delivered">
+      <p>Expected</p>
+    </TimelineItem>
   </Timeline>
 </template>
 ```
@@ -234,21 +240,21 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 
 <template>
   <Timeline>
-    <TimelineItem datetime="2026-09-02" time="Sep 2" title="Design freeze" />
+    <TimelineItem datetime="2026-09-02" time="Sep 2" heading="Design freeze" />
     <TimelineItem
       datetime="2026-09-16"
       time="Sep 16"
-      title="Feature complete"
+      heading="Feature complete"
     />
     <TimelineItem
       current="step"
       datetime="2026-10-14"
       time="Oct 14"
-      title="Beta review"
+      heading="Beta review"
     >
       <p>Moved from October 10.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-31" time="Oct 31" title="Launch" />
+    <TimelineItem datetime="2026-10-31" time="Oct 31" heading="Launch" />
   </Timeline>
 </template>
 ```
@@ -264,21 +270,21 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 
 <template>
   <Timeline progress>
-    <TimelineItem datetime="2026-09-02" time="Sep 2" title="Design freeze" />
+    <TimelineItem datetime="2026-09-02" time="Sep 2" heading="Design freeze" />
     <TimelineItem
       datetime="2026-09-16"
       time="Sep 16"
-      title="Feature complete"
+      heading="Feature complete"
     />
     <TimelineItem
       current="step"
       datetime="2026-10-14"
       time="Oct 14"
-      title="Beta review"
+      heading="Beta review"
     >
       <p>Moved from October 10.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-31" time="Oct 31" title="Launch" />
+    <TimelineItem datetime="2026-10-31" time="Oct 31" heading="Launch" />
   </Timeline>
 </template>
 ```
@@ -294,21 +300,21 @@ import { Timeline, TimelineItem } from "opui-css/vue"
 
 <template>
   <Timeline style="max-inline-size: 20rem">
-    <TimelineItem datetime="2026-09-02" time="Sep 2" title="Design freeze" />
+    <TimelineItem datetime="2026-09-02" time="Sep 2" heading="Design freeze" />
     <TimelineItem
       datetime="2026-09-16"
       time="Sep 16"
-      title="Feature complete"
+      heading="Feature complete"
     />
     <TimelineItem
       current="step"
       datetime="2026-10-14"
       time="Oct 14"
-      title="Beta review"
+      heading="Beta review"
     >
       <p>Moved from October 10.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-31" time="Oct 31" title="Launch" />
+    <TimelineItem datetime="2026-10-31" time="Oct 31" heading="Launch" />
   </Timeline>
 </template>
 ```
@@ -326,20 +332,20 @@ const releases = [
     datetime: "2026-04-02",
     description: "The first stable release.",
     time: "Apr 2, 2026",
-    title: "Version 1.0",
+    heading: "Version 1.0",
   },
   {
     datetime: "2026-06-18",
     description: "Dark mode and keyboard shortcuts.",
     time: "Jun 18, 2026",
-    title: "Version 1.1",
+    heading: "Version 1.1",
   },
   {
     current: true,
     datetime: "2026-10-01",
     description: "A new board and saved views.",
     time: "Oct 1, 2026",
-    title: "Version 2.0",
+    heading: "Version 2.0",
   },
 ]
 </script>
@@ -351,7 +357,7 @@ const releases = [
 
 ## Accessibility
 
-The timeline is an `ol`, so screen readers announce the number of events and the position of each. Add `reversed` when the newest event comes first.
+The timeline is an `ol`, so screen readers announce the number of events and the position of each. Put the items in the order you want them read; the list has no visible numbers, so `reversed` changes nothing.
 
 Put dates in a `<time>` with a `datetime` attribute. The dots and the line are drawn with pseudo-elements and aren't announced. Give icons in a custom marker `aria-hidden="true"`.
 
@@ -363,11 +369,11 @@ In forced colors mode the line and markers use system colors, colored markers ar
 
 ### Timeline API
 
-| Prop       | Type      | Default | Description                                                                                                                      |
-| ---------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `items`    | `Entry[]` | -       | The items, as `{ color, current, datetime, description, headingLevel, time, title }` objects. `description` renders a paragraph. |
-| `progress` | `boolean` | `false` | Colors the line and the plain markers before the current item with the primary color.                                            |
-| `size`     | `"small"` | -       | The size of the element.                                                                                                         |
+| Prop       | Type      | Default | Description                                                                                                                        |
+| ---------- | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `items`    | `Entry[]` | -       | The items, as `{ color, current, datetime, description, heading, headingLevel, time }` objects. `description` renders a paragraph. |
+| `progress` | `boolean` | `false` | Colors the line and the plain markers before the current item with the primary color.                                              |
+| `size`     | `"small"` | -       | The size of the element.                                                                                                           |
 
 #### Slots
 
@@ -377,15 +383,17 @@ In forced colors mode the line and markers use system colors, colored markers ar
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ### Timeline item API
 
@@ -394,9 +402,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `color`        | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -       | Optional colors. Fills the marker.                                                             |
 | `current`      | `boolean` , `"time"` , `"step"` , `"date"`                        | `false` | Marks the current item with a primary marker and a halo. `true` renders `aria-current="true"`. |
 | `datetime`     | `string`                                                          | -       | The machine-readable date or time.                                                             |
-| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`     | The heading level of the title.                                                                |
+| `heading`      | `string`                                                          | -       | The heading. Renders a heading element with `.ui-h6`.                                          |
+| `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`     | The level of the heading.                                                                      |
 | `time`         | `string`                                                          | -       | The visible date or time. Renders a `<time>`.                                                  |
-| `title`        | `string`                                                          | -       | The title. Renders a heading with `.ui-h6`.                                                    |
 
 #### Slots
 
@@ -407,15 +415,25 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable             | Default                                                                               | Description                                                                                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                             |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
+## Under the hood
+
+`ol.ui-timeline` is a grid with `[date] auto [marker] auto [content] minmax(0, 1fr)` columns, and each `li` spans it with `grid-template-columns: subgrid`, so every date shares one column. The `time` goes in the `date` column and everything else in `content`.
+
+`li::before` is the dot and `li:not(:last-child)::after` the line, both in the `marker` column. The dot is centered on the first line of text with `margin-block-start: calc((1lh - var(--_marker-size)) / 2)`, and the line starts and ends relative to the markers above and below it, which `li:has(+ li > .ui-marker)` sizes for a custom marker. A `.ui-marker` child replaces the dot with `content: none`.
+
+`li[aria-current]` fills the marker with `--primary` and a translucent `box-shadow` halo, and `.ui-with-progress > li:has(~ li[aria-current])` colors the line and the uncolored markers before it. The container query under `24rem` moves `time` into the `content` column.
 
 ## Browser support
 

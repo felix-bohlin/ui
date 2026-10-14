@@ -42,9 +42,9 @@
 @import "./components/list.css";
 @import "./components/menu.css";
 @import "./components/message.css";
-@import "./components/one-time-code.css";
 @import "./components/select.css";
 @import "./components/text-field.css";
+@import "./components/one-time-code.css";
 @import "./components/text-input.css";
 @import "./components/textarea.css";
 @import "./components/toast.css";

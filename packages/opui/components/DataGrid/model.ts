@@ -119,6 +119,22 @@ export function createGrid(
             `--_sum-${position(index)}: ${Math.round(Number(row[column.key]) || 0)}`,
         ]),
       ),
+    rowVars: (row: DataGridRow, rowIndex: number) =>
+      Object.fromEntries(
+        columns.flatMap((column, index) => [
+          ...(column.sortable
+            ? [[`--_rank-${position(index)}`, ranks.get(column.key)![rowIndex]]]
+            : []),
+          ...(column.sum
+            ? [
+                [
+                  `--_sum-${position(index)}`,
+                  Math.round(Number(row[column.key]) || 0),
+                ],
+              ]
+            : []),
+        ]),
+      ),
     sorted: (column: DataGridColumn, direction: "asc" | "desc") =>
       sort?.key === column.key && sort.direction === direction,
     style: declarations([
@@ -133,5 +149,13 @@ export function createGrid(
       numbered && "ui-row-number",
       expandable && "ui-expand",
     ].filter((name): name is string => !!name),
+    vars: {
+      ...Object.fromEntries(
+        columns.flatMap((column, index) =>
+          column.width ? [[`--_col-${position(index)}`, column.width]] : [],
+        ),
+      ),
+      "--_max-block-size": props.maxBlockSize,
+    },
   }
 }

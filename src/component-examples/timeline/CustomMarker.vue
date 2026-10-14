@@ -8,7 +8,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-01"
       time="Oct 1"
-      title="Ordered"
+      heading="Ordered"
     >
       <template #marker
         ><svg
@@ -30,7 +30,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-02"
       time="Oct 2"
-      title="Packed"
+      heading="Packed"
     >
       <template #marker
         ><svg
@@ -52,7 +52,7 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       color="success"
       datetime="2026-10-03"
       time="Oct 3"
-      title="Shipped"
+      heading="Shipped"
     >
       <template #marker
         ><svg
@@ -71,6 +71,8 @@ import { Timeline, TimelineItem } from "opui-css/vue"
       ></template>
       <p>On its way from Gothenburg.</p>
     </TimelineItem>
-    <TimelineItem datetime="2026-10-06" time="Oct 6" title="Delivered" />
+    <TimelineItem datetime="2026-10-06" time="Oct 6" heading="Delivered">
+      <p>Expected</p>
+    </TimelineItem>
   </Timeline>
 </template>

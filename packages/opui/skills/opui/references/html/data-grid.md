@@ -1,6 +1,6 @@
 # Data grid
 
-Sorting, filtering, selection, totals, pinned columns, resizing and detail panels without JavaScript. For static data, see [Table](https://open-props-ui.netlify.app/html/components/table.md).
+Sorting, filtering, selection, totals, pinned columns, resizing and detail panels without JavaScript. For static data, see [Table](https://open-props-ui.netlify.app/html/components/table.md). [Under the hood](#under-the-hood) explains the CSS behind it.
 
 ## Anatomy
 
@@ -52,7 +52,7 @@ selected rows
 
 - `.ui-filters`
 
-  Filter radios.
+  Filter radios, up to six custom filters.
 
 - `.ui-density`
 
@@ -88,7 +88,7 @@ selected rows
 
 - `[role="cell"]`
 
-  A cell.
+  A cell. The `cell-[key]` slot of its column gets the row and the column.
 
 - `.ui-foot`
 
@@ -97,10 +97,6 @@ selected rows
 - `.ui-status`
 
   Selected and visible row counts.
-
-### This is SO COOL!
-
-Don't miss the [Under the hood](#under-the-hood) section to see how it works!
 
 ## Basics
 
@@ -333,6 +329,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-1-asc"
                 name="sorting-sort-1"
                 type="radio"
@@ -342,6 +339,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-1-desc"
                 name="sorting-sort-1"
                 type="radio"
@@ -356,6 +354,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-2-asc"
                 name="sorting-sort-1"
                 type="radio"
@@ -365,6 +364,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-2-desc"
                 name="sorting-sort-1"
                 type="radio"
@@ -379,6 +379,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-3-asc"
                 name="sorting-sort-1"
                 type="radio"
@@ -388,6 +389,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-3-desc"
                 name="sorting-sort-1"
                 type="radio"
@@ -402,6 +404,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="sorting-sort-1-4-asc"
                 name="sorting-sort-1"
                 type="radio"
@@ -412,6 +415,7 @@ Sort radios in a header with `value="asc"` and `value="desc"`. Each row sets `--
             <label>
               <input
                 checked
+                class="ui-sr-only"
                 id="sorting-sort-1-4-desc"
                 name="sorting-sort-1"
                 type="radio"
@@ -503,6 +507,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-2-asc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -512,6 +517,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-2-desc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -526,6 +532,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-3-asc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -535,6 +542,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-3-desc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -549,6 +557,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-4-asc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -558,6 +567,7 @@ A `.ui-row-number` cell in each row. The number follows the sort order and stays
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="row-numbers-sort-1-4-desc"
                 name="row-numbers-sort-1"
                 type="radio"
@@ -1254,6 +1264,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-1-asc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1263,6 +1274,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-1-desc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1306,6 +1318,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-2-asc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1315,6 +1328,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-2-desc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1358,6 +1372,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-3-asc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1367,6 +1382,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-3-desc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1410,6 +1426,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-4-asc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -1419,6 +1436,7 @@ A popover menu in each header. Its items are `label` elements pointing at the so
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="header-menus-sort-1-4-desc"
                 name="header-menus-sort-1"
                 type="radio"
@@ -2474,6 +2492,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-4-asc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2483,6 +2502,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-4-desc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2503,6 +2523,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-7-asc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2512,6 +2533,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-7-desc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2526,6 +2548,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-8-asc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2535,6 +2558,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="rtl-sort-1-8-desc"
                 name="rtl-sort-1"
                 type="radio"
@@ -2858,6 +2882,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-4-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2867,6 +2892,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-4-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2881,6 +2907,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-5-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2890,6 +2917,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-5-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2904,6 +2932,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-6-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2913,6 +2942,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-6-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2927,6 +2957,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-7-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2936,6 +2967,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-7-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2950,6 +2982,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-8-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2959,6 +2992,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-8-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2973,6 +3007,7 @@ The `.ui-empty` row shows when no rows match.
           <span class="ui-sort">
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-9-asc"
                 name="all-features-sort-1"
                 type="radio"
@@ -2982,6 +3017,7 @@ The `.ui-empty` row shows when no rows match.
             </label>
             <label>
               <input
+                class="ui-sr-only"
                 id="all-features-sort-1-9-desc"
                 name="all-features-sort-1"
                 type="radio"
@@ -3324,7 +3360,7 @@ The `.ui-empty` row shows when no rows match.
 
 ## Accessibility
 
-Uses ARIA table roles, and the table scrolls with the keyboard. Every control is a native checkbox, radio or input with a name. CSS can't update `aria-sort`, and sorting changes the visual order, so `reading-flow` keeps the reading and focus order in step where supported.
+Uses ARIA table roles, and the table scrolls with the keyboard. Sorting, filtering, selection, density and column visibility are native radios, checkboxes and inputs with a name. The header menu items are labels for the sort radios and column checkboxes, so keyboard users sort with the arrows in the header and hide columns in the Columns menu. CSS can't update `aria-sort`, and sorting changes the visual order, so `reading-flow` keeps the reading and focus order in step where supported.
 
 ## API
 
@@ -3334,7 +3370,7 @@ Uses ARIA table roles, and the table scrolls with the keyboard. Every control is
 | ------------- | ------------------------------------- | ------- | --------------------------------------------------------------------------------- |
 | Column groups | `[role="columnheader"][aria-colspan]` | -       | A header cell that spans several columns.                                         |
 | Column widths | `--_col-[n]`                          | -       | The track size of column `n`.                                                     |
-| Density       | default, `.ui-dense`, `.ui-spacious`  | default | Row height and cell padding.                                                      |
+| Density       | `.ui-dense`, `.ui-spacious`           | -       | Row height and cell padding.                                                      |
 | Filters       | `[role="row"][data-filters]`          | -       | The filter values a row matches, separated by spaces.                             |
 | Fit           | `[role="columnheader"].ui-fit`        | -       | Sizes the column to its content instead of sharing space.                         |
 | Form          | `.ui-body input[form]`                | -       | Associates selection checkboxes and editable inputs with a form outside the grid. |
@@ -3351,58 +3387,58 @@ Uses ARIA table roles, and the table scrolls with the keyboard. Every control is
 
 #### Parts
 
-| Part                          | Description                          |
-| ----------------------------- | ------------------------------------ |
-| `.ui-data-grid`               | The grid and its toolbar and footer. |
-| `.ui-toolbar`                 | Filters, density and column toggles. |
-| `.ui-filters`                 | Filter radios.                       |
-| `.ui-density`                 | Density radios.                      |
-| `<menu class="ui-columns">`   | Column checkboxes in a popover.      |
-| `[role="table"]`              | The scroll container.                |
-| `.ui-head`                    | The sticky header.                   |
-| `.ui-sort`                    | Sort radios.                         |
-| `.ui-body .ui-row-number`     | Row numbers, in sorted order.        |
-| `.ui-body .ui-row-select`     | Row selection checkboxes.            |
-| `.ui-body .ui-expand summary` | Expandable detail panel.             |
-| `[role="cell"]`               | A cell.                              |
-| `.ui-foot`                    | The sticky totals row.               |
-| `.ui-status`                  | Selected and visible row counts.     |
+| Part                          | Description                                                              |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| `.ui-data-grid`               | The grid and its toolbar and footer.                                     |
+| `.ui-toolbar`                 | Filters, density and column toggles.                                     |
+| `.ui-filters`                 | Filter radios, up to six custom filters.                                 |
+| `.ui-density`                 | Density radios.                                                          |
+| `<menu class="ui-columns">`   | Column checkboxes in a popover.                                          |
+| `[role="table"]`              | The scroll container.                                                    |
+| `.ui-head`                    | The sticky header.                                                       |
+| `.ui-sort`                    | Sort radios.                                                             |
+| `.ui-body .ui-row-number`     | Row numbers, in sorted order.                                            |
+| `.ui-body .ui-row-select`     | Row selection checkboxes.                                                |
+| `.ui-body .ui-expand summary` | Expandable detail panel.                                                 |
+| `[role="cell"]`               | A cell. The `cell-[key]` slot of its column gets the row and the column. |
+| `.ui-foot`                    | The sticky totals row.                                                   |
+| `.ui-status`                  | Selected and visible row counts.                                         |
 
 #### CSS variables
 
-| Variable                     | Default                                      | Description                                                                                                                                                                                              |
-| ---------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
-| `--border-radius`            | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
-| `--border-width`             | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                  |
-| `--button-size-small`        | `var(--control-size-small)`                  | `Button` height with `.ui-small`.                                                                                                                                                                        |
-| `--button-size-x-small`      | `var(--control-size-x-small)`                | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                    |
-| `--choice-size`              | `var(--size-4)`                              | Default `Checkbox` and `Radio` input size.                                                                                                                                                               |
-| `--control-size`             | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                                            |
-| `--control-size-small`       | `calc(32px * var(--density))`                | Shared small height for fields and buttons.                                                                                                                                                              |
-| `--critical`                 | `var(--red)`                                 | Severity color for errors and destructive actions.                                                                                                                                                       |
-| `--disabled-opacity`         | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                                                    |
-| `--duration`                 | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
-| `--ease`                     | `ease`                                       | Default easing for transitions.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                          |
-| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                        |
-| `--focus-ring-style`         | `solid`                                      | Outline style of the focus ring.                                                                                                                                                                         |
-| `--focus-ring-width`         | `2px`                                        | Width of the focus ring.                                                                                                                                                                                 |
-| `--font-size-05`             | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                    |
-| `--font-weight-semibold`     | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                                                                                                                        |
-| `--icon-size`                | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                     |
-| `--motion`                   | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                             |
-| `--state-active-alpha`       | `20%`                                        | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                       |
-| `--state-hover-alpha`        | `10%`                                        | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                         |
-| `--state-hover-alpha-accent` | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                          |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                                                                                                |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                            |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                         |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                   |
+| Variable                     | Default                                                                        | Description                                                                                                                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                              |
+| `--border-radius`            | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                        |
+| `--border-width`             | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                  |
+| `--button-size-small`        | `var(--control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                        |
+| `--button-size-x-small`      | `var(--control-size-x-small)`                                                  | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                    |
+| `--choice-size`              | `calc(var(--size-4) * var(--density))`                                         | Default `Checkbox` and `Radio` input size.                                                                                                                                                               |
+| `--control-size`             | `calc(40px * var(--density))`                                                  | Shared default height for fields and buttons so they line up.                                                                                                                                            |
+| `--control-size-small`       | `calc(32px * var(--density))`                                                  | Shared small height for fields and buttons.                                                                                                                                                              |
+| `--critical`                 | `var(--red)`                                                                   | Severity color for errors and destructive actions.                                                                                                                                                       |
+| `--disabled-opacity`         | `0.64`                                                                         | Opacity applied to disabled controls.                                                                                                                                                                    |
+| `--duration`                 | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
+| `--ease`                     | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                          |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                         |
+| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                           | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                        |
+| `--focus-ring-style`         | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                         |
+| `--focus-ring-width`         | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                 |
+| `--font-size-05`             | `0.875rem`                                                                     | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                    |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                         | Font weight for labels, table headers and titles.                                                                                                                                                        |
+| `--icon-size`                | `var(--size-4)`                                                                | Default icon size inside components.                                                                                                                                                                     |
+| `--motion`                   | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                   | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--state-active-alpha`       | `20%`                                                                          | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                       |
+| `--state-hover-alpha`        | `10%`                                                                          | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                         |
+| `--state-hover-alpha-accent` | `15%`                                                                          | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                          |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                    | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                            |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                         |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                    | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
-Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 Cells are matched to columns by position, up to 12 columns. Selection, sorting, filtering, column visibility and density are radio buttons and checkboxes read with `:has()`. Sort radios go in the column header with `value="asc"` or `value="desc"`, filter and density radios in `.ui-filters` and `.ui-density`, and column checkboxes in `.ui-columns` with the column number as `value`. `.ui-bulk-actions` in `.ui-toolbar` only shows while rows are selected. A header menu is a popover of `label` elements pointing at those controls by `id`.
 
@@ -3713,4 +3749,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and `:has()`. HTML and CSS only.
+- New component. A [data grid](#basics) with [sorting](#sorting), filtering, selection, [pinned columns](#pinned-columns) and [detail panels](#detail-panel), built with subgrid and `:has()`. No JavaScript needed.

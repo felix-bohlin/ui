@@ -5,7 +5,7 @@ export type Props = {
   grouped?: boolean
   label?: string
   length?: 4 | 5 | 6 | 7 | 8
-  size?: "small" | "large"
+  size?: "x-small" | "small" | "large"
 }
 
 export type Slots<S> = {

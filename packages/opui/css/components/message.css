@@ -33,9 +33,10 @@
     }
 
     & > .ui-avatar {
-      font-size: var(--font-size-0);
+      --_font-size: var(--font-size-0);
+      --_size: var(--_avatar-size);
+
       grid-area: avatar;
-      inline-size: var(--_avatar-size);
       margin-inline-end: var(--size-2);
     }
 
@@ -159,15 +160,6 @@
         }
       }
 
-      .ui-header {
-        block-size: 1px;
-        clip-path: inset(50%);
-        inline-size: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-      }
-
       .ui-footer {
         color: inherit;
       }
@@ -189,15 +181,21 @@
     :where(.ui-message:not(.ui-outgoing)) + &:not(.ui-outgoing, .ui-new-author),
     :where(.ui-message.ui-outgoing) + &.ui-outgoing:not(.ui-new-author) {
       --_top: var(--_tight);
+    }
 
+    &.ui-outgoing .ui-header,
+    :where(.ui-message:not(.ui-outgoing))
+      + &:not(.ui-outgoing, .ui-new-author)
+      .ui-header,
+    :where(.ui-message.ui-outgoing)
+      + &.ui-outgoing:not(.ui-new-author)
       .ui-header {
-        block-size: 1px;
-        clip-path: inset(50%);
-        inline-size: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-      }
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
     }
 
     :where(.ui-message) + &.ui-new-author {
@@ -269,10 +267,14 @@
     user-select: none;
 
     &::after {
-      content: attr(data-count) / "";
+      content: attr(data-count);
       font-size: var(--font-size-0);
       font-variant-numeric: tabular-nums;
       font-weight: var(--font-weight-semibold);
+
+      @supports (content: "" / "") {
+        content: attr(data-count) / "";
+      }
     }
 
     @supports (x: attr(x type(*))) {
@@ -299,14 +301,14 @@
 
     &:has(input:focus-visible) {
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--_focus-visible-color));
+        var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
 
     &:is(:has(input:checked), [aria-pressed="true"]) {
       --_bg-color: color-mix(
         in oklch,
-        var(--primary) 16%,
+        var(--primary) var(--state-hover-alpha-accent),
         var(--surface-default)
       );
       --_border-color: var(--primary);

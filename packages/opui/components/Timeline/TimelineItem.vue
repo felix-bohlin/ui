@@ -5,9 +5,9 @@ const {
   color,
   current,
   datetime,
+  heading,
   headingLevel = 3,
   time,
-  title,
 } = defineProps<TimelineItemProps>()
 const slots = defineSlots<TimelineItemSlots>()
 </script>
@@ -21,8 +21,8 @@ const slots = defineSlots<TimelineItemSlots>()
       <slot name="marker"></slot>
     </span>
     <time v-if="time" :datetime="datetime">{{ time }}</time>
-    <component :is="`h${headingLevel}`" v-if="title" class="ui-h6">
-      {{ title }}
+    <component :is="`h${headingLevel}`" v-if="heading" class="ui-h6">
+      {{ heading }}
     </component>
     <slot></slot>
   </li>

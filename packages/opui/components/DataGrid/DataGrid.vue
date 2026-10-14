@@ -29,11 +29,12 @@ const {
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 
-const filterName = useId()
-const densityName = useId()
-const menuId = useId()
-const sortName = useId()
-const headerMenuId = useId()
+const uid = useId()
+const filterName = `filter-${uid}`
+const densityName = `density-${uid}`
+const menuId = `columns-${uid}`
+const sortName = `sort-${uid}`
+const headerMenuId = `header-menu-${uid}`
 
 const grid = computed(() =>
   createGrid({
@@ -71,10 +72,10 @@ const directions = ["asc", "desc"] as const
         'ui-resizable': resizable,
         'ui-wrap': wrap,
       },
-      !densityToggle && density && density !== 'standard' && `ui-${density}`,
+      !densityToggle && density && `ui-${density}`,
       $props.class,
     ]"
-    :style="grid.style"
+    :style="grid.vars"
   >
     <div v-if="toolbar" class="ui-toolbar">
       <div v-if="slots.actions" class="ui-bulk-actions">
@@ -191,6 +192,7 @@ const directions = ["asc", "desc"] as const
                 <input
                   :id="`${sortName}-${column.position}-${direction}`"
                   :checked="grid.sorted(column, direction)"
+                  class="ui-sr-only"
                   :name="sortName"
                   type="radio"
                   :value="direction"
@@ -290,12 +292,7 @@ const directions = ["asc", "desc"] as const
             :class="{ 'ui-numeric': column.numeric }"
             :role="column.rowHeader ? 'rowheader' : 'cell'"
           >
-            <slot
-              :name="`cell-${column.key}`"
-              :column="column"
-              :row="row"
-              :value="row[column.key]"
-            >
+            <slot :name="`cell-${column.key}`" :column="column" :row="row">
               <input
                 v-if="column.editable"
                 :aria-label="`${column.label}, ${grid.rowName(row)}`"

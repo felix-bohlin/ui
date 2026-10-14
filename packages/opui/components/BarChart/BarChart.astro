@@ -1,12 +1,13 @@
 ---
 import type { Props } from "./types.astro"
+import { mergeStyle } from "../style"
 
 export const title = "Bar Chart"
 
 const {
   caption,
   class: className,
-  focusable = true,
+  focusable,
   format = String,
   label,
   max,
@@ -21,25 +22,15 @@ const {
 const values = rows?.flatMap((row) => row.values) ?? []
 const chartMax = max ?? (values.length > 0 ? Math.max(0, ...values) : undefined)
 const chartMin = min ?? Math.min(0, ...values)
-const varStyle = [
-  chartMax !== undefined && `--max: ${chartMax};`,
-  chartMin !== 0 && `--min: ${chartMin};`,
-]
-  .filter(Boolean)
-  .join(" ")
-const vars = {
-  ...(chartMax !== undefined ? { "--max": chartMax } : {}),
-  ...(chartMin !== 0 ? { "--min": chartMin } : {}),
-}
-const mergedStyle =
-  typeof style === "string" || !style
-    ? [varStyle, style].filter(Boolean).join(" ") || undefined
-    : { ...vars, ...style }
+const cellFocusable = focusable ?? (series?.length ?? 0) > 1
 ---
 
 <table
   class:list={["ui-bar-chart", size && `ui-${size}`, className]}
-  style={mergedStyle}
+  style={mergeStyle(
+    { "--max": chartMax, "--min": chartMin !== 0 ? chartMin : undefined },
+    style,
+  )}
   {...rest}
 >
   {caption && <caption>{caption}</caption>}
@@ -64,7 +55,7 @@ const mergedStyle =
             {row.values.map((value) => (
               <td
                 style={`--value: ${value}`}
-                tabindex={focusable ? 0 : undefined}
+                tabindex={cellFocusable ? 0 : undefined}
               >
                 {format(value)}
               </td>

@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
     caption,
     class: className,
-    focusable = true,
+    focusable,
     format = String,
     label,
     max,
@@ -24,17 +25,15 @@
     max ?? (values.length > 0 ? Math.max(0, ...values) : undefined),
   )
   const chartMin = $derived(min ?? Math.min(0, ...values))
+  const cellFocusable = $derived(focusable ?? (series?.length ?? 0) > 1)
 </script>
 
 <table
   class={["ui-bar-chart", size && `ui-${size}`, className]}
-  style={[
-    chartMax !== undefined && `--max: ${chartMax};`,
-    chartMin !== 0 && `--min: ${chartMin};`,
+  style={mergeStyle(
+    { "--max": chartMax, "--min": chartMin !== 0 ? chartMin : undefined },
     style,
-  ]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  )}
   {...rest}
 >
   {#if caption}
@@ -62,7 +61,7 @@
           {#each row.values as value, valueIndex (valueIndex)}
             <td
               style={`--value: ${value}`}
-              tabindex={focusable ? 0 : undefined}
+              tabindex={cellFocusable ? 0 : undefined}
             >
               {format(value)}
             </td>

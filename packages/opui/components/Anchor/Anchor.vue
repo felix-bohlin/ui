@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, provide, useId } from "vue"
-import { AnchorKey, type Props, type Slots } from "./types.d.vue"
+import { computed, provide, reactive, useId } from "vue"
+import { AnchorKey } from "./context.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
 defineSlots<Slots>()
@@ -15,10 +16,10 @@ const positionArea = computed(() =>
 
 provide(
   AnchorKey,
-  computed(() => ({
-    floatingId: id.value,
-    popover: isHover.value ? ("hint" as const) : undefined,
-  })),
+  reactive({
+    floatingId: id,
+    popover: computed(() => (isHover.value ? ("hint" as const) : undefined)),
+  }),
 )
 </script>
 

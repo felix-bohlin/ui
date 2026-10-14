@@ -1,6 +1,10 @@
 import fs from "node:fs"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 
+import config from "../astro.config.mjs"
+import { parseHtml } from "../src/integrations/html-to-markdown.mjs"
+import { hrefRewriter, pageFrom } from "../src/integrations/llms.mjs"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
 const DIST = path.resolve(process.cwd(), "dist")
@@ -11,19 +15,17 @@ const REFERENCES = path.resolve(
 
 const SUB_APIS = path.resolve(process.cwd(), "src/component-api")
 
-function readSubApis(pages) {
-  return fs
-    .readdirSync(SUB_APIS, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .flatMap(({ name }) => {
-      const file = path.join(SUB_APIS, name, "api.ts")
-      if (!fs.existsSync(file)) return []
-      const source = fs.readFileSync(file, "utf-8")
-      const page = source.match(/^  page: "([^"]+)",$/m)?.[1]
-      const component = source.match(/^  component: "([^"]+)",$/m)?.[1]
-      if (!page || !component || !pages.has(page)) return []
-      return [{ component, page }]
-    })
+async function readSubApis(pages) {
+  const apis = []
+  for (const entry of fs.readdirSync(SUB_APIS, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const file = path.join(SUB_APIS, entry.name, "api.ts")
+    if (!fs.existsSync(file)) continue
+    const { default: api } = await import(pathToFileURL(file).href)
+    if (!api.page || !api.component || !pages.has(api.page)) continue
+    apis.push({ component: api.component, page: api.page })
+  }
+  return apis
 }
 
 function readComponents(llmsTxt) {
@@ -35,21 +37,25 @@ function readComponents(llmsTxt) {
   )
 }
 
-const stripInstallationCode = (markdown) =>
-  markdown.replace(
-    /^## Installation\n[\s\S]*?(?=^## |(?![\s\S]))/m,
-    (section) =>
-      section
-        .replace(/^```[\s\S]*?^```\n*/gm, "")
-        .replace(/^`([\w-]+\.css)`\n+/gm, "- `opui-css/css/components/$1`\n")
-        .replace(/\n*$/, "\n\n"),
-  )
+const pageDirs = (dir) =>
+  fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        fs.existsSync(path.join(dir, entry.name, "index.html")),
+    )
+    .map((entry) => entry.name)
+    .sort()
 
-function copyReference(from, to) {
-  fs.writeFileSync(to, stripInstallationCode(fs.readFileSync(from, "utf-8")))
+async function writeReference(pathname, to, rewriteHref) {
+  const html = fs.readFileSync(path.join(DIST, pathname, "index.html"), "utf-8")
+  const page = await pageFrom(parseHtml(html), pathname, rewriteHref)
+  if (!page?.full) return
+  fs.writeFileSync(to, `${page.full}\n`)
 }
 
-function buildSkill() {
+async function buildSkill() {
   const componentsDir = path.join(DIST, "html/components")
   if (!fs.existsSync(componentsDir)) {
     console.error("No docs build found. Run `pnpm build` first.")
@@ -61,32 +67,30 @@ function buildSkill() {
   for (const framework of FRAMEWORKS) {
     const outDir = path.join(REFERENCES, framework.id)
     fs.mkdirSync(outDir, { recursive: true })
+    const rewriteHref = hrefRewriter(framework.id, config.site)
 
-    for (const file of fs.readdirSync(
-      path.join(DIST, framework.id, "components"),
-    )) {
-      if (!file.endsWith(".md")) continue
-      copyReference(
-        path.join(DIST, framework.id, "components", file),
-        path.join(outDir, file),
+    for (const slug of pageDirs(path.join(DIST, framework.id, "components"))) {
+      await writeReference(
+        `/${framework.id}/components/${slug}/`,
+        path.join(outDir, `${slug}.md`),
+        rewriteHref,
       )
     }
-    copyReference(
-      path.join(DIST, framework.id, "guide/getting-started.md"),
-      path.join(outDir, "getting-started.md"),
-    )
-    copyReference(
-      path.join(DIST, framework.id, "guide/theming.md"),
-      path.join(outDir, "theming.md"),
-    )
+    for (const slug of ["getting-started", "theming"]) {
+      await writeReference(
+        `/${framework.id}/guide/${slug}/`,
+        path.join(outDir, `${slug}.md`),
+        rewriteHref,
+      )
+    }
   }
 
   const components = readComponents(path.join(DIST, "html/llms.txt")).sort(
     (a, b) => a.title.localeCompare(b.title),
   )
-  const subApis = readSubApis(new Set(components.map((c) => c.slug))).sort(
-    (a, b) => a.component.localeCompare(b.component),
-  )
+  const subApis = (
+    await readSubApis(new Set(components.map((c) => c.slug)))
+  ).sort((a, b) => a.component.localeCompare(b.component))
 
   const index = [
     "# Components",
@@ -118,4 +122,4 @@ function buildSkill() {
   )
 }
 
-buildSkill()
+await buildSkill()

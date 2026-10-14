@@ -7,6 +7,7 @@ export default {
       default: '"div"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
+      type: '"a" | "button" | "div"',
     },
     {
       description: "Optional colors.",
@@ -34,7 +35,7 @@ export default {
       default: "false",
       description:
         "Adds a leading dot in the chip's color. Its shape follows the color.",
-      group: "Variants",
+      group: "Dot",
       prop: "dot",
     },
     {
@@ -76,7 +77,7 @@ export default {
     {
       description: "The label.",
       props: ["label"],
-      selector: ".ui-text",
+      selector: ".ui-chip > .ui-text",
     },
     {
       code: "<svg>",

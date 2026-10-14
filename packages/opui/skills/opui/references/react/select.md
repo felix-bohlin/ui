@@ -135,7 +135,7 @@ Use `endText` for supporting text below the select.
 ```tsx
 import { Select } from "opui-css/react"
 
-export default function SupportingText() {
+export default function EndText() {
   return (
     <>
       <Select label="Label" endText="Supporting text">
@@ -177,6 +177,7 @@ export default function Affix() {
         label="Country"
         prefix={
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -298,9 +299,9 @@ export default function Grouped() {
 
 ## Validation
 
-- Set the `required` prop on the component. It is forwarded to the underlying `<select>`.
-- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the select, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<select>`.
+- `error` toggles the invalid styles, and screen readers announce the `<select>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```tsx
 import { Select } from "opui-css/react"
@@ -362,7 +363,7 @@ Use the `spread` boolean prop to display the label and description on the left w
 ```tsx
 import { Select } from "opui-css/react"
 
-export default function Orientation() {
+export default function Spread() {
   return (
     <>
       <Select
@@ -443,6 +444,7 @@ export default function Orientation() {
         description="Affects data residency and latency"
         prefix={
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -552,7 +554,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
@@ -609,7 +611,7 @@ Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
@@ -819,9 +821,9 @@ Import the components from `opui-css/react`:
 - [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
 - [Description List](https://open-props-ui.netlify.app/react/components/description-list.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/select.css`
-- `opui-css/css/components/list.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/select.css`
+* `opui-css/css/components/list.css`
 
 ## See also
 
@@ -836,3 +838,4 @@ Import the components from `opui-css/react`:
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
 - The arrow is a chevron, also on the [classic select](#classic-select).
+- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

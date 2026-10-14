@@ -44,12 +44,11 @@ export default {
       type: "boolean",
     },
     {
-      default: '"default"',
-      description: "The variant to use.",
+      description:
+        "The variant to use. Without one the accordion has no background, border or shadow.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: null,
         elevated: ".ui-elevated",
         outlined: ".ui-outlined",
         tonal: ".ui-tonal",

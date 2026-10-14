@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue"
-import {
-  DrawerKey,
-  type DrawerTitleProps as Props,
-  type Slots,
-} from "./types.d.vue"
+import { DrawerKey } from "./context.vue"
+import type { DrawerTitleProps as Props, Slots } from "./types.d.vue"
 
 defineProps<Props>()
 defineSlots<Slots>()

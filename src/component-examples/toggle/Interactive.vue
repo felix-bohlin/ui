@@ -6,6 +6,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
   <ToggleGroup selection="single" name="transport">
     <ToggleButton value="walking" pressed>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -20,6 +21,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </ToggleButton>
     <ToggleButton value="cycling">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -34,6 +36,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     </ToggleButton>
     <ToggleButton value="commuting">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

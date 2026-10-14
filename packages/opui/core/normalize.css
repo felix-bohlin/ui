@@ -12,10 +12,6 @@
   }
 
   :where(html) {
-    /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(
-      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
-    );
     --_page-bg-color: var(--surface-default);
 
     accent-color: var(--primary);
@@ -103,7 +99,7 @@
   :focus-visible {
     animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
     outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
-      var(--focus-ring-color, var(--_focus-visible-color));
+      var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset, 2px);
   }
 

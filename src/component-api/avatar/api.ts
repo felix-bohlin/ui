@@ -16,24 +16,12 @@ export default {
       prop: "as",
     },
     {
-      description: "The command to send to the `commandfor` target.",
-      prop: "command",
-    },
-    {
-      description: "The id of the element the command targets.",
-      prop: "commandfor",
-    },
-    {
       description: 'Disables the avatar when `as` is `"button"`.',
       prop: "disabled",
     },
     {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
-    },
-    {
-      description: "The id of the element to show on interest.",
-      prop: "interestfor",
     },
     {
       class: ".ui-avatar-group",
@@ -43,7 +31,7 @@ export default {
       prop: "isGroup",
     },
     {
-      description: "The size of the avatar.",
+      description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {

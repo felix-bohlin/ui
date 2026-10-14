@@ -29,7 +29,7 @@ Before creating or refactoring a page, perform the following research:
     - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
     - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so the build warns when `api.ts` and the source disagree.
-    - A few components still use hand-written tables (`src/component-api/[name]/Astro.astro` and `HTML.astro`). Convert them to `api.ts` when touching them.
+    - Only `toast` still uses a hand-written table (`src/component-api/toast/HTML.astro`). Convert it to `api.ts` when touching it.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
     - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `FieldSet`/`FieldGroup`): Depend on `form.css`.
@@ -43,6 +43,7 @@ Before creating or refactoring a page, perform the following research:
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
   - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all five: the parity test compares them, and a missing `.react.tsx`, `.svelte` or `.vue` file silently leaves the example off the React, Svelte or Vue page.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
+- **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`.
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), use a suffix like `Code.astro`.
 
@@ -88,7 +89,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
-- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved without an `apis` prop.
+- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use `@opui/astro` (e.g. `import { Button } from "@opui/astro"`). Avoid hand-rolled relative paths into the package.
@@ -195,7 +196,7 @@ import buttonApi from "../../component-api/button/api"
 
 - One `api.ts` renders the props, slots and parts tables for every framework, the HTML modifiers table, and the `<Anatomy>` diagram.
 - Keep descriptions short. Use backticks for classes, props and selectors; they are formatted by `formatInline`.
-- Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved from the `slug` without an `apis` prop. Convert them to `api.ts` when touching them.
+- Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved from the `slug` without an `apis` prop. Convert it to `api.ts` when touching it.
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 

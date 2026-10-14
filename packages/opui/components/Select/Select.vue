@@ -1,25 +1,39 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId } from "vue"
+import {
+  computed,
+  inject,
+  type SelectHTMLAttributes,
+  useAttrs,
+  useId,
+} from "vue"
 import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<Props>(), {
-  items: () => [],
-  variant: "outlined",
-})
+const {
+  dense,
+  description,
+  endText,
+  error,
+  id,
+  items = [],
+  label,
+  size,
+  spread,
+  variant = "outlined",
+} = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as SelectHTMLAttributes
 const modelValue = defineModel<string | number | (string | number)[]>()
 
 const multiple = computed(
   () => attrs.multiple !== undefined && attrs.multiple !== false,
 )
 const selectedItemValues = computed(() =>
-  props.items.filter((item) => item.selected).map((item) => item.value),
+  items.filter((item) => item.selected).map((item) => item.value),
 )
 
 const model = computed({
@@ -37,49 +51,57 @@ const isSelected = (value: unknown) =>
     ? model.value.includes(value as string | number)
     : model.value === value
 
-const labelId = useId()
-const endTextId = useId()
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const uid = useId()
+const labelId = `select-label-${uid}`
+const endTextId = `end-text-${uid}`
+const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <label
     :class="[
       'ui-select',
-      props.size && `ui-${props.size}`,
+      size && `ui-${size}`,
       {
-        'ui-filled': props.variant === 'filled',
-        'ui-spread': props.spread,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      $props.class,
     ]"
   >
-    <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
-      <slot name="label">{{ props.label }}</slot>
+    <span v-if="label || $slots.label" class="ui-label" :id="labelId">
+      <slot name="label">{{ label }}</slot>
     </span>
 
-    <span v-if="props.description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ props.description }}</slot>
+    <span v-if="description || $slots.description" class="ui-start-text">
+      <slot name="description">{{ description }}</slot>
     </span>
 
     <span class="ui-field">
       <select
-        :aria-describedby="
-          props.endText || $slots['end-text'] ? endTextId : undefined
-        "
-        :aria-invalid="props.error ? 'true' : undefined"
-        :aria-labelledby="props.label || $slots.label ? labelId : undefined"
-        :id="props.id"
-        :name="currentFieldName"
         v-bind="$attrs"
         v-model="model"
+        :aria-describedby="
+          [
+            endText || $slots['end-text'] ? endTextId : undefined,
+            attrs['aria-describedby'],
+          ]
+            .filter(Boolean)
+            .join(' ') || undefined
+        "
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :aria-labelledby="
+          label || $slots.label ? labelId : attrs['aria-labelledby']
+        "
+        :id="id"
+        :name="attrs.name ?? fieldName"
       >
         <button v-pre>
           <selectedcontent></selectedcontent>
         </button>
-        <div :class="['ui-list', { 'ui-dense': props.dense }]">
+        <div :class="['ui-list', { 'ui-dense': dense }]">
           <option
-            v-for="item in props.items"
+            v-for="item in items"
             :key="item.value"
             :selected="isSelected(item.value) || undefined"
             :value="item.value"
@@ -104,11 +126,11 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
     </span>
 
     <span
-      v-if="props.endText || $slots['end-text']"
+      v-if="endText || $slots['end-text']"
       :id="endTextId"
       class="ui-end-text"
     >
-      <slot name="end-text">{{ props.endText }}</slot>
+      <slot name="end-text">{{ endText }}</slot>
     </span>
   </label>
 </template>

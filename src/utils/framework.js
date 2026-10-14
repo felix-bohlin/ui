@@ -66,3 +66,5 @@ export function isFrameworkFree(sharedPath) {
 export function frameworkPrefixPattern() {
   return new RegExp(`^/(${FRAMEWORK_IDS.join("|")})(/|$)`)
 }
+
+export const FRAMEWORK_STORAGE_KEY = "opui-framework"

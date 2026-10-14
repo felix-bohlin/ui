@@ -129,22 +129,7 @@ import {
         <TableCell>Jonathan Davis</TableCell>
         <TableCell>Vocals</TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell>Broken Bells</TableCell>
-        <TableCell>James Mercer</TableCell>
-        <TableCell>Vocals/Guitar</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Pink Floyd</TableCell>
-        <TableCell>David Gilmour</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
-      </TableRow>
     </TableBody>
-    <tfoot>
-      <TableRow>
-        <TableCell :colspan="3">All great bands!</TableCell>
-      </TableRow>
-    </tfoot>
   </Table>
 </template>
 ```
@@ -186,22 +171,7 @@ import {
         <TableCell>Jonathan Davis</TableCell>
         <TableCell>Vocals</TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell>Broken Bells</TableCell>
-        <TableCell>James Mercer</TableCell>
-        <TableCell>Vocals/Guitar</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Pink Floyd</TableCell>
-        <TableCell>David Gilmour</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
-      </TableRow>
     </TableBody>
-    <tfoot>
-      <TableRow>
-        <TableCell :colspan="3">All great bands!</TableCell>
-      </TableRow>
-    </tfoot>
   </Table>
 </template>
 ```
@@ -604,3 +574,5 @@ Import the components from `opui-css/vue`:
 - [Dense](#variants) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
+- Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
+- Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.

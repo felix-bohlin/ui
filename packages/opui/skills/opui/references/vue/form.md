@@ -455,9 +455,9 @@ const experience = ref(5)
 
 ### Form API
 
-| Prop | Type     | Default  | Description            |
-| ---- | -------- | -------- | ---------------------- |
-| `as` | `string` | `"form"` | The element to render. |
+| Prop | Type               | Default  | Description            |
+| ---- | ------------------ | -------- | ---------------------- |
+| `as` | `"div"` , `"form"` | `"form"` | The element to render. |
 
 #### Slots
 
@@ -484,10 +484,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field set API
 
-| Prop       | Type      | Default      | Description                                                                                                            |
-| ---------- | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string`  | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
-| `disabled` | `boolean` | `false`      | Disables every field inside.                                                                                           |
+| Prop       | Type                   | Default      | Description                                                                                                            |
+| ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
+| `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                           |
 
 #### Slots
 
@@ -514,9 +514,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field legend API
 
-| Prop | Type     | Default    | Description                                                   |
-| ---- | -------- | ---------- | ------------------------------------------------------------- |
-| `as` | `string` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| Prop | Type               | Default    | Description                                                   |
+| ---- | ------------------ | ---------- | ------------------------------------------------------------- |
+| `as` | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
 
 #### Slots
 
@@ -761,7 +761,7 @@ Import the components from `opui-css/vue`:
 - [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/vue/components/text-field.md)
 
-- `opui-css/css/components/form.css`
+* `opui-css/css/components/form.css`
 
 ## Changelog
 
@@ -769,3 +769,4 @@ Import the components from `opui-css/vue`:
 
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
+- `Form`, `FieldSet` and `FieldLegend` type [`as`](#usage) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.

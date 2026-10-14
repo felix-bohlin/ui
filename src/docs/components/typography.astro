@@ -2,10 +2,8 @@
 import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
-import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
 import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
@@ -69,10 +67,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
-    <Example column>
-      <Example.Preview slot="preview-html" code={CodeBlockHtml} />
-      <Example.Preview slot="preview-astro" code={CodeBlockHtml} />
-    </Example>
+    <AutoExample name="CodeBlock" column />
   </section>
 
   <section>

@@ -1,4 +1,4 @@
-import type { HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes, Slot } from "vue"
 import type { Props as BaseProps } from "./types"
 
 export type Props = BaseProps & {
@@ -8,8 +8,3 @@ export type Props = BaseProps & {
 export type Slots = {
   default?: Slot
 }
-
-export const ToggleGroupKey = Symbol() as InjectionKey<{
-  name: string
-  type: "radio" | "checkbox"
-}>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, provide, useId } from "vue"
-import { TabsGroupNameKey, type Props, type Slots } from "./types.d.vue"
+import { computed, provide, reactive, useId } from "vue"
+import { TabsKey } from "./context.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const { name, scrollable, variant } = defineProps<Props>()
 defineSlots<Slots>()
@@ -10,8 +11,8 @@ defineOptions({
 })
 
 const uid = useId()
-const groupName = computed(() => name || uid)
-provide(TabsGroupNameKey, groupName)
+const groupName = computed(() => name || `tabs-${uid}`)
+provide(TabsKey, reactive({ groupName }))
 </script>
 
 <template>

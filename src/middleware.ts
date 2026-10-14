@@ -5,22 +5,17 @@ import {
   isFrameworkId,
   type FrameworkId,
 } from "./utils/framework-routing"
+import { createIdGenerator } from "./utils/id"
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  context.locals.$id = (() => {
-    // The map to store how many times each prefix has been used in this request.
-    const map = new Map<string, number>()
-    return (prefix: string) => {
-      const count = (map.get(prefix) ?? 0) + 1
-      map.set(prefix, count)
-      return `${prefix}-${count}`
-    }
-  })()
+  context.locals.$id = createIdGenerator()
 
   // Pre-bind a framework-aware link resolver for this request. Authoring
   // shared docs content can then write `link("/components/button")` and get
-  // `/components/button` or `/astro/components/button` automatically - no
-  // runtime DOM rewriting required.
+  // `/html/components/button` or `/astro/components/button` automatically.
+  // Framework-free pages (`/blocks`, `/learn`) are built once with the default
+  // framework; `Layout.astro` `relinkDocs()` repoints their framework-prefixed
+  // links to the visitor's framework (`FRAMEWORK_STORAGE_KEY`) at runtime.
   //
   // We derive the framework from the URL prefix rather than
   // `context.currentLocale`. Astro's `currentLocale` is unreliable in

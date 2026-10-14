@@ -2,7 +2,7 @@ import type { HTMLAttributes, Slot } from "vue"
 import type { Props as BaseProps } from "./types"
 
 export type Props = BaseProps & {
-  as?: string
+  as?: "legend" | "p"
   class?: HTMLAttributes["class"]
 }
 

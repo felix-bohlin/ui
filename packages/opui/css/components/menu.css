@@ -16,10 +16,10 @@
     --_min-block-size: 12rem;
     --_min-inline-size: 12rem;
     --_offset: var(--size-1);
-    --_side: block-end;
-    --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-3);
+    --_side: block-end;
+    --_span: span-inline-end;
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);

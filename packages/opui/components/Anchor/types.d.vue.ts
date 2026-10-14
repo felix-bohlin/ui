@@ -1,4 +1,4 @@
-import type { ComputedRef, HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes, Slot } from "vue"
 import type {
   AnchorContentProps as BaseAnchorContentProps,
   Props as BaseProps,
@@ -16,7 +16,3 @@ export type AnchorContentProps = BaseAnchorContentProps & {
 export type Slots = {
   default?: Slot
 }
-
-export const AnchorKey = Symbol() as InjectionKey<
-  ComputedRef<{ floatingId?: string; popover?: "hint" }>
->

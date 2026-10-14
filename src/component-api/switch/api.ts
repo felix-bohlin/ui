@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Switch",
+  css: ["choice", "switch"],
   model: {
     description: "The checked state, or the checked values of a group.",
     frameworks: {

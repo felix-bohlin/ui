@@ -63,11 +63,11 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop      | Type                                        | Default   | Description                                                          |
-| --------- | ------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`                         | -         | The maximum value.                                                   |
-| `value`   | `string` , `number` , `(number & string[])` | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"`                      | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| Prop      | Type                   | Default   | Description                                                          |
+| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
+| `max`     | `string` , `number`    | -         | The maximum value.                                                   |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 
@@ -247,3 +247,4 @@ Import the component from `opui-css/astro`:
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).

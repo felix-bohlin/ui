@@ -68,7 +68,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | ---------- | ---------------------- | --------- | -------------------------------------------------------------------- |
 | `children` | `ReactNode`            | -         | Fallback content inside the `<progress>`.                            |
 | `max`      | `string` , `number`    | -         | The maximum value.                                                   |
-| `value`    | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
+| `value`    | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
 | `variant`  | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### CSS variables
@@ -238,3 +238,8 @@ Import the component from `opui-css/react`:
 
 - `opui-css/css/components/progress.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).

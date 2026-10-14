@@ -51,6 +51,18 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 
 ### Code block
 
+```svelte
+<script lang="ts">
+  const code = `.ui-card {
+  background: var(--surface-elevated);
+  border-radius: var(--radius-3);
+  padding: var(--size-4);
+}`
+</script>
+
+<pre class="ui-code-block"><code>{code}</code></pre>
+```
+
 ## Inline text elements
 
 | Result            | Element           | Class       |

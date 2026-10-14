@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import { createId } from "../id"
 import { anchorContext } from "./context.astro"
+import { mergeStyle } from "../style"
 
 export const title = "Anchor"
 
@@ -16,18 +17,6 @@ const {
 
 const isHover = trigger === "hover"
 const id = isHover ? (idProp ?? createId(Astro.locals)("anchor")) : undefined
-
-const positionArea = alignment
-  ? { "--anchor-position-area": alignment }
-  : undefined
-const positionAreaString = Object.entries(positionArea ?? {})
-  .filter(([, value]) => value !== undefined)
-  .map(([name, value]) => `${name}: ${value};`)
-  .join(" ")
-const mergedStyle =
-  typeof style === "string" || !style
-    ? `${positionAreaString}${style ?? ""}` || undefined
-    : { ...positionArea, ...style }
 const html = await anchorContext.provide(
   { floatingId: id, popover: isHover ? "hint" : undefined },
   () => Astro.slots.render("default"),
@@ -37,7 +26,7 @@ const html = await anchorContext.provide(
 <span
   class:list={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={mergedStyle}
+  style={mergeStyle({ "--anchor-position-area": alignment }, style)}
   {...rest}
 >
   <Fragment set:html={html} />

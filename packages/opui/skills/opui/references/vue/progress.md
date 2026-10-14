@@ -18,27 +18,23 @@ import { Progress } from "opui-css/vue"
 
 ```vue
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onBeforeUnmount, onMounted, ref } from "vue"
 import { Progress } from "opui-css/vue"
 
+const value = ref(10)
+let interval: ReturnType<typeof setInterval> | undefined
+
 onMounted(() => {
-  const progress = document.querySelector<HTMLProgressElement>(
-    "#determinate-progress",
-  )
-  if (progress) {
-    setInterval(() => {
-      if (progress.value >= 100) {
-        progress.value = 10
-      } else {
-        progress.value += 10
-      }
-    }, 3000)
-  }
+  interval = setInterval(() => {
+    value.value = value.value >= 100 ? 10 : value.value + 10
+  }, 3000)
 })
+
+onBeforeUnmount(() => clearInterval(interval))
 </script>
 
 <template>
-  <Progress id="determinate-progress" max="100" value="10" />
+  <Progress id="determinate-progress" max="100" :value="value" />
 </template>
 ```
 
@@ -73,7 +69,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | Prop      | Type                   | Default   | Description                                                          |
 | --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
 | `max`     | `string` , `number`    | -         | The maximum value.                                                   |
-| `value`   | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
 | `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
@@ -254,3 +250,4 @@ Import the component from `opui-css/vue`:
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).

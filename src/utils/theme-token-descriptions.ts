@@ -67,7 +67,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--field-size-small": "Field height with `.ui-small`.",
   "--field-size-x-small": "Field height with `.ui-x-small`.",
   "--focus-ring-color":
-    "Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.",
+    "Color of the keyboard focus ring. By default the page background color inverted.",
   "--focus-ring-inset":
     "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
   "--focus-ring-offset": "Distance between a control and its focus ring.",

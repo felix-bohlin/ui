@@ -356,6 +356,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 Import the components from `opui-css/react`:
 
 - `opui-css/css/components/callout.css`
+
 `theme tokens (snippet)`
 
 ## Changelog
@@ -363,3 +364,4 @@ Import the components from `opui-css/react`:
 ### What's new
 
 - [`CalloutIcon`](#icon) has a `success` icon, like `info`, `warning` and `critical`.
+- Breaking: `--_color` is `--_text-color`, `--_outlined-color` is `--_outlined-text-color` and `--_surface-bg` is `--_surface-bg-color` ([Under the hood](#under-the-hood)).

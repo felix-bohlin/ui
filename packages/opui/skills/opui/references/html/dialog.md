@@ -345,16 +345,12 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </dialog>
 
 <script>
+  const dialog = document.getElementById("closing-behaviors-dialog-html")
   const radios = document.querySelectorAll('input[name="closedby-demo"]')
 
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      const dialog = radio
-        .closest(".example-preview")
-        ?.querySelector("#closing-behaviors-dialog-html")
-      if (dialog instanceof HTMLDialogElement) {
-        dialog.setAttribute("closedby", radio.value)
-      }
+      dialog?.setAttribute("closedby", radio.value)
     })
   })
 </script>
@@ -647,8 +643,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Card](https://open-props-ui.netlify.app/html/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

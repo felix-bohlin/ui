@@ -5,6 +5,7 @@ import { Select as UISelect } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
@@ -153,7 +154,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
       below the select.
     </p>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
@@ -260,106 +261,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 
   <section>
     <h2 id="validation">Validation</h2>
-    <Conditional>
-      <Fragment slot="astro">
-        <ul>
-          <li>
-            Set <code>required</code> on the component to toggle required styles on
-            the select.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="react">
-        <ul>
-          <li>
-            Set the <code>required</code> prop on the component. It is forwarded to
-            the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="svelte">
-        <ul>
-          <li>
-            Add the <code>required</code> attribute on the component. It is forwarded
-            to the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="vue">
-        <ul>
-          <li>
-            Add the <code>required</code> attribute on the component. It is forwarded
-            to the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It sets <code
-              >aria-invalid="true"</code
-            > on the select, so screen readers announce it as invalid. Make use of
-            the end text to give extra feedback on the error.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use
-            the <code>error</code> prop for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="html">
-        <ul>
-          <li>
-            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
-            to toggle required styles.
-          </li>
-          <li>
-            Add <code>aria-invalid="true"</code> to the <code
-              >&lt;select&gt;</code
-            > to toggle invalid styles. Screen readers announce it as invalid. Make
-            use of the end text to give extra feedback on the error, and point <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            Fields also get the invalid styles from the browser's own validation
-            (<code>:user-invalid</code>), after the user has edited them. Use <code
-              >aria-invalid="true"</code
-            > for server-side errors.
-          </li>
-        </ul>
-      </Fragment>
-    </Conditional>
+    <ValidationNotes element="select" subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -394,7 +296,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
   <section>

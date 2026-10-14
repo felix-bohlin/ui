@@ -5,6 +5,7 @@ export default function Alignment() {
     <>
       <Badge alignment="start-start" label="35">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -18,6 +19,7 @@ export default function Alignment() {
       </Badge>
       <Badge label="99+">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -31,6 +33,7 @@ export default function Alignment() {
       </Badge>
       <Badge alignment="end-start" label="OK!">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -44,6 +47,7 @@ export default function Alignment() {
       </Badge>
       <Badge alignment="end-end" label="3K">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

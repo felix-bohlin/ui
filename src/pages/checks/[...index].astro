@@ -7,10 +7,11 @@ import {
   splitInlineCode,
   splitLinks,
 } from "../../utils/todo"
+import { testPagesEnabled } from "../../utils/test-pages"
 import source from "../../../CHECKS.md?raw"
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  if (!testPagesEnabled()) return []
   return [{ params: { index: undefined } }]
 }
 
@@ -69,7 +70,11 @@ const count = sections.reduce(
         <p class="checks-section-progress" data-section-progress />
         <ol class="checks-list ui-not-rich-text">
           {section.items.map((item) => (
-            <li class="checks-item" data-check-line={item.line}>
+            <li
+              class="checks-item"
+              data-check-key={slugify(item.text)}
+              data-check-line={item.line}
+            >
               <Checkbox class="checks-done">
                 {splitInlineCode(item.text).map((part) =>
                   part.code ? <code>{part.value}</code> : part.value,
@@ -160,6 +165,7 @@ const count = sections.reduce(
   }
 
   const items = [...document.querySelectorAll<HTMLElement>(".checks-item")]
+  const keyOf = (item: HTMLElement) => item.dataset.checkKey!
   const lineOf = (item: HTMLElement) => item.dataset.checkLine!
   const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
   const doneOf = (item: HTMLElement) =>
@@ -190,7 +196,7 @@ const count = sections.reduce(
   }
 
   const saveDone = () => {
-    const done = items.filter((item) => doneOf(item).checked).map(lineOf)
+    const done = items.filter((item) => doneOf(item).checked).map(keyOf)
     if (!write(doneKey, done)) status.textContent = notSaved
     updateProgress()
   }
@@ -202,8 +208,8 @@ const count = sections.reduce(
     pending.delete(item)
     const value = fieldOf(item).value
     const comments = read<Record<string, string>>(commentsKey, {})
-    if (value.trim()) comments[lineOf(item)] = value
-    else delete comments[lineOf(item)]
+    if (value.trim()) comments[keyOf(item)] = value
+    else delete comments[keyOf(item)]
     const savedText = item.querySelector(".checks-saved")!
     if (write(commentsKey, comments)) {
       savedText.textContent = value.trim() ? "Saved" : ""
@@ -220,11 +226,11 @@ const count = sections.reduce(
 
   for (const item of items) {
     const done = doneOf(item)
-    done.checked = savedDone.has(lineOf(item))
+    done.checked = savedDone.has(keyOf(item))
     done.addEventListener("change", saveDone)
 
     const field = fieldOf(item)
-    field.value = savedComments[lineOf(item)] ?? ""
+    field.value = savedComments[keyOf(item)] ?? ""
     field.addEventListener("input", () => {
       clearTimeout(pending.get(item))
       pending.set(
@@ -292,16 +298,7 @@ const count = sections.reduce(
       await navigator.clipboard.writeText(text)
       return true
     } catch {
-      const field = document.createElement("textarea")
-      field.value = text
-      field.setAttribute("readonly", "")
-      field.style.position = "fixed"
-      field.style.opacity = "0"
-      document.body.append(field)
-      field.select()
-      const copied = document.execCommand("copy")
-      field.remove()
-      return copied
+      return false
     }
   }
 

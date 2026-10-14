@@ -1,5 +1,5 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -11,12 +11,14 @@ import {
   Checkbox as UICheckbox,
 } from "@opui/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 ---
 
@@ -55,6 +57,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   ]}
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
   ]}
 >
@@ -149,93 +152,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="react">
-          Set the <code>required</code> prop on the component. It is forwarded to
-          the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="svelte">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="react">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="svelte">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
-          toggle invalid styles. Screen readers announce it as invalid. Make use of
-          the end text to give extra feedback on the error, and point <code
-            >aria-describedby</code
-          > at it.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="react">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="svelte">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="vue">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="html">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use <code>aria-invalid="true"</code> for server-side errors.
-        </li>
-      </Conditional>
-    </ul>
+    <ValidationNotes element="input" subject="Checkboxes" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -362,14 +282,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
-    <p>
-      The checkbox lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
-    </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <LabelAlignment control="checkbox" />
   </section>
 
   <section>

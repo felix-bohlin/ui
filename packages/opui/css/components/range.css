@@ -257,11 +257,6 @@
         animation-direction: reverse, normal;
       }
 
-      &::-webkit-slider-thumb {
-        view-timeline: --ui-range-thumb inline;
-        view-timeline-inset: var(--_inset);
-      }
-
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
@@ -309,6 +304,8 @@
 
         transition: box-shadow calc(var(--duration-fast) * var(--_motion))
           var(--ease);
+        view-timeline: --ui-range-thumb inline;
+        view-timeline-inset: var(--_inset);
       }
 
       &::-moz-range-thumb {

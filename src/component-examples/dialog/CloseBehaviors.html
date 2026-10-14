@@ -48,16 +48,12 @@
 </dialog>
 
 <script>
+  const dialog = document.getElementById("closing-behaviors-dialog-html")
   const radios = document.querySelectorAll('input[name="closedby-demo"]')
 
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      const dialog = radio
-        .closest(".example-preview")
-        ?.querySelector("#closing-behaviors-dialog-html")
-      if (dialog instanceof HTMLDialogElement) {
-        dialog.setAttribute("closedby", radio.value)
-      }
+      dialog?.setAttribute("closedby", radio.value)
     })
   })
 </script>

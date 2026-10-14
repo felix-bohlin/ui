@@ -104,22 +104,7 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
-    <tr>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">All great bands!</td>
-    </tr>
-  </tfoot>
 </table>
 ```
 
@@ -148,22 +133,7 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
-    <tr>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">All great bands!</td>
-    </tr>
-  </tfoot>
 </table>
 ```
 
@@ -538,3 +508,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Dense](#variants) tables (`.ui-dense`) have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.
+- Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).

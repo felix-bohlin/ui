@@ -6,11 +6,11 @@ This guide defines the standards for documenting component APIs (HTML, Astro, Re
 
 When creating or updating a component API table, ensure:
 
-- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `menu` and `toast` still use hand-written `.astro` tables.
+- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `toast` still uses a hand-written `.astro` table.
 - [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro`, `React.astro`, `Svelte.astro` and `Vue.astro` tables.
 - [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `TableHead`, `TableBody`, `TableRow`, `TableCell`, `TableHeaderCell`, `TableColumnGroup`, and `TableColumn` for table structure.
-- [ ] **Column Widths**: Use `TableColumnGroup` and `TableColumn` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
+- [ ] **Column Widths**: Use `TableColumnGroup` and `TableColumn` to specify widths: `style="min-width: 20%"`, `style="min-width: 20%"`, `style="min-width: 20%"`, `style="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
 - [ ] **Dots on Classes**: Every CSS class modifier starts with a dot (e.g., `.ui-primary`).
 - [ ] **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props are wrapped in `<code>` tags (exception: `default` and group names like `Slots`).
@@ -50,17 +50,13 @@ When creating or updating a component API table, ensure:
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `menu` and `toast` still use:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `toast` still uses:
 
 ```
 src/component-api/button/
   api.ts
-src/component-api/menu/
-  Astro.astro
+src/component-api/toast/
   HTML.astro
-  React.astro
-  Svelte.astro
-  Vue.astro
 ```
 
 The doc page is just:
@@ -113,7 +109,7 @@ Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, o
 
 ## Example Reference
 
-**Legacy Astro table (shortened from src/component-api/menu/Astro.astro)**
+**Legacy Astro table (the former src/component-api/menu/Astro.astro, shortened)**
 
 ```astro
 ---
@@ -131,10 +127,10 @@ import {
 
 <Table>
   <TableColumnGroup>
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 300px" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 300px" />
   </TableColumnGroup>
   <TableHead>
     <TableRow>

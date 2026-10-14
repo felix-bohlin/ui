@@ -29,7 +29,9 @@ const currentFramework = (Astro.currentLocale ??
 <script>
   import {
     FRAMEWORK_IDS,
+    FRAMEWORK_STORAGE_KEY,
     frameworkPrefixPattern,
+    isFrameworkFree,
     pathHasFramework,
     type FrameworkId,
   } from "../utils/framework"
@@ -44,12 +46,14 @@ const currentFramework = (Astro.currentLocale ??
   }
 
   function urlForFramework(framework: FrameworkId): string {
-    const sharedPath = stripFrameworkPrefix(window.location.pathname)
+    const { hash, pathname, search } = window.location
+    const sharedPath = stripFrameworkPrefix(pathname)
+    if (isFrameworkFree(sharedPath)) return `${sharedPath}${search}${hash}`
     if (!pathHasFramework(framework, sharedPath)) {
       return `/${framework}/components/`
     }
     const path = sharedPath === "/" ? "" : sharedPath
-    return `/${framework}${path}${window.location.search}${window.location.hash}`
+    return `/${framework}${path}${search}${hash}`
   }
 
   function init() {
@@ -67,7 +71,7 @@ const currentFramework = (Astro.currentLocale ??
         // explicit change - never on plain URL navigation, so deep links
         // can't silently overwrite a saved preference.
         try {
-          localStorage.setItem("opui-framework", framework)
+          localStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
         } catch (_) {
           // private mode / storage disabled - non-fatal
         }

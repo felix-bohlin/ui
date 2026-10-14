@@ -170,15 +170,24 @@ export const setDarkThemeTokens = (
   css: string,
   tokens: readonly (readonly [string, string])[],
 ) => {
-  const body = (indent: string) =>
-    tokens.map(([name, value]) => `${indent}${name}: ${value};`).join("\n")
+  const names = new Set(tokens.map(([name]) => name))
+  const body = (indent: string, existing: string) =>
+    [
+      ...existing
+        .split("\n")
+        .filter((line) => !names.has(line.match(DECLARATION)?.[2] ?? "")),
+      ...tokens.map(([name, value]) => `${indent}${name}: ${value};`),
+    ]
+      .filter(Boolean)
+      .join("\n")
   return css
     .replace(
-      /(:where\(html\.ui-dark\) \{\n)[\s\S]*?(\n {2}\})/,
-      (_, open, close) => `${open}${body("    ")}${close}`,
+      /(:where\(html\.ui-dark\) \{\n)([\s\S]*?)(\n {2}\})/,
+      (_, open, existing, close) => `${open}${body("    ", existing)}${close}`,
     )
     .replace(
-      /(:where\(html:not\(\.ui-light\)\) \{\n)[\s\S]*?(\n {4}\})/,
-      (_, open, close) => `${open}${body("      ")}${close}`,
+      /(:where\(html:not\(\.ui-light\)\) \{\n)([\s\S]*?)(\n {4}\})/,
+      (_, open, existing, close) =>
+        `${open}${body("      ", existing)}${close}`,
     )
 }

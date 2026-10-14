@@ -48,7 +48,9 @@
   const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
   const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
   const describedBy = $derived(
-    [startTextId, endTextId].filter(Boolean).join(" ") || undefined,
+    [startTextId, endTextId, rest["aria-describedby"]]
+      .filter(Boolean)
+      .join(" ") || undefined,
   )
 </script>
 
@@ -78,9 +80,10 @@
     </span>
   {/if}
   <input
+    {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : undefined}
-    aria-labelledby={labelId}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
+    aria-labelledby={labelId ?? rest["aria-labelledby"]}
     id={inputId}
     {list}
     {max}
@@ -95,7 +98,6 @@
       form?.addEventListener("reset", sync)
       return () => form?.removeEventListener("reset", sync)
     }}
-    {...rest}
   />
   {#if options || datalist}
     <datalist id={list}>

@@ -22,9 +22,9 @@ export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.v
 export { default as Chip } from "../components/Chip/Chip.vue"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
-export { default as DescriptionListDescription } from "../components/DescriptionList/Description.vue"
-export { default as DescriptionListItem } from "../components/DescriptionList/Item.vue"
-export { default as DescriptionListTerm } from "../components/DescriptionList/Term.vue"
+export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
+export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.vue"
+export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.vue"
 export { default as Dialog } from "../components/Dialog/Dialog.vue"
 export { default as DialogActions } from "../components/Dialog/DialogActions.vue"
 export { default as DialogContent } from "../components/Dialog/DialogContent.vue"
@@ -51,13 +51,13 @@ export { default as Select } from "../components/Select/Select.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
-export { default as TableBody } from "../components/Table/Body.vue"
-export { default as TableCell } from "../components/Table/Cell.vue"
-export { default as TableColumn } from "../components/Table/Column.vue"
-export { default as TableColumnGroup } from "../components/Table/ColumnGroup.vue"
-export { default as TableHead } from "../components/Table/Head.vue"
-export { default as TableHeaderCell } from "../components/Table/HeaderCell.vue"
-export { default as TableRow } from "../components/Table/Row.vue"
+export { default as TableBody } from "../components/Table/TableBody.vue"
+export { default as TableCell } from "../components/Table/TableCell.vue"
+export { default as TableColumn } from "../components/Table/TableColumn.vue"
+export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.vue"
+export { default as TableHead } from "../components/Table/TableHead.vue"
+export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.vue"
+export { default as TableRow } from "../components/Table/TableRow.vue"
 export { default as Tabs } from "../components/Tabs/Tabs.vue"
 export { default as TabsItem } from "../components/Tabs/TabsItem.vue"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
@@ -101,7 +101,12 @@ export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.d.vue"
-export type { Props as DescriptionListProps } from "../components/DescriptionList/types.d.vue"
+export type {
+  DescriptionProps as DescriptionListDescriptionProps,
+  ItemProps as DescriptionListItemProps,
+  Props as DescriptionListProps,
+  TermProps as DescriptionListTermProps,
+} from "../components/DescriptionList/types.d.vue"
 export type {
   DialogActionsProps,
   DialogContentProps,
@@ -123,8 +128,10 @@ export type { Props as FieldSetProps } from "../components/FieldSet/types.d.vue"
 export type { Props as FormProps } from "../components/Form/types.d.vue"
 export type { Props as ListProps } from "../components/List/types.d.vue"
 export type { Props as ListItemProps } from "../components/ListItem/types.d.vue"
-export type { MenuItem } from "../components/Menu/types"
-export type { Props as MenuProps } from "../components/Menu/types.d.vue"
+export type {
+  MenuItem,
+  Props as MenuProps,
+} from "../components/Menu/types.d.vue"
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
 export type { RadioInputProps } from "../components/Radio/types"
 export type { RadioProps } from "../components/Radio/types.d.vue"
@@ -133,8 +140,11 @@ export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.d.vue"
 export type { SwitchInputProps } from "../components/Switch/types"
 export type { SwitchProps } from "../components/Switch/types.d.vue"
-export type { ColumnProps as TableColumnProps } from "../components/Table/types"
-export type { Props as TableProps } from "../components/Table/types.d.vue"
+export type {
+  ColumnProps as TableColumnProps,
+  Props as TableProps,
+  SectionProps as TableSectionProps,
+} from "../components/Table/types.d.vue"
 export type {
   TabsItemProps,
   TabsPanelProps,

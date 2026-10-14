@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
+  import type { HTMLAttributes } from "svelte/elements"
 
   let {
     align,
@@ -20,7 +21,7 @@
       variant && `ui-${variant}`,
       className,
     ]}
-    {...rest}
+    {...rest as HTMLAttributes<HTMLDivElement>}
   >
     {@render children()}
   </div>

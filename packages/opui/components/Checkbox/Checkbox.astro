@@ -9,7 +9,6 @@ const {
   class: className,
   error,
   hideLabel,
-  name,
   size,
   spread,
   stack,
@@ -48,7 +47,6 @@ if (
     {...rest}
     aria-describedby={describedBy}
     aria-invalid={error ? "true" : rest["aria-invalid"]}
-    name={name}
   />
   {
     Astro.slots.has("default") && (

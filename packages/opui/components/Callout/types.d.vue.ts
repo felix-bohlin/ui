@@ -1,4 +1,4 @@
-import type { HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes, Slot } from "vue"
 import type {
   CalloutContentProps as BaseCalloutContentProps,
   CalloutIconProps as BaseCalloutIconProps,
@@ -21,7 +21,3 @@ export type CalloutTitleProps = BaseCalloutTitleProps & Class
 export type Slots = {
   default?: Slot
 }
-
-export const CalloutKey = Symbol() as InjectionKey<{
-  severity: BaseProps["severity"]
-}>

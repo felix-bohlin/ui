@@ -4,6 +4,7 @@ import type { Props, Slots } from "./types.d.vue"
 
 const {
   align,
+  bordered,
   dense,
   id,
   items,
@@ -17,7 +18,7 @@ defineOptions({
 })
 
 const uid = useId()
-const menuId = computed(() => id || uid)
+const menuId = computed(() => id || `menu-${uid}`)
 </script>
 
 <template>
@@ -26,7 +27,11 @@ const menuId = computed(() => id || uid)
     :class="[
       'ui-menu',
       'ui-list',
-      { 'ui-align-end': align === 'end', 'ui-dense': dense },
+      {
+        'ui-align-end': align === 'end',
+        'ui-bordered': bordered,
+        'ui-dense': dense,
+      },
       placement && placement !== 'block-end' && `ui-${placement}`,
       $props.class,
     ]"

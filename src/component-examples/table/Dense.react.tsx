@@ -29,22 +29,7 @@ export default function Dense() {
           <TableCell>Jonathan Davis</TableCell>
           <TableCell>Vocals</TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell>Broken Bells</TableCell>
-          <TableCell>James Mercer</TableCell>
-          <TableCell>Vocals/Guitar</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Pink Floyd</TableCell>
-          <TableCell>David Gilmour</TableCell>
-          <TableCell>Guitar/Vocals</TableCell>
-        </TableRow>
       </TableBody>
-      <tfoot>
-        <TableRow>
-          <TableCell colSpan={3}>All great bands!</TableCell>
-        </TableRow>
-      </tfoot>
     </Table>
   )
 }

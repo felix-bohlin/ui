@@ -37,3 +37,15 @@ declare namespace App {
     componentSlug?: string
   }
 }
+
+interface Window {
+  showToast?: (options?: import("@opui/css/js/toast.js").ToastOptions) => void
+  themeUtils: {
+    applyCustomTheme: (theme?: "dark" | "light") => void
+    getStoredContrast: () => string | null
+    getStoredTheme: () => string | null
+    getSystemPreference: () => "dark" | "light"
+    setContrast: (contrast: "more" | "normal" | null) => void
+    setTheme: (theme: "dark" | "light") => void
+  }
+}

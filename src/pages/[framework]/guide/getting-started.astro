@@ -1,4 +1,5 @@
 ---
+import type { AstroInstance } from "astro"
 import {
   DEFAULT_FRAMEWORK,
   frameworkPaths,
@@ -9,11 +10,9 @@ export const getStaticPaths = frameworkPaths
 
 const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId
 
-const modules = import.meta.glob(
+const modules = import.meta.glob<AstroInstance>(
   "../../../docs/guide/getting-started/*.astro",
-  {
-    eager: true,
-  },
+  { eager: true },
 )
 
 const labelByFramework: Record<FrameworkId, string> = {
@@ -28,7 +27,7 @@ const label = labelByFramework[framework]
 const entry = Object.entries(modules).find(([path]) =>
   path.endsWith(`/${label}.astro`),
 )
-const Page = entry ? (entry[1] as { default: any }).default : null
+const Page = entry?.[1].default
 ---
 
 {Page && <Page />}

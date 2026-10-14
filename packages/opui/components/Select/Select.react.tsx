@@ -32,6 +32,8 @@ export default function Select({
   const field = useFieldContext()
   const labelId = `select-label-${uid}`
   const endTextId = endText ? `end-text-${uid}` : undefined
+  const describedBy =
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
   const selectedValues = items
     .filter((item) => item.selected)
@@ -64,15 +66,15 @@ export default function Select({
       {description && <span className="ui-start-text">{description}</span>}
       <span className="ui-field">
         <select
-          aria-describedby={endTextId}
-          aria-invalid={error ? "true" : undefined}
-          aria-labelledby={label ? labelId : undefined}
+          {...rest}
+          aria-describedby={describedBy}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
+          aria-labelledby={label ? labelId : rest["aria-labelledby"]}
           defaultValue={value === undefined ? initialValue : undefined}
           id={id}
           multiple={multiple}
           name={name ?? field?.name}
           value={value}
-          {...rest}
         >
           <button>{createElement("selectedcontent")}</button>
           <div className={cx(["ui-list", { "ui-dense": dense }])}>

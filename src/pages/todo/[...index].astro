@@ -20,11 +20,16 @@ import {
   splitLinks,
   stressRefs,
 } from "../../utils/todo"
+import {
+  stressPages,
+  stressSlug,
+  testPagesEnabled,
+} from "../../utils/test-pages"
 import { todoExamplesFor } from "../../utils/todo-examples"
 import source from "../../../TODO.md?raw"
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  if (!testPagesEnabled()) return []
   return [{ params: { index: undefined } }, { params: { index: "done" } }]
 }
 
@@ -47,15 +52,9 @@ const plainText = (text: string) =>
     .map((part) => part.value)
     .join("")
 
-const stressPages = Object.fromEntries(
-  Object.entries(
-    import.meta.glob<string>("../../stress-tests/*.html", {
-      eager: true,
-      import: "default",
-      query: "?raw",
-    }),
-  ).map(([path, html]) => [
-    path.match(/stress-tests\/([^/]+)\.html$/)![1],
+const stressExamples = Object.fromEntries(
+  Object.entries(stressPages).map(([path, html]) => [
+    stressSlug(path),
     new Set(
       [...html.matchAll(/data-example="([^"]+)"/g)].map(([, name]) => name),
     ),
@@ -72,7 +71,7 @@ const examplesFor = (text: string) => {
 
   return [
     ...stressRefs(text)
-      .filter(({ example, page }) => stressPages[page]?.has(example))
+      .filter(({ example, page }) => stressExamples[page]?.has(example))
       .map(({ example, page }) => ({
         label: `${page} ${example}`,
         scheme,
@@ -153,7 +152,11 @@ const count = sections.reduce(
         <h2 id={slugify(section.title)}>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
           {section.items.map((item, index) => (
-            <li class="todo-item" data-todo-line={item.line}>
+            <li
+              class="todo-item"
+              data-todo-key={slugify(item.text)}
+              data-todo-line={item.line}
+            >
               <div class="todo-text">
                 {item.severity && (
                   <Chip
@@ -310,6 +313,7 @@ const count = sections.reduce(
     write(actionsKey, actions)
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
+  const keyOf = (item: HTMLElement) => item.dataset.todoKey!
   const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
@@ -326,11 +330,11 @@ const count = sections.reduce(
   const save = (item: HTMLElement) => {
     clearTimeout(pending.get(item))
     pending.delete(item)
-    const line = item.dataset.todoLine!
+    const key = keyOf(item)
     const value = fieldOf(item).value
     const comments = readComments()
-    if (value.trim()) comments[line] = value
-    else delete comments[line]
+    if (value.trim()) comments[key] = value
+    else delete comments[key]
     const savedText = item.querySelector(".todo-saved")!
     if (writeComments(comments)) {
       savedText.textContent = value.trim() ? "Saved" : ""
@@ -344,11 +348,11 @@ const count = sections.reduce(
   const saveAll = () => [...pending.keys()].forEach(save)
 
   const saveActions = (item: HTMLElement) => {
-    const line = item.dataset.todoLine!
+    const key = keyOf(item)
     const checked = checkedAction(item)
     const actions = readActions()
-    if (checked) actions[line] = checked
-    else delete actions[line]
+    if (checked) actions[key] = checked
+    else delete actions[key]
     if (!writeActions(actions))
       status.textContent =
         "Comments can't be saved in this browser. Copy them before leaving the page."
@@ -358,11 +362,11 @@ const count = sections.reduce(
   const savedActions = readActions()
   for (const item of items) {
     for (const input of actionsOf(item)) {
-      input.checked = savedActions[item.dataset.todoLine!] === input.value
+      input.checked = savedActions[keyOf(item)] === input.value
       input.addEventListener("change", () => saveActions(item))
     }
     const field = fieldOf(item)
-    field.value = saved[item.dataset.todoLine!] ?? ""
+    field.value = saved[keyOf(item)] ?? ""
     field.addEventListener("input", () => {
       clearTimeout(pending.get(item))
       pending.set(
@@ -418,23 +422,7 @@ const count = sections.reduce(
   const copyField =
     document.querySelector<HTMLTextAreaElement>("#todo-copy-text")!
 
-  const copyWithSelection = (text: string) => {
-    const field = document.createElement("textarea")
-    field.value = text
-    field.inputMode = "none"
-    field.style.fontSize = "16px"
-    field.style.opacity = "0"
-    field.style.position = "fixed"
-    document.body.append(field)
-    field.focus()
-    field.setSelectionRange(0, text.length)
-    const copied = document.execCommand("copy")
-    field.remove()
-    return copied
-  }
-
   const copy = async (text: string) => {
-    if (!navigator.clipboard?.writeText) return copyWithSelection(text)
     try {
       await Promise.race([
         navigator.clipboard.writeText(text),
@@ -442,7 +430,7 @@ const count = sections.reduce(
       ])
       return true
     } catch {
-      return copyWithSelection(text)
+      return false
     }
   }
 

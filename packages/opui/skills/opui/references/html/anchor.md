@@ -298,4 +298,3 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 - `opui-css/css/components/anchor.css`
-

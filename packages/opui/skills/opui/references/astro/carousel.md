@@ -24,11 +24,11 @@
 
 * `buttons`
 
-  The previous button.
+  The previous button. `::scroll-button(block-start)` when vertical.
 
 * `buttons`
 
-  The next button.
+  The next button. `::scroll-button(block-end)` when vertical.
 
 * `markers`
 
@@ -251,6 +251,10 @@ const photos = [
 </Carousel>
 ```
 
+### Gallery
+
+Square photos, three per view.
+
 ```astro
 ---
 import { Carousel } from "opui-css/astro"
@@ -283,7 +287,7 @@ const photos = [
 
 ## Video
 
-`video` and `iframe` fill the item too.
+`video` fills the item too.
 
 ```astro
 ---
@@ -311,6 +315,10 @@ const videos = [
   }
 </Carousel>
 ```
+
+### Embeds
+
+So does an `iframe`.
 
 ```astro
 ---
@@ -531,7 +539,7 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | `buttons`           | `boolean` , `"outside"`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
 | `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
-| `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | Scroll direction. Vertical carousels need a block size, set with `--_block-size`.                                     |
+| `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |
 | `persistentButtons` | `boolean`                     | `false`        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
 | `perView`           | `number`                      | `1`            | Number of visible items.                                                                                              |
@@ -545,22 +553,22 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 #### CSS variables
 
-| Variable              | Default                                      | Description                                                                                                                                                                                               |
-| --------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`     | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
-| `--border-width`      | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
-| `--button-size-small` | `var(--control-size-small)`                  | `Button` height with `.ui-small`.                                                                                                                                                                         |
-| `--duration`          | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
-| `--duration-fast`     | `0.1s`                                       | Transition duration for hover and press feedback.                                                                                                                                                         |
-| `--ease`              | `ease`                                       | Default easing for transitions.                                                                                                                                                                           |
-| `--focus-ring-color`  | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
-| `--focus-ring-offset` | `2px`                                        | Distance between a control and its focus ring.                                                                                                                                                            |
-| `--focus-ring-style`  | `solid`                                      | Outline style of the focus ring.                                                                                                                                                                          |
-| `--focus-ring-width`  | `2px`                                        | Width of the focus ring.                                                                                                                                                                                  |
-| `--motion`            | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
-| `--primary`           | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
-| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                           |
-| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                    |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`     | `var(--size-2)`                                                                | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                   |
+| `--button-size-small` | `var(--control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                         |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--duration-fast`     | `0.1s`                                                                         | Transition duration for hover and press feedback.                                                                                                                                                         |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                           |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                            |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                          |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                  |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--primary`           | `light-dark(var(--color-9), var(--color-6))`                                   | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`                                    | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                           |
+| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                                    | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -739,3 +747,4 @@ Import the component from `opui-css/astro`:
 - [Persistent buttons](#persistent-buttons) with the `persistentButtons` prop.
 - [Vertical](#vertical) carousels with `orientation="vertical"`.
 - [Stretch](#stretch) cards to equal height with the `stretch` prop.
+- The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.

@@ -4,6 +4,7 @@ import type { Props } from "./types.react"
 
 export default function Menu({
   align,
+  bordered,
   className,
   dense,
   id,
@@ -21,7 +22,11 @@ export default function Menu({
       className={cx([
         "ui-menu",
         "ui-list",
-        { "ui-align-end": align === "end", "ui-dense": dense },
+        {
+          "ui-align-end": align === "end",
+          "ui-bordered": bordered,
+          "ui-dense": dense,
+        },
         placement && placement !== "block-end" && `ui-${placement}`,
         className,
       ])}

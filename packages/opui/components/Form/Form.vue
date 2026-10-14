@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const props = withDefaults(defineProps<Props>(), {
-  as: "form",
-})
+const { as = "form" } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -12,7 +10,7 @@ defineOptions({
 </script>
 
 <template>
-  <component :is="props.as" :class="['ui-form', props.class]" v-bind="$attrs">
+  <component :is="as" :class="['ui-form', $props.class]" v-bind="$attrs">
     <slot></slot>
   </component>
 </template>

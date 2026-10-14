@@ -182,7 +182,7 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 - Each part renders its own wrapper. The root renders its children as they are, and never wraps, reorders or inspects them.
 - Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
 - Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on.
-- Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `types.d.vue.ts` (Vue). Ids are deterministic, so every framework renders the same markup on the server.
+- Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). Ids are deterministic, so every framework renders the same markup on the server.
 - Parts without context stay React server components.
 - Every part is exported from all four barrels with its `Props` type.
 

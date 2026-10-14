@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useAttrs, useId } from "vue"
-import { DrawerKey, type Props, type Slots } from "./types.d.vue"
+import { DrawerKey } from "./context.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const {
   backdrop = "blurred",

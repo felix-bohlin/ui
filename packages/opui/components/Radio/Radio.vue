@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import RadioInput from "./RadioInput.vue"
 import type { RadioProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<RadioProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+if (
+  import.meta.env.DEV &&
+  !slots.default &&
+  !attrs["aria-label"] &&
+  !attrs["aria-labelledby"]
+) {
+  console.warn(
+    "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+  )
+}
 </script>
 
 <template>
@@ -29,7 +42,6 @@ const endTextId = useId()
     ]"
   >
     <RadioInput
-      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="
@@ -37,6 +49,7 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
     />
     <span
       v-if="$slots.default"

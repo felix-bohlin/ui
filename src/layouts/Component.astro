@@ -4,7 +4,8 @@ import { componentsFor, componentHrefFor } from "../utils/components"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
-import ComponentAPI from "../components/ComponentAPI.astro"
+import ComponentAPI, { type Apis } from "../components/ComponentAPI.astro"
+import type { AstroInstance } from "astro"
 import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
@@ -40,7 +41,7 @@ type Props = {
   overline?: string
   browserSupport?: string[]
   slug?: string
-  apis?: any | any[] | "auto"
+  apis?: Apis | "auto"
   changelogPaths?: ChangelogPathEntry[]
   heroAnatomy?: boolean
   installationTabs?: Tab[]
@@ -77,16 +78,17 @@ const urlSlug = Astro.url.pathname
 const currentSlug = slugProp ?? urlSlug
 Astro.locals.componentSlug = currentSlug
 
-const apiModules = import.meta.glob("../component-api/**/*.astro", {
-  eager: true,
-}) as Record<string, { default: any }>
+const apiModules = import.meta.glob<AstroInstance>(
+  "../component-api/**/*.astro",
+  { eager: true },
+)
 
 const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
   eager: true,
   import: "default",
 })
 
-const autoApis = (() => {
+const autoApis = ((): Apis | null => {
   if (!currentSlug) return null
   const api = apiData[`../component-api/${currentSlug}/api.ts`]
   if (api) return [{ api }]
@@ -108,7 +110,7 @@ const hydrationFramework =
 const hydrationApis = hydrationFramework
   ? [apis ?? []]
       .flat()
-      .flatMap((entry: { api?: ComponentApi }) => entry?.api ?? [])
+      .flatMap((entry) => ("api" in entry ? [entry.api] : []))
       .filter((api) => shipped(api, hydrationFramework))
   : []
 

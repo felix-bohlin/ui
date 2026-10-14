@@ -19,6 +19,17 @@ export default function Radio({
   const describedBy =
     [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
+  if (
+    import.meta.env?.DEV &&
+    !children &&
+    !rest["aria-label"] &&
+    !rest["aria-labelledby"]
+  ) {
+    console.warn(
+      "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+    )
+  }
+
   return (
     <label
       className={cx([

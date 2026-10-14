@@ -106,6 +106,24 @@ const codeGroup = (node) => {
   )
 }
 
+const installationGroup = (node) => {
+  const children = []
+  for (const tab of selectAll(".ui-tab-label", node)) {
+    const label = textContent(tab).trim()
+    if (!/^[\w-]+\.css$/.test(label)) {
+      children.push(element("p", {}, [element("code", {}, [text(label)])]))
+      continue
+    }
+    const item = element("li", {}, [
+      element("code", {}, [text(`opui-css/css/components/${label}`)]),
+    ])
+    const last = children.at(-1)
+    if (last?.tagName === "ul") last.children.push(item)
+    else children.push(element("ul", {}, [item]))
+  }
+  return element("div", {}, children)
+}
+
 const ENGINES = { chromium: "Chromium", gecko: "Firefox", webkit: "Safari" }
 
 const browserSupport = (node) =>
@@ -190,10 +208,11 @@ export async function articleToMarkdown(
   unwrapTemplates(article, isClass("example-code"))
 
   if (omitInstallationCode) {
-    prune(
-      article,
-      new Set(selectAll("section:has(> #installation) .code-block", article)),
-    )
+    const installation = select("section:has(> #installation)", article)
+    if (installation) {
+      prune(installation, new Set(selectAll(".code-block", installation)))
+      replace(installation, isClass("code-group"), installationGroup)
+    }
   }
 
   const hgroup = select("#main-heading", article)

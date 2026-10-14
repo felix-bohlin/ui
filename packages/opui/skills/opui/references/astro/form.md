@@ -721,7 +721,7 @@ Import the components from `opui-css/astro`:
 - [Textarea](https://open-props-ui.netlify.app/astro/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 
-- `opui-css/css/components/form.css`
+* `opui-css/css/components/form.css`
 
 ## Changelog
 
@@ -729,3 +729,4 @@ Import the components from `opui-css/astro`:
 
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
+- [`FieldGroup`](#field-group) names its inputs through context, so a bare `input`, `select` or `textarea` no longer gets the group `name`, like in React, Svelte and Vue.

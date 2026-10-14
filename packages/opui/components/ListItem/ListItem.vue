@@ -12,19 +12,14 @@ defineOptions({
 
 const hasLabel = computed(
   () =>
-    props.type &&
-    (props.type === "checkbox" ||
-      props.type === "radio" ||
-      props.type === "switch"),
+    props.type === "checkbox" ||
+    props.type === "radio" ||
+    props.type === "switch",
 )
-const labelClass = computed(() => props.type || "")
 const Tag = computed(() => props.as ?? (props.href ? "a" : undefined))
 
 const liAttrs = computed(() => (Tag.value ? {} : attrs))
 const innerAttrs = computed(() => (Tag.value ? attrs : {}))
-const disabled = computed(() =>
-  "disabled" in props ? props.disabled : undefined,
-)
 </script>
 
 <template>
@@ -38,11 +33,7 @@ const disabled = computed(() =>
     ]"
     v-bind="liAttrs"
   >
-    <label
-      v-if="hasLabel"
-      :class="labelClass && `ui-${labelClass}`"
-      :for="props.for"
-    >
+    <label v-if="hasLabel" :class="`ui-${props.type}`" :for="props.for">
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
@@ -63,7 +54,7 @@ const disabled = computed(() =>
     <component
       :is="Tag"
       v-else-if="Tag"
-      :disabled="disabled"
+      :disabled="props.disabled"
       :href="props.href"
       :type="Tag === 'button' ? 'button' : undefined"
       v-bind="innerAttrs"

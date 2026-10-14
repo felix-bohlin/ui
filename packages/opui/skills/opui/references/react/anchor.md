@@ -334,4 +334,3 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 Import the components from `opui-css/react`:
 
 - `opui-css/css/components/anchor.css`
-

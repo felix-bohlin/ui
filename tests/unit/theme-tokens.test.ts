@@ -24,16 +24,11 @@ describe("theme tokens", () => {
         .map((section) => section.title),
     ).toEqual([
       "Palette",
-      "Named colors (no severity meaning)",
-      "Intent tokens",
-      "Primary",
-      "Text",
-      "Surfaces",
       "Borders",
-      "Field / input",
       "Focus ring",
       "Typography",
       "Control sizes",
+      "Field / input",
       "Button",
       "Divider",
       "Motion",
@@ -42,6 +37,11 @@ describe("theme tokens", () => {
       "Icons",
       "Choice controls",
       "Overlays",
+      "Named colors (no severity meaning)",
+      "Intent tokens",
+      "Primary",
+      "Text",
+      "Surfaces",
     ])
   })
 
@@ -62,7 +62,7 @@ describe("theme tokens", () => {
     expect(find("--motion")?.dark).toBeUndefined()
     expect(find("--palette-hue-rotate-by")?.value).toBe("0")
     expect(find("--palette-source")?.optional).toBe(true)
-    expect(find("--focus-ring-color")?.optional).toBe(true)
+    expect(find("--focus-ring-color")?.optional).toBeUndefined()
     expect(find("--color-scheme")).toBeUndefined()
   })
 
@@ -125,7 +125,7 @@ describe("generateCss", () => {
     expect(css).toContain("--palette-hue: 200;")
     expect(css).toContain("--border-radius: var(--radius-3);")
     expect(css).toMatch(
-      /:where\(html\.ui-dark\) \{\n {4}--palette-hue: 200;\n {2}\}/,
+      /:where\(html\.ui-dark\) \{\n {4}--shadow-color: [^\n]+\n {4}--shadow-strength: [^\n]+\n {4}--palette-hue: 200;\n {2}\}/,
     )
     expect(css).not.toMatch(/light-dark\(\s*\d/)
     expect(parseThemeTokens(css).length).toBe(sections.length)

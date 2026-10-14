@@ -23,6 +23,10 @@
   const field = getFieldContext()
   const selectId = $derived(id || `select-${uid}`)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
+  const describedBy = $derived(
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
+      undefined,
+  )
 </script>
 
 <label
@@ -38,12 +42,12 @@
   {#if label}<span class="ui-label">{label}</span>{/if}
   <span class="ui-field">
     <select
-      aria-describedby={endTextId}
-      aria-invalid={error ? "true" : undefined}
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
       bind:value
       id={selectId}
       name={name ?? field?.name}
-      {...rest}
     >
       {#each items as item (item.value)}
         <option value={item.value}>{item.text}</option>

@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, provide, useId } from "vue"
-import {
-  CurrentTabIdKey,
-  TabsGroupNameKey,
-  type Slots,
-  type TabsItemProps,
-} from "./types.d.vue"
+import { computed, inject, provide, reactive, useId } from "vue"
+import { TabsKey } from "./context.vue"
+import type { Slots, TabsItemProps } from "./types.d.vue"
 
 const { name, open, tabId } = defineProps<TabsItemProps>()
 defineSlots<Slots>()
@@ -14,15 +10,12 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const groupUid = useId()
-const tabUid = useId()
-const parentGroupName = inject(TabsGroupNameKey, undefined)
-const tabsGroupName = computed(() => name || parentGroupName?.value || groupUid)
-provide(TabsGroupNameKey, tabsGroupName)
+const uid = useId()
+const parent = inject(TabsKey, undefined)
+const groupName = computed(() => name || parent?.groupName || `tabs-${uid}`)
+const computedTabId = computed(() => tabId || `tab-${uid}`)
 
-const computedTabId = tabId || tabUid
-
-provide(CurrentTabIdKey, computedTabId)
+provide(TabsKey, reactive({ groupName, tabId: computedTabId }))
 </script>
 
 <template>
@@ -30,7 +23,7 @@ provide(CurrentTabIdKey, computedTabId)
     :checked="open"
     :class="['ui-tab-input', $props.class]"
     :id="computedTabId"
-    :name="tabsGroupName"
+    :name="groupName"
     type="radio"
     v-bind="$attrs"
   />

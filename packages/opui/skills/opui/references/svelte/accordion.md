@@ -175,33 +175,15 @@ Set the same `name` prop on each accordion to allow only one of them to be open 
 
 <Card variant="outlined" role="group">
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>First</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>Second</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
-    </AccordionContent>
-  </Accordion>
-  <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
-    <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
 </Card>
@@ -356,13 +338,13 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 
 ### Accordion API
 
-| Prop              | Type                                                  | Default     | Description                                                  |
-| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `children`        | `Snippet`                                             | -           | The accordion parts.                                         |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time. |
-| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                               |
-| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                          |
+| Prop              | Type                                    | Default    | Description                                                                        |
+| ----------------- | --------------------------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| `children`        | `Snippet`                               | -          | The accordion parts.                                                               |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`        | `"rotate"` | How the marker animates when the accordion opens.                                  |
+| `name`            | `string`                                | -          | Groups accordions so only one of them can be open at a time.                       |
+| `open`            | `boolean`                               | `false`    | Whether the accordion is open.                                                     |
+| `variant`         | `"outlined"` , `"elevated"` , `"tonal"` | -          | The variant to use. Without one the accordion has no background, border or shadow. |
 
 #### CSS variables
 
@@ -531,8 +513,8 @@ Import the components from `opui-css/svelte`:
 
 - [Card](https://open-props-ui.netlify.app/svelte/components/card.md)
 
-- `opui-css/css/components/accordion.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/accordion.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -540,3 +522,5 @@ Import the components from `opui-css/svelte`:
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - [Actions](#actions) line up with the content and the chevron.
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- Breaking: [`variant="default"`](#variants) is gone. Leave `variant` out for the default look.

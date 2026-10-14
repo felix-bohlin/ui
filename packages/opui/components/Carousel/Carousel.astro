@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { mergeStyle } from "../style"
 
 export const title = "Carousel"
 
@@ -18,18 +19,6 @@ const {
   style,
   ...rest
 } = Astro.props
-
-const vars = {
-  ...(perView ? { "--_per-view": perView } : {}),
-  ...(aspectRatio ? { "--_media-aspect-ratio": aspectRatio } : {}),
-}
-const varStyle = Object.entries(vars)
-  .map(([name, value]) => `${name}: ${value};`)
-  .join(" ")
-const mergedStyle =
-  typeof style === "string" || !style
-    ? [varStyle, style].filter(Boolean).join(" ") || undefined
-    : { ...vars, ...style }
 ---
 
 <ul
@@ -48,7 +37,10 @@ const mergedStyle =
     align && align !== "start" && `ui-align-${align}`,
     className,
   ]}
-  style={mergedStyle}
+  style={mergeStyle(
+    { "--_per-view": perView, "--_media-aspect-ratio": aspectRatio },
+    style,
+  )}
   {...rest}
 >
   <slot />

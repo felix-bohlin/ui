@@ -22,6 +22,7 @@ export default {
       group: "Value",
       part: "progress",
       prop: "value",
+      type: "number | string",
     },
     {
       default: '"tonal"',

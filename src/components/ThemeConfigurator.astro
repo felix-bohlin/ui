@@ -242,7 +242,6 @@ const { link } = Astro.locals
   const contrastSwitcher = document.getElementById(
     "contrast-switcher",
   ) as HTMLInputElement | null
-  const drawer = document.getElementById("theme-configurator-drawer")
 
   function setGrayInputsDisabled(disabled: boolean) {
     form
@@ -311,7 +310,7 @@ const { link } = Astro.locals
       const isDark = document.documentElement.classList.contains("ui-dark")
       const newTheme: Mode = isDark ? "light" : "dark"
 
-      ;(window as any).themeUtils?.setTheme(newTheme)
+      window.themeUtils?.setTheme(newTheme)
       themeSwitcher.checked = newTheme === "dark"
 
       themeStore.applyMode(newTheme)
@@ -334,9 +333,7 @@ const { link } = Astro.locals
   )
 
   contrastSwitcher?.addEventListener("click", () => {
-    ;(window as any).themeUtils?.setContrast(
-      contrastSwitcher.checked ? "more" : "normal",
-    )
+    window.themeUtils?.setContrast(contrastSwitcher.checked ? "more" : "normal")
   })
 
   form?.addEventListener("input", (e) => {
@@ -415,7 +412,7 @@ const { link } = Astro.locals
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")
     }
-    ;(window as any).themeUtils?.setContrast(null)
+    window.themeUtils?.setContrast(null)
     syncContrastSwitcher()
   })
 

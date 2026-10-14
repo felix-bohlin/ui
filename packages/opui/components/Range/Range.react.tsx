@@ -70,7 +70,9 @@ export default function Range({
   const startTextId = startText ? `range-start-${uid}` : undefined
   const endTextId = endText ? `range-end-${uid}` : undefined
   const describedBy =
-    [startTextId, endTextId].filter(Boolean).join(" ") || undefined
+    [startTextId, endTextId, rest["aria-describedby"]]
+      .filter(Boolean)
+      .join(" ") || undefined
 
   return (
     <label
@@ -102,9 +104,10 @@ export default function Range({
         </span>
       )}
       <input
+        {...rest}
         aria-describedby={describedBy}
-        aria-invalid={error ? "true" : undefined}
-        aria-labelledby={labelId}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
+        aria-labelledby={labelId ?? rest["aria-labelledby"]}
         defaultValue={defaultValue}
         id={inputId}
         list={list}
@@ -119,7 +122,6 @@ export default function Range({
         step={step}
         type="range"
         value={value}
-        {...rest}
       />
       {(options || datalist) && (
         <datalist id={list}>

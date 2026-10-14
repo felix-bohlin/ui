@@ -3,6 +3,7 @@ import {
   hrefFor,
   type FrameworkId,
 } from "./framework-routing"
+import { componentName } from "./names"
 
 const docModules = import.meta.glob("../docs/components/*.astro")
 
@@ -14,14 +15,11 @@ for (const path of Object.keys(docModules)) {
 }
 
 export const components = Array.from(slugs)
-  .map((slug) => {
-    const name = slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-
-    return { name, slug, href: `/components/${slug}` }
-  })
+  .map((slug) => ({
+    name: componentName(slug),
+    slug,
+    href: `/components/${slug}`,
+  }))
   .sort((a, b) => a.name.localeCompare(b.name))
 
 export function componentsFor(framework: FrameworkId) {

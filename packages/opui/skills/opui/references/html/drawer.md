@@ -705,3 +705,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
+- The [backdrop](#usage) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).

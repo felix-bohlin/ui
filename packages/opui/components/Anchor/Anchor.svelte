@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import { setAnchorContext } from "./context"
   import type { Props } from "./types.svelte"
 
@@ -32,8 +33,7 @@
 <span
   class={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={`${alignment ? `--anchor-position-area: ${alignment};` : ""}${style ?? ""}` ||
-    undefined}
+  style={mergeStyle({ "--anchor-position-area": alignment }, style)}
   {...rest}
 >
   {@render children?.()}

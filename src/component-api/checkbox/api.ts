@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
+  css: ["checkbox", "choice"],
   hydration: {
     react: [
       {

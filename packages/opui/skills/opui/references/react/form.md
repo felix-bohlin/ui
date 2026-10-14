@@ -785,5 +785,4 @@ Import the components from `opui-css/react`:
 - [Textarea](https://open-props-ui.netlify.app/react/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
 
-- `opui-css/css/components/form.css`
-
+* `opui-css/css/components/form.css`

@@ -46,18 +46,18 @@ const previewModules = import.meta.glob(
   {
     eager: true,
   },
-) as Record<string, { default: any }>
+) as Record<string, { default: unknown }>
 
 const reactPreviewModules = import.meta.glob(
   "../component-examples/**/*.react.tsx",
   {
     eager: true,
   },
-) as Record<string, { default: any }>
+) as Record<string, { default: unknown }>
 
 const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
   eager: true,
-}) as Record<string, { default: any }>
+}) as Record<string, { default: unknown }>
 
 const rawSources = import.meta.glob(
   "../component-examples/**/*.{astro,html,react.tsx,svelte,vue}",

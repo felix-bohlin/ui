@@ -1,11 +1,12 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Radio as UIRadio } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -51,6 +52,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   ]}
   installationTabs={[
     { title: "radio.css", code: RadioCSS, lang: "css" },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
   ]}
 >
@@ -199,7 +201,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         label. The component points <code>aria-describedby</code> at it.</Fragment
       >
     </Conditional>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
@@ -365,14 +367,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
-    <p>
-      The radio lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
-    </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <LabelAlignment control="radio" />
   </section>
 
   <RadioBuild slot="under-the-hood" />

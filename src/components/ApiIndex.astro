@@ -1,9 +1,11 @@
 ---
 import Document from "../layouts/Document.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
-import ComponentAPI from "./ComponentAPI.astro"
+import ComponentAPI, { type FrameworkApis } from "./ComponentAPI.astro"
+import type { AstroInstance } from "astro"
 import type { ComponentApi } from "../component-api/types"
 import { components } from "../utils/components"
+import { componentName } from "../utils/names"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -11,9 +13,10 @@ import {
   type FrameworkId,
 } from "../utils/framework-routing"
 
-const apiModules = import.meta.glob("../component-api/**/*.astro", {
-  eager: true,
-})
+const apiModules = import.meta.glob<AstroInstance>(
+  "../component-api/**/*.astro",
+  { eager: true },
+)
 
 const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
   eager: true,
@@ -29,7 +32,7 @@ type ApiGroup = {
   folder: string
   page?: string
   prefix: string
-  apis: Partial<Record<FrameworkId, any>> | { api: ComponentApi }[]
+  apis: FrameworkApis | { api: ComponentApi }[]
 }
 
 const groups: Record<string, ApiGroup> = {}
@@ -52,9 +55,7 @@ for (const path in apiModules) {
   if (!groups[key]) {
     groups[key] = { folder, prefix, apis: {} }
   }
-  ;(groups[key].apis as Record<string, any>)[frameworkId] = (
-    apiModules[path] as any
-  ).default
+  ;(groups[key].apis as FrameworkApis)[frameworkId] = apiModules[path].default
 }
 
 for (const path in apiData) {
@@ -77,10 +78,7 @@ const apiList = Object.values(groups)
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 
-    const title = slug
-      .split("-")
-      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
+    const title = componentName(slug)
 
     const page = group.page ?? slug
 

@@ -47,7 +47,7 @@ export default {
     {
       attribute: '[command="hide-popover"]',
       description:
-        "Closes the menu when the item is clicked, with `commandfor` set to the menu id (`closeOnClick` on an item, `true` by default).",
+        "Closes the menu when the item is clicked, with `commandfor` set to the menu id (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu.",
       frameworks: ["html"],
       group: "Close on click",
       part: "li > button",

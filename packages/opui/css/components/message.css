@@ -131,6 +131,8 @@
     &.ui-outgoing {
       --_bg-color: var(--primary);
       --_text-color: var(--primary-contrast);
+      --field-helper-color: var(--_text-color);
+      --field-label-color: var(--_text-color);
 
       align-self: end;
       grid-template-areas: "add bubble avatar" ". reactions .";

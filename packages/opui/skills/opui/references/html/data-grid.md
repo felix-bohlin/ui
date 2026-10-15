@@ -3737,15 +3737,38 @@ The state lives in `:has()` on the root, so every sort, filter, selection or col
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: container-scroll-state-queries, reading-flow, sibling-count.
-- Safari: Partial support Missing: container-scroll-state-queries, reading-flow.
+- Chromium: Full support Supported since v138.
+- Firefox: Partial support Missing: container-scroll-state-queries, interpolate-size, reading-flow, sibling-count.
+- Safari: Partial support Missing: container-scroll-state-queries, interpolate-size, reading-flow.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Data+Grid.md).
 
 ## Installation
 
-- `opui-css/css/components/data-grid.css`
+### Dependencies
+
+- [Button](https://open-props-ui.netlify.app/html/components/button.md)
+- [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md)
+- [Description List](https://open-props-ui.netlify.app/html/components/description-list.md)
+- [Menu](https://open-props-ui.netlify.app/html/components/menu.md)
+
+### See also
+
+- [Avatar](https://open-props-ui.netlify.app/html/components/avatar.md)
+- [Chip](https://open-props-ui.netlify.app/html/components/chip.md)
+- [Progress](https://open-props-ui.netlify.app/html/components/progress.md)
+
+* `opui-css/css/components/data-grid.css`
+* `opui-css/css/components/button.css`
+* `opui-css/css/components/checkbox.css`
+* `opui-css/css/components/choice.css`
+* `opui-css/css/components/list.css`
+* `opui-css/css/components/menu.css`
+* `opui-css/css/components/toggle-button.css`
+* `opui-css/css/components/toggle-group.css`
+* `opui-css/css/components/avatar.css`
+* `opui-css/css/components/chip.css`
+* `opui-css/css/components/progress.css`
 
 ## Changelog
 

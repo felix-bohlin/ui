@@ -281,6 +281,8 @@ An `actions` snippet only shows while rows are selected. `rowKey` names the chec
 
 `headerMenus` adds a menu to sort or hide each column.
 
+The menu items are labels, so keyboard users sort with the arrows in the header and hide columns in the Columns menu.
+
 ```svelte
 <script lang="ts">
   import { DataGrid } from "opui-css/svelte"

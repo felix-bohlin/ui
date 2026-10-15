@@ -1198,6 +1198,8 @@ Checkboxes in `.ui-columns` with the column number as `value`.
 
 A popover menu in each header. Its items are `label` elements pointing at the sort radios and column checkboxes by `id`.
 
+The menu items are labels, so keyboard users sort with the arrows in the header and hide columns in the Columns menu.
+
 ```html
 <div class="ui-data-grid">
   <div class="ui-toolbar">

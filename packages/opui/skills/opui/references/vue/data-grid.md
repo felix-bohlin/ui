@@ -299,6 +299,8 @@ import { columns, people } from "./data"
 
 `header-menus` adds a menu to sort or hide each column.
 
+The menu items are labels, so keyboard users sort with the arrows in the header and hide columns in the Columns menu.
+
 ```vue
 <script setup lang="ts">
 import { DataGrid } from "opui-css/vue"

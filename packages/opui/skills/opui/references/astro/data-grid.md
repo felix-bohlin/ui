@@ -293,6 +293,8 @@ import { columns, people } from "./data"
 
 `headerMenus` adds a menu to sort or hide each column.
 
+The menu items are labels, so keyboard users sort with the arrows in the header and hide columns in the Columns menu.
+
 ```astro
 ---
 import { DataGrid } from "opui-css/astro"

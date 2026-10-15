@@ -410,6 +410,7 @@
 - `Card` actions keep the edge padding for a text button with extra classes.
 - `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists.
 - `Anchor` in React, Svelte and Vue renders generated ids with the `anchor-` prefix, like Astro.
+- `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 
 ## 5.5.0 - 2026-09-28
 

@@ -326,7 +326,12 @@
 
     /* Auto-fit */
     &.ui-auto-fit {
-      inline-size: auto;
+      inline-size: fit-content;
+      max-inline-size: 100%;
+
+      :where(.ui-start-text, .ui-end-text) {
+        contain: inline-size;
+      }
 
       .ui-field {
         inline-size: auto;

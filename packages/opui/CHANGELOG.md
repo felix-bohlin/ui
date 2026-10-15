@@ -229,6 +229,7 @@
 
 ### Fixed
 
+- `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `AccordionSummary` marks its default chevron `aria-hidden="true"`, so screen readers skip it.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.
@@ -418,6 +419,7 @@
 - `Card` actions keep the edge padding for a text button with extra classes.
 - `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists.
 - `Anchor` in React, Svelte and Vue renders generated ids with the `anchor-` prefix, like Astro.
+- `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 
 ## 5.5.0 - 2026-09-28
 

@@ -17,7 +17,17 @@ import {
 } from "@opui/astro"
 import type { DataGridRow } from "@opui/astro"
 
+import AvatarCSS from "@opui/css/components/avatar.css?raw"
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
+import ChipCSS from "@opui/css/components/chip.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import DataGridCSS from "@opui/css/components/data-grid.css?raw"
+import ListCSS from "@opui/css/components/list.css?raw"
+import MenuCSS from "@opui/css/components/menu.css?raw"
+import ProgressCSS from "@opui/css/components/progress.css?raw"
+import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
+import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
 
 import dataGridApi from "../../component-api/data-grid/api"
 import { people } from "../../component-examples/data-grid/data"
@@ -167,16 +177,25 @@ const techniques = [
   apis={[{ title: "Data grid API", api: dataGridApi }]}
   browserSupport={[
     "align-content-block",
-    "anchor-positioning",
+    "color-mix",
+    "container-queries",
     "container-scroll-state-queries",
+    "container-style-queries",
     "counters",
     "details-content",
+    "dir-pseudo",
     "field-sizing",
     "has",
+    "interpolate-size",
+    "masks",
     "nth-child-of",
+    "overflow-clip",
+    "popover",
     "reading-flow",
+    "relative-color",
     "sibling-count",
     "subgrid",
+    "user-pseudos",
   ]}
   changelogPaths={[
     {
@@ -190,6 +209,21 @@ const techniques = [
   ]}
   installationTabs={[
     { title: "data-grid.css", code: DataGridCSS, lang: "css" },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
+    {
+      title: "checkbox.css",
+      code: CheckboxCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+    { title: "menu.css", code: MenuCSS, lang: "css", isDependency: true },
+    { title: "toggle-button.css", code: ToggleButtonCSS, lang: "css" },
+    { title: "toggle-group.css", code: ToggleGroupCSS, lang: "css" },
+    { title: "avatar.css", code: AvatarCSS, lang: "css", seeAlso: true },
+    { title: "chip.css", code: ChipCSS, lang: "css", seeAlso: true },
+    { title: "progress.css", code: ProgressCSS, lang: "css", seeAlso: true },
   ]}
 >
   <Fragment slot="title">Data grid</Fragment>

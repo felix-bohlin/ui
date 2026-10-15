@@ -5601,8 +5601,11 @@ Components the blocks hand-roll today. Each has a pitch and a live example with 
 - [x] (1) Browser support: `src/utils/browser-support.ts` still casts `features as Record<string, any>`, the last `any` outside `src/utils`
   - Fix: type it from the `web-features` package's exported `features` type.
   - Fixed: a `featureOf(id)` helper indexes `features` with its own `web-features` type and narrows to entries that carry `status`, so the cast is gone.
-- [ ] (1) Tabs: `--_inset: 3px` is the one hard-coded size left after the tokens item (`packages/opui/css/components/tabs.css:13`)
+  - Fixed after: `astro check` failed on `computeFeatureSupport`, since web-features types `status.baseline` as `boolean | "high" | "low"`. It now keeps the value only when it's a string and falls back to `false` (no feature has `baseline: true`, so the output is the same).
+- [x] (1) Tabs: `--_inset: 3px` is the one hard-coded size left after the tokens item (`packages/opui/css/components/tabs.css:13`)
   - Fix: a private `--_inset: calc(var(--size-1) - 1px)` is not clearer; either keep it and say so here, or derive it from `--_indicator-size` (`calc(var(--_indicator-size) + 1px)`).
+  > Fix
+  - Fixed: `--_inset: calc(var(--size-1) - var(--_track-border-width))`, so the selected pill sits `--size-1` from the track's outer edge. Still 3px with the default 16px root and 1px `--border-width`, and the gap stays `--size-1` when a theme changes `--border-width` or the root font size. Not tied to `--_indicator-size`, which is the line variant's underline and unrelated to the gap. `.ui-line` keeps `--_inset: 0px`.
 
 ## To check
 

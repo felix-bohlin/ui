@@ -3882,6 +3882,44 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
   - Fixed: `anchor-positioning` is gone, and `color-mix`, `container-queries`, `container-style-queries`, `dir-pseudo`, `interpolate-size`, `masks`, `popover`, `relative-color` and `user-pseudos` are added, plus `overflow-clip` for the root's `overflow: clip`. The other ids are all still used (`align-content` on block cells, `sibling-index()` is part of `sibling-count`).
 - [ ] (6) PR #418, DataGrid: the Accessibility section is one paragraph for a component with sort radios, filter and density radios, selection checkboxes, popover menus, resizable headers and `<details>` panels; the sibling pages have `Role` and `Keyboard support` subsections. BarChart, Rating, Message and OneTimeCode bury their keyboard behavior in prose too (`src/docs/components/data-grid.astro:779-789`, `bar-chart.astro`, `rating.astro`, `message.astro`, `one-time-code.astro`)
   - Fix: `<h3 id="role-attributes">Role & attributes</h3>` and `<h3 id="keyboard-support">Keyboard support</h3>` per page, as `dialog.astro:312,356`, `drawer.astro:320,356` and `switch.astro:379,471` do (`menu.astro:235` uses `id="role"`).
+  - Explained: every other component page with real interaction splits Accessibility into what the markup exposes and what each key does, so readers can scan for "what does Tab do". DataGrid packs roles, five kinds of controls, the header menu caveat and `reading-flow` into one paragraph, and says nothing about the order Tab takes or that the arrow keys sort.
+  - Today (`src/docs/components/data-grid.astro:886-897`):
+    ```astro
+    <Fragment slot="accessibility">
+      <p>
+        Uses ARIA table roles, and the table scrolls with the keyboard. Sorting,
+        filtering, selection, density and column visibility are native radios,
+        checkboxes and inputs with a name. …
+      </p>
+    </Fragment>
+    ```
+  - Checked in Chromium 141 on the AllFeatures grid of `/html/test/data-grid/`: Tab goes filter radios, density radios, Columns button, the table, one stop for all sort radios, then per row the select checkbox, the detail `summary`, the editable input and the Edit button. The 12 sort radios share one `name`, so the arrow keys walk through every column's ascending and descending radio and sort on each press. The filter and density groups change on arrow keys too.
+  - Proposed for DataGrid, in the shape `dialog.astro:312-370` uses:
+    ```astro
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The grid is a <code>div</code> with <code>role="table"</code> and an
+      <code>aria-label</code>, with <code>rowgroup</code>, <code>row</code>,
+      <code>columnheader</code>, <code>rowheader</code> and <code>cell</code>
+      inside. Sorting, filtering, density, selection and column visibility are native
+      radios and checkboxes with names. CSS can't update
+      <code>aria-sort</code>, so the sort state is read from the checked radio.
+    </p>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <!-- Key / Function table like menu.astro:246-293 -->
+    <!-- Tab: toolbar controls, the table, the sort group, then each row's controls -->
+    <!-- Arrow keys: on the table, scroll it; in the sort group, move to the next column or direction and sort; in the filter and density groups, change them -->
+    <!-- Space: checks a row or a column in the Columns menu -->
+    <!-- Enter, Space: on a detail button, opens or closes the panel; on Columns, opens the menu -->
+    <!-- Esc: closes an open menu -->
+    ```
+  - The other four pages, one line each:
+    - BarChart: Role & attributes says it is a `table`, the caption names it and values are cells; Keyboard support says value cells are Tab stops only with two or more series (`focusable`).
+    - Rating: a `meter` (read-only, not focusable) or a `fieldset` of radios; arrow keys move between stars and set the rating, Tab leaves the group.
+    - Message: reactions are checkboxes (Space toggles), Add reaction is a button that opens the picker, and Tab moves into the picker after it.
+    - OneTimeCode: one `input` with `autocomplete="one-time-code"`; typing, paste and autofill fill every box, and the arrow keys move the caret like in any text field.
+  - Options: A) both subsections on all five pages (recommended, matches Dialog, Drawer, Menu and Switch). B) only DataGrid, the one page whose keyboard behavior surprises (arrow keys sort).
 - [x] (5) PR #418, DataGrid: the cell slot API differs per framework and is missing from the shared `Slots` type: Astro slot `cell-<key>` receives `[row, column]`, Svelte takes a `cells` snippet map with `(row, column & { position })`, Vue's `cell-<key>` slot gets `{ column, row, value }`; `types.ts` lists only `actions`, `detail` and `empty` (`packages/opui/components/DataGrid/types.ts:80-84`, `types.svelte.ts:8-11`, `types.d.vue.ts:10-14`, `DataGrid.astro:332-338`, `DataGrid.svelte:321-322`, `DataGrid.vue:293-298`)
   - Fix: one shape (`row, column` or `{ column, row, value }`) in every framework and a `cell-${string}` entry in the base `Slots`.
   - Fixed: Astro, Svelte, Vue and React all pass `(row, column)` / `{ row, column }` (Vue's `value` is gone, `column` carries `position`), the base `Slots` has `cells`, and the api documents `cells` for React and Svelte and the `cell-[key]` slot arguments.
@@ -3891,6 +3929,33 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
 - [ ] (5) PR #418, API shape: `size` unions differ (`"small" | "large"` on BarChart, OneTimeCode and Rating, `"small"` on Stepper and Timeline, where every control here is `"x-small" | "small" | "large"` and OneTimeCode renders `ui-text-field`, whose CSS has `ui-x-small`); item types use `label` (Stepper, BarChart) or `title` (Timeline) for the primary text and are named `StepperItem`, `TimelineEntry` and `BarChartRow`; "current" is an index on the Stepper root but a per-item `boolean | "date" | "step" | "time"` on Timeline (`packages/opui/components/OneTimeCode/types.ts:8`, `Stepper/types.ts:1-5`, `Timeline/types.ts:7-12`, `BarChart/types.ts`)
   - Fix: the shared `size` union where the CSS supports it, `<Component>Item` naming, and one key for the primary text.
   - Fixed in part: OneTimeCode `size` is `"x-small" | "small" | "large"` (TextField's CSS already draws it) with the api row. Left open as a design call: the `label`/`title` key of the item types (Timeline's is now `heading`), the `StepperItem`/`TimelineEntry`/`BarChartRow` names, and Stepper's index versus Timeline's per-item `current`.
+  - Explained: what is left are three naming calls. None of them is a bug; they decide how the seven APIs read next to each other.
+  - Today:
+    ```ts
+    // Stepper: items + an index on the root
+    type StepperItem = { description?: string; href?: string; label: string }
+    type StepperProps = { current?: number; items?: StepperItem[] }
+
+    // Timeline: items with a heading, current per item
+    type TimelineEntry = {
+      current?: boolean | "date" | "step" | "time"
+      description?: string
+      heading?: string
+    }
+
+    // BarChart: rows, like DataGridRow
+    type BarChartRow = { color?: string; label: string; values: number[] }
+    ```
+  - Option A (recommended): keep the names and write the rule down in `packages/opui/components/AGENTS.md`:
+    - `label` is the short text that names a thing (Stepper step, BarChart row, Menu item, DataGrid column); `heading` is used only where the component renders a heading element (Timeline renders an `h3`).
+    - Item types are `<Component>Item` (`MenuItem`, `StepperItem`) and table data is `<Component>Row` (`DataGridRow`, `BarChartRow`). Timeline can't use `TimelineItem`, because that is the component's name, so its data type is `TimelineEntry`.
+    - Stepper's `current` is an index because it also completes every earlier step; Timeline's is per item because any event can be current and it maps to the `aria-current` tokens.
+  - Option B: make them uniform at the cost of meaning. `heading` → `label` on Timeline, and a per-item `current` on Stepper with completion still derived from its position:
+    ```ts
+    type StepperItem = { current?: boolean; label: string }
+    // items={[{ label: "Cart" }, { current: true, label: "Shipping" }, { label: "Pay" }]}
+    ```
+  - Sizes: Stepper and Timeline have `"small"`, BarChart and Rating `"small" | "large"`, which is what their CSS draws. Adding `x-small` and `large` is new design work, so it isn't part of either option.
 - [x] (4) PR #418, Timeline: the `title` prop renders the `<h3>`, so `<TimelineItem title="…">` can never set the `<li>` tooltip (`packages/opui/components/Timeline/types.ts:7`, `TimelineItem.astro:11,31`, `TimelineItem.svelte:11,31-35`, `TimelineItem.vue:10,24`)
   - Fix: rename to `heading` (it already has `headingLevel`).
   - Fixed: the prop and the items key are `heading` in the types, the four frameworks, the examples, the anatomy and the api.
@@ -3940,8 +4005,47 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
 - [x] (1) PR #418, CSS leftovers: a dead `[role="table"][aria-busy="true"]::before { content: none }`, `@container (width < 36rem)` (the only physical container feature in the package), private variables out of order in `data-grid.css`, hard-coded `2px` borders and connectors in Timeline, Stepper and OneTimeCode, `content: "*" / ""` and the count alt text ungated in Rating while Stepper gates the same syntax with `@supports`, and the sr-only block copied four times (`packages/opui/css/components/data-grid.css:9-10,280-288,672,728-731,851-852`, `timeline.css:46,79`, `stepper.css:10,92`, `one-time-code.css:52`, `rating.css:154-175`, `message.css:163-168,194-199`, `bar-chart.css:59-67`)
   - Fix: delete the dead block, `inline-size`, sorted variables, `--_line-width: calc(var(--border-width) * 2)`, `content: "*"` plus the alt-text form inside `@supports (content: "" / "")`, and `class="ui-sr-only"` on the component-rendered sort input.
   - Fixed: dead `::before` deleted, `inline-size` container query, sorted variables, `--_line-width` in Timeline, Stepper and OneTimeCode, `content: "*"` with the alt-text forms behind `@supports` (Message's reaction count too), one sr-only rule in Message and `class="ui-sr-only"` on the DataGrid sort radios. BarChart's block stays: it depends on the series count.
-- [ ] (1) PR #418, DataGrid: about 70 root-level `&:has(…)` rules key on descendant `:checked`, `:hover` and `:popover-open`, so every interaction re-evaluates `:has()` on the root and restyles the subtree (`packages/opui/css/components/data-grid.css:507-575,821-1431`)
+- [ ] (5) PR #418, DataGrid: about 70 root-level `&:has(…)` rules key on descendant `:checked`, `:hover` and `:popover-open`, so every interaction re-evaluates `:has()` on the root and restyles the subtree (`packages/opui/css/components/data-grid.css:507-575,821-1431`)
   - Check with a 500-row grid in the Performance panel; if it shows, move the filter and column state onto the root as custom properties set by `.ui-toolbar:has(…)` and turn the body rules into `@container style()` queries.
+  - Severity raised from 1 to 5 after measuring.
+  - Measured in Chromium 141 on the AllFeatures grid of `/html/test/data-grid/` with its rows cloned, median of 5 to 6 runs, style recalc only. The sandbox is slow, so compare the numbers with each other:
+    - 7 rows: 12-17 ms per interaction. 50 rows: 48-65 ms. 500 rows: 440-680 ms for hiding a column, filtering, selecting a row, sorting or switching density, and 45 ms per mouse move for the row hover.
+    - At 500 rows, toggling a class on a `div` outside the grid costs 1.6 ms, but toggling a class on one cell inside it costs 600 ms, the same as a class on `body`. Any change inside the grid restyles all of it.
+  - Cause, found by deleting groups of rules from the stylesheet in the page and measuring again at 500 rows:
+    - Without the 231 `:has()` rules: selecting a row and changing a cell cost about 0 ms, and a full restyle halves (476 → 208 ms). Without the `nth-child(… of …)`, `sibling-index()` or `@container` rules nothing changes much.
+    - The 63 rules with `:checked` inside `:has()` make every checkbox and radio in the grid, including each row's select checkbox, restyle the whole grid. The 27 rules with `:not()` inside `:has()` do the same for any class or attribute change.
+  - Today (`packages/opui/css/components/data-grid.css:517-522,814,834,859-862`):
+    ```css
+    &:has(.ui-filters input[value="selected"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, :has(> .ui-row-select :checked)) {
+        display: none;
+      }
+    }
+
+    &:not(:has(.ui-body .ui-row-select :checked)) {
+      .ui-bulk-actions {
+        display: none;
+      }
+    }
+
+    &:has(.ui-columns input[value="1"]:not(:checked)) {
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(1) {
+        display: none;
+      }
+    }
+    ```
+  - Option A (recommended to prototype first): scope each `:has()` to the smallest element that holds the state. The toolbar is a sibling before the table, so filter, density and column state can live on it, and row checkboxes no longer invalidate those rules. Keep the selection rules on the root but give them class-only right-hand sides (`.ui-bulk-actions`, `.ui-selection`), which Chromium invalidates narrowly:
+    ```css
+    .ui-toolbar:has(.ui-columns input[value="1"]:not(:checked))
+      ~ [role="table"]
+      [role="row"]
+      > :nth-child(1) {
+      display: none;
+    }
+    ```
+  - Option B: put the toolbar state on the root as custom properties (`--_hide-1: 1`, set by `.ui-toolbar:has(…)`) and read them with `@container style(--_hide-1: 1)` in the body rules. It moves the work to one custom property change instead of a `:has()` match per element, but an inherited property change still restyles the subtree, so it needs measuring too.
+  - Option C: keep the CSS and document a size: "Up to about 100 rows. Paginate larger data." At 50 rows an interaction already takes about 55 ms here.
+  - How to measure a prototype: clone the AllFeatures rows to 500, click a row checkbox and a Columns checkbox, and read `RecalcStyleDuration` from `Performance.getMetrics` (or the Performance panel's Recalculate Style) before and after.
 - [x] (4) PR #418, DataGrid: no `forced-colors` handling at all. In Windows High Contrast the author `background-color` becomes `Canvas`, so the mask-drawn sort arrow, the expand chevron on `summary::before` and the loading bar disappear: no sort direction, no expand affordance, no loading indicator. Every other new component has a forced-colors block (`packages/opui/css/components/data-grid.css:250-258,442-450,742-751`)
   - Fix:
     ```css
@@ -3986,10 +4090,64 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
   - Fixed: the sentence names which controls are native inputs and says the header menu items are labels, so keyboard users sort with the header arrows and hide columns in the Columns menu; the keyboard defect stays open.
 - [ ] (4) PR #418, BarChart, to check: the page promises table semantics, but `table`, `tbody` and `tr` are `display: grid` and the `thead tr` is `display: flex`; Safari and older Chromium drop table semantics then. Check Basics in Chromium's accessibility pane (expect `table`, `row`, `rowheader`, `cell`) and in Safari with VoiceOver, and what a Tab-focused cell announces in NVDA focus mode (`packages/opui/css/components/bar-chart.css:33,69-70,130-132,201-204`, `src/docs/components/bar-chart.astro:295-300`)
   - Fix if semantics drop: the redundant `role="table"`, `rowgroup`, `row`, `columnheader`, `rowheader` and `cell` roles in the component and the HTML examples.
+  - Checked in Chromium 141 on `bar-chart/Basics.html` and `Series.html`: the CSS applies (`table`, `tbody` and `tbody tr` are `grid`, `thead tr` is `flex`, `td` is `block`) and the accessibility tree still has `table "Orders per month"`, `caption`, two `rowgroup`s, `row`, `columnheader`, `rowheader` and `cell`, with the values as cell names (`cell "412"`). Series exposes all four column headers and 12 focusable cells.
+  - Left to check: Safari with VoiceOver (WebKit has dropped table semantics for `display: grid` tables before), and what NVDA reads in focus mode when Tab lands on a Series cell (expected: "Pro, Q1, 140").
+  - Example of the fix if Safari drops them, in the component and the HTML examples:
+    ```html
+    <table class="ui-bar-chart" role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader" scope="col">Month</th>
+          <th role="columnheader" scope="col">Orders</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        <tr role="row">
+          <th role="rowheader" scope="row">Jan</th>
+          <td role="cell" style="--value: 412">412</td>
+        </tr>
+      </tbody>
+    </table>
+    ```
 - [ ] (3) PR #418, DataGrid, to check: the expand cell and its `details` use `display: contents` and the summary has `list-style: none` with a `::before` icon. Check that the cell keeps `role="cell"`, the summary is still a button with expanded state and the `::details-content` is reachable when open (`packages/opui/css/components/data-grid.css:399-406,425-440`, `src/component-examples/data-grid/DetailPanel.html:24-33`)
   - Fix if semantics drop: keep `details` as a subgrid item instead of `contents`, or move `role="cell"` onto it.
+  - Checked in Chromium 141 on `data-grid/DetailPanel.html`: the expand `div` keeps `role="cell"` although it and its `details` are `display: contents`; the `summary` is a disclosure control named "Show details for Ada Lovelace" with `expanded=false`, then `expanded=true` after Enter; the open `.ui-detail` is visible (1246 × 17 px) and its paragraph is in the tree.
+  - Left to check: Safari with VoiceOver, where `display: contents` on `details` and `summary` has lost the disclosure role in the past. Expected: "Show details for Ada Lovelace, collapsed, button" (or "disclosure triangle").
+  - Example of the fix if Safari drops it: let `details` take part in the grid instead of disappearing:
+    ```css
+    .ui-expand details {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+    ```
 - [ ] (2) PR #418, to check: Rating's docs say the arrow keys follow the reading direction in RTL, which differs per browser (check the Localization example in Chromium and Firefox); OneTimeCode turns off the library focus ring in favor of the box stroke, so with a complete code the only indicator is the stroke going from `--field-border-color` to `--primary` (check the ring is still visible and measure the 3:1 change); DataGrid's sticky header and pinned columns can cover a focused row checkbox when Shift+Tab scrolls it under them, since `[role="table"]` has no `scroll-padding` (`src/docs/components/rating.astro:206-208`, `packages/opui/css/components/one-time-code.css:94-101,113-128`, `data-grid.css:71-73,88-92,577-589`)
   - Fix if confirmed: soften the Rating sentence to DOM order; `outline-offset: var(--focus-ring-offset)` instead of `outline: 0` on the OneTimeCode field; `scroll-padding-block-start: var(--_row-min-block-size)` and `scroll-padding-inline-start: var(--_utility-size)` on the grid.
+  - Checked in Chromium 141:
+    - Rating, `/html/test/rating/`: in an LTR group, Right Arrow goes 3 → 4. In the RTL group, Right Arrow goes 3 → 2 and star 2 sits to the right of star 3, so the arrows follow the stars on screen. The docs sentence "the arrow keys follow the reading direction" (`src/docs/components/rating.astro:229`) reads as the opposite.
+    - OneTimeCode, `/html/test/one-time-code/`: with a complete code and focus, all six boxes take the accent stroke and the last box keeps the thicker ring and tint, so focus stays visible. Stroke against border: 3.09:1 in light, 4.46:1 in dark, both above 3:1. Nothing to fix there in Chromium.
+    - DataGrid: confirmed and split out as "the sticky header covers a focused row control".
+  - Left to check: the Rating arrows in Firefox and Safari, and the OneTimeCode focus in forced colors.
+  - Proposed Rating wording, if Firefox and Safari match Chromium: "On right-to-left pages, the arrow keys follow the stars on screen, so Left Arrow raises the rating." If they differ: "The arrow keys move through the stars in order; which key raises the rating on right-to-left pages depends on the browser."
+- [ ] (3) PR #418, DataGrid: the sticky header covers a focused row control after Shift+Tab. The browser only scrolls a focused element that is outside the scrollport, and the area under the sticky header counts as inside, so with no `scroll-padding` the focused checkbox can sit fully under the header (`packages/opui/css/components/data-grid.css:56-64`)
+  - Checked in Chromium 141 on the pinned grid of `/html/test/data-grid/` (16rem tall): Tab to the last row checkbox, then Shift+Tab. At Alan Turing's checkbox the table stays at `scrollTop: 114`, and the 20px checkbox is 45px under the header, out of sight while focused. Same for the Edit button in that row (51px). Example: data-grid-scroll-padding
+  - Today:
+    ```css
+    [role="table"] {
+      align-content: start;
+      container: ui-data-grid / scroll-state;
+    }
+    ```
+  - Fix, checked in the same run (every Shift+Tab scrolls the row below the header, overlap 0px). `--_utility-size` keeps a pinned start column clear the same way when focus moves inline:
+    ```css
+    [role="table"] {
+      align-content: start;
+      container: ui-data-grid / scroll-state;
+      scroll-padding-block-start: var(--_row-min-block-size);
+      scroll-padding-inline-start: var(--_utility-size);
+    }
+    ```
+  - A grid with column groups has a two-row header, so it needs twice the block padding, or a `--_head-block-size` set by the component.
 
 ## New components
 

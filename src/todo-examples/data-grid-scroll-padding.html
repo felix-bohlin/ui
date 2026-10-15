@@ -1,0 +1,210 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Tab into the grid and down to the last checkbox, then press Shift+Tab. The
+      grid only scrolls when a checkbox is outside the table, and the sticky
+      header counts as inside, so focus lands on checkboxes hidden under it.
+    </p>
+    <div
+      class="ui-data-grid"
+      style="--_max-block-size: 12rem; inline-size: 100%"
+    >
+      <div aria-label="Team (current)" role="table" tabindex="0">
+        <div class="ui-head" role="rowgroup">
+          <div role="row">
+            <div class="ui-row-select" role="columnheader">
+              <span class="ui-sr-only">Select</span>
+            </div>
+            <div role="columnheader"><span>Name</span></div>
+            <div role="columnheader"><span>Role</span></div>
+          </div>
+        </div>
+        <div class="ui-body" role="rowgroup">
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Ada Lovelace</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Ada Lovelace</div>
+            <div role="cell">Engineer</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Alan Turing</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Alan Turing</div>
+            <div role="cell">Researcher</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Grace Hopper</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Grace Hopper</div>
+            <div role="cell">Admiral</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Hedy Lamarr</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Hedy Lamarr</div>
+            <div role="cell">Inventor</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Katherine Johnson</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Katherine Johnson</div>
+            <div role="cell">Mathematician</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Margaret Hamilton</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Margaret Hamilton</div>
+            <div role="cell">Engineer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>scroll-padding-block-start: var(--_row-min-block-size)</code> on the
+      table keeps a header's height clear, so each Shift+Tab scrolls the focused
+      checkbox below the header.
+    </p>
+    <div
+      class="ui-data-grid"
+      style="--_max-block-size: 12rem; inline-size: 100%"
+    >
+      <div
+        aria-label="Team (fixed)"
+        role="table"
+        style="scroll-padding-block-start: var(--_row-min-block-size)"
+        tabindex="0"
+      >
+        <div class="ui-head" role="rowgroup">
+          <div role="row">
+            <div class="ui-row-select" role="columnheader">
+              <span class="ui-sr-only">Select</span>
+            </div>
+            <div role="columnheader"><span>Name</span></div>
+            <div role="columnheader"><span>Role</span></div>
+          </div>
+        </div>
+        <div class="ui-body" role="rowgroup">
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Ada Lovelace</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Ada Lovelace</div>
+            <div role="cell">Engineer</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Alan Turing</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Alan Turing</div>
+            <div role="cell">Researcher</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Grace Hopper</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Grace Hopper</div>
+            <div role="cell">Admiral</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Hedy Lamarr</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Hedy Lamarr</div>
+            <div role="cell">Inventor</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Katherine Johnson</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Katherine Johnson</div>
+            <div role="cell">Mathematician</div>
+          </div>
+          <div role="row">
+            <div class="ui-row-select" role="cell">
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >Select Margaret Hamilton</span
+                ></label
+              >
+            </div>
+            <div role="rowheader">Margaret Hamilton</div>
+            <div role="cell">Engineer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const head = panel.querySelector(".ui-head")
+    const output = panel.querySelector("[data-measure]")
+    panel.addEventListener("focusin", (event) => {
+      const box = event.target.closest(".ui-checkbox")
+      if (!box) return
+      requestAnimationFrame(() => {
+        const covered = Math.max(
+          0,
+          head.getBoundingClientRect().bottom - box.getBoundingClientRect().top,
+        )
+        output.textContent = `${event.target.labels[0].textContent.trim()}: ${Math.round(covered)}px under the header`
+      })
+    })
+  }
+</script>

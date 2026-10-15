@@ -179,6 +179,9 @@ export const todoExamples = {
   "data-grid-header-menus": {
     match: "Data grid header menus",
   },
+  "data-grid-scroll-padding": {
+    match: "PR #418, DataGrid: the sticky header covers",
+  },
   "description-list-anatomy-width": {
     match: "Description list: the hero anatomy",
   },

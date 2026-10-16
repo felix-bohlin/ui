@@ -67,7 +67,7 @@
       will-change: inset-inline-start, inset-inline-end;
     }
 
-    @container style(--motion: 0) {
+    @container style(--_motion: 0) {
       &::after {
         animation: ui-indeterminate-pulse 2s ease-in-out infinite;
         inset-inline: 0;

@@ -31,28 +31,21 @@
     --_enter-duration: calc(var(--duration-slow) * var(--_motion));
     --_exit-duration: calc(var(--duration-slow) * var(--_motion));
     --_hold-duration: 5s;
+    /* Firefox and Safari fallback */
+    --_hold: var(--_hold-duration);
+    --focus-ring-color: currentColor;
 
     align-items: center;
-    /* Firefox and Safari fallback */
     animation:
       ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
-      ui-toast-hold var(--_hold-duration) linear both,
+      ui-toast-hold var(--_hold) linear both,
       ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
-    animation:
-      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
-      ui-toast-hold attr(data-duration type(<time>), 5s) linear both,
-      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
-    /* Firefox and Safari fallback */
     animation-delay:
-      0s, var(--_enter-duration),
-      calc(var(--_enter-duration) + var(--_hold-duration));
-    animation-delay:
-      0s, var(--_enter-duration),
-      calc(var(--_enter-duration) + attr(data-duration type(<time>), 5s));
+      0s, var(--_enter-duration), calc(var(--_enter-duration) + var(--_hold));
     background-color: var(--surface-inverse);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-3);
-    color: var(--text-primary-contrast);
+    color: var(--text-inverse);
     display: flex;
     gap: var(--size-3);
     justify-content: space-between;
@@ -60,6 +53,10 @@
     padding-block: var(--size-3);
     padding-inline: var(--size-4);
     pointer-events: auto;
+
+    @supports (animation-duration: attr(data-duration type(<time>), 0s)) {
+      --_hold: attr(data-duration type(<time>), var(--_hold-duration));
+    }
 
     @media (hover: hover) {
       &:hover {
@@ -141,6 +138,14 @@
     &[data-severity="critical"] .ui-icon {
       background-color: var(--critical);
       mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
+    }
+
+    @media (forced-colors: active) {
+      border: var(--border-width) solid CanvasText;
+
+      &[data-severity] .ui-icon {
+        background-color: CanvasText;
+      }
     }
   }
 

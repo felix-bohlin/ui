@@ -42,7 +42,7 @@
     }
 
     &:where(button, a):where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled)
+        :not(:disabled, [aria-disabled="true"], .ui-disabled)
       ) {
       @media (hover: hover) {
         &:hover {
@@ -75,7 +75,7 @@
         );
 
         &:where(button, a):where(
-            :not([disabled], [aria-disabled="true"], .ui-disabled)
+            :not(:disabled, [aria-disabled="true"], .ui-disabled)
           ) {
           @media (hover: hover) {
             &:hover {

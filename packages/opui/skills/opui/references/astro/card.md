@@ -204,7 +204,13 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 
 ```astro
 ---
-import { Button, Card, CardActions, CardContent, CardHeader } from "opui-css/astro"
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from "opui-css/astro"
 ---
 
 <Card variant="outlined">

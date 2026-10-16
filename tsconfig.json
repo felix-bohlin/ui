@@ -6,9 +6,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {
-      "@opui/*": ["./packages/opui/*"],
-      "@opui/astro": ["./packages/opui/astro/index.ts"],
-      "@opui/react": ["./packages/opui/react/index.ts"]
+      "@opui/*": ["./packages/opui/*"]
     }
   }
 }

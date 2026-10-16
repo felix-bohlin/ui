@@ -24,7 +24,13 @@ Floating content that is always shown, like a coach mark beside a button. Put it
 
 ```astro
 ---
-import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/astro"
+import {
+  Anchor,
+  AnchorContent,
+  Button,
+  Card,
+  CardContent,
+} from "opui-css/astro"
 ---
 
 <Anchor alignment="inline-end">

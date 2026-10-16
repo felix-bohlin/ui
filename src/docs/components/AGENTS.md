@@ -92,7 +92,7 @@ What the conventions handle automatically:
 - **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
-CSS imports use the `@opui/css/...` package alias. UI-component imports use `@opui/astro` (e.g. `import { Button } from "@opui/astro"`). Avoid hand-rolled relative paths into the package.
+CSS imports use the `@opui/css/...` package alias. UI-component imports use the package, as readers do (e.g. `import { Button } from "opui-css/astro"`). Avoid hand-rolled relative paths into the package.
 
 #### When to fall back to manual `<Example>`
 
@@ -114,7 +114,7 @@ The manual form remains supported and unchanged:
 ### 3.2 Refactoring Steps
 
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
-    - `.astro` files should contain UI components imported via the `@opui/astro` alias (e.g. `import { Button } from "@opui/astro"`).
+    - `.astro` files should contain UI components imported from `opui-css/astro` (e.g. `import { Button } from "opui-css/astro"`).
     - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
     - `.react.tsx` files default-export a function component named after the file that mirrors the Astro example with the components from `opui-css/react`. When the file name clashes with an imported component, add `Example` to the function name (`FieldGroupExample`). Stateful examples start with `"use client"`.
     - `.svelte` files mirror the Astro example with the components from `opui-css/svelte`.
@@ -209,7 +209,7 @@ import buttonApi from "../../component-api/button/api"
 Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.astro](../../components/Anatomy.astro)) to draw the component's parts.
 
 - **Data-driven**: The diagram reads `root` and `parts` from the component's `api.ts` ([src/component-api/AGENTS.md](../../component-api/AGENTS.md)), found from the page `slug`. Every part needs a `selector` that matches inside the rendered instance; keep parts in visual order. Pass `api={...}` when the diagram documents another component's parts, such as `listItemApi` on the List page.
-- **Subject**: Wrap one instance of the UI component from `@opui/astro` in `<Anatomy>`. Fill every part so each one has a box to frame, and use props or inline `style` to keep normally hidden parts visible (e.g. `open` on Accordion, `--_button-disabled-opacity: 1` on Carousel).
+- **Subject**: Wrap one instance of the UI component from `opui-css/astro` in `<Anatomy>`. Fill every part so each one has a box to frame, and use props or inline `style` to keep normally hidden parts visible (e.g. `open` on Accordion, `--_button-disabled-opacity: 1` on Carousel).
 - **Only Astro**: The subject is rendered once and shown on every framework page. Do not add HTML, React, Svelte or Vue variants, `<Example>` wrappers or code snippets.
 - **Sizing**: Constrain the subject with `style` (e.g. `inline-size: 18rem`) when it would otherwise stretch, and use `zoom` for small components.
 - **Placement**: Set `heroAnatomy` on `<Component>` to render the diagram at the top of the page instead of in an "Anatomy" section.
@@ -274,7 +274,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.
   - **Accuracy**: Use `cat -n path/to/file` in the terminal to verify indices.
-- **Path Resolution**: Inside `src/component-examples/`, prefer the `@opui/astro` alias for UI components and `@opui/css/...` for CSS imports rather than relative paths into the package.
+- **Path Resolution**: Inside `src/component-examples/`, import UI components from `opui-css/astro`, the path readers copy, and use `@opui/css/...` for CSS imports rather than relative paths into the package.
 - **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding `<BadgeAPI />` in the default slot. This ensures consistent positioning and styling.
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
   - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/html/components/...`, `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.

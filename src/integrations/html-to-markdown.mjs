@@ -80,10 +80,7 @@ function unwrapTemplates(node, test) {
 
 const codeBlock = (node) => {
   const lang = node.properties?.dataLanguage
-  const code = textContent(select("code", node) ?? node).replace(
-    /(["'])@opui\//g,
-    "$1opui-css/",
-  )
+  const code = textContent(select("code", node) ?? node)
   return element("pre", {}, [
     element("code", { className: lang ? [`language-${lang}`] : [] }, [
       text(code),

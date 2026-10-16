@@ -18,11 +18,7 @@ Supporting text that explains the callout in more detail.
 
 - `<CalloutContent>`
 
-  The content.
-
-- `<CalloutTitle>`
-
-  An optional title inside the content.
+  The content, with an optional heading first.
 
 ### Alternatives
 
@@ -32,16 +28,16 @@ You might want to check out:
 
 ## Variants
 
-Tonal (default) and outlined variants are available via the `variant` prop. Put the text in `CalloutContent`, with an optional `CalloutTitle` first. The title is an `<h3>`; set `level` for another heading level.
+Tonal (default) and outlined variants are available via the `variant` prop. Put the text in `CalloutContent`, with an optional heading such as an `<h3>` first. Every heading level gets the same title style.
 
 ```svelte
 <script lang="ts">
-  import { Callout, CalloutContent, CalloutTitle } from "opui-css/svelte"
+  import { Callout, CalloutContent } from "opui-css/svelte"
 </script>
 
 <Callout>
   <CalloutContent>
-    <CalloutTitle>Note</CalloutTitle>
+    <h3>Note</h3>
     <p>
       This is a tonal Callout. Notice the lack of icons - it's not really needed
       here.
@@ -50,7 +46,7 @@ Tonal (default) and outlined variants are available via the `variant` prop. Put 
 </Callout>
 <Callout variant="outlined">
   <CalloutContent>
-    <CalloutTitle>Another Callout</CalloutTitle>
+    <h3>Another Callout</h3>
     <p>
       This is an outlined Callout. Why not use a
       <a class="ui-link" href="#">Card</a> since they look very similar? For one,
@@ -173,30 +169,6 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
-
-### Callout title API
-
-| Prop       | Type                        | Default | Description                     |
-| ---------- | --------------------------- | ------- | ------------------------------- |
-| `children` | `Snippet`                   | -       | The title text.                 |
-| `level`    | `2` , `3` , `4` , `5` , `6` | `3`     | The heading level of the title. |
-
-#### CSS variables
-
-| Variable                 | Default                                      | Description                                                                                           |
-| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                     |
-| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Under the hood
 

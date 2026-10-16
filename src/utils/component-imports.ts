@@ -53,7 +53,7 @@ const pageFolders = (slug: string) =>
   ])
 
 const importPattern = new RegExp(
-  `import\\s*\\{([^}]*)\\}\\s*from\\s*"(?:@opui|opui-css)\\/(?:${PACKAGE_FRAMEWORK_IDS.join("|")})"`,
+  `import\\s*\\{([^}]*)\\}\\s*from\\s*"opui-css\\/(?:${PACKAGE_FRAMEWORK_IDS.join("|")})"`,
   "g",
 )
 

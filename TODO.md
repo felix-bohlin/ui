@@ -5513,7 +5513,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   - Fixed: `carousel/CustomButtons.*` set one `--_button-icon` in all five formats, and the Custom buttons prose and the CHANGELOG entry document `--_button-icon`: a white glyph pointing right, mirrored for the previous button and rotated in vertical carousels. In Chromium `::scroll-button(inline-end)` renders the custom arrow on all five framework pages.
-- [ ] (4) Docs site: the Astro code tab of every example shows `import { … } from "@opui/astro"`, a tsconfig path alias that only exists in the docs repo, so Astro users copy an import that doesn't resolve. The same page's Installation section and the Astro getting started guide say `opui-css/astro`. `<AutoExample>` passes the raw file to `<Example.Code>` and nothing rewrites it; only the Markdown export (and so `llms.txt` and the skill references) swaps `@opui/` for `opui-css/`. The React, Svelte and Vue examples already import from `opui-css/*`, while the guides tell agents to keep the alias (`src/components/AutoExample.astro:62-68`, `src/components/Example/Example.astro:138`, `src/integrations/html-to-markdown.mjs:82-85`, `src/utils/component-imports.ts:55-61`, `src/docs/components/AGENTS.md:95,118,278`, `packages/opui/components/AGENTS.md:5`, `.claude/agents/examples.md:24`, `tsconfig.json:9-11`, `src/docs/guide/getting-started/Astro.astro:76`)
+- [x] (4) Docs site: the Astro code tab of every example shows `import { … } from "@opui/astro"`, a tsconfig path alias that only exists in the docs repo, so Astro users copy an import that doesn't resolve. The same page's Installation section and the Astro getting started guide say `opui-css/astro`. `<AutoExample>` passes the raw file to `<Example.Code>` and nothing rewrites it; only the Markdown export (and so `llms.txt` and the skill references) swaps `@opui/` for `opui-css/`. The React, Svelte and Vue examples already import from `opui-css/*`, while the guides tell agents to keep the alias (`src/components/AutoExample.astro:62-68`, `src/components/Example/Example.astro:138`, `src/integrations/html-to-markdown.mjs:82-85`, `src/utils/component-imports.ts:55-61`, `src/docs/components/AGENTS.md:95,118,278`, `packages/opui/components/AGENTS.md:5`, `.claude/agents/examples.md:24`, `tsconfig.json:9-11`, `src/docs/guide/getting-started/Astro.astro:76`)
   - Today:
     ```astro
     ---
@@ -5528,6 +5528,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   - Still open: it needs a sweep of about 290 files and removing the `@opui/astro` path, which is better done as one scripted change on its own.
   > Fix
+  - Fixed: the 293 files under `src/` that imported from `@opui/astro` import from `opui-css/astro`, which resolves through the workspace dependency. The guides and the examples agent say to use the package path, the `@opui/astro` and `@opui/react` tsconfig paths are gone, and so are the Markdown export's `@opui/` rewrite and the `@opui` alternation in `src/utils/component-imports.ts`. No built page, Markdown export or skill reference shows an `@opui/` path, and the Astro code tabs show `opui-css/astro`. The `@opui/css/...` imports for CSS and scripts stay, since readers don't copy them.
 
 ## Limitations
 

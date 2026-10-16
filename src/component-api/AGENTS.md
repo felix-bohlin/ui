@@ -81,6 +81,6 @@ Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, o
 
 ## Toast
 
-Only `toast` still uses a hand-written table, `src/component-api/toast/HTML.astro`, built from the `Table` parts in `@opui/astro`. It uses the HTML columns (`Type`, `Modifiers`, `Default`, `Description`), `<code>` tags for classes and attributes, and `style="min-width: …"` on each `TableColumn`. Convert it to `api.ts` when touching it.
+Only `toast` still uses a hand-written table, `src/component-api/toast/HTML.astro`, built from the `Table` parts in `opui-css/astro`. It uses the HTML columns (`Type`, `Modifiers`, `Default`, `Description`), `<code>` tags for classes and attributes, and `style="min-width: …"` on each `TableColumn`. Convert it to `api.ts` when touching it.
 
 Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-framework APIs.

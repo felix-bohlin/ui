@@ -43,7 +43,6 @@ Components documented on another component's page:
 | --- | --- |
 | AccordionSummary | `accordion.md` |
 | AvatarGroup | `avatar.md` |
-| CalloutTitle | `callout.md` |
 | CardActions | `card.md` |
 | CheckboxInput | `checkbox.md` |
 | DialogActions | `dialog.md` |

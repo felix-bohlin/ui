@@ -96,8 +96,10 @@ export type {
   Props as CardProps,
 } from "../components/Card/types.d.vue"
 export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
-export type { CheckboxInputProps } from "../components/Checkbox/types"
-export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
+export type {
+  CheckboxInputProps,
+  CheckboxProps,
+} from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.d.vue"
@@ -133,13 +135,17 @@ export type {
   Props as MenuProps,
 } from "../components/Menu/types.d.vue"
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
-export type { RadioInputProps } from "../components/Radio/types"
-export type { RadioProps } from "../components/Radio/types.d.vue"
+export type {
+  RadioInputProps,
+  RadioProps,
+} from "../components/Radio/types.d.vue"
 export type { RangeProps } from "../components/Range/types.d.vue"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.d.vue"
-export type { SwitchInputProps } from "../components/Switch/types"
-export type { SwitchProps } from "../components/Switch/types.d.vue"
+export type {
+  SwitchInputProps,
+  SwitchProps,
+} from "../components/Switch/types.d.vue"
 export type {
   ColumnProps as TableColumnProps,
   Props as TableProps,

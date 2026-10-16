@@ -5,6 +5,7 @@ import type { Props, Slots } from "./types.d.vue"
 const {
   as,
   color,
+  disabled,
   dot,
   href,
   label,
@@ -14,7 +15,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const tag = computed(() => as || (href ? "a" : "div"))
+const tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
@@ -31,6 +32,7 @@ const tag = computed(() => as || (href ? "a" : "div"))
       variant && `ui-${variant}`,
       $props.class,
     ]"
+    :disabled="tag === 'button' ? disabled : undefined"
     :href="tag === 'a' ? href : undefined"
     :type="tag === 'button' ? 'button' : undefined"
   >

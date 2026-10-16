@@ -14,7 +14,7 @@ export type Props = {
       disabled?: never
     }
   | {
-      as?: "button"
+      as: "button"
       href?: never
       disabled?: boolean
     }

@@ -4,6 +4,6 @@ import type { HTMLAttributes } from "astro/types"
 export type Props = Base.Props &
   (
     | ({ as?: "div" } & HTMLAttributes<"div">)
-    | ({ as?: "button" } & HTMLAttributes<"button">)
+    | ({ as: "button" } & HTMLAttributes<"button">)
     | ({ as?: "a" } & HTMLAttributes<"a">)
   )

@@ -18,7 +18,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"
-    :disabled="disabled"
+    :disabled="Tag === 'button' ? disabled : undefined"
     :href="href"
     :role="isGroup ? 'group' : undefined"
     :type="Tag === 'button' ? 'button' : undefined"

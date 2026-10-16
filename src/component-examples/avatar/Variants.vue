@@ -3,7 +3,7 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar variant="squared">SQ</Avatar>
+  <Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
 
   <Avatar
     variant="rounded"

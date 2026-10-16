@@ -5,35 +5,35 @@ export default function IconAndLabelCode() {
     <>
       <Button>
         <span className="ui-text">Text</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="outlined">
         <span className="ui-text">Outlined</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="tonal">
         <span className="ui-text">Tonal</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="filled">
         <span className="ui-text">Filled</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
 
       <Button>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Text</span>
       </Button>
       <Button variant="outlined">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Outlined</span>
       </Button>
       <Button variant="tonal">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Tonal</span>
       </Button>
       <Button variant="filled">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Filled</span>
       </Button>
     </>

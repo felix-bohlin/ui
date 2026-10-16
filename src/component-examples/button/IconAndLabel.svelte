@@ -6,6 +6,7 @@
   <Button>
     <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -20,6 +21,7 @@
   <Button variant="outlined">
     <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -34,6 +36,7 @@
   <Button variant="tonal">
     <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -48,6 +51,7 @@
   <Button variant="filled">
     <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -64,6 +68,7 @@
 <div class="example-row">
   <Button>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -78,6 +83,7 @@
   </Button>
   <Button variant="outlined">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -92,6 +98,7 @@
   </Button>
   <Button variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -106,6 +113,7 @@
   </Button>
   <Button variant="filled">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

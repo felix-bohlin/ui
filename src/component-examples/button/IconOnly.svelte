@@ -5,6 +5,7 @@
 <div class="example-row">
   <Button iconOnly label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -17,6 +18,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -31,6 +33,7 @@
 <div class="example-row">
   <Button iconOnly label="Edit" variant="outlined">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -43,6 +46,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded variant="outlined">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -57,6 +61,7 @@
 <div class="example-row">
   <Button iconOnly label="Edit" variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -69,6 +74,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -83,6 +89,7 @@
 <div class="example-row">
   <Button iconOnly label="Edit" variant="filled">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -95,6 +102,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded variant="filled">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -109,6 +117,7 @@
 <div class="example-row">
   <Button iconOnly label="Edit" rounded size="x-small" variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -121,6 +130,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded size="small" variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -133,6 +143,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -145,6 +156,7 @@
   </Button>
   <Button iconOnly label="Edit" rounded size="large" variant="tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

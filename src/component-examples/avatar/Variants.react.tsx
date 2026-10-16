@@ -3,7 +3,9 @@ import { Avatar } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Avatar variant="squared">SQ</Avatar>
+      <Avatar aria-label="Sam Quist" role="img" variant="squared">
+        SQ
+      </Avatar>
 
       <Avatar
         variant="rounded"

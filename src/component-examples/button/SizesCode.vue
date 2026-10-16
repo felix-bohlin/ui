@@ -15,18 +15,18 @@ import { Button } from "opui-css/vue"
 
   <Button size="x-small" variant="outlined">
     <span class="ui-text">x-small</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button size="small" variant="outlined">
     <span class="ui-text">Small</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
     <span class="ui-text">Default</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">
     <span class="ui-text">Large</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
 </template>

@@ -1,0 +1,62 @@
+<div role="radiogroup" class="ui-toggle-group" aria-label="View">
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="day" />
+    Day
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="week" checked />
+    Week
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="month" />
+    Month
+  </label>
+</div>
+<div role="group" class="ui-toggle-group" aria-label="Text format">
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="bold" checked />
+    Bold
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="italic" />
+    Italic
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="underline" />
+    Underline
+  </label>
+</div>
+<p class="toggle-binding-text">View: week. Format: bold.</p>
+<button type="button" class="ui-button toggle-binding-reset">Reset</button>
+
+<script>
+  function setupToggleBinding() {
+    const text = document.querySelector(".toggle-binding-text")
+    const inputs = [
+      ...document.querySelectorAll(
+        '[name="calendar-view"], [name="text-format"]',
+      ),
+    ]
+    const checked = (name) =>
+      inputs
+        .filter((input) => input.name === name && input.checked)
+        .map((input) => input.value)
+
+    function update() {
+      if (!text) return
+      text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+        checked("text-format").join(", ") || "none"
+      }.`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".toggle-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupToggleBinding()
+</script>

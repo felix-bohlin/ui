@@ -7,6 +7,9 @@ export type Props = {
   size?: "x-small" | "small" | "large"
 }
 
+export type Selection<Single, Multiple> =
+  ({ selection: "single" } & Single) | ({ selection?: "multiple" } & Multiple)
+
 export type Slots<S> = {
   children?: S
 }

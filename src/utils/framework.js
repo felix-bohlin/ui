@@ -68,6 +68,8 @@ export const COMPONENT_FRAMEWORKS = {
   toast: ["html"],
 }
 
+export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
+
 /**
  * @param {FrameworkId} framework
  * @param {string} slug

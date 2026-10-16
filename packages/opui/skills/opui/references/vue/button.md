@@ -370,7 +370,7 @@ import { Button } from "opui-css/vue"
 
 ## Disabled
 
-Disable the button with the `disabled` prop. Links can't be disabled, so with `href` it sets `aria-disabled="true"` and blocks clicks instead. The link can still be focused and followed with `Enter`.
+Disable the button with the `disabled` prop. Links can't be disabled, so with `href` it drops the `href` and sets `aria-disabled="true"` instead. The link can't be clicked or focused.
 
 ```vue
 <script setup lang="ts">
@@ -391,17 +391,17 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop       | Type                                  | Default    | Description                                                        |
-| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------ |
-| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.              |
-| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                   |
-| `disabled` | `boolean`                             | `false`    | Disables the button.                                               |
-| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                 |
-| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
-| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
-| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
-| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                           |
-| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                |
+| Prop       | Type                                  | Default    | Description                                                                          |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled` | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only.                   |
+| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                                    |
+| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 

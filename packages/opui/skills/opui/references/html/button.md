@@ -506,7 +506,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 
 ## Disabled
 
-Disable the button with the `disabled` attribute. Links can't be disabled, so use `aria-disabled="true"` on an `<a>`, which blocks clicks. The link can still be focused and followed with `Enter`.
+Disable the button with the `disabled` attribute. Links can't be disabled, so remove the `href` of an `<a>` and add `aria-disabled="true"`. The link can't be clicked or focused.
 
 ```html
 <div class="example-row">
@@ -586,13 +586,13 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
 </div>
 
 <div class="example-row">
-  <a href="#" class="ui-button" aria-disabled="true">Text</a>
+  <a class="ui-button" aria-disabled="true">Text</a>
 
-  <a href="#" class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
+  <a class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
 
-  <a href="#" class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
+  <a class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
 
-  <a href="#" class="ui-button ui-filled" aria-disabled="true">Filled</a>
+  <a class="ui-button ui-filled" aria-disabled="true">Filled</a>
 </div>
 ```
 
@@ -604,13 +604,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                                                                                                        |
-| -------- | ----------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                                   |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                                    |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                           |
-| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, takes `aria-disabled="true"` instead and looks and acts disabled. |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                                |
+| Type     | Modifiers                                 | Default | Description                                                                                                                 |
+| -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
+| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |
 
 #### Parts
 

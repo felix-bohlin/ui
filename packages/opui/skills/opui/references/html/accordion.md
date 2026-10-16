@@ -588,7 +588,7 @@ Step 2 of 3: Animate to auto
 .accordion::details-content {
   block-size: 0;
   opacity: 0;
-  overflow-y: clip;
+  overflow-block: clip;
   transition:
     block-size 0.2s,
     content-visibility 0.2s allow-discrete,

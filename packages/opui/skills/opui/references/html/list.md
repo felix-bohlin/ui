@@ -732,6 +732,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Type       | Modifiers                                                | Default | Description                                                                                              |
 | ---------- | -------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | Border top | `.ui-border-top`                                         | -       | Adds a border above the item.                                                                            |
+| Colors     | `.ui-critical`                                           | -       | A destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md).               |
 | Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. |
 | Inset      | `.ui-inset`                                              | -       | Aligns the text with items that have start content.                                                      |
 

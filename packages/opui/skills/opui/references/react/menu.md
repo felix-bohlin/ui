@@ -22,10 +22,10 @@ export default function Basics() {
       <Menu
         id="menu-basics"
         items={[
-          { label: "Edit", shortcut: "E" },
-          { label: "Duplicate", shortcut: "D" },
-          { label: "Archive", disabled: true },
-          { label: "Delete", borderTop: true, critical: true },
+          { text: "Edit", shortcut: "E" },
+          { text: "Duplicate", shortcut: "D" },
+          { text: "Archive", disabled: true },
+          { text: "Delete", borderTop: true, critical: true },
         ]}
       />
     </>
@@ -53,11 +53,7 @@ export default function Bordered() {
       <Menu
         bordered
         id="menu-bordered"
-        items={[
-          { label: "Edit" },
-          { label: "Duplicate" },
-          { label: "Archive" },
-        ]}
+        items={[{ text: "Edit" }, { text: "Duplicate" }, { text: "Archive" }]}
       />
     </>
   )
@@ -137,7 +133,7 @@ export default function Custom() {
           as="button"
           headline="Delete"
           borderTop
-          className="ui-critical"
+          critical
           commandfor="menu-custom"
           command="hide-popover"
           start={
@@ -162,7 +158,7 @@ export default function Custom() {
 ```tsx
 import { Button, Menu } from "opui-css/react"
 
-const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
+const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 
 export default function Placement() {
   return (
@@ -206,15 +202,12 @@ export default function Placement() {
 
 ## Submenu
 
-Pass a `Menu` to the `submenu` prop of a `ListItem`. Mark the item with an icon from your icon library in the `end` prop.
+Pass a `Menu` to the `submenu` prop of a `ListItem`. Mark the item with an icon from your icon library in the `end` prop. Submenu items close the whole menu.
 
 ```tsx
 import { Button, ListItem, Menu } from "opui-css/react"
 
-const formats = ["PDF", "PNG", "SVG"].map((label) => ({
-  commandfor: "menu-file",
-  label,
-}))
+const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 
 export default function Submenu() {
   return (
@@ -226,7 +219,7 @@ export default function Submenu() {
       >
         File
       </Button>
-      <Menu id="menu-file" items={[{ label: "New" }, { label: "Open" }]}>
+      <Menu id="menu-file" items={[{ text: "New" }, { text: "Open" }]}>
         <ListItem
           as="button"
           headline="Export"
@@ -276,9 +269,9 @@ export default function Manual() {
         id="menu-manual"
         popover="manual"
         items={[
-          { label: "Show grid", closeOnClick: false },
-          { label: "Show rulers", closeOnClick: false },
-          { label: "Done", borderTop: true },
+          { text: "Show grid", closeOnClick: false },
+          { text: "Show rulers", closeOnClick: false },
+          { text: "Done", borderTop: true },
         ]}
       />
     </>
@@ -304,16 +297,16 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
-| Prop        | Type                                                                | Default       | Description                                                                                                                                                                           |
-| ----------- | ------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                     |
-| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                      |
-| `children`  | `ReactNode`                                                         | -             | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot.                                                                    |
-| `dense`     | `boolean`                                                           | `false`       | Less spacing.                                                                                                                                                                         |
-| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                               |
-| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, label, shortcut }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. |
-| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                                                                 |
-| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                             |
+| Prop        | Type                                                                | Default       | Description                                                                                                                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                                                                |
+| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                                                                                                                 |
+| `children`  | `ReactNode`                                                         | -             | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot.                                                                                                                                                               |
+| `dense`     | `boolean`                                                           | `false`       | Less spacing.                                                                                                                                                                                                                                                                    |
+| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                                                                                                                          |
+| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. A button item closes the whole menu, also from a submenu, unless `closeOnClick` is `false`. |
+| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                                                                                                                                                            |
+| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                        |
 
 ### CSS variables
 
@@ -437,7 +430,7 @@ Step 3 of 5: Fit
 ```css
 .menu {
   max-block-size: 60dvb;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 
   @supports (min-block-size: calc-size(fit-content, size)) {

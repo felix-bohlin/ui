@@ -96,7 +96,7 @@ Headings, lists and tables with a class keep their own styles, and components lo
 
 ### Classless showcase
 
-Let's put everything together and see how all elements look in a classless, rich-text context.
+Let's put everything together and see how all elements look in a classless, rich-text context. It's plain HTML on every framework page, the way rich text arrives from a CMS.
 
 ```html
 <article class="ui-rich-text">

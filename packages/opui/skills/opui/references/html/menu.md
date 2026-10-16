@@ -327,7 +327,7 @@ If you want to decide yourself what goes into your list.
 
 ## Submenu
 
-Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`.
+Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`. Point the `commandfor` of the submenu items at the root menu to close the whole menu.
 
 ```html
 <button
@@ -453,18 +453,18 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
-| Type           | Modifiers                                                        | Default                     | Description                                                                                                                                                                           |
-| -------------- | ---------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                                                                                     |
-| Behavior       | default, `[popover="manual"]`                                    | default                     | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                             |
-| Borders        | `.ui-bordered`, `li.ui-border-top`                               | -                           | A border between every item (`bordered`), or above one item (`borderTop` on an item).                                                                                                 |
-| Close on click | `li > button[command="hide-popover"]`                            | -                           | Closes the menu when the item is clicked, with `commandfor` set to the menu id (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu. |
-| Colors         | `li.ui-critical`                                                 | -                           | A destructive item (`critical` on an item).                                                                                                                                           |
-| Dense          | `.ui-dense`                                                      | -                           | Less spacing.                                                                                                                                                                         |
-| Placement      | default, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | default                     | Where the menu opens.                                                                                                                                                                 |
-| Position       | `--anchor-position-area`                                         | `block-end span-inline-end` | Any valid `position-area` value. Overrides the placement and alignment classes.                                                                                                       |
-| State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                                                                              |
-| Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                                                                                          |
+| Type           | Modifiers                                                        | Default                     | Description                                                                                                                                                                                                                               |
+| -------------- | ---------------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                         |
+| Behavior       | default, `[popover="manual"]`                                    | default                     | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                 |
+| Borders        | `.ui-bordered`, `li.ui-border-top`                               | -                           | A border between every item (`bordered`), or above one item (`borderTop` on an item).                                                                                                                                                     |
+| Close on click | `li > button[command="hide-popover"]`                            | -                           | Closes the menu when the item is clicked, with `commandfor` set to the root menu id, so an item in a submenu closes the whole menu (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu. |
+| Colors         | `li.ui-critical`                                                 | -                           | A destructive item (`critical` on an item).                                                                                                                                                                                               |
+| Dense          | `.ui-dense`                                                      | -                           | Less spacing.                                                                                                                                                                                                                             |
+| Placement      | default, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | default                     | Where the menu opens.                                                                                                                                                                                                                     |
+| Position       | `--anchor-position-area`                                         | `block-end span-inline-end` | Any valid `position-area` value. Overrides the placement and alignment classes.                                                                                                                                                           |
+| State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                                                                                                                                  |
+| Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                                                                                                                                              |
 
 ### Parts
 
@@ -473,7 +473,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `menu.ui-menu.ui-list[popover]` | The menu surface, a popover anchored to its trigger.                                                               |
 | `<li>`                          | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. |
 | `.ui-start`                     | Optional content at the start, such as an icon.                                                                    |
-| `.ui-text`                      | The label (`label` on an item).                                                                                    |
+| `.ui-text`                      | The text (`text` on an item).                                                                                      |
 | `.ui-end`                       | Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).                              |
 | `li.ui-label`                   | A group label. HTML and CSS only.                                                                                  |
 
@@ -511,7 +511,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Items are built like `List` items: icons in `.ui-start`, the label in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.
+Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.
 
 ## Under the hood
 
@@ -599,7 +599,7 @@ Step 3 of 5: Fit
 ```css
 .menu {
   max-block-size: 60dvb;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 
   @supports (min-block-size: calc-size(fit-content, size)) {

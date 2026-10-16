@@ -594,7 +594,7 @@ Step 1 of 4: Grid track
     (100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view)
   );
   grid-auto-flow: column;
-  overflow-x: auto;
+  overflow-inline: auto;
 }
 
 .carousel > li {

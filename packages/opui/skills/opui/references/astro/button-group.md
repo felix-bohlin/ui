@@ -178,7 +178,7 @@ const chevronIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
   <Menu
     id="split-button-menu"
     align="end"
-    items={[{ label: "Save as draft" }, { label: "Save and publish" }]}
+    items={[{ text: "Save as draft" }, { text: "Save and publish" }]}
   />
 </ButtonGroup>
 ```
@@ -366,17 +366,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop       | Type                                  | Default    | Description                                                        |
-| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------ |
-| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.              |
-| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                   |
-| `disabled` | `boolean`                             | `false`    | Disables the button.                                               |
-| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                 |
-| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
-| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
-| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
-| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                           |
-| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                |
+| Prop       | Type                                  | Default    | Description                                                                          |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled` | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only.                   |
+| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                                    |
+| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 

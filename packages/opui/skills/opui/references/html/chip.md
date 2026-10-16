@@ -251,7 +251,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
+Disable a button chip with the `disabled` attribute. On a link chip, remove the `href` and add `aria-disabled="true"`. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
 
 ```html
 <button type="button" class="ui-chip ui-tonal" disabled>

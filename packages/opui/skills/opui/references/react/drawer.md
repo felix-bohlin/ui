@@ -388,7 +388,7 @@ Step 1 of 5: Modal
 
 .drawer > .content {
   flex: 1;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```

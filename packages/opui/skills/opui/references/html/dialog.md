@@ -546,7 +546,7 @@ Step 2 of 5: Place
 }
 
 .dialog > .content {
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```

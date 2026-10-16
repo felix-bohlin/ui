@@ -100,9 +100,9 @@ Headings, lists and tables with a class keep their own styles, and components lo
 
 ### Classless showcase
 
-Let's put everything together and see how all elements look in a classless, rich-text context.
+Let's put everything together and see how all elements look in a classless, rich-text context. It's plain HTML on every framework page, the way rich text arrives from a CMS.
 
-```astro
+```html
 <article class="ui-rich-text">
   <hgroup>
     <p>Typography showcase</p>
@@ -116,96 +116,91 @@ Let's put everything together and see how all elements look in a classless, rich
   <p>
     Kitsch tbh pug banjo distillery cred listicle typewriter snackwave
     knausgaard tousled. Offal chicharrones humblebrag wolf affogato whatever
-    swag four loko vaporware poutine roof party. Raclette{" "}
-    <em>drinking vinegar</em> chartreuse gochujang kogi heirloom ugh snackwave banh
-    mi cray cliche locavore, <a href="#inline-text">skip to inline text</a>.
+    swag four loko vaporware poutine roof party. Raclette
+    <em>drinking vinegar</em> chartreuse gochujang kogi heirloom ugh snackwave
+    banh mi cray cliche locavore,
+    <a href="#inline-text">skip to inline text</a>.
   </p>
   <p>
     Gluten-free ennui air plant franzen tattooed poutine scenester tote bag
     microdosing affogato kinfolk iceland vegan. Celiac literally:
   </p>
   <blockquote>
-    Cornhole actually <code>h1</code> tumblr tacos mumblecore twee. Crucifix pour-over
-    leggings heirloom chartreuse cloud bread trust fund lyft keytar.
+    Cornhole actually <code>h1</code> tumblr tacos mumblecore twee. Crucifix
+    pour-over leggings heirloom chartreuse cloud bread trust fund lyft keytar.
     <footer>
       — <cite>Flexitarian single-origin, somewhere off the L train</cite>
     </footer>
   </blockquote>
   <p>
-    Locavore ennui adaptogen literally palo santo flannel <code>p</code> +1 hashtag
-    meggings sartorial disrupt.
+    Locavore ennui adaptogen literally palo santo flannel <code>p</code> +1
+    hashtag meggings sartorial disrupt.
   </p>
 
   <hr />
 
   <h2 id="inline-text">Inline text</h2>
   <p>
-    <strong>Strong</strong>, <b>bold</b>, <em>emphasis</em>, <i>italic</i>,{" "}
-    <strong><em>strong emphasis</em></strong>, <u>underline</u>,{" "}
-    <s>strikethrough</s>, <del>deleted</del>, <ins>inserted</ins>,{" "}
-    <mark>highlight</mark>, <small>small print</small>, H<sub>2</sub>O,
-    E&nbsp;=&nbsp;mc<sup>2</sup>, x<sub>i</sub><sup>2</sup>,{" "}
-    <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr>CSS</abbr>{" "}
-    without a title, <dfn>definition</dfn>,{" "}
-    <dfn><abbr title="Oat Milk Latte">OML</abbr></dfn>,{" "}
-    <cite>The Kombucha Chronicles</cite>,{" "}
-    <q>quoted with a <q>nested quote</q> inside</q>, <code>inline code</code>,{
-      " "
-    }
+    <strong>Strong</strong>, <b>bold</b>, <em>emphasis</em>, <i>italic</i>,
+    <strong><em>strong emphasis</em></strong
+    >, <u>underline</u>, <s>strikethrough</s>, <del>deleted</del>,
+    <ins>inserted</ins>, <mark>highlight</mark>, <small>small print</small>,
+    H<sub>2</sub>O, E&nbsp;=&nbsp;mc<sup>2</sup>, x<sub>i</sub><sup>2</sup>,
+    <abbr title="Hypertext Markup Language">HTML</abbr>,
+    <abbr>CSS</abbr> without a title, <dfn>definition</dfn>,
+    <dfn><abbr title="Oat Milk Latte">OML</abbr></dfn
+    >, <cite>The Kombucha Chronicles</cite>,
+    <q>quoted with a <q>nested quote</q> inside</q>, <code>inline code</code>,
     <kbd>Esc</kbd>, <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd
-    >,{" "}
-    <samp>sample output</samp>, <var>steepHours</var>,{" "}
-    <time datetime="2026-09-30">September 30</time>,{" "}
-    <data value="42">forty-two</data> and a{" "}
-    <span>plain span</span>.
+    >, <samp>sample output</samp>, <var>steepHours</var>,
+    <time datetime="2026-09-30">September 30</time>,
+    <data value="42">forty-two</data> and a <span>plain span</span>.
   </p>
   <p>
     Nested inline elements: <a href="#inline-text"><code>linked code</code></a
-    >,{" "}
-    <a href="#inline-text"><strong>linked strong</strong></a>,{" "}
-    <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,{" "}
-    <del><code>deleted code</code></del>,{" "}
-    <ins><code>inserted code</code></ins>,{" "}
-    <em><code>emphasized code</code></em>,{" "}
+    >, <a href="#inline-text"><strong>linked strong</strong></a
+    >, <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,
+    <del><code>deleted code</code></del
+    >, <ins><code>inserted code</code></ins
+    >, <em><code>emphasized code</code></em
+    >,
     <small
       >small with <code>code</code> and <a href="#inline-text">link</a></small
-    >,{" "}
-    <strong><kbd>Enter</kbd></strong> and <sup
-      ><a href="#inline-text">sup link</a></sup
+    >, <strong><kbd>Enter</kbd></strong> and
+    <sup><a href="#inline-text">sup link</a></sup
     >.
   </p>
   <p>
-    Links come in a few flavors: an{" "}
-    <a href="https://github.com/felix-bohlin/ui">external link</a>, an{" "}
-    <a href="#inline-text">in-page anchor</a>, and a placeholder{" "}
+    Links come in a few flavors: an
+    <a href="https://github.com/felix-bohlin/ui">external link</a>, an
+    <a href="#inline-text">in-page anchor</a>, and a placeholder
     <a>anchor without an href</a> that shouldn't look clickable.
   </p>
   <p>
-    Long inline runs have to wrap gracefully. Mixtape actually wolf godard{" "}
+    Long inline runs have to wrap gracefully. Mixtape actually wolf godard
     <mark
       >four loko ugh distillery marfa vaporware cliche celiac, this highlight
       keeps going until it breaks onto another line and keeps its padding</mark
-    >{" "}
-    and then{" "}
+    >
+    and then
     <a href="#inline-text"
       >this link also runs long enough that it needs to wrap across a line break
       without losing its underline</a
-    >. Same goes for{" "}
+    >. Same goes for
     <code
       >a.very.long.inline.code.span.that.has.no.natural.break.points.whatsoever</code
-    >{" "}
-    and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
+    >
+    and a bare URL like
+    https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
   </p>
   <p>
     Superscripts and subscripts must not blow out the line height of a
     paragraph. Here is a footnote reference<sup
       ><a href="#footnote-1" id="footnote-ref-1">1</a></sup
-    >{" "}
-    in the middle of a line, then some more text so it wraps, CO<sub>2</sub>{
-      " "
-    }
-    emissions, 2<sup>10</sup> = 1024 and the 21<sup>st</sup> century, just to be sure
-    the lines above and below stay evenly spaced.
+    >
+    in the middle of a line, then some more text so it wraps, CO<sub>2</sub>
+    emissions, 2<sup>10</sup> = 1024 and the 21<sup>st</sup> century, just to be
+    sure the lines above and below stay evenly spaced.
     <br />
     This sentence follows a line break.
   </p>
@@ -245,7 +240,7 @@ Let's put everything together and see how all elements look in a classless, rich
   <p>Vegan poutine letterpress tacos coloring book flannel hexagon.</p>
 
   <h3>
-    A heading with <code>code</code>, <em>emphasis</em> and{" "}
+    A heading with <code>code</code>, <em>emphasis</em> and
     <a href="#inline-text">a link</a> in it
   </h3>
   <p>Shoreditch tbh mlkshk wolf.</p>
@@ -343,7 +338,7 @@ Let's put everything together and see how all elements look in a classless, rich
     </li>
     <li>
       <strong>Pickled tumeric raw denim squid.</strong>
-      <pre><code>{`const brew = await steep({ hours: 18 })`}</code></pre>
+      <pre><code>const brew = await steep({ hours: 18 })</code></pre>
     </li>
     <li>
       <strong>Humblebrag chartreuse YOLO pug.</strong>
@@ -362,7 +357,9 @@ Let's put everything together and see how all elements look in a classless, rich
         ><input type="checkbox" checked disabled /> Steep for 18 hours</label
       >
     </li>
-    <li><label><input type="checkbox" disabled /> Drink it all</label></li>
+    <li>
+      <label><input type="checkbox" disabled /> Drink it all</label>
+    </li>
   </ul>
 
   <h2>Description lists</h2>
@@ -431,10 +428,10 @@ Let's put everything together and see how all elements look in a classless, rich
 
   <h2>Code</h2>
   <p>
-    Flexitarian <code>brew.config.js</code> kogi hashtag vaporware, set{" "}
+    Flexitarian <code>brew.config.js</code> kogi hashtag vaporware, set
     <var>steepHours</var> to taste:
   </p>
-  <pre><code>{`module.exports = {
+  <pre><code>module.exports = {
   grind: "coarse",
   origin: "single-origin",
   roast: {
@@ -443,7 +440,7 @@ Let's put everything together and see how all elements look in a classless, rich
 
   steepHours: 18,
   plugins: ["oat-milk", "pour-over"],
-}`}</code></pre>
+}</code></pre>
   <p>A line that is far too long for the container has to scroll, not wrap:</p>
   <pre><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "drinking vinegar", "turmeric latte", "flat white"]</code></pre>
   <p>Markup inside a code block has to be escaped:</p>
@@ -451,7 +448,7 @@ Let's put everything together and see how all elements look in a classless, rich
   &lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;
 &lt;/article&gt;</code></pre>
   <p>
-    Terminal output in a <code>pre</code> with <code>samp</code> instead of{" "}
+    Terminal output in a <code>pre</code> with <code>samp</code> instead of
     <code>code</code>:
   </p>
   <pre><samp>$ brew --version
@@ -497,7 +494,9 @@ cold-brew 1.0.0</samp></pre>
   <h2>Tables</h2>
   <p>Tables from Markdown or a CMS never come with classes:</p>
   <table>
-    <caption> Cold brew ratios </caption>
+    <caption>
+      Cold brew ratios
+    </caption>
     <thead>
       <tr>
         <th scope="col">Method</th>
@@ -555,9 +554,8 @@ cold-brew 1.0.0</samp></pre>
     Brooklyn, NY 11211
   </address>
   <p>
-    Text in other scripts, like Japanese: <span lang="ja"
-      >吾輩は猫である。名前はまだ無い。</span
-    >
+    Text in other scripts, like Japanese:
+    <span lang="ja">吾輩は猫である。名前はまだ無い。</span>
   </p>
   <div dir="rtl" lang="ar">
     <p>هذه فقرة مكتوبة من اليمين إلى اليسار.</p>
@@ -581,7 +579,7 @@ cold-brew 1.0.0</samp></pre>
 
   <ol>
     <li id="footnote-1">
-      A footnote at the very end of the article.{" "}
+      A footnote at the very end of the article.
       <a href="#footnote-ref-1" aria-label="Back to reference 1">↩</a>
     </li>
   </ol>

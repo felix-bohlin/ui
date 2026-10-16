@@ -100,9 +100,9 @@ Headings, lists and tables with a class keep their own styles, and components lo
 
 ### Classless showcase
 
-Let's put everything together and see how all elements look in a classless, rich-text context.
+Let's put everything together and see how all elements look in a classless, rich-text context. It's plain HTML on every framework page, the way rich text arrives from a CMS.
 
-```svelte
+```html
 <article class="ui-rich-text">
   <hgroup>
     <p>Typography showcase</p>
@@ -133,8 +133,8 @@ Let's put everything together and see how all elements look in a classless, rich
     </footer>
   </blockquote>
   <p>
-    Locavore ennui adaptogen literally palo santo flannel <code>p</code> +1 hashtag
-    meggings sartorial disrupt.
+    Locavore ennui adaptogen literally palo santo flannel <code>p</code> +1
+    hashtag meggings sartorial disrupt.
   </p>
 
   <hr />
@@ -142,32 +142,33 @@ Let's put everything together and see how all elements look in a classless, rich
   <h2 id="inline-text">Inline text</h2>
   <p>
     <strong>Strong</strong>, <b>bold</b>, <em>emphasis</em>, <i>italic</i>,
-    <strong><em>strong emphasis</em></strong>, <u>underline</u>,
-    <s>strikethrough</s>, <del>deleted</del>,
-    <ins>inserted</ins>, <mark>highlight</mark>, <small>small print</small>, H<sub
-      >2</sub
-    >O, E&nbsp;=&nbsp;mc<sup>2</sup>, x<sub>i</sub><sup>2</sup>,
+    <strong><em>strong emphasis</em></strong
+    >, <u>underline</u>, <s>strikethrough</s>, <del>deleted</del>,
+    <ins>inserted</ins>, <mark>highlight</mark>, <small>small print</small>,
+    H<sub>2</sub>O, E&nbsp;=&nbsp;mc<sup>2</sup>, x<sub>i</sub><sup>2</sup>,
     <abbr title="Hypertext Markup Language">HTML</abbr>,
     <abbr>CSS</abbr> without a title, <dfn>definition</dfn>,
-    <dfn><abbr title="Oat Milk Latte">OML</abbr></dfn>,
-    <cite>The Kombucha Chronicles</cite>,
+    <dfn><abbr title="Oat Milk Latte">OML</abbr></dfn
+    >, <cite>The Kombucha Chronicles</cite>,
     <q>quoted with a <q>nested quote</q> inside</q>, <code>inline code</code>,
-    <kbd>Esc</kbd>,
-    <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>,
-    <samp>sample output</samp>, <var>steepHours</var>,
+    <kbd>Esc</kbd>, <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd
+    >, <samp>sample output</samp>, <var>steepHours</var>,
     <time datetime="2026-09-30">September 30</time>,
     <data value="42">forty-two</data> and a <span>plain span</span>.
   </p>
   <p>
-    Nested inline elements: <a href="#inline-text"><code>linked code</code></a>,
-    <a href="#inline-text"><strong>linked strong</strong></a>,
-    <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,
-    <del><code>deleted code</code></del>, <ins><code>inserted code</code></ins>,
-    <em><code>emphasized code</code></em>,
+    Nested inline elements: <a href="#inline-text"><code>linked code</code></a
+    >, <a href="#inline-text"><strong>linked strong</strong></a
+    >, <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,
+    <del><code>deleted code</code></del
+    >, <ins><code>inserted code</code></ins
+    >, <em><code>emphasized code</code></em
+    >,
     <small
       >small with <code>code</code> and <a href="#inline-text">link</a></small
     >, <strong><kbd>Enter</kbd></strong> and
-    <sup><a href="#inline-text">sup link</a></sup>.
+    <sup><a href="#inline-text">sup link</a></sup
+    >.
   </p>
   <p>
     Links come in a few flavors: an
@@ -189,7 +190,8 @@ Let's put everything together and see how all elements look in a classless, rich
     <code
       >a.very.long.inline.code.span.that.has.no.natural.break.points.whatsoever</code
     >
-    and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
+    and a bare URL like
+    https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
   </p>
   <p>
     Superscripts and subscripts must not blow out the line height of a
@@ -336,7 +338,7 @@ Let's put everything together and see how all elements look in a classless, rich
     </li>
     <li>
       <strong>Pickled tumeric raw denim squid.</strong>
-      <pre><code>{`const brew = await steep({ hours: 18 })`}</code></pre>
+      <pre><code>const brew = await steep({ hours: 18 })</code></pre>
     </li>
     <li>
       <strong>Humblebrag chartreuse YOLO pug.</strong>
@@ -429,8 +431,7 @@ Let's put everything together and see how all elements look in a classless, rich
     Flexitarian <code>brew.config.js</code> kogi hashtag vaporware, set
     <var>steepHours</var> to taste:
   </p>
-  <pre><code
-      >{`module.exports = {
+  <pre><code>module.exports = {
   grind: "coarse",
   origin: "single-origin",
   roast: {
@@ -439,26 +440,19 @@ Let's put everything together and see how all elements look in a classless, rich
 
   steepHours: 18,
   plugins: ["oat-milk", "pour-over"],
-}`}</code
-    ></pre>
+}</code></pre>
   <p>A line that is far too long for the container has to scroll, not wrap:</p>
-  <pre><code
-      >const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "drinking vinegar", "turmeric latte", "flat white"]</code
-    ></pre>
+  <pre><code>const menu = ["cold brew", "pour-over", "oat milk latte", "matcha", "kombucha", "drinking vinegar", "turmeric latte", "flat white"]</code></pre>
   <p>Markup inside a code block has to be escaped:</p>
-  <pre><code
-      >&lt;article class="ui-rich-text"&gt;
+  <pre><code>&lt;article class="ui-rich-text"&gt;
   &lt;h1&gt;Hello &amp;amp; welcome&lt;/h1&gt;
-&lt;/article&gt;</code
-    ></pre>
+&lt;/article&gt;</code></pre>
   <p>
     Terminal output in a <code>pre</code> with <code>samp</code> instead of
     <code>code</code>:
   </p>
-  <pre><samp
-      >$ brew --version
-cold-brew 1.0.0</samp
-    ></pre>
+  <pre><samp>$ brew --version
+cold-brew 1.0.0</samp></pre>
   <p>Preformatted text without any code at all:</p>
   <pre>
   Roses are red,
@@ -500,7 +494,9 @@ cold-brew 1.0.0</samp
   <h2>Tables</h2>
   <p>Tables from Markdown or a CMS never come with classes:</p>
   <table>
-    <caption> Cold brew ratios </caption>
+    <caption>
+      Cold brew ratios
+    </caption>
     <thead>
       <tr>
         <th scope="col">Method</th>

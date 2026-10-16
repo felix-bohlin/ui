@@ -42,8 +42,12 @@ A scope is a class that changes the theme for one element and everything inside 
 - `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning` and `.ui-neutral` swap the palette to red, blue, green, orange or gray. The `--color-1` to `--color-16` steps inside follow, while `--primary` and the text colors keep the page values.
 - `.ui-palette` re-derives the palette and every color token from the knobs set on that element, so one page can carry several brands.
 
+On an element, `.ui-dark` and `.ui-light` only switch between light and dark colors. The palette hue and the shadows still come from the page. So on a light page, a `.ui-dark` box stays green and keeps the light shadows, while a dark page is blue. Add `.ui-palette` with the dark hue to make the box match dark mode:
+
 ```html
-<aside class="ui-dark">Always dark</aside>
+<aside class="ui-dark ui-palette" style="--palette-hue: var(--hue-blue)">
+  Always dark
+</aside>
 
 <section class="ui-palette" style="--palette-hue: 30">
   <button class="ui-button ui-primary ui-filled" type="button">

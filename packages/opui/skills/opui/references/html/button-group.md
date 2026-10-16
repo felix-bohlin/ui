@@ -520,13 +520,13 @@ The root needs `role="group"`.
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                                                                                                        |
-| -------- | ----------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                                   |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                                    |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                           |
-| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, takes `aria-disabled="true"` instead and looks and acts disabled. |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                                |
+| Type     | Modifiers                                 | Default | Description                                                                                                                 |
+| -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
+| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |
 
 #### Parts
 

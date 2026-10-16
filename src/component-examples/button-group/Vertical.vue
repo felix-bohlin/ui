@@ -7,6 +7,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <ButtonGroup orientation="vertical">
       <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -23,6 +24,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -41,6 +43,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <ButtonGroup orientation="vertical" variant="outlined">
       <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -57,6 +60,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -75,6 +79,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <ButtonGroup orientation="vertical" variant="tonal">
       <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -91,6 +96,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -109,6 +115,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <ButtonGroup orientation="vertical" variant="filled">
       <Button aria-label="Increase">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -125,6 +132,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </Button>
       <Button aria-label="Decrease">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

@@ -3,7 +3,7 @@ import { TextField } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <TextField label="Amount" placeholder="0.00" prefix="¢" suffix="EUR" />
+      <TextField label="Amount" placeholder="0.00" prefix="€" suffix="EUR" />
       <TextField label="Website" placeholder="example.com" prefix="https://" />
       <TextField label="Weight" type="numeric" placeholder="0" suffix="kg" />
       <TextField

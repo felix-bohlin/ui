@@ -6,6 +6,7 @@ export default function WithIcons() {
       <ButtonGroup variant="outlined">
         <Button iconOnly label="OK">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -20,6 +21,7 @@ export default function WithIcons() {
         <Button>Maybe</Button>
         <Button iconOnly label="No">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -36,6 +38,7 @@ export default function WithIcons() {
       <ButtonGroup variant="outlined">
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -50,6 +53,7 @@ export default function WithIcons() {
         </Button>
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -64,6 +68,7 @@ export default function WithIcons() {
         </Button>
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"

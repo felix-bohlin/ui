@@ -7,6 +7,7 @@ export default function IconAndLabel() {
         <Button>
           <span className="ui-text">Text</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -21,6 +22,7 @@ export default function IconAndLabel() {
         <Button variant="outlined">
           <span className="ui-text">Outlined</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -35,6 +37,7 @@ export default function IconAndLabel() {
         <Button variant="tonal">
           <span className="ui-text">Tonal</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -49,6 +52,7 @@ export default function IconAndLabel() {
         <Button variant="filled">
           <span className="ui-text">Filled</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -65,6 +69,7 @@ export default function IconAndLabel() {
       <div className="example-row">
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -79,6 +84,7 @@ export default function IconAndLabel() {
         </Button>
         <Button variant="outlined">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -93,6 +99,7 @@ export default function IconAndLabel() {
         </Button>
         <Button variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -107,6 +114,7 @@ export default function IconAndLabel() {
         </Button>
         <Button variant="filled">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

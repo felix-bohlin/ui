@@ -4,34 +4,34 @@
 
 <Button>
   <span class="ui-text">Text</span>
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
 </Button>
 <Button variant="outlined">
   <span class="ui-text">Outlined</span>
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
 </Button>
 <Button variant="tonal">
   <span class="ui-text">Tonal</span>
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
 </Button>
 <Button variant="filled">
   <span class="ui-text">Filled</span>
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
 </Button>
 
 <Button>
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
   <span class="ui-text">Text</span>
 </Button>
 <Button variant="outlined">
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
   <span class="ui-text">Outlined</span>
 </Button>
 <Button variant="tonal">
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
   <span class="ui-text">Tonal</span>
 </Button>
 <Button variant="filled">
-  <svg><!-- --></svg>
+  <svg aria-hidden="true"><!-- --></svg>
   <span class="ui-text">Filled</span>
 </Button>

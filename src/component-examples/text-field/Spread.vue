@@ -29,7 +29,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField spread label="Amount" placeholder="0.00">
     <template #description>Daily spending limit</template>
-    <template #prefix>¢</template>
+    <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 

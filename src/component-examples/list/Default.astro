@@ -1,8 +1,14 @@
 ---
-import { List } from "@opui/astro"
-import ListAll from "./partials/ListAll.astro"
+import { List, ListItem } from "@opui/astro"
 ---
 
 <List>
-  <ListAll prefix="default-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    <Fragment slot="end">100+</Fragment>
+  </ListItem>
 </List>

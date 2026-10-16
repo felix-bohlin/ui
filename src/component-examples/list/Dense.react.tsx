@@ -1,10 +1,14 @@
-import { List } from "opui-css/react"
-import ListAll from "./partials/ListAll.react"
+import { List, ListItem } from "opui-css/react"
 
 export default function Dense() {
   return (
     <List dense>
-      <ListAll prefix="dense-" />
+      <ListItem headline="Headline" />
+      <ListItem
+        headline="Headline"
+        description="Supporting text that truly is quite long enough to fill up multiple lines."
+      />
+      <ListItem headline="Trailing supporting text" end="100+" />
     </List>
   )
 }

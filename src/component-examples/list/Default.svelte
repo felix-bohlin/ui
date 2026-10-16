@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { List } from "opui-css/svelte"
-  import ListAll from "./partials/ListAll.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List>
-  <ListAll prefix="default-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    {#snippet end()}100+{/snippet}
+  </ListItem>
 </List>

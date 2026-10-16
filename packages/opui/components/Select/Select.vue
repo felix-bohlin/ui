@@ -53,6 +53,7 @@ const isSelected = (value: unknown) =>
 
 const uid = useId()
 const labelId = `select-label-${uid}`
+const descriptionId = `start-text-${uid}`
 const endTextId = `end-text-${uid}`
 const fieldName = inject(FieldGroupKey, undefined)
 </script>
@@ -73,7 +74,11 @@ const fieldName = inject(FieldGroupKey, undefined)
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <span v-if="description || $slots.description" class="ui-start-text">
+    <span
+      v-if="description || $slots.description"
+      class="ui-start-text"
+      :id="descriptionId"
+    >
       <slot name="description">{{ description }}</slot>
     </span>
 
@@ -83,6 +88,7 @@ const fieldName = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           [
+            description || $slots.description ? descriptionId : undefined,
             endText || $slots['end-text'] ? endTextId : undefined,
             attrs['aria-describedby'],
           ]

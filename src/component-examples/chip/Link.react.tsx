@@ -10,6 +10,7 @@ export default function Link() {
         variant="outlined"
         end={
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"

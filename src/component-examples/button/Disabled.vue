@@ -13,6 +13,7 @@ import { Button } from "opui-css/vue"
     <Button disabled>
       <span class="ui-text">Text</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -27,6 +28,7 @@ import { Button } from "opui-css/vue"
     <Button variant="outlined" disabled>
       <span class="ui-text">Outlined</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -41,6 +43,7 @@ import { Button } from "opui-css/vue"
     <Button variant="tonal" disabled>
       <span class="ui-text">Tonal</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -55,6 +58,7 @@ import { Button } from "opui-css/vue"
     <Button variant="filled" disabled>
       <span class="ui-text">Filled</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

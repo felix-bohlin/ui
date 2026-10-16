@@ -39,6 +39,7 @@ import {
   Switch as UISwitch,
 } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import Code from "../../components/Code.astro"
 
 const anatomyApi = {
@@ -362,8 +363,12 @@ const anatomyApi = {
     <p>Everything at once.</p>
     <Example>
       <Fragment slot="controls">
-        <UISwitch id="kitchen-sink-small-toggle"><code>small</code></UISwitch>
-        <UISwitch id="kitchen-sink-spread-toggle"><code>spread</code></UISwitch>
+        <UISwitch id="kitchen-sink-small-toggle"
+          ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
+        >
+        <UISwitch id="kitchen-sink-spread-toggle"
+          ><PropOrClass prop="spread" class=".ui-spread" /></UISwitch
+        >
         <UISwitch id="kitchen-sink-divider-toggle">
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>

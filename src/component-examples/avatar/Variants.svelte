@@ -2,7 +2,7 @@
   import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar variant="squared">SQ</Avatar>
+<Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
 
 <Avatar
   variant="rounded"

@@ -9,6 +9,7 @@
 <div class="example-row">
   <Chip as="button" variant="tonal">
     {#snippet start()}<svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -24,6 +25,7 @@
   <Chip as="button" variant="outlined">
     <span class="ui-text">Sort by</span>
     {#snippet end()}<svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

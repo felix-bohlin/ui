@@ -6,6 +6,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
   <ButtonGroup variant="outlined">
     <Button iconOnly label="OK">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -20,6 +21,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <Button> Maybe </Button>
     <Button iconOnly label="No">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -36,6 +38,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
   <ButtonGroup variant="outlined">
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -50,6 +53,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -64,6 +68,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

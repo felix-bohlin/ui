@@ -11,6 +11,7 @@ import { Chip } from "opui-css/vue"
     <Chip as="button" variant="tonal">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -27,6 +28,7 @@ import { Chip } from "opui-css/vue"
       <span class="ui-text">Sort by</span>
       <template #end
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

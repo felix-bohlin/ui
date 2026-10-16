@@ -4,7 +4,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Amount" placeholder="0.00">
-    <template #prefix>¢</template>
+    <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 

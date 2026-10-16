@@ -31,10 +31,12 @@
   const uid = $props.id()
   const field = getFieldContext()
   const labelId = `select-label-${uid}`
+  const descriptionId = $derived(description ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
   const describedBy = $derived(
-    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
-      undefined,
+    [descriptionId, endTextId, rest["aria-describedby"]]
+      .filter(Boolean)
+      .join(" ") || undefined,
   )
 
   const isSelected = (item: Item) =>
@@ -66,7 +68,7 @@
     </span>
   {/if}
   {#if description}
-    <span class="ui-start-text">
+    <span class="ui-start-text" id={descriptionId}>
       {@render content(description)}
     </span>
   {/if}

@@ -2,6 +2,7 @@
 import RadioInput from "./RadioInput.vue"
 import type { RadioProps, Slots } from "./types.d.vue"
 import { useAttrs, useId } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
@@ -17,16 +18,10 @@ const modelValue = defineModel<string | number | boolean | undefined>({
 const uid = useId()
 const endTextId = `end-text-${uid}`
 
-if (
-  import.meta.env.DEV &&
-  !slots.default &&
-  !attrs["aria-label"] &&
-  !attrs["aria-labelledby"]
-) {
-  console.warn(
-    "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-  )
-}
+warnUnnamed(
+  "Radio",
+  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>

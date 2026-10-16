@@ -1,5 +1,6 @@
 import { useId } from "react"
 import { cx } from "../cx"
+import { warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.react"
 import type { RadioProps as Props } from "./types.react"
 
@@ -19,16 +20,10 @@ export default function Radio({
   const describedBy =
     [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
-  if (
-    import.meta.env?.DEV &&
-    !children &&
-    !rest["aria-label"] &&
-    !rest["aria-labelledby"]
-  ) {
-    console.warn(
-      "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-    )
-  }
+  warnUnnamed(
+    "Radio",
+    children || rest["aria-label"] || rest["aria-labelledby"],
+  )
 
   return (
     <label

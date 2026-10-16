@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
+  import { warnUnnamed } from "../dev"
   import CheckboxInput from "./CheckboxInput.svelte"
   import type { CheckboxProps as Props } from "./types.svelte"
 
@@ -26,14 +27,12 @@
       undefined,
   )
 
-  if (
-    import.meta.env.DEV &&
-    untrack(() => !children && !rest["aria-label"] && !rest["aria-labelledby"])
-  ) {
-    console.warn(
-      "[OPUI Checkbox] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-    )
-  }
+  untrack(() =>
+    warnUnnamed(
+      "Checkbox",
+      children || rest["aria-label"] || rest["aria-labelledby"],
+    ),
+  )
 </script>
 
 <label

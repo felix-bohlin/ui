@@ -2,6 +2,7 @@
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeaderCell,
@@ -10,7 +11,7 @@
 </script>
 
 <Table variant="dense">
-  <caption>Band Members</caption>
+  <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Band</TableHeaderCell>

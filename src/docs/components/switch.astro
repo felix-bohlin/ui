@@ -11,6 +11,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
 import switchApi from "../../component-api/switch/api"
+import switchInputApi from "../../component-api/switch-input/api"
 
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
@@ -31,6 +32,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   heroAnatomy
   apis={[
     { title: "Switch API", api: switchApi },
+    { title: "Switch input API", api: switchInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -49,6 +51,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       type: "css",
     },
     { path: "src/component-api/switch", type: "api" },
+    { path: "src/component-api/switch-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
@@ -389,6 +392,12 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
+    <p>
+      Give the end text an <code>id</code> and point <code
+        >aria-describedby</code
+      >
+      on the fieldset at it, so screen readers read the error with the group.
+    </p>
     <AutoExample name="FieldGroupValidation" row />
   </section>
 

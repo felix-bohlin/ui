@@ -2,9 +2,11 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableColumn,
   TableColumnGroup,
+  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -13,9 +15,7 @@ import {
 
 <template>
   <Table>
-    <caption>
-      Nordic Countries Overview
-    </caption>
+    <TableCaption>Nordic Countries Overview</TableCaption>
     <TableColumnGroup>
       <TableColumn />
       <TableColumn />
@@ -77,10 +77,10 @@ import {
         <TableCell>Gyrfalcon</TableCell>
       </TableRow>
     </TableBody>
-    <tfoot>
+    <TableFoot>
       <TableRow>
         <TableCell :colspan="6">Scandinavia != The Nordics</TableCell>
       </TableRow>
-    </tfoot>
+    </TableFoot>
   </Table>
 </template>

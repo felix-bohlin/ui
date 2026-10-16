@@ -1,5 +1,5 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset aria-describedby="switch-group-error" class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-switch">
@@ -30,6 +30,8 @@
         <span class="ui-label">Switch 3</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="switch-group-error"
+      >Something went wrong!</span
+    >
   </fieldset>
 </form>

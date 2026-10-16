@@ -3,13 +3,10 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Table",
   notes: {
-    astro:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    react:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    svelte:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    vue: "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
+    astro: "Set column widths with `TableColumnGroup` and `TableColumn`.",
+    react: "Set column widths with `TableColumnGroup` and `TableColumn`.",
+    svelte: "Set column widths with `TableColumnGroup` and `TableColumn`.",
+    vue: "Set column widths with `TableColumnGroup` and `TableColumn`.",
   },
   options: [
     {
@@ -28,6 +25,17 @@ export default {
     },
   ],
   parts: [
+    {
+      code: "<caption>",
+      component: {
+        astro: "TableCaption",
+        react: "TableCaption",
+        svelte: "TableCaption",
+        vue: "TableCaption",
+      },
+      description: "An optional title for the table.",
+      selector: "caption",
+    },
     {
       code: "<thead>",
       component: {
@@ -82,6 +90,17 @@ export default {
       },
       description: "A data cell.",
       selector: "tbody tr:first-child td:last-child",
+    },
+    {
+      code: "<tfoot>",
+      component: {
+        astro: "TableFoot",
+        react: "TableFoot",
+        svelte: "TableFoot",
+        vue: "TableFoot",
+      },
+      description: "Optional footer rows, such as totals.",
+      selector: "tfoot",
     },
   ],
   root: {

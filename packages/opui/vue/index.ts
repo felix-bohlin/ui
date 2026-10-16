@@ -52,9 +52,11 @@ export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
 export { default as TableBody } from "../components/Table/TableBody.vue"
+export { default as TableCaption } from "../components/Table/TableCaption.vue"
 export { default as TableCell } from "../components/Table/TableCell.vue"
 export { default as TableColumn } from "../components/Table/TableColumn.vue"
 export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.vue"
+export { default as TableFoot } from "../components/Table/TableFoot.vue"
 export { default as TableHead } from "../components/Table/TableHead.vue"
 export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.vue"
 export { default as TableRow } from "../components/Table/TableRow.vue"
@@ -149,7 +151,7 @@ export type {
   SwitchProps,
 } from "../components/Switch/types.d.vue"
 export type {
-  ColumnProps as TableColumnProps,
+  TableColumnProps,
   Props as TableProps,
   SectionProps as TableSectionProps,
 } from "../components/Table/types.d.vue"

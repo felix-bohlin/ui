@@ -114,7 +114,8 @@ export const frameworkProps = (
   const aliases = program()
     .getSourceFile(filePath)
     ?.statements.filter(ts.isTypeAliasDeclaration)
-  const alias = [`${target.file ?? target.component}Props`, "Props"]
+  const file = target.file ?? target.component
+  const alias = [`${file}Props`, ...(file === target.source ? ["Props"] : [])]
     .map((name) => aliases?.find((statement) => statement.name.text === name))
     .find(Boolean)
   if (!alias) return props
@@ -226,6 +227,36 @@ const warn = (message: string) => {
   console.warn(`[component-api] ${message}`)
 }
 
+export const checkExports = (apis: ComponentApi[]) => {
+  const all = Object.keys(frameworks) as ComponentFramework[]
+  all
+    .map((framework) => ({
+      barrel: path.resolve("packages/opui", framework, "index.ts"),
+      framework,
+    }))
+    .filter(({ barrel }) => fs.existsSync(barrel))
+    .forEach(({ barrel, framework }) => {
+      const covered = new Set(
+        apis.flatMap((api) => [
+          api.component,
+          ...[api.root, ...api.parts].flatMap(
+            (part) => part.component?.[framework] ?? [],
+          ),
+        ]),
+      )
+      ;[
+        ...fs
+          .readFileSync(barrel, "utf-8")
+          .matchAll(/^export \{ default as (\w+) \}/gm),
+      ]
+        .map(([, name]) => name)
+        .filter((name) => !covered.has(name))
+        .forEach((name) =>
+          warn(`${name} (${framework}): exported but not documented`),
+        )
+    })
+}
+
 export const checkApi = (api: ComponentApi) => {
   if (
     api.page &&
@@ -233,6 +264,15 @@ export const checkApi = (api: ComponentApi) => {
   ) {
     warn(`${api.component}: page "${api.page}" does not exist`)
   }
+
+  const groups = api.options.flatMap((option) => option.group ?? [])
+  groups
+    .filter((group, i) => groups.indexOf(group) !== i)
+    .forEach((group) =>
+      warn(
+        `${api.component}: group "${group}" is used by more than one option`,
+      ),
+    )
 
   const all = Object.keys(frameworks) as ComponentFramework[]
   all

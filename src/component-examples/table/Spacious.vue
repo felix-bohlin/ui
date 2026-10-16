@@ -2,6 +2,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeaderCell,
@@ -11,9 +12,7 @@ import {
 
 <template>
   <Table variant="spacious">
-    <caption>
-      Band Members
-    </caption>
+    <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Band</TableHeaderCell>

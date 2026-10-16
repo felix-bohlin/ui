@@ -54,9 +54,11 @@ export { default as Switch } from "../components/Switch/Switch.svelte"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.svelte"
 export { default as Table } from "../components/Table/Table.svelte"
 export { default as TableBody } from "../components/Table/TableBody.svelte"
+export { default as TableCaption } from "../components/Table/TableCaption.svelte"
 export { default as TableCell } from "../components/Table/TableCell.svelte"
 export { default as TableColumn } from "../components/Table/TableColumn.svelte"
 export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.svelte"
+export { default as TableFoot } from "../components/Table/TableFoot.svelte"
 export { default as TableHead } from "../components/Table/TableHead.svelte"
 export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.svelte"
 export { default as TableRow } from "../components/Table/TableRow.svelte"
@@ -151,7 +153,7 @@ export type {
   SwitchProps,
 } from "../components/Switch/types.svelte"
 export type {
-  ColumnProps as TableColumnProps,
+  TableColumnProps,
   Props as TableProps,
   SectionProps as TableSectionProps,
 } from "../components/Table/types.svelte"

@@ -1,5 +1,5 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset aria-describedby="checkbox-group-error" class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
@@ -28,6 +28,8 @@
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="checkbox-group-error"
+      >Something went wrong!</span
+    >
   </fieldset>
 </form>

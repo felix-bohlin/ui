@@ -11,17 +11,17 @@ defineSlots<Slots>()
 
 <template>
   <summary :class="[$props.class]">
-    <slot></slot
-    ><slot name="marker"
-      ><svg
-        aria-hidden="true"
-        class="ui-marker"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path fill="currentColor" :d="markerPath"></path></svg
-    ></slot>
+    <slot></slot><slot v-if="$slots.marker" name="marker"></slot
+    ><svg
+      v-else
+      aria-hidden="true"
+      class="ui-marker"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path fill="currentColor" :d="markerPath"></path>
+    </svg>
   </summary>
 </template>

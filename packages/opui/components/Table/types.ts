@@ -5,6 +5,6 @@ export type Props = {
 
 export type SectionProps = {}
 
-export type ColumnProps = {
+export type TableColumnProps = {
   width?: string
 }

@@ -11,6 +11,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
 import radioApi from "../../component-api/radio/api"
+import radioInputApi from "../../component-api/radio-input/api"
 
 import Conditional from "../../components/Conditional.astro"
 import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
@@ -30,6 +31,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   heroAnatomy
   apis={[
     { title: "Radio API", api: radioApi },
+    { title: "Radio input API", api: radioInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -48,6 +50,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       type: "css",
     },
     { path: "src/component-api/radio", type: "api" },
+    { path: "src/component-api/radio-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
@@ -363,6 +366,12 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
+    <p>
+      Give the end text an <code>id</code> and point <code
+        >aria-describedby</code
+      >
+      on the fieldset at it, so screen readers read the error with the group.
+    </p>
     <AutoExample name="FieldGroupValidation" row />
   </section>
 

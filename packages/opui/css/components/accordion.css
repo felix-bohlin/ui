@@ -160,7 +160,7 @@
   }
 
   /* Accordion group  */
-  :where(.ui-card[role="group"]:has(details.ui-accordion)) {
+  :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
     --_group-radius: var(--border-radius);
     --_gutter-color: var(--border-color);
     --_item-padding-inline: var(--size-3);
@@ -168,15 +168,8 @@
 
     display: block;
 
-    &.ui-card {
-      &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
-        --_item-padding-inline: 0;
-      }
-    }
-
-    & > .ui-content {
-      margin-block: 0;
-      padding: 0;
+    &:not(.ui-elevated, .ui-outlined, .ui-tonal) {
+      --_item-padding-inline: 0;
     }
 
     & > details.ui-accordion {

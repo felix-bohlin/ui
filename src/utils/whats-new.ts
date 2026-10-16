@@ -75,7 +75,7 @@ const whatsNew = {
     components(
       `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
     ),
-    `Breaking: <code>--_badge-inset-block</code> and <code>--_badge-inset-inline</code> are <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_badge-inset</code> is <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   button: [
     {
@@ -214,7 +214,6 @@ const whatsNew = {
     },
     `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a button or link chip, and <code>.ui-disabled</code> to dim a static chip.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `Breaking: <code>--_tone</code> is <code>--_accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,
     ),
@@ -318,7 +317,7 @@ const whatsNew = {
     ),
   ],
   menu: [
-    `Smaller start and end icons, and dividers that show in dark mode (<a href="#basics">Basics</a>).`,
+    `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
     {
       ...slots(
@@ -328,8 +327,7 @@ const whatsNew = {
       svelte: `<a href="#submenu">Submenus</a> with the <code>submenu</code> snippet on <code>ListItem</code>.`,
     },
     `A subtle light gray border in dark mode, so <a href="#basics">menus</a> stand out on dialogs and other raised surfaces.`,
-    `Tall menus shrink to the space on their side instead of running off-screen (<a href="#placement">Placement</a>).`,
-    `Breaking: <code>--_bg-color-hover</code> is <code>--_hover-bg-color</code>, and <code>--_transition-duration</code> is <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Menus shrink to the space on their side and flip when it's less than <code>12rem</code> (<a href="#placement">Placement</a>).`,
     {
       default: `<a href="#bordered">Dividers between items</a> with the <code>bordered</code> prop.`,
       html: `<a href="#bordered">Dividers between items</a> with <code>.ui-bordered</code>.`,
@@ -570,7 +568,7 @@ const whatsNew = {
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
-    `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code>, and the hold time <code>--_duration</code> is <code>--_hold-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   toggle: [
     slots(
@@ -590,7 +588,7 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is gone on <code>ToggleGroup</code>. Leave <code>size</code> out for the default size.`,
     ),
-    `A disabled <a href="#disabled">toggle</a> dims like a disabled button, hover uses the button hover strength, and <a href="#overflow"><code>shrink</code></a> truncates like <code>ButtonGroup</code>.`,
+    `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover uses the button hover strength.`,
     {
       react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
@@ -606,17 +604,16 @@ const whatsNew = {
       `Breaking: no <code>&lt;span interestfor&gt;</code> around the trigger. Put <code>interestfor</code> with the tooltip <code>id</code> on the <a href="#basics">trigger</a>.`,
     ),
     `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
-    `Breaking: <code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-min-inline-size</code>, <code>--_tooltip-offset</code> and <code>--_tooltip-shift</code> are <code>--_min-inline-size</code>, <code>--_offset</code> and <code>--_shift</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-offset</code> is <code>--_offset</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
     `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
     `Breaking: <a href="#classless">rich text</a> only styles headings without a class, like lists. Add a <code>.ui-h1</code>–<code>.ui-h6</code> class to a heading that has another class.`,
-    `<a href="#rich-text-showcase">Rich text</a> styles tables, <code>hr</code> and task lists.`,
+    `<a href="#rich-text-showcase">Rich text</a> styles tables, which scroll sideways in narrow columns, <code>hr</code> and task lists.`,
     `Breaking: <a href="#classless">rich text</a> sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add <code>components.prose</code> before <code>components.root</code>.`,
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `<a href="#rich-text-showcase">Rich text</a> tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
   ],
 } satisfies Record<string, Note[]>
 

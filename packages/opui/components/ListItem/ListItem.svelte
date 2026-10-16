@@ -7,6 +7,7 @@
     as,
     borderTop,
     class: className,
+    critical,
     description,
     for: htmlFor,
     headline,
@@ -65,6 +66,7 @@
   class={[
     {
       "ui-border-top": borderTop,
+      "ui-critical": critical,
       "ui-inset": inset,
     },
     className,

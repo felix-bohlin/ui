@@ -66,7 +66,7 @@ export default function Custom() {
           as="button"
           headline="Delete"
           borderTop
-          className="ui-critical"
+          critical
           commandfor="menu-custom"
           command="hide-popover"
           start={

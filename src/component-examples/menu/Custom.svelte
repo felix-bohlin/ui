@@ -64,7 +64,7 @@
     as="button"
     headline="Delete"
     borderTop
-    class="ui-critical"
+    critical
     commandfor="menu-custom"
     command="hide-popover"
   >

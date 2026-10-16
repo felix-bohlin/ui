@@ -157,32 +157,34 @@ export const description = "A popover list of actions or links."
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > slot.
+        > slot. Submenu items close the whole menu.
       </Fragment>
       <Fragment slot="html">
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
+        Point the <code>commandfor</code> of the submenu items at the root menu to
+        close the whole menu.
       </Fragment>
       <Fragment slot="react">
         Pass a <code>Menu</code> to the <code>submenu</code> prop of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > prop.
+        > prop. Submenu items close the whole menu.
       </Fragment>
       <Fragment slot="svelte">
         Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > snippet.
+        > snippet. Submenu items close the whole menu.
       </Fragment>
       <Fragment slot="vue">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > slot.
+        > slot. Submenu items close the whole menu.
       </Fragment>
     </Conditional>
 

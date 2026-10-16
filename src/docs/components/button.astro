@@ -291,37 +291,33 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,
-        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
-        clicks instead. The link can still be focused and followed with <kbd
-          >Enter</kbd
-        >.
+        so with <code>href</code> it drops the <code>href</code> and sets <code
+          >aria-disabled="true"</code
+        > instead. The link can't be clicked or focused.
       </Fragment>
       <Fragment slot="html">
         Disable the button with the <code>disabled</code> attribute. Links can't be
-        disabled, so use <code>aria-disabled="true"</code>
-        on an <code>&lt;a&gt;</code>, which blocks clicks. The link can still be
-        focused and followed with <kbd>Enter</kbd>.
+        disabled, so remove the <code>href</code> of an <code>&lt;a&gt;</code> and
+        add <code>aria-disabled="true"</code>. The link can't be clicked or
+        focused.
       </Fragment>
       <Fragment slot="react">
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,
-        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
-        clicks instead. The link can still be focused and followed with <kbd
-          >Enter</kbd
-        >.
+        so with <code>href</code> it drops the <code>href</code> and sets <code
+          >aria-disabled="true"</code
+        > instead. The link can't be clicked or focused.
       </Fragment>
       <Fragment slot="svelte">
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,
-        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
-        clicks instead. The link can still be focused and followed with <kbd
-          >Enter</kbd
-        >.
+        so with <code>href</code> it drops the <code>href</code> and sets <code
+          >aria-disabled="true"</code
+        > instead. The link can't be clicked or focused.
       </Fragment>
       <Fragment slot="vue">
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,
-        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
-        clicks instead. The link can still be focused and followed with <kbd
-          >Enter</kbd
-        >.
+        so with <code>href</code> it drops the <code>href</code> and sets <code
+          >aria-disabled="true"</code
+        > instead. The link can't be clicked or focused.
       </Fragment>
     </Conditional>
     <Example column>

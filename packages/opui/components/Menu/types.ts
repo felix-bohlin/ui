@@ -4,8 +4,8 @@ export type MenuItem = {
   critical?: boolean
   disabled?: boolean
   href?: string
-  label: string
   shortcut?: string
+  text: string
 }
 
 export type Props = {

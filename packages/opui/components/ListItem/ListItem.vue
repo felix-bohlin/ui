@@ -38,6 +38,7 @@ const tagAttrs = computed(() =>
     :class="[
       {
         'ui-border-top': props.borderTop,
+        'ui-critical': props.critical,
         'ui-inset': props.inset,
       },
       props.class,

@@ -1,5 +1,6 @@
 export type Props = {
   borderTop?: boolean
+  critical?: boolean
   description?: string
   for?: string
   headline?: string

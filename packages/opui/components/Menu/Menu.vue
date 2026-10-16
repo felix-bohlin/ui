@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useId } from "vue"
+import { computed, inject, provide, reactive, useId } from "vue"
+import { MenuKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
@@ -19,6 +20,9 @@ defineOptions({
 
 const uid = useId()
 const menuId = computed(() => id || `menu-${uid}`)
+const parent = inject(MenuKey, undefined)
+const rootId = computed(() => parent?.rootId ?? menuId.value)
+provide(MenuKey, reactive({ rootId }))
 </script>
 
 <template>
@@ -46,8 +50,8 @@ const menuId = computed(() => id || `menu-${uid}`)
           critical,
           disabled,
           href,
-          label,
           shortcut,
+          text,
           ...itemRest
         },
         index
@@ -61,14 +65,14 @@ const menuId = computed(() => id || `menu-${uid}`)
         :command="
           !href && closeOnClick && !disabled ? 'hide-popover' : undefined
         "
-        :commandfor="!href && closeOnClick && !disabled ? menuId : undefined"
+        :commandfor="!href && closeOnClick && !disabled ? rootId : undefined"
         :disabled="!href && disabled ? true : undefined"
         :href="href && !disabled ? href : undefined"
         :type="href ? undefined : 'button'"
         v-bind="itemRest"
       >
         <div class="ui-text">
-          <p>{{ label }}</p>
+          <p>{{ text }}</p>
         </div>
         <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>

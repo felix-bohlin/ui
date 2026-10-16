@@ -16,13 +16,14 @@ export default {
     },
     {
       default: "false",
-      description: "Disables the button.",
+      description:
+        'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
       frameworks: ["astro", "react", "svelte", "vue"],
       prop: "disabled",
     },
     {
       description:
-        'Disables the button. A link button, which can\'t take `disabled`, takes `aria-disabled="true"` instead and looks and acts disabled.',
+        'Disables the button. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
       prop: "disabledState",

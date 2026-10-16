@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button, Menu } from "opui-css/svelte"
 
-  const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
+  const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 </script>
 
 <Button

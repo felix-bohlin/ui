@@ -25,6 +25,6 @@
   <Menu
     id="split-button-menu"
     align="end"
-    items={[{ label: "Save as draft" }, { label: "Save and publish" }]}
+    items={[{ text: "Save as draft" }, { text: "Save and publish" }]}
   />
 </ButtonGroup>

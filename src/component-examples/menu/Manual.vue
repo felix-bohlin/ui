@@ -10,9 +10,9 @@ import { Button, Menu } from "opui-css/vue"
     id="menu-manual"
     popover="manual"
     :items="[
-      { label: 'Show grid', closeOnClick: false },
-      { label: 'Show rulers', closeOnClick: false },
-      { label: 'Done', borderTop: true },
+      { text: 'Show grid', closeOnClick: false },
+      { text: 'Show rulers', closeOnClick: false },
+      { text: 'Done', borderTop: true },
     ]"
   />
 </template>

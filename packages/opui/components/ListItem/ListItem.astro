@@ -8,6 +8,7 @@ const {
   as = Astro.props.href ? "a" : undefined,
   borderTop,
   class: className,
+  critical,
   description,
   for: htmlFor,
   headline,
@@ -28,6 +29,7 @@ const tagProps = hasLabel
   class:list={[
     {
       "ui-border-top": borderTop,
+      "ui-critical": critical,
       "ui-inset": inset,
     },
     className,

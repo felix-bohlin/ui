@@ -13,10 +13,10 @@ export default function Basics() {
       <Menu
         id="menu-basics"
         items={[
-          { label: "Edit", shortcut: "E" },
-          { label: "Duplicate", shortcut: "D" },
-          { label: "Archive", disabled: true },
-          { label: "Delete", borderTop: true, critical: true },
+          { text: "Edit", shortcut: "E" },
+          { text: "Duplicate", shortcut: "D" },
+          { text: "Archive", disabled: true },
+          { text: "Delete", borderTop: true, critical: true },
         ]}
       />
     </>

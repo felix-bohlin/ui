@@ -1,6 +1,6 @@
 import { Button, Menu } from "opui-css/react"
 
-const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
+const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 
 export default function Placement() {
   return (

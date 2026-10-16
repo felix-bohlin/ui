@@ -13,6 +13,6 @@ import { Button, Menu } from "opui-css/vue"
   <Menu
     bordered
     id="menu-bordered"
-    :items="[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Archive' }]"
+    :items="[{ text: 'Edit' }, { text: 'Duplicate' }, { text: 'Archive' }]"
   />
 </template>

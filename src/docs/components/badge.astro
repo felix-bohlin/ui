@@ -159,23 +159,9 @@ export const description =
     </Conditional>
 
     <Example row>
-      <Conditional slot="controls">
-        <UISwitch slot="html" id="badge-visibility-toggle"
-          ><code>.ui-invisible</code></UISwitch
-        >
-        <UISwitch slot="astro" id="badge-visibility-toggle"
-          ><code>invisible</code></UISwitch
-        >
-        <UISwitch slot="react" id="badge-visibility-toggle"
-          ><code>invisible</code></UISwitch
-        >
-        <UISwitch slot="svelte" id="badge-visibility-toggle"
-          ><code>invisible</code></UISwitch
-        >
-        <UISwitch slot="vue" id="badge-visibility-toggle"
-          ><code>invisible</code></UISwitch
-        >
-      </Conditional>
+      <UISwitch slot="controls" checked id="badge-visibility-toggle">
+        <PropOrClass prop="invisible" class=".ui-invisible" />
+      </UISwitch>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
       <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
       <Example.Preview slot="preview-react" code={BadgeVisibilityReact} />

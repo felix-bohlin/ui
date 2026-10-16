@@ -15,6 +15,7 @@ import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
+import checkboxInputApi from "../../component-api/checkbox-input/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
@@ -35,6 +36,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   ]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
+    { title: "Checkbox input API", api: checkboxInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -53,6 +55,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       type: "css",
     },
     { path: "src/component-api/checkbox", type: "api" },
+    { path: "src/component-api/checkbox-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
@@ -387,6 +390,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         text of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
+    <p>
+      Give the end text an <code>id</code> and point <code
+        >aria-describedby</code
+      >
+      on the fieldset at it, so screen readers read the error with the group.
+    </p>
     <AutoExample name="FieldGroupValidation" row />
   </section>
 

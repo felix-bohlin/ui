@@ -68,6 +68,9 @@ const whatsNew = {
     ),
     `Breaking: <code>--_badge-inset-block</code> and <code>--_badge-inset-inline</code> are <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
+  "bar-chart": [
+    `New component. A <a href="#basics">data table drawn as a column chart</a>, with a computed axis, grouped series and tooltips. No JavaScript needed.`,
+  ],
   button: [
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
@@ -215,6 +218,9 @@ const whatsNew = {
       html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
   ],
+  "data-grid": [
+    `New component. A <a href="#basics">data grid</a> with <a href="#sorting">sorting</a>, filtering, selection, <a href="#pinned-columns">pinned columns</a> and <a href="#detail-panel">detail panels</a>, built with subgrid and <code>:has()</code>. No JavaScript needed.`,
+  ],
   dialog: [
     slots(
       `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
@@ -306,6 +312,12 @@ const whatsNew = {
       html: `<a href="#bordered">Dividers between items</a> with <code>.ui-bordered</code>.`,
     },
   ],
+  message: [
+    `New component. <a href="#basics">Chat bubbles</a> that group by sender, with <a href="#attachments">attachments</a>, <a href="#reactions">reactions</a> and a <a href="#typing">typing indicator</a>.`,
+  ],
+  "one-time-code": [
+    `New component. A <a href="#basics">one-time code field</a> that draws one input as a box per character, so paste and SMS autofill work without JavaScript.`,
+  ],
   progress: [
     {
       ...slots(
@@ -362,6 +374,9 @@ const whatsNew = {
     },
     `Breaking: <code>--_thumb-bg</code> is <code>--_thumb-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
+  rating: [
+    `New component. A <a href="#basics">star rating</a> that shows a score with exact fractions, or <a href="#input">collects one</a> with radios.`,
+  ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
@@ -390,6 +405,9 @@ const whatsNew = {
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
+  ],
+  stepper: [
+    `New component. A <a href="#basics">stepper</a> where the current step marks every step before it as complete, with a <a href="#custom-checkmark">custom checkmark</a>.`,
   ],
   switch: [
     slots(
@@ -509,6 +527,9 @@ const whatsNew = {
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
   ],
+  timeline: [
+    `New component. A <a href="#basics">timeline</a> of dated events whose dates line up in their own column, with colors, custom markers and progress.`,
+  ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
@@ -558,10 +579,17 @@ const whatsNew = {
 } satisfies Record<string, Note[]>
 
 const highlighted = new Set([
+  "bar-chart",
   "button",
   "carousel",
+  "data-grid",
   "menu",
+  "message",
+  "one-time-code",
+  "rating",
+  "stepper",
   "tabs",
+  "timeline",
   "typography",
 ])
 

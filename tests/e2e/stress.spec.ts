@@ -134,6 +134,12 @@ test("chips one size step up match the control size", async ({ page }) => {
   expectChipHeights(chips)
 })
 
+test("data grid toolbar controls share one height", async ({ page }) => {
+  await openFixture(page, "html", "stress/data-grid")
+
+  expectSharedHeights(await measureRows(page))
+})
+
 test("form controls keep their height in high contrast mode", async ({
   page,
 }) => {

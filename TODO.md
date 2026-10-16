@@ -540,6 +540,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: the select `::picker-icon`, the classic select `::after` and the autosuggest `.ui-field::after` each get `background-color: ButtonText` inside `@media (forced-colors: active)` (`select.css`, `text-input.css`). Checked in Chromium with forced colors: all three chevrons are `rgb(0, 0, 0)` on a white page instead of disappearing.
+- [ ] (5) Data grid header menus can't be used with a keyboard. Their items are `<label for>` pointing at the sort radios and the Columns menu checkboxes, and labels aren't focusable, so a keyboard user opens a menu with nothing to focus (`DataGrid.astro`, `DataGrid.vue`, `HeaderMenus` example)
+  - Sorting and hiding still work by keyboard through the header sort arrows and the Columns menu, but the menu button offers options it can't deliver.
+  - Proposal: make every item a real control. See the example.
+    1. The sort radios move into the header menus as Sort ascending, Sort descending and Unsorted. They keep the grid's one radio `name`, so only one column sorts. The sort CSS keeps working, since it reads `:nth-child(n) input[value="asc"]:checked` inside the header cell, which now holds the menu.
+    2. The arrow next to the header becomes an `aria-hidden` indicator, driven by `[role="columnheader"]:has(menu [value="desc"]:checked)`.
+    3. Hide column becomes a Manage columns button (`command="show-popover"`) that opens the Columns menu. A checkbox can't live in two places, and a hidden column's own menu would disappear with it.
+  - Keyboard flow, checked in Chromium: Enter on the menu button opens the menu, Tab moves to the first radio, arrow keys move between the three radios and sort right away (radios in closed menus are skipped, so focus stays in the menu), Tab reaches Manage columns, and Enter there opens the Columns menu.
+  - Trade-offs: with `headerMenus` on, the header arrow no longer sorts on click, so pointer users need one more click. Arrow keys sort immediately, like any radio group.
 - [x] (6) Carousel: the library focus ring doesn't reach `::scroll-button()` and `::scroll-marker`. `normalize.css:113-123` is a bare `:focus-visible` rule, and a selector without the pseudo-element never matches one, so the buttons and the 8px markers get only the UA ring, not `--focus-ring-width`/`--focus-ring-color` (`carousel.css:111-135,252-261`, `normalize.css:113`)
   - Deferred: CSS carousel accessibility is still being worked out by browser vendors. The Carousel page says so and leaves it to the user for now.
   - The learn page says the buttons are "real, focusable" (`carousel-css-only.astro:31`), and Astro and Vue turn buttons on by default (`Carousel.astro:8`).
@@ -3815,6 +3823,478 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: the `i18n` config is gone from `astro.config.mjs`. Its prefix-always routing 404'd every unprefixed route in dev, and nothing needs it: the `[framework]` pages already get one route per framework from `frameworkPaths()`, `hrefFor()` builds `/<framework>/…/` itself, and pages read the framework from `Astro.locals.framework` (see Framework from locale). Under `OPUI_TEST_PAGES=1 pnpm dev`, `/`, `/todo/`, `/todo/done/`, `/checks/`, `/tests/`, `/learn/`, `/learn/under-the-hood/` and `/blocks/` return 200, `/components/button` still redirects and unknown paths still 404.
   - Compared all 646 built pages with the build before the change: the same apart from asset hashes and the Radio and Todo/Checks changes here.
 
+## PR #418
+
+Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/component-proposals`: BarChart, DataGrid, Message, OneTimeCode, Rating, Stepper, Timeline) against this branch at `1a79be9a`. At review time the PR's base was `cac65299`, 58 commits behind, and a dry-run merge conflicted in 23 paths. Items marked "rebase blocker" failed `pnpm check` on this branch then. The findings are fixed on the PR branch in `4f76d0df`, and this branch is merged into it up to `bbfb612f` with no conflicts left.
+
+- [x] (10) PR #418, all seven: no React implementation. Every component folder has `.astro`, `.svelte` and `.vue` only; this branch requires `<Name>.react.tsx`, `types.react.ts` and a `packages/opui/react/index.ts` export, and `check-components` fails on each of the nine components (`BarChart`, `DataGrid`, `Message`, `Messages`, `OneTimeCode`, `Rating`, `Stepper`, `Timeline`, `TimelineItem`). The 69 examples have no `.react.tsx` either, so every React docs page would render prose only, and `src/component-api/data-grid/api.ts:17-179` and `one-time-code/api.ts:48` carry `frameworks: ["astro", "svelte", "vue"]` rows plus 52 `<Fragment slot="svelte">` conditionals with no React counterpart. Rebase blocker (`packages/opui/components/{BarChart,DataGrid,Message,OneTimeCode,Rating,Stepper,Timeline}`, `packages/opui/react/index.ts`, `src/component-examples/{bar-chart,data-grid,message,one-time-code,rating,stepper,timeline}`)
+  - Fix: port each component to React on the Carousel/TextField pattern (`Base.Props & Base.Slots<ReactNode> & ComponentProps<"table">`, slots as camelCased `ReactNode` props, DataGrid's `cell-<key>`/`detail` slots as render props, `"use client"` only where handlers or state are needed), export the nine components and 19 types from the React barrel, add the 69 `.react.tsx` examples, drop or widen the `frameworks` rows, add `slot="react"` conditionals, and update the TODO `Added:` notes and CHANGELOG entries that say "Astro, Svelte and Vue".
+  - Fixed: every component has a `.react.tsx` and `types.react.ts` (`BarChart`, `DataGrid`, `Message`, `Messages`, `OneTimeCode`, `Rating`, `Stepper`, `Timeline`, `TimelineItem`), all server components, exported with their types from `packages/opui/react/index.ts`; the 67 examples have a `.react.tsx`, the seven pages have `slot="react"` conditionals, the api `frameworks` rows and `component` maps include React, and the parity test renders them against Astro. `check-components` passes.
+- [x] (9) PR #418, Timeline: `Timeline.Item` is a namespace built in `Timeline/index.ts` (`Object.assign(Timeline, { Item: TimelineItem })`), which this branch removed for Table, Tabs and DescriptionList; `check-components` reports `Timeline.astro` and `TimelineItem.astro` as not exported and the Svelte and Vue barrels as differing. Rebase blocker (`packages/opui/components/Timeline/index.ts`, `packages/opui/astro/index.ts`, 7 `src/component-examples/timeline/*.astro`, `src/component-api/timeline/api.ts:27-31`, `timeline-item/api.ts:4,73-78`, `src/components/ComponentShowcase/ComponentShowcase.astro:420`, `packages/opui/CHANGELOG.md:111`, `TODO.md:3059`)
+  - Fix: delete `Timeline/index.ts`, export `Timeline` and `TimelineItem` from their own files in all barrels, use `<TimelineItem>` in the examples, the showcase and the prose, and `component: "TimelineItem"` in both api files.
+  - Fixed: `Timeline/index.ts` is gone; `Timeline` and `TimelineItem` are exported from their own files in every barrel, the examples, the showcase, the anatomy and the api files use `TimelineItem`.
+- [x] (9) PR #418, DataGrid: the `Table.Head`, `Table.Row` and `Table.HeaderCell` dot aliases in the docs page were removed on this branch, so the page fails the build after rebase. Rebase blocker (`src/docs/components/data-grid.astro:696-716`)
+  - Fix: `import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "@opui/astro"` (aliased `UITable` and so on like the sibling pages) and the flat tags.
+  - Fixed: flat `UITable`, `UITableHead`, `UITableRow`, `UITableHeaderCell`, `UITableBody` and `UITableCell` imports and tags.
+- [x] (9) PR #418, DataGrid: `--_col-1..12`, `--_rank-1..12` and `--_sum-1..12` are read in `data-grid.css` but only declared by `model.ts` as inline-style strings, so this branch's `check-css-vars` reports 36 undefined reads. The PR works around it by editing the script (a `CONSUMER_SET_PATTERN`, re-adding `--text-color-2` and dropping the `.tsx` extension this branch added), which conflicts. Rebase blocker (`packages/opui/css/components/data-grid.css:822-928`, `packages/opui/components/DataGrid/model.ts:115-129`, `scripts/check-css-vars.mjs:9-10,26`)
+  - Fix: keep only the `CONSUMER_SET_PATTERN` addition on top of this branch's script (keep `.tsx`, no `--text-color-2`), or declare the 36 names as `initial` in the grid root so the `var(--_col-1, max-content)` fallbacks still apply. `model.ts` also emits `--_rank-13` onwards that nothing reads.
+  - Fixed: the merge keeps this branch's `check-css-vars.mjs` (`.tsx` scanned, no `--text-color-2`) plus the PR's `CONSUMER_SET_PATTERN` for the generated grid variables, and `--max`, `--min` and `--_max` (set inline by BarChart and Rating) are in `CONSUMER_SET`. The check passes.
+- [x] (8) PR #418, Message, Rating: the focus ring reads `var(--focus-ring-color, var(--_focus-visible-color))`; `--_focus-visible-color` is gone from `normalize.css` on this branch and `check-css-vars` fails. Rebase blocker (`packages/opui/css/components/message.css:300-303`, `rating.css:115-118`)
+  - Fix: `outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);`
+  - Fixed: `var(--focus-ring-color)` in `message.css` and `rating.css`; the dead `var(--primary)` fallbacks on the DataGrid focus rings are gone too.
+- [x] (8) PR #418, DataGrid: `DataGrid.astro` destructures `Astro.locals.$id` directly, so a package user without the docs middleware gets `TypeError: $id is not a function` on every render. This regresses the fixed item "(10) Astro TextField, Textarea and Dialog still crash for package users"; the parity test only passes because it injects `$id` (`packages/opui/components/DataGrid/DataGrid.astro:35,50-54`)
+  - Today: `const { $id } = Astro.locals`
+  - Fix: `import { createId } from "../id"` and `const $id = createId(Astro.locals)`.
+  - Fixed: `createId(Astro.locals)`.
+- [x] (8) PR #418, shared files: the barrel hunks sit on lines this branch rewrote (flat Table, Tabs and DescriptionList parts), `DataGrid` is inserted after `Dialog` in the Astro barrel (unsorted; Svelte and Vue have it after `ClassicSelect`), `tests/unit/normalize.ts` widens `GENERATED_NAME` with `s?` where this branch added `_R_\w+_` for React ids, `src/utils/todo-examples.ts` adds `?raw` imports and `source:` keys where this branch globs the folder, `ComponentShowcase.astro` was rewritten here, and `{" "}` whitespace edits to accordion, badge, drawer, form, select and the two anchor examples only conflict (`packages/opui/{astro,svelte,vue}/index.ts`, `tests/unit/normalize.ts:47`, `src/utils/todo-examples.ts:52,92-104,357,515-566`, `src/components/ComponentShowcase/ComponentShowcase.astro`, `src/docs/components/{accordion,badge,drawer,form,select}.astro`, `src/component-examples/anchor/{LinkPreview,RepoCard}.astro`)
+  - Fix on rebase: sorted barrel lines, `GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-s?\d+|([a-z][a-z-]*-)?_R_\w+_)$/`, only `{ match }` entries in `todo-examples.ts` (14 of them), re-add the showcase cards on this branch's file, and drop the whitespace hunks.
+  - Fixed: `feat/new-components-and-fixes` is merged into the PR branch (`9004c475`): sorted barrels, the merged `GENERATED_NAME` regex, `{ match }` registry entries, this branch's showcase file with the new cards re-added, the whitespace hunks dropped, and the generated references rebuilt.
+- [x] (7) PR #418, DataGrid, Message, OneTimeCode: Vue generated ids lack the prefix the other frameworks render (`useId()` raw where Svelte renders `filter-${uid}`, `columns-${uid}`, `end-text-${uid}`, `reactions-${uid}` and Astro `$id("filter")`), the rule this branch settled for every component (`packages/opui/components/DataGrid/DataGrid.vue:32-36`, `OneTimeCode/OneTimeCode.vue:30-33`, `Message/Message.vue:20`)
+  - Fix: one `uid = useId()` and `filter-${uid}`, `density-${uid}`, `columns-${uid}`, `sort-${uid}`, `header-menu-${uid}`, `end-text-${uid}`, `reactions-${uid}`.
+  - Fixed: one `uid = useId()` with the `filter-`, `density-`, `columns-`, `sort-`, `header-menu-`, `end-text-` and `reactions-` prefixes.
+- [x] (7) PR #418, OneTimeCode: `OneTimeCode.vue` uses `withDefaults`, `props.*` in the template and `props.class`, the pattern this branch replaced with destructured defaults and `$props.class` (`packages/opui/components/OneTimeCode/OneTimeCode.vue:9-11,32-37,42-84`)
+  - Fix: `const { alphanumeric, endText, error, grouped, id, label, length = 6, size } = defineProps<Props>()`, `size && \`ui-${size}\``, `$props.class`, `pattern`as a`computed`. Keep `inheritAttrs: false`and`useAttrs`, which it needs like TextField.
+  - Fixed: destructured defaults, `$props.class`, `computed` for `pattern` and `describedBy`; `inheritAttrs: false` and `useAttrs()` stay, like TextField.
+- [x] (7) PR #418, OneTimeCode, Rating: `aria-invalid={error ? "true" : undefined}` drops a user-passed `aria-invalid`; this branch lets `error` win and otherwise passes the user's value through. Rating's Svelte file spreads an ad hoc `{...invalid}` object (`packages/opui/components/OneTimeCode/OneTimeCode.astro:62`, `OneTimeCode.svelte:58`, `OneTimeCode.vue:70`, `Rating/Rating.astro:46,56`, `Rating.svelte:23,44,56`, `Rating.vue:38,49`)
+  - Fix: `aria-invalid={error ? "true" : rest["aria-invalid"]}` (Vue: `attrs['aria-invalid']`), written inline in Svelte too.
+  - Fixed: `error ? "true" : rest["aria-invalid"]` (Vue `attrs['aria-invalid']`) in every framework; the Svelte `{...invalid}` object is gone and `Rating.vue` forwards attrs with `inheritAttrs: false`.
+- [x] (7) PR #418, DataGrid: the header menus ship with a known keyboard defect (menu items are `<label for>` that keyboard users can't focus, open TODO item at `TODO.md:438`) and the docs promote the feature without a caveat (`src/docs/components/data-grid.astro:442-460`)
+  - Fix: land the proposal in `src/todo-examples/data-grid-header-menus.html` first, or add to the section and the Accessibility slot: "Menu items are labels for the sort radios and column checkboxes, so keyboard users sort with the header arrows and hide columns in the Columns menu."
+  - Fixed: the Header menus section and the Accessibility slot both say the menu items are labels and how keyboard users sort and hide columns instead. The keyboard defect itself stays open as "Data grid header menus can't be used with a keyboard" in Accessibility.
+- [x] (7) PR #418, Message, DataGrid: two docs callouts use the removed `slot="title"` Callout API, so the title and the severity icon vanish silently after rebase; the DataGrid one ("This is SO COOL!") also sits outside `.ui-not-rich-text`, above the hero anatomy, and breaks the "No fluff" rule (`src/docs/components/message.astro:336-343`, `data-grid.astro:196-202`)
+  - Fix: `<UICallout severity="info"><UICalloutIcon /><UICalloutContent><UICalloutTitle>Browser support</UICalloutTitle><p>…</p></UICalloutContent></UICallout>` inside `.ui-not-rich-text` for Message; delete the DataGrid callout or keep one neutral sentence in the preamble.
+  - Fixed: the Message callout uses the parts API inside `.ui-not-rich-text`; the DataGrid callout is gone and the preamble points at Under the hood in one sentence.
+- [x] (6) PR #418, BarChart, DataGrid, Rating, Stepper: inline styles are hand-merged four ways instead of `mergeStyle` from `../style` (this branch's helper), and `DataGrid.astro` drops the generated column widths and `--_max-block-size` when `style` is an object (`packages/opui/components/BarChart/BarChart.astro:24-37`, `BarChart.svelte:31-37`, `Rating/Rating.astro:25-32`, `Rating.svelte:65-67`, `Stepper/Stepper.astro:26-35`, `Stepper.svelte:36-41`, `DataGrid/DataGrid.astro:58-61`, `DataGrid.svelte:64-66`)
+  - Today (DataGrid.astro): `typeof style === "string" || !style ? [grid.style, style].filter(Boolean).join("; ") || undefined : style`
+  - Fix: have `createGrid` return a vars object and `mergeStyle(grid.vars, style)`; `mergeStyle({ "--max": chartMax, "--min": chartMin || undefined }, style)` for BarChart, and the same for Rating's `--_max` and Stepper's `--_completed-label`.
+  - Fixed: `mergeStyle` from `../style` in Astro and Svelte; `createGrid` returns `vars` and `rowVars` objects next to the strings, used by `DataGrid.astro`, `.svelte`, `.vue` and `.react.tsx`, so an object `style` keeps the grid vars.
+- [x] (6) PR #418, DataGrid: `density?: "dense" | "spacious" | "standard"` carries its own default literal and the class rule excludes it (`density !== "standard"`), the pattern this branch dropped from ToggleGroup and Accordion (`packages/opui/components/DataGrid/types.ts:59`, `DataGrid.astro:73`, `DataGrid.svelte:80`, `DataGrid.vue:74`)
+  - Fix: `density?: "dense" | "spacious"`, `!densityToggle && density && \`ui-${density}\``, and `checked={(density ?? "standard") === value}` for the toggle.
+  - Fixed: `density?: "dense" | "spacious"`, `!densityToggle && density && \`ui-${density}\``, the toggle checks `(density ?? "standard") === value`, and the api row lost the default.
+- [x] (6) PR #418, Rating: `Rating.svelte` reimplements radio binding with `checked={current === star}` and `onchange={() => (value = star)}` where Radio uses `bind:group`; the clear radio and the stars diverge from Vue (`string` vs `number` value) (`packages/opui/components/Rating/Rating.svelte:37-57`)
+  - Fix: `<input bind:group={value} value={star}>` and `value={0}` for the clear radio; derive `current` only for the meter branch.
+  - Fixed: `bind:group={value}` with `value={star}` and `value={0}`; `current` is gone.
+- [x] (6) PR #418, DataGrid: the Installation lists `data-grid.css` only, but the component renders `.ui-button`, `.ui-checkbox`, `.ui-menu`/`.ui-list`, `.ui-toggle-group`/`.ui-toggle-button` and styles `.ui-avatar`, `.ui-chip` and `.ui-progress` in cells. Conversely `message.astro:56` lists `button.css` as a dependency though nothing in Message renders a button (`src/docs/components/data-grid.astro:183-185`)
+  - Fix: add `button.css`, `checkbox.css`, `choice.css`, `list.css`, `menu.css`, `toggle-button.css` as dependencies and `avatar.css`, `chip.css`, `progress.css` as see-also, like `checkbox.astro` does on this branch; drop `button.css` from Message or confirm it.
+  - Fixed: the Installation tabs list `button.css`, `checkbox.css`, `list.css` and `menu.css` as dependencies, `choice.css`, `toggle-button.css` and `toggle-group.css` as plain tabs (they have no page of their own to link, like `choice.css` on Checkbox), and `avatar.css`, `chip.css` and `progress.css` as see-also. Message keeps `button.css`: its Add reaction trigger is a `Button`.
+- [x] (6) PR #418, DataGrid: `browserSupport` lists `anchor-positioning`, which `data-grid.css` doesn't use (the menu anchoring is in `menu.css`), and misses `color-mix`, `container-queries`, `container-style-queries`, `dir-pseudo`, `interpolate-size`, `masks`, `popover`, `relative-color` and `user-pseudos`, all used in the file (`src/docs/components/data-grid.astro:168-180`, `packages/opui/css/components/data-grid.css:219,257,378,389,406,430,452,672,737`)
+  - Fix: swap the list accordingly; `pnpm check-browser-support` only validates ids, so this needs a read of the file.
+  - Fixed: `anchor-positioning` is gone, and `color-mix`, `container-queries`, `container-style-queries`, `dir-pseudo`, `interpolate-size`, `masks`, `popover`, `relative-color` and `user-pseudos` are added, plus `overflow-clip` for the root's `overflow: clip`. The other ids are all still used (`align-content` on block cells, `sibling-index()` is part of `sibling-count`).
+- [ ] (6) PR #418, DataGrid: the Accessibility section is one paragraph for a component with sort radios, filter and density radios, selection checkboxes, popover menus, resizable headers and `<details>` panels; the sibling pages have `Role` and `Keyboard support` subsections. BarChart, Rating, Message and OneTimeCode bury their keyboard behavior in prose too (`src/docs/components/data-grid.astro:779-789`, `bar-chart.astro`, `rating.astro`, `message.astro`, `one-time-code.astro`)
+  - Fix: `<h3 id="role-attributes">Role & attributes</h3>` and `<h3 id="keyboard-support">Keyboard support</h3>` per page, as `dialog.astro:312,356`, `drawer.astro:320,356` and `switch.astro:379,471` do (`menu.astro:235` uses `id="role"`).
+  - Explained: every other component page with real interaction splits Accessibility into what the markup exposes and what each key does, so readers can scan for "what does Tab do". DataGrid packs roles, five kinds of controls, the header menu caveat and `reading-flow` into one paragraph, and says nothing about the order Tab takes or that the arrow keys sort.
+  - Today (`src/docs/components/data-grid.astro:886-897`):
+    ```astro
+    <Fragment slot="accessibility">
+      <p>
+        Uses ARIA table roles, and the table scrolls with the keyboard. Sorting,
+        filtering, selection, density and column visibility are native radios,
+        checkboxes and inputs with a name. …
+      </p>
+    </Fragment>
+    ```
+  - Checked in Chromium 141 on the AllFeatures grid of `/html/test/data-grid/`: Tab goes filter radios, density radios, Columns button, the table, one stop for all sort radios, then per row the select checkbox, the detail `summary`, the editable input and the Edit button. The 12 sort radios share one `name`, so the arrow keys walk through every column's ascending and descending radio and sort on each press. The filter and density groups change on arrow keys too.
+  - Proposed for DataGrid, in the shape `dialog.astro:312-370` uses:
+    ```astro
+    <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The grid is a <code>div</code> with <code>role="table"</code> and an
+      <code>aria-label</code>, with <code>rowgroup</code>, <code>row</code>,
+      <code>columnheader</code>, <code>rowheader</code> and <code>cell</code>
+      inside. Sorting, filtering, density, selection and column visibility are native
+      radios and checkboxes with names. CSS can't update
+      <code>aria-sort</code>, so the sort state is read from the checked radio.
+    </p>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <!-- Key / Function table like menu.astro:246-293 -->
+    <!-- Tab: toolbar controls, the table, the sort group, then each row's controls -->
+    <!-- Arrow keys: on the table, scroll it; in the sort group, move to the next column or direction and sort; in the filter and density groups, change them -->
+    <!-- Space: checks a row or a column in the Columns menu -->
+    <!-- Enter, Space: on a detail button, opens or closes the panel; on Columns, opens the menu -->
+    <!-- Esc: closes an open menu -->
+    ```
+  - The other four pages, one line each:
+    - BarChart: Role & attributes says it is a `table`, the caption names it and values are cells; Keyboard support says value cells are Tab stops only with two or more series (`focusable`).
+    - Rating: a `meter` (read-only, not focusable) or a `fieldset` of radios; arrow keys move between stars and set the rating, Tab leaves the group.
+    - Message: reactions are checkboxes (Space toggles), Add reaction is a button that opens the picker, and Tab moves into the picker after it.
+    - OneTimeCode: one `input` with `autocomplete="one-time-code"`; typing, paste and autofill fill every box, and the arrow keys move the caret like in any text field.
+  - Options: A) both subsections on all five pages (recommended, matches Dialog, Drawer, Menu and Switch). B) only DataGrid, the one page whose keyboard behavior surprises (arrow keys sort).
+- [x] (5) PR #418, DataGrid: the cell slot API differs per framework and is missing from the shared `Slots` type: Astro slot `cell-<key>` receives `[row, column]`, Svelte takes a `cells` snippet map with `(row, column & { position })`, Vue's `cell-<key>` slot gets `{ column, row, value }`; `types.ts` lists only `actions`, `detail` and `empty` (`packages/opui/components/DataGrid/types.ts:80-84`, `types.svelte.ts:8-11`, `types.d.vue.ts:10-14`, `DataGrid.astro:332-338`, `DataGrid.svelte:321-322`, `DataGrid.vue:293-298`)
+  - Fix: one shape (`row, column` or `{ column, row, value }`) in every framework and a `cell-${string}` entry in the base `Slots`.
+  - Fixed: Astro, Svelte, Vue and React all pass `(row, column)` / `{ row, column }` (Vue's `value` is gone, `column` carries `position`), the base `Slots` has `cells`, and the api documents `cells` for React and Svelte and the `cell-[key]` slot arguments.
+- [x] (5) PR #418, BarChart, DataGrid, Message: Solid types lag the other type files (no `Base.Slots<JSX.Element>` on BarChart and DataGrid, no `MessagesSlots` counterpart) (`packages/opui/components/BarChart/types.solid.ts:4`, `DataGrid/types.solid.ts:4`, `Message/types.solid.ts`)
+  - Fix: `Base.Props & Partial<Base.Slots<JSX.Element>> & JSX.HTMLAttributes<HTMLTableElement>` and so on, as OneTimeCode, Stepper and Timeline do.
+  - Fixed: `Partial<Base.Slots<JSX.Element>>` on BarChart, DataGrid and Message; Message already had `MessagesProps`.
+- [x] (5) PR #418, API shape: `size` unions differ (`"small" | "large"` on BarChart, OneTimeCode and Rating, `"small"` on Stepper and Timeline, where every control here is `"x-small" | "small" | "large"` and OneTimeCode renders `ui-text-field`, whose CSS has `ui-x-small`); item types use `label` (Stepper, BarChart) or `title` (Timeline) for the primary text and are named `StepperItem`, `TimelineEntry` and `BarChartRow`; "current" is an index on the Stepper root but a per-item `boolean | "date" | "step" | "time"` on Timeline (`packages/opui/components/OneTimeCode/types.ts:8`, `Stepper/types.ts:1-5`, `Timeline/types.ts:7-12`, `BarChart/types.ts`)
+  - Fix: the shared `size` union where the CSS supports it, `<Component>Item` naming, and one key for the primary text.
+  - Fixed in part: OneTimeCode `size` is `"x-small" | "small" | "large"` (TextField's CSS already draws it) with the api row. Left open as a design call: the `label`/`title` key of the item types (Timeline's is now `heading`), the `StepperItem`/`TimelineEntry`/`BarChartRow` names, and Stepper's index versus Timeline's per-item `current`.
+  - Explained: what is left are three naming calls. None of them is a bug; they decide how the seven APIs read next to each other.
+  - Today:
+    ```ts
+    // Stepper: items + an index on the root
+    type StepperItem = { description?: string; href?: string; label: string }
+    type StepperProps = { current?: number; items?: StepperItem[] }
+
+    // Timeline: items with a heading, current per item
+    type TimelineEntry = {
+      current?: boolean | "date" | "step" | "time"
+      description?: string
+      heading?: string
+    }
+
+    // BarChart: rows, like DataGridRow
+    type BarChartRow = { color?: string; label: string; values: number[] }
+    ```
+  - Option A (recommended): keep the names and write the rule down in `packages/opui/components/AGENTS.md`:
+    - `label` is the short text that names a thing (Stepper step, BarChart row, Menu item, DataGrid column); `heading` is used only where the component renders a heading element (Timeline renders an `h3`).
+    - Item types are `<Component>Item` (`MenuItem`, `StepperItem`) and table data is `<Component>Row` (`DataGridRow`, `BarChartRow`). Timeline can't use `TimelineItem`, because that is the component's name, so its data type is `TimelineEntry`.
+    - Stepper's `current` is an index because it also completes every earlier step; Timeline's is per item because any event can be current and it maps to the `aria-current` tokens.
+  - Option B: make them uniform at the cost of meaning. `heading` → `label` on Timeline, and a per-item `current` on Stepper with completion still derived from its position:
+    ```ts
+    type StepperItem = { current?: boolean; label: string }
+    // items={[{ label: "Cart" }, { current: true, label: "Shipping" }, { label: "Pay" }]}
+    ```
+  - Sizes: Stepper and Timeline have `"small"`, BarChart and Rating `"small" | "large"`, which is what their CSS draws. Adding `x-small` and `large` is new design work, so it isn't part of either option.
+  - Decided: `label` and `heading` stay as they are. `TimelineEntry` is renamed `TimelineItemData` in the four barrels. Sizes stay as the CSS draws them. The naming and size rules are in `packages/opui/components/AGENTS.md` (sections 3 and 7). `current` stays as it is: Stepper's index on the root marks the current step and completes every earlier one, which one number does and a per-item flag would split across items; Timeline's is per item because any event can be current, nothing before it changes, and it takes the `aria-current` tokens (`"date"`, `"time"`, `"step"`). No `StepperItem` part for now: under the naming rule it would rename the `StepperItem` data type to `StepperItemData`.
+- [x] (4) PR #418, Timeline: the `title` prop renders the `<h3>`, so `<TimelineItem title="…">` can never set the `<li>` tooltip (`packages/opui/components/Timeline/types.ts:7`, `TimelineItem.astro:11,31`, `TimelineItem.svelte:11,31-35`, `TimelineItem.vue:10,24`)
+  - Fix: rename to `heading` (it already has `headingLevel`).
+  - Fixed: the prop and the items key are `heading` in the types, the four frameworks, the examples, the anatomy and the api.
+- [x] (4) PR #418, Message: the reaction input's checked state is spelled three ways: Svelte sets both `checked` and `defaultChecked`, Vue `:checked.attr="mine || undefined"`, Astro `checked={mine}` (`packages/opui/components/Message/Message.svelte:67-75`, `Message.vue:61`, `Message.astro:67-74`)
+  - Fix: one spelling in all three.
+  - Fixed: Svelte renders `checked={mine}` only (Svelte SSR renders nothing for `defaultChecked`), Astro `checked={mine}`, Vue `:checked.attr`, React `defaultChecked`; all four render the same attribute.
+- [x] (4) PR #418, BarChart, DataGrid: the CSS supports fixed counts the components don't guard: 3 series (`--_series-1..3`), 12 columns, 6 custom filters, while `series`, `columns` and `filters` are unbounded arrays (`packages/opui/css/components/bar-chart.css:16-18,106-119`, `data-grid.css:517-572,836-928`)
+  - Fix: document the limits in the api descriptions, type them (`series?: [string] | [string, string] | [string, string, string]`), or warn in development.
+  - Fixed: the limits (three series, 12 columns, six custom filters) are in the api descriptions of the rows and parts that carry them.
+- [x] (4) PR #418, Docs: only DataGrid has an Under the hood section though every CHANGELOG entry describes a CSS technique; the showcase has no DataGrid card; `ButtonReactions` exists only as HTML so its section is empty on the other framework pages; and the example names drift (`timeline/Small` for Sizes, `data-grid/RTL` vs `message/RightToLeft` vs `one-time-code/RightToLeft` with `id="rtl"` and `id="right-to-left"`, `stepper/Responsive` vs `timeline/Narrow`, `bar-chart/Markup` under "Cell text", `stepper/Translated` under "Completed label", `timeline/Markers` under "Custom marker") (`src/docs/components/{bar-chart,message,one-time-code,rating,stepper,timeline}.astro`, `src/components/ComponentShowcase/ComponentShowcase.astro`, `src/component-examples/message/ButtonReactions.html`)
+  - Fix: a short `under-the-hood` slot per page, a DataGrid card, `ButtonReactions` in the five formats (or a `Code` block), and names after the headings (`Sizes`, `RightToLeft` + `id="right-to-left"`, `Narrow`, `CellText`, `CompletedLabel`, `CustomMarker`).
+  - Fixed: an Under the hood slot on the six pages, a Data Grid showcase card, `message/ButtonReactions` in five formats, and the examples renamed after their headings (`Sizes`, `RightToLeft` with `id="right-to-left"`, `Narrow`, `CellText`, `CompletedLabel`, `CustomMarker`) with their snapshots.
+- [x] (4) PR #418, Changelog and What's new: the `data-grid` note has no `<a href>` and the slug is missing from `highlighted` (callout but no New badge); "HTML and CSS only" appears in the DataGrid entry and the `data-grid` and `bar-chart` notes though all ship framework components (this branch says "No JavaScript needed"); the `DataGrid` entry omits the `actions` and `empty` slots and the `Message` entry omits `newAuthor`; the seven entries are 90 to 170 word paragraphs; the Timeline, Message and Rating TODO `Added:` notes lead with the stylesheet (`packages/opui/CHANGELOG.md:60,111-116`, `src/utils/whats-new.ts:56,186-188,484-495`, `TODO.md:3059,3082,3090`)
+  - Fix: link `#basics`, `#sorting`, `#pinned-columns` and `#detail-panel`, add `"data-grid"` to `highlighted`, "No JavaScript needed.", the missing slots and prop, entries trimmed to the neighbours' shape, and `Added:` notes that lead with the component.
+  - Fixed: the `data-grid` note links its sections and the slug is highlighted, "No JavaScript needed." replaces "HTML and CSS only.", the entries are two or three sentences, list every slot and `newAuthor`, and say "Astro, React, Svelte and Vue" and `TimelineItem`; the TODO `Added:` notes lead with the component. New entries log `--purple` and the `--rating-size*` tokens.
+- [x] (5) PR #418, browserSupport: Message misses `alt-text-generated-content`, `color-mix`, `counters`, `lh`, `overlay` and `relative-color`; Rating misses `alt-text-generated-content`, `color-mix` and `counters`; Stepper and BarChart miss `counters`; OneTimeCode lists `container-style-queries` without a `@container style()` rule (`src/docs/components/message.astro:33-43`, `rating.astro:22-31`, `stepper.astro:22-29`, `bar-chart.astro:23-33`, `one-time-code.astro:48-58`)
+  - Fix: add and remove the ids named; the CSS reviewer also asks whether DataGrid should list `interpolate-size`.
+  - Fixed: the ids are added and removed as listed; `pnpm check-browser-support` passes.
+- [x] (3) PR #418, Timeline: `grid-template-columns: subgrid` has no fallback, and the docs say browsers without subgrid "give each item its own columns"; without subgrid the `li` has no tracks, so `time`, the marker and the heading stack in one column (`packages/opui/css/components/timeline.css:16-24,41-55,95-103`, `src/docs/components/timeline.astro:118`)
+  - Fix:
+    ```css
+    @supports not (grid-template-columns: subgrid) {
+      & > li {
+        grid-template-columns: [date] auto [marker] auto [content] minmax(
+            0,
+            1fr
+          );
+      }
+    }
+    ```
+  - Fixed: the `@supports not (grid-template-columns: subgrid)` block gives each item the named tracks, which is what the docs say.
+- [x] (3) PR #418, BarChart: tick labels are counters (integers) but `--_step` is `0.2` or `0.5` when `max` is 3 or less, so the axis reads "0 1 1 2 2 3" (`packages/opui/css/components/bar-chart.css:9-30,142-156`)
+  - Fix: `--_step: max(1, …)` and say in the docs that ticks are whole numbers.
+  - Fixed: `--_step: max(1, …)`; the page already says axis labels are whole numbers.
+- [x] (3) PR #418, BarChart: with two or more series every value is `color: transparent` until `:hover` or `:focus-visible`, the rule isn't behind `(hover: hover)` and cells are only focusable with the `focusable` prop, so touch users never see a value; `forced-color-adjust: none` on `td` keeps it invisible in forced colors too (`packages/opui/css/components/bar-chart.css:316-328,353-356`)
+  - Fix: `@media (hover: hover) { &:has(td + td) > tbody tr:not(:hover, :focus-within) td { color: transparent; } }`.
+  - Fixed: the rule sits in `@media (hover: hover) and (forced-colors: none)` and reveals the row on `:focus-within`; the narrow-column value hiding has the same guard.
+- [x] (3) PR #418, Rating: `<meter>` renders without `value` when the prop is omitted, which is invalid HTML (`packages/opui/components/Rating/Rating.astro:67-74`, `Rating.svelte:61-70`, `Rating.vue:59-66`)
+  - Fix: `value={value ?? 0}`, or make `value` required for the meter branch.
+  - Fixed: `value={value ?? 0}` in the four frameworks.
+- [x] (3) PR #418, Docs: no stress page for six of the seven components (only `src/stress-tests/data-grid.html`); `api.ts` wording: `sort` has `default: "-"`, the Columns part's selector frames the trigger instead of the menu, BarChart `color` and Timeline root descriptions don't use the standard phrases; `Stepper.svelte` has `let done = $derived(…)` where `const` is the pattern (`src/component-api/data-grid/api.ts:177,205-210`, `bar-chart/api.ts:15`, `timeline/api.ts:39`, `packages/opui/components/Stepper/Stepper.svelte:22-25`)
+  - Fix: a `src/stress-tests/feedback.html` mixing the six at each `[data-size]`, the api wording, and `const done`.
+  - Fixed: `src/stress-tests/feedback.html` (Sizes, OrderTracking, SupportChat, Dashboard, RightToLeft sections); `sort` lost `default: "-"`, the Columns part selects `.ui-columns`, BarChart `color` reads "Optional colors."; `Stepper.svelte` uses `const done`. The page isn't in the `[data-size]` height check, since OneTimeCode boxes are taller than the control size on purpose.
+- [x] (2) PR #418, CSS conventions: hover styles outside `@media (hover: hover)` in DataGrid and BarChart; hard-coded state alphas (`var(--primary) 16%`, `/ 25%`) in Message and Timeline; `--border-size-2`, a `--border-radius` fallback and `--_transition-duration` in DataGrid; the OneTimeCode root `.ui-one-time-code:where(.ui-text-field)` needs its specificity only because it is imported before `text-field.css`; the Stepper vertical layout is written twice; Message sizes the avatar with `inline-size` plus `font-size` where DataGrid sets Avatar's own `--_size`/`--_font-size`; BarChart hard-codes six rem sizes and a `2px` gap twice and builds `--_series-3` from `--color-9` instead of a named color, so it misses the contrast-more lift; Rating star sizes ignore `--density`; the loading bar keyframes are physical and run the wrong way in RTL (`packages/opui/css/components/data-grid.css:6,42,218,265-310,376-380,456-458,672,742-752,746`, `bar-chart.css:5-6,18-21,202,272,295-345`, `message.css:35-40,306-313`, `timeline.css:46,79,136`, `stepper.css:10,92,167-192,223-246`, `one-time-code.css:2,52`, `rating.css:64,77-83`, `packages/opui/css/components.css:43-46`)
+  - Fix: the patterns this branch settled in `button.css`, `choice.css` and `theme.css`: hover inside the media query, `--state-*-alpha*` tokens, `--border-width`, `--_duration`, a `:where()` root with `one-time-code.css` imported after `text-field.css`, one vertical block keyed on `style(--_vertical: 1)` or the size query, Avatar's `--_size`, a `--_bar-gap`, a `--purple` named color, `--rating-size*` tokens multiplied by `--density`, and `translate: calc(-100% * var(--_inline-direction))`.
+  - Fixed: hover rules inside `@media (hover: hover)`, `--state-*-alpha*` tokens (the checked reaction is 15% now), `--_border-width`, no `--border-radius` fallback, `--_duration`, a `:where(.ui-one-time-code)` root with the import after `text-field.css`, one Stepper vertical block (`(inline-size < 32rem) or style(--_vertical: 1)`), Avatar's `--_size`/`--_font-size` in Message, `--_bar-gap`, `--purple` (hue 310, so the third series shifts slightly) for `--_series-3`, `--rating-size*` tokens multiplied by `--density`, and a direction-aware loading bar.
+- [x] (1) PR #418, CSS leftovers: a dead `[role="table"][aria-busy="true"]::before { content: none }`, `@container (width < 36rem)` (the only physical container feature in the package), private variables out of order in `data-grid.css`, hard-coded `2px` borders and connectors in Timeline, Stepper and OneTimeCode, `content: "*" / ""` and the count alt text ungated in Rating while Stepper gates the same syntax with `@supports`, and the sr-only block copied four times (`packages/opui/css/components/data-grid.css:9-10,280-288,672,728-731,851-852`, `timeline.css:46,79`, `stepper.css:10,92`, `one-time-code.css:52`, `rating.css:154-175`, `message.css:163-168,194-199`, `bar-chart.css:59-67`)
+  - Fix: delete the dead block, `inline-size`, sorted variables, `--_line-width: calc(var(--border-width) * 2)`, `content: "*"` plus the alt-text form inside `@supports (content: "" / "")`, and `class="ui-sr-only"` on the component-rendered sort input.
+  - Fixed: dead `::before` deleted, `inline-size` container query, sorted variables, `--_line-width` in Timeline, Stepper and OneTimeCode, `content: "*"` with the alt-text forms behind `@supports` (Message's reaction count too), one sr-only rule in Message and `class="ui-sr-only"` on the DataGrid sort radios. BarChart's block stays: it depends on the series count.
+- [ ] (5) PR #418, DataGrid: about 70 root-level `&:has(…)` rules key on descendant `:checked`, `:hover` and `:popover-open`, so every interaction re-evaluates `:has()` on the root and restyles the subtree (`packages/opui/css/components/data-grid.css:507-575,821-1431`)
+  - Check with a 500-row grid in the Performance panel; if it shows, move the filter and column state onto the root as custom properties set by `.ui-toolbar:has(…)` and turn the body rules into `@container style()` queries.
+  - Severity raised from 1 to 5 after measuring.
+  - Measured in Chromium 141 on the AllFeatures grid of `/html/test/data-grid/` with its rows cloned, median of 5 to 6 runs, style recalc only. The sandbox is slow, so compare the numbers with each other:
+    - 7 rows: 12-17 ms per interaction. 50 rows: 48-65 ms. 500 rows: 440-680 ms for hiding a column, filtering, selecting a row, sorting or switching density, and 45 ms per mouse move for the row hover.
+    - At 500 rows, toggling a class on a `div` outside the grid costs 1.6 ms, but toggling a class on one cell inside it costs 600 ms, the same as a class on `body`. Any change inside the grid restyles all of it.
+  - Cause, found by deleting groups of rules from the stylesheet in the page and measuring again at 500 rows:
+    - Without the 231 `:has()` rules: selecting a row and changing a cell cost about 0 ms, and a full restyle halves (476 → 208 ms). Without the `nth-child(… of …)`, `sibling-index()` or `@container` rules nothing changes much.
+    - The 63 rules with `:checked` inside `:has()` make every checkbox and radio in the grid, including each row's select checkbox, restyle the whole grid. The 27 rules with `:not()` inside `:has()` do the same for any class or attribute change.
+  - Today (`packages/opui/css/components/data-grid.css:517-522,814,834,859-862`):
+    ```css
+    &:has(.ui-filters input[value="selected"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, :has(> .ui-row-select :checked)) {
+        display: none;
+      }
+    }
+
+    &:not(:has(.ui-body .ui-row-select :checked)) {
+      .ui-bulk-actions {
+        display: none;
+      }
+    }
+
+    &:has(.ui-columns input[value="1"]:not(:checked)) {
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(1) {
+        display: none;
+      }
+    }
+    ```
+  - Option A (recommended to prototype first): scope each `:has()` to the smallest element that holds the state. The toolbar is a sibling before the table, so filter, density and column state can live on it, and row checkboxes no longer invalidate those rules. Keep the selection rules on the root but give them class-only right-hand sides (`.ui-bulk-actions`, `.ui-selection`), which Chromium invalidates narrowly:
+    ```css
+    .ui-toolbar:has(.ui-columns input[value="1"]:not(:checked))
+      ~ [role="table"]
+      [role="row"]
+      > :nth-child(1) {
+      display: none;
+    }
+    ```
+  - Option B: put the toolbar state on the root as custom properties (`--_hide-1: 1`, set by `.ui-toolbar:has(…)`) and read them with `@container style(--_hide-1: 1)` in the body rules. It moves the work to one custom property change instead of a `:has()` match per element, but an inherited property change still restyles the subtree, so it needs measuring too.
+  - Option C: keep the CSS and document a size: "Up to about 100 rows. Paginate larger data." At 50 rows an interaction already takes about 55 ms here.
+  - How to measure a prototype: clone the AllFeatures rows to 500, click a row checkbox and a Columns checkbox, and read `RecalcStyleDuration` from `Performance.getMetrics` (or the Performance panel's Recalculate Style) before and after.
+- [x] (4) PR #418, DataGrid: no `forced-colors` handling at all. In Windows High Contrast the author `background-color` becomes `Canvas`, so the mask-drawn sort arrow, the expand chevron on `summary::before` and the loading bar disappear: no sort direction, no expand affordance, no loading indicator. Every other new component has a forced-colors block (`packages/opui/css/components/data-grid.css:250-258,442-450,742-751`)
+  - Fix:
+    ```css
+    @media (forced-colors: active) {
+      .ui-sort label::before,
+      .ui-expand summary::before {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+
+      .ui-sort label:has(:checked)::before {
+        background-color: Highlight;
+      }
+
+      [role="table"][aria-busy="true"] .ui-head::after {
+        background-color: Highlight;
+        forced-color-adjust: none;
+      }
+    }
+    ```
+  - Fixed: a forced-colors block paints the sort arrow and expand chevron `CanvasText`, the checked sort `Highlight`, and the loading bar `Highlight`.
+- [x] (3) PR #418, BarChart: every value cell is a Tab stop by default, also in single-series charts where the values are always visible (6 stops in Basics, 36 in a 12-month three-series chart), and focus-mode screen readers read a focused `td` as its text without the headers (`packages/opui/components/BarChart/BarChart.astro:9,67`, `BarChart.svelte:7,65`, `BarChart.vue:7,59`, `src/component-examples/bar-chart/Basics.html:14-34`, `src/docs/components/bar-chart.astro:301-321`)
+  - Fix: default `focusable` to the multi-series case (`focusable = (series?.length ?? 0) > 1`), say so in the HTML prose, and drop `tabindex="0"` from `Basics`, `Colors`, `Negative` and `Sizes`.
+  - Fixed: `focusable` defaults to `(series?.length ?? 0) > 1` in the four frameworks, the single-series HTML examples lost `tabindex="0"` (snapshots re-recorded), and the Focus prose says so per framework.
+- [x] (2) PR #418, Message: the reaction picker `<form popover>` has no accessible name, so after Tab moves in from "Add reaction" a screen reader hears only "Thumbs up, button" with no context; `pickerLabel` already exists (`packages/opui/components/Message/Message.astro:100`, `Message.svelte:97`, `Message.vue:87`, `src/component-examples/message/Reactions.html:47`)
+  - Fix: `<form aria-label={pickerLabel} class="ui-reaction-picker" id={pickerId} popover>`, and `aria-label="Add reaction"` in the HTML examples.
+  - Fixed: `aria-label={pickerLabel}` in the four frameworks and `aria-label="Add reaction"` (Arabic in RightToLeft) in the HTML examples; snapshots re-recorded.
+- [x] (2) PR #418, Rating: `aria-describedby` lands on the `fieldset` through `...rest` while `aria-invalid` goes on every radio, so the "Pick a rating to continue" message is often not read while the radio says "invalid"; and `label` is optional, so `<Rating value={4} />` renders an unnamed `meter` and `<Rating name="r" />` a group without a legend (`packages/opui/components/Rating/types.ts:5,7`, `Rating.astro:19,41-56,68`, `Rating.svelte:17,31`, `Rating.vue:35-57`, `src/component-examples/rating/Validation.html:1`)
+  - Fix: destructure `aria-describedby` and put it on each radio next to `aria-invalid` (also in the HTML example), and make `label: string` required like Avatar's `alt`.
+  - Fixed: `aria-describedby` goes on each radio (and the meter) in the four frameworks and in `Validation.html`, and `label: string` is required with an unconditional legend.
+- [x] (2) PR #418, Timeline, BarChart examples: the Timeline Markers example tells done from pending only through `aria-hidden` green check markers, and the BarChart Colors example colors London warning and Stockholm critical without saying so, while both pages' prose say to name the status in the text (`src/component-examples/timeline/Markers.*:19,38,57,62`, `src/component-examples/bar-chart/Colors.*:2-4,20,28`, `src/docs/components/timeline.astro:127,270`, `bar-chart.astro:138,146`)
+  - Fix: a `<p>Expected</p>` on the pending item (or `aria-current` on the last done one), and a caption such as "Response time by region (ms). London is slow, Stockholm is critical."
+  - Fixed: `timeline/CustomMarker` gives the pending item `<p>Expected</p>` and `bar-chart/Colors` names the colored rows in the caption, in all five formats.
+- [x] (2) PR #418, DataGrid: the sort targets are 20 by 20 CSS pixels and the asc and desc labels touch with no gap, so when both show neither meets the 24px target minimum (`packages/opui/css/components/data-grid.css:40,237-246`)
+  - Fix: `--_sort-icon-size: var(--size-5)`.
+  - Fixed: `--_sort-icon-size: var(--size-5)` (24px).
+- [x] (2) PR #418, Timeline docs: the Accessibility section says to add `reversed` when the newest event comes first, but the numbers are hidden (`list-style-type: none`) and screen readers announce DOM order, so it changes nothing for the reader (`src/docs/components/timeline.astro:259-261`, `packages/opui/css/components/timeline.css:12`)
+  - Fix: "Put the items in the order you want them read; the list has no visible numbers, so `reversed` changes nothing."
+  - Fixed: the sentence now says to put the items in reading order, since the list has no visible numbers.
+- [x] (2) PR #418, DataGrid docs: the Accessibility sentence "Every control is a native checkbox, radio or input with a name" is wrong while the header menu items are `label for` elements keyboard users can't reach (open item at `TODO.md:438`) (`src/docs/components/data-grid.astro:781-783`)
+  - Fix: together with that item.
+  - Fixed: the sentence names which controls are native inputs and says the header menu items are labels, so keyboard users sort with the header arrows and hide columns in the Columns menu; the keyboard defect stays open.
+- [ ] (4) PR #418, BarChart, to check: the page promises table semantics, but `table`, `tbody` and `tr` are `display: grid` and the `thead tr` is `display: flex`; Safari and older Chromium drop table semantics then. Check Basics in Chromium's accessibility pane (expect `table`, `row`, `rowheader`, `cell`) and in Safari with VoiceOver, and what a Tab-focused cell announces in NVDA focus mode (`packages/opui/css/components/bar-chart.css:33,69-70,130-132,201-204`, `src/docs/components/bar-chart.astro:295-300`)
+  - Fix if semantics drop: the redundant `role="table"`, `rowgroup`, `row`, `columnheader`, `rowheader` and `cell` roles in the component and the HTML examples.
+  - Checked in Chromium 141 on `bar-chart/Basics.html` and `Series.html`: the CSS applies (`table`, `tbody` and `tbody tr` are `grid`, `thead tr` is `flex`, `td` is `block`) and the accessibility tree still has `table "Orders per month"`, `caption`, two `rowgroup`s, `row`, `columnheader`, `rowheader` and `cell`, with the values as cell names (`cell "412"`). Series exposes all four column headers and 12 focusable cells.
+  - Left to check: Safari with VoiceOver (WebKit has dropped table semantics for `display: grid` tables before), and what NVDA reads in focus mode when Tab lands on a Series cell (expected: "Pro, Q1, 140").
+  - Example of the fix if Safari drops them, in the component and the HTML examples:
+    ```html
+    <table class="ui-bar-chart" role="table">
+      <thead role="rowgroup">
+        <tr role="row">
+          <th role="columnheader" scope="col">Month</th>
+          <th role="columnheader" scope="col">Orders</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        <tr role="row">
+          <th role="rowheader" scope="row">Jan</th>
+          <td role="cell" style="--value: 412">412</td>
+        </tr>
+      </tbody>
+    </table>
+    ```
+- [ ] (3) PR #418, DataGrid, to check: the expand cell and its `details` use `display: contents` and the summary has `list-style: none` with a `::before` icon. Check that the cell keeps `role="cell"`, the summary is still a button with expanded state and the `::details-content` is reachable when open (`packages/opui/css/components/data-grid.css:399-406,425-440`, `src/component-examples/data-grid/DetailPanel.html:24-33`)
+  - Fix if semantics drop: keep `details` as a subgrid item instead of `contents`, or move `role="cell"` onto it.
+  - Checked in Chromium 141 on `data-grid/DetailPanel.html`: the expand `div` keeps `role="cell"` although it and its `details` are `display: contents`; the `summary` is a disclosure control named "Show details for Ada Lovelace" with `expanded=false`, then `expanded=true` after Enter; the open `.ui-detail` is visible (1246 × 17 px) and its paragraph is in the tree.
+  - Left to check: Safari with VoiceOver, where `display: contents` on `details` and `summary` has lost the disclosure role in the past. Expected: "Show details for Ada Lovelace, collapsed, button" (or "disclosure triangle").
+  - Example of the fix if Safari drops it: let `details` take part in the grid instead of disappearing:
+    ```css
+    .ui-expand details {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+    ```
+- [ ] (2) PR #418, to check: Rating's docs say the arrow keys follow the reading direction in RTL, which differs per browser (check the Localization example in Chromium and Firefox); OneTimeCode turns off the library focus ring in favor of the box stroke, so with a complete code the only indicator is the stroke going from `--field-border-color` to `--primary` (check the ring is still visible and measure the 3:1 change); DataGrid's sticky header and pinned columns can cover a focused row checkbox when Shift+Tab scrolls it under them, since `[role="table"]` has no `scroll-padding` (`src/docs/components/rating.astro:206-208`, `packages/opui/css/components/one-time-code.css:94-101,113-128`, `data-grid.css:71-73,88-92,577-589`)
+  - Fix if confirmed: soften the Rating sentence to DOM order; `outline-offset: var(--focus-ring-offset)` instead of `outline: 0` on the OneTimeCode field; `scroll-padding-block-start: var(--_row-min-block-size)` and `scroll-padding-inline-start: var(--_utility-size)` on the grid.
+  - Checked in Chromium 141:
+    - Rating, `/html/test/rating/`: in an LTR group, Right Arrow goes 3 → 4. In the RTL group, Right Arrow goes 3 → 2 and star 2 sits to the right of star 3, so the arrows follow the stars on screen. The docs sentence "the arrow keys follow the reading direction" (`src/docs/components/rating.astro:229`) reads as the opposite.
+    - OneTimeCode, `/html/test/one-time-code/`: with a complete code and focus, all six boxes take the accent stroke and the last box keeps the thicker ring and tint, so focus stays visible. Stroke against border: 3.09:1 in light, 4.46:1 in dark, both above 3:1. Nothing to fix there in Chromium.
+    - DataGrid: confirmed and split out as "the sticky header covers a focused row control".
+  - Left to check: the Rating arrows in Firefox and Safari, and the OneTimeCode focus in forced colors.
+  - Proposed Rating wording, if Firefox and Safari match Chromium: "On right-to-left pages, the arrow keys follow the stars on screen, so Left Arrow raises the rating." If they differ: "The arrow keys move through the stars in order; which key raises the rating on right-to-left pages depends on the browser."
+- [x] (3) PR #418, DataGrid: the sticky header covers a focused row control after Shift+Tab. The browser only scrolls a focused element that is outside the scrollport, and the area under the sticky header counts as inside, so with no `scroll-padding` the focused checkbox can sit fully under the header (`packages/opui/css/components/data-grid.css:56-64`)
+  - Checked in Chromium 141 on the pinned grid of `/html/test/data-grid/` (16rem tall): Tab to the last row checkbox, then Shift+Tab. At Alan Turing's checkbox the table stays at `scrollTop: 114`, and the 20px checkbox is 45px under the header, out of sight while focused. Same for the Edit button in that row (51px). Example: data-grid-scroll-padding
+  - Today:
+    ```css
+    [role="table"] {
+      align-content: start;
+      container: ui-data-grid / scroll-state;
+    }
+    ```
+  - Fix, checked in the same run (every Shift+Tab scrolls the row below the header, overlap 0px). `--_utility-size` keeps a pinned start column clear the same way when focus moves inline:
+    ```css
+    [role="table"] {
+      align-content: start;
+      container: ui-data-grid / scroll-state;
+      scroll-padding-block-start: var(--_row-min-block-size);
+      scroll-padding-inline-start: var(--_utility-size);
+    }
+    ```
+  - A grid with column groups has a two-row header, so it needs twice the block padding, or a `--_head-block-size` set by the component.
+  - Fixed: the table sets `scroll-padding-block-start` to one header row plus its border, two rows when the header has column groups (`:has(> .ui-head > [role="row"] + [role="row"])`), and `scroll-padding-block-end` to one row when there is a footer (`:has(> .ui-foot)`), so the totals row doesn't cover the last row on Tab either. The computed padding matches the header and footer on every fixture in all five frameworks (53px, 105px with column groups, 37px dense, 53px footer). Tab and Shift+Tab through the AllFeatures grid and both pinned grids no longer leave any control under the header or footer; before, the last row's checkbox was 20 of 20px under the footer. The `--_utility-size` inline padding proposed above was dropped: the pinned start area is the utility columns plus the first data column (144 to 360px on the fixtures), so it moved to its own item.
+- [ ] (2) PR #418, DataGrid: pinned columns partly cover a focused control in a scrolled column. With the table scrolled inline, Tab to the editable Role input leaves 19px and 34px of its 105px under the pinned start columns in every row of the AllFeatures grid (Chromium 141). The browser only scrolls what is outside the table, and `scroll-padding-inline-*` needs the pinned width, which is the utility columns plus the first data column and differs per grid (144 to 360px at the start, 84 to 364px at the end on the fixtures) (`packages/opui/css/components/data-grid.css:602-613,678-682`)
+  - Option A: a public `--data-grid-pin-start-size` and `--data-grid-pin-end-size` that the table uses for `scroll-padding-inline-*`. The components set it when every pinned column has a `width`, and HTML users set it with their `--_col-*` widths:
+    ```css
+    &.ui-pin-start [role="table"] {
+      scroll-padding-inline-start: var(--data-grid-pin-start-size, 0px);
+    }
+    ```
+  - Option B: leave it. Only controls inside a scrolled, non-pinned column are affected, they stay partly visible, and the user scrolled the table there.
+
+## New components
+
+Components the blocks hand-roll today. Each has a pitch and a live example with the proposed CSS, built with HTML and CSS only.
+
+- [x] (3) Bar chart: a `<table>` that draws a bar or column chart with CSS, with a computed axis, gridlines, negative values, grouped series and focusable tooltips, so the chart is also the accessible data table. Example: proposal-bar-chart
+  - Why: analytics-dashboard, sales-dashboard and server-status each hand-roll an `<ol>` of `<span style="--value: 52%">` bars with sr-only labels: three copies of the grid CSS, hand-computed percentages, no axis, no real table for screen readers.
+  - Modern bits: typed `attr()` (bars and scale from raw `data-value`/`data-max`/`data-min`), `pow()`/`log()`/`round()` (picks a round 1-2-5 tick step and axis range, like d3's `nice()`), `counter()` with `content: … / ""` (tick labels drawn from that math, hidden from screen readers), `:has()` (counts series, turns the `<thead>` into a legend, dims other bars while one is active), size container query on each category row (thins labels and hides values when a column gets narrow), `@starting-style` (grow-in, scaled by `--motion`).
+  - Markup: `<table class="ui-bar-chart" data-max="644"><caption>Orders</caption><thead><tr><th scope="col">Month</th><th scope="col">2025</th><th scope="col">2026</th></tr></thead><tbody><tr><th scope="row">Jan</th><td data-value="412" tabindex="0">412</td><td data-value="448" tabindex="0">448</td></tr>…</tbody></table>`
+  - Classes: `.ui-bar-chart`, `.ui-small`/`.ui-large`, per-row `.ui-critical`/`.ui-warning`/`.ui-success`/`.ui-info`/`.ui-neutral`; inputs `data-value`/`data-max`/`data-min` or `--value`/`--max`/`--min` (props: `max`, `min`, `size`, `series`, `rows`)
+  - Without support: without typed `attr()` (Firefox, Safari), bars need `--value`/`--max` inline styles, otherwise they render flat over the readable table. Math functions and `:has()` work in all current browsers. Without `@starting-style`, no grow-in.
+  - Compared with chart libraries (Chart.js, Recharts, ECharts, Highcharts, Plot, Vega-Lite, Charts.css):
+    - Better: it is the data table, so screen readers get real row/column header navigation with no extra module (Chart.js leaves this to the author; Highcharts needs its accessibility module and still calls a table not enough). Works with no JS, with server rendering, in print, when copied and pasted, in forced colors (series 2 hatched) and in RTL. 0 KB JS against ~45–170 KB gzipped. Themed by the library's tokens and light/dark. Beyond Charts.css: raw values instead of pre-divided `--size`, labeled round ticks, negative values, tooltips on focus as well as hover.
+    - Equal: bar and column charts with a round-number scale, gridlines, a zero baseline, grouped series with a legend, a tooltip on hover/focus, grow-in that respects reduced motion, label thinning.
+    - Worse: the author must pass `data-max`/`data-min` (CSS can't take the max over sibling cells). Tick labels are whole numbers only: no locale or "12k" formatting, at most 9 ticks. Tooltips show only the value, every bar is a Tab stop (no arrow-key navigation), and they don't flip at the edges. No legend toggling, zoom, export or animated data updates. No line, area, pie or scatter charts. One DOM element per point, so fine for dozens of points, not thousands (canvas libraries handle 10k+). At most 3 series colors.
+    - Could still close without JS: stacked bars (one cell per segment, offsets from `sibling-index()`), `interestfor` tooltips with series and category text once they ship, `@counter-style` for a real minus sign in ticks, a dashed target line from `data-target`.
+  - Recommendation: worth adding, as bar/column charts only (single series, grouped up to 3 series, negative values, horizontal as a follow-up) for dashboard-sized data. That is what the three blocks need, and here it beats the libraries on accessibility and weight. Leave line/area/pie/scatter, interactive exploration, large or live data and locale-formatted axes to a chart library, and say so in the docs.
+  - Open questions: is author-supplied `data-max`/`data-min` acceptable, or should the Astro/Svelte/Vue props compute them from `rows`? Should each bar be a Tab stop by default (`tabindex="0"` on cells) or opt-in? Bring back `.ui-horizontal`, dropped here to keep the example short?
+  > Explain further and provide an example
+  > pitted against popular charting libraries, what are the limitations to this solution, and can anything be done about it? I don't want something just because, I want it because it's as good or better than what's out there.
+  - Answered above in Compared with chart libraries and Recommendation. The example is reworked to close the main gaps without JS: a computed round-number axis with ticks and gridlines, negative values on a zero baseline, two grouped series with a legend from the `<thead>`, tooltips on hover and keyboard focus, and label thinning. It drops the horizontal variant for now to stay short.
+  - Added: `BarChart` (`table.ui-bar-chart`, `bar-chart.css`) with Astro, React, Svelte and Vue components (`caption`, `label`, `series`, `rows` with an optional `color` per row, `format`, `focusable`, `max`, `min`, `size`, and a default slot for a hand-written `<thead>`/`<tbody>`), docs page, API, examples and parity snapshots. Open questions: the components compute `max`/`min` from `rows` when they aren't passed and always write `--value`, `--max` and `--min` inline, so charts draw in Firefox and Safari; the HTML docs use the inline custom properties and describe `data-*` as Chromium-only (typed `attr()`). Bars stay Tab stops by default (`focusable={false}` or no `tabindex` to opt out), because grouped values only show on hover or focus. `.ui-horizontal` is still left out: tick labels along the inline axis can't be spaced evenly from one generated-content box without rotated text, and bar lengths would need the plot width as a length. Also: a third series color (magenta, validated for CVD next to the default primary and orange), hatched in the other direction in forced colors; bars in a group sit 2px apart and groups are centered; up to 10 tick labels.
+- [ ] (3) Breadcrumb: a `nav > ol` trail with CSS-drawn chevrons that turns its middle crumbs into an overflow menu when its container gets narrow. Example: proposal-breadcrumb
+  - Why: file-manager and product-detail each hand-roll it with `li + li::before { content: "/" }`, so there is no overflow handling, no RTL mirroring, and the separators are read aloud.
+  - Modern bits: container query (collapses on the nav's own width, not the viewport), `:has(> [popover])` + `~` (the item holding the popover decides which crumbs hide, no extra classes), Invoker Commands + implicit anchor positioning (the `.ui-menu` opens from the button without JS), `content: "" / ""` + `mask` + `:dir(rtl)` (silent chevrons that mirror in RTL).
+  - Markup: `<nav class="ui-breadcrumb" aria-label="Breadcrumb"><ol><li><a href>Shop</a></li><li><button class="ui-button ui-x-small" commandfor="m" command="toggle-popover" aria-label="Show 2 more">…</button><menu class="ui-menu ui-list" id="m" popover>…</menu></li><li><a href>Women</a></li>…<li><span aria-current="page">Hoodie</span></li></ol></nav>`
+  - Classes: `.ui-breadcrumb`, `.ui-slash`, `.ui-small` (Astro/Svelte/Vue: `items`, `separator="chevron|slash"`, `size`)
+  - Without support: browsers without container queries never collapse and wrap the crumbs instead. Without Invoker Commands the button does nothing (`popovertarget` is a drop-in fallback). Without anchor positioning the menu opens unanchored.
+  - Open questions: the middle crumbs appear twice in the markup (inline and in the menu); is that OK, or should the framework components render it? Should the fixed 30rem collapse point be a public custom property? A nav with `container-type` can't size to its content, so in a flex row (the file-manager title) it needs a width.
+- [x] (3) Labeled divider: the existing `.ui-divider` with text or any content in the middle ("or continue with email"), aligned center, start or end, in the divider's own colors. Example: proposal-divider-label
+  - Why: sign-in hand-rolls `.sign-in-divider` with its own `::before`/`::after` lines, so it ignores the divider's `--divider-space`, colors and forced-colors handling.
+  - Modern bits: `:not(:empty)` (one class: an `hr` or empty element is a plain line, anything with content gets lines on both sides), a private `--_color` variable so `.ui-primary`/`.ui-tonal`/`.ui-filled` color the pseudo-element lines too, `text-box: trim-both cap alphabetic` (text is optically centered on the line), logical flex (start/end follow the writing direction).
+  - Markup: `<p class="ui-divider">or continue with email</p>`, `<p class="ui-divider ui-align-start">Billing</p>`, `<div class="ui-divider"><button class="ui-button ui-small">Show 12 more replies</button></div>`
+  - Classes: `.ui-divider`, `.ui-align-start`, `.ui-align-end`, plus the existing `.ui-primary`, `.ui-tonal`, `.ui-filled` (Astro/Svelte/Vue: a default slot plus `align`)
+  - Without support: without `text-box` the label sits a pixel or two off center. Everything else is baseline.
+  - Open questions: keep plain `p`/`div` (text is read in order), or use `role="separator"` with `aria-label`? This proposal refactors the divider's colors into `--_color`; is that OK for `divider.css`?
+  > Fix
+  > add that to the divider component, sure.
+  - Fixed on feat/new-components-and-fixes (f0fb016b): `.ui-divider` on a `div` or `p` takes content in the middle, with `.ui-align-start`/`.ui-align-end`, and the lines follow the variant (the colors moved into a private `--_color`). Astro, Svelte and Vue render a `div` when the default slot has content and the same `hr` as before when it doesn't, with an `align` prop. New Content section on the Divider page, API rows, CHANGELOG and What's new. It's a plain element (no `role="separator"`), so the text is read in order. The sign-in block uses it.
+- [ ] (3) Number field: a styled native `<input type="number">` in the TextField markup that grows with its value and keeps working spin buttons, keys and validation. Example: proposal-number-field
+  - Why: shopping-cart hand-rolls −/+ buttons around a `type="text"` input that do nothing without JS, and product-detail uses an unstyled number input that is as wide as the column.
+  - Modern bits: `field-sizing: content` (fits "1" and grows for "12345", no fixed width), `::-webkit-inner-spin-button` with `appearance: none` + `mask` (an always-visible chevron icon in theme colors that still steps the value), `:user-invalid` (`min`/`max`/`step` errors show only after the user edits).
+  - Markup: `<label class="ui-text-field ui-number-field"><span class="ui-label">Quantity</span><span class="ui-field"><input type="number" inputmode="numeric" min="1" max="10" value="1" /><span class="ui-suffix">pcs</span></span></label>`
+  - Classes: `.ui-number-field` on `.ui-text-field`, with `.ui-prefix`/`.ui-suffix`/`.ui-small`; Astro/Svelte/Vue: `<NumberField min max step />` on top of TextField.
+  - Without support: Firefox draws its own unstyled spin buttons; without `field-sizing` the field keeps its minimum width; touch devices show no spin buttons, only a numeric keypad. Honest limit: without JS there are no big −/+ buttons, so on touch you can only type the number.
+  - Open questions: should the library ship optional −/+ buttons driven by a tiny opt-in script (`stepUp()`/`stepDown()`), or wait for native `step-up`/`step-down` Invoker Commands, which were in the early explainer but didn't ship? The spin halves are about 20×10px, under the 24px target size, so enlarge them or accept that keys and typing are the main input?
+- [x] (3) One-time code: a single `autocomplete="one-time-code"` input drawn as one box per character, with a ring on the next empty slot, so paste, SMS autofill and password managers work with no JS. Example: proposal-one-time-code
+  - Why: two-factor fakes it with `letter-spacing: 0.5em` on a plain TextField, so the digits have no slots and the field doesn't fit the code length; a set of 6 inputs would break paste and autofill.
+  - Modern bits: `field-sizing: content` (the input is exactly as wide as its value, so a grid column after it puts the active-slot ring on the next empty box, and `justify-self: unsafe end` parks it on the last box when full), `:has([maxlength])` (box count and width follow `maxlength`), a repeating SVG `mask` with a `clipPath` inner stroke (crisp 1px rounded boxes in theme colors), `round()`/`max()` (cell snaps to 8px and grows with text zoom), `:user-invalid` (all boxes turn red after a wrong entry through the TextField state).
+  - Markup: `<label class="ui-text-field ui-one-time-code ui-grouped"><span class="ui-label">Code</span><span class="ui-field"><input autocomplete="one-time-code" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" /></span></label>`
+  - Classes: `.ui-one-time-code` on `.ui-text-field`, `.ui-grouped`, `.ui-small`/`.ui-large`; Astro/Svelte/Vue: `<OneTimeCode length={6} grouped alphanumeric label="…" />`.
+  - Compared with shadcn Input OTP:
+    - Match: one real input (input-otp's own core idea), 3+3 groups with a separator, digits or alphanumeric via `pattern`/`inputmode`, an active-slot ring (last slot when full), disabled, invalid (`aria-invalid` or `:user-invalid`), sizes, RTL, native form submit.
+    - Better: no JS or hydration, the real caret shows the true insertion point, native undo/selection/IME, readable in forced colors, the password-manager badge sits past the boxes instead of covering the last one.
+    - Can't without JS: reject wrong keys as you type (letters go in and turn red on blur), clean up pasted `123 456`/`123-456` (`maxlength` cuts it to `123 45`), `onComplete` auto-submit, a ring that follows arrow keys or clicks (the real caret does), per-slot placeholders, a wider gap at the separator (every slot has the same spacing).
+  - Without support: without `field-sizing` (Firefox, older Safari) there's no ring and all boxes get a 2px accent border on focus; everything else works; `:has()` and masks are baseline.
+  - Open questions: `text-transform: uppercase` is always on, so should it only apply to alphanumeric codes? Keep forcing LTR in RTL pages, and should `pattern` accept Arabic-Indic digits?
+  - Recommendation: ship CSS-only. Document an optional 5-line snippet (strip spaces and dashes on `input`, `requestSubmit()` when full) for paste cleanup and auto-submit, but don't ship it in the library.
+  > Explain further and provide an example
+  > find inspiration and holes in your logic by looking at the shadcn docs for otp: https://ui.shadcn.com/docs/components/base/input-otp
+  - Answered above in Compared with shadcn Input OTP (read from the shadcn-ui repo and the input-otp README, since ui.shadcn.com isn't reachable from the sandbox). Holes found and closed: no active slot, clicks on an empty box blurred the input and flagged it invalid mid-entry, the separator was invisible in dark mode, the `attr()` length only worked on the input. The example now has grouped 3+3, alphanumeric, invalid, disabled, 4-digit small and RTL cases. Not testable here: password-manager badges, iOS SMS autofill, Firefox, Safari.
+  - Added: `OneTimeCode` (`one-time-code.css` in the extended layer, on `.ui-text-field`) with Astro, React, Svelte and Vue components (`length` 4–8, `grouped`, `alphanumeric`, `label`, `endText`, `error`, `size`, `id`, `bind:value`/`v-model`), docs page, `api.ts`, eight examples and parity snapshots. The root selector is `.ui-one-time-code:where(.ui-text-field)`, one class stronger than `text-field.css`, so it wins whatever the import order. The root is an inline-size container (with `contain-intrinsic-inline-size`), so the boxes shrink to fit a narrow parent, such as 8 boxes on a phone. `text-transform: uppercase` only applies with `autocapitalize="characters"`, which `alphanumeric` sets, so case-sensitive codes can leave it out and digits are unaffected. The code stays LTR on RTL pages (digits read left to right in Arabic and Hebrew, and the caret, boxes and ring keep one order); the label and end text follow the page. `pattern` defaults to ASCII `[0-9]`, what SMS autofill inserts and servers expect; the docs show a wider `[0-9٠-٩۰-۹]` pattern plus server-side conversion for Arabic-Indic input. The paste cleanup and auto-submit script is a documented recipe on the page, not shipped.
+- [ ] (3) Pagination: a `nav > ol` of page links with previous/next, ellipses, disabled ends and sizes that collapses to "Page 3 of 12" with previous/next in a narrow container. Example: proposal-pagination
+  - Why: data-table fakes it with a `.ui-button-group` of links with no list semantics, no ellipsis and no narrow layout, so on a phone the buttons wrap or overflow the footer.
+  - Modern bits: container query (switches to the status layout and `space-between` on the nav's own width), `:not(:first-child, :last-child, .ui-status)` (one selector hides the page numbers), relative colors with `light-dark()` (hover tint from `--text-primary` in both schemes), `:dir(rtl)` (arrows mirror).
+  - Markup: `<nav class="ui-pagination" aria-label="Pagination"><ol><li><a href aria-label="Previous page"><svg/></a></li><li class="ui-status">Page 3 of 12</li><li><a href aria-current="page">3</a></li><li class="ui-ellipsis" aria-hidden="true">…</li><li><a role="link" aria-disabled="true" aria-label="Next page"><svg/></a></li></ol></nav>`
+  - Classes: `.ui-pagination`, `.ui-status`, `.ui-ellipsis`, `.ui-outlined`, `.ui-tonal`, `.ui-x-small`, `.ui-small`, `.ui-large` (Astro/Svelte/Vue: `page`, `pages`, `href`, `siblings`, `size`, `variant`)
+  - Without support: without container queries the full list shows and wraps. Everything else is baseline.
+  - Open questions: should the status text be authored (as now, easy to translate) or generated from typed `attr()`? It needs an alignment option (start/center/end), because a size container in a flex row like the data-table footer has to be given a width.
+- [x] (3) Steps: a stepper `ol` where `aria-current="step"` alone makes every earlier step look complete, numbered by counters and joined by connector lines, horizontal that turns vertical in a narrow container. Example: proposal-steps
+  - Why: onboarding-checklist hand-rolls markers with `.onboarding-checklist-done` classes, a literal "✓" and sr-only ", done" text on every item, and checkout has no progress indicator at all.
+  - Modern bits: `:has(~ [aria-current="step"])` (complete state comes from position, so moving one attribute updates the whole stepper), `counter()` + `content: "✓" / var(--steps-completed-label, "Completed: ")` (numbers are silent and completed steps are announced, translatable through a custom property), container query (switches to vertical with an absolutely placed connector), `align-items: first baseline` (marker lines up with the first line of a wrapping label).
+  - Markup: `<ol class="ui-steps" aria-label="Checkout steps"><li><a href>Cart</a></li><li><a href>Shipping</a></li><li aria-current="step">Payment</li><li>Review</li></ol>`
+  - Classes: `.ui-steps`, `.ui-small`, `.ui-vertical` (Astro/Svelte/Vue: `steps`, `current`, `size`, `vertical`, `completedLabel`)
+  - Without support: without container queries it stays horizontal and wraps. Without `content` alt text, older browsers read "check mark" and the numbers.
+  - Open questions: should the English "Completed: " fallback live in the CSS, or should the label be required? Should a step take a description line under its label?
+  - Added: `Stepper` (`ol.ui-stepper`, `stepper.css`) with Astro, React, Svelte and Vue components (`items`, `current`, `label`, `size`, `orientation="vertical"`, `completedLabel` and a `check` slot/snippet). The English "Completed: " fallback lives in the CSS as `--_completed-label`, like the Carousel labels, and `completedLabel` sets it, so the label isn't required. Steps take a description line (`.ui-description`, the `description` item field) in grid row 2 under the label, which works in both orientations. The default check is a `--_check-icon` mask cut out of the filled marker, so it follows the theme and needs no font glyph; `--_check-size` resizes it. A `<span class="ui-check" aria-hidden="true">` in a step (the `check` slot renders one in every step) replaces it on completed steps and is hidden otherwise. Only completed steps with an `href` render links. Labels get `line-height: var(--_marker-size)` and `align-items: start` instead of `first baseline`, so the marker lines up with the first line also when it shows a check or a custom icon. `content` alt text sits in `@supports (content: "" / "")`, so older browsers still show the numbers and the check. Docs page with Custom checkmark, Narrow containers and Completed label sections. `complete` (`.ui-complete`), or `current` past the last step, marks every step complete.
+- [x] (3) Timeline: an `<ol>` of dated events with markers and a connecting line, where the dates line up in their own column through subgrid. Example: proposal-timeline
+  - Why: changelog, project-overview (milestones) and server-status (incident updates) each build their own `border-inline-start` line plus an absolutely positioned dot. The offsets are magic numbers, and the dates drift out of alignment when they have different lengths.
+  - Modern bits: subgrid (each `<li>` shares the list's date/marker/content columns, so dates of any length line up), container queries (below 24rem the date moves above the event and the date column collapses to 0), `lh` units (the marker and line are centered on the first text line without magic offsets), relative-color palette scopes (`li.ui-warning` etc. fill the marker with that tone; `aria-current` gets a primary halo).
+  - Markup: `<ol class="ui-timeline"><li class="ui-success"><time datetime="2026-10-01">Oct 1, 2026</time><h3 class="ui-h6">…</h3><p>…</p></li>…</ol>`
+  - Classes: `.ui-timeline`, `.ui-small`, per-item `.ui-success`/`.ui-warning`/`.ui-critical`/`.ui-info`/`.ui-neutral` and `aria-current` (props: `size`; items as children)
+  - Without support: browsers without subgrid (very old ones only) stack every item on its own. Without container queries it stays in the two-column layout. The line is a border, so it shows in forced colors.
+  - Open questions: should items accept an icon marker (project-overview milestones use check icons)? Should the line before the current item be colored to show progress?
+  - Added: `Timeline` (`ol.ui-timeline`, `timeline.css`) with Astro, React, Svelte and Vue `Timeline` and `TimelineItem` components (`items`, `size`, `progress` on the list and `time`, `datetime`, `heading`, `headingLevel` (default 3, like Callout), `color`, `current` on the item), docs page, examples, API tables and anatomy. The CSS has the prototype's subgrid date column, the `24rem` container query, `lh` centering, item colors, the `aria-current` halo, `.ui-small`, forced colors and RTL. Items take a custom icon marker: a `span.ui-marker` at the start of the `li` (the `marker` slot in Astro and Vue, snippet in Svelte) replaces the dot, follows the color and current state, and widens the shared marker column. Progress is in as `.ui-with-progress` (`progress`): `li:has(~ [aria-current])` colors the line and the uncolored markers before the current item.
+- [ ] (4) Empty state: a centered icon, title, text and actions block that goes compact in small containers and shows itself only when the list or table before it has no items. Example: proposal-empty-state
+  - Why: empty-states hand-rolls four cards with their own centered grid, actions row and note, and error-page repeats the pattern. Apps also need JS today to switch between the list and its empty state.
+  - Modern bits: `:has()` sibling rule (`ul:has(> li) + .ui-empty-state` and `table:has(> tbody > tr) + .ui-empty-state` hide it, and the empty `ul` hides too, so the server can always render both), container query (smaller icon and title, stacked full-width actions in narrow sidebars and cards), `text-wrap: balance`/`pretty`, relative colors (`oklch(from var(--primary) l c h / 12%)` icon disc).
+  - Markup: `<ul class="ui-list">…</ul><div class="ui-empty-state ui-outlined"><svg aria-hidden="true"/><h3 class="ui-h5">No invoices match</h3><p>Try another search.</p><div class="ui-actions"><button class="ui-button">Clear filters</button></div></div>`
+  - Classes: `.ui-empty-state`, `.ui-actions`, `.ui-outlined`, `.ui-tonal` (Astro/Svelte/Vue: `title`, `variant`, `icon`/`actions` slots)
+  - Without support: without `:has()` the empty state always shows, so pre-2023 browsers need it rendered only when the list is empty. Without container queries it keeps the roomy layout.
+  - Open questions: should the sibling rule ship globally on `ul`/`ol`/`menu`/`table`, or behind an opt-in class? It only works when the empty state directly follows the list or table, so a table inside a scroll wrapper needs the wrapper in the selector too.
+- [x] (4) Message: chat bubbles for incoming and outgoing messages that group consecutive messages by side, with author, time, attachments, emoji reactions and a typing indicator. Example: proposal-message
+  - Why: chat hand-rolls every bubble, alignment, attachment card and the "is typing" line; consecutive messages don't group, so each one repeats its avatar and full rounded corners, and there's no pattern for reactions.
+  - Modern bits: `:has(+ …)` and `+` sibling logic (tighter corners on the avatar side, avatar only on the last message of a run, author hidden visually but still read on follow-ups, no grouping classes), container query units (`85cqi` caps bubble width to the thread), `corner-shape: squircle`, typed `attr(data-count type(<integer>))` + `counter()` (live reaction counts without JS), `popover` + `commandfor` + anchor `position-area` (reaction picker), `@container style(--motion: 0)` (no typing or picker animation for reduced motion).
+  - Markup: `<ol class="ui-messages" aria-label="…"><li class="ui-message"><div class="ui-avatar" role="img" aria-label="Saga">SN</div><div class="ui-bubble"><p class="ui-header">Saga</p><p>…</p><p class="ui-footer"><time>14:02</time></p></div><div class="ui-reactions" role="group" aria-label="Reactions">…</div><button class="ui-button ui-x-small ui-rounded ui-reaction-add" aria-label="Add reaction" commandfor="p1" command="toggle-popover">…</button><form class="ui-reaction-picker" id="p1" popover><button name="add" value="+1" aria-label="Thumbs up">👍</button>…</form></li><li class="ui-message ui-outgoing">…</li></ol>`
+  - Reactions: `.ui-message` becomes a grid ("avatar bubble add" / ". reactions ."), so the pill row overlaps the bubble's bottom edge (inset on the avatar side, `end` on outgoing, mirrored in RTL) without widening the bubble or touching the grouped corners. Each pill is a real control:
+    - Checkbox pill (instant toggle): `<label class="ui-reaction" data-count="3"><input type="checkbox" class="ui-sr-only" form="p1" name="reaction" value="+1" checked><span aria-hidden="true">👍</span><span class="ui-sr-only">Thumbs up, 2 others</span></label>`. `data-count` is the server total. The CSS adds 1 for `:not([checked]):checked` and subtracts 1 for `[checked]:not(:checked)`, so the count stays right without JS. The accessible name counts only the others and the checkbox state says "you", so the name never goes stale.
+    - Button pill (GitHub-style no-JS): `<button class="ui-reaction" aria-pressed="true" data-count="2" form="p1" name="reaction">` posts and the server re-renders.
+    - Picker: one popover form per message with emoji buttons, anchored to its trigger and flipping at viewport edges. Tab and Escape work natively. The trigger shows on hover, `:focus-within` and while the picker is open, and always under `(hover: none)`.
+    - Needs the server or JS: saving a toggle (checkbox variant), adding a new emoji (form POST or fetch), who-reacted tooltips, removing a pill when its count reaches 0.
+  - Classes: `.ui-messages`, `.ui-message`, `.ui-outgoing`, `.ui-typing`, `.ui-bubble`, `.ui-header`, `.ui-footer`, `.ui-attachment`, `.ui-reactions`, `.ui-reaction`, `.ui-reaction-add`, `.ui-reaction-picker`; Astro/Svelte/Vue: `<Message outgoing author time reactions={[{ emoji, label, count, mine }]}>` with an `avatar` slot, inside `<Messages>`.
+  - Without support: without `:has()` messages don't group and "yours" isn't highlighted (checkbox still works); without typed `attr()` (Firefox, Safari) the server count shows but doesn't change until reload; without anchor positioning the picker opens centered as a plain popover; without Invoker Commands use `popovertarget`.
+  - Open questions: should group chats also break a run when the author changes (`data-author` hook)? Should the typing row be an `li` with `role="status"` or a live region below the list? Ship the checkbox pill (instant, needs JS to save) or the submit-button pill (no-JS round trip) as the default? One picker per message, or one shared picker that needs JS to know the target?
+  > Explain further and provide an example
+  > how do we handle emoji reactions on bubbles?
+  - Answered above in Reactions. The example now has a group thread with reactions on incoming and outgoing bubbles, your own reaction highlighted, the checkbox and button pill variants, and the picker (checked with the keyboard, on touch, in forced colors and in RTL).
+  - Added: `Message` (`li.ui-message` in `ol.ui-messages`, `message.css` in the extended layer) with Astro, React, Svelte and Vue `Messages` (`label`) and `Message` (`author`, `datetime`, `newAuthor`, `outgoing`, `picker`, `pickerLabel`, `reactions`, `reactionsLabel`, `time`, `typing`, with `avatar`, default and `footer` slots), docs page with Basics, Group chat, Attachments, Reactions, Reactions without JavaScript, Typing indicator and Right to left. An author change breaks a run with `.ui-new-author` (`newAuthor`), since CSS can't compare `data-author` values; any other `li` between messages breaks it too. The typing row stays an `li` (so the list keeps valid children and the row groups with the author's run) with `role="status"` on its bubble, and the docs say to add the row before setting its text. The checkbox pill is the default (frameworks render it from `reactions`, keeping the `checked` attribute as the server state in Svelte via `defaultChecked` and in Vue via `.attr`); the submit-button pill is documented as HTML for no-JS round trips. One picker per message, since a shared picker needs JS to know its target. Outgoing authors are visually hidden but read. The picker centers as a plain popover without anchor positioning. Saving, adding new emoji and removing empty pills stay app work; the docs page has a small demo script standing in for the server.
+- [x] (4) Rating: a star rating that is a styled `<meter>` for read-only scores and a `<fieldset>` of radios for input, with fractional fill, hover preview and a "no rating" option. Example: proposal-rating
+  - Why: product-detail, testimonials and hero each hand-roll SVG stars that can only show whole stars (4.9 renders as 5) and label them inconsistently, sometimes with `aria-hidden` and no accessible name; there's nothing for collecting a rating.
+  - Modern bits: native `<meter>` value bar + star `mask` (the browser draws the exact fractional fill, mirrored in RTL, with no custom property), typed `attr(max type(<number>))` (`max="10"` gives 10 stars), `:has(~ :checked)` / `:has(~ :hover)` (fills every star up to the checked or hovered one), `counter()` with `content: … / ""` (shows "3/5" without JS and hides it from screen readers).
+  - Markup: `<meter class="ui-rating" min="0" max="5" value="4.5" aria-label="Rated 4.5 out of 5"></meter>` / `<fieldset class="ui-rating"><legend>Your rating</legend><input type="radio" name="r" value="0" aria-label="No rating" /><input type="radio" name="r" value="1" aria-label="1 star" />…</fieldset>`
+  - Classes: `.ui-rating` on `meter` or `fieldset`, `.ui-small`, `.ui-large`; Astro/Svelte/Vue: `<Rating value={4.5} />`, and `<Rating name="…" />` renders the input.
+  - Without support: Firefox and Safari fill the meter through `::-moz-meter-bar` / `::-webkit-meter-*`; without typed `attr()` the meter is always 5 stars wide; without `:has()` the radios work but don't fill up to the checked star.
+  - Open questions: one `.ui-rating` class switched by element (as here), or separate `.ui-rating` and `.ui-rating-input`? The "no rating" radio is the first radio, drawn as a visible clear icon so mouse users can unset it; keep it visible, or show it only on focus?
+  - Added: `Rating` (`.ui-rating`, `rating.css`) with Astro, React, Svelte and Vue components, `api.ts`, the docs page (Basics, Input, Sizes, Fractions, Max, Disabled, Validation, Localization) and examples. One `.ui-rating` class switched by element, as proposed: the meter and the fieldset share only the star mask, color and size, and the rest is scoped to `meter.ui-rating` / `fieldset.ui-rating`. The no rating radio stays visible as a muted icon, since touch users can't hover or focus to reveal it, and `required` leaves it out so a star has to be picked. It is matched by `value="0"`, not `:first-of-type`. `name` switches the component to the input. The components set `--_max` when `max` isn't 5, so browsers without typed `attr()` draw the right number of stars. Input stars are 24/28/32px (`size-5`/`size-6`/`size-7`) so each radio meets the 24px target size. Stars use `--orange` (a named color, no severity meaning). Radio names translate with `clearLabel` and `starLabel` (a function of the value). `error` sets `aria-invalid="true"` on each radio and tints the empty stars.
+- [ ] (4) Stat: a `<dl>` KPI with a label, a big value, a trend with an arrow that has alt text, and an optional sparkline or progress bar, laid out with container queries. Example: proposal-stat
+  - Why: analytics-dashboard, app-shell, project-overview and sales-dashboard all use `hgroup` + `h2.ui-h4` for the number, which puts values in the heading outline. They also each redefine `.x-up`/`.x-down` colors, and none of them show the trend direction without color.
+  - Modern bits: container queries + `cqi` (the sparkline moves beside the value from 20rem, and the value font scales with the card, not the viewport), `content: "↑" / "Up"` (screen readers hear "Up 12.4%"; labels are private vars like the carousel's, so they can be translated), relative colors + `light-dark()` (`oklch(from var(--_tone) min(l, 0.45) c h)` keeps any tone at AA text contrast in both schemes), `vector-effect: non-scaling-stroke` (a stretched SVG sparkline keeps a 2px line).
+  - Markup: `<dl class="ui-stat"><dt>Visitors</dt><dd class="ui-stat-value">48 210</dd><dd><span class="ui-stat-trend ui-up">12.4%</span> from last week</dd><dd class="ui-stat-chart"><svg role="img" aria-label="…">…</svg></dd></dl>` (composes inside `.ui-card` as `.ui-content`)
+  - Classes: `.ui-stat`, `.ui-stat-value`, `.ui-stat-chart`, `.ui-stat-trend`, `.ui-up`/`.ui-down` (arrow), with `.ui-success`/`.ui-critical`/`.ui-warning`/`.ui-neutral` overriding the tone, e.g. bounce rate `.ui-up.ui-critical` (props: `label`, `value`, `trend`, `direction`, `tone`, `chart` slot)
+  - Without support: without container queries the stat stays stacked, which works at any width. Without relative colors the trend falls back to the inherited muted text. Arrows show everywhere.
+  - Open questions: should the stat ship with a card surface (`.ui-outlined` on `.ui-stat`), or always compose with `.ui-card`? Should the library ship a sparkline helper, or document hand-written SVG only?
+- [x] (5) Status pill: severity colors for the existing Chip (`.ui-success`, `.ui-warning`, `.ui-critical`, `.ui-info`, `.ui-neutral`) with an optional leading dot that is shape-coded. Example: proposal-chip-severity
+  - Why: billing, data-table, order-history, sales-dashboard and team-members each add their own `::before` dot with a `--_dot`/`--status` variable and per-status classes. That is five copies of the same pill, and in forced colors the dots go invisible.
+  - Modern bits: relative colors + `light-dark()` (background, border, text and dot all come from one `--_tone`, e.g. `oklch(from var(--_tone) 0.4 c h)`, so contrast passes in light and dark), `corner-shape: bevel` + `clip-path` (critical is a diamond, warning a triangle, neutral a ring, so status is readable without color), `forced-color-adjust` (the dot stays visible as CanvasText in forced colors).
+  - Markup: `<span class="ui-chip ui-outlined ui-small ui-dot ui-success"><span class="ui-text">Paid</span></span>`
+  - Classes: `.ui-chip` + `.ui-success`/`.ui-warning`/`.ui-critical`/`.ui-info`/`.ui-neutral`, `.ui-dot`; tonal by default, `.ui-outlined` keeps a neutral pill and only the dot is colored (props: `color`, `dot`)
+  - Without support: without `corner-shape` the critical dot falls back to a circle, and color still tells it apart. Relative colors are needed for the tints, as they already are in badge and callout.
+  - Open questions: should Chip also get a `.ui-filled` severity like Badge has? Are the dot shapes always on, or opt-in?
+  > Fix
+  > add this directly to feat/new-components-and-fixes branch
+  - Fixed on feat/new-components-and-fixes (f0fb016b): Chip takes `color` (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) and `dot` (`.ui-dot`) in HTML, Astro, Svelte and Vue, with new Colors and Dot sections on the Chip page, API rows, CHANGELOG and What's new. The critical diamond uses `clip-path` instead of `corner-shape: bevel`, so it's a diamond in every browser. Outlined chips stay neutral with only the dot colored, as proposed. The billing, data-table, order-history, sales-dashboard and team-members blocks use it instead of their own dots.
+- [x] (3) PR #418, Message, OneTimeCode: a field inside an outgoing bubble fails color contrast. The `.ui-label` (`--text-muted`) and the end text (`--field-helper-color`) of a OneTimeCode in `li.ui-message.ui-outgoing` sit on the primary-tinted bubble, and axe flags `color-contrast` on `/tests/feedback/` (SupportChat and RightToLeft) in light and dark. The same happens to any TextField label on a tinted surface. Recorded in `tests/e2e/a11y-known-violations.json` under `light/html/stress/feedback` and `dark/html/stress/feedback` so the stress page can stay (`src/stress-tests/feedback.html:554-570`, `packages/opui/css/components/message.css`, `text-field.css:22,285,295`)
+  - Fix: let the bubble set `--field-label-color` and `--field-helper-color` to `--text-primary` (or its own contrast color) for fields inside it, like Callout does for links, or keep forms out of outgoing bubbles in the stress page and the docs. Remove the ledger entries when fixed.
+  - Fixed: `.ui-message.ui-outgoing` sets `--field-label-color` and `--field-helper-color` to its own text color (`--primary-contrast`), so field labels and helper text in the bubble match its text. The `color-contrast` entries for `light/html/stress/feedback` and `dark/html/stress/feedback` are gone from the ledger, and the a11y, contrast and interaction tests for the feedback and Message pages pass.
+
 ## Questions
 
 - [x] (1) Comments: keep or remove the leftover TODO and stale comments? They're the toggle-button TODO (`toggle-button.css:1-3`), the select checkmark TODO with "psuedo" (`select.css:98`), the tabs mixin TODO (`tabs.css:32`), the commented-out toast cap (`toast.css:26-28`) and the "`.select` class" note, which means `.ui-select` now (`select.css:126`)
@@ -4697,20 +5177,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: new Customizing page (`src/docs/guide/customizing.astro`): theme tokens vs `--_` properties, set them on the component (not a parent), prefer inputs (`--_accent`) over outputs (`--_bg-color`) so hover and active keep working, and unlayered CSS vs your own `overrides` layer, with live examples.
-- [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
-  - Bar chart or sparkline: analytics-dashboard, sales-dashboard, server-status.
-  - Breadcrumb: file-manager, product-detail.
-  - Chat message bubble: chat.
-  - Empty state: empty-states, error-page.
-  - Labeled divider ("or continue with email"): sign-in.
-  - Number stepper (quantity): product-detail, shopping-cart.
-  - One-time code input: two-factor.
-  - Pagination: data-table.
-  - Rating: product-detail, testimonials, hero.
-  - Stat card (label, value, trend): analytics-dashboard, app-shell, project-overview, sales-dashboard.
-  - Status pill (colored chip or inline badge): billing, data-table, order-history, sales-dashboard, team-members.
-  - Stepper: checkout, onboarding-checklist.
-  - Timeline: changelog, project-overview, server-status.
 - [x] (5) `contrast-color()` for `--primary-contrast` so custom primaries get readable text
 
   > contrast-color() has its limitations - it can only be black or white. it's better to use relative color syntax imo.

@@ -1,0 +1,27 @@
+---
+import type { Props } from "./types.astro"
+import TimelineItem from "./TimelineItem.astro"
+
+export const title = "Timeline"
+
+const { class: className, items, progress, size, ...rest } = Astro.props
+---
+
+<ol
+  class:list={[
+    "ui-timeline",
+    { "ui-with-progress": progress },
+    size && `ui-${size}`,
+    className,
+  ]}
+  {...rest}
+>
+  {
+    items?.map(({ description, ...item }) => (
+      <TimelineItem {...item}>
+        {description && <p>{description}</p>}
+      </TimelineItem>
+    ))
+  }
+  <slot />
+</ol>

@@ -24,6 +24,22 @@ export default defineConfig({
       testMatch: /(a11y|visual)\.spec\.ts/,
       use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
     },
+    ...(process.env.CI
+      ? [
+          {
+            grep: /data grid/,
+            name: "firefox",
+            testMatch: /interaction\.spec\.ts/,
+            use: { ...devices["Desktop Firefox"], launchOptions: {} },
+          },
+          {
+            grep: /data grid/,
+            name: "webkit",
+            testMatch: /interaction\.spec\.ts/,
+            use: { ...devices["Desktop Safari"], launchOptions: {} },
+          },
+        ]
+      : []),
   ],
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   retries: 0,

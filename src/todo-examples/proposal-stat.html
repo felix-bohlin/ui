@@ -1,0 +1,271 @@
+<style>
+  @layer components.root {
+    :where(.ui-stat) {
+      --_down-label: "Down";
+      --_flat-label: "No change";
+      --_up-label: "Up";
+
+      container-type: inline-size;
+      display: grid;
+      gap: var(--size-1) var(--size-4);
+      grid-template-columns: minmax(0, 1fr) auto;
+      margin: 0;
+
+      & > :is(dt, dd) {
+        grid-column: 1 / -1;
+        margin: 0;
+        min-inline-size: 0;
+      }
+
+      & > dt {
+        color: var(--text-muted);
+        font-size: var(--font-size-05);
+      }
+
+      & > dd {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+      }
+
+      & > .ui-stat-value {
+        color: var(--text-primary);
+        font-size: clamp(var(--font-size-4), 10cqi, var(--font-size-5));
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--font-weight-bold);
+        line-height: var(--font-lineheight-1);
+        overflow-wrap: anywhere;
+      }
+
+      & > .ui-stat-chart {
+        margin-block-start: var(--size-2);
+
+        & > svg {
+          block-size: var(--size-8);
+          display: block;
+          fill: none;
+          inline-size: 100%;
+          overflow: visible;
+          stroke: var(--primary);
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 2;
+
+          & > * {
+            vector-effect: non-scaling-stroke;
+          }
+
+          & > polygon {
+            fill: oklch(from var(--primary) l c h / 15%);
+            stroke: none;
+          }
+
+          @media (forced-colors: active) {
+            stroke: CanvasText;
+
+            & > polygon {
+              fill: none;
+            }
+          }
+        }
+      }
+
+      @container (inline-size >= 20rem) {
+        & > :is(dt, dd) {
+          grid-column: 1;
+        }
+
+        & > .ui-stat-chart:has(> svg) {
+          align-self: center;
+          grid-column: 2;
+          grid-row: 1 / span 3;
+          inline-size: clamp(6rem, 40cqi, 12rem);
+          margin: 0;
+        }
+      }
+
+      & .ui-stat-trend {
+        --_tone: var(--text-muted);
+
+        align-items: baseline;
+        color: light-dark(
+          oklch(from var(--_tone) min(l, 0.45) c h),
+          oklch(from var(--_tone) max(l, 0.8) c h)
+        );
+        display: inline-flex;
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--font-weight-semibold);
+        gap: 0.2em;
+
+        &::before {
+          content: "\2192" / var(--_flat-label);
+        }
+
+        &.ui-up {
+          --_tone: var(--success);
+
+          &::before {
+            content: "\2191" / var(--_up-label);
+          }
+        }
+
+        &.ui-down {
+          --_tone: var(--critical);
+
+          &::before {
+            content: "\2193" / var(--_down-label);
+          }
+        }
+
+        &.ui-critical {
+          --_tone: var(--critical);
+        }
+
+        &.ui-neutral {
+          --_tone: var(--text-muted);
+        }
+
+        &.ui-success {
+          --_tone: var(--success);
+        }
+
+        &.ui-warning {
+          --_tone: var(--warning);
+        }
+      }
+    }
+  }
+
+  .todo-stats {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    inline-size: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .ui-card {
+      block-size: 100%;
+    }
+  }
+
+  .todo-row {
+    align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+
+  .todo-narrow {
+    inline-size: min(100%, 14rem);
+  }
+
+  .todo-wide {
+    inline-size: min(100%, 30rem);
+  }
+</style>
+<h2 class="ui-h6">Stat row: trend direction and tone are separate</h2>
+<ul class="todo-stats">
+  <li>
+    <div class="ui-card ui-outlined">
+      <dl class="ui-content ui-stat">
+        <dt>Visitors</dt>
+        <dd class="ui-stat-value">48 210</dd>
+        <dd><span class="ui-stat-trend ui-up">12.4%</span> from last week</dd>
+      </dl>
+    </div>
+  </li>
+  <li>
+    <div class="ui-card ui-outlined">
+      <dl class="ui-content ui-stat">
+        <dt>Revenue</dt>
+        <dd class="ui-stat-value">8 808 300 kr</dd>
+        <dd><span class="ui-stat-trend ui-down">3.1%</span> from last year</dd>
+      </dl>
+    </div>
+  </li>
+  <li>
+    <div class="ui-card ui-outlined">
+      <dl class="ui-content ui-stat">
+        <dt>Bounce rate</dt>
+        <dd class="ui-stat-value">41.2%</dd>
+        <dd>
+          <span class="ui-stat-trend ui-up ui-critical">2.3%</span> from last
+          week
+        </dd>
+      </dl>
+    </div>
+  </li>
+  <li>
+    <div class="ui-card ui-outlined">
+      <dl class="ui-content ui-stat">
+        <dt>Visit duration</dt>
+        <dd class="ui-stat-value">3m 12s</dd>
+        <dd><span class="ui-stat-trend">0.0%</span> from last week</dd>
+      </dl>
+    </div>
+  </li>
+</ul>
+<h2 class="ui-h6">
+  Same markup at 14rem and 30rem: the sparkline moves beside the value
+</h2>
+<div class="todo-row">
+  <div class="ui-card ui-outlined todo-narrow">
+    <dl class="ui-content ui-stat">
+      <dt>Orders</dt>
+      <dd class="ui-stat-value">24 816</dd>
+      <dd><span class="ui-stat-trend ui-up">6.8%</span> from last year</dd>
+      <dd class="ui-stat-chart">
+        <svg
+          aria-label="Orders per month, rising from 1 640 to 2 410"
+          preserveAspectRatio="none"
+          role="img"
+          viewBox="0 0 100 40"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon points="0,40 0,30 18,26 36,32 54,18 72,22 100,6 100,40" />
+          <polyline points="0,30 18,26 36,32 54,18 72,22 100,6" />
+        </svg>
+      </dd>
+    </dl>
+  </div>
+  <div class="ui-card ui-outlined todo-wide">
+    <dl class="ui-content ui-stat">
+      <dt>Orders</dt>
+      <dd class="ui-stat-value">24 816</dd>
+      <dd><span class="ui-stat-trend ui-up">6.8%</span> from last year</dd>
+      <dd class="ui-stat-chart">
+        <svg
+          aria-label="Orders per month, rising from 1 640 to 2 410"
+          preserveAspectRatio="none"
+          role="img"
+          viewBox="0 0 100 40"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon points="0,40 0,30 18,26 36,32 54,18 72,22 100,6 100,40" />
+          <polyline points="0,30 18,26 36,32 54,18 72,22 100,6" />
+        </svg>
+      </dd>
+    </dl>
+  </div>
+</div>
+<h2 class="ui-h6">With a progress bar instead of a sparkline</h2>
+<div class="todo-row">
+  <div class="ui-card ui-outlined todo-wide">
+    <dl class="ui-content ui-stat">
+      <dt id="proposal-stat-budget-label">Budget used</dt>
+      <dd class="ui-stat-value">412 000 kr</dd>
+      <dd>69% of 600 000 kr</dd>
+      <dd class="ui-stat-chart">
+        <div class="ui-progress">
+          <progress
+            aria-labelledby="proposal-stat-budget-label"
+            max="100"
+            value="69"
+          ></progress>
+        </div>
+      </dd>
+    </dl>
+  </div>
+</div>

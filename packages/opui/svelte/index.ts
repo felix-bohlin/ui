@@ -8,6 +8,7 @@ export { default as Anchor } from "../components/Anchor/Anchor.svelte"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.svelte"
 export { default as Avatar } from "../components/Avatar/Avatar.svelte"
 export { default as Badge } from "../components/Badge/Badge.svelte"
+export { default as BarChart } from "../components/BarChart/BarChart.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
@@ -23,6 +24,7 @@ export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.svelte"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.svelte"
@@ -45,11 +47,16 @@ export { default as Form } from "../components/Form/Form.svelte"
 export { default as List } from "../components/List/List.svelte"
 export { default as ListItem } from "../components/ListItem/ListItem.svelte"
 export { default as Menu } from "../components/Menu/Menu.svelte"
+export { default as Message } from "../components/Message/Message.svelte"
+export { default as Messages } from "../components/Message/Messages.svelte"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.svelte"
 export { default as Progress } from "../components/Progress/Progress.svelte"
 export { default as Radio } from "../components/Radio/Radio.svelte"
 export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
 export { default as Range } from "../components/Range/Range.svelte"
+export { default as Rating } from "../components/Rating/Rating.svelte"
 export { default as Select } from "../components/Select/Select.svelte"
+export { default as Stepper } from "../components/Stepper/Stepper.svelte"
 export { default as Switch } from "../components/Switch/Switch.svelte"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.svelte"
 export { default as Table } from "../components/Table/Table.svelte"
@@ -66,6 +73,8 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
 export { default as TabsTab } from "../components/Tabs/TabsTab.svelte"
 export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
+export { default as Timeline } from "../components/Timeline/Timeline.svelte"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.svelte"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.svelte"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.svelte"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"
@@ -83,6 +92,8 @@ export type {
 } from "../components/Anchor/types.svelte"
 export type { Props as AvatarProps } from "../components/Avatar/types.svelte"
 export type { Props as BadgeProps } from "../components/Badge/types.svelte"
+export type { BarChartRow } from "../components/BarChart/types"
+export type { Props as BarChartProps } from "../components/BarChart/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"
 export type {
@@ -105,6 +116,14 @@ export type {
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.svelte"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,
@@ -136,14 +155,27 @@ export type {
   MenuItem,
   Props as MenuProps,
 } from "../components/Menu/types.svelte"
+export type {
+  Emoji as MessageEmoji,
+  Reaction as MessageReaction,
+} from "../components/Message/types"
+export type {
+  MessagesProps,
+  Props as MessageProps,
+} from "../components/Message/types.svelte"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.svelte"
+
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {
   RadioInputProps,
   RadioProps,
 } from "../components/Radio/types.svelte"
 export type { RangeProps } from "../components/Range/types.svelte"
+export type { Props as RatingProps } from "../components/Rating/types.svelte"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
+export type { StepperItem } from "../components/Stepper/types"
+export type { Props as StepperProps } from "../components/Stepper/types.svelte"
 export type {
   SwitchInputProps,
   SwitchProps,
@@ -161,6 +193,11 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
+export type { TimelineItemData } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.svelte"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.svelte"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.svelte"
 export type { Props as TooltipProps } from "../components/Tooltip/types.svelte"

@@ -1,0 +1,37 @@
+---
+import { Avatar, Chip, DataGrid, Progress } from "@opui/astro"
+import { initials, people, type Person } from "./data"
+
+const columns = [
+  { key: "name", label: "Name", rowHeader: true },
+  { key: "status", label: "Status" },
+  { key: "progress", label: "Progress", width: "minmax(10rem, 1fr)" },
+]
+---
+
+<DataGrid columns={columns} label="Team" rows={people}>
+  <fragment slot="cell-name">
+    {
+      (row: Person) => (
+        <Fragment>
+          <Avatar>{initials(row.name)}</Avatar>
+          {row.name}
+        </Fragment>
+      )
+    }
+  </fragment>
+  <fragment slot="cell-status">
+    {(row: Person) => <Chip label={row.status} size="small" />}
+  </fragment>
+  <fragment slot="cell-progress">
+    {
+      (row: Person) => (
+        <Progress
+          aria-label={`Progress, ${row.name}`}
+          max={100}
+          value={row.progress}
+        />
+      )
+    }
+  </fragment>
+</DataGrid>

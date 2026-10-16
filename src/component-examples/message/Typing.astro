@@ -1,0 +1,14 @@
+---
+import { Avatar, Message, Messages } from "@opui/astro"
+---
+
+<Messages label="Messages with Saga">
+  <Message author="Saga" datetime="2026-10-08T14:32" time="14:32">
+    <Avatar aria-label="Saga Nyström" role="img" slot="avatar">SN</Avatar>
+    <p>Let me check with the team.</p>
+  </Message>
+  <Message typing>
+    <Avatar aria-label="Saga Nyström" role="img" slot="avatar">SN</Avatar>
+    Saga is typing…
+  </Message>
+</Messages>

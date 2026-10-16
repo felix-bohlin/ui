@@ -176,6 +176,12 @@ export const todoExamples = {
   "control-sizes": {
     match: "Sizes: control size scales differ",
   },
+  "data-grid-header-menus": {
+    match: "Data grid header menus",
+  },
+  "data-grid-scroll-padding": {
+    match: "PR #418, DataGrid: the sticky header covers",
+  },
   "description-list-anatomy-width": {
     match: "Description list: the hero anatomy",
   },
@@ -299,6 +305,45 @@ export const todoExamples = {
   },
   "progress-walkthrough-name": {
     match: "Progress walkthrough:",
+  },
+  "proposal-bar-chart": {
+    match: "Bar chart:",
+  },
+  "proposal-breadcrumb": {
+    match: "Breadcrumb:",
+  },
+  "proposal-chip-severity": {
+    match: "Status pill:",
+  },
+  "proposal-divider-label": {
+    match: "Labeled divider:",
+  },
+  "proposal-empty-state": {
+    match: "Empty state:",
+  },
+  "proposal-message": {
+    match: "Message:",
+  },
+  "proposal-number-field": {
+    match: "Number field:",
+  },
+  "proposal-one-time-code": {
+    match: "One-time code:",
+  },
+  "proposal-pagination": {
+    match: "Pagination:",
+  },
+  "proposal-rating": {
+    match: "Rating:",
+  },
+  "proposal-stat": {
+    match: "Stat:",
+  },
+  "proposal-steps": {
+    match: "Steps:",
+  },
+  "proposal-timeline": {
+    match: "Timeline:",
   },
   "radio-coarse-sizes": {
     match: "Radio: on touch screens",

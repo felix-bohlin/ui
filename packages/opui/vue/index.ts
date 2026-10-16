@@ -6,6 +6,7 @@ export { default as Anchor } from "../components/Anchor/Anchor.vue"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.vue"
 export { default as Avatar } from "../components/Avatar/Avatar.vue"
 export { default as Badge } from "../components/Badge/Badge.vue"
+export { default as BarChart } from "../components/BarChart/BarChart.vue"
 export { default as Button } from "../components/Button/Button.vue"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.vue"
 export { default as Callout } from "../components/Callout/Callout.vue"
@@ -21,6 +22,7 @@ export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.vue"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.vue"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.vue"
@@ -43,11 +45,16 @@ export { default as Form } from "../components/Form/Form.vue"
 export { default as List } from "../components/List/List.vue"
 export { default as ListItem } from "../components/ListItem/ListItem.vue"
 export { default as Menu } from "../components/Menu/Menu.vue"
+export { default as Message } from "../components/Message/Message.vue"
+export { default as Messages } from "../components/Message/Messages.vue"
+export { default as OneTimeCode } from "../components/OneTimeCode/OneTimeCode.vue"
 export { default as Progress } from "../components/Progress/Progress.vue"
 export { default as Radio } from "../components/Radio/Radio.vue"
 export { default as RadioInput } from "../components/Radio/RadioInput.vue"
 export { default as Range } from "../components/Range/Range.vue"
+export { default as Rating } from "../components/Rating/Rating.vue"
 export { default as Select } from "../components/Select/Select.vue"
+export { default as Stepper } from "../components/Stepper/Stepper.vue"
 export { default as Switch } from "../components/Switch/Switch.vue"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.vue"
 export { default as Table } from "../components/Table/Table.vue"
@@ -64,6 +71,8 @@ export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
 export { default as TabsTab } from "../components/Tabs/TabsTab.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
+export { default as Timeline } from "../components/Timeline/Timeline.vue"
+export { default as TimelineItem } from "../components/Timeline/TimelineItem.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
@@ -81,6 +90,8 @@ export type {
 } from "../components/Anchor/types.d.vue"
 export type { Props as AvatarProps } from "../components/Avatar/types.d.vue"
 export type { Props as BadgeProps } from "../components/Badge/types.d.vue"
+export type { BarChartRow } from "../components/BarChart/types"
+export type { Props as BarChartProps } from "../components/BarChart/types.d.vue"
 export type { Props as ButtonProps } from "../components/Button/types.d.vue"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.d.vue"
 export type {
@@ -96,11 +107,19 @@ export type {
   Props as CardProps,
 } from "../components/Card/types.d.vue"
 export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
-export type { CheckboxInputProps } from "../components/Checkbox/types"
+export type { CheckboxInputProps } from "../components/Checkbox/types.d.vue"
 export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.d.vue"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.d.vue"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,
@@ -132,13 +151,26 @@ export type {
   MenuItem,
   Props as MenuProps,
 } from "../components/Menu/types.d.vue"
+export type {
+  Emoji as MessageEmoji,
+  Reaction as MessageReaction,
+} from "../components/Message/types"
+export type {
+  MessagesProps,
+  Props as MessageProps,
+} from "../components/Message/types.d.vue"
+export type { Props as OneTimeCodeProps } from "../components/OneTimeCode/types.d.vue"
+
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
-export type { RadioInputProps } from "../components/Radio/types"
+export type { RadioInputProps } from "../components/Radio/types.d.vue"
 export type { RadioProps } from "../components/Radio/types.d.vue"
 export type { RangeProps } from "../components/Range/types.d.vue"
+export type { Props as RatingProps } from "../components/Rating/types.d.vue"
 export type { Item as SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.d.vue"
-export type { SwitchInputProps } from "../components/Switch/types"
+export type { StepperItem } from "../components/Stepper/types"
+export type { Props as StepperProps } from "../components/Stepper/types.d.vue"
+export type { SwitchInputProps } from "../components/Switch/types.d.vue"
 export type { SwitchProps } from "../components/Switch/types.d.vue"
 export type {
   ColumnProps as TableColumnProps,
@@ -153,6 +185,11 @@ export type {
 } from "../components/Tabs/types.d.vue"
 export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
 export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"
+export type { TimelineItemData } from "../components/Timeline/types"
+export type {
+  Props as TimelineProps,
+  TimelineItemProps,
+} from "../components/Timeline/types.d.vue"
 export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.d.vue"
 export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.d.vue"
 export type { Props as TooltipProps } from "../components/Tooltip/types.d.vue"

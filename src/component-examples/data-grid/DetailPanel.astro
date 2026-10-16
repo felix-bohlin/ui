@@ -1,0 +1,16 @@
+---
+import { DataGrid } from "@opui/astro"
+import { columns, people, type Person } from "./data"
+---
+
+<DataGrid columns={columns} label="Team" rows={people}>
+  <fragment slot="detail">
+    {
+      (row: Person) => (
+        <p>
+          {row.name} joined in {row.joined}. Contact: {row.email}
+        </p>
+      )
+    }
+  </fragment>
+</DataGrid>

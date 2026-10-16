@@ -133,6 +133,9 @@
     --choice-size-small: calc(var(--size-3) * var(--density));
     --choice-size: calc(var(--size-4) * var(--density));
     --choice-size-large: calc(var(--size-5) * var(--density));
+    --rating-size-small: calc(var(--size-5) * var(--density));
+    --rating-size: calc(var(--size-6) * var(--density));
+    --rating-size-large: calc(var(--size-7) * var(--density));
     --switch-dot-size-x-small: calc(0.625rem * var(--density));
     --switch-dot-size-small: calc(0.75rem * var(--density));
     --switch-dot-size: calc(var(--size-3) * var(--density));
@@ -174,6 +177,7 @@
     --blue: oklch(from var(--color-9) l 0.2 240);
     --green: oklch(from var(--color-9) l 0.2 145);
     --orange: oklch(from var(--color-7) l 0.2 75);
+    --purple: oklch(from var(--color-9) l 0.2 310);
     --red: oklch(from var(--color-9) l 0.2 25);
 
     /* Intent tokens */
@@ -307,6 +311,10 @@
       --green: light-dark(
         oklch(from var(--color-11) l 0.2 145),
         oklch(from var(--color-9) l 0.2 145)
+      );
+      --purple: light-dark(
+        oklch(from var(--color-11) l 0.2 310),
+        oklch(from var(--color-9) l 0.2 310)
       );
       --red: light-dark(
         oklch(from var(--color-11) l 0.2 25),

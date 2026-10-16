@@ -1,0 +1,224 @@
+<style>
+  @layer components.root {
+    :where(.ui-steps) {
+      --_connector-color: var(--border-color);
+      --_connector-size: 2px;
+      --_gap: var(--size-2);
+      --_marker-bg-color: var(--surface-default);
+      --_marker-border-color: oklch(from var(--text-muted) l c h / 50%);
+      --_marker-size: var(--size-6);
+      --_marker-text-color: var(--text-muted);
+
+      container: ui-steps / inline-size;
+      counter-reset: ui-step;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--_gap);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      & > li {
+        --_label-color: var(--text-muted);
+
+        align-items: center;
+        color: var(--_label-color);
+        counter-increment: ui-step;
+        display: flex;
+        flex: 1 1 0;
+        gap: var(--_gap);
+        min-inline-size: max-content;
+        position: relative;
+
+        &::before {
+          background-color: var(--_marker-bg-color);
+          block-size: var(--_marker-size);
+          border: var(--_connector-size) solid var(--_marker-border-color);
+          border-radius: var(--radius-round);
+          box-sizing: border-box;
+          color: var(--_marker-text-color);
+          content: counter(ui-step) / "";
+          display: grid;
+          flex-shrink: 0;
+          font-size: var(--font-size-0);
+          font-variant-numeric: tabular-nums;
+          font-weight: var(--font-weight-semibold);
+          inline-size: var(--_marker-size);
+          line-height: 1;
+          place-items: center;
+        }
+
+        &:not(:last-child)::after {
+          background-color: var(--_connector-color);
+          block-size: var(--_connector-size);
+          border-radius: var(--radius-round);
+          content: "";
+          flex: 1;
+          min-inline-size: var(--size-4);
+        }
+
+        &:last-child {
+          flex-grow: 0;
+        }
+
+        & > a {
+          color: inherit;
+          text-underline-offset: 2px;
+        }
+      }
+
+      & > li:has(~ [aria-current="step"]) {
+        --_connector-color: var(--primary);
+        --_label-color: var(--text-primary);
+        --_marker-bg-color: var(--primary);
+        --_marker-border-color: var(--primary);
+        --_marker-text-color: var(--primary-contrast);
+
+        &::before {
+          content: "✓" / var(--steps-completed-label, "Completed: ");
+          font-size: var(--font-size-1);
+        }
+      }
+
+      & > [aria-current="step"] {
+        --_label-color: var(--text-primary);
+        --_marker-border-color: var(--primary);
+        --_marker-text-color: var(--text-primary);
+
+        font-weight: var(--font-weight-semibold);
+      }
+
+      &.ui-small {
+        --_marker-size: var(--size-5);
+
+        font-size: var(--font-size-05);
+      }
+
+      @container ui-steps (inline-size < 32rem) {
+        & > li {
+          align-items: first baseline;
+          flex-basis: 100%;
+          padding-block-end: var(--size-4);
+
+          &:last-child {
+            padding-block-end: 0;
+          }
+
+          &:not(:last-child)::after {
+            block-size: auto;
+            inline-size: var(--_connector-size);
+            inset-block: calc(var(--_marker-size) + var(--size-1)) 0;
+            inset-inline-start: calc(
+              var(--_marker-size) / 2 - var(--_connector-size) / 2
+            );
+            min-inline-size: 0;
+            position: absolute;
+          }
+        }
+      }
+
+      @media (forced-colors: active) {
+        & > li:not(:last-child)::after {
+          background-color: CanvasText;
+        }
+
+        & > li:has(~ [aria-current="step"])::before {
+          background-color: CanvasText;
+          color: Canvas;
+          forced-color-adjust: none;
+        }
+      }
+    }
+
+    :where(.ui-steps.ui-vertical) > li {
+      align-items: first baseline;
+      flex-basis: 100%;
+      padding-block-end: var(--size-4);
+
+      &:last-child {
+        padding-block-end: 0;
+      }
+
+      &:not(:last-child)::after {
+        block-size: auto;
+        inline-size: var(--_connector-size);
+        inset-block: calc(var(--_marker-size) + var(--size-1)) 0;
+        inset-inline-start: calc(
+          var(--_marker-size) / 2 - var(--_connector-size) / 2
+        );
+        min-inline-size: 0;
+        position: absolute;
+      }
+    }
+  }
+
+  .todo-steps-ar {
+    --steps-completed-label: "مكتمل: ";
+  }
+
+  .todo-steps-cases {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: 100%;
+  }
+
+  .todo-steps-case {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-steps-resize {
+    border: var(--border-width) dashed var(--border-color);
+    border-radius: var(--border-radius);
+    inline-size: 18rem;
+    max-inline-size: 100%;
+    min-inline-size: 12rem;
+    overflow: hidden;
+    padding: var(--size-3);
+    resize: horizontal;
+  }
+</style>
+
+<div class="todo-steps-cases">
+  <div class="todo-steps-case">
+    <h2 class="ui-h6">Checkout: step 3 is current, 1 and 2 are complete</h2>
+    <ol class="ui-steps" aria-label="Checkout steps">
+      <li><a href="#steps-cart">Cart</a></li>
+      <li><a href="#steps-shipping">Shipping</a></li>
+      <li aria-current="step">Payment</li>
+      <li>Review</li>
+    </ol>
+  </div>
+
+  <div class="todo-steps-case">
+    <h2 class="ui-h6">
+      Narrow container: turns vertical (drag the corner to widen)
+    </h2>
+    <div class="todo-steps-resize">
+      <ol class="ui-steps" aria-label="Onboarding steps">
+        <li>Create your workspace</li>
+        <li>Invite your team</li>
+        <li>Connect a calendar</li>
+        <li aria-current="step">Import your projects</li>
+        <li>Set up billing</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="todo-steps-case">
+    <h2 class="ui-h6">
+      Small, right to left, with a translated “Completed” label
+    </h2>
+    <ol
+      class="ui-steps ui-small todo-steps-ar"
+      aria-label="خطوات الدفع"
+      dir="rtl"
+      lang="ar"
+    >
+      <li>السلة</li>
+      <li aria-current="step">الشحن</li>
+      <li>الدفع</li>
+    </ol>
+  </div>
+</div>

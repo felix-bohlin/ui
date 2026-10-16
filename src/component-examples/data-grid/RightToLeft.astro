@@ -1,0 +1,40 @@
+---
+import { DataGrid } from "@opui/astro"
+import { people, type Person } from "./data"
+
+const columns = [
+  {
+    key: "name",
+    label: "Name",
+    rowHeader: true,
+    sortable: true,
+    width: "13rem",
+  },
+  { key: "role", label: "Role", width: "10rem" },
+  { key: "email", label: "Email", width: "14rem" },
+  { key: "city", label: "Location", sortable: true, width: "10rem" },
+  {
+    key: "tickets",
+    label: "Tickets",
+    numeric: true,
+    sortable: true,
+    width: "9rem",
+  },
+]
+---
+
+<DataGrid
+  columns={columns}
+  dir="rtl"
+  label="Team"
+  maxBlockSize="16rem"
+  numbered
+  pinEnd
+  pinStart
+  rows={people}
+  selectable
+>
+  <fragment slot="detail">
+    {(row: Person) => <p>{row.email}</p>}
+  </fragment>
+</DataGrid>

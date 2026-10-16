@@ -1,0 +1,8 @@
+---
+import { DataGrid } from "@opui/astro"
+import { columns } from "./data"
+---
+
+<DataGrid columns={columns} label="Team" rows={[]}>
+  <p slot="empty">Nobody has joined the team yet.</p>
+</DataGrid>

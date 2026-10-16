@@ -1,0 +1,137 @@
+<style>
+  @layer components.root {
+    :where(.ui-divider) {
+      --_color: var(--border-color);
+
+      background-color: var(--_color);
+      block-size: var(--border-size-1);
+      margin-block: var(--divider-space, var(--size-fluid-3));
+
+      &.ui-filled {
+        --_color: var(--surface-filled);
+      }
+
+      &.ui-primary {
+        --_color: var(--primary);
+      }
+
+      &.ui-tonal {
+        --_color: var(--surface-tonal);
+      }
+
+      @container style(--contrast: more) {
+        &.ui-filled,
+        &.ui-tonal {
+          --_color: var(--border-color);
+        }
+      }
+
+      &:not(:empty) {
+        align-items: center;
+        background-color: transparent;
+        block-size: auto;
+        color: var(--text-muted);
+        display: flex;
+        font-size: var(--font-size-0);
+        gap: var(--size-3);
+        text-box: trim-both cap alphabetic;
+
+        &::before,
+        &::after {
+          background-color: var(--_color);
+          block-size: var(--border-size-1);
+          content: "";
+          flex: 1;
+          min-inline-size: var(--size-4);
+        }
+      }
+
+      &.ui-align-start::before,
+      &.ui-align-end::after {
+        display: none;
+      }
+
+      @media (forced-colors: active) {
+        block-size: 0;
+        border-block-start: var(--border-size-1) solid CanvasText;
+
+        &:not(:empty) {
+          border-block-start: 0;
+
+          &::before,
+          &::after {
+            block-size: 0;
+            border-block-start: var(--border-size-1) solid CanvasText;
+          }
+        }
+      }
+    }
+
+    :where(.ui-card) > :where(.ui-divider) {
+      margin-block: 0;
+    }
+  }
+
+  .todo-divider-cases {
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-divider-case {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-divider-sign-in {
+    display: grid;
+    gap: var(--size-3);
+
+    .ui-button {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="todo-divider-cases">
+  <div class="todo-divider-case">
+    <h2 class="ui-h6">Sign in</h2>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content todo-divider-sign-in">
+        <button type="button" class="ui-button ui-outlined">
+          Continue with Google
+        </button>
+        <p class="ui-divider">or continue with email</p>
+        <label class="ui-text-field">
+          <span class="ui-label">Email</span>
+          <span class="ui-field">
+            <input type="email" autocomplete="email" />
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-divider-case">
+    <h2 class="ui-h6">Start and end, the divider's own colors</h2>
+    <p class="ui-divider ui-align-start">Billing</p>
+    <p class="ui-divider ui-align-end ui-primary">Today</p>
+    <p class="ui-divider ui-filled">Older</p>
+    <hr class="ui-divider" />
+  </div>
+
+  <div class="todo-divider-case">
+    <h2 class="ui-h6">Any content, here a button</h2>
+    <div class="ui-divider">
+      <button type="button" class="ui-button ui-outlined ui-small ui-rounded">
+        Show 12 more replies
+      </button>
+    </div>
+  </div>
+
+  <div class="todo-divider-case" dir="rtl" lang="ar">
+    <h2 class="ui-h6">من اليمين إلى اليسار</h2>
+    <p class="ui-divider ui-align-start">الفواتير</p>
+  </div>
+</div>

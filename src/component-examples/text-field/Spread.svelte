@@ -28,7 +28,7 @@
 
 <TextField spread label="Amount" placeholder="0.00">
   {#snippet description()}Daily spending limit{/snippet}
-  {#snippet prefix()}¢{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 

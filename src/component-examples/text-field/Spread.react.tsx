@@ -47,7 +47,7 @@ export default function Spread() {
         label="Amount"
         placeholder="0.00"
         description="Daily spending limit"
-        prefix="¢"
+        prefix="€"
         suffix="EUR"
       />
 

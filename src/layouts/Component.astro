@@ -145,7 +145,7 @@ const learnPost = currentSlug
 
   <Divider variant="tonal" slot="sidebar" />
 
-  <nav slot="sidebar">
+  <nav aria-label="Components" slot="sidebar">
     <h3>Components</h3>
     <menu>
       {
@@ -347,7 +347,7 @@ const learnPost = currentSlug
       )
     }
 
-    <nav class="pagination">
+    <nav aria-label="Component pages" class="pagination">
       {
         prevComponent ? (
           <a

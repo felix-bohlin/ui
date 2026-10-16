@@ -90,12 +90,12 @@ const count = sections.reduce(
 </Document>
 
 <script>
+  import { trackComments } from "../../components/Todo/comments"
   import {
     copyText,
     readStored as read,
-    trackComments,
     writeStored as write,
-  } from "../../components/Todo/comments"
+  } from "../../utils/storage"
 
   const commentsKey = "opui-checks-comments"
   const doneKey = "opui-checks-done"

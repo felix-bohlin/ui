@@ -1,0 +1,112 @@
+---
+import { THEME_KEYS, TOKENS } from "../utils/theme-store"
+---
+
+<script is:inline define:vars={{ THEME_KEYS, TOKENS }}>
+  window.themeUtils = {
+    getCustomTheme(theme) {
+      try {
+        const config = JSON.parse(
+          localStorage.getItem(`${THEME_KEYS.customTheme}-${theme}`) ?? "{}",
+        )
+        // Drop the legacy `--gray-hue-offset` key. The new core derives grays
+        // per-element using absolute `--gray-hue`, so the offset semantic no
+        // longer applies. Users will fall back to the default --gray-hue (255).
+        delete config["--gray-hue-offset"]
+        for (const [name, value] of Object.entries(config)) {
+          const radius = /^var\(--radius-(\d)\)$/.exec(value)
+          if (radius) config[name] = `var(--size-${radius[1]})`
+        }
+        return config
+      } catch {
+        return {}
+      }
+    },
+    getSystemPreference() {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+    },
+    getStoredContrast() {
+      try {
+        return localStorage.getItem(THEME_KEYS.contrast)
+      } catch {
+        return null
+      }
+    },
+    getStoredTheme() {
+      try {
+        return localStorage.getItem(THEME_KEYS.theme)
+      } catch {
+        return null
+      }
+    },
+    setContrast(contrast) {
+      document.documentElement.classList.remove(
+        "ui-contrast-more",
+        "ui-contrast-normal",
+      )
+      if (contrast) {
+        document.documentElement.classList.add(`ui-contrast-${contrast}`)
+      }
+      try {
+        if (contrast) localStorage.setItem(THEME_KEYS.contrast, contrast)
+        else localStorage.removeItem(THEME_KEYS.contrast)
+      } catch {}
+    },
+    applyTheme(theme) {
+      document.documentElement.classList.remove(
+        "ui-dark",
+        "ui-light",
+        "dark",
+        "light",
+      )
+      document.documentElement.classList.add(`ui-${theme}`)
+      window.themeUtils.applyCustomTheme(theme)
+    },
+    setTheme(theme) {
+      try {
+        localStorage.setItem(THEME_KEYS.theme, theme)
+      } catch {}
+      window.themeUtils.applyTheme(theme)
+    },
+    applyCustomTheme(theme) {
+      const currentTheme =
+        theme ||
+        (document.documentElement.classList.contains("ui-dark")
+          ? "dark"
+          : "light")
+
+      // Reset previous custom properties before applying mode-specific ones
+      TOKENS.forEach((name) =>
+        document.documentElement.style.removeProperty(name),
+      )
+      document.documentElement.classList.remove("no-grays")
+
+      Object.entries(window.themeUtils.getCustomTheme(currentTheme)).forEach(
+        ([name, value]) => {
+          if (name === "enable-grays") {
+            document.documentElement.classList.toggle(
+              "no-grays",
+              value === "false",
+            )
+          } else {
+            document.documentElement.style.setProperty(name, value)
+          }
+        },
+      )
+    },
+  }
+
+  window.themeUtils.applyTheme(
+    window.themeUtils.getStoredTheme() ||
+      window.themeUtils.getSystemPreference(),
+  )
+  window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (window.themeUtils.getStoredTheme()) return
+      window.themeUtils.applyTheme(window.themeUtils.getSystemPreference())
+    })
+</script>

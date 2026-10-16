@@ -579,6 +579,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   } from "../../utils/theme-store"
   import { generateCss } from "./generateCss"
   import { hexToOklch, oklchToHex } from "../../utils/color-utils"
+  import { copyText } from "../../utils/storage"
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -814,14 +815,13 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   })
 
   copyBtn?.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(generatedCss)
+    if (await copyText(generatedCss)) {
       window.showToast?.({
         title: "Copied theme.css",
         description: "Paste it into your project's stylesheet.",
         duration: "3s",
       })
-    } catch {
+    } else {
       window.showToast?.({
         title: "Copy failed",
         description: "Your browser blocked clipboard access.",

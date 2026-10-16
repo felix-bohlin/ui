@@ -23,14 +23,19 @@ function frameworkUrl(framework, sharedPath) {
 }
 
 function readHeadings(content) {
-  const headingMatches = content.matchAll(
-    /<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi,
-  )
+  const headingMatches = content
+    .replace(/^---\n[\s\S]*?\n---\n/, "")
+    .matchAll(/<h[23][^>]*\bid=["'][^"']*["'][^>]*>(.*?)<\/h[23]>/gis)
   // Dedupe: a docs page may declare the same heading inside both an
   // astro and html `<Conditional>` slot, but at runtime only one is rendered.
   return Array.from(
     new Set(
-      Array.from(headingMatches, (m) => m[2].replace(/<[^>]*>/g, "").trim()),
+      Array.from(headingMatches, (m) =>
+        m[1]
+          .replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      ),
     ),
   )
 }

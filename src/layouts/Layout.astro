@@ -145,6 +145,7 @@ const markdownUrl = hasMarkdown
   function relinkDocs() {
     if (!isFrameworkFree(location.pathname)) return
     const framework = preferredFramework()
+    document.documentElement.dataset.framework = framework
     document
       .querySelectorAll<HTMLAnchorElement>('a[href^="/"]')
       .forEach((anchor) => {

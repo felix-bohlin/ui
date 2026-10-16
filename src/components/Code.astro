@@ -271,13 +271,18 @@ const preClass = isDiff ? "is-diff" : undefined
 
 <script>
   import { highlightAll } from "microlighter"
+  import { copyText } from "../utils/storage"
 
   document.addEventListener("click", async (event) => {
     const button = (event.target as Element).closest(".code-copy")
     const code = button?.parentElement?.querySelector("code")
     if (!button || !code) return
 
-    await navigator.clipboard.writeText(code.textContent ?? "")
+    const lines = code.querySelectorAll(".diff-line:not([data-diff='del'])")
+    const text = lines.length
+      ? [...lines].map((line) => line.textContent).join("\n")
+      : code.textContent
+    if (!(await copyText(text ?? ""))) return
     button.setAttribute("data-copied", "")
     setTimeout(() => button.removeAttribute("data-copied"), 1500)
   })

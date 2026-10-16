@@ -4129,7 +4129,7 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
     - DataGrid: confirmed and split out as "the sticky header covers a focused row control".
   - Left to check: the Rating arrows in Firefox and Safari, and the OneTimeCode focus in forced colors.
   - Proposed Rating wording, if Firefox and Safari match Chromium: "On right-to-left pages, the arrow keys follow the stars on screen, so Left Arrow raises the rating." If they differ: "The arrow keys move through the stars in order; which key raises the rating on right-to-left pages depends on the browser."
-- [ ] (3) PR #418, DataGrid: the sticky header covers a focused row control after Shift+Tab. The browser only scrolls a focused element that is outside the scrollport, and the area under the sticky header counts as inside, so with no `scroll-padding` the focused checkbox can sit fully under the header (`packages/opui/css/components/data-grid.css:56-64`)
+- [x] (3) PR #418, DataGrid: the sticky header covers a focused row control after Shift+Tab. The browser only scrolls a focused element that is outside the scrollport, and the area under the sticky header counts as inside, so with no `scroll-padding` the focused checkbox can sit fully under the header (`packages/opui/css/components/data-grid.css:56-64`)
   - Checked in Chromium 141 on the pinned grid of `/html/test/data-grid/` (16rem tall): Tab to the last row checkbox, then Shift+Tab. At Alan Turing's checkbox the table stays at `scrollTop: 114`, and the 20px checkbox is 45px under the header, out of sight while focused. Same for the Edit button in that row (51px). Example: data-grid-scroll-padding
   - Today:
     ```css
@@ -4148,6 +4148,15 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
     }
     ```
   - A grid with column groups has a two-row header, so it needs twice the block padding, or a `--_head-block-size` set by the component.
+  - Fixed: the table sets `scroll-padding-block-start` to one header row plus its border, two rows when the header has column groups (`:has(> .ui-head > [role="row"] + [role="row"])`), and `scroll-padding-block-end` to one row when there is a footer (`:has(> .ui-foot)`), so the totals row doesn't cover the last row on Tab either. The computed padding matches the header and footer on every fixture in all five frameworks (53px, 105px with column groups, 37px dense, 53px footer). Tab and Shift+Tab through the AllFeatures grid and both pinned grids no longer leave any control under the header or footer; before, the last row's checkbox was 20 of 20px under the footer. The `--_utility-size` inline padding proposed above was dropped: the pinned start area is the utility columns plus the first data column (144 to 360px on the fixtures), so it moved to its own item.
+- [ ] (2) PR #418, DataGrid: pinned columns partly cover a focused control in a scrolled column. With the table scrolled inline, Tab to the editable Role input leaves 19px and 34px of its 105px under the pinned start columns in every row of the AllFeatures grid (Chromium 141). The browser only scrolls what is outside the table, and `scroll-padding-inline-*` needs the pinned width, which is the utility columns plus the first data column and differs per grid (144 to 360px at the start, 84 to 364px at the end on the fixtures) (`packages/opui/css/components/data-grid.css:602-613,678-682`)
+  - Option A: a public `--data-grid-pin-start-size` and `--data-grid-pin-end-size` that the table uses for `scroll-padding-inline-*`. The components set it when every pinned column has a `width`, and HTML users set it with their `--_col-*` widths:
+    ```css
+    &.ui-pin-start [role="table"] {
+      scroll-padding-inline-start: var(--data-grid-pin-start-size, 0px);
+    }
+    ```
+  - Option B: leave it. Only controls inside a scrolled, non-pinned column are affected, they stay partly visible, and the user scrolled the table there.
 
 ## New components
 

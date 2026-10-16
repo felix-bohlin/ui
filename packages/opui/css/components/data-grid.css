@@ -71,6 +71,21 @@
       overflow: auto;
       overscroll-behavior-inline: contain;
       position: relative;
+      scroll-padding-block-start: calc(
+        var(--_row-min-block-size) + var(--_border-width)
+      );
+
+      &:has(> .ui-head > [role="row"] + [role="row"]) {
+        scroll-padding-block-start: calc(
+          var(--_row-min-block-size) * 2 + var(--_border-width)
+        );
+      }
+
+      &:has(> .ui-foot) {
+        scroll-padding-block-end: calc(
+          var(--_row-min-block-size) + var(--_border-width)
+        );
+      }
 
       &:focus-visible {
         outline-offset: var(--focus-ring-inset);

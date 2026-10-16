@@ -2,15 +2,22 @@
   <section class="todo-current">
     <p class="todo-label">Current</p>
     <p class="todo-note">
-      Tab into the grid and down to the last checkbox, then press Shift+Tab. The
-      grid only scrolls when a checkbox is outside the table, and the sticky
-      header counts as inside, so focus lands on checkboxes hidden under it.
+      Without scroll padding (<code>scroll-padding-block-start: auto</code>
+      here, the stylesheet now sets it). Tab into the grid and down to the last
+      checkbox, then press Shift+Tab. The grid only scrolls when a checkbox is
+      outside the table, and the sticky header counts as inside, so focus lands
+      on checkboxes hidden under it.
     </p>
     <div
       class="ui-data-grid"
       style="--_max-block-size: 12rem; inline-size: 100%"
     >
-      <div aria-label="Team (current)" role="table" tabindex="0">
+      <div
+        aria-label="Team (current)"
+        role="table"
+        style="scroll-padding-block-start: auto"
+        tabindex="0"
+      >
         <div class="ui-head" role="rowgroup">
           <div role="row">
             <div class="ui-row-select" role="columnheader">
@@ -95,20 +102,16 @@
   <section class="todo-fixed">
     <p class="todo-label">With the fix</p>
     <p class="todo-note">
-      <code>scroll-padding-block-start: var(--_row-min-block-size)</code> on the
-      table keeps a header's height clear, so each Shift+Tab scrolls the focused
-      checkbox below the header.
+      The table keeps the header's height clear with
+      <code>scroll-padding-block-start</code> (and the footer's with
+      <code>scroll-padding-block-end</code>), so each Shift+Tab scrolls the
+      focused checkbox below the header.
     </p>
     <div
       class="ui-data-grid"
       style="--_max-block-size: 12rem; inline-size: 100%"
     >
-      <div
-        aria-label="Team (fixed)"
-        role="table"
-        style="scroll-padding-block-start: var(--_row-min-block-size)"
-        tabindex="0"
-      >
+      <div aria-label="Team (fixed)" role="table" tabindex="0">
         <div class="ui-head" role="rowgroup">
           <div role="row">
             <div class="ui-row-select" role="columnheader">

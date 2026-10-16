@@ -11,7 +11,7 @@ export default function AccordionSummary({
   return (
     <summary className={cx([className])} {...rest}>
       {children}
-      {marker ?? (
+      {marker === undefined ? (
         <svg
           aria-hidden="true"
           className="ui-marker"
@@ -22,6 +22,8 @@ export default function AccordionSummary({
         >
           <path fill="currentColor" d={markerPath}></path>
         </svg>
+      ) : (
+        marker
       )}
     </summary>
   )

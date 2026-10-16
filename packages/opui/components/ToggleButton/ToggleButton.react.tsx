@@ -3,6 +3,7 @@
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
 import { useToggleGroupContext } from "../ToggleGroup/context.react"
+import { isSelected } from "../ToggleGroup/selection"
 import type { Props } from "./types.react"
 
 export default function ToggleButton({
@@ -10,6 +11,7 @@ export default function ToggleButton({
   disabled,
   label,
   name,
+  onChange,
   pressed,
   size,
   type,
@@ -25,18 +27,24 @@ export default function ToggleButton({
     group?.inputType === "radio"
       ? "radio"
       : type || group?.inputType || "checkbox"
+  const checked = isSelected(group?.value, value || label)
 
   return (
     <label
       className={cx(["ui-toggle-button", size && `ui-${size}`, className])}
     >
       <input
-        defaultChecked={pressed}
+        checked={checked}
+        defaultChecked={checked === undefined ? pressed : undefined}
         disabled={disabled}
         name={finalName}
         type={finalType}
         value={value || label}
         {...rest}
+        onChange={(event) => {
+          group?.change(event.currentTarget)
+          onChange?.(event)
+        }}
       />
       {children ?? label}
     </label>

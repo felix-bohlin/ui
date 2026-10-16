@@ -2,6 +2,7 @@
 import { computed, inject } from "vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
+import { isSelected } from "../ToggleGroup/selection"
 import type { Props, Slots } from "./types.d.vue"
 
 const { disabled, id, label, name, pressed, size, type, value } =
@@ -20,17 +21,23 @@ const finalType = computed(() =>
     ? "radio"
     : type || group?.inputType || "checkbox",
 )
+const checked = computed(
+  () => isSelected(group?.value, value || label) ?? pressed,
+)
+const change = (event: Event) =>
+  group?.change(event.currentTarget as HTMLInputElement)
 </script>
 
 <template>
   <label :class="['ui-toggle-button', size && `ui-${size}`, $props.class]">
     <input
-      :checked="pressed"
+      :checked="checked"
       :disabled="disabled"
       :id="id"
       :name="finalName"
       :type="finalType"
       :value="value || label"
+      @change="change"
       v-bind="$attrs"
     />
     <slot>{{ label }}</slot>

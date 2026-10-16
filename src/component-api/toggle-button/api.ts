@@ -4,7 +4,10 @@ export default {
   component: "ToggleButton",
   notes: {
     react:
-      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`.",
+      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.",
+    svelte:
+      "In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.",
+    vue: "In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `pressed`.",
   },
   options: [
     {

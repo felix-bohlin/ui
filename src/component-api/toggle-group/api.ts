@@ -3,10 +3,34 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleGroup",
   css: ["toggle-button", "toggle-group"],
+  model: {
+    description:
+      'The value of the pressed button with `selection="single"`, or the values of the pressed buttons.',
+    prop: "value",
+    type: "string | string[]",
+  },
+  notes: {
+    astro:
+      "The selection lives in the inputs. Read it from the form, or listen for `change` in a script.",
+    react:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.",
+  },
   options: [
+    {
+      description: "The starting selection when `value` is omitted.",
+      frameworks: ["react"],
+      prop: "defaultValue",
+      type: "string | string[]",
+    },
     {
       description: "The name shared by the inputs. Generated when omitted.",
       prop: "name",
+    },
+    {
+      description: "Called with the new selection when a button is toggled.",
+      frameworks: ["react"],
+      prop: "onValueChange",
+      type: "(value: string | string[]) => void",
     },
     {
       description: "The orientation of the element.",
@@ -48,6 +72,13 @@ export default {
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
+    },
+    {
+      description:
+        'The value of the pressed button with `selection="single"`, or the values of the pressed buttons.',
+      frameworks: ["react"],
+      prop: "value",
+      type: "string | string[]",
     },
   ],
   page: "toggle",

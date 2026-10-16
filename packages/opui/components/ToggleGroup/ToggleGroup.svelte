@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setToggleGroupContext } from "./context"
+  import { selectionOf } from "./selection"
   import type { Props } from "./types.svelte"
 
   let {
@@ -10,6 +11,7 @@
     selection = "multiple",
     shrink,
     size,
+    value = $bindable(),
 
     // Snippets
     children,
@@ -21,11 +23,17 @@
   const inputType = $derived(selection === "single" ? "radio" : "checkbox")
 
   setToggleGroupContext({
+    change(input) {
+      value = selectionOf(input, selection)
+    },
     get groupName() {
       return groupName
     },
     get inputType() {
       return inputType
+    },
+    get value() {
+      return value
     },
   })
 </script>

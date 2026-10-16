@@ -210,6 +210,55 @@ export const description =
 
     <AutoExample name="Alignment" centered />
 
+    <h3 id="binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        selection lives in the inputs, which share the group's <code>name</code
+        >. Submit them with a form, where <code>FormData.get()</code> reads a single-select
+        group and <code>getAll()</code> a multi-select one, or read the checked inputs
+        in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>pressed</code> buttons.
+      </Fragment>
+      <Fragment slot="html">
+        The selection lives in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.get()</code> reads a radio group
+        and <code>getAll()</code> a checkbox group, or read the checked inputs in
+        a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> inputs in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Control the selection with <code>value</code> and <code
+          >onValueChange</code
+        > on the <code>ToggleGroup</code>, or set the starting selection with <code
+          >defaultValue</code
+        >. The value is a string with <code>selection="single"</code> and an array
+        of strings with <code>selection="multiple"</code>. A button is pressed
+        when its <code>value</code> is in it, so the buttons don't need <code
+          >pressed</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the selection with <code>bind:value</code> on the <code
+          >ToggleGroup</code
+        >. The value is a string with <code>selection="single"</code> and an array
+        of strings with <code>selection="multiple"</code>. A button is pressed
+        when its <code>value</code> is in it, and setting the variable updates the
+        buttons.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the selection with <code>v-model</code> on the <code
+          >ToggleGroup</code
+        >. The value is a string with <code>selection="single"</code> and an array
+        of strings with <code>selection="multiple"</code>. A button is pressed
+        when its <code>value</code> is in it, and setting the ref updates the buttons.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Binding" centered column />
+
     <h3 id="text-icon">Text + icon</h3>
     <Conditional as="p">
       <Fragment slot="astro">

@@ -1,7 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   Button as UIButton,
@@ -27,18 +26,10 @@ import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
-import ExampleUsage from "../../component-examples/drawer/Usage.astro"
-import ExampleUsageReact from "../../component-examples/drawer/Usage.react.tsx"
-import ExampleUsageSvelte from "../../component-examples/drawer/Usage.svelte"
-import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
-import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
-import ExampleUsageReactRaw from "../../component-examples/drawer/Usage.react.tsx?raw"
-import ExampleUsageSvelteRaw from "../../component-examples/drawer/Usage.svelte?raw"
-import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
-import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
-
+import AutoExample from "../../components/AutoExample.astro"
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 ---
 
 <Component
@@ -208,27 +199,14 @@ import Conditional from "../../components/Conditional.astro"
         </p>
       </Fragment>
     </Conditional>
-    <Example column>
+    <AutoExample name="Usage" column>
       <Switch slot="controls" id="backdrop-transparent-toggle">
-        <Conditional>
-          <span slot="astro"><code>backdrop="transparent"</code></span>
-          <span slot="html"><code>.ui-backdrop-transparent</code></span>
-          <span slot="react"><code>backdrop="transparent"</code></span>
-          <span slot="svelte"><code>backdrop="transparent"</code></span>
-          <span slot="vue"><code>backdrop="transparent"</code></span>
-        </Conditional>
+        <PropOrClass
+          prop='backdrop="transparent"'
+          class=".ui-backdrop-transparent"
+        />
       </Switch>
-      <Example.Preview slot="preview-astro" code={ExampleUsage} />
-      <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
-      <Example.Preview slot="preview-react" code={ExampleUsageReact} />
-      <Example.Preview slot="preview-svelte" code={ExampleUsageSvelte} />
-      <Example.Preview slot="preview-vue" code={ExampleUsageVue} />
-      <Example.Code slot="code-html" code={ExampleUsageHTML} />
-      <Example.Code slot="code-astro" code={ExampleUsageAstro} />
-      <Example.Code slot="code-react" code={ExampleUsageReactRaw} />
-      <Example.Code slot="code-svelte" code={ExampleUsageSvelteRaw} />
-      <Example.Code slot="code-vue" code={ExampleUsageVueRaw} />
-    </Example>
+    </AutoExample>
   </section>
 
   <section>

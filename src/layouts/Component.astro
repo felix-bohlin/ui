@@ -37,7 +37,7 @@ type Props = {
   overline?: string
   browserSupport?: string[]
   slug?: string
-  apis?: Apis | "auto"
+  apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
   heroAnatomy?: boolean
   installationTabs?: Tab[]
@@ -94,7 +94,7 @@ const autoApis = ((): Apis | null => {
   return entries.length > 0 ? Object.fromEntries(entries) : null
 })()
 
-const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
+const apis = apisProp ?? autoApis
 
 const hydrationFramework = isHydratedFramework(currentFramework)
   ? currentFramework

@@ -327,11 +327,31 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="FieldGroupFieldDescription" column centered spacious />
 
     <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
+        in it, or on a single <code>Switch</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every switch in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
+        in it, or on a single <code>Switch</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
+        in it, or on a single <code>Switch</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
+        in it, or on a single <code>Switch</code>.
+      </Fragment>
+    </Conditional>
     <p>
       <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
       same, but keeps the switch focusable and its value in the form. It doesn't stop
@@ -341,9 +361,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
     <h3 id="field-group-required">Required</h3>
     <p>
-      Attach the <code>required</code> attribute to at least one of your <code
-        >&lt;input&gt;</code
-      > elements.
+      Each switch with <code>required</code> must be on before the form submits. There's
+      no native "at least one" for switches.
     </p>
     <AutoExample name="FieldGroupRequired" row />
 

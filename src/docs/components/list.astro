@@ -40,7 +40,12 @@ export const description =
     { title: "List API", api: listApi },
     { title: "List item API", api: listItemApi },
   ]}
-  browserSupport={["container-style-queries", "has", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "container-style-queries",
+    "has",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",

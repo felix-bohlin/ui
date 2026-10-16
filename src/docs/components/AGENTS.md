@@ -96,9 +96,8 @@ CSS imports use the `@opui/css/...` package alias. UI-component imports use `@op
 
 #### When to fall back to manual `<Example>`
 
-`<AutoExample>` covers the common case (file-per-framework with matching basenames). Use the manual `<Example>` form when a section needs:
+`<AutoExample>` covers the common case (file-per-framework with matching basenames), and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs:
 
-- A `<slot name="controls">` for interactive switches.
 - A `code-js` slot (JS-driven demos like Toast).
 - A `*Code.astro` source override that differs from the rendered preview (used to hide doc-only wrappers).
 
@@ -129,7 +128,7 @@ The manual form remains supported and unchanged:
 The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
 
 1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and for "when to use" guidance when the component has a close sibling (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`.
-2. Browser support chips (`browserSupport`) and the What's new callout.
+2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
 4. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component. The first example always sits in a `<section>` with an `h2`, usually `<h2 id="basics">Basics</h2>`.
@@ -143,7 +142,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 6. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
 7. The API tables (`apis`).
 8. The `under-the-hood` slot, as "Under the hood".
-9. Browser support, Installation (`installationTabs` and the `installation` slot), See also (`seeAlsoLinks`) and Changelog (`changelogPaths`).
+9. Browser support, Installation (`installationTabs` and the `installation` slot), See also (`seeAlsoLinks`) and Changelog (the What's new callout from `src/utils/whats-new.ts`, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 
@@ -151,7 +150,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 4.1 Props
 
-- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as `{ title, component }` objects or a framework-keyed `{ astro, html }` object.
+- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as a framework-keyed object, such as `{ html: ToastTable }`.
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
@@ -278,7 +277,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 - **Path Resolution**: Inside `src/component-examples/`, prefer the `@opui/astro` alias for UI components and `@opui/css/...` for CSS imports rather than relative paths into the package.
 - **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding `<BadgeAPI />` in the default slot. This ensures consistent positioning and styling.
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
-  - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/components/...` or `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.
+  - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/html/components/...`, `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.
   - **`Astro.locals.link("/path")`** - same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `ComponentCard`): `<Button href={link("/components/button")}>`.
   - **Never** hard-code `/astro/...` or `/html/...` in doc prose; `DocLink` and `link` resolve to whichever variant the reader is currently on. The framework switcher chips on the homepage are the only exception (they intentionally name a specific variant).
   - The `componentHrefFor` helper in [src/utils/components.ts](../../utils/components.ts) is still around for slug-only convenience in structural lists (sidebar, pagination, [ComponentList](../../components/ComponentList.astro)). For everything else, prefer `DocLink` / `Astro.locals.link`.

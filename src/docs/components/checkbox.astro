@@ -180,11 +180,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
                 The <code>indeterminate</code> state cannot be set with HTML or CSS
                 alone. The browser only exposes it as a property on <code
                   >HTMLInputElement</code
-                >, so a small script is needed to flip <code
+                >, so the component ships a script that sets <code
                   >el.indeterminate = true</code
-                > after the element is in the DOM. The <code
-                  >:indeterminate</code
-                > CSS pseudo-class then matches and the dash glyph appears.
+                > on load. The <code>:indeterminate</code> CSS pseudo-class then matches
+                and the dash glyph appears. To change the state later, set
+                <code>el.indeterminate</code> yourself, as the example does.
               </div>
             </UICalloutContent>
           </UICallout>
@@ -225,7 +225,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
             >&lt;input type="checkbox"&gt;</code
           > and call <code>activateIndeterminate()</code> from <code
             >opui-css/css/js/checkbox.js</code
-          > once the element is in the DOM. The attribute alone has no effect.
+          > once the element is in the DOM. The attribute alone has no effect. When
+          you add or remove <code>data-indeterminate</code> later, call <code
+            >syncIndeterminate(input)</code
+          >.
         </p>
 
         <UICallout>
@@ -322,11 +325,31 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="FieldGroupFieldDescription" column centered spacious />
 
     <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
+        in it, or on a single <code>Checkbox</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every checkbox in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
+        in it, or on a single <code>Checkbox</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
+        in it, or on a single <code>Checkbox</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
+        in it, or on a single <code>Checkbox</code>.
+      </Fragment>
+    </Conditional>
     <p>
       <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
       same, but keeps the checkbox focusable and its value in the form. It doesn't

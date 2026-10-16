@@ -280,15 +280,35 @@ import Example from "../../components/Example/index"
         a tiny script for it, and React, Svelte and Vue do it reactively.
       </li>
     </ul>
-    <Code
-      code={`<script type="module">
+    <p>
+      Import them from the CDN in a plain page, or by package name when a
+      bundler resolves your scripts:
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "CDN",
+          code: `<script type="module">
+  import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+  import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
+
+  activateIndeterminate()
+  initToastManager()
+</script>`,
+          lang: "html",
+        },
+        {
+          title: "Bundler",
+          code: `<script type="module">
   import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
   import { initToastManager } from "opui-css/css/js/toast.js"
 
   activateIndeterminate()
   initToastManager()
-</script>`}
-      lang="html"
+</script>`,
+          lang: "html",
+        },
+      ]}
     />
   </section>
 </Guide>

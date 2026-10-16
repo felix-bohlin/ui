@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components.",
+        "Sets `name` on the OPUI fields inside that don't set their own.",
       prop: "name",
     },
   ],

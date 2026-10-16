@@ -15,7 +15,12 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
   slug="chip"
   heroAnatomy
   apis={[{ title: "Chip API", api: chipApi }]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Chip/Chip.astro",

@@ -181,9 +181,12 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
 | `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/react`                    | All React components                                                                                                   |
 | `opui-css/svelte`                   | All Svelte components                                                                                                  |
 | `opui-css/vue`                      | All Vue components                                                                                                     |
-| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
+| `opui-css/components/*`             | Individual Astro, React, Svelte and Vue component sources                                                              |
+
+Importing a React component from `opui-css/components/*` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
 
 ## AI assistants
 

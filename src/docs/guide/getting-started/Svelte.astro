@@ -3,6 +3,7 @@ import Guide from "../../../layouts/Guide.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
 import DocLink from "../../../components/DocLink.astro"
 import Code from "../../../components/Code.astro"
+import { pickAndChooseCss } from "../../../utils/getting-started"
 ---
 
 <Guide overline="Guide">
@@ -60,17 +61,7 @@ import Code from "../../../components/Code.astro"
       Or pick and choose in a CSS file, and import that file in your layout
       instead:
     </p>
-    <Code
-      code={`/* src/styles/main.css */
-@import "opui-css/css/layers.css";
-@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
-    />
+    <Code code={`/* src/styles/main.css */\n${pickAndChooseCss}`} lang="css" />
     <Code
       code={`<!-- src/routes/+layout.svelte -->
 <script lang="ts">
@@ -82,6 +73,14 @@ import Code from "../../../components/Code.astro"
 {@render children()}`}
       lang="svelte"
     />
+    <p>
+      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
+      <code>.ui-sr-only</code> and the motion classes. <code>choice.css</code> goes
+      before <code>checkbox.css</code>, <code>radio.css</code> and <code
+        >switch.css</code
+      >. Import <code>opui-css/css/components.css</code> instead of single component
+      files to get every component.
+    </p>
   </section>
 
   <section>

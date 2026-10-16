@@ -58,7 +58,8 @@ export default {
       prop: "id",
     },
     {
-      description: "The id of the `<datalist>`. Needed with `options`.",
+      description:
+        "The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.",
       prop: "list",
     },
     {

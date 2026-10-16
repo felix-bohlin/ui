@@ -60,6 +60,11 @@ const hasValue = computed(
 const inputId = computed(
   () => props.id || (hasValue.value ? `range-${uid}` : undefined),
 )
+const listId = computed(
+  () =>
+    props.list ??
+    (props.options || slots.datalist ? `range-list-${uid}` : undefined),
+)
 
 const labelId = `range-label-${uid}`
 const startTextId = `range-start-${uid}`
@@ -84,7 +89,7 @@ const endTextId = `range-end-${uid}`
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
-      <slot name="value"
+      <slot name="value" :value="Number(model ?? defaultValue)"
         >{{ model ?? defaultValue }}{{ props.valueSuffix }}</slot
       >
     </output>
@@ -113,13 +118,13 @@ const endTextId = `range-end-${uid}`
         props.label || $slots.default ? labelId : attrs['aria-labelledby']
       "
       :id="inputId"
-      :list="props.list"
+      :list="listId"
       :name="attrs.name ?? fieldName"
       ref="input"
       type="range"
     />
 
-    <datalist v-if="props.options || $slots.datalist" :id="props.list">
+    <datalist v-if="props.options || $slots.datalist" :id="listId">
       <template
         v-for="option in props.options"
         :key="typeof option === 'object' ? option.value : option"

@@ -32,6 +32,7 @@
 
   const hasLabel = $derived(!!label || !!children)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
+  const hasDatalist = $derived(!!options || !!datalist)
   const defaultValue = $derived.by(() => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -47,6 +48,9 @@
   const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
   const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
   const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
+  const listId = $derived(
+    list ?? (hasDatalist ? `range-list-${uid}` : undefined),
+  )
   const describedBy = $derived(
     [startTextId, endTextId, rest["aria-describedby"]]
       .filter(Boolean)
@@ -70,8 +74,9 @@
   {/if}
   {#if hasValue}
     <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
-      {#if valueText}{@render valueText()}{:else}{value ??
-          defaultValue}{valueSuffix ?? ""}{/if}
+      {#if valueText}{@render valueText(
+          Number(value ?? defaultValue),
+        )}{:else}{value ?? defaultValue}{valueSuffix ?? ""}{/if}
     </output>
   {/if}
   {#if startText}
@@ -85,7 +90,7 @@
     aria-invalid={error ? "true" : rest["aria-invalid"]}
     aria-labelledby={labelId ?? rest["aria-labelledby"]}
     id={inputId}
-    {list}
+    list={listId}
     {max}
     {min}
     name={name ?? field?.name}
@@ -99,8 +104,8 @@
       return () => form?.removeEventListener("reset", sync)
     }}
   />
-  {#if options || datalist}
-    <datalist id={list}>
+  {#if hasDatalist}
+    <datalist id={listId}>
       {#each options ?? [] as option (typeof option === "object" ? option.value : option)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>

@@ -6,23 +6,18 @@ export type RangeProps = {
   error?: boolean
   id?: string
   label?: string
+  list?: string
+  options?: RangeOption[]
   spread?: boolean
   startText?: string
   value?: number | string
   valueSuffix?: string
   variant?: "filled" | "tonal"
-} & (
-  | { list?: never; options?: never }
-  | {
-      list: string
-      options: RangeOption[]
-    }
-)
+}
 
 export type RangeSlots<S> = {
   datalist?: S
   endText?: string | S
   startText?: string | S
   valueSuffix?: string | S
-  valueText?: S
 }

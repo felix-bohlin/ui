@@ -10,5 +10,5 @@ export type Slots = {
   default?: Slot
   "end-text"?: Slot
   "start-text"?: Slot
-  value?: Slot
+  value?: Slot<{ value: number }>
 }

@@ -1,15 +1,12 @@
 // Augment Astro's JSX intrinsic <button> attributes with the new
-// invoker/interest-target attributes (`command`, `commandfor`, `interestfor`),
-// which aren't in Astro's typings yet. Keeps example pages typecheck-clean
-// without per-call casts.
+// interest-target attribute (`interestfor`), which isn't in Astro's typings
+// yet. Keeps example pages typecheck-clean without per-call casts.
 declare namespace astroHTML.JSX {
   interface AnchorHTMLAttributes {
     interestfor?: string
   }
 
   interface ButtonHTMLAttributes {
-    command?: string
-    commandfor?: string
     interestfor?: string
   }
 }

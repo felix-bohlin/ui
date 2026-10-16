@@ -62,6 +62,9 @@ const whatsNew = {
     components(
       `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> only goes with it (types).`,
     ),
+    components(
+      `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
+    ),
   ],
   badge: [
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
@@ -76,8 +79,8 @@ const whatsNew = {
   ],
   button: [
     {
-      default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>rounded</code> makes them round.`,
-      html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-rounded</code> makes them round.`,
+      default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
+      html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-round</code> makes them round.`,
     },
     {
       ...slots(
@@ -100,9 +103,10 @@ const whatsNew = {
       `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     ),
     components(
-      `<a href="#icon-only"><code>iconOnly</code></a> makes <code>label</code> required on icon-only buttons (types only).`,
+      `<a href="#icon-only"><code>iconOnly</code></a> makes <code>aria-label</code> required on icon-only buttons (types only).`,
     ),
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_accent-contrast</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
   ],
   "button-group": [
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
@@ -217,6 +221,7 @@ const whatsNew = {
     components(
       `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (types).`,
     ),
+    `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,
   ],
   "description-list": [
     {
@@ -329,6 +334,9 @@ const whatsNew = {
       default: `<a href="#bordered">Dividers between items</a> with the <code>bordered</code> prop.`,
       html: `<a href="#bordered">Dividers between items</a> with <code>.ui-bordered</code>.`,
     },
+    components(
+      `<code>critical</code> on a <code>ListItem</code> marks a destructive <a href="#custom">custom item</a>.`,
+    ),
   ],
   progress: [
     {
@@ -390,6 +398,14 @@ const whatsNew = {
     components(
       `<code>options</code> is typed as <a href="#tick-marks"><code>RangeOption[]</code></a>, exported from every framework.`,
     ),
+    components(
+      `<a href="#tick-marks"><code>options</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,
+    ),
+    {
+      react: `<a href="#value"><code>valueText</code></a> takes a function that gets the current value and follows the thumb.`,
+      svelte: `The <a href="#value"><code>valueText</code></a> snippet gets the current value and follows the thumb.`,
+      vue: `The <a href="#value"><code>value</code></a> slot is scoped with the current value and follows the thumb.`,
+    },
   ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
@@ -402,12 +418,9 @@ const whatsNew = {
       default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
-    `The arrow is a chevron, also on the <a href="#classic-select">classic select</a>.`,
+    `The arrow is a chevron.`,
     slots(
       `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
-    ),
-    slots(
-      `Breaking: <a href="#classic-select"><code>ClassicSelect</code></a> no longer sets <code>aria-labelledby</code>. The wrapping <code>&lt;label&gt;</code> names the select, so <code>endText</code> is part of the name.`,
     ),
     {
       ...slots(
@@ -417,7 +430,10 @@ const whatsNew = {
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
-      `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name. <code>ClassicSelect</code> takes <code>ClassicSelectItem[]</code>.`,
+      `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
+    ),
+    components(
+      `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#fallback">Fallback</a>).`,
     ),
   ],
   spinner: [
@@ -513,6 +529,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    components(
+      `Breaking: <code>startText</code> and <code>supportingText</code> are gone. Use <a href="#description"><code>description</code></a> and <a href="#end-text"><code>endText</code></a>.`,
+    ),
   ],
   textarea: [
     {
@@ -541,6 +560,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    components(
+      `Breaking: <code>supportingText</code> is gone. Use <a href="#end-text"><code>endText</code></a>.`,
+    ),
   ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
@@ -566,6 +588,11 @@ const whatsNew = {
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is gone on <code>ToggleGroup</code>. Leave <code>size</code> out for the default size.`,
     ),
     `A disabled <a href="#disabled">toggle</a> dims like a disabled button, hover uses the button hover strength, and <a href="#overflow"><code>shrink</code></a> truncates like <code>ButtonGroup</code>.`,
+    {
+      react: `<code>ToggleGroup</code> takes <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selection (<a href="#binding">Binding</a>).`,
+      svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
+      vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
+    },
   ],
   tooltip: [
     slots(

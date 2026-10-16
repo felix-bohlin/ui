@@ -78,6 +78,16 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 
 Text uses `--primary-contrast`, and sizes follow `--control-size` and `--button-size-*`.
 
+`isGroup` is removed. Wrap the avatars in `AvatarGroup`, which renders `.ui-avatar-group` with `role="group"`. It doesn't take `src`, `size` or `variant`.
+
+```diff
+- <Avatar aria-label="Team" isGroup>
++ <AvatarGroup aria-label="Team">
+    <Avatar alt="Jane Doe" src="/jane.jpg" />
+- </Avatar>
++ </AvatarGroup>
+```
+
 ## Badge
 
 Text uses `--primary-contrast`.
@@ -120,6 +130,13 @@ In Astro and Vue, `Button` renders `type="button"` by default, so it no longer s
 ```
 
 Colors changed: critical buttons keep light text on their fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
+
+A disabled link has no `href`, like a disabled `Menu` item. The components drop it for you. In HTML, remove `href` from links with `aria-disabled="true"`, because the CSS no longer blocks clicks on them. The same goes for `Chip` links.
+
+```diff
+- <a href="/x" class="ui-button" aria-disabled="true">…</a>
++ <a class="ui-button" aria-disabled="true">…</a>
+```
 
 ## Button group
 
@@ -208,9 +225,14 @@ A button chip needs `as="button"` and a link chip needs `href` (types). `disable
 
 ## Classic select
 
-`ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
+`ClassicSelect` is removed. Use `Select` with the same `label`, `items` (now `SelectItem[]`), `endText`, `size`, `variant` and `error`. Options passed as children go in Select's default slot. Browsers without customizable select show the native picker.
 
-Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
+```diff
+- <ClassicSelect label="Fruit" items={items} />
++ <Select label="Fruit" items={items} />
+```
+
+In HTML, add `<button><selectedcontent></selectedcontent></button>` and wrap the options in `<div class="ui-list">` inside the `<select>`.
 
 ## Description list
 
@@ -310,16 +332,16 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
-+ <Button rounded size="x-small" aria-label="Edit">
++ <Button round size="x-small" aria-label="Edit">
 ```
 
 ```diff
 - <button class="ui-icon-button">
-+ <button class="ui-button ui-rounded ui-x-small">
++ <button class="ui-button ui-round ui-x-small">
 ```
 
 Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.
@@ -421,7 +443,7 @@ With `spread`, label and field split the container into equal columns. Selects k
 
 Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
-The `items` type is `SelectItem`, and `ClassicSelect` takes `ClassicSelectItem`. Both are exported from every framework barrel.
+The `items` type is `SelectItem`, exported from every framework barrel.
 
 ```diff
 - import type { Item } from "opui-css/components/Select/types"
@@ -512,7 +534,12 @@ Astro and Vue no longer generate an input `id`. Pass `id` when something outside
 
 In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
 
-The `startText` slot is gone (it was never rendered). The `startText` prop stays.
+`startText` and `supportingText` (the `supporting-text` slot in Astro and Vue) are gone. Use `description` and `endText`.
+
+```diff
+- <TextField label="Name" startText="Full name" supportingText="Required" />
++ <TextField label="Name" description="Full name" endText="Required" />
+```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
@@ -539,7 +566,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. The `startText` slot is gone, the prop stays.
+Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
@@ -707,6 +734,8 @@ Import `opui-css/css/layers.css` first when you import single component files, s
 + @import "opui-css/css/components/choice.css";
   @import "opui-css/css/components/checkbox.css";
 ```
+
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.
 
 # Migrating from v5.4 to v5.5
 

@@ -25,7 +25,7 @@ export default function DrawerHeader({
   return (
     <div className={cx(["ui-header", className])} {...rest}>
       {children}
-      <Button aria-label={closeLabel} rounded size="small" {...closeProps}>
+      <Button aria-label={closeLabel} round size="small" {...closeProps}>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

@@ -10,7 +10,7 @@
   ]
 </script>
 
-<Carousel label="Photos" markers>
+<Carousel aria-label="Photos" markers>
   {#each photos as { alt, id } (id)}
     <li>
       <img

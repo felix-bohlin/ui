@@ -5,6 +5,7 @@ export { default as AccordionSummary } from "../components/Accordion/AccordionSu
 export { default as Anchor } from "../components/Anchor/Anchor.astro"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.astro"
 export { default as Avatar } from "../components/Avatar/Avatar.astro"
+export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.astro"
 export { default as Badge } from "../components/Badge/Badge.astro"
 export { default as Button } from "../components/Button/Button.astro"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
@@ -78,7 +79,10 @@ export type {
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
 } from "../components/Anchor/types.astro"
-export type { Props as AvatarProps } from "../components/Avatar/types.astro"
+export type {
+  AvatarGroupProps,
+  Props as AvatarProps,
+} from "../components/Avatar/types.astro"
 export type { Props as BadgeProps } from "../components/Badge/types.astro"
 export type { Props as ButtonProps } from "../components/Button/types.astro"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"

@@ -9,7 +9,12 @@ const places = [
 ]
 ---
 
-<Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
+<Carousel
+  buttons="outside"
+  aria-label="Destinations"
+  perView={2}
+  persistentButtons
+>
   {
     places.map(({ description, title }) => (
       <li>

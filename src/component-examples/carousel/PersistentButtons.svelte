@@ -9,7 +9,12 @@
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
+<Carousel
+  buttons="outside"
+  aria-label="Destinations"
+  perView={2}
+  persistentButtons
+>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">

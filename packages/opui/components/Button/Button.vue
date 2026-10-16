@@ -3,8 +3,7 @@ import { computed } from "vue"
 import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
-const { as, color, disabled, href, label, rounded, size, variant } =
-  defineProps<Props>()
+const { as, color, disabled, href, round, size, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = computed(() => as || (href ? "a" : "button"))
@@ -15,13 +14,12 @@ const Tag = computed(() => as || (href ? "a" : "button"))
     :is="Tag"
     :class="[
       'ui-button',
-      { 'ui-rounded': rounded },
+      { 'ui-round': round },
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       color && `ui-${color}`,
       $props.class,
     ]"
-    :aria-label="label"
     v-bind="tagAttrs(Tag, disabled, href)"
   >
     <slot></slot>

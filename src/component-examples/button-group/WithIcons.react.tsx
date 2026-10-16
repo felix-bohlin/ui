@@ -4,7 +4,7 @@ export default function WithIcons() {
   return (
     <>
       <ButtonGroup variant="outlined">
-        <Button iconOnly label="OK">
+        <Button aria-label="OK" iconOnly>
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ export default function WithIcons() {
           </svg>
         </Button>
         <Button>Maybe</Button>
-        <Button iconOnly label="No">
+        <Button aria-label="No" iconOnly>
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"

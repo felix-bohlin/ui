@@ -23,7 +23,7 @@
   ]
 </script>
 
-<Carousel buttons="outside" label="Plans" perView={2}>
+<Carousel aria-label="Plans" buttons="outside" perView={2}>
   {#each plans as { action, description, title } (title)}
     <li>
       <Card variant="outlined">

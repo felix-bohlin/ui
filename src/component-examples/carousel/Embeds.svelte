@@ -14,7 +14,7 @@
   ]
 </script>
 
-<Carousel label="Tutorials" markers>
+<Carousel aria-label="Tutorials" markers>
   {#each tutorials as { id, title } (id)}
     <li>
       <iframe

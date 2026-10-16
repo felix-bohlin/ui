@@ -4,7 +4,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    rounded
+    round
     size="small"
     aria-label="More actions"
     commandfor="menu-custom"

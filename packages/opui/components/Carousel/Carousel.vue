@@ -5,7 +5,6 @@ const {
   align,
   aspectRatio,
   buttons = true,
-  label,
   markers,
   orientation,
   peek,
@@ -18,7 +17,6 @@ defineSlots<Slots>()
 
 <template>
   <ul
-    :aria-label="label"
     :class="[
       'ui-carousel',
       {

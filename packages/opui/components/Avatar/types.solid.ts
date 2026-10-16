@@ -8,3 +8,6 @@ export type Props = Base.Props &
     | ({ as: "button" } & JSX.ButtonHTMLAttributes<HTMLButtonElement>)
     | ({ as?: "a" } & JSX.AnchorHTMLAttributes<HTMLAnchorElement>)
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps &
+  JSX.HTMLAttributes<HTMLDivElement>

@@ -8,7 +8,6 @@
     class: className,
     disabled,
     href,
-    isGroup,
     size,
     src,
     variant,
@@ -24,12 +23,11 @@
 <svelte:element
   this={Tag}
   class={[
-    { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
-    !isGroup && size && `ui-${size}`,
-    !isGroup && variant && `ui-${variant}`,
+    "ui-avatar",
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
     className,
   ]}
-  role={isGroup ? "group" : undefined}
   {...tagAttrs(Tag, disabled, href)}
   {...rest}
 >

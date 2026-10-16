@@ -7,7 +7,6 @@
     aspectRatio,
     buttons = true,
     class: className,
-    label,
     markers,
     orientation,
     peek,
@@ -23,7 +22,6 @@
 </script>
 
 <ul
-  aria-label={label}
   class={[
     "ui-carousel",
     {

@@ -10,8 +10,7 @@ export default function Button({
   disabled,
   href,
   iconOnly: _iconOnly,
-  label,
-  rounded,
+  round,
   size,
   variant,
   ...rest
@@ -22,13 +21,12 @@ export default function Button({
     <Tag
       className={cx([
         "ui-button",
-        { "ui-rounded": rounded },
+        { "ui-round": round },
         size && `ui-${size}`,
         variant && `ui-${variant}`,
         color && `ui-${color}`,
         className,
       ])}
-      aria-label={label}
       {...tagAttrs(Tag as string, disabled, href)}
       {...(rest as object)}
     />

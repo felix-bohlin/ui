@@ -3,7 +3,7 @@
 </script>
 
 <Button
-  rounded
+  round
   size="small"
   aria-label="More actions"
   commandfor="menu-custom"

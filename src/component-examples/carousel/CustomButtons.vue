@@ -12,9 +12,9 @@ const places = [
 
 <template>
   <Carousel
+    aria-label="Destinations"
     buttons="outside"
     class="carousel-custom-buttons"
-    label="Destinations"
     :per-view="2"
   >
     <li v-for="{ description, title } in places" :key="title">

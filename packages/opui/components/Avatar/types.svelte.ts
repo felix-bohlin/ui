@@ -9,3 +9,5 @@ export type Props = Base.Props &
     | ({ as: "button" } & SvelteHTMLElements["button"])
     | ({ as?: "a" } & SvelteHTMLElements["a"])
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & SvelteHTMLElements["div"]

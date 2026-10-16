@@ -10,7 +10,7 @@ const photos = [
 
 export default function Images() {
   return (
-    <Carousel label="Photos" markers>
+    <Carousel aria-label="Photos" markers>
       {photos.map(({ alt, id }) => (
         <li key={id}>
           <img

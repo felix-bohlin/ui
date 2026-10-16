@@ -17,7 +17,7 @@ const plans = [
 
 export default function Actions() {
   return (
-    <Carousel buttons="outside" label="Plans" perView={2}>
+    <Carousel aria-label="Plans" buttons="outside" perView={2}>
       {plans.map(({ action, description, title }) => (
         <li key={title}>
           <Card variant="outlined">

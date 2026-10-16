@@ -325,6 +325,7 @@ type Props = { items?: Item[] }
 - The short text that names an item is `label` (`MenuItem`, `StepperItem`, `BarChartRow`, `DataGridColumn`). Use `heading` only when the component renders it as a heading element, like Timeline's `h3`.
 - Item data types are `<Component>Item` (`MenuItem`, `StepperItem`), and table row data is `<Component>Row` (`BarChartRow`, `DataGridRow`). When `<Component>Item` is already a part, the data type is `<Component>ItemData` (`TimelineItemData`, since `TimelineItem` is the part).
 - Export these types under the same name from every barrel.
+- A `current` that also changes the items before it is an index on the root (Stepper's `current={2}` completes every earlier step). A `current` that only marks one item is a prop on that item (Timeline's `current`, which takes the `aria-current` tokens).
 
 ---
 

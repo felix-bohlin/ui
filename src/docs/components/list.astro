@@ -2,7 +2,6 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout,
@@ -14,14 +13,6 @@ import {
 } from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
-import ListDense from "../../component-examples/list/Dense.astro"
-import ListDenseHTML from "../../component-examples/list/Dense.html?raw"
-import ListDenseReact from "../../component-examples/list/Dense.react.tsx"
-import ListDenseSvelte from "../../component-examples/list/Dense.svelte"
-import ListDenseVue from "../../component-examples/list/Dense.vue"
-import ListDenseReactRaw from "../../component-examples/list/Dense.react.tsx?raw"
-import ListDenseSvelteRaw from "../../component-examples/list/Dense.svelte?raw"
-import ListDenseVueRaw from "../../component-examples/list/Dense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import listApi from "../../component-api/list/api"
@@ -190,7 +181,7 @@ export const description =
       </CalloutContent>
     </Callout>
 
-    <AutoExample name="Variants" />
+    <AutoExample name="Variants" column />
   </section>
 
   <section>
@@ -512,7 +503,7 @@ export const description =
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
     </Conditional>
-    <Example>
+    <AutoExample name="Dense">
       <Conditional slot="controls">
         <Switch
           slot="html"
@@ -560,30 +551,7 @@ export const description =
           <code>dense</code>
         </Switch>
       </Conditional>
-
-      <Example.Preview slot="preview-astro">
-        <ListDense />
-      </Example.Preview>
-      <Example.Preview slot="preview-react" code={ListDenseReact} />
-      <Example.Preview slot="preview-svelte" code={ListDenseSvelte} />
-      <Example.Preview slot="preview-vue" code={ListDenseVue} />
-      <Example.Preview slot="preview-html" code={ListDenseHTML} />
-      <Example.Code
-        slot="code-html"
-        code={`<ul class="ui-list ui-dense">
-  <!--  -->
-</ul>`}
-      />
-      <Example.Code
-        slot="code-astro"
-        code={`<List dense>
-  <!--  -->
-</List>`}
-      />
-      <Example.Code slot="code-react" code={ListDenseReactRaw} />
-      <Example.Code slot="code-svelte" code={ListDenseSvelteRaw} />
-      <Example.Code slot="code-vue" code={ListDenseVueRaw} />
-    </Example>
+    </AutoExample>
   </section>
 
   <ListBuild slot="under-the-hood" />

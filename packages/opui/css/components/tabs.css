@@ -204,7 +204,7 @@
       container-type: inline-size;
       display: grid;
       grid-auto-columns: max-content;
-      overflow-x: auto;
+      overflow-inline: auto;
       overscroll-behavior-inline: contain;
       scrollbar-width: thin;
 

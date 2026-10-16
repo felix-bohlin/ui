@@ -37,7 +37,7 @@
       anchor-name: --ui-dialog-content;
       anchor-scope: --ui-dialog-content;
       container-type: scroll-state;
-      overflow-y: auto;
+      overflow-block: auto;
       overscroll-behavior: contain;
 
       &::before,

@@ -78,7 +78,7 @@
       anchor-scope: --ui-drawer-content;
       container-type: scroll-state;
       flex: 1;
-      overflow-y: auto;
+      overflow-block: auto;
       overscroll-behavior: contain;
       padding: var(--_content-padding);
 

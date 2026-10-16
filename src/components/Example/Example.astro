@@ -356,6 +356,10 @@ const outputId = `${groupName}-output`
       &[aria-expanded="true"] svg {
         transform: rotate(180deg);
       }
+
+      @media (scripting: none) {
+        display: none;
+      }
     }
 
     .example-preview {

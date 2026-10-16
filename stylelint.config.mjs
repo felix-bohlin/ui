@@ -21,6 +21,7 @@ export default {
           /^border-(top|right|bottom|left)(-(color|style|width))?$/,
           /^border-(top|bottom)-(left|right)-radius$/,
           /^contain-intrinsic-(width|height)$/,
+          /^overflow-[xy]$/,
           /^overscroll-behavior-[xy]$/,
         ],
       },

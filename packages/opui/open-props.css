@@ -12,5 +12,4 @@
 @import "open-props/src/props.gradients.css" layer(openprops);
 @import "open-props/animations.min.css" layer(openprops);
 @import "open-props/src/props.borders.css" layer(openprops);
-@import "open-props/src/props.palette.css" layer(openprops);
 @import "open-props/src/props.colors-oklch-hues.css" layer(openprops);

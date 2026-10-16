@@ -88,7 +88,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 
 What the conventions handle automatically:
 
-- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
+- **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up. A page that ships for a framework fails to build when an example has no file for it, unless the example is listed in `FRAMEWORK_AGNOSTIC_EXAMPLES` (same file): those have only the `.html` file, and every framework page shows it. Typography's `Default` is one, since rich text from a CMS arrives as an HTML string.
 - **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 

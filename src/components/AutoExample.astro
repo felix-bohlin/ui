@@ -1,5 +1,10 @@
 ---
 import Example from "./Example/index"
+import {
+  componentHasFramework,
+  exampleExtension,
+  FRAMEWORK_AGNOSTIC_EXAMPLES,
+} from "../utils/framework"
 
 type Props = {
   /**
@@ -83,6 +88,34 @@ const htmlSource = rawSources[htmlPath]
 const reactSource = rawSources[reactPath]
 const vueSource = rawSources[vuePath]
 const svelteSource = rawSources[sveltePath]
+
+const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
+  `${slug}/${name}`,
+)
+const frameworkFiles = [astroSource, reactSource, svelteSource, vueSource]
+
+if (frameworkAgnostic && (!htmlSource || frameworkFiles.some(Boolean))) {
+  throw new Error(
+    `<AutoExample slug="${slug}" name="${name}"> is listed in ` +
+      `FRAMEWORK_AGNOSTIC_EXAMPLES, so it needs ${htmlPath} and no other files.`,
+  )
+}
+
+const framework = Astro.locals.framework
+if (
+  !frameworkAgnostic &&
+  framework !== "html" &&
+  componentHasFramework(framework, slug) &&
+  !rawSources[
+    `../component-examples/${slug}/${name}.${exampleExtension(framework)}`
+  ]
+) {
+  throw new Error(
+    `<AutoExample slug="${slug}" name="${name}"> has no ${framework} file. ` +
+      `Add it, or list the example in FRAMEWORK_AGNOSTIC_EXAMPLES to show ` +
+      `${htmlPath} on every framework page.`,
+  )
+}
 
 if (
   !astroComponent &&

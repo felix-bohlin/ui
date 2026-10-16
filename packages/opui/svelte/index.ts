@@ -14,7 +14,6 @@ export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.sv
 export { default as Callout } from "../components/Callout/Callout.svelte"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.svelte"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.svelte"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.svelte"
 export { default as Card } from "../components/Card/Card.svelte"
 export { default as CardActions } from "../components/Card/CardActions.svelte"
 export { default as CardContent } from "../components/Card/CardContent.svelte"
@@ -94,7 +93,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.svelte"
 export type {
   CardActionsProps,

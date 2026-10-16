@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Callout, CalloutContent, CalloutTitle } from "opui-css/vue"
+import { Callout, CalloutContent } from "opui-css/vue"
 </script>
 
 <template>
   <Callout>
     <CalloutContent>
-      <CalloutTitle>Note</CalloutTitle>
+      <h3>Note</h3>
       <p>
         This is a tonal Callout. Notice the lack of icons - it's not really
         needed here.
@@ -14,7 +14,7 @@ import { Callout, CalloutContent, CalloutTitle } from "opui-css/vue"
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <CalloutTitle>Another Callout</CalloutTitle>
+      <h3>Another Callout</h3>
       <p>
         This is an outlined Callout. Why not use a
         <a class="ui-link" href="#">Card</a> since they look very similar? For

@@ -13,7 +13,6 @@ export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.re
 export { default as Callout } from "../components/Callout/Callout.react"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.react"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.react"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.react"
 export { default as Card } from "../components/Card/Card.react"
 export { default as CardActions } from "../components/Card/CardActions.react"
 export { default as CardContent } from "../components/Card/CardContent.react"
@@ -93,7 +92,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.react"
 export type {
   CardActionsProps,

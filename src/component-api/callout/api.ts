@@ -53,19 +53,8 @@ export default {
         svelte: "CalloutContent",
         vue: "CalloutContent",
       },
-      description: "The content.",
+      description: "The content, with an optional heading first.",
       selector: ".ui-content",
-    },
-    {
-      code: "<h3>",
-      component: {
-        astro: "CalloutTitle",
-        react: "CalloutTitle",
-        svelte: "CalloutTitle",
-        vue: "CalloutTitle",
-      },
-      description: "An optional title inside the content.",
-      selector: ".ui-content > h3",
     },
   ],
   root: {

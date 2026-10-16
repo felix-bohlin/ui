@@ -6,7 +6,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout,
   CalloutContent,
-  CalloutTitle,
   List as UIList,
   ListItem,
   Switch,
@@ -142,7 +141,7 @@ export const description =
     <div class="ui-not-rich-text">
       <Callout>
         <CalloutContent>
-          <CalloutTitle>With great power...</CalloutTitle>
+          <h3>With great power...</h3>
           <p>
             The List component is <em>extremely</em> flexible and versatile. Be careful
             if you start creating new configurations on your own. Maybe an existing
@@ -176,7 +175,7 @@ export const description =
 
     <Callout class="ui-not-rich-text">
       <CalloutContent>
-        <CalloutTitle>Filled by default</CalloutTitle>
+        <h3>Filled by default</h3>
         <p>
           Without a color class the list uses the filled surface, because lists
           usually sit in popovers and selects that need to contrast against the

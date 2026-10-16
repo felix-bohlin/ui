@@ -7,6 +7,3 @@ export type CalloutContentProps = Base.CalloutContentProps &
   SvelteHTMLElements["div"]
 
 export type CalloutIconProps = Base.CalloutIconProps & SvelteHTMLElements["svg"]
-
-export type CalloutTitleProps = Base.CalloutTitleProps &
-  SvelteHTMLElements["h3"]

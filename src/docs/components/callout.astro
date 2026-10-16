@@ -6,14 +6,12 @@ import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
-  CalloutTitle as UICalloutTitle,
 } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
 
 import calloutApi from "../../component-api/callout/api"
-import calloutTitleApi from "../../component-api/callout-title/api"
 
 import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
@@ -44,10 +42,7 @@ const ThemeCSS = `/* ... */
 <Component
   slug="callout"
   heroAnatomy
-  apis={[
-    { title: "Callout API", api: calloutApi },
-    { title: "Callout title API", api: calloutTitleApi },
-  ]}
+  apis={[{ title: "Callout API", api: calloutApi }]}
   browserSupport={["has", "light-dark", "relative-color", "scope"]}
   changelogPaths={[
     {
@@ -119,34 +114,35 @@ const ThemeCSS = `/* ... */
         Tonal (default) and outlined variants are available via the <code
           >variant</code
         > prop. Put the text in <code>CalloutContent</code>, with an optional
-        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
-        >; set <code>level</code> for another heading level.
+        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
+        the same title style.
       </Fragment>
       <Fragment slot="html">
         Tonal (default) and <code>.ui-outlined</code> variants. Put the text in <code
           >.ui-content</code
-        >, with an optional <code>&lt;h3 class="ui-title"&gt;</code> first.
+        >, with an optional heading such as an <code>&lt;h3&gt;</code> first. Every
+        heading level gets the same title style.
       </Fragment>
       <Fragment slot="react">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
         > prop. Put the text in <code>CalloutContent</code>, with an optional
-        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
-        >; set <code>level</code> for another heading level.
+        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
+        the same title style.
       </Fragment>
       <Fragment slot="svelte">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
         > prop. Put the text in <code>CalloutContent</code>, with an optional
-        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
-        >; set <code>level</code> for another heading level.
+        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
+        the same title style.
       </Fragment>
       <Fragment slot="vue">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
         > prop. Put the text in <code>CalloutContent</code>, with an optional
-        <code>CalloutTitle</code> first. The title is an <code>&lt;h3&gt;</code
-        >; set <code>level</code> for another heading level.
+        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
+        the same title style.
       </Fragment>
     </Conditional>
 
@@ -290,7 +286,7 @@ const ThemeCSS = `/* ... */
       <UICallout severity="info" variant="outlined">
         <UICalloutIcon />
         <UICalloutContent>
-          <UICalloutTitle>Title</UICalloutTitle>
+          <h3>Title</h3>
           <p>Supporting text that explains the callout in more detail.</p>
         </UICalloutContent>
       </UICallout>

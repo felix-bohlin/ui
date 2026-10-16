@@ -18,7 +18,7 @@ const plans = [
 </script>
 
 <template>
-  <Carousel buttons="outside" label="Plans" :per-view="2">
+  <Carousel aria-label="Plans" buttons="outside" :per-view="2">
     <li v-for="{ action, description, title } in plans" :key="title">
       <Card variant="outlined">
         <CardHeader>

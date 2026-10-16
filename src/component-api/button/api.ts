@@ -4,6 +4,13 @@ export default {
   component: "Button",
   options: [
     {
+      description:
+        "The accessible name. Required with `iconOnly`, for buttons without visible text.",
+      frameworks: ["astro", "react", "svelte", "vue"],
+      prop: "aria-label",
+      type: "string",
+    },
+    {
       default: '"button"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
@@ -35,23 +42,17 @@ export default {
     {
       default: "false",
       description:
-        "Marks the button as icon-only, so `label` is required. Types only.",
+        "Marks the button as icon-only, so `aria-label` is required. Types only.",
       frameworks: ["astro", "react", "svelte", "vue"],
       prop: "iconOnly",
       type: "boolean",
     },
     {
-      description: "The accessible name. Use it on icon-only buttons.",
-      frameworks: ["astro", "react", "svelte", "vue"],
-      prop: "label",
-      type: "string",
-    },
-    {
-      class: ".ui-rounded",
+      class: ".ui-round",
       default: "false",
       description: "Fully rounded corners, a circle when icon-only.",
       group: "Shape",
-      prop: "rounded",
+      prop: "round",
     },
     {
       description: "The size of the element.",

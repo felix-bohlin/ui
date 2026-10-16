@@ -10,7 +10,7 @@ const places = [
 
 export default function PerView() {
   return (
-    <Carousel buttons="outside" label="Destinations" perView={3}>
+    <Carousel aria-label="Destinations" buttons="outside" perView={3}>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">

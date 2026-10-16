@@ -83,7 +83,7 @@ export const description =
     <Anatomy>
       <UICarousel
         buttons="outside"
-        label="Destinations"
+        aria-label="Destinations"
         markers
         perView={2}
         persistentButtons
@@ -461,8 +461,8 @@ export const description =
     const expression = (prop: string, value: string) =>
       vue ? `:${name(prop)}="${value}"` : `${prop}={${value}}`
     const props = [
-      `label="${label}"`,
       state.align && `align="center"`,
+      `aria-label="${label}"`,
       state.aspectRatio !== "16 / 9" &&
         `${name("aspectRatio")}="${state.aspectRatio}"`,
       state.buttons === "outside" && `buttons="outside"`,

@@ -10,7 +10,13 @@ const places = [
 
 export default function Peek() {
   return (
-    <Carousel align="center" buttons={false} label="Destinations" markers peek>
+    <Carousel
+      align="center"
+      aria-label="Destinations"
+      buttons={false}
+      markers
+      peek
+    >
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">

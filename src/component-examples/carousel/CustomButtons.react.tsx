@@ -12,9 +12,9 @@ export default function CustomButtons() {
   return (
     <>
       <Carousel
+        aria-label="Destinations"
         buttons="outside"
         className="carousel-custom-buttons"
-        label="Destinations"
         perView={2}
       >
         {places.map(({ description, title }) => (

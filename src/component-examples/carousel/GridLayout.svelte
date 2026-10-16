@@ -8,7 +8,7 @@
   style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
 >
   <div>
-    <Carousel label="Destinations" markers>
+    <Carousel aria-label="Destinations" markers>
       {#each places as title (title)}
         <li>
           <Card variant="tonal">

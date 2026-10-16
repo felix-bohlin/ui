@@ -46,7 +46,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Badge
   - [Badge](/html/components/badge/): every placement on avatars, chips and buttons, also in RTL. White text on critical, info and success fills is readable in light and dark.
 - [ ] Button
-  - [Button](/html/components/button/): padding scale, icon side padding with wrapped labels, icon-only buttons are square, `rounded` makes a circle, disabled links look disabled.
+  - [Button](/html/components/button/): padding scale, icon side padding with wrapped labels, icon-only buttons are square, `round` makes a circle, disabled links look disabled.
   - Hover styles only on devices with hover: tapping on iOS doesn't leave a button looking hovered.
 - [ ] Button `kbd` looks right on a Mac
   - The [Keyboard](/html/components/button/#keyboard) example, with macOS system fonts.

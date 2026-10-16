@@ -11,7 +11,7 @@ export default function PersistentButtons() {
   return (
     <Carousel
       buttons="outside"
-      label="Destinations"
+      aria-label="Destinations"
       perView={2}
       persistentButtons
     >

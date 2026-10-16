@@ -14,7 +14,7 @@
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" perView={3} stretch>
+<Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">

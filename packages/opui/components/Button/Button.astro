@@ -12,8 +12,7 @@ const {
   disabled,
   href,
   iconOnly: _iconOnly,
-  label,
-  rounded,
+  round,
   size,
   variant,
   ...rest
@@ -25,13 +24,12 @@ const Tag = as || (href ? "a" : "button")
 <Tag
   class:list={[
     "ui-button",
-    { "ui-rounded": rounded },
+    { "ui-round": round },
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     color && `ui-${color}`,
     className,
   ]}
-  aria-label={label}
   {...tagAttrs(Tag, disabled, href)}
   {...rest as HTMLAttributes<"button">}
 >

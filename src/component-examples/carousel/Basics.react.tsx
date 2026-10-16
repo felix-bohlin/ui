@@ -10,7 +10,7 @@ const places = [
 
 export default function Basics() {
   return (
-    <Carousel buttons="outside" label="Destinations" markers>
+    <Carousel aria-label="Destinations" buttons="outside" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">

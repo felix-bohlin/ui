@@ -8,7 +8,7 @@ const videos = [
 </script>
 
 <template>
-  <Carousel label="Videos" markers>
+  <Carousel aria-label="Videos" markers>
     <li v-for="{ label, name } in videos" :key="name">
       <video
         :aria-label="label"

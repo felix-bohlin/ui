@@ -8,7 +8,7 @@ export default function Gutterless() {
         end={
           <button
             aria-label="Delete"
-            className="ui-button ui-rounded ui-small"
+            className="ui-button ui-round ui-small"
             type="button"
           >
             <svg

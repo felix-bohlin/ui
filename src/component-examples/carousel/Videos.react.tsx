@@ -7,7 +7,7 @@ const videos = [
 
 export default function Videos() {
   return (
-    <Carousel label="Videos" markers>
+    <Carousel aria-label="Videos" markers>
       {videos.map(({ label, name }) => (
         <li key={name}>
           <video

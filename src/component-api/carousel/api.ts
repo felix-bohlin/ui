@@ -14,6 +14,14 @@ export default {
       values: { center: ".ui-align-center", start: null },
     },
     {
+      attribute: "[aria-label]",
+      description: "Accessible name of the carousel.",
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
+      group: "Label",
+      prop: "aria-label",
+      type: "string",
+    },
+    {
       cssVar: "--_media-aspect-ratio",
       default: '"16 / 9"',
       description:
@@ -31,12 +39,6 @@ export default {
         "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.",
       prop: "buttons",
       values: { outside: ".ui-buttons-outside" },
-    },
-    {
-      attribute: "[aria-label]",
-      description: "Accessible name of the carousel.",
-      group: "Label",
-      prop: "label",
     },
     {
       class: ".ui-motion-off",

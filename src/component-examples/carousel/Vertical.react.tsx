@@ -11,7 +11,7 @@ const places = [
 export default function Vertical() {
   return (
     <Carousel
-      label="Destinations"
+      aria-label="Destinations"
       markers
       orientation="vertical"
       style={{ "--_block-size": "16rem" }}

@@ -11,9 +11,9 @@
 </script>
 
 <Carousel
+  aria-label="Destinations"
   buttons="outside"
   class="carousel-custom-buttons"
-  label="Destinations"
   perView={2}
 >
   {#each places as { description, title } (title)}

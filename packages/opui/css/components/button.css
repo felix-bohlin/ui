@@ -288,7 +288,7 @@
       }
     }
 
-    &.ui-rounded {
+    &.ui-round {
       --_border-radius: var(--radius-round);
     }
   }

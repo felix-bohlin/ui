@@ -8,11 +8,11 @@ const closeIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" wi
 ---
 
 <ButtonGroup variant="outlined">
-  <Button iconOnly label="OK">
+  <Button aria-label="OK" iconOnly>
     <Fragment set:html={checkIcon} />
   </Button>
   <Button> Maybe </Button>
-  <Button iconOnly label="No">
+  <Button aria-label="No" iconOnly>
     <Fragment set:html={closeIcon} />
   </Button>
 </ButtonGroup>

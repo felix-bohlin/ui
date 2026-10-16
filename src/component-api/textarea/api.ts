@@ -10,12 +10,12 @@ export default {
   },
   notes: {
     astro:
-      "Textarea attributes go to the `<textarea>`: `cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows` and `value`. Other attributes go to the root `<label>`.",
+      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
     react:
       "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
       "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.",
+    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {

@@ -1,7 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
@@ -10,16 +9,6 @@ import ExampleUsageReactCode from "../../component-examples/form/Usage.react.tsx
 import ExampleUsageSvelteCode from "../../component-examples/form/Usage.svelte?raw"
 import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
 import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
-
-import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
-import ExampleKitchenSinkReact from "../../component-examples/form/KitchenSink.react.tsx"
-import ExampleKitchenSinkSvelte from "../../component-examples/form/KitchenSink.svelte"
-import ExampleKitchenSinkVue from "../../component-examples/form/KitchenSink.vue"
-import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
-import ExampleKitchenSinkCodeReact from "../../component-examples/form/KitchenSink.react.tsx?raw"
-import ExampleKitchenSinkCodeSvelte from "../../component-examples/form/KitchenSink.svelte?raw"
-import ExampleKitchenSinkCodeVue from "../../component-examples/form/KitchenSink.vue?raw"
-import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
 
 import fieldDescriptionApi from "../../component-api/field-description/api"
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -155,8 +144,8 @@ const anatomyApi = {
     <h2 id="field-group">Field group</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Lays out related fields and passes a shared <code>name</code> to the inputs
-        inside. Wrap it in a fieldset to group them for screen readers.
+        Lays out related fields and passes a shared <code>name</code> to the OPUI
+        fields inside. Wrap it in a fieldset to group them for screen readers.
       </Fragment>
       <Fragment slot="html">
         Lays out related fields. Wrap it in a fieldset to group them for screen
@@ -361,7 +350,7 @@ const anatomyApi = {
   <section>
     <h2 id="kitchen-sink">Kitchen sink</h2>
     <p>Everything at once.</p>
-    <Example>
+    <AutoExample name="KitchenSink">
       <Fragment slot="controls">
         <UISwitch id="kitchen-sink-small-toggle"
           ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
@@ -379,16 +368,7 @@ const anatomyApi = {
           </Conditional>
         </UISwitch>
       </Fragment>
-      <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
-      <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
-      <Example.Preview slot="preview-react" code={ExampleKitchenSinkReact} />
-      <Example.Preview slot="preview-svelte" code={ExampleKitchenSinkSvelte} />
-      <Example.Preview slot="preview-vue" code={ExampleKitchenSinkVue} />
-      <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
-      <Example.Code slot="code-react" code={ExampleKitchenSinkCodeReact} />
-      <Example.Code slot="code-svelte" code={ExampleKitchenSinkCodeSvelte} />
-      <Example.Code slot="code-vue" code={ExampleKitchenSinkCodeVue} />
-    </Example>
+    </AutoExample>
   </section>
 
   <FormBuild slot="under-the-hood" />

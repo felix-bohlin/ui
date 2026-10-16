@@ -10,7 +10,7 @@ When implementing or updating a component, ensure:
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
 - [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`).
-- [ ] **Sorting**: Props, Destructuring, and Classes are sorted alphabetically.
+- [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro, React and Svelte. Vue falls through attributes by default.
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
@@ -135,10 +135,10 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 - **Button type**: A rendered `<button>` gets `type="button"` unless the user passes `type`, so it never submits a form by accident.
 
 ### Styling Inheritance
-Components should often inherit styles from others (e.g., `Dialog` looking like a `Card`). Use conditional classes to apply the inherited base class. All library classes are prefixed with `ui-`.
+Components should often inherit styles from others (e.g., `Accordion` and `Dialog` looking like a `Card`). Add the inherited base class next to the component's own, and the variant class it styles. All library classes are prefixed with `ui-`.
 
 ```astro
-<dialog class:list={["ui-dialog", { "ui-card": variant }, variant && `ui-${variant}`, className]} {...rest}>
+<details class:list={["ui-accordion", "ui-card", variant && `ui-${variant}`, className]} {...rest}>
 ```
 
 ---
@@ -181,7 +181,7 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 - A part's name is its root's name plus the region, and it renders that region's element and class (`CardActions` renders `.ui-actions`).
 - Each part renders its own wrapper. The root renders its children as they are, and never wraps, reorders or inspects them.
 - Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
-- Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on.
+- Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on. Title parts sit inside their region part: `CalloutTitle` in `CalloutContent`, `DrawerTitle` in `DrawerHeader`.
 - Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). Ids are deterministic, so every framework renders the same markup on the server.
 - Parts without context stay React server components.
 - Every part is exported from all four barrels with its `Props` type.
@@ -218,38 +218,43 @@ Check that a named slot exists before rendering its wrapper.
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["ui-text-field", size && `ui-${size}`, className]}>
+<label class:list={["ui-text-field", size && `ui-${size}`, className]} style={style}>
   <span class="ui-label">{label}</span>
   <span class="ui-field">
-    <input type="text" aria-invalid={error ? "true" : undefined} {...rest} />
+    <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   </span>
   {endText && <span class="ui-end-text">{endText}</span>}
 </label>
 ```
 
 ### End Text & ARIA
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`.
+When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby`.
 
 ```astro
 ---
+const { "aria-describedby": ariaDescribedBy, endText, ...rest } = Astro.props
 const $id = createId(Astro.locals)
-const helpId = $id("help")
+const endTextId = endText ? $id("end-text") : undefined
 ---
-<input aria-describedby={endText ? helpId : undefined} />
-{endText && <span id={helpId}>{endText}</span>}
+<input
+  {...rest}
+  aria-describedby={[endTextId, ariaDescribedBy]
+    .filter(Boolean)
+    .join(" ") || undefined}
+/>
+{endText && <span id={endTextId}>{endText}</span>}
 ```
 
 ### Input Attribute Mapping
-Explicitly define and pass through native input attributes in the `Props` type for better IDE support.
+Native input attributes (`disabled`, `name`, `value`, …) come from the framework type, such as `HTMLAttributes<"input">`, and reach the input through `...rest`, so don't destructure and re-pass them. Destructure only the attributes the component merges, spread `...rest` first, then set the merged values so they win.
 
 ```astro
 <input
-  disabled={disabled}
-  name={name}
-  required={required}
-  type={type}
-  value={value}
   {...rest}
+  aria-describedby={[endTextId, ariaDescribedBy]
+    .filter(Boolean)
+    .join(" ") || undefined}
+  aria-invalid={error ? "true" : ariaInvalid}
 />
 ```
 
@@ -308,16 +313,16 @@ const callout = calloutContext.get()
 
 ## 7. Data-Driven Components
 
-For repetitive structures (DescriptionLists, Menus, Selects), prefer an `items` prop alongside standard slots.
+For repetitive structures (Menu, Select, ClassicSelect), prefer an `items` prop alongside standard slots.
 
 ```astro
-type Item = { label: string; value: any }
+type Item = { selected?: boolean; text: string; value: any }
 type Props = { items?: Item[] }
 
-<ul>
-  {items.map(item => <li>{item.label}</li>)}
+<select>
+  {items.map(item => <option value={item.value}>{item.text}</option>)}
   <slot /> <!-- Still allow manual entries -->
-</ul>
+</select>
 ```
 
 ---

@@ -31,4 +31,4 @@ The build warns with `[component-api]` when a prop or slot is missing from `api.
 - **Slots.** Every slot the components render is documented, with kebab-case names.
 - **Wording.** Descriptions are short and use the standard phrases from the guide. Classes have the `ui-` prefix and a dot, `default` has neither, and every value is in its own `<code>`.
 - **Docs pages.** The page in `src/docs/components/` doesn't contradict the API: props, classes and defaults it mentions match.
-- **Hand-written tables.** `menu` and `toast` still use `.astro` tables. Check them the same way, for every framework.
+- **Hand-written tables.** Only `toast` still uses an `.astro` table. Check it the same way, for every framework.

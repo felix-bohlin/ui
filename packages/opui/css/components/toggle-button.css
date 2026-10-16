@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-toggle-button) {
+    --_motion: var(--motion, 1);
     --_bg-color: transparent;
     --_font-size: var(--font-size-1);
     --_size: var(--button-size);
@@ -47,7 +48,8 @@
 
     &:has(input:focus-visible) {
       --focus-ring-offset: -6px;
-      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+      animation: ui-focus-ring calc(var(--duration) * var(--_motion))
+        var(--ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
         var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);

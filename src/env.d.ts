@@ -26,11 +26,11 @@ declare namespace App {
      */
     framework: import("./utils/framework").FrameworkId
     /**
-     * Returns a framework-correct href for the current request. Resolves the
-     * given canonical docs path (e.g. `/components/button`) to either `/...`
-     * (default framework) or `/<framework>/...` based on `framework`.
-     * Use this for any `href` value in shared content; pages render correctly
-     * at build time, so no runtime link rewriting is needed.
+     * Returns a framework-correct href for the current request. Resolves a
+     * canonical docs path (e.g. `/components/button`) to
+     * `/<framework>/components/button/`. Framework-free pages are built with the
+     * default framework; `relinkDocs()` in Layout.astro repoints them at runtime.
+     * Use this for any `href` value in shared content.
      */
     link: (path: string) => string
     /**

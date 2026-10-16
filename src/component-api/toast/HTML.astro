@@ -13,10 +13,10 @@ import {
 
 <Table>
   <TableColumnGroup>
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 20%" />
-    <TableColumn width="min-width: 300px" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 20%" />
+    <TableColumn style="min-width: 300px" />
   </TableColumnGroup>
   <TableHead>
     <TableRow>
@@ -37,18 +37,21 @@ import {
     </TableRow>
     <TableRow>
       <TableCell><strong>Message</strong></TableCell>
-      <TableCell><code>value</code> / <code>textContent</code></TableCell>
+      <TableCell><code>data-title</code></TableCell>
       <TableCell>-</TableCell>
-      <TableCell>The message to display in the toast.</TableCell>
+      <TableCell
+        >The toast title, set on the trigger. Without it, the trigger's text is
+        used.</TableCell
+      >
     </TableRow>
     <TableRow>
       <TableCell><strong>Severity</strong></TableCell>
       <TableCell><code>data-severity</code></TableCell>
-      <TableCell><code>info</code></TableCell>
+      <TableCell>-</TableCell>
       <TableCell
-        >Modifies the toast appearance. Options: <code>success</code>, <code
-          >critical</code
-        >, <code>info</code>.</TableCell
+        >The severity icon. Options: <code>critical</code>, <code>info</code>,
+        <code>success</code>, <code>warning</code>. Without it, the toast has no
+        icon.</TableCell
       >
     </TableRow>
     <TableRow>

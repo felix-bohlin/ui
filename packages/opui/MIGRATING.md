@@ -40,6 +40,13 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
 + </AccordionSummary>
 ```
 
+`variant` no longer accepts `"default"`. Leave it out for the default look.
+
+```diff
+- <Accordion variant="default">
++ <Accordion>
+```
+
 ## Anchor
 
 `Anchor` with `trigger="hover"` no longer wraps the trigger in a `<span interestfor>`. Give the anchor an `id` and add `interestfor` with that id to the trigger, like `Tooltip`.
@@ -205,6 +212,13 @@ In Astro, import the parts by their flat names. The `DescriptionList.Item`, `Des
 ```diff
 - <DescriptionList.Item>
 + <DescriptionListItem>
+```
+
+The part files are renamed to `DescriptionListDescription.*`, `DescriptionListItem.*` and `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `opui-css/components/*` imports.
+
+```diff
+- import Item from "opui-css/components/DescriptionList/Item.astro"
++ import DescriptionListItem from "opui-css/components/DescriptionList/DescriptionListItem.astro"
 ```
 
 ## Dialog
@@ -415,6 +429,20 @@ In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` 
 + <TableHead>
 ```
 
+The part files are renamed to `TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*` and `TableRow.*`. The `opui-css/<framework>` exports are unchanged; update deep `opui-css/components/*` imports.
+
+```diff
+- import Head from "opui-css/components/Table/Head.astro"
++ import TableHead from "opui-css/components/Table/TableHead.astro"
+```
+
+`TableColumn` `width` takes a CSS length. A declaration string is no longer parsed and renders invalid CSS without a warning, so pass it as `style`.
+
+```diff
+- <TableColumn width="min-width: 10rem" />
++ <TableColumn style="min-width: 10rem" />
+```
+
 ## Tabs
 
 In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
@@ -520,6 +548,13 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 + <label class="ui-toggle-button"><input type="checkbox" disabled />Bold</label>
 ```
 
+`ToggleGroup` `size` no longer accepts `"default"`. Leave it out for the default size.
+
+```diff
+- <ToggleGroup size="default">
++ <ToggleGroup>
+```
+
 ## Tooltip
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
@@ -541,7 +576,7 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 ## Theme and tokens
 
-`theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)`). The global focus ring reads it now and keeps the inverted page background color while it's unset. If your styles read `var(--focus-ring-color)`, set it in your theme:
+`theme.css` sets `--focus-ring-color` to the inverted page background instead of `var(--primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
 
 ```css
 @layer theme {
@@ -557,7 +592,7 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu`, the `Progress` high contrast outline and the `Textarea` minimum height also read `--border-width`, and `Select` reads `--field-border-width`. If you set either token, check those components too.
+Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu` and the `Progress` high contrast outline also read `--border-width`, and `Select` reads `--field-border-width`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
@@ -638,6 +673,14 @@ Import `opui-css/css/layers.css` first when you import single component files, s
 ```css
 @import "opui-css/css/layers.css";
 @import "opui-css/css/components/button.css";
+```
+
+`checkbox.css`, `radio.css` and `switch.css` moved their layout, label, end text, sizes and disabled styles into `choice.css`. Import it before them, or the labels lose their layout:
+
+```diff
+  @import "opui-css/css/layers.css";
++ @import "opui-css/css/components/choice.css";
+  @import "opui-css/css/components/checkbox.css";
 ```
 
 # Migrating from v5.4 to v5.5

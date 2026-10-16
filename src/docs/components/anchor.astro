@@ -128,7 +128,9 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       Put a <DocLink href="/components/card">Card</DocLink> in the floating content
       for hover cards like GitHub's repository previews. Align the card below the
       trigger with <code>block-end span-inline-end</code>. It flips to the other
-      side when there isn't room.
+      side when there isn't room. The card keeps its interactive content
+      reachable, so the pointer can move from the link into the card without
+      closing it.
     </p>
 
     <AutoExample name="RepoCard" />
@@ -136,11 +138,7 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 
   <section>
     <h2 id="link-preview">Link preview</h2>
-    <p>
-      Preview where a link goes before following it. The card keeps its
-      interactive content reachable, so the pointer can move from the link into
-      the card without closing it.
-    </p>
+    <p>Preview where a link goes before following it.</p>
 
     <AutoExample name="LinkPreview" />
   </section>

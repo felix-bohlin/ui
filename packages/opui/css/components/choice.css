@@ -1,5 +1,6 @@
 @layer components.root {
   :where(label.ui-checkbox, label.ui-radio, .ui-switch) {
+    --_motion: var(--motion, 1);
     --_accent: light-dark(
       var(--primary),
       oklch(from var(--primary) min(l, 0.62) c h)
@@ -98,7 +99,7 @@
             translateZ(-1px) scale(var(--_thumb-scale));
           transform-origin: center center;
 
-          transition: transform calc(var(--duration) * var(--motion, 1))
+          transition: transform calc(var(--duration) * var(--_motion))
             var(--ease);
           will-change: transform;
         }

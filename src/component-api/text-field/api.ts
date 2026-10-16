@@ -9,13 +9,13 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
     html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
     react:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {

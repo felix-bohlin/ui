@@ -1,8 +1,8 @@
 import type { HTMLAttributes, Slot } from "vue"
 import type {
-  ColumnProps as BaseColumnProps,
   Props as BaseProps,
   SectionProps as BaseSectionProps,
+  TableColumnProps as BaseTableColumnProps,
 } from "./types"
 
 type Class = {
@@ -11,9 +11,9 @@ type Class = {
 
 export type Props = BaseProps & Class
 
-export type ColumnProps = BaseColumnProps & Class
-
 export type SectionProps = BaseSectionProps & Class
+
+export type TableColumnProps = BaseTableColumnProps & Class
 
 export type Slots = {
   default?: Slot

@@ -1,6 +1,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeaderCell,
@@ -10,7 +11,7 @@ import {
 export default function Spacious() {
   return (
     <Table variant="spacious">
-      <caption>Band Members</caption>
+      <TableCaption>Band Members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Band</TableHeaderCell>

@@ -259,7 +259,7 @@ Native input attributes (`disabled`, `name`, `value`, …) come from the framewo
 ```
 
 ### Sub-component Decomposition
-For complex inputs (like `Checkbox` with custom visuals), split the component into a public wrapper (`Checkbox.astro`) and a private raw input (`CheckboxInput.astro`) to keep the root element clean.
+For complex inputs (like `Checkbox` with custom visuals), split the component into a wrapper (`Checkbox.astro`) and a raw input (`CheckboxInput.astro`) to keep the root element clean. The raw input is a public part too: it is exported from the barrels and documented in its own `api.ts` (`checkbox-input`), for layouts where the label sits elsewhere, such as the end of a list item.
 
 ### Form Structure: FieldSet, FieldLegend, FieldDescription, FieldGroup
 When building forms, follow this nesting order inside a `FieldSet`:

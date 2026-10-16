@@ -1,7 +1,9 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -10,7 +12,7 @@ import {
 export default function Default() {
   return (
     <Table>
-      <caption>Band Members</caption>
+      <TableCaption>Band Members</TableCaption>
       <TableHead>
         <TableRow>
           <TableHeaderCell>Band</TableHeaderCell>
@@ -40,11 +42,11 @@ export default function Default() {
           <TableCell>Guitar/Vocals</TableCell>
         </TableRow>
       </TableBody>
-      <tfoot>
+      <TableFoot>
         <TableRow>
           <TableCell colSpan={3}>All great bands!</TableCell>
         </TableRow>
-      </tfoot>
+      </TableFoot>
     </Table>
   )
 }

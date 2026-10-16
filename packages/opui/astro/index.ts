@@ -52,9 +52,11 @@ export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
 export { default as Table } from "../components/Table/Table.astro"
 export { default as TableBody } from "../components/Table/TableBody.astro"
+export { default as TableCaption } from "../components/Table/TableCaption.astro"
 export { default as TableCell } from "../components/Table/TableCell.astro"
 export { default as TableColumn } from "../components/Table/TableColumn.astro"
 export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.astro"
+export { default as TableFoot } from "../components/Table/TableFoot.astro"
 export { default as TableHead } from "../components/Table/TableHead.astro"
 export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.astro"
 export { default as TableRow } from "../components/Table/TableRow.astro"
@@ -148,7 +150,7 @@ export type {
   SwitchProps,
 } from "../components/Switch/types.astro"
 export type {
-  ColumnProps as TableColumnProps,
+  TableColumnProps,
   Props as TableProps,
   SectionProps as TableSectionProps,
 } from "../components/Table/types.astro"

@@ -2,7 +2,9 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -11,9 +13,7 @@ import {
 
 <template>
   <Table>
-    <caption>
-      Band Members
-    </caption>
+    <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>
         <TableHeaderCell>Band</TableHeaderCell>
@@ -43,10 +43,10 @@ import {
         <TableCell>Guitar/Vocals</TableCell>
       </TableRow>
     </TableBody>
-    <tfoot>
+    <TableFoot>
       <TableRow>
         <TableCell :colspan="3">All great bands!</TableCell>
       </TableRow>
-    </tfoot>
+    </TableFoot>
   </Table>
 </template>

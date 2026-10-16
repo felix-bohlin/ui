@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import type { ColumnProps as Props } from "./types.d.vue"
+import type { TableColumnProps as Props } from "./types.d.vue"
 
 const { width } = defineProps<Props>()
 

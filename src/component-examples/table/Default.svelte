@@ -2,7 +2,9 @@
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
+    TableFoot,
     TableHead,
     TableHeaderCell,
     TableRow,
@@ -10,7 +12,7 @@
 </script>
 
 <Table>
-  <caption>Band Members</caption>
+  <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Band</TableHeaderCell>
@@ -40,9 +42,9 @@
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
-  <tfoot>
+  <TableFoot>
     <TableRow>
       <TableCell colspan={3}>All great bands!</TableCell>
     </TableRow>
-  </tfoot>
+  </TableFoot>
 </Table>

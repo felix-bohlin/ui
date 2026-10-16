@@ -24,7 +24,7 @@ export default {
       default: "false",
       description:
         "Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.",
-      group: "Overflow",
+      group: "Scroll",
       prop: "scrollable",
     },
     {
@@ -32,7 +32,7 @@ export default {
       default: "false",
       description:
         "Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size.",
-      group: "Overflow",
+      group: "Shrink",
       prop: "shrink",
     },
     {

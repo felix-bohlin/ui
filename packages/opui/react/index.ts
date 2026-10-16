@@ -53,9 +53,11 @@ export { default as Switch } from "../components/Switch/Switch.react"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.react"
 export { default as Table } from "../components/Table/Table.react"
 export { default as TableBody } from "../components/Table/TableBody.react"
+export { default as TableCaption } from "../components/Table/TableCaption.react"
 export { default as TableCell } from "../components/Table/TableCell.react"
 export { default as TableColumn } from "../components/Table/TableColumn.react"
 export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.react"
+export { default as TableFoot } from "../components/Table/TableFoot.react"
 export { default as TableHead } from "../components/Table/TableHead.react"
 export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.react"
 export { default as TableRow } from "../components/Table/TableRow.react"
@@ -149,7 +151,7 @@ export type {
   SwitchProps,
 } from "../components/Switch/types.react"
 export type {
-  ColumnProps as TableColumnProps,
+  TableColumnProps,
   Props as TableProps,
   SectionProps as TableSectionProps,
 } from "../components/Table/types.react"

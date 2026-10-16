@@ -1,12 +1,10 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function TextField({
-  "aria-describedby": ariaDescribedBy,
   autoFit,
   className,
   error,
@@ -14,7 +12,6 @@ export default function TextField({
   name,
   size,
   spread,
-  startText,
   style,
   type = "text",
   variant,
@@ -26,14 +23,9 @@ export default function TextField({
   label,
   prefix,
   suffix,
-  supportingText,
   ...rest
 }: Props) {
-  const uid = useId()
   const field = useFieldContext()
-  const endTextId = endText || supportingText ? `end-text-${uid}` : undefined
-  const describedBy =
-    [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 
   return (
     <label
@@ -50,16 +42,10 @@ export default function TextField({
       style={style}
     >
       {label && <span className="ui-label">{label}</span>}
-      {(startText || description) && (
-        <span className="ui-start-text">
-          {startText}
-          {description}
-        </span>
-      )}
+      {description && <span className="ui-start-text">{description}</span>}
       <span className="ui-field">
         <input
           {...rest}
-          aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
           id={id}
           inputMode={
@@ -74,12 +60,7 @@ export default function TextField({
         {header && <span className="ui-header">{header}</span>}
         {footer && <span className="ui-footer">{footer}</span>}
       </span>
-      {(endText || supportingText) && (
-        <span className="ui-end-text" id={endTextId}>
-          {endText}
-          {supportingText}
-        </span>
-      )}
+      {endText && <span className="ui-end-text">{endText}</span>}
       {children}
     </label>
   )

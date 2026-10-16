@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  inject,
-  type TextareaHTMLAttributes,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, inject, type TextareaHTMLAttributes, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
@@ -14,7 +8,7 @@ defineOptions({
 })
 
 const props = defineProps<Props>()
-const slots = defineSlots<Slots>()
+defineSlots<Slots>()
 const attrs = useAttrs() as TextareaHTMLAttributes
 const inputAttrs = computed(() =>
   Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
@@ -28,13 +22,6 @@ const model = computed({
   },
 })
 
-const uid = useId()
-const hasEndText = computed(
-  () => !!props.endText || !!slots["end-text"] || !!slots["supporting-text"],
-)
-const endTextId = computed(() =>
-  hasEndText.value ? `end-text-${uid}` : undefined,
-)
 const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
@@ -64,10 +51,6 @@ const fieldName = inject(FieldGroupKey, undefined)
       <textarea
         v-bind="inputAttrs"
         v-model="model"
-        :aria-describedby="
-          [endTextId, attrs['aria-describedby']].filter(Boolean).join(' ') ||
-          undefined
-        "
         :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
         :id="props.id"
         :name="attrs.name ?? fieldName"
@@ -86,13 +69,8 @@ const fieldName = inject(FieldGroupKey, undefined)
       ></span>
     </span>
 
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      :id="endTextId"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
+    <span v-if="props.endText || $slots['end-text']" class="ui-end-text">
+      <slot name="end-text">{{ props.endText }}</slot>
     </span>
 
     <slot></slot>

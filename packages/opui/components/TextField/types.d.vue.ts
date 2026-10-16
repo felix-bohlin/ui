@@ -16,6 +16,5 @@ export type Slots = {
   header?: Slot
   label?: Slot
   prefix?: Slot
-  "supporting-text"?: Slot
   suffix?: Slot
 }

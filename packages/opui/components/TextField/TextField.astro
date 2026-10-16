@@ -1,12 +1,10 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
 import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Text Field"
 
 const {
-  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
@@ -26,7 +24,6 @@ const {
   required,
   size,
   spread,
-  startText,
   step,
   style,
   type = "text",
@@ -36,13 +33,6 @@ const {
 } = Astro.props
 
 const field = fieldContext.get()
-const $id = createId(Astro.locals)
-const endTextId =
-  endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
-    ? $id("end-text")
-    : undefined
-const describedBy =
-  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
@@ -67,9 +57,8 @@ const describedBy =
     )
   }
   {
-    (startText || description || Astro.slots.has("description")) && (
+    (description || Astro.slots.has("description")) && (
       <span class="ui-start-text">
-        {startText}
         {description}
         <slot name="description" />
       </span>
@@ -78,7 +67,6 @@ const describedBy =
   <span class="ui-field">
     <input
       {...rest}
-      aria-describedby={describedBy}
       aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={id}
@@ -124,13 +112,10 @@ const describedBy =
     }
   </span>
   {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text" id={endTextId}>
+    (endText || Astro.slots.has("end-text")) && (
+      <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
-        <slot name="supporting-text" />
       </span>
     )
   }

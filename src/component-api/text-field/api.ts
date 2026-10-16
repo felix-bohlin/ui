@@ -82,7 +82,6 @@ export default {
     },
     {
       description: "Description text displayed above the field.",
-      legacy: { props: ["startText"] },
       props: ["description"],
       selector: ".ui-start-text",
       slots: ["description"],
@@ -122,7 +121,6 @@ export default {
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],

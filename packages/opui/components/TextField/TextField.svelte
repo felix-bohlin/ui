@@ -4,7 +4,6 @@
   import type { Snippet } from "svelte"
 
   let {
-    "aria-describedby": ariaDescribedBy,
     autoFit,
     class: className,
     error,
@@ -12,7 +11,6 @@
     name,
     size,
     spread,
-    startText,
     style,
     type = "text",
     value = $bindable(),
@@ -27,18 +25,10 @@
     label,
     prefix,
     suffix,
-    supportingText,
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
   const field = getFieldContext()
-  const endTextId = $derived(
-    endText || supportingText ? `end-text-${uid}` : undefined,
-  )
-  const describedBy = $derived(
-    [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined,
-  )
 </script>
 
 {#snippet content(
@@ -61,15 +51,12 @@
   {#if label}
     <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if startText || description}
-    <span class="ui-start-text">
-      {startText}{#if description}{@render content(description)}{/if}
-    </span>
+  {#if description}
+    <span class="ui-start-text">{@render content(description)}</span>
   {/if}
   <span class="ui-field">
     <input
       {...rest}
-      aria-describedby={describedBy}
       aria-invalid={error ? "true" : rest["aria-invalid"]}
       bind:value
       {id}
@@ -91,11 +78,8 @@
       <span class="ui-footer">{@render content(footer)}</span>
     {/if}
   </span>
-  {#if endText || supportingText}
-    <span class="ui-end-text" id={endTextId}>
-      {#if endText}{@render content(endText)}{/if}
-      {#if supportingText}{@render content(supportingText)}{/if}
-    </span>
+  {#if endText}
+    <span class="ui-end-text">{@render content(endText)}</span>
   {/if}
   {@render children?.()}
 </label>

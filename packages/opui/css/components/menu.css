@@ -143,17 +143,6 @@
     }
 
     /* Items */
-    li > :is(a, button):is([disabled], [aria-disabled="true"]) {
-      cursor: not-allowed;
-      opacity: var(--disabled-opacity);
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: transparent;
-        }
-      }
-    }
-
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
       --_hover-bg-color: oklch(

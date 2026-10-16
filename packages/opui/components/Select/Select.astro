@@ -26,10 +26,14 @@ const {
 const field = fieldContext.get()
 const $id = createId(Astro.locals)
 const labelId = $id("select-label")
+const descriptionId =
+  description || Astro.slots.has("description") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 const describedBy =
-  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+  [descriptionId, endTextId, rest["aria-describedby"]]
+    .filter(Boolean)
+    .join(" ") || undefined
 const isSelected = (item: Item) =>
   value === undefined
     ? item.selected
@@ -59,7 +63,7 @@ const isSelected = (item: Item) =>
   }
   {
     (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
+      <span class="ui-start-text" id={descriptionId}>
         {description}
         <slot name="description" />
       </span>

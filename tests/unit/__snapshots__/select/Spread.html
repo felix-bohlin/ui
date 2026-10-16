@@ -1,8 +1,8 @@
 <label class="ui-select ui-spread">
   <span class="ui-label" id="id-1">Country</span>
-  <span class="ui-start-text">Select your country of residence</span>
+  <span class="ui-start-text" id="id-2">Select your country of residence</span>
   <span class="ui-field">
-    <select aria-labelledby="id-1">
+    <select aria-describedby="id-2" aria-labelledby="id-1">
       <option value>Select a country</option>
       <option>Denmark</option>
       <option>Finland</option>
@@ -13,10 +13,10 @@
   </span>
 </label>
 <label class="ui-filled ui-select ui-spread">
-  <span class="ui-label" id="id-2">Language</span>
-  <span class="ui-start-text">Choose your preferred language</span>
+  <span class="ui-label" id="id-3">Language</span>
+  <span class="ui-start-text" id="id-4">Choose your preferred language</span>
   <span class="ui-field">
-    <select aria-describedby="id-3" aria-labelledby="id-2">
+    <select aria-describedby="id-4 id-5" aria-labelledby="id-3">
       <option value>Select a language</option>
       <option>Danish</option>
       <option>Finnish</option>
@@ -25,13 +25,13 @@
       <option>Swedish</option>
     </select>
   </span>
-  <span class="ui-end-text" id="id-3">This affects UI translations</span>
+  <span class="ui-end-text" id="id-5">This affects UI translations</span>
 </label>
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="id-4">Required</span>
-  <span class="ui-start-text">You must select an option</span>
+  <span class="ui-label" id="id-6">Required</span>
+  <span class="ui-start-text" id="id-7">You must select an option</span>
   <span class="ui-field">
-    <select aria-labelledby="id-4" required>
+    <select aria-describedby="id-7" aria-labelledby="id-6" required>
       <option value>Select an option</option>
       <option>Option 1</option>
       <option>Option 2</option>
@@ -39,29 +39,29 @@
   </span>
 </label>
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="id-5">Disabled</span>
-  <span class="ui-start-text">This select is disabled</span>
+  <span class="ui-label" id="id-8">Disabled</span>
+  <span class="ui-start-text" id="id-9">This select is disabled</span>
   <span class="ui-field">
-    <select aria-labelledby="id-5" disabled>
+    <select aria-describedby="id-9" aria-labelledby="id-8" disabled>
       <option>Option 1</option>
     </select>
   </span>
 </label>
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="id-6">Invalid Select</span>
-  <span class="ui-start-text">This select has an error</span>
+  <span class="ui-label" id="id-10">Invalid Select</span>
+  <span class="ui-start-text" id="id-11">This select has an error</span>
   <span class="ui-field">
-    <select aria-describedby="id-7" aria-invalid="true" aria-labelledby="id-6">
+    <select aria-describedby="id-11 id-12" aria-invalid="true" aria-labelledby="id-10">
       <option>Option 1</option>
     </select>
   </span>
-  <span class="ui-end-text" id="id-7">Please select a valid option.</span>
+  <span class="ui-end-text" id="id-12">Please select a valid option.</span>
 </label>
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="id-8">Time zone</span>
-  <span class="ui-start-text">Used for reminders and due dates</span>
+  <span class="ui-label" id="id-13">Time zone</span>
+  <span class="ui-start-text" id="id-14">Used for reminders and due dates</span>
   <span class="ui-field">
-    <select aria-labelledby="id-8">
+    <select aria-describedby="id-14" aria-labelledby="id-13">
       <option>-03:00</option>
       <option>+00:00</option>
       <option>+01:00</option>
@@ -72,10 +72,10 @@
   </span>
 </label>
 <label class="ui-filled ui-select ui-spread">
-  <span class="ui-label" id="id-9">Region</span>
-  <span class="ui-start-text">Affects data residency and latency</span>
+  <span class="ui-label" id="id-15">Region</span>
+  <span class="ui-start-text" id="id-16">Affects data residency and latency</span>
   <span class="ui-field">
-    <select aria-describedby="id-10" aria-labelledby="id-9">
+    <select aria-describedby="id-16 id-17" aria-labelledby="id-15">
       <option value>-</option>
       <option>eu-north-1</option>
       <option>us-east-1</option>
@@ -89,5 +89,5 @@
       </svg>
     </span>
   </span>
-  <span class="ui-end-text" id="id-10">Cannot be changed after deploy</span>
+  <span class="ui-end-text" id="id-17">Cannot be changed after deploy</span>
 </label>

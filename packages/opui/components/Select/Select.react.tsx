@@ -31,9 +31,12 @@ export default function Select({
   const uid = useId()
   const field = useFieldContext()
   const labelId = `select-label-${uid}`
+  const descriptionId = description ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined
   const describedBy =
-    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+    [descriptionId, endTextId, rest["aria-describedby"]]
+      .filter(Boolean)
+      .join(" ") || undefined
 
   const selectedValues = items
     .filter((item) => item.selected)
@@ -63,7 +66,11 @@ export default function Select({
           {label}
         </span>
       )}
-      {description && <span className="ui-start-text">{description}</span>}
+      {description && (
+        <span className="ui-start-text" id={descriptionId}>
+          {description}
+        </span>
+      )}
       <span className="ui-field">
         <select
           {...rest}

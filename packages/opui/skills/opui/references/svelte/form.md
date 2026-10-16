@@ -199,6 +199,8 @@ Set `disabled` on `FieldSet` to disable every field inside.
 
 Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
+Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
+
 ```svelte
 <script lang="ts">
   import {
@@ -210,14 +212,14 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
   } from "opui-css/svelte"
 </script>
 
-<FieldSet>
+<FieldSet aria-describedby="food-error">
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
     <Checkbox error value="kibble">Kibble</Checkbox>
     <Checkbox error value="wet-food">Wet food</Checkbox>
   </FieldGroup>
-  <span class="ui-end-text">Your pet is hungry.</span>
+  <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
 </FieldSet>
 ```
 

@@ -118,23 +118,17 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 <label class="ui-textarea">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="supporting-end-text-1"
-      placeholder="Default"
-    ></textarea>
+    <textarea placeholder="Default"></textarea>
   </span>
-  <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="supporting-end-text-2"
-      placeholder="Filled"
-    ></textarea>
+    <textarea placeholder="Filled"></textarea>
   </span>
-  <span class="ui-end-text" id="supporting-end-text-2">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
@@ -194,7 +188,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
 ## Validation
 
 - `[required]` toggles the required styles on the `<textarea>`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text, and point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. Keep it inside the `<label>`, so it's part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
@@ -217,26 +211,16 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <label class="ui-textarea">
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea
-        aria-describedby="validation-end-text-1"
-        aria-invalid="true"
-        placeholder="Default"
-      ></textarea>
+      <textarea aria-invalid="true" placeholder="Default"></textarea>
     </span>
-    <span class="ui-end-text" id="validation-end-text-1"
-      >Only double-negatives are allowed.</span
-    >
+    <span class="ui-end-text">Only double-negatives are allowed.</span>
   </label>
   <label class="ui-textarea ui-filled">
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea
-        aria-describedby="validation-end-text-2"
-        aria-invalid="true"
-        placeholder="Filled"
-      ></textarea>
+      <textarea aria-invalid="true" placeholder="Filled"></textarea>
     </span>
-    <span class="ui-end-text" id="validation-end-text-2"
+    <span class="ui-end-text"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -263,14 +247,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Notes</span>
   <span class="ui-start-text">Add any additional notes or comments</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-1"
-      placeholder="Additional notes..."
-    ></textarea>
+    <textarea placeholder="Additional notes..."></textarea>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-1"
-    >Maximum 500 characters</span
-  >
+  <span class="ui-end-text">Maximum 500 characters</span>
 </label>
 
 <label class="ui-textarea ui-spread">
@@ -293,14 +272,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Message</span>
   <span class="ui-start-text">This textarea has an error</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-2"
-      aria-invalid="true"
-    ></textarea>
+    <textarea aria-invalid="true"></textarea>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-2"
-    >This value is too short.</span
-  >
+  <span class="ui-end-text">This value is too short.</span>
 </label>
 
 <label class="ui-textarea ui-spread">
@@ -336,16 +310,11 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Release notes</span>
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-3"
-      placeholder="Markdown supported..."
-    ></textarea>
+    <textarea placeholder="Markdown supported..."></textarea>
     <span class="ui-header">v1.4.0</span>
     <span class="ui-footer">Saved 2 minutes ago</span>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-3"
-    >Drafts are auto-saved</span
-  >
+  <span class="ui-end-text">Drafts are auto-saved</span>
 </label>
 ```
 

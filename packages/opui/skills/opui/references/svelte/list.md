@@ -457,7 +457,7 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
     {#snippet end()}
       <button
         aria-label="Delete"
-        class="ui-button ui-rounded ui-small"
+        class="ui-button ui-round ui-small"
         type="button"
       >
         <svg

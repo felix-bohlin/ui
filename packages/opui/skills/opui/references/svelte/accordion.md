@@ -222,7 +222,7 @@ Add buttons or other interactive elements below the content with `AccordionActio
 
 ## Custom marker
 
-Replace the default marker with the `marker` snippet on `AccordionSummary`, and give it `.ui-marker` so it sits at the end and animates, and `aria-hidden="true"` since it's decorative. Other icons in `AccordionSummary`, such as a leading status icon, stay put.
+Replace the default marker with the `marker` snippet on `AccordionSummary`, and give it `.ui-marker` so it sits at the end and animates, and `aria-hidden="true"` since it's decorative. Other icons in `AccordionSummary`, such as a leading status icon, stay put. An empty `marker` snippet falls back to the native arrow.
 
 ```svelte
 <script lang="ts">

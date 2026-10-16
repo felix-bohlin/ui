@@ -54,7 +54,7 @@ import { Button, ListItem, Menu } from "opui-css/astro"
 ---
 
 <Button
-  rounded
+  round
   size="small"
   aria-label="More actions"
   commandfor="menu-custom"
@@ -487,3 +487,4 @@ Import the component from `opui-css/astro`:
 - Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color`, and `--_transition-duration` is `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - [Dividers between items](#bordered) with the `bordered` prop.
+- `critical` on a `ListItem` marks a destructive [custom item](#custom).

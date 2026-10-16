@@ -98,7 +98,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
   <div class="ui-actions">
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -116,7 +116,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Share"
     >
       <svg
@@ -162,7 +162,7 @@ Align actions to the end with the `.ui-align-end` class.
   <div class="ui-actions ui-align-end">
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -180,7 +180,7 @@ Align actions to the end with the `.ui-align-end` class.
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Share"
     >
       <svg

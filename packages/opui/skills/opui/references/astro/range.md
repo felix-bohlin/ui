@@ -68,7 +68,7 @@ import { Range } from "opui-css/astro"
 
 ## Value
 
-Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input. Content in the `value` named slot replaces the readout and stays as you render it.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and its script keeps the text in sync with the input. Content in the `value` named slot replaces the readout. It renders once on the server, and the script leaves it as it is.
 
 ```astro
 ---
@@ -80,7 +80,7 @@ import { Range } from "opui-css/astro"
 
 ## Tick marks
 
-Pass an id to the `list` prop together with an `options` array - `options=[{ value, label }]` - and the component renders a matching `<datalist>`.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
 
 ```astro
 ---
@@ -89,7 +89,6 @@ import { Range } from "opui-css/astro"
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers"
   options={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -154,7 +153,6 @@ import { Range } from "opui-css/astro"
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers-spread"
   spread
   options={[
     { value: 0, label: "0%" },
@@ -187,7 +185,7 @@ import { Range } from "opui-css/astro"
 | `error`       | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
 | `id`          | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
 | `label`       | `string`               | -       | The label for the range.                                                                      |
-| `list`        | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `list`        | `string`               | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
 | `options`     | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
 | `spread`      | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
 | `startText`   | `string`               | -       | Description text displayed above the input.                                                   |
@@ -491,3 +489,4 @@ Import the component from `opui-css/astro`:
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.

@@ -78,7 +78,7 @@ import { Range } from "opui-css/vue"
 
 ## Value
 
-Pass the `valueSuffix` prop (or use the `value` named slot) to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input. For custom content, use the scoped `value` slot: `<template #value="{ value }">…</template>` gets the current value as a number on every change.
 
 ```vue
 <script setup lang="ts">
@@ -92,7 +92,7 @@ import { Range } from "opui-css/vue"
 
 ## Tick marks
 
-Pass an id to the `list` prop together with an `options` array - `options=[{ value, label }]` - and the component renders a matching `<datalist>`.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
 
 ```vue
 <script setup lang="ts">
@@ -102,7 +102,6 @@ import { Range } from "opui-css/vue"
 <template>
   <Range
     label="Tick marks with labels"
-    list="labeled-markers"
     :options="[
       { value: 0, label: '0%' },
       { value: 25, label: '25%' },
@@ -173,7 +172,6 @@ import { Range } from "opui-css/vue"
 
   <Range
     label="Tick marks with labels"
-    list="labeled-markers-spread"
     spread
     :options="[
       { value: 0, label: '0%' },
@@ -207,7 +205,7 @@ import { Range } from "opui-css/vue"
 | `error`                                                                                                                                                                                             | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
 | `id`                                                                                                                                                                                                | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
 | `label`                                                                                                                                                                                             | `string`               | -       | The label for the range.                                                                      |
-| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
 | `options`                                                                                                                                                                                           | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
 | `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
 | `startText`                                                                                                                                                                                         | `string`               | -       | Description text displayed above the input.                                                   |
@@ -512,3 +510,5 @@ Import the component from `opui-css/vue`:
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
+- The [`value`](#value) slot is scoped with the current value and follows the thumb.

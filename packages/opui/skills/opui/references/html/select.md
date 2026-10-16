@@ -389,7 +389,7 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
 ## Validation
 
 - `[required]` toggles the required styles on the `<select>`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<select>` as invalid. Say what's wrong in the end text, and point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<select>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
@@ -677,34 +677,6 @@ Add the `.ui-spread` class to display the label and description on the left with
 </label>
 ```
 
-## Classic select
-
-Bog-standard native HTML `<select>` without customized option list. Use it when the browser's own picker is all you need, and the Select above when the options need styles, icons or groups.
-
-```html
-<label class="ui-select">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select id="select-classic-1">
-      <option value="">-</option>
-      <option>Option 1</option>
-      <option>Option 2</option>
-    </select>
-  </span>
-</label>
-
-<label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select id="select-classic-2">
-      <option value="">-</option>
-      <option>Option 1</option>
-      <option>Option 2</option>
-    </select>
-  </span>
-</label>
-```
-
 ## Accessibility
 
 `appearance: base-select` only changes how the select looks. The browser keeps the behavior of a native `<select>`:
@@ -717,7 +689,7 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
 
 ### Fallback
 
-Browsers without customizable select drop the `<button>` and the list wrapper from the `<select>` and keep its options. The select then looks like the [Classic select](#classic-select) and opens the browser's own picker.
+Browsers without customizable select drop the `<button>` and the list wrapper from the `<select>` and keep its options. The select keeps the field styles and the chevron, and opens the browser's own picker.
 
 ## API
 
@@ -800,66 +772,6 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.
-
-### Classic select API
-
-| Type       | Modifiers                               | Default | Description                                       |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
-| Validation | `select[aria-invalid="true"]`           | -       | Marks the control invalid and shows error styles. |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                               |
-
-#### Parts
-
-| Part              | Description                                |
-| ----------------- | ------------------------------------------ |
-| `label.ui-select` | Container element.                         |
-| `.ui-label`       | The label for the field.                   |
-| `.ui-field`       | The boxed select area.                     |
-| `<select>`        | A native select.                           |
-| `.ui-end-text`    | Supporting text displayed below the field. |
-
-#### CSS variables
-
-| Variable                     | Default                                                                                 | Description                                                                                                                                                                                              |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                    |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                          |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                 |
-| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                                                                                                |
-| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                               |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                        |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                         |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                       |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                             |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                              |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                     |
-| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                          |
-| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                                                                                                    |
-| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                           |
-| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                           |
-| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                         |
-| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                         |
-| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                        |
-| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                           |
-| `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                         |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                 |
-| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                    |
-| `--font-weight-medium`       | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                                                                                                      |
-| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                     |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                     |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                |
-| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                                                                                                             |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                         |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                   |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -1062,6 +974,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `selected`.
-- The arrow is a chevron, also on the [classic select](#classic-select).
+- The arrow is a chevron.
 - Breaking: mark an invalid select with `aria-invalid="true"` on the `<select>` instead of `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

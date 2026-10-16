@@ -145,6 +145,47 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </template>
 ```
 
+### Binding
+
+Bind the selection with `v-model` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is pressed when its `value` is in it, and setting the ref updates the buttons.
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue"
+import { Button, ToggleButton, ToggleGroup } from "opui-css/vue"
+
+const view = ref("week")
+const format = ref(["bold"])
+
+function reset() {
+  view.value = "week"
+  format.value = ["bold"]
+}
+</script>
+
+<template>
+  <ToggleGroup
+    aria-label="View"
+    name="calendar-view"
+    selection="single"
+    v-model="view"
+  >
+    <ToggleButton value="day">Day</ToggleButton>
+    <ToggleButton value="week">Week</ToggleButton>
+    <ToggleButton value="month">Month</ToggleButton>
+  </ToggleGroup>
+  <ToggleGroup aria-label="Text format" name="text-format" v-model="format">
+    <ToggleButton value="bold">Bold</ToggleButton>
+    <ToggleButton value="italic">Italic</ToggleButton>
+    <ToggleButton value="underline">Underline</ToggleButton>
+  </ToggleGroup>
+  <p class="toggle-binding-text">
+    View: {{ view }}. Format: {{ format.join(", ") || "none" }}.
+  </p>
+  <Button class="toggle-binding-reset" @click="reset">Reset</Button>
+</template>
+```
+
 ### Text + icon
 
 Put an `svg` before the text in the slot. Icon-only buttons need an `aria-label`, which the component passes to the input.
@@ -283,14 +324,15 @@ import { ToggleButton } from "opui-css/vue"
 
 ### Toggle group API
 
-| Prop          | Type                                | Default      | Description                                                                                                       |
-| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `name`        | `string`                            | -            | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation` | `"vertical"`                        | -            | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                           | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`   | `"multiple"` , `"single"`           | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`      | `boolean`                           | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the buttons. Without one they are the default control size.                                           |
+| Prop                                                                                                                                                                        | Type                                | Default      | Description                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                                                                                      | `string`                            | -            | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation`                                                                                                                                                               | `"vertical"`                        | -            | The orientation of the element.                                                                                   |
+| `scrollable`                                                                                                                                                                | `boolean`                           | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`                                                                                                                                                                 | `"multiple"` , `"single"`           | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`                                                                                                                                                                    | `boolean`                           | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the buttons. Without one they are the default control size.                                           |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`               | -            | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
 
 #### Slots
 
@@ -379,6 +421,8 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
+In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `pressed`.
 
 ## Under the hood
 
@@ -533,3 +577,4 @@ Import the components from `opui-css/vue`:
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`size="default"`](#sizes) is gone on `ToggleGroup`. Leave `size` out for the default size.
 - A disabled [toggle](#disabled) dims like a disabled button, hover uses the button hover strength, and [`shrink`](#overflow) truncates like `ButtonGroup`.
+- Bind the selection with `v-model` on `ToggleGroup` ([Binding](#binding)).

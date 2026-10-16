@@ -49,7 +49,7 @@ import { Button, Divider } from "opui-css/astro"
 <Divider align="end" variant="primary">Today</Divider>
 
 <Divider>
-  <Button rounded size="small" variant="outlined">Show 12 more replies</Button>
+  <Button round size="small" variant="outlined">Show 12 more replies</Button>
 </Divider>
 ```
 

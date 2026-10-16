@@ -126,21 +126,21 @@ import { Avatar } from "opui-css/astro"
 
 ## Grouped
 
-Group multiple avatars by setting the `isGroup` prop on a parent container.
+Group multiple avatars in an `AvatarGroup` with an `aria-label`.
 
 ```astro
 ---
-import { Avatar } from "opui-css/astro"
+import { Avatar, AvatarGroup } from "opui-css/astro"
 ---
 
-<Avatar aria-label="Team" isGroup>
+<AvatarGroup aria-label="Team">
   <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
   <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
   <Avatar aria-label="Eva Falk" as="button">EF</Avatar>
   <Avatar aria-label="Gustav Holm" as="button">GH</Avatar>
   <Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
   <Avatar aria-label="Karl Lund" href="#">KL</Avatar>
-</Avatar>
+</AvatarGroup>
 ```
 
 A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an avatar in a group sits on the avatar's start side, the part the next avatar doesn't cover.
@@ -161,7 +161,6 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | `as`       | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
 | `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
 | `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
-| `isGroup`  | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
 | `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                  |
 | `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
 | `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                       |
@@ -171,6 +170,32 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | Slot      | Description                                |
 | --------- | ------------------------------------------ |
 | `default` | Letters or an icon, when there's no image. |
+
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                     |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+### Avatar group API
+
+#### Slots
+
+| Slot      | Description  |
+| --------- | ------------ |
+| `default` | The avatars. |
 
 #### CSS variables
 
@@ -314,7 +339,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/astro`:
+Import the components from `opui-css/astro`:
 
 - `opui-css/css/components/avatar.css`
 
@@ -328,3 +353,4 @@ Import the component from `opui-css/astro`:
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
 - Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
 - Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it (types).
+- Breaking: [`AvatarGroup`](#grouped) groups avatars and replaces the `isGroup` prop.

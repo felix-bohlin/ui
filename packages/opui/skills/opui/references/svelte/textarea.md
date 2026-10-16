@@ -148,7 +148,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 ## Validation
 
 - `required` toggles the required styles on the `<textarea>`.
-- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```svelte
@@ -279,7 +279,6 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | `size`                                                                                                                                                                         | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
 | `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
 | `suffix`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content at the inline-end of the field, inside the border.                  |
-| `supportingText`                                                                                                                                                               | `Snippet` , `string`                | -            | Legacy alias of `endText`.                                                  |
 | `variant`                                                                                                                                                                      | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
 
 #### CSS variables
@@ -460,3 +459,4 @@ Import the component from `opui-css/svelte`:
 - [Spread](#spread) fields line up at one width.
 - The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `supportingText` is gone. Use [`endText`](#end-text).

@@ -37,7 +37,7 @@ Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider
 <div class="ui-divider ui-align-end ui-primary">Today</div>
 
 <div class="ui-divider">
-  <button class="ui-button ui-outlined ui-rounded ui-small" type="button">
+  <button class="ui-button ui-outlined ui-round ui-small" type="button">
     Show 12 more replies
   </button>
 </div>

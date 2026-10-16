@@ -53,7 +53,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -85,7 +85,7 @@ Set `perView` to show more than one item at a time.
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" perView={3}>
+<Carousel aria-label="Destinations" buttons="outside" perView={3}>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -123,7 +123,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" perView={3} stretch>
+<Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -155,7 +155,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
   ]
 </script>
 
-<Carousel align="center" buttons={false} label="Destinations" markers peek>
+<Carousel align="center" aria-label="Destinations" buttons={false} markers peek>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -188,7 +188,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
 </script>
 
 <Carousel
-  label="Destinations"
+  aria-label="Destinations"
   markers
   orientation="vertical"
   style="--_block-size: 16rem"
@@ -224,7 +224,7 @@ Use `peek` to show part of the neighbouring items, and `align="center"` to snap 
   ]
 </script>
 
-<Carousel label="Photos" markers>
+<Carousel aria-label="Photos" markers>
   {#each photos as { alt, id } (id)}
     <li>
       <img
@@ -256,7 +256,7 @@ Square photos, three per view.
   ]
 </script>
 
-<Carousel label="Gallery" perView={3} aspectRatio="1">
+<Carousel aria-label="Gallery" perView={3} aspectRatio="1">
   {#each photos as { alt, id } (id)}
     <li>
       <img
@@ -285,7 +285,7 @@ Square photos, three per view.
   ]
 </script>
 
-<Carousel label="Videos" markers>
+<Carousel aria-label="Videos" markers>
   {#each videos as { label, name } (name)}
     <li>
       <video
@@ -321,7 +321,7 @@ So does an `iframe`.
   ]
 </script>
 
-<Carousel label="Tutorials" markers>
+<Carousel aria-label="Tutorials" markers>
   {#each tutorials as { id, title } (id)}
     <li>
       <iframe
@@ -367,7 +367,7 @@ Use `buttons="outside"` to keep the buttons off the content.
   ]
 </script>
 
-<Carousel buttons="outside" label="Plans" perView={2}>
+<Carousel aria-label="Plans" buttons="outside" perView={2}>
   {#each plans as { action, description, title } (title)}
     <li>
       <Card variant="outlined">
@@ -400,7 +400,12 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
   ]
 </script>
 
-<Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
+<Carousel
+  buttons="outside"
+  aria-label="Destinations"
+  perView={2}
+  persistentButtons
+>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -433,9 +438,9 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 </script>
 
 <Carousel
+  aria-label="Destinations"
   buttons="outside"
   class="carousel-custom-buttons"
-  label="Destinations"
   perView={2}
 >
   {#each places as { description, title } (title)}
@@ -480,7 +485,7 @@ With `markers`, the markers are a box next to the carousel, not inside it. In a 
   style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
 >
   <div>
-    <Carousel label="Destinations" markers>
+    <Carousel aria-label="Destinations" markers>
       {#each places as title (title)}
         <li>
           <Card variant="tonal">
@@ -519,10 +524,10 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Prop                | Type                          | Default        | Description                                                                                                           |
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
+| `aria-label`        | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
 | `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
 | `children`          | `Snippet`                     | -              | An item.                                                                                                              |
-| `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |

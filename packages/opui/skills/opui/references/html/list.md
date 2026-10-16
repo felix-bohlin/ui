@@ -563,7 +563,7 @@ Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inlin
     <div class="ui-end">
       <button
         aria-label="Delete"
-        class="ui-button ui-rounded ui-small"
+        class="ui-button ui-round ui-small"
         type="button"
       >
         <svg

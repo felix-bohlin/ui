@@ -53,7 +53,7 @@ const places = [
 ]
 ---
 
-<Carousel buttons="outside" label="Destinations" markers>
+<Carousel aria-label="Destinations" buttons="outside" markers>
   {
     places.map(({ description, title }) => (
       <li>
@@ -87,7 +87,7 @@ const places = [
 ]
 ---
 
-<Carousel buttons="outside" label="Destinations" perView={3}>
+<Carousel aria-label="Destinations" buttons="outside" perView={3}>
   {
     places.map(({ description, title }) => (
       <li>
@@ -127,7 +127,7 @@ const places = [
 ]
 ---
 
-<Carousel buttons="outside" label="Destinations" perView={3} stretch>
+<Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
   {
     places.map(({ description, title }) => (
       <li>
@@ -161,7 +161,7 @@ const places = [
 ]
 ---
 
-<Carousel align="center" buttons={false} label="Destinations" markers peek>
+<Carousel align="center" aria-label="Destinations" buttons={false} markers peek>
   {
     places.map(({ description, title }) => (
       <li>
@@ -196,7 +196,7 @@ const places = [
 ---
 
 <Carousel
-  label="Destinations"
+  aria-label="Destinations"
   markers
   orientation="vertical"
   style="--_block-size: 16rem"
@@ -234,7 +234,7 @@ const photos = [
 ]
 ---
 
-<Carousel label="Photos" markers>
+<Carousel aria-label="Photos" markers>
   {
     photos.map(({ alt, id }) => (
       <li>
@@ -268,7 +268,7 @@ const photos = [
 ]
 ---
 
-<Carousel label="Gallery" perView={3} aspectRatio="1">
+<Carousel aria-label="Gallery" perView={3} aspectRatio="1">
   {
     photos.map(({ alt, id }) => (
       <li>
@@ -299,7 +299,7 @@ const videos = [
 ]
 ---
 
-<Carousel label="Videos" markers>
+<Carousel aria-label="Videos" markers>
   {
     videos.map(({ label, name }) => (
       <li>
@@ -334,7 +334,7 @@ const tutorials = [
 ]
 ---
 
-<Carousel label="Tutorials" markers>
+<Carousel aria-label="Tutorials" markers>
   {
     tutorials.map(({ id, title }) => (
       <li>
@@ -376,7 +376,7 @@ const plans = [
 ]
 ---
 
-<Carousel buttons="outside" label="Plans" perView={2}>
+<Carousel aria-label="Plans" buttons="outside" perView={2}>
   {
     plans.map(({ action, description, title }) => (
       <li>
@@ -411,7 +411,12 @@ const places = [
 ]
 ---
 
-<Carousel buttons="outside" label="Destinations" perView={2} persistentButtons>
+<Carousel
+  buttons="outside"
+  aria-label="Destinations"
+  perView={2}
+  persistentButtons
+>
   {
     places.map(({ description, title }) => (
       <li>
@@ -446,9 +451,9 @@ const places = [
 ---
 
 <Carousel
+  aria-label="Destinations"
   buttons="outside"
   class="carousel-custom-buttons"
-  label="Destinations"
   perView={2}
 >
   {
@@ -493,7 +498,7 @@ const places = ["Kyoto", "Lima", "Lisbon"]
   style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
 >
   <div>
-    <Carousel label="Destinations" markers>
+    <Carousel aria-label="Destinations" markers>
       {
         places.map((title) => (
           <li>
@@ -534,9 +539,9 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Prop                | Type                          | Default        | Description                                                                                                           |
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
+| `aria-label`        | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
 | `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
-| `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |

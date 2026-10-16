@@ -492,7 +492,7 @@ import { List, ListItem } from "opui-css/vue"
       <template #end>
         <button
           aria-label="Delete"
-          class="ui-button ui-rounded ui-small"
+          class="ui-button ui-round ui-small"
           type="button"
         >
           <svg

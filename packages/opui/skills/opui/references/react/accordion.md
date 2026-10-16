@@ -224,7 +224,7 @@ export default function Actions() {
 
 ## Custom marker
 
-Replace the default marker with the `marker` prop on `AccordionSummary`, and give it `.ui-marker` so it sits at the end and animates, and `aria-hidden="true"` since it's decorative. Other icons in `AccordionSummary`, such as a leading status icon, stay put.
+Replace the default marker with the `marker` prop on `AccordionSummary`, and give it `.ui-marker` so it sits at the end and animates, and `aria-hidden="true"` since it's decorative. Other icons in `AccordionSummary`, such as a leading status icon, stay put. An empty `marker`, such as `marker={null}`, falls back to the native arrow.
 
 ```tsx
 import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"

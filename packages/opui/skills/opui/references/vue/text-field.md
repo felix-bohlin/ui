@@ -168,7 +168,7 @@ import { TextField } from "opui-css/vue"
 ## Validation
 
 - `required` toggles the required styles on the `<input>`.
-- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```vue
@@ -460,7 +460,6 @@ import { TextField } from "opui-css/vue"
 | `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                  |
 | `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
 | `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`                                                                                                                                                                 | `string`                            | -            | Legacy alias of `description`.                                            |
 | `type`                                                                                                                                                                      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
 | `value`                                                                                                                                                                     | `number` , `string`                 | -            | The input value.                                                          |
@@ -468,17 +467,16 @@ import { TextField } from "opui-css/vue"
 
 #### Slots
 
-| Slot              | Description                                                  |
-| ----------------- | ------------------------------------------------------------ |
-| `default`         | Extra content inside the root, such as a `<datalist>`.       |
-| `description`     | Description text displayed above the field.                  |
-| `end-text`        | Supporting text displayed below the field.                   |
-| `footer`          | Content below the input, inside the border, with a divider.  |
-| `header`          | Content above the input, inside the border, with a divider.  |
-| `label`           | The label for the field.                                     |
-| `prefix`          | Content at the inline-start of the field, inside the border. |
-| `suffix`          | Content at the inline-end of the field, inside the border.   |
-| `supporting-text` | Legacy alias of the `end-text` slot.                         |
+| Slot          | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| `default`     | Extra content inside the root, such as a `<datalist>`.       |
+| `description` | Description text displayed above the field.                  |
+| `end-text`    | Supporting text displayed below the field.                   |
+| `footer`      | Content below the input, inside the border, with a divider.  |
+| `header`      | Content above the input, inside the border, with a divider.  |
+| `label`       | The label for the field.                                     |
+| `prefix`      | Content at the inline-start of the field, inside the border. |
+| `suffix`      | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
@@ -703,3 +701,4 @@ Import the component from `opui-css/vue`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `startText` and `supportingText` are gone. Use [`description`](#description) and [`endText`](#end-text).

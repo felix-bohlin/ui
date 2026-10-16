@@ -113,7 +113,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   <Card variant="outlined">
     <CardContent>Icon buttons work too!</CardContent>
     <CardActions>
-      <Button rounded size="small" aria-label="Favorite">
+      <Button round size="small" aria-label="Favorite">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-      <Button rounded size="small" aria-label="Share">
+      <Button round size="small" aria-label="Share">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +175,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   <Card variant="outlined">
     <CardContent>Icon buttons aligned to the end!</CardContent>
     <CardActions align="end">
-      <Button rounded size="small" aria-label="Favorite">
+      <Button round size="small" aria-label="Favorite">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +189,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-      <Button rounded size="small" aria-label="Share">
+      <Button round size="small" aria-label="Share">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

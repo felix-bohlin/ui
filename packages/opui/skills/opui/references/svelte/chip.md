@@ -405,3 +405,4 @@ Import the component from `opui-css/svelte`:
 - Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
 - Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
+- Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

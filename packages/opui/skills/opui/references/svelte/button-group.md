@@ -122,7 +122,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/svelte/
 </script>
 
 <ButtonGroup variant="outlined">
-  <Button iconOnly label="OK">
+  <Button aria-label="OK" iconOnly>
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/svelte/
     </svg>
   </Button>
   <Button>Maybe</Button>
-  <Button iconOnly label="No">
+  <Button aria-label="No" iconOnly>
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -520,18 +520,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop       | Type                                  | Default    | Description                                                                          |
-| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
-| `children` | `Snippet`                             | -          | The label and an optional icon.                                                      |
-| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
-| `disabled` | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only.                   |
-| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                                    |
-| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
-| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
-| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
+| Prop         | Type                                  | Default    | Description                                                                          |
+| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `children`   | `Snippet`                             | -          | The label and an optional icon.                                                      |
+| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### CSS variables
 

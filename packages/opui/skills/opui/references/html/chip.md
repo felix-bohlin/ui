@@ -439,3 +439,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).
+- Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

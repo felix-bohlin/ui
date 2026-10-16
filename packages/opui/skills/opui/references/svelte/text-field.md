@@ -155,7 +155,7 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 ## Validation
 
 - `required` toggles the required styles on the `<input>`.
-- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```svelte
@@ -436,9 +436,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `prefix`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content at the inline-start of the field, inside the border.              |
 | `size`                                                                                                                                                                         | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
 | `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`                                                                                                                                                                    | `string`                            | -            | Legacy alias of `description`.                                            |
 | `suffix`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content at the inline-end of the field, inside the border.                |
-| `supportingText`                                                                                                                                                               | `Snippet` , `string`                | -            | Legacy alias of `endText`.                                                |
 | `type`                                                                                                                                                                         | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `variant`                                                                                                                                                                      | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
@@ -661,3 +659,4 @@ Import the component from `opui-css/svelte`:
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `startText` and `supportingText` are gone. Use [`description`](#description) and [`endText`](#end-text).

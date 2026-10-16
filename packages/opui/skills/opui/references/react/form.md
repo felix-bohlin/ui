@@ -215,6 +215,8 @@ export default function FieldsetDisabled() {
 
 Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
+Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
+
 ```tsx
 import {
   Checkbox,
@@ -226,7 +228,7 @@ import {
 
 export default function FieldsetInvalid() {
   return (
-    <FieldSet>
+    <FieldSet aria-describedby="food-error">
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
@@ -237,7 +239,9 @@ export default function FieldsetInvalid() {
           Wet food
         </Checkbox>
       </FieldGroup>
-      <span className="ui-end-text">Your pet is hungry.</span>
+      <span className="ui-end-text" id="food-error">
+        Your pet is hungry.
+      </span>
     </FieldSet>
   )
 }

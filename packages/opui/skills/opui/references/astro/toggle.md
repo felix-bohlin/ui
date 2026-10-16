@@ -128,6 +128,57 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
 </ToggleGroup>
 ```
 
+### Binding
+
+Astro renders the group on the server, so it has no bound value. The selection lives in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads a single-select group and `getAll()` a multi-select one, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `pressed` buttons.
+
+```astro
+---
+import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
+---
+
+<ToggleGroup aria-label="View" name="calendar-view" selection="single">
+  <ToggleButton value="day">Day</ToggleButton>
+  <ToggleButton pressed value="week">Week</ToggleButton>
+  <ToggleButton value="month">Month</ToggleButton>
+</ToggleGroup>
+<ToggleGroup aria-label="Text format" name="text-format">
+  <ToggleButton pressed value="bold">Bold</ToggleButton>
+  <ToggleButton value="italic">Italic</ToggleButton>
+  <ToggleButton value="underline">Underline</ToggleButton>
+</ToggleGroup>
+<p class="toggle-binding-text">View: week. Format: bold.</p>
+<Button class="toggle-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".toggle-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>(
+      '[name="calendar-view"], [name="text-format"]',
+    ),
+  ]
+  const checked = (name: string) =>
+    inputs
+      .filter((input) => input.name === name && input.checked)
+      .map((input) => input.value)
+
+  function update() {
+    if (!text) return
+    text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+      checked("text-format").join(", ") || "none"
+    }.`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".toggle-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>
+```
+
 ### Text + icon
 
 Put an `svg` before the text in the slot. Icon-only buttons need an `aria-label`, which the component passes to the input.
@@ -304,6 +355,8 @@ import { ToggleButton } from "opui-css/astro"
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+The selection lives in the inputs. Read it from the form, or listen for `change` in a script.
 
 ### Toggle button API
 

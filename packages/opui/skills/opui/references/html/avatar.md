@@ -142,11 +142,10 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 ### Avatar API
 
-| Type     | Modifiers                                    | Default | Description                              |
-| -------- | -------------------------------------------- | ------- | ---------------------------------------- |
-| Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element.                 |
-| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
+| Type     | Modifiers                                    | Default | Description              |
+| -------- | -------------------------------------------- | ------- | ------------------------ |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element. |
+| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.      |
 
 #### Parts
 
@@ -172,6 +171,34 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+### Avatar group API
+
+#### Parts
+
+| Part               | Description                     |
+| ------------------ | ------------------------------- |
+| `.ui-avatar-group` | A group of overlapping avatars. |
+
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                        |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                     |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+The root needs `role="group"` and an `aria-label`.
 
 ## Under the hood
 

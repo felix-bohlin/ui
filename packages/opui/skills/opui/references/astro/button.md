@@ -175,7 +175,7 @@ import { Button } from "opui-css/astro"
 
 ## Icon-only
 
-Set `iconOnly` and name the button with `label`, which renders `aria-label`. The types require `label` when `iconOnly` is set. Add `rounded` for a circle.
+Set `iconOnly` and name the button with `aria-label`. The types require `aria-label` when `iconOnly` is set. Add `round` for a circle.
 
 ```astro
 ---
@@ -185,48 +185,48 @@ const editIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" wid
 ---
 
 <div class="example-row">
-  <Button iconOnly label="Edit">
+  <Button aria-label="Edit" iconOnly>
     <Fragment set:html={editIcon} />
   </Button>
-  <Button iconOnly label="Edit" rounded>
-    <Fragment set:html={editIcon} />
-  </Button>
-</div>
-<div class="example-row">
-  <Button iconOnly label="Edit" variant="outlined">
-    <Fragment set:html={editIcon} />
-  </Button>
-  <Button iconOnly label="Edit" rounded variant="outlined">
+  <Button aria-label="Edit" iconOnly round>
     <Fragment set:html={editIcon} />
   </Button>
 </div>
 <div class="example-row">
-  <Button iconOnly label="Edit" variant="tonal">
+  <Button aria-label="Edit" iconOnly variant="outlined">
     <Fragment set:html={editIcon} />
   </Button>
-  <Button iconOnly label="Edit" rounded variant="tonal">
-    <Fragment set:html={editIcon} />
-  </Button>
-</div>
-<div class="example-row">
-  <Button iconOnly label="Edit" variant="filled">
-    <Fragment set:html={editIcon} />
-  </Button>
-  <Button iconOnly label="Edit" rounded variant="filled">
+  <Button aria-label="Edit" iconOnly round variant="outlined">
     <Fragment set:html={editIcon} />
   </Button>
 </div>
 <div class="example-row">
-  <Button iconOnly label="Edit" rounded size="x-small" variant="tonal">
+  <Button aria-label="Edit" iconOnly variant="tonal">
     <Fragment set:html={editIcon} />
   </Button>
-  <Button iconOnly label="Edit" rounded size="small" variant="tonal">
+  <Button aria-label="Edit" iconOnly round variant="tonal">
     <Fragment set:html={editIcon} />
   </Button>
-  <Button iconOnly label="Edit" rounded variant="tonal">
+</div>
+<div class="example-row">
+  <Button aria-label="Edit" iconOnly variant="filled">
     <Fragment set:html={editIcon} />
   </Button>
-  <Button iconOnly label="Edit" rounded size="large" variant="tonal">
+  <Button aria-label="Edit" iconOnly round variant="filled">
+    <Fragment set:html={editIcon} />
+  </Button>
+</div>
+<div class="example-row">
+  <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+    <Fragment set:html={editIcon} />
+  </Button>
+  <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+    <Fragment set:html={editIcon} />
+  </Button>
+  <Button aria-label="Edit" iconOnly round variant="tonal">
+    <Fragment set:html={editIcon} />
+  </Button>
+  <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
     <Fragment set:html={editIcon} />
   </Button>
 </div>
@@ -253,17 +253,17 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop       | Type                                  | Default    | Description                                                                          |
-| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
-| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
-| `disabled` | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only.                   |
-| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                                    |
-| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
-| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
-| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
+| Prop         | Type                                  | Default    | Description                                                                          |
+| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 
@@ -399,12 +399,13 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
-- [Icon-only](#icon-only) buttons need no extra class, and `rounded` makes them round.
+- [Icon-only](#icon-only) buttons need no extra class, and `round` makes them round.
 - Breaking: replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - Breaking: no `.ui-disabled` on a [disabled](#disabled) button. Style `:disabled` or `[aria-disabled="true"]`.
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
 - Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
-- [`iconOnly`](#icon-only) makes `label` required on icon-only buttons (types only).
+- [`iconOnly`](#icon-only) makes `aria-label` required on icon-only buttons (types only).
 - Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
+- Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.

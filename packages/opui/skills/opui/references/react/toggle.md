@@ -151,6 +151,59 @@ export default function Alignment() {
 }
 ```
 
+### Binding
+
+Control the selection with `value` and `onValueChange` on the `ToggleGroup`, or set the starting selection with `defaultValue`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is pressed when its `value` is in it, so the buttons don't need `pressed`.
+
+```tsx
+"use client"
+
+import { useState } from "react"
+import { Button, ToggleButton, ToggleGroup } from "opui-css/react"
+
+export default function Binding() {
+  const [view, setView] = useState("week")
+  const [format, setFormat] = useState(["bold"])
+
+  function reset() {
+    setView("week")
+    setFormat(["bold"])
+  }
+
+  return (
+    <>
+      <ToggleGroup
+        aria-label="View"
+        name="calendar-view"
+        selection="single"
+        value={view}
+        onValueChange={setView}
+      >
+        <ToggleButton value="day">Day</ToggleButton>
+        <ToggleButton value="week">Week</ToggleButton>
+        <ToggleButton value="month">Month</ToggleButton>
+      </ToggleGroup>
+      <ToggleGroup
+        aria-label="Text format"
+        name="text-format"
+        value={format}
+        onValueChange={setFormat}
+      >
+        <ToggleButton value="bold">Bold</ToggleButton>
+        <ToggleButton value="italic">Italic</ToggleButton>
+        <ToggleButton value="underline">Underline</ToggleButton>
+      </ToggleGroup>
+      <p className="toggle-binding-text">
+        View: {view}. Format: {format.join(", ") || "none"}.
+      </p>
+      <Button className="toggle-binding-reset" onClick={reset}>
+        Reset
+      </Button>
+    </>
+  )
+}
+```
+
 ### Text + icon
 
 Put an `svg` before the text in `children`. Icon-only buttons need an `aria-label`, which the component passes to the input.
@@ -301,15 +354,18 @@ export default function Disabled() {
 
 ### Toggle group API
 
-| Prop          | Type                                | Default      | Description                                                                                                       |
-| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `children`    | `ReactNode`                         | -            | The toggle buttons.                                                                                               |
-| `name`        | `string`                            | -            | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation` | `"vertical"`                        | -            | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                           | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`   | `"multiple"` , `"single"`           | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`      | `boolean`                           | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the buttons. Without one they are the default control size.                                           |
+| Prop            | Type                                  | Default      | Description                                                                                                       |
+| --------------- | ------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `children`      | `ReactNode`                           | -            | The toggle buttons.                                                                                               |
+| `defaultValue`  | `string` , `string[]`                 | -            | The starting selection when `value` is omitted.                                                                   |
+| `name`          | `string`                              | -            | The name shared by the inputs. Generated when omitted.                                                            |
+| `onValueChange` | `(value: string \| string[]) => void` | -            | Called with the new selection when a button is toggled.                                                           |
+| `orientation`   | `"vertical"`                          | -            | The orientation of the element.                                                                                   |
+| `scrollable`    | `boolean`                             | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`     | `"multiple"` , `"single"`             | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`        | `boolean`                             | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`          | `"large"` , `"small"` , `"x-small"`   | -            | The size of the buttons. Without one they are the default control size.                                           |
+| `value`         | `string` , `string[]`                 | -            | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
 
 #### CSS variables
 
@@ -342,6 +398,8 @@ export default function Disabled() {
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+
+Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons keep their own state, and `onValueChange` still reports changes.
 
 ### Toggle button API
 
@@ -388,7 +446,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-`pressed` sets the starting state. To control it, pass `checked` and `onChange`.
+`pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.
 
 ## Under the hood
 
@@ -541,3 +599,4 @@ Import the components from `opui-css/react`:
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color` ([Under the hood](#under-the-hood)).
 - A disabled [toggle](#disabled) dims like a disabled button, hover uses the button hover strength, and [`shrink`](#overflow) truncates like `ButtonGroup`.
+- `ToggleGroup` takes `value`, `defaultValue` and `onValueChange` to control the selection ([Binding](#binding)).

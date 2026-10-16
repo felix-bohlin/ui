@@ -181,7 +181,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 ### Validation
 
 - `[required]` toggles the required styles on the `<input>`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text, and point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
@@ -521,9 +521,11 @@ Each checkbox with `required` must be checked before the form submits. There's n
 
 Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.ui-fieldset` turns red with them.
 
+Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
+
 ```html
 <form class="ui-form">
-  <fieldset class="ui-fieldset">
+  <fieldset aria-describedby="checkbox-group-error" class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
@@ -552,7 +554,9 @@ Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="checkbox-group-error"
+      >Something went wrong!</span
+    >
   </fieldset>
 </form>
 ```
@@ -581,9 +585,9 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Type       | Modifiers                               | Default | Description                                                                          |
 | ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.                                     |
-| Layout     | `.ui-stack`                             | -       | Stacks the label under the input.                                                    |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                             |
+| Spread     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.                                     |
+| Stack      | `.ui-stack`                             | -       | Stacks the label under the input.                                                    |
 | State      | `input[data-indeterminate]`             | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
 | Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                                    |
 
@@ -638,6 +642,59 @@ Accessible checkboxes must have a label. You can choose between three approaches
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.
+
+### Checkbox input API
+
+| Type  | Modifiers              | Default | Description                                                                          |
+| ----- | ---------------------- | ------- | ------------------------------------------------------------------------------------ |
+| State | `[data-indeterminate]` | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+
+#### Parts
+
+| Part                      | Description                          |
+| ------------------------- | ------------------------------------ |
+| `<input type="checkbox">` | The checkbox input, without a label. |
+
+#### CSS variables
+
+| Variable                        | Default                                                                                 | Description                                                                                                                                                                                                  |
+| ------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--choice-label-offset`         | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
+| `--choice-size`                 | `calc(var(--size-4) * var(--density))`                                                  | Default `Checkbox` and `Radio` input size.                                                                                                                                                                   |
+| `--choice-size-large`           | `calc(var(--size-5) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                          |
+| `--choice-size-small`           | `calc(var(--size-3) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                        |
+| `--choice-size-x-small`         | `calc(0.875rem * var(--density))`                                                       | `Checkbox` and `Radio` input size with `.ui-x-small`.                                                                                                                                                        |
+| `--disabled-opacity`            | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration`                    | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                        | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
+| `--field-border-color`          | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                     |
+| `--field-border-width`          | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
+| `--field-helper-color`          | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
+| `--field-helper-font-size`      | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
+| `--field-helper-line-height`    | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                           |
+| `--field-label-color`           | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                 |
+| `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
+| `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
+| `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
+| `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
+| `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
+| `--motion`                      | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                     | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`            | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--ripple-color`                | `oklch(0.6 0 0 / 0.2)`                                                                  | Halo color for the `Checkbox` and `Radio` hover effect.                                                                                                                                                      |
+| `--surface-default`             | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                    |
+| `--switch-dot-size-large`       | `calc(var(--size-4) * var(--density))`                                                  | Diameter of the `Switch` dot with `.ui-large`.                                                                                                                                                               |
+| `--switch-dot-size-small`       | `calc(0.75rem * var(--density))`                                                        | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-dot-size-x-small`     | `calc(0.625rem * var(--density))`                                                       | Diameter of the `Switch` dot with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-height-large`   | `calc(var(--size-6) * var(--density))`                                                  | Height of the `Switch` track with `.ui-large`.                                                                                                                                                               |
+| `--switch-track-height-small`   | `calc(var(--size-4) * var(--density))`                                                  | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                             |
+| `--switch-track-height-x-small` | `calc(var(--size-3) * var(--density))`                                                  | Height of the `Switch` track with `.ui-x-small`.                                                                                                                                                             |
+| `--switch-track-width-large`    | `calc(3.5rem * var(--density))`                                                         | Width of the `Switch` track with `.ui-large`.                                                                                                                                                                |
+| `--switch-track-width-small`    | `calc(2.5rem * var(--density))`                                                         | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                              |
+| `--switch-track-width-x-small`  | `calc(var(--size-7) * var(--density))`                                                  | Width of the `Switch` track with `.ui-x-small`.                                                                                                                                                              |
+| `--text-primary`                | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ### Field group API
 

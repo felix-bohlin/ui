@@ -147,7 +147,7 @@ import { Textarea } from "opui-css/astro"
 ## Validation
 
 - `required` toggles the required styles on the `<textarea>`.
-- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```astro
@@ -278,17 +278,16 @@ import { Textarea } from "opui-css/astro"
 
 #### Slots
 
-| Slot              | Description                                                    |
-| ----------------- | -------------------------------------------------------------- |
-| `default`         | Extra content inside the root.                                 |
-| `description`     | Description text displayed above the field.                    |
-| `end-text`        | Supporting text displayed below the field.                     |
-| `footer`          | Content below the textarea, inside the border, with a divider. |
-| `header`          | Content above the textarea, inside the border, with a divider. |
-| `label`           | The label for the field.                                       |
-| `prefix`          | Content at the inline-start of the field, inside the border.   |
-| `suffix`          | Content at the inline-end of the field, inside the border.     |
-| `supporting-text` | Legacy alias of the `end-text` slot.                           |
+| Slot          | Description                                                    |
+| ------------- | -------------------------------------------------------------- |
+| `default`     | Extra content inside the root.                                 |
+| `description` | Description text displayed above the field.                    |
+| `end-text`    | Supporting text displayed below the field.                     |
+| `footer`      | Content below the textarea, inside the border, with a divider. |
+| `header`      | Content above the textarea, inside the border, with a divider. |
+| `label`       | The label for the field.                                       |
+| `prefix`      | Content at the inline-start of the field, inside the border.   |
+| `suffix`      | Content at the inline-end of the field, inside the border.     |
 
 #### CSS variables
 
@@ -472,3 +471,4 @@ Import the component from `opui-css/astro`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `supportingText` is gone. Use [`endText`](#end-text).

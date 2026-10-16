@@ -49,7 +49,7 @@ Pass text or any element as children to place it in the middle of the line. The 
 <Divider align="end" variant="primary">Today</Divider>
 
 <Divider>
-  <Button rounded size="small" variant="outlined">Show 12 more replies</Button>
+  <Button round size="small" variant="outlined">Show 12 more replies</Button>
 </Divider>
 ```
 

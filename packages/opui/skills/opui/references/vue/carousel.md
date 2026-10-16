@@ -54,7 +54,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel buttons="outside" label="Destinations" markers>
+  <Carousel aria-label="Destinations" buttons="outside" markers>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -86,7 +86,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel buttons="outside" label="Destinations" :per-view="3">
+  <Carousel aria-label="Destinations" buttons="outside" :per-view="3">
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -124,7 +124,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel buttons="outside" label="Destinations" :per-view="3" stretch>
+  <Carousel aria-label="Destinations" buttons="outside" :per-view="3" stretch>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -156,7 +156,13 @@ const places = [
 </script>
 
 <template>
-  <Carousel align="center" :buttons="false" label="Destinations" markers peek>
+  <Carousel
+    align="center"
+    aria-label="Destinations"
+    :buttons="false"
+    markers
+    peek
+  >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -189,7 +195,7 @@ const places = [
 
 <template>
   <Carousel
-    label="Destinations"
+    aria-label="Destinations"
     markers
     orientation="vertical"
     style="--_block-size: 16rem"
@@ -225,7 +231,7 @@ const photos = [
 </script>
 
 <template>
-  <Carousel label="Photos" markers>
+  <Carousel aria-label="Photos" markers>
     <li v-for="{ alt, id } in photos" :key="id">
       <img
         :alt="alt"
@@ -257,7 +263,7 @@ const photos = [
 </script>
 
 <template>
-  <Carousel label="Gallery" :per-view="3" aspect-ratio="1">
+  <Carousel aria-label="Gallery" :per-view="3" aspect-ratio="1">
     <li v-for="{ alt, id } in photos" :key="id">
       <img
         :alt="alt"
@@ -286,7 +292,7 @@ const videos = [
 </script>
 
 <template>
-  <Carousel label="Videos" markers>
+  <Carousel aria-label="Videos" markers>
     <li v-for="{ label, name } in videos" :key="name">
       <video
         :aria-label="label"
@@ -319,7 +325,7 @@ const tutorials = [
 </script>
 
 <template>
-  <Carousel label="Tutorials" markers>
+  <Carousel aria-label="Tutorials" markers>
     <li v-for="{ id, title } in tutorials" :key="id">
       <iframe
         allow="encrypted-media; fullscreen; picture-in-picture"
@@ -359,7 +365,7 @@ const plans = [
 </script>
 
 <template>
-  <Carousel buttons="outside" label="Plans" :per-view="2">
+  <Carousel aria-label="Plans" buttons="outside" :per-view="2">
     <li v-for="{ action, description, title } in plans" :key="title">
       <Card variant="outlined">
         <CardHeader>
@@ -393,8 +399,8 @@ const places = [
 
 <template>
   <Carousel
+    aria-label="Destinations"
     buttons="outside"
-    label="Destinations"
     :per-view="2"
     persistent-buttons
   >
@@ -430,9 +436,9 @@ const places = [
 
 <template>
   <Carousel
+    aria-label="Destinations"
     buttons="outside"
     class="carousel-custom-buttons"
-    label="Destinations"
     :per-view="2"
   >
     <li v-for="{ description, title } in places" :key="title">
@@ -479,7 +485,7 @@ const places = ["Kyoto", "Lima", "Lisbon"]
     "
   >
     <div>
-      <Carousel label="Destinations" markers>
+      <Carousel aria-label="Destinations" markers>
         <li v-for="title in places" :key="title">
           <Card variant="tonal">
             <CardHeader>
@@ -517,9 +523,9 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Prop                | Type                          | Default        | Description                                                                                                           |
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
+| `aria-label`        | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
 | `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
-| `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |

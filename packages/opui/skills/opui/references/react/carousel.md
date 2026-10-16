@@ -53,7 +53,7 @@ const places = [
 
 export default function Basics() {
   return (
-    <Carousel buttons="outside" label="Destinations" markers>
+    <Carousel aria-label="Destinations" buttons="outside" markers>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">
@@ -87,7 +87,7 @@ const places = [
 
 export default function PerView() {
   return (
-    <Carousel buttons="outside" label="Destinations" perView={3}>
+    <Carousel aria-label="Destinations" buttons="outside" perView={3}>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">
@@ -127,7 +127,7 @@ const places = [
 
 export default function Stretch() {
   return (
-    <Carousel buttons="outside" label="Destinations" perView={3} stretch>
+    <Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">
@@ -161,7 +161,13 @@ const places = [
 
 export default function Peek() {
   return (
-    <Carousel align="center" buttons={false} label="Destinations" markers peek>
+    <Carousel
+      align="center"
+      aria-label="Destinations"
+      buttons={false}
+      markers
+      peek
+    >
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">
@@ -196,7 +202,7 @@ const places = [
 export default function Vertical() {
   return (
     <Carousel
-      label="Destinations"
+      aria-label="Destinations"
       markers
       orientation="vertical"
       style={{ "--_block-size": "16rem" }}
@@ -234,7 +240,7 @@ const photos = [
 
 export default function Images() {
   return (
-    <Carousel label="Photos" markers>
+    <Carousel aria-label="Photos" markers>
       {photos.map(({ alt, id }) => (
         <li key={id}>
           <img
@@ -268,7 +274,7 @@ const photos = [
 
 export default function Gallery() {
   return (
-    <Carousel label="Gallery" perView={3} aspectRatio="1">
+    <Carousel aria-label="Gallery" perView={3} aspectRatio="1">
       {photos.map(({ alt, id }) => (
         <li key={id}>
           <img
@@ -299,7 +305,7 @@ const videos = [
 
 export default function Videos() {
   return (
-    <Carousel label="Videos" markers>
+    <Carousel aria-label="Videos" markers>
       {videos.map(({ label, name }) => (
         <li key={name}>
           <video
@@ -337,7 +343,7 @@ const tutorials = [
 
 export default function Embeds() {
   return (
-    <Carousel label="Tutorials" markers>
+    <Carousel aria-label="Tutorials" markers>
       {tutorials.map(({ id, title }) => (
         <li key={id}>
           <iframe
@@ -379,7 +385,7 @@ const plans = [
 
 export default function Actions() {
   return (
-    <Carousel buttons="outside" label="Plans" perView={2}>
+    <Carousel aria-label="Plans" buttons="outside" perView={2}>
       {plans.map(({ action, description, title }) => (
         <li key={title}>
           <Card variant="outlined">
@@ -416,7 +422,7 @@ export default function PersistentButtons() {
   return (
     <Carousel
       buttons="outside"
-      label="Destinations"
+      aria-label="Destinations"
       perView={2}
       persistentButtons
     >
@@ -455,9 +461,9 @@ export default function CustomButtons() {
   return (
     <>
       <Carousel
+        aria-label="Destinations"
         buttons="outside"
         className="carousel-custom-buttons"
-        label="Destinations"
         perView={2}
       >
         {places.map(({ description, title }) => (
@@ -506,7 +512,7 @@ export default function GridLayout() {
       }}
     >
       <div>
-        <Carousel label="Destinations" markers>
+        <Carousel aria-label="Destinations" markers>
           {places.map((title) => (
             <li key={title}>
               <Card variant="tonal">
@@ -547,10 +553,10 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Prop                | Type                          | Default        | Description                                                                                                           |
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
+| `aria-label`        | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
 | `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
 | `children`          | `ReactNode`                   | -              | An item.                                                                                                              |
-| `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |

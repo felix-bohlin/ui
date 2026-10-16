@@ -52,7 +52,7 @@ export default function Content() {
       </Divider>
 
       <Divider>
-        <Button rounded size="small" variant="outlined">
+        <Button round size="small" variant="outlined">
           Show 12 more replies
         </Button>
       </Divider>

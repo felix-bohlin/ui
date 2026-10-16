@@ -470,8 +470,8 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 | ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
 | Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons.                                                                                  |
 | Orientation | `.ui-vertical`                            | -       | The orientation of the element.                                                                                   |
-| Overflow    | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Overflow    | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Scroll      | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Shrink      | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
 | Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.                                                                                          |
 | Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.                                                                                       |
 
@@ -523,7 +523,7 @@ The root needs `role="group"`.
 | Type     | Modifiers                                 | Default | Description                                                                                                                 |
 | -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Shape    | `.ui-round`                               | -       | Fully rounded corners, a circle when icon-only.                                                                             |
 | Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
 | State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
 | Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |

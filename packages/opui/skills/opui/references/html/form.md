@@ -235,8 +235,10 @@ Add `disabled` to the `<fieldset>` to disable every field inside.
 
 Add `aria-invalid="true"` to each control in the `<fieldset>`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a control has `aria-invalid="true"`.
 
+Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
+
 ```html
-<fieldset class="ui-fieldset">
+<fieldset aria-describedby="food-error" class="ui-fieldset">
   <legend>Pet food</legend>
   <p class="ui-field-description">Pick at least one.</p>
   <div class="ui-field-group">
@@ -249,7 +251,7 @@ Add `aria-invalid="true"` to each control in the `<fieldset>`, and explain the e
       <span class="ui-label">Wet food</span>
     </label>
   </div>
-  <span class="ui-end-text">Your pet is hungry.</span>
+  <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
 </fieldset>
 ```
 

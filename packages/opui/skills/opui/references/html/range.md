@@ -153,7 +153,7 @@ Add `disabled` to the `<input>` to disable the slider. The whole `.ui-range` dim
 ## Validation
 
 - The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text, and point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html

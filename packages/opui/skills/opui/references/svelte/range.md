@@ -68,7 +68,7 @@ Use the `variant` prop to swap the track surface for better contrast on differen
 
 ## Value
 
-Pass the `valueSuffix` prop (or use the `valueText` snippet) to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input. For custom content, use the `valueText` snippet: `{#snippet valueText(value)}…{/snippet}` gets the current value as a number on every change.
 
 ```svelte
 <script lang="ts">
@@ -80,7 +80,7 @@ Pass the `valueSuffix` prop (or use the `valueText` snippet) to render a live re
 
 ## Tick marks
 
-Pass an id to the `list` prop together with an `options` array - `options=[{ value, label }]` - and the component renders a matching `<datalist>`.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
 
 ```svelte
 <script lang="ts">
@@ -89,7 +89,6 @@ Pass an id to the `list` prop together with an `options` array - `options=[{ val
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers"
   options={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -154,7 +153,6 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers-spread"
   spread
   options={[
     { value: 0, label: "0%" },
@@ -190,12 +188,12 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | `error`                                                                                                                                                                                             | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
 | `id`                                                                                                                                                                                                | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
 | `label`                                                                                                                                                                                             | `string`               | -       | The label for the range.                                                                      |
-| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
 | `options`                                                                                                                                                                                           | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
 | `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
 | `startText`                                                                                                                                                                                         | `Snippet` , `string`   | -       | Description text displayed above the input.                                                   |
 | `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `valueText`                                                                                                                                                                                         | `Snippet`              | -       | Shows the current value, with an optional `valueSuffix`.                                      |
+| `valueText`                                                                                                                                                                                         | `Snippet<[number]>`    | -       | Shows the current value, with an optional `valueSuffix`.                                      |
 | `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### CSS variables
@@ -482,3 +480,5 @@ Import the component from `opui-css/svelte`:
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
+- The [`valueText`](#value) snippet gets the current value and follows the thumb.

@@ -92,7 +92,7 @@ If you want to decide yourself what goes into your list.
 ```html
 <button
   type="button"
-  class="ui-button ui-rounded ui-small"
+  class="ui-button ui-round ui-small"
   aria-label="More actions"
   commandfor="menu-custom-html"
   command="toggle-popover"

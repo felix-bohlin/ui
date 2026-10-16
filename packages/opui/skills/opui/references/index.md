@@ -42,9 +42,10 @@ Components documented on another component's page:
 | Component | File |
 | --- | --- |
 | AccordionSummary | `accordion.md` |
+| AvatarGroup | `avatar.md` |
 | CalloutTitle | `callout.md` |
 | CardActions | `card.md` |
-| ClassicSelect | `select.md` |
+| CheckboxInput | `checkbox.md` |
 | DialogActions | `dialog.md` |
 | DrawerFooter | `drawer.md` |
 | DrawerHeader | `drawer.md` |
@@ -53,6 +54,10 @@ Components documented on another component's page:
 | FieldLegend | `form.md` |
 | FieldSet | `form.md` |
 | ListItem | `list.md` |
+| RadioInput | `radio.md` |
+| SwitchInput | `switch.md` |
+| TableColumn | `table.md` |
+| TableColumnGroup | `table.md` |
 | TabsItem | `tabs.md` |
 | TabsPanel | `tabs.md` |
 | TabsTab | `tabs.md` |

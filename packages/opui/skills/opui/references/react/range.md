@@ -80,7 +80,7 @@ export default function StartEndText() {
 
 ## Value
 
-Pass the `valueSuffix` prop (or use the `valueText` prop) to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input. For custom content, pass a function to `valueText`: `valueText={(value) => …}` gets the current value as a number on every change.
 
 ```tsx
 import { Range } from "opui-css/react"
@@ -94,7 +94,7 @@ export default function Value() {
 
 ## Tick marks
 
-Pass an id to the `list` prop together with an `options` array - `options=[{ value, label }]` - and the component renders a matching `<datalist>`.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
 
 ```tsx
 import { Range } from "opui-css/react"
@@ -103,7 +103,6 @@ export default function TickMarksLabels() {
   return (
     <Range
       label="Tick marks with labels"
-      list="labeled-markers"
       options={[
         { value: 0, label: "0%" },
         { value: 25, label: "25%" },
@@ -173,7 +172,6 @@ export default function Spread() {
 
       <Range
         label="Tick marks with labels"
-        list="labeled-markers-spread"
         spread
         options={[
           { value: 0, label: "0%" },
@@ -203,22 +201,22 @@ export default function Spread() {
 
 ### Range API
 
-| Prop                                                                                                                                                                                                | Type                   | Default | Description                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `children`                                                                                                                                                                                          | `ReactNode`            | -       | The label for the range.                                                                      |
-| `datalist`                                                                                                                                                                                          | `ReactNode`            | -       | Extra `<option>` elements for the `<datalist>`.                                               |
-| `endText`                                                                                                                                                                                           | `ReactNode`            | -       | Supporting text displayed below the input.                                                    |
-| `error`                                                                                                                                                                                             | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
-| `id`                                                                                                                                                                                                | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
-| `label`                                                                                                                                                                                             | `string`               | -       | The label for the range.                                                                      |
-| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
-| `options`                                                                                                                                                                                           | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
-| `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
-| `startText`                                                                                                                                                                                         | `ReactNode`            | -       | Description text displayed above the input.                                                   |
-| `value`                                                                                                                                                                                             | `number` , `string`    | -       | The current value.                                                                            |
-| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `valueText`                                                                                                                                                                                         | `ReactNode`            | -       | Shows the current value, with an optional `valueSuffix`.                                      |
-| `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
+| Prop                                                                                                                                                                                                | Type                                          | Default | Description                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `children`                                                                                                                                                                                          | `ReactNode`                                   | -       | The label for the range.                                                                      |
+| `datalist`                                                                                                                                                                                          | `ReactNode`                                   | -       | Extra `<option>` elements for the `<datalist>`.                                               |
+| `endText`                                                                                                                                                                                           | `ReactNode`                                   | -       | Supporting text displayed below the input.                                                    |
+| `error`                                                                                                                                                                                             | `boolean`                                     | `false` | Marks the control invalid and shows error styles.                                             |
+| `id`                                                                                                                                                                                                | `string`                                      | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
+| `label`                                                                                                                                                                                             | `string`                                      | -       | The label for the range.                                                                      |
+| `list`                                                                                                                                                                                              | `string`                                      | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
+| `options`                                                                                                                                                                                           | `RangeOption[]`                               | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
+| `spread`                                                                                                                                                                                            | `boolean`                                     | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `startText`                                                                                                                                                                                         | `ReactNode`                                   | -       | Description text displayed above the input.                                                   |
+| `value`                                                                                                                                                                                             | `number` , `string`                           | -       | The current value.                                                                            |
+| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`                                      | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `valueText`                                                                                                                                                                                         | `((value: number) => ReactNode) \| undefined` | -       | Shows the current value, with an optional `valueSuffix`.                                      |
+| `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"`                        | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### CSS variables
 
@@ -504,3 +502,5 @@ Import the component from `opui-css/react`:
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
+- [`valueText`](#value) takes a function that gets the current value and follows the thumb.

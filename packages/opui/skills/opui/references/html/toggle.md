@@ -169,6 +169,75 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
 </div>
 ```
 
+### Binding
+
+The selection lives in the inputs, which share a `name`. Submit them with a form, where `FormData.get()` reads a radio group and `getAll()` a checkbox group, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` inputs in the markup.
+
+```html
+<div role="radiogroup" class="ui-toggle-group" aria-label="View">
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="day" />
+    Day
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="week" checked />
+    Week
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="calendar-view" value="month" />
+    Month
+  </label>
+</div>
+<div role="group" class="ui-toggle-group" aria-label="Text format">
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="bold" checked />
+    Bold
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="italic" />
+    Italic
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="text-format" value="underline" />
+    Underline
+  </label>
+</div>
+<p class="toggle-binding-text">View: week. Format: bold.</p>
+<button type="button" class="ui-button toggle-binding-reset">Reset</button>
+
+<script>
+  function setupToggleBinding() {
+    const text = document.querySelector(".toggle-binding-text")
+    const inputs = [
+      ...document.querySelectorAll(
+        '[name="calendar-view"], [name="text-format"]',
+      ),
+    ]
+    const checked = (name) =>
+      inputs
+        .filter((input) => input.name === name && input.checked)
+        .map((input) => input.value)
+
+    function update() {
+      if (!text) return
+      text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+        checked("text-format").join(", ") || "none"
+      }.`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".toggle-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupToggleBinding()
+</script>
+```
+
 ### Text + icon
 
 Put an `svg` before the text. Icon-only buttons need an `aria-label` on the input.
@@ -329,9 +398,9 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 | Type        | Modifiers                               | Default          | Description                                                                                                       |
 | ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Orientation | `.ui-vertical`                          | -                | The orientation of the element.                                                                                   |
-| Overflow    | `.ui-scrollable`                        | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Overflow    | `.ui-shrink`                            | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Scroll      | `.ui-scrollable`                        | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| Shrink      | `.ui-shrink`                            | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
 | Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small` | -                | The size of the buttons. Without one they are the default control size.                                           |
 
 #### Parts
@@ -375,12 +444,12 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Type  | Modifiers                                       | Default                  | Description                                                |
-| ----- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
-| Sizes | `.ui-large`, `.ui-small`, `.ui-x-small`         | -                        | The size of the element.                                   |
-| State | `input[disabled]`                               | -                        | Disables the button.                                       |
-| State | `input[checked]`                                | -                        | Selects the button.                                        |
-| Type  | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
+| Type     | Modifiers                                       | Default                  | Description                                                |
+| -------- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
+| Checked  | `input[checked]`                                | -                        | Selects the button.                                        |
+| Disabled | `input[disabled]`                               | -                        | Disables the button.                                       |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`         | -                        | The size of the element.                                   |
+| Type     | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
 
 #### Parts
 

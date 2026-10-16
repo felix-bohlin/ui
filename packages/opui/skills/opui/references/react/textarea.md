@@ -172,7 +172,7 @@ export default function Headers() {
 ## Validation
 
 - `required` toggles the required styles on the `<textarea>`.
-- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```tsx
@@ -314,23 +314,22 @@ export default function AutoFit() {
 
 ### Textarea API
 
-| Prop             | Type                                | Default      | Description                                                                 |
-| ---------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`        | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
-| `children`       | `ReactNode`                         | -            | Extra content inside the root.                                              |
-| `description`    | `ReactNode`                         | -            | Description text displayed above the field.                                 |
-| `endText`        | `ReactNode`                         | -            | Supporting text displayed below the field.                                  |
-| `error`          | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
-| `footer`         | `ReactNode`                         | -            | Content below the textarea, inside the border, with a divider.              |
-| `header`         | `ReactNode`                         | -            | Content above the textarea, inside the border, with a divider.              |
-| `id`             | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`          | `ReactNode`                         | -            | The label for the field.                                                    |
-| `prefix`         | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.                |
-| `size`           | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
-| `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `suffix`         | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                  |
-| `supportingText` | `ReactNode`                         | -            | Legacy alias of `endText`.                                                  |
-| `variant`        | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
+| Prop          | Type                                | Default      | Description                                                                 |
+| ------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
+| `children`    | `ReactNode`                         | -            | Extra content inside the root.                                              |
+| `description` | `ReactNode`                         | -            | Description text displayed above the field.                                 |
+| `endText`     | `ReactNode`                         | -            | Supporting text displayed below the field.                                  |
+| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
+| `footer`      | `ReactNode`                         | -            | Content below the textarea, inside the border, with a divider.              |
+| `header`      | `ReactNode`                         | -            | Content above the textarea, inside the border, with a divider.              |
+| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
+| `label`       | `ReactNode`                         | -            | The label for the field.                                                    |
+| `prefix`      | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.                |
+| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
+| `suffix`      | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                  |
+| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
 
 #### CSS variables
 
@@ -510,3 +509,4 @@ Import the component from `opui-css/react`:
 - [Spread](#spread) fields line up at one width.
 - The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `supportingText` is gone. Use [`endText`](#end-text).

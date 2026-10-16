@@ -6,10 +6,15 @@
 | ------ | ---- |
 | Card   | 2 kB |
 | Dialog | 3 kB |
+| Total  | 5 kB |
 
 - `<Table>`
 
   Container element.
+
+- `<TableCaption>`
+
+  An optional title for the table.
 
 - `<TableHead>`
 
@@ -31,6 +36,10 @@
 
   A data cell.
 
+- `<TableFoot>`
+
+  Optional footer rows, such as totals.
+
 ## Variants
 
 Change the cell padding with `variant="dense"` or `variant="spacious"`.
@@ -42,7 +51,9 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
+    TableFoot,
     TableHead,
     TableHeaderCell,
     TableRow,
@@ -50,7 +61,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
 </script>
 
 <Table>
-  <caption>Band Members</caption>
+  <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Band</TableHeaderCell>
@@ -80,11 +91,11 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
-  <tfoot>
+  <TableFoot>
     <TableRow>
       <TableCell colspan={3}>All great bands!</TableCell>
     </TableRow>
-  </tfoot>
+  </TableFoot>
 </Table>
 ```
 
@@ -95,6 +106,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeaderCell,
@@ -103,7 +115,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
 </script>
 
 <Table variant="dense">
-  <caption>Band Members</caption>
+  <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Band</TableHeaderCell>
@@ -133,6 +145,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeaderCell,
@@ -141,7 +154,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
 </script>
 
 <Table variant="spacious">
-  <caption>Band Members</caption>
+  <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
       <TableHeaderCell>Band</TableHeaderCell>
@@ -263,9 +276,11 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
   import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableColumn,
     TableColumnGroup,
+    TableFoot,
     TableHead,
     TableHeaderCell,
     TableRow,
@@ -273,7 +288,7 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
 </script>
 
 <Table>
-  <caption>Nordic Countries Overview</caption>
+  <TableCaption>Nordic Countries Overview</TableCaption>
   <TableColumnGroup>
     <TableColumn />
     <TableColumn />
@@ -335,11 +350,11 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
       <TableCell>Gyrfalcon</TableCell>
     </TableRow>
   </TableBody>
-  <tfoot>
+  <TableFoot>
     <TableRow>
       <TableCell colspan={6}>Scandinavia != The Nordics</TableCell>
     </TableRow>
-  </tfoot>
+  </TableFoot>
 </Table>
 ```
 
@@ -377,7 +392,55 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.
+Set column widths with `TableColumnGroup` and `TableColumn`.
+
+### Table column group API
+
+| Prop       | Type      | Default | Description         |
+| ---------- | --------- | ------- | ------------------- |
+| `children` | `Snippet` | -       | The `TableColumn`s. |
+
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                                                                                                                                |
+| ------------------------ | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                          |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                    |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                      |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                          |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                      |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                           |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
+### Table column API
+
+| Prop    | Type     | Default | Description                            |
+| ------- | -------- | ------- | -------------------------------------- |
+| `width` | `string` | -       | The column width, merged into `style`. |
+
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                                                                                                                                |
+| ------------------------ | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                          |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                    |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                      |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                          |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                      |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                           |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Under the hood
 
@@ -552,3 +615,4 @@ Import the components from `opui-css/svelte`:
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
+- [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.

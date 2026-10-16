@@ -145,6 +145,7 @@
 - `AvatarGroup` component (`div.ui-avatar-group[role="group"]`) in Astro, React, Svelte and Vue. It takes `class`, attributes such as `aria-label`, and avatars as children.
 - `ListItem` takes a `critical` prop (`li.ui-critical`) for a destructive item in a `Menu`.
 - `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string with `selection="single"` and an array of strings otherwise, and `ToggleButton` takes its pressed state from it.
+- `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
 
 ### Changed
 
@@ -454,6 +455,7 @@
 - Package: `opui-css/env.d.ts` types `interestfor` on `<a>` and `<button>` for Astro.
 - Package: `opui-css/css/js/checkbox.js` and `toast.js` ship type declarations.
 - `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
+- `AccordionSummary` falls back to the native arrow for an empty `marker` in React (`marker={null}`) and Vue (an empty `#marker` template), like Astro and Svelte.
 
 ## 5.5.0 - 2026-09-28
 

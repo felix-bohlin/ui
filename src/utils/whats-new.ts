@@ -481,6 +481,9 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#api"><code>TableColumn</code> <code>width</code></a> takes a CSS length; a declaration string such as <code>"min-width: 10rem"</code> is no longer parsed, pass <code>style</code> instead.`,
     ),
+    components(
+      `<a href="#default"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
+    ),
   ],
   tabs: [
     {

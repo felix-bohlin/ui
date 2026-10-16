@@ -274,7 +274,18 @@
   }
 
   /* Raised surfaces */
-  :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
+  :where(
+    .ui-accordion:is(.ui-elevated, .ui-tonal),
+    .ui-callout:not(
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-outlined,
+      .ui-success,
+      .ui-warning
+    ),
+    .ui-card:is(.ui-elevated, .ui-tonal)
+  ) {
     --border-color: light-dark(var(--gray-4), var(--surface-default));
     --field-border-color: var(--border-color);
   }
@@ -295,8 +306,16 @@
       body,
       .ui-contrast-more > *,
       .ui-palette,
-      .ui-card.ui-elevated,
-      .ui-card.ui-tonal,
+      .ui-accordion:is(.ui-elevated, .ui-tonal),
+      .ui-callout:not(
+        .ui-critical,
+        .ui-info,
+        .ui-neutral,
+        .ui-outlined,
+        .ui-success,
+        .ui-warning
+      ),
+      .ui-card:is(.ui-elevated, .ui-tonal),
       .ui-list:not(.ui-tonal, .ui-transparent),
       .ui-table th
     ) {

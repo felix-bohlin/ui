@@ -259,8 +259,8 @@ import Example from "../../components/Example/index"
       values are set on <code>body</code> instead of <code>html</code>. They are
       set again on the children of <code>.ui-contrast-more</code> and on the surfaces
       that have their own border colors: <code>.ui-palette</code>, elevated and
-      tonal cards, filled lists and table headers. They replace any value you
-      set on
+      tonal accordions and cards, default callouts, filled lists and table
+      headers. They replace any value you set on
       {" "}<code>html</code> for the same tokens. To tune them, write your own style
       query with the same selectors:
     </p>
@@ -270,8 +270,16 @@ import Example from "../../components/Example/index"
     body,
     .ui-contrast-more > *,
     .ui-palette,
-    .ui-card.ui-elevated,
-    .ui-card.ui-tonal,
+    .ui-accordion:is(.ui-elevated, .ui-tonal),
+    .ui-callout:not(
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-outlined,
+      .ui-success,
+      .ui-warning
+    ),
+    .ui-card:is(.ui-elevated, .ui-tonal),
     .ui-list:not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {

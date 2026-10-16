@@ -23,6 +23,7 @@ const {
   label,
   size,
   spread,
+  value,
   variant = "outlined",
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -39,12 +40,20 @@ const selectedItemValues = computed(() =>
 const model = computed({
   get: () =>
     modelValue.value ??
-    (attrs.value as string | number | (string | number)[] | undefined) ??
+    value ??
     (multiple.value ? selectedItemValues.value : selectedItemValues.value[0]),
   set: (value) => {
     modelValue.value = value
   },
 })
+
+const vSeed = {
+  beforeMount: (el: HTMLSelectElement) => {
+    model.value ??= el.multiple
+      ? [...el.selectedOptions].map((option) => option.value)
+      : el.value
+  },
+}
 
 const isSelected = (value: unknown) =>
   Array.isArray(model.value)
@@ -80,6 +89,7 @@ const fieldName = inject(FieldGroupKey, undefined)
     <span class="ui-field">
       <select
         v-bind="$attrs"
+        v-seed
         v-model="model"
         :aria-describedby="
           [

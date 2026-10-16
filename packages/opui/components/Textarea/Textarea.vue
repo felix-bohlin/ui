@@ -22,7 +22,7 @@ const inputAttrs = computed(() =>
 const modelValue = defineModel<string>()
 
 const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | undefined),
+  get: () => modelValue.value ?? props.value,
   set: (value) => {
     modelValue.value = value
   },

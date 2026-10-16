@@ -4,6 +4,7 @@ import type { Props as BaseProps } from "./types"
 export type Props = BaseProps & {
   class?: HTMLAttributes["class"]
   id?: HTMLAttributes["id"]
+  value?: string | number | (string | number)[]
 }
 
 export type Slots = {

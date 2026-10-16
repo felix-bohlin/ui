@@ -2,7 +2,7 @@
   import { getFieldContext } from "../FieldGroup/context"
   import type { Item } from "./types"
   import type { Props } from "./types.svelte"
-  import type { Snippet } from "svelte"
+  import { untrack, type Snippet } from "svelte"
 
   let {
     class: className,
@@ -27,6 +27,11 @@
     suffix,
     ...rest
   }: Props = $props()
+
+  untrack(() => {
+    if (value === undefined && rest.multiple)
+      value = items.filter((item) => item.selected).map((item) => item.value)
+  })
 
   const uid = $props.id()
   const field = getFieldContext()

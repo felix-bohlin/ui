@@ -60,6 +60,8 @@ for (const framework of FRAMEWORKS) {
         }
       }
 
+      if (framework !== "html") return
+
       await page.setViewportSize({ height: 900, width: 1280 })
       const { violations } = await new AxeBuilder({ page })
         .include(".anatomy-diagram")

@@ -40,4 +40,5 @@ export default defineConfig({
     timeout: 180_000,
     url: "http://localhost:4322/html/test/button/",
   },
+  workers: process.env.CI ? "100%" : undefined,
 })

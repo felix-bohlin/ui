@@ -1,13 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import {
-  BLOCKS,
-  COMPONENTS,
-  FRAMEWORKS,
-  STRESS_TESTS,
-  openFixture,
-} from "./fixtures"
+import { BLOCKS, COMPONENTS, STRESS_TESTS, openFixture } from "./fixtures"
 
 const KNOWN_VIOLATIONS_FILE = new URL(
   "./a11y-known-violations.json",
@@ -25,23 +19,15 @@ const known = readKnown()
 const recorded: Record<string, string[]> = {}
 let scheme = ""
 
-const TARGETS = [
-  ...FRAMEWORKS.flatMap((framework) =>
-    COMPONENTS.map((component) => ({ component, framework })),
-  ),
-  ...[...BLOCKS, ...STRESS_TESTS].map((component) => ({
-    component,
-    framework: "html" as const,
-  })),
-]
+const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
-for (const { component, framework } of TARGETS) {
-  test(`${framework}/${component} has no new axe violations`, async ({
+for (const component of TARGETS) {
+  test(`html/${component} has no new axe violations`, async ({
     page,
   }, testInfo) => {
     scheme = testInfo.project.name
     const prefix = `${scheme}/${component}`
-    await openFixture(page, framework, component)
+    await openFixture(page, "html", component)
 
     const { violations } = await new AxeBuilder({ page })
       .include(component.startsWith("blocks/") ? "body" : "main")

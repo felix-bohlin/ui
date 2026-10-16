@@ -7,6 +7,7 @@ export const title = "Text Field"
 
 const {
   "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
   description,
@@ -14,11 +15,13 @@ const {
   endText,
   error,
   id,
+  inputmode,
   label,
   list,
   max,
   min,
   name,
+  pattern,
   placeholder,
   required,
   size,
@@ -76,15 +79,15 @@ const describedBy =
     <input
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
+      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       list={list}
       max={max}
       min={min}
       name={name ?? field?.name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
+      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       placeholder={placeholder}
       required={required}
       step={step}

@@ -7,6 +7,9 @@ import { fieldContext } from "../FieldGroup/context.astro"
 export const title = "Select"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   class: className,
   dense,
   description,
@@ -29,7 +32,7 @@ const labelId = $id("select-label")
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 const describedBy =
-  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 const isSelected = (item: Item) =>
   value === undefined
     ? item.selected
@@ -69,10 +72,10 @@ const isSelected = (item: Item) =>
     <select
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-invalid={error ? "true" : ariaInvalid}
       aria-labelledby={label || Astro.slots.has("label")
         ? labelId
-        : rest["aria-labelledby"]}
+        : ariaLabelledBy}
       id={id}
       name={name ?? field?.name}
     >

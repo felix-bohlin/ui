@@ -7,6 +7,7 @@ export const title = "Textarea"
 
 const {
   "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
   cols,
@@ -74,7 +75,7 @@ const describedBy =
     <textarea
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-invalid={error ? "true" : ariaInvalid}
       cols={cols}
       disabled={disabled}
       id={id}

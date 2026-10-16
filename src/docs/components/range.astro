@@ -100,10 +100,12 @@ export const description =
     <h2 id="value">Value</h2>
     <Conditional>
       <p slot="astro">
-        Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
-        slot) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. Content in the <code
+          >value</code
+        > named slot replaces the readout and stays as you render it.
       </p>
       <p slot="html">
         Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}

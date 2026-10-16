@@ -103,7 +103,7 @@ export type {
   CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
-export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
+export type { ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
@@ -141,8 +141,9 @@ export type {
   RadioInputProps,
   RadioProps,
 } from "../components/Radio/types.svelte"
+export type { RangeOption } from "../components/Range/types"
 export type { RangeProps } from "../components/Range/types.svelte"
-export type { Item as SelectItem } from "../components/Select/types"
+export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
 export type {
   SwitchInputProps,

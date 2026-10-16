@@ -47,6 +47,7 @@ interface Window {
   showToast?: (options?: import("@opui/css/js/toast.js").ToastOptions) => void
   themeUtils: {
     applyCustomTheme: (theme?: "dark" | "light") => void
+    applyTheme: (theme: "dark" | "light") => void
     getCustomTheme: (
       theme: "dark" | "light",
     ) => import("./utils/theme-store").ModeConfig

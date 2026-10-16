@@ -1,7 +1,6 @@
 ---
 import {
   Button,
-  Chip,
   Divider,
   Drawer,
   DrawerContent,
@@ -14,6 +13,8 @@ import {
   Range,
   Switch,
   TextField,
+  ToggleButton,
+  ToggleGroup,
 } from "@opui/astro"
 import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 
@@ -177,25 +178,24 @@ const { link } = Astro.locals
               <FieldGroup>
                 <div class="chip-group-wrapper">
                   <span class="ui-label">{group.label}</span>
-                  <div class="chip-group">
-                    {RADIUS_OPTIONS.map((item) => {
-                      const pressed =
-                        item.value === tokenDefaults("light")[group.name]
-                      return (
-                        <Chip
-                          as="button"
-                          type="button"
-                          size="small"
-                          variant={pressed ? "tonal" : "outlined"}
-                          aria-pressed={pressed ? "true" : "false"}
-                          data-name={group.name}
-                          data-value={item.value}
-                          label={item.text}
-                          title={item.value}
-                        />
-                      )
-                    })}
-                  </div>
+                  <ToggleGroup
+                    aria-label={group.label}
+                    name={group.name}
+                    selection="single"
+                    size="small"
+                  >
+                    {RADIUS_OPTIONS.map((item) => (
+                      <ToggleButton
+                        pressed={
+                          item.value === tokenDefaults("light")[group.name]
+                        }
+                        title={item.value}
+                        value={item.value}
+                      >
+                        {item.text}
+                      </ToggleButton>
+                    ))}
+                  </ToggleGroup>
                 </div>
               </FieldGroup>
             ))
@@ -220,7 +220,9 @@ const { link } = Astro.locals
 </Drawer>
 
 <script>
+  import { removeStored } from "../utils/storage"
   import {
+    THEME_KEYS,
     themeStore,
     TOKENS,
     tokenDefaults,
@@ -253,12 +255,6 @@ const { link } = Astro.locals
       })
   }
 
-  function setChipPressed(chip: HTMLElement, pressed: boolean) {
-    chip.classList.toggle("ui-tonal", pressed)
-    chip.classList.toggle("ui-outlined", !pressed)
-    chip.setAttribute("aria-pressed", String(pressed))
-  }
-
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
@@ -268,15 +264,17 @@ const { link } = Astro.locals
       const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
-      if (input && input.type !== "checkbox") {
+      if (input?.type === "radio") {
+        form
+          .querySelectorAll<HTMLInputElement>(`[name="${token}"]`)
+          .forEach((radio) => {
+            radio.checked = radio.value === value
+          })
+      } else if (input && input.type !== "checkbox") {
         input.value = value
 
         input.dispatchEvent(new Event("input", { bubbles: false }))
       }
-
-      form
-        .querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-        .forEach((chip) => setChipPressed(chip, chip.dataset.value === value))
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -387,26 +385,17 @@ const { link } = Astro.locals
     }
   })
 
-  form?.addEventListener("click", (e) => {
-    const chip = (e.target as HTMLElement).closest<HTMLElement>(
-      "[data-name][data-value]",
-    )
-    if (!chip || !form.contains(chip)) return
-
-    const name = chip.dataset.name
-    const value = chip.dataset.value
-    if (!name || value === undefined) return
-
-    if (TOKEN_SET.has(name)) {
-      themeStore.setToken(themeStore.getActiveSiteMode(), name as Token, value)
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (themeSwitcher) {
+      themeSwitcher.checked =
+        document.documentElement.classList.contains("ui-dark")
     }
-
-    form
-      .querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
-      .forEach((c) => setChipPressed(c, c === chip))
+    syncFormFromStore()
   })
 
   resetBtn?.addEventListener("click", () => {
+    removeStored(THEME_KEYS.theme)
+    window.themeUtils?.applyTheme(window.themeUtils.getSystemPreference())
     themeStore.reset()
     if (themeSwitcher) {
       themeSwitcher.checked =
@@ -465,12 +454,6 @@ const { link } = Astro.locals
         font-size: var(--font-size-05);
         font-weight: var(--font-weight-5);
       }
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
   }
 </style>

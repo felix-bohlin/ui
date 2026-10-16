@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Dialog",
+  css: ["card", "dialog"],
   notes: {
     astro:
       "Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
@@ -20,7 +21,6 @@ export default {
       frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "Close behavior",
       prop: "closedby",
-      type: '"any" | "closerequest" | "none"',
     },
   ],
   parts: [

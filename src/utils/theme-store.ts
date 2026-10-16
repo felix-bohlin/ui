@@ -4,7 +4,7 @@
  * Both ThemeConfigurator (the global drawer) and the theme-generator page
  * route every read/write through this module. The store:
  *  - Persists per-mode JSON to localStorage under `opui-custom-theme-{light|dark}`
- *    (same keys the inline bootstrap in Header.astro reads on first paint).
+ *    (same keys the inline bootstrap in ThemeBootstrap.astro reads on first paint).
  *  - Applies tokens to <html> when the edited mode matches the active site mode,
  *    so the docs chrome reflects edits live.
  *  - Emits a `theme:change` CustomEvent on `document` so any subscribed UI
@@ -15,6 +15,7 @@
  */
 
 import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
+import { removeStored, writeStored } from "./storage"
 import { themeTokens } from "./theme-tokens"
 
 export type Mode = "light" | "dark"
@@ -69,6 +70,12 @@ for (const token of TOKENS) {
   )
 }
 
+export const THEME_KEYS = {
+  contrast: "contrast",
+  customTheme: "opui-custom-theme",
+  theme: "theme",
+}
+
 export function tokenDefaults(mode: Mode): Record<Token, string> {
   return TOKEN_DEFAULTS_BY_MODE[mode]
 }
@@ -95,7 +102,7 @@ export type ThemeChangeDetail = {
 }
 
 const EVENT_NAME = "theme:change"
-const STORAGE_KEY = (mode: Mode) => `opui-custom-theme-${mode}`
+const STORAGE_KEY = (mode: Mode) => `${THEME_KEYS.customTheme}-${mode}`
 const isBrowser = typeof window !== "undefined"
 
 function readConfig(mode: Mode): ModeConfig {
@@ -105,7 +112,7 @@ function readConfig(mode: Mode): ModeConfig {
 
 function writeConfig(mode: Mode, config: ModeConfig): void {
   if (!isBrowser) return
-  localStorage.setItem(STORAGE_KEY(mode), JSON.stringify(config))
+  writeStored(STORAGE_KEY(mode), config)
 }
 
 function emit(detail: ThemeChangeDetail): void {
@@ -161,7 +168,7 @@ export const themeStore = {
   },
 
   /**
-   * Re-applies the saved config for `mode` to <html> with Header.astro's
+   * Re-applies the saved config for `mode` to <html> with ThemeBootstrap.astro's
    * bootstrap, so toggling the global theme and switching configs always
    * lands in a consistent state.
    */
@@ -173,9 +180,9 @@ export const themeStore = {
 
   reset(): void {
     if (!isBrowser) return
-    localStorage.removeItem(STORAGE_KEY("light"))
-    localStorage.removeItem(STORAGE_KEY("dark"))
-    localStorage.removeItem("opui-custom-theme") // legacy
+    removeStored(STORAGE_KEY("light"))
+    removeStored(STORAGE_KEY("dark"))
+    removeStored(THEME_KEYS.customTheme) // legacy
 
     window.themeUtils.applyCustomTheme()
 

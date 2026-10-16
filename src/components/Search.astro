@@ -126,6 +126,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     SEARCH_CATEGORIES,
     type SearchItem,
   } from "../utils/search-categories"
+  import { readStored, writeStored } from "../utils/storage"
 
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement
   const input = document.getElementById("search-input") as HTMLInputElement
@@ -143,13 +144,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   let activeFilter = "all"
 
   function getActiveFrameworkId(): FrameworkId {
-    const fromDataset = document.documentElement.dataset.framework
-    if (isFrameworkId(fromDataset)) return fromDataset
-    const fromPath = window.location.pathname.match(
-      frameworkPrefixPattern(),
-    )?.[1]
-    if (isFrameworkId(fromPath)) return fromPath
-    return DEFAULT_FRAMEWORK
+    const framework = document.documentElement.dataset.framework
+    return isFrameworkId(framework) ? framework : DEFAULT_FRAMEWORK
   }
 
   function getItemFrameworkId(
@@ -216,14 +212,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     }
   }
 
-  function getRecentSearches(): SearchItem[] {
-    const stored = localStorage.getItem("opui-recent-searches")
-    try {
-      return stored ? JSON.parse(stored) : []
-    } catch {
-      return []
-    }
-  }
+  const getRecentSearches = () =>
+    readStored<SearchItem[]>("opui-recent-searches", [])
 
   function saveRecentSearch(item: SearchItem) {
     let recent = getRecentSearches()
@@ -233,13 +223,21 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     recent.unshift(item)
     // Limit to 5
     recent = recent.slice(0, 5)
-    localStorage.setItem("opui-recent-searches", JSON.stringify(recent))
+    writeStored("opui-recent-searches", recent)
   }
 
+  const escapeHtml = (text: string) =>
+    text.replace(/[&<>"]/g, (char) => `&#${char.charCodeAt(0)};`)
+
   function highlight(text: string, query: string) {
-    if (!query) return text
-    const regex = new RegExp(`(${query})`, "gi")
-    return text.replace(regex, "<mark>$1</mark>")
+    if (!query) return escapeHtml(text)
+    const pattern = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    return text
+      .split(new RegExp(`(${pattern})`, "gi"))
+      .map((part, index) =>
+        index % 2 ? `<mark>${escapeHtml(part)}</mark>` : escapeHtml(part),
+      )
+      .join("")
   }
 
   function renderItem(item: SearchItem, id: string, isSelected: boolean) {

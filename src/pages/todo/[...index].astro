@@ -79,6 +79,7 @@ const todoSections = sections.map((section) => ({
 }))
 
 const actions = [
+  "",
   "Explain further",
   "Explain further and provide an example",
   "Fix",
@@ -195,8 +196,13 @@ const count = sections.reduce(
                   name={`todo-action-${slugify(section.title)}-${index}`}
                 >
                   {actions.map((action) => (
-                    <Radio class="todo-action" size="small" value={action}>
-                      {action}
+                    <Radio
+                      checked={!action}
+                      class="todo-action"
+                      size="small"
+                      value={action}
+                    >
+                      {action || "None"}
                     </Radio>
                   ))}
                 </FieldGroup>
@@ -232,12 +238,8 @@ const count = sections.reduce(
 </Document>
 
 <script>
-  import {
-    copyText,
-    readStored,
-    trackComments,
-    writeStored,
-  } from "../../components/Todo/comments"
+  import { trackComments } from "../../components/Todo/comments"
+  import { copyText, readStored, writeStored } from "../../utils/storage"
 
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"
@@ -282,7 +284,7 @@ const count = sections.reduce(
   const savedActions = readActions()
   for (const item of items) {
     for (const input of actionsOf(item)) {
-      input.checked = savedActions[keyOf(item)] === input.value
+      input.checked = (savedActions[keyOf(item)] ?? "") === input.value
       input.addEventListener("change", () => saveActions(item))
     }
   }
@@ -341,12 +343,12 @@ const count = sections.reduce(
 
   for (const frame of frames) {
     frame.addEventListener("load", () => {
-      const root = frame.contentDocument?.documentElement
-      if (!root) return
+      const main = frame.contentDocument?.querySelector("main")
+      if (!main) return
       syncScheme(frame)
       new ResizeObserver(() => {
-        frame.style.blockSize = `${root.scrollHeight}px`
-      }).observe(root)
+        frame.style.blockSize = `${Math.ceil(main.getBoundingClientRect().height)}px`
+      }).observe(main)
     })
   }
 
@@ -390,7 +392,7 @@ const count = sections.reduce(
     if (!confirm("Clear all comments?")) return
     comments.clear()
     for (const item of items)
-      for (const input of actionsOf(item)) input.checked = false
+      for (const input of actionsOf(item)) input.checked = !input.value
     writeActions({})
     status.textContent = "Comments cleared."
   })

@@ -28,21 +28,18 @@ const importCode =
 
 const { link } = Astro.locals
 
+const pageFor = (tab: Tab) =>
+  components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
+
 const dependencies = tabs
   .filter((tab) => tab.isDependency)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter((c): c is (typeof components)[number] => c != null)
+  .map(pageFor)
+  .filter((c) => c !== undefined)
 
 const seeAlsoLinks = tabs
   .filter((tab) => tab.seeAlso)
-  .map((tab) => {
-    const slug = tab.title.replace(".css", "")
-    return components.find((c) => c.href.endsWith(slug))
-  })
-  .filter(Boolean) as (typeof components)[number][]
+  .map(pageFor)
+  .filter((c) => c !== undefined)
 ---
 
 <section>

@@ -1,3 +1,6 @@
+export type RangeOption =
+  string | number | { value: string | number; label?: string }
+
 export type RangeProps = {
   endText?: string
   error?: boolean
@@ -12,7 +15,7 @@ export type RangeProps = {
   | { list?: never; options?: never }
   | {
       list: string
-      options: (string | number | { value: string | number; label?: string })[]
+      options: RangeOption[]
     }
 )
 

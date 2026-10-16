@@ -14,7 +14,7 @@ const encodedCode = code ? encodeURIComponent(code) : ""
       <Component />
     </div>
   ) : code ? (
-    <Fragment set:html={code} />
+    <Fragment set:text={code} />
   ) : (
     <slot />
   )

@@ -73,18 +73,15 @@ const {
 
 const activeFramework = Astro.locals.framework
 
-const decodeEntities = (str: string) => {
-  const decode = (s: string) =>
-    s
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&amp;/g, "&")
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-  // Split on <pre> blocks so entities inside them are preserved as-is
-  const parts = str.split(/(<pre\b[\s\S]*?<\/pre>)/gi)
-  return parts.map((part, i) => (i % 2 === 0 ? decode(part) : part)).join("")
+const ENTITIES: Record<string, string> = {
+  "&#39;": "'",
+  "&amp;": "&",
+  "&gt;": ">",
+  "&lt;": "<",
+  "&quot;": '"',
 }
+const unescape = (text: string) =>
+  text.replace(/&(?:#39|amp|gt|lt|quot);/g, (entity) => ENTITIES[entity])
 
 // Pick the preview slot for the active framework, falling back to the default
 // framework, then to any available preview, so partial migrations keep working.
@@ -127,15 +124,15 @@ const isLiveSveltePreview =
 // non-HTML frameworks.
 let previewHtml = ""
 if (previewSlot) {
-  const unescaped = decodeEntities(previewSlot.raw).trim()
-  previewHtml = (await prettify(unescaped)) || clean(unescaped)
+  const raw = previewSlot.raw.trim()
+  previewHtml = (await prettify(raw)) || clean(raw)
 }
 
 // Code content for the source tab.
 let codeContent = ""
 let codeLangId: FrameworkId = activeFramework
 if (codeSlot) {
-  codeContent = decodeEntities(codeSlot.raw).trim()
+  codeContent = unescape(codeSlot.raw).trim()
   codeLangId = codeSlot.name.replace(/^code-/, "") as FrameworkId
 } else if (activeFramework === "html" && previewHtml) {
   // For HTML, fall back to the rendered preview as the source.

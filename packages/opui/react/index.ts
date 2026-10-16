@@ -102,7 +102,7 @@ export type {
   CheckboxProps,
 } from "../components/Checkbox/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
-export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
+export type { ClassicSelectItem } from "../components/ClassicSelect/types"
 export type { ClassicSelectProps } from "../components/ClassicSelect/types.react"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
@@ -140,8 +140,9 @@ export type {
   RadioInputProps,
   RadioProps,
 } from "../components/Radio/types.react"
+export type { RangeOption } from "../components/Range/types"
 export type { RangeProps } from "../components/Range/types.react"
-export type { Item as SelectItem } from "../components/Select/types"
+export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.react"
 export type {
   SwitchInputProps,

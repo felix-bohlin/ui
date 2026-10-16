@@ -3,14 +3,14 @@ export type Props = {
   description?: string
   endText?: string
   error?: boolean
-  items?: Item[]
+  items?: SelectItem[]
   label?: string
   size?: "x-small" | "small" | "large"
   spread?: boolean
   variant?: "outlined" | "filled"
 }
 
-export type Item = {
+export type SelectItem = {
   selected?: boolean
   text: string
   value: any

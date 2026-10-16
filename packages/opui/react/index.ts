@@ -21,7 +21,6 @@ export { default as Carousel } from "../components/Carousel/Carousel.react"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.react"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.react"
 export { default as Chip } from "../components/Chip/Chip.react"
-export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.react"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.react"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.react"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.react"
@@ -102,8 +101,6 @@ export type {
   CheckboxProps,
 } from "../components/Checkbox/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
-export type { ClassicSelectItem } from "../components/ClassicSelect/types"
-export type { ClassicSelectProps } from "../components/ClassicSelect/types.react"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,

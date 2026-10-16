@@ -76,13 +76,12 @@
       }
     }
 
-    .ui-actions {
+    & > .ui-actions:not(.ui-align-start) {
       justify-content: end;
-      padding-inline: var(--size-3) var(--size-1);
+      padding-inline: var(--size-3);
 
-      &.ui-align-start {
-        justify-content: start;
-        padding-inline: var(--size-1) var(--size-3);
+      &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+        padding-inline: var(--size-3) var(--size-1);
       }
     }
 
@@ -98,12 +97,5 @@
         opacity: 0;
       }
     }
-  }
-
-  :where(html:has(.ui-dialog:modal)) {
-    block-size: 100%;
-    overflow: clip;
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
   }
 }

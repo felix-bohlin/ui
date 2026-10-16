@@ -20,14 +20,20 @@ export default function ListItem({
   ...rest
 }: Props) {
   const hasLabel = type === "checkbox" || type === "radio" || type === "switch"
-  const Tag: ElementType | undefined = as ?? (href ? "a" : undefined)
-
-  const startPart = start && <div className="ui-start">{start}</div>
-  const endPart = end && <div className="ui-end">{end}</div>
+  const Tag: ElementType | undefined = hasLabel
+    ? "label"
+    : (as ?? (href ? "a" : undefined))
+  const tagProps = hasLabel
+    ? { className: `ui-${type}`, htmlFor }
+    : {
+        href,
+        type: Tag === "button" ? ("button" as const) : undefined,
+        ...(rest as object),
+      }
 
   const body = (
     <>
-      {startPart}
+      {start && <div className="ui-start">{start}</div>}
       {headline || description || text ? (
         <div className="ui-text">
           {headline && <p>{headline}</p>}
@@ -38,7 +44,7 @@ export default function ListItem({
       ) : (
         children
       )}
-      {endPart}
+      {end && <div className="ui-end">{end}</div>}
     </>
   )
 
@@ -51,32 +57,9 @@ export default function ListItem({
         },
         className,
       ])}
-      {...(Tag ? {} : (rest as object))}
+      {...(hasLabel || !Tag ? (rest as object) : {})}
     >
-      {hasLabel ? (
-        <label className={`ui-${type}`} htmlFor={htmlFor}>
-          {startPart}
-          {(text || headline || description) && (
-            <div className="ui-text">
-              {headline && <p>{headline}</p>}
-              {description && <p>{description}</p>}
-              {text}
-            </div>
-          )}
-          {endPart}
-          {children}
-        </label>
-      ) : Tag ? (
-        <Tag
-          href={href}
-          type={Tag === "button" ? "button" : undefined}
-          {...(rest as object)}
-        >
-          {body}
-        </Tag>
-      ) : (
-        body
-      )}
+      {Tag ? <Tag {...tagProps}>{body}</Tag> : body}
       {submenu}
     </li>
   )

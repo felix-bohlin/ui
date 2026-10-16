@@ -47,7 +47,7 @@ export default {
     },
     {
       description:
-        "Wraps the content in a `<label>` for a checkbox, radio or switch.",
+        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
       group: "Controls",
       prop: "type",
       values: {

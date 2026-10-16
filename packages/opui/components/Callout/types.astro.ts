@@ -7,5 +7,3 @@ export type CalloutContentProps = Base.CalloutContentProps &
   HTMLAttributes<"div">
 
 export type CalloutIconProps = Base.CalloutIconProps & HTMLAttributes<"svg">
-
-export type CalloutTitleProps = Base.CalloutTitleProps & HTMLAttributes<"h3">

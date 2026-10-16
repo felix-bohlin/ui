@@ -7,7 +7,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
-  CalloutTitle as UICalloutTitle,
   Checkbox as UICheckbox,
 } from "@opui/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
@@ -178,7 +177,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         <div class="ui-not-rich-text">
           <UICallout>
             <UICalloutContent>
-              <UICalloutTitle>JavaScript required</UICalloutTitle>
+              <h3>JavaScript required</h3>
               <div class="ui-rich-text">
                 The <code>indeterminate</code> state cannot be set with HTML or CSS
                 alone. The browser only exposes it as a property on <code
@@ -236,7 +235,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
         <UICallout>
           <UICalloutContent>
-            <UICalloutTitle>JavaScript required</UICalloutTitle>
+            <h3>JavaScript required</h3>
             <div class="ui-rich-text">
               The <code>indeterminate</code> state cannot be set with HTML or CSS
               alone. The browser only exposes it as a property on <code

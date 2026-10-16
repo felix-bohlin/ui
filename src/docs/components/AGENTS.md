@@ -200,7 +200,7 @@ import buttonApi from "../../component-api/button/api"
 ### 5.3 `<UICallout>` (Alerts & Info)
 
 - **Severity**: `info`, `success`, `warning`, `critical`, `neutral`, or none for a plain surface.
-- **Parts**: Add `<UICalloutIcon />` for the severity icon, and put the text in `<UICalloutContent>`, with an optional `<UICalloutTitle>` first.
+- **Parts**: Add `<UICalloutIcon />` for the severity icon, and put the text in `<UICalloutContent>`, with an optional plain heading such as `<h3>` first.
 - **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
 - **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 

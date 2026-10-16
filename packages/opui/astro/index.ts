@@ -12,7 +12,6 @@ export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.as
 export { default as Callout } from "../components/Callout/Callout.astro"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.astro"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.astro"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.astro"
 export { default as Card } from "../components/Card/Card.astro"
 export { default as CardActions } from "../components/Card/CardActions.astro"
 export { default as CardContent } from "../components/Card/CardContent.astro"
@@ -92,7 +91,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.astro"
 export type {
   CardActionsProps,

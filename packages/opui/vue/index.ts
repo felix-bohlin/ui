@@ -12,7 +12,6 @@ export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.vu
 export { default as Callout } from "../components/Callout/Callout.vue"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.vue"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.vue"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.vue"
 export { default as Card } from "../components/Card/Card.vue"
 export { default as CardActions } from "../components/Card/CardActions.vue"
 export { default as CardContent } from "../components/Card/CardContent.vue"
@@ -92,7 +91,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.d.vue"
 export type {
   CardActionsProps,

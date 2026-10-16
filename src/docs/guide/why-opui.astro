@@ -1,6 +1,6 @@
 ---
 import Guide from "../../layouts/Guide.astro"
-import { Callout, CalloutContent, CalloutTitle } from "@opui/astro"
+import { Callout, CalloutContent } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 ---
 
@@ -72,10 +72,10 @@ import DocLink from "../../components/DocLink.astro"
   <div class="ui-not-rich-text">
     <Callout>
       <CalloutContent>
-        <CalloutTitle
-          >"If you only use the latest features, that means this can never enter
-          production"</CalloutTitle
-        >
+        <h3>
+          "If you only use the latest features, that means this can never enter
+          production"
+        </h3>
         <p>
           Yes and no. Right now that's true for many components. The point is to
           let the spec and the components mature alongside each other and in

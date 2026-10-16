@@ -14,7 +14,6 @@ import {
   Callout,
   CalloutContent,
   CalloutIcon,
-  CalloutTitle,
   Chip,
   Divider,
   List,
@@ -278,7 +277,7 @@ const learnPost = currentSlug
           <Callout severity="info" variant="tonal" class="whats-new">
             <CalloutIcon />
             <CalloutContent>
-              <CalloutTitle>What's new</CalloutTitle>
+              <h3>What's new</h3>
               <ul>
                 {whatsNew.map((note) => (
                   <li set:html={note} />

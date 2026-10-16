@@ -7,7 +7,6 @@ import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
-  CalloutTitle as UICalloutTitle,
   Switch as UISwitch,
   TextField as UITextField,
 } from "@opui/astro"
@@ -309,7 +308,7 @@ export const description =
     <div class="ui-not-rich-text">
       <UICallout>
         <UICalloutContent>
-          <UICalloutTitle>Date inputs</UICalloutTitle>
+          <h3>Date inputs</h3>
           <div class="ui-rich-text">
             Date-related inputs never show as empty, so the label is always
             visible. There are only hacks with compromises and no neat ways of
@@ -341,10 +340,9 @@ export const description =
       <UICallout severity="critical">
         <UICalloutIcon />
         <UICalloutContent>
-          <UICalloutTitle
-            >You most likely don't need <code>&lt;input type="number"&gt;</code
-            ></UICalloutTitle
-          >
+          <h3>
+            You most likely don't need <code>&lt;input type="number"&gt;</code>
+          </h3>
           <div class="ui-rich-text">
             <p>
               While <code>&lt;input type="number"&gt;</code> may seem logical for

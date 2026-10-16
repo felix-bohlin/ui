@@ -584,6 +584,234 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: add `aria-hidden="true"` to each `<svg>` in all five formats. Parity snapshots change (intended, say so in the commit).
   > Fix
   - Fixed: every decorative `svg` in the badge, toggle, text-field, select and textarea examples has `aria-hidden="true"` in all five formats. The HTML parity snapshots changed by the attribute only (intended).
+- [ ] (1) Button, Button group, Chip, Card: none of the icons in these examples has `aria-hidden="true"`, in any of the five formats, while the Accordion, Badge, Callout and Card heart/share examples do hide theirs. Same class of issue as the earlier Card icon item, in folders it didn't cover. Nothing extra gets read today, because the buttons have text or an `aria-label`, but people copy these examples (`src/component-examples/button/IconAndLabel.html:4`, `src/component-examples/button/IconOnly.html:3`, `src/component-examples/button/Disabled.html:14`, `src/component-examples/button/Sizes.html:18`, `src/component-examples/button-group/WithIcons.html:3`, `src/component-examples/button-group/Vertical.html:4`, `src/component-examples/button-group/SplitButton.html:11`, `src/component-examples/chip/Button.html:11`, `src/component-examples/chip/Icon.html:2`, `src/component-examples/chip/Link.html:7`, `src/component-examples/card/Actions.html:28`)
+  - Today:
+    ```html
+    <button type="button" class="ui-button">
+      <span class="ui-text">Text</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        …
+      </svg>
+    </button>
+    ```
+  - Fix: add `aria-hidden="true"` to every icon `svg` in these folders, including the `set:html` strings in the Astro files and the `.react.tsx`, `.svelte` and `.vue` siblings (the markup snapshots change, intended).
+    ```html
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      …
+    </svg>
+    ```
+- [ ] (2) Toast: there are no forced-colors styles. Forced colors drop the `box-shadow` and force the `--surface-inverse` background to `Canvas`, so the toast has no edge against the page, and the severity icon (a mask filled with `background-color`, also forced to `Canvas`) disappears. Tooltip adds a `CanvasText` border, and the Select and autosuggest chevrons switch to `ButtonText`, for the same reasons (`packages/opui/css/components/toast.css:52-54`, `packages/opui/css/components/toast.css:82-87`, `packages/opui/css/components/toast.css:126-144`, `packages/opui/css/components/tooltip.css:37-39`, `packages/opui/css/components/select.css:20-22`)
+  - Today:
+    ```
+    :where(.ui-toast) {
+      background-color: var(--surface-inverse);
+      box-shadow: var(--shadow-3);
+      …
+      &[data-severity="success"] .ui-icon {
+        background-color: var(--success);
+        mask-image: url("…");
+      }
+    ```
+  - Fix: add a forced-colors block at the end of `.ui-toast` (it needs `[data-severity]` in the selector to beat the (0,2,0) severity rules).
+    ```css
+    @media (forced-colors: active) {
+      border: var(--border-width) solid CanvasText;
+
+      &[data-severity] .ui-icon {
+        background-color: CanvasText;
+      }
+    }
+    ```
+- [ ] (2) Avatar: the Icon and Variants examples break the page's own Accessibility note ("Initials and icons have no name on their own. Add `role="img"` and an `aria-label` … or `aria-hidden="true"`"). The three icon avatars and the "SQ" initials avatar have no name and aren't hidden, in all five formats; the earlier fix only covered `Letter`, `Image` and `Grouped` (`src/component-examples/avatar/Icon.astro:5,18,31`, `src/component-examples/avatar/Icon.html:1,15,29`, `src/component-examples/avatar/Variants.astro:5`, `src/component-examples/avatar/Variants.html:1`, `src/docs/components/avatar.astro:140-145`)
+  - Today:
+    ```html
+    <div class="ui-avatar"><svg …>…</svg></div>
+    <div class="ui-avatar ui-squared">SQ</div>
+    ```
+  - Fix: name them the way `Letter` does, in all five formats.
+    ```html
+    <div class="ui-avatar" role="img" aria-label="Guest">
+      <svg aria-hidden="true" …>…</svg>
+    </div>
+    <div class="ui-avatar ui-squared" role="img" aria-label="Sam Quist">SQ</div>
+    ```
+- [ ] (2) Select: each option group is a `<div role="group">` whose `<label class="ui-text">` heading nothing points at, so the groups have no accessible name. `<label>` and a bare `<div>` also aren't allowed inside a select. `<optgroup>` is the native element for this and needs no ARIA, in line with the "no extra ARIA" decision (`src/component-examples/select/Grouped.astro:7-16`, `src/component-examples/select/Grouped.html:9-18`, `src/docs/components/select.astro:255-258`)
+  - Today:
+    ```html
+    <div role="group">
+      <label class="ui-text">French cars</label>
+      <option>Citroën</option>
+    </div>
+    ```
+  - Fix: use `<optgroup label>` in all five formats and the prose, and point the list CSS at `optgroup` instead of `[role="group"] > label`. Before changing the CSS, check how Chromium's customizable select renders an `optgroup` heading, and that Firefox and Safari still show the groups.
+    ```html
+    <optgroup label="French cars">
+      <option>Citroën</option>
+    </optgroup>
+    ```
+- [ ] (2) Docs site: the home hero puts `aria-label` on a `<p>`, which ARIA forbids because the paragraph role can't be named (axe flags it as `aria-prohibited-attr`), and puts a `<div>` of buttons inside `<hgroup>`, where only `p` elements and one heading are allowed. It passes `aria-hidden="true"` to `ComponentShowcase`, which takes no props and drops it; if someone ever forwards that attribute, the `h1` and both CTAs disappear for screen readers. The `.hero-badge` and `.skip-link` styles match nothing, and no e2e test opens the home page, so axe never checks it (`src/docs/Home.astro:35-78`, `src/docs/Home.astro:154-156`, `src/docs/Home.astro:195-197`, `src/components/ComponentShowcase/ComponentShowcase.astro:57-59`)
+  - Today:
+    ```astro
+    <ComponentShowcase aria-hidden="true">
+      <hgroup class="ui-hgroup" id="main-heading">
+        …
+        <div class="hero-ctas">…</div>
+        <p class="framework-support" aria-label="Supported frameworks"></p>
+      </hgroup></ComponentShowcase
+    >
+    ```
+  - Fix: drop the dead `aria-hidden` and keep only the version line, the `h1` and the description in the `hgroup`; the visible "Works with" label already names the chips.
+    ```astro
+    <ComponentShowcase>
+      <div id="main-heading">
+        <hgroup class="ui-hgroup">…</hgroup>
+        <div class="hero-ctas">…</div>
+        <p class="framework-support">
+          <span class="ui-label">Works with</span> …
+        </p>
+      </div></ComponentShowcase
+    >
+    ```
+- [ ] (2) Docs site: on a component page, four visible `nav` landmarks have no name: the sidebar, the TOC aside, the pagination and the footer. Only the header nav and Guide's pagination (`aria-label="Guide pages"`) are named, so a landmark list reads "navigation" several times. The axe run in `anatomy.spec.ts` only includes `.anatomy-diagram`, so the page chrome is never checked (`src/layouts/Component.astro:148,350`, `src/layouts/Guide.astro:63`, `src/layouts/Learn.astro:69`, `src/layouts/Blocks.astro:51`, `src/components/TableOfContents.astro:10-13`, `src/components/Footer.astro:116`)
+  - Today:
+    ```astro
+    <nav slot="sidebar">
+      <nav
+        data-toc-selector={selector}
+        class:list={{ "toc-drawer": variant === "drawer" }}
+      >
+        <nav class="pagination">
+          <nav></nav>
+        </nav>
+      </nav>
+    </nav>
+    ```
+  - Fix: name each one.
+    ```astro
+    <nav aria-label="Components" slot="sidebar">
+      <nav aria-label="On this page" data-toc-selector={selector} …>
+        <nav aria-label="Component pages" class="pagination">
+          <nav aria-label="Footer"></nav>
+        </nav>
+      </nav>
+    </nav>
+    ```
+- [ ] (3) Badge: `invisible` only sets `opacity: 0` on the indicator, so screen readers still announce the hidden count and the `srLabel` text ("5 unread messages"), which sighted users can't see. The API row says "Hides the indicator." (`packages/opui/css/components/badge.css:53-54,142-145`, `packages/opui/components/Badge/Badge.astro:26,39`, `src/component-api/badge/api.ts:38-42`)
+  - Today:
+    ```css
+    &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
+      opacity: 0;
+      pointer-events: none;
+    }
+    ```
+  - Fix: also hide it with `visibility` (which blocks pointer events too) and transition `visibility`, so the fade still plays and the hidden indicator leaves the accessibility tree in HTML and all four frameworks.
+    ```css
+    transition:
+      opacity calc(var(--duration) * var(--_motion)) var(--ease-enter),
+      visibility calc(var(--duration) * var(--_motion)) var(--ease-enter);
+    … &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
+      opacity: 0;
+      visibility: hidden;
+    }
+    ```
+- [ ] (3) Typography, Link: links in rich text still use raw `--primary`, while `.ui-link` now clamps lightness to a text-safe value, so the two no longer match although the docs say they look the same. Raw primary measured 4.09:1 on `--surface-tonal` and 3.93:1 on a primary tint, so a link in `.ui-rich-text` inside a tonal card fails AA where a `.ui-link` passes (`packages/opui/css/components/typography.css:333-341`, `packages/opui/css/components/link.css:2-10`, `src/docs/components/typography.astro:62-65`)
+  - Today:
+    ```
+    /* link.css */
+    --_text-color: light-dark(
+      oklch(from var(--primary) min(l, 0.47) c h),
+      oklch(from var(--primary) max(l, 0.78) c h)
+    );
+    color: var(--_text-color);
+    /* typography.css, rich text */
+    a[href]:where(:not([class*="ui-"])) {
+      color: var(--primary);
+      text-decoration-color: var(--primary);
+    ```
+  - Fix: define the clamp in one place and read it from both rules: a `--primary-text` token in `:where(html, .ui-palette)` (the theme-token tests then require a description and a contrast re-declaration), or keep it private, as decided earlier, and repeat `--_text-color` in the rich-text rule.
+    ```css
+    /* theme.css */
+    --primary-text: light-dark(
+      oklch(from var(--primary) min(l, 0.47) c h),
+      oklch(from var(--primary) max(l, 0.78) c h)
+    );
+    /* link.css and typography.css */
+    color: var(--primary-text);
+    text-decoration-color: var(--primary-text);
+    ```
+- [ ] (3) Docs site: the three radius chip groups in the Theme configurator drawer have no accessible group name. Each label is a bare `<span class="ui-label">`, so a screen reader hears "1, toggle button, not pressed" three times with no hint of which radius it sets. The Theme generator wraps the same chips in `FieldSet` and `FieldLegend` (`src/components/ThemeConfigurator.astro:173-203`, `src/components/ThemeGenerator/ThemeGenerator.astro:156-181`)
+  - Today:
+    ```
+    <FieldGroup>
+      <div class="chip-group-wrapper">
+        <span class="ui-label">{group.label}</span>
+        <div class="chip-group">
+          {RADIUS_OPTIONS.map((item) => <Chip as="button" aria-pressed={…} label={item.text} … />)}
+    ```
+  - Fix: use a labelled single-selection `ToggleGroup`, as the generator's mode picker does. Its radios carry `name={group.name}`, so the form's existing `input` handler sets the token, and the chip click handler and `setChipPressed` go away.
+    ```astro
+    <ToggleGroup
+      aria-label={group.label}
+      name={group.name}
+      selection="single"
+      size="small"
+    >
+      {
+        RADIUS_OPTIONS.map((item) => (
+          <ToggleButton
+            pressed={item.value === tokenDefaults("light")[group.name]}
+            value={item.value}
+          >
+            {item.text}
+          </ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+    ```
+- [ ] (4) Select: the description (`.ui-start-text`) is never announced. `aria-labelledby` points only at the label span, so the wrapping `<label>` no longer supplies the name, and `aria-describedby` holds only the end text. Chromium's AX tree for the Spread example gives the combobox the name "Country" and no description; "Select your country of residence" isn't exposed at all. Range does this right by adding its start text id (`packages/opui/components/Select/Select.astro:31-32`, `packages/opui/components/Select/Select.astro:60-67`, `packages/opui/components/Select/Select.react.tsx:35-36`, `packages/opui/components/Select/Select.svelte:35-38`, `packages/opui/components/Select/Select.vue:76-91`, `src/component-examples/select/Spread.html:1-5`)
+  - Today:
+    ```astro
+    const describedBy = [endTextId,
+    rest["aria-describedby"]].filter(Boolean).join(" ") || undefined …
+    <span class="ui-start-text">{description}<slot name="description" /></span>
+    ```
+  - Fix: give the start text an id and put it first in the merge, as Range does, in all four frameworks and the HTML examples.
+    ```astro
+    const descriptionId = description || Astro.slots.has("description") ?
+    $id("start-text") : undefined const describedBy = [descriptionId, endTextId,
+    ariaDescribedBy].filter(Boolean).join(" ") || undefined
+    ```
+- [ ] (4) Toast: the close button's focus ring is invisible. It uses the global ring, whose `--focus-ring-color` is the inverted page background, drawn on the toast's `--surface-inverse` background, which is nearly the same color: near-black on near-black in light mode (about 1.1:1) and near-white on near-white in dark mode (about 1.3:1). Toast is on hold, but `toast.css` ships (`packages/opui/css/components/toast.css:52-55`, `packages/opui/css/components/toast.css:108-124`, `packages/opui/css/theme.css:38-40`, `packages/opui/core/normalize.css:99-104`)
+  - Today:
+    ```css
+    /* theme.css */
+    --focus-ring-color: rgb(
+      from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
+    );
+    /* toast.css */
+    background-color: var(--surface-inverse);
+    color: var(--text-primary-contrast);
+    ```
+  - Fix: give the ring the toast's text color, like ButtonGroup does with `currentColor` (and read `--text-inverse`, see the inverse text token item in Suggestions).
+    ```css
+    :where(.ui-toast) {
+      --focus-ring-color: currentColor;
+
+      background-color: var(--surface-inverse);
+      color: var(--text-inverse);
+    }
+    ```
 
 ## Bugs
 
@@ -2427,6 +2655,806 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: `if (!page.ok) return next()`; if the special case exists for a reason, name it in a constant or condition.
   > Fix
   - Fixed: `if (!page.ok) return next()`; the 404 special case is gone.
+- [ ] (1) Todo page: example iframes can grow but never shrink. The height comes from `documentElement.scrollHeight`, which can't be smaller than the iframe viewport, and normalize gives `body` a `min-block-size` of `100svb`, so when an example gets shorter (an accordion closes, a menu hides) the frame keeps its tallest height. The block viewer avoids this by measuring the content element (`.block-preview`) instead (`src/pages/todo/[...index].astro:342-351`, `src/pages/todo/example/[name].astro:38-53`, `src/pages/blocks/[block]/index.astro:154-167`, `packages/opui/core/normalize.css:37-49`)
+  - Today:
+    ```ts
+    new ResizeObserver(() => {
+      frame.style.blockSize = `${root.scrollHeight}px`
+    }).observe(root)
+    ```
+  - Fix: move the example page's padding from `body` to `main`, then measure `main` the way the block viewer measures `.block-preview`.
+    ```ts
+    const main = frame.contentDocument?.querySelector("main")
+    if (!main) return
+    new ResizeObserver(() => {
+      frame.style.blockSize = `${Math.ceil(main.getBoundingClientRect().height)}px`
+    }).observe(main)
+    ```
+- [ ] (2) Checkbox, Radio, Switch (Vue): the Vue barrel exports `CheckboxInputProps`, `RadioInputProps` and `SwitchInputProps` from the base `types.ts` instead of `types.d.vue.ts`, so Vue users get `{}` for the Radio and Switch inputs and no `class` on any of the three. Every other Vue props type, and the other three barrels, export their own framework's type (`packages/opui/vue/index.ts:99-100`, `packages/opui/vue/index.ts:136-137`, `packages/opui/vue/index.ts:141-142`, `packages/opui/components/Radio/types.d.vue.ts:13`)
+  - Today:
+    ```ts
+    export type { CheckboxInputProps } from "../components/Checkbox/types"
+    export type { CheckboxProps } from "../components/Checkbox/types.d.vue"
+    ```
+  - Fix: export both from `types.d.vue`, and do the same for Radio and Switch.
+    ```ts
+    export type {
+      CheckboxInputProps,
+      CheckboxProps,
+    } from "../components/Checkbox/types.d.vue"
+    ```
+- [ ] (2) Avatar (Vue): `disabled` is a declared prop, which Vue casts to `false` when missing, and it is bound on every tag. An avatar rendered on the client as a div or link gets `disabled="false"`: Vue's SSR leaves a false boolean attribute out, but the DOM patcher calls `setAttribute("disabled", false)` on elements without a `disabled` property. Hydration doesn't patch it, so this shows in client-only Vue apps and avatars mounted after hydration. Button.vue already guards it (`packages/opui/components/Avatar/Avatar.vue:5,21`, `packages/opui/components/Button/Button.vue:26`)
+  - Today:
+    ```vue
+    :disabled="disabled"
+    ```
+  - Fix: bind it only on a button, as Button.vue does.
+    ```vue
+    :disabled="Tag === 'button' ? disabled : undefined"
+    ```
+- [ ] (2) Avatar, Chip, Button: every branch of the polymorphic unions has an optional `as`, and the base union is intersected with a second union of element attributes, so props without `as` can mix one branch's props with another element's attributes. `tsc` accepts all the lines below in all four frameworks. ListItem already does this right with a required `as: "button"` (`packages/opui/components/Avatar/types.ts:5-21`, `packages/opui/components/Avatar/types.react.ts:4-10`, `packages/opui/components/Chip/types.ts:2,5`, `packages/opui/components/Chip/types.react.ts:7-13`, `packages/opui/components/Button/types.react.ts:4-6`, `packages/opui/components/ListItem/types.ts:15`)
+  - Today (all pass `tsc`):
+    ```
+    <Avatar disabled />            // <div class="ui-avatar" disabled>
+    <Chip href="/x" disabled />    // <a class="ui-chip ui-tonal" href="/x" disabled>
+    <Chip as="div" href="/x" />    // href silently dropped
+    <Chip as="a" />                // link without href
+    <Button href="/x" form="f" />  // button-only attribute on an <a>
+    ```
+  - Fix: make `as` required on the branches that aren't the default, in the base and the framework unions, and give Chip Avatar's base union. Button's framework unions discriminate on `href`. Checked with `tsc`: the lines above fail, and `{}`, `{ href }` and `{ as: "button", disabled, type }` still pass.
+    ```
+    // Avatar/types.ts
+    | { as?: "div"; disabled?: never; href?: never }
+    | { as?: "a"; disabled?: never; href: string }
+    | { as: "button"; disabled?: boolean; href?: never }
+    // Button/types.react.ts
+    | (Base.Props & { as?: "button"; href?: never } & ComponentProps<"button">)
+    | (Base.Props & { as?: "a"; href: string } & ComponentProps<"a">)
+    ```
+- [ ] (2) Package: React and Svelte users get `interestfor` typings through the barrels' `elements.ts`, but Astro users get nothing. The Astro examples put `interestfor` on `<Button>` and `<a>`, so pasting them fails `astro check` in a user's project; the docs site only passes because it adds its own augmentation in `src/env.d.ts`. That file's `command`/`commandfor` lines are now redundant, because Astro 7.3 ships them (`src/component-examples/tooltip/RichContent.astro:6-9`, `src/env.d.ts:5-15`, `packages/opui/env.d.ts:1-7`, `packages/opui/react/elements.ts:9-13`, `packages/opui/svelte/elements.ts:1-5`)
+  - Today:
+    ```astro
+    <Button
+      interestfor="tooltip-rich"
+      commandfor="tooltip-rich"
+      command="toggle-popover"
+    />
+    ```
+  - Fix: put the Astro augmentation in the package `env.d.ts`, which the README already tells Astro users to reference, and drop `command`/`commandfor` from the site's copy.
+    ```ts
+    declare namespace astroHTML.JSX {
+      interface AnchorHTMLAttributes {
+        interestfor?: string
+      }
+      interface ButtonHTMLAttributes {
+        interestfor?: string
+      }
+    }
+    ```
+- [ ] (2) Accordion: the group selector uses a descendant `:has(details.ui-accordion)`, so any `.ui-card[role="group"]` with an accordion anywhere inside it (for example in its `CardContent`) gets `display: block`, which drops the card's flex gap, and its `> .ui-content` loses its padding. No documented markup puts a `.ui-content` straight inside a group; the docs and every example place the accordions as direct children (`packages/opui/css/components/accordion.css:163-180`, `src/component-api/accordion/api.ts:7-13`, `src/component-examples/accordion/Group.html:1-2`)
+  - Today:
+    ```
+    :where(.ui-card[role="group"]:has(details.ui-accordion)) {
+      display: block;
+      &.ui-card {
+        &:not(.ui-tonal, .ui-outlined, .ui-elevated) { --_item-padding-inline: 0; }
+      }
+      & > .ui-content { margin-block: 0; padding: 0; }
+    ```
+  - Fix: match direct children only, drop the `> .ui-content` reset, and drop the redundant `&.ui-card` wrapper (the `:where()` already requires `.ui-card`).
+    ```
+    :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
+      display: block;
+      &:not(.ui-elevated, .ui-outlined, .ui-tonal) { --_item-padding-inline: 0; }
+    ```
+- [ ] (2) ButtonGroup: the outlined group's edge and dividers ignore `--contrast: more`. A standalone outlined button switches its border to `--_accent-text` (lighter, less chroma in dark), and critical darkens `--_accent`; the group keeps a fixed `--critical`/`--primary` edge and draws its dividers with `--_accent`. In dark mode with more contrast, the edge, the dividers and a standalone outlined button are three different colors (`packages/opui/css/components/button-group.css:15-25,56-58`, `packages/opui/css/components/button.css:11-16,107-116,218-220`)
+  - Today:
+    ```
+    &.ui-outlined { --_edge-color: light-dark(var(--color-16), var(--color-1));
+      &.ui-critical { --_edge-color: var(--critical); } … }
+    :where(.ui-button-group.ui-outlined) & { --_divider-color: var(--_accent); }
+    ```
+  - Fix: apply the same contrast branch to the dividers and the edge.
+    ```css
+    :where(.ui-button-group.ui-outlined) & {
+      --_divider-color: var(--_accent);
+      @container style(--contrast: more) {
+        --_divider-color: var(--_accent-text);
+      }
+    }
+    ```
+- [ ] (2) Button, Chip: the hover and active exclusions test the `[disabled]` attribute. A button or button chip inside `<fieldset disabled>` matches `:disabled` but has no attribute, so it still shows hover and active backgrounds (and the fieldset only sets `cursor: not-allowed` on `input`, `label` and `.ui-label`). TextField was fixed for exactly this earlier; these weren't. The same pattern sits in `choice.css:75` (the checkbox and radio halo) (`packages/opui/css/components/button.css:129,222,244,264`, `packages/opui/css/components/chip.css:44-46,77-79`, `packages/opui/css/components/form.css:56-65`)
+  - Today:
+    ```
+    &:where(:not([disabled], [aria-disabled="true"])) { @media (hover: hover) { … } }
+    ```
+  - Fix: use `:disabled` in the hover and active exclusions, keep `[disabled]` on the dimming block so nothing is dimmed twice (as TextField does), and add `button` to the fieldset cursor list.
+    ```
+    &:where(:not(:disabled, [aria-disabled="true"])) { … }
+    ```
+- [ ] (2) List: `.ui-dense` tightens the `.ui-border-top` separator (margin `--size-2`, line at `-size-1`) but not `.ui-bordered`, so a dense bordered list keeps the full `--size-3` spacing (`src/blocks/hero.html:252` ships one). The `::before` separator is also written out twice, with `block-size: 1px` and a border on top of that (`packages/opui/css/components/list.css:46-64,77-84,273-287`)
+  - Today:
+    ```
+    &.ui-bordered > :where(li + li, option + option) { margin-block-start: var(--size-3);
+      &::before { block-size: 1px; border-block-start: …; inset-block: calc(-1 * var(--size-2)) auto; … } }
+    &.ui-dense > :where(li, option) { &.ui-border-top { margin-block-start: var(--size-2); … } }
+    ```
+  - Fix: one separator rule driven by a private spacing property that dense overrides.
+    ```css
+    :where(.ui-list) {
+      --_separator-space: var(--size-3);
+    }
+    &.ui-dense {
+      --_separator-space: var(--size-2);
+    }
+    &.ui-bordered > :where(li + li, option + option),
+    & > :where(li, option).ui-border-top {
+      margin-block-start: var(--_separator-space);
+      &::before {
+        border-block-start: var(--border-width) solid var(--_separator-color);
+        content: "";
+        inset: calc(var(--_separator-space) / -2) 0 auto;
+        position: absolute;
+      }
+    }
+    ```
+- [ ] (2) List: `.ui-inset` still reaches `.ui-text` and `.ui-start` through descendant selectors in `components.extended`, so a Chip or Button label (`<span class="ui-text">`) in an inset row's `.ui-end` gets `padding-inline-start: calc(var(--_start-size) + var(--_item-gap))`. An earlier item fixed this bug class for the row text rule but missed these two (`packages/opui/css/components/list.css:367-377`, `packages/opui/components/ListItem/ListItem.astro:20-27`)
+  - Today:
+    ```css
+    &.ui-inset {
+      .ui-text {
+        padding-inline-start: calc(var(--_start-size) + var(--_item-gap));
+      }
+      .ui-start {
+        display: none;
+      }
+    }
+    ```
+  - Fix: scope both rules to the row's own parts, like the fixed text rule.
+    ```css
+    &.ui-inset {
+      & > .ui-text,
+      & > :where(a, button, label) > .ui-text {
+        padding-inline-start: …;
+      }
+      & > .ui-start,
+      & > :where(a, button, label) > .ui-start {
+        display: none;
+      }
+    }
+    ```
+- [ ] (2) Progress: `--_motion: 0`, the per-component motion setting the customizing guide documents, leaves an indeterminate progress empty. The animation scales to `0s`, and the `::after` has no inline insets, so it is 0 wide; the pulse that replaces it only matches the global `--motion` (`packages/opui/css/components/progress.css:3`, `packages/opui/css/components/progress.css:60-75`, `src/docs/guide/customizing.astro:45-48`)
+  - Today:
+    ```
+    animation: ui-indeterminate calc(2s * var(--_motion)) linear infinite;
+    …
+    @container style(--motion: 0) {
+      &::after { animation: ui-indeterminate-pulse 2s ease-in-out infinite; … }
+    }
+    ```
+  - Fix: query the private property instead; it already follows `--motion`, and a pseudo-element queries its originating element (`carousel.css:57` has the same query).
+    ```
+    @container style(--_motion: 0) {
+    ```
+- [ ] (2) Select: `select.css` declares `--_motion` again on the `<select>`, so setting `--_motion: 0` on the `.ui-select` root, where `text-field.css` declares it, stops the field border transition but not the picker or chevron animations. The picker also writes `calc(var(--duration) * var(--_motion))` five times, while Menu, the other popover, uses `--_duration`/`--_ease` (`packages/opui/css/components/select.css:2-3`, `packages/opui/css/components/select.css:17`, `packages/opui/css/components/select.css:48-52`, `packages/opui/css/components/text-field.css:6-7`, `packages/opui/css/components/menu.css:11-12`)
+  - Today:
+    ```
+    :where(.ui-select select) {
+      --_motion: var(--motion, 1);
+      …
+      transition:
+        display calc(var(--duration) * var(--_motion)) allow-discrete,
+        opacity calc(var(--duration) * var(--_motion)) var(--ease),
+        …
+    ```
+  - Fix: remove the second declaration so the `<select>` inherits the root's `--_motion`, and define the motion once, as Menu does.
+    ```css
+    :where(.ui-select) {
+      --_duration: calc(var(--duration) * var(--_motion));
+      --_ease: var(--ease);
+    }
+    :where(.ui-select select)::picker(select) {
+      transition:
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
+    }
+    ```
+- [ ] (2) TextField, Select: five rules hard-code the space kept free for the chevron as `--size-8` or `--size-7`, instead of deriving it from `--_arrow-inset` and `--_chevron-size`, which are now the same at every size. Since the smaller inset for small fields was removed, the 2rem that small and x-small customizable selects and autosuggest fields keep free equals inset plus chevron, so text runs right up to the chevron, while the classic select keeps 3rem at every size (`packages/opui/css/components/text-field.css:9`, `packages/opui/css/components/text-field.css:13`, `packages/opui/css/components/text-field.css:211`, `packages/opui/css/components/text-field.css:220`, `packages/opui/css/components/select.css:119-124`, `packages/opui/css/components/text-input.css:16-18`, `packages/opui/css/components/text-input.css:37-42`)
+  - Today:
+    ```css
+    /* text-field.css */
+    padding-inline: var(--_field-padding-inline) var(--size-8);
+    /* select.css, .ui-small and .ui-x-small */
+    padding-inline: var(--size-2) var(--size-7);
+    /* text-input.css, .ui-small and .ui-x-small */
+    padding-inline-end: var(--size-7);
+    ```
+  - Fix: derive the space once on the field root and read it in all three places (3rem by default, as today).
+    ```
+    --_arrow-space: calc(var(--_arrow-inset) + var(--_chevron-size) + var(--size-3));
+    …
+    padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+    ```
+- [ ] (2) List: the Variants example wraps its three lists in `<div class="column" style="gap: var(--size-4)">`. No stylesheet defines `.column`, and `gap` does nothing on a block box. `.example-preview` is already a grid with `gap: var(--size-3)`, so the wrapper is what takes the space between the lists away (`src/component-examples/list/Variants.astro:5`, `src/component-examples/list/Variants.html:1`, `src/component-examples/list/Variants.react.tsx:5`, `src/component-examples/list/Variants.svelte:5`, `src/component-examples/list/Variants.vue:6`, `src/components/Example/Example.astro:364-367`, `src/docs/components/list.astro:193`)
+  - Today:
+    ```astro
+    <div class="column" style="gap: var(--size-4);">
+      <List>…</List>
+      <List variant="tonal">…</List>
+    </div>
+    ```
+  - Fix: remove the wrapper in all five files, as the guide says (no outer layout wrapper), and let the preview grid do the spacing.
+    ```astro
+    <AutoExample name="Variants" column />
+    ```
+- [ ] (2) Docs site: the Theme tokens tables and the Toast HTML table still pass a declaration string to `TableColumn` `width`, which takes a length since 6.0.0, so the `<col>` gets `style="width: min-width: 220px;"`, an invalid declaration the browser drops, and the columns lose their minimum widths. An earlier fix says "the docs tables pass `style` instead", but these two were missed (`src/docs/guide/theme-tokens.astro:75-77`, `src/component-api/toast/HTML.astro:16-19`, `packages/opui/components/Table/TableColumn.astro:5-8`, `packages/opui/components/style.ts:3-21`)
+  - Today:
+    ```astro
+    <TableColumn width="min-width: 220px" />
+    ```
+  - Fix: pass it as `style`, as the API tables do (`ApiTables.astro:62-65`), or as a plain length.
+    ```astro
+    <TableColumn style="min-width: 220px" />
+    ```
+- [ ] (2) API docs: the order of a union in the Type column is the order in which TypeScript interned the literals, neither the source order nor sorted, so it can change when an unrelated file changes, and it disagrees with the HTML table of the same component, which `modifiers()` sorts. Tabs declares `"filled" | "line" | "outlined"` but shows `"outlined" | "line" | "filled"`; sizes declared as `"x-small" | "small" | "large"` show `"small" | "x-small" | "large"`; Drawer's `closedby` shows `"none" | "any" | "closerequest"`, while Dialog's shows the declared order only because it has a hand-written `type` (`src/utils/component-source.ts:74-92,135-140`, `packages/opui/components/Tabs/types.ts:4`, `packages/opui/components/Drawer/types.ts:3`, `src/component-api/rows.ts:25-37`)
+  - Today:
+    ```
+    return parts
+      .filter((part) => !(hasString && /^\(string & .+\)$/.test(part)))
+      .map((part) => { … })
+      .join(" | ")
+    ```
+  - Fix: sort the members in `cleanType`, as the repo's sorting rule asks; Dialog's `type` override can then go.
+    ```
+      .map((part) => { … })
+      .toSorted((a, b) => a.localeCompare(b))
+      .join(" | ")
+    ```
+- [ ] (2) Docs site: `localStorage` access is unguarded in the theme bootstrap, `theme-store` and Search. When site data is blocked the access throws: the inline bootstrap stops (no `ui-*` class, and every switch handler throws), opening Search throws in `getRecentSearches`, and every theme edit throws in `writeConfig`. Framework storage in Layout, FrameworkPicker, ChipRain and `index.astro` is wrapped in try/catch, and `readStored`, `writeStored` and `copyText` already do this safely in the Todo code (`src/components/Header.astro:61-66,74-76,87`, `src/utils/theme-store.ts:106-109,174-178`, `src/components/Search.astro:219-237`, `src/components/Todo/comments.ts:1-28`)
+  - Today:
+    ```
+    getStoredTheme() {
+      return localStorage.getItem("theme")
+    },
+    ```
+  - Fix: move the Todo helpers to `src/utils/storage.ts` and use them in Search, `theme-store`, `Code.astro` and ThemeGenerator. Wrap the bootstrap's reads and writes in try/catch, and pass the key names in through `define:vars`: `"theme"`, `"contrast"` and `opui-custom-theme-*` are repeated as literals in `Header.astro`, `theme-store.ts` and `blocks/[block]/preview.astro`.
+    ```ts
+    const getRecentSearches = () =>
+      readStored<SearchItem[]>("opui-recent-searches", [])
+    ```
+- [ ] (2) Docs site: Example decodes entities in code that `Example.Code` injected raw with `set:html`, so code tabs differ from the example files. `anchor/RepoCard.*` shows `HTML & CSS` where the file has `HTML &amp; CSS`, `typography/Default.*` loses the `&amp;` in its URL, and `&amp;quot;` is decoded twice to `"`. The preview HTML goes through the same decode outside `<pre>` (`src/components/Example/Example.astro:76-87,129-139`, `src/components/Example/Code.astro:17`)
+  - Today:
+    ```ts
+    const decode = (s: string) =>
+      s
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+    const parts = str.split(/(<pre\b[\s\S]*?<\/pre>)/gi)
+    ```
+  - Fix: escape when injecting, so the round trip is exact, then the `<pre>` split and the decode can go.
+    ```astro
+    <Fragment set:text={code} />
+    ```
+- [ ] (2) Tooling: `generate-search-index.mjs` reads headings with a single-line regex, so any heading that prettier wrapped onto several lines never gets into the search index. Text field loses "Numeric vs <input type=number>" and "Do I have to use <label>?" (12 of its 14 headings are indexed), and Spinner loses "1. Because it's blocked by another use case" (`scripts/generate-search-index.mjs:25-36`, `src/docs/components/text-field.astro:323-325`, `src/docs/components/text-field.astro:469-471`, `src/docs/components/spinner.astro:61-63`)
+  - Today:
+    ```js
+    content.matchAll(/<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi)
+    ```
+  - Fix: let `.` match across lines, keep the opening tag inside `[^>]*`, and collapse whitespace.
+    ```js
+    content.matchAll(/<h[23][^>]*\bid=["'][^"']*["'][^>]*>(.*?)<\/h[23]>/gis)
+    // …
+    m[1]
+      .replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+    ```
+- [ ] (2) Todo page: once you pick an action radio for an item, you can't unpick it. A radio's `change` event only fires when it becomes checked, so the `else delete actions[key]` branch never runs, and the only way back is "Clear comments", which also wipes every comment and every other action (`src/pages/todo/[...index].astro:81-86`, `src/pages/todo/[...index].astro:273-288`, `src/pages/todo/[...index].astro:389-396`)
+  - Today:
+    ```ts
+    const checked = checkedAction(item)
+    const actions = readActions()
+    if (checked) actions[key] = checked
+    else delete actions[key] // unreachable
+    ```
+  - Fix: add a "None" radio with an empty value, which starts checked; `checkedAction()` then returns `""` and the delete branch runs.
+    ```astro
+    const actions = ["", "Explain further", "Explain further and provide an
+    example", "Fix", "Remove issue"]
+    <Radio class="todo-action" size="small" value={action}
+      >{action || "None"}</Radio
+    >
+    ```
+- [ ] (2) Blocks: a block preview opened in its own tab ("Open in a new tab") reads the saved theme with its own copy of the Header bootstrap, and the copy has drifted. With no saved `theme` it always applies the light custom config (Header uses the OS preference), and it skips the legacy `var(--radius-N)` → `var(--size-N)` mapping and the `--gray-hue-offset` cleanup. An earlier fix says the bootstrap "is now the only code that reads and applies a saved config", which isn't true while this copy exists (`src/pages/blocks/[block]/preview.astro:43-60`, `src/components/Header.astro:38-54`, `src/components/Header.astro:119-120`)
+  - Today:
+    ```
+    const theme = localStorage.getItem("theme")
+    …
+    const custom = localStorage.getItem(`opui-custom-theme-${theme ?? "light"}`)
+    for (const [name, value] of Object.entries(custom ? JSON.parse(custom) : {})) …
+    ```
+  - Fix: move the `themeUtils` inline script out of `Header.astro` into one component, for example `ThemeBootstrap.astro` (it receives `TOKENS` through `define:vars`), render it in both places, and keep only the iframe class/style sync in the preview script.
+    ```astro
+    <head>
+      <ThemeBootstrap />
+      <script is:inline>
+        /* parentRoot sync only */
+      </script>
+    </head>
+    ```
+- [ ] (3) Anchor: with `trigger="hover"` and no `id`, the floating content gets a generated `anchor-…` id that no trigger can point at, so the popover never opens and nothing warns. Tooltip had the same bug and now requires `id`, but Anchor's types still make it optional. The id generator in all four frameworks exists only for this dead case (`packages/opui/components/Anchor/types.ts:1-4`, `packages/opui/components/Anchor/Anchor.astro:18-23`, `packages/opui/components/Anchor/Anchor.react.tsx:16-19`, `packages/opui/components/Anchor/Anchor.svelte:18-21`, `packages/opui/components/Anchor/Anchor.vue:9-13`)
+  - Today:
+    ```astro
+    const isHover = trigger === "hover" const id = isHover ? (idProp ??
+    createId(Astro.locals)("anchor")) : undefined
+    ```
+  - Fix: pass the user's id straight through, remove the id generator from the four roots, and make `id` required with `trigger="hover"` the way Tooltip did, with a union in the type files.
+    ```astro
+    const floatingId = trigger === "hover" ? idProp : undefined
+    ```
+    ```ts
+    export type Props = { alignment?: string } & (
+      { trigger?: "always" } | { id: string; trigger: "hover" }
+    )
+    ```
+- [ ] (3) Dialog, Drawer: the region rules use descendant selectors, so they restyle the parts of any container nested inside. A Callout in `DrawerContent` gets the drawer's 16px padding, `flex: 1` and `overflow-y: auto` on its `CalloutContent`. A Card in `DialogContent` gets its `CardActions` forced to `justify-content: end` with Dialog's padding, because `components.extended` beats `card.css` (and the Card page recommends putting a card in a dialog). A TextField footer inside a drawer gets `justify-content: end`. The components guide says parts must be direct children because the CSS targets `>` (`packages/opui/css/components/drawer.css:57-127`, `packages/opui/css/components/drawer.css:150-152`, `packages/opui/css/components/dialog.css:79-87`, `packages/opui/components/AGENTS.md:184`, `src/docs/components/card.astro:100`)
+  - Today:
+    ```
+    :where(dialog.ui-drawer) {
+      .ui-header { … }
+      .ui-content { … flex: 1; overflow-y: auto; padding: var(--_content-padding); }
+      .ui-footer { … justify-content: end; }
+    }
+    :where(.ui-dialog) {
+      .ui-actions { justify-content: end; padding-inline: var(--size-3) var(--size-1); }
+    }
+    ```
+    ```astro
+    <Drawer
+      ><DrawerContent>
+        <Callout severity="info"
+          ><CalloutIcon /><CalloutContent>…</CalloutContent></Callout
+        >
+      </DrawerContent></Drawer
+    >
+    ```
+  - Fix: target direct children, as `dialog.css` already does for `> .ui-content`. The parts are always direct children, and no example or stress test wraps them.
+    ```
+    :where(dialog.ui-drawer) {
+      & > .ui-header { … }
+      & > .ui-content { … }
+      @container scroll-state(scrollable: block-start) {
+        & > .ui-content::before { opacity: 1; }
+      }
+      & > .ui-footer { … }
+      &.ui-inline-end { & > .ui-footer { justify-content: start; } }
+    }
+    :where(.ui-dialog) { & > .ui-actions { … } }
+    ```
+- [ ] (3) Select (Svelte): a `multiple` select with several `items[].selected` keeps only the first selection after mount, and logs `select_multiple_invalid_value` twice. With `value` undefined, Svelte sets the binding to the first `:checked` option as a single value, and `isSelected` then re-renders against it and removes `selected` from the other options. Reproduced in Chromium with Svelte 5.56.4 (`packages/opui/components/Select/Select.svelte:16`, `packages/opui/components/Select/Select.svelte:40-45`, `packages/opui/components/Select/Select.svelte:79`, `packages/opui/components/Select/Select.svelte:88`)
+  - Today:
+    ```svelte
+    <Select
+      multiple
+      items={[
+        { selected: true, text: "A", value: "a" },
+        { text: "B", value: "b" },
+        { selected: true, text: "C", value: "c" },
+      ]}
+    />
+    <!-- selectedOptions after mount: ["a"] -->
+    ```
+  - Fix: start the binding as an array for `multiple` (tested in a scratch copy: keeps `["a", "c"]`; `untrack` avoids the `state_referenced_locally` warning).
+    ```ts
+    untrack(() => {
+      if (value === undefined && rest.multiple)
+        value = items.filter((item) => item.selected).map((item) => item.value)
+    })
+    ```
+- [ ] (3) Range (Astro): the inline output script runs once over every `.ui-range` on the page. It doesn't re-run on `astro:after-swap`, so with `<ClientRouter>` the outputs on later pages stop updating (`checkbox.js` handles that). It also wires ranges it doesn't own, such as the HTML example (which has its own listener) and server-rendered framework islands, and it replaces `value` slot content with plain text on load. The "Idempotent" comment is wrong: there is no per-element guard (`packages/opui/components/Range/Range.astro:129-146`, `packages/opui/css/js/checkbox.js:25-31`)
+  - Today:
+    ```
+    for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
+      …
+      input.addEventListener("input", update)
+      update()
+    }
+    ```
+  - Fix: move the code to `css/js/range.js` with an `initRange()` that has a `WeakSet` guard and an `astro:after-swap` re-run, like `initCheckbox()`, and target only outputs that `Range.astro` marks as live.
+    ```astro
+    <output
+      class="ui-value"
+      data-live={Astro.slots.has("value") ? undefined : ""}
+      …
+    >
+      <script>
+        import { initRange } from "../../css/js/range.js"
+        initRange()
+      </script></output
+    >
+    ```
+- [ ] (3) Checkbox: the unchecked box border reads `--border-color`, while Radio, TextField, Select and Range read `--field-border-color`. In high contrast `--border-color` is a 55% mix and `--field-border-color` a 70% mix, so checkboxes get a lighter border than the radios and fields next to them, and a theme that sets `--field-border-color` misses checkboxes (`packages/opui/css/components/checkbox.css:14`, `packages/opui/css/components/radio.css:23`, `packages/opui/css/theme.css:344-352`)
+  - Today:
+    ```css
+    /* checkbox.css */
+    border: var(--field-border-width) solid var(--border-color);
+    /* radio.css */
+    border: var(--field-border-width) solid var(--field-border-color);
+    ```
+  - Fix: use the field token in `checkbox.css` too.
+    ```css
+    border: var(--field-border-width) solid var(--field-border-color);
+    ```
+- [ ] (3) Radio (Svelte, Vue): clicking a radio that has no `bind:group`/`v-model` stores its own value as the group, and from then on its `checked` prop is ignored. Radios driven by `checked` plus `onchange`/`@change` stop following state once each has been clicked: both `checked` expressions stay `true`, so neither is written again, and a reset leaves the last-clicked radio checked. Checkbox and Switch don't do this, because their bound `group` is only used when defined (`packages/opui/components/Radio/RadioInput.svelte:17-28`, `packages/opui/components/Radio/RadioInput.vue:17-24`, `packages/opui/components/Radio/RadioInput.vue:32-34`)
+  - Today:
+    ```svelte
+    <!-- click Free, then Pro, then Reset: Pro stays checked -->
+    <Radio
+      name="plan"
+      value="free"
+      checked={plan === "free"}
+      onchange={() => (plan = "free")}>Free</Radio
+    >
+    <Radio
+      name="plan"
+      value="pro"
+      checked={plan === "pro"}
+      onchange={() => (plan = "pro")}>Pro</Radio
+    >
+    <button onclick={() => (plan = "free")}>Reset</button>
+    ```
+    ```svelte
+    checked={(group === undefined ? checked : group === (value ?? true)) ||
+      undefined}
+    onchange={(event) => {
+      group = value ?? true
+      onchange?.(event)
+    }}
+    ```
+  - Fix: let a passed `checked` win over the internal group in both frameworks. Behavior with `bind:group`/`v-model` is unchanged.
+    ```svelte
+    checked={(checked ?? group === (value ?? true)) || undefined}
+    ```
+    ```ts
+    const checked = computed(() =>
+      attrs.checked === undefined
+        ? modelValue.value === (attrs.value ?? true)
+        : attrs.checked !== false,
+    )
+    ```
+- [ ] (3) Chip: a disabled link chip renders `disabled` on the `<a>`. `chip.css` dims it through `[disabled]`, but `pointer-events: none` only matches `a[aria-disabled="true"]`, so the chip looks disabled, still navigates, and isn't exposed as disabled. Button turns `disabled` into `aria-disabled="true"` on links, as the components guide requires, and the HTML Chip docs tell readers to do the same; Chip passes `disabled` through `...rest` to whatever tag it renders (`packages/opui/components/Chip/Chip.astro:20,35-37`, `packages/opui/components/Chip/Chip.react.tsx:35-37`, `packages/opui/components/Chip/Chip.svelte:38-40`, `packages/opui/components/Chip/Chip.vue:34-35`, `packages/opui/css/components/chip.css:183,202`, `packages/opui/components/Button/Button.astro:34-38`, `src/docs/components/chip.astro:249-250`)
+  - Today:
+    ```astro
+    <Chip href="/archive" disabled label="Archived" />
+    <!-- <a class="ui-chip ui-tonal" href="/archive" disabled> -->
+    ```
+  - Fix: add `disabled?: boolean` to `Chip/types.ts`, and put Button's tag rules in one helper that Button, Chip and Avatar use in all four frameworks (spread in Astro, React and Svelte, `v-bind` in Vue). This also removes 12 copies of the tag logic.
+    ```ts
+    // components/tag.ts
+    export const tagAttrs = (
+      tag: string,
+      disabled?: boolean,
+      href?: string,
+    ) => ({
+      "aria-disabled": tag === "a" && disabled ? ("true" as const) : undefined,
+      disabled: tag === "button" ? disabled : undefined,
+      href: tag === "a" ? href : undefined,
+      type: tag === "button" ? ("button" as const) : undefined,
+    })
+    ```
+    ```
+    <Tag class:list={[…]} {...tagAttrs(Tag, disabled, href)} {...rest}>
+    ```
+- [ ] (3) Progress (Svelte): switching a bar back to indeterminate (`value` from a number to `undefined`) leaves `value="0"`, so it shows an empty determinate bar instead of the indeterminate animation. With `{...rest}`, Svelte sets every attribute through its spread path, which for `value: null` removes the attribute and then runs `element.value = null`; on a `<progress>` that setter writes `value="0"`. React removes the attribute, and Vue special-cases `PROGRESS`. Reproduced by running Svelte 5.56.4's `set_attributes` on a spec-conforming progress stub; confirm in a browser (`packages/opui/components/Progress/Progress.svelte:14-18`)
+  - Today:
+    ```svelte
+    <Progress max={total} value={total ? done : undefined} />
+    <!-- after a number, total → undefined renders <progress value="0"> -->
+    ```
+  - Fix: recreate the element when it switches between determinate and indeterminate (the parity normalizer strips the extra SSR comment markers).
+    ```svelte
+    {#key value == null}
+      <progress {max} {value} {...rest}>
+        {@render children?.()}
+      </progress>
+    {/key}
+    ```
+- [ ] (3) ListItem: `as="div"` renders `li > div > .ui-start/.ui-text/.ui-end`, but `list.css` only lays out those parts when they sit directly in the `li` or in an `a`/`button`/`label`. The `div` is a plain block, so start, text and end stack vertically in a shrink-wrapped box, and `.ui-text` loses `flex: 1` and its line-height. Measured in Chromium: with `as="a"` the three parts sit in one 45px row, with `as="div"` they stack at y=0/26/58 in a 51px-wide box. No example uses `as="div"` (`packages/opui/components/ListItem/types.ts:19-23`, `packages/opui/components/ListItem/types.astro.ts:9`, `packages/opui/components/ListItem/types.react.ts:15`, `packages/opui/components/ListItem/types.svelte.ts:13`, `packages/opui/components/ListItem/types.solid.ts:11`, `packages/opui/css/components/list.css:165,213-215,290-291`, `src/component-api/list-item/api.ts:12`, `packages/opui/CHANGELOG.md:31`, `src/utils/whats-new.ts:286`)
+  - Today:
+    ```
+    &:has(> a, > button, > label) { … }
+    & > a,
+    & > button,
+    & > label { display: flex; … }
+    & > .ui-text,
+    & > :where(a, button, label) > .ui-text { flex: 1; … }
+    ```
+  - Fix: drop `"div"` from the `as` union in the five type files, the `as` description, the CHANGELOG line and the What's new note. A ListItem without `as` already renders its content straight in the `li`. If a non-interactive wrapper is wanted, add `div` to the three selectors instead.
+    ```
+    // ListItem/types.ts: delete this member (and `| ({ as: "div" } & …)` in the framework type files)
+    | {
+        as: "div"
+        disabled?: never
+        href?: never
+      }
+    ```
+- [ ] (3) ListItem: when `type` is set, all four frameworks render the default slot after `.ui-end` and outside `.ui-text`. The API says the default slot goes "inside `.ui-text`, or all the content when there's no text", which is what happens without `type`. So `<ListItem type="switch" for="wifi">Wi-Fi<SwitchInput slot="end" id="wifi" /></ListItem>` puts the text after the switch. The label branch is also a third copy of the start/text/end markup, and when `as` or `href` is passed with `type` (the types allow it), it silently drops them and every other attribute (`packages/opui/components/ListItem/ListItem.astro:36-56`, `packages/opui/components/ListItem/ListItem.react.tsx:54-68`, `packages/opui/components/ListItem/ListItem.svelte:77-89`, `packages/opui/components/ListItem/ListItem.vue:36-52`, `src/component-api/list-item/api.ts:98`)
+  - Today:
+    ```
+    {hasLabel ? (
+      <label className={`ui-${type}`} htmlFor={htmlFor}>
+        {startPart}
+        {(text || headline || description) && <div className="ui-text">…{text}</div>}
+        {endPart}
+        {children}
+      </label>
+    ) : Tag ? (
+      <Tag href={href} type={…} {...(rest as object)}>{body}</Tag>
+    ) : body}
+    ```
+  - Fix: render the label as one more `Tag` so every mode shares `body`. The default slot then lands in `.ui-text`, Astro and Vue drop one of their three copies, and the types can forbid `as`/`href` together with `type`.
+    ```
+    const Tag = hasLabel ? "label" : (as ?? (href ? "a" : undefined))
+    const tagProps = hasLabel
+      ? { className: `ui-${type}`, htmlFor }
+      : { href, type: Tag === "button" ? "button" : undefined, ...rest }
+    …
+    <li className={…} {...(hasLabel || !Tag ? rest : {})}>
+      {Tag ? <Tag {...tagProps}>{body}</Tag> : body}
+      {submenu}
+    </li>
+    ```
+- [ ] (3) CSS: the "Raised surfaces" border remap only covers Card. In dark mode `--border-color`, `--surface-tonal` and `--surface-elevated` are all `--gray-12`, so inside a tonal or elevated Accordion, or a default Callout (which is tonal), dividers, table borders and field and checkbox borders are the same color as the background. Menu works around the same gray-on-gray locally for its own border. The selector list must also be repeated in the contrast block and in the Theming snippet, and a `.ui-palette` inside a raised card resets `--border-color` to the default again (`packages/opui/css/theme.css:212-219,276-280,293-302`, `packages/opui/css/components/accordion.css:49-61`, `packages/opui/css/components/callout.css:3,56-57`, `packages/opui/css/components/menu.css:5-8`, `src/docs/guide/theming.astro:273`)
+  - Today:
+    ```
+    --border-color: light-dark(var(--gray-4), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    …
+    /* Raised surfaces */
+    :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
+      --border-color: light-dark(var(--gray-4), var(--surface-default));
+    ```
+  - Fix: list every raised surface in this rule, the contrast block list and the docs snippet.
+    ```css
+    :where(
+      .ui-accordion:is(.ui-elevated, .ui-tonal),
+      .ui-callout:not(
+        .ui-outlined,
+        .ui-critical,
+        .ui-info,
+        .ui-neutral,
+        .ui-success,
+        .ui-warning
+      ),
+      .ui-card:is(.ui-elevated, .ui-tonal)
+    ) {
+      --border-color: light-dark(var(--gray-4), var(--surface-default));
+      --field-border-color: var(--border-color);
+    }
+    ```
+- [ ] (3) Dialog: `.ui-actions` always gets `padding-inline: var(--size-3) var(--size-1)` (or the mirror for `.ui-align-start`) from `components.extended`, so it overrides Card's text-button-aware padding. In the shipped AlertDialog the filled "Delete" sits 4px from the end edge while the content is at 16px; in ActionsAlignment the filled "Got it" sits 4px from the start edge. Card fixed this same bug earlier. The descendant selector is covered by the Dialog, Drawer item in Bugs (`packages/opui/css/components/dialog.css:79-87`, `packages/opui/css/components/card.css:100-128`, `src/component-examples/dialog/AlertDialog.html:25-41`, `src/component-examples/dialog/ActionsAlignment.html:21-29`)
+  - Today:
+    ```css
+    .ui-actions {
+      justify-content: end;
+      padding-inline: var(--size-3) var(--size-1);
+      &.ui-align-start {
+        justify-content: start;
+        padding-inline: var(--size-1) var(--size-3);
+      }
+    }
+    ```
+  - Fix: target the dialog's own part, and tighten the end only when the last button is a text button. Start-aligned actions then fall through to Card's rules.
+    ```css
+    & > .ui-actions:not(.ui-align-start) {
+      justify-content: end;
+      padding-inline: var(--size-3);
+      &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+        padding-inline: var(--size-3) var(--size-1);
+      }
+    }
+    ```
+- [ ] (3) List: in a plain List, a disabled `ListItem`, which its API documents as `as="button" disabled`, looks enabled: it keeps the pointer cursor, full opacity and the hover tint. The disabled styles only exist in `menu.css`, so the same item does dim inside a Menu (`packages/opui/css/components/menu.css:146-155`, `packages/opui/css/components/list.css:213-243`, `packages/opui/components/ListItem/types.ts:15-19`, `src/component-api/list-item/api.ts:22-25`)
+  - Today:
+    ```css
+    /* menu.css only */
+    li > :is(a, button):is([disabled], [aria-disabled="true"]) {
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+      @media (hover: hover) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    ```
+  - Fix: move the rule into the list item block in `list.css`, so List and Menu share it.
+    ```css
+    & > :where(a, button):is([disabled], [aria-disabled="true"]) {
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--_bg-color);
+        }
+      }
+    }
+    ```
+- [ ] (3) Docs site: the copy button copies a diff block's removed and added lines together, without markers. On the Migrating page that gives `<details class="ui-accordion">` followed by `<details class="ui-accordion ui-marker-rotate">`, which is neither the diff nor valid code. A rejected clipboard write is also unhandled and gives no feedback (`src/components/Code.astro:44-52,275-283`, `src/docs/guide/migrating.astro:46`)
+  - Today:
+    ```ts
+    const code = button?.parentElement?.querySelector("code")
+    await navigator.clipboard.writeText(code.textContent ?? "")
+    ```
+  - Fix: copy the lines that remain after the change, and handle failure with the shared `copyText`.
+    ```ts
+    const lines = code.querySelectorAll(".diff-line:not([data-diff='del'])")
+    const text = lines.length
+      ? [...lines].map((line) => line.textContent).join("\n")
+      : code.textContent
+    if (await copyText(text ?? "")) button.setAttribute("data-copied", "")
+    ```
+- [ ] (3) Docs site: the theme bootstrap saves the OS color scheme as an explicit choice on the first visit, so switching the OS to dark afterwards leaves the site light, and Reset doesn't clear `"theme"`, so there's no way back to following the system. This was already on main (`src/components/Header.astro:79-89,118-122`, `src/components/ThemeConfigurator.astro:409-417`)
+  - Today:
+    ```js
+    const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
+    window.themeUtils.setTheme(initialTheme)
+    ```
+  - Fix: apply the theme without saving it, and save only from the switch. Reset should also remove `"theme"`, and a `prefers-color-scheme` change listener should apply while nothing is stored.
+    ```
+    applyTheme(theme) { …class swap…; window.themeUtils.applyCustomTheme(theme) },
+    setTheme(theme) { localStorage.setItem("theme", theme); window.themeUtils.applyTheme(theme) },
+    …
+    window.themeUtils.applyTheme(storedTheme || window.themeUtils.getSystemPreference())
+    ```
+- [ ] (3) Docs site: on framework-free pages, Search filters results to HTML instead of the visitor's framework. `/learn/*` and `/blocks/*` are built with `data-framework="html"`, and `relinkDocs()` repoints the page's links but not Search. A React user who searches "button" on a Learn post lands on `/html/components/button/`, and `rememberFramework()` then switches their session to HTML (`src/components/Search.astro:145-153`, `src/layouts/Layout.astro:35,135-163`)
+  - Today:
+    ```
+    function getActiveFrameworkId(): FrameworkId {
+      const fromDataset = document.documentElement.dataset.framework
+      if (isFrameworkId(fromDataset)) return fromDataset
+    ```
+  - Fix: have `relinkDocs()` publish the framework it picked; the path fallback in `getActiveFrameworkId` is then dead.
+    ```ts
+    const framework = preferredFramework()
+    document.documentElement.dataset.framework = framework
+    ```
+- [ ] (3) Package: `opui-css/css/js/checkbox.js` and `toast.js` ship without type declarations, so a strict TypeScript project that imports them the way the docs show fails with TS7016 (for example calling `activateIndeterminate()` from React, Svelte or Vue). The repo doesn't catch it because the workspace symlink makes TypeScript treat `packages/opui` as source. Reproduced by copying the package into `node_modules/opui-css` of a scratch project (`strict`, `moduleResolution: "bundler"`) (`packages/opui/package.json:68`, `packages/opui/css/js/checkbox.js:10-31`, `src/docs/guide/concepts.astro:285-286`, `src/docs/guide/getting-started/React.astro:131-133`)
+  - Today:
+    ```ts
+    import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+    // error TS7016: Could not find a declaration file for module 'opui-css/css/js/checkbox.js'
+    ```
+  - Fix: ship `checkbox.d.ts` and `toast.d.ts` next to the scripts, by hand or emitted from the JSDoc in `prepack` (`tsc --allowJs --declaration --emitDeclarationOnly`). The existing `./css/js/*` export already resolves them.
+    ```ts
+    // css/js/checkbox.d.ts
+    export function activateIndeterminate(root?: ParentNode): void
+    export function initCheckbox(): void
+    export function syncIndeterminate(input: HTMLInputElement): void
+    ```
+- [ ] (4) Select, ClassicSelect, Range, TextField, Textarea (Astro): the spread `{...rest}` comes before attributes that read `rest[...]`, so Astro emits the same attribute twice, and the HTML parser keeps the first. A user's `aria-describedby` drops the end text id, a user's `aria-invalid` beats `error`, and a user's `aria-labelledby` beats the label id. The four-framework "spread first, computed after" fix works in React, Svelte and Vue (last wins) but not in Astro, where the first wins (`packages/opui/components/Select/Select.astro:31-32`, `packages/opui/components/Select/Select.astro:70-75`, `packages/opui/components/ClassicSelect/ClassicSelect.astro:28-29`, `packages/opui/components/ClassicSelect/ClassicSelect.astro:45-47`, `packages/opui/components/Range/Range.astro:53-56`, `packages/opui/components/Range/Range.astro:91-94`, `packages/opui/components/TextField/TextField.astro:77-87`, `packages/opui/components/Textarea/Textarea.astro:75-77`)
+  - Today (three separate outputs, rendered with the Astro container):
+    ```
+    <select aria-describedby="x" aria-labelledby="y" aria-describedby="end-text-65434a38 x" aria-labelledby="select-label-cb4ea695">
+    <input aria-invalid="false" … aria-invalid="true" type="text">
+    <input pattern="[0-9]{4}" inputmode="decimal" inputmode="numeric" pattern="[0-9]*" type="text">
+    ```
+  - Fix: destructure every attribute the component merges, as TextField already does for `aria-describedby`; in TextField do the same for `inputmode` and `pattern`, like React's `rest.inputMode ?? …`.
+    ```
+    const { "aria-describedby": ariaDescribedBy, "aria-invalid": ariaInvalid, "aria-labelledby": ariaLabelledBy, ...rest } = Astro.props
+    aria-invalid={error ? "true" : ariaInvalid}
+    ```
+- [ ] (4) Checkbox, Radio, Switch: the dev-only "missing accessible name" warning depends on Vite. In React, `import.meta.env?.DEV` is a type error in any consumer `tsc` without `vite/client` types (`Property 'env' does not exist on type 'ImportMeta'`); `opui-css/react` ships `.tsx` sources, so a Next.js project (the setup the README documents) fails `tsc --noEmit` in three package files, and `skipLibCheck` doesn't skip `.tsx`. Reproduced with a Next-style tsconfig on the packed package. The repo only passes because `tsconfig.react.json` pulls in `packages/opui/env.d.ts` → `astro/client`. Svelte and Vue use an unguarded `import.meta.env.DEV`, which throws where there is no `import.meta.env` (webpack). The same warning is copied 12 times (`packages/opui/components/Checkbox/Checkbox.react.tsx:22-31`, `packages/opui/components/Radio/Radio.react.tsx:23`, `packages/opui/components/Switch/Switch.react.tsx:25`, `packages/opui/components/Checkbox/Checkbox.svelte:30`, `packages/opui/components/Radio/Radio.svelte:29`, `packages/opui/components/Switch/Switch.svelte:32`, `packages/opui/components/Checkbox/Checkbox.vue:21`, `packages/opui/components/Radio/Radio.vue:21`, `packages/opui/components/Switch/Switch.vue:21`, `tsconfig.react.json:4`, `packages/opui/README.md:102`)
+  - Today:
+    ```
+    if (import.meta.env?.DEV && !children && !rest["aria-label"] && …)   // React
+    if (import.meta.env.DEV && !slots.default && …)                       // Vue, Svelte
+    ```
+  - Fix: one shared helper next to `cx.ts` that types the flag itself (verified with `tsc` without Vite types; Vite still replaces `import.meta.env.DEV`), used by all 12 copies.
+    ```ts
+    // components/dev.ts
+    export const warnUnnamed = (component: string, named: unknown) => {
+      if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV && !named)
+        console.warn(`[OPUI ${component}] Missing accessible name. …`)
+    }
+    ```
+- [ ] (4) Toast: the "Firefox and Safari fallback" can never apply, and `--_hold-duration` is ignored. The `attr()` declarations also contain `var()`, so every browser accepts them at parse time and they always win the cascade. Without typed `attr()` they become invalid at computed-value time and fall back to `animation: none`: no enter animation, `ui-toast-exit` never fires `animationend`, and the toast stays until closed. Where typed `attr()` works (Chromium), the hold time falls back to a literal `5s`, so the `--_hold-duration` override that What's new and MIGRATING document does nothing. Toast is on hold, but `toast.css` ships (`packages/opui/css/components/toast.css:33-51`, `packages/opui/css/js/toast.js:298-300`, `packages/opui/MIGRATING.md:596`, `src/utils/whats-new.ts:515`)
+  - Today:
+    ```css
+    --_hold-duration: 5s;
+    /* Firefox and Safari fallback */
+    animation:
+      …,
+      ui-toast-hold var(--_hold-duration) linear both,
+      …;
+    animation:
+      …,
+      ui-toast-hold attr(data-duration type(<time>), 5s) linear both,
+      …;
+    ```
+  - Fix: resolve the hold time once in a private property, put the `attr()` version behind `@supports`, and fall back to `--_hold-duration`.
+    ```css
+    --_hold-duration: 5s;
+    --_hold: var(--_hold-duration);
+
+    @supports (animation-duration: attr(data-duration type(<time>), 0s)) {
+      --_hold: attr(data-duration type(<time>), var(--_hold-duration));
+    }
+
+    animation:
+      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-hold var(--_hold) linear both,
+      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
+    animation-delay:
+      0s, var(--_enter-duration), calc(var(--_enter-duration) + var(--_hold));
+    ```
+- [ ] (4) Docs site: the Search highlighter builds a RegExp from the raw query. Typing `:has(` or `light-dark(` throws "Unterminated group", and `c++` throws "Nothing to repeat"; the error happens inside the group loop, after `#search-empty` was hidden, so the panel goes blank. `[popover]` and `a.b` don't throw but highlight the wrong letters. Titles and descriptions also go into `innerHTML` unescaped (`src/components/Search.astro:239-243,336-356`)
+  - Today:
+    ```ts
+    const regex = new RegExp(`(${query})`, "gi")
+    return text.replace(regex, "<mark>$1</mark>")
+    ```
+  - Fix: escape the text, then escape the query for HTML and for RegExp.
+    ```ts
+    const escapeHtml = (s: string) =>
+      s.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`)
+    function highlight(text: string, query: string) {
+      const safe = escapeHtml(text)
+      if (!query) return safe
+      const pattern = escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      return safe.replace(new RegExp(`(${pattern})`, "gi"), "<mark>$1</mark>")
+    }
+    ```
+- [ ] (4) Docs site: `Installation` matches dependency tabs to pages with `href.endsWith(slug)` over a list sorted by name. For `list.css`, the first href that ends in "list" is `/components/description-list`, so the Menu and Select pages list "Description List" under Dependencies instead of List. Form's `choice.css` "see also" tab matches no page and is dropped without a warning (`src/components/Installation.astro:31-45`, `src/docs/components/menu.astro:55`, `src/docs/components/select.astro:50`, `src/docs/components/form.astro:82`)
+  - Today:
+    ```ts
+    const slug = tab.title.replace(".css", "")
+    return components.find((c) => c.href.endsWith(slug))
+    ```
+  - Fix: match on the slug exactly.
+    ```ts
+    const pageFor = (tab: Tab) =>
+      components.find((c) => c.slug === tab.title.replace(/\.css$/, ""))
+    const dependencies = tabs
+      .filter((tab) => tab.isDependency)
+      .map(pageFor)
+      .filter((c) => c !== undefined)
+    ```
+- [ ] (5) ClassicSelect, Select (Vue): without `v-model`, `vModelSelect` gets `undefined`, and its `mounted` hook sets `selectedIndex = -1`. The select goes blank and ignores both `<option selected>` and a `value` attribute, and since no option is selected, form submits leave the field out. ClassicSelect always passes `undefined`; Select does too unless `value` or `items[].selected` is set. Svelte keeps the browser's selection in the same case, and Astro and React leave it alone. The docs and fixture pages mount Vue examples with `createApp`, so the Classic and Variants examples render blank there. Reproduced in Chromium with Vue 3.5.39 (`packages/opui/components/ClassicSelect/ClassicSelect.vue:27`, `packages/opui/components/ClassicSelect/ClassicSelect.vue:49-51`, `packages/opui/components/Select/Select.vue:39-47`, `src/component-examples/select/Classic.vue:6-16`, `src/component-examples/select/Variants.vue:6-17`, `src/components/Example/mount-vue-examples.ts:9-13`)
+  - Today:
+    ```vue
+    <ClassicSelect><option>A</option><option selected>B</option></ClassicSelect>
+    <!-- after mount: selectedIndex -1, value "" -->
+    ```
+  - Fix: when nothing is bound, seed the model from the select's own selection before `vModelSelect` runs (checked in Chromium: keeps "B", and picking another option still works).
+    ```ts
+    const vSeed = {
+      beforeMount: (el: HTMLSelectElement) => {
+        modelValue.value ??= el.multiple
+          ? [...el.selectedOptions].map((o) => o.value)
+          : el.value
+      },
+    }
+    // <select v-bind="$attrs" v-seed v-model="modelValue">
+    ```
+- [ ] (5) TextField, Textarea, Select (Vue): a `value` attribute without `v-model` locks the control. `value` sits in `$attrs` and is bound next to `v-model`, so every keystroke or pick re-renders, and Vue's forced `value` patch writes the attribute back. Reproduced in Chromium: after typing "XYZ" the input still reads "Uh-oh", and a Select with `value="b"` snaps back to "b" after choosing "c". The docs' own Vue Validation example can't be edited (`packages/opui/components/TextField/TextField.vue:31-41`, `packages/opui/components/TextField/TextField.vue:78-80`, `packages/opui/components/Textarea/Textarea.vue:19-29`, `packages/opui/components/Textarea/Textarea.vue:64-66`, `packages/opui/components/Select/Select.vue:39-47`, `packages/opui/components/Select/Select.vue:81-83`, `src/component-examples/text-field/Validation.vue:20`)
+  - Today:
+    ```vue
+    <TextField value="Uh-oh" />
+    ```
+  - Fix: declare `value` as a Vue prop so it stays out of `$attrs`, the way Range already does (filtering `value` out of the bound attrs fixed it in the repro).
+    ```
+    // types.d.vue.ts: value?: string | number
+    const { value, … } = defineProps<Props>()
+    const model = computed({ get: () => modelValue.value ?? value, set: (v) => (modelValue.value = v) })
+    ```
 
 ## Docs
 
@@ -3767,6 +4795,628 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: `description: "The size of the element."`
   > Fix
   - Fixed: "The size of the element." The `command`, `commandfor` and `interestfor` rows are gone too, since the props were removed from the base type.
+- [ ] (1) Docs: the components guide says parts must be direct children of their root, but `CalloutTitle` goes inside `CalloutContent` and `DrawerTitle` inside `DrawerHeader`, and the API tables select them as `.ui-content > h3` and `.ui-header > h2` (`packages/opui/components/AGENTS.md:184`, `src/component-api/callout/api.ts:68`, `src/component-api/callout-title/api.ts:24`, `src/component-api/drawer/api.ts:77`)
+  - Today:
+    ```md
+    - Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on.
+    ```
+  - Fix: name the exception.
+    ```md
+    - Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on. Title parts sit inside their region part: `CalloutTitle` in `CalloutContent`, `DrawerTitle` in `DrawerHeader`.
+    ```
+- [ ] (1) Package: the component guide lists DescriptionLists among the data-driven components that "prefer an `items` prop" and shows items shaped like `{ label: string; value: any }`. DescriptionList has no `items` prop, and neither shipped item type has that shape: Menu items have `label` only, Select items have `text` and `value` (`packages/opui/components/AGENTS.md:309-314`, `packages/opui/components/DescriptionList/types.ts:1-4`)
+  - Today:
+    ```md
+    For repetitive structures (DescriptionLists, Menus, Selects), prefer an `items` prop alongside standard slots.
+    ```
+  - Fix: name only the components that have an `items` prop, and show the item shape they actually use.
+    ```md
+    For repetitive structures (Menu, Select, ClassicSelect), prefer an `items` prop alongside standard slots.
+    ```
+- [ ] (1) Changelog: under Added, "`Menu` items take native `a` and `button` attributes in Astro, Svelte and Vue" leaves out React, which takes them too (its API note even names `onClick`). That line and "`Menu` takes a `bordered` prop" also describe a component that is itself new in 6.0.0, so they belong in the Menu entry (`packages/opui/CHANGELOG.md:80,132-133`, `packages/opui/components/Menu/types.react.ts:4-8`, `src/component-api/menu/api.ts:10-11`)
+  - Today:
+    ```md
+    - `Menu` takes a `bordered` prop (`.ui-bordered`) that draws a divider between items.
+    - `Menu` items take native `a` and `button` attributes in Astro, Svelte and Vue, and `MenuItem` is exported from every framework entry.
+    ```
+  - Fix: fold both into the Menu entry on line 80 and say "in every framework".
+    ```md
+    …Supports an `items` prop (items take native `a`/`button` attributes; `MenuItem` is exported), `bordered`, custom `ListItem` content…
+    ```
+- [ ] (1) Callout: the Variants example links to `/components/card`, the legacy meta-refresh redirect, which sends React, Svelte and Vue readers to `/html/components/card`, and pasted into an app it's a dead link. Example links elsewhere use `href="#"`, for example `chip/Link` (`src/component-examples/callout/Variants.astro:18-20`, `src/component-examples/callout/Variants.html:16`, `src/component-examples/callout/Variants.react.tsx:20`, `src/component-examples/callout/Variants.svelte:19`, `src/component-examples/callout/Variants.vue:20`)
+  - Today:
+    ```html
+    Why not use a <a class="ui-link" href="/components/card">Card</a> since they
+    look very similar?
+    ```
+  - Fix: use a placeholder href in all five files, or drop the link.
+    ```html
+    Why not use a <a class="ui-link" href="#">Card</a> since they look very
+    similar?
+    ```
+- [ ] (1) Anchor: the Link preview prose says "The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it", but the LinkPreview card has only an image and an `hgroup`; the card with interactive content (the Star button) is `RepoCard`, in the section above (`src/docs/components/anchor.astro:134,138-145`, `src/component-examples/anchor/LinkPreview.astro:17-28`, `src/component-examples/anchor/RepoCard.astro:45-47`)
+  - Today:
+    ```astro
+    <p>
+      Preview where a link goes before following it. The card keeps its
+      interactive content reachable, …
+    </p>
+    <AutoExample name="LinkPreview" />
+    ```
+  - Fix: move the sentence under Hover trigger, next to `<AutoExample name="RepoCard" />`, and keep Link preview to "Preview where a link goes before following it."
+    ```astro
+    <p>Preview where a link goes before following it.</p>
+    ```
+- [ ] (1) Text field: the Amount field still has a "¢" prefix with an "EUR" suffix. The same mistake was fixed in Select Affix, but the fix never reached the text field copies (`src/component-examples/text-field/Affix.astro:6`, `src/component-examples/text-field/Affix.html:5`, `src/component-examples/text-field/Spread.astro:33`, `src/component-examples/text-field/Spread.html:60`)
+  - Today:
+    ```astro
+    <Fragment slot="prefix">¢</Fragment>
+    <Fragment slot="suffix">EUR</Fragment>
+    ```
+  - Fix: use "€", or "¤" like Select, in the Affix and Spread files of all five formats.
+    ```astro
+    <Fragment slot="prefix">€</Fragment>
+    ```
+- [ ] (1) Toast: the Severity buttons use `green`, `red` and `blue` classes that no stylesheet defines, so all three render as the same filled button. Toast is on hold, but users copy this snippet (`src/component-examples/toast/Severity.html:2`, `src/component-examples/toast/Severity.html:12`, `src/component-examples/toast/Severity.html:22`)
+  - Today:
+    ```html
+    <button class="ui-button ui-filled red" …>Error</button>
+    ```
+  - Fix: remove the dead classes, or use the button colors that exist.
+    ```html
+    <button class="ui-button ui-filled ui-critical" …>Error</button>
+    ```
+- [ ] (1) Docs: the keys in `whats-new.ts` aren't sorted: `carousel` comes before `card`; every other key is in ascending order (`src/utils/whats-new.ts:131`, `src/utils/whats-new.ts:151`)
+  - Today:
+    ```
+    carousel: [ … ],
+    card: [ … ],
+    ```
+  - Fix: move the `card` block above `carousel`.
+    ```
+    card: [ … ],
+    carousel: [ … ],
+    ```
+- [ ] (1) Docs: the `browserSupport` lists have drifted again since they were last re-checked. Chip uses a contrast style query, List uses `color-mix()` and Badge uses `:has()` for avatar badges, but their pages don't list `container-style-queries`, `color-mix` or `has`. `check-browser-support.mjs` only checks that the ids exist, so nothing catches this (`src/docs/components/chip.astro:18`, `packages/opui/css/components/chip.css:195`, `src/docs/components/list.astro:43`, `packages/opui/css/components/list.css:15`, `src/docs/components/badge.astro:35-40`, `packages/opui/css/components/badge.css:126`, `scripts/check-browser-support.mjs:25-33`)
+  - Today:
+    ```astro
+    browserSupport={["light-dark", "relative-color"]}
+    ```
+  - Fix: add the three ids, and let the script warn when a page's own CSS matches a short pattern table (`:has(` → `has`, `@container style(` → `container-style-queries`, `color-mix(` → `color-mix`, …) and the page's list lacks the id.
+    ```astro
+    browserSupport={
+      ["container-style-queries", "has", "light-dark", "relative-color"]
+    }
+    ```
+- [ ] (1) Docs site: the `locals.link` and `DocLink` comments are stale. They say the default framework gets no prefix and that no runtime link rewriting happens, but `hrefFor` prefixes every framework, including `/html/`, and `relinkDocs()` rewrites links at runtime on framework-free pages, as `middleware.ts:17-18` says (`src/env.d.ts:28-34`, `src/components/DocLink.astro:2-5`, `src/layouts/Layout.astro:145-163`)
+  - Today:
+    ```
+     * given canonical docs path (e.g. `/components/button`) to either `/...`
+     * (default framework) or `/<framework>/...` based on `framework`.
+    ```
+  - Fix: describe what the code does.
+    ```
+     * Resolves a canonical docs path (e.g. `/components/button`) to
+     * `/<framework>/components/button/`. Framework-free pages are built with the
+     * default framework; `relinkDocs()` in Layout.astro repoints them at runtime.
+    ```
+- [ ] (2) Package: the components guide's section 5 snippets contradict the current rules. They put `{...rest}` after `aria-invalid`, link end text without merging a user `aria-describedby`, and prescribe re-passing native attributes (`disabled`, `value`, …) that `...rest` already carries; only the Astro TextField, Textarea, ClassicSelect and Range follow that last pattern (`packages/opui/components/AGENTS.md:217-252`)
+  - Today:
+    ```astro
+    <input type="text" aria-invalid={error ? "true" : undefined} {...rest} />
+    <input aria-describedby={endText ? helpId : undefined} />
+    ```
+  - Fix: show the pattern the components use: destructure the merged attributes, spread first, then merge.
+    ```astro
+    <input
+      {...rest}
+      aria-describedby={[endTextId, ariaDescribedBy]
+        .filter(Boolean)
+        .join(" ") || undefined}
+      aria-invalid={error ? "true" : ariaInvalid}
+    />
+    ```
+- [ ] (2) FieldGroup: `api.ts` and the changelog still describe the old regex. Since the context rewrite, Astro also names only OPUI fields, and no component skips any input type, so a `TextField type="hidden"` in a group gets the group name. The two changelog entries contradict each other (`src/component-api/field-group/api.ts:19`, `packages/opui/CHANGELOG.md:207`, `packages/opui/CHANGELOG.md:331`, `packages/opui/components/TextField/TextField.astro:86`)
+  - Today:
+    ```ts
+    "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components."
+    ```
+  - Fix: describe what the code does now, and drop or reword changelog line 331.
+    ```ts
+    "Sets `name` on the OPUI fields inside that don't set their own."
+    ```
+- [ ] (2) Checkbox: `checkbox.js` exports `syncIndeterminate(input)`, and the README and changelog list it, but no docs page, guide or example says when to call it, and nothing in the repo uses it. The HTML Indeterminate example sets `parent.indeterminate` by hand, and the Astro "JavaScript required" callout says "a small script is needed to flip `el.indeterminate = true`", although `CheckboxInput.astro` already ships that script (`packages/opui/css/js/checkbox.js:19-22`, `packages/opui/README.md:182`, `src/docs/components/checkbox.astro:175-190`, `src/docs/components/checkbox.astro:221-242`, `packages/opui/components/Checkbox/CheckboxInput.astro:17-20`)
+  - Today:
+    ```js
+    export function syncIndeterminate(input) {
+      input.indeterminate = input.hasAttribute("data-indeterminate")
+    }
+    ```
+  - Fix: add a line to the HTML Indeterminate prose, or drop the export and its README and changelog lines. In the Astro callout, say that the component runs the script on load and that later changes need `el.indeterminate`, as the example does.
+    ```html
+    <p>
+      When you add or remove <code>data-indeterminate</code> later, call
+      <code>syncIndeterminate(input)</code>.
+    </p>
+    ```
+- [ ] (2) Package: the components guide's checklist says "Props, Destructuring, and Classes are sorted alphabetically", but section 3 orders classes as base → states → variants → `className`, and the code isn't alphabetical either. The guide's examples put slots last (Svelte under `// Snippets`), yet 39 of the 69 Svelte files and some React files sort `children` in alphabetically. The parity normalizer sorts class tokens, so it can't tell either way (`packages/opui/components/AGENTS.md:13`, `packages/opui/components/Button/Button.react.tsx:26-28`, `packages/opui/components/ButtonGroup/ButtonGroup.astro:21-24`, `packages/opui/components/Card/Card.svelte:4`, `packages/opui/components/Tabs/Tabs.react.tsx:9`, `tests/unit/normalize.ts:76-78`)
+  - Today:
+    ```md
+    - [ ] **Sorting**: Props, Destructuring, and Classes are sorted alphabetically.
+    ```
+  - Fix: describe what the code does, and pick one place for slots.
+    ```md
+    - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework.
+    ```
+- [ ] (2) Package: the README's entry points table has no `opui-css/react` row, and `opui-css/components/*` is described as "Astro, Svelte and Vue" sources, though every folder also ships `.react.tsx` (`packages/opui/README.md:183-186`, `packages/opui/package.json:62-66`)
+  - Today:
+    ```md
+    | `opui-css/astro` | All Astro components |
+    | `opui-css/svelte` | All Svelte components |
+    | `opui-css/components/*` | Individual Astro, Svelte and Vue component sources |
+    ```
+  - Fix: add the React row, sorted. Note that importing a React component directly skips the `react/elements.ts` augmentation that `Menu.react.tsx` and `DrawerHeader.react.tsx` need for `commandfor`.
+    ```md
+    | `opui-css/astro` | All Astro components |
+    | `opui-css/react` | All React components |
+    | `opui-css/components/*` | Individual Astro, React, Svelte and Vue component sources |
+    ```
+- [ ] (2) Badge: in the Visibility section the switch starts unchecked, but the example markup and the code tab both say `invisible`. On load the page script calls `sync(false)`, which removes `.ui-invisible`, so the badge renders hidden, flashes visible once the module script runs, and the code then contradicts the preview. The five `UISwitch` slots are also identical apart from the label (`src/docs/components/badge.astro:161-189,287`, `src/component-examples/badge/Visibility.astro:5`, `src/component-examples/badge/VisibilityCode.astro:5`)
+  - Today:
+    ```astro
+    <Conditional slot="controls">
+      <UISwitch slot="html" id="badge-visibility-toggle"
+        ><code>.ui-invisible</code></UISwitch
+      >
+      <UISwitch slot="astro" id="badge-visibility-toggle"
+        ><code>invisible</code></UISwitch
+      >
+      …react, svelte, vue: same as astro
+    </Conditional>
+    ```
+  - Fix: one checked switch, so the preview, the code and the control agree from the start.
+    ```astro
+    <UISwitch slot="controls" checked id="badge-visibility-toggle">
+      <PropOrClass prop="invisible" class=".ui-invisible" />
+    </UISwitch>
+    ```
+- [ ] (2) Form: the Kitchen sink controls are labelled `small` on every framework page. `small` was a boolean prop that is now gone: it's `size="small"` on component pages and `.ui-small` on HTML. The `spread` label also shows the prop on the HTML page (`src/docs/components/form.astro:365-366`)
+  - Today:
+    ```astro
+    <UISwitch id="kitchen-sink-small-toggle"><code>small</code></UISwitch>
+    <UISwitch id="kitchen-sink-spread-toggle"><code>spread</code></UISwitch>
+    ```
+  - Fix:
+    ```astro
+    <UISwitch id="kitchen-sink-small-toggle"
+      ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
+    >
+    <UISwitch id="kitchen-sink-spread-toggle"
+      ><PropOrClass prop="spread" class=".ui-spread" /></UISwitch
+    >
+    ```
+- [ ] (2) Docs: the docs guide says a section with a `controls` slot needs the manual `<Example>`, but `AutoExample` already forwards `controls`, and Text field InputTypes uses it. Because of that, Drawer Usage and Form KitchenSink keep about 20 imports and two hand-built `<Example>`s that `AutoExample` replaces one-to-one (`src/docs/components/AGENTS.md:99-103`, `src/components/AutoExample.astro:107-113`, `src/docs/components/text-field.astro:300-307`, `src/docs/components/drawer.astro:30-38`, `src/docs/components/drawer.astro:211-232`, `src/docs/components/form.astro:13-21`, `src/docs/components/form.astro:363-386`)
+  - Today:
+    ```md
+    Use the manual `<Example>` form when a section needs:
+
+    - A `<slot name="controls">` for interactive switches.
+    ```
+  - Fix: drop that bullet from the guide and convert both sections; `<PropOrClass>` also replaces the five-slot `<Conditional>` inside the Drawer switch.
+    ```astro
+    <AutoExample name="Usage" column>
+      <Switch slot="controls" id="backdrop-transparent-toggle">
+        <PropOrClass
+          prop='backdrop="transparent"'
+          class=".ui-backdrop-transparent"
+        />
+      </Switch>
+    </AutoExample>
+    ```
+- [ ] (2) Docs: the Carousel "Images" note has only a `default` key, and `whatsNewFor` also serves `default` to HTML, so the HTML page says images are cropped "with the `aspectRatio` prop", which HTML doesn't have (it uses `--_media-aspect-ratio`, as the section says). Regressed: an earlier item fixed this same pattern of `default` notes leaking to HTML (`src/utils/whats-new.ts:132-134`, `src/docs/components/carousel.astro:192-195`)
+  - Today:
+    ```
+    { default: `<a href="#images">Images</a> are cropped with the <code>aspectRatio</code> prop.` },
+    ```
+  - Fix: use `components()` for the prop and give HTML its own note.
+    ```
+    {
+      ...components(`<a href="#images">Images</a> are cropped with the <code>aspectRatio</code> prop.`),
+      html: `<a href="#images">Images</a> are cropped with <code>--_media-aspect-ratio</code>.`,
+    },
+    ```
+- [ ] (2) Docs: three "Breaking" notes use `components()`, so React and Svelte readers see "Breaking: … is gone" for values those frameworks never had (both are new in 6.0.0). Every other break that only affects Astro and Vue uses `slots()`, and an earlier item fixed the same problem for `IconButton` (`src/utils/whats-new.ts:31-33`, `src/utils/whats-new.ts:433-435`, `src/utils/whats-new.ts:532-534`)
+  - Today:
+    ```
+    components(`Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. …`),
+    ```
+  - Fix: use `slots(…)` for the notes on Accordion `variant="default"`, `TableColumn` `width` and ToggleGroup `size="default"`.
+    ```
+    slots(`Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. …`),
+    ```
+- [ ] (2) Docs: some 6.0.0 `Added` and `Changed` entries have no What's new note, though AGENTS.md asks for one: Radio grows from 18px to 20px; the Textarea minimum height is three lines at every size; Progress centers when it has no visible label (Checkbox, Radio and Switch got a note for the same change); `Dialog` types `closedby` in every framework (`packages/opui/CHANGELOG.md:131`, `packages/opui/CHANGELOG.md:134`, `packages/opui/CHANGELOG.md:161`, `packages/opui/CHANGELOG.md:166`, `src/utils/whats-new.ts:160-180`, `src/utils/whats-new.ts:218-225`, `src/utils/whats-new.ts:309-342`, `src/utils/whats-new.ts:485-511`)
+  - Today:
+    ```
+    radio: [ /* no note for the 20px size */ ],
+    ```
+  - Fix: add a linked note for each.
+    ```
+    radio: [
+      `<a href="#sizes">Radios</a> are 20px, the same <code>--choice-size</code> as Checkbox.`,
+    ```
+- [ ] (2) Form: the Astro text in the "Field group" section still says the group passes its `name` "to the inputs inside". Since 6.0.0, Astro passes it through context to OPUI fields only, which the What's new note on the same page announces; the React, Svelte and Vue text already says "OPUI fields" (`src/docs/components/form.astro:155-158`, `src/utils/whats-new.ts:265`, `packages/opui/components/FieldGroup/FieldGroup.astro:8-11`)
+  - Today:
+    ```astro
+    <Fragment slot="astro">
+      Lays out related fields and passes a shared <code>name</code> to the inputs
+      inside. …</Fragment
+    >
+    ```
+  - Fix: use the React/Svelte/Vue wording.
+    ```astro
+    Lays out related fields and passes a shared <code>name</code> to the OPUI fields
+    inside. …
+    ```
+- [ ] (2) CSS: the Theming guide says components use a local `--_motion`, so `style="--_motion: 0"` turns off motion for one component, but the Card and ToggleButton focus-ring animations, the Checkbox/Radio halo in `choice.css` and the Spinner read `--motion` directly; the other 16 component files read `--_motion` (`src/docs/guide/theming.astro:172-182`, `packages/opui/css/components/card.css:141`, `packages/opui/css/components/choice.css:101`, `packages/opui/css/components/toggle-button.css:50`, `packages/opui/css/components/spinner.css:13-15`)
+  - Today:
+    ```css
+    animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+    ```
+  - Fix: declare `--_motion: var(--motion, 1)` on those roots and read it, as `button.css:3` does.
+    ```css
+    --_motion: var(--motion, 1);
+    animation: ui-focus-ring calc(var(--duration) * var(--_motion)) var(--ease);
+    ```
+- [ ] (2) Docs: the Radio page has no Accessibility section, though Checkbox and Switch both have Labels and Keyboard tables, and radios behave differently (arrow keys move and select, Tab lands on the checked radio). The keyboard tour in the Accessibility guide skips radios, and its hand-written "Per component" list misses Select and Table, which both have an Accessibility section (`src/docs/components/radio.astro:58-340`, `src/docs/guide/accessibility.astro:107-136`, `src/docs/guide/accessibility.astro:189-228`, `src/docs/components/select.astro:313`, `src/docs/components/table.astro:182`)
+  - Today:
+    ```astro
+    <!-- radio.astro: no accessibility slot -->
+    ```
+  - Fix: add an `accessibility` slot with a keyboard table to the Radio page, a Radio line to the keyboard tour, and Select and Table to the list.
+    ```astro
+    <li>
+      <strong>Radio</strong>: <kbd>Tab</kbd> moves to the checked radio, arrow keys
+      move and select.
+    </li>
+    ```
+- [ ] (2) Docs: the JavaScript snippet on the Concepts page imports `opui-css/css/js/checkbox.js` and `toast.js` by bare specifier in a plain `<script type="module">`, which only resolves through a bundler; with the CDN or manual setup from Getting started, the browser throws "Failed to resolve module specifier". The HTML Getting started page names the two files without saying how to load them (`src/docs/guide/concepts.astro:284-291`, `src/docs/guide/getting-started/HTML.astro:169-172`)
+  - Today:
+    ```
+    <script type="module">
+      import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+    ```
+  - Fix: show the CDN URLs next to the bundler import.
+    ```
+    <script type="module">
+      import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+      import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
+    ```
+- [ ] (2) Toast: the page never shows the setup a reader needs: the `#toast-manager` popover, the `<template id="toast-template">`, and loading `toast.js` with `initToastManager()`. The examples only work because the site layout ships all three. Toast is alpha and on hold, so this can wait (the API table's wrong rows are a separate item) (`src/docs/components/toast.astro:56-111`, `packages/opui/css/js/toast.js:32-62`, `src/layouts/Layout.astro:76-114`)
+  - Today:
+    ```astro
+    <!-- toast.astro: How it works, no setup -->
+    ```
+  - Fix: add a "Setup" h3 under How it works with the manager, the template and the script.
+    ```html
+    <output
+      id="toast-manager"
+      popover="manual"
+      role="status"
+      aria-live="polite"
+    ></output>
+    <template id="toast-template">…</template>
+    <script type="module">
+      import { initToastManager } from "opui-css/css/js/toast.js"
+      initToastManager()
+    </script>
+    ```
+- [ ] (2) Learn, Textarea: the Textarea post shows `+ var(--border-width) * 2` in the minimum height, and the CHANGELOG `Changed` entry and MIGRATING list "the `Textarea` minimum height" among the components that read `--border-width`, but `textarea.css` dropped the border term (the border sits on `.ui-field`). The rule also uses `--_field-padding-block` while the textarea's actual padding is `--_field-padding-block-fit`, so at `--density: 0.75` an empty textarea is 76px tall for 68px of content, 3.4 lines instead of 3 (`src/docs/learn/textarea-field-sizing.astro:43-50`, `packages/opui/css/components/textarea.css:7,51`, `packages/opui/css/components/text-field.css:16-19,58`, `packages/opui/CHANGELOG.md:159`, `packages/opui/MIGRATING.md:560`)
+  - Today:
+    ```css
+    /* textarea.css */
+    min-block-size: calc(var(--_field-padding-block) * 2 + 3lh);
+    /* the Learn post */
+    min-block-size: calc(
+      var(--padding-block) * 2 + var(--border-width) * 2 + 3lh
+    );
+    ```
+  - Fix: use the padding the textarea actually gets, match the post to the CSS, and drop Textarea from both `--border-width` lists.
+    ```css
+    min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
+    ```
+- [ ] (2) Docs: `src/docs/components/AGENTS.md` and the root `AGENTS.md` don't match the code in four places. §3.3 places the What's new callout next to the browser chips (item 2), but `Component.astro` renders it inside the Changelog section at the end (regressed). §4.1 says `apis` accepts `{ title, component }` entries, which the `ApiEntry` type no longer allows. The layout accepts `apis: "auto"`, but no page passes it and it behaves like omitting the prop. The root `AGENTS.md` says a note renders "the New badge in the sidebar", but the badge only shows for the five slugs in `highlighted` (`src/docs/components/AGENTS.md:132`, `src/docs/components/AGENTS.md:154`, `src/layouts/Component.astro:40`, `src/layouts/Component.astro:97`, `src/layouts/Component.astro:272-286`, `src/components/ComponentAPI.astro:16-19`, `AGENTS.md:41`, `src/utils/whats-new.ts:560-566`)
+  - Today:
+    ```
+    apis?: Apis | "auto"
+    const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
+    ```
+  - Fix: move What's new to item 9 in §3.3, drop `{ title, component }` from §4.1, say the badge needs the slug in `highlighted`, and drop `"auto"`.
+    ```
+    apis?: Apis
+    const apis = apisProp ?? autoApis
+    ```
+- [ ] (2) API docs: the Select and ClassicSelect props tables show `items` as `Item[]`, a name nobody can import; the barrels export these types as `SelectItem` and `ClassicSelectItem`, and Menu shows `MenuItem[]`. Range's `options` row shows the whole inline type: `(string | number | { value: string | number; label?: string | undefined; })[]` (`packages/opui/components/Select/types.ts:13-17`, `packages/opui/components/ClassicSelect/types.ts:1-4`, `packages/opui/astro/index.ts:104,143`, `packages/opui/components/Range/types.ts:11-17`)
+  - Today:
+    ```ts
+    export type Item = { selected?: boolean; text: string; value: any }
+    export type { Item as SelectItem } from "../components/Select/types"
+    ```
+  - Fix: give the types the names the barrels export (`SelectItem`, `ClassicSelectItem`, and a new `RangeOption`), so the Type column reads like `MenuItem[]`.
+    ```ts
+    export type SelectItem = { selected?: boolean; text: string; value: any }
+    export type { SelectItem } from "../components/Select/types"
+    ```
+- [ ] (2) API docs: `css` copies the page's `installationTabs` by hand and has drifted, so some CSS variables tables are missing tokens. Select leaves out `list.css` (16 tokens missing, and its own `.ui-dense` row is styled only in that file). Dialog and Accordion leave out `card.css`, although both always render `.ui-card` (Dialog misses 12 tokens). Typography has neither `css` nor `source`, so its page shows no CSS variables table, although `typography.css` and `link.css` read 19 tokens (`src/component-api/select/api.ts:5`, `src/component-api/dialog/api.ts:71`, `src/component-api/accordion/api.ts:107`, `src/component-api/typography/api.ts:3-14`, `src/docs/components/select.astro:42-51`, `src/docs/components/dialog.astro:81`, `src/docs/components/typography.astro:36-39`, `packages/opui/components/Dialog/Dialog.astro:20`)
+  - Today:
+    ```
+    css: ["select", "text-field"], // the page also installs list.css
+    ```
+  - Fix: add the missing sheets (`["list", "select", "text-field"]`, `["card", "dialog"]`, `["accordion", "card"]`, `["link", "typography"]`). Longer term, let `<Component>` build the installation tabs from `api.css`, so there is only one list.
+    ```
+    css: ["list", "select", "text-field"],
+    ```
+- [ ] (2) API docs: five exported components have no API table and aren't a part in any `api.ts`: `CheckboxInput` (`indeterminate`), `RadioInput`, `SwitchInput`, `TableColumn` (`width`, only mentioned in a Table note) and `TableColumnGroup`. The List examples use `CheckboxInput` and `SwitchInput`, but no page says what they take, and the components guide still calls `CheckboxInput` a "private raw input". `[component-api]` can't notice, because it only looks at components that have an `api.ts` (`packages/opui/astro/index.ts:21,48,52,56-57`, `packages/opui/components/Checkbox/types.ts:14-16`, `packages/opui/components/Table/types.ts:8-10`, `src/component-api/table/api.ts:5-12`, `src/component-examples/list/EndSwitch.astro`, `src/component-examples/list/partials/ListAll.astro:3`, `packages/opui/components/AGENTS.md:257`, `src/utils/component-source.ts:228`)
+  - Today:
+    ```md
+    split the component into a public wrapper (`Checkbox.astro`) and a private raw input (`CheckboxInput.astro`)
+    ```
+  - Fix: document them as sub-APIs (like `card-actions/api.ts`) or as parts with `component`, call the inputs public parts in the guide, and add a check that every barrel export is some `api.ts`'s `component` or some part's `component`.
+    ```ts
+    // table-column/api.ts
+    export default {
+      component: "TableColumn",
+      options: [
+        {
+          description: "The column width, merged into `style`.",
+          prop: "width",
+        },
+      ],
+      page: "table",
+      parts: [],
+      root: { code: "<col>", description: "A column.", selector: "col" },
+      source: "Table",
+    } satisfies ComponentApi
+    ```
+    ```ts
+    const covered = new Set(
+      apis.flatMap((api) => [
+        api.component,
+        ...[api.root, ...api.parts].flatMap((part) =>
+          Object.values(part.component ?? {}),
+        ),
+      ]),
+    )
+    exported
+      .filter((name) => !covered.has(name))
+      .forEach((name) => warn(`${name}: exported but not documented`))
+    ```
+- [ ] (2) Anatomy: `partLabel` drops a part's `props` whenever the part has `slots`, so the Astro and Vue legends name only the slot, even when the hero itself uses the prop. Range's label row reads `slot="default"`/`v-slot:default` (React: `children`) although the hero passes `label="Label"`; Range's value row reads `slot="value"` in Astro but `valueSuffix · valueText` in React; Text field's label row reads `slot="label"` next to a hero that sets the `label` prop (`src/component-api/rows.ts:185-195`, `src/component-api/range/api.ts:99-112`, `src/component-api/text-field/api.ts:77-82`, `src/docs/components/range.astro:262-269`)
+  - Today:
+    ```
+    ...(syntax.slotsAreProps && part.snippets
+      ? [...(part.props ?? []), ...part.snippets]
+      : part.slots?.length
+        ? part.slots.map(syntax.slot)
+        : (part.props ?? [])),
+    ```
+  - Fix: always list the props first, then the slots or snippets, and drop duplicates (in React the `label` slot prop and the `label` prop share a name).
+    ```ts
+    const handles = new Set([
+      ...(part.props ?? []),
+      ...(syntax.slotsAreProps && part.snippets
+        ? part.snippets
+        : (part.slots ?? []).map(syntax.slot)),
+      ...models,
+    ])
+    ```
+- [ ] (2) Toast: the hand-written table is wrong in several rows. The message comes from `data-title`, then the button text, not from `value`. `data-severity` is said to default to `info` and lists only `success`, `critical` and `info`, but a toast without the attribute gets its own icon, and `warning` is styled and typed as well. Toast is on hold, so this can wait (`src/component-api/toast/HTML.astro:39-54`, `packages/opui/css/components/toast.css:90,126-141`, `packages/opui/css/js/toast.js:27,32-62,80`)
+  - Today:
+    ```astro
+    <TableCell><code>info</code></TableCell>
+    <TableCell
+      >Modifies the toast appearance. Options: <code>success</code>, <code
+        >critical</code
+      >, <code>info</code>.</TableCell
+    >
+    ```
+  - Fix: set the default to `-`, list all four values and fix the message row. Or turn it into an `api.ts` with attribute options, which also removes the legacy `.astro` path that `ComponentAPI.astro:33-47`, `Component.astro:76-95`, `ApiIndex.astro:15-58` and `generate-search-index.mjs:217-261` keep for this one table.
+    ```
+    { description: "…", group: "Severity", prop: "severity", values: { critical: '[data-severity="critical"]', info: '[data-severity="info"]', success: '[data-severity="success"]', warning: '[data-severity="warning"]' } },
+    ```
+- [ ] (2) Docs: guides and agent prompts describe code that has since changed. The `api-docs` agent says `menu` and `toast` use hand-written tables, but Menu has an `api.ts`. The components guide's Dialog sample adds `ui-card` from a `variant` prop that Dialog doesn't have (`.claude/agents/api-docs.md:34`, `packages/opui/components/AGENTS.md:141`, `packages/opui/components/Dialog/Dialog.astro:20`)
+  - Today:
+    ```md
+    - **Hand-written tables.** `menu` and `toast` still use `.astro` tables.
+    ```
+    ```astro
+    <dialog
+      class:list={[
+        "ui-dialog",
+        { "ui-card": variant },
+        variant && `ui-${variant}`,
+        className,
+      ]}
+      {...rest}
+    >
+    </dialog>
+    ```
+  - Fix: update these lines; use a component that has a variant (Button, Card) for the styling-inheritance sample.
+    ```md
+    - **Hand-written tables.** Only `toast` still uses an `.astro` table. Check it the same way.
+    ```
+- [ ] (2) Docs: the root README's "Adding New Components" steps predate React and Svelte. Step 1 lists only `.astro` and `.vue` files, step 2 says "both barrels" (there are four, and `check-components` reads all of them), step 6 says "all three frameworks", and step 5 says to record snapshots with `pnpm test:update`, which rewrites every mismatching snapshot (AGENTS.md forbids that); a plain `pnpm test` already writes new file snapshots outside CI (`README.md:63-68`, `package.json:29`, `AGENTS.md:55`, `scripts/check-components.mjs:24-47`)
+  - Today:
+    ```md
+    2. Export the component from both barrels, `packages/opui/astro/index.ts` and `packages/opui/vue/index.ts`, in alphabetical order.
+    3. Run `pnpm check` and `pnpm test:e2e`; record the new parity snapshots with `pnpm test:update`.
+    ```
+  - Fix:
+    ```md
+    1. Create a folder … with `[ComponentName].astro`, `.react.tsx`, `.svelte`, `.vue` and the six `types*.ts` files …
+    2. Export the component and its `Props` type from the four barrels, `packages/opui/{astro,react,svelte,vue}/index.ts`, sorted.
+    3. Run `pnpm check` (it writes the new parity snapshots) and `pnpm test:e2e`, and commit the snapshots.
+    ```
+- [ ] (2) Changelog: entries contradict each other or the code, some repeat, and one fix is missing. Fixed says tooltips with an arrow "only flip"; Changed says they shift like other tooltips (the CSS gives `.ui-with-arrow` the same shift fallbacks). The `ButtonGroup` icon-size change and the `MenuItem` export are each listed twice. Fixed names `Table.Column`, an alias this release removes, and the Vue derived-values entry spells that part as two words. The `--font-size-h3` entry says `4vw`; `theme.css` uses `4vi`. Missing: in 5.5.0, `./css/*` mapped `opui-css/css/js/toast.js` to `toast.js.css`, so it didn't resolve; it does now, with no entry (`packages/opui/CHANGELOG.md:22,112,133,141,193,214,289,323,399`, `packages/opui/css/components/tooltip.css:27-32,54-60`, `packages/opui/css/theme.css:49`, `packages/opui/package.json:68`)
+  - Today:
+    ```md
+    - `Tooltip` with an arrow shifts along the edge like other tooltips.
+    - `Tooltip` shows when … and shifts along the viewport edge instead of squeezing. Tooltips with an arrow only flip.
+    ```
+  - Fix: merge each pair into one entry, write `TableColumn` at lines 323 and 399, use `4vi`, and add the missing fix.
+    ```md
+    - `Tooltip` shifts along the viewport edge instead of squeezing, with or without an arrow, and shows when its trigger is more than one viewport down the page.
+    - `opui-css/css/js/toast.js` and `opui-css/css/js/checkbox.js` resolve through `exports`. They resolved to `*.js.css`.
+    ```
+- [ ] (2) Changelog, MIGRATING: about 25 Changed and Fixed entries describe fixes to things 6.0.0 itself adds, or to code that never shipped, so users read about fixes for bugs they never had, and some contradict the Added entries. `Menu` is new, yet has 2 Changed and 6 Fixed entries, a MIGRATING section and rows in the private property rename table; `Carousel` is new, yet has 2 Changed and 4 Fixed entries. The `AccordionSummary` chevron `aria-hidden`, `.ui-marker-turn` (fixed twice), `ToggleGroup` `shrink` and the `--density` multiplication of the new choice tokens all concern new features. `Chip` `--_tone`, the Tabs `reading-flow` order, `linear-gradient(to inline-end, …)` and the stray `undefined` line never existed at `origin/main`. The 5.5.0 Astro `TextField`, `Textarea` and `Dialog` never read `Astro.locals.$id`, so they couldn't crash without it (`packages/opui/CHANGELOG.md:175,192,197,212,215,216,219,224,235,237,264,290,305,313,320,321,350,356,364,383-386,391`, `packages/opui/MIGRATING.md:328-330,540,586-587`)
+  - Today:
+    ```md
+    ### Fixed
+
+    - `Menu` critical items pass contrast on the menu surface in dark mode …
+    - `Chip` `--_tone` is `--_accent`. (Changed)
+    ```
+  - Fix: fold these into the Added entries they refine, or drop them, and add the rule to AGENTS.md and to the "In sync" check in `.claude/agents/changelog.md`.
+    ```md
+    - Entries describe the change since the last release. When you rework something already added or changed in the unreleased version, update that entry instead of adding a `Changed` or `Fixed` one.
+    ```
+- [ ] (3) TextField, Textarea: the Astro API notes say other attributes go to the root `<label>`, but Astro now spreads them onto the `<input>`/`<textarea>`. The Vue notes also leave out that `style` goes to the label, which the React and Svelte notes mention (`src/component-api/text-field/api.ts:11-18`, `src/component-api/textarea/api.ts:12-18`, `packages/opui/components/TextField/TextField.astro:76-77`)
+  - Today:
+    ```ts
+    "… and `value`. Other attributes go to the root `<label>`."
+    ```
+  - Fix: use the React and Svelte wording in every framework note.
+    ```ts
+    "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`."
+    ```
+- [ ] (3) List: the Astro, React, Svelte and Vue code tabs for Basics, and the React, Svelte and Vue tabs for Dense, show `import ListAll from "./partials/ListAll…"` and `<ListAll prefix="default-" />`, a docs-internal partial readers can't copy or use. HTML and Astro Dense get a hand-written short snippet instead, so the Dense tabs disagree with each other (`src/component-examples/list/Default.astro:3-7`, `src/component-examples/list/Default.react.tsx:2-7`, `src/component-examples/list/Default.svelte:3-7`, `src/component-examples/list/Default.vue:3-8`, `src/component-examples/list/Dense.react.tsx:2-7`, `src/component-examples/list/Dense.svelte:3-7`, `src/component-examples/list/Dense.vue:3-8`, `src/docs/components/list.astro:67`, `src/docs/components/list.astro:571-585`)
+  - Today:
+    ```astro
+    import ListAll from "./partials/ListAll.astro"
+    <List>
+      <ListAll prefix="default-" />
+    </List>
+    ```
+  - Fix: every item type already has its own section, so make Basics a short list written out in all five files and Dense the same list with `dense`, then delete `partials/ListAll.*` and the two 240-line HTML copies.
+    ```astro
+    <List>
+      <ListItem headline="Headline" />
+      <ListItem headline="Headline" description="Supporting text…" />
+      <ListItem headline="Trailing supporting text"
+        ><Fragment slot="end">100+</Fragment></ListItem
+      >
+    </List>
+    ```
+- [ ] (3) Switch, Checkbox: the Switch Required paragraph under Field group says to put `required` on "at least one" input, which describes radios: every required switch must be on, and the example requires all three (the same sentence was fixed on Checkbox only). The Disabled and Required paragraphs on Checkbox and Switch also show HTML wording on every framework page ("Attach the `disabled` attribute to the `<fieldset>` element"), while Radio has text for each framework (`src/docs/components/switch.astro:329-347`, `src/docs/components/checkbox.astro:324-336`, `src/component-examples/switch/FieldGroupRequired.html:5-28`, `src/docs/components/radio.astro:278-335`)
+  - Today:
+    ```astro
+    <p>
+      Attach the <code>required</code> attribute to at least one of your <code
+        >&lt;input&gt;</code
+      > elements.
+    </p>
+    ```
+  - Fix: use the Checkbox sentence, and split Disabled into a `<Conditional>` with framework wording, as on Radio.
+    ```astro
+    <p>
+      Each switch with <code>required</code> must be on before the form submits. There's
+      no native "at least one" for switches.
+    </p>
+    ```
+- [ ] (3) Docs: Getting started never shows how to import a single component, which is the setup 6.0.0 changed. The "pick and choose" block on every framework page imports all of `components.css`, so readers never learn that single files need `layers.css` first, `theme.css` and `utils.css` (for `--motion`, `.ui-sr-only` and the motion classes), and `choice.css` before Checkbox, Radio or Switch. The copy-paste callout on the HTML page lists only Open Props, `palette.css` and `theme.css`, so CSS copied that way lands without the layer order, the focus ring (`normalize.css`) or `.ui-sr-only`. The same seven-line block is pasted into all five pages, and only React and Svelte state a minimum version (`src/docs/guide/getting-started/HTML.astro:19-31`, `src/docs/guide/getting-started/HTML.astro:79-89`, `src/docs/guide/getting-started/Astro.astro:49-61`, `src/docs/guide/getting-started/React.astro:56-68`, `src/docs/guide/getting-started/Svelte.astro:60-72`, `src/docs/guide/getting-started/Vue.astro:56-70`, `packages/opui/CHANGELOG.md:25`)
+  - Today:
+    ```css
+    @import "opui-css/css/theme.css";
+    @import "opui-css/core/normalize.css";
+    @import "opui-css/css/components.css";
+    ```
+  - Fix: share one snippet (a constant in `src/utils/`) that shows the à la carte form, and name `layers.css`, `normalize.css` and `utils.css` in the HTML callout.
+    ```css
+    @import "opui-css/css/layers.css";
+    @import "opui-css/open-props.css";
+    @import "opui-css/core/palette.css";
+    @import "opui-css/css/theme.css";
+    @import "opui-css/core/normalize.css";
+    @import "opui-css/css/components/button.css";
+    @import "opui-css/css/components/choice.css";
+    @import "opui-css/css/components/checkbox.css";
+    @import "opui-css/core/utils.css";
+    ```
+- [ ] (3) Docs: the checklist and workflow in `src/component-api/AGENTS.md` still describe hand-written tables, and following them would break `api.ts` files. "Wrap classes in `<code>` tags" would show up as literal text, because `formatInline` escapes HTML and turns backticks into `<code>`. `default`, `-`, comma-separated types and the "Column Widths" (`style="min-width: 20%"`) rule are all generated by `ApiTables` now. The `file` example (`Head` for `TableHead`) refers to a file that no longer exists. `build-agent-skill.mjs` now imports each `api.ts`, so the "single-line, two-space-indented literals" rule is obsolete. `snippets` is described as Svelte-only, but `partLabel` uses it for React too (`src/component-api/AGENTS.md:9-20,22-49,90,93,95,110-158`, `src/utils/format-inline.ts:1-15`, `scripts/build-agent-skill.mjs:22-32`, `src/component-api/rows.ts:186`)
+  - Today:
+    ```md
+    - [ ] **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props are wrapped in `<code>` tags …
+    - `component`: … Keep `component:` and `page:` as single-line, two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them …
+    ```
+  - Fix: rewrite the checklist for `api.ts` (backticks and `[label](/path)` in descriptions, `values: { x: null }` for the baseline, the standard `group` names and phrases), move the legacy table rules under a short toast note, and delete the obsolete lines.
+    ```md
+    - [ ] **Inline code**: Wrap classes, selectors, tags and props in backticks. `formatInline` renders them as `<code>` and escapes HTML.
+    - `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `TabsItem`.
+    ```
+- [ ] (3) Package: the agent skill's list of files to import one by one leaves out `core/utils.css`, so an agent following it gets visible labels for `hideLabel` and Badge `srLabel` (both render `.ui-sr-only`) and no `.ui-motion-*` or `.ui-contrast-*` classes. The changelog's own Breaking entry says single-file imports need `utils.css` (`packages/opui/skills/opui/SKILL.md:14`, `packages/opui/CHANGELOG.md:25`, `packages/opui/components/Checkbox/Checkbox.astro:53`, `packages/opui/components/Badge/Badge.astro:39`)
+  - Today:
+    ```md
+    …or import `opui-css/css/layers.css` first, then the base files (`open-props.css`, `core/palette.css`, `css/theme.css`, `core/normalize.css`) and one component at a time…
+    ```
+  - Fix: add `utils.css` last, and spell out full package paths so they can be pasted.
+    ```md
+    …then `opui-css/open-props.css`, `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css`, and `opui-css/core/utils.css` last.
+    ```
+- [ ] (3) Changelog, MIGRATING: `--focus-ring-color` is described three contradictory ways. Breaking and MIGRATING say `theme.css` no longer sets it and the ring falls back while it's unset; Changed says `theme.css` defines it "instead of leaving it commented out" (5.5.0 set it to `var(--primary)`, never commented out); two Fixed entries describe component fallbacks for when it's unset, which no longer exist. The code sets it to the inverted page background, and every ring reads it with no fallback (`packages/opui/CHANGELOG.md:24,211,311,335`, `packages/opui/MIGRATING.md:544-552`, `packages/opui/css/theme.css:38-40`, `packages/opui/css/components/switch.css:49`)
+  - Today:
+    ```md
+    - `theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)` and unused). … keeps its inverted page background color while `--focus-ring-color` is unset.
+    ```
+  - Fix: keep one Breaking entry with a matching MIGRATING paragraph, and drop the entries at lines 211, 311 and 335.
+    ```md
+    - `theme.css` `--focus-ring-color` is the inverted page background instead of `var(--primary)`, and the global `:focus-visible` ring and the component rings read it. Set `--focus-ring-color: var(--primary)` to keep the old value.
+    ```
+- [ ] (3) MIGRATING: four upgrade breaks have no migration step. `choice.css` is filed under Added, but `checkbox.css`, `radio.css` and `switch.css` moved their layout, label, size and disabled styles into it, so a v5 setup that imports single files gets unstyled labels. And three Breaking entries have no MIGRATING note: `TableColumn` `width` declaration strings now render invalid CSS without a warning; the `Table` and `DescriptionList` part files were renamed, which breaks deep imports; `ToggleGroup` `size` and `Accordion` `variant` no longer accept `"default"` (`packages/opui/CHANGELOG.md:52-54,136`, `packages/opui/MIGRATING.md:405-416,634-641`, `packages/opui/css/components/choice.css:1-30`, `packages/opui/components/Table/TableColumn.astro:5-8`)
+  - Today:
+    ```css
+    @import "opui-css/css/layers.css";
+    @import "opui-css/css/components/checkbox.css"; /* labels lose their layout in 6.0 */
+    ```
+  - Fix: move the `choice.css` entry to Breaking, add it to "Package and imports", and add the other three steps to the Table, Description list, Toggle and Accordion sections.
+    ```diff
+      @import "opui-css/css/layers.css";
+    + @import "opui-css/css/components/choice.css";
+      @import "opui-css/css/components/checkbox.css";
+    - <TableColumn width="min-width: 10rem" />
+    + <TableColumn style="min-width: 10rem" />
+    - import Head from "opui-css/components/Table/Head.astro"
+    + import TableHead from "opui-css/components/Table/TableHead.astro"
+    - <ToggleGroup size="default">
+    + <ToggleGroup>
+    ```
+- [ ] (4) Carousel: the docs, the CustomButtons example in all five formats and the changelog say to set `--_button-prev-icon` and `--_button-next-icon`, but `carousel.css` only reads one `--_button-icon` (a white glyph, mirrored for the previous button), so nothing reads the documented properties. The example renders the default chevron, and users who copy it get no custom icon. The generated skill references repeat the wrong names (`src/docs/components/carousel.astro:242-246`, `src/component-examples/carousel/CustomButtons.html:54-58`, `src/component-examples/carousel/CustomButtons.astro:37-38`, `packages/opui/CHANGELOG.md:85`, `packages/opui/css/components/carousel.css:16,125`)
+  - Today:
+    ```css
+    .carousel-custom-buttons {
+      --_button-bg-color: var(--primary);
+      --_button-next-icon: url("…M5 12h14m-6-6 6 6-6 6…");
+      --_button-prev-icon: url("…M19 12H5m6-6-6 6 6 6…");
+    }
+    ```
+  - Fix: document and use the one property (a white glyph pointing to the end, mirrored for the previous button and rotated for vertical carousels) in the docs, the five examples and the changelog line, then rebuild the references.
+    ```css
+    .carousel-custom-buttons {
+      --_button-bg-color: var(--primary);
+      --_button-icon: url("…M5 12h14m-6-6 6 6-6 6…");
+    }
+    ```
+- [ ] (4) Docs site: the Astro code tab of every example shows `import { … } from "@opui/astro"`, a tsconfig path alias that only exists in the docs repo, so Astro users copy an import that doesn't resolve. The same page's Installation section and the Astro getting started guide say `opui-css/astro`. `<AutoExample>` passes the raw file to `<Example.Code>` and nothing rewrites it; only the Markdown export (and so `llms.txt` and the skill references) swaps `@opui/` for `opui-css/`. The React, Svelte and Vue examples already import from `opui-css/*`, while the guides tell agents to keep the alias (`src/components/AutoExample.astro:62-68`, `src/components/Example/Example.astro:138`, `src/integrations/html-to-markdown.mjs:82-85`, `src/utils/component-imports.ts:55-61`, `src/docs/components/AGENTS.md:95,118,278`, `packages/opui/components/AGENTS.md:5`, `.claude/agents/examples.md:24`, `tsconfig.json:9-11`, `src/docs/guide/getting-started/Astro.astro:76`)
+  - Today:
+    ```astro
+    ---
+    import { Button } from "@opui/astro"
+    ---
+    ```
+  - Fix: import from the package in the 293 Astro files under `src/` that use the alias (225 of them examples); it already resolves through the `opui-css` workspace dependency. Then update the guide lines and the examples agent, and drop the Markdown rewrite, the `(?:@opui|opui-css)` alternation in `src/utils/component-imports.ts:56`, and the `@opui/astro` and unused `@opui/react` tsconfig paths.
+    ```astro
+    ---
+    import { Button } from "opui-css/astro"
+    ---
+    ```
 
 ## Limitations
 
@@ -3814,6 +5464,151 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: the `i18n` config is gone from `astro.config.mjs`. Its prefix-always routing 404'd every unprefixed route in dev, and nothing needs it: the `[framework]` pages already get one route per framework from `frameworkPaths()`, `hrefFor()` builds `/<framework>/…/` itself, and pages read the framework from `Astro.locals.framework` (see Framework from locale). Under `OPUI_TEST_PAGES=1 pnpm dev`, `/`, `/todo/`, `/todo/done/`, `/checks/`, `/tests/`, `/learn/`, `/learn/under-the-hood/` and `/blocks/` return 200, `/components/button` still redirects and unknown paths still 404.
   - Compared all 646 built pages with the build before the change: the same apart from asset hashes and the Radio and Todo/Checks changes here.
+- [ ] (1) Docs site: without JS, every example still shows its "show code" chip, but the code sits in a `<template>` that only the click handler unwraps, so the chip does nothing. `Code.astro` already hides its copy button with `@media (scripting: none)` (`src/components/Example/Example.astro:222-243,257-290`, `src/components/Code.astro:266-268`)
+  - Today:
+    ```astro
+    <template class="example-code"></template>
+    ```
+  - Fix: hide the chip when scripting is off.
+    ```css
+    .show-code-button {
+      @media (scripting: none) {
+        display: none;
+      }
+    }
+    ```
+- [ ] (2) Accordion: "no marker" works differently in each framework. The HTML docs say to leave the marker out to get the native arrow. Astro and Svelte get that with an empty `marker` slot or snippet. React only gets it with `marker={false}`, because `marker={null}` falls back to the chevron. Vue can't get it at all, because Vue renders the slot fallback when the `#marker` template is empty (`packages/opui/components/Accordion/AccordionSummary.react.tsx:14-25`, `packages/opui/components/Accordion/AccordionSummary.vue:14-25`, `src/docs/components/accordion.astro:236-243`)
+  - Today:
+    ```
+    {marker ?? (<svg aria-hidden="true" className="ui-marker" …>…</svg>)}
+    ```
+    ```vue
+    <AccordionSummary>Title<template #marker /></AccordionSummary>
+    <!-- still renders the chevron -->
+    ```
+  - Fix: show the default based on whether a marker was passed, not on what it contains, and say in the framework docs that an empty marker gives the native arrow. Svelte's `{#if marker}` already works this way.
+    ```
+    {marker === undefined ? <svg aria-hidden="true" className="ui-marker" …>…</svg> : marker}
+    ```
+    ```vue
+    <slot v-if="$slots.marker" name="marker"></slot>
+    <svg v-else aria-hidden="true" class="ui-marker" …>…</svg>
+    ```
+- [ ] (2) ClassicSelect: it lags behind Select. Astro preselects with `item.value === value`, so a `value` array never matches, although `api.ts` documents "values with `multiple`"; `Item` has no `selected`; there are no `label` or `end-text` slots, so the Vue `Slots` type has only `default` (`packages/opui/components/ClassicSelect/ClassicSelect.astro:56`, `packages/opui/components/ClassicSelect/types.ts:1-4`, `packages/opui/components/ClassicSelect/types.d.vue.ts:8-10`, `src/component-api/classic-select/api.ts:7-9`, `packages/opui/components/Select/Select.astro:33-38`)
+  - Today:
+    ```astro
+    <option selected={item.value === value || undefined} value={item.value}
+    ></option>
+    ```
+  - Fix: share Select's `isSelected`, which handles arrays and `item.selected`, and use the same `Item` type.
+    ```ts
+    const isSelected = (item: Item) =>
+      value === undefined
+        ? item.selected
+        : Array.isArray(value)
+          ? value.includes(item.value)
+          : item.value === value
+    ```
+- [ ] (2) Range: `options` requires a hand-picked `list` id, although Range renders both the input and the `<datalist>` and the guide says to generate ids a component links itself, so the examples hard-code `labeled-markers` and `labeled-markers-spread`. With the `datalist` slot and no `options`, the union (`list?: never`) doesn't accept a `list` at all, so the slot renders an unlinked `<datalist>` (`packages/opui/components/Range/types.ts:11-17`, `packages/opui/components/Range/Range.astro:97`, `packages/opui/components/Range/Range.astro:106-118`, `packages/opui/components/Range/Range.react.tsx:113-127`, `src/component-examples/range/TickMarksLabels.astro:7`, `src/component-examples/range/Spread.astro:24`)
+  - Today:
+    ```
+    | { list?: never; options?: never }
+    | { list: string; options: (…)[] }
+    ```
+  - Fix: make `list` optional and generate it when `options` or the `datalist` slot is used, in all four frameworks, then drop `list` from the examples.
+    ```astro
+    const listId = list ?? (options || Astro.slots.has("datalist") ?
+    $id("range-list") : undefined)
+    ```
+- [ ] (2) Menu: by default, an item in a submenu closes only its own submenu, because its `commandfor` is the submenu's id. Picking "PDF" under File > Export leaves the File menu open unless every submenu item repeats `commandfor: "<root id>"`, which all five Submenu examples do by hand. The root Menu could pass its id down through context, the way Tabs passes down `groupName` (`packages/opui/components/Menu/Menu.astro:51-63`, `packages/opui/components/Menu/Menu.react.tsx:51-65`, `packages/opui/components/Menu/Menu.svelte:40-46`, `packages/opui/components/Menu/Menu.vue:61-64`, `src/component-examples/menu/Submenu.astro:4-7`)
+  - Today:
+    ```
+    const formats = ["PDF", "PNG", "SVG"].map((label) => ({
+      commandfor: "menu-file",
+      label,
+    }))
+    …
+    <Menu slot="submenu" id="menu-export" items={formats} placement="inline-end" />
+    ```
+  - Fix: have the root Menu provide its id as the default item `commandfor`. The cost is `"use client"` on the React Menu and a context-wrapped slot render in Astro, like `Tabs.astro`.
+    ```
+    const rootId = useMenuContext() ?? menuId
+    …
+    commandfor={closes ? rootId : undefined}
+    …
+    <MenuContext value={rootId}>{children}</MenuContext>
+    ```
+- [ ] (2) Package: every Astro component that provides or reads context imports `node:async_hooks`, and the barrel loads all components, so any `opui-css/astro` import needs a runtime with Node's `AsyncLocalStorage` (Node, Deno, Bun, or Cloudflare Workers with `nodejs_compat`/`nodejs_als`). Nothing in the README or docs says so. Confirm with an SSR build on the Cloudflare adapter without a compatibility flag (`packages/opui/components/context.astro.ts:1`, `packages/opui/astro/index.ts:1`, `packages/opui/README.md:27-38`, `packages/opui/README.md:104`)
+  - Today:
+    ```ts
+    import { AsyncLocalStorage } from "node:async_hooks"
+    ```
+  - Fix: add a note next to "Ids in Astro".
+    ```md
+    The Astro components pass settings to their parts with `AsyncLocalStorage` (`node:async_hooks`). On Cloudflare, enable `nodejs_compat`.
+    ```
+- [ ] (2) List, Checkbox, Radio, Switch: List writes the public size tokens on its rows from `components.extended`, which beats the size classes in `choice.css` in `components.root`. A `.ui-large` or `.ui-x-small` switch in any list row renders small, and so do sized checkboxes and radios in a dense list; the `size` prop is ignored without a warning (`packages/opui/css/components/list.css:104-106,121-124,260-264`, `packages/opui/css/components/choice.css:109-128`)
+  - Today:
+    ```css
+    &.ui-switch {
+      --switch-dot-size: var(--switch-dot-size-small);
+      --switch-track-height: var(--switch-track-height-small);
+      --switch-track-width: var(--switch-track-width-small);
+    }
+    ```
+  - Fix: only shrink controls that have no size class of their own.
+    ```
+    &.ui-switch:not(.ui-x-small, .ui-small, .ui-large) { … }
+    &:where(.ui-checkbox, .ui-radio):not(.ui-x-small, .ui-small, .ui-large) { … }
+    ```
+- [ ] (2) Tests: the parity normalizer trims every text run and drops whitespace-only text between elements, so a missing space between a word and an inline element (a React sentence without `{" "}`), or between two inline-block controls, compares as equal. The visual and axe runs only look at the HTML pages, so no test can see such a difference. A scratch copy that keeps whitespace between inline siblings makes 307 of 927 framework comparisons differ, almost all whitespace inside flex rows where it doesn't render, so some normalization is needed, but this much hides real cases (`tests/unit/normalize.ts:115-129`, `tests/e2e/visual.spec.ts:6`, `tests/e2e/a11y.spec.ts:41`)
+  - Today:
+    ```ts
+    normalize("<p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd></p>") ===
+      normalize("<p>Press<kbd>Ctrl</kbd>+<kbd>K</kbd></p>") // true
+    ```
+  - Fix: keep a marker only on text that touches an inline sibling. With that rule about 20 comparisons differ (Accordion summaries, Badge Indicator in Vue, Toggle labels), which would become recorded `.diff` drift. The other option is to also run `visual.spec.ts` for one hydrated framework.
+    ```ts
+    const lead = prevInline && /^\s/.test(raw) ? "␣" : ""
+    const trail = nextInline && /\s$/.test(raw) ? "␣" : ""
+    lines.push(indent + lead + text + trail)
+    ```
+- [ ] (3) Range: the docs say the `value` slot or `valueText` renders "a live readout … in sync with the input", but no framework can do that. Astro's script overwrites the slot with plain text on load, React's `valueText` and Svelte's snippet render once without the value, and the Vue slot isn't scoped (`src/docs/components/range.astro:101-132`, `packages/opui/components/Range/Range.astro:76-80`, `packages/opui/components/Range/Range.react.tsx:98`, `packages/opui/components/Range/Range.svelte:73-74`, `packages/opui/components/Range/Range.vue:87-89`)
+  - Today:
+    ```tsx
+    {
+      valueText ?? `${value ?? current ?? middle()}${valueSuffix ?? ""}`
+    }
+    ```
+  - Fix: pass the current value in: React `valueText?: (value) => ReactNode`, Svelte `valueText(value)`, Vue `<slot name="value" :value="model ?? defaultValue">`. In Astro, skip the script for slotted outputs (see the Range script item in Bugs).
+    ```tsx
+    {
+      valueText
+        ? valueText(value ?? current ?? middle())
+        : `${value ?? current ?? middle()}${valueSuffix ?? ""}`
+    }
+    ```
+- [ ] (3) ToggleGroup, ToggleButton: the selection can't be bound or controlled. Checkbox, Radio and Switch take `bind:group`/`bind:checked` (Svelte) and `v-model` (Vue). ToggleButton only has `pressed`, a one-way `checked` in Svelte and Vue and `defaultChecked` in React, and ToggleGroup has no value at all. `bind:checked` or `v-model` on a ToggleButton never updates the variable: the prop isn't bindable and falls through to the `<input>`. Reading a toolbar's state needs an `onchange` on every button, or reading the form (`packages/opui/components/ToggleButton/ToggleButton.svelte:6-19`, `packages/opui/components/ToggleButton/ToggleButton.svelte:33-40`, `packages/opui/components/ToggleButton/ToggleButton.vue:27-34`, `packages/opui/components/ToggleButton/ToggleButton.react.tsx:34`, `packages/opui/components/ToggleGroup/ToggleGroup.svelte:5-30`)
+  - Today:
+    ```svelte
+    <ToggleGroup selection="single" name="transport">
+      <ToggleButton
+        value="walking"
+        pressed
+        onchange={() => (transport = "walking")}>Walking</ToggleButton
+      >
+      <ToggleButton value="cycling" onchange={() => (transport = "cycling")}
+        >Cycling</ToggleButton
+      >
+    </ToggleGroup>
+    ```
+  - Fix: give ToggleGroup a model and pass it through the existing context, so ToggleButton derives `checked` from it: Svelte `bind:value`, Vue `v-model`, React `value`/`defaultValue`/`onValueChange`, a string for `"single"` and an array for `"multiple"`. A smaller option is to mirror Checkbox's `checked`/`group` bindings on ToggleButton.
+    ```svelte
+    <ToggleGroup selection="single" bind:value={transport}>
+      <ToggleButton value="walking">Walking</ToggleButton>
+      <ToggleButton value="cycling">Cycling</ToggleButton>
+    </ToggleGroup>
+    ```
 
 ## Questions
 
@@ -3903,6 +5698,207 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Just remove the bool for filled, let’s not wait for 7.0
   - Fixed: the boolean `filled` is gone, no alias. CHANGELOG (Breaking), MIGRATING and What's new say so.
   - Size scales: new item under Suggestions ("Sizes: control size scales differ").
+
+- [ ] (1) Tooling: the logical-properties lint has a gap. `opui/logical-shorthands` rejects `overflow: a b` in favor of `overflow-block`/`overflow-inline`, and `overscroll-behavior-x/y` are banned, but `overflow-x`/`overflow-y` pass, and the package uses them 15 times in 9 files, against the "logical properties only" goal (`stylelint.config.mjs:90-98`, `scripts/stylelint-logical-shorthands.mjs:23`, `packages/opui/css/components/button-group.css:92-94`, `packages/opui/css/components/carousel.css:48,101-102`)
+  - Today:
+    ```css
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    ```
+  - Fix: A: ban `/^overflow-[xy]$/` next to `overscroll-behavior-[xy]`, and move to `overflow-inline`/`overflow-block` once their browser support is acceptable. B: allow `overflow-x`/`overflow-y` on purpose, remove `overflow` from the shorthand rule, and add a comment saying why.
+    ```
+    "property-disallowed-list": [/^overscroll-behavior-[xy]$/, /^overflow-[xy]$/], // A
+    ```
+- [ ] (1) Typography: `Default` is about 480 lines of class-free HTML copied into five files (about 2,500 lines). Its own text says "Not a single class name below, just plain HTML", and it stands for CMS output, which a React, Svelte or Vue app would inject as an HTML string rather than write as JSX (`src/component-examples/typography/Default.astro:7`, `src/component-examples/typography/Default.react.tsx`, `src/component-examples/typography/Default.svelte`, `src/component-examples/typography/Default.vue`)
+  - Fix: A: keep the five copies. B: keep `Default.html` only, and let `AutoExample` render the HTML file on every framework page for examples listed as framework-agnostic (like `COMPONENT_FRAMEWORKS` for toast). C: keep the files, but have the framework versions import the HTML and render it with `set:html`, `dangerouslySetInnerHTML`, `{@html}` or `v-html`, which is how real apps show rich text.
+    ```tsx
+    import html from "./Default.html?raw" // C
+    export default () => <div dangerouslySetInnerHTML={{ __html: html }} />
+    ```
+- [ ] (1) API docs: six HTML tables have two rows with the same name, because two options share a `group`: Overflow twice in Button group and Toggle group (`.ui-scrollable`, `.ui-shrink`), Layout twice in Checkbox, Radio and Switch (`.ui-spread`, `.ui-stack`), State twice in Toggle button (`[disabled]`, `[checked]`). An earlier item treated this as a bug for Chip and Badge and renamed the group there; nothing checks for it (`src/component-api/button-group/api.ts:27,35`, `src/component-api/checkbox/api.ts:101,108`, `src/component-api/radio/api.ts:58,65`, `src/component-api/switch/api.ts:63,70`, `src/component-api/toggle-button/api.ts:15,41`, `src/component-api/toggle-group/api.ts:22,38`, `src/component-api/rows.ts:52-70`)
+  - Fix: A: give every option its own group name, and have `checkApi` warn on duplicates. B: keep shared groups for alternatives, and have `htmlRows` merge them into one row that lists both modifiers. C: accept the duplicates and say so in the guide.
+    ```
+    { group: "Scroll", prop: "scrollable", … }, { group: "Shrink", prop: "shrink", … } // A
+    ```
+- [ ] (2) Callout: `CalloutTitle` is a second way to write the same title. It renders `h3.ui-title`, but `callout.css` styles every heading in `.ui-content` and nothing targets `.ui-title`, so `<CalloutTitle>Note</CalloutTitle>` and `<h3>Note</h3>` look the same. The hero on the Callout page itself uses a bare `<h3>`, against the docs guide. Card and Dialog have no title part, and `DrawerTitle` only exists because it carries the labelled-by id (`packages/opui/components/Callout/CalloutTitle.astro:4-11`, `packages/opui/css/components/callout.css:69-91`, `src/docs/components/callout.astro:90-91`, `src/docs/components/AGENTS.md:204`)
+  - Today:
+    ```astro
+    <UICalloutContent> <h3>Alternatives</h3></UICalloutContent>
+    ```
+  - Fix: pick one. A: keep `CalloutTitle` as the one way to write a title and use it in the page's own callouts. B: drop `CalloutTitle` and the `.ui-title` hook, and write the heading inside `CalloutContent`, the way `CardHeader` and `DialogHeader` take a plain heading.
+    ```astro
+    <CalloutContent>
+      <h3>Note</h3>
+      <p>…</p>
+    </CalloutContent>
+    ```
+- [ ] (2) Avatar: `isGroup` turns the leaf component into its own container. The group accepts every Avatar prop but ignores `size` and `variant`, still swaps its children for an `<img>` when `src` is set, and takes `as`, `href` and `alt`. It is also the only `is`-prefixed boolean in the library, while ButtonGroup and ToggleGroup are separate components (`packages/opui/components/Avatar/types.ts:2`, `packages/opui/components/Avatar/Avatar.astro:22-33`)
+  - Today:
+    ```astro
+    <Avatar aria-label="Team" isGroup>
+      <Avatar alt="Jane Doe" src="/jane.jpg" />
+    </Avatar>
+    ```
+  - Fix: A: an `AvatarGroup` component in all four frameworks that renders `div.ui-avatar-group[role=group]` with only `class` and children, with `isGroup` removed in 6.0 or kept as a deprecated alias. B: keep the prop, rename it `group`, and give it its own union branch that forbids `src`, `alt`, `size`, `variant`, `as` and `href`. C: keep it as is.
+    ```astro
+    <AvatarGroup aria-label="Team">
+      <Avatar alt="Jane Doe" src="/jane.jpg" />
+    </AvatarGroup>
+    ```
+- [ ] (2) Button, Carousel: here `label` is only the accessible name (`aria-label`), while on Chip, Badge, ToggleButton, TextField, Textarea, Select, ClassicSelect, Range and Menu items `label` is visible text, so `<Button label="Save" />` renders an empty button. Hidden names also take three other forms: `srLabel` (Badge), `hideLabel` (Checkbox, Radio, Switch) and plain `aria-label` (Progress, ButtonGroup) (`packages/opui/components/Button/Button.astro:35`, `packages/opui/components/Carousel/Carousel.astro:25`, `packages/opui/components/Chip/Chip.astro:39`, `packages/opui/components/Badge/Badge.astro:37`, `packages/opui/components/Button/types.ts:6-15`)
+  - Today:
+    ```astro
+    <Chip label="Archived" />
+    <!-- visible "Archived" -->
+    <Button label="Archive" />
+    <!-- empty button, aria-label="Archive" -->
+    ```
+  - Fix: A: drop `label` from Button and Carousel and let `aria-label` pass through as it does everywhere else (Button's `iconOnly` union keys on it instead). B: make Button's `label` visible text like Chip's, rendered as `aria-label` only with `iconOnly`. C: keep it, and write "accessible name, not shown" in both API rows.
+    ```
+    | { iconOnly: true; "aria-label": string }
+    | { iconOnly?: false }
+    ```
+- [ ] (2) Menu, Select, ClassicSelect, ListItem: an item's visible text has three names. `MenuItem` uses `label`, `SelectItem` and `ClassicSelectItem` use `text` next to `value`, and the `ListItem` you slot into a Menu uses `headline` (`packages/opui/components/Menu/types.ts:1-9`, `packages/opui/components/Select/types.ts:13-17`, `packages/opui/components/ClassicSelect/types.ts:1-4`, `packages/opui/components/ListItem/types.ts:1-7`, `src/component-examples/menu/Custom.astro:57-63`)
+  - Today:
+    ```
+    type MenuItem = { critical?: boolean; label: string; shortcut?: string; … }
+    type SelectItem = { selected?: boolean; text: string; value: any }
+    ```
+  - Fix: pick one key for item text. A: `text` everywhere, renaming `MenuItem.label` (not breaking, Menu is new in 6.0.0; Select and ClassicSelect already used `text` in 5.x). B: `label` everywhere, which matches `<option label>`, Chip and field `label` and the guide's example, but breaks Select and ClassicSelect items. C: keep both and document it in the guide.
+    ```
+    type MenuItem = { text: string; … } // A
+    ```
+- [ ] (2) Menu, Button: disabled links are built two ways. Menu drops `href` and adds `aria-disabled="true"`: the item leaves the tab order, reads as plain text, and carries `aria-disabled` on an element with no role. Button keeps `href` and `aria-disabled="true"` and blocks clicks with `pointer-events: none`, so the link stays focusable and Enter still follows it (`packages/opui/components/Menu/Menu.astro:61-65`, `packages/opui/components/Button/Button.astro:34-37`, `packages/opui/css/components/button.css:124-126`, `src/component-api/menu/api.ts:73`)
+  - Today:
+    ```html
+    <!-- Menu item -->
+    <a aria-disabled="true">…</a>
+    <!-- Button -->
+    <a class="ui-button" href="/x" aria-disabled="true">…</a>
+    ```
+  - Fix: choose one model for every component that renders a disabled link, and make Menu, Button and the docs agree. A: drop `href` everywhere, as Menu does (nothing can activate it, but keyboard users can't reach it). B: keep `href` and `aria-disabled` everywhere, as Button does, and either block Enter with a script or accept it.
+    ```astro
+    href={href && !disabled ? href : undefined} // A, in Button too
+    ```
+- [ ] (2) Table: there are parts for `thead`, `tbody`, `tr`, `th`, `td`, `colgroup` and `col`, but none for `tfoot` or `caption`, so every Table example mixes parts with raw `<caption>` and `<tfoot>`, though `table.css` styles both (`src/component-examples/table/Default.astro:13,43-47`, `src/component-examples/table/Advanced.astro:15,77-81`, `packages/opui/astro/index.ts:53-60`, `packages/opui/css/components/table.css:102-120`)
+  - Today:
+    ```astro
+    <Table>
+      <caption>Band Members</caption>
+      <TableHead>…</TableHead>
+      <TableBody>…</TableBody>
+      <tfoot>
+        <TableRow>…</TableRow>
+      </tfoot>
+    </Table>
+    ```
+  - Fix: A: add `TableFoot` and `TableCaption` to all four frameworks and the barrels, with the same one-line shape as `TableBody`. B: keep them out, and say in the Table API notes that `<caption>` and `<tfoot>` are written as plain elements.
+    ```tsx
+    export default function TableFoot(props: Props<"tfoot">) {
+      return <tfoot {...props} />
+    }
+    ```
+- [ ] (2) Theme: a scoped `.ui-dark` or `.ui-light` only changes what `light-dark()` resolves to. The dark palette hue and shadow tokens live on `html.ui-dark` and the OS media query, and the palette is only re-derived on `:root` and `.ui-palette`, so the Theming page's `<aside class="ui-dark">` on a light page gets green `--color-6` primaries and light-mode shadows, while a dark page gets blue (`packages/opui/css/theme.css:154-170`, `packages/opui/core/palette.css:10-35`, `src/docs/guide/theming.astro:96-99,116`)
+  - Today:
+    ```css
+    :where(html.ui-dark) {
+      --palette-hue: var(--hue-blue);
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 20%;
+    }
+    ```
+  - Fix: A: say on the Theming page that a scoped `.ui-dark` keeps the page's palette hue and shadows, and that adding `.ui-palette` with a hue makes it match. B: make `.ui-dark`/`.ui-light` palette scopes (add them to both derivation lists and move the dark hue to `:where(.ui-dark)`); the cost is that the theme generator has to write a scope rule, and the scope overrides any hue a user sets on `html`.
+    ```html
+    <aside class="ui-dark ui-palette" style="--palette-hue: var(--hue-blue)">
+      <!-- A -->
+    </aside>
+    ```
+- [ ] (2) Package: `open-props.css` bundles five Open Props modules the library never reads (`props.zindex`, `props.aspects`, `props.colors`, `props.gradients`, `animations.min`: 0 reads in `packages/opui`, one `--layer-important` read in the docs), plus `props.palette.css`, whose `--palette-*` knobs and `--color-1`–`--color-16` are all redeclared by `core/palette.css`. That is about 17 KB unminified in every `dist/opui.css` and `dist/op.css` (`packages/opui/open-props.css:8-16`, `packages/opui/core/palette.css:1-123`, `src/components/ChipRain.astro:66`)
+  - Today:
+    ```
+    @import "open-props/src/props.zindex.css" layer(openprops);
+    @import "open-props/src/props.aspects.css" layer(openprops);
+    @import "open-props/src/props.colors.css" layer(openprops);
+    @import "open-props/src/props.gradients.css" layer(openprops);
+    @import "open-props/animations.min.css" layer(openprops);
+    …
+    @import "open-props/src/props.palette.css" layer(openprops);
+    ```
+  - Fix: A: keep them for users who use Open Props through `opui.css`, but drop `props.palette.css`, which is dead either way. B: import only what the library reads (fonts, sizes, easing, shadows, borders, hues), with a Breaking line that points to `open-props` for the rest.
+    ```css
+    /* B: only the modules the library reads */
+    @import "open-props/src/props.fonts.css" layer(openprops);
+    @import "open-props/src/props.sizes.css" layer(openprops);
+    ```
+- [ ] (2) Avatar, Button: `.ui-rounded` means two different shapes. On Avatar (`variant="rounded"`) it is `--radius-2`, a rounded square, against the default circle. On Button (`rounded`, new in 6.0) it is `--radius-round`, a pill or circle, against the default radius. The Badge `:has(> .ui-avatar:not(.ui-rounded, …))` rule depends on Avatar's meaning (`packages/opui/css/components/avatar.css:12,61-63`, `packages/opui/css/components/button.css:291-293`, `packages/opui/components/Avatar/types.ts:4`, `packages/opui/components/Button/types.ts:3`, `src/component-api/button/api.ts:50-54`)
+  - Fix: A: rename Button's new prop and class to `round`/`.ui-round` (or `pill`) before 6.0 ships, which costs nothing yet. B: rename Avatar's variant, which is breaking. C: keep both and say in each API row what the class does on that component.
+    ```astro
+    <Button round aria-label="Add"><svg …></svg></Button>
+    <!-- A -->
+    ```
+- [ ] (2) Menu, ListItem: `items` take `critical: true`, but `ListItem` has no `critical` prop, so the Custom items example, the documented way to build a menu by hand, sets `class="ui-critical"` directly (`src/component-examples/menu/Custom.astro:61`, `src/component-examples/menu/Custom.react.tsx:69`, `packages/opui/components/Menu/types.ts:4`, `packages/opui/components/ListItem/types.ts:1-8`, `packages/opui/components/Menu/Menu.astro:57`)
+  - Today:
+    ```astro
+    <ListItem as="button" headline="Delete" borderTop class="ui-critical" … />
+    ```
+  - Fix: A: add `critical?: boolean` to ListItem (`ui-critical` on the `li`, as Menu does), in four frameworks plus `api.ts`. B: keep the class and say in the Custom items prose that `.ui-critical` marks a destructive item.
+    ```astro
+    <ListItem as="button" headline="Delete" borderTop critical …>
+      <!-- A --></ListItem
+    >
+    ```
+- [ ] (2) Form, Radio, Switch: a group-level error (the `.ui-end-text` directly inside a FieldSet) is linked to nothing. Each control gets `aria-invalid`, but a screen reader never reads the message, while a single control's end text is linked automatically through `aria-describedby` (`src/component-examples/form/FieldsetInvalid.astro:16`, `src/component-examples/radio/FieldGroupValidation.astro:17`, `src/component-examples/switch/FieldGroupValidation.astro:17`, `src/component-examples/radio/FieldGroupValidation.html:34`, `packages/opui/components/FieldSet/FieldSet.astro:7-14`)
+  - Fix: A: a FieldSet `endText` prop and slot that renders the end text and sets `aria-describedby` on the fieldset, matching the single controls. B: `aria-describedby` plus an `id` in the examples. C: leave it, in line with the "leave ARIA to the user" decision.
+    ```html
+    <fieldset class="ui-fieldset" aria-describedby="plan-error">
+      <!-- B -->
+      …
+      <span class="ui-end-text" id="plan-error">Pick a plan</span>
+    </fieldset>
+    ```
+- [ ] (2) Tooling: `netlify.toml` only configures Netlify's own git builds through an `ignore` command, but CI now deploys production and previews itself with `netlify deploy --no-build`. So either git builds are stopped in the Netlify UI and the file does nothing, or every push to main and every PR deploys twice from two different builds (`netlify.toml:1-2`, `.github/workflows/ci.yml:32-51`)
+  - Fix: A: git builds are already off: delete `netlify.toml`. B: they are on: stop them so CI, which deploys only after `pnpm check`, is the single deploy path, then delete the file. C: keep Netlify builds and drop the two CI deploy steps.
+    ```toml
+    # A/B: netlify.toml removed; CI's `netlify deploy --no-build` is the only deploy
+    ```
+- [ ] (2) CI: on pull requests the e2e shards check out the merge commit (the default `actions/checkout` ref), but `update-snapshots` renders and commits baselines from the head branch. If main changes anything visual, the regenerated baselines can't match, and adding the label again just produces the same images (`.github/workflows/ci.yml:70`, `.github/workflows/update-snapshots.yml:21-23`)
+  - Fix: A: check out `github.event.pull_request.head.sha` in `e2e-shard`, so tests and baselines come from the same tree. B: keep the merge ref and add "merge main into the branch before adding the label" to CHECKS.md.
+    ```yaml
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }} # A
+    ```
+- [ ] (3) TextField, Textarea, Select, ClassicSelect, Range: field naming uses three strategies. TextField, Textarea and ClassicSelect take their name from the wrapping label, so description and end text are in the name, and the end text is also the description, so it's read twice (Chromium on the TextField EndText example: name "Label Supporting text", description "Supporting text"). Select names from the label span and loses its description (see Accessibility). Range names from the label span and describes with start text plus end text (`packages/opui/components/TextField/TextField.astro:41-42`, `packages/opui/components/Select/Select.astro:73-75`, `packages/opui/components/Range/Range.astro:53-56`, `packages/opui/components/ClassicSelect/ClassicSelect.astro:28-29`, `packages/opui/CHANGELOG.md:34`)
+  - Fix: A: the Range pattern everywhere (`aria-labelledby` the label id, `aria-describedby` the start text and end text ids): a clean name and no repeats, but it needs the label id back in ClassicSelect. B: keep label wrapping and drop the end text id from `aria-describedby` in TextField, Textarea and ClassicSelect, since it's already in the name; the name stays long. C: keep the split and accept the double read.
+    ```astro
+    <input
+      aria-labelledby={labelId}
+      aria-describedby={idRefs(descriptionId, endTextId, ariaDescribedBy)}
+    />
+    <!-- A -->
+    ```
+- [ ] (3) TextField, Textarea, Range: legacy aliases shipped in brand-new APIs. The React and Svelte components are new in 6.0.0, yet carry `startText` (TextField) and `supportingText` (TextField, Textarea), which `api.ts` marks legacy. Range uses `startText`/`start-text` as the canonical name for the same `.ui-start-text` part that TextField and Select call `description`. Changelog line 63 says "The `startText` prop stays" for Textarea, which never had one (`packages/opui/components/TextField/types.ts:9`, `packages/opui/components/TextField/types.ts:21`, `packages/opui/components/Textarea/types.ts:20`, `packages/opui/components/TextField/TextField.react.tsx:17`, `packages/opui/components/TextField/TextField.svelte:30`, `packages/opui/components/Range/types.ts:7`, `src/component-api/text-field/api.ts:85`, `src/component-api/text-field/api.ts:125`, `packages/opui/CHANGELOG.md:63`)
+  - Fix: A: drop the aliases from React and Svelte only, since nobody depends on them yet. B: drop them everywhere in this major, next to the `small` and `filled` removals, with a MIGRATING note. Separately, decide whether Range moves to `description` or keeps `startText`.
+    ```
+    <TextField description="…" endText="…" /> {/* no startText or supportingText in React and Svelte */}
+    ```
+- [ ] (3) Package: the package ships 36 `types.solid.ts` files, a `solid-js` peer and a `solid` entry in the framework table, but no Solid components, and nothing checks the files: `[component-api]` skips frameworks without a component file, and there is no `typecheck:solid`. They have drifted: DescriptionList has no part types, Menu has no `MenuItem` with native attributes, Table's `SectionProps` uses `HTMLTableSectionElement` for `td`/`th`/`tr`/`colgroup`, Badge, Carousel, ToggleButton and ToggleGroup have no slot props, `TabsItemProps` keeps `type`, and TextField's slot props collapse to `string` (`{ label: el }` with a `JSX.Element` fails, while React takes a `ReactNode`; checked with tsc) (`src/utils/component-source.ts:103-104`, `src/component-api/frameworks.ts:32-37`, `scripts/check-components.mjs:28`, `packages/opui/package.json:92`, `packages/opui/README.md:19-23`, `packages/opui/components/TextField/types.solid.ts:4-22`, `packages/opui/components/Table/types.solid.ts:5-8`, `packages/opui/components/DescriptionList/types.solid.ts:4`, `packages/opui/components/Menu/types.solid.ts:4`, `packages/opui/components/Badge/types.solid.ts:4`)
+  - Today:
+    ```ts
+    export type SectionProps = Base.SectionProps &
+      JSX.HTMLAttributes<HTMLTableSectionElement>
+    ```
+  - Fix: A: remove them (the files, the `solid` entry in `frameworks.ts` and `TYPE_FILES`, the peer and the README lines). B: keep them and check them: a `typecheck:solid`, `[component-api]` also checking `types.solid.ts` without a component file, and the drift fixed by mirroring `types.react.ts`.
+    ```ts
+    export type SectionProps<T extends Section = Section> = Base.SectionProps &
+      JSX.IntrinsicElements[T]
+    ```
+- [ ] (3) Todo examples: 139 of the 143 entries in `todoExamples` belong to items that are already `- [x]`, and only 1 belongs to an open item: about 16,850 lines of HTML that no test runs. 61 of them carry CSS scoped to `.todo-current` or `.todo-fixed`, which either recreates the old bug or layers the proposed fix on top of a library that now ships the real one, so on `/todo/done/` the "With the fix" panel shows the example's own copy of the proposal, not the shipped CSS. Some describe markup that no longer exists: `ui-disabled-where.html` still says a `.ui-disabled` button "looks off", but Button no longer styles `.ui-disabled` (`src/utils/todo-examples.ts:11-445`, `src/todo-examples/ui-disabled-where.html:63-71`, `src/pages/todo/[...index].astro:102-110`, `src/pages/todo/example/[name].astro:81-83`)
+  - Fix: A: delete an example (file and entry) once its fix has been checked on `/todo/done/`; done items keep their prose. B: keep the examples, but strip the `.todo-current`/`.todo-fixed` override CSS once the item is fixed, so the page shows only what the library renders today. C: move done items and their examples into an archive that isn't globbed or built.
+    ```ts
+    // A: src/utils/todo-examples.ts keeps only entries for open items
+    ```
 
 ## Suggestions
 
@@ -5313,6 +7309,1857 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: a private `--_inset: calc(var(--size-1) - 1px)` is not clearer; either keep it and say so here, or derive it from `--_indicator-size` (`calc(var(--_indicator-size) + 1px)`).
   > Fix
   - Fixed: `--_inset: calc(var(--size-1) - var(--_track-border-width))`, so the selected pill sits `--size-1` from the track's outer edge. Still 3px with the default 16px root and 1px `--border-width`, and the gap stays `--size-1` when a theme changes `--border-width` or the root font size. Not tied to `--_indicator-size`, which is the line variant's underline and unrelated to the gap. `.ui-line` keeps `--_inset: 0px`.
+- [ ] (1) Drawer: the fallback `DrawerHeader` uses outside a Drawer has drifted. Astro and Vue render `onclick="this.closest('dialog').close()"`, which throws when there is no `<dialog>` ancestor; React and Svelte use `?.close()`. The two strings are also the only inline event handlers in the library, and a strict CSP blocks them (`packages/opui/components/Drawer/DrawerHeader.astro:16-19`, `packages/opui/components/Drawer/DrawerHeader.vue:17-21`, `packages/opui/components/Drawer/DrawerHeader.react.tsx:17-23`, `packages/opui/components/Drawer/DrawerHeader.svelte:17-24`)
+  - Today:
+    ```
+    : { onclick: "this.closest('dialog').close()" }
+    ```
+  - Fix: add `?.` to the two strings. Or, since the docs already tell React and Svelte users to set `commandfor` outside a `Drawer`, drop the click fallback in all four and always render `command="close"`.
+    ```
+    : { onclick: "this.closest('dialog')?.close()" }
+    ```
+- [ ] (1) Checkbox, Radio: the halo centers itself with two logical insets, a direction-dependent `translateX` and a `--_dir-rtl` flag flipped by `:dir(rtl)`. One symmetric `inset` centers it in both directions, and removes `--_dir-rtl`, which is the only direction multiplier with the opposite sign of the `--_dir` that Badge, Drawer and Toast use. The `150%` fallback is dead, because `--_ripple-size` is always set on the same element (`packages/opui/css/components/choice.css:66-104`, `packages/opui/css/components/badge.css:8,34`, `packages/opui/css/components/drawer.css:3,39`)
+  - Today:
+    ```
+    --_dir-rtl: -1;
+    --_ripple-size: 175%;
+    &:dir(rtl) { --_dir-rtl: 1; }
+    …
+    block-size: var(--_ripple-size, 150%);
+    inline-size: var(--_ripple-size, 150%);
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%) translateZ(-1px) scale(var(--_thumb-scale));
+    ```
+  - Fix: size and center the square input's halo with one inset, and update the MIGRATING row and the What's new note that map `--isLTR`/`--isRTL` to `--_dir-rtl`.
+    ```
+    --_ripple-size: 175%;
+    …
+    inset: calc((100% - var(--_ripple-size)) / 2);
+    transform: translateZ(-1px) scale(var(--_thumb-scale));
+    ```
+- [ ] (1) ToggleButton: leftovers. `ToggleButton.vue` still declares `id` and `disabled` as props and binds them by hand, left over from the generated `inputId` that an earlier fix removed; they would fall through `$attrs` as they do in Checkbox. In all four ToggleButtons, `type || group?.inputType || "checkbox"` can only ever be `type || "checkbox"` (`packages/opui/components/ToggleButton/ToggleButton.vue:7-8`, `packages/opui/components/ToggleButton/ToggleButton.vue:29-30`, `packages/opui/components/ToggleButton/types.d.vue.ts:6-7`, `packages/opui/components/ToggleButton/ToggleButton.astro:24-27`)
+  - Today:
+    ```ts
+    const finalType =
+      group?.inputType === "radio"
+        ? "radio"
+        : type || group?.inputType || "checkbox"
+    ```
+  - Fix: simplify `finalType` in the four files, and drop `id`/`disabled` from `ToggleButton/types.d.vue.ts` and the template.
+    ```ts
+    const finalType =
+      group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
+    ```
+- [ ] (1) Button, ButtonGroup, Chip, Divider, Progress: small drifts from the components guide. Progress.vue declares slots before props; Progress.svelte destructures `children` first instead of under `// Snippets`; Divider.astro exports `title` before the type import; Chip.vue names its tag `tag` where Button.vue and Avatar.vue use `Tag`; in Button the `color` class comes after `variant`; in ButtonGroup the state object comes last and `orientation` is unsorted (`packages/opui/components/Progress/Progress.vue:8-9`, `packages/opui/components/Progress/Progress.svelte:4-11`, `packages/opui/components/Divider/Divider.astro:2-3`, `packages/opui/components/Chip/Chip.vue:17`, `packages/opui/components/Button/Button.astro:26-33`, `packages/opui/components/ButtonGroup/ButtonGroup.astro:19-27`)
+  - Today:
+    ```
+    "ui-button-group",
+    color && `ui-${color}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
+    ```
+  - Fix: order classes as the guide says (base, state object, then variant props A–Z) in all four frameworks.
+    ```
+    "ui-button-group",
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
+    color && `ui-${color}`,
+    orientation && `ui-${orientation}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    ```
+- [ ] (1) ButtonGroup, ToggleGroup: `orientation` accepts only `"vertical"` and is interpolated into a class name, while Carousel accepts `"horizontal" | "vertical"` and maps it with a state object. `orientation={wide ? "horizontal" : "vertical"}` works on Carousel but is a type error on the groups, and from plain JS it renders a dead `ui-horizontal` class (`packages/opui/components/ButtonGroup/types.ts:3`, `packages/opui/components/ButtonGroup/ButtonGroup.astro:24`, `packages/opui/components/ToggleGroup/types.ts:3`, `packages/opui/components/ToggleGroup/ToggleGroup.astro:31`, `packages/opui/components/Carousel/types.ts:7`, `packages/opui/components/Carousel/Carousel.astro:33`)
+  - Today:
+    ```
+    orientation?: "vertical"            // ButtonGroup, ToggleGroup
+    orientation && `ui-${orientation}`,
+    ```
+  - Fix: use one value set and one mapping, as Carousel does, and add a `horizontal` default to the two `api.ts` rows.
+    ```
+    orientation?: "horizontal" | "vertical"
+    { "ui-vertical": orientation === "vertical" },
+    ```
+- [ ] (1) Menu, Tabs, TabsTab, TableColumn (Vue): these still set `inheritAttrs: false` and bind `$attrs` on their only root element, which is what default fallthrough already does (merging class and style the same way). An earlier item removed this pattern from `TabsPanel.vue`, `List.vue`, `Table.vue` and others but missed these four (`packages/opui/components/Menu/Menu.vue:16-18,39`, `packages/opui/components/Tabs/Tabs.vue:9-11,26`, `packages/opui/components/Tabs/TabsTab.vue:9-11,20`, `packages/opui/components/Table/TableColumn.vue:7-9,15`)
+  - Today:
+    ```
+    defineOptions({
+      inheritAttrs: false,
+    })
+    …
+    <label :for="tabId || tabs?.tabId" :class="['ui-tab-label', $props.class]" v-bind="$attrs">
+    ```
+  - Fix: delete the `defineOptions` call and `v-bind="$attrs"` in all four files.
+    ```
+    <label :for="tabId || tabs?.tabId" :class="['ui-tab-label', $props.class]">
+    ```
+- [ ] (1) ListItem: the base `Slots<S>` types every slot as `string | S`, so Vue's `defineSlots` advertises `end?: string | Slot` (a slot can't be a string) and Svelte accepts a text string for `submenu`, which only makes sense for `text`. Chip's `Slots<S>` uses plain `S` (`packages/opui/components/ListItem/types.ts:31-36`, `packages/opui/components/ListItem/types.d.vue.ts:8-10`, `packages/opui/components/ListItem/ListItem.svelte:32-34,102`, `packages/opui/components/Chip/types.ts:12-15`)
+  - Today:
+    ```ts
+    export type Slots<S> = {
+      end?: string | S
+      start?: string | S
+      submenu?: string | S
+      text?: string | S
+    }
+    ```
+  - Fix: type the base slots plainly, like Chip. React's `ReactNode` already includes strings, `headline` and `description` remain the string shorthands, and Svelte can render the snippets directly without the `content` helper.
+    ```ts
+    export type Slots<S> = {
+      end?: S
+      start?: S
+      submenu?: S
+      text?: S
+    }
+    ```
+- [ ] (1) DescriptionList: the parts render `dt.ui-term` and `dd.ui-description`, but `description-list.css` styles `dt, .ui-term` and plain `dd`, so `.ui-term` only duplicates `dt` and `.ui-description` is never used. A `<dl>` item only allows `dt` and `dd` anyway (`packages/opui/css/components/description-list.css:35-48,54-61`, `packages/opui/components/DescriptionList/DescriptionListTerm.astro:7`, `packages/opui/components/DescriptionList/DescriptionListDescription.astro:7`, `src/component-examples/description-list/Default.html:3-4`)
+  - Today:
+    ```
+    dt,
+    .ui-term { … }
+    dd { … }
+    ```
+  - Fix: either style both classes the same way (not breaking), or select by element only and drop both classes from the parts and examples.
+    ```
+    dd,
+    .ui-description { … }
+    ```
+- [ ] (1) Checkbox, Radio, Switch (Vue): the inputs let a user's `name` win over the FieldGroup name only because `:name` comes before `v-bind="$attrs"`. The other Vue controls say it explicitly, which is the "spread first, computed attributes after, falling back to the user's value" rule (`packages/opui/components/Checkbox/CheckboxInput.vue:45-46`, `packages/opui/components/Radio/RadioInput.vue:31-32`, `packages/opui/components/Switch/SwitchInput.vue:32-33`, `packages/opui/components/TextField/TextField.vue:90`, `packages/opui/components/Select/Select.vue:97`)
+  - Today:
+    ```vue
+    :name="fieldName" v-bind="$attrs"
+    ```
+  - Fix: use the same form as TextField; `attrs` already exists in all three files.
+    ```vue
+    v-bind="$attrs" :name="attrs.name ?? fieldName"
+    ```
+- [ ] (1) FieldGroup: its context is named `field` in Astro, React and Svelte (`fieldContext`, `FieldContext`, `useFieldContext`, `getFieldContext`) but `FieldGroupKey` in Vue. Every other context uses the folder name throughout (`tabsContext`, `TabsContext`, `getTabsContext`, `TabsKey`) (`packages/opui/components/FieldGroup/context.astro.ts:3`, `packages/opui/components/FieldGroup/context.react.ts:5-13`, `packages/opui/components/FieldGroup/context.ts:3-12`, `packages/opui/components/FieldGroup/context.vue.ts:3`)
+  - Today:
+    ```
+    export const fieldContext = createContext<{ name?: string }>()
+    export const useFieldContext = () => useContext(FieldContext)
+    export const FieldGroupKey = Symbol() as InjectionKey<…>
+    ```
+  - Fix: rename to `fieldGroupContext`, `FieldGroupContext`, `useFieldGroupContext` and `getFieldGroupContext`/`setFieldGroupContext`.
+    ```ts
+    export const fieldGroupContext = createContext<FieldGroupContext>()
+    ```
+- [ ] (1) Package: the Vue type files repeat boilerplate. `class?: HTMLAttributes["class"]` appears 40 times, 10 files declare a local `type Class`, and 26 files declare the same default-only `Slots`. They also alias every base type one by one, while the other five framework files use `import type * as Base` (`packages/opui/components/Card/types.d.vue.ts:1-23`, `packages/opui/components/Tabs/types.d.vue.ts:1-27`)
+  - Today:
+    ```
+    import type { CardActionsProps as BaseCardActionsProps, … } from "./types"
+    type Class = { class?: HTMLAttributes["class"] }
+    export type Slots = { default?: Slot }
+    ```
+  - Fix: add one shared module next to `cx.ts`, and use `* as Base`.
+    ```ts
+    // components/vue.ts
+    export type Class = { class?: HTMLAttributes["class"] }
+    export type DefaultSlots = { default?: Slot }
+    // Card/types.d.vue.ts
+    export type CardActionsProps = Base.CardActionsProps & Class
+    ```
+- [ ] (1) CSS: the four named colors hard-code their hue angles (240, 145, 75, 25) in 10 places, while the severity scopes use `--hue-blue`, `--hue-green`, `--hue-orange` and `--hue-red` for the same hues (`packages/opui/css/theme.css:174-177,303-314`, `packages/opui/css/theme.css:252-268`)
+  - Today:
+    ```
+    --red: oklch(from var(--color-9) l 0.2 25);
+    …
+    --palette-source: oklch(0.58 0.21 var(--hue-red));
+    ```
+  - Fix: read the hue tokens.
+    ```css
+    --red: oklch(from var(--color-9) l 0.2 var(--hue-red));
+    ```
+- [ ] (1) CSS: several `var()` reads carry fallbacks for theme tokens that always exist, and some disagree with the theme. Heading sizes fall back to `--font-size-7` and `--font-size-5`, while `theme.css` sets `--font-size-fluid-3` and `--font-size-fluid-2`; `--rhythm-step` carries `, 0.25rem` 35 times; the normalize focus ring keeps the `, 2px` and `, solid` fallbacks the branch removed elsewhere; `--motion` is read as `var(--motion, 1)` in 18 files and bare in 3; `--_page-bg-color` is set on `html` only to be read once (`packages/opui/css/components/typography.css:23,31,504,514`, `packages/opui/core/normalize.css:15-18,100-103`, `packages/opui/css/theme.css:47-48`)
+  - Today:
+    ```css
+    font-size: round(
+      var(--font-size-h1, var(--font-size-7)),
+      var(--rhythm-step, 0.25rem) / 2
+    );
+    ```
+  - Fix: read the tokens bare, like the other components do.
+    ```css
+    font-size: round(var(--font-size-h1), var(--rhythm-step) / 2);
+    ```
+- [ ] (1) Button: the default variant only shows its active state on `:hover:active`, while outlined, tonal and filled use `:active`, so a default button pressed with the Space key (active but not hovered) gives no feedback (`packages/opui/css/components/button.css:136-139,231,252,271`)
+  - Today:
+    ```css
+    &:where(:hover:active),
+    &[aria-current="page"] {
+      --_bg-color: var(--_default-active-bg-color);
+    }
+    ```
+  - Fix: match the variants.
+    ```css
+    &:where(:active),
+    &[aria-current="page"] {
+      --_bg-color: var(--_default-active-bg-color);
+    }
+    ```
+- [ ] (1) Form: the required legend keeps `padding-inline-end: 1ex; position: relative`, which positioned the old absolute asterisk. The asterisk is now inline with `margin-inline-start`, so these two lines only add trailing space (`packages/opui/css/components/form.css:73-84`)
+  - Today:
+    ```
+    :where(legend, .ui-legend) { padding-inline-end: 1ex; position: relative;
+      &::after { content: "*"; margin-inline-start: 0.25ex; … } }
+    ```
+  - Fix: drop the two leftovers.
+    ```css
+    :where(legend, .ui-legend)::after {
+      color: var(--field-required-color);
+      content: "*";
+      margin-inline-start: 0.25ex;
+    }
+    ```
+- [ ] (1) Form: fieldset end text only turns red for `[aria-invalid="true"]`, while every other invalid style keys off `:has([aria-invalid="true"], :user-invalid)`. After a failed submit, a required radio group's own end text turns red but the fieldset's error message doesn't (`packages/opui/css/components/form.css:68-70`, `packages/opui/css/components/checkbox.css:62`)
+  - Today:
+    ```css
+    &:has([aria-invalid="true"]) > :where(.ui-end-text) {
+      color: var(--invalid-text-color);
+    }
+    ```
+  - Fix: use the shared condition.
+    ```css
+    &:has([aria-invalid="true"], :user-invalid) > :where(.ui-end-text) {
+      color: var(--invalid-text-color);
+    }
+    ```
+- [ ] (1) Avatar, Checkbox, Radio, Progress: the forced-colors borders are hardcoded `1px`, although MIGRATING says component borders read `--border-width` and `--field-border-width`. Carousel markers, Divider and Tooltip use the token in their forced-colors branches (`packages/opui/css/components/avatar.css:70-74`, `packages/opui/css/components/checkbox.css:76`, `packages/opui/css/components/radio.css:60`, `packages/opui/css/components/progress.css:32`)
+  - Today:
+    ```css
+    border: 1px solid CanvasText;
+    ```
+  - Fix: use the tokens (on Checkbox and Radio, only change the color).
+    ```css
+    border: var(--border-width) solid CanvasText; /* avatar, progress */
+    border-color: CanvasText; /* checkbox and radio keep --field-border-width */
+    ```
+- [ ] (1) Card, Carousel: some private names don't follow the scheme's variant/sub-part-first order. Card has `--_elevated-bg-color` next to `--_shadow-elevated`. Carousel has `--_marker-color-active` (its own `--_button-disabled-border-color` and Tabs' `--_active-bg-color` put the state first), `--_marker-color` is a background, and vertical carousels use `--_markers-margin-block-start` as the inline gap. None are documented, and Carousel is new, so renaming is free (`packages/opui/css/components/card.css:6,9-11,15-17`, `packages/opui/css/components/carousel.css:28-29,33,203,323,330`)
+  - Today:
+    ```css
+    --_shadow-elevated: var(--_shadow-light);
+    --_marker-color-active: var(--primary);
+    --_markers-margin-block-start: var(--size-3);
+    ```
+  - Fix: rename them.
+    ```css
+    --_elevated-shadow: var(--_shadow-light);
+    --_marker-active-bg-color: var(--primary);
+    --_markers-gap: var(--size-3);
+    ```
+- [ ] (1) Switch: the `:focus-visible` rule copies the global ring from `normalize.css` only to round its corners, and the invalid rule sets the same `border-radius` again (`packages/opui/css/components/switch.css:23-29`, `packages/opui/css/components/switch.css:46-51`, `packages/opui/css/components/switch.css:158-162`, `packages/opui/core/normalize.css:99-104`)
+  - Today:
+    ```css
+    &:focus-visible {
+      border-radius: var(--radius-round);
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+    ```
+  - Fix: round the input once and let the global rule draw the ring.
+    ```
+    :where(input[type="checkbox"][role="switch"]) {
+      appearance: none;
+      block-size: var(--_track-height);
+      border-radius: var(--radius-round);
+      …
+    }
+    ```
+- [ ] (1) ToggleButton: it reads the same `--button-size*` and `--icon-size` tokens as Button but names its settings differently. The icon size is `--_svg-size`, while every other component and the customizing guide use `--_icon-size`; the height is `--_size` applied as a fixed `block-size`, while Button uses `--_min-height` as `min-block-size`; and it sizes every descendant `svg`, where Button only sizes direct children (`packages/opui/css/components/toggle-button.css:5-6`, `packages/opui/css/components/toggle-button.css:10`, `packages/opui/css/components/toggle-button.css:20`, `packages/opui/css/components/toggle-button.css:64-68`, `packages/opui/css/components/toggle-group.css:200`, `packages/opui/css/components/button.css:41-42`)
+  - Today:
+    ```css
+    --_size: var(--button-size);
+    --_svg-size: var(--icon-size);
+    block-size: var(--_size);
+    … svg {
+      block-size: var(--_svg-size);
+      inline-size: var(--_svg-size);
+    }
+    ```
+  - Fix: use Button's names and selector, update the ToggleGroup forced-colors block, and add a MIGRATING row.
+    ```css
+    --_icon-size: var(--icon-size);
+    --_min-height: var(--button-size);
+    min-block-size: var(--_min-height);
+    … & > svg {
+      block-size: var(--_icon-size);
+      inline-size: var(--_icon-size);
+    }
+    ```
+- [ ] (1) TextField: `--_label-color` doesn't color `.ui-label` (which reads `--field-label-color`); it colors the prefix, suffix, header and footer, and turns them red when the field is invalid. Likewise `--_end-text-color` also colors the start text. Now that `--_` properties are the documented way to customize components, these names point at the wrong parts (`packages/opui/css/components/text-field.css:14`, `packages/opui/css/components/text-field.css:22`, `packages/opui/css/components/text-field.css:77`, `packages/opui/css/components/text-field.css:103`, `packages/opui/css/components/text-field.css:284-285`, `packages/opui/css/components/text-field.css:295`, `packages/opui/css/components/text-field.css:351-352`)
+  - Today:
+    ```css
+    --_end-text-color: var(--field-helper-color);
+    --_label-color: var(--text-muted);
+    … .ui-prefix,
+    .ui-suffix {
+      color: var(--_label-color);
+    }
+    :where(.ui-start-text) {
+      color: var(--_end-text-color);
+    }
+    ```
+  - Fix: name them after what they color, and add a MIGRATING row.
+    ```css
+    --_affix-color: var(--text-muted);
+    --_helper-color: var(--field-helper-color);
+    ```
+- [ ] (1) TextField: the required asterisk sets `margin-block: -0.25em auto; margin-inline: 0.25em auto` on an inline `::after`, where block margins and `auto` have no effect. Checkbox, Radio, Switch and FieldSet space the same asterisk with `margin-inline-start: 0.25ex` (`packages/opui/css/components/text-field.css:140-147`, `packages/opui/css/components/choice.css:33-40`, `packages/opui/css/components/form.css:73-83`)
+  - Today:
+    ```css
+    .ui-label:after {
+      color: var(--field-required-color);
+      content: "*";
+      margin-block: -0.25em auto;
+      margin-inline: 0.25em auto;
+    }
+    ```
+  - Fix: space it the same way as the other required asterisks.
+    ```css
+    .ui-label:after {
+      color: var(--field-required-color);
+      content: "*";
+      margin-inline-start: 0.25ex;
+    }
+    ```
+- [ ] (1) Menu: to recolor List separators, Menu overrides `border-block-start-color` in two copies of List's separator selectors, but List already exposes `--_separator-color` for this (`packages/opui/css/components/menu.css:37-40`, `packages/opui/css/components/list.css:15`, `packages/opui/css/components/list.css:46-63`, `packages/opui/css/components/list.css:273-287`)
+  - Today:
+    ```css
+    & > .ui-border-top::before,
+    &.ui-bordered > :where(li + li, option + option)::before {
+      border-block-start-color: var(--_border-color);
+    }
+    ```
+  - Fix: set the List property in the Menu root, which also covers any separator List adds later.
+    ```css
+    --_separator-color: var(--_border-color);
+    ```
+- [ ] (1) Menu: two workarounds have no comment: the iOS-only `@supports (-webkit-touch-callout: none)` branch (which WebKit bug, and when it can go) and the `* 1000` step in the third-level submenu inset. Separately, the "Firefox and Safari fallback" comment sits on the `calc-size()` block, which only applies where `calc-size()` works, today Chrome (`packages/opui/css/components/menu.css:64-74`, `packages/opui/css/components/menu.css:123-143`)
+  - Today:
+    ```
+    /* Firefox and Safari fallback */
+    @supports (min-block-size: calc-size(fit-content, size)) { … }
+    …
+    (anchor(end) - anchor(--ui-menu-root start)) * 1000
+    …
+    @supports (-webkit-touch-callout: none) { … }
+    ```
+  - Fix: move or reword the fallback comment, and add a short note above each workaround giving the reason and when to remove it.
+    ```
+    /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
+    @supports (min-block-size: calc-size(fit-content, size)) { … }
+    ```
+- [ ] (1) Examples: the inline scripts in HTML examples use three scoping patterns. `progress/Determinate.html` and `range/Value.html` use a `{ … }` block; `checkbox/Indeterminate.html` and `toast/Javascript.html` use a global function with an `Html` suffix; `dialog/CloseBehaviors.html` declares top-level `const dialog` and `const radios`, which are page-global in a classic script, so a second script declaring `dialog` would throw. The Astro copy of the CloseBehaviors script has drifted into a cast-and-check version of the same logic (`src/component-examples/dialog/CloseBehaviors.html:50-59`, `src/component-examples/dialog/CloseBehaviors.astro:44-58`, `src/component-examples/checkbox/Indeterminate.html:24-50`, `src/component-examples/progress/Determinate.html:5-18`, `src/component-examples/range/Value.html:14-22`)
+  - Today:
+    ```
+    const dialog = document.getElementById("closing-behaviors-dialog") as HTMLDialogElement
+    radio.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement
+      if (dialog) { dialog.setAttribute("closedby", target.value) }
+    ```
+  - Fix: block-scope every HTML example script, and give the Astro script the same body (with `querySelectorAll<HTMLInputElement>`).
+    ```js
+    {
+      const dialog = document.getElementById("closing-behaviors-dialog")
+      document
+        .querySelectorAll('input[name="closedby-demo"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", () =>
+            dialog?.setAttribute("closedby", radio.value),
+          )
+        })
+    }
+    ```
+- [ ] (1) Button group, Card: icon-only buttons are named with `aria-label`, while the Button page and examples teach `iconOnly` with `label`, which the types use to make the name required. `button-group/WithIcons` uses `iconOnly`, but `Vertical`, `SplitButton` and the Card favorite and share buttons don't (`src/component-examples/button-group/Vertical.astro:11,14,20,23`, `src/component-examples/button-group/SplitButton.astro:9-13`, `src/component-examples/card/Actions.astro:26,40`, `src/component-examples/card/Alignment.astro:24,38`, `src/docs/components/button.astro:257-283`)
+  - Today:
+    ```astro
+    <Button aria-label="Increase">…</Button>
+    <Button rounded size="small" aria-label="Favorite">…</Button>
+    ```
+  - Fix: use the documented API in Astro, React, Svelte and Vue (the rendered markup is the same).
+    ```astro
+    <Button iconOnly label="Increase">…</Button>
+    <Button iconOnly label="Favorite" rounded size="small">…</Button>
+    ```
+- [ ] (1) Dialog: the close buttons in four examples pass `type="button"` to `Button`, in all four framework formats, but the "Open dialog" button in the same file doesn't. `Button` already renders `type="button"` by default in every framework, so the examples teach a prop that isn't needed (`src/component-examples/dialog/Usage.astro:25,31`, `src/component-examples/dialog/AlertDialog.astro:34,41`, `src/component-examples/dialog/LongContent.astro:89,95`, `src/component-examples/dialog/ActionsAlignment.astro:30`, `packages/opui/components/Button/Button.astro:38`)
+  - Today:
+    ```astro
+    <Button commandfor="example-dialog" command="show-modal" variant="outlined"
+      >Open dialog</Button
+    >
+    <Button commandfor="example-dialog" command="close" type="button"
+      >Not now</Button
+    >
+    ```
+  - Fix: drop `type="button"` from the `Button`s in the `.astro`, `.react.tsx`, `.svelte` and `.vue` files; the HTML files keep it.
+    ```astro
+    <Button commandfor="example-dialog" command="close">Not now</Button>
+    ```
+- [ ] (1) Checkbox, Radio, Switch: the EndText examples still use the old `supporting-text` names in their `name` and ids; the earlier rename only renamed the files (`src/component-examples/checkbox/EndText.html:3,5,8,15,17,20`, `src/component-examples/checkbox/EndText.astro:5,9`, `src/component-examples/checkbox/EndText.react.tsx:6,9`, `src/component-examples/checkbox/EndText.svelte:5,9`, `src/component-examples/checkbox/EndText.vue:6,10`)
+  - Today:
+    ```html
+    <input
+      name="checkbox-supporting-text"
+      type="checkbox"
+      aria-describedby="checkbox-supporting-text-end-text-1"
+    />
+    ```
+  - Fix: rename to `checkbox-end-text`, and likewise in radio and switch (the snapshots change by the `name` value only).
+    ```html
+    <input
+      name="checkbox-end-text"
+      type="checkbox"
+      aria-describedby="checkbox-end-text-1"
+    />
+    ```
+- [ ] (1) Button group, Carousel: two example names break the folder conventions. `button-group/Size` is the only singular name among twelve `Sizes` examples, under `#sizes`. `carousel/Actions` is the Buttons outside example, but every other `Actions` example (accordion, card) shows an `…Actions` part, and Carousel has none (`src/docs/components/button-group.astro:167,191`, `src/docs/components/carousel.astro:218-224`, `src/component-examples/button-group/Size.astro:1`, `src/component-examples/carousel/Actions.astro:1`)
+  - Today:
+    ```astro
+    <AutoExample name="Size" />
+    <AutoExample name="Actions" />
+    ```
+  - Fix: rename `button-group/Size.*` to `Sizes.*` and `carousel/Actions.*` to `ButtonsOutside.*` (files and snapshots), and update the two `AutoExample` names.
+    ```astro
+    <AutoExample name="Sizes" />
+    <AutoExample name="ButtonsOutside" />
+    ```
+- [ ] (1) Button, Button group: the Astro files remove icon repetition with a frontmatter string and `<Fragment set:html>`, but the React and Svelte siblings paste the same 12-line `svg` up to 12 times, so `IconOnly.react.tsx` is 174 lines and `IconOnly.svelte` 158, against 52 for Astro, and changing the icon means 12 edits per file (`src/component-examples/button/IconOnly.astro:4`, `src/component-examples/button/IconOnly.react.tsx:8-19`, `src/component-examples/button/IconOnly.svelte:7-17`, `src/component-examples/button-group/Vertical.astro:5-6`, `src/component-examples/button-group/WithIcons.astro:5-7`)
+  - Today:
+    ```tsx
+    <Button iconOnly label="Edit">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path fill="currentColor" d="M21.65 3.434…" />
+      </svg>
+    </Button> // ×12
+    ```
+  - Fix: a local constant in React and a snippet in Svelte, matching Astro (the markup is unchanged; Vue and HTML keep the repetition).
+    ```
+    const editIcon = (<svg …><path fill="currentColor" d="M21.65 3.434…" /></svg>)
+    <Button iconOnly label="Edit">{editIcon}</Button>
+    ```
+    ```svelte
+    {#snippet editIcon()}<svg …
+        ><path fill="currentColor" d="M21.65 3.434…" /></svg
+      >{/snippet}
+    <Button iconOnly label="Edit">{@render editIcon()}</Button>
+    ```
+- [ ] (1) Examples: differences between formats that the parity test can't see. 42 Astro examples import each component on its own line, often unsorted, while their siblings use one sorted import (among them `button-group/{Colors,Disabled,Size,Variants,Vertical,WithIcons}.astro` and `checkbox/FieldGroup{,Direction,Disabled,FieldDescription,Required,Validation}.astro`). Only `switch/FieldGroup` uses `<Form as="div">`, where Radio and Checkbox use `<Form>`. Comments differ (Form Usage HTML says `<!-- form fields -->` where the others are empty; Spinner Buttons HTML has comments the other formats lack). The first example is named `Basics`, `Default` or `Usage` depending on the folder, although the guide and the `#basics` headings say Basics (`src/component-examples/form/KitchenSink.astro:2-15`, `src/component-examples/radio/FieldGroup.astro:2-6`, `src/component-examples/switch/FieldGroup.astro:9`, `src/component-examples/form/Usage.html:7`, `src/component-examples/spinner/Buttons.html:1`, `src/component-examples/list/Default.astro`, `src/docs/components/list.astro:66`)
+  - Today:
+    ```astro
+    import {Form} from "@opui/astro" import {FieldSet} from "@opui/astro" import {
+      FieldLegend
+    } from "@opui/astro"
+    ```
+  - Fix: one sorted import, as in the other formats, and `<Form>` in `switch/FieldGroup.*`.
+    ```
+    import { FieldLegend, FieldSet, Form } from "@opui/astro"
+    ```
+- [ ] (1) Examples: ids in the HTML examples follow no convention, and since the parity test renames every id, nothing checks them. Some carry a `-html` suffix from when HTML and Astro shared a page (dialog, drawer, menu, list, form, toast, button-group SplitButton), and Form's script needs a prefix selector because of it. The dialog folder alone uses three schemes (`example-dialog`, `alert-dialog-example`, `actions-alignment-html`), and the CloseBehaviors HTML labels its dialog with a bare `id="dialog-header"`; just stripping the suffix isn't enough there, because a bare `alert-dialog` would collide with `<h2 id="alert-dialog">` on the page. Others keep the names of renamed examples (`select-supporting-1-label`, `select-orientation-7-label` after SupportingText became EndText and Orientation became Spread). Others are camelCase (`hueRange`) or unprefixed (`tab-profile` next to `filled-tab-profile`) (`src/component-examples/drawer/Usage.html:5`, `src/component-examples/menu/Basics.html:5`, `src/component-examples/form/KitchenSink.html:1`, `src/docs/components/form.astro:420`, `src/component-examples/select/EndText.html:2-6`, `src/component-examples/text-field/Spread.html`, `src/component-examples/range/Value.html:3-7`, `src/component-examples/tabs/Basics.html:5`, `src/component-examples/dialog/AlertDialog.html:3,11,14,17,21`, `src/component-examples/dialog/CloseBehaviors.html:3,11,12,16`, `src/component-examples/button-group/SplitButton.html:8,25`)
+  - Today:
+    ```ts
+    if (!container.querySelector("[id^='kitchen-sink-example']")) return
+    ```
+  - Fix: drop the `-html` suffixes, so the framework and HTML examples use the same ids, and rename the rest to `<slug>-<example>-<n>`.
+    ```ts
+    if (!container.querySelector("#kitchen-sink-example")) return
+    ```
+- [ ] (1) Form: in the KitchenSink example, React, Svelte and Vue keep four pieces of state that only mirror the controls and are never read, while Astro and HTML leave the controls uncontrolled. React also mixes `event.target` and `event.currentTarget`, and the Vue file imports `opui-css/vue` before `vue`, unlike `select/Preselected.vue` (`src/component-examples/form/KitchenSink.react.tsx:1-31`, `src/component-examples/form/KitchenSink.react.tsx:121`, `src/component-examples/form/KitchenSink.svelte:25-28`, `src/component-examples/form/KitchenSink.vue:2-29`)
+  - Today:
+    ```
+    const [emailNotifs, setEmailNotifs] = useState(true)
+    <Switch checked={emailNotifs} onChange={(event) => setEmailNotifs(event.currentTarget.checked)} …>
+    ```
+  - Fix: write the controls uncontrolled, like the Astro version, and drop `"use client"`, `useState`, `$state` and `ref`. Binding is already shown in `select/Preselected`.
+    ```tsx
+    <Switch defaultChecked name="email_notifs">
+      Email Notifications
+    </Switch>
+    ```
+- [ ] (1) Docs: the same parts of a page are built differently from page to page. Menu, Spinner and Typography leave out `apis`, so their API section has no "Menu API" style heading like the other 29 pages. The keyboard tables are titled "Keyboard support" on five pages and "Keyboard interaction" on Tabs, and "Role & attributes" is just "Role" on Menu. Checkbox and Switch write raw `<table class="ui-table">`, where Dialog, Drawer, Menu and Tabs use `<Table>`. The section on closing is `#how-to-close` on Dialog and `#closedby` on Drawer. Callout titles are a `<UICalloutTitle>` on Dialog, `<p><strong>` on Card, and a bare `<h3>` on Callout, which also comes before the page's first h2 (`src/docs/components/menu.astro:25-58`, `src/docs/components/tabs.astro:186`, `src/docs/components/menu.astro:235`, `src/docs/components/checkbox.astro:378`, `src/docs/components/switch.astro:380`, `src/docs/components/dialog.astro:279`, `src/docs/components/drawer.astro:235`, `src/docs/components/callout.astro:91`, `src/docs/components/card.astro:98`, `src/docs/components/dialog.astro:95`)
+  - Today:
+    ```astro
+    <UICalloutContent> <h3>Alternatives</h3></UICalloutContent>
+    ```
+  - Fix: pass `apis={[{ title: "Menu API", api: menuApi }]}` (same on Spinner and Typography), name the subsections "Role & attributes" and "Keyboard support", use `<Table>` and `<UICalloutTitle>`, and give both closing sections the same id.
+    ```astro
+    <UICalloutContent>
+      <UICalloutTitle>Alternatives</UICalloutTitle></UICalloutContent
+    >
+    ```
+- [ ] (1) API docs: no `api.ts` uses `file`, and the guide's example for it was renamed away. Separately, the `Props` fallback in `frameworkProps` means a sub-API whose `<Component>Props` alias is missing or misspelled silently documents the parent's props (`component: "CardAction"` would list Card's `variant`), and since `shipped()` is then false in every framework, no check fires (`src/component-api/types.ts:43`, `src/utils/component-source.ts:100-101,116-118`, `src/component-api/AGENTS.md:93`)
+  - Today:
+    ```ts
+    const alias = [`${target.file ?? target.component}Props`, "Props"]
+    ```
+  - Fix: drop `file`, and fall back to `Props` only for the folder's root component.
+    ```ts
+    const names = [
+      `${target.component}Props`,
+      ...(target.component === target.source ? ["Props"] : []),
+    ]
+    ```
+- [ ] (1) API docs: `frameworks.ts` defines its own framework ids next to `FrameworkId` and `PackageFrameworkId` in `framework.js`, plus a `solid` entry that nothing can use (see the Solid types question): `shipped(api, "solid")` is always false and `checkApi` loops over it for nothing (`src/component-api/frameworks.ts:1-3,32-37`, `src/utils/framework.js:9,27-32`, `src/utils/component-source.ts:236`)
+  - Today:
+    ```ts
+    export type ComponentFramework =
+      "astro" | "react" | "solid" | "svelte" | "vue"
+    export type Framework = ComponentFramework | "html"
+    ```
+  - Fix: reuse the site's ids and drop `solid` until Solid components exist (the `types.solid.ts` files can keep shipping either way).
+    ```ts
+    import type { FrameworkId, PackageFrameworkId } from "../utils/framework"
+    export type ComponentFramework = PackageFrameworkId
+    export type Framework = FrameworkId
+    ```
+- [ ] (1) Docs site: dead CSS. Header styles a `.drawer-footer` and a `.ui-label` inside it, but `DrawerFooter` renders `.ui-footer`. Component's pagination styles `hgroup` and `h3`, but its markup is `div.ui-hgroup` with `p.ui-h3`. `base.css` keeps `.container.is-narrow`, `.is-text`, `.is-start` and `.is-end`, but only Home's `container is-wide` exists. Example's scoped `.example-column` and `.example-row` repeat its own global rules (`src/components/Header.astro:500-514`, `src/layouts/Component.astro:455-470`, `src/styles/base.css:93-98,107-121`, `src/components/Example/Example.astro:374-384,437-448`)
+  - Today:
+    ```
+    .drawer-footer { display: flex; … .ui-label { … } }
+    ```
+  - Fix: delete these blocks.
+    ```css
+    /* removed: .drawer-footer, .pagination hgroup/h3, .is-narrow/.is-text/.is-start/.is-end, scoped .example-column/.example-row */
+    ```
+- [ ] (1) Docs site: `FrameworkPicker` and `relinkDocs()` each rebuild URLs by hand instead of calling `hrefFor`, which already keeps the query and hash and handles framework-free paths (`src/components/FrameworkPicker.astro:34-43`, `src/layouts/Layout.astro:145-160`)
+  - Today:
+    ```ts
+    const path = sharedPath === "/" ? "" : sharedPath
+    return `/${framework}${path}${search}${hash}`
+    ```
+  - Fix: call `hrefFor`, here and in `relinkDocs()` (`anchor.setAttribute("href", hrefFor(framework, href))`).
+    ```ts
+    return pathHasFramework(framework, stripFrameworkPrefix(pathname))
+      ? hrefFor(framework, `${pathname}${search}${hash}`)
+      : hrefFor(framework, "/components")
+    ```
+- [ ] (1) Tests: `parity.test.ts` keeps two leftovers. The Astro container loads the Vue renderer, but no Astro example renders a Vue component (in a scratch run without it, all 228 Astro examples render and match HTML). And `EXAMPLE_CLASSES` hard-codes five Expressive Code classes that no example renders anymore (`tests/unit/parity.test.ts:4-5`, `tests/unit/parity.test.ts:45-50`, `tests/unit/parity.test.ts:105-110`)
+  - Today:
+    ```
+    const EXAMPLE_CLASSES = new Set(["code", "copy", "frame", "header", "indent", …])
+    beforeAll(async () => {
+      const renderers = await loadRenderers([getContainerRenderer()])
+      container = await AstroContainer.create({ renderers })
+    })
+    ```
+  - Fix: remove both, along with the `getContainerRenderer` and `loadRenderers` imports.
+    ```ts
+    const container = await AstroContainer.create()
+    ```
+- [ ] (1) Tests: `openFixture` ends with a full-page screenshot (added to warm up text rendering), so every a11y, contrast, interaction, stress, theming and overlay test pays for one, though only the visual spec compares screenshots (`tests/e2e/fixtures.ts:114`, `tests/e2e/visual.spec.ts:6`)
+  - Today:
+    ```ts
+    await page.waitForLoadState("networkidle")
+    await page.screenshot({ fullPage: true })
+    ```
+  - Fix: move the warm-up into the visual spec.
+    ```ts
+    await openFixture(page, "html", component)
+    await page.screenshot({ fullPage: true })
+    ```
+- [ ] (1) Tests: AGENTS.md says `stress.spec.ts` checks every `[data-size]` row, but the spec lists its pages by hand (forms, contrast and data-display, with forced colors on contrast and forms only), so rows added to another stress page, or a new one, are never measured (`tests/e2e/stress.spec.ts:115-160`, `AGENTS.md:53`)
+  - Today:
+    ```
+    for (const fixture of ["stress/forms", "stress/contrast", "stress/data-display"]) …
+    ```
+  - Fix: build the page list from the stress test files.
+    ```
+    const SIZED = STRESS_TESTS.filter((fixture) =>
+      readFileSync(new URL(`../../src/stress-tests/${fixture.slice("stress/".length)}.html`, import.meta.url), "utf-8").includes("data-size="),
+    )
+    for (const fixture of SIZED) test(`${fixture} controls of one size share one height`, …)
+    ```
+- [ ] (1) Tests: in a browser without interest invokers, the Anchor hover-card test only checks that the card is hidden, and passes; the hover half of the Tooltip test is skipped the same way. The sandbox Chromium 141 is such a browser (`interestForElement` is missing there) (`tests/e2e/interaction.spec.ts:48-58`, `tests/e2e/interaction.spec.ts:266-276`)
+  - Today:
+    ```ts
+    if (!supportsInterest) {
+      await expect(card).toBeHidden()
+      return
+    }
+    ```
+  - Fix: skip explicitly so the run reports the test as skipped instead of passed.
+    ```ts
+    test.skip(!supportsInterest, "needs interest invokers")
+    ```
+- [ ] (1) Tooling: `.prettierignore` excludes the whole components guide because one `astro` code fence has its frontmatter types outside `---`, which prettier can't parse (`.prettierignore:9`, `packages/opui/components/AGENTS.md:313-321`)
+  - Today:
+    ```
+    type Item = { label: string; value: any }
+    type Props = { items?: Item[] }
+
+    <ul>…</ul>
+    ```
+  - Fix: add the frontmatter fences and remove the ignore line.
+    ```astro
+    ---
+    type Item = { label: string; value: any }
+    type Props = { items?: Item[] }
+    ---
+    ```
+- [ ] (1) Tooling: the search index's home-page loop never adds anything. `readMeta` needs a `<Fragment slot="title">`, which the home page doesn't have, so the index has no `/` entry (`scripts/generate-search-index.mjs:86`, `scripts/generate-search-index.mjs:162-175`)
+  - Today:
+    ```
+    for (const file of homePages) { const meta = readMeta(file); if (!meta) continue; … }
+    ```
+  - Fix: delete `homePages` and its loop, or push a hand-written home entry if search should find the home page.
+    ```js
+    entries.push({ title: "Open Props UI", url: "/", category: "Home" })
+    ```
+- [ ] (1) Tooling: `typecheck` runs `astro sync`, then starts `astro check` in parallel with `tsc`, `svelte-check` and `vue-tsc`; `astro check` syncs again and rewrites `.astro/types.d.ts` with an unconditional `writeFileSync` while `vue-tsc` is reading it (`package.json:30-31`, `tsconfig.vue.json:4`)
+  - Today:
+    ```
+    "typecheck:astro": "astro check --minimumFailingSeverity warning"
+    ```
+  - Fix: skip the second sync.
+    ```
+    "typecheck:astro": "astro check --noSync --minimumFailingSeverity warning"
+    ```
+- [ ] (1) Docs site: the Migrating page finds its content by the literal heading id `migrating-from-v5-to-v6` in the rendered MIGRATING.md. When the heading changes for v7, `indexOf` returns -1, `slice(-1, firstH1)` is an empty string, and the page builds empty with no error (`src/docs/guide/migrating.astro:6-12`, `packages/opui/MIGRATING.md:1`)
+  - Today:
+    ```ts
+    const start = html.indexOf('<h1 id="migrating-from-v5-to-v6"')
+    const end = html.indexOf("<h1", start + 1)
+    ```
+  - Fix: take the first `h1` section, since the newest migration is always first, and fail the build when there is none.
+    ```ts
+    const start = html.indexOf("<h1")
+    if (start === -1) throw new Error("MIGRATING.md has no h1")
+    ```
+- [ ] (1) Todo pages: three copies of the same inline `code` rule, one rule that matches nothing, and unused exports. `TodoNotes` renders code notes as `<pre set:text>` with no `<code>` inside, so `pre :global(code)` never matches. All three `code` rules style the `<code>` that `InlineText` renders. `parseNotes`, `TodoItem` and `TodoSection` are exported but not used outside `todo.ts` (`src/pages/todo/[...index].astro:420-423`, `src/pages/checks/[...index].astro:272-275`, `src/components/Todo/TodoNotes.astro:18-22`, `src/components/Todo/TodoNotes.astro:42-50`, `src/components/Todo/InlineText.astro:21`, `src/utils/todo.ts:5-16`, `src/utils/todo.ts:78`)
+  - Today:
+    ```
+    .todo-text { :global(code) { font-size: 0.875em; overflow-wrap: anywhere; } }
+    .checks-item { :global(code) { font-size: 0.875em; overflow-wrap: anywhere; } }
+    .todo-notes { :global(code) { … } pre :global(code) { overflow-wrap: normal; } }
+    ```
+  - Fix: style the element once, where it's rendered, and drop the three page rules, the `pre` rule and the unused `export`s.
+    ```astro
+    <!-- InlineText.astro -->
+    <style>
+      code {
+        font-size: 0.875em;
+        overflow-wrap: anywhere;
+      }
+    </style>
+    ```
+- [ ] (1) Blocks: 31 rules in 21 blocks set `color: var(--text-muted); font-size: var(--font-size-0)`, which is what `.ui-caption` does, and 12 rules in 10 blocks repeat Button's own `justify-content: center`. Cross-block shared CSS isn't the answer, because each block's CSS tab has to stand alone, but library classes are (`src/blocks/testimonials.html:99-102`, `src/blocks/data-table.html:96-99`, `src/blocks/sign-in.html:27-29`, `src/blocks/sign-in.html:44-47`, `src/blocks/checkout.html:51-54`, `packages/opui/css/components/typography.css:126-130`, `packages/opui/css/components/button.css:58`)
+  - Today:
+    ```css
+    .testimonials-role {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+    .sign-in-submit {
+      inline-size: 100%;
+      justify-content: center;
+    }
+    ```
+  - Fix: use `class="ui-caption"` on those elements (it also sets `line-height: 1.6`), and drop the repeated centering.
+    ```css
+    .sign-in-submit {
+      inline-size: 100%;
+    }
+    ```
+- [ ] (2) Vue: nine components set `inheritAttrs: false` and then bind `$attrs` last on their only root element, which is exactly what default fallthrough does (class and style merge the same way). An earlier item removed this pattern from `TabsPanel.vue`, `List.vue`, `Table.vue` and others but missed these, and `CalloutIcon.vue` gained it afterwards (a `v-if` root that renders a comment doesn't warn about dropped attrs, so it doesn't need it either). `useAttrs()` in `Dialog.vue` and `Drawer.vue` works without it. `DialogHeader.vue` and `DrawerTitle.vue` keep the pattern only because they read `$attrs.id`; declaring `id` in their Vue props, as `Anchor/types.d.vue.ts` does, would let them drop it too (`packages/opui/components/Dialog/Dialog.vue:9-11,27`, `packages/opui/components/Drawer/Drawer.vue:15-17,44`, `packages/opui/components/Drawer/DrawerHeader.vue:11-13,25`, `packages/opui/components/Callout/CalloutIcon.vue:9-11,30`, `packages/opui/components/Menu/Menu.vue:16-18,39`, `packages/opui/components/Tabs/Tabs.vue:9-11,26`, `packages/opui/components/Tabs/TabsTab.vue:9-11,20`, `packages/opui/components/Table/TableColumn.vue:7-9,15`, `packages/opui/components/ToggleGroup/ToggleGroup.vue:16-18,39`)
+  - Today:
+    ```
+    defineOptions({ inheritAttrs: false })
+    …
+    <dialog :aria-labelledby="labelledBy" :class="[…]" :closedby="closedby" v-bind="$attrs">
+    ```
+  - Fix: remove the `defineOptions` call and the `v-bind` in the nine files.
+    ```
+    <dialog :aria-labelledby="labelledBy" :class="[…]" :closedby="closedby">
+    ```
+- [ ] (2) Dialog, Drawer, Callout: logic that doesn't depend on the framework is written once per framework. The check that adds `aria-labelledby` unless the user named the dialog appears 8 times, and the `CalloutIcon` severity lookup with its `neutral` special case 4 times. Neither has drifted yet, but Dialog and Drawer already use different id schemes: Dialog ignores its own `id` and uses `dialog-header-<uid>`, Drawer derives `<id>-heading` (`packages/opui/components/Dialog/Dialog.astro:10-12`, `packages/opui/components/Dialog/Dialog.react.tsx:9-11`, `packages/opui/components/Dialog/Dialog.svelte:7-11`, `packages/opui/components/Dialog/Dialog.vue:13-17`, `packages/opui/components/Drawer/Drawer.astro:18-22`, `packages/opui/components/Drawer/Drawer.react.tsx:17-21`, `packages/opui/components/Drawer/Drawer.svelte:18-23`, `packages/opui/components/Drawer/Drawer.vue:19-25`, `packages/opui/components/Callout/CalloutIcon.astro:8-9`, `packages/opui/components/Callout/CalloutIcon.react.tsx:9-10`, `packages/opui/components/Callout/CalloutIcon.svelte:8-13`, `packages/opui/components/Callout/CalloutIcon.vue:13-18`)
+  - Today:
+    ```ts
+    const labelledBy =
+      rest["aria-label"] || rest["aria-labelledby"] ? undefined : headerId
+    const icon =
+      severity === "neutral" ? undefined : severity && icons[severity]
+    ```
+  - Fix: export both from shared files and call them in the 12 components. Optionally give Dialog Drawer's `<id>-…` scheme at the same time.
+    ```ts
+    // id.ts
+    export const autoLabelledBy = (
+      attrs: { "aria-label"?: unknown; "aria-labelledby"?: unknown },
+      id: string,
+    ) => (attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : id)
+
+    // Callout/icons.ts
+    export const iconFor = (severity?: Props["severity"]) =>
+      severity && severity !== "neutral" ? icons[severity] : undefined
+    ```
+- [ ] (2) Anchor, Dialog, Drawer, FieldGroup, Tabs, ToggleGroup: every context file writes out its context's shape again, three or four times per component, and each exports a `*ContextValue` or Svelte context type used only in that file. Adding a field means four edits that nothing checks against each other. Callout already defines its shape once, as `Pick<Props, "severity">` from `types.ts` (`packages/opui/components/Anchor/context.astro.ts:3-6`, `packages/opui/components/Anchor/context.react.ts:5-8`, `packages/opui/components/Anchor/context.ts:3-6`, `packages/opui/components/Anchor/context.vue.ts:3-6`, `packages/opui/components/Dialog/context.react.ts:5-7`, `packages/opui/components/Drawer/context.react.ts:5-8`, `packages/opui/components/Tabs/context.astro.ts:3-6`, `packages/opui/components/Tabs/context.react.ts:5-8`, `packages/opui/components/Tabs/context.ts:3-6`, `packages/opui/components/Tabs/context.vue.ts:3-6`, `packages/opui/components/Callout/context.ts:4`)
+  - Today:
+    ```ts
+    // context.astro.ts
+    createContext<{ floatingId?: string; popover?: "hint" }>()
+    // context.react.ts
+    export type AnchorContextValue = { floatingId?: string; popover?: "hint" }
+    // context.ts
+    export type AnchorContext = { floatingId?: string; popover?: "hint" }
+    // context.vue.ts
+    Symbol() as InjectionKey<{ floatingId?: string; popover?: "hint" }>
+    ```
+  - Fix: declare the shape once in `types.ts` and import it in the four context files. While at it, consider renaming the Svelte `context.ts` to `context.svelte.ts`: today `context.ts` is the Svelte module while `types.ts` is the framework-agnostic one, so the pairs don't line up (`types.svelte.ts` ↔ `context.ts`, `types.d.vue.ts` ↔ `context.vue.ts`).
+    ```ts
+    // Anchor/types.ts
+    export type Context = { floatingId?: string; popover?: "hint" }
+    // context.astro.ts
+    export const anchorContext = createContext<Context>()
+    // context.vue.ts
+    export const AnchorKey = Symbol() as InjectionKey<Context>
+    ```
+- [ ] (2) ClassicSelect: every framework generates a select `id` that nothing references; the label wraps the select, and the label `id`/`aria-labelledby` were removed. The guide says not to generate an input id the user didn't pass, and TextField, Textarea, Select and ToggleButton already stopped (`packages/opui/components/ClassicSelect/ClassicSelect.astro:26`, `packages/opui/components/ClassicSelect/ClassicSelect.react.tsx:23`, `packages/opui/components/ClassicSelect/ClassicSelect.svelte:24`, `packages/opui/components/ClassicSelect/ClassicSelect.vue:32`, `src/component-api/classic-select/api.ts:30`, `src/component-examples/select/Classic.html:4`, `packages/opui/components/AGENTS.md:290`)
+  - Today:
+    ```astro
+    const selectId = id || $id("select")
+    ```
+  - Fix: pass `id` through, and log a Breaking entry like the others.
+    ```astro
+    <select {...rest} id={id} …></select>
+    ```
+- [ ] (2) Select, ClassicSelect, Range, Progress, ToggleButton: `class` goes to the root, but `style` falls into `rest` and lands on the control, while TextField and Textarea put `class` and `style` on the root `<label>`. So one prop pair splits across two elements depending on the component, and since the `--_` properties are declared and read on the root, `<Select style="--_min-height: 3rem">` or `<ToggleButton style="--_size: 2rem">` has no effect in any framework. On Progress, `style="--_accent: var(--critical)"` recolors the determinate bar but not the indeterminate one (the wrapper's `::after` draws it), and `style="inline-size: 12rem"` shrinks the bar inside a full-width track; the customizing guide says to set `--_` properties on the component (`packages/opui/components/TextField/TextField.astro:28`, `packages/opui/components/TextField/TextField.astro:56`, `packages/opui/components/Select/Select.astro:9-24`, `packages/opui/components/Select/Select.astro:70`, `packages/opui/components/ClassicSelect/ClassicSelect.astro:45`, `packages/opui/components/Range/Range.astro:91`, `packages/opui/components/Select/Select.vue:82`, `packages/opui/components/Progress/Progress.astro:6-12`, `packages/opui/css/components/progress.css:4,11,49,61-63`, `packages/opui/components/ToggleButton/ToggleButton.astro:30-38`, `packages/opui/components/ToggleButton/ToggleButton.vue:26-35`)
+  - Today:
+    ```
+    const { class: className, max, value, variant, ...rest } = Astro.props
+    ---
+    <div class:list={["ui-progress", variant && `ui-${variant}`, className]}>
+      <progress max={max} value={value} {...rest}>
+    ```
+  - Fix: destructure `style` and put it on the root in all six components and four frameworks (Vue binds `$attrs.style` on the root and the rest on the control, as TextField does), and say so in the API notes.
+    ```
+    const { class: className, max, style, value, variant, ...rest } = Astro.props
+    ---
+    <div class:list={["ui-progress", variant && `ui-${variant}`, className]} style={style}>
+    ```
+- [ ] (2) ClassicSelect, Range, Select, Textarea: the type files drift. Their Astro types add `HTMLAttributes<"label">` (`for`, `form`), but `...rest` goes to the control (already fixed for TextField). `id` sits in their framework-agnostic base types. `Item.value` is `any`, while `api.ts` documents `string | number`. Textarea's React `Partial<Base.Slots<…>>` is redundant, since the slots are already optional (`packages/opui/components/ClassicSelect/types.astro.ts:6-8`, `packages/opui/components/Range/types.astro.ts:4-6`, `packages/opui/components/ClassicSelect/types.ts:1-14`, `packages/opui/components/Range/types.ts:4`, `packages/opui/components/Select/types.ts:16`, `packages/opui/components/Textarea/types.react.ts:4`)
+  - Today:
+    ```ts
+    export type ClassicSelectProps = Base.ClassicSelectProps &
+      HTMLAttributes<"label"> &
+      HTMLAttributes<"select">
+    ```
+  - Fix: use control attributes only, and type item values like the docs.
+    ```ts
+    export type Props = Base.Props & HTMLAttributes<"select">
+    type Item = { selected?: boolean; text: string; value: number | string }
+    ```
+- [ ] (2) Checkbox, Radio, Switch: the type files have drifted apart. Radio's Astro props keep the native `size`, which Checkbox and Switch omit. Only `RadioInputProps` omits `type`, so `<Checkbox type="radio">` or `<SwitchInput type="text">` type-checks, and the `{...rest}` spread overrides the hard-coded `type`. Only `SwitchSlots` declares `children`, and only Switch's React/Svelte props skip the `Omit<Base, keyof Slots>` step (`packages/opui/components/Radio/types.astro.ts:4-6`, `packages/opui/components/Checkbox/types.astro.ts:4-8`, `packages/opui/components/Switch/types.astro.ts:4-6`, `packages/opui/components/Checkbox/CheckboxInput.astro:10-15`, `packages/opui/components/Switch/types.ts:9-14`, `packages/opui/components/Switch/types.react.ts:4-6`)
+  - Today:
+    ```ts
+    // Radio/types.astro.ts
+    export type RadioProps = Base.RadioProps & HTMLAttributes<"input">
+    export type RadioInputProps = Base.RadioInputProps &
+      Omit<HTMLAttributes<"input">, "type">
+    // Checkbox/types.astro.ts
+    export type CheckboxProps = Base.CheckboxProps &
+      Omit<HTMLAttributes<"input">, "size">
+    export type CheckboxInputProps = Base.CheckboxInputProps &
+      HTMLAttributes<"input">
+    ```
+  - Fix: use one shape for all three, in every framework file.
+    ```ts
+    export type CheckboxProps = Base.CheckboxProps &
+      Omit<HTMLAttributes<"input">, "size" | "type">
+    export type CheckboxInputProps = Base.CheckboxInputProps &
+      Omit<HTMLAttributes<"input">, "type">
+    ```
+- [ ] (2) Checkbox, Radio, Switch: an `endText` string works in React and Svelte (`string | Snippet`) but not in Astro and Vue, where only the `end-text` slot exists. There, `endText="…"` falls through to the `<input>` as an `endtext` attribute and renders no end text, with no warning. TextField has `endText?: string` in its base props in every framework, which is the guide's rule: "a string prop as a shorthand and a named slot" (`packages/opui/components/Checkbox/types.ts:1-12`, `packages/opui/components/TextField/types.ts:4`, `packages/opui/components/Checkbox/Checkbox.astro:19`, `packages/opui/components/Checkbox/Checkbox.astro:58-64`, `packages/opui/components/Checkbox/Checkbox.vue:60-62`, `packages/opui/components/Checkbox/Checkbox.svelte:62-66`)
+  - Today:
+    ```astro
+    <!-- Astro and Vue: renders <input endtext="Help">, no .ui-end-text -->
+    <Checkbox endText="Help">Accept</Checkbox>
+    ```
+  - Fix: add `endText?: string` to the three base props, like TextField, and render it in Astro and Vue. This also makes the existing `Omit<Base…, keyof Slots>` in the React/Svelte types meaningful.
+    ```astro
+    {
+      (endText || Astro.slots.has("end-text")) && (
+        <span id={endTextId} class="ui-end-text">
+          {endText}
+          <slot name="end-text" />
+        </span>
+      )
+    }
+    ```
+- [ ] (2) Switch: the root lacks the `cursor: pointer`, `line-height: var(--font-lineheight-3)` and `user-select: none` that `checkbox.css` and `radio.css` each repeat, so a switch's label text gets no pointer cursor (normalize only gives `label[for]` one) and wraps at the body line height next to a checkbox (`packages/opui/css/components/checkbox.css:2-6`, `packages/opui/css/components/radio.css:2-6`, `packages/opui/css/components/switch.css:142-146`, `packages/opui/core/normalize.css:127-131`)
+  - Today:
+    ```
+    /* checkbox.css and radio.css; switch.css has none of it */
+    :where(label.ui-checkbox) {
+      cursor: pointer;
+      line-height: var(--font-lineheight-3);
+      transform: translateZ(0);
+      user-select: none;
+    ```
+  - Fix: move the shared declarations into the `choice.css` root, and keep `transform: translateZ(0)` with the checkbox/radio halo (the invalid state is a separate item).
+    ```
+    :where(label.ui-checkbox, label.ui-radio, .ui-switch) {
+      cursor: pointer;
+      line-height: var(--font-lineheight-3);
+      user-select: none;
+      …
+    ```
+- [ ] (2) CSS: Switch label alignment depends on import order. `choice.css` and `switch.css` both set `--_input-size` at zero specificity, so the switch label offset is right only when `switch.css` comes after `choice.css`. The Switch Installation tabs and the skill references list `switch.css` before `choice.css`, so a single-file setup in that order sizes the label offset from the 20px choice size instead of the 24px track and the label sits 2px high. The What's new notes tell users to import `choice.css` first, but `components.css` and the Checkbox install list (`css: ["checkbox", "choice"]`) put `checkbox.css` first. For Checkbox and Radio the order doesn't matter (`packages/opui/css/components/choice.css:8`, `packages/opui/css/components/switch.css:18`, `packages/opui/css/components.css:14-16`, `src/docs/components/switch.astro:54-58`, `src/component-api/checkbox/api.ts:5`, `src/utils/whats-new.ts:175`, `src/utils/whats-new.ts:337`, `src/utils/whats-new.ts:412`)
+  - Today:
+    ```css
+    /* choice.css */
+    :where(label.ui-checkbox, label.ui-radio, .ui-switch) {
+      --_input-size: var(--choice-size);
+    }
+    /* switch.css: wins only because it is imported later */
+    :where(.ui-switch) {
+      --_input-size: var(--_track-height);
+    }
+    ```
+  - Fix: set the choice size only where it applies, then drop the three "Import it before" sentences.
+    ```css
+    /* choice.css */
+    &:where(.ui-checkbox, .ui-radio) {
+      --_input-size: var(--choice-size);
+    }
+    ```
+- [ ] (2) Package: Props types are named three ways, and the barrels have to alias them. Most folders use `Props` plus `<Root><Part>Props` (`TabsItemProps`, `CardContentProps`). Checkbox, Radio, Switch, Range and ClassicSelect name the root `<Component>Props`, with `CheckboxSlots<S>` instead of `Slots<S>`. DescriptionList has `TermProps`, `DescriptionProps` and `ItemProps`, renamed only in the barrels, and Table has one generic `SectionProps<T>` for six parts (`td`, `th`, `tr` and `colgroup` aren't sections) plus `ColumnProps`, so `TableBodyProps`, `TableCellProps` and the rest don't exist, though the guide says every part is exported with its `Props` type. `frameworkProps` looks for `<component>Props` and falls back to `Props`, so an api file for TableColumn would read the Table root's props (`packages/opui/components/Checkbox/types.ts:1-14`, `packages/opui/components/Range/types.ts:1,19`, `packages/opui/components/Table/types.react.ts:4-9`, `packages/opui/components/Table/types.astro.ts:10-13`, `packages/opui/components/Table/types.d.vue.ts:12-16`, `packages/opui/components/DescriptionList/types.react.ts:6-10`, `packages/opui/astro/index.ts:102-111,149-153`, `packages/opui/react/index.ts:107-112,150-154`, `packages/opui/components/AGENTS.md:187`, `src/utils/component-source.ts:116`)
+  - Today:
+    ```
+    // astro/index.ts
+    export type { CheckboxInputProps, CheckboxProps } from "../components/Checkbox/types.astro"
+    export type { DescriptionProps as DescriptionListDescriptionProps, … }
+    export type { Props as CardProps, … }
+    // Table/types.react.ts
+    export type SectionProps<T extends Section = Section> = Base.SectionProps & ComponentProps<T>
+    ```
+  - Fix: use the majority scheme in every folder (`Props`, `Slots<S>`, `<Root><Part>Props`), name each part's type after the part, and export them from the four barrels, which then follow one pattern.
+    ```
+    // Checkbox/types.ts
+    export type Props = { … }
+    export type Slots<S> = { … }
+    // Table/types.react.ts
+    export type TableBodyProps = SectionProps<"tbody">
+    export type TableCellProps = SectionProps<"td">
+    export type TableColumnProps = Base.TableColumnProps & ComponentProps<"col">
+    // DescriptionList/types.react.ts
+    export type DescriptionListTermProps = ComponentProps<"dt">
+    ```
+- [ ] (2) Dialog, FieldGroup (Vue): these two provide a bare computed ref, while the other five Vue contexts provide `reactive()` objects with the same field names as Astro, React and Svelte, so consumers read `headerId` and `fieldName` as auto-unwrapped refs in some places and `field?.value` in others. An earlier item allowed "a computed ref for a single id", but Callout has one field and uses an object, and FieldGroup's `name` is not an id (`packages/opui/components/Dialog/context.vue.ts:3-5`, `packages/opui/components/FieldGroup/context.vue.ts:3-5`, `packages/opui/components/Dialog/Dialog.vue:19`, `packages/opui/components/FieldGroup/FieldGroup.vue:13-17`, `packages/opui/components/ToggleButton/ToggleButton.vue:15-17`, `packages/opui/components/Callout/Callout.vue:9`)
+  - Today:
+    ```ts
+    provide(
+      FieldGroupKey,
+      computed(() => name || parent?.value),
+    )
+    provide(DialogKey, labelledBy)
+    ```
+  - Fix: use the same object shape everywhere.
+    ```ts
+    provide(
+      FieldGroupKey,
+      reactive({ name: computed(() => name || parent?.name) }),
+    )
+    provide(DialogKey, reactive({ headerId: labelledBy }))
+    // consumers: const field = inject(FieldGroupKey, undefined) → field?.name
+    ```
+- [ ] (2) Vue: 11 files still use `const props = defineProps()` with `props.` prefixes, while the guide prescribes destructuring plus `$props.class` and an earlier fix converted six other files. ButtonGroup and the three `*Input.vue` files only need the prefix for `class`. Textarea mixes the styles (`props.size` next to a bare `variant`), and Range calls `useSlots()` next to `defineSlots()` (`packages/opui/components/ButtonGroup/ButtonGroup.vue:4-17`, `packages/opui/components/Textarea/Textarea.vue:16`, `packages/opui/components/Textarea/Textarea.vue:45-51`, `packages/opui/components/Progress/Progress.vue:9`, `packages/opui/components/ListItem/ListItem.vue:5`, `packages/opui/components/Range/Range.vue:20-21`, `packages/opui/components/Range/Range.vue:55`, `packages/opui/components/Checkbox/Checkbox.vue:10`, `packages/opui/components/Checkbox/CheckboxInput.vue:18`, `packages/opui/components/Radio/Radio.vue:10`, `packages/opui/components/Radio/RadioInput.vue:10`, `packages/opui/components/Switch/Switch.vue:10`, `packages/opui/components/Switch/SwitchInput.vue:10`)
+  - Today:
+    ```
+    const props = defineProps<Props>()
+    … props.color && `ui-${props.color}`, … props.class
+    ```
+  - Fix: destructure, use `$props.class`, and use the slots that `defineSlots` returns.
+    ```
+    const { color, orientation, scrollable, shrink, size, variant } = defineProps<Props>()
+    const slots = defineSlots<Slots>()
+    … color && `ui-${color}`, … $props.class
+    ```
+- [ ] (2) Tooling: `check-components` checks less than the guide claims. It verifies the default component exports in each barrel but not the Props type exports or where they come from (such a check would have caught the Vue input Props types in Bugs). It doesn't check the `"use client"` rule, and its sorted-keys rule runs only on `types.ts` and only on types written as `= {`, which is why the Vue `Slots` types in TextField and Textarea (`"supporting-text"` before `suffix`) pass. It checks `className`-last only in Astro and React, not in Svelte `class={[` or Vue `:class="[`. Nothing checks that each folder with context has all four context files, and the parity normalizer sorts class tokens, so "in the same order" across frameworks is untested. Svelte, Vue and the cross-framework class order all pass today (checked with a scratch script) (`scripts/check-components.mjs:18`, `scripts/check-components.mjs:156-165`, `scripts/check-components.mjs:174-179`, `packages/opui/components/TextField/types.d.vue.ts:18-19`, `packages/opui/components/Textarea/types.d.vue.ts:17-18`, `scripts/check-components.mjs:186-197`, `tests/unit/normalize.ts:76-78`, `packages/opui/components/AGENTS.md:13-22`)
+  - Today:
+    ```js
+    if (extname(file) === ".astro")
+      checkClassOrder(path, source, CLASS_LIST, "class:list")
+    if (file.endsWith(".react.tsx")) checkClassOrder(path, source, CX, "cx")
+    ```
+  - Fix: add the missing checks.
+    ```
+    const TYPES = { astro: "types.astro", react: "types.react", svelte: "types.svelte", vue: "types.d.vue" }
+    for (const [fw, src] of Object.entries(barrels))
+      for (const [, names, from] of src.matchAll(/export type \{([^}]*)\} from "([^"]+)"/g))
+        if (/Props\b/.test(names) && !from.endsWith(`/${TYPES[fw]}`)) report(…)
+    if (file.endsWith(".svelte")) checkClassOrder(path, source, /class=\{\[/g, "class")
+    if (file.endsWith(".vue")) checkClassOrder(path, source.replaceAll("$props.class", "className"), /:class="\[/g, ":class")
+    const OBJECT_TYPE = /export type (\w+)(?:<\w+>)? = (?:[\w.]+ & )?\{\n([\s\S]*?)\n\}/g
+    if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
+    ```
+- [ ] (2) CSS: the palette knobs have four sets of defaults that disagree. Open Props' `props.palette.css` and `core/palette.css` set hue 250 and chroma 0.15; the fallbacks in `--palette-source` say 250 and 1; `theme.css` says green and 0.5, and always wins, because its rules sit directly in `theme`, which beats the sub-layer `theme.palette`. `--gray-chroma` and `--gray-hue` are also set in both files, one on `:root` and the other on `html` (`packages/opui/core/palette.css:2-8,36-38`, `packages/opui/css/theme.css:24-31`, `packages/opui/open-props.css:15`)
+  - Today:
+    ```
+    /* core/palette.css */
+    :where(:root) { --palette-hue: 250; --palette-chroma: 0.15; … }
+    --palette-source: oklch(58% calc(0.21 * var(--palette-chroma, 1)) var(--palette-hue, 250));
+    /* css/theme.css */
+    --palette-chroma: 0.5;
+    --palette-hue: var(--hue-green);
+    ```
+  - Fix: keep `theme.css` as the only place, and drop palette.css's `:where(:root)` block, its fallbacks and `props.palette.css`.
+    ```css
+    --palette-source: oklch(
+      58% calc(0.21 * var(--palette-chroma)) var(--palette-hue)
+    );
+    ```
+- [ ] (2) CSS: the severity scope selectors are kept twice: `core/palette.css` lists them to re-derive the palette, and `theme.css` lists them to set each scope's `--palette-source`, both including the seven-control `:has([aria-invalid="true"])` list. A scope added to only one list has no effect, and `.ui-abbr`/`.ui-dfn` already drifted this way once (`packages/opui/core/palette.css:10-35`, `packages/opui/css/theme.css:237-274`)
+  - Today:
+    ```
+    /* palette.css */
+    :where(:root, .ui-warning, .ui-critical, … :is(.ui-checkbox, …, .ui-textarea):has([aria-invalid="true"]), del, ins, abbr, dfn, .ui-abbr, .ui-dfn, .ui-palette) { … }
+    /* theme.css */
+    :where(.ui-critical, .ui-del, :is(.ui-checkbox, …, .ui-textarea):has([aria-invalid="true"]), del) { --palette-source: … }
+    ```
+  - Fix: move the five `--palette-source` rules into `core/palette.css`, after the derivation rule (same layer and specificity, so the later rule wins and the list lives in one file), or add a unit test that every `--palette-source` selector in `theme.css` appears in the palette rule.
+    ```css
+    /* core/palette.css, after the derivation rule */
+    :where(.ui-critical, .ui-del, …, del) {
+      --palette-source: oklch(0.58 0.21 var(--hue-red));
+    }
+    ```
+- [ ] (2) Theme: two tokens mean "text on `--surface-inverse`". Tooltip reads `--text-inverse` (gray-1/gray-15, added on this branch), and Toast reads the older `--text-primary-contrast` (gray-2/gray-15) on the same surface. `--text-primary-contrast` also reads like a sibling of `--primary-contrast`, which is text on the primary color (`packages/opui/css/theme.css:205,209`, `packages/opui/css/components/toast.css:52-55`, `packages/opui/css/components/tooltip.css:4,8`, `src/utils/theme-token-descriptions.ts:163,167`)
+  - Today:
+    ```css
+    /* toast.css */
+    background-color: var(--surface-inverse);
+    color: var(--text-primary-contrast);
+    /* tooltip.css */
+    --_bg-color: var(--surface-inverse);
+    --_text-color: var(--text-inverse);
+    ```
+  - Fix: Toast reads `--text-inverse`, and `--text-primary-contrast` becomes an alias or is removed with a Breaking line.
+    ```css
+    --text-primary-contrast: var(--text-inverse);
+    ```
+- [ ] (2) Text field: `text-input.css` now holds only the 40-line autosuggest chevron for `.ui-text-field:has(input[list])`, reading `--_chevron-icon`, `--_chevron-size` and `--_arrow-inset` from `text-field.css`, yet it ships as a separate required file with its own Installation tab, `api.ts`, HTML-only API table and changelog path. The docs even import it as `TextFieldCSS`, and `text-field.css` as `FieldCSS` (`packages/opui/css/components/text-input.css:1-44`, `packages/opui/css/components/text-field.css:6-13`, `src/component-api/text-input/api.ts:1-23`, `src/docs/components/text-field.astro:48-49,73-77,99-106`)
+  - Today:
+    ```astro
+    import FieldCSS from "@opui/css/components/text-field.css?raw" import
+    TextFieldCSS from "@opui/css/components/text-input.css?raw"
+    ```
+  - Fix: move the block into `text-field.css` next to the chevron variables (same layer), delete `text-input.css` and its api, and list the removed file under Breaking while 6.0.0 is unreleased.
+    ```
+    /* text-field.css */
+    :where(.ui-text-field:has(input[list])) { /* autosuggest chevron */ … }
+    ```
+- [ ] (2) Typography: the class-based rules and the rich-text rules are separate hand-kept copies, and they already disagree: `.ui-small` has a minimum of `0.5em`, rich-text `small` a minimum of `0.75em`; `.ui-var` is monospace but rich-text `var` is not (only `code, kbd, samp, pre` get `--font-mono`); `.ui-kbd` and `.ui-var` are two identical blocks (`packages/opui/css/components/typography.css:164-166,173-183,228-238,826-828,835-837,863-871`)
+  - Today:
+    ```css
+    :where(p:not(.ui-p), small, span).ui-small {
+      font-size: max(0.5em, var(--font-size-0, 0.75rem));
+    }
+    … small {
+      font-size: max(0.75em, var(--font-size-0, 0.75rem));
+    }
+    ```
+  - Fix: choose one value per element and merge the two class blocks; if `.ui-var` is right, add `var` to the rich-text mono rule.
+    ```
+    :where(.ui-kbd, .ui-var) { … }
+    :where(code, kbd, samp, pre, var) { font-family: var(--font-mono); }
+    ```
+- [ ] (2) Tooling: `check-css-vars` keeps one global set of definitions and only scans `packages/opui`, which hides two kinds of mistakes. Private names like `--_bg-color` (16 files), `--_border-color` (11) or `--_accent` (8) always count as defined, so a component that forgets its own definition passes and silently inherits an ancestor component's value: `textarea.css` reads `--_max-block-size`, which only Menu defines, so a Textarea inside a Menu gets `60dvb`. And `src/` is never checked: `var(--font-letter-spacing-1)` in the header resolves to nothing (Open Props spells it `--font-letterspacing-1`), and `--text-ok`, `--text-warning`, `--text-critical` and `--text-info` are defined nowhere, so their hex fallbacks always apply and ignore dark mode (`scripts/check-css-vars.mjs:50-65`, `packages/opui/css/components/textarea.css:6`, `packages/opui/css/components/menu.css:15`, `src/components/Header.astro:510`, `src/components/Search.astro:673`, `src/components/BrowserSupportChips.astro:149-166`, `src/components/UnderTheHood/FeatureSupport.astro:106-114`)
+  - Today:
+    ```
+    for (const file of (await listCssFiles(opuiDir)).toSorted()) {
+      const source = await readFile(file, "utf8")
+      for (const [, name] of source.matchAll(DECLARATION)) defined.add(name)
+    ```
+  - Fix: scan `src/` too, and check `--_` reads without a fallback against the same file plus its base file (with this map the current package passes).
+    ```js
+    const BASES = {
+      "button-group.css": ["button.css"],
+      "checkbox.css": ["choice.css"],
+      "radio.css": ["choice.css"],
+      "select.css": ["text-field.css"],
+      "text-input.css": ["text-field.css"],
+      "textarea.css": ["text-field.css"],
+      "toggle-group.css": ["toggle-button.css"],
+    }
+    ```
+- [ ] (2) Badge: the badge's ring inside an avatar group hardcodes `var(--surface-default)` and `2px`, while the group exposes `--_outline-color` for the avatars' ring, so overriding it (for a group on a tonal card) leaves the badge with a mismatched ring. The `2px` ring and badge border also repeat as magic numbers, including `--_dot-size - 2px` (`packages/opui/css/components/badge.css:41,115,132-134`, `packages/opui/css/components/avatar.css:79,84,91-93`)
+  - Today:
+    ```css
+    :where(.ui-avatar-group) > & > .ui-anchor-floating > .ui-badge-indicator {
+      box-shadow: 0 0 0 2px var(--surface-default);
+    }
+    ```
+  - Fix: read the group's property, which inherits, and give the ring and border widths a private property.
+    ```css
+    box-shadow: 0 0 0 var(--_outline-width) var(--_outline-color);
+    ```
+- [ ] (2) Chip: `.ui-disabled` still disables link and button chips (it dims them, skips hover, and sets `pointer-events: none` on links), while the earlier decision, the docs and `api.ts` limit `.ui-disabled` to a look for static chips. A `.ui-disabled` link chip looks disabled, Enter still follows it, and it is announced as available (`packages/opui/css/components/chip.css:44-46,77-79,183,202-204`, `src/component-api/chip/api.ts:24-31`)
+  - Today:
+    ```
+    &:where(button, a):where(:not([disabled], [aria-disabled="true"], .ui-disabled)) { … }
+    &:where(a):where([aria-disabled="true"], .ui-disabled) { pointer-events: none; }
+    ```
+  - Fix: drop `.ui-disabled` from the interactive-chip selectors so the class only ever dims a static chip.
+    ```
+    &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) { … }
+    &:where(a[aria-disabled="true"]) { pointer-events: none; }
+    ```
+- [ ] (2) Divider, Accordion, ButtonGroup, List: the branch adds `--_color` in Divider, the name the private-property scheme retired everywhere else. The line between items also has three more names: `--_gutter-color` (Accordion group), `--_divider-color` (ButtonGroup) and `--_separator-color` (List) (`packages/opui/css/components/divider.css:3,5,11,15,19,25,41`, `packages/opui/css/components/accordion.css:165,193`, `packages/opui/css/components/button-group.css:37`, `packages/opui/css/components/list.css:15,33`)
+  - Today:
+    ```css
+    --_color: var(--border-color); /* divider */
+    --_gutter-color: var(--border-color); /* accordion group */
+    --_separator-color: color-mix(…); /* list */
+    ```
+  - Fix: one name for the concept. None are documented, and Divider's is new.
+    ```css
+    --_divider-color: var(--border-color);
+    ```
+- [ ] (2) CSS: the `--_duration`/`--_ease` scheme from the changelog only exists in Accordion and Drawer. Button, Badge, Carousel and Dialog inline `calc(var(--duration…) * var(--_motion))` three to five times each, so they can't be slowed down with `--_duration` the way Accordion can. Card's focus ring reads `--motion` directly (Card has no `--_motion`), and Accordion's `::details-content` transitions skip `--_ease` (`packages/opui/css/components/button.css:67-70`, `packages/opui/css/components/carousel.css:142-144,239,291,300`, `packages/opui/css/components/dialog.css:53,93-95`, `packages/opui/css/components/badge.css:53-54`, `packages/opui/css/components/card.css:141`, `packages/opui/css/components/accordion.css:14-15,75-78`, `packages/opui/CHANGELOG.md:39`)
+  - Today:
+    ```css
+    transition:
+      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
+    ```
+  - Fix: declare the duration and easing once next to `--_motion` in every component that animates, and read them everywhere.
+    ```css
+    --_duration: calc(var(--duration-fast) * var(--_motion));
+    --_ease: var(--ease);
+    transition:
+      background-color var(--_duration) var(--_ease),
+      color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease);
+    ```
+- [ ] (2) CSS: inset focus rings use four different offsets: `calc(-2 * var(--focus-ring-width))` (Accordion), `calc(var(--focus-ring-inset) - var(--size-1))` (ButtonGroup), `var(--focus-ring-inset)` (List), `-6px` (ToggleButton). Tabs writes out `calc(-1 * var(--focus-ring-width))`, which is `--focus-ring-inset` itself, and its default ring keeps a `var(--focus-ring-offset, 0)` fallback that never applies and disagrees with the theme's 2px. ToggleButton's `-6px` overrides a theme token and stays at -6px when the high contrast ring grows to 3px, its base `outline-offset: calc(-1 * var(--size-2))` is dead (the outline only exists in the focus rule), and its ring animation reads `--motion` with no `--_motion` (`packages/opui/css/components/accordion.css:43,185`, `packages/opui/css/components/button-group.css:53`, `packages/opui/css/components/list.css:226`, `packages/opui/css/components/toggle-button.css:21,48-54`, `packages/opui/css/components/tabs.css:74,220`, `packages/opui/css/theme.css:41-42`)
+  - Today:
+    ```css
+    --_focus-ring-offset: calc(-2 * var(--focus-ring-width)); /* accordion */
+    outline-offset: calc(
+      var(--focus-ring-inset) - var(--size-1)
+    ); /* button group */
+    --focus-ring-offset: -6px; /* toggle button */
+    ```
+  - Fix: pick one inset. If a gap inside the edge is wanted (the reason for Accordion's `-2x`), add it as a theme token and use the tokens everywhere (ToggleButton and ButtonGroup share one formula, Tabs reads `--focus-ring-inset`).
+    ```css
+    --focus-ring-inset-gap: calc(-2 * var(--focus-ring-width)); /* theme.css */
+    outline-offset: var(--focus-ring-inset-gap);
+    ```
+- [ ] (2) Range: `--_thumb-offset` is a hand-computed copy of half the track height minus the thumb size, written twice: `-1.125ex`, and `-11.5px` for touch. It doesn't follow an overridden `--_thumb-size` or `--_track-height`, and the touch value is only approximate (`packages/opui/css/components/range.css:16-20`, `packages/opui/css/components/range.css:218`, `packages/opui/css/components/range.css:222`, `packages/opui/css/components/range.css:244-246`)
+  - Today:
+    ```css
+    --_thumb-offset: -1.125ex;
+    --_track-height: 0.75ex;
+
+    @media (hover: none) {
+      --_thumb-offset: -11.5px;
+    }
+    ```
+  - Fix: compute it, and remove the `hover: none` override (`--_thumb-size` is already a registered length shared with the input).
+    ```css
+    --_thumb-offset: calc((var(--_track-height) - var(--_thumb-size)) / 2);
+    ```
+- [ ] (2) Range: there is no `--_accent`. The thumb, its halo and the track fill each read `--primary`, and the invalid state overrides all three. They are declared on the `<input>`, so setting `--_accent` on `.ui-range` does nothing, although the customizing guide describes that setting and Progress uses it for its fill (`packages/opui/css/components/range.css:210-221`, `packages/opui/css/components/range.css:328-334`, `packages/opui/css/components/progress.css:4`, `src/docs/guide/customizing.astro:33-36`)
+  - Today:
+    ```css
+    --_thumb-bg-color: var(--primary);
+    --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
+    --_track-fill-color: var(--primary);
+    … .ui-range:has([aria-invalid="true"], :user-invalid) & {
+      --_thumb-bg-color: var(--invalid-color);
+      --_thumb-highlight-color: oklch(
+        from var(--invalid-color) 70% 100% h / 20%
+      );
+      --_track-fill-color: var(--invalid-color);
+    }
+    ```
+  - Fix: declare `--_accent` on the root, derive the three colors from it, and change only `--_accent` when invalid (a disabled invalid range then also keeps its disabled thumb).
+    ```css
+    :where(.ui-range) {
+      --_accent: var(--primary);
+
+      &:has([aria-invalid="true"], :user-invalid) {
+        --_accent: var(--invalid-color);
+      }
+
+      :where(& > input[type="range"]) {
+        --_thumb-bg-color: var(--_accent);
+        --_thumb-highlight-color: oklch(from var(--_accent) 70% 100% h / 20%);
+        --_track-fill-color: var(--_accent);
+      }
+    }
+    ```
+- [ ] (2) Checkbox, Radio, Switch: the invalid state is written three times and the copies have drifted. Checkbox and Radio set the public `--primary` to turn the checked fill red, which leaks to anything inside the label; Switch doesn't, so a checked invalid switch keeps the primary track. Switch also selects the end text with `.ui-end-text` while the other two use `:where(.ui-end-text)`, so the invalid end-text color has three copies with different specificity (`packages/opui/css/components/checkbox.css:235-246`, `packages/opui/css/components/radio.css:155-166`, `packages/opui/css/components/switch.css:157-173`, `packages/opui/css/components/choice.css:3-6`)
+  - Today:
+    ```css
+    /* checkbox.css and radio.css */
+    &:has([aria-invalid="true"], :user-invalid) {
+      --primary: var(--invalid-color);
+      … :where(.ui-end-text) {
+        color: var(--invalid-text-color);
+      }
+    }
+    /* switch.css */
+    &:has([aria-invalid="true"], :user-invalid) {
+      … .ui-end-text {
+        color: var(--invalid-text-color);
+      }
+    }
+    ```
+  - Fix: move the shared part into `choice.css` and change the private accent there; each file keeps only its own part (the unchecked border for Checkbox and Radio, the ring for Switch). Decide whether a checked invalid switch should turn red like the other two, which this change does.
+    ```css
+    /* choice.css */
+    &:has([aria-invalid="true"], :user-invalid) {
+      --_accent: light-dark(
+        var(--invalid-color),
+        oklch(from var(--invalid-color) min(l, 0.62) c h)
+      );
+
+      :where(.ui-end-text) {
+        color: var(--invalid-text-color);
+      }
+    }
+    ```
+- [ ] (2) Checkbox: the Indeterminate example puts the hook classes `indeterminate-demo`, `parent` and `child` into all five formats. Only the Astro and HTML scripts read them; React, Svelte and Vue drive the state themselves and carry the classes only so the markup matches for parity, so readers copy classes that do nothing (an earlier item fixed the same problem for `input-type-field`) (`src/component-examples/checkbox/Indeterminate.astro:5,7,10-12,19-27`, `src/component-examples/checkbox/Indeterminate.html:1,3,9,13,17,26-30`, `src/component-examples/checkbox/Indeterminate.react.tsx:21,24,35`, `src/component-examples/checkbox/Indeterminate.svelte:17,20,27`, `src/component-examples/checkbox/Indeterminate.vue:19,22,31`)
+  - Today:
+    ```
+    <FieldSet className="indeterminate-demo">
+      <Checkbox className="parent" checked={allChecked} onChange={toggleAll} indeterminate={indeterminate}>
+    ```
+  - Fix: find the parent and children by structure in the two scripts, and drop the three classes from all five files (the snapshot changes, intended).
+    ```
+    document.querySelectorAll("fieldset:has(> legend input[data-indeterminate])").forEach((root) => {
+      const parent = root.querySelector("legend input")
+      const children = [...root.querySelectorAll(".ui-field-group input")]
+    ```
+- [ ] (2) Examples: Vue examples spell props two ways, and the docs disagree with both. `hideLabel`, `markerAnimation`, `isGroup` and `button-group`'s `iconOnly` are camelCase, as are about 70 other Vue props, but `button/IconOnly` uses `icon-only`, `badge/Indicator` uses `sr-label`, and Carousel uses `:per-view`, `aspect-ratio` and `persistent-buttons` (`list/` and `menu/` mix `borderTop` and `border-top` too). The Vue Icon-only prose says `icon-only`, while the Vue Badge prose, the Carousel `PropOrClass` and the API tables say `srLabel`, `perView` and `persistentButtons`. Parity can't catch any of this, because the output is identical (`src/component-examples/button/IconOnly.vue:7`, `src/component-examples/button-group/WithIcons.vue:7,21`, `src/component-examples/badge/Indicator.vue:6,21`, `src/component-examples/carousel/PerView.vue:14`, `src/component-examples/carousel/PersistentButtons.vue:16-17`, `src/component-examples/carousel/Gallery.vue:14`, `src/docs/components/button.astro:280-283`, `src/docs/components/badge.astro:238`, `src/docs/components/carousel.astro:148,193,231`)
+  - Today:
+    ```
+    <Button icon-only label="Edit">       <!-- button/IconOnly.vue -->
+    <Button iconOnly label="OK">          <!-- button-group/WithIcons.vue -->
+    <Badge label="5" sr-label="unread messages">
+    <Carousel :per-view="3">
+    ```
+  - Fix: use camelCase everywhere, matching the API tables, the other frameworks and the majority of Vue examples, and say `iconOnly` in the Vue Icon-only prose.
+    ```
+    <Button iconOnly label="Edit">
+    <Badge label="5" srLabel="unread messages">
+    <Carousel :perView="3" persistentButtons>
+    ```
+- [ ] (2) Docs: the four sections with a `*Code` override can't use `AutoExample`, so they fall back to hand-wired `<Example>` blocks: 27 `?raw` and component imports and three 12-line blocks in `button.astro`, plus 9 imports and a 28-line block in `badge.astro`. `AutoExample` already globs every file it would need, and the React, Svelte and Vue previews in these manual blocks get no `*ExampleId`, so they never mount live, unlike every other section (`src/docs/components/button.astro:10-38,172-183,230-241,327-338`, `src/docs/components/badge.astro:6-14,161-189`, `src/components/AutoExample.astro:70-84`, `src/docs/components/AGENTS.md:48,103`)
+  - Today:
+    ```astro
+    import ExampleSizesCodeAstro from
+    "../../component-examples/button/SizesCode.astro?raw" …
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleSizes} /> …10 more slots
+    </Example>
+    ```
+  - Fix: have `AutoExample` prefer `<name>Code.<ext>` for the code tab, turn the four sections into one line each, and update the guide lines that send `*Code` overrides to a manual `<Example>`.
+    ```ts
+    const source = (ext: string) =>
+      rawSources[`../component-examples/${slug}/${name}Code.${ext}`] ??
+      rawSources[`../component-examples/${slug}/${name}.${ext}`]
+    ```
+    ```astro
+    <AutoExample name="Sizes" column />
+    ```
+- [ ] (2) Form: examples give a FieldGroup a `name` where it is either ignored (the controls have their own names) or silently becomes a text field's name. In FieldsetRequired the "Life story" textarea is submitted as `bio`, and in KitchenSink the Biography textarea as `details`. This teaches FieldGroup `name` as a fallback name for text fields, while the prose says it's a shared name for choices (`src/component-examples/form/FieldsetRequired.astro:13-16`, `src/component-examples/form/KitchenSink.astro:50`, `src/component-examples/form/KitchenSink.astro:92`, `src/component-examples/form/KitchenSink.astro:105`, `src/component-examples/form/KitchenSink.html:116`)
+  - Today:
+    ```astro
+    <FieldGroup name="bio">
+      <TextField label="Name" name="name" />
+      <Textarea required label="Life story" /></FieldGroup
+    >
+    ```
+  - Fix: keep `name` on FieldGroup only for radio and checkbox groups, and name text fields directly.
+    ```astro
+    <FieldGroup>
+      <TextField label="Name" name="name" />
+      <Textarea label="Life story" name="story" required /></FieldGroup
+    >
+    ```
+- [ ] (2) List: the checkbox, radio and switch items set `for` on a `<label>` that already wraps its input, so `for` and `id` are redundant. They are the only reason for the hard-coded ids in EndCheckbox, EndRadio, EndSwitch and Clickable, the `prefix` prop and template ids in all four `ListAll` partials, and the `INPUTID` in the page prose (`src/component-examples/list/EndCheckbox.astro:8-15`, `src/component-examples/list/EndRadio.astro:8-24`, `src/component-examples/list/Clickable.astro:10-16`, `src/component-examples/list/partials/ListAll.astro:7`, `src/component-examples/list/partials/ListAll.astro:179-206`, `src/docs/components/list.astro:368-370`, `src/docs/components/list.astro:382-384`)
+  - Today:
+    ```astro
+    <ListItem type="checkbox" for="checkbox-example-1">
+      <Fragment slot="text">Checkbox 1</Fragment>
+      <CheckboxInput slot="end" id="checkbox-example-1" /></ListItem
+    >
+    ```
+  - Fix: drop `for`/`htmlFor` and `id` in all five formats, `prefix` in the partials, and `for="INPUTID"` in the prose.
+    ```astro
+    <ListItem type="checkbox">
+      <Fragment slot="text">Checkbox 1</Fragment>
+      <CheckboxInput slot="end" /></ListItem
+    >
+    ```
+- [ ] (2) List: `ListAll` and `Selected` write the inner `<button>`, `<a>`, `.ui-start` and `.ui-text` markup by hand inside `ListItem`, and use a raw `button.ui-button.ui-rounded.ui-small`, while `Clickable` teaches `as`, `href` and `headline` for the same items ("Button list item", "Link list item") (`src/component-examples/list/partials/ListAll.astro:64-77`, `src/component-examples/list/partials/ListAll.astro:95-135`, `src/component-examples/list/partials/ListAll.astro:160-164`, `src/component-examples/list/Selected.astro:6-12`, `src/component-examples/list/Clickable.astro:8-9`)
+  - Today:
+    ```astro
+    <ListItem borderTop>
+      <button type="button"
+        ><div class="ui-text"><p>Button list item</p></div></button
+      >
+    </ListItem>
+    <ListItem
+      ><a href="#" aria-current="page"
+        ><div class="ui-text"><p>Selected item</p>…</div></a
+      ></ListItem
+    >
+    ```
+  - Fix: use the ListItem API, which renders the same markup (the rest props go to the inner tag).
+    ```astro
+    <ListItem as="button" borderTop headline="Button list item" />
+    <ListItem
+      href="#"
+      aria-current="page"
+      headline="Selected item"
+      description="…"
+    />
+    <Button slot="end" rounded size="small" aria-label="More">…</Button>
+    ```
+- [ ] (2) Text field: the Numeric, File and Autosuggest sections use a manual `<Example>` with 27 imports, and render the Astro component as the HTML-page preview (`<Numeric slot="preview-html" />`) instead of `Numeric.html`. They have no controls and no code override, so `AutoExample` covers them (NoLabel already got this fix) (`src/docs/components/text-field.astro:18-46`, `src/docs/components/text-field.astro:327-338`, `src/docs/components/text-field.astro:400-411`, `src/docs/components/text-field.astro:426-437`)
+  - Today:
+    ```astro
+    <Example>
+      <Numeric slot="preview-astro" />
+      <Numeric slot="preview-html" />
+      <Example.Preview slot="preview-react" code={NumericPreviewReact} />
+      <NumericPreviewSvelte slot="preview-svelte" /></Example
+    >
+    ```
+  - Fix:
+    ```astro
+    <AutoExample name="Numeric" />
+    <AutoExample name="File" row />
+    <AutoExample name="Autosuggest" row />
+    ```
+- [ ] (2) Docs site: Badge, Drawer, Form, List and Text field each have their own copy of a "toggle a class on the preview" script, about 30 lines each, that walks `.example-container`, guards with a `dataset.*Setup` flag and listens for `change`. List also renders five per-framework Switches in a `<Conditional>` and syncs them, though only one is ever rendered (`src/docs/components/badge.astro:262-291`, `src/docs/components/drawer.astro:400-421`, `src/docs/components/form.astro:415-485`, `src/docs/components/list.astro:516-562`, `src/docs/components/list.astro:614-650`, `src/docs/components/text-field.astro:511-548`)
+  - Today:
+    ```
+    document.querySelectorAll<HTMLElement>(".example-container").forEach((container) => {
+      if (!container.querySelector("#badge-visibility-toggle")) return
+      if (container.dataset.badgeVisibilitySetup) return
+      …
+    ```
+  - Fix: declare the toggle on the control and handle it once in `Example.astro` (Form's divider toggle can stay custom).
+    ```astro
+    <Switch
+      slot="controls"
+      data-toggle-class="ui-dense"
+      data-toggle-target=".ui-list"
+      checked
+    >
+      <PropOrClass prop="dense" class=".ui-dense" />
+    </Switch>
+    ```
+    ```ts
+    container.addEventListener("change", (event) => {
+      const input = event.target as HTMLInputElement
+      const toggle = input.closest<HTMLElement>("[data-toggle-class]")
+      if (!toggle) return
+      container
+        .querySelectorAll(`.example-preview ${toggle.dataset.toggleTarget}`)
+        .forEach((el) =>
+          el.classList.toggle(toggle.dataset.toggleClass!, input.checked),
+        )
+    })
+    ```
+- [ ] (2) Drawer, Tooltip: the same "four triggers in a cross" layout is built two ways. Drawer uses `.drawer-examples` plus `.top`/`.left`/`.right`/`.bottom` classes, with the CSS in the page's `is:global` style and again in `Usage.html`, where `.top` and the others are unscoped page-wide classes. Tooltip pastes a `.tooltip-alignment-grid` `<style>` into all five files (`src/component-examples/drawer/Usage.html:262-291`, `src/docs/components/drawer.astro:424-453`, `src/component-examples/tooltip/Alignment.astro:40-64`, `src/component-examples/tooltip/Alignment.html:66-93`, `src/component-examples/tooltip/Alignment.react.tsx:33-57`, `src/component-examples/tooltip/Alignment.svelte:40-66`, `src/component-examples/tooltip/Alignment.vue:46-70`)
+  - Today:
+    ```css
+    .top {
+      grid-area: top;
+    }
+    .left {
+      grid-area: left;
+    }
+    ```
+  - Fix: define one docs layout class next to `.example-row` in `Example.astro` and use it in both examples, deleting the six style copies.
+    ```css
+    .example-compass {
+      display: grid;
+      grid-template-areas: ". block-start ." "inline-start . inline-end" ". block-end .";
+      & > :nth-child(1) {
+        grid-area: block-start;
+      } /* … */
+    }
+    ```
+- [ ] (2) Switch, Checkbox: both pages redefine the shared `.example-row` in an `is:global` style (`align-items: center`, no `flex-wrap`, no `justify-content`) and add a docs-only `.example-row.ui-spacious`. `Example.astro` defines `.example-row` globally with different values, so which one wins depends on stylesheet order, and the same class lays out differently from page to page (`src/docs/components/switch.astro:538-546`, `src/docs/components/checkbox.astro:426-434`, `src/components/Example/Example.astro:442-448`, `src/component-examples/switch/Validation.astro:5`)
+  - Today:
+    ```css
+    .example-row {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+    }
+    .example-row.ui-spacious {
+      gap: var(--size-6);
+    }
+    ```
+  - Fix: keep a single `.example-row` in `Example.astro`, move the spacious variant there, and delete both page copies.
+    ```css
+    .example-row.ui-spacious {
+      gap: var(--size-6);
+    }
+    ```
+- [ ] (2) Docs: dependencies and "See also" links are declared in several ways. Tooltip ships `anchor.css` without `isDependency` and links Anchor through `seeAlsoLinks`, while Badge flags the same file as a dependency. Text field flags `text-input.css`, an add-on with no page; Form lists `choice.css` as `seeAlso`; `Installation` looks both up by page and silently drops them. Menu lists List under Dependencies and again under See also. `Installation` renders `<h3 id="see-also">` and the layout renders `<h2 id="see-also">`, so a page that uses both gets duplicate ids. Dependents are written by hand twice (a "Used by" section on Anchor, an installation callout on Card), and Button, List and Text field don't list theirs (`src/docs/components/tooltip.astro:45-49`, `src/docs/components/badge.astro:56`, `src/docs/components/text-field.astro:100-105`, `src/docs/components/form.astro:82`, `src/docs/components/menu.astro:55-57`, `src/components/Installation.astro:31-46`, `src/components/Installation.astro:83`, `src/layouts/Component.astro:253`, `src/docs/components/anchor.astro:148-154`, `src/docs/components/card.astro:228-238`)
+  - Today:
+    ```astro
+    installationTabs={
+      [
+        { title: "tooltip.css", code: TooltipCSS, lang: "css" },
+        { title: "anchor.css", code: AnchorCSS, lang: "css" },
+      ]
+    }
+    seeAlsoLinks={[{ name: "Anchor", href: "/components/anchor" }]}
+    ```
+  - Fix: set `isDependency` on every CSS file that has its own page, make `seeAlsoLinks` the only "See also", and have `Installation` build a "Used by" list from the other pages' `isDependency` tabs.
+    ```
+    { title: "anchor.css", code: AnchorCSS, lang: "css", isDependency: true },
+    ```
+- [ ] (2) API docs: `frameworks` on an option means three things: "only these frameworks", "hide from the HTML table", and "not declared in the types, so show it with the hand-written `type`". Ten options list all four component frameworks although the prop is declared in all four and has no modifier; Dialog's `closedby` lists all five plus a `type` identical to the declared one. Each such entry silently switches off the "does not exist" check, and `propRows` keeps showing the row after the prop is removed (`src/component-api/button/api.ts:20,39,45`, `src/component-api/avatar/api.ts:9,45`, `src/component-api/badge/api.ts:47`, `src/component-api/callout-title/api.ts:9`, `src/component-api/drawer-header/api.ts:27`, `src/component-api/menu/api.ts:36`, `src/component-api/text-field/api.ts:64`, `src/component-api/dialog/api.ts:20-23`, `src/component-api/rows.ts:76-79`, `src/utils/component-source.ts:263-271`)
+  - Today:
+    ```
+    { default: "false", description: "Disables the button.", frameworks: ["astro", "react", "svelte", "vue"], prop: "disabled" },
+    ```
+  - Fix: drop `frameworks` where the prop is declared in every framework, and mark undeclared HTML attributes (`id`, `name`, `open`, `disabled`, `value`) explicitly, so the check covers everything else.
+    ```
+    { attribute: "[name]", inherited: true, prop: "name", type: "string", … }
+    // checkApi: every option that applies to the framework and isn't inherited must exist
+    ```
+- [ ] (2) API docs: every `component` map names the same component in all four frameworks (40 maps across 20 files, plus the inline `anatomyApi` in `form.astro`), and seven sub-APIs repeat `api.component` on their root, which `partLabel` already falls back to (`src/component-api/types.ts:6`, `src/component-api/card/api.ts:32-61`, `src/component-api/card-actions/api.ts:16-21`, `src/component-api/rows.ts:181-182`, `src/docs/components/form.astro:44-71`)
+  - Today:
+    ```
+    component: {
+      astro: "CardHeader",
+      react: "CardHeader",
+      svelte: "CardHeader",
+      vue: "CardHeader",
+    },
+    ```
+  - Fix: make `component` a string, and drop it from sub-API roots. A per-framework map can come back if a framework ever names a part differently.
+    ```
+    component: "CardHeader",
+    // rows.ts
+    if (part.component) return `<${part.component}>`
+    ```
+- [ ] (2) API docs: `notes` and `hydration` repeat the same string under several framework keys. Card has one note five times; Callout and Table repeat one four times; Accordion, Dialog and Drawer have four identical notes plus a different HTML one; Range's `valueSuffix` hydration entry appears three times; Spinner, Typography and Text input each write "There is no X component." four times. `whats-new.ts` already solved this with a `default` key and a `components()` helper (`src/component-api/card/api.ts:5-14`, `src/component-api/range/api.ts:5-30`, `src/component-api/spinner/api.ts:6-15`, `src/components/ApiTables.astro:51-53`, `src/utils/whats-new.ts:5-10,568-576`)
+  - Today:
+    ```
+    notes: {
+      astro: "To make the whole card clickable, …",
+      html: "To make the whole card clickable, …",
+      react: "To make the whole card clickable, …",
+      …
+    ```
+  - Fix: accept a `default` key, as `whatsNewFor` does, and let `ApiTables` add "There is no {Framework} component." itself when `api.source` is unset.
+    ```ts
+    const note = (key: Framework) => api.notes?.[key] ?? api.notes?.default
+    const notes = [...new Set([view, framework])].flatMap(
+      (key) => note(key) ?? [],
+    )
+    ```
+- [ ] (2) API docs: React and Svelte get their `children` row two different ways. React derives it from the default slot in `api.ts`; Svelte regex-parses the `{@render …}` tags, with the helper name `content` hard-coded, and skips any name used as a snippet parameter. Every Svelte snippet other than `children` is already a declared prop in `types.svelte.ts`, so the parser only ever adds `children` (`src/component-api/rows.ts:84-96`, `src/utils/component-source.ts:145-160,295-303`, `packages/opui/components/TextField/TextField.svelte:46,62`)
+  - Today:
+    ```
+    ...text.matchAll(/\{@render (\w+)(?:\?\.)?\(/g),
+    ...text.matchAll(/\{@render content\(\s*(\w+)/g),
+    …
+    const reactChildren = framework === "react" && (api.slots?.some(…) || …)
+    ```
+  - Fix: use one rule for every `slotsAreProps` framework, with the slot type on its `frameworks` entry, then delete `snippetNames` and its check (the Astro and Vue slot checks already cover the default slot).
+    ```
+    react: { …, slotType: "ReactNode" }, svelte: { …, slotType: "Snippet" },
+    const children = slotsAreProps && hasDefaultSlot(api) && !props.has("children") ? [["children", slotType]] : []
+    ```
+- [ ] (2) Tests: `anatomy.spec.ts` checks layout and axe, but not whether each part's selector still matches something in the hero, which is the coupling most likely to break (`thead th:first-child`, `tbody tr:first-child td:last-child`, `.ui-tab-input:checked + .ui-tab-label + .ui-tab-panel`); if a part stops matching, its legend row points at nothing and the test still passes. Separately, `anchorName` is copied from the CSS by hand and already misses `--ui-tooltip` on the arrowed tooltip (harmless until Tooltip gets an anatomy) (`tests/e2e/anatomy.spec.ts:30-60`, `src/components/Anatomy.astro:34-39`, `src/component-api/table/api.ts:51,73,84`, `src/component-api/tabs/api.ts:48,59,70`, `src/component-api/tooltip/api.ts:44`, `packages/opui/css/components/tooltip.css:61`)
+  - Today:
+    ```ts
+    // anatomy.spec.ts: layout and axe only
+    ```
+  - Fix: assert that each legend row's `--part` anchor name is set on some element in the subject (pseudo-element parts such as the Carousel buttons need `getComputedStyle(el, "::scroll-marker")`).
+    ```ts
+    const unmatched = await page.evaluate(() => {
+      const diagram = document.querySelector(".anatomy-diagram")!
+      const names = new Set(
+        [...diagram.querySelectorAll(".subject *")].flatMap((el) =>
+          getComputedStyle(el).getPropertyValue("anchor-name").split(/,\s*/),
+        ),
+      )
+      return [...diagram.querySelectorAll<HTMLElement>(".legend .part")]
+        .map((part) => part.style.getPropertyValue("--part"))
+        .filter((name) => !names.has(name))
+    })
+    expect.soft(unmatched).toEqual([])
+    ```
+- [ ] (2) Docs site: Example and AutoExample carry dead props, and the one live use of `exampleClass` hits no CSS. No page passes `output`, `richText`, `wrapperClass` or `marks`; `output` is always `"toggled"`, so `output &&` is always true and the always-show block and its CSS are dead; Example never reads `marks`. `exampleClass="flex"` renders `ui-flex`, which no CSS defines, while the rule targets `.example-preview.flex`. Example.Code's `component` branch and Command's `div` branch are never taken (`src/components/AutoExample.astro:21`, `src/components/Example/Example.astro:42-56,148-151,174-175,190,248-254,415-417`, `src/components/Example/Code.astro:2-20`, `src/components/Command.astro:2-9`, `src/docs/components/text-field.astro:295`, `src/docs/components/textarea.astro:244`)
+  - Today:
+    ```astro
+    <AutoExample name="AutoFit" exampleClass="flex" />
+    ```
+    ```
+    exampleClass && `ui-${exampleClass}`,
+    ```
+  - Fix: drop the unused props and branches. For AutoFit, use `class="flex"`, which reaches `.example-preview` without a prefix.
+    ```astro
+    <AutoExample name="AutoFit" class="flex" />
+    ```
+- [ ] (2) Docs site: `any` is back in `src/components` (an earlier item recorded that none were left). There are 16: `(toggleBtn as any)._hasListener`, `(navigator as any).userAgentData`, `ICONS: Record<EngineId, any[]>`, `(c: any)` in Contributors, and `[key: string]: any` in DocLink, Conditional, Command, Example.Code and the four browser icons (`src/components/Example/Example.astro:461,482`, `src/components/Search.astro:505`, `src/components/BrowserSupportChips.astro:20`, `src/components/Contributors.astro:34-39`, `src/components/DocLink.astro:11`, `src/components/Conditional.astro:5`, `src/components/icons/browsers/Chrome.astro:3`)
+  - Today:
+    ```ts
+    type Props = { [key: string]: any; class?: string; href: string }
+    ```
+  - Fix: type pass-through props with `HTMLAttributes`, and drop the `_hasListener` guard (there's no client router, so the script runs once).
+    ```ts
+    import type { HTMLAttributes } from "astro/types"
+    type Props = HTMLAttributes<"a"> & { href: string }
+    const ICONS = {
+      chromium: [Chrome, Edge],
+      gecko: [Firefox],
+      webkit: [Safari],
+    } satisfies Record<EngineId, unknown[]>
+    ```
+- [ ] (2) Docs site: Guide copied Component's prev/next cards, and the two copies have drifted: Guide's nav has `aria-label="Guide pages"` and `aria-hidden` arrows, Component's has neither and keeps the dead `hgroup`/`h3` CSS (`src/layouts/Component.astro:350-403,429-490`, `src/layouts/Guide.astro:87-135,165-216`)
+  - Today:
+    ```astro
+    <nav class="pagination">
+      <!-- Component -->
+      <nav class="pagination" aria-label="Guide pages"><!-- Guide --></nav>
+    </nav>
+    ```
+  - Fix: extract one component and use it in both layouts.
+    ```astro
+    ---
+    type Link = { href: string; label: string }
+    type Props = { label: string; next?: Link; prev?: Link }
+    ---
+
+    <nav aria-label={Astro.props.label} class="pagination">…</nav>
+    ```
+- [ ] (2) Docs site: the Guide, Learn, Blocks and Component layouts each compute `canonicalPath` and render the same `nav > h3 + menu > li > a[aria-current]`. The `.guide-nav-list` and `.learn-nav-list` link rules never apply, because Document's `#document-page :where(.sidebar, #sidebar-drawer) .ui-content nav menu li a` (specificity 1,1,4) overrides them. Document gets the nav as an HTML string, injects it twice and detects the drawer with `sidebar?.includes("<nav")` (`src/layouts/Guide.astro:42-79,141-162`, `src/layouts/Learn.astro:24-89,101-121`, `src/layouts/Blocks.astro:22-71`, `src/layouts/Component.astro:148-175`, `src/layouts/Document.astro:26-27,59-88,260-304`)
+  - Today:
+    ```ts
+    const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
+      /\/$/,
+      "",
+    )
+    const linkTo = (href: string, label: string) => ({
+      current: canonicalPath === href,
+      href,
+      label,
+    })
+    ```
+  - Fix: add one `SidebarNav.astro` that takes `groups`; Document renders it from a `sidebarGroups` prop in both the aside and the drawer, `aria-current` comes from one shared `canonicalPath(url)` helper, and the two dead nav-list blocks go.
+    ```astro
+    <Document sidebarGroups={[{ label: "Guide", links }]} … />
+    ```
+- [ ] (2) Docs site: the ten guide routes are the same 7-line wrapper, and the list of guide pages is derived three ways: `astro.config.mjs` reads `src/docs/guide`, `llms.mjs` reads `src/pages/[framework]/guide`, and `Guide.astro` hard-codes its links. `getting-started.astro` re-declares the framework labels, and `{Page && <Page />}` builds an empty page if a framework file is missing (`src/pages/[framework]/guide/accessibility.astro:1-8`, `src/pages/[framework]/guide/getting-started.astro:13-27`, `src/integrations/llms.mjs:143-155`, `astro.config.mjs:17-25`)
+  - Today:
+    ```ts
+    const labelByFramework: Record<FrameworkId, string> = {
+      astro: "Astro",
+      html: "HTML",
+      react: "React",
+      svelte: "Svelte",
+      vue: "Vue",
+    }
+    ```
+  - Fix: add a single `src/pages/[framework]/guide/[page].astro` built like `components/[component].astro`; `getting-started.astro` stays a static route and looks its file up from `FRAMEWORKS`, so a missing file throws.
+    ```ts
+    const label = FRAMEWORKS.find((f) => f.id === framework)!.label
+    const Page =
+      modules[`../../../docs/guide/getting-started/${label}.astro`].default
+    ```
+- [ ] (2) Docs site: example modules are globbed four separate ways. AutoExample has four eager globs with `as Record<…>` casts; the fixture page has five more, its own path parser and `type Framework = (typeof FRAMEWORK_IDS)[number]`, although `FrameworkId` exists; the mount scripts and `component-imports.ts` add their own (`src/components/AutoExample.astro:537-578`, `src/pages/[framework]/test/[component].astro:64-119`, `src/components/Example/mount-react-examples.ts:5-7`, `src/utils/component-imports.ts:8-11`)
+  - Today:
+    ```ts
+    const previewModules = import.meta.glob(
+      "../component-examples/**/*.{astro,svelte}",
+      { eager: true },
+    ) as Record<string, { default: unknown }>
+    ```
+  - Fix: add `src/utils/examples.ts` with typed globs and one key parser, and use it everywhere.
+    ```ts
+    export const exampleModules = import.meta.glob<{ default: unknown }>(
+      "../component-examples/*/*.{astro,react.tsx,svelte,vue}",
+      { eager: true },
+    )
+    export const exampleSources = import.meta.glob<string>(
+      "../component-examples/*/*.{astro,html,react.tsx,svelte,vue}",
+      { eager: true, import: "default", query: "?raw" },
+    )
+    ```
+- [ ] (2) Tooling: `typecheck:react` re-checks files `astro check` already checks. `astro check` lints every root file of `tsconfig.json` except `.vue` and `.svelte`, and its `"**/*"` already contains all 388 non-`node_modules` files of the React project, with the same compiler options (checked with `tsc --listFilesOnly`). `packages/opui/{svelte,vue}/**/*.ts` are also checked twice, and nothing imports the `@opui/react` path (`package.json:31-32`, `tsconfig.json:3,11`, `tsconfig.react.json:1-10`)
+  - Today:
+    ```
+    "typecheck:astro": "astro check --minimumFailingSeverity warning",
+    "typecheck:react": "tsc --noEmit -p tsconfig.react.json",
+    ```
+  - Fix: delete `typecheck:react`, `tsconfig.react.json` and the `@opui/react` path, or exclude framework sources from `tsconfig.json` so each file belongs to one project. (Keep the consumer-style React typecheck from the dev warning item in Bugs in mind: that one should run without `astro/client`.)
+    ```
+    "exclude": ["packages/opui/components/**/*.react.tsx", "packages/opui/react/**"]
+    ```
+- [ ] (2) Tooling: the JS files are never type-checked. The Astro base tsconfig sets `allowJs` without `checkJs`, and only `astro.config.mjs` has `// @ts-check`. TS callers trust the JSDoc types in `framework.js`, `names.js`, `markdown.js`, `search-categories.js` and both integrations, but nothing verifies them. With `checkJs`, the four utils pass today; the integrations report about 40 implicit-any errors, plus `ENGINES[engine]` indexed by a plain string and an untyped `site` (`tsconfig.json:2`, `src/utils/framework.js:1-9`, `src/integrations/html-to-markdown.mjs:140`, `src/integrations/llms.mjs:186`)
+  - Today:
+    ```js
+    /** @type {FrameworkId[]} */
+    export const FRAMEWORK_IDS = FRAMEWORKS.map(
+      (l) => /** @type {FrameworkId} */ (l.id),
+    )
+    ```
+  - Fix: add `// @ts-check` to the four utils now, and add JSDoc types to the integrations (or convert them to `.ts`) before enabling it there.
+    ```js
+    // @ts-check
+    ```
+- [ ] (2) Tests: the computed-style and probe helpers are copied into each spec and have drifted. `style` trims its result in contrast but not in theming; `resolve` probes `color` in one and `background-color` with a `color-scheme` in the other; `contrast()` repeats the probe inline; `stress.spec.ts` writes its block-size probe twice (`tests/e2e/contrast.spec.ts:6-43`, `tests/e2e/theming.spec.ts:8-26`, `tests/e2e/stress.spec.ts:21-26`, `tests/e2e/stress.spec.ts:44-52`)
+  - Today:
+    ```ts
+    // contrast.spec.ts
+    getComputedStyle(element, pseudoElement).getPropertyValue(name).trim()
+    // theming.spec.ts
+    getComputedStyle(element).getPropertyValue(name)
+    ```
+  - Fix: export the helpers once from `fixtures.ts`.
+    ```ts
+    export const computed = (
+      locator: Locator,
+      property: string,
+      pseudo?: string,
+    ) =>
+      locator.evaluate(
+        (el, [name, p]) =>
+          getComputedStyle(el, p).getPropertyValue(name).trim(),
+        [property, pseudo ?? null] as const,
+      )
+    ```
+- [ ] (2) Tests: parity and the fixture pages skip every example whose name ends in "Code", whether or not it is an override, so the React, Svelte and Vue snippets users copy (badge VisibilityCode, button DisabledCode, IconAndLabelCode and SizesCode) are never compared with Astro (they match today, checked in a scratch copy), and a future `typography/InlineCode` would silently drop out of the parity, visual and axe runs. Nothing checks either that an `XCode` file still has an `X` preview (`tests/unit/parity.test.ts:101-103`, `src/pages/[framework]/test/[component].astro:62`)
+  - Today:
+    ```
+    .filter(({ key }) => !key.endsWith("Code"))
+    ```
+  - Fix: remove the filter in parity (the four examples then get an Astro snapshot, an intended change), and in the fixture page skip a key only when it overrides an existing example.
+    ```
+    .filter(({ key }) => !(key.endsWith("Code") && examples.has(key.slice(0, -4))))
+    ```
+- [ ] (2) Tests: 13 visual baselines per scheme, 26 PNGs in total, belong to examples that no longer exist (badge-Color, checkbox-SupportingText, radio-SupportingText, range-Row, range-RowDisabled, range-RowValidation, select-Orientation, select-SupportingText, switch-SupportingText, text-field-Orientation, text-field-SupportingText, textarea-Orientation, textarea-SupportingText). The `update-snapshots` workflow only writes images, so a removed or renamed example leaves its image behind forever (`.github/workflows/update-snapshots.yml:30`, `.github/workflows/update-snapshots.yml:39`, `tests/e2e/__screenshots__/light/range-Row.png`)
+  - Today:
+    ```yaml
+    - run: pnpm test:e2e:update tests/e2e/visual.spec.ts
+    ```
+  - Fix: regenerate from scratch (only the visual spec writes screenshots, and the existing `git add` already stages deletions).
+    ```yaml
+    - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update tests/e2e/visual.spec.ts
+    ```
+- [ ] (2) Tests: a fixture page that renders no examples still passes. The visual spec skips it with "no HTML examples", which no fixture hits legitimately; the a11y and contrast specs run axe on an empty `main`; the anatomy spec runs zero tests if its "heroAnatomy" string match finds nothing (`tests/e2e/visual.spec.ts:8-10`, `tests/e2e/fixtures.ts:69-115`, `tests/e2e/anatomy.spec.ts:8-14`)
+  - Today:
+    ```ts
+    test.skip(count === 0, "no HTML examples")
+    ```
+  - Fix: assert in `openFixture`, remove the skip, and make the anatomy spec fail when it finds no pages.
+    ```ts
+    if (!component.startsWith("blocks/")) {
+      await expect(
+        page.locator("[data-example]").first(),
+        `${framework}/${component} renders no examples`,
+      ).toBeAttached()
+    }
+    if (HEROES.length === 0) throw new Error("no heroAnatomy pages found")
+    ```
+- [ ] (2) Tests: recording the a11y ledger replaces every key of the color scheme with only what that run found, so a filtered recording such as `pnpm test:e2e:record-a11y -g tabs` deletes the typography HostileContent entries. A stale key is also never flagged once its example is gone, because the "fixed" check only looks at keys present on the page (`tests/e2e/a11y.spec.ts:84-91`, `tests/e2e/a11y.spec.ts:105-111`, `tests/e2e/a11y.spec.ts:119-133`)
+  - Today:
+    ```ts
+    Object.entries(readKnown()).filter(([key]) => !key.startsWith(`${scheme}/`))
+    ```
+  - Fix: replace only the keys under prefixes that actually ran.
+    ```ts
+    const ran = new Set<string>() // ran.add(prefix) in the RECORD branch
+    Object.entries(readKnown()).filter(
+      ([key]) =>
+        ![...ran].some(
+          (prefix) => key === prefix || key.startsWith(`${prefix}/`),
+        ),
+    )
+    ```
+- [ ] (2) CI: each of the three e2e shards runs `test:e2e:serve`, which does a full `astro build --outDir dist-test`, so a PR builds the site four times (three shards plus `pnpm check`) (`.github/workflows/ci.yml:61-77`, `package.json:26`, `playwright.config.ts:36-41`)
+  - Today:
+    ```
+    "test:e2e:serve": "OPUI_TEST_PAGES=1 astro build --outDir dist-test && … astro preview --outDir dist-test --port 4322 --ignore-lock"
+    ```
+  - Fix: build once and have the shards only serve the result.
+    ```yaml
+    build-test-site: # OPUI_TEST_PAGES=1 pnpm astro build --outDir dist-test, then upload-artifact dist-test
+    e2e-shard:
+      needs: build-test-site # download-artifact dist-test
+    ```
+- [ ] (2) Tooling: the skill's `references/index.md` only lists a sub-component when it has its own `api.ts`, so 25 exported parts are missing, including `CardHeader`, `CardContent`, `DialogHeader`, `DrawerTitle`, `CalloutIcon`, `AnchorContent`, `TooltipContent` and every `Table*` and `DescriptionList*` part, while `CardActions` and `DialogActions` are listed. `SKILL.md` tells agents to look components up in this index (`scripts/build-agent-skill.mjs:22-33,115-119`, `packages/opui/skills/opui/references/index.md:40-60`, `packages/opui/skills/opui/SKILL.md:32`)
+  - Today:
+    ```
+    if (!api.page || !api.component || !pages.has(api.page)) continue
+    ```
+  - Fix: build the table from the barrel, mapping each export's folder to its page (the folder's `api.ts` `page`, otherwise the kebab-cased folder name).
+    ```js
+    const barrel = fs.readFileSync("packages/opui/astro/index.ts", "utf-8")
+    const parts = [
+      ...barrel.matchAll(
+        /^export \{ default as (\w+) \} from "\.\.\/components\/(\w+)\//gm,
+      ),
+    ]
+      .map(([, component, folder]) => ({ component, page: pageOf(folder) }))
+      .filter((part) => !titles.has(part.component))
+    ```
+- [ ] (2) Blocks: two-factor and chat still hand-draw the labeled divider that sign-in already gets from `.ui-divider`. The open "New components the blocks point to" item still lists "Labeled divider: sign-in" and "Status pill" as missing, but sign-in uses `.ui-divider` and all five status-pill blocks use `.ui-chip.ui-dot` or `.ui-chip.ui-tonal` (`src/blocks/two-factor.html:47-60`, `src/blocks/two-factor.html:145`, `src/blocks/chat.html:105-118`, `src/blocks/chat.html:415`, `src/blocks/sign-in.html:94`, `packages/opui/css/components/divider.css:29-46`, `TODO.md:4705`, `TODO.md:4711`)
+  - Today:
+    ```css
+    .two-factor-divider {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+      &::before,
+      &::after {
+        border-block-start: var(--border-width) solid var(--border-color);
+        content: "";
+        flex: 1;
+      }
+    }
+    ```
+  - Fix: use the library class, and drop those two bullets from the open item. In the chat list, set `--divider-space` if the default margin is too big.
+    ```html
+    <p class="ui-divider">or verify another way</p>
+    <li class="ui-divider">Today</li>
+    ```
+- [ ] (2) Blocks: hand-drawn surfaces such as kanban columns, chat bubbles, the hero preview, the changelog cover, thumbnails and feature icons use fixed `--radius-2/3/4`, while cards use `--border-radius`, which the theme configurator changes and the preview iframe copies from the docs page. With square corners chosen, the cards inside a kanban column go square but the column stays rounded (`src/blocks/kanban-board.html:64-67`, `src/blocks/chat.html:127-129`, `src/blocks/hero.html:69`, `packages/opui/css/components/card.css:21`)
+  - Today:
+    ```
+    .kanban-column { background-color: var(--surface-tonal); border-radius: var(--radius-3); … }
+    ```
+  - Fix: use the theme token on surfaces; keep `--radius-round` for pills, and the fixed radii for chart bars if wanted.
+    ```
+    .kanban-column { border-radius: var(--border-radius); … }
+    ```
+- [ ] (2) Tests: `/tests/theming/` is a hand-built copy of the fixture page outside the stress-page pipeline. The axe spec skips it (`TARGETS` is blocks, components and stress pages only), `/tests/` doesn't list it, and `fixtures.ts` needs a special branch and `FIXTURES` entry for it. The README and CHECKS.md say it only exists with `OPUI_TEST_PAGES=1`, but it uses `testPagesEnabled()`, so it also builds in `pnpm dev` (as do the stress pages) (`src/pages/tests/theming/[...index].astro:1-124`, `tests/e2e/a11y.spec.ts:27`, `tests/e2e/fixtures.ts:58`, `tests/e2e/fixtures.ts:86-87`, `src/pages/tests/[...index].astro:14`, `README.md:55`, `CHECKS.md:1`, `src/utils/test-pages.ts:1-4`)
+  - Today:
+    ```ts
+    const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
+    export const FIXTURES = [
+      ...COMPONENTS,
+      ...STRESS_TESTS,
+      "theming",
+    ].toSorted()
+    ```
+  - Fix: make it `src/stress-tests/theming.html`, keeping `data-example`, `.scope` and `.example-row` so `theming.spec.ts` and `contrast.spec.ts` still find them, then delete the page folder and the `"theming"` special cases; it gets an axe check and an index entry for free (its visual baselines get regenerated in CI). Say in README and CHECKS.md that only the `/<framework>/test/<component>` fixtures need `OPUI_TEST_PAGES=1`.
+    ```html
+    <section class="stress" data-example="DarkSubtree">
+      <h2>Dark subtree</h2>
+      <section class="ui-dark scope">…</section>
+    </section>
+    ```
+- [ ] (2) Todo, Checks: when the clipboard is blocked, the Checks page only says "Copying failed.", so there's no way to get the text out, while the Todo page shows a selected read-only textarea. Both pages already share `copyText()` (`src/pages/checks/[...index].astro:202-214`, `src/pages/todo/[...index].astro:222-230`, `src/pages/todo/[...index].astro:376-386`, `src/components/Todo/comments.ts:19-29`)
+  - Today:
+    ```ts
+    status.textContent = (await copyText(text))
+      ? `Copied ${commented} …`
+      : "Copying failed."
+    ```
+  - Fix: move the fallback into `comments.ts`, and render the fallback `Textarea` on both pages.
+    ```ts
+    export const copyOrSelect = async (
+      text: string,
+      field: HTMLTextAreaElement,
+    ) => {
+      const copied = await copyText(text)
+      field.closest<HTMLElement>("[hidden], div")!.hidden = copied
+      if (!copied) {
+        field.value = text
+        field.focus()
+        field.setSelectionRange(0, text.length)
+      }
+      return copied
+    }
+    ```
+- [ ] (2) Todo examples: examples are attached to TODO items by a `match` string that the item text must start with, and nothing checks that the match still hits an item. Three entries already match nothing, because their items were removed; two of them have orphaned files (`accordion-html-marker.html`, `carousel-translated-labels.html`), and `button-keyboard` imports a component example for nothing. The load-time checks only compare files with entries (`src/utils/todo-examples.ts:1`, `src/utils/todo-examples.ts:21-23`, `src/utils/todo-examples.ts:63-66`, `src/utils/todo-examples.ts:118-120`, `src/utils/todo-examples.ts:474-477`)
+  - Today:
+    ```
+    "accordion-html-marker": { match: "Accordion: the shared preamble" }, // no TODO item starts with this
+    export const todoExamplesFor = (text: string) =>
+      Object.entries(todoExamples).filter(([, example]) => text.startsWith(example.match)).map(([name]) => name)
+    ```
+  - Fix: delete the three, and add a unit test (Vitest resolves `import.meta.glob` and `?raw`). Alternatively, name the example in the item itself (`- Example: <name>`) and drop the match map.
+    ```ts
+    test("every todo example belongs to exactly one item", () => {
+      const items = [...done, ...sections].flatMap((section) => section.items)
+      expect(
+        Object.keys(todoExamples).filter(
+          (name) =>
+            items.filter((item) => todoExamplesFor(item.text).includes(name))
+              .length !== 1,
+        ),
+      ).toEqual([])
+    })
+    ```
+- [ ] (2) Tooling: `sort-css` only looks at `.astro`, `.css`, `.svelte` and `.vue` files, so the `<style>` blocks in `src/**/*.html` are never checked: 36 blocks, 5 stress pages, 127 todo examples and 6 component examples, and the block CSS is what users copy from the CSS tab. Three are already unsorted, although AGENTS.md says declarations are sorted "in `<style>` blocks". Separately, `css-declaration-sorter` leaves `--*` declarations untouched, so six rules have unsorted private properties, two of them in files an earlier fix sorted by hand (`scripts/sort-css.mjs:11-21`, `src/blocks/analytics-dashboard.html:101-102`, `src/component-examples/drawer/Usage.html:264-271`, `src/component-examples/tooltip/Alignment.html:68-75`, `packages/opui/css/components/callout.css:2-20`)
+  - Today:
+    ```
+    const files = await globby(
+      ["packages/opui/**/*.{astro,css,svelte,vue}", "src/**/*.{astro,css,svelte,vue}"], …)
+    ```
+  - Fix: add `html` to both globs (the same `STYLE_BLOCK` regex works) and run `pnpm sort-css` once, and add a small PostCSS step after the sorter that orders each rule's `--*` declarations, with `--_motion` first.
+    ```
+    "src/**/*.{astro,css,html,svelte,vue}",
+    ```
+- [ ] (3) TextField, Textarea, Select, ClassicSelect, Range, Checkbox, Radio, Switch: the field markup and helpers are copied 12–32 times and have already drifted. `[…ids].filter(Boolean).join(" ") || undefined` appears 32 times across 8 components and 4 frameworks (`cx` in `components/cx.ts` already does exactly this). The prefix/suffix/header/footer block appears 12 times. Svelte's `content` snippet is copied into TextField, Textarea and Select, while Range inlines `typeof x === "string"` checks. Drift so far: Astro TextField and Textarea destructure `aria-describedby` but Select, ClassicSelect and Range read `rest[…]` (the cause of the duplicate-attribute bug in Bugs), and the `style` placement differs (`packages/opui/components/TextField/TextField.astro:94-121`, `packages/opui/components/Textarea/Textarea.astro:88-115`, `packages/opui/components/Select/Select.astro:93-120`, `packages/opui/components/TextField/TextField.svelte:44-46`, `packages/opui/components/Textarea/Textarea.svelte:42-44`, `packages/opui/components/Select/Select.svelte:48-50`, `packages/opui/components/Range/Range.svelte:79`, `packages/opui/components/Checkbox/Checkbox.astro:20-21`, `packages/opui/components/cx.ts:11-12`, `packages/opui/components/id.ts:1-3`)
+  - Today:
+    ```ts
+    const describedBy =
+      [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
+    ```
+  - Fix: add a framework-neutral helper next to `createId` (or re-export `cx` as `idRefs`). Optionally add a private affixes part per framework, and export the Svelte `content` snippet from one `<script module>` (Svelte 5.5+).
+    ```ts
+    export const idRefs = (...ids: (string | false | null | undefined)[]) =>
+      ids.filter(Boolean).join(" ") || undefined
+    ```
+- [ ] (3) Tests: no test exercises the hand-rolled group binding. No Checkbox or Switch example uses `bind:group` or an array `v-model`, and `interaction.spec.ts` has no Checkbox, Radio or Switch test. `toggleInGroup`, the Svelte `bind:checked={get, set}` pair and the emulated radio `bind:group`/`v-model` in `RadioInput` are only covered by parity snapshots, which render the initial markup (`packages/opui/components/group.ts:1-2`, `packages/opui/components/Checkbox/CheckboxInput.svelte:17-21`, `packages/opui/components/Switch/SwitchInput.svelte:16-20`, `packages/opui/components/Radio/RadioInput.vue:17-24`, `tests/e2e/interaction.spec.ts:223-258`)
+  - Today:
+    ```ts
+    // only reached through bind:group, which no example or test uses
+    export const toggleInGroup = <T>(group: T[], value: T, on: boolean) =>
+      on ? [...group, value] : group.filter((item) => item !== value)
+    ```
+  - Fix: add a Checkbox `Group` example that prints the selection (Svelte `bind:group`, Vue `v-model` array, React state) and interaction tests that click and check both the checked state and the printed value. Do the same for Radio with a reset button, which would catch the Radio binding bug in Bugs.
+    ```ts
+    interaction(
+      "checkbox",
+      "Group",
+      "checkbox group binds the checked values",
+      async ({ root }) => {
+        await root.getByText("Bananas").click()
+        await expect(root.getByTestId("selection")).toHaveText("apples,bananas")
+      },
+    )
+    ```
+- [ ] (3) Docs: in the component, partial and guide pages, 100 of the 143 `<Conditional>` blocks repeat the same text in the `astro`, `react`, `svelte` and `vue` slots, about 2,700 lines, and the copies have drifted: Radio's Required text says the same thing three different ways, and the Astro Field group text went stale while the other three were updated. A shared `components` slot, used by every framework except HTML unless it has its own slot, would fix this, keep HTML wording off framework pages, and match the `components()` helper in `whats-new.ts` (`src/components/Conditional.astro:16-20`, `src/docs/components/checkbox.astro:82-108`, `src/docs/components/radio.astro:314-335`, `src/docs/components/form.astro:155-174`, `src/utils/whats-new.ts:5-10`)
+  - Today:
+    ```astro
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Choose between four sizes with the <code>size</code> prop: …</Fragment
+      >
+      <Fragment slot="html"
+        >Choose between four sizes: <code>.ui-x-small</code>, …</Fragment
+      >
+      <Fragment slot="react"
+        >Choose between four sizes with the <code>size</code> prop: …</Fragment
+      >
+      <Fragment slot="svelte"
+        >Choose between four sizes with the <code>size</code> prop: …</Fragment
+      >
+      <Fragment slot="vue"
+        >Choose between four sizes with the <code>size</code> prop: …</Fragment
+      >
+    </Conditional>
+    ```
+  - Fix: try the active framework first, then `components` (for frameworks other than HTML), then the default.
+    ```ts
+    const slotName = [
+      currentFramework,
+      currentFramework !== "html" && "components",
+      DEFAULT_FRAMEWORK,
+    ].find((name) => name && Astro.slots.has(name))
+    ```
+    ```astro
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Choose between four sizes with the <code>size</code> prop: …</Fragment
+      >
+      <Fragment slot="html"
+        >Choose between four sizes: <code>.ui-x-small</code>, …</Fragment
+      >
+    </Conditional>
+    ```
+- [ ] (3) Tooling: for documented things, `[component-api]` only proves they still exist in two cases: options without `frameworks`, and Astro and Vue slots. Part `props`, `legacy.props` and `snippets`, options that set `frameworks`, and `slots` in React and Svelte go unchecked. A typo in `source` or `component` makes `shipped()` false in every framework, so nothing is checked and the tables come out empty. Props that exist in only some members of a union are dropped by `getPropertiesOfType` (today every union keeps its keys with `?: never`, so nothing is lost yet). The check also runs only inside the docs build, not in `pnpm check:fast`, and in production it throws on the first problem, so you fix one error per build (`src/utils/component-source.ts:103-104,123-124,228-326`, `src/components/ApiTables.astro:35`, `package.json:12`)
+  - Today:
+    ```
+    all
+      .filter((framework) => shipped(api, framework))
+      .forEach((framework) => {
+        …
+        api.options
+          .filter((option) => !option.frameworks)
+    ```
+  - Fix: have `checkApi` return its problems (`ApiTables` throws them all at once in production), warn when no framework ships the component, check part props and framework-limited options against `frameworkProps`, and run it over every `api.ts` in a unit test.
+    ```ts
+    test("api.ts matches the components", () => {
+      const apis = Object.values(
+        import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {
+          eager: true,
+          import: "default",
+        }),
+      )
+      expect(apis.flatMap(checkApi)).toEqual([])
+    })
+    ```
+- [ ] (3) Docs site: the Theme configurator and the Theme generator duplicate the whole theme form, and the copies have drifted. Both declare the same seven controls with hard-coded min/max/step/value. Hue is hard-coded to 240 (the dark default; light is 145), while the radius chips read `tokenDefaults`. Labels are cased differently ("Hue rotation" vs "Hue Rotation"). `setGrayInputsDisabled`, `setChipPressed` and the source color maths are copied in both scripts. The `.no-grays` token block is copied, the generator's copy lacks `--field-border-color`, and since the rule only exists inside these components, the block preview iframe toggles `no-grays` with no effect (`src/components/ThemeConfigurator.astro:101-203,246-301,425-439`, `src/components/ThemeGenerator/ThemeGenerator.astro:82-183,408-420,644-699`, `src/pages/blocks/[block]/preview.astro:55-57`)
+  - Today:
+    ```ts
+    colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
+    const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
+    ```
+  - Fix: build one `ThemeControls.astro` that renders the fields from the token list with defaults from `tokenDefaults`, and one `src/utils/theme-form.ts` for syncing, listeners and the source color constants. Move the `.no-grays` rule into a shared stylesheet under `:where(html.no-grays, .preview-card.no-grays)`.
+    ```astro
+    <ThemeControls tokens={TOKENS} defaults={tokenDefaults(scheme)} />
+    ```
+- [ ] (3) Tests: `pnpm test:record-drift` passes `-u` to the whole parity suite, so recording one framework's drift also overwrites any changed `.html` markup snapshot of any example, with no failure (`package.json:28`, `tests/unit/parity.test.ts:153-157`, `tests/unit/parity.test.ts:194-201`)
+  - Today:
+    ```
+    "test:record-drift": "PARITY_RECORD=1 vitest run -u"
+    ```
+  - Fix: limit the update to the drift tests ("react matches astro", "astro matches html"); the markup snapshot test is "html matches snapshot".
+    ```
+    "test:record-drift": "PARITY_RECORD=1 vitest run -u -t 'matches (astro|html)$'"
+    ```
+- [ ] (3) Tests: nothing fails when an example is missing one framework's file. The docs guide says a missing `.react.tsx`, `.svelte` or `.vue` file "silently leaves the example off" the page, parity compares only the files that exist, and `interaction()` quietly drops frameworks that lack the example. An earlier item fixed the guide text, not the check (`src/docs/components/AGENTS.md:44`, `tests/unit/parity.test.ts:148-151`, `tests/e2e/interaction.spec.ts:19-21`, `scripts/check-components.mjs:121-184`)
+  - Today:
+    ```ts
+    // parity.test.ts: frameworks without the file are skipped
+    ```
+  - Fix: add the check to `check-components.mjs` with the existing helpers (0 errors on the current tree).
+    ```js
+    import {
+      componentHasFramework,
+      exampleExtension,
+      FRAMEWORK_IDS,
+    } from "../src/utils/framework.js"
+    for (const slug of await readdir(examplesDir)) {
+      const files = (
+        await readdir(join(examplesDir, slug), { withFileTypes: true })
+      )
+        .filter((e) => e.isFile())
+        .map((e) => e.name)
+      for (const name of new Set(
+        files.map((file) => file.replace(/(\.react)?\.\w+$/, "")),
+      ))
+        for (const framework of FRAMEWORK_IDS.filter((id) =>
+          componentHasFramework(id, slug),
+        ))
+          if (
+            !(framework === "html" && name.endsWith("Code")) &&
+            !files.includes(`${name}.${exampleExtension(framework)}`)
+          )
+            report(
+              join(examplesDir, slug, `${name}.${exampleExtension(framework)}`),
+              "is missing",
+            )
+    }
+    ```
 
 ## To check
 
@@ -5426,3 +9273,73 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `html` takes `min-block-size: 100%`, and `body` takes `min-block-size: 100svb` (a percentage no longer resolves against an auto-height `html`), so `body` still fills the screen. 9 of the 10 scenarios pass in the sandbox.
   - Still failing in the sandbox: "row tooltip at the clipped end of a scrolled table" (103px from its trigger). Chromium 141 places the tooltip where the trigger would be with the table at `scrollLeft: 0`, so it doesn't compensate for the scroll of the trigger's scroll container. Reproduced without the library too. Nothing to fix in CSS.
   - CI's Chromium (Playwright 1.63 container) never had either problem: every overlay scenario passes there, and the only CI failures are the 33 stale visual baselines. The sandbox only has Chromium 141 (`/opt/pw-browsers/chromium-1194`), older than the one the pinned Playwright expects (`chromium_headless_shell-1243`).
+- [ ] (1) Docs site: every API table sets its column widths with `min-width` on `<col>`, as the guide says to. CSS leaves `min-width` on table columns undefined, and Chromium and Firefox are believed to ignore it; with `table-layout: fixed` and no `width`, the columns would then split evenly (25% each, so the description column is 160px at the 40rem minimum) (`src/components/ApiTables.astro:62-65,110-113,167-168,199-201`, `src/component-api/AGENTS.md:13`)
+  - Today:
+    ```astro
+    <TableColumn style="min-width: 20%" />
+    ```
+  - Fix: if DevTools confirms it, set `width` instead or drop the colgroups.
+    ```astro
+    <TableColumn width="20%" />
+    ```
+- [ ] (2) Dialog, Drawer: page scroll lock exists three times with different declarations and layers. Dialog's version puts back `html { block-size: 100% }`, the declaration found to hide hover Anchor and Tooltip popovers on pages scrolled past the first screen in Chromium 141 (fixed in normalize with `min-block-size`). Check a hover tooltip inside a modal dialog opened after scrolling the page down more than one screen (`packages/opui/css/components/dialog.css:103-108`, `packages/opui/core/utils.css:47-51`, `packages/opui/css/components/drawer.css:212-218`, `packages/opui/core/normalize.css:24`)
+  - Today:
+    ```css
+    :where(html:has(.ui-dialog:modal)) {
+      block-size: 100%;
+      overflow: clip;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+    html:has(.ui-scroll-lock[open]:not(.ui-backdrop-transparent)) {
+      overflow: clip;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+    ```
+  - Fix: drop `block-size: 100%` and share one lock rule.
+    ```css
+    html:has(
+      .ui-dialog:modal,
+      .ui-scroll-lock[open]:not(.ui-backdrop-transparent)
+    ) {
+      overflow: clip;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+    ```
+- [ ] (2) Tooltip: the fallback list never tries `flip-inline` for block alignments, and both shift fallbacks are hard-coded to `block-start`. Eight examples use `block-end span-inline-end`; near the inline-end edge such a tooltip should move above its trigger before it tries below on the other side, which only `--ui-tooltip-shift-start flip-block` reaches, and only fourth (`packages/opui/css/components/tooltip.css:26-32`, `packages/opui/css/components/tooltip.css:111-121`, `packages/opui/css/components/anchor.css:150-153`)
+  - Today:
+    ```css
+    position-try-fallbacks:
+      flip-block,
+      --ui-tooltip-shift-start,
+      --ui-tooltip-shift-end,
+      --ui-tooltip-shift-start flip-block,
+      --ui-tooltip-shift-end flip-block;
+    ```
+  - Fix: check in Chrome with the trigger at the inline-end edge. If the tooltip jumps above, try `flip-inline` first (it does nothing for centered tooltips, and spanning tooltips then switch inline sides before block sides).
+    ```css
+    position-try-fallbacks:
+      flip-inline, flip-block, --ui-tooltip-shift-start, …;
+    ```
+- [ ] (2) Toast: every toast is `role="alert"`, which is assertive, whatever its severity, and the docs' manager is a polite `role="status"` region, so each toast sits inside two nested live regions. A success toast may be announced twice, or assertively (`packages/opui/css/js/toast.js:193`, `src/layouts/Layout.astro:76-79`)
+  - Today:
+    ```js
+    const FALLBACK_TEMPLATE = `<div class="ui-toast" role="alert">…`
+    ```
+  - Fix: test with NVDA and VoiceOver. Most likely keep the polite manager, remove the toast `role`, and add `role="alert"` only for `critical`.
+    ```
+    const FALLBACK_TEMPLATE = `<div class="ui-toast">…`
+    …
+    if (options.severity === "critical") node.setAttribute("role", "alert")
+    ```
+- [ ] (2) Carousel: the docs page playground gives two of the same picsum photos different alt text from the examples. Id 1036 is "A snowy mountain ridge above the clouds" on the page but "Yellow tents in a snowy mountain camp" in the 8 example copies, and id 1039 is "A lake with a wooden pier at dawn" against "A waterfall in a green forest valley", so at least one of each pair describes the wrong image (`src/docs/components/carousel.astro:27-28`, `src/component-examples/carousel/Images.astro:8-9`, `src/component-examples/carousel/Gallery.astro:8-9`, `src/component-examples/carousel/Images.html:31,40`)
+  - Today:
+    ```
+    { alt: "A snowy mountain ridge above the clouds", src: "https://picsum.photos/id/1036/…" }
+    ```
+  - Fix: look at the two photos, then use the matching text in the page array and all the example copies (picsum.photos was blocked from the sandbox).
+    ```
+    { alt: "<what photo 1036 shows>", src: "https://picsum.photos/id/1036/…" }
+    ```

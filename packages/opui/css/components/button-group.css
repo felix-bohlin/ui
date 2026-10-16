@@ -108,8 +108,8 @@
     /* Overflow */
     &.ui-scrollable {
       flex-wrap: nowrap;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow-block: hidden;
+      overflow-inline: auto;
       overscroll-behavior-inline: contain;
       scrollbar-width: thin;
 

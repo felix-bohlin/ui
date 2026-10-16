@@ -269,7 +269,7 @@
     font-family: var(--font-mono);
     font-size: var(--font-size-05);
     max-inline-size: 100%;
-    overflow-x: auto;
+    overflow-inline: auto;
     padding-block: var(--size-3);
     padding-inline: var(--size-4);
     scrollbar-width: thin;
@@ -409,7 +409,7 @@
         var(--rhythm-step, 0.25rem)
       );
       max-inline-size: 100%;
-      overflow-x: auto;
+      overflow-inline: auto;
       padding-block: var(--size-3);
       padding-inline: var(--size-4);
       scrollbar-width: thin;
@@ -740,7 +740,7 @@
       display: block;
       font-variant-numeric: tabular-nums;
       inline-size: 100%;
-      overflow-x: auto;
+      overflow-inline: auto;
 
       caption {
         color: var(--text-muted);

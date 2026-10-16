@@ -7,3 +7,5 @@ export type Props = Base.Props &
     | ({ as: "button" } & HTMLAttributes<"button">)
     | ({ as?: "a" } & HTMLAttributes<"a">)
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & HTMLAttributes<"div">

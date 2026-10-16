@@ -9,7 +9,6 @@ export default function Avatar({
   className,
   disabled,
   href,
-  isGroup,
   size,
   src,
   variant,
@@ -21,12 +20,11 @@ export default function Avatar({
   return (
     <Tag
       className={cx([
-        { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
-        !isGroup && size && `ui-${size}`,
-        !isGroup && variant && `ui-${variant}`,
+        "ui-avatar",
+        size && `ui-${size}`,
+        variant && `ui-${variant}`,
         className,
       ])}
-      role={isGroup ? "group" : undefined}
       {...tagAttrs(Tag as string, disabled, href)}
       {...(rest as object)}
     >

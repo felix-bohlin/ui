@@ -8,3 +8,5 @@ export type Props = Base.Props &
     | ({ as: "button" } & ComponentProps<"button">)
     | ({ as?: "a" } & ComponentProps<"a">)
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & ComponentProps<"div">

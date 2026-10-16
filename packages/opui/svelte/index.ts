@@ -7,6 +7,7 @@ export { default as AccordionSummary } from "../components/Accordion/AccordionSu
 export { default as Anchor } from "../components/Anchor/Anchor.svelte"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.svelte"
 export { default as Avatar } from "../components/Avatar/Avatar.svelte"
+export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.svelte"
 export { default as Badge } from "../components/Badge/Badge.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
@@ -81,7 +82,10 @@ export type {
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
 } from "../components/Anchor/types.svelte"
-export type { Props as AvatarProps } from "../components/Avatar/types.svelte"
+export type {
+  AvatarGroupProps,
+  Props as AvatarProps,
+} from "../components/Avatar/types.svelte"
 export type { Props as BadgeProps } from "../components/Badge/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"

@@ -1,5 +1,4 @@
 export type Props = {
-  isGroup?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "squared" | "rounded" | "squircle"
 } & (
@@ -29,6 +28,8 @@ export type Props = {
         src?: never
       }
   )
+
+export type AvatarGroupProps = {}
 
 export type Slots<S> = {
   children?: S

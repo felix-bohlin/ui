@@ -24,13 +24,6 @@ export default {
       prop: "href",
     },
     {
-      class: ".ui-avatar-group",
-      default: "false",
-      description: "Renders a container that groups avatars.",
-      group: "Group",
-      prop: "isGroup",
-    },
-    {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",

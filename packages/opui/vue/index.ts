@@ -5,6 +5,7 @@ export { default as AccordionSummary } from "../components/Accordion/AccordionSu
 export { default as Anchor } from "../components/Anchor/Anchor.vue"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.vue"
 export { default as Avatar } from "../components/Avatar/Avatar.vue"
+export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.vue"
 export { default as Badge } from "../components/Badge/Badge.vue"
 export { default as Button } from "../components/Button/Button.vue"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.vue"
@@ -79,7 +80,10 @@ export type {
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
 } from "../components/Anchor/types.d.vue"
-export type { Props as AvatarProps } from "../components/Avatar/types.d.vue"
+export type {
+  AvatarGroupProps,
+  Props as AvatarProps,
+} from "../components/Avatar/types.d.vue"
 export type { Props as BadgeProps } from "../components/Badge/types.d.vue"
 export type { Props as ButtonProps } from "../components/Button/types.d.vue"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.d.vue"

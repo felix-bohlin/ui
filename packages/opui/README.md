@@ -122,6 +122,10 @@ export const onRequest = defineMiddleware((context, next) => {
 
 Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`.
 
+#### Astro runtime
+
+The Astro components pass settings to their parts with `AsyncLocalStorage` (`node:async_hooks`), so they run on Node, Deno and Bun. On Cloudflare, enable the `nodejs_compat` compatibility flag.
+
 ### Plain HTML + CSS (no build step)
 
 Drop a pre-bundled stylesheet into any page and use the documented class names:

@@ -645,7 +645,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
 | `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
 | `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### Slots
 
@@ -827,3 +827,4 @@ Import the components from `opui-css/vue`:
 - Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
 - A checked [option](#radio) uses `--state-active-alpha-accent`.
+- Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).

@@ -194,7 +194,7 @@ Let's put everything together and see how all elements look in a classless, rich
     <code
       >a.very.long.inline.code.span.that.has.no.natural.break.points.whatsoever</code
     >{" "}
-    and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&utm_medium=stress-test.
+    and a bare URL like https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
   </p>
   <p>
     Superscripts and subscripts must not blow out the line height of a
@@ -608,6 +608,32 @@ cold-brew 1.0.0</samp></pre>
 | Part            | Description                                         |
 | --------------- | --------------------------------------------------- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
+
+### CSS variables
+
+| Variable                | Default                                              | Description                                                                                           |
+| ----------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`        | `light-dark(var(--gray-4), var(--gray-12))`          | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`       | `var(--size-2)`                                      | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`        | `1px`                                                | Default border width for components that draw a border.                                               |
+| `--font-size-05`        | `0.875rem`                                           | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-size-h1`        | `var(--font-size-fluid-3)`                           | Font size for `h1` and `.ui-h1`.                                                                      |
+| `--font-size-h2`        | `var(--font-size-fluid-2)`                           | Font size for `h2` and `.ui-h2`.                                                                      |
+| `--font-size-h3`        | `clamp(var(--font-size-3), 4vi, var(--font-size-4))` | Font size for `h3` and `.ui-h3`.                                                                      |
+| `--font-size-h4`        | `clamp(var(--font-size-2), 3vi, var(--font-size-3))` | Font size for `h4` and `.ui-h4`.                                                                      |
+| `--font-size-h5`        | `var(--font-size-2)`                                 | Font size for `h5` and `.ui-h5`.                                                                      |
+| `--font-size-h6`        | `var(--font-size-1)`                                 | Font size for `h6` and `.ui-h6`.                                                                      |
+| `--font-weight-bold`    | `var(--font-weight-7)`                               | Font weight for headings, buttons and terms.                                                          |
+| `--font-weight-medium`  | `var(--font-weight-5)`                               | Font weight for badges, overlines and group labels.                                                   |
+| `--primary`             | `light-dark(var(--color-9), var(--color-6))`         | Brand color for primary actions and accents.                                                          |
+| `--primary-dark`        | `oklch(from var(--primary) calc(l * 0.75) c h)`      | A darker `--primary`.                                                                                 |
+| `--primary-light`       | `oklch(from var(--primary) calc(l * 1.25) c h)`      | A lighter `--primary`.                                                                                |
+| `--rhythm-step`         | `0.25rem`                                            | Vertical rhythm unit. Rich text margins and heading line heights round to it.                         |
+| `--text-muted`          | `light-dark(var(--gray-13), var(--gray-4))`          | Body text color.                                                                                      |
+| `--text-muted-contrast` | `light-dark(var(--gray-4), var(--gray-13))`          | Muted text color on an inverted surface.                                                              |
+| `--text-primary`        | `light-dark(var(--gray-15), var(--gray-1))`          | Emphasized text color for headings, labels and values.                                                |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 Add the classes to elements in your templates. There is no Astro component.
 

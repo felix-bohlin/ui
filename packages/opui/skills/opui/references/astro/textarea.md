@@ -8,11 +8,11 @@ Label Description  € EUR Header Footer Supporting text
 
   Container element.
 
-- `slot="label"`
+- `label · slot="label"`
 
   The label for the field.
 
-- `slot="description"`
+- `description · slot="description"`
 
   Description text displayed above the field.
 
@@ -40,7 +40,7 @@ Label Description  € EUR Header Footer Supporting text
 
   Content below the textarea, inside the border, with a divider.
 
-- `slot="end-text"`
+- `endText · slot="end-text"`
 
   Supporting text displayed below the field.
 
@@ -272,9 +272,9 @@ import { Textarea } from "opui-css/astro"
 | `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
 | `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
 | `label`       | `string`                            | -            | The label for the field.                                                    |
-| `size`        | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                    |
+| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
 | `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
+| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
 
 #### Slots
 

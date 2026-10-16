@@ -95,7 +95,7 @@ import {
             </div>
           </div>
           <p>
-            A CSS UI library exploring how next-gen HTML & CSS features can
+            A CSS UI library exploring how next-gen HTML &amp; CSS features can
             change the way we create components.
           </p>
           <p class="ui-caption">CSS · MIT license</p>
@@ -324,3 +324,4 @@ Import the components from `opui-css/astro`:
 
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
+- Breaking: [hover anchors](#hover-trigger) require an `id`, which you pass to `interestfor` on the trigger.

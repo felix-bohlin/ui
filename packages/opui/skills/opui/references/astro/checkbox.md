@@ -438,7 +438,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `error`         | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
 | `hideLabel`     | `boolean`                           | `false` | Visually hides the label.                                                            |
 | `indeterminate` | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                                                             |
+| `size`          | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                                                             |
 | `spread`        | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
 | `stack`         | `boolean`                           | `false` | Stacks the label under the input.                                                    |
 
@@ -496,7 +496,7 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `re
 
 | Prop        | Type                 | Default | Description                                                                                              |
 | ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
 | `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### Slots

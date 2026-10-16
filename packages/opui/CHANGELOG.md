@@ -53,6 +53,11 @@
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
 - `ToggleGroup` `size` and `Accordion` `variant` no longer accept `"default"`. Leave the prop out for the default.
 - `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it before them, or use `components.css`.
+- `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
+- `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
+- `Dialog` page scroll lock lives in `core/utils.css`, shared with the `Drawer` `.ui-scroll-lock`, and no longer sets `block-size: 100%` on `html`. If you import single files, import `utils.css` too, or the page scrolls behind a modal dialog.
+- `ListItem` `type` can't be combined with `as` or `href` (types).
+- `Select` and `ClassicSelect` item types are named `SelectItem` and `ClassicSelectItem`. Rename imports of `Item` from `components/Select/types` and `components/ClassicSelect/types`.
 
 ### Removed
 
@@ -83,7 +88,7 @@
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). Inside a `Drawer` it defaults to the drawer's `id`, and the close button uses `command="close"` (Invoker Commands). Outside a `Drawer` without `commandfor`, it closes the nearest `<dialog>` with a script.
 - `Button` links with `aria-disabled="true"` no longer receive clicks.
 - `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
-- `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. They default to the chevron and swap in RTL.
+- `Carousel` buttons take an image icon via `--_button-icon`, sized with `--_button-icon-size`. It defaults to a white chevron that points right, mirrored for the previous button and in RTL, and rotated in vertical carousels.
 - `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
@@ -132,6 +137,8 @@
 - `checkbox.js` exports `syncIndeterminate(input)`, which sets a checkbox's `indeterminate` property from its `data-indeterminate` attribute.
 - `Dialog` types `closedby` in every framework.
 - `CheckboxInput`, `RadioInput` and `SwitchInput` take `class` in Vue, and the Vue entry exports `DescriptionListDescriptionProps`, `DescriptionListItemProps`, `DescriptionListTermProps` and `TableSectionProps`.
+- `Chip` takes a `disabled` prop in Astro, React, Svelte and Vue. A button chip gets `disabled`, a link chip `aria-disabled="true"`.
+- `Select`, `ClassicSelect` and `Range` export `SelectItem`, `ClassicSelectItem` and `RangeOption` from every framework barrel.
 
 ### Changed
 
@@ -405,6 +412,41 @@
 - `Anchor` in React, Svelte and Vue renders generated ids with the `anchor-` prefix, like Astro.
 - `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 - `opui-css/css/js/toast.js` and `opui-css/css/js/checkbox.js` resolve through `exports`. They resolved to `*.js.css`.
+- `Accordion` group styles only apply to a `Card` with `role="group"` whose accordions are direct children, so a card with an accordion inside its `CardContent` keeps its layout and padding.
+- `Accordion` (elevated and tonal) and the default `Callout` remap `--border-color` and `--field-border-color` like raised cards, so dividers and field borders inside them stay visible in dark mode.
+- `Avatar` (Vue) binds `disabled` only when it renders a button, so a div or link no longer gets `disabled="false"`.
+- `Avatar`, `Button` and `Chip` share one helper for `disabled`, `aria-disabled`, `href` and `type`, so they render those attributes the same way in every framework.
+- `Badge` with `invisible` hides the indicator from screen readers too.
+- `Button`, `Chip`, `Checkbox` and `Radio` show no hover or active state inside a disabled fieldset.
+- `ButtonGroup` outlined edge and dividers follow `--contrast: more` like a standalone outlined button.
+- `Card`, `ToggleButton`, `Checkbox`, `Radio`, `Switch` and the busy spinner read the local `--_motion`, so `style="--_motion: 0"` turns off their focus ring animation, hover halo and spin speed-up like other components.
+- `Checkbox` unchecked border reads `--field-border-color` like Radio and the text fields.
+- `Checkbox`, `Radio` and `Switch` (Vue) export `CheckboxInputProps`, `RadioInputProps` and `SwitchInputProps` with their Vue props, including `class`.
+- `Checkbox`, `Radio` and `Switch` no longer need Vite's `import.meta.env` types or runtime for their dev-only missing name warning.
+- `ClassicSelect` and `Select` (Vue) keep the browser's selection without `v-model`.
+- `Dialog` actions only tighten the end padding when the last button is a text button, and start-aligned actions use Card's padding, so filled buttons line up with the content.
+- `Dialog` and `Drawer` only style their own direct parts, so a Callout, Card or TextField inside them keeps its own padding and alignment.
+- `List` `.ui-dense` tightens the separators of `.ui-bordered` lists too, not only `.ui-border-top`.
+- `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.
+- `ListItem` with `type` renders the default slot inside `.ui-text` (or before `.ui-end` when there's no text), like it does without `type`.
+- `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
+- `Progress` shows the indeterminate pulse when `--_motion` is `0`.
+- `Progress` (Svelte) returns to the indeterminate animation when `value` becomes `undefined`.
+- `Radio` (Svelte, Vue) follows a passed `checked` without `bind:group`/`v-model`.
+- `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value` slot content and ranges it didn't render alone, and wires each output once.
+- `Select` adds its description (`.ui-start-text`) to `aria-describedby`, before the end text.
+- `Select` `--_motion: 0` on the root also stops the picker and chevron animations.
+- `Select` (Svelte) keeps every `items[].selected` option of a `multiple` select after mount.
+- `Select` and `TextField` autosuggest keep the same space for the chevron at every size.
+- `Select`, `ClassicSelect`, `Range`, `TextField` and `Textarea` (Astro) merge a passed `aria-describedby`, `aria-invalid` or `aria-labelledby` (and `inputmode`/`pattern` on `TextField`) instead of rendering the attribute twice.
+- `TextField`, `Textarea` and `Select` (Vue) can be edited when given a `value` without `v-model`.
+- `Toast` keeps a `CanvasText` border and a visible severity icon in forced colors.
+- `Toast` close button shows a visible focus ring.
+- `Toast` respects `--_hold-duration` and keeps animating in browsers without typed `attr()`.
+- `Tooltip` aligned to a span switches inline sides before it jumps to the other block side.
+- `Typography` links in rich text use the same text-safe primary as `.ui-link`.
+- Package: `opui-css/env.d.ts` types `interestfor` on `<a>` and `<button>` for Astro.
+- Package: `opui-css/css/js/checkbox.js` and `toast.js` ship type declarations.
 
 ## 5.5.0 - 2026-09-28
 

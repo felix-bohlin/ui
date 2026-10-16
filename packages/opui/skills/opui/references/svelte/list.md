@@ -594,15 +594,15 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `end`         | `string` , `Snippet`                  | -       | Optional content at the end, such as a value or an action.                                                                                      |
+| `end`         | `Snippet` , `string`                  | -       | Optional content at the end, such as a value or an action.                                                                                      |
 | `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
 | `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
 | `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
 | `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `start`       | `string` , `Snippet`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
-| `submenu`     | `string` , `Snippet`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
-| `text`        | `string` , `Snippet`                  | -       | The text content.                                                                                                                               |
-| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
+| `start`       | `Snippet` , `string`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
+| `submenu`     | `Snippet` , `string`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
+| `text`        | `Snippet` , `string`                  | -       | The text content.                                                                                                                               |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### CSS variables
 
@@ -771,3 +771,4 @@ Import the components from `opui-css/svelte`:
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
 - A checked [option](#radio) uses `--state-active-alpha-accent`.
+- Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).

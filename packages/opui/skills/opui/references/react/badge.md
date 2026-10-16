@@ -12,7 +12,7 @@
 
   The element the badge is anchored to.
 
-- `indicator`
+- `label · indicator`
 
   The indicator, inside `.ui-anchor-floating`.
 
@@ -288,13 +288,13 @@ export default function Alignment() {
 
 | Prop        | Type                                                              | Default       | Description                                                                                |
 | ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| `alignment` | `"start-start"` , `"start-end"` , `"end-start"` , `"end-end"`     | `"start-end"` | Where the indicator is placed.                                                             |
+| `alignment` | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | Where the indicator is placed.                                                             |
 | `children`  | `ReactNode`                                                       | -             | The element the badge is anchored to.                                                      |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                           |
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                           |
 | `indicator` | `ReactNode`                                                       | -             | The indicator, inside `.ui-anchor-floating`.                                               |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                       |
-| `label`     | `string` , `number`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
+| `label`     | `number` , `string`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
 | `srLabel`   | `string`                                                          | -             | Visually hidden text that describes the badge to assistive technology, such as "3 unread". |
 
 #### CSS variables

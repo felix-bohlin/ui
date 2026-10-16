@@ -133,7 +133,7 @@ import {
 
 | Prop       | Type                   | Default | Description                                                                                                              |
 | ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `bordered` | `"dotted"` , `boolean` | `false` | Adds a border between the term and the description.                                                                      |
 | `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots

@@ -133,7 +133,7 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 | Prop       | Type                   | Default | Description                                                                                                              |
 | ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `bordered` | `"dotted"` , `boolean` | `false` | Adds a border between the term and the description.                                                                      |
 | `children` | `Snippet`              | -       | The items.                                                                                                               |
 | `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 

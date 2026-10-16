@@ -251,7 +251,7 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 | Prop      | Type                                               | Default | Description                                                                        |
 | --------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `variant` | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| `variant` | `"elevated"` , `"outlined"` , `"text"` , `"tonal"` | -       | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Slots
 
@@ -286,7 +286,7 @@ To make the whole card clickable, add `.ui-card-link` to one link in it. Other l
 
 | Prop    | Type                | Default | Description                |
 | ------- | ------------------- | ------- | -------------------------- |
-| `align` | `"start"` , `"end"` | -       | Alignment for the actions. |
+| `align` | `"end"` , `"start"` | -       | Alignment for the actions. |
 
 #### Slots
 

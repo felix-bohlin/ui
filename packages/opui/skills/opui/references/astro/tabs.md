@@ -195,7 +195,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
 | `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                           |
 | `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
-| `variant`    | `"outlined"` , `"line"` , `"filled"` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
+| `variant`    | `"filled"` , `"line"` , `"outlined"` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### Slots
 

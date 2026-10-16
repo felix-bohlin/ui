@@ -356,10 +356,10 @@ Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns r
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ------- | ------------------------------------------------- |
 | `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `boolean`     | -       | The selected value of the group.                  |
 | `children`                                                                                                                                                                     | `Snippet`                           | -       | The label.                                        |
-| `endText`                                                                                                                                                                      | `string` , `Snippet`                | -       | Supporting text displayed below the label.        |
+| `endText`                                                                                                                                                                      | `Snippet` , `string`                | -       | Supporting text displayed below the label.        |
 | `error`                                                                                                                                                                        | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel`                                                                                                                                                                    | `boolean`                           | `false` | Visually hides the label.                         |
-| `size`                                                                                                                                                                         | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                          |
+| `size`                                                                                                                                                                         | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
 | `spread`                                                                                                                                                                       | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
 | `stack`                                                                                                                                                                        | `boolean`                           | `false` | Stacks the label under the input.                 |
 
@@ -411,7 +411,7 @@ Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `va
 | Prop        | Type                 | Default | Description                                                                                              |
 | ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
 | `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### CSS variables

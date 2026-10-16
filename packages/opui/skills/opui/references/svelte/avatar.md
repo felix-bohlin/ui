@@ -166,9 +166,9 @@ A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an av
 | `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
 | `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
 | `isGroup`  | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`     | `"small"` , `"x-small"` , `"large"`      | -       | The size of the element.                                                                                  |
+| `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                  |
 | `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
-| `variant`  | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
+| `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### CSS variables
 
@@ -323,3 +323,4 @@ Import the component from `opui-css/svelte`:
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
 - Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
+- Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it (types).

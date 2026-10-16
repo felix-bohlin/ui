@@ -8,15 +8,15 @@ Label 50 Start text End text
 
   Container element.
 
-- `v-slot:default`
+- `label · v-slot:default`
 
   The label for the range.
 
-- `v-slot:value`
+- `valueSuffix · v-slot:value`
 
   Shows the current value, with an optional `valueSuffix`.
 
-- `v-slot:start-text`
+- `startText · v-slot:start-text`
 
   Description text displayed above the input.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `v-slot:end-text`
+- `endText · v-slot:end-text`
 
   Supporting text displayed below the input.
 
@@ -201,20 +201,20 @@ import { Range } from "opui-css/vue"
 
 ### Range API
 
-| Prop                                                                                                                                                                                                | Type                                                                                | Default | Description                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `endText`                                                                                                                                                                                           | `string`                                                                            | -       | Supporting text displayed below the input.                                                    |
-| `error`                                                                                                                                                                                             | `boolean`                                                                           | `false` | Marks the control invalid and shows error styles.                                             |
-| `id`                                                                                                                                                                                                | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
-| `label`                                                                                                                                                                                             | `string`                                                                            | -       | The label for the range.                                                                      |
-| `list`                                                                                                                                                                                              | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                                            |
-| `options`                                                                                                                                                                                           | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
-| `spread`                                                                                                                                                                                            | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other.                      |
-| `startText`                                                                                                                                                                                         | `string`                                                                            | -       | Description text displayed above the input.                                                   |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                         | `number` , `string`                                                                 | -       | The current value.                                                                            |
-| `value`                                                                                                                                                                                             | `number` , `string`                                                                 | -       | The current value.                                                                            |
-| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`                                                                            | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `variant`                                                                                                                                                                                           | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.                        |
+| Prop                                                                                                                                                                                                | Type                   | Default | Description                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `endText`                                                                                                                                                                                           | `string`               | -       | Supporting text displayed below the input.                                                    |
+| `error`                                                                                                                                                                                             | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
+| `id`                                                                                                                                                                                                | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
+| `label`                                                                                                                                                                                             | `string`               | -       | The label for the range.                                                                      |
+| `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `options`                                                                                                                                                                                           | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
+| `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `startText`                                                                                                                                                                                         | `string`               | -       | Description text displayed above the input.                                                   |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                         | `number` , `string`    | -       | The current value.                                                                            |
+| `value`                                                                                                                                                                                             | `number` , `string`    | -       | The current value.                                                                            |
+| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### Slots
 
@@ -511,3 +511,4 @@ Import the component from `opui-css/vue`:
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
+- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.

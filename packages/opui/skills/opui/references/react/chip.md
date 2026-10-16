@@ -292,7 +292,7 @@ export default function Link() {
 
 ## Disabled
 
-Disable a button chip with the `disabled` prop. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
+Disable a button or link chip with the `disabled` prop. A link chip gets `aria-disabled="true"` instead. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
 
 ```tsx
 import { Chip } from "opui-css/react"
@@ -311,20 +311,20 @@ export default function Disabled() {
 
 ### Chip API
 
-| Prop        | Type                                                              | Default   | Description                                                                                                                                                                   |
-| ----------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                                                                                                         |
-| `children`  | `ReactNode`                                                       | -         | Content placed before the label.                                                                                                                                              |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                                                                                                              |
-| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip takes `aria-disabled="true"` instead and looks and acts disabled. A static chip can't be disabled, use the `ui-disabled` class to dim it. |
-| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                                                                                                          |
-| `end`       | `ReactNode`                                                       | -         | Optional content at the end, such as an icon.                                                                                                                                 |
-| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                                                                                                            |
-| `label`     | `string`                                                          | -         | The label.                                                                                                                                                                    |
-| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                                                                                                        |
-| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                                                                                                                                      |
-| `start`     | `ReactNode`                                                       | -         | Optional content at the start, such as an icon.                                                                                                                               |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                                                                           |
+| Prop        | Type                                                              | Default   | Description                                                                                             |
+| ----------- | ----------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                                   |
+| `children`  | `ReactNode`                                                       | -         | Content placed before the label.                                                                        |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                                        |
+| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip gets `aria-disabled="true"` instead, so it looks and acts disabled. |
+| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                                    |
+| `end`       | `ReactNode`                                                       | -         | Optional content at the end, such as an icon.                                                           |
+| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                                      |
+| `label`     | `string`                                                          | -         | The label.                                                                                              |
+| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                                  |
+| `size`      | `"large"` , `"small"` , `"x-small"`                               | -         | The size of the element.                                                                                |
+| `start`     | `ReactNode`                                                       | -         | Optional content at the start, such as an icon.                                                         |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                     |
 
 #### CSS variables
 
@@ -483,3 +483,5 @@ Import the component from `opui-css/react`:
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).
+- [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
+- Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).

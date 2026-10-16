@@ -517,8 +517,8 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Prop                | Type                          | Default        | Description                                                                                                           |
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
-| `aspectRatio`       | `string` , `number`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
-| `buttons`           | `boolean` , `"outside"`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
+| `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
+| `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
 | `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |

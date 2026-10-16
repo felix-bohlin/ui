@@ -212,12 +212,12 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 | Prop         | Type                                                                | Default          | Description                                                                                                                               |
 | ------------ | ------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| `backdrop`   | `"blurred"` , `"transparent"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
 | `children`   | `Snippet`                                                           | -                | The drawer parts, and any other content.                                                                                                  |
-| `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| `closedby`   | `"any"` , `"closerequest"` , `"none"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
 | `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
 | `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
-| `side`       | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                                                                                   |
+| `side`       | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
 #### CSS variables
 

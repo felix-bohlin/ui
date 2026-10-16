@@ -496,8 +496,8 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"small"` , `"x-small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
-| `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
+| `size`        | `"large"` , `"small"` , `"x-small"`   | -       | The size of the buttons.                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -       | The variant of the buttons.                                                                                       |
 
 #### Slots
 
@@ -550,8 +550,8 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
 | `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
 | `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -          | The size of the element.                                           |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -          | The variant to use.                                                |
+| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                           |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                |
 
 #### Slots
 

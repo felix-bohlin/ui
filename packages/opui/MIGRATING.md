@@ -63,6 +63,13 @@ In Astro and Vue the floating content goes in `AnchorContent` instead of the `an
 
 `types.ts` no longer exports a `Slots` type.
 
+With `trigger="hover"`, `id` is required and no longer generated. Pass the same `id` to `interestfor` on the trigger.
+
+```diff
+- <Anchor trigger="hover">
++ <Anchor id="repo-card" trigger="hover">
+```
+
 ## Avatar
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.
@@ -192,6 +199,13 @@ The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
 
+A button chip needs `as="button"` and a link chip needs `href` (types). `disabled` works on both: a link chip renders `aria-disabled="true"`. The same applies to `Avatar`, and `Button` takes link attributes only with `href`.
+
+```diff
+- <Chip disabled label="Archived" />
++ <Chip as="button" disabled label="Archived" />
+```
+
 ## Classic select
 
 `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
@@ -241,6 +255,8 @@ In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHea
 ```
 
 `types.ts` no longer exports a `Slots` type.
+
+The page scroll lock behind a modal dialog moved to `core/utils.css`. If you import single files, import `utils.css` too.
 
 ## Divider
 
@@ -339,6 +355,8 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).
 
+`type` can't be combined with `as` or `href` (types).
+
 ## Menu
 
 Critical items keep readable text in light and dark mode, like `Button`. The menu has a subtle light gray border in dark mode, is capped to the space on its side and only flips when that side has less than `12rem`.
@@ -402,6 +420,13 @@ Astro and Vue no longer generate an `id` for the select. Pass `id` when somethin
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
 Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
+
+The `items` type is `SelectItem`, and `ClassicSelect` takes `ClassicSelectItem`. Both are exported from every framework barrel.
+
+```diff
+- import type { Item } from "opui-css/components/Select/types"
++ import type { SelectItem } from "opui-css/react"
+```
 
 ## Switch
 

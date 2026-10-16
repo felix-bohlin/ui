@@ -8,15 +8,15 @@ Label 50 Start text End text
 
   Container element.
 
-- `slot="default"`
+- `label · slot="default"`
 
   The label for the range.
 
-- `slot="value"`
+- `valueSuffix · slot="value"`
 
   Shows the current value, with an optional `valueSuffix`.
 
-- `slot="start-text"`
+- `startText · slot="start-text"`
 
   Description text displayed above the input.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `slot="end-text"`
+- `endText · slot="end-text"`
 
   Supporting text displayed below the input.
 
@@ -68,7 +68,7 @@ import { Range } from "opui-css/astro"
 
 ## Value
 
-Pass the `valueSuffix` prop (or use the `value` named slot) to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input. Content in the `value` named slot replaces the readout and stays as you render it.
 
 ```astro
 ---
@@ -181,19 +181,19 @@ import { Range } from "opui-css/astro"
 
 ### Range API
 
-| Prop          | Type                                                                                | Default | Description                                                                                   |
-| ------------- | ----------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                                                    |
-| `error`       | `boolean`                                                                           | `false` | Marks the control invalid and shows error styles.                                             |
-| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
-| `label`       | `string`                                                                            | -       | The label for the range.                                                                      |
-| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                                            |
-| `options`     | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
-| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other.                      |
-| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                                                   |
-| `value`       | `number` , `string`                                                                 | -       | The current value.                                                                            |
-| `valueSuffix` | `string`                                                                            | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `variant`     | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.                        |
+| Prop          | Type                   | Default | Description                                                                                   |
+| ------------- | ---------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `endText`     | `string`               | -       | Supporting text displayed below the input.                                                    |
+| `error`       | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
+| `id`          | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
+| `label`       | `string`               | -       | The label for the range.                                                                      |
+| `list`        | `string`               | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `options`     | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
+| `spread`      | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `startText`   | `string`               | -       | Description text displayed above the input.                                                   |
+| `value`       | `number` , `string`    | -       | The current value.                                                                            |
+| `valueSuffix` | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `variant`     | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### Slots
 
@@ -490,3 +490,4 @@ Import the component from `opui-css/astro`:
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
+- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.

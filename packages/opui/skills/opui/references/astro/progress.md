@@ -65,9 +65,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 | Prop      | Type                   | Default   | Description                                                          |
 | --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`    | -         | The maximum value.                                                   |
+| `max`     | `number` , `string`    | -         | The maximum value.                                                   |
 | `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 

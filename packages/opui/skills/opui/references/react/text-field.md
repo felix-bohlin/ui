@@ -498,13 +498,13 @@ export default function NoLabel() {
 | `id`             | `string`                            | -            | The id of the `<input>`.                                                  |
 | `label`          | `ReactNode`                         | -            | The label for the field.                                                  |
 | `prefix`         | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`           | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
+| `size`           | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
 | `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
 | `startText`      | `string`                            | -            | Legacy alias of `description`.                                            |
 | `suffix`         | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
 | `supportingText` | `ReactNode`                         | -            | Legacy alias of `endText`.                                                |
 | `type`           | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`        | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| `variant`        | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 

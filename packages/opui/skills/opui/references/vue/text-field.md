@@ -8,11 +8,11 @@ Label Description € EUR Header Footer Supporting text
 
   Container element.
 
-- `v-slot:label`
+- `label · v-slot:label`
 
   The label for the field.
 
-- `v-slot:description`
+- `description · v-slot:description`
 
   Description text displayed above the field.
 
@@ -40,7 +40,7 @@ Label Description € EUR Header Footer Supporting text
 
   Content below the input, inside the border, with a divider.
 
-- `v-slot:end-text`
+- `endText · v-slot:end-text`
 
   Supporting text displayed below the field.
 
@@ -458,12 +458,13 @@ import { TextField } from "opui-css/vue"
 | `error`                                                                                                                                                                     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
 | `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<input>`.                                                  |
 | `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                  |
-| `size`                                                                                                                                                                      | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
+| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
 | `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
 | `startText`                                                                                                                                                                 | `string`                            | -            | Legacy alias of `description`.                                            |
 | `type`                                                                                                                                                                      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
-| `variant`                                                                                                                                                                   | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| `value`                                                                                                                                                                     | `number` , `string`                 | -            | The input value.                                                          |
+| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 

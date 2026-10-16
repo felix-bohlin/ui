@@ -418,7 +418,7 @@ export default function FieldGroupValidation() {
 | `endText`   | `ReactNode`                         | -       | Supporting text displayed below the label.        |
 | `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
-| `size`      | `"small"` , `"x-small"` , `"large"` | -       | The size of the element.                          |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
 | `spread`    | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
 | `stack`     | `boolean`                           | `false` | Stacks the label under the input.                 |
 
@@ -470,7 +470,7 @@ Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `va
 | Prop        | Type                 | Default | Description                                                                                              |
 | ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
 | `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### CSS variables

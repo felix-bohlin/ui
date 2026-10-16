@@ -39,6 +39,9 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
     ),
+    slots(
+      `Breaking: <a href="#hover-trigger">hover anchors</a> require an <code>id</code>, which you pass to <code>interestfor</code> on the trigger.`,
+    ),
   ],
   avatar: [
     `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover.`,
@@ -56,6 +59,9 @@ const whatsNew = {
     {
       vue: `<code>command</code>, <code>commandfor</code> and <code>interestfor</code> pass through as attributes instead of props (<a href="#api">API</a>).`,
     },
+    components(
+      `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> only goes with it (types).`,
+    ),
   ],
   badge: [
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
@@ -205,6 +211,12 @@ const whatsNew = {
     `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a button or link chip, and <code>.ui-disabled</code> to dim a static chip.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <code>--_tone</code> is <code>--_accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    components(
+      `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,
+    ),
+    components(
+      `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (types).`,
+    ),
   ],
   "description-list": [
     {
@@ -228,6 +240,9 @@ const whatsNew = {
     components(
       `<a href="#how-to-close"><code>closedby</code></a> is typed in every framework.`,
     ),
+    {
+      html: `Breaking: the page scroll lock lives in <code>utils.css</code>. Import it too if you import single files.`,
+    },
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
@@ -293,6 +308,9 @@ const whatsNew = {
     ),
     `Breaking: <code>--_bg-color-hover</code> is <code>--_hover-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `A checked <a href="#radio">option</a> uses <code>--state-active-alpha-accent</code>.`,
+    components(
+      `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
+    ),
   ],
   menu: [
     `Smaller start and end icons, and dividers that show in dark mode (<a href="#basics">Basics</a>).`,
@@ -369,6 +387,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_thumb-bg</code> is <code>--_thumb-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    components(
+      `<code>options</code> is typed as <a href="#tick-marks"><code>RangeOption[]</code></a>, exported from every framework.`,
+    ),
   ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
@@ -395,6 +416,9 @@ const whatsNew = {
       html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    components(
+      `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name. <code>ClassicSelect</code> takes <code>ClassicSelectItem[]</code>.`,
+    ),
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,

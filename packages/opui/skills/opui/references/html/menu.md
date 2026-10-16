@@ -675,7 +675,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### Dependencies
 
-- [Description List](https://open-props-ui.netlify.app/html/components/description-list.md)
+- [List](https://open-props-ui.netlify.app/html/components/list.md)
 
 * `opui-css/css/components/menu.css`
 * `opui-css/css/components/list.css`

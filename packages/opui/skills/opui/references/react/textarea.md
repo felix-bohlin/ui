@@ -326,11 +326,11 @@ export default function AutoFit() {
 | `id`             | `string`                            | -            | The id of the `<textarea>`.                                                 |
 | `label`          | `ReactNode`                         | -            | The label for the field.                                                    |
 | `prefix`         | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.                |
-| `size`           | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                    |
+| `size`           | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
 | `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
 | `suffix`         | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                  |
 | `supportingText` | `ReactNode`                         | -            | Legacy alias of `endText`.                                                  |
-| `variant`        | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
+| `variant`        | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
 
 #### CSS variables
 

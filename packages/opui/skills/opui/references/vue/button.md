@@ -400,8 +400,8 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
 | `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
 | `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -          | The size of the element.                                           |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -          | The variant to use.                                                |
+| `size`     | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                           |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                |
 
 #### Slots
 

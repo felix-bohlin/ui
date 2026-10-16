@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { createId } from "../id"
+import { menuContext } from "./context.astro"
 
 export const title = "Menu"
 
@@ -18,6 +19,10 @@ const {
 
 const $id = createId(Astro.locals)
 const menuId = id || $id("menu")
+const rootId = menuContext.get()?.rootId ?? menuId
+const html = await menuContext.provide({ rootId }, () =>
+  Astro.slots.render("default"),
+)
 ---
 
 <menu
@@ -44,8 +49,8 @@ const menuId = id || $id("menu")
         critical,
         disabled,
         href,
-        label,
         shortcut,
+        text,
         ...itemRest
       }) => {
         const Tag = href ? "a" : "button"
@@ -60,14 +65,14 @@ const menuId = id || $id("menu")
             <Tag
               aria-disabled={href && disabled ? "true" : undefined}
               command={closes ? "hide-popover" : undefined}
-              commandfor={closes ? menuId : undefined}
+              commandfor={closes ? rootId : undefined}
               disabled={!href && disabled ? true : undefined}
               href={href && !disabled ? href : undefined}
               type={href ? undefined : "button"}
               {...itemRest}
             >
               <div class="ui-text">
-                <p>{label}</p>
+                <p>{text}</p>
               </div>
               {shortcut && (
                 <div class="ui-end">
@@ -80,5 +85,5 @@ const menuId = id || $id("menu")
       },
     )
   }
-  <slot />
+  <Fragment set:html={html} />
 </menu>

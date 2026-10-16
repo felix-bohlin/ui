@@ -6,7 +6,7 @@ export default {
   notes: {
     astro:
       "Other attributes go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",
-    html: 'Items are built like `List` items: icons in `.ui-start`, the label in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.',
+    html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.',
     react:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.",
     svelte:
@@ -47,7 +47,7 @@ export default {
     {
       attribute: '[command="hide-popover"]',
       description:
-        "Closes the menu when the item is clicked, with `commandfor` set to the menu id (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu.",
+        "Closes the menu when the item is clicked, with `commandfor` set to the root menu id, so an item in a submenu closes the whole menu (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu.",
       frameworks: ["html"],
       group: "Close on click",
       part: "li > button",
@@ -86,7 +86,7 @@ export default {
     },
     {
       description:
-        "The items, as `{ borderTop, closeOnClick, critical, disabled, href, label, shortcut }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element.",
+        "The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. A button item closes the whole menu, also from a submenu, unless `closeOnClick` is `false`.",
       prop: "items",
     },
     {
@@ -133,7 +133,7 @@ export default {
     },
     {
       code: ".ui-text",
-      description: "The label (`label` on an item).",
+      description: "The text (`text` on an item).",
       selector: ".ui-menu > li > :is(a, button) > .ui-text",
     },
     {

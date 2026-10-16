@@ -1,5 +1,8 @@
+"use client"
+
 import { useId } from "react"
 import { cx } from "../cx"
+import { MenuContext, useMenuContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Menu({
@@ -16,6 +19,7 @@ export default function Menu({
 }: Props) {
   const uid = useId()
   const menuId = id || `menu-${uid}`
+  const rootId = useMenuContext()?.rootId ?? menuId
 
   return (
     <menu
@@ -42,8 +46,8 @@ export default function Menu({
             critical,
             disabled,
             href,
-            label,
             shortcut,
+            text,
             ...itemRest
           },
           index,
@@ -61,14 +65,14 @@ export default function Menu({
               <Tag
                 aria-disabled={href && disabled ? "true" : undefined}
                 command={closes ? "hide-popover" : undefined}
-                commandfor={closes ? menuId : undefined}
+                commandfor={closes ? rootId : undefined}
                 disabled={!href && disabled ? true : undefined}
                 href={href && !disabled ? href : undefined}
                 type={href ? undefined : "button"}
                 {...itemRest}
               >
                 <div className="ui-text">
-                  <p>{label}</p>
+                  <p>{text}</p>
                 </div>
                 {shortcut && (
                   <div className="ui-end">
@@ -80,7 +84,7 @@ export default function Menu({
           )
         },
       )}
-      {children}
+      <MenuContext value={{ rootId }}>{children}</MenuContext>
     </menu>
   )
 }

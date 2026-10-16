@@ -191,7 +191,7 @@ export type {
 } from "../components/Tabs/types.react"
 export type { Props as TextareaProps } from "../components/Textarea/types.react"
 export type { Props as TextFieldProps } from "../components/TextField/types.react"
-export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type { TimelineItemData } from "../components/Timeline/types"
 export type {
   Props as TimelineProps,
   TimelineItemProps,

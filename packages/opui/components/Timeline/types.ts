@@ -7,12 +7,12 @@ export type TimelineItemProps = {
   time?: string
 }
 
-export type Entry = TimelineItemProps & {
+export type TimelineItemData = TimelineItemProps & {
   description?: string
 }
 
 export type Props = {
-  items?: Entry[]
+  items?: TimelineItemData[]
   progress?: boolean
   size?: "small"
 }

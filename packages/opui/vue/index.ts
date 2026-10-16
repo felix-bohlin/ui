@@ -185,7 +185,7 @@ export type {
 } from "../components/Tabs/types.d.vue"
 export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
 export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"
-export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type { TimelineItemData } from "../components/Timeline/types"
 export type {
   Props as TimelineProps,
   TimelineItemProps,

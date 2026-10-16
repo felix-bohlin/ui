@@ -193,7 +193,7 @@ export type {
 } from "../components/Tabs/types.svelte"
 export type { Props as TextareaProps } from "../components/Textarea/types.svelte"
 export type { Props as TextFieldProps } from "../components/TextField/types.svelte"
-export type { Entry as TimelineEntry } from "../components/Timeline/types"
+export type { TimelineItemData } from "../components/Timeline/types"
 export type {
   Props as TimelineProps,
   TimelineItemProps,

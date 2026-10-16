@@ -150,7 +150,7 @@ Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `cla
 Follow this order for readability:
 1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
 2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-dot": dot }`).
-3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
+3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``). A `size` union lists only the sizes the component's CSS draws: `"x-small" | "small" | "large"` for controls that line up with Button, fewer where the CSS has fewer (`"small" | "large"` on Rating, `"small"` on Stepper).
 4.  **External Class**: Always include `className` (Astro, React and Svelte) or `$props.class` (Vue) at the end to allow for overrides. Do not prefix it.
 
 Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`.
@@ -319,6 +319,12 @@ type Props = { items?: Item[] }
   <slot /> <!-- Still allow manual entries -->
 </ul>
 ```
+
+### Naming
+
+- The short text that names an item is `label` (`MenuItem`, `StepperItem`, `BarChartRow`, `DataGridColumn`). Use `heading` only when the component renders it as a heading element, like Timeline's `h3`.
+- Item data types are `<Component>Item` (`MenuItem`, `StepperItem`), and table row data is `<Component>Row` (`BarChartRow`, `DataGridRow`). When `<Component>Item` is already a part, the data type is `<Component>ItemData` (`TimelineItemData`, since `TimelineItem` is the part).
+- Export these types under the same name from every barrel.
 
 ---
 

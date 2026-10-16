@@ -3956,6 +3956,7 @@ Review of [PR #418](https://github.com/felix-bohlin/ui/pull/418) (`feat/componen
     // items={[{ label: "Cart" }, { current: true, label: "Shipping" }, { label: "Pay" }]}
     ```
   - Sizes: Stepper and Timeline have `"small"`, BarChart and Rating `"small" | "large"`, which is what their CSS draws. Adding `x-small` and `large` is new design work, so it isn't part of either option.
+  - Decided: `label` and `heading` stay as they are. `TimelineEntry` is renamed `TimelineItemData` in the four barrels. Sizes stay as the CSS draws them. The naming and size rules are in `packages/opui/components/AGENTS.md` (sections 3 and 7). Still open: Stepper's index `current` versus Timeline's per-item `current`.
 - [x] (4) PR #418, Timeline: the `title` prop renders the `<h3>`, so `<TimelineItem title="…">` can never set the `<li>` tooltip (`packages/opui/components/Timeline/types.ts:7`, `TimelineItem.astro:11,31`, `TimelineItem.svelte:11,31-35`, `TimelineItem.vue:10,24`)
   - Fix: rename to `heading` (it already has `headingLevel`).
   - Fixed: the prop and the items key are `heading` in the types, the four frameworks, the examples, the anatomy and the api.

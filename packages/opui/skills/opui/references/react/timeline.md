@@ -358,12 +358,12 @@ In forced colors mode the line and markers use system colors, colored markers ar
 
 ### Timeline API
 
-| Prop       | Type        | Default | Description                                                                                                                        |
-| ---------- | ----------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `children` | `ReactNode` | -       | The items.                                                                                                                         |
-| `items`    | `Entry[]`   | -       | The items, as `{ color, current, datetime, description, heading, headingLevel, time }` objects. `description` renders a paragraph. |
-| `progress` | `boolean`   | `false` | Colors the line and the plain markers before the current item with the primary color.                                              |
-| `size`     | `"small"`   | -       | The size of the element.                                                                                                           |
+| Prop       | Type                 | Default | Description                                                                                                                        |
+| ---------- | -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `children` | `ReactNode`          | -       | The items.                                                                                                                         |
+| `items`    | `TimelineItemData[]` | -       | The items, as `{ color, current, datetime, description, heading, headingLevel, time }` objects. `description` renders a paragraph. |
+| `progress` | `boolean`            | `false` | Colors the line and the plain markers before the current item with the primary color.                                              |
+| `size`     | `"small"`            | -       | The size of the element.                                                                                                           |
 
 #### CSS variables
 

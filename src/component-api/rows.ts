@@ -182,15 +182,14 @@ export const partLabel = (
   if (part.component?.[framework]) return `<${part.component[framework]}>`
 
   const syntax = frameworks[framework]
-  const handles = [
+  const handles = new Set([
+    ...(part.props ?? []),
     ...(syntax.slotsAreProps && part.snippets
-      ? [...(part.props ?? []), ...part.snippets]
-      : part.slots?.length
-        ? part.slots.map(syntax.slot)
-        : (part.props ?? [])),
+      ? part.snippets
+      : (part.slots ?? []).map(syntax.slot)),
     ...(part.model && syntax.model
       ? modelsFor(api, framework).map((entry) => syntax.model!(entry.prop))
       : []),
-  ]
-  return handles.length > 0 ? handles.join(" · ") : fallback
+  ])
+  return handles.size > 0 ? [...handles].join(" · ") : fallback
 }

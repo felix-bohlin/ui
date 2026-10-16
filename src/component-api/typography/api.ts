@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Typography",
+  css: ["link", "typography"],
   notes: {
     astro:
       "Add the classes to elements in your templates. There is no Astro component.",

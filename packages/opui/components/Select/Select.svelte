@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getFieldContext } from "../FieldGroup/context"
-  import type { Item } from "./types"
+  import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
 
@@ -37,7 +37,7 @@
       undefined,
   )
 
-  const isSelected = (item: Item) =>
+  const isSelected = (item: SelectItem) =>
     value === undefined
       ? item.selected
       : Array.isArray(value)

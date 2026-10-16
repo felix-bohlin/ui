@@ -1,5 +1,5 @@
 ---
-import type { Item } from "./types"
+import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
 import { createId } from "../id"
 import { fieldContext } from "../FieldGroup/context.astro"
@@ -30,7 +30,7 @@ const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 const describedBy =
   [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
-const isSelected = (item: Item) =>
+const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
     : Array.isArray(value)

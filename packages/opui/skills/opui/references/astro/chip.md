@@ -413,7 +413,6 @@ Import the component from `opui-css/astro`:
 - [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
-- Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
 - Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

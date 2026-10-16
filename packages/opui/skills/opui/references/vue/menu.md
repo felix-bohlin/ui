@@ -506,11 +506,10 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
-- Smaller start and end icons, and dividers that show in dark mode ([Basics](#basics)).
+- Items are built like `List` items, with start and end icons, text and shortcuts ([Basics](#basics)).
 - New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - [Submenus](#submenu) with the `submenu` slot on `ListItem`.
 - A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
-- Breaking: `--_bg-color-hover` is `--_hover-bg-color`, and `--_transition-duration` is `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- Menus shrink to the space on their side and flip when it's less than `12rem` ([Placement](#placement)).
 - [Dividers between items](#bordered) with the `bordered` prop.
 - `critical` on a `ListItem` marks a destructive [custom item](#custom).

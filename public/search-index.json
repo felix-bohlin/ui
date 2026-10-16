@@ -1788,7 +1788,7 @@
     "id": "guide-migrating-html",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
-    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/migrating"
@@ -1797,7 +1797,7 @@
     "id": "guide-migrating-astro",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
-    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/migrating"
@@ -1806,7 +1806,7 @@
     "id": "guide-migrating-react",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
-    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/migrating"
@@ -1815,7 +1815,7 @@
     "id": "guide-migrating-svelte",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
-    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/migrating"
@@ -1824,7 +1824,7 @@
     "id": "guide-migrating-vue",
     "title": "Migrating to v6",
     "description": "The breaking changes in v6 and how to update your code, component by\n    component.",
-    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Menu Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
+    "headings": "Older versions Accordion Anchor Avatar Badge Button Button group Callout Card Checkbox Chip Classic select Description list Dialog Divider Drawer Field group and field set Icon button List List item Progress Radio Range Select Switch Table Tabs Text field Textarea Toast Toggle button and toggle group Tooltip Theme and tokens Typography and rich text Package and imports",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/migrating"

@@ -576,5 +576,5 @@ Import the components from `opui-css/vue`:
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`size="default"`](#sizes) is gone on `ToggleGroup`. Leave `size` out for the default size.
-- A disabled [toggle](#disabled) dims like a disabled button, hover uses the button hover strength, and [`shrink`](#overflow) truncates like `ButtonGroup`.
+- A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.
 - Bind the selection with `v-model` on `ToggleGroup` ([Binding](#binding)).

@@ -637,4 +637,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color` ([Under the hood](#under-the-hood)).
-- A disabled [toggle](#disabled) dims like a disabled button, hover uses the button hover strength, and [`shrink`](#overflow) truncates like `ButtonGroup`.
+- A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.

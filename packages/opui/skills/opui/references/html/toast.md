@@ -359,4 +359,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
 - Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
-- Breaking: `--_anim-enter` and `--_anim-exit` are `--_enter-duration` and `--_exit-duration`, and the hold time `--_duration` is `--_hold-duration` ([Under the hood](#under-the-hood)).
+- Breaking: `--_anim-enter` and `--_anim-exit` are `--_enter-duration` and `--_exit-duration` ([Under the hood](#under-the-hood)).

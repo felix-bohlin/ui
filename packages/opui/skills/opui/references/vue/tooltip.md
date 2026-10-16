@@ -377,4 +377,4 @@ Import the component from `opui-css/vue`:
 - Breaking: [`id`](#api) is required.
 - Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
-- Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-min-inline-size`, `--_tooltip-offset` and `--_tooltip-shift` are `--_min-inline-size`, `--_offset` and `--_shift` ([Under the hood](#under-the-hood)).
+- Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).

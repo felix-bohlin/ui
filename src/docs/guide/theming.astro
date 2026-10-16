@@ -112,8 +112,17 @@ import Example from "../../components/Example/index"
         the knobs set on that element, so one page can carry several brands.
       </li>
     </ul>
+    <p>
+      On an element, <code>.ui-dark</code> and <code>.ui-light</code> only switch
+      between light and dark colors. The palette hue and the shadows still come from
+      the page. So on a light page, a <code>.ui-dark</code> box stays green and keeps
+      the light shadows, while a dark page is blue. Add <code>.ui-palette</code> with
+      the dark hue to make the box match dark mode:
+    </p>
     <Code
-      code={`<aside class="ui-dark">Always dark</aside>
+      code={`<aside class="ui-dark ui-palette" style="--palette-hue: var(--hue-blue)">
+  Always dark
+</aside>
 
 <section class="ui-palette" style="--palette-hue: 30">
   <button class="ui-button ui-primary ui-filled" type="button">

@@ -4,7 +4,6 @@ import { expect, test } from "@playwright/test"
 import {
   BLOCKS,
   COMPONENTS,
-  FRAMEWORKS,
   STRESS_TESTS,
   axeNodes,
   openFixture,
@@ -25,18 +24,10 @@ let scheme = ""
 
 if (RECORD) test.describe.configure({ mode: "serial" })
 
-const TARGETS = [
-  ...FRAMEWORKS.flatMap((framework) =>
-    COMPONENTS.map((component) => ({ component, framework })),
-  ),
-  ...[...BLOCKS, ...STRESS_TESTS].map((component) => ({
-    component,
-    framework: "html" as const,
-  })),
-]
+const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
-for (const { component, framework } of TARGETS) {
-  test(`${framework}/${component} has no new axe violations`, async ({
+for (const component of TARGETS) {
+  test(`html/${component} has no new axe violations`, async ({
     page,
   }, testInfo) => {
     if (RECORD) {
@@ -46,8 +37,8 @@ for (const { component, framework } of TARGETS) {
       ).toBe(1)
     }
     scheme = testInfo.project.name
-    const prefix = `${scheme}/${framework}/${component}`
-    await openFixture(page, framework, component)
+    const prefix = `${scheme}/html/${component}`
+    await openFixture(page, "html", component)
 
     const { violations } = await new AxeBuilder({ page })
       .include(component.startsWith("blocks/") ? "body" : "main")

@@ -27,7 +27,11 @@
     "test:e2e:update": "playwright test --update-snapshots=all",
     "test:record-drift": "PARITY_RECORD=1 vitest run -u",
     "test:update": "vitest run --update",
-    "typecheck": "astro check --minimumFailingSeverity warning && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings && tsc --noEmit -p tsconfig.react.json"
+    "typecheck": "astro sync && pnpm run --no-bail \"/^typecheck:/\"",
+    "typecheck:astro": "astro check --minimumFailingSeverity warning",
+    "typecheck:react": "tsc --noEmit -p tsconfig.react.json",
+    "typecheck:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings",
+    "typecheck:vue": "vue-tsc --noEmit -p tsconfig.vue.json"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

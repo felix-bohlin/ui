@@ -214,7 +214,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 - **Only Astro**: The subject is rendered once and shown on every framework page. Do not add HTML, React, Svelte or Vue variants, `<Example>` wrappers or code snippets.
 - **Sizing**: Constrain the subject with `style` (e.g. `inline-size: 18rem`) when it would otherwise stretch, and use `zoom` for small components.
 - **Placement**: Set `heroAnatomy` on `<Component>` to render the diagram at the top of the page instead of in an "Anatomy" section.
-- **Checks**: `tests/e2e/anatomy.spec.ts` checks every `heroAnatomy` page for overflow, spacing and axe violations at 390, 920 and 1280px.
+- **Checks**: `tests/e2e/anatomy.spec.ts` checks every `heroAnatomy` page for overflow and spacing at 390, 920 and 1280px, and for axe violations on the HTML pages.
 
 ```astro
 <Fragment slot="anatomy">

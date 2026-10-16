@@ -25,7 +25,7 @@ export default {
       class: ".ui-disabled",
       default: "false",
       description:
-        'Disables a button chip. A link chip gets `aria-disabled="true"` instead, so it looks and acts disabled.',
+        'Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.',
       group: "State",
       htmlDescription:
         "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",

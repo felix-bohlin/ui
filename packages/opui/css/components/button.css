@@ -121,10 +121,6 @@
       --_accent: var(--primary);
     }
 
-    &:where(a[aria-disabled="true"]) {
-      pointer-events: none;
-    }
-
     /* Hover & Active */
     &:where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {

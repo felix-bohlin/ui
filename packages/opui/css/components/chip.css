@@ -198,9 +198,5 @@
         opacity: 1;
       }
     }
-
-    &:where(a):where([aria-disabled="true"], .ui-disabled) {
-      pointer-events: none;
-    }
   }
 }

@@ -126,7 +126,7 @@
     }
 
     /* Hover & Active */
-    &:where(:not([disabled], [aria-disabled="true"])) {
+    &:where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_default-hover-bg-color);
@@ -219,7 +219,7 @@
         --_border-color: var(--_accent-text);
       }
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -241,7 +241,7 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -261,7 +261,7 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);

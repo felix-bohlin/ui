@@ -50,8 +50,9 @@
       padding-inline: var(--size-1);
       place-items: center;
       text-align: center;
-      transition: opacity calc(var(--duration) * var(--_motion))
-        var(--ease-enter);
+      transition:
+        opacity calc(var(--duration) * var(--_motion)) var(--ease-enter),
+        visibility calc(var(--duration) * var(--_motion)) var(--ease-enter);
     }
 
     /* Colors */
@@ -141,7 +142,7 @@
     /* Visibility */
     &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
       opacity: 0;
-      pointer-events: none;
+      visibility: hidden;
     }
   }
 }

@@ -13,14 +13,29 @@
     overflow: hidden;
 
     &.ui-outlined {
-      --_edge-color: light-dark(var(--color-16), var(--color-1));
+      --_edge-accent: light-dark(var(--color-16), var(--color-1));
+      --_edge-color: var(--_edge-accent);
+
+      @container style(--contrast: more) {
+        --_edge-color: light-dark(
+          var(--_edge-accent),
+          oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+        );
+      }
 
       &.ui-critical {
-        --_edge-color: var(--critical);
+        --_edge-accent: var(--critical);
+
+        @container style(--contrast: more) {
+          --_edge-accent: light-dark(
+            var(--critical),
+            oklch(from var(--critical) min(l, 0.45) c h)
+          );
+        }
       }
 
       &.ui-primary {
-        --_edge-color: var(--primary);
+        --_edge-accent: var(--primary);
       }
     }
 
@@ -55,6 +70,10 @@
 
       :where(.ui-button-group.ui-outlined) & {
         --_divider-color: var(--_accent);
+
+        @container style(--contrast: more) {
+          --_divider-color: var(--_accent-text);
+        }
       }
 
       :where(.ui-button-group.ui-filled) & {

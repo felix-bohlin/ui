@@ -331,13 +331,18 @@
     }
 
     a[href]:where(:not([class*="ui-"])) {
-      color: var(--primary);
+      --_text-color: light-dark(
+        oklch(from var(--primary) min(l, 0.47) c h),
+        oklch(from var(--primary) max(l, 0.78) c h)
+      );
+
+      color: var(--_text-color);
       cursor: pointer;
       font-size: inherit;
       font-weight: var(--font-weight-bold);
       line-height: inherit;
       text-decoration: underline;
-      text-decoration-color: var(--primary);
+      text-decoration-color: var(--_text-color);
       text-underline-offset: 2px;
 
       @media (hover: hover) {

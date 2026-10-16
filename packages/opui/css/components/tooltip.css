@@ -25,6 +25,7 @@
       padding-inline: var(--size-2);
       position-area: var(--anchor-position-area, block-start);
       position-try-fallbacks:
+        flip-inline,
         flip-block,
         --ui-tooltip-shift-start,
         --ui-tooltip-shift-end,

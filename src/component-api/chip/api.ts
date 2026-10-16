@@ -22,13 +22,20 @@ export default {
       },
     },
     {
+      default: "false",
+      description:
+        'Disables a button chip. A link chip takes `aria-disabled="true"` instead and looks and acts disabled. A static chip can\'t be disabled, use the `ui-disabled` class to dim it.',
+      frameworks: ["astro", "react", "svelte", "vue"],
+      prop: "disabled",
+    },
+    {
       class: ".ui-disabled",
       default: "false",
       description:
         "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",
       frameworks: ["html"],
       group: "State",
-      prop: "disabled",
+      prop: "disabledState",
     },
     {
       class: ".ui-dot",

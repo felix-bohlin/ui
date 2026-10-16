@@ -57,6 +57,7 @@
       opacity: var(--disabled-opacity);
       user-select: none;
 
+      button,
       input,
       label,
       .ui-label {

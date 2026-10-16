@@ -72,7 +72,7 @@
         --_dir-rtl: 1;
       }
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:hover::before {
             --_thumb-scale: 1;

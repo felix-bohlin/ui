@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
 
   let {
     as,
     class: className,
     color,
+    disabled,
     dot,
     href,
     label,
@@ -35,8 +37,7 @@
     variant && `ui-${variant}`,
     className,
   ]}
-  href={Tag === "a" ? href : undefined}
-  type={Tag === "button" ? "button" : undefined}
+  {...tagAttrs(Tag, disabled, href)}
   {...rest}
   >{@render start?.()}{@render children?.()}{#if label}<span class="ui-text"
       >{label}</span

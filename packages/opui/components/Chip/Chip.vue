@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
   as,
   color,
+  disabled,
   dot,
   href,
   label,
@@ -31,8 +33,7 @@ const tag = computed(() => as || (href ? "a" : "div"))
       variant && `ui-${variant}`,
       $props.class,
     ]"
-    :href="tag === 'a' ? href : undefined"
-    :type="tag === 'button' ? 'button' : undefined"
+    v-bind="tagAttrs(tag, disabled, href)"
   >
     <slot name="start"></slot>
     <slot></slot>

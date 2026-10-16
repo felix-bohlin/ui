@@ -1,6 +1,7 @@
 export type Props = {
   as?: "a" | "button" | "div" | (string & {})
   color?: "critical" | "info" | "neutral" | "success" | "warning"
+  disabled?: boolean
   dot?: boolean
   href?: string
   label?: string

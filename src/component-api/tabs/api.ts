@@ -23,7 +23,8 @@ export default {
       prop: "scrollable",
     },
     {
-      description: "The variant to use.",
+      description:
+        "The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill.",
       group: "Variants",
       prop: "variant",
       values: {

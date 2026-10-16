@@ -147,3 +147,8 @@ export const slugify = (text: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
+
+export const plainText = (text: string) =>
+  splitInlineCode(text)
+    .map((part) => part.value)
+    .join("")

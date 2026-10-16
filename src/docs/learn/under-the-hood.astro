@@ -6,13 +6,11 @@ import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
   hrefFor,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+} from "../../utils/framework"
 
 const post = posts.find((entry) => entry.slug === "under-the-hood")!
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const modules = import.meta.glob<{ default: any }>(
   "../../components/UnderTheHood/*Build.astro",

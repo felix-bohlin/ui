@@ -2,6 +2,7 @@
 import type { Item } from "./types"
 import type { Props } from "./types.astro"
 import { createId } from "../id"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
 
@@ -22,10 +23,13 @@ const {
   ...rest
 } = Astro.props
 
+const field = fieldContext.get()
 const $id = createId(Astro.locals)
 const labelId = $id("select-label")
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 const isSelected = (item: Item) =>
   value === undefined
     ? item.selected
@@ -63,12 +67,14 @@ const isSelected = (item: Item) =>
   }
   <span class="ui-field">
     <select
-      aria-describedby={endTextId}
-      aria-invalid={error ? "true" : undefined}
-      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
-      id={id}
-      name={name}
       {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-labelledby={label || Astro.slots.has("label")
+        ? labelId
+        : rest["aria-labelledby"]}
+      id={id}
+      name={name ?? field?.name}
     >
       <button>
         <selectedcontent></selectedcontent>

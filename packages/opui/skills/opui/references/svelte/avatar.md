@@ -155,20 +155,17 @@ A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an av
 
 ### Avatar API
 
-| Prop          | Type                                     | Default | Description                                                                                               |
-| ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`          | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
-| `children`    | `Snippet`                                | -       | Letters or an icon, when there's no image.                                                                |
-| `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
-| `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
-| `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
-| `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
-| `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
-| `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`        | `"small"` , `"x-small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
-| `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
-| `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
+| Prop       | Type                                     | Default | Description                                                                                               |
+| ---------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `alt`      | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
+| `as`       | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `children` | `Snippet`                                | -       | Letters or an icon, when there's no image.                                                                |
+| `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
+| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
+| `isGroup`  | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
+| `size`     | `"small"` , `"x-small"` , `"large"`      | -       | The size of the element.                                                                                  |
+| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
+| `variant`  | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### CSS variables
 
@@ -322,3 +319,4 @@ Import the component from `opui-css/svelte`:
 
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).

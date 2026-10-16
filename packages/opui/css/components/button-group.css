@@ -53,70 +53,11 @@
         outline-offset: calc(var(--focus-ring-inset) - var(--size-1));
       }
 
-      :where(.ui-button-group.ui-x-small) & {
-        --_font-size: var(--font-size-0);
-        --_min-height: var(--button-size-x-small);
-        --_padding-inline: 1ex;
-        padding-block: 0;
-      }
-
-      :where(.ui-button-group.ui-small) & {
-        --_font-size: var(--font-size-05);
-        --_min-height: var(--button-size-small);
-        --_padding-inline: 1.25ex;
-        padding-block: 0;
-      }
-
-      :where(.ui-button-group.ui-large) & {
-        --_min-height: var(--button-size-large);
-        --_padding-inline: 2.5ex;
-      }
-
-      &:where(:has(> svg:only-child)) {
-        --_icon-size: 0.7lh;
-        padding-inline: 0;
-      }
-
       :where(.ui-button-group.ui-outlined) & {
         --_divider-color: var(--_accent);
-
-        &:where(:not([disabled], [aria-disabled="true"])) {
-          @media (hover: hover) {
-            &:where(:not(:active):hover) {
-              --_bg-color: var(--_accent);
-              --_text-color: var(--_accent-contrast);
-            }
-          }
-
-          &:where(:active) {
-            --_bg-color: var(--_outlined-active-bg-color);
-            --_text-color: var(--_accent-contrast);
-          }
-        }
-      }
-
-      :where(.ui-button-group.ui-tonal) & {
-        --_bg-color: var(--_accent-tonal);
-        --_text-color: var(--_accent-tonal-contrast);
-
-        &:where(:not([disabled], [aria-disabled="true"])) {
-          @media (hover: hover) {
-            &:where(:not(:active):hover) {
-              --_bg-color: var(--_accent);
-              --_text-color: var(--_accent-contrast);
-            }
-          }
-
-          &:where(:active) {
-            --_bg-color: var(--_outlined-active-bg-color);
-            --_text-color: var(--_accent-contrast);
-          }
-        }
       }
 
       :where(.ui-button-group.ui-filled) & {
-        --_bg-color: var(--_accent);
-        --_text-color: var(--_accent-contrast);
         --_divider-color: currentColor;
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
@@ -124,18 +65,6 @@
             oklch(from var(--_accent) calc(l - 0.1) c h),
             oklch(from var(--_accent) calc(l + 0.1) c h)
           );
-        }
-
-        &:where(:not([disabled], [aria-disabled="true"])) {
-          @media (hover: hover) {
-            &:where(:not(:active):hover) {
-              --_bg-color: var(--_filled-hover-bg-color);
-            }
-          }
-
-          &:where(:active) {
-            --_bg-color: var(--_filled-active-bg-color);
-          }
         }
       }
     }

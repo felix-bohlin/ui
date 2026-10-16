@@ -16,6 +16,7 @@ import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode
 import Anatomy from "../../components/Anatomy.astro"
 import { Badge as UIBadge, Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
@@ -81,37 +82,21 @@ export const description =
   </section>
 
   <section>
-    <h2 id="severities">Severities</h2>
-    <Conditional>
-      <p slot="html">
-        <code>.ui-critical</code>, <code>.ui-info</code>, <code
-          >.ui-neutral</code
-        >,{" "}
-        <code>.ui-success</code>, <code>.ui-warning</code>.
-      </p>
-      <p slot="astro">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="react">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="svelte">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="vue">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-    </Conditional>
+    <h2 id="colors">Colors</h2>
+    <p>
+      Color the indicator with <PropOrClass
+        prop='color="critical"'
+        class=".ui-critical"
+      />, <PropOrClass prop='color="info"' class=".ui-info" />, <PropOrClass
+        prop='color="neutral"'
+        class=".ui-neutral"
+      />, <PropOrClass prop='color="success"' class=".ui-success" /> or <PropOrClass
+        prop='color="warning"'
+        class=".ui-warning"
+      />.
+    </p>
 
-    <AutoExample name="Color" row />
+    <AutoExample name="Colors" row />
   </section>
 
   <section>

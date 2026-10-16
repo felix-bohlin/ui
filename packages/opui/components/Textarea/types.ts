@@ -19,14 +19,3 @@ export type Slots<S> = {
   suffix?: string | S
   supportingText?: string | S
 }
-
-export type TextareaProps =
-  | "cols"
-  | "disabled"
-  | "maxlength"
-  | "minlength"
-  | "name"
-  | "placeholder"
-  | "required"
-  | "rows"
-  | "value"

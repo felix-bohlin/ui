@@ -1,9 +1,16 @@
 import type { HTMLAttributes, Slot } from "vue"
-import type { RadioProps as BaseRadioProps } from "./types"
+import type {
+  RadioInputProps as BaseRadioInputProps,
+  RadioProps as BaseRadioProps,
+} from "./types"
 
-export type RadioProps = BaseRadioProps & {
+type Class = {
   class?: HTMLAttributes["class"]
 }
+
+export type RadioProps = BaseRadioProps & Class
+
+export type RadioInputProps = BaseRadioInputProps & Class
 
 export type Slots = {
   default?: Slot

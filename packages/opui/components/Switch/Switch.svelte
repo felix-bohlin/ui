@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import SwitchInput from "./SwitchInput.svelte"
   import type { SwitchProps as Props } from "./types.svelte"
 
@@ -26,6 +27,15 @@
     [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
       undefined,
   )
+
+  if (
+    import.meta.env.DEV &&
+    untrack(() => !children && !rest["aria-label"] && !rest["aria-labelledby"])
+  ) {
+    console.warn(
+      "[OPUI Switch] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+    )
+  }
 </script>
 
 <label

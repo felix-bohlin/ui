@@ -3,6 +3,7 @@ import type { RangeProps, Slots } from "./types.d.vue"
 import {
   computed,
   inject,
+  type InputHTMLAttributes,
   onBeforeUnmount,
   onMounted,
   useAttrs,
@@ -10,7 +11,7 @@ import {
   useSlots,
   useTemplateRef,
 } from "vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -39,7 +40,7 @@ onMounted(() => {
 })
 onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
 
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
 const defaultValue = computed(() => {
   const min = Number(attrs.min ?? 0)
   const max = Math.max(min, Number(attrs.max ?? 100))
@@ -52,15 +53,17 @@ const defaultValue = computed(() => {
 
 const uid = useId()
 const slots = useSlots()
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const fieldName = inject(FieldGroupKey, undefined)
 const hasValue = computed(
   () => props.valueSuffix !== undefined || !!slots.value,
 )
-const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
+const inputId = computed(
+  () => props.id || (hasValue.value ? `range-${uid}` : undefined),
+)
 
-const labelId = useId()
-const startTextId = useId()
-const endTextId = useId()
+const labelId = `range-label-${uid}`
+const startTextId = `range-start-${uid}`
+const endTextId = `range-end-${uid}`
 </script>
 
 <template>
@@ -94,23 +97,26 @@ const endTextId = useId()
     </span>
 
     <input
+      v-bind="$attrs"
+      v-model.number="model"
       :aria-describedby="
         [
           props.startText || $slots['start-text'] ? startTextId : undefined,
           props.endText || $slots['end-text'] ? endTextId : undefined,
+          attrs['aria-describedby'],
         ]
           .filter(Boolean)
           .join(' ') || undefined
       "
-      :aria-invalid="props.error ? 'true' : undefined"
-      :aria-labelledby="props.label || $slots.default ? labelId : undefined"
+      :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="
+        props.label || $slots.default ? labelId : attrs['aria-labelledby']
+      "
       :id="inputId"
       :list="props.list"
-      :name="currentFieldName"
+      :name="attrs.name ?? fieldName"
       ref="input"
       type="range"
-      v-bind="$attrs"
-      v-model.number="model"
     />
 
     <datalist v-if="props.options || $slots.datalist" :id="props.list">

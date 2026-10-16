@@ -1,14 +1,17 @@
 ---
 import "@opui/css/imports.css"
+import {
+  stressPages,
+  stressSlug,
+  testPagesEnabled,
+} from "../../utils/test-pages"
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  if (!testPagesEnabled()) return []
   return [{ params: { index: undefined } }]
 }
 
-const pages = Object.keys(import.meta.glob("../../stress-tests/*.html"))
-  .map((path) => path.match(/stress-tests\/([^/]+)\.html$/)![1])
-  .toSorted()
+const pages = Object.keys(stressPages).map(stressSlug).toSorted()
 ---
 
 <!doctype html>

@@ -56,11 +56,6 @@ export default defineConfig({
   image: { service: passthroughImageService() },
   markdown: { syntaxHighlight: false },
   site: "https://open-props-ui.netlify.app/",
-  i18n: {
-    defaultLocale: DEFAULT_FRAMEWORK,
-    locales: FRAMEWORK_IDS,
-    routing: { prefixDefaultLocale: true },
-  },
   redirects: legacyRedirects,
   integrations: [
     vue(),

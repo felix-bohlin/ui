@@ -100,26 +100,7 @@ const isBrowser = typeof window !== "undefined"
 
 function readConfig(mode: Mode): ModeConfig {
   if (!isBrowser) return {}
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY(mode))
-    if (!raw) return {}
-    const parsed = JSON.parse(raw) as ModeConfig & {
-      "--gray-hue-offset"?: string
-    }
-    // Drop the legacy `--gray-hue-offset` key. The new core derives grays
-    // per-element using absolute `--gray-hue`, so the offset semantic no
-    // longer applies. Users will fall back to the default --gray-hue (255).
-    if ("--gray-hue-offset" in parsed) {
-      delete parsed["--gray-hue-offset"]
-    }
-    for (const key of Object.keys(parsed) as Token[]) {
-      const radius = /^var\(--radius-(\d)\)$/.exec(parsed[key] ?? "")
-      if (radius) parsed[key] = `var(--size-${radius[1]})`
-    }
-    return parsed
-  } catch {
-    return {}
-  }
+  return window.themeUtils.getCustomTheme(mode)
 }
 
 function writeConfig(mode: Mode, config: ModeConfig): void {
@@ -180,24 +161,13 @@ export const themeStore = {
   },
 
   /**
-   * Re-applies the saved config for `mode` to <html>. Mirrors
-   * Header.astro's bootstrap so toggling the global theme and switching
-   * configs always lands in a consistent state.
+   * Re-applies the saved config for `mode` to <html> with Header.astro's
+   * bootstrap, so toggling the global theme and switching configs always
+   * lands in a consistent state.
    */
   applyMode(mode: Mode = getActiveSiteMode()): void {
     if (!isBrowser) return
-    const html = document.documentElement
-    TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.classList.remove("no-grays")
-
-    const config = readConfig(mode)
-    for (const [name, value] of Object.entries(config)) {
-      if (name === "enable-grays") {
-        html.classList.toggle("no-grays", value === "false")
-      } else if (typeof value === "string") {
-        html.style.setProperty(name, value)
-      }
-    }
+    window.themeUtils.applyCustomTheme(mode)
     emit({ mode, type: "applyMode" })
   },
 
@@ -207,9 +177,7 @@ export const themeStore = {
     localStorage.removeItem(STORAGE_KEY("dark"))
     localStorage.removeItem("opui-custom-theme") // legacy
 
-    const html = document.documentElement
-    TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.classList.remove("no-grays")
+    window.themeUtils.applyCustomTheme()
 
     emit({ mode: getActiveSiteMode(), type: "reset" })
   },

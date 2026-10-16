@@ -576,13 +576,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                     |
-| -------- | ----------------------------------------- | ------- | ----------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                        |
-| State    | `[disabled]`                              | -       | Disables the button.                            |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                             |
+| Type     | Modifiers                                 | Default | Description                                                                                                                        |
+| -------- | ----------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                                   |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                                                                                    |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                           |
+| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, takes `aria-disabled="true"` instead and looks and acts disabled. |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                                |
 
 #### Parts
 
@@ -596,6 +596,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
@@ -718,8 +719,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - [Icon-only](#icon-only) buttons need no extra class, and `.ui-rounded` makes them round.
-- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
+- Breaking: `.ui-icon-button` and `icon-button.css` are gone. An [icon-only](#icon-only) button is a `.ui-button` with just an `svg`.
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Breaking: `.ui-icon-only` is removed. A button whose only child is an `svg` is [square](#icon-only).
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
+- Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).

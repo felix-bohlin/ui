@@ -12,19 +12,21 @@ import {
   Radio,
   Textarea,
 } from "@opui/astro"
+import CommentField from "../../components/Todo/CommentField.astro"
+import InlineText from "../../components/Todo/InlineText.astro"
+import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
+import { parseTodo, plainText, slugify, stressRefs } from "../../utils/todo"
 import {
-  parseTodo,
-  slugify,
-  splitInlineCode,
-  splitLinks,
-  stressRefs,
-} from "../../utils/todo"
+  stressPages,
+  stressSlug,
+  testPagesEnabled,
+} from "../../utils/test-pages"
 import { todoExamplesFor } from "../../utils/todo-examples"
 import source from "../../../TODO.md?raw"
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  if (!testPagesEnabled()) return []
   return [{ params: { index: undefined } }, { params: { index: "done" } }]
 }
 
@@ -35,27 +37,9 @@ const doneCount = done.reduce(
   (total, section) => total + section.items.length,
   0,
 )
-const inline = (text: string) =>
-  splitInlineCode(text).flatMap((part) =>
-    part.code
-      ? [{ code: true, href: undefined, value: part.value }]
-      : splitLinks(part.value).map((link) => ({ code: false, ...link })),
-  )
-
-const plainText = (text: string) =>
-  splitInlineCode(text)
-    .map((part) => part.value)
-    .join("")
-
-const stressPages = Object.fromEntries(
-  Object.entries(
-    import.meta.glob<string>("../../stress-tests/*.html", {
-      eager: true,
-      import: "default",
-      query: "?raw",
-    }),
-  ).map(([path, html]) => [
-    path.match(/stress-tests\/([^/]+)\.html$/)![1],
+const stressExamples = Object.fromEntries(
+  Object.entries(stressPages).map(([path, html]) => [
+    stressSlug(path),
     new Set(
       [...html.matchAll(/data-example="([^"]+)"/g)].map(([, name]) => name),
     ),
@@ -72,7 +56,7 @@ const examplesFor = (text: string) => {
 
   return [
     ...stressRefs(text)
-      .filter(({ example, page }) => stressPages[page]?.has(example))
+      .filter(({ example, page }) => stressExamples[page]?.has(example))
       .map(({ example, page }) => ({
         label: `${page} ${example}`,
         scheme,
@@ -140,9 +124,7 @@ const count = sections.reduce(
   {
     intro.map((paragraph) => (
       <p>
-        {splitInlineCode(paragraph).map((part) =>
-          part.code ? <code>{part.value}</code> : part.value,
-        )}
+        <InlineText text={paragraph} />
       </p>
     ))
   }
@@ -153,7 +135,11 @@ const count = sections.reduce(
         <h2 id={slugify(section.title)}>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
           {section.items.map((item, index) => (
-            <li class="todo-item" data-todo-line={item.line}>
+            <li
+              class="todo-item"
+              data-todo-key={slugify(item.text)}
+              data-todo-line={item.line}
+            >
               <div class="todo-text">
                 {item.severity && (
                   <Chip
@@ -164,41 +150,10 @@ const count = sections.reduce(
                   />
                 )}
                 <span>
-                  {splitInlineCode(item.text).map((part) =>
-                    part.code ? <code>{part.value}</code> : part.value,
-                  )}
+                  <InlineText text={item.text} />
                 </span>
               </div>
-              {item.notes.length > 0 && (
-                <div class="todo-notes">
-                  {item.notes.map((note) =>
-                    note.kind === "code" ? (
-                      <pre
-                        class="todo-note ui-code-block"
-                        set:text={note.code}
-                        style={`--level: ${note.level}`}
-                      />
-                    ) : (
-                      <p
-                        class:list={["todo-note", `todo-note-${note.kind}`]}
-                        style={`--level: ${note.level}`}
-                      >
-                        {inline(note.text).map((part) =>
-                          part.code ? (
-                            <code>{part.value}</code>
-                          ) : part.href ? (
-                            <a class="ui-link" href={part.href}>
-                              {part.value}
-                            </a>
-                          ) : (
-                            part.value
-                          ),
-                        )}
-                      </p>
-                    ),
-                  )}
-                </div>
-              )}
+              <TodoNotes notes={item.notes} />
               {item.examples.length > 0 && (
                 <Accordion class="todo-examples" variant="outlined">
                   <AccordionSummary>
@@ -230,12 +185,7 @@ const count = sections.reduce(
                   </AccordionContent>
                 </Accordion>
               )}
-              <Textarea autoFit placeholder="Comment" rows={1} size="small">
-                <span class="ui-sr-only" slot="label">
-                  {`Comment on: ${plainText(item.text)}`}
-                </span>
-                <span class="todo-saved" slot="end-text" />
-              </Textarea>
+              <CommentField text={item.text} />
               <FieldSet class="todo-actions-field">
                 <FieldLegend class="ui-sr-only">
                   {`Actions for: ${plainText(item.text)}`}
@@ -282,35 +232,22 @@ const count = sections.reduce(
 </Document>
 
 <script>
+  import {
+    copyText,
+    readStored,
+    trackComments,
+    writeStored,
+  } from "../../components/Todo/comments"
+
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"
 
-  const read = <T,>(key: string): Record<string, T> => {
-    try {
-      return JSON.parse(localStorage.getItem(key) ?? "{}")
-    } catch {
-      return {}
-    }
-  }
-
-  const write = (key: string, value: Record<string, unknown>) => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value))
-      return true
-    } catch {
-      return false
-    }
-  }
-
-  const readComments = () => read<string>(storageKey)
-  const writeComments = (comments: Record<string, string>) =>
-    write(storageKey, comments)
-  const readActions = () => read<string>(actionsKey)
+  const readActions = () => readStored<Record<string, string>>(actionsKey, {})
   const writeActions = (actions: Record<string, string>) =>
-    write(actionsKey, actions)
+    writeStored(actionsKey, actions)
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
-  const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
+  const keyOf = (item: HTMLElement) => item.dataset.todoKey!
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
@@ -321,64 +258,34 @@ const count = sections.reduce(
     "#todo-only-commented",
   )!
 
-  const pending = new Map<HTMLElement, number>()
-
-  const save = (item: HTMLElement) => {
-    clearTimeout(pending.get(item))
-    pending.delete(item)
-    const line = item.dataset.todoLine!
-    const value = fieldOf(item).value
-    const comments = readComments()
-    if (value.trim()) comments[line] = value
-    else delete comments[line]
-    const savedText = item.querySelector(".todo-saved")!
-    if (writeComments(comments)) {
-      savedText.textContent = value.trim() ? "Saved" : ""
-    } else {
-      savedText.textContent = "Not saved"
-      status.textContent =
-        "Comments can't be saved in this browser. Copy them before leaving the page."
-    }
+  const notSaved = () => {
+    status.textContent =
+      "Comments can't be saved in this browser. Copy them before leaving the page."
   }
 
-  const saveAll = () => [...pending.keys()].forEach(save)
+  const comments = trackComments({
+    items,
+    keyOf,
+    onError: notSaved,
+    storageKey,
+  })
 
   const saveActions = (item: HTMLElement) => {
-    const line = item.dataset.todoLine!
+    const key = keyOf(item)
     const checked = checkedAction(item)
     const actions = readActions()
-    if (checked) actions[line] = checked
-    else delete actions[line]
-    if (!writeActions(actions))
-      status.textContent =
-        "Comments can't be saved in this browser. Copy them before leaving the page."
+    if (checked) actions[key] = checked
+    else delete actions[key]
+    if (!writeActions(actions)) notSaved()
   }
 
-  const saved = readComments()
   const savedActions = readActions()
   for (const item of items) {
     for (const input of actionsOf(item)) {
-      input.checked = savedActions[item.dataset.todoLine!] === input.value
+      input.checked = savedActions[keyOf(item)] === input.value
       input.addEventListener("change", () => saveActions(item))
     }
-    const field = fieldOf(item)
-    field.value = saved[item.dataset.todoLine!] ?? ""
-    field.addEventListener("input", () => {
-      clearTimeout(pending.get(item))
-      pending.set(
-        item,
-        window.setTimeout(() => save(item), 500),
-      )
-    })
-    field.addEventListener("blur", () => {
-      if (pending.has(item)) save(item)
-    })
   }
-
-  addEventListener("pagehide", saveAll)
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") saveAll()
-  })
 
   const buildText = () => {
     const blocks: string[] = []
@@ -390,7 +297,7 @@ const count = sections.reduce(
       const lines = [
         ...section.querySelectorAll<HTMLElement>(".todo-item"),
       ].flatMap((item) => {
-        const comment = fieldOf(item).value.trim()
+        const comment = comments.commentOf(item)
         const checked = checkedAction(item)
         if (!comment && !checked && onlyCommented.checked) return []
         if (comment || checked) commented++
@@ -417,34 +324,6 @@ const count = sections.reduce(
   )!
   const copyField =
     document.querySelector<HTMLTextAreaElement>("#todo-copy-text")!
-
-  const copyWithSelection = (text: string) => {
-    const field = document.createElement("textarea")
-    field.value = text
-    field.inputMode = "none"
-    field.style.fontSize = "16px"
-    field.style.opacity = "0"
-    field.style.position = "fixed"
-    document.body.append(field)
-    field.focus()
-    field.setSelectionRange(0, text.length)
-    const copied = document.execCommand("copy")
-    field.remove()
-    return copied
-  }
-
-  const copy = async (text: string) => {
-    if (!navigator.clipboard?.writeText) return copyWithSelection(text)
-    try {
-      await Promise.race([
-        navigator.clipboard.writeText(text),
-        new Promise((_, reject) => setTimeout(reject, 2000)),
-      ])
-      return true
-    } catch {
-      return copyWithSelection(text)
-    }
-  }
 
   const syncScheme = (frame: HTMLIFrameElement) => {
     const root = frame.contentDocument?.documentElement
@@ -494,7 +373,7 @@ const count = sections.reduce(
       status.textContent = "No comments yet."
       return
     }
-    const copied = await copy(text)
+    const copied = await copyText(text)
     copyFallback.hidden = copied
     if (copied) {
       status.textContent = `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
@@ -509,14 +388,9 @@ const count = sections.reduce(
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {
     if (!confirm("Clear all comments?")) return
-    for (const item of items) {
-      clearTimeout(pending.get(item))
-      fieldOf(item).value = ""
+    comments.clear()
+    for (const item of items)
       for (const input of actionsOf(item)) input.checked = false
-      item.querySelector(".todo-saved")!.textContent = ""
-    }
-    pending.clear()
-    writeComments({})
     writeActions({})
     status.textContent = "Comments cleared."
   })
@@ -543,49 +417,10 @@ const count = sections.reduce(
       margin-inline-end: var(--size-2);
     }
 
-    code {
+    :global(code) {
       font-size: 0.875em;
       overflow-wrap: anywhere;
     }
-  }
-
-  .todo-notes {
-    display: grid;
-    font-size: var(--font-size-05);
-    gap: var(--size-2);
-
-    code {
-      font-size: 0.875em;
-      overflow-wrap: anywhere;
-    }
-
-    pre code {
-      overflow-wrap: normal;
-    }
-  }
-
-  .todo-note {
-    margin: 0;
-    margin-inline-start: calc(var(--level) * var(--size-4));
-    min-inline-size: 0;
-  }
-
-  .todo-note-item {
-    padding-inline-start: var(--size-3);
-    position: relative;
-
-    &::before {
-      content: "•";
-      inset-inline-start: 0;
-      position: absolute;
-    }
-  }
-
-  .todo-note-comment {
-    border-inline-start: var(--border-size-3) solid var(--border-color);
-    color: var(--text-muted);
-    font-style: italic;
-    padding-inline-start: var(--size-3);
   }
 
   .todo-example {
@@ -629,10 +464,6 @@ const count = sections.reduce(
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
-  }
-
-  .todo-saved:empty {
-    display: none;
   }
 
   .todo-status {

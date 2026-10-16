@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { openFixture } from "./fixtures"
+import { axeNodes, openFixture } from "./fixtures"
 import { SCENARIOS, id, isOpen, opened, run } from "./stress-overlays"
 
 const CHECKED = [
@@ -21,9 +21,6 @@ const CHECKED = [
   "tooltip on the close button at the drawer edge",
   "tooltip over an open menu in the same toolbar",
 ]
-
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
 
 test("every checked overlay scenario exists", () => {
   expect(
@@ -51,20 +48,6 @@ for (const { name, steps } of SCENARIOS.filter((scenario) =>
     const builder = new AxeBuilder({ page }).exclude('iframe[src*="youtube"]')
     for (const overlay of opened(steps)) builder.include(id(overlay))
     const { violations } = await builder.analyze()
-    expect(
-      violations.flatMap((violation) =>
-        violation.nodes
-          .filter(
-            (node) =>
-              violation.id !== "scrollable-region-focusable" ||
-              !isCarousel(node.html),
-          )
-          .map((node) => ({
-            help: violation.help,
-            id: violation.id,
-            target: node.target.join(" "),
-          })),
-      ),
-    ).toEqual([])
+    expect(axeNodes(violations)).toEqual([])
   })
 }

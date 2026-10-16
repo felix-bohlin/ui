@@ -28,6 +28,8 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
   </Accordion>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
 `AccordionSummary` renders a chevron marker by default. If you put your own chevron in the summary, you get two: move it to the `marker` slot on `AccordionSummary` and give it `.ui-marker`.
 
 ```diff
@@ -51,6 +53,8 @@ In Astro and Vue the floating content goes in `AnchorContent` instead of the `an
 +   <AnchorContent><Card>…</Card></AnchorContent>
   </Anchor>
 ```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Avatar
 
@@ -134,6 +138,8 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + </Callout>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
 ## Card
 
 Tonal and elevated cards have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them use the page background too. Actions stick to the bottom of stretched cards and wrap.
@@ -152,6 +158,8 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 +   <CardActions align="end"><Button>Open</Button></CardActions>
 + </Card>
 ```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Checkbox
 
@@ -218,6 +226,8 @@ In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHea
 + </Dialog>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
 ## Divider
 
 A divider that is a direct child of a card has no margin, since the card's gap spaces it.
@@ -249,6 +259,8 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 +   <DrawerFooter>…</DrawerFooter>
   </Drawer>
 ```
+
+`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 
 ## Field group and field set
 
@@ -497,6 +509,8 @@ The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `to
 
 Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
+`ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
+
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
 
 `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`. `.ui-disabled` stays on `Chip`, to dim a static chip.
@@ -520,6 +534,8 @@ In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `co
 +   <TooltipContent>Save your changes</TooltipContent>
   </Tooltip>
 ```
+
+`types.ts` no longer exports a `Slots` type.
 
 Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arrow shift along the edge like other tooltips.
 

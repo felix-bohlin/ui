@@ -266,7 +266,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
 <div class="ui-card ui-outlined" role="group">
   <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
     <summary>
-      Accordion title
+      First
       <svg
         aria-hidden="true"
         class="ui-marker"
@@ -282,16 +282,12 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
       </svg>
     </summary>
     <div class="ui-content">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </div>
   </details>
   <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
     <summary>
-      Accordion title
+      Second
       <svg
         aria-hidden="true"
         class="ui-marker"
@@ -307,36 +303,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
       </svg>
     </summary>
     <div class="ui-content">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
-    </div>
-  </details>
-  <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
-    <summary>
-      Accordion title
-      <svg
-        aria-hidden="true"
-        class="ui-marker"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-        />
-      </svg>
-    </summary>
-    <div class="ui-content">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </div>
   </details>
 </div>
@@ -506,12 +473,12 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 ### Accordion API
 
-| Type     | Modifiers                                                 | Default | Description                                                  |
-| -------- | --------------------------------------------------------- | ------- | ------------------------------------------------------------ |
-| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time. |
-| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.            |
-| State    | `[open]`                                                  | -       | Whether the accordion is open.                               |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use.                                          |
+| Type     | Modifiers                                                 | Default | Description                                                                        |
+| -------- | --------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time.                       |
+| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.                                  |
+| State    | `[open]`                                                  | -       | Whether the accordion is open.                                                     |
+| Variants | `.ui-elevated`, `.ui-outlined`, `.ui-tonal`               | -       | The variant to use. Without one the accordion has no background, border or shadow. |
 
 #### Parts
 
@@ -690,8 +657,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Card](https://open-props-ui.netlify.app/html/components/card.md)
 
-- `opui-css/css/components/accordion.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/accordion.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -700,3 +667,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
 - Breaking: markers only animate with a [marker class](#marker-animation), and only the [`svg.ui-marker`](#custom-marker). Add `.ui-marker-rotate` to keep the previous rotation.
 - [Actions](#actions) line up with the content and the chevron.
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).

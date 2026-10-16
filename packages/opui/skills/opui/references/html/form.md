@@ -779,7 +779,7 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 - [Textarea](https://open-props-ui.netlify.app/html/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/html/components/text-field.md)
 
-- `opui-css/css/components/form.css`
+* `opui-css/css/components/form.css`
 
 ## Changelog
 

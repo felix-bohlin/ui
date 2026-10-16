@@ -130,9 +130,9 @@ export default function Disabled() {
 
 ## Validation
 
-- Use the `error` prop to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid.
-- Say what's wrong in the end text. The component points `aria-describedby` at it.
-- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+- The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```tsx
 import { Range } from "opui-css/react"
@@ -151,7 +151,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 ```tsx
 import { Range } from "opui-css/react"
 
-export default function Row() {
+export default function Spread() {
   return (
     <>
       <Range spread startText="Start text" endText="End text">
@@ -502,3 +502,4 @@ Import the component from `opui-css/react`:
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
+- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).

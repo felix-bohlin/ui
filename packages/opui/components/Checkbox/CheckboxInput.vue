@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CheckboxInputProps } from "./types"
+import type { CheckboxInputProps } from "./types.d.vue"
 import {
   computed,
   inject,
@@ -7,14 +7,14 @@ import {
   useTemplateRef,
   watchPostEffect,
 } from "vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const attrs = useAttrs()
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const fieldName = inject(FieldGroupKey, undefined)
 const props = defineProps<CheckboxInputProps>()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
@@ -40,8 +40,9 @@ watchPostEffect(() => {
   <input
     ref="input"
     type="checkbox"
+    :class="props.class"
     :data-indeterminate="props.indeterminate ? '' : undefined"
-    :name="currentFieldName"
+    :name="fieldName"
     v-bind="$attrs"
     v-model="model"
   />

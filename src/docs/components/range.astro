@@ -7,6 +7,7 @@ import AutoExample from "../../components/AutoExample.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
 import rangeApi from "../../component-api/range/api"
@@ -205,108 +206,15 @@ export const description =
 
   <section>
     <h2 id="validation">Validation</h2>
-    <Conditional>
-      <Fragment slot="astro">
-        <ul>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles: the thumb, the
-            fill and the helper texts turn the invalid color. It sets <code
-              >aria-invalid="true"</code
-            > on the input, so screen readers announce it as invalid.
-          </li>
-          <li>
-            Say what's wrong in the end text. The component points <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            The same styles apply when the browser's own validation fails (<code
-              >:user-invalid</code
-            >), such as after <code>setCustomValidity()</code>.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="html">
-        <ul>
-          <li>
-            Add <code>aria-invalid="true"</code> to the <code
-              >&lt;input&gt;</code
-            > to toggle invalid styles: the thumb, the fill and the helper texts turn
-            the invalid color. Screen readers announce it as invalid.
-          </li>
-          <li>
-            Say what's wrong in the end text, and point <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            The same styles apply when the browser's own validation fails (<code
-              >:user-invalid</code
-            >), such as after <code>setCustomValidity()</code>.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="react">
-        <ul>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles: the thumb, the
-            fill and the helper texts turn the invalid color. It sets <code
-              >aria-invalid="true"</code
-            > on the input, so screen readers announce it as invalid.
-          </li>
-          <li>
-            Say what's wrong in the end text. The component points <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            The same styles apply when the browser's own validation fails (<code
-              >:user-invalid</code
-            >), such as after <code>setCustomValidity()</code>.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="svelte">
-        <ul>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles: the thumb, the
-            fill and the helper texts turn the invalid color. It sets <code
-              >aria-invalid="true"</code
-            > on the input, so screen readers announce it as invalid.
-          </li>
-          <li>
-            Say what's wrong in the end text. The component points <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            The same styles apply when the browser's own validation fails (<code
-              >:user-invalid</code
-            >), such as after <code>setCustomValidity()</code>.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="vue">
-        <ul>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles: the thumb, the
-            fill and the helper texts turn the invalid color. It sets <code
-              >aria-invalid="true"</code
-            > on the input, so screen readers announce it as invalid.
-          </li>
-          <li>
-            Say what's wrong in the end text. The component points <code
-              >aria-describedby</code
-            > at it.
-          </li>
-          <li>
-            The same styles apply when the browser's own validation fails (<code
-              >:user-invalid</code
-            >), such as after <code>setCustomValidity()</code>.
-          </li>
-        </ul>
-      </Fragment>
-    </Conditional>
+    <ValidationNotes element="input" subject="Fields">
+      <li>
+        The invalid styles turn the thumb, the fill and the helper texts the
+        invalid color. A range always has a value, so <code>required</code> doesn't
+        apply, and the browser's own validation only fails after <code
+          >setCustomValidity()</code
+        >.
+      </li>
+    </ValidationNotes>
     <AutoExample name="Validation" column />
   </section>
 
@@ -344,7 +252,7 @@ export const description =
         than 400px.
       </Fragment>
     </Conditional>
-    <AutoExample name="Row" column />
+    <AutoExample name="Spread" column />
   </section>
 
   <RangeBuild slot="under-the-hood" />

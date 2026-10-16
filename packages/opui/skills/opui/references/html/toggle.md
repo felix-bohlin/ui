@@ -24,6 +24,7 @@ Day Week Month
 <label class="ui-toggle-button">
   <input type="checkbox" name="standalone-demo-2" />
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -112,6 +113,7 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
   <label class="ui-toggle-button">
     <input type="radio" name="alignment" value="left" aria-label="Align left" />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -132,6 +134,7 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
       aria-label="Align center"
     />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -151,6 +154,7 @@ Use `type="radio"` for single-select groups. Add `checked` to the input that sta
       aria-label="Align right"
     />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -174,6 +178,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
   <label class="ui-toggle-button">
     <input type="radio" checked name="transport" value="walking" />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -189,6 +194,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
   <label class="ui-toggle-button">
     <input type="radio" name="transport" value="cycling" />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -204,6 +210,7 @@ Put an `svg` before the text. Icon-only buttons need an `aria-label` on the inpu
   <label class="ui-toggle-button">
     <input type="radio" name="transport" value="commuting" />
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -226,62 +233,16 @@ Change the layout of the group with the `.ui-vertical` class.
 ```html
 <div role="radiogroup" class="ui-toggle-group ui-vertical">
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      name="alignment-vertical"
-      value="left"
-      aria-label="Align left"
-    />
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M3 21h18v-2H3v2zm0-4h12v-2H3v2zm0-4h18v-2H3v2zm0-4h12v-2H3v2zm0-6v2h18V3H3z"
-      />
-    </svg>
+    <input type="radio" name="view" value="day" />
+    Day
   </label>
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      checked
-      name="alignment-vertical"
-      value="center"
-      aria-label="Align center"
-    />
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M3 21h18v-2H3v2zm4-4h10v-2H7v2zm-4-4h18v-2H3v2zm4-4h10v-2H7v2zM3 3v2h18V3H3z"
-      />
-    </svg>
+    <input type="radio" checked name="view" value="week" />
+    Week
   </label>
   <label class="ui-toggle-button">
-    <input
-      type="radio"
-      name="alignment-vertical"
-      value="right"
-      aria-label="Align right"
-    />
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12v-2H9v2zM3 3v2h18V3H3z"
-      />
-    </svg>
+    <input type="radio" name="view" value="month" />
+    Month
   </label>
 </div>
 ```
@@ -350,17 +311,28 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 
 `disabled` on a toggle button dims it and skips it with Tab and the arrow keys. `aria-disabled="true"` on the `<input>` looks the same, but keeps the toggle button focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
+```html
+<label class="ui-toggle-button">
+  <input type="checkbox" name="disabled-demo-1" disabled />
+  Disabled
+</label>
+<label class="ui-toggle-button">
+  <input type="checkbox" name="disabled-demo-2" aria-disabled="true" />
+  Aria-disabled
+</label>
+```
+
 ## API
 
 ### Toggle group API
 
-| Type        | Modifiers                                        | Default          | Description                                                                                                       |
-| ----------- | ------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-vertical`                                   | -                | The orientation of the element.                                                                                   |
-| Overflow    | `.ui-scrollable`                                 | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Overflow    | `.ui-shrink`                                     | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| Selection   | `[role="group"]`, `[role="radiogroup"]`          | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons.                                                                                          |
+| Type        | Modifiers                               | Default          | Description                                                                                                       |
+| ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Orientation | `.ui-vertical`                          | -                | The orientation of the element.                                                                                   |
+| Overflow    | `.ui-scrollable`                        | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Overflow    | `.ui-shrink`                            | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small` | -                | The size of the buttons. Without one they are the default control size.                                           |
 
 #### Parts
 
@@ -371,28 +343,33 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 
 #### CSS variables
 
-| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
-| `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                                                                                                                        |
-| `--field-size-large`     | `var(--control-size-large)`                                                           | Field height with `.ui-large`.                                                                                                                                                                               |
-| `--field-size-small`     | `var(--control-size-small)`                                                           | Field height with `.ui-small`.                                                                                                                                                                               |
-| `--field-size-x-small`   | `var(--control-size-x-small)`                                                         | Field height with `.ui-x-small`.                                                                                                                                                                             |
-| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
-| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
-| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
-| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
-| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
-| `--motion`               | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
+| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
+| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                                                                                                            |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                        |
+| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--focus-ring-color`          | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
+| `--focus-ring-offset`         | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
+| `--focus-ring-style`          | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
+| `--focus-ring-width`          | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
+| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`                 | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
+| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                              |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
+| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -414,27 +391,32 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### CSS variables
 
-| Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
-| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
-| `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
-| `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                                                                                                                        |
-| `--field-size-large`     | `var(--control-size-large)`                                                           | Field height with `.ui-large`.                                                                                                                                                                               |
-| `--field-size-small`     | `var(--control-size-small)`                                                           | Field height with `.ui-small`.                                                                                                                                                                               |
-| `--field-size-x-small`   | `var(--control-size-x-small)`                                                         | Field height with `.ui-x-small`.                                                                                                                                                                             |
-| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                              |
-| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
-| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
-| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
-| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
-| `--motion`               | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
+| Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
+| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
+| `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
+| `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                                                                                                            |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                                                                                                        |
+| `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                                                                                                        |
+| `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
+| `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--focus-ring-color`          | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
+| `--focus-ring-offset`         | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                               |
+| `--focus-ring-style`          | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                             |
+| `--focus-ring-width`          | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                     |
+| `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
+| `--icon-size`                 | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                         |
+| `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).     |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
+| `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                            |
+| `--state-hover-alpha`         | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                             |
+| `--state-hover-alpha-dark`    | `20%`                                                                                 | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                              |
+| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )`                | Text color of disabled buttons and chips.                                                                                                                                                                    |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -585,3 +567,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
+- Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color` ([Under the hood](#under-the-hood)).
+- A disabled [toggle](#disabled) dims like a disabled button, hover uses the button hover strength, and [`shrink`](#overflow) truncates like `ButtonGroup`.

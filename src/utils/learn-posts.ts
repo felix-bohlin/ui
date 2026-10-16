@@ -4,6 +4,7 @@ export const posts = [
     date: "2026-10-02",
     description:
       "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
+    includesAllBuilds: true,
     navLabel: "All build-ups",
     slug: "under-the-hood",
     title: "Under the hood",

@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Radio",
+  css: ["choice", "radio"],
   model: {
     description: "The selected value of the group.",
     frameworks: {

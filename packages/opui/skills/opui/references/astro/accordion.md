@@ -167,33 +167,15 @@ import {
 
 <Card variant="outlined" role="group">
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>First</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>Second</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
-    </AccordionContent>
-  </Accordion>
-  <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
-    <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
 </Card>
@@ -338,12 +320,12 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 ### Accordion API
 
-| Prop              | Type                                                  | Default     | Description                                                  |
-| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time. |
-| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                               |
-| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                          |
+| Prop              | Type                                    | Default    | Description                                                                        |
+| ----------------- | --------------------------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`        | `"rotate"` | How the marker animates when the accordion opens.                                  |
+| `name`            | `string`                                | -          | Groups accordions so only one of them can be open at a time.                       |
+| `open`            | `boolean`                               | `false`    | Whether the accordion is open.                                                     |
+| `variant`         | `"outlined"` , `"elevated"` , `"tonal"` | -          | The variant to use. Without one the accordion has no background, border or shadow. |
 
 #### Slots
 
@@ -520,8 +502,8 @@ Import the components from `opui-css/astro`:
 
 - [Card](https://open-props-ui.netlify.app/astro/components/card.md)
 
-- `opui-css/css/components/accordion.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/accordion.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -531,3 +513,5 @@ Import the components from `opui-css/astro`:
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) on `AccordionSummary` replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
 - [Actions](#actions) line up with the content and the chevron.
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- Breaking: [`variant="default"`](#variants) is gone. Leave `variant` out for the default look.

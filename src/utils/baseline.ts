@@ -1,4 +1,5 @@
 import { features } from "web-features"
+import { componentName } from "./names"
 
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {
@@ -13,10 +14,7 @@ export async function getBaselineMappings() {
 
   for (const path in modules) {
     const slug = path.split("/").pop()?.replace(".astro", "") || ""
-    const name = slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
+    const name = componentName(slug)
 
     const content = modules[path] as string
     const baselineRegex =

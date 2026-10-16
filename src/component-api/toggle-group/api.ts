@@ -39,12 +39,11 @@ export default {
       prop: "shrink",
     },
     {
-      default: '"default"',
-      description: "The size of the buttons.",
+      description:
+        "The size of the buttons. Without one they are the default control size.",
       group: "Sizes",
       prop: "size",
       values: {
-        default: null,
         large: ".ui-large",
         small: ".ui-small",
         "x-small": ".ui-x-small",

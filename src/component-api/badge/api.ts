@@ -31,7 +31,7 @@ export default {
       class: ".ui-dot",
       default: "false",
       description: "Renders the indicator as a dot, without a label.",
-      group: "Variants",
+      group: "Dot",
       prop: "dot",
     },
     {

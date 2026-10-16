@@ -379,17 +379,17 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop       | Type                                  | Default    | Description                                                        |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.              |
+| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                   |
+| `disabled` | `boolean`                             | `false`    | Disables the button.                                               |
+| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                 |
+| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
+| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
+| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
+| `size`     | `"small"` , `"x-small"` , `"large"`   | -          | The size of the element.                                           |
+| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -          | The variant to use.                                                |
 
 #### Slots
 
@@ -401,6 +401,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
@@ -525,9 +526,11 @@ Import the component from `opui-css/vue`:
 ### What's new
 
 - [Icon-only](#icon-only) buttons need no extra class, and `rounded` makes them round.
-- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
+- Breaking: replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - Breaking: no `.ui-disabled` on a [disabled](#disabled) button. Style `:disabled` or `[aria-disabled="true"]`.
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
 - Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
+- [`iconOnly`](#icon-only) makes `label` required on icon-only buttons (types only).
+- Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).

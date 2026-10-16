@@ -55,43 +55,29 @@
     }
 
     /* Colors */
-    &.ui-critical {
-      --_bg-color: oklch(from var(--critical) min(l, 0.48) c h);
+    &:is(.ui-critical, .ui-info, .ui-success) {
+      --_bg-color: oklch(from var(--_accent) min(l, 0.48) c h);
       --_border-color: var(--_bg-color);
       --_text-color: var(--gray-1);
 
       @container style(--contrast: more) {
         --_bg-color: light-dark(
-          oklch(from var(--critical) min(l, 0.48) c h),
-          oklch(from var(--critical) min(l, 0.45) c h)
+          oklch(from var(--_accent) min(l, 0.48) c h),
+          oklch(from var(--_accent) min(l, 0.45) c h)
         );
       }
     }
 
-    &.ui-success {
-      --_bg-color: oklch(from var(--success) min(l, 0.48) c h);
-      --_border-color: var(--_bg-color);
-      --_text-color: var(--gray-1);
-
-      @container style(--contrast: more) {
-        --_bg-color: light-dark(
-          oklch(from var(--success) min(l, 0.48) c h),
-          oklch(from var(--success) min(l, 0.45) c h)
-        );
-      }
+    &.ui-critical {
+      --_accent: var(--critical);
     }
 
     &.ui-info {
-      --_bg-color: oklch(from var(--info) min(l, 0.48) c h);
-      --_border-color: var(--_bg-color);
-      --_text-color: var(--gray-1);
+      --_accent: var(--info);
+    }
 
-      @container style(--contrast: more) {
-        --_bg-color: light-dark(
-          oklch(from var(--info) min(l, 0.48) c h),
-          oklch(from var(--info) min(l, 0.45) c h)
-        );
-      }
+    &.ui-success {
+      --_accent: var(--success);
     }
 
     &.ui-warning {

@@ -152,9 +152,9 @@ Add `disabled` to the `<input>` to disable the slider. The whole `.ui-range` dim
 
 ## Validation
 
-- Add `aria-invalid="true"` to the `<input>` to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. Screen readers announce it as invalid.
-- Say what's wrong in the end text, and point `aria-describedby` at it.
-- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+- The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text, and point `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
 <label class="ui-range">
@@ -544,3 +544,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - The track fill is CSS only, so plain HTML ranges [fill](#basics) too.
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 - Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).

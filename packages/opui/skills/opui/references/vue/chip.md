@@ -261,7 +261,7 @@ import { Chip } from "opui-css/vue"
 
 | Prop        | Type                                                              | Default   | Description                                                          |
 | ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"` , `(string & {})`                    | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
 | `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
 | `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
@@ -429,7 +429,10 @@ Import the component from `opui-css/vue`:
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Breaking: [`as="button"`](#button) renders `type="button"` by default.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).

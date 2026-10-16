@@ -161,6 +161,7 @@ import { Select } from "opui-css/astro"
 
 <Select label="Country">
   <svg
+    aria-hidden="true"
     slot="prefix"
     width="16"
     height="16"
@@ -260,9 +261,9 @@ import { Select } from "opui-css/astro"
 
 ## Validation
 
-- Set `required` on the component to toggle required styles on the select.
-- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the select, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<select>`.
+- `error` toggles the invalid styles, and screen readers announce the `<select>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```astro
 ---
@@ -371,6 +372,7 @@ import { Select } from "opui-css/astro"
   <Fragment slot="description">Affects data residency and latency</Fragment>
   <Fragment slot="prefix">
     <svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -482,7 +484,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
@@ -544,7 +546,7 @@ Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                         |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
@@ -754,9 +756,9 @@ Import the components from `opui-css/astro`:
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 - [Description List](https://open-props-ui.netlify.app/astro/components/description-list.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/select.css`
-- `opui-css/css/components/list.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/select.css`
+* `opui-css/css/components/list.css`
 
 ## See also
 
@@ -774,3 +776,4 @@ Import the components from `opui-css/astro`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: [`ClassicSelect`](#classic-select) no longer sets `aria-labelledby`. The wrapping `<label>` names the select, so `endText` is part of the name.
 - Breaking: `error` only sets `aria-invalid="true"` on the select, no more `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 
 export const title = "Avatar"
 
@@ -15,7 +16,7 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = (as || (href ? "a" : "div")) as any
+const Tag = as || (href ? "a" : "div")
 ---
 
 <Tag
@@ -28,5 +29,6 @@ const Tag = (as || (href ? "a" : "div")) as any
   href={href}
   role={isGroup ? "group" : undefined}
   type={Tag === "button" ? "button" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
+  {...rest as HTMLAttributes<"button">}
+  >{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
 >

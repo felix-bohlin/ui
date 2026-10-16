@@ -11,11 +11,7 @@ type Class = {
   class?: HTMLAttributes["class"]
 }
 
-export type Props = BaseProps &
-  Class & {
-    name?: string
-    open?: boolean
-  }
+export type Props = BaseProps & Class
 
 export type AccordionActionsProps = BaseAccordionActionsProps & Class
 

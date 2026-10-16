@@ -61,14 +61,9 @@
   {#if label}
     <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if description || startText}
+  {#if startText || description}
     <span class="ui-start-text">
-      {#if typeof description === "function"}
-        {startText}
-        {@render description()}
-      {:else}
-        {description || startText}
-      {/if}
+      {startText}{#if description}{@render content(description)}{/if}
     </span>
   {/if}
   <span class="ui-field">

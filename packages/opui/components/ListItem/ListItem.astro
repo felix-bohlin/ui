@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 
 export const title = "List Item"
 
@@ -15,9 +16,7 @@ const {
   ...rest
 } = Astro.props
 
-const hasLabel =
-  type && (type === "checkbox" || type === "radio" || type === "switch")
-const labelClass = type || ""
+const hasLabel = type === "checkbox" || type === "radio" || type === "switch"
 const liProps = Tag ? {} : rest
 const innerProps = Tag ? rest : {}
 ---
@@ -30,12 +29,12 @@ const innerProps = Tag ? rest : {}
     },
     className,
   ]}
-  {...liProps as any}
+  {...liProps as HTMLAttributes<"li">}
 >
   {
     // Label + checkbox/radio/switch
     hasLabel ? (
-      <label class={labelClass && `ui-${labelClass}`} for={htmlFor}>
+      <label class={`ui-${type}`} for={htmlFor}>
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />
@@ -57,10 +56,7 @@ const innerProps = Tag ? rest : {}
       </label>
     ) : // With custom tag
     Tag ? (
-      <Tag
-        type={Tag === "button" ? "button" : undefined}
-        {...(innerProps as any)}
-      >
+      <Tag type={Tag === "button" ? "button" : undefined} {...innerProps}>
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />

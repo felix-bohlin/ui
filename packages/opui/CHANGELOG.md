@@ -13,7 +13,7 @@
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
-- `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, so remove the class.
+- `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, at every size and inside `ButtonGroup`, so remove the class.
 - `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. It sets `disabled`, and `aria-disabled="true"` on links. Target `:disabled` or `[aria-disabled="true"]` instead of `.ui-disabled`.
 - `Button` icon styles only apply to a direct child `svg` (`> svg`), sized with `--_icon-size`. An `svg` nested in another element is no longer sized. Padding scales with `--_padding-inline` (`1ex` x-small, `1.25ex` small, `1.5ex` default, `2.5ex` large; was `0.5ex`, `0.75ex`, `1.5ex` and `4ex`), and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (`<span class="ui-text">`). Wrap the label when the button has an icon: text next to an `svg` without a wrapper renders as icon-only.
 - `Anchor` with `trigger="hover"` and `Tooltip` no longer wrap their trigger in a `<span interestfor>`. Add `interestfor` with the anchor's `id` to the trigger element.
@@ -33,7 +33,7 @@
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.
 - `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of the name, like `TextField`.
 - `Range` in Astro and Vue no longer sets `--_track-fill` from script. The track fill is a scroll-driven animation in CSS.
-- `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use no variant, `tonal`, or `transparent` on a `List`.
+- `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use no variant, `filled` or `tonal` on a `Range` or `Progress`, and no variant, `tonal` or `transparent` on a `List`.
 - `TextField` and `Textarea` take `variant="filled"` like `Select` instead of the boolean `filled`. Replace `filled` with `variant="filled"`.
 - `Divider` variants render `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-filled`, `.ui-border-primary` and `.ui-border-tonal`. The `variant` values are unchanged.
 - `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Menu`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
@@ -49,12 +49,13 @@
 - `Tooltip` in Astro and Vue takes `TooltipContent` instead of `label` and the `content` slot.
 - `Callout` in Astro and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon, `CalloutContent` the content and `CalloutTitle` the title. The root no longer renders an icon or wraps its children in `.ui-content`, `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout`.
 - `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so browsers without Invoker Commands need a polyfill.
+- `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
+- `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
+- `ToggleGroup` `size` and `Accordion` `variant` no longer accept `"default"`. Leave the prop out for the default.
 
 ### Removed
 
 - `Accordion`, `Anchor`, `Callout`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, and the Vue `Drawer` types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
-
-- `Button` `ripple` prop (`.ui-ripple`). Icon-only buttons get the same hover background as other buttons, so drop the prop or class.
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
 - `IconButton`. Use `Button`: an icon-only button is square by default, `rounded` (`.ui-rounded`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
@@ -63,7 +64,7 @@
 - `Avatar` squircle no longer falls back to a rounded square. Without `corner-shape` it is a circle.
 - `Range` no longer wraps the scroll-driven track fill in `@supports (animation-timeline: view())`.
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
-- `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`, sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and sets font and color inheritance on `::file-selector-button`.
+- `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`.
 - `normalize.css` no longer falls back to `--text-color-2` when `--text-muted` is unset.
 - `normalize.css` no longer sets `text-rendering: optimizeLegibility` on `body`.
 - `Select` no longer hides `option::before`.
@@ -71,22 +72,22 @@
 ### Added
 
 - `Carousel` takes an `aspectRatio` prop that crops media, like `--_media-aspect-ratio`.
-- Svelte 5 components for every Astro and Vue component, exported from `opui-css/svelte`. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
-- React 19 components for every Astro and Vue component, exported from `opui-css/react`. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props (`children`, and camelCased names such as `endText`), form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and components that need context, state or effects are marked `"use client"` so the rest also render as React Server Components. `react` and `react-dom` `^19` are optional peer dependencies.
+- `opui-css/svelte` exports Svelte 5 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
+- `opui-css/react` exports React 19 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props (`children`, and camelCased names such as `endText`), form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and components that need context, state or effects are marked `"use client"` so the rest also render as React Server Components. `react` and `react-dom` `^19` are optional peer dependencies.
 - `Accordion` takes a `markerAnimation` prop (`.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn`) that sets how the marker animates when it opens. Defaults to `rotate`.
 - `Button` takes a `rounded` prop (`.ui-rounded`). Icon size is set with `--_icon-size`.
 - `Carousel` component (`ul.ui-carousel`). Scroll snap, with previous/next buttons (`::scroll-button()`) and markers (`::scroll-marker`) generated by CSS. Buttons use inverted colors with a gray border derived from the button color so they contrast with any item, show an SVG chevron that follows the color scheme, and sit over or beside the items (`.ui-buttons-outside`). Images, videos and iframes fill the item with a configurable aspect ratio. Supports items per view, peek, center alignment, RTL, and custom properties for every size, color, icon and label. No JavaScript needed, with Astro, React, Svelte and Vue components, and it falls back to a snapping scroller.
 - `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, flips when it runs out of space, and moves below or above its trigger when neither side fits. Supports an `items` prop, custom `ListItem` content, placements, end alignment (`align="end"`, `.ui-align-end`), `--anchor-position-area` and critical items. Items are built like `List` items, with the label in `.ui-text` and shortcuts in `.ui-end`. Group labels are HTML and CSS only. Submenus go in the `submenu` slot of a `ListItem`. On iOS, submenus anchor to their parent menu instead of their trigger item.
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
-- `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). Inside a `Drawer` it defaults to the drawer's `id`, and the close button uses `command="close"` (Invoker Commands). Outside a `Drawer` without `commandfor`, it closes the nearest `<dialog>` with a script.
 - `Button` links with `aria-disabled="true"` no longer receive clicks.
 - `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. They default to the chevron and swap in RTL.
 - `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
-- `layers.css` with the `@layer` order, for importing single component files.
-- The package ships an agent skill in `skills/opui` with a reference for every component.
+- `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
+- `layers.css` holds the `@layer` order, for importing single component files.
+- `skills/opui` is an agent skill shipped with the package, with a reference for every component.
 - `TextField`, `Textarea`, `Select` and `ClassicSelect` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size.
 - `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--chip-size-small`, `--chip-size` and `--chip-size-large`, which follow the control size scale.
 - `ButtonGroup` and `ToggleGroup` take `scrollable` (`.ui-scrollable`) to keep their items on one row and scroll sideways, and `shrink` (`.ui-shrink`) to keep them on one row and truncate labels with an ellipsis.
@@ -98,7 +99,7 @@
 - `theme.css` adds motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
 - `theme.css` adds `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
 - `theme.css` adds icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
-- `theme.css` adds choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
+- `theme.css` adds choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size-x-small`, `--switch-dot-size-small`, `--switch-dot-size`, `--switch-dot-size-large`, `--switch-track-height-x-small`, `--switch-track-height-small`, `--switch-track-height`, `--switch-track-height-large`, `--switch-track-width-x-small`, `--switch-track-width-small`, `--switch-track-width` and `--switch-track-width-large`.
 - `theme.css` adds overlay tokens, `--backdrop-color` and `--backdrop-blur`, read by `Dialog` and `Drawer`, and inverse surface tokens, `--surface-inverse` and `--text-inverse`.
 - `theme.css` adds state and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-normal`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
 - `theme.css` adds field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
@@ -122,13 +123,21 @@
 - `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--switch-dot-size-*`, `--switch-track-height-*` and `--switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--chip-size-x-small` token.
 - `Badge` `alignment` takes `"start-end"`, the default placement.
+- `Badge` takes `srLabel`, visually hidden text (`.ui-sr-only`) inside the indicator that describes it to assistive technology, such as "3 unread".
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it.
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
+- `checkbox.js` exports `syncIndeterminate(input)`, which sets a checkbox's `indeterminate` property from its `data-indeterminate` attribute.
+- `Menu` takes a `bordered` prop (`.ui-bordered`) that draws a divider between items.
+- `Menu` items take native `a` and `button` attributes in Astro, Svelte and Vue, and `MenuItem` is exported from every framework entry.
+- `Dialog` types `closedby` in every framework.
+- `CheckboxInput`, `RadioInput` and `SwitchInput` take `class` in Vue, and the Vue entry exports `DescriptionListDescriptionProps`, `DescriptionListItemProps`, `DescriptionListTermProps` and `TableSectionProps`.
+- `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`. Import it before `checkbox.css`, `radio.css` or `switch.css`, or use `components.css`.
 
 ### Changed
 
+- `normalize.css` sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and font and color inheritance on `::file-selector-button`.
 - `ButtonGroup` icon-only buttons use the same icon size as buttons with a label.
 - `ButtonGroup` focus ring sits inside the button with a gap and uses the button's text color, so it shows on every variant and isn't clipped by the group.
 - `List` and `Menu` start and end icons are smaller: `--icon-size` by default and `--icon-size-small` in dense lists (were `--icon-size-large` and `--icon-size`).
@@ -141,7 +150,6 @@
 - `Button` critical keeps light text on its fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode. `Menu` critical items do the same.
 - `ButtonGroup` and `ToggleGroup` wrap onto more rows when they don't fit, instead of overflowing. The group draws its outer edge and rounded corners, and dividers sit between items in every row.
 - `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.
-- `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
 - `Typography` rich text list gutters are measured in `ch`, so two-digit markers fit, and ordered lists with 100 or more items get a wider gutter. Bulleted and numbered list text starts at the same position.
 - `Typography` `sup` and `sub` are `0.75em` in rich text and in `.ui-sup` and `.ui-sub`, and no longer change the line height.
@@ -196,9 +204,23 @@
 - `Toast` sits in the bottom inline-end corner and slides in from the inline end, so in right-to-left pages it shows at the bottom left.
 - `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
+- `FieldGroup` and `ToggleGroup` in Astro pass the group `name` and selection to their inputs through context instead of rewriting the slot HTML, so a bare `<input>`, `<select>` or `<textarea>` in a `FieldGroup` no longer gets the group `name`, like in React, Svelte and Vue.
+- `Checkbox`, `Radio` and `Switch` warn in development in React, Svelte and Vue too when they have no label, `aria-label` or `aria-labelledby`.
+- `Form`, `FieldSet` and `FieldLegend` type `as` in Vue as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
+- `Avatar` no longer declares `command`, `commandfor` and `interestfor` as props. They pass through as attributes.
+- `theme.css` defines `--focus-ring-color`, the inverted page background, instead of leaving it commented out, and components read it without a private fallback.
+- `theme.css` multiplies the `--choice-size*`, `--switch-dot-size*`, `--switch-track-height*` and `--switch-track-width*` tokens by `--density`.
+- `Button`, `Divider` and `Typography` borders read `--border-width` instead of `--border-size-1`.
+- `ButtonGroup` sizes and variants are Button's own rules, and icon-only buttons in a group use Button's icon size.
+- `Carousel` scroll buttons draw one glyph as the inverse of the button face, so the icon follows `.ui-dark`, `.ui-light` and forced colors in every browser.
+- `Chip` `--_tone` is `--_accent`.
+- `List` checked `option` uses `--state-active-alpha-accent`.
+- `ToggleButton` disabled state uses `--text-disabled` and `--disabled-opacity` like `Button`, its hover uses `--state-hover-alpha`, and `ToggleButton` and `ToggleGroup` read `--button-size*` instead of `--field-size*`.
+- `ToggleGroup` `shrink` (`.ui-shrink`) truncates like `ButtonGroup`.
 
 ### Fixed
 
+- `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `AccordionSummary` marks its default chevron `aria-hidden="true"`, so screen readers skip it.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.
@@ -309,8 +331,7 @@
 - `FieldGroup` `name` skips button, hidden, image, reset and submit inputs in Astro, and reaches `ClassicSelect` in Vue.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleGroup` separators show in forced colors.
-- `Accordion` focus ring is drawn inside the summary, so the card no longer clips it.
-- `Accordion` without a variant draws its focus ring outside the summary, so it no longer cuts through the text and marker.
+- `Accordion` focus ring is drawn inside the summary of `.ui-elevated`, `.ui-outlined`, `.ui-tonal` and grouped accordions, so the card no longer clips it, and outside the summary of an accordion without a variant, so it no longer cuts through the text and marker.
 - `Card`, `Carousel`, `Switch`, `Tabs` and `ToggleButton` focus rings fall back to the same color as other focus rings, the inverted page background, when `--focus-ring-color` is unset.
 - `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`. The border keeps its color while the ring shows.
 - `Switch` focus ring is rounded.
@@ -376,6 +397,20 @@
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `FieldSet` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 - `Range` updates its value `<output>` after its form is reset.
 - `Table.Column` in Astro keeps `width` when `style` is an object.
+- `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` set `aria-invalid="true"` when `error` is set, in every framework, and otherwise pass a user `aria-invalid` through.
+- `Select`, `ClassicSelect` and `Range` merge a user `aria-describedby` with the end text id instead of overwriting it.
+- `FieldGroup` in Vue passes a `name` that changes or comes from an outer group to its inputs.
+- `ClassicSelect` and `TabsItem` in Vue follow `id` and `tabId` changes.
+- `Menu`, `Tabs`, `TabsItem`, `ToggleGroup`, `Select`, `ClassicSelect`, `TextField`, `Textarea`, `Range`, `Checkbox`, `Radio` and `Switch` in Vue render the same generated id prefixes as the other frameworks.
+- `Tabs` in Astro names a `TabsItem` outside a `Tabs` and links its `TabsTab`, like React and Svelte.
+- `TextField` renders `startText` before `description` when both are given, in every framework.
+- `CalloutIcon` in Vue drops attributes passed to a neutral callout's icon instead of warning.
+- `Chip` in Astro only renders `href` when the chip is an `a`.
+- `DescriptionListDescription`, `DescriptionListItem` and `DescriptionListTerm` in Vue no longer accept the list's `bordered` and `inline` props.
+- `Card` actions keep the edge padding for a text button with extra classes.
+- `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists.
+- `Anchor` in React, Svelte and Vue renders generated ids with the `anchor-` prefix, like Astro.
+- `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 
 ## 5.5.0 - 2026-09-28
 

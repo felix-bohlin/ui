@@ -1,7 +1,13 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { BLOCKS, COMPONENTS, STRESS_TESTS, openFixture } from "./fixtures"
+import {
+  BLOCKS,
+  COMPONENTS,
+  STRESS_TESTS,
+  axeNodes,
+  openFixture,
+} from "./fixtures"
 
 const KNOWN_VIOLATIONS_FILE = new URL(
   "./a11y-known-violations.json",
@@ -12,12 +18,11 @@ const RECORD = !!process.env.A11Y_RECORD
 const readKnown = (): Record<string, string[]> =>
   JSON.parse(readFileSync(KNOWN_VIOLATIONS_FILE, "utf-8"))
 
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
-
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
 let scheme = ""
+
+if (RECORD) test.describe.configure({ mode: "serial" })
 
 const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
@@ -25,27 +30,21 @@ for (const component of TARGETS) {
   test(`html/${component} has no new axe violations`, async ({
     page,
   }, testInfo) => {
+    if (RECORD) {
+      expect(
+        testInfo.config.workers,
+        "recording the ledger needs --workers=1",
+      ).toBe(1)
+    }
     scheme = testInfo.project.name
-    const prefix = `${scheme}/${component}`
+    const prefix = `${scheme}/html/${component}`
     await openFixture(page, "html", component)
 
     const { violations } = await new AxeBuilder({ page })
       .include(component.startsWith("blocks/") ? "body" : "main")
       .exclude('iframe[src*="youtube"]')
       .analyze()
-    const nodes = violations.flatMap((violation) =>
-      violation.nodes
-        .filter(
-          (node) =>
-            violation.id !== "scrollable-region-focusable" ||
-            !isCarousel(node.html),
-        )
-        .map((node) => ({
-          help: violation.help,
-          id: violation.id,
-          target: node.target.join(" "),
-        })),
-    )
+    const nodes = axeNodes(violations)
     const examples = await page.evaluate(
       (targets) =>
         targets.map((target) => {

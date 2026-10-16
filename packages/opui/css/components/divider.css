@@ -3,7 +3,7 @@
     --_color: var(--border-color);
 
     background-color: var(--_color);
-    block-size: var(--border-size-1);
+    block-size: var(--border-width);
     margin-block: var(--divider-space, var(--size-fluid-3));
 
     /* Border color */
@@ -39,7 +39,7 @@
       &::before,
       &::after {
         background-color: var(--_color);
-        block-size: var(--border-size-1);
+        block-size: var(--border-width);
         content: "";
         flex: 1;
         min-inline-size: var(--size-4);
@@ -53,7 +53,7 @@
 
     @media (forced-colors: active) {
       block-size: 0;
-      border-block-start: var(--border-size-1) solid CanvasText;
+      border-block-start: var(--border-width) solid CanvasText;
 
       &:not(:empty) {
         border-block-start: 0;
@@ -61,7 +61,7 @@
         &::before,
         &::after {
           block-size: 0;
-          border-block-start: var(--border-size-1) solid CanvasText;
+          border-block-start: var(--border-width) solid CanvasText;
         }
       }
     }

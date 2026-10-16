@@ -1,11 +1,15 @@
 import { posts } from "./learn-posts"
+import { componentName } from "./names"
 
-export { posts }
+export { componentName, posts }
 
-export const categories = [
-  { id: "release-notes", label: "Release notes" },
-  { id: "under-the-hood", label: "Under the hood" },
-].filter((category) => posts.some((post) => post.category === category.id))
+const categoryLabels: Record<string, string> = {
+  "under-the-hood": "Under the hood",
+}
+
+export const categories = [...new Set(posts.map((post) => post.category))]
+  .toSorted()
+  .map((id) => ({ id, label: categoryLabels[id] ?? componentName(id) }))
 
 export const levels = [
   { id: "beginner", label: "Beginner" },
@@ -53,9 +57,6 @@ export const topics = [
   { id: "typography", label: "Typography" },
 ]
 
-export const componentName = (slug: string) =>
-  slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " ")
-
 const postSources = import.meta.glob<string>("../docs/learn/*.astro", {
   eager: true,
   import: "default",
@@ -80,7 +81,7 @@ const sourceOf = (slug: string) =>
 
 export const readingMinutes = (slug: string) => {
   const source = sourceOf(slug)
-  const builds = source.includes("*Build.astro")
+  const builds = posts.find((post) => post.slug === slug)?.includesAllBuilds
     ? Object.values(buildSources)
     : [...source.matchAll(/UnderTheHood\/(\w+Build)\.astro/g)].map(
         ([, name]) =>

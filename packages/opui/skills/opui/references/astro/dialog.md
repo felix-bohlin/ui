@@ -642,8 +642,8 @@ Import the components from `opui-css/astro`:
 
 - [Card](https://open-props-ui.netlify.app/astro/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

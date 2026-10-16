@@ -12,7 +12,7 @@ export default function ToggleGroup({
   scrollable,
   selection = "multiple",
   shrink,
-  size = "default",
+  size,
   children,
   ...rest
 }: Props) {
@@ -25,7 +25,7 @@ export default function ToggleGroup({
       <div
         className={cx([
           "ui-toggle-group",
-          size !== "default" && size && `ui-${size}`,
+          size && `ui-${size}`,
           orientation && `ui-${orientation}`,
           { "ui-scrollable": scrollable, "ui-shrink": shrink },
           className,

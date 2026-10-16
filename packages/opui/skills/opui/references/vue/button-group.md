@@ -527,17 +527,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop       | Type                                  | Default    | Description                                                        |
+| ---------- | ------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| `as`       | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.              |
+| `color`    | `"critical"` , `"primary"`            | -          | Optional colors.                                                   |
+| `disabled` | `boolean`                             | `false`    | Disables the button.                                               |
+| `href`     | `string`                              | -          | The link to use. Renders an `<a>`.                                 |
+| `iconOnly` | `boolean`                             | `false`    | Marks the button as icon-only, so `label` is required. Types only. |
+| `label`    | `string`                              | -          | The accessible name. Use it on icon-only buttons.                  |
+| `rounded`  | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                    |
+| `size`     | `"small"` , `"x-small"` , `"large"`   | -          | The size of the element.                                           |
+| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -          | The variant to use.                                                |
 
 #### Slots
 
@@ -549,6 +549,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
 | `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
@@ -683,8 +684,8 @@ Import the component from `opui-css/vue`:
 
 - [Button](https://open-props-ui.netlify.app/vue/components/button.md)
 
-- `opui-css/css/components/button-group.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/button-group.css`
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
@@ -699,3 +700,4 @@ Import the component from `opui-css/vue`:
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
+- [Icon-only buttons](#icons) in a group use the button's icon size.

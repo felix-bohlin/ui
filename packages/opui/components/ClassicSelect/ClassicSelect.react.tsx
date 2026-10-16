@@ -22,6 +22,8 @@ export default function ClassicSelect({
   const field = useFieldContext()
   const selectId = id || `select-${uid}`
   const endTextId = endText ? `end-text-${uid}` : undefined
+  const describedBy =
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
   return (
     <label
@@ -37,11 +39,11 @@ export default function ClassicSelect({
       {label && <span className="ui-label">{label}</span>}
       <span className="ui-field">
         <select
-          aria-describedby={endTextId}
-          aria-invalid={error ? "true" : undefined}
+          {...rest}
+          aria-describedby={describedBy}
+          aria-invalid={error ? "true" : rest["aria-invalid"]}
           id={selectId}
           name={name ?? field?.name}
-          {...rest}
         >
           {items.map((item) => (
             <option key={item.value} value={item.value}>

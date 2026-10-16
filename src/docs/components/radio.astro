@@ -1,11 +1,12 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Radio as UIRadio } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -51,6 +52,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   ]}
   installationTabs={[
     { title: "radio.css", code: RadioCSS, lang: "css" },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
   ]}
 >
@@ -199,137 +201,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         label. The component points <code>aria-describedby</code> at it.</Fragment
       >
     </Conditional>
-    <AutoExample name="SupportingText" row spacious />
-  </section>
-
-  <section>
-    <h2 id="field-description">Field description</h2>
-    <p>Can be placed above and below the fields.</p>
-
-    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-  </section>
-
-  <section>
-    <h2 id="disabled">Disabled</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Attach the <code>disabled</code> attribute to the <code
-          >&lt;fieldset&gt;</code
-        > element to disable every radio in it, or to a single <code
-          >&lt;input&gt;</code
-        >.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-    </Conditional>
-
-    <p>
-      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
-      same, but keeps the radio focusable and its value in the form. It doesn't stop
-      the change, so block it with a script.
-    </p>
-    <AutoExample name="FieldGroupDisabled" row />
-  </section>
-
-  <section>
-    <h2 id="required">Required</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on at least one <code>Radio</code> in the group.
-      </Fragment>
-      <Fragment slot="react">
-        Set the <code>required</code> prop on at least one <code>Radio</code>.
-        It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Add the <code>required</code> attribute on at least one <code
-          >Radio</code
-        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on at least one <code
-          >Radio</code
-        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Attach the <code>required</code> attribute to at least one of your <code
-          >&lt;input&gt;</code
-        > elements.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="FieldGroupRequired" row />
-  </section>
-
-  <section>
-    <h2 id="validation">Validation</h2>
-    <Conditional>
-      <p slot="html">
-        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
-        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
-      </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-    </Conditional>
-
-    <AutoExample name="FieldGroupValidation" row />
-  </section>
-
-  <section>
-    <h2 id="direction">Direction</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="html">
-        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
-          >.ui-field-group</code
-        > to put them in a row.
-      </Fragment>
-      <Fragment slot="react">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="svelte">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="vue">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="FieldGroupDirection" row />
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
@@ -365,14 +237,133 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
+    <LabelAlignment control="radio" />
+  </section>
+
+  <section>
+    <h2 id="field-group-direction">Direction</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="html">
+        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
+          >.ui-field-group</code
+        > to put them in a row.
+      </Fragment>
+      <Fragment slot="react">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="svelte">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="vue">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupDirection" row />
+  </section>
+
+  <section>
+    <h2 id="field-group-field-description">Field description</h2>
+    <p>Can be placed above and below the fields.</p>
+    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="field-group-disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every radio in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+    </Conditional>
+
     <p>
-      The radio lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
+      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
+      same, but keeps the radio focusable and its value in the form. It doesn't stop
+      the change, so block it with a script.
     </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <AutoExample name="FieldGroupDisabled" row />
+  </section>
+
+  <section>
+    <h2 id="field-group-required">Required</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>required</code> on at least one <code>Radio</code> in the group.
+      </Fragment>
+      <Fragment slot="react">
+        Set the <code>required</code> prop on at least one <code>Radio</code>.
+        It is forwarded to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Add the <code>required</code> attribute on at least one <code
+          >Radio</code
+        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Add the <code>required</code> attribute on at least one <code
+          >Radio</code
+        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>required</code> attribute to at least one of your <code
+          >&lt;input&gt;</code
+        > elements.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupRequired" row />
+  </section>
+
+  <section>
+    <h2 id="field-group-validation">Validation</h2>
+    <Conditional>
+      <p slot="html">
+        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
+        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
+      </p>
+      <p slot="astro">
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="react">
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="svelte">
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
+      <p slot="vue">
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
+    </Conditional>
+    <AutoExample name="FieldGroupValidation" row />
   </section>
 
   <RadioBuild slot="under-the-hood" />

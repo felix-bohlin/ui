@@ -1,19 +1,23 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 
 export const title = "Chip"
 
 const {
-  as: Tag = Astro.props.href ? "a" : "div",
+  as,
   class: className,
   color,
   dot,
+  href,
   label,
   multiline,
   size,
   variant = "tonal",
   ...rest
 } = Astro.props
+
+const Tag = as || (href ? "a" : "div")
 ---
 
 <Tag
@@ -28,8 +32,9 @@ const {
     variant && `ui-${variant}`,
     className,
   ]}
+  href={Tag === "a" ? href : undefined}
   type={Tag === "button" ? "button" : undefined}
-  {...rest as any}
+  {...rest as HTMLAttributes<"button">}
   ><slot name="start" /><slot />{
     label && <span class="ui-text">{label}</span>
   }<slot name="end" /></Tag

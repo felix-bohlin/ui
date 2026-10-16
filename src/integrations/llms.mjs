@@ -7,6 +7,7 @@ import {
   DEFAULT_FRAMEWORK,
   FRAMEWORK_FREE_PREFIXES,
   FRAMEWORKS,
+  isFrameworkFree,
 } from "../utils/framework.js"
 import { markdownPath } from "../utils/markdown.js"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
@@ -76,7 +77,7 @@ function llmsTxt({ framework, pages, site, isRoot }) {
   ].join("\n")
 }
 
-const hrefRewriter = (frameworkId, site) => (href) => {
+export const hrefRewriter = (frameworkId, site) => (href) => {
   if (!href.startsWith("/") || href.startsWith("//")) return href
   const [pathname, hash] = href.split("#")
   const localized = DOC_PREFIXES.some(
@@ -93,7 +94,7 @@ const hrefRewriter = (frameworkId, site) => (href) => {
   return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
 }
 
-async function pageFrom(tree, pathname, rewriteHref) {
+export async function pageFrom(tree, pathname, rewriteHref) {
   const meta = pageMeta(tree)
   if (meta.isRedirect) return null
 
@@ -115,7 +116,7 @@ async function pageFrom(tree, pathname, rewriteHref) {
     full:
       kind === "component" || kind === "guide"
         ? await articleToMarkdown(tree, {
-            omitInstallationCode: true,
+            omitInstallationCode: kind === "component",
             rewriteHref,
           })
         : null,
@@ -192,7 +193,7 @@ export default function llms() {
       },
       "astro:server:setup": ({ server }) => {
         const devCache = new Map()
-        server.watcher.on("all", (event, file) => {
+        server.watcher.on("all", (_, file) => {
           if (/\/(packages|src)\//.test(file) && !file.includes("node_modules"))
             devCache.clear()
         })
@@ -230,12 +231,9 @@ export default function llms() {
             )
             return
           }
-          const isFrameworkFree = FRAMEWORK_FREE_PREFIXES.some((p) =>
-            pathname.startsWith(`${p}/`),
-          )
           const framework =
             FRAMEWORKS.find((f) => pathname.startsWith(`/${f.id}/`)) ??
-            (isFrameworkFree
+            (isFrameworkFree(pathname)
               ? FRAMEWORKS.find((f) => f.id === DEFAULT_FRAMEWORK)
               : undefined)
           if (!framework || !pathname.endsWith(".md")) return next()
@@ -246,9 +244,7 @@ export default function llms() {
               `http://${req.headers.host}`,
             ),
           )
-          if (!page.ok && !(isFrameworkFree && page.status === 404)) {
-            return next()
-          }
+          if (!page.ok) return next()
 
           const markdown = await articleToMarkdown(
             parseHtml(await page.text()),

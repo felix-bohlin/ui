@@ -2,14 +2,8 @@ import { Badge } from "opui-css/react"
 
 export default function VisibilityCode() {
   return (
-    <>
-      <Badge label="5" invisible>
-        {/* */}
-      </Badge>
-
-      <Badge dot invisible>
-        {/* */}
-      </Badge>
-    </>
+    <Badge label="5" invisible>
+      {/* */}
+    </Badge>
   )
 }

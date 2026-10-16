@@ -3,7 +3,7 @@ import {
   FRAMEWORKS,
   DEFAULT_FRAMEWORK,
   type FrameworkId,
-} from "../../utils/framework-routing"
+} from "../../utils/framework"
 import Code from "../Code.astro"
 import { Chip, Tabs, TabsItem, TabsPanel, TabsTab } from "@opui/astro"
 import { format } from "prettier"
@@ -71,8 +71,7 @@ const {
   wrapperClass,
 } = Astro.props
 
-const activeFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const activeFramework = Astro.locals.framework
 
 const decodeEntities = (str: string) => {
   const decode = (s: string) =>

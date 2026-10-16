@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<SwitchProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+if (
+  import.meta.env.DEV &&
+  !slots.default &&
+  !attrs["aria-label"] &&
+  !attrs["aria-labelledby"]
+) {
+  console.warn(
+    "[OPUI Switch] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+  )
+}
 </script>
 
 <template>
@@ -45,7 +58,6 @@ const endTextId = useId()
     </span>
 
     <SwitchInput
-      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="
@@ -53,6 +65,7 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
     />
 
     <span

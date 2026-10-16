@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import { setAnchorContext } from "./context"
   import type { Props } from "./types.svelte"
 
@@ -17,7 +18,7 @@
   const uid = $props.id()
 
   const isHover = $derived(trigger === "hover")
-  const id = $derived(isHover ? (idProp ?? uid) : undefined)
+  const id = $derived(isHover ? (idProp ?? `anchor-${uid}`) : undefined)
 
   setAnchorContext({
     get floatingId() {
@@ -32,8 +33,7 @@
 <span
   class={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={`${alignment ? `--anchor-position-area: ${alignment};` : ""}${style ?? ""}` ||
-    undefined}
+  style={mergeStyle({ "--anchor-position-area": alignment }, style)}
   {...rest}
 >
   {@render children?.()}

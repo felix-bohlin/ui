@@ -118,6 +118,7 @@ import { TextField } from "opui-css/astro"
 
 <TextField label="Search" placeholder="Search...">
   <svg
+    aria-hidden="true"
     slot="prefix"
     width="16"
     height="16"
@@ -154,11 +155,9 @@ import { TextField } from "opui-css/astro"
 
 ## Validation
 
-Set `required` on the component to toggle required styles on the input.
-
-Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<input>`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```astro
 ---
@@ -257,6 +256,7 @@ import { TextField } from "opui-css/astro"
   <Fragment slot="description">Stored encrypted at rest</Fragment>
   <Fragment slot="prefix">
     <svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -291,82 +291,30 @@ import { TextField } from "opui-css/astro"
 ## Input types
 
 ```astro
+---
+import { TextField } from "opui-css/astro"
+---
+
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Color</span>
-    <span class="ui-field">
-      <input type="color" placeholder="Color" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Email</span>
-    <span class="ui-field">
-      <input type="email" placeholder="name@email.com" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Password</span>
-    <span class="ui-field">
-      <input type="password" placeholder="Password" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Search</span>
-    <span class="ui-field">
-      <input type="search" placeholder="Search" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Phone</span>
-    <span class="ui-field">
-      <input type="tel" placeholder="(666) 666-1337" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Text</span>
-    <span class="ui-field">
-      <input type="text" placeholder="Text" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">URL</span>
-    <span class="ui-field">
-      <input type="url" placeholder="https://yoursite.com" />
-    </span>
-  </label>
+  <TextField label="Color" placeholder="Color" type="color" />
+  <TextField label="Email" placeholder="name@email.com" type="email" />
+  <TextField label="Password" placeholder="Password" type="password" />
+  <TextField label="Search" placeholder="Search" type="search" />
+  <TextField label="Phone" placeholder="(666) 666-1337" type="tel" />
+  <TextField label="Text" placeholder="Text" type="text" />
+  <TextField label="URL" placeholder="https://yoursite.com" type="url" />
 </div>
 
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Date</span>
-    <span class="ui-field">
-      <input type="date" placeholder="Date" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Datetime local</span>
-    <span class="ui-field">
-      <input type="datetime-local" placeholder="Datetime local" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Month</span>
-    <span class="ui-field">
-      <input type="month" placeholder="Month" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Time</span>
-    <span class="ui-field">
-      <input type="time" placeholder="Time" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Week</span>
-    <span class="ui-field">
-      <input type="week" placeholder="Week" />
-    </span>
-  </label>
+  <TextField label="Date" placeholder="Date" type="date" />
+  <TextField
+    label="Datetime local"
+    placeholder="Datetime local"
+    type="datetime-local"
+  />
+  <TextField label="Month" placeholder="Month" type="month" />
+  <TextField label="Time" placeholder="Time" type="time" />
+  <TextField label="Week" placeholder="Week" type="week" />
 </div>
 ```
 
@@ -461,11 +409,11 @@ Think of `<datalist>` as a list of *suggested* values.
 No. But you get some accessibility wins for free with `<label>`. It's recommended to label your inputs somehow.
 
 ```astro
-<div class="ui-text-field">
-  <span class="ui-field">
-    <input aria-label="Search" placeholder="Search" type="text" />
-  </span>
-</div>
+---
+import { TextField } from "opui-css/astro"
+---
+
+<TextField aria-label="Search" placeholder="Search" />
 ```
 
 ## Accessibility
@@ -525,7 +473,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                            |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                            |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                          |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                           |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                          |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                  |
@@ -726,3 +674,4 @@ Import the component from `opui-css/astro`:
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

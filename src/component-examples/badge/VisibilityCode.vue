@@ -6,8 +6,4 @@ import { Badge } from "opui-css/vue"
   <Badge label="5" invisible>
     <!-- -->
   </Badge>
-
-  <Badge dot invisible>
-    <!-- -->
-  </Badge>
 </template>

@@ -7,10 +7,10 @@ This document is the definitive guide for creating and refactoring component doc
 The docs site uses **URL-based framework routing**, not client-side toggling:
 
 - Every framework lives under its own URL prefix (e.g. `/html/components/button`, `/astro/components/button`).
-- Configured in [astro.config.mjs](../../../astro.config.mjs) under `i18n` (`defaultLocale: "html"`, `prefixDefaultLocale: true`).
+- The pages live under `src/pages/[framework]/` and get one route per framework from `frameworkPaths()` in [src/utils/framework.js](../../utils/framework.js). The default framework (`html`) has a prefix too.
 - Legacy unprefixed paths (e.g. `/components/button`) are 301-equivalent meta-refresh pages that point at the default framework variant, declared via the `redirects` map in [astro.config.mjs](../../../astro.config.mjs). The map is built by enumerating component and guide slugs from `src/docs/`, so adding a new component or guide page automatically gets a redirect.
-- The active framework is exposed server-side as `Astro.currentLocale`.
-- Each per-component documentation file is rendered **once per framework**. `<Conditional>`, `<Example>`, and `<ComponentAPI>` read `Astro.currentLocale` and emit only the matching slot.
+- The active framework is exposed server-side as `Astro.locals.framework`, set by [src/middleware.ts](../../middleware.ts) from the URL prefix.
+- Each per-component documentation file is rendered **once per framework**. `<Conditional>`, `<Example>`, and `<ComponentAPI>` read `Astro.locals.framework` and emit only the matching slot.
 
 Practical implication: **author each page once with all framework slots populated.** The router and these components decide what gets rendered for any given URL.
 
@@ -29,7 +29,7 @@ Before creating or refactoring a page, perform the following research:
     - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
     - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so the build warns when `api.ts` and the source disagree.
-    - A few components still use hand-written tables (`src/component-api/[name]/Astro.astro` and `HTML.astro`). Convert them to `api.ts` when touching them.
+    - Only `toast` still uses a hand-written table (`src/component-api/toast/HTML.astro`). Convert it to `api.ts` when touching it.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
     - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `FieldSet`/`FieldGroup`): Depend on `form.css`.
@@ -43,6 +43,7 @@ Before creating or refactoring a page, perform the following research:
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
   - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all five: the parity test compares them, and a missing `.react.tsx`, `.svelte` or `.vue` file silently leaves the example off the React, Svelte or Vue page.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
+- **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`.
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), use a suffix like `Code.astro`.
 
@@ -88,7 +89,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
-- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved without an `apis` prop.
+- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use `@opui/astro` (e.g. `import { Button } from "@opui/astro"`). Avoid hand-rolled relative paths into the package.
@@ -195,7 +196,7 @@ import buttonApi from "../../component-api/button/api"
 
 - One `api.ts` renders the props, slots and parts tables for every framework, the HTML modifiers table, and the `<Anatomy>` diagram.
 - Keep descriptions short. Use backticks for classes, props and selectors; they are formatted by `formatInline`.
-- Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved from the `slug` without an `apis` prop. Convert them to `api.ts` when touching them.
+- Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved from the `slug` without an `apis` prop. Convert it to `api.ts` when touching it.
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 
@@ -242,7 +243,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 
 - **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
-- **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
+- **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
 For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
 
@@ -268,7 +269,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 
 ## 7. Key Learnings & Debugging
 
-- **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
+- **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.locals.framework` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
 - **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.

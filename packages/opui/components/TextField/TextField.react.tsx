@@ -50,16 +50,10 @@ export default function TextField({
       style={style}
     >
       {label && <span className="ui-label">{label}</span>}
-      {(description || startText) && (
+      {(startText || description) && (
         <span className="ui-start-text">
-          {typeof description === "object" ? (
-            <>
-              {startText}
-              {description}
-            </>
-          ) : (
-            description || startText
-          )}
+          {startText}
+          {description}
         </span>
       )}
       <span className="ui-field">

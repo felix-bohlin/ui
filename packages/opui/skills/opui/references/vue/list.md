@@ -602,7 +602,7 @@ import ListAll from "./partials/ListAll.vue"
 | ----------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
@@ -610,11 +610,13 @@ import ListAll from "./partials/ListAll.vue"
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
 
@@ -650,7 +652,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ----------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
@@ -658,11 +660,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
 
@@ -809,3 +813,5 @@ Import the components from `opui-css/vue`:
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
+- Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
+- A checked [option](#radio) uses `--state-active-alpha-accent`.

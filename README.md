@@ -52,7 +52,7 @@ pnpm dev
 
 Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
 
-The fixture pages at `/<framework>/test/<component>` and `/<framework>/test/theming` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+The fixture pages at `/<framework>/test/<component>` and `/tests/theming/` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 
 `pnpm test:e2e` needs a Playwright Chromium. Install it once with `pnpm exec playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
 

@@ -727,5 +727,4 @@ Import the components from `opui-css/svelte`:
 - [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/svelte/components/text-field.md)
 
-- `opui-css/css/components/form.css`
-
+* `opui-css/css/components/form.css`

@@ -18,6 +18,31 @@ const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
+const SECTION_ORDER = [
+  "Palette",
+  "Named colors (no severity meaning)",
+  "Intent tokens",
+  "Primary",
+  "Text",
+  "Surfaces",
+  "Borders",
+  "Field / input",
+  "Focus ring",
+  "Typography",
+  "Control sizes",
+  "Button",
+  "Divider",
+  "Motion",
+  "Contrast",
+  "State",
+  "Icons",
+  "Choice controls",
+  "Overlays",
+]
+const sectionOrder = (title: string) => {
+  const index = SECTION_ORDER.indexOf(title)
+  return index < 0 ? SECTION_ORDER.length : index
+}
 
 type Line =
   | { kind: "comment" }
@@ -143,7 +168,9 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
     if (line.dark) continue
     section.tokens.push({ name: line.name, value: line.value })
   }
-  return sections
+  return sections.toSorted(
+    (a, b) => sectionOrder(a.title) - sectionOrder(b.title),
+  )
 }
 
 const themeTokensIn = (sections: ThemeSection[]) =>
@@ -170,15 +197,24 @@ export const setDarkThemeTokens = (
   css: string,
   tokens: readonly (readonly [string, string])[],
 ) => {
-  const body = (indent: string) =>
-    tokens.map(([name, value]) => `${indent}${name}: ${value};`).join("\n")
+  const names = new Set(tokens.map(([name]) => name))
+  const body = (indent: string, existing: string) =>
+    [
+      ...existing
+        .split("\n")
+        .filter((line) => !names.has(line.match(DECLARATION)?.[2] ?? "")),
+      ...tokens.map(([name, value]) => `${indent}${name}: ${value};`),
+    ]
+      .filter(Boolean)
+      .join("\n")
   return css
     .replace(
-      /(:where\(html\.ui-dark\) \{\n)[\s\S]*?(\n {2}\})/,
-      (_, open, close) => `${open}${body("    ")}${close}`,
+      /(:where\(html\.ui-dark\) \{\n)([\s\S]*?)(\n {2}\})/,
+      (_, open, existing, close) => `${open}${body("    ", existing)}${close}`,
     )
     .replace(
-      /(:where\(html:not\(\.ui-light\)\) \{\n)[\s\S]*?(\n {4}\})/,
-      (_, open, close) => `${open}${body("      ")}${close}`,
+      /(:where\(html:not\(\.ui-light\)\) \{\n)([\s\S]*?)(\n {4}\})/,
+      (_, open, existing, close) =>
+        `${open}${body("      ", existing)}${close}`,
     )
 }

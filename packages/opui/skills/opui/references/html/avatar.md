@@ -142,7 +142,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
 | Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the avatar.                  |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element.                 |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts
@@ -302,3 +302,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
 - [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).

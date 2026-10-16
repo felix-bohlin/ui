@@ -3,6 +3,7 @@
 
   let {
     align,
+    bordered,
     class: className,
     dense,
     id,
@@ -23,7 +24,11 @@
   class={[
     "ui-menu",
     "ui-list",
-    { "ui-align-end": align === "end", "ui-dense": dense },
+    {
+      "ui-align-end": align === "end",
+      "ui-bordered": bordered,
+      "ui-dense": dense,
+    },
     placement && placement !== "block-end" && `ui-${placement}`,
     className,
   ]}

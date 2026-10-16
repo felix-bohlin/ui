@@ -1,7 +1,10 @@
 ---
 import type { SwitchInputProps as Props } from "./types.astro"
+import { fieldContext } from "../FieldGroup/context.astro"
 
-const { ...rest } = Astro.props
+const { name, ...rest } = Astro.props as Props
+
+const field = fieldContext.get()
 ---
 
-<input type="checkbox" role="switch" {...rest} />
+<input type="checkbox" role="switch" name={name ?? field?.name} {...rest} />

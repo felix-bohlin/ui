@@ -12,17 +12,8 @@ import {
   TextField as UITextField,
 } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
-
-import InputTypes from "../../component-examples/text-field/InputTypes.astro"
-import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
-import InputTypesReactRaw from "../../component-examples/text-field/InputTypes.react.tsx?raw"
-import InputTypesSvelteRaw from "../../component-examples/text-field/InputTypes.svelte?raw"
-import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
-import InputTypesPreviewReact from "../../component-examples/text-field/InputTypes.react.tsx"
-import InputTypesPreviewSvelte from "../../component-examples/text-field/InputTypes.svelte"
-import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
-import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
 
 import Numeric from "../../component-examples/text-field/Numeric.astro"
 import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
@@ -54,23 +45,12 @@ import AutosuggestPreviewSvelte from "../../component-examples/text-field/Autosu
 import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
 import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
 
-import NoLabel from "../../component-examples/text-field/NoLabel.astro"
-import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
-import NoLabelReactRaw from "../../component-examples/text-field/NoLabel.react.tsx?raw"
-import NoLabelSvelteRaw from "../../component-examples/text-field/NoLabel.svelte?raw"
-import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
-import NoLabelPreviewReact from "../../component-examples/text-field/NoLabel.react.tsx"
-import NoLabelPreviewSvelte from "../../component-examples/text-field/NoLabel.svelte"
-import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
-import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
-
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
 import textInputApi from "../../component-api/text-input/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
-import { DEFAULT_FRAMEWORK } from "../../utils/framework-routing"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -93,7 +73,7 @@ export const description =
   ]}
   apis={[
     { title: "Text field API", api: textFieldApi },
-    ...((Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+    ...(Astro.locals.framework === "html"
       ? [{ title: "Text input API", api: textInputApi }]
       : []),
   ]}
@@ -214,7 +194,7 @@ export const description =
 
   <section>
     <h2 id="end-text">End text</h2>
-    <AutoExample name="SupportingText" centered />
+    <AutoExample name="EndText" centered />
   </section>
 
   <section>
@@ -267,93 +247,7 @@ export const description =
 
   <section>
     <h2 id="validation">Validation</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on the component to toggle required styles on the
-        input.
-      </Fragment>
-      <Fragment slot="react">
-        Set the <code>required</code> prop on the component. It is forwarded to the
-        underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-        required styles.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It sets <code
-          >aria-invalid="true"</code
-        > on the input, so screen readers announce it as invalid. Make use of the
-        end text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>error</code> prop to toggle invalid styles. It sets <code
-          >aria-invalid="true"</code
-        > on the input, so screen readers announce it as invalid. Make use of the
-        end text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>error</code> prop to toggle invalid styles. It sets <code
-          >aria-invalid="true"</code
-        > on the input, so screen readers announce it as invalid. Make use of the
-        end text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It sets <code
-          >aria-invalid="true"</code
-        > on the input, so screen readers announce it as invalid. Make use of the
-        end text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
-        toggle invalid styles. Screen readers announce it as invalid. Make use of
-        the end text to give extra feedback on the error, and point <code
-          >aria-describedby</code
-        > at it.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Fields also get the invalid styles from the browser's own validation (<code
-          >:user-invalid</code
-        >), after the user has edited them. Use the <code>error</code> prop for server-side
-        errors.
-      </Fragment>
-      <Fragment slot="react">
-        Fields also get the invalid styles from the browser's own validation (<code
-          >:user-invalid</code
-        >), after the user has edited them. Use the <code>error</code> prop for server-side
-        errors.
-      </Fragment>
-      <Fragment slot="svelte">
-        Fields also get the invalid styles from the browser's own validation (<code
-          >:user-invalid</code
-        >), after the user has edited them. Use the <code>error</code> prop for server-side
-        errors.
-      </Fragment>
-      <Fragment slot="vue">
-        Fields also get the invalid styles from the browser's own validation (<code
-          >:user-invalid</code
-        >), after the user has edited them. Use the <code>error</code> prop for server-side
-        errors.
-      </Fragment>
-      <Fragment slot="html">
-        Fields also get the invalid styles from the browser's own validation (<code
-          >:user-invalid</code
-        >), after the user has edited them. Use <code>aria-invalid="true"</code> for
-        server-side errors.
-      </Fragment>
-    </Conditional>
+    <ValidationNotes element="input" subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -388,7 +282,7 @@ export const description =
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
   <section>
@@ -403,25 +297,14 @@ export const description =
 
   <section>
     <h2 id="input-types">Input types</h2>
-    <Example row>
+    <AutoExample name="InputTypes" row>
       <UISwitch size="small" slot="controls" id="text-field-filled-toggle"
         >Filled</UISwitch
       >
       <UISwitch size="small" slot="controls" id="text-field-small-toggle"
         >Small</UISwitch
       >
-
-      <Example.Preview slot="preview-astro" code={InputTypes} />
-      <Example.Preview slot="preview-html" code={InputTypesHtml} />
-      <Example.Preview slot="preview-react" code={InputTypesPreviewReact} />
-      <Example.Preview slot="preview-svelte" code={InputTypesPreviewSvelte} />
-      <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
-      <Example.Code slot="code-astro" code={InputTypesAstro} />
-      <Example.Code slot="code-react" code={InputTypesReactRaw} />
-      <Example.Code slot="code-svelte" code={InputTypesSvelteRaw} />
-      <Example.Code slot="code-vue" code={InputTypesVueRaw} />
-      <Example.Code slot="code-html" code={InputTypesHtml} />
-    </Example>
+    </AutoExample>
 
     <div class="ui-not-rich-text">
       <UICallout>
@@ -592,18 +475,7 @@ export const description =
       >. It's recommended to label your inputs somehow.
     </p>
 
-    <Example>
-      <NoLabel slot="preview-astro" />
-      <NoLabel slot="preview-html" />
-      <Example.Preview slot="preview-react" code={NoLabelPreviewReact} />
-      <NoLabelPreviewSvelte slot="preview-svelte" />
-      <NoLabelPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={NoLabelAstro} />
-      <Example.Code slot="code-react" code={NoLabelReactRaw} />
-      <Example.Code slot="code-svelte" code={NoLabelSvelteRaw} />
-      <Example.Code slot="code-vue" code={NoLabelVueRaw} />
-      <Example.Code slot="code-html" code={NoLabelHtml} />
-    </Example>
+    <AutoExample name="NoLabel" />
   </section>
 
   <TextFieldBuild slot="under-the-hood" />
@@ -654,10 +526,12 @@ export const description =
 
         const updateFields = () => {
           if (!filledToggle || !smallToggle) return
-          container.querySelectorAll(".input-type-field").forEach((field) => {
-            field.classList.toggle("ui-filled", filledToggle.checked)
-            field.classList.toggle("ui-small", smallToggle.checked)
-          })
+          container
+            .querySelectorAll(".example-preview .ui-text-field")
+            .forEach((field) => {
+              field.classList.toggle("ui-filled", filledToggle.checked)
+              field.classList.toggle("ui-small", smallToggle.checked)
+            })
         }
 
         container.addEventListener("change", (event) => {

@@ -121,6 +121,7 @@ import { Textarea } from "opui-css/vue"
   <Textarea label="Notes" placeholder="Add a note...">
     <template #prefix
       ><svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -161,11 +162,9 @@ import { Textarea } from "opui-css/vue"
 
 ## Validation
 
-Add the `required` attribute on the component. It is forwarded to the underlying `<textarea>`.
-
-Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the textarea, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<textarea>`.
+- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```vue
 <script setup lang="ts">
@@ -237,6 +236,7 @@ import { Textarea } from "opui-css/vue"
     <template #description>Shown on your public profile</template>
     <template #prefix>
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -337,7 +337,7 @@ import { Textarea } from "opui-css/vue"
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                          |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                          |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                        |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                         |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                        |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                          |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                        |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                |
@@ -483,8 +483,8 @@ Import the component from `opui-css/vue`:
 
 - [Text Field](https://open-props-ui.netlify.app/vue/components/text-field.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/textarea.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/textarea.css`
 
 ## Changelog
 
@@ -496,3 +496,4 @@ Import the component from `opui-css/vue`:
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

@@ -1,0 +1,11 @@
+---
+import type { SectionProps } from "./types.astro"
+
+type Props = SectionProps<"tbody">
+
+const { ...rest } = Astro.props
+---
+
+<tbody {...rest}>
+  <slot />
+</tbody>

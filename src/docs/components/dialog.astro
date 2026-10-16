@@ -28,16 +28,9 @@ import CardCSS from "@opui/css/components/card.css?raw"
 
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+import { componentHasFramework } from "../../utils/framework"
 
-const hasToast = componentHasFramework(
-  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
-  "toast",
-)
+const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 import dialogApi from "../../component-api/dialog/api"
 import dialogActionsApi from "../../component-api/dialog-actions/api"

@@ -618,8 +618,8 @@ Import the components from `opui-css/svelte`:
 
 - [Card](https://open-props-ui.netlify.app/svelte/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

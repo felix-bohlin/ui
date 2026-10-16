@@ -14,7 +14,7 @@ Chip
 
   Optional content at the start, such as an icon.
 
-- `.ui-text`
+- `.ui-chip > .ui-text`
 
   The label.
 
@@ -264,20 +264,20 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 | Type     | Modifiers                                                               | Default     | Description                                                                                                     |
 | -------- | ----------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                                                                |
+| Dot      | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
 | Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                                                          |
 | Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                                                        |
 | State    | `.ui-disabled`                                                          | -           | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips. |
-| Variants | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
 | Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                                                             |
 
 #### Parts
 
-| Part       | Description                                               |
-| ---------- | --------------------------------------------------------- |
-| `.ui-chip` | Container element. Can be a `<div>`, `<a>` or `<button>`. |
-| `<svg>`    | Optional content at the start, such as an icon.           |
-| `.ui-text` | The label.                                                |
-| `<svg>`    | Optional content at the end, such as an icon.             |
+| Part                  | Description                                               |
+| --------------------- | --------------------------------------------------------- |
+| `.ui-chip`            | Container element. Can be a `<div>`, `<a>` or `<button>`. |
+| `<svg>`               | Optional content at the start, such as an icon.           |
+| `.ui-chip > .ui-text` | The label.                                                |
+| `<svg>`               | Optional content at the end, such as an icon.             |
 
 #### CSS variables
 
@@ -428,6 +428,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Takes `.ui-x-small`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `.ui-success`, `.ui-warning` and more, and a shape-coded [`.ui-dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).

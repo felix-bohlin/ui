@@ -1,5 +1,10 @@
 import { features } from "web-features"
 
+const featureOf = (featureId: string) => {
+  const feature = features[featureId]
+  return feature && "status" in feature ? feature : undefined
+}
+
 export type BrowserId = "chrome" | "edge" | "firefox" | "safari"
 
 export type EngineId = "chromium" | "gecko" | "webkit"
@@ -43,7 +48,7 @@ function getSupportForFeature(
   featureId: string,
   browser: BrowserId,
 ): SupportValue {
-  const feature = (features as Record<string, any>)[featureId]
+  const feature = featureOf(featureId)
   if (!feature) {
     console.warn(
       `[browserSupport] Unknown web-features id: "${featureId}". ` +
@@ -166,8 +171,10 @@ export function computeEngineBrowserSupport(
 }
 
 export function computeFeatureSupport(featureId: string) {
-  const feature = (features as Record<string, any>)[featureId]
-  const baseline: "high" | "low" | false = feature?.status?.baseline ?? false
+  const feature = featureOf(featureId)
+  const status = feature?.status?.baseline
+  const baseline: "high" | "low" | false =
+    typeof status === "string" ? status : false
 
   return {
     baseline,

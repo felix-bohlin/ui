@@ -1,24 +1,24 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 
 export const title = "Button"
 
-const props = Astro.props as Props
 const {
   as,
   class: className,
   color,
-  rounded,
-  size,
-  variant,
   disabled,
   href,
   iconOnly: _iconOnly,
   label,
+  rounded,
+  size,
+  variant,
   ...rest
-} = props
+} = Astro.props
 
-const Tag = (as || (href ? "a" : "button")) as any
+const Tag = as || (href ? "a" : "button")
 const isButton = Tag === "button"
 ---
 
@@ -36,7 +36,7 @@ const isButton = Tag === "button"
   disabled={isButton ? disabled : undefined}
   href={href}
   type={isButton ? "button" : undefined}
-  {...rest as any}
+  {...rest as HTMLAttributes<"button">}
 >
   <slot />
 </Tag>

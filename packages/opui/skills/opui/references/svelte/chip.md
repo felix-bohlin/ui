@@ -391,6 +391,9 @@ Import the component from `opui-css/svelte`:
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_tone` is `--_accent` ([Under the hood](#under-the-hood)).

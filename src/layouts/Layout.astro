@@ -3,11 +3,7 @@ import "@opui/css/imports.css"
 import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
-import {
-  DEFAULT_FRAMEWORK,
-  frameworkVariantsOf,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { frameworkVariantsOf } from "../utils/framework"
 import { markdownPath } from "../utils/markdown.js"
 
 type Props = {
@@ -19,8 +15,7 @@ type Props = {
 
 const { title, description, hasMarkdown, image } = Astro.props
 const pathname = Astro.url.pathname
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 // Every route is mirrored across frameworks, so every page advertises its
 // alternates. Each variant self-canonicalizes; rel=alternate covers the rest.
@@ -122,32 +117,27 @@ const markdownUrl = hasMarkdown
 <script>
   import {
     DEFAULT_FRAMEWORK,
-    FRAMEWORK_IDS,
+    FRAMEWORK_STORAGE_KEY,
     frameworkPrefixPattern,
     isFrameworkFree,
+    isFrameworkId,
     pathHasFramework,
-    type FrameworkId,
   } from "../utils/framework"
-
-  const KEY = "opui-last-framework"
-
-  const isFramework = (value: string | null): value is FrameworkId =>
-    (FRAMEWORK_IDS as (string | null)[]).includes(value)
 
   function rememberFramework() {
     const framework = location.pathname.match(frameworkPrefixPattern())?.[1]
-    if (!isFramework(framework ?? null)) return
+    if (!isFrameworkId(framework)) return
     try {
-      sessionStorage.setItem(KEY, framework!)
+      sessionStorage.setItem(FRAMEWORK_STORAGE_KEY, framework!)
     } catch (_) {}
   }
 
   function preferredFramework() {
     try {
-      const last = sessionStorage.getItem(KEY)
-      if (isFramework(last)) return last
-      const saved = localStorage.getItem("opui-framework")
-      if (isFramework(saved)) return saved
+      const last = sessionStorage.getItem(FRAMEWORK_STORAGE_KEY)
+      if (isFrameworkId(last)) return last
+      const saved = localStorage.getItem(FRAMEWORK_STORAGE_KEY)
+      if (isFrameworkId(saved)) return saved
     } catch (_) {}
     return DEFAULT_FRAMEWORK
   }
@@ -155,15 +145,16 @@ const markdownUrl = hasMarkdown
   function relinkDocs() {
     if (!isFrameworkFree(location.pathname)) return
     const framework = preferredFramework()
-    if (framework === DEFAULT_FRAMEWORK) return
-    const prefix = `/${DEFAULT_FRAMEWORK}`
     document
-      .querySelectorAll<HTMLAnchorElement>(`a[href^="${prefix}/"]`)
+      .querySelectorAll<HTMLAnchorElement>('a[href^="/"]')
       .forEach((anchor) => {
-        const href = anchor.getAttribute("href")!.slice(prefix.length)
-        const path = href.split(/[?#]/)[0]
+        const href = anchor.getAttribute("href")!
+        const match = href.match(frameworkPrefixPattern())
+        if (!match || match[1] === framework) return
+        const rest = href.slice(match[1].length + 1)
+        const path = rest.split(/[?#]/)[0] || "/"
         if (pathHasFramework(framework, path)) {
-          anchor.setAttribute("href", `/${framework}${href}`)
+          anchor.setAttribute("href", `/${framework}${rest}`)
         }
       })
   }

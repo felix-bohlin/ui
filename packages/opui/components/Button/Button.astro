@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
+import { tagAttrs } from "../tag"
 
 export const title = "Button"
 
@@ -19,7 +20,6 @@ const {
 } = Astro.props
 
 const Tag = as || (href ? "a" : "button")
-const isButton = Tag === "button"
 ---
 
 <Tag
@@ -31,11 +31,8 @@ const isButton = Tag === "button"
     color && `ui-${color}`,
     className,
   ]}
-  aria-disabled={!isButton && disabled ? "true" : undefined}
   aria-label={label}
-  disabled={isButton ? disabled : undefined}
-  href={href}
-  type={isButton ? "button" : undefined}
+  {...tagAttrs(Tag, disabled, href)}
   {...rest as HTMLAttributes<"button">}
 >
   <slot />

@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
 
   let {
     alt,
     as,
     class: className,
+    disabled,
     href,
     isGroup,
     size,
@@ -27,9 +29,8 @@
     !isGroup && variant && `ui-${variant}`,
     className,
   ]}
-  {href}
   role={isGroup ? "group" : undefined}
-  type={Tag === "button" ? "button" : undefined}
+  {...tagAttrs(Tag, disabled, href)}
   {...rest}
 >
   {#if src}

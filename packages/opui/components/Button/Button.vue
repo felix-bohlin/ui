@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
 const { as, color, disabled, href, label, rounded, size, variant } =
@@ -7,7 +8,6 @@ const { as, color, disabled, href, label, rounded, size, variant } =
 defineSlots<Slots>()
 
 const Tag = computed(() => as || (href ? "a" : "button"))
-const isButton = computed(() => Tag.value === "button")
 </script>
 
 <template>
@@ -21,11 +21,8 @@ const isButton = computed(() => Tag.value === "button")
       color && `ui-${color}`,
       $props.class,
     ]"
-    :aria-disabled="!isButton && disabled ? 'true' : undefined"
     :aria-label="label"
-    :disabled="isButton ? disabled : undefined"
-    :href="href"
-    :type="isButton ? 'button' : undefined"
+    v-bind="tagAttrs(Tag, disabled, href)"
   >
     <slot></slot>
   </component>

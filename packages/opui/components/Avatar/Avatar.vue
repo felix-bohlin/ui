@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
 const { alt, as, disabled, href, isGroup, size, src, variant } =
@@ -18,10 +19,8 @@ const Tag = computed(() => as || (href ? "a" : "div"))
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"
-    :disabled="Tag === 'button' ? disabled : undefined"
-    :href="href"
     :role="isGroup ? 'group' : undefined"
-    :type="Tag === 'button' ? 'button' : undefined"
+    v-bind="tagAttrs(Tag, disabled, href)"
   >
     <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>

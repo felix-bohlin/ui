@@ -246,9 +246,10 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Disable a button chip with the <code>disabled</code> attribute. A static chip
-        can't be disabled, so <code>class="ui-disabled"</code> only dims it a little
-        and keeps its text readable.
+        Disable a button or link chip with the <code>disabled</code> prop. A link
+        chip gets <code>aria-disabled="true"</code> instead. A static chip can't be
+        disabled, so <code>class="ui-disabled"</code> only dims it a little and keeps
+        its text readable.
       </Fragment>
       <Fragment slot="html">
         Disable a button chip with the <code>disabled</code> attribute, and use
@@ -258,19 +259,22 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         readable.
       </Fragment>
       <Fragment slot="react">
-        Disable a button chip with the <code>disabled</code> prop. A static chip can't
-        be disabled, so <code>className="ui-disabled"</code> only dims it a little
-        and keeps its text readable.
+        Disable a button or link chip with the <code>disabled</code> prop. A link
+        chip gets <code>aria-disabled="true"</code> instead. A static chip can't be
+        disabled, so <code>className="ui-disabled"</code> only dims it a little and
+        keeps its text readable.
       </Fragment>
       <Fragment slot="svelte">
-        Disable a button chip with the <code>disabled</code> attribute. A static chip
-        can't be disabled, so <code>class="ui-disabled"</code> only dims it a little
-        and keeps its text readable.
+        Disable a button or link chip with the <code>disabled</code> prop. A link
+        chip gets <code>aria-disabled="true"</code> instead. A static chip can't be
+        disabled, so <code>class="ui-disabled"</code> only dims it a little and keeps
+        its text readable.
       </Fragment>
       <Fragment slot="vue">
-        Disable a button chip with the <code>disabled</code> attribute. A static chip
-        can't be disabled, so <code>class="ui-disabled"</code> only dims it a little
-        and keeps its text readable.
+        Disable a button or link chip with the <code>disabled</code> prop. A link
+        chip gets <code>aria-disabled="true"</code> instead. A static chip can't be
+        disabled, so <code>class="ui-disabled"</code> only dims it a little and keeps
+        its text readable.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" row />

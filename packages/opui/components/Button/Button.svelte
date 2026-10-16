@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
 
   let {
@@ -19,7 +20,6 @@
   }: Props = $props()
 
   const Tag = $derived(as || (href ? "a" : "button"))
-  const isButton = $derived(Tag === "button")
 </script>
 
 <svelte:element
@@ -32,11 +32,8 @@
     color && `ui-${color}`,
     className,
   ]}
-  aria-disabled={!isButton && disabled ? "true" : undefined}
   aria-label={label}
-  disabled={isButton ? disabled : undefined}
-  {href}
-  type={isButton ? "button" : undefined}
+  {...tagAttrs(Tag, disabled, href)}
   {...rest}
 >
   {@render children?.()}

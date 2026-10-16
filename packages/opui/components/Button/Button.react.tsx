@@ -1,5 +1,6 @@
 import type { ElementType } from "react"
 import { cx } from "../cx"
+import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Button({
@@ -16,7 +17,6 @@ export default function Button({
   ...rest
 }: Props) {
   const Tag: ElementType = as || (href ? "a" : "button")
-  const isButton = Tag === "button"
 
   return (
     <Tag
@@ -28,11 +28,8 @@ export default function Button({
         color && `ui-${color}`,
         className,
       ])}
-      aria-disabled={!isButton && disabled ? "true" : undefined}
       aria-label={label}
-      disabled={isButton ? disabled : undefined}
-      href={href}
-      type={isButton ? "button" : undefined}
+      {...tagAttrs(Tag as string, disabled, href)}
       {...(rest as object)}
     />
   )

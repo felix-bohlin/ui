@@ -1,6 +1,5 @@
 export type Props = {
   color?: "critical" | "info" | "neutral" | "success" | "warning"
-  disabled?: boolean
   dot?: boolean
   label?: string
   multiline?: boolean
@@ -15,7 +14,7 @@ export type Props = {
   | {
       as?: "a"
       href: string
-      disabled?: never
+      disabled?: boolean
     }
   | {
       as: "button"

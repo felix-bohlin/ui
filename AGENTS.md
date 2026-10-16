@@ -37,6 +37,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## Changelog and What's new
 
 - Log every user-facing change to the package in `packages/opui/CHANGELOG.md` under `## Unreleased`, in `Breaking`, `Removed`, `Added`, `Changed` or `Fixed`.
+- Entries describe the change since the last release. When you rework something already added or changed in the unreleased version, update that entry instead of adding a `Changed` or `Fixed` one.
 - Start the entry with the component name in backticks, e.g. "- `Tabs` take a `variant` prop.".
 - For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page, and the New badge in the sidebar when the slug is also in `highlighted`.
 - Use `html`, `astro`, `react`, `svelte` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.

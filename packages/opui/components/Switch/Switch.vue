@@ -2,6 +2,7 @@
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
 import { useAttrs, useId } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
@@ -17,16 +18,10 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
 const uid = useId()
 const endTextId = `end-text-${uid}`
 
-if (
-  import.meta.env.DEV &&
-  !slots.default &&
-  !attrs["aria-label"] &&
-  !attrs["aria-labelledby"]
-) {
-  console.warn(
-    "[OPUI Switch] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-  )
-}
+warnUnnamed(
+  "Switch",
+  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>

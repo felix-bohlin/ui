@@ -5,6 +5,7 @@ export type Props = BaseProps & {
   class?: HTMLAttributes["class"]
   id?: HTMLAttributes["id"]
   type?: InputHTMLAttributes["type"] | "numeric"
+  value?: string | number
 }
 
 export type Slots = {

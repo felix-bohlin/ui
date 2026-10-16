@@ -1,6 +1,13 @@
 export type Props = {
   alignment?: string
-  trigger?: "always" | "hover"
-}
+} & (
+  | {
+      trigger?: "always"
+    }
+  | {
+      id: string
+      trigger: "hover"
+    }
+)
 
 export type AnchorContentProps = {}

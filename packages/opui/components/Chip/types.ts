@@ -1,14 +1,28 @@
 export type Props = {
-  as?: "a" | "button" | "div" | (string & {})
   color?: "critical" | "info" | "neutral" | "success" | "warning"
   disabled?: boolean
   dot?: boolean
-  href?: string
   label?: string
   multiline?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "tonal" | "outlined"
-}
+} & (
+  | {
+      as?: "div"
+      href?: never
+      disabled?: never
+    }
+  | {
+      as?: "a"
+      href: string
+      disabled?: never
+    }
+  | {
+      as: "button"
+      href?: never
+      disabled?: boolean
+    }
+)
 
 export type Slots<S> = {
   end?: S

@@ -1,6 +1,5 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { AnchorContext } from "./context.react"
 import type { Props } from "./types.react"
@@ -13,10 +12,8 @@ export default function Anchor({
   trigger = "always",
   ...rest
 }: Props) {
-  const uid = useId()
-
   const isHover = trigger === "hover"
-  const id = isHover ? (idProp ?? `anchor-${uid}`) : undefined
+  const id = isHover ? idProp : undefined
   const positionArea = alignment
     ? { "--anchor-position-area": alignment }
     : undefined

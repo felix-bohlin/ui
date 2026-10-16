@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useId } from "vue"
+import { computed, provide, reactive } from "vue"
 import { AnchorKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
@@ -7,10 +7,7 @@ const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
 defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
-const uid = useId()
-const id = computed(() =>
-  isHover.value ? (idProp ?? `anchor-${uid}`) : undefined,
-)
+const id = computed(() => (isHover.value ? idProp : undefined))
 
 const positionArea = computed(() =>
   alignment ? { "--anchor-position-area": alignment } : undefined,

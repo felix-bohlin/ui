@@ -8,6 +8,6 @@ export type Props = Base.Props &
   Slots &
   (
     | ({ as?: "a" } & ComponentProps<"a">)
-    | ({ as?: "button" } & ComponentProps<"button">)
+    | ({ as: "button" } & ComponentProps<"button">)
     | ({ as?: "div" } & ComponentProps<"div">)
   )

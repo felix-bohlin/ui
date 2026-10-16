@@ -24,6 +24,7 @@ const {
   spread,
   startText,
   type = "text",
+  value,
   variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
@@ -34,7 +35,7 @@ const inputAttrs = computed(() =>
 const modelValue = defineModel<string | number>()
 
 const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
+  get: () => modelValue.value ?? value,
   set: (value) => {
     modelValue.value = value
   },

@@ -15,9 +15,9 @@ const modelValue = defineModel<string | number | boolean | undefined>({
 const fieldName = inject(FieldGroupKey, undefined)
 
 const checked = computed(() =>
-  modelValue.value === undefined
-    ? attrs.checked !== undefined && attrs.checked !== false
-    : modelValue.value === (attrs.value ?? true),
+  attrs.checked === undefined
+    ? modelValue.value === (attrs.value ?? true)
+    : attrs.checked !== false,
 )
 const select = () => {
   modelValue.value = (attrs.value as string | number | undefined) ?? true

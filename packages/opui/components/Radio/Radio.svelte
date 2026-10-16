@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte"
+  import { warnUnnamed } from "../dev"
   import RadioInput from "./RadioInput.svelte"
   import type { RadioProps as Props } from "./types.svelte"
 
@@ -25,14 +26,12 @@
       undefined,
   )
 
-  if (
-    import.meta.env.DEV &&
-    untrack(() => !children && !rest["aria-label"] && !rest["aria-labelledby"])
-  ) {
-    console.warn(
-      "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-    )
-  }
+  untrack(() =>
+    warnUnnamed(
+      "Radio",
+      children || rest["aria-label"] || rest["aria-labelledby"],
+    ),
+  )
 </script>
 
 <label

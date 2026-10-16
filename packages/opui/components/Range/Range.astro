@@ -6,6 +6,9 @@ import { fieldContext } from "../FieldGroup/context.astro"
 export const title = "Range"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   class: className,
   disabled,
   endText,
@@ -51,9 +54,8 @@ const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
 
 const describedBy =
-  [startTextId, endTextId, rest["aria-describedby"]]
-    .filter(Boolean)
-    .join(" ") || undefined
+  [startTextId, endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
+  undefined
 ---
 
 <label
@@ -74,7 +76,12 @@ const describedBy =
   }
   {
     hasValue && (
-      <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
+      <output
+        class="ui-value"
+        data-live={Astro.slots.has("value") ? undefined : ""}
+        for={inputId}
+        data-suffix={valueSuffix}
+      >
         <slot name="value">{valueText}</slot>
       </output>
     )
@@ -90,8 +97,8 @@ const describedBy =
   <input
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : rest["aria-invalid"]}
-    aria-labelledby={labelId ?? rest["aria-labelledby"]}
+    aria-invalid={error ? "true" : ariaInvalid}
+    aria-labelledby={labelId ?? ariaLabelledBy}
     disabled={disabled}
     id={inputId}
     list={list}
@@ -127,21 +134,6 @@ const describedBy =
 </label>
 
 <script>
-  // Mirror the slider's current value into its associated <output> on every
-  // input event. Idempotent: each .ui-range is wired once, and ignores ranges
-  // without a value display.
-  for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
-    const input = range.querySelector<HTMLInputElement>('input[type="range"]')
-    const output = range.querySelector<HTMLOutputElement>(
-      ":scope > output.ui-value",
-    )
-    if (!input || !output) continue
-    const suffix = output.dataset.suffix ?? ""
-    const update = () => {
-      output.textContent = `${input.value}${suffix}`
-    }
-    input.addEventListener("input", update)
-    input.form?.addEventListener("reset", () => setTimeout(update))
-    update()
-  }
+  import { initRange } from "../../css/js/range.js"
+  initRange()
 </script>

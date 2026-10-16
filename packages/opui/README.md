@@ -120,7 +120,7 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id`.
+Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`.
 
 ### Plain HTML + CSS (no build step)
 

@@ -1,5 +1,6 @@
 import { useId } from "react"
 import { cx } from "../cx"
+import { warnUnnamed } from "../dev"
 import SwitchInput from "./SwitchInput.react"
 import type { SwitchProps as Props } from "./types.react"
 
@@ -21,16 +22,10 @@ export default function Switch({
   const describedBy =
     [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
-  if (
-    import.meta.env?.DEV &&
-    !children &&
-    !rest["aria-label"] &&
-    !rest["aria-labelledby"]
-  ) {
-    console.warn(
-      "[OPUI Switch] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
-    )
-  }
+  warnUnnamed(
+    "Switch",
+    children || rest["aria-label"] || rest["aria-labelledby"],
+  )
 
   return (
     <label

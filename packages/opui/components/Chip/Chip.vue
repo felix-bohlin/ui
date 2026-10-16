@@ -16,7 +16,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const tag = computed(() => as || (href ? "a" : "div"))
+const tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
 </script>
 
 <template>

@@ -6,6 +6,8 @@ import { fieldContext } from "../FieldGroup/context.astro"
 export const title = "Classic Select"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   class: className,
   disabled,
   error,
@@ -26,7 +28,7 @@ const $id = createId(Astro.locals)
 const selectId = id || $id("select")
 const endTextId = endText ? $id("end-text") : undefined
 const describedBy =
-  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
@@ -44,7 +46,7 @@ const describedBy =
     <select
       {...rest}
       aria-describedby={describedBy}
-      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={selectId}
       name={name ?? field?.name}

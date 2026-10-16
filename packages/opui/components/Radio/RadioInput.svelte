@@ -16,8 +16,7 @@
 
 <input
   type="radio"
-  checked={(group === undefined ? checked : group === (value ?? true)) ||
-    undefined}
+  checked={(checked ?? group === (value ?? true)) || undefined}
   name={name ?? field?.name}
   onchange={(event) => {
     group = value ?? true

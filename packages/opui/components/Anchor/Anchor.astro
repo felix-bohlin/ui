@@ -1,6 +1,5 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
 import { anchorContext } from "./context.astro"
 import { mergeStyle } from "../style"
 
@@ -16,7 +15,7 @@ const {
 } = Astro.props
 
 const isHover = trigger === "hover"
-const id = isHover ? (idProp ?? createId(Astro.locals)("anchor")) : undefined
+const id = isHover ? (idProp ?? undefined) : undefined
 const html = await anchorContext.provide(
   { floatingId: id, popover: isHover ? "hint" : undefined },
   () => Astro.slots.render("default"),

@@ -25,6 +25,13 @@ const {
 defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
 const modelValue = defineModel<string | number | (string | number)[]>()
+const vSeed = {
+  beforeMount: (el: HTMLSelectElement) => {
+    modelValue.value ??= el.multiple
+      ? [...el.selectedOptions].map((option) => option.value)
+      : el.value
+  },
+}
 
 const fieldName = inject(FieldGroupKey, undefined)
 
@@ -48,6 +55,7 @@ const endTextId = `end-text-${uid}`
     <span class="ui-field">
       <select
         v-bind="$attrs"
+        v-seed
         v-model="modelValue"
         :aria-describedby="
           [endText ? endTextId : undefined, attrs['aria-describedby']]

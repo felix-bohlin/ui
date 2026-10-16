@@ -131,7 +131,7 @@ const whatsNew = {
   ],
   callout: [
     slots(
-      `Breaking: <a href="#icon"><code>CalloutIcon</code></a>, <code>CalloutContent</code> and <code>CalloutTitle</code> replace the automatic icon, the content wrapper and the slots, and <code>level</code> on <code>CalloutTitle</code> replaces <code>headingLevel</code>.`,
+      `Breaking: <a href="#icon"><code>CalloutIcon</code></a> and <a href="#variants"><code>CalloutContent</code></a> replace the automatic icon, the content wrapper and the slots. Write the title as a plain heading in <code>CalloutContent</code> instead of the <code>title</code> slot and <code>headingLevel</code>.`,
     ),
     components(
       `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,

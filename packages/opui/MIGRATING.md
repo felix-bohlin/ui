@@ -153,7 +153,7 @@ Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scr
 
 ## Callout
 
-In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
+In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. The `title` slot and `headingLevel` are gone: write the title as a plain heading first in `CalloutContent`. A custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
 
 ```diff
 - <Callout severity="info" headingLevel={4}>
@@ -163,7 +163,7 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + <Callout severity="info">
 +   <CalloutIcon />
 +   <CalloutContent>
-+     <CalloutTitle level={4}>Heads up</CalloutTitle>
++     <h4>Heads up</h4>
 +     Text
 +   </CalloutContent>
 + </Callout>

@@ -5856,7 +5856,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: every option has its own group (Scroll and Shrink, Spread and Stack, Disabled and Checked) in the Button group, Toggle group, Checkbox, Radio, Switch and Toggle button APIs, and `checkApi` warns when two options share a group.
-- [ ] (2) Callout: `CalloutTitle` is a second way to write the same title. It renders `h3.ui-title`, but `callout.css` styles every heading in `.ui-content` and nothing targets `.ui-title`, so `<CalloutTitle>Note</CalloutTitle>` and `<h3>Note</h3>` look the same. The hero on the Callout page itself uses a bare `<h3>`, against the docs guide. Card and Dialog have no title part, and `DrawerTitle` only exists because it carries the labelled-by id (`packages/opui/components/Callout/CalloutTitle.astro:4-11`, `packages/opui/css/components/callout.css:69-91`, `src/docs/components/callout.astro:90-91`, `src/docs/components/AGENTS.md:204`)
+- [x] (2) Callout: `CalloutTitle` is a second way to write the same title. It renders `h3.ui-title`, but `callout.css` styles every heading in `.ui-content` and nothing targets `.ui-title`, so `<CalloutTitle>Note</CalloutTitle>` and `<h3>Note</h3>` look the same. The hero on the Callout page itself uses a bare `<h3>`, against the docs guide. Card and Dialog have no title part, and `DrawerTitle` only exists because it carries the labelled-by id (`packages/opui/components/Callout/CalloutTitle.astro:4-11`, `packages/opui/css/components/callout.css:69-91`, `src/docs/components/callout.astro:90-91`, `src/docs/components/AGENTS.md:204`)
   - Today:
     ```astro
     <UICalloutContent> <h3>Alternatives</h3></UICalloutContent>
@@ -5870,6 +5870,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   > B (if you’re sure this will work everywhere)
+  - Fixed: `CalloutTitle` and the callout `.ui-title` hook are gone, and titles are plain headings in `CalloutContent`: the Callout components, types, barrels and API, the Variants examples, docs pages, the What's new callout, the home page showcase, blocks, stress tests and guides. To make that work everywhere, `callout.css` resets `letter-spacing`, `line-height`, `margin-block` and `text-wrap` on classless headings in `.ui-content` inside rich text. Measured on 501 pages in light and dark: all 474 former `.ui-title` headings keep identical computed styles, positions in their callout and callout sizes. The classless heading on `/tests/typography/` now matches them (line height 24 to 28px, margin 8 to 0px). `CalloutTitle` never shipped, so the Callout Breaking entry and migration step now say to write a plain heading.
 - [x] (2) Avatar: `isGroup` turns the leaf component into its own container. The group accepts every Avatar prop but ignores `size` and `variant`, still swaps its children for an `<img>` when `src` is set, and takes `as`, `href` and `alt`. It is also the only `is`-prefixed boolean in the library, while ButtonGroup and ToggleGroup are separate components (`packages/opui/components/Avatar/types.ts:2`, `packages/opui/components/Avatar/Avatar.astro:22-33`)
   - Today:
     ```astro

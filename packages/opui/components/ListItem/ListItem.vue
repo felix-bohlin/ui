@@ -16,10 +16,21 @@ const hasLabel = computed(
     props.type === "radio" ||
     props.type === "switch",
 )
-const Tag = computed(() => props.as ?? (props.href ? "a" : undefined))
+const Tag = computed(() =>
+  hasLabel.value ? "label" : (props.as ?? (props.href ? "a" : undefined)),
+)
 
-const liAttrs = computed(() => (Tag.value ? {} : attrs))
-const innerAttrs = computed(() => (Tag.value ? attrs : {}))
+const liAttrs = computed(() => (hasLabel.value || !Tag.value ? attrs : {}))
+const tagAttrs = computed(() =>
+  hasLabel.value
+    ? { class: `ui-${props.type}`, for: props.for }
+    : {
+        disabled: props.disabled,
+        href: props.href,
+        type: Tag.value === "button" ? "button" : undefined,
+        ...attrs,
+      },
+)
 </script>
 
 <template>
@@ -33,32 +44,7 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
     ]"
     v-bind="liAttrs"
   >
-    <label v-if="hasLabel" :class="`ui-${props.type}`" :for="props.for">
-      <div v-if="slots.start" class="ui-start">
-        <slot name="start"></slot>
-      </div>
-      <div
-        v-if="slots.text || props.headline || props.description"
-        class="ui-text"
-      >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
-        <slot name="text"></slot>
-      </div>
-      <div v-if="slots.end" class="ui-end">
-        <slot name="end"></slot>
-      </div>
-      <slot></slot>
-    </label>
-
-    <component
-      :is="Tag"
-      v-else-if="Tag"
-      :disabled="props.disabled"
-      :href="props.href"
-      :type="Tag === 'button' ? 'button' : undefined"
-      v-bind="innerAttrs"
-    >
+    <component :is="Tag" v-if="Tag" v-bind="tagAttrs">
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>

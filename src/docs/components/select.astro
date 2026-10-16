@@ -11,7 +11,6 @@ import PropOrClass from "../../components/PropOrClass.astro"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
-import classicSelectApi from "../../component-api/classic-select/api"
 import selectApi from "../../component-api/select/api"
 import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 ---
@@ -35,10 +34,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     "user-pseudos",
   ]}
   heroAnatomy
-  apis={[
-    { title: "Select API", api: selectApi },
-    { title: "Classic select API", api: classicSelectApi },
-  ]}
+  apis={[{ title: "Select API", api: selectApi }]}
   installationTabs={[
     {
       title: "text-field.css",
@@ -54,10 +50,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       path: "packages/opui/components/Select/Select.astro",
       type: "component",
     },
-    {
-      path: "packages/opui/components/ClassicSelect/ClassicSelect.astro",
-      type: "component",
-    },
     { path: "src/docs/components/select.astro", type: "docs" },
     { path: "src/component-examples/select", type: "docs" },
     {
@@ -65,7 +57,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       type: "css",
     },
     { path: "src/component-api/select", type: "api" },
-    { path: "src/component-api/classic-select", type: "api" },
   ]}
   seeAlsoLinks={[
     {
@@ -299,17 +290,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <AutoExample name="Spread" column spacious />
   </section>
 
-  <section>
-    <h2 id="classic-select">Classic select</h2>
-    <p>
-      Bog-standard native HTML <code>&lt;select&gt;</code> without customized option
-      list. Use it when the browser's own picker is all you need, and the Select above
-      when the options need styles, icons or groups.
-    </p>
-
-    <AutoExample name="Classic" row spacious />
-  </section>
-
   <Fragment slot="accessibility">
     <p>
       <code>appearance: base-select</code> only changes how the select looks. The
@@ -337,9 +317,8 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <p>
       Browsers without customizable select drop the <code>&lt;button&gt;</code>
       {" "}and the list wrapper from the <code>&lt;select&gt;</code> and keep its
-      options. The select then looks like the <a href="#classic-select"
-        >Classic select</a
-      > and opens the browser's own picker.
+      options. The select keeps the field styles and the chevron, and opens the browser's
+      own picker.
     </p>
   </Fragment>
 

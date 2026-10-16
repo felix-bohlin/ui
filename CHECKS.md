@@ -93,7 +93,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Select in Chrome
   - [Select](/html/components/select/): the customizable picker has rounded corners, keyboard and typeahead work, groups and the header show.
 - [ ] Select in Firefox and Safari
-  - Without customizable select it falls back to the [Classic select](/html/components/select/#classic-select) and the browser's own picker.
+  - Without customizable select it falls back to the native select (see [Fallback](/html/components/select/#fallback)) and the browser's own picker.
 - [ ] Spinner
   - [Spinner](/html/components/spinner/): every size, stops with reduced motion.
 - [ ] Switch

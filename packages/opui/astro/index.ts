@@ -20,7 +20,6 @@ export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
-export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.astro"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.astro"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.astro"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.astro"
@@ -101,8 +100,6 @@ export type {
   CheckboxProps,
 } from "../components/Checkbox/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
-export type { ClassicSelectItem } from "../components/ClassicSelect/types"
-export type { ClassicSelectProps } from "../components/ClassicSelect/types.astro"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,

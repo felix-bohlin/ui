@@ -85,7 +85,7 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
 </script>
 ```
 
-Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, ClassicSelect, TextField, Textarea, Range and ToggleGroup, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, TextField, Textarea, Range and ToggleGroup, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
 
 The React component destructures props, slot props and `...rest` the same way, with `className` instead of `class`:
 
@@ -195,7 +195,7 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 ```
 
 ### Props and slots (form controls and small components)
-Form controls (TextField, Textarea, Select, ClassicSelect, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
+Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
 
 ```astro
 <div class="ui-component">
@@ -228,7 +228,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 ```
 
 ### End Text & ARIA
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby`.
+When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby`. TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
 ---
@@ -313,7 +313,7 @@ const callout = calloutContext.get()
 
 ## 7. Data-Driven Components
 
-For repetitive structures (Menu, Select, ClassicSelect), prefer an `items` prop alongside standard slots.
+For repetitive structures (Menu, Select), prefer an `items` prop alongside standard slots.
 
 ```astro
 type Item = { selected?: boolean; text: string; value: any }

@@ -103,9 +103,9 @@ export const description =
         Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
         current value next to the label. The component wires up an <code
           >&lt;output&gt;</code
-        > element and keeps its text in sync with the input. Content in the <code
-          >value</code
-        > named slot replaces the readout and stays as you render it.
+        > element and its script keeps the text in sync with the input. Content in
+        the <code>value</code> named slot replaces the readout. It renders once on
+        the server, and the script leaves it as it is.
       </p>
       <p slot="html">
         Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}
@@ -115,24 +115,31 @@ export const description =
         responsibility. The example does it with an <code>input</code> listener.
       </p>
       <p slot="react">
-        Pass the <code>valueSuffix</code> prop (or use the <code>valueText</code
-        >
-        prop) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, pass
+        a function to <code>valueText</code>: <code
+          >{"valueText={(value) => …}"}</code
+        > gets the current value as a number on every change.
       </p>
       <p slot="svelte">
-        Pass the <code>valueSuffix</code> prop (or use the <code>valueText</code
-        >
-        snippet) to render a live readout of the slider's current value next to the
-        label. The component wires up an <code>&lt;output&gt;</code> element and keeps
-        its text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, use
+        the <code>valueText</code> snippet: <code
+          >{"{#snippet valueText(value)}…{/snippet}"}</code
+        > gets the current value as a number on every change.
       </p>
       <p slot="vue">
-        Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
-        slot) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, use
+        the scoped <code>value</code> slot: <code
+          >{'<template #value="{ value }">…</template>'}</code
+        > gets the current value as a number on every change.
       </p>
     </Conditional>
     <AutoExample name="Value" column />
@@ -142,11 +149,10 @@ export const description =
     <h2 id="tick-marks">Tick marks</h2>
     <Conditional>
       <p slot="astro">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
-        renders a matching <code>&lt;datalist&gt;</code>.
+        Pass an <code>options</code> array - <code
+          >{"options=[{ value, label }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id.
       </p>
       <p slot="html">
         Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
@@ -155,25 +161,22 @@ export const description =
         <code>label</code> attributes.
       </p>
       <p slot="react">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
-        renders a matching <code>&lt;datalist&gt;</code>.
+        Pass an <code>options</code> array - <code
+          >{"options=[{ value, label }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id.
       </p>
       <p slot="svelte">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
-        renders a matching <code>&lt;datalist&gt;</code>.
+        Pass an <code>options</code> array - <code
+          >{"options=[{ value, label }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id.
       </p>
       <p slot="vue">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
-        renders a matching <code>&lt;datalist&gt;</code>.
+        Pass an <code>options</code> array - <code
+          >{"options=[{ value, label }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id.
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />

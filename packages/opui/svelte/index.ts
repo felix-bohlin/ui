@@ -22,7 +22,6 @@ export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
-export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
 export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
 export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.svelte"
@@ -103,8 +102,6 @@ export type {
   CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
-export type { ClassicSelectItem } from "../components/ClassicSelect/types"
-export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
 export type {
   DescriptionProps as DescriptionListDescriptionProps,
   ItemProps as DescriptionListItemProps,

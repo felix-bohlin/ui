@@ -1,12 +1,10 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function Textarea({
-  "aria-describedby": ariaDescribedBy,
   autoFit,
   className,
   error,
@@ -24,14 +22,9 @@ export default function Textarea({
   label,
   prefix,
   suffix,
-  supportingText,
   ...rest
 }: Props) {
-  const uid = useId()
   const field = useFieldContext()
-  const endTextId = endText || supportingText ? `end-text-${uid}` : undefined
-  const describedBy =
-    [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 
   return (
     <label
@@ -52,7 +45,6 @@ export default function Textarea({
       <span className="ui-field">
         <textarea
           {...rest}
-          aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
           id={id}
           name={name ?? field?.name}
@@ -62,12 +54,7 @@ export default function Textarea({
         {header && <span className="ui-header">{header}</span>}
         {footer && <span className="ui-footer">{footer}</span>}
       </span>
-      {(endText || supportingText) && (
-        <span className="ui-end-text" id={endTextId}>
-          {endText}
-          {supportingText}
-        </span>
-      )}
+      {endText && <span className="ui-end-text">{endText}</span>}
       {children}
     </label>
   )

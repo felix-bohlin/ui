@@ -22,7 +22,6 @@ export default function Spread() {
 
       <Range
         label="Tick marks with labels"
-        list="labeled-markers-spread"
         spread
         options={[
           { value: 0, label: "0%" },

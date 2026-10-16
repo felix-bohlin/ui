@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  inject,
-  type InputHTMLAttributes,
-  useAttrs,
-  useId,
-} from "vue"
+import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
@@ -22,12 +16,11 @@ const {
   label,
   size,
   spread,
-  startText,
   type = "text",
   value,
   variant,
 } = defineProps<Props>()
-const slots = defineSlots<Slots>()
+defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = computed(() =>
   Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
@@ -41,13 +34,6 @@ const model = computed({
   },
 })
 
-const uid = useId()
-const hasEndText = computed(
-  () => !!endText || !!slots["end-text"] || !!slots["supporting-text"],
-)
-const endTextId = computed(() =>
-  hasEndText.value ? `end-text-${uid}` : undefined,
-)
 const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
@@ -69,20 +55,14 @@ const fieldName = inject(FieldGroupKey, undefined)
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <span
-      v-if="startText || description || $slots.description"
-      class="ui-start-text"
-      >{{ startText }}<slot name="description">{{ description }}</slot></span
-    >
+    <span v-if="description || $slots.description" class="ui-start-text">
+      <slot name="description">{{ description }}</slot>
+    </span>
 
     <span class="ui-field">
       <input
         v-bind="inputAttrs"
         v-model="model"
-        :aria-describedby="
-          [endTextId, attrs['aria-describedby']].filter(Boolean).join(' ') ||
-          undefined
-        "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="id"
         :inputmode="
@@ -106,13 +86,8 @@ const fieldName = inject(FieldGroupKey, undefined)
       ></span>
     </span>
 
-    <span
-      v-if="endText || $slots['end-text'] || $slots['supporting-text']"
-      :id="endTextId"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ endText }}</slot
-      ><slot name="supporting-text"></slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      <slot name="end-text">{{ endText }}</slot>
     </span>
 
     <slot></slot>

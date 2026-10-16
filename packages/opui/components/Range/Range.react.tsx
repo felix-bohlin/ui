@@ -54,6 +54,7 @@ export default function Range({
 
   const hasLabel = !!label || !!children
   const hasValue = valueSuffix !== undefined || !!valueText
+  const hasDatalist = !!options || !!datalist
   const middle = () => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -69,6 +70,7 @@ export default function Range({
   const labelId = hasLabel ? `range-label-${uid}` : undefined
   const startTextId = startText ? `range-start-${uid}` : undefined
   const endTextId = endText ? `range-end-${uid}` : undefined
+  const listId = list ?? (hasDatalist ? `range-list-${uid}` : undefined)
   const describedBy =
     [startTextId, endTextId, rest["aria-describedby"]]
       .filter(Boolean)
@@ -95,7 +97,9 @@ export default function Range({
           data-suffix={valueSuffix}
           htmlFor={inputId}
         >
-          {valueText ?? `${value ?? current ?? middle()}${valueSuffix ?? ""}`}
+          {valueText
+            ? valueText(Number(value ?? current ?? middle()))
+            : `${value ?? current ?? middle()}${valueSuffix ?? ""}`}
         </output>
       )}
       {startText && (
@@ -110,7 +114,7 @@ export default function Range({
         aria-labelledby={labelId ?? rest["aria-labelledby"]}
         defaultValue={defaultValue}
         id={inputId}
-        list={list}
+        list={listId}
         max={max}
         min={min}
         name={name ?? field?.name}
@@ -123,8 +127,8 @@ export default function Range({
         type="range"
         value={value}
       />
-      {(options || datalist) && (
-        <datalist id={list}>
+      {hasDatalist && (
+        <datalist id={listId}>
           {options?.map((option) =>
             typeof option === "object" ? (
               <option

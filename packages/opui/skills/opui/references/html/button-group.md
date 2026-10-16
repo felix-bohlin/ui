@@ -108,6 +108,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button" aria-label="OK">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -124,6 +125,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button" aria-label="No">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -140,6 +142,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -155,6 +158,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -170,6 +174,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -201,6 +206,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     command="toggle-popover"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -267,6 +273,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -283,6 +290,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -301,6 +309,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -317,6 +326,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -335,6 +345,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -351,6 +362,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -369,6 +381,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-filled ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -385,6 +398,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

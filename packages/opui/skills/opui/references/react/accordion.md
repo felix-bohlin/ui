@@ -524,4 +524,3 @@ Import the components from `opui-css/react`:
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - [Actions](#actions) line up with the content and the chevron.
 - Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
-- Breaking: [`variant="default"`](#variants) is gone. Leave `variant` out for the default look.

@@ -82,6 +82,7 @@ The icon can be placed before or after the text using the `start` and `end` snip
 
 <Chip variant="tonal">
   {#snippet start()}<svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -97,6 +98,7 @@ The icon can be placed before or after the text using the `start` and `end` snip
 <Chip variant="outlined">
   <span class="ui-text">Outlined</span>
   {#snippet end()}<svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -156,6 +158,7 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 <div class="example-row">
   <Chip as="button" variant="tonal">
     {#snippet start()}<svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -171,6 +174,7 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
   <Chip as="button" variant="outlined">
     <span class="ui-text">Sort by</span>
     {#snippet end()}<svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -196,6 +200,7 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 <Chip as="a" href="#" variant="outlined">
   <span class="ui-text">Outlined link</span>
   {#snippet end()}<svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -226,19 +231,20 @@ Disable a button chip with the `disabled` attribute. A static chip can't be disa
 
 ### Chip API
 
-| Prop        | Type                                                              | Default   | Description                                                          |
-| ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
-| `children`  | `Snippet`                                                         | -         | Content placed before the label.                                     |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
-| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
-| `end`       | `Snippet`                                                         | -         | Optional content at the end, such as an icon.                        |
-| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
-| `label`     | `string`                                                          | -         | The label.                                                           |
-| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
-| `start`     | `Snippet`                                                         | -         | Optional content at the start, such as an icon.                      |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
+| Prop        | Type                                                              | Default   | Description                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                                                                                                         |
+| `children`  | `Snippet`                                                         | -         | Content placed before the label.                                                                                                                                              |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                                                                                                              |
+| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip takes `aria-disabled="true"` instead and looks and acts disabled. A static chip can't be disabled, use the `ui-disabled` class to dim it. |
+| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                                                                                                          |
+| `end`       | `Snippet`                                                         | -         | Optional content at the end, such as an icon.                                                                                                                                 |
+| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                                                                                                            |
+| `label`     | `string`                                                          | -         | The label.                                                                                                                                                                    |
+| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                                                                                                        |
+| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                                                                                                                                      |
+| `start`     | `Snippet`                                                         | -         | Optional content at the start, such as an icon.                                                                                                                               |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                                                                           |
 
 #### CSS variables
 
@@ -374,7 +380,7 @@ Step 4 of 4: Hover
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Chip.md).

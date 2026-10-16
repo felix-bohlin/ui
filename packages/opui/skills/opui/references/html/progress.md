@@ -249,3 +249,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.

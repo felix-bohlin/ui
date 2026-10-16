@@ -132,19 +132,19 @@ export default function SizesCode() {
 
       <Button size="x-small" variant="outlined">
         <span className="ui-text">x-small</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button size="small" variant="outlined">
         <span className="ui-text">Small</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="outlined">
         <span className="ui-text">Default</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="outlined" size="large">
         <span className="ui-text">Large</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
     </>
   )
@@ -163,35 +163,35 @@ export default function IconAndLabelCode() {
     <>
       <Button>
         <span className="ui-text">Text</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="outlined">
         <span className="ui-text">Outlined</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="tonal">
         <span className="ui-text">Tonal</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button variant="filled">
         <span className="ui-text">Filled</span>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
       </Button>
 
       <Button>
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Text</span>
       </Button>
       <Button variant="outlined">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Outlined</span>
       </Button>
       <Button variant="tonal">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Tonal</span>
       </Button>
       <Button variant="filled">
-        <svg>{/* */}</svg>
+        <svg aria-hidden="true">{/* */}</svg>
         <span className="ui-text">Filled</span>
       </Button>
     </>
@@ -236,6 +236,7 @@ export default function IconOnly() {
       <div className="example-row">
         <Button iconOnly label="Edit">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -249,6 +250,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -264,6 +266,7 @@ export default function IconOnly() {
       <div className="example-row">
         <Button iconOnly label="Edit" variant="outlined">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -277,6 +280,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded variant="outlined">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -292,6 +296,7 @@ export default function IconOnly() {
       <div className="example-row">
         <Button iconOnly label="Edit" variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -305,6 +310,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -320,6 +326,7 @@ export default function IconOnly() {
       <div className="example-row">
         <Button iconOnly label="Edit" variant="filled">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -333,6 +340,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded variant="filled">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -348,6 +356,7 @@ export default function IconOnly() {
       <div className="example-row">
         <Button iconOnly label="Edit" rounded size="x-small" variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -361,6 +370,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded size="small" variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -374,6 +384,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -387,6 +398,7 @@ export default function IconOnly() {
         </Button>
         <Button iconOnly label="Edit" rounded size="large" variant="tonal">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"

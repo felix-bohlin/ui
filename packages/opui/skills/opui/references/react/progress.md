@@ -243,3 +243,4 @@ Import the component from `opui-css/react`:
 ### What's new
 
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.

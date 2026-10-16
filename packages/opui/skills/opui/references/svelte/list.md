@@ -36,12 +36,18 @@
 
 ```svelte
 <script lang="ts">
-  import { List } from "opui-css/svelte"
-  import ListAll from "./partials/ListAll.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List>
-  <ListAll prefix="default-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    {#snippet end()}100+{/snippet}
+  </ListItem>
 </List>
 ```
 
@@ -70,22 +76,20 @@ Without a color class the list uses the filled surface, because lists usually si
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-<div class="column" style="gap: var(--size-4)">
-  <List>
-    <ListItem headline="Filled (default)" />
-    <ListItem headline="Second item" />
-  </List>
+<List>
+  <ListItem headline="Filled (default)" />
+  <ListItem headline="Second item" />
+</List>
 
-  <List variant="tonal">
-    <ListItem headline="Tonal" />
-    <ListItem headline="Second item" />
-  </List>
+<List variant="tonal">
+  <ListItem headline="Tonal" />
+  <ListItem headline="Second item" />
+</List>
 
-  <List variant="transparent">
-    <ListItem headline="Transparent" />
-    <ListItem headline="Second item" />
-  </List>
-</div>
+<List variant="transparent">
+  <ListItem headline="Transparent" />
+  <ListItem headline="Second item" />
+</List>
 ```
 
 ## Clickable list item
@@ -527,12 +531,18 @@ Just add the `dense` prop to the `List`!
 
 ```svelte
 <script lang="ts">
-  import { List } from "opui-css/svelte"
-  import ListAll from "./partials/ListAll.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List dense>
-  <ListAll prefix="dense-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    {#snippet end()}100+{/snippet}
+  </ListItem>
 </List>
 ```
 
@@ -556,6 +566,7 @@ Just add the `dense` prop to the `List`!
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
 | `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |
@@ -591,7 +602,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `start`       | `string` , `Snippet`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
 | `submenu`     | `string` , `Snippet`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
 | `text`        | `string` , `Snippet`                  | -       | The text content.                                                                                                                               |
-| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
+| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### CSS variables
 
@@ -601,6 +612,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
 | `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |

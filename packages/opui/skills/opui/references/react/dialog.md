@@ -676,3 +676,4 @@ Import the components from `opui-css/react`:
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
+- [`closedby`](#how-to-close) is typed in every framework.

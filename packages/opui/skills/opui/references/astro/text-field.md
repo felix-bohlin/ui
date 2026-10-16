@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Description € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -104,7 +104,7 @@ import { TextField } from "opui-css/astro"
 ---
 
 <TextField label="Amount" placeholder="0.00">
-  <Fragment slot="prefix">¢</Fragment>
+  <Fragment slot="prefix">€</Fragment>
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
@@ -230,7 +230,7 @@ import { TextField } from "opui-css/astro"
 
 <TextField spread label="Amount" placeholder="0.00">
   <Fragment slot="description">Daily spending limit</Fragment>
-  <Fragment slot="prefix">¢</Fragment>
+  <Fragment slot="prefix">€</Fragment>
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
@@ -490,7 +490,7 @@ import { TextField } from "opui-css/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

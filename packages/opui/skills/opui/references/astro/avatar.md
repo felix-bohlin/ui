@@ -42,8 +42,9 @@ import { Avatar } from "opui-css/astro"
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar>
+<Avatar aria-label="Developer" role="img">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -55,8 +56,9 @@ import { Avatar } from "opui-css/astro"
   >
 </Avatar>
 
-<Avatar>
+<Avatar aria-label="Contact" role="img">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -68,8 +70,9 @@ import { Avatar } from "opui-css/astro"
   >
 </Avatar>
 
-<Avatar>
+<Avatar aria-label="Guest" role="img">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -91,7 +94,7 @@ Change the shape of the avatar with the `variant` prop.
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar variant="squared">SQ</Avatar>
+<Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
 
 <Avatar
   variant="rounded"

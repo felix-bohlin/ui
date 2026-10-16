@@ -52,9 +52,8 @@ import { Callout, CalloutContent, CalloutTitle } from "opui-css/astro"
   <CalloutContent>
     <CalloutTitle>Another Callout</CalloutTitle>
     <p>
-      This is an outlined Callout. Why not use a <a
-        class="ui-link"
-        href="/components/card">Card</a
+      This is an outlined Callout. Why not use a <a class="ui-link" href="#"
+        >Card</a
       > since they look very similar? For one, the Callout is a more focused component
       with different properties.
     </p>

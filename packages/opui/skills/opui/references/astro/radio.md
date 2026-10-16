@@ -320,6 +320,16 @@ import { Form } from "opui-css/astro"
 </Form>
 ```
 
+## Accessibility
+
+### Keyboard support
+
+| Key        | Function                                                                                               |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| `Tab`      | Moves focus into the group, to the checked radio. When none is checked, focus goes to the first radio. |
+| Arrow keys | Move focus to the next or previous radio and select it.                                                |
+| `Space`    | Selects the focused radio.                                                                             |
+
 ## API
 
 ### Radio API
@@ -384,10 +394,10 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `va
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### Slots
 
@@ -538,6 +548,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- [Radios](#sizes) are 20px, the same `--choice-size` as Checkbox.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.

@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  ¢ EUR Header Footer Supporting text
+Label Description  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -354,7 +354,7 @@ import { Textarea } from "opui-css/vue"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 
@@ -492,6 +492,7 @@ Import the component from `opui-css/vue`:
 
 - [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
+- The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `style` goes to the label instead of the textarea ([API](#api)).
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.

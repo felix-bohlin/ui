@@ -51,9 +51,8 @@ Tonal (default) and `.ui-outlined` variants. Put the text in `.ui-content`, with
     <h3 class="ui-title">Another Callout</h3>
     <p>
       This is an outlined Callout. Why not use a
-      <a class="ui-link" href="/components/card">Card</a> since they look very
-      similar? For one, the Callout is a more focused component with different
-      properties.
+      <a class="ui-link" href="#">Card</a> since they look very similar? For
+      one, the Callout is a more focused component with different properties.
     </p>
   </div>
 </article>

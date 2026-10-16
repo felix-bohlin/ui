@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Description € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -114,7 +114,7 @@ import { TextField } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <TextField label="Amount" placeholder="0.00" prefix="¢" suffix="EUR" />
+      <TextField label="Amount" placeholder="0.00" prefix="€" suffix="EUR" />
       <TextField label="Website" placeholder="example.com" prefix="https://" />
       <TextField label="Weight" type="numeric" placeholder="0" suffix="kg" />
       <TextField
@@ -266,7 +266,7 @@ export default function Spread() {
         label="Amount"
         placeholder="0.00"
         description="Daily spending limit"
-        prefix="¢"
+        prefix="€"
         suffix="EUR"
       />
 

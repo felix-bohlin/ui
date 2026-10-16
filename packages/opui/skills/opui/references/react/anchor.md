@@ -62,7 +62,7 @@ Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the tri
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
-Put a [Card](https://open-props-ui.netlify.app/react/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room.
+Put a [Card](https://open-props-ui.netlify.app/react/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
 
 ```tsx
 import {
@@ -151,7 +151,7 @@ export default function RepoCard() {
 
 ## Link preview
 
-Preview where a link goes before following it. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
+Preview where a link goes before following it.
 
 ```tsx
 import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/react"

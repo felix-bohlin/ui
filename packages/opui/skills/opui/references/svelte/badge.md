@@ -408,9 +408,9 @@ Step 4 of 4: Dot
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
+- Safari: Full support Supported since v26.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Badge.md).
 

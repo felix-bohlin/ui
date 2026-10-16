@@ -54,7 +54,7 @@ export default function Variants() {
           <CalloutTitle>Another Callout</CalloutTitle>
           <p>
             This is an outlined Callout. Why not use a{" "}
-            <a className="ui-link" href="/components/card">
+            <a className="ui-link" href="#">
               Card
             </a>{" "}
             since they look very similar? For one, the Callout is a more focused

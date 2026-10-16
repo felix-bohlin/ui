@@ -99,6 +99,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 ```html
 <div class="ui-chip ui-tonal">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -115,6 +116,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -192,6 +194,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 <div class="example-row">
   <button type="button" class="ui-chip ui-tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -207,6 +210,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
   <button type="button" class="ui-chip ui-outlined">
     <span class="ui-text">Sort by</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -231,6 +235,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 <a href="#" class="ui-chip ui-outlined">
   <span class="ui-text">Outlined link</span>
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -413,7 +418,7 @@ Step 4 of 4: Hover
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Chip.md).

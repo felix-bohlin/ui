@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Description € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -113,7 +113,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Amount" placeholder="0.00">
-    <template #prefix>¢</template>
+    <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 
@@ -243,7 +243,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField spread label="Amount" placeholder="0.00">
     <template #description>Daily spending limit</template>
-    <template #prefix>¢</template>
+    <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 
@@ -517,7 +517,7 @@ import { TextField } from "opui-css/vue"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

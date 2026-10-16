@@ -10,6 +10,53 @@ Toasts are managed by a global container. Trigger them either completely with HT
 
 Structure lives in HTML via a default `<template id="toast-template">`. CSS owns the lifetime through `attr(data-duration type(<time>))`. JS only clones the template, fills the structural slots (`[data-toast-title]`, `[data-toast-description]`, `[data-toast-icon]`, `[data-toast-close]`) using `textContent`, and removes the toast on `animationend`. Provide your own `<template>` with the same slot markers and reference it via `data-template` on the trigger to override the default look.
 
+### Setup
+
+Add the manager and the default template once per page, and load `toast.js` to start the manager. With a bundler, import `opui-css/css/js/toast.js` instead of the CDN URL.
+
+```html
+<output
+  aria-live="polite"
+  id="toast-manager"
+  popover="manual"
+  role="status"
+></output>
+<template id="toast-template">
+  <div class="ui-toast" role="alert">
+    <span class="ui-icon" data-toast-icon></span>
+    <div class="ui-content">
+      <div class="ui-title" data-toast-title></div>
+      <div class="ui-description" data-toast-description></div>
+    </div>
+    <button
+      aria-label="Close"
+      class="ui-close-button"
+      data-toast-close
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="20"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+</template>
+<script type="module">
+  import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
+  initToastManager()
+</script>
+```
+
 ### HTML
 
 Use `commandfor="toast-manager"` and `command="--show-toast"` on a button. The `data-title` attribute will be used as the message.
@@ -60,7 +107,7 @@ Use the `data-severity` attribute to change the appearance of the toast.
 
 ```html
 <button
-  class="ui-button ui-filled green"
+  class="ui-button ui-filled"
   commandfor="toast-manager"
   command="--show-toast"
   data-title="Success!"
@@ -70,7 +117,7 @@ Use the `data-severity` attribute to change the appearance of the toast.
 </button>
 
 <button
-  class="ui-button ui-filled red"
+  class="ui-button ui-filled ui-critical"
   commandfor="toast-manager"
   command="--show-toast"
   data-title="Something went wrong"
@@ -80,7 +127,7 @@ Use the `data-severity` attribute to change the appearance of the toast.
 </button>
 
 <button
-  class="ui-button ui-filled blue"
+  class="ui-button ui-filled"
   commandfor="toast-manager"
   command="--show-toast"
   data-title="Did you know?"
@@ -150,14 +197,14 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 ## API
 
-| Type          | Modifiers               | Default  | Description                                                                     |
-| ------------- | ----------------------- | -------- | ------------------------------------------------------------------------------- |
-| **Command**   | `--show-toast`          | -        | Custom invoker command to trigger a toast notification.                         |
-| **Message**   | `value` / `textContent` | -        | The message to display in the toast.                                            |
-| **Severity**  | `data-severity`         | `info`   | Modifies the toast appearance. Options: `success`, `critical`, `info`.          |
-| **Duration**  | `data-duration`         | `5000ms` | Determines how long the toast remains visible. Supports CSS time units (ms, s). |
-| **Container** | `#toast-manager`        | -        | The global fixed container that manages the stack of toasts.                    |
-| **Component** | `.ui-toast`             | -        | Individual notification element within the container.                           |
+| Type          | Modifiers        | Default  | Description                                                                                              |
+| ------------- | ---------------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| **Command**   | `--show-toast`   | -        | Custom invoker command to trigger a toast notification.                                                  |
+| **Message**   | `data-title`     | -        | The toast title, set on the trigger. Without it, the trigger's text is used.                             |
+| **Severity**  | `data-severity`  | -        | The severity icon. Options: `critical`, `info`, `success`, `warning`. Without it, the toast has no icon. |
+| **Duration**  | `data-duration`  | `5000ms` | Determines how long the toast remains visible. Supports CSS time units (ms, s).                          |
+| **Container** | `#toast-manager` | -        | The global fixed container that manages the stack of toasts.                                             |
+| **Component** | `.ui-toast`      | -        | Individual notification element within the container.                                                    |
 
 ## Under the hood
 

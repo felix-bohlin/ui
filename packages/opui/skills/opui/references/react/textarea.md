@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  ¢ EUR Header Footer Supporting text
+Label Description  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -508,4 +508,5 @@ Import the component from `opui-css/react`:
 
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
+- The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

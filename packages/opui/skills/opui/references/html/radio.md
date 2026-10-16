@@ -413,6 +413,16 @@ Add `aria-invalid="true"` to each `<input>` in the group. The end text of the `.
 </form>
 ```
 
+## Accessibility
+
+### Keyboard support
+
+| Key        | Function                                                                                               |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| `Tab`      | Moves focus into the group, to the checked radio. When none is checked, focus goes to the first radio. |
+| Arrow keys | Move focus to the next or previous radio and select it.                                                |
+| `Space`    | Selects the focused radio.                                                                             |
+
 ## API
 
 ### Radio API
@@ -631,10 +641,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- [Radios](#sizes) are 20px, the same `--choice-size` as Checkbox.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
 - [Spread](#spread) with `.ui-spread`, like Checkbox and Switch.
 - Breaking: mark an invalid group with `aria-invalid="true"` on each radio instead of `data-invalid` on the fieldset ([Validation](#field-group-validation)).
 - Takes `.ui-x-small`. [Sizes](#sizes)
-- [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch. Import it before `radio.css`.
+- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch. Import it before `radio.css`.

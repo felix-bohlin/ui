@@ -487,9 +487,14 @@ Add the `.ui-spread` class to display the label and description on the left with
 ```html
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-1-label">Country</span>
-  <span class="ui-start-text">Select your country of residence</span>
+  <span class="ui-start-text" id="select-orientation-1-start-text"
+    >Select your country of residence</span
+  >
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-1-label">
+    <select
+      aria-describedby="select-orientation-1-start-text"
+      aria-labelledby="select-orientation-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -507,10 +512,12 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread ui-filled">
   <span class="ui-label" id="select-orientation-2-label">Language</span>
-  <span class="ui-start-text">Choose your preferred language</span>
+  <span class="ui-start-text" id="select-orientation-2-start-text"
+    >Choose your preferred language</span
+  >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-2-end-text"
+      aria-describedby="select-orientation-2-start-text select-orientation-2-end-text"
       aria-labelledby="select-orientation-2-label"
     >
       <button>
@@ -533,9 +540,15 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-3-label">Required</span>
-  <span class="ui-start-text">You must select an option</span>
+  <span class="ui-start-text" id="select-orientation-3-start-text"
+    >You must select an option</span
+  >
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-3-label" required>
+    <select
+      aria-describedby="select-orientation-3-start-text"
+      aria-labelledby="select-orientation-3-label"
+      required
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -550,9 +563,15 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-4-label">Disabled</span>
-  <span class="ui-start-text">This select is disabled</span>
+  <span class="ui-start-text" id="select-orientation-4-start-text"
+    >This select is disabled</span
+  >
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-4-label" disabled>
+    <select
+      aria-describedby="select-orientation-4-start-text"
+      aria-labelledby="select-orientation-4-label"
+      disabled
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -565,10 +584,12 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
-  <span class="ui-start-text">This select has an error</span>
+  <span class="ui-start-text" id="select-orientation-5-start-text"
+    >This select has an error</span
+  >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-5-end-text"
+      aria-describedby="select-orientation-5-start-text select-orientation-5-end-text"
       aria-invalid="true"
       aria-labelledby="select-orientation-5-label"
     >
@@ -587,9 +608,14 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread">
   <span class="ui-label" id="select-orientation-6-label">Time zone</span>
-  <span class="ui-start-text">Used for reminders and due dates</span>
+  <span class="ui-start-text" id="select-orientation-6-start-text"
+    >Used for reminders and due dates</span
+  >
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-6-label">
+    <select
+      aria-describedby="select-orientation-6-start-text"
+      aria-labelledby="select-orientation-6-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -607,10 +633,12 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 <label class="ui-select ui-spread ui-filled">
   <span class="ui-label" id="select-orientation-7-label">Region</span>
-  <span class="ui-start-text">Affects data residency and latency</span>
+  <span class="ui-start-text" id="select-orientation-7-start-text"
+    >Affects data residency and latency</span
+  >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-7-end-text"
+      aria-describedby="select-orientation-7-start-text select-orientation-7-end-text"
       aria-labelledby="select-orientation-7-label"
     >
       <button>

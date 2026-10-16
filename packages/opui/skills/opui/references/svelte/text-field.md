@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Description € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -104,7 +104,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 </script>
 
 <TextField label="Amount" placeholder="0.00">
-  {#snippet prefix()}¢{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
@@ -227,7 +227,7 @@ Use the `spread` boolean prop to display the label and description on the left w
 
 <TextField spread label="Amount" placeholder="0.00">
   {#snippet description()}Daily spending limit{/snippet}
-  {#snippet prefix()}¢{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 

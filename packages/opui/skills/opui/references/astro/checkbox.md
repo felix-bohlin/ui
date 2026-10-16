@@ -149,7 +149,7 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 
 ### JavaScript required
 
-The `indeterminate` state cannot be set with HTML or CSS alone. The browser only exposes it as a property on `HTMLInputElement`, so a small script is needed to flip `el.indeterminate = true` after the element is in the DOM. The `:indeterminate` CSS pseudo-class then matches and the dash glyph appears.
+The `indeterminate` state cannot be set with HTML or CSS alone. The browser only exposes it as a property on `HTMLInputElement`, so the component ships a script that sets `el.indeterminate = true` on load. The `:indeterminate` CSS pseudo-class then matches and the dash glyph appears. To change the state later, set `el.indeterminate` yourself, as the example does.
 
 ```astro
 ---
@@ -335,7 +335,7 @@ import { Form } from "opui-css/astro"
 
 ### Disabled
 
-Attach the `disabled` attribute to the `<fieldset>` element.
+Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single `Checkbox`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -453,7 +453,6 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Variable                        | Default                                                                                 | Description                                                                                                                                                                                                  |
 | ------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`                | `light-dark(var(--gray-4), var(--gray-12))`                                             | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--choice-label-offset`         | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
 | `--choice-size`                 | `calc(var(--size-4) * var(--density))`                                                  | Default `Checkbox` and `Radio` input size.                                                                                                                                                                   |
 | `--choice-size-large`           | `calc(var(--size-5) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                          |
@@ -462,6 +461,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--disabled-opacity`            | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
 | `--duration`                    | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--ease`                        | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
+| `--field-border-color`          | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                     |
 | `--field-border-width`          | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
 | `--field-helper-color`          | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
 | `--field-helper-font-size`      | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
@@ -494,10 +494,10 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `re
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### Slots
 

@@ -229,7 +229,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ## Indeterminate
 
-Add `data-indeterminate` to the `<input type="checkbox">` and call `activateIndeterminate()` from `opui-css/css/js/checkbox.js` once the element is in the DOM. The attribute alone has no effect.
+Add `data-indeterminate` to the `<input type="checkbox">` and call `activateIndeterminate()` from `opui-css/css/js/checkbox.js` once the element is in the DOM. The attribute alone has no effect. When you add or remove `data-indeterminate` later, call `syncIndeterminate(input)`.
 
 ### JavaScript required
 
@@ -465,7 +465,7 @@ Can be placed above and below the fields.
 
 ### Disabled
 
-Attach the `disabled` attribute to the `<fieldset>` element.
+Attach the `disabled` attribute to the `<fieldset>` element to disable every checkbox in it, or to a single `<input>`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -600,7 +600,6 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Variable                        | Default                                                                                 | Description                                                                                                                                                                                                  |
 | ------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--border-color`                | `light-dark(var(--gray-4), var(--gray-12))`                                             | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--choice-label-offset`         | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                        |
 | `--choice-size`                 | `calc(var(--size-4) * var(--density))`                                                  | Default `Checkbox` and `Radio` input size.                                                                                                                                                                   |
 | `--choice-size-large`           | `calc(var(--size-5) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                          |
@@ -609,6 +608,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--disabled-opacity`            | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                        |
 | `--duration`                    | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--ease`                        | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                              |
+| `--field-border-color`          | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                     |
 | `--field-border-width`          | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                   |
 | `--field-helper-color`          | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                            |
 | `--field-helper-font-size`      | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                             |
@@ -856,4 +856,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.
 - Breaking: mark an invalid checkbox with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
 - Takes `.ui-x-small`. [Sizes](#sizes)
-- [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch. Import it before `checkbox.css`.
+- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch. Import it before `checkbox.css`.

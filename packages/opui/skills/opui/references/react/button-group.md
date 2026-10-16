@@ -137,6 +137,7 @@ export default function WithIcons() {
       <ButtonGroup variant="outlined">
         <Button iconOnly label="OK">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -151,6 +152,7 @@ export default function WithIcons() {
         <Button>Maybe</Button>
         <Button iconOnly label="No">
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -167,6 +169,7 @@ export default function WithIcons() {
       <ButtonGroup variant="outlined">
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -181,6 +184,7 @@ export default function WithIcons() {
         </Button>
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -195,6 +199,7 @@ export default function WithIcons() {
         </Button>
         <Button>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -230,6 +235,7 @@ export default function SplitButton() {
         command="toggle-popover"
       >
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -291,6 +297,7 @@ export default function Vertical() {
         <ButtonGroup orientation="vertical">
           <Button aria-label="Increase">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -307,6 +314,7 @@ export default function Vertical() {
           </Button>
           <Button aria-label="Decrease">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -325,6 +333,7 @@ export default function Vertical() {
         <ButtonGroup orientation="vertical" variant="outlined">
           <Button aria-label="Increase">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -341,6 +350,7 @@ export default function Vertical() {
           </Button>
           <Button aria-label="Decrease">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -359,6 +369,7 @@ export default function Vertical() {
         <ButtonGroup orientation="vertical" variant="tonal">
           <Button aria-label="Increase">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -375,6 +386,7 @@ export default function Vertical() {
           </Button>
           <Button aria-label="Decrease">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -393,6 +405,7 @@ export default function Vertical() {
         <ButtonGroup orientation="vertical" variant="filled">
           <Button aria-label="Increase">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -409,6 +422,7 @@ export default function Vertical() {
           </Button>
           <Button aria-label="Decrease">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

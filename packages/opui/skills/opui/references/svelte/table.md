@@ -552,4 +552,3 @@ Import the components from `opui-css/svelte`:
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
-- Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.

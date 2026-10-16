@@ -90,6 +90,7 @@ import { Chip } from "opui-css/vue"
   <Chip variant="tonal">
     <template #start
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -106,6 +107,7 @@ import { Chip } from "opui-css/vue"
     <span class="ui-text">Outlined</span>
     <template #end
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -182,6 +184,7 @@ import { Chip } from "opui-css/vue"
     <Chip as="button" variant="tonal">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -198,6 +201,7 @@ import { Chip } from "opui-css/vue"
       <span class="ui-text">Sort by</span>
       <template #end
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -226,6 +230,7 @@ import { Chip } from "opui-css/vue"
     <span class="ui-text">Outlined link</span>
     <template #end
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -259,16 +264,17 @@ import { Chip } from "opui-css/vue"
 
 ### Chip API
 
-| Prop        | Type                                                              | Default   | Description                                                          |
-| ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
-| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
-| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
-| `label`     | `string`                                                          | -         | The label.                                                           |
-| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
+| Prop        | Type                                                              | Default   | Description                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                                                                                                         |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                                                                                                              |
+| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip takes `aria-disabled="true"` instead and looks and acts disabled. A static chip can't be disabled, use the `ui-disabled` class to dim it. |
+| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                                                                                                          |
+| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                                                                                                            |
+| `label`     | `string`                                                          | -         | The label.                                                                                                                                                                    |
+| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                                                                                                        |
+| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                                                                                                                                      |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                                                                                                           |
 
 #### Slots
 
@@ -412,7 +418,7 @@ Step 4 of 4: Hover
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Chip.md).

@@ -34,7 +34,9 @@ Or pick and choose in a CSS file, and import that file in the layout instead:
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
+@import "opui-css/css/components/button.css";
+@import "opui-css/css/components/choice.css";
+@import "opui-css/css/components/checkbox.css";
 @import "opui-css/core/utils.css";
 ```
 
@@ -43,6 +45,8 @@ Or pick and choose in a CSS file, and import that file in the layout instead:
 import "../styles/global.css"
 ---
 ```
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. `choice.css` goes before `checkbox.css`, `radio.css` and `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 ## How to use
 

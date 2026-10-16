@@ -336,7 +336,7 @@ import { Form } from "opui-css/astro"
 
 ### Disabled
 
-Attach the `disabled` attribute to the `<fieldset>` element.
+Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `Switch`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -363,7 +363,7 @@ import { Form } from "opui-css/astro"
 
 ### Required
 
-Attach the `required` attribute to at least one of your `<input>` elements.
+Each switch with `required` must be on before the form submits. There's no native "at least one" for switches.
 
 ```astro
 ---
@@ -507,10 +507,10 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `re
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### Slots
 

@@ -57,8 +57,9 @@ import { Avatar } from "opui-css/react"
 export default function Icon() {
   return (
     <>
-      <Avatar>
+      <Avatar aria-label="Developer" role="img">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -71,8 +72,9 @@ export default function Icon() {
         </svg>
       </Avatar>
 
-      <Avatar>
+      <Avatar aria-label="Contact" role="img">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -85,8 +87,9 @@ export default function Icon() {
         </svg>
       </Avatar>
 
-      <Avatar>
+      <Avatar aria-label="Guest" role="img">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -113,7 +116,9 @@ import { Avatar } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Avatar variant="squared">SQ</Avatar>
+      <Avatar aria-label="Sam Quist" role="img" variant="squared">
+        SQ
+      </Avatar>
 
       <Avatar
         variant="rounded"

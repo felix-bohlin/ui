@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  ¢ EUR Header Footer Supporting text
+Label Description  € EUR Header Footer Supporting text
 
 - `label.ui-textarea`
 
@@ -561,5 +561,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
+- The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: mark an invalid field with `aria-invalid="true"` on the `<textarea>` instead of `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).

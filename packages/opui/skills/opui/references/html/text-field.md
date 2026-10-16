@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Description € EUR Header Footer Supporting text
 
 - `label.ui-text-field`
 
@@ -137,7 +137,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Amount</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">€</span>
     <span class="ui-suffix">EUR</span>
   </span>
 </label>
@@ -324,7 +324,7 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Daily spending limit</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">€</span>
     <span class="ui-suffix">EUR</span>
   </span>
 </label>

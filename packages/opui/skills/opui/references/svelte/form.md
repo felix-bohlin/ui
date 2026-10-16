@@ -539,11 +539,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                      |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### CSS variables
 

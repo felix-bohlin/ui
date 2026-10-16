@@ -36,8 +36,9 @@
 ## Icon
 
 ```html
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Developer">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -50,8 +51,9 @@
   </svg>
 </div>
 
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Contact">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -64,8 +66,9 @@
   </svg>
 </div>
 
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Guest">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -84,7 +87,7 @@
 Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-squircle` classes.
 
 ```html
-<div class="ui-avatar ui-squared">SQ</div>
+<div class="ui-avatar ui-squared" role="img" aria-label="Sam Quist">SQ</div>
 
 <div class="ui-avatar ui-rounded">
   <img

@@ -81,7 +81,7 @@ import { Radio } from "opui-css/astro"
 
 ## Field group
 
-Lays out related fields and passes a shared `name` to the inputs inside. Wrap it in a fieldset to group them for screen readers.
+Lays out related fields and passes a shared `name` to the OPUI fields inside. Wrap it in a fieldset to group them for screen readers.
 
 ```astro
 ---
@@ -528,10 +528,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### Slots
 

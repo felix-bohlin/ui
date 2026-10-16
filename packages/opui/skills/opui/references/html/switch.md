@@ -502,7 +502,7 @@ Can be placed above and below the fields.
 
 ### Disabled
 
-Attach the `disabled` attribute to the `<fieldset>` element.
+Attach the `disabled` attribute to the `<fieldset>` element to disable every switch in it, or to a single `<input>`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -530,7 +530,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 
 ### Required
 
-Attach the `required` attribute to at least one of your `<input>` elements.
+Each switch with `required` must be on before the form submits. There's no native "at least one" for switches.
 
 ```html
 <form class="ui-form">
@@ -934,4 +934,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: mark an invalid switch with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
 - Takes `.ui-x-small` and `.ui-large`. [Sizes](#sizes)
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
-- [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it before `switch.css`.
+- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it before `switch.css`.

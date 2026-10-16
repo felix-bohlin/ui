@@ -91,6 +91,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-x-small">
     <span class="ui-text">x-small</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -105,6 +106,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-small">
     <span class="ui-text">Small</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -119,6 +121,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined">
     <span class="ui-text">Default</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -133,6 +136,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-large">
     <span class="ui-text">Large</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -156,6 +160,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button">
     <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -171,6 +176,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-outlined">
     <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -186,6 +192,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-tonal">
     <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -201,6 +208,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-filled">
     <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -216,6 +224,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 <div class="example-row">
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -230,6 +239,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   </button>
   <button type="button" class="ui-button ui-outlined">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -245,6 +255,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 
   <button type="button" class="ui-button ui-tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -260,6 +271,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 
   <button type="button" class="ui-button ui-filled">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -295,6 +307,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -308,6 +321,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button type="button" class="ui-button ui-rounded" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -323,6 +337,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -340,6 +355,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -355,6 +371,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -368,6 +385,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button type="button" class="ui-button ui-rounded ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -383,6 +401,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-filled" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -400,6 +419,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -419,6 +439,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -436,6 +457,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -449,6 +471,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button type="button" class="ui-button ui-rounded ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -466,6 +489,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -499,6 +523,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button" disabled>
     <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -514,6 +539,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-outlined" disabled>
     <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -529,6 +555,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-tonal" disabled>
     <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -544,6 +571,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-filled" disabled>
     <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

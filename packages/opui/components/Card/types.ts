@@ -1,11 +1,11 @@
 export type Props = {
-  actionsAlign?: "start" | "end"
   variant?: "text" | "outlined" | "elevated" | "tonal"
 }
 
-export type Slots<S> = {
-  actions?: S
-  children?: S
-  content?: S
-  header?: S
+export type CardActionsProps = {
+  align?: "start" | "end"
 }
+
+export type CardContentProps = {}
+
+export type CardHeaderProps = {}

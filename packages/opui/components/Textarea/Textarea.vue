@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject, type TextareaHTMLAttributes, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -9,47 +9,51 @@ defineOptions({
 
 const props = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as TextareaHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<string>()
 
 const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | undefined),
+  get: () => modelValue.value ?? props.value,
   set: (value) => {
     modelValue.value = value
   },
 })
 
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <label
     :class="[
       'ui-textarea',
+      props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
+        'ui-filled': variant === 'filled',
         'ui-spread': props.spread,
-        'ui-small': props.small,
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
     </span>
 
-    <span v-if="props.description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ props.description }}</slot>
+    <span v-if="props.startText || $slots['start-text']" class="ui-start-text">
+      <slot name="start-text">{{ props.startText }}</slot>
     </span>
 
     <span class="ui-field">
       <textarea
-        :id="props.id"
-        :name="currentFieldName"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-model="model"
+        :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
+        :id="props.id"
+        :name="attrs.name ?? fieldName"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
@@ -65,12 +69,8 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       ></span>
     </span>
 
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
+    <span v-if="props.endText || $slots['end-text']" class="ui-end-text">
+      <slot name="end-text">{{ props.endText }}</slot>
     </span>
 
     <slot></slot>

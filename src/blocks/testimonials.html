@@ -1,0 +1,376 @@
+<style>
+  .testimonials {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-7);
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    .testimonials-intro {
+      display: grid;
+      gap: var(--size-4);
+      justify-items: center;
+      margin-inline: auto;
+      max-inline-size: 40rem;
+      text-align: center;
+
+      h1 {
+        text-wrap: balance;
+      }
+    }
+
+    .testimonials-summary {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      justify-content: center;
+      margin: 0;
+    }
+
+    .testimonials-list {
+      column-gap: var(--size-4);
+      columns: 1;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      @container (inline-size >= 40rem) {
+        columns: 2;
+      }
+
+      @container (inline-size >= 60rem) {
+        columns: 3;
+      }
+
+      li {
+        break-inside: avoid;
+        padding-block-end: var(--size-4);
+      }
+
+      figure {
+        margin: 0;
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-3);
+      }
+
+      blockquote {
+        margin: 0;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .testimonials-stars {
+      color: var(--warning);
+      display: flex;
+
+      svg {
+        block-size: var(--size-3);
+        inline-size: auto;
+      }
+
+      .testimonials-star-empty {
+        color: var(--border-color);
+      }
+    }
+
+    .testimonials-author {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+      margin-block-start: var(--size-1);
+
+      & > span:last-child {
+        display: grid;
+      }
+    }
+
+    .testimonials-name {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .testimonials-role {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+  }
+</style>
+
+<section class="testimonials" aria-labelledby="testimonials-heading">
+  <div class="testimonials-intro">
+    <hgroup class="ui-hgroup">
+      <p>Customer stories</p>
+      <h1 class="ui-h2" id="testimonials-heading">
+        Teams ship calmer with Northwind
+      </h1>
+      <p>
+        From five-person startups to global product orgs, here's what our
+        customers say.
+      </p>
+    </hgroup>
+    <p class="testimonials-summary">
+      <span class="testimonials-stars" aria-hidden="true">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="120"
+          height="24"
+          viewBox="0 0 120 24"
+        >
+          <path
+            fill="currentColor"
+            d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+          ></path>
+        </svg>
+      </span>
+      <span><strong>4.9 out of 5</strong> from 2&nbsp;300+ reviews</span>
+    </p>
+  </div>
+
+  <ul class="testimonials-list">
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 5 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>
+              We replaced three tools with Northwind and our planning meeting
+              went from 90 minutes to 25. The roadmap finally reflects what
+              engineering is actually doing.
+            </p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">SL</span>
+            <span
+              ><span class="testimonials-name">Sofia Lindqvist</span
+              ><span class="testimonials-role"
+                >Head of Product, Fjord Health</span
+              ></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 5 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>
+              Setup took an afternoon. The Jira import kept every comment and
+              attachment.
+            </p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">DO</span>
+            <span
+              ><span class="testimonials-name">Daniel Okafor</span
+              ><span class="testimonials-role"
+                >Engineering Manager, Brightpath</span
+              ></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 4 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+              <path
+                class="testimonials-star-empty"
+                fill="currentColor"
+                d="m108 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>
+              The insights dashboard made our cycle time visible for the first
+              time. I wish the mobile app had the same filters, but it's getting
+              there.
+            </p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">MT</span>
+            <span
+              ><span class="testimonials-name">Mei Tanaka</span
+              ><span class="testimonials-role"
+                >Staff Engineer, Kumo Labs</span
+              ></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 5 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>
+              Our support team links customer requests straight to roadmap
+              items. Closing the loop with customers is now a one-click job.
+            </p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">JB</span>
+            <span
+              ><span class="testimonials-name">Jonas Berg</span
+              ><span class="testimonials-role"
+                >Customer Success Lead, Saltvik</span
+              ></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 5 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>Honestly the calmest tool we use. No noise, just the work.</p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">AD</span>
+            <span
+              ><span class="testimonials-name">Amara Diallo</span
+              ><span class="testimonials-role"
+                >Designer, Studio Nord</span
+              ></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li>
+      <figure class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span
+            class="testimonials-stars"
+            role="img"
+            aria-label="Rated 5 out of 5"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="120"
+              height="24"
+              viewBox="0 0 120 24"
+            >
+              <path
+                fill="currentColor"
+                d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+              ></path>
+            </svg>
+          </span>
+          <blockquote>
+            <p>
+              SSO, audit logs and EU hosting were must-haves for us. Northwind
+              checked every box our security team had, without slowing anyone
+              down.
+            </p>
+          </blockquote>
+          <figcaption class="testimonials-author">
+            <span class="ui-avatar" aria-hidden="true">EJ</span>
+            <span
+              ><span class="testimonials-name">Erik Johansson</span
+              ><span class="testimonials-role">CTO, Ledger & Co</span></span
+            >
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+  </ul>
+</section>

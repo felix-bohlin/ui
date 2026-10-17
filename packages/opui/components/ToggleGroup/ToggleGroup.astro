@@ -1,5 +1,7 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
+import { toggleGroupContext } from "./context.astro"
 
 export const title = "Toggle Group"
 
@@ -7,37 +9,27 @@ const {
   class: className,
   name,
   orientation,
+  scrollable,
   selection = "multiple",
-  size = "default",
+  shrink,
+  size,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const groupName = name || $id("toggle-group")
-const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
-
-const slotHtml = (await Astro.slots.render("default")) ?? ""
-const html = slotHtml.replace(
-  /(<label\b[^>]*\sclass="[^"]*\bui-toggle-button\b[^>]*>\s*<input\b)([^>]*)/g,
-  (_, start, attrs) => {
-    let inputAttrs = /\sname=/.test(attrs)
-      ? attrs
-      : ` name="${escapedName}"${attrs}`
-    if (selection === "single") {
-      inputAttrs = inputAttrs
-        .replace(/\saria-pressed(="[^"]*")?/, "")
-        .replace(/\stype="checkbox"/, ' type="radio"')
-    }
-    return start + inputAttrs
-  },
+const inputType = selection === "single" ? "radio" : "checkbox"
+const html = await toggleGroupContext.provide({ groupName, inputType }, () =>
+  Astro.slots.render("default"),
 )
 ---
 
 <div
   class:list={[
     "ui-toggle-group",
-    size !== "default" && size && `ui-${size}`,
+    size && `ui-${size}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}

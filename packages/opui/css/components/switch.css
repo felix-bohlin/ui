@@ -1,27 +1,24 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
-    --_accent-contrast: var(--primary-contrast);
-
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
-    --_dot-inset: var(--size-1) auto auto var(--size-1);
+    --_dot-inset: round(
+      down,
+      (var(--_track-height) - var(--_dot-size)) / 2,
+      1px
+    );
     --_dot-outline-size: 0;
-    --_dot-size: var(--size-3);
-
+    --_dot-size: round(var(--switch-dot-size), 1px);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
+    --_icon-size: min(
+      var(--_dot-size),
+      max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
+    );
+    --_input-size: var(--_track-height);
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: var(--size-5);
-    --_track-width: var(--size-8);
-    --_transition-tf: var(--ease-4);
-    --_transition-time: calc(0.2s * var(--_motion));
-
-    align-items: center;
-    color: var(--text-primary);
-    display: inline-grid;
-    gap: 0 var(--size-2);
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    inline-size: fit-content;
+    --_track-height: round(var(--switch-track-height), 1px);
+    --_track-width: round(var(--switch-track-width), 1px);
 
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;
@@ -35,16 +32,19 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: 1px solid var(--_dot-bg-color);
+        border: var(--field-border-width) solid var(--_dot-bg-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);
         inset: 0;
         position: absolute;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
 
       &:focus-visible {
-        --focus-ring-color: currentColor;
+        border-radius: var(--radius-round);
         outline: var(--focus-ring-width) var(--focus-ring-style)
           var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
@@ -57,54 +57,38 @@
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_dot-size);
-        inset: var(--_dot-inset);
+        inset-block-start: var(--_dot-inset);
+        inset-inline-start: var(--_dot-inset);
         outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
         outline-offset: -1px;
         position: absolute;
+        transition:
+          background-color var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--_ease),
+          outline-color var(--_duration) var(--_ease),
+          outline-width var(--_duration) var(--_ease);
       }
 
       /* Checked */
       &:checked {
         &::before {
-          background-color: var(--_accent-color);
-          border-color: var(--_accent-color);
-          transition:
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
+          background-color: var(--_accent);
+          border-color: var(--_accent);
         }
 
         /* Dot */
         &::after {
           --_dot-bg-color: var(--_accent-contrast);
-          --_dot-outline-size: calc(var(--size-1) - 1px);
+          --_dot-outline-size: calc(var(--_dot-inset) - 1px);
 
           inset-inline-start: calc(
-            var(--_track-width) - var(--_dot-size) - var(--size-1)
+            var(--_track-width) - var(--_dot-size) - var(--_dot-inset)
           );
         }
       }
 
-      /* Animation */
-      /* Track */
-      &::before {
-        transition:
-          background-color var(--_transition-time) var(--_transition-tf),
-          border-color var(--_transition-time) var(--_transition-tf);
-      }
-
-      /* Dot */
-      &::after {
-        transition: all var(--_transition-time) var(--_transition-tf);
-      }
-
       &:active:after {
-        --_dot-outline-size: calc(var(--size-1) + 1px);
-      }
-
-      &:checked {
-        &:active:after {
-          --_dot-outline-size: calc(var(--size-1) + 1px);
-        }
+        --_dot-outline-size: calc(var(--_dot-inset) + 1px);
       }
     }
 
@@ -127,143 +111,76 @@
 
       .ui-icon-checked {
         display: none;
+        margin-inline-start: var(--_dot-inset);
       }
 
       .ui-icon-unchecked,
       .ui-icon-checked {
         grid-column: 1;
         grid-row: 1;
+        margin-block-start: round(
+          down,
+          (var(--_track-height) - var(--_icon-size)) / 2,
+          1px
+        );
         pointer-events: none;
         z-index: 1;
 
         svg {
           display: block;
-          inline-size: var(--_dot-size);
+          inline-size: var(--_icon-size);
         }
       }
 
       .ui-icon-unchecked {
         margin-inline-start: calc(
-          var(--_track-width) - var(--_dot-size) - var(--size-1)
+          var(--_track-width) - var(--_icon-size) - var(--_dot-inset)
         );
-      }
-
-      .ui-icon-checked {
-        margin-inline-start: var(--size-1);
-      }
-    }
-
-    /* Required dot */
-    &:has(:invalid) {
-      .ui-label:after {
-        color: var(--red);
-        content: "*";
-        inset: 0 -0.25ex auto auto;
-        position: absolute;
-      }
-    }
-
-    /* Disabled */
-    &:has([disabled]) {
-      cursor: not-allowed;
-      opacity: 0.64;
-      user-select: none;
-
-      input {
-        cursor: not-allowed;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      grid-column: 2;
-      grid-row: 1;
-      min-width: 0;
-      padding-inline: 0 1ex;
-      position: relative;
+      min-inline-size: 0;
       user-select: none;
     }
 
-    /* End text */
-    :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
-      grid-column: 2;
-      grid-row: 2;
-      line-height: 1.5;
-      z-index: 1;
-    }
-
-    /* Size */
-    &.ui-small {
-      --_dot-size: 0.75rem;
-      --_track-height: var(--size-4);
-      --_track-width: 2.5rem;
-    }
-
     /* Spread layout */
-    &.ui-spread {
-      align-items: center;
-      column-gap: var(--size-4);
-      grid-auto-flow: unset;
-      grid-template-columns: 1fr auto;
-      inline-size: 100%;
-
-      .ui-label {
-        font-weight: 600;
-        grid-column: 1;
-        grid-row: 1;
-        inline-size: fit-content;
-      }
-
-      input[role="switch"] {
+    &.ui-spread:has(.ui-icon-checked, .ui-icon-unchecked) {
+      input[role="switch"],
+      .ui-icon-checked,
+      .ui-icon-unchecked {
         grid-column: 2;
-        grid-row: 1;
-      }
-
-      &:has(.ui-icon-checked, .ui-icon-unchecked) {
-        input[role="switch"],
-        .ui-icon-checked,
-        .ui-icon-unchecked {
-          grid-column: 2;
-        }
-      }
-
-      :where(.ui-end-text) {
-        grid-column: 1;
-        grid-row: 2;
-      }
-    }
-
-    /* Stacked layout */
-    &.ui-stack {
-      grid-auto-columns: unset;
-      justify-items: center;
-
-      .ui-label {
-        grid-column: 1/-1;
-        grid-row: 2;
-        margin-block-start: var(--size-1);
-        padding-inline: 1ex;
-      }
-
-      .ui-end-text {
-        grid-column: 1/-1;
-        grid-row: 3;
       }
     }
 
     /* Validation */
-    &[data-invalid] {
+    &:has([aria-invalid="true"], :user-invalid) {
       input {
         border-radius: var(--radius-round);
-        outline: 2px solid var(--color-9);
+        box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
+      }
+
+      input:focus-visible {
+        outline-offset: calc(
+          var(--focus-ring-offset) + var(--focus-ring-width)
+        );
       }
 
       .ui-end-text {
-        color: var(--color-9);
+        color: var(--invalid-text-color);
+      }
+    }
+
+    @media (forced-colors: active) {
+      --_accent: SelectedItem;
+      --_accent-contrast: SelectedItemText;
+      --_dot-bg-color: CanvasText;
+      --_track-bg-color: Canvas;
+
+      &:has([disabled], input[aria-disabled="true"]) {
+        --_accent: GrayText;
+        --_dot-bg-color: GrayText;
       }
     }
   }

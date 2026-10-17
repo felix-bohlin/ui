@@ -2,13 +2,20 @@
 import Baseline from "./Baseline.astro"
 import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
+import { components } from "../utils/components"
 
 type Props = {
   ids: string[]
 }
 
 const { ids } = Astro.props
-const sortedIds = ids.sort()
+const sortedIds = [...ids].sort()
+const name = components.find(
+  (component) => component.slug === Astro.locals.componentSlug,
+)?.name
+const guideHref = name
+  ? `/guide/browser-support?${new URLSearchParams({ components: name })}`
+  : "/guide/browser-support"
 ---
 
 <section>
@@ -16,8 +23,8 @@ const sortedIds = ids.sort()
   <BrowserSupportChips ids={sortedIds} />
   <Baseline ids={sortedIds} />
   <p>
-    See also the <DocLink href="/guide/browser-support"
-      >full browser support guide</DocLink
+    Explore these features in the <DocLink href={guideHref}
+      >browser support guide</DocLink
     >.
   </p>
 </section>

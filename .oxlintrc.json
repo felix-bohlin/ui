@@ -16,5 +16,5 @@
     "playwright-report/**",
     "test-results/**"
   ],
-  "plugins": ["oxc", "typescript", "unicorn", "vue"]
+  "plugins": ["oxc", "react", "typescript", "unicorn", "vue"]
 }

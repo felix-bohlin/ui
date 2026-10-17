@@ -4,3 +4,7 @@ import type { Props as BaseProps } from "./types"
 export type Props = BaseProps & {
   class?: HTMLAttributes["class"]
 }
+
+export type Slots = {
+  default?: Slot
+}

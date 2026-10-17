@@ -1,26 +1,47 @@
 ---
+import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
+import { createId } from "../id"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   class: className,
-  description,
-  error,
   dense,
+  endText,
+  error,
   id,
   items = [],
   label,
   name,
-  spread,
   size,
-  endText,
+  spread,
+  startText,
+  value,
   variant = "outlined",
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const field = fieldContext.get()
+const $id = createId(Astro.locals)
 const labelId = $id("select-label")
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [startTextId, endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
+  undefined
+const isSelected = (item: SelectItem) =>
+  value === undefined
+    ? item.selected
+    : Array.isArray(value)
+      ? value.includes(item.value)
+      : item.value === value
 ---
 
 <label
@@ -33,7 +54,6 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -44,25 +64,35 @@ const labelId = $id("select-label")
     )
   }
   {
-    (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+    (startText || Astro.slots.has("start-text")) && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <select
-      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
-      id={id}
-      name={name}
       {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={label || Astro.slots.has("label")
+        ? labelId
+        : ariaLabelledBy}
+      id={id}
+      name={name ?? field?.name}
     >
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
-        {items.map((item) => <option value={item.value}>{item.text}</option>)}
+        {
+          items.map((item) => (
+            <option selected={isSelected(item) || undefined} value={item.value}>
+              {item.text}
+            </option>
+          ))
+        }
         <slot />
       </div>
     </select>
@@ -97,7 +127,7 @@ const labelId = $id("select-label")
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span id={$id("end-text")} class="ui-end-text">
+      <span id={endTextId} class="ui-end-text">
         {endText}
         <slot name="end-text" />
       </span>

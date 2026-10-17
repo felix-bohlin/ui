@@ -1,15 +1,15 @@
 export type Props = {
   name?: string
   orientation?: "vertical"
+  scrollable?: boolean
   selection?: "single" | "multiple"
-  size?: "default" | "small" | "x-small"
+  shrink?: boolean
+  size?: "x-small" | "small" | "large"
 }
+
+export type Selection<Single, Multiple> =
+  ({ selection: "single" } & Single) | ({ selection?: "multiple" } & Multiple)
 
 export type Slots<S> = {
-  children: S
-}
-
-export type ToggleContext = {
-  groupName: string
-  inputType: "radio" | "checkbox"
+  children?: S
 }

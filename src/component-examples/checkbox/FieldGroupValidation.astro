@@ -1,19 +1,21 @@
 ---
-import { Checkbox } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { Form } from "@opui/astro"
+import { Checkbox } from "opui-css/astro"
+import { FieldSet } from "opui-css/astro"
+import { FieldLegend } from "opui-css/astro"
+import { FieldGroup } from "opui-css/astro"
+import { Form } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet data-invalid="">
+  <FieldSet aria-describedby="checkbox-group-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-validation">
-      <Checkbox checked>Checkbox 1</Checkbox>
-      <Checkbox>Checkbox 2</Checkbox>
-      <Checkbox>Checkbox 3</Checkbox>
+      <Checkbox checked error>Checkbox 1</Checkbox>
+      <Checkbox error>Checkbox 2</Checkbox>
+      <Checkbox error>Checkbox 3</Checkbox>
     </FieldGroup>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="checkbox-group-error"
+      >Something went wrong!</span
+    >
   </FieldSet>
 </Form>

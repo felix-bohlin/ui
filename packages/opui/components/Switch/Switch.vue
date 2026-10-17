@@ -1,33 +1,40 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<SwitchProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+warnUnnamed(
+  "Switch",
+  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>
   <label
     :class="[
       'ui-switch',
+      props.size && `ui-${props.size}`,
       {
-        'ui-small': props.small,
         'ui-stack': props.stack,
         'ui-spread': props.spread,
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <span
       v-if="$slots['icon-unchecked']"
@@ -48,7 +55,12 @@ const endTextId = useId()
     <SwitchInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
     />
 
     <span

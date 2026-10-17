@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldLegend",
+  css: ["form"],
   options: [
     {
       default: '"legend"',

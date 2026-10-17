@@ -1,0 +1,17 @@
+---
+import type { AnchorContentProps as Props } from "./types.astro"
+import { anchorContext } from "./context.astro"
+
+const { class: className, ...rest } = Astro.props
+
+const anchor = anchorContext.get()
+---
+
+<span
+  class:list={["ui-anchor-floating", className]}
+  id={anchor?.floatingId}
+  popover={anchor?.popover}
+  {...rest}
+>
+  <slot />
+</span>

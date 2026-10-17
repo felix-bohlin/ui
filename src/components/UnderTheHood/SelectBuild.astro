@@ -1,0 +1,198 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const chevron = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>")`
+
+const steps = [
+  {
+    css: `
+.select:has(button),
+.select:has(button)::picker(select) {
+  appearance: base-select;
+}
+
+.select {
+  background-color: var(--surface-default);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  inline-size: 100%;
+  padding: 0;
+}
+
+.select > button {
+  align-items: center;
+  display: flex;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+}
+
+selectedcontent {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}`,
+    features: ["customizable-select"],
+    html: `
+<label class="field">
+  <span id="fruit-label">Fruit</span>
+  <select aria-labelledby="fruit-label" class="select">
+    <button>
+      <selectedcontent></selectedcontent>
+    </button>
+    <div class="list">
+      <option value="apple">Apple</option>
+      …
+    </div>
+  </select>
+</label>`,
+    notes: [
+      "<code>appearance: base-select</code> on the select and its picker opts in to the stylable version",
+      "Only a select with a <code>&lt;button&gt;</code> opts in, a plain one stays native",
+      "The <code>&lt;button&gt;</code> is the trigger, <code>&lt;selectedcontent&gt;</code> mirrors the chosen option",
+      "Browsers without support ignore the button and render a native select",
+    ],
+    title: "Base select",
+  },
+  {
+    css: `
+.select {
+  position: relative;
+}
+
+.select::picker-icon {
+  background-color: currentColor;
+  block-size: 1rem;
+  content: "";
+  inline-size: 1rem;
+  inset-block: 50% auto;
+  inset-inline: auto 0.75rem;
+  mask: ${chevron} center / contain no-repeat;
+  position: absolute;
+  translate: 0 -50%;
+}
+
+.select:open::picker-icon {
+  rotate: 180deg;
+}`,
+    features: ["individual-transforms", "masks", "open-pseudo"],
+    notes: [
+      "<code>::picker-icon</code> is the arrow, redrawn here as a chevron",
+      "<code>mask</code> cuts the chevron out of a <code>currentColor</code> box, so it follows the text color",
+      "<code>:open</code> matches while the picker is showing, so the arrow flips",
+    ],
+    title: "Arrow",
+  },
+  {
+    css: `
+.select::picker(select) {
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-2);
+  padding: 0;
+}
+
+.list {
+  background-color: var(--surface-filled);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  padding: 0.5rem 0;
+}
+
+.list > option {
+  padding: 0.5rem 0.75rem;
+}
+
+.list > option:hover {
+  background-color: oklch(from var(--primary) l c h / 15%);
+}
+
+.list > option:checked {
+  background-color: oklch(from var(--primary) l c h / 30%);
+}
+
+.list > option::checkmark {
+  display: none;
+}`,
+    features: ["relative-color"],
+    notes: [
+      "<code>::picker(select)</code> is the dropdown, a popover anchored to the select",
+      "The picker is see-through and rounded like the list, so no square corners show behind it",
+      "Options are ordinary boxes now: padding, <code>:hover</code>, <code>:checked</code>",
+      "<code>::checkmark</code> hidden, the checked background marks the choice",
+      "Open the select",
+    ],
+    title: "Picker",
+  },
+  {
+    css: `
+.select::picker(select) {
+  opacity: 1;
+  scale: 1;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete,
+    scale 0.2s;
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
+.select:not(:open)::picker(select) {
+  opacity: 0;
+  scale: 0.9;
+}`,
+    features: [
+      "individual-transforms",
+      "starting-style",
+      "transition-behavior",
+    ],
+    notes: [
+      "<code>@starting-style</code> gives the entry transition a starting point",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",
+      "<code>:not(:open)</code> is the exit state",
+    ],
+    title: "Animate",
+  },
+]
+
+const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
+---
+
+<BuildUp id="build-select" steps={steps}>
+  <label class="field">
+    <span id="build-select-label">Fruit</span>
+    <select
+      aria-labelledby="build-select-label"
+      class="select"
+      name="build-select-fruit"
+    >
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="list">
+        {
+          fruits.map((fruit) => (
+            <option value={fruit.toLowerCase()}>{fruit}</option>
+          ))
+        }
+      </div>
+    </select>
+  </label>
+</BuildUp>
+
+<style>
+  .field {
+    display: grid;
+    gap: var(--size-1);
+    inline-size: min(100%, 16rem);
+  }
+
+  .select {
+    align-items: center;
+    color: var(--text-primary);
+    font: inherit;
+  }
+</style>

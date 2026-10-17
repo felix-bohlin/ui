@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { computed, useId, useSlots } from "vue"
+import {
+  computed,
+  inject,
+  type InputHTMLAttributes,
+  onBeforeUnmount,
+  onMounted,
+  useAttrs,
+  useId,
+  useSlots,
+  useTemplateRef,
+} from "vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -17,15 +28,47 @@ const model = computed({
   },
 })
 
+const input = useTemplateRef<HTMLInputElement>("input")
+let form: HTMLFormElement | null | undefined
+const syncAfterReset = () =>
+  setTimeout(() => {
+    if (input.value) model.value = input.value.valueAsNumber
+  })
+onMounted(() => {
+  form = input.value?.form
+  form?.addEventListener("reset", syncAfterReset)
+})
+onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
+
+const attrs = useAttrs() as InputHTMLAttributes
+const defaultValue = computed(() => {
+  const min = Number(attrs.min ?? 0)
+  const max = Math.max(min, Number(attrs.max ?? 100))
+  const step = attrs.step === "any" ? 0 : Number(attrs.step ?? 1)
+  const middle = min + (max - min) / 2
+  if (!step) return middle
+  const value = min + Math.round((middle - min) / step) * step
+  return value > max ? value - step : value
+})
+
 const uid = useId()
 const slots = useSlots()
+const fieldName = inject(FieldGroupKey, undefined)
 const hasValue = computed(
   () => props.valueSuffix !== undefined || !!slots.value,
 )
-const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
-const labelId = useId()
-const startTextId = useId()
-const endTextId = useId()
+const inputId = computed(
+  () => props.id || (hasValue.value ? `range-${uid}` : undefined),
+)
+const listId = computed(
+  () =>
+    props.list ??
+    (props.options || slots.datalist ? `range-list-${uid}` : undefined),
+)
+
+const labelId = `range-label-${uid}`
+const startTextId = `range-start-${uid}`
+const endTextId = `range-end-${uid}`
 </script>
 
 <template>
@@ -36,7 +79,6 @@ const endTextId = useId()
       { 'ui-spread': props.spread },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
       <slot>{{ props.label }}</slot>
@@ -47,7 +89,9 @@ const endTextId = useId()
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
-      <slot name="value">{{ model }}{{ props.valueSuffix }}</slot>
+      <slot name="value" :value="Number(model ?? defaultValue)"
+        >{{ model ?? defaultValue }}{{ props.valueSuffix }}</slot
+      >
     </output>
     <span
       v-if="props.startText || $slots['start-text']"
@@ -58,23 +102,29 @@ const endTextId = useId()
     </span>
 
     <input
+      v-bind="$attrs"
+      v-model.number="model"
       :aria-describedby="
         [
           props.startText || $slots['start-text'] ? startTextId : undefined,
           props.endText || $slots['end-text'] ? endTextId : undefined,
+          attrs['aria-describedby'],
         ]
           .filter(Boolean)
           .join(' ') || undefined
       "
-      :aria-labelledby="labelId"
+      :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="
+        props.label || $slots.default ? labelId : attrs['aria-labelledby']
+      "
       :id="inputId"
-      :list="props.list"
+      :list="listId"
+      :name="attrs.name ?? fieldName"
+      ref="input"
       type="range"
-      v-bind="$attrs"
-      v-model="model"
     />
 
-    <datalist v-if="props.options || $slots.datalist" :id="props.list">
+    <datalist v-if="props.options || $slots.datalist" :id="listId">
       <template
         v-for="option in props.options"
         :key="typeof option === 'object' ? option.value : option"

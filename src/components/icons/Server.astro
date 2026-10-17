@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"svg"> & {
+  crossed?: boolean
+}
+
+const { crossed = false, ...rest } = Astro.props
+const maskId = Astro.locals.$id("server-mask")
+---
+
+<svg
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  {...rest}
+>
+  {
+    crossed && (
+      <mask id={maskId}>
+        <rect fill="white" height="24" width="24" />
+        <path
+          d="M3 21 21 3"
+          stroke="black"
+          stroke-linecap="round"
+          stroke-width="5"
+        />
+      </mask>
+    )
+  }
+  <path
+    fill="currentColor"
+    mask={crossed ? `url(#${maskId})` : undefined}
+    d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v4h14V5zm-1 8h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m1 2v4h14v-4zm2-9h2v2H7zm0 10h2v2H7z"
+  ></path>
+  {
+    crossed && (
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-width="2"
+        d="M3 21 21 3"
+      />
+    )
+  }
+</svg>

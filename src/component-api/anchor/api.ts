@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Anchor",
   notes: {
-    html: 'For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.',
+    html: 'To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
   },
   options: [
     {
@@ -16,8 +16,8 @@ export default {
     },
     {
       description:
-        'The id of the floating content when `trigger` is `"hover"`. Add `interestfor` with the same id to the trigger.',
-      frameworks: ["astro", "vue"],
+        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.',
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
@@ -36,12 +36,16 @@ export default {
       code: "& > :first-child",
       description: "The content the floating content is anchored to.",
       selector: ".ui-anchor > :first-child",
-      slots: ["default"],
     },
     {
+      component: {
+        astro: "AnchorContent",
+        react: "AnchorContent",
+        svelte: "AnchorContent",
+        vue: "AnchorContent",
+      },
       description: "The floating content.",
       selector: ".ui-anchor-floating",
-      slots: ["anchored"],
     },
   ],
   root: {
@@ -49,5 +53,11 @@ export default {
     description: "Container element. Scopes the anchor to its content.",
     selector: ".ui-anchor",
   },
+  slots: [
+    {
+      description: "The content to anchor to, followed by `AnchorContent`.",
+      name: "default",
+    },
+  ],
   source: "Anchor",
 } satisfies ComponentApi

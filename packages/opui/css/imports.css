@@ -1,4 +1,4 @@
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@import "./layers.css";
 
 /* Open Props */
 @import "../open-props.css";

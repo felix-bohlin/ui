@@ -1,0 +1,131 @@
+import type { ComponentApi } from "../types"
+
+export default {
+  component: "Carousel",
+  notes: {
+    html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons and markers.",
+  },
+  options: [
+    {
+      default: '"start"',
+      description: "Where items snap.",
+      group: "Alignment",
+      prop: "align",
+      values: { center: ".ui-align-center", start: null },
+    },
+    {
+      attribute: "[aria-label]",
+      description: "Accessible name of the carousel.",
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
+      group: "Label",
+      prop: "aria-label",
+      type: "string",
+    },
+    {
+      cssVar: "--_media-aspect-ratio",
+      default: '"16 / 9"',
+      description:
+        "Aspect ratio that images, videos and iframes are cropped to.",
+      group: "Aspect ratio",
+      prop: "aspectRatio",
+    },
+    {
+      class: ".ui-with-buttons",
+      default: "true",
+      description:
+        'Previous and next buttons. `"outside"` places them beside the items.',
+      group: "Buttons",
+      htmlDescription:
+        "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.",
+      prop: "buttons",
+      values: { outside: ".ui-buttons-outside" },
+    },
+    {
+      class: ".ui-motion-off",
+      default: "false",
+      description: "Turns off smooth scrolling, like `--motion: 0`.",
+      frameworks: ["html"],
+      group: "Motion",
+      prop: "motionOff",
+    },
+    {
+      class: ".ui-with-markers",
+      default: "false",
+      description: "One marker per item, after the list.",
+      group: "Markers",
+      prop: "markers",
+    },
+    {
+      default: '"horizontal"',
+      description:
+        "The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
+      class: ".ui-peek",
+      default: "false",
+      description: "Shows part of the neighbouring items.",
+      group: "Peek",
+      prop: "peek",
+    },
+    {
+      class: ".ui-buttons-persistent",
+      default: "false",
+      description:
+        "Keeps the buttons visible at the ends. A disabled button has a muted border.",
+      group: "Persistent buttons",
+      prop: "persistentButtons",
+    },
+    {
+      cssVar: "--_per-view",
+      default: "1",
+      description: "Number of visible items.",
+      group: "Items per view",
+      prop: "perView",
+    },
+    {
+      class: ".ui-stretch",
+      default: "false",
+      description:
+        "Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+      group: "Stretch",
+      prop: "stretch",
+    },
+  ],
+  parts: [
+    {
+      code: "<li>",
+      description: "An item.",
+      selector: ".ui-carousel > :first-child",
+      slots: ["default"],
+    },
+    {
+      code: "::scroll-button(inline-start)",
+      description:
+        "The previous button. `::scroll-button(block-start)` when vertical.",
+      props: ["buttons"],
+      selector: ".ui-carousel::scroll-button(inline-start)",
+    },
+    {
+      code: "::scroll-button(inline-end)",
+      description:
+        "The next button. `::scroll-button(block-end)` when vertical.",
+      props: ["buttons"],
+      selector: ".ui-carousel::scroll-button(inline-end)",
+    },
+    {
+      code: "li::scroll-marker",
+      description: "A marker, one per item.",
+      props: ["markers"],
+      selector: ".ui-carousel > :first-child::scroll-marker",
+    },
+  ],
+  root: {
+    anchorName: "--ui-carousel",
+    description: "The scroller.",
+    selector: "ul.ui-carousel",
+  },
+  source: "Carousel",
+} satisfies ComponentApi

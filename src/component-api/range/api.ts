@@ -2,6 +2,32 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Range",
+  hydration: {
+    react: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+    ],
+    svelte: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+    ],
+    vue: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+    ],
+  },
   model: {
     description: "The current value.",
     prop: "value",
@@ -9,16 +35,21 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
+      "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.",
     html: "Add a `<datalist>` after the input for tick marks.",
-    vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
   },
   options: [
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
@@ -27,7 +58,8 @@ export default {
       prop: "id",
     },
     {
-      description: "The id of the `<datalist>`. Needed with `options`.",
+      description:
+        "The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.",
       prop: "list",
     },
     {
@@ -49,11 +81,16 @@ export default {
       type: "number | string",
     },
     {
-      description: "The variant to use.",
+      description:
+        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.",
+      prop: "valueSuffix",
+    },
+    {
+      description:
+        "The track surface. Without one, the track uses the field border color.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
         tonal: ".ui-tonal",
       },
@@ -72,6 +109,7 @@ export default {
       props: ["valueSuffix"],
       selector: "output.ui-value",
       slots: ["value"],
+      snippets: ["valueText"],
     },
     {
       description: "Description text displayed above the input.",

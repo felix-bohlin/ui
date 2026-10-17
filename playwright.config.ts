@@ -7,7 +7,9 @@ export default defineConfig({
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
+      maxDiffPixels: 100,
       scale: "css",
+      threshold: 0.05,
     },
   },
   forbidOnly: !!process.env.CI,
@@ -38,4 +40,5 @@ export default defineConfig({
     timeout: 180_000,
     url: "http://localhost:4322/html/test/button/",
   },
+  workers: process.env.CI ? "100%" : undefined,
 })

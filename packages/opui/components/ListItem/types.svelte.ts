@@ -7,8 +7,8 @@ export type Props =
   Base.Props &
   Base.Slots<Snippet> &
   (
-    | ({ as?: "li" } & SvelteHTMLElements["li"])
-    | ({ as: "a" } & SvelteHTMLElements["a"])
+    | ({ as?: never; href?: never } & SvelteHTMLElements["li"])
+    | ({ as?: "a"; href: string } & SvelteHTMLElements["a"])
     | ({ as: "button" } & SvelteHTMLElements["button"])
     | ({ as: "div" } & SvelteHTMLElements["div"])
   )

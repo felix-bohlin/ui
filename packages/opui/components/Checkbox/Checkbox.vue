@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<CheckboxProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+warnUnnamed(
+  "Checkbox",
+  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>
@@ -27,15 +35,21 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <CheckboxInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
       :indeterminate="props.indeterminate"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    <span
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
     <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">

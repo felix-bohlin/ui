@@ -9,6 +9,6 @@ export type Props = Base.Props &
   Snippets &
   (
     | ({ as?: "a" } & SvelteHTMLElements["a"])
-    | ({ as?: "button" } & SvelteHTMLElements["button"])
+    | ({ as: "button" } & SvelteHTMLElements["button"])
     | ({ as?: "div" } & SvelteHTMLElements["div"])
   )

@@ -1,0 +1,52 @@
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/react"
+
+export default function Default() {
+  return (
+    <Table>
+      <TableCaption>Band Members</TableCaption>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Korn</TableCell>
+          <TableCell>Jonathan Davis</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals/Guitar</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Pink Floyd</TableCell>
+          <TableCell>David Gilmour</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+      </TableBody>
+      <TableFoot>
+        <TableRow>
+          <TableCell colSpan={3}>All great bands!</TableCell>
+        </TableRow>
+      </TableFoot>
+    </Table>
+  )
+}

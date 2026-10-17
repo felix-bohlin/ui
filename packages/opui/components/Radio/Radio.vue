@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import RadioInput from "./RadioInput.vue"
 import type { RadioProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { useAttrs, useId } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<RadioProps>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+const uid = useId()
+const endTextId = `end-text-${uid}`
+
+warnUnnamed(
+  "Radio",
+  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>
@@ -23,17 +31,24 @@ const endTextId = useId()
       props.size && `ui-${props.size}`,
       {
         'ui-stack': props.stack,
+        'ui-spread': props.spread,
       },
       props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
   >
     <RadioInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
+      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    <span
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
     <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">

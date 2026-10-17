@@ -1,30 +1,55 @@
 ---
 import {
   Accordion,
+  AccordionContent,
+  AccordionSummary,
+  Anchor,
+  AnchorContent,
   Avatar,
+  AvatarGroup,
   Badge,
   Button,
   ButtonGroup,
   Callout,
+  CalloutContent,
   Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Carousel,
   Checkbox,
   Chip,
   DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
   Divider,
+  FieldDescription,
   FieldGroup,
-  IconButton,
+  FieldLegend,
+  FieldSet,
+  Form,
   List,
   ListItem,
   Progress,
   Radio,
   Range,
-  Select,
   Switch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tabs,
+  TabsItem,
+  TabsPanel,
+  TabsTab,
   TextField,
   Textarea,
   ToggleButton,
   ToggleGroup,
-} from "@opui/astro"
+} from "opui-css/astro"
 import ComponentCard from "./ComponentCard.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
 ---
@@ -35,9 +60,9 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </div>
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
-    <Accordion aria-hidden="true" variant="outlined">
-      <Fragment slot="summary">How does it work?</Fragment>
-      It's pretty simple, actually.
+    <Accordion aria-hidden="true" inert variant="outlined">
+      <AccordionSummary>How does it work?</AccordionSummary>
+      <AccordionContent>It's pretty simple, actually.</AccordionContent>
     </Accordion>
   </ComponentCard>
 
@@ -76,7 +101,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Avatar" href="/components/avatar">
-    <Avatar aria-hidden="true" isGroup>
+    <AvatarGroup aria-hidden="true">
       <Avatar
         src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Avatar"
@@ -94,7 +119,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           ></path></svg
         >
       </Avatar>
-    </Avatar>
+    </AvatarGroup>
   </ComponentCard>
 
   <ComponentCard name="Badge" href="/components/badge">
@@ -102,11 +127,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Button" href="/components/button">
-    <Button aria-hidden="true" variant="filled">Get started</Button>
+    <Button aria-hidden="true" inert variant="filled">Get started</Button>
   </ComponentCard>
 
   <ComponentCard name="Button Group" href="/components/button-group">
-    <ButtonGroup aria-hidden="true" variant="outlined" size="small">
+    <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
       <Button>Day</Button>
       <Button>Week</Button>
     </ButtonGroup>
@@ -114,72 +139,119 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Callout" href="/components/callout" size="wide">
     <Callout aria-hidden="true" variant="tonal" severity="neutral">
-      <Fragment slot="title">Heads up!</Fragment>
-      Nah, just kidding. It wasn't important.
+      <CalloutContent>
+        <h3>Heads up!</h3>
+        Nah, just kidding. It wasn't important.
+      </CalloutContent>
     </Callout>
   </ComponentCard>
 
   <ComponentCard name="Card" href="/components/card" size="xl">
-    <Card aria-hidden="true" variant="outlined">
-      <Fragment slot="header">
+    <Card aria-hidden="true" inert variant="outlined">
+      <CardHeader>
         <p>Article</p>
         <h3>Build something nice</h3>
-      </Fragment>
-      <Fragment slot="content">
+      </CardHeader>
+      <CardContent>
         Components you can copy-paste into your project.
-      </Fragment>
-      <Fragment slot="actions">
+      </CardContent>
+      <CardActions>
         <Button variant="tonal" size="small">Read</Button>
-      </Fragment>
+      </CardActions>
     </Card>
   </ComponentCard>
 
+  <ComponentCard name="Carousel" href="/components/carousel" size="wide">
+    <Carousel
+      aria-hidden="true"
+      inert
+      buttons={false}
+      class="showcase-carousel"
+      aria-label="Destinations"
+    >
+      {
+        ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
+          <li>
+            <Card variant="tonal">
+              <CardHeader>
+                <p>Destination</p>
+                <h3>{title}</h3>
+              </CardHeader>
+            </Card>
+          </li>
+        ))
+      }
+    </Carousel>
+  </ComponentCard>
+
   <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox aria-hidden="true" checked>This checks out</Checkbox>
+    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
-    <Chip aria-hidden="true" variant="outlined">CSS</Chip>
+    <div aria-hidden="true" class="showcase-chips">
+      <Chip variant="outlined">HTML</Chip>
+      <Chip variant="outlined">CSS</Chip>
+    </div>
   </ComponentCard>
 
   <ComponentCard name="Description List" href="/components/description-list">
     <DescriptionList aria-hidden="true" bordered="dotted">
-      <DescriptionList.Item>
-        <DescriptionList.Term>Name</DescriptionList.Term>
-        <DescriptionList.Description>Open Props UI</DescriptionList.Description>
-      </DescriptionList.Item>
-      <DescriptionList.Item>
-        <DescriptionList.Term>Status</DescriptionList.Term>
-        <DescriptionList.Description>Awesome</DescriptionList.Description>
-      </DescriptionList.Item>
+      <DescriptionListItem>
+        <DescriptionListTerm>Name</DescriptionListTerm>
+        <DescriptionListDescription>Open Props UI</DescriptionListDescription>
+      </DescriptionListItem>
+      <DescriptionListItem>
+        <DescriptionListTerm>Status</DescriptionListTerm>
+        <DescriptionListDescription>Awesome</DescriptionListDescription>
+      </DescriptionListItem>
     </DescriptionList>
+  </ComponentCard>
+
+  <ComponentCard name="Dialog" href="/components/dialog" size="wide">
+    <div class="showcase-backdrop" aria-hidden="true" inert>
+      <Card variant="elevated" class="showcase-dialog">
+        <CardHeader>
+          <h3>Discard draft?</h3>
+        </CardHeader>
+        <CardContent>You can't undo this.</CardContent>
+        <CardActions>
+          <Button size="small">Cancel</Button>
+          <Button size="small" variant="filled">Discard</Button>
+        </CardActions>
+      </Card>
+    </div>
   </ComponentCard>
 
   <ComponentCard name="Divider" href="/components/divider">
     <Divider variant="filled" aria-hidden="true" />
   </ComponentCard>
 
-  <ComponentCard name="Icon Button" href="/components/icon-button">
-    <IconButton variant="filled" aria-hidden="true">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M5 12h14"></path>
-        <path d="M12 5v14"></path>
-      </svg>
-    </IconButton>
+  <ComponentCard name="Drawer" href="/components/drawer">
+    <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
+      <div class="showcase-drawer-panel">
+        <p>Filters</p>
+        <Checkbox checked>In stock</Checkbox>
+        <Checkbox>On sale</Checkbox>
+      </div>
+    </div>
+  </ComponentCard>
+
+  <ComponentCard name="Form" href="/components/form" size="wide">
+    <Form aria-hidden="true" inert class="showcase-form">
+      <FieldSet>
+        <FieldLegend>Newsletter</FieldLegend>
+        <FieldDescription>We will spam you to hell.</FieldDescription>
+        <div class="showcase-form-row">
+          <TextField placeholder="you@example.com" />
+          <Button variant="filled">Subscribe</Button>
+        </div>
+      </FieldSet>
+    </Form>
   </ComponentCard>
 
   <ComponentCard name="List" href="/components/list" size="wide">
-    <List variant="default" aria-hidden="true" bordered dense>
+    <List variant="transparent" aria-hidden="true" bordered dense>
       <ListItem headline="Angel Investor" description="Re: Horse thing pitch">
         <Avatar slot="start">AI</Avatar>
         <div slot="end">15:42</div>
@@ -194,19 +266,48 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </List>
   </ComponentCard>
 
-  <ComponentCard name="Progress" href="/components/progress" size="wide">
+  <ComponentCard name="Menu" href="/components/menu">
+    <menu class="ui-menu ui-list showcase-menu" aria-hidden="true" inert>
+      <li>
+        <button type="button">
+          <div class="ui-text"><p>Edit</p></div>
+          <div class="ui-end"><kbd>E</kbd></div>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <div class="ui-text"><p>Duplicate</p></div>
+          <div class="ui-end"><kbd>D</kbd></div>
+        </button>
+      </li>
+      <li class="ui-border-top ui-critical">
+        <button type="button">
+          <div class="ui-text"><p>Delete</p></div>
+        </button>
+      </li>
+    </menu>
+  </ComponentCard>
+
+  <ComponentCard name="Progress" href="/components/progress">
     <Progress variant="filled" aria-busy="true" aria-hidden="true" />
   </ComponentCard>
 
   <ComponentCard name="Radio" href="/components/radio">
-    <FieldGroup name="index-radio-showcase" aria-hidden="true">
+    <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
       <Radio checked>Whoa</Radio>
       <Radio>Nice</Radio>
     </FieldGroup>
   </ComponentCard>
 
   <ComponentCard name="Range" href="/components/range" size="wide">
-    <Range variant="filled" aria-hidden="true" value={50} min={0} max={100} />
+    <Range
+      variant="filled"
+      aria-hidden="true"
+      inert
+      value={50}
+      min={0}
+      max={100}
+    />
   </ComponentCard>
 
   <ComponentCard name="Select" href="/components/select">
@@ -214,24 +315,80 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Spinner" href="/components/spinner">
-    <p aria-busy="true">Loading</p>
-    <Button variant="filled" aria-busy="true">Loading</Button>
+    <p aria-busy="true" aria-hidden="true">Loading</p>
+    <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
+      Loading
+    </Button>
   </ComponentCard>
 
   <ComponentCard name="Switch" href="/components/switch">
-    <Switch id="showcase-theme-switcher" aria-hidden="true">Dark mode</Switch>
+    <Switch id="showcase-theme-switcher">Dark mode</Switch>
   </ComponentCard>
 
-  <ComponentCard name="TextField" href="/components/text-field">
-    <TextField aria-hidden="true" placeholder="you@example.com" />
+  <ComponentCard name="Table" href="/components/table" size="wide">
+    <Table aria-hidden="true" variant="dense">
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </ComponentCard>
+
+  <ComponentCard name="Tabs" href="/components/tabs" size="wide">
+    <Tabs aria-hidden="true" inert name="index-tabs-showcase">
+      <TabsItem open>
+        <TabsTab>Profile</TabsTab>
+        <TabsPanel>Profile settings and information.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Settings</TabsTab>
+        <TabsPanel>General account settings.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsTab>Notifications</TabsTab>
+        <TabsPanel>Manage your notifications.</TabsPanel>
+      </TabsItem>
+    </Tabs>
+  </ComponentCard>
+
+  <ComponentCard name="Text Field" href="/components/text-field">
+    <TextField aria-hidden="true" inert placeholder="you@example.com" />
   </ComponentCard>
 
   <ComponentCard name="Textarea" href="/components/textarea">
-    <Textarea aria-hidden="true" placeholder="Write a comment…" />
+    <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
   </ComponentCard>
 
-  <ComponentCard name="Toggle Group" href="/components/toggle">
-    <ToggleGroup aria-hidden="true">
+  <ComponentCard name="Toast" href="/components/toast">
+    <div
+      class="ui-toast showcase-toast"
+      data-severity="success"
+      aria-hidden="true"
+    >
+      <span class="ui-icon"></span>
+      <div class="ui-content">
+        <div class="ui-title">Changes saved</div>
+      </div>
+    </div>
+  </ComponentCard>
+
+  <ComponentCard name="Toggle" href="/components/toggle">
+    <ToggleGroup aria-hidden="true" inert>
       <ToggleButton pressed size="small" aria-label="Bold">
         <strong>B</strong>
       </ToggleButton>
@@ -242,6 +399,25 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         <u>U</u>
       </ToggleButton>
     </ToggleGroup>
+  </ComponentCard>
+
+  <ComponentCard name="Tooltip" href="/components/tooltip">
+    <Anchor
+      class="ui-tooltip ui-with-arrow showcase-tooltip"
+      aria-hidden="true"
+    >
+      <Button variant="outlined" inert>Save</Button>
+      <AnchorContent>Save your changes</AnchorContent>
+    </Anchor>
+  </ComponentCard>
+
+  <ComponentCard name="Typography" href="/components/typography">
+    <div class="ui-rich-text showcase-typography" aria-hidden="true">
+      <hgroup>
+        <p>Chapter one</p>
+        <h3>The quick brown fox</h3>
+      </hgroup>
+    </div>
   </ComponentCard>
 
   <style is:global>
@@ -259,9 +435,9 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .component-showcase__intro {
+      align-self: start;
       grid-column: 1 / -1;
       justify-self: start;
-      align-self: start;
       padding-block: var(--size-10) var(--size-8);
       text-align: start;
     }
@@ -279,6 +455,97 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       .component-showcase {
         grid-auto-rows: minmax(160px, auto);
       }
+    }
+
+    .showcase-backdrop {
+      background-color: oklch(from var(--backdrop-color) l c h / 15%);
+      block-size: 100%;
+      border-radius: var(--radius-3);
+      display: grid;
+      inline-size: 100%;
+      min-block-size: 140px;
+      overflow: hidden;
+      padding: var(--size-3);
+      place-items: center;
+    }
+
+    .showcase-carousel {
+      --_per-view: 2.5;
+
+      inline-size: 100%;
+      mask-image: linear-gradient(to right, black 75%, transparent);
+      scrollbar-width: none;
+
+      &:dir(rtl) {
+        mask-image: linear-gradient(to left, black 75%, transparent);
+      }
+    }
+
+    .showcase-dialog {
+      box-shadow: var(--shadow-3);
+      max-inline-size: 28ch;
+
+      & h3 {
+        font-size: var(--font-size-2);
+      }
+    }
+
+    .showcase-chips {
+      display: flex;
+      gap: var(--size-3);
+    }
+
+    .showcase-drawer {
+      justify-items: end;
+      padding: 0;
+    }
+
+    .showcase-drawer-panel {
+      background-color: var(--surface-default);
+      block-size: 100%;
+      box-shadow: var(--shadow-2);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      inline-size: 65%;
+      padding: var(--size-3);
+
+      & p {
+        font-weight: var(--font-weight-6);
+        margin: 0;
+      }
+    }
+
+    .showcase-form {
+      inline-size: 100%;
+    }
+
+    .showcase-form-row {
+      align-items: end;
+      display: flex;
+      gap: var(--size-2);
+
+      & > .ui-text-field {
+        flex: 1;
+      }
+    }
+
+    .showcase-menu {
+      inline-size: 100%;
+      max-inline-size: 14rem;
+    }
+
+    .showcase-toast {
+      animation: none;
+      min-inline-size: 0;
+    }
+
+    .showcase-tooltip {
+      margin-block-start: var(--size-7);
+    }
+
+    .showcase-typography hgroup {
+      margin: 0;
     }
   </style>
 </div>

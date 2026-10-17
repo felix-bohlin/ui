@@ -1,0 +1,152 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.dl {
+  display: grid;
+  margin: 0;
+}
+
+.item {
+  display: grid;
+}
+
+.item + .item {
+  margin-block-start: 0.75rem;
+}
+
+.item dt {
+  font-weight: 700;
+}
+
+.item dd {
+  margin: 0;
+}`,
+    html: `
+<dl class="dl">
+  <div class="item">
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
+  </div>
+  …
+</dl>`,
+    notes: [
+      "A <code>&lt;div&gt;</code> around each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is valid HTML",
+      "One box per pair: easy to lay out, easy to space",
+      "Stacked by default, so it works in any width",
+    ],
+    title: "Stacked",
+  },
+  {
+    css: `
+.dl {
+  container-type: inline-size;
+}
+
+@container (width > 45ch) {
+  .item {
+    align-items: baseline;
+    gap: 0.25rem;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+  .item + .item {
+    margin-block-start: 0.25rem;
+  }
+
+  .item dd {
+    color: var(--text-muted);
+    text-align: end;
+  }
+}`,
+    features: ["container-queries"],
+    notes: [
+      "The list measures itself, not the viewport",
+      "Wider than <code>45ch</code>: term and description share a row",
+      "Drag <strong>Width</strong> below the breakpoint and it stacks again",
+    ],
+    title: "Container query",
+  },
+  {
+    css: `
+@container (width > 45ch) {
+  .bordered > .item {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .bordered > .item::after {
+    block-size: 2px;
+    border-block-end: var(--line-width, 1px) var(--line-style, solid)
+      var(--border-color);
+    content: "";
+    order: 1;
+  }
+
+  .bordered > .item dd {
+    order: 2;
+  }
+}`,
+    notes: [
+      "<code>::after</code> is a grid item too",
+      "<code>order</code> slots it between term and description",
+      "The <code>1fr</code> middle column stretches the line to fill the gap",
+    ],
+    title: "Leader line",
+  },
+  {
+    css: `
+.dotted {
+  --line-style: dotted;
+  --line-width: 2px;
+}`,
+    notes: [
+      "The variant only sets two custom properties",
+      "The leader line rule stays the same",
+    ],
+    title: "Dotted",
+  },
+]
+
+const knobs = [
+  {
+    label: "Width",
+    max: 60,
+    min: 20,
+    property: "--width",
+    step: 1,
+    unit: "ch",
+    value: 50,
+  },
+]
+
+const items = [
+  { description: "1962", term: "Built" },
+  { description: "112 m²", term: "Living area" },
+  { description: "6 950 000", term: "Price" },
+  { description: "4", term: "Rooms" },
+]
+---
+
+<BuildUp id="build-description-list" knobs={knobs} steps={steps}>
+  <dl class="dl bordered dotted">
+    {
+      items.map((item) => (
+        <div class="item">
+          <dt>{item.term}</dt>
+          <dd>{item.description}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</BuildUp>
+
+<style>
+  .dl {
+    font-size: var(--font-size-05);
+    inline-size: min(100%, var(--width));
+    padding: 0;
+  }
+</style>

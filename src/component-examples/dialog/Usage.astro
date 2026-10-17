@@ -1,27 +1,29 @@
 ---
-import { Dialog } from "@opui/astro"
-import { Button } from "@opui/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
 ---
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
   Open dialog
 </Button>
 
-<Dialog
-  id="example-dialog"
-  role="alertdialog"
-  aria-labelledby="dialog-heading"
-  aria-modal="true"
->
-  <h2 id="dialog-heading" class="ui-h4" slot="header">Are you sure?</h2>
-  <p slot="content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
-  </p>
-  <Fragment slot="actions">
+<Dialog id="example-dialog">
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  </DialogContent>
+  <DialogActions>
     <Button commandfor="example-dialog" command="close" type="button">
-      Cancel
+      Not now
     </Button>
     <Button
       commandfor="example-dialog"
@@ -29,7 +31,7 @@ import { Button } from "@opui/astro"
       type="button"
       variant="filled"
     >
-      Save
+      Subscribe
     </Button>
-  </Fragment>
+  </DialogActions>
 </Dialog>

@@ -1,0 +1,25 @@
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="menu-manual-html"
+  command="toggle-popover"
+>
+  View
+</button>
+<menu class="ui-menu ui-list" id="menu-manual-html" popover="manual">
+  <li>
+    <button type="button">
+      <div class="ui-text"><p>Show grid</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button">
+      <div class="ui-text"><p>Show rulers</p></div>
+    </button>
+  </li>
+  <li class="ui-border-top">
+    <button type="button" commandfor="menu-manual-html" command="hide-popover">
+      <div class="ui-text"><p>Done</p></div>
+    </button>
+  </li>
+</menu>

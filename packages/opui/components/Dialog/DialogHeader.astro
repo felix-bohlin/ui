@@ -1,0 +1,12 @@
+---
+import type { DialogHeaderProps as Props } from "./types.astro"
+import { dialogContext } from "./context.astro"
+
+const { class: className, id, ...rest } = Astro.props
+
+const dialog = dialogContext.get()
+---
+
+<hgroup class:list={[className]} id={dialog?.headerId ?? id} {...rest}>
+  <slot />
+</hgroup>

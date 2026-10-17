@@ -6,21 +6,18 @@ defineOptions({
 })
 
 defineSlots<Slots>()
-const { ariaBusy, ariaDescribedby, ariaLabel, id, max, value, variant } =
-  defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 
 <template>
-  <div :class="['ui-progress', variant && `ui-${variant}`, $props.class]">
-    <progress
-      v-bind="$attrs"
-      :aria-busy="ariaBusy || undefined"
-      :aria-describedby="ariaDescribedby"
-      :aria-label="ariaLabel"
-      :id="id"
-      :max="max"
-      :value="value"
-    >
+  <div
+    :class="[
+      'ui-progress',
+      props.variant && `ui-${props.variant}`,
+      props.class,
+    ]"
+  >
+    <progress v-bind="$attrs" :max="props.max" :value="props.value">
       <slot></slot>
     </progress>
   </div>

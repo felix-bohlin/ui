@@ -1,45 +1,49 @@
 ---
 import type { Props } from "./types.astro"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Textarea"
 
 const {
+  "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
   cols,
-  description,
   disabled,
+  endText,
   error,
-  filled,
   id,
   label,
   maxlength,
   minlength,
   name,
-  spread,
   placeholder,
   required,
   rows,
-  small,
-  endText,
+  size,
+  spread,
+  startText,
+  style,
   value,
+  variant,
   ...rest
 } = Astro.props
+
+const field = fieldContext.get()
 ---
 
 <label
   class:list={[
     "ui-textarea",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -51,25 +55,27 @@ const {
   }
 
   {
-    (description || Astro.slots.has("description")) && (
+    (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <textarea
+      {...rest}
+      aria-invalid={error ? "true" : ariaInvalid}
       cols={cols}
       disabled={disabled}
       id={id}
       maxlength={maxlength}
       minlength={minlength}
-      name={name}
+      name={name ?? field?.name}
       placeholder={placeholder}
       required={required}
-      rows={rows}
-      value={value}></textarea>
+      rows={rows}>{value}</textarea
+    >
     {
       Astro.slots.has("prefix") && (
         <span class="ui-prefix">
@@ -100,13 +106,10 @@ const {
     }
   </span>
   {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
+    (endText || Astro.slots.has("end-text")) && (
       <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
-        <slot name="supporting-text" />
       </span>
     )
   }

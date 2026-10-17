@@ -11,8 +11,9 @@ import { Button } from "opui-css/vue"
   </div>
   <div class="example-row">
     <Button disabled>
-      Text
+      <span class="ui-text">Text</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -25,8 +26,9 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="outlined" disabled>
-      Outlined
+      <span class="ui-text">Outlined</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -39,8 +41,9 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="tonal" disabled>
-      Tonal
+      <span class="ui-text">Tonal</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -53,8 +56,9 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="filled" disabled>
-      Filled
+      <span class="ui-text">Filled</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -66,5 +70,11 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
+  </div>
+  <div class="example-row">
+    <Button disabled href="#">Text</Button>
+    <Button variant="outlined" disabled href="#">Outlined</Button>
+    <Button variant="tonal" disabled href="#">Tonal</Button>
+    <Button variant="filled" disabled href="#">Filled</Button>
   </div>
 </template>

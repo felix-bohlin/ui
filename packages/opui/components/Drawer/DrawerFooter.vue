@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import type { DrawerFooterProps, DrawerFooterSlots } from "./types.d.vue"
+import type { DrawerFooterProps, Slots } from "./types.d.vue"
 
 defineProps<DrawerFooterProps>()
-defineSlots<DrawerFooterSlots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
+defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['ui-footer', $props.class]" v-bind="$attrs">
+  <div :class="['ui-footer', $props.class]">
     <slot></slot>
   </div>
 </template>

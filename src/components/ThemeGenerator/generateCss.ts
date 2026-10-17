@@ -13,24 +13,47 @@
  *    radii) get a `.dark { ... }` override block when they differ.
  */
 
+import themeSource from "@opui/css/theme.css?raw"
 import {
-  TOKEN_DEFAULTS,
+  TOKENS,
+  tokenDefaults,
+  type Mode,
   type ModeConfig,
   type Token,
 } from "../../utils/theme-store"
-
-const PALETTE_TOKENS = [
-  "--palette-hue",
-  "--palette-chroma",
-  "--palette-hue-rotate-by",
-  "--gray-chroma",
-  "--gray-hue",
-] as const satisfies readonly Token[]
+import { setDarkThemeTokens, setThemeToken } from "../../utils/theme-tokens"
 
 type Snapshot = Record<Token, string>
 
-function snapshotFor(config: ModeConfig): Snapshot {
-  const out = { ...TOKEN_DEFAULTS }
+type Ramp = { gray: [string, string]; color: [string, string] }
+
+const RAMPS = {
+  "--text-primary": { gray: ["15", "1"], color: ["15", "1"] },
+  "--text-primary-contrast": { gray: ["2", "15"], color: ["2", "15"] },
+  "--text-muted": { gray: ["13", "4"], color: ["13", "4"] },
+  "--text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
+  "--surface-default": { gray: ["1", "13"], color: ["1", "14"] },
+  "--surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
+  "--surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
+  "--surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
+  "--border-color": { gray: ["4", "12"], color: ["4", "12"] },
+  "--neutral": { gray: ["9", "9"], color: ["9", "9"] },
+} satisfies Record<string, Ramp>
+
+function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
+  const light = grays.light
+    ? `--gray-${ramp.gray[0]}`
+    : `--color-${ramp.color[0]}`
+  const dark = grays.dark
+    ? `--gray-${ramp.gray[1]}`
+    : `--color-${ramp.color[1]}`
+  return light === dark
+    ? `var(${light})`
+    : `light-dark(var(${light}), var(${dark}))`
+}
+
+function snapshotFor(mode: Mode, config: ModeConfig): Snapshot {
+  const out = { ...tokenDefaults(mode) }
   for (const [key, value] of Object.entries(config)) {
     if (key in out && typeof value === "string") {
       out[key as Token] = value
@@ -43,10 +66,6 @@ function isGraysEnabled(config: ModeConfig): boolean {
   return config["enable-grays"] !== "false"
 }
 
-function paletteSource(snap: Snapshot): string {
-  return `oklch(0.58 calc(0.21 * ${snap["--palette-chroma"]}) ${snap["--palette-hue"]})`
-}
-
 export function generateCss({
   light,
   dark,
@@ -54,285 +73,32 @@ export function generateCss({
   light: ModeConfig
   dark: ModeConfig
 }): string {
-  const lightSnap = snapshotFor(light)
-  const darkSnap = snapshotFor(dark)
-  const graysEnabled = isGraysEnabled(light)
+  const lightSnap = snapshotFor("light", light)
+  const darkSnap = snapshotFor("dark", dark)
 
-  const palettesDiffer = PALETTE_TOKENS.some(
-    (t) =>
-      (t === "--palette-hue" || t === "--palette-chroma") &&
-      darkSnap[t] !== lightSnap[t],
-  )
-
-  const paletteSourceValue = palettesDiffer
-    ? `light-dark(${paletteSource(lightSnap)},\n        ${paletteSource(darkSnap)})`
-    : paletteSource(lightSnap)
-
-  const lines: string[] = []
-  lines.push("/*")
-  lines.push("  theme setup")
-  lines.push("*/")
-  lines.push("@layer theme {")
-  lines.push("")
-  lines.push("  /* 1. Color scheme */")
-  lines.push("  .ui-light {")
-  lines.push("    --color-scheme: light;")
-  lines.push("  }")
-  lines.push("")
-  lines.push("  .ui-dark {")
-  lines.push("    --color-scheme: dark;")
-  lines.push("  }")
-  lines.push("")
-  lines.push("  :where(html) {")
-  lines.push("    color-scheme: var(--color-scheme, light dark);")
-  lines.push("")
-  lines.push(
-    "    /* 2. Palette source - one value to rule them all. Every other color is derived from this one. */",
-  )
-  lines.push(`    --palette-source: ${paletteSourceValue};`)
-  lines.push(
-    `    --palette-hue-rotate-by: ${lightSnap["--palette-hue-rotate-by"]};`,
-  )
-  lines.push("")
-
-  if (graysEnabled) {
-    lines.push(
-      "    /* Gray ramp - derived per-element by core/palette.css. Override --gray-chroma",
-    )
-    lines.push("       or --gray-hue here for warmer/cooler grays. */")
-    lines.push(`    --gray-chroma: ${lightSnap["--gray-chroma"]};`)
-    lines.push(`    --gray-hue: ${lightSnap["--gray-hue"]};`)
-    lines.push("")
+  let css = themeSource
+  for (const token of TOKENS) {
+    css = setThemeToken(css, token, lightSnap[token])
   }
 
-  lines.push(
-    "    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */",
+  const overrides = TOKENS.filter(
+    (token) => darkSnap[token] !== lightSnap[token],
+  ).map((token) => [token, darkSnap[token]] as const)
+  css = setDarkThemeTokens(
+    css,
+    overrides.length > 0
+      ? overrides
+      : [["--palette-hue", darkSnap["--palette-hue"]]],
   )
-  lines.push("    --blue: oklch(from var(--color-9) l 0.2 210);")
-  lines.push("    --green: oklch(from var(--color-9) l 0.2 145);")
-  lines.push("    --orange: oklch(from var(--color-7) l 0.2 75);")
-  lines.push("    --red: oklch(from var(--color-9) l 0.2 25);")
-  lines.push("")
-  lines.push("    /* 4. Intent tokens")
-  lines.push(
-    "       Severity (have scope classes below): --success, --info, --warning, --critical",
-  )
-  lines.push(
-    "       Non-severity (value-only):           --primary, --neutral */",
-  )
-  lines.push("    --success: var(--green);")
-  lines.push("    --info: var(--blue);")
-  lines.push("    --warning: var(--orange);")
-  lines.push("    --critical: var(--red);")
-  lines.push(`    --neutral: var(${graysEnabled ? "--gray-9" : "--color-9"});`)
-  lines.push("")
-  lines.push("    /* 5. Primary */")
-  lines.push("    --primary: var(--color-8);")
-  lines.push(
-    "    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);",
-  )
-  lines.push(
-    "    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);",
-  )
-  lines.push(
-    `    --primary-contrast: var(${graysEnabled ? "--gray-1" : "--color-1"});`,
-  )
-  lines.push("")
-  lines.push("    /* 6. Text */")
 
-  if (graysEnabled) {
-    lines.push("    --text-primary: light-dark(var(--gray-15), var(--gray-1));")
-    lines.push(
-      "    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));",
-    )
-    lines.push("    --text-muted: light-dark(var(--gray-13), var(--gray-4));")
-    lines.push(
-      "    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));",
-    )
-  } else {
-    lines.push(
-      "    --text-primary: light-dark(var(--color-15), var(--color-1));",
-    )
-    lines.push(
-      "    --text-primary-contrast: light-dark(var(--color-2), var(--color-15));",
-    )
-    lines.push("    --text-muted: light-dark(var(--color-13), var(--color-4));")
-    lines.push(
-      "    --text-muted-contrast: light-dark(var(--color-4), var(--color-13));",
-    )
-  }
-
-  lines.push("")
-  lines.push("    /* 7. Surfaces */")
-
-  if (graysEnabled) {
-    lines.push(
-      "    --surface-default: light-dark(var(--gray-1), var(--gray-13));",
-    )
-    lines.push(
-      "    --surface-filled: light-dark(var(--gray-4), var(--gray-15));",
-    )
-    lines.push(
-      "    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));",
-    )
-    lines.push(
-      "    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));",
-    )
-  } else {
-    lines.push(
-      "    --surface-default: light-dark(var(--color-1), var(--color-14));",
-    )
-    lines.push(
-      "    --surface-filled: light-dark(var(--color-5), var(--color-16));",
-    )
-    lines.push(
-      "    --surface-tonal: light-dark(var(--color-4), var(--color-12));",
-    )
-    lines.push(
-      "    --surface-elevated: light-dark(var(--color-1), var(--color-12));",
-    )
-  }
-
-  lines.push("")
-  lines.push("    /* 8. Borders */")
-
-  if (graysEnabled) {
-    lines.push("    --border-color: light-dark(var(--gray-4), var(--gray-12));")
-  } else {
-    lines.push(
-      "    --border-color: light-dark(var(--color-4), var(--color-12));",
-    )
-  }
-
-  lines.push(`    --border-radius: ${lightSnap["--border-radius"]};`)
-  lines.push("    --border-width: 1px;")
-  lines.push("")
-  lines.push(
-    "    /* 9. Focus ring - components consume these and may override locally */",
-  )
-  lines.push("    --focus-ring-color: var(--primary);")
-  lines.push("    --focus-ring-width: 2px;")
-  lines.push("    --focus-ring-offset: 2px;")
-  lines.push("    --focus-ring-style: solid;")
-  lines.push("")
-  lines.push("    /* 10. Typography */")
-  lines.push("    --font-size-h1: var(--font-size-fluid-3);")
-  lines.push("    --font-size-h2: var(--font-size-fluid-2);")
-  lines.push("    --font-size-h3: var(--font-size-fluid-1);")
-  lines.push("    --font-size-h4: var(--font-size-3);")
-  lines.push("    --font-size-h5: var(--font-size-2);")
-  lines.push("    --font-size-h6: var(--font-size-fluid-0);")
-  lines.push("    --font-size-05: 0.875rem;")
-  lines.push("")
-  lines.push(
-    "    /* 11. Control sizes - shared scale for fields and buttons. */",
-  )
-  lines.push("    --control-size-x-small: 28px;")
-  lines.push("    --control-size-small: 32px;")
-  lines.push("    --control-size: 40px;")
-  lines.push("    --control-size-large: 46px;")
-  lines.push("")
-  lines.push("    --field-size-x-small: var(--control-size-x-small);")
-  lines.push("    --field-size-small: var(--control-size-small);")
-  lines.push("    --field-size: var(--control-size);")
-  lines.push("    --field-size-large: var(--control-size-large);")
-  lines.push("")
-  lines.push("    --button-size-x-small: var(--control-size-x-small);")
-  lines.push("    --button-size-small: var(--control-size-small);")
-  lines.push("    --button-size: var(--control-size);")
-  lines.push("    --button-size-large: var(--control-size-large);")
-  lines.push("")
-  lines.push("    /* 12. Field / input */")
-
-  if (graysEnabled) {
-    lines.push("    --field-border-color: var(--border-color);")
-  } else {
-    lines.push(
-      "    --field-border-color: light-dark(var(--color-4), var(--color-12));",
-    )
-  }
-
-  lines.push(
-    `    --field-border-radius: ${lightSnap["--field-border-radius"]};`,
-  )
-  lines.push("    --field-border-width: 1px;")
-  lines.push("")
-  lines.push("    /* 13. Button */")
-  lines.push(
-    `    --button-border-radius: ${lightSnap["--button-border-radius"]};`,
-  )
-  lines.push("  }")
-
-  // .dark overrides for tokens that differ between modes (palette-source is
-  // already handled via light-dark() above, so we only emit non-palette
-  // overrides here).
-  const darkOverrides: string[] = []
-  if (
-    darkSnap["--palette-hue-rotate-by"] !== lightSnap["--palette-hue-rotate-by"]
-  ) {
-    darkOverrides.push(
-      `    --palette-hue-rotate-by: ${darkSnap["--palette-hue-rotate-by"]};`,
-    )
-  }
-  if (graysEnabled) {
-    if (darkSnap["--gray-chroma"] !== lightSnap["--gray-chroma"]) {
-      darkOverrides.push(`    --gray-chroma: ${darkSnap["--gray-chroma"]};`)
-    }
-    if (darkSnap["--gray-hue"] !== lightSnap["--gray-hue"]) {
-      darkOverrides.push(`    --gray-hue: ${darkSnap["--gray-hue"]};`)
+  const grays = { light: isGraysEnabled(light), dark: isGraysEnabled(dark) }
+  if (!grays.light || !grays.dark) {
+    for (const [name, ramp] of Object.entries(RAMPS)) {
+      css = setThemeToken(css, name, rampValue(ramp, grays))
     }
   }
-  if (darkSnap["--border-radius"] !== lightSnap["--border-radius"]) {
-    darkOverrides.push(`    --border-radius: ${darkSnap["--border-radius"]};`)
-  }
-  if (
-    darkSnap["--field-border-radius"] !== lightSnap["--field-border-radius"]
-  ) {
-    darkOverrides.push(
-      `    --field-border-radius: ${darkSnap["--field-border-radius"]};`,
-    )
-  }
-  if (
-    darkSnap["--button-border-radius"] !== lightSnap["--button-border-radius"]
-  ) {
-    darkOverrides.push(
-      `    --button-border-radius: ${darkSnap["--button-border-radius"]};`,
-    )
-  }
 
-  if (darkOverrides.length > 0) {
-    lines.push("")
-    lines.push("  .ui-dark {")
-    lines.push(...darkOverrides)
-    lines.push("  }")
-  }
-
-  lines.push("")
-  lines.push(
-    "  /* 14. Severity scope classes - re-source the palette inside these contexts. */",
-  )
-  lines.push("  :where(.ui-critical, [data-invalid], del) {")
-  lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-red));")
-  lines.push("    --palette-hue-rotate-by: 1;")
-  lines.push("  }")
-  lines.push("")
-  lines.push("  :where(.ui-info, abbr, dfn) {")
-  lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-blue));")
-  lines.push("    --palette-hue-rotate-by: 1;")
-  lines.push("  }")
-  lines.push("")
-  lines.push("  :where(.ui-success, ins) {")
-  lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-green));")
-  lines.push("    --palette-hue-rotate-by: 1;")
-  lines.push("  }")
-  lines.push("")
-  lines.push("  :where(.ui-warning) {")
-  lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-orange));")
-  lines.push("    --palette-hue-rotate-by: 1;")
-  lines.push("  }")
-  lines.push("}")
-
-  return lines.join("\n")
+  return css
 }
 
 export const PLACEHOLDER_CSS = `@layer theme {

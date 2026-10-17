@@ -1,12 +1,13 @@
-export type Props = {
+export type SharedProps = {
   color?: "critical" | "primary"
+  round?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 } & (
   | {
       as?: "a"
       href: string
-      disabled?: never
+      disabled?: boolean
     }
   | {
       as?: "button"
@@ -14,3 +15,14 @@ export type Props = {
       disabled?: boolean
     }
 )
+
+export type IconOnlyProps =
+  | {
+      iconOnly: true
+      "aria-label": string
+    }
+  | {
+      iconOnly?: false
+    }
+
+export type Props = SharedProps & IconOnlyProps

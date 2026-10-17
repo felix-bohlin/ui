@@ -3,8 +3,10 @@ import { Chip } from "opui-css/vue"
 </script>
 
 <template>
+  <Chip size="x-small" label="x-small" />
   <Chip size="small" label="Small" />
   <Chip label="Default" />
+  <Chip size="large" label="Large" />
   <Chip
     multiline
     style="max-width: 30ch"

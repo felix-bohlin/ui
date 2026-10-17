@@ -1,6 +1,6 @@
 ---
-import { Code } from "astro-expressive-code/components"
-import { Tabs } from "@opui/astro"
+import Code from "./Code.astro"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 
 type Tab = {
   title: string
@@ -16,15 +16,15 @@ const { tabs } = Astro.props
 ---
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
-  <Tabs class="underlined" aria-label="Code tabs">
+  <Tabs variant="line" class="code-tabs">
     {
       tabs.map((tab, index) => (
-        <Tabs.Item open={index === 0}>
-          <Tabs.Tab>{tab.title}</Tabs.Tab>
-          <Tabs.Panel>
+        <TabsItem open={index === 0}>
+          <TabsTab>{tab.title}</TabsTab>
+          <TabsPanel>
             {tab.code && <Code code={tab.code} lang={tab.lang} />}
-          </Tabs.Panel>
-        </Tabs.Item>
+          </TabsPanel>
+        </TabsItem>
       ))
     }
   </Tabs>
@@ -34,8 +34,8 @@ const { tabs } = Astro.props
   .code-group {
     gap: 0;
     margin-block: var(--size-4);
-    padding: 0;
     overflow: hidden;
+    padding: 0;
   }
 </style>
 
@@ -45,7 +45,7 @@ const { tabs } = Astro.props
       isolation: isolate;
     }
 
-    .expressive-code .frame .header {
+    .code-block .code-header {
       border-radius: 0;
     }
   }

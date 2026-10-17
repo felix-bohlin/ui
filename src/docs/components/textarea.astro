@@ -1,14 +1,17 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Textarea as UITextarea } from "@opui/astro"
+import { Textarea as UITextarea } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
@@ -18,11 +21,14 @@ export const description =
   description={description}
   slug="textarea"
   browserSupport={[
-    "datalist",
+    "container-queries",
+    "container-style-queries",
     "field-sizing",
     "has",
+    "lh",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
@@ -58,17 +64,92 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="html">
+        Textareas are outlined by default. Add <code>.ui-filled</code> for a filled
+        textarea.
+      </p>
+      <p slot="react">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="svelte">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="vue">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="react">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" row />
   </section>
 
   <section>
+    <h2 id="start-text">Start text</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>startText</code> prop or <code>start-text</code> slot for text
+        between the label and the textarea.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
+        {" "}<code>.ui-field</code> for text between the label and the textarea.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>startText</code> prop for text between the label and the textarea.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>startText</code> prop or snippet for text between the label
+        and the textarea.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>startText</code> prop or <code>start-text</code> slot for text
+        between the label and the textarea.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="StartText" row />
+  </section>
+
+  <section>
     <h2 id="end-text">End text</h2>
-    <AutoExample name="SupportingText" row />
+    <AutoExample name="EndText" row />
   </section>
 
   <section>
@@ -79,6 +160,16 @@ export const description =
         and <code>footer</code> slots to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
+      <Fragment slot="react">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> props to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> snippets to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the textarea's border.
@@ -87,7 +178,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the textarea's border.
       </Fragment>
@@ -102,36 +193,7 @@ export const description =
 
   <section>
     <h2 id="validation">Validation</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on the component to toggle required styles on the
-        textarea.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;textarea&gt;</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
-        toggle required styles.
-      </Fragment>
-    </Conditional>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>error</code> prop to toggle invalid styles. It renders the
-        <code>data-invalid</code> attribute on the root element. Make use of the end
-        text to give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>data-invalid</code> on the root element to toggle invalid styles.
-        Make use of the end text to give extra feedback on the error.
-      </Fragment>
-    </Conditional>
+    <ValidationNotes element="textarea" named subject="Fields" />
 
     <AutoExample name="Validation" />
   </section>
@@ -140,45 +202,61 @@ export const description =
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
+        Add the <code>.ui-spread</code> class to display the label and start text
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>spread</code> boolean prop to display the label and start text
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
   <section>
     <h2 id="auto-fit">Auto-fit</h2>
-    <p>When enabled the Field changes size depending on its content.</p>
+    <p>
+      Textareas grow with their content, from 3 to 20 lines (<code
+        >field-sizing: content</code
+      >). <PropOrClass prop="autoFit" class=".ui-auto-fit" /> also lets the width
+      follow the longest line, from <code>25ch</code>, and allows resizing in
+      both directions.
+    </p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
   </section>
+
+  <TextareaBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>
       <UITextarea
-        description="Description"
+        startText="Start text"
         endText="Supporting text"
         label="Label"
         placeholder="Placeholder"
         style="inline-size: 20rem"
       >
         <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
+        <span slot="prefix">€</span>
         <span slot="suffix">EUR</span>
         <span slot="footer">Footer</span>
       </UITextarea>

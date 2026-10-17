@@ -1,0 +1,143 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+[aria-busy="true"]:not(
+  input,
+  select,
+  textarea,
+  html,
+  progress,
+  [aria-describedby]:not(button, a)
+) {
+  &::before {
+    block-size: 1em;
+    border-block-color: transparent currentColor;
+    border-inline-color: currentColor;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    content: "";
+    display: inline-block;
+    inline-size: 1em;
+    opacity: 0.5;
+    vertical-align: -0.14em;
+  }
+}`,
+    features: ["before-after", "not"],
+    html: `
+<p aria-busy="true">Loading results</p>`,
+    notes: [
+      "The state is the API: <code>aria-busy=&quot;true&quot;</code>, no class",
+      "<code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code> and sections described by a progress bar, but never buttons or links",
+      "One transparent border side makes the gap in the ring",
+      "<code>1em</code> sizes it from the font: drag <strong>Font size</strong>",
+    ],
+    title: "Ring",
+  },
+  {
+    css: `
+[aria-busy="true"]::before {
+  animation: build-spinner-spin 0.7s linear infinite;
+}`,
+    features: ["animations-css", "transforms2d"],
+    notes: [
+      "<code>rotate(1turn)</code> in a <code>linear</code>, <code>infinite</code> loop",
+      "Always indeterminate: nothing to track, nothing to update",
+    ],
+    title: "Spin",
+  },
+  {
+    css: `
+[aria-busy="true"]:not(:empty)::before {
+  margin-inline-end: 0.5em;
+}`,
+    features: ["empty", "logical-properties"],
+    notes: [
+      "<code>:not(:empty)</code>: only a spinner next to text gets a gap",
+      "<code>0.5em</code> scales with the font, like the ring",
+      "The library also skips <code>.ui-button</code>, which has its own <code>gap</code>",
+    ],
+    title: "Gap",
+  },
+  {
+    css: `
+.demo {
+  --motion: 0;
+}
+
+[aria-busy="true"]::before {
+  animation-duration: max(
+    0.7s * var(--motion, 1),
+    1.5s - 0.8s * var(--motion, 1)
+  );
+}`,
+    features: ["min-max-clamp"],
+    notes: [
+      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "Slower, not stopped: a frozen spinner looks like a broken page",
+      "<code>max()</code> gives <code>0.7s</code> at <code>1</code>, <code>1.5s</code> at <code>0</code>, and never <code>0s</code>",
+      "This step sets <code>--motion: 0</code> on the demo",
+    ],
+    title: "Reduced motion",
+  },
+]
+
+const knobs = [
+  {
+    label: "Font size",
+    max: 48,
+    min: 12,
+    property: "--size",
+    step: 2,
+    unit: "px",
+    value: 20,
+  },
+]
+---
+
+<BuildUp id="build-spinner" knobs={knobs} steps={steps}>
+  <div class="demo">
+    <p aria-busy="true">Loading results</p>
+    <span aria-busy="true"></span>
+    <button aria-busy="true" class="button" type="button">Saving</button>
+  </div>
+</BuildUp>
+
+<style>
+  .demo {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--size);
+    gap: var(--size-4);
+    justify-content: center;
+
+    & [aria-busy="true"]::before {
+      all: unset;
+    }
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .button {
+    background-color: var(--surface-tonal);
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--radius-2);
+    color: var(--text-primary);
+    font: inherit;
+    padding: 0.25em 0.75em;
+  }
+</style>
+
+<style is:global>
+  @keyframes build-spinner-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+</style>

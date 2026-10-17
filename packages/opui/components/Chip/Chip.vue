@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
   as,
+  color,
+  disabled,
+  dot,
+  href,
   label,
   multiline,
   size,
   variant = "tonal",
-  href,
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const tag = computed(() => as || (href ? "a" : "div"))
+const tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
@@ -21,13 +25,15 @@ const tag = computed(() => as || (href ? "a" : "div"))
     :class="[
       'ui-chip',
       {
+        'ui-dot': dot,
         'ui-multiline': multiline,
       },
+      color && `ui-${color}`,
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       $props.class,
     ]"
-    :href="tag === 'a' ? href : undefined"
+    v-bind="tagAttrs(tag, disabled, href)"
   >
     <slot name="start"></slot>
     <slot></slot>

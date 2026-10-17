@@ -1,9 +1,14 @@
 ---
-import { List } from "@opui/astro"
-import { ListItem } from "@opui/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List dense>
-  <ListItem headline="Dense list item" />
-  <ListItem headline="Dense list item" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    <Fragment slot="end">100+</Fragment>
+  </ListItem>
 </List>

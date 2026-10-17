@@ -3,6 +3,7 @@ type Props = {
   [key: string]: any
 }
 const { ...rest } = Astro.props
+const uid = Astro.locals.$id("safari")
 ---
 
 <svg
@@ -12,7 +13,7 @@ const { ...rest } = Astro.props
   viewBox="0 0 256 256"
   {...rest}
   ><defs
-    ><linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="safari-a"
+    ><linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${uid}-a`}
       ><stop stop-color="#DBDBDA" offset="25%"></stop><stop
         stop-color="#FFF"
         offset="100%"></stop></linearGradient
@@ -21,7 +22,7 @@ const { ...rest } = Astro.props
       y1="35.703%"
       x2="25.713%"
       y2="77.572%"
-      id="safari-d"
+      id={`${uid}-d`}
       ><stop stop-opacity="0" offset="0%"></stop><stop offset="100%"
       ></stop></linearGradient
     ><filter
@@ -30,7 +31,7 @@ const { ...rest } = Astro.props
       width="200%"
       height="200%"
       filterUnits="objectBoundingBox"
-      id="safari-b"
+      id={`${uid}-b`}
       ><feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"
       ></feOffset><feGaussianBlur
         stdDeviation="2"
@@ -48,7 +49,7 @@ const { ...rest } = Astro.props
       width="200%"
       height="200%"
       filterUnits="objectBoundingBox"
-      id="safari-e"
+      id={`${uid}-e`}
       ><feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"
       ></feOffset><feGaussianBlur
         stdDeviation="2"
@@ -66,7 +67,7 @@ const { ...rest } = Astro.props
       fx="57.025%"
       fy="39.017%"
       r="61.032%"
-      id="safari-c"
+      id={`${uid}-c`}
       ><stop stop-color="#2ABCE1" offset="0%"></stop><stop
         stop-color="#2ABBE1"
         offset="11.363%"></stop><stop stop-color="#3375F8" offset="100%"
@@ -74,12 +75,15 @@ const { ...rest } = Astro.props
     ></defs
   ><g transform="translate(4 2)"
     ><circle
-      fill="url(#safari-a)"
-      filter="url(#safari-b)"
+      fill={`url(#${uid}-a)`}
+      filter={`url(#${uid}-b)`}
       cx="124"
       cy="124"
-      r="124"></circle><circle fill="url(#safari-c)" cx="124" cy="124" r="114.7"
-    ></circle><g transform="translate(9.688 8.719)"
+      r="124"></circle><circle
+      fill={`url(#${uid}-c)`}
+      cx="124"
+      cy="124"
+      r="114.7"></circle><g transform="translate(9.688 8.719)"
       ><path
         d="M114.506 28.481c-.775 0-1.453-.581-1.453-1.356V6.878c0-.775.678-1.356 1.453-1.356s1.453.581 1.453 1.356v20.247c-.097.775-.678 1.356-1.453 1.356z"
         fill="#F3F3F3"></path><path
@@ -338,14 +342,14 @@ const { ...rest } = Astro.props
         d="M104.528 17.728c-.872.097-1.647-.484-1.744-1.26l-1.162-8.912c-.097-.775.484-1.55 1.356-1.647.872-.096 1.647.485 1.744 1.26l1.162 8.912c.097.775-.484 1.55-1.356 1.647zm-1.453-11.625c-.678.097-1.26.775-1.163 1.453l1.163 8.913c.097.678.775 1.162 1.453 1.065.678-.096 1.26-.775 1.163-1.453l-1.163-8.912c-.097-.678-.775-1.163-1.453-1.066z"
         fill="#FFF"></path><circle
         fill-opacity=".2"
-        fill="url(#safari-d)"
+        fill={`url(#${uid}-d)`}
         cx="114.991"
         cy="115.184"
         r="114.7"></circle></g
     ><path
       d="M204.116 51.15L111.6 110.438h-.097v.096l-.097.097L53.67 205.86l84.862-68.297.097-.096v-.097l65.488-86.219z"
       fill-opacity=".05"
-      filter="url(#safari-e)"></path><path
+      filter={`url(#${uid}-e)`}></path><path
       d="M202.372 45.628l-91.45 65.003 27.125 26.931 64.325-91.934"
       fill="#CD151E"></path><path
       d="M111.019 110.438l13.66 13.465 77.693-78.275-91.353 64.81z"

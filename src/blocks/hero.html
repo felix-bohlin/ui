@@ -1,0 +1,300 @@
+<style>
+  .hero {
+    container-type: inline-size;
+
+    .hero-inner {
+      align-items: center;
+      display: grid;
+      gap: var(--size-8);
+      grid-template-columns: minmax(0, 1fr);
+      margin-inline: auto;
+      max-inline-size: 76rem;
+
+      @container (inline-size >= 60rem) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      }
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: var(--size-5);
+      justify-items: start;
+    }
+
+    .hero-title {
+      font-size: clamp(var(--font-size-6), 7cqi, var(--font-size-8));
+      letter-spacing: -0.02em;
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .hero-pitch {
+      color: var(--text-muted);
+      font-size: var(--font-size-3);
+      margin: 0;
+      max-inline-size: 34rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+    }
+
+    .hero-proof {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-3);
+      margin: 0;
+    }
+
+    .hero-stars {
+      color: var(--warning);
+      display: flex;
+
+      svg {
+        block-size: var(--size-3);
+        inline-size: auto;
+      }
+    }
+
+    .hero-preview {
+      background-image: linear-gradient(
+        135deg,
+        oklch(from var(--primary) l c h / 25%),
+        oklch(from var(--primary) l c calc(h + 60) / 15%)
+      );
+      border-radius: var(--radius-4);
+      padding: var(--size-4);
+
+      @container (inline-size >= 40rem) {
+        padding: var(--size-6);
+      }
+    }
+
+    .hero-window {
+      gap: 0;
+    }
+
+    .hero-toolbar {
+      align-items: center;
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-2);
+      padding: var(--size-2) var(--size-3);
+
+      .hero-dot {
+        background-color: var(--border-color);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        inline-size: var(--size-2);
+      }
+
+      .hero-url {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        margin-inline-start: var(--size-2);
+      }
+    }
+
+    .hero-screen {
+      display: grid;
+      gap: var(--size-3);
+      padding: var(--size-3);
+    }
+
+    .hero-screen-head {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: space-between;
+
+      strong {
+        font-size: var(--font-size-2);
+      }
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: var(--size-2);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      .ui-card {
+        gap: var(--size-1);
+        padding: var(--size-2);
+      }
+
+      span {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+      }
+
+      strong {
+        font-size: var(--font-size-3);
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    .hero-tasks {
+      .ui-text p:last-child {
+        font-size: var(--font-size-0);
+      }
+
+      .ui-progress {
+        inline-size: 5rem;
+      }
+    }
+  }
+</style>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <a class="ui-chip ui-outlined" href="#hero-release">
+        <span class="ui-text">New: Northwind 6.0 with AI planning</span>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l5.29-5.3L8.3 6.7a1 1 0 0 1 0-1.4"
+          ></path>
+        </svg>
+      </a>
+
+      <h1 class="ui-h1 hero-title">
+        Plan, ship and learn in one calm workspace
+      </h1>
+      <p class="hero-pitch">
+        Northwind brings roadmaps, sprints and customer feedback together, so
+        your team spends less time updating tools and more time building.
+      </p>
+
+      <div class="hero-actions">
+        <a class="ui-button ui-filled ui-large" href="#hero-sign-up">
+          Start free trial
+        </a>
+        <a class="ui-button ui-outlined ui-large" href="#hero-demo">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20m0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16m-2 4.27a1 1 0 0 1 1.5-.86l5 3a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 10 14.27z"
+            ></path></svg
+          ><span class="ui-text">Watch the demo</span>
+        </a>
+      </div>
+
+      <p class="hero-proof">
+        <span class="hero-stars" aria-hidden="true">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="120"
+            height="24"
+            viewBox="0 0 120 24"
+          >
+            <path
+              fill="currentColor"
+              d="m12 2.5 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95zm24 0 2.94 5.96 6.56.95-4.75 4.64 1.12 6.53-5.87-3.08-5.87 3.08 1.12-6.53-4.75-4.64 6.56-.95z"
+            ></path>
+          </svg>
+        </span>
+        <span><strong>4.9/5</strong> from 1&nbsp;200+ product teams</span>
+      </p>
+    </div>
+
+    <div class="hero-preview">
+      <div
+        class="ui-card ui-elevated hero-window"
+        role="img"
+        aria-label="Preview of a Northwind sprint board with three stats and three tasks in progress"
+      >
+        <div class="hero-toolbar">
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-url">app.northwind.example/sprints/42</span>
+        </div>
+        <div class="hero-screen">
+          <div class="hero-screen-head">
+            <strong>Sprint 42</strong>
+            <span class="ui-chip ui-tonal ui-small">
+              <span class="ui-text">Ends Oct 16</span>
+            </span>
+          </div>
+          <div class="hero-stats">
+            <div class="ui-card ui-outlined">
+              <span>Done</span>
+              <strong>18</strong>
+            </div>
+            <div class="ui-card ui-outlined">
+              <span>In review</span>
+              <strong>6</strong>
+            </div>
+            <div class="ui-card ui-outlined">
+              <span>Velocity</span>
+              <strong>34</strong>
+            </div>
+          </div>
+          <ul class="ui-list ui-transparent ui-dense ui-bordered hero-tasks">
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">IJ</span>
+              </div>
+              <div class="ui-text">
+                <p>Onboarding checklist</p>
+                <p>Ida Jansson</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="80"></progress>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">OH</span>
+              </div>
+              <div class="ui-text">
+                <p>Billing migration</p>
+                <p>Omar Haddad</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="55"></progress>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="ui-start">
+                <span class="ui-avatar">PN</span>
+              </div>
+              <div class="ui-text">
+                <p>Search filters</p>
+                <p>Priya Nair</p>
+              </div>
+              <div class="ui-end">
+                <div class="ui-progress ui-filled">
+                  <progress max="100" value="30"></progress>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

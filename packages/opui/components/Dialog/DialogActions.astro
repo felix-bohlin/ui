@@ -1,0 +1,12 @@
+---
+import type { DialogActionsProps as Props } from "./types.astro"
+
+const { align, class: className, ...rest } = Astro.props
+---
+
+<div
+  class:list={["ui-actions", align && `ui-align-${align}`, className]}
+  {...rest}
+>
+  <slot />
+</div>

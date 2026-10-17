@@ -1,24 +1,26 @@
 <script setup lang="ts">
+import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alt, as, href, isGroup, src, variant } = defineProps<Props>()
+const { alt, as, disabled, href, size, src, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "div")
+const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
   <component
     :is="Tag"
     :class="[
-      { 'ui-avatar': !isGroup },
-      !isGroup && variant && `ui-${variant}`,
+      'ui-avatar',
+      size && `ui-${size}`,
+      variant && `ui-${variant}`,
       $props.class,
     ]"
-    :href="href"
-    :role="isGroup ? 'group' : undefined"
+    v-bind="tagAttrs(Tag, disabled, href)"
   >
-    <img v-if="src" :src="src" :alt="alt" />
+    <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>
   </component>
 </template>

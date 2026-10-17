@@ -1,23 +1,40 @@
 import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
+import type { AstroInstance } from "astro"
 import { getContainerRenderer } from "@astrojs/vue/container-renderer"
 import { loadRenderers } from "astro:container"
 import { createTwoFilesPatch } from "diff"
-import { createSSRApp } from "vue"
+import { createElement, type ComponentType } from "react"
+import { renderToString as renderReact } from "react-dom/server"
+import type { Component as SvelteComponent } from "svelte"
+import { render } from "svelte/server"
+import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
 import { beforeAll, describe, expect, test } from "vitest"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_IDS as FRAMEWORKS,
+  type FrameworkId as Framework,
+} from "../../src/utils/framework"
+import { createIdGenerator } from "../../src/utils/id"
 import { normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
 
-const astroModules = import.meta.glob<{ default: any }>(
+const astroModules = import.meta.glob<AstroInstance>(
   "../../src/component-examples/**/*.astro",
 )
-const vueModules = import.meta.glob<{ default: any }>(
+const reactModules = import.meta.glob<{ default: ComponentType }>(
+  "../../src/component-examples/**/*.react.tsx",
+)
+const svelteModules = import.meta.glob<{ default: SvelteComponent }>(
+  "../../src/component-examples/**/*.svelte",
+)
+const vueModules = import.meta.glob<{ default: VueComponent }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,vue}",
+  "../../src/component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -28,34 +45,46 @@ const htmlSources = import.meta.glob<string>(
 const EXAMPLE_CLASSES = new Set([
   "code",
   "copy",
-  "ec-line",
-  "expressive-code",
   "frame",
   "header",
   "indent",
   ...Object.values(exampleSources).flatMap((source) =>
-    [...source.matchAll(/\bclass="([^"{]+)"/g)].flatMap((match) =>
+    [...source.matchAll(/\b(?:class|className)="([^"{]+)"/g)].flatMap((match) =>
       match[1].split(/\s+/),
     ),
   ),
 ])
 
-const FRAMEWORKS = ["html", "astro", "vue"] as const
+const REFERENCES: Record<Framework, Framework[]> = {
+  astro: ["html"],
+  html: [],
+  react: ["astro", "html"],
+  svelte: ["astro", "html"],
+  vue: ["astro", "html"],
+}
 
-type Framework = (typeof FRAMEWORKS)[number]
+type Loaded = {
+  astro: AstroInstance
+  html: string
+  react: { default: ComponentType }
+  svelte: { default: SvelteComponent }
+  vue: { default: VueComponent }
+}
 
 type Example = {
   key: string
-  loaders: Partial<Record<Framework, () => Promise<unknown>>>
+  loaders: { [F in Framework]?: () => Promise<Loaded[F]> }
 }
 
 const keyOf = (path: string) =>
-  path.replace("../../src/component-examples/", "").replace(/\.[a-z]+$/, "")
+  path
+    .replace("../../src/component-examples/", "")
+    .replace(/(\.react)?\.[a-z]+$/, "")
 
 const examples = new Map<string, Example>()
-const register = (
-  framework: Framework,
-  modules: Record<string, () => Promise<unknown>>,
+const register = <F extends Framework>(
+  framework: F,
+  modules: Record<string, Example["loaders"][F]>,
 ) => {
   for (const [path, load] of Object.entries(modules)) {
     const key = keyOf(path)
@@ -65,20 +94,13 @@ const register = (
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("react", reactModules)
+register("svelte", svelteModules)
 register("vue", vueModules)
 
 const cases = [...examples.values()]
   .filter(({ key }) => !key.endsWith("Code"))
   .toSorted((a, b) => a.key.localeCompare(b.key))
-
-const createIdGenerator = () => {
-  const counts = new Map<string, number>()
-  return (prefix: string) => {
-    const count = (counts.get(prefix) ?? 0) + 1
-    counts.set(prefix, count)
-    return `${prefix}-${count}`
-  }
-}
 
 let container: AstroContainer
 
@@ -87,33 +109,38 @@ beforeAll(async () => {
   container = await AstroContainer.create({ renderers })
 })
 
-const renderers: Record<
-  Framework,
-  (loaded: any, key: string) => Promise<string>
-> = {
+const renderers: {
+  [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>
+} = {
   astro: (loaded, key) =>
     container.renderToString(loaded.default, {
       locals: {
         $id: createIdGenerator(),
-        _isInsideForm: false,
         componentSlug: key.split("/")[0],
+        framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
     }),
   html: async (loaded) => loaded,
+  react: async (loaded) =>
+    renderReact(createElement(loaded.default)).replace(
+      /<link rel="preload" as="image"[^>]*\/>/g,
+      "",
+    ),
+  svelte: async (loaded) => render(loaded.default).body,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
+
+const renderExample = <F extends Framework>(example: Example, framework: F) =>
+  example.loaders[framework]!().then((loaded) =>
+    renderers[framework](loaded, example.key),
+  )
 
 const cache = new Map<string, Promise<string>>()
 const markup = (example: Example, framework: Framework) => {
   const cacheKey = `${example.key}.${framework}`
   if (!cache.has(cacheKey)) {
-    cache.set(
-      cacheKey,
-      example.loaders[framework]!()
-        .then((loaded) => renderers[framework](loaded, example.key))
-        .then(normalize),
-    )
+    cache.set(cacheKey, renderExample(example, framework).then(normalize))
   }
   return cache.get(cacheKey)!
 }
@@ -143,9 +170,12 @@ describe.each(cases)("$key", (example) => {
   )
 
   test.each(
-    frameworks
-      .slice(1)
-      .map((framework, index) => [framework, frameworks[index]]),
+    frameworks.flatMap((framework) => {
+      const reference = REFERENCES[framework].find(
+        (candidate) => example.loaders[candidate],
+      )
+      return reference ? [[framework, reference]] : []
+    }),
   )("%s matches %s", async (framework, reference) => {
     const [expected, actual] = await Promise.all([
       markup(example, reference),

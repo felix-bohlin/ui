@@ -1,5 +1,7 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
+import { drawerContext } from "./context.astro"
 
 export const title = "Drawer"
 
@@ -13,8 +15,15 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const drawerId = id || $id("drawer")
+const titleId = `${drawerId}-heading`
+const labelledBy =
+  rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId
+const html = await drawerContext.provide(
+  { id: drawerId, titleId: labelledBy },
+  () => Astro.slots.render("default"),
+)
 ---
 
 <dialog
@@ -28,20 +37,9 @@ const drawerId = id || $id("drawer")
     },
     className,
   ]}
+  aria-labelledby={labelledBy}
   id={drawerId}
   {...rest}
 >
-  {Astro.slots.has("header") && <slot name="header" />}
-
-  {
-    Astro.slots.has("content") && (
-      <div class="ui-content">
-        <slot name="content" />
-      </div>
-    )
-  }
-
-  <slot />
-
-  {Astro.slots.has("footer") && <slot name="footer" />}
+  <Fragment set:html={html} />
 </dialog>

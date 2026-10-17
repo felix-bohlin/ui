@@ -1,17 +1,18 @@
 <div class="example-row">
-  <button class="ui-button" disabled>Text</button>
+  <button type="button" class="ui-button" disabled>Text</button>
 
-  <button class="ui-button ui-outlined" disabled>Outlined</button>
+  <button type="button" class="ui-button ui-outlined" disabled>Outlined</button>
 
-  <button class="ui-button ui-tonal" disabled>Tonal</button>
+  <button type="button" class="ui-button ui-tonal" disabled>Tonal</button>
 
-  <button class="ui-button ui-filled" disabled>Filled</button>
+  <button type="button" class="ui-button ui-filled" disabled>Filled</button>
 </div>
 
 <div class="example-row">
-  <button class="ui-button" disabled>
-    Text
+  <button type="button" class="ui-button" disabled>
+    <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -24,9 +25,10 @@
     </svg>
   </button>
 
-  <button class="ui-button ui-outlined" disabled>
-    Outlined
+  <button type="button" class="ui-button ui-outlined" disabled>
+    <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -39,9 +41,10 @@
     </svg>
   </button>
 
-  <button class="ui-button ui-tonal" disabled>
-    Tonal
+  <button type="button" class="ui-button ui-tonal" disabled>
+    <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -54,9 +57,10 @@
     </svg>
   </button>
 
-  <button class="ui-button ui-filled" disabled>
-    Filled
+  <button type="button" class="ui-button ui-filled" disabled>
+    <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -68,4 +72,14 @@
       ></path>
     </svg>
   </button>
+</div>
+
+<div class="example-row">
+  <a class="ui-button" aria-disabled="true">Text</a>
+
+  <a class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
+
+  <a class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
+
+  <a class="ui-button ui-filled" aria-disabled="true">Filled</a>
 </div>

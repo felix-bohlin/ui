@@ -1,8 +1,9 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
-import { Code } from "astro-expressive-code/components"
-import Theming from "./_theming.astro"
+import DocLink from "../../../components/DocLink.astro"
+import Code from "../../../components/Code.astro"
+import { pickAndChooseCss } from "../../../utils/getting-started"
 ---
 
 <Guide overline="Guide">
@@ -34,20 +35,40 @@ import Theming from "./_theming.astro"
   <section>
     <h2 id="css">Import the CSS</h2>
     <p>
-      Astro components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
+      Astro components ship markup only - the CSS still has to be imported once.
+      The frontmatter of the layout every page uses is a good spot. Import
+      everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
+      code={`---
+// src/layouts/Layout.astro
+import "opui-css/css/imports.css"
+---`}
+      lang="astro"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in the layout
+      instead:
+    </p>
+    <Code
+      code={`/* src/styles/global.css */\n${pickAndChooseCss}`}
       lang="css"
     />
+    <Code
+      code={`---
+// src/layouts/Layout.astro
+import "../styles/global.css"
+---`}
+      lang="astro"
+    />
+    <p>
+      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
+      <code>.ui-sr-only</code> and the motion classes. <code>choice.css</code> goes
+      before <code>checkbox.css</code>, <code>radio.css</code> and <code
+        >switch.css</code
+      >. Import <code>opui-css/css/components.css</code> instead of single component
+      files to get every component.
+    </p>
   </section>
 
   <section>
@@ -60,7 +81,19 @@ import { Button } from "opui-css/astro"
 <Button variant="filled">Click me</Button>`}
       lang="astro"
     />
+    <p>
+      Containers take parts, such as <code>CardHeader</code> and <code
+        >DialogActions</code
+      >. Other components take named slots for rich content, such as <code
+        >end-text</code
+      > on a <code>TextField</code>.
+    </p>
+    <p>
+      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
+      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
+        href="/components">components</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
+      motion and contrast.
+    </p>
   </section>
-
-  <Theming />
 </Guide>

@@ -1,9 +1,9 @@
 ---
-import { TextField } from "@opui/astro"
+import { TextField } from "opui-css/astro"
 ---
 
 <TextField label="Amount" placeholder="0.00">
-  <Fragment slot="prefix">¢</Fragment>
+  <Fragment slot="prefix">€</Fragment>
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
@@ -17,6 +17,7 @@ import { TextField } from "@opui/astro"
 
 <TextField label="Search" placeholder="Search...">
   <svg
+    aria-hidden="true"
     slot="prefix"
     width="16"
     height="16"

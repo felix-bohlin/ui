@@ -1,11 +1,29 @@
 import { features } from "web-features"
-import { readdir, readFile } from "node:fs/promises"
+import { access, readdir, readFile } from "node:fs/promises"
 import { join, basename } from "node:path"
 import { fileURLToPath } from "node:url"
+
+import { computeBrowserSupport } from "../src/utils/browser-support.ts"
 
 const componentsDir = fileURLToPath(
   new URL("../src/docs/components", import.meta.url),
 )
+const cssDir = fileURLToPath(
+  new URL("../packages/opui/css/components", import.meta.url),
+)
+
+const patterns = [
+  { id: "anchor-positioning", pattern: /\b(anchor-name|position-anchor):/ },
+  { id: "color-mix", pattern: /color-mix\(/ },
+  { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
+  { id: "container-style-queries", pattern: /@container style\(/ },
+  { id: "corner-shape", pattern: /corner-shape:/ },
+  { id: "dir-pseudo", pattern: /:dir\(/ },
+  { id: "field-sizing", pattern: /field-sizing:/ },
+  { id: "has", pattern: /:has\(/ },
+  { id: "light-dark", pattern: /light-dark\(/ },
+  { id: "relative-color", pattern: /\(from / },
+]
 
 const files = await readdir(componentsDir)
 const components = {}
@@ -16,51 +34,47 @@ for (const file of files.sort()) {
   const content = await readFile(join(componentsDir, file), "utf-8")
   const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
   if (!match) continue
-  const ids = [...match[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
+  const ids = [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
   if (ids.length > 0) components[name] = ids
 }
 
-const BROWSERS = ["chrome", "edge", "firefox", "safari"]
-
-function getSupport(featureId, browser) {
-  const f = features[featureId]
-  if (!f) return undefined
-  const direct = f.status?.support?.[browser]
-  if (direct !== undefined) return direct
-  const byCompat = f.status?.by_compat_key
-  if (!byCompat) return undefined
-  let worst,
-    sawAny = false
-  for (const entry of Object.values(byCompat)) {
-    const v = entry.support?.[browser]
-    if (v === undefined) continue
-    sawAny = true
-    if (v === false) return false
-    if (!worst || parseInt(v) > parseInt(worst)) worst = v
-  }
-  return sawAny ? worst : undefined
-}
-
-const partials = []
+const missing = []
 
 for (const [comp, ids] of Object.entries(components)) {
-  for (const browser of BROWSERS) {
-    const supported = []
-    const unsupported = []
-    for (const id of ids) {
-      const v = getSupport(id, browser)
-      if (typeof v === "string" && parseInt(v)) supported.push(id)
-      else unsupported.push(id)
-    }
-    let level
-    if (unsupported.length === 0) level = "full"
-    else if (supported.length === 0) level = "none"
-    else level = "partial"
-    if (level === "partial") {
-      partials.push({ comp, browser, supported, unsupported })
-    }
+  const cssFile = join(cssDir, `${comp}.css`)
+  const css = await access(cssFile).then(
+    () => readFile(cssFile, "utf-8"),
+    () => "",
+  )
+  for (const { id, pattern } of patterns) {
+    if (pattern.test(css) && !ids.includes(id)) missing.push(`${comp}: "${id}"`)
   }
 }
+
+if (missing.length > 0) {
+  console.warn("browserSupport is missing ids that the page's own CSS uses:")
+  for (const entry of missing) console.warn(`  ${entry}`)
+}
+
+const unknown = Object.entries(components).flatMap(([comp, ids]) =>
+  ids.filter((id) => !features[id]).map((id) => `${comp}: "${id}"`),
+)
+if (unknown.length > 0) {
+  console.error("Unknown web-features ids in browserSupport:")
+  for (const entry of unknown) console.error(`  ${entry}`)
+  process.exit(1)
+}
+
+const partials = Object.entries(components).flatMap(([comp, ids]) =>
+  computeBrowserSupport(ids)
+    .filter((entry) => entry.level === "partial")
+    .map((entry) => ({
+      browser: entry.browser,
+      comp,
+      supported: entry.supportedFeatures,
+      unsupported: entry.unsupportedFeatures,
+    })),
+)
 
 if (partials.length === 0) {
   console.log("No components have partial support in any browser.")

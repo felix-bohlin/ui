@@ -3,31 +3,37 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleButton",
   notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
+    react:
+      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.",
+    svelte:
+      "In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.",
+    vue: "In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `pressed`.",
   },
   options: [
     {
-      class: ".ui-disabled",
+      attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "vue"],
-      group: "State",
+      frameworks: ["astro", "html", "react", "svelte", "vue"],
+      group: "Disabled",
+      part: "input",
       prop: "disabled",
       type: "boolean",
     },
     {
-      description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "vue"],
+      description: "The id of the `<input>`.",
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      description: "The input value when `value` is omitted.",
+      description:
+        "The button text when there is no child content, and the input value when `value` is omitted.",
       prop: "label",
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "name",
       type: "string",
     },
@@ -35,7 +41,7 @@ export default {
       attribute: "[checked]",
       default: "false",
       description: "Selects the button.",
-      group: "State",
+      group: "Checked",
       part: "input",
       prop: "pressed",
     },
@@ -43,7 +49,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"checkbox"',
@@ -55,7 +65,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "value",
       type: "string",
     },

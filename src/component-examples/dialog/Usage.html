@@ -1,4 +1,5 @@
 <button
+  type="button"
   commandfor="example-dialog-html"
   command="show-modal"
   class="ui-button ui-outlined"
@@ -9,18 +10,14 @@
 <dialog
   id="example-dialog-html"
   class="ui-dialog ui-card ui-elevated"
-  role="alertdialog"
-  aria-labelledby="dialog-heading"
-  aria-modal="true"
+  aria-labelledby="example-dialog-title-html"
 >
-  <hgroup>
-    <h2 id="dialog-heading" class="ui-h4">Are you sure?</h2>
+  <hgroup id="example-dialog-title-html">
+    <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
-      adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
+      Get a short email when we ship something new. No more than once a month.
     </p>
   </div>
   <div class="ui-actions">
@@ -30,7 +27,7 @@
       class="ui-button"
       type="button"
     >
-      Cancel
+      Not now
     </button>
     <button
       commandfor="example-dialog-html"
@@ -38,7 +35,7 @@
       class="ui-button ui-filled"
       type="button"
     >
-      Save
+      Subscribe
     </button>
   </div>
 </dialog>

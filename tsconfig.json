@@ -3,9 +3,10 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist", "dist-test", "playwright-report", "test-results"],
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "paths": {
-      "@opui/*": ["./packages/opui/*"],
-      "@opui/astro": ["./packages/opui/astro/index.ts"]
+      "@opui/*": ["./packages/opui/*"]
     }
   }
 }

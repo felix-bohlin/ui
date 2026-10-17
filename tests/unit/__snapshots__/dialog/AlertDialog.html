@@ -1,0 +1,13 @@
+<button class="ui-button ui-critical ui-outlined" command="show-modal" commandfor="id-1" type="button">Delete project</button>
+<dialog aria-describedby="id-3" aria-labelledby="id-2" class="ui-card ui-dialog ui-elevated" id="id-1" role="alertdialog">
+  <hgroup id="id-2">
+    <h2 class="ui-h4">Delete project?</h2>
+  </hgroup>
+  <div class="ui-content">
+    <p id="id-3">This deletes the project and all its files. You can't undo this.</p>
+  </div>
+  <div class="ui-actions">
+    <button class="ui-button" command="close" commandfor="id-1" type="button">Cancel</button>
+    <button class="ui-button ui-critical ui-filled" command="close" commandfor="id-1" type="button">Delete</button>
+  </div>
+</dialog>

@@ -1,20 +1,35 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset" data-invalid>
+  <fieldset aria-describedby="checkbox-group-error" class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
-        <input name="checkbox-group-validation" type="checkbox" checked />
+        <input
+          aria-invalid="true"
+          name="checkbox-group-validation"
+          type="checkbox"
+          checked
+        />
         <span class="ui-label">Checkbox 1</span>
       </label>
       <label class="ui-checkbox">
-        <input name="checkbox-group-validation" type="checkbox" />
+        <input
+          aria-invalid="true"
+          name="checkbox-group-validation"
+          type="checkbox"
+        />
         <span class="ui-label">Checkbox 2</span>
       </label>
       <label class="ui-checkbox">
-        <input name="checkbox-group-validation" type="checkbox" />
+        <input
+          aria-invalid="true"
+          name="checkbox-group-validation"
+          type="checkbox"
+        />
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="checkbox-group-error"
+      >Something went wrong!</span
+    >
   </fieldset>
 </form>

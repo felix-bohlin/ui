@@ -1,0 +1,228 @@
+<style>
+  .two-factor {
+    display: grid;
+    margin-inline: auto;
+    max-inline-size: 26rem;
+
+    .ui-card {
+      padding-block: var(--size-3);
+    }
+
+    .ui-content {
+      display: grid;
+      gap: var(--size-4);
+    }
+
+    .two-factor-head {
+      display: grid;
+      gap: var(--size-3);
+      justify-items: center;
+      text-align: center;
+    }
+
+    .two-factor-code input {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5em;
+      text-align: center;
+    }
+
+    .two-factor-phone {
+      white-space: nowrap;
+    }
+
+    .two-factor-submit {
+      inline-size: 100%;
+      justify-content: center;
+    }
+
+    .two-factor-resend {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-1);
+      justify-content: center;
+    }
+
+    .two-factor-divider {
+      align-items: center;
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-3);
+
+      &::before,
+      &::after {
+        border-block-start: var(--border-width) solid var(--border-color);
+        content: "";
+        flex: 1;
+      }
+    }
+
+    .two-factor-footer {
+      font-size: var(--font-size-1);
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="two-factor">
+  <div class="ui-card ui-outlined">
+    <div class="ui-content">
+      <div class="two-factor-head">
+        <div class="ui-avatar ui-squircle">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+            ></path>
+          </svg>
+        </div>
+        <hgroup>
+          <h1 class="ui-h4">Check your phone</h1>
+          <p>
+            We sent a 6-digit code to
+            <strong class="two-factor-phone">+46 70 ••• •• 18</strong>.
+          </p>
+        </hgroup>
+      </div>
+
+      <form class="ui-form" action="#">
+        <div class="ui-field-group">
+          <label class="ui-text-field ui-large two-factor-code">
+            <span class="ui-label">Verification code</span>
+            <span class="ui-field">
+              <input
+                aria-describedby="two-factor-code-hint"
+                autocomplete="one-time-code"
+                inputmode="numeric"
+                maxlength="6"
+                name="code"
+                pattern="[0-9]{6}"
+                placeholder="000000"
+                required
+                type="text"
+              />
+            </span>
+            <span class="ui-end-text" id="two-factor-code-hint"
+              >The code expires in 10 minutes.</span
+            >
+          </label>
+          <label class="ui-checkbox">
+            <input name="trust-device" type="checkbox" />
+            <span class="ui-label">Trust this device for 30 days</span>
+          </label>
+          <button class="ui-button ui-filled two-factor-submit" type="submit">
+            Verify
+          </button>
+        </div>
+      </form>
+
+      <p class="two-factor-resend">
+        Didn't get a code?
+        <button class="ui-button ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+            ></path></svg
+          ><span class="ui-text">Resend code</span>
+        </button>
+      </p>
+
+      <p class="two-factor-divider">or verify another way</p>
+
+      <ul class="ui-list ui-bordered ui-tonal">
+        <li>
+          <a href="#two-factor-app">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text">
+              <p>Authenticator app</p>
+              <p>Use a code from 1Password, Authy or similar.</p>
+            </div>
+            <div class="ui-end">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                ></path>
+              </svg>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="#two-factor-recovery">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text">
+              <p>Recovery code</p>
+              <p>One of the codes you saved when you set up 2FA.</p>
+            </div>
+            <div class="ui-end">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                ></path>
+              </svg>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <p class="two-factor-footer">
+        Lost access to your phone?
+        <a class="ui-link" href="#two-factor-support">Contact support</a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,14 @@
 import type * as Base from "./types"
-import type { HTMLAttributes } from "astro/types"
+import type { HTMLAttributes, HTMLTag } from "astro/types"
+
+type Section =
+  "caption" | "colgroup" | "tbody" | "td" | "tfoot" | "th" | "thead" | "tr"
+
+type Attributes<T extends HTMLTag> = T extends HTMLTag
+  ? HTMLAttributes<T>
+  : never
 
 export type Props = Base.Props & HTMLAttributes<"table">
-
-export type SectionProps = Base.SectionProps &
-  (
-    | HTMLAttributes<"tr">
-    | HTMLAttributes<"tbody">
-    | HTMLAttributes<"thead">
-    | HTMLAttributes<"th">
-    | HTMLAttributes<"td">
-    | HTMLAttributes<"colgroup">
-  )
-
-export type ColumnProps = Base.ColumnProps & HTMLAttributes<"col">
+export type SectionProps<T extends Section = Section> = Base.SectionProps &
+  Attributes<T>
+export type TableColumnProps = Base.TableColumnProps & HTMLAttributes<"col">

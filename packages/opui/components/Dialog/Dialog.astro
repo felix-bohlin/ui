@@ -1,38 +1,25 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
+import { dialogContext } from "./context.astro"
 
 export const title = "Dialog"
 
-const { actionsAlign, class: className, closedby, ...rest } = Astro.props
+const { class: className, closedby, ...rest } = Astro.props
+
+const headerId = createId(Astro.locals)("dialog-header")
+const labelledBy =
+  rest["aria-label"] || rest["aria-labelledby"] ? undefined : headerId
+const html = await dialogContext.provide({ headerId: labelledBy }, () =>
+  Astro.slots.render("default"),
+)
 ---
 
 <dialog
+  aria-labelledby={labelledBy}
   class:list={["ui-dialog ui-card ui-elevated", className]}
   closedby={closedby}
   {...rest}
 >
-  {
-    Astro.slots.has("header") && (
-      <hgroup>
-        <slot name="header" />
-      </hgroup>
-    )
-  }
-  {
-    Astro.slots.has("content") && (
-      <div class="ui-content">
-        <slot name="content" />
-      </div>
-    )
-  }
-  <slot />
-  {
-    Astro.slots.has("actions") && (
-      <div
-        class:list={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}
-      >
-        <slot name="actions" />
-      </div>
-    )
-  }
+  <Fragment set:html={html} />
 </dialog>

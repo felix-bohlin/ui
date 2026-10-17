@@ -4,14 +4,16 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 
 <template>
   <Form>
-    <FieldSet data-invalid>
+    <FieldSet aria-describedby="switch-group-error">
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="switch-field-group-validation">
-        <Switch>Switch 1</Switch>
-        <Switch>Switch 2</Switch>
-        <Switch>Switch 3</Switch>
+        <Switch error>Switch 1</Switch>
+        <Switch error>Switch 2</Switch>
+        <Switch error>Switch 3</Switch>
       </FieldGroup>
-      <span class="ui-end-text">Something went wrong!</span>
+      <span class="ui-end-text" id="switch-group-error"
+        >Something went wrong!</span
+      >
     </FieldSet>
   </Form>
 </template>

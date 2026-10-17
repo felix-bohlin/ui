@@ -1,6 +1,8 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
 import type { SwitchProps as Props } from "./types.astro"
+import { warnUnnamed } from "../dev"
+import { createId } from "../id"
 
 export const title = "Switch"
 
@@ -8,39 +10,35 @@ const {
   class: className,
   error,
   hideLabel,
-  name,
-  small,
+  size,
   spread,
   stack,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
-if (
-  import.meta.env.DEV &&
-  !Astro.slots.has("default") &&
-  !Astro.props["aria-label"] &&
-  !Astro.props["aria-labelledby"]
-) {
-  console.warn(
-    "[OPUI Switch] Missing accessible name. Provide a default slot, `aria-label`, or `aria-labelledby`.",
-  )
-}
+warnUnnamed(
+  "Switch",
+  Astro.slots.has("default") ||
+    Astro.props["aria-label"] ||
+    Astro.props["aria-labelledby"],
+)
 ---
 
 <label
   class:list={[
     "ui-switch",
+    size && `ui-${size}`,
     {
-      "ui-small": small,
       "ui-stack": stack,
       "ui-spread": spread,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
   {
     Astro.slots.has("icon-unchecked") && (
@@ -56,7 +54,11 @@ if (
       </span>
     )
   }
-  <SwitchInput aria-describedby={endTextId} name={name} {...rest} />
+  <SwitchInput
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
+  />
   {
     Astro.slots.has("default") && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>

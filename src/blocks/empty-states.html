@@ -1,0 +1,258 @@
+<style>
+  .empty-states {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-5);
+    margin-inline: auto;
+    max-inline-size: 64rem;
+
+    .empty-states-header {
+      justify-self: center;
+      text-align: center;
+    }
+
+    .empty-states-grid {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 44rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .ui-card > .ui-content {
+      align-content: center;
+      block-size: 100%;
+      display: grid;
+      gap: var(--size-4);
+      justify-items: center;
+      padding-block: var(--size-7);
+      text-align: center;
+    }
+
+    .ui-card hgroup {
+      max-inline-size: 32ch;
+    }
+
+    .empty-states-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: center;
+    }
+
+    .empty-states-search {
+      inline-size: min(100%, 20rem);
+    }
+
+    .empty-states-note {
+      color: var(--text-muted);
+      font-size: var(--font-size-1);
+    }
+
+    .empty-states-admins {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="empty-states">
+  <hgroup class="ui-hgroup empty-states-header">
+    <h1 class="ui-h3">Nothing to show, yet</h1>
+    <p>Each empty state says why the page is empty and what to do next.</p>
+  </hgroup>
+  <div class="empty-states-grid">
+    <section
+      aria-labelledby="empty-states-first-run"
+      class="ui-card ui-outlined"
+    >
+      <div class="ui-content">
+        <span class="ui-avatar ui-squircle" aria-hidden="true"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8z"
+            ></path></svg
+        ></span>
+        <hgroup>
+          <h2 class="ui-h5" id="empty-states-first-run">
+            Create your first project
+          </h2>
+          <p>Projects keep tasks, files and people in one place.</p>
+        </hgroup>
+        <div class="empty-states-actions">
+          <button class="ui-button ui-filled" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+              ></path></svg
+            ><span class="ui-text">New project</span>
+          </button>
+          <button class="ui-button ui-outlined" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96M14 13v4h-4v-4H7l5-5 5 5z"
+              ></path></svg
+            ><span class="ui-text">Import CSV</span>
+          </button>
+        </div>
+        <p class="empty-states-note">
+          New here?
+          <a class="ui-link" href="#empty-states-tour"
+            >Take the 2-minute tour</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="empty-states-no-results"
+      class="ui-card ui-outlined"
+    >
+      <div class="ui-content">
+        <label class="ui-text-field empty-states-search">
+          <span class="ui-sr-only">Search documents</span>
+          <span class="ui-field">
+            <input name="q" type="search" value="quaterly forecast" />
+            <span class="ui-prefix"
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+                ></path></svg
+            ></span>
+          </span>
+        </label>
+        <hgroup>
+          <h2 class="ui-h5" id="empty-states-no-results">
+            No results for “quaterly forecast”
+          </h2>
+          <p>Check the spelling, or try one of these instead.</p>
+        </hgroup>
+        <div class="empty-states-actions">
+          <a class="ui-chip ui-outlined" href="#empty-states-quarterly"
+            ><span class="ui-text">quarterly forecast</span></a
+          >
+          <a class="ui-chip ui-outlined" href="#empty-states-budget"
+            ><span class="ui-text">Budget 2026</span></a
+          >
+          <a class="ui-chip ui-outlined" href="#empty-states-q4"
+            ><span class="ui-text">Q4 plan</span></a
+          >
+        </div>
+        <button class="ui-button" type="button">Clear search</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="empty-states-inbox" class="ui-card ui-outlined">
+      <div class="ui-content">
+        <span class="ui-avatar ui-squircle" aria-hidden="true"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12zM.41 13.41 6 19l1.41-1.41L1.83 12z"
+            ></path></svg
+        ></span>
+        <hgroup>
+          <h2 class="ui-h5" id="empty-states-inbox">You're all caught up</h2>
+          <p>No new messages since 09:12. Enjoy the quiet.</p>
+        </hgroup>
+        <div class="empty-states-actions">
+          <a class="ui-button ui-outlined" href="#empty-states-archive"
+            >View archive</a
+          >
+          <a class="ui-button" href="#empty-states-notification-settings"
+            >Notification settings</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="empty-states-permission"
+      class="ui-card ui-outlined"
+    >
+      <div class="ui-content">
+        <span class="ui-avatar ui-squircle" aria-hidden="true"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2m-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1z"
+            ></path></svg
+        ></span>
+        <hgroup>
+          <h2 class="ui-h5" id="empty-states-permission">
+            You don't have access to Billing
+          </h2>
+          <p>Ask a workspace admin to give you the Billing role.</p>
+        </hgroup>
+        <div class="empty-states-admins">
+          <div
+            aria-label="Workspace admins"
+            class="ui-avatar-group"
+            role="group"
+          >
+            <span class="ui-avatar" role="img" aria-label="Astrid Nyström"
+              >AN</span
+            >
+            <span class="ui-avatar" role="img" aria-label="Kwame Mensah"
+              >KM</span
+            >
+            <span class="ui-avatar" role="img" aria-label="Priya Nair">PN</span>
+          </div>
+          <span class="empty-states-note">3 admins</span>
+        </div>
+        <div class="empty-states-actions">
+          <button class="ui-button ui-filled" type="button">
+            Request access
+          </button>
+          <a class="ui-button" href="#empty-states-home">Go to dashboard</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

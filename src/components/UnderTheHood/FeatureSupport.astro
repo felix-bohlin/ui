@@ -1,0 +1,158 @@
+---
+import { computeFeatureSupport } from "../../utils/browser-support"
+import Chrome from "../icons/browsers/Chrome.astro"
+import Edge from "../icons/browsers/Edge.astro"
+import Firefox from "../icons/browsers/Firefox.astro"
+import Safari from "../icons/browsers/Safari.astro"
+
+type Props = {
+  ids: string[]
+}
+
+const { ids } = Astro.props
+
+const ICONS = {
+  chrome: Chrome,
+  edge: Edge,
+  firefox: Firefox,
+  safari: Safari,
+}
+
+const STATUS = {
+  high: "Widely available",
+  low: "Newly available",
+  limited: "Limited availability",
+}
+
+const entries = ids.toSorted().map(computeFeatureSupport)
+const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
+---
+
+<ul class="feature-support">
+  {
+    entries.map((entry) => {
+      const status = entry.baseline || "limited"
+      return (
+        <li data-status={status}>
+          <a
+            href={`https://webstatus.dev/features/${entry.id}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {isCode(entry.name) ? <code>{entry.name}</code> : entry.name}
+          </a>
+          <span class="feature-support-status">{STATUS[status]}</span>
+          <dl>
+            {entry.browsers.map((browser) => {
+              const Icon = ICONS[browser.browser]
+              return (
+                <div data-supported={browser.version ? "" : undefined}>
+                  <dt>
+                    <Icon />
+                    <span class="ui-sr-only">{browser.label}</span>
+                  </dt>
+                  <dd>{browser.version ?? "No"}</dd>
+                </div>
+              )
+            })}
+          </dl>
+        </li>
+      )
+    })
+  }
+</ul>
+
+<style>
+  .feature-support {
+    display: grid;
+    gap: var(--size-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: center;
+      background-color: var(--surface-tonal);
+      border-radius: var(--radius-2);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-1) var(--size-3);
+      padding: var(--size-2) var(--size-3);
+    }
+
+    & a {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+  }
+
+  .feature-support-status {
+    align-items: center;
+    color: var(--text-muted);
+    display: inline-flex;
+    gap: var(--size-1);
+    margin-inline-end: auto;
+
+    &:before {
+      background-color: var(--_status-color);
+      block-size: 0.5rem;
+      border-radius: var(--radius-round);
+      content: "";
+      inline-size: 0.5rem;
+    }
+
+    [data-status="high"] > & {
+      --_status-color: var(--text-ok, #2e7d32);
+    }
+
+    [data-status="low"] > & {
+      --_status-color: var(--text-info, #1565c0);
+    }
+
+    [data-status="limited"] > & {
+      --_status-color: var(--text-warning, #ed6c02);
+    }
+  }
+
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1) var(--size-3);
+    margin: 0;
+
+    & div {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+      inline-size: 3.75rem;
+    }
+
+    & dt {
+      display: flex;
+
+      & svg {
+        block-size: 1rem;
+        inline-size: 1rem;
+      }
+    }
+
+    & dd {
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      margin: 0;
+    }
+
+    & div:not([data-supported]) {
+      & dt {
+        filter: grayscale(1);
+        opacity: 0.6;
+      }
+
+      & dd {
+        color: var(--text-primary);
+        font-weight: 700;
+      }
+    }
+  }
+</style>

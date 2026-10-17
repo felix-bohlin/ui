@@ -10,6 +10,13 @@ export type ApiPart = {
   props?: string[]
   selector: string
   slots?: string[]
+  snippets?: string[]
+}
+
+export type ApiHydration = {
+  description: string
+  fallback?: string
+  prop: string
 }
 
 export type ApiOption = {
@@ -20,16 +27,24 @@ export type ApiOption = {
   description: string
   frameworks?: Framework[]
   group?: string
+  htmlDefault?: string | null
+  htmlDescription?: string
   part?: string
   prop: string
   type?: string
   values?: Partial<Record<string, string | null>>
 }
 
+export type ApiModel = { description: string; prop: string; type: string }
+
 export type ComponentApi = {
   component: string
+  css?: string[]
   file?: string
-  model?: { description: string; prop: string; type: string }
+  hydration?: Partial<Record<ComponentFramework, ApiHydration[]>>
+  model?: ApiModel & {
+    frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
+  }
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]
   page?: string
@@ -39,5 +54,5 @@ export type ComponentApi = {
     "anchorName" | "code" | "component" | "description" | "selector"
   >
   slots?: { description: string; name: string }[]
-  source: string
+  source?: string
 }

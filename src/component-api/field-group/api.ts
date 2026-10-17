@@ -2,18 +2,21 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldGroup",
+  css: ["form"],
   notes: {
-    html: 'The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.',
+    html: "To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.",
   },
   options: [
     {
-      description: "The orientation of the element.",
+      description:
+        "The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.",
       group: "Orientation",
       prop: "direction",
-      values: { column: null, row: ".ui-row" },
+      values: { column: ".ui-column", row: ".ui-row" },
     },
     {
-      description: "Sets `name` on every input, select and textarea inside.",
+      description:
+        "Sets `name` on the OPUI fields inside that don't set their own.",
       prop: "name",
     },
   ],

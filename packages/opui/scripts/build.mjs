@@ -23,11 +23,18 @@ for (const { input, out } of targets) {
   const from = resolve(root, input)
   const to = resolve(dist, out)
   const result = await processor.process(`@import "${from}";`, {
-    from: root,
+    from,
     to,
-    map: { inline: false, annotation: `${out}.map` },
+    map: { annotation: `${out}.map`, inline: false, sourcesContent: false },
   })
+  const map = result.map.toJSON()
+  map.sources = map.sources.map((source) =>
+    source.replace(
+      /^(?:\.\.\/)+node_modules\/\.pnpm\/[^/]+\/node_modules\//,
+      "../../",
+    ),
+  )
   await writeFile(to, result.css)
-  await writeFile(`${to}.map`, result.map.toString())
+  await writeFile(`${to}.map`, JSON.stringify(map))
   console.log(`built dist/${out} (+ .map)`)
 }

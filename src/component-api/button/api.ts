@@ -5,7 +5,14 @@ export default {
   options: [
     {
       description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"button"`.',
+        "The accessible name. Required with `iconOnly`, for buttons without visible text.",
+      frameworks: ["astro", "react", "svelte", "vue"],
+      prop: "aria-label",
+      type: "string",
+    },
+    {
+      default: '"button"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
@@ -15,15 +22,38 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
-      attribute: "[disabled]",
       default: "false",
-      description: "Disables the button.",
-      group: "State",
+      description:
+        'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "disabled",
+    },
+    {
+      description:
+        'Disables the button. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabledState",
+      values: { button: "[disabled]", link: 'a[aria-disabled="true"]' },
     },
     {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
+    },
+    {
+      default: "false",
+      description:
+        "Marks the button as icon-only, so `aria-label` is required. Types only.",
+      frameworks: ["astro", "react", "svelte", "vue"],
+      prop: "iconOnly",
+      type: "boolean",
+    },
+    {
+      class: ".ui-round",
+      default: "false",
+      description: "Fully rounded corners, a circle when icon-only.",
+      group: "Shape",
+      prop: "round",
     },
     {
       description: "The size of the element.",
@@ -53,9 +83,10 @@ export default {
       selector: ".ui-button > svg",
     },
     {
-      code: "<span>",
-      description: "The label.",
-      selector: ".ui-button > span",
+      code: '<span class="ui-text">',
+      description:
+        "The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.",
+      selector: ".ui-button > .ui-text",
     },
   ],
   root: {

@@ -4,7 +4,7 @@
  * Both ThemeConfigurator (the global drawer) and the theme-generator page
  * route every read/write through this module. The store:
  *  - Persists per-mode JSON to localStorage under `opui-custom-theme-{light|dark}`
- *    (same keys the inline bootstrap in Header.astro reads on first paint).
+ *    (same keys the inline bootstrap in ThemeBootstrap.astro reads on first paint).
  *  - Applies tokens to <html> when the edited mode matches the active site mode,
  *    so the docs chrome reflects edits live.
  *  - Emits a `theme:change` CustomEvent on `document` so any subscribed UI
@@ -13,6 +13,10 @@
  * Boolean-ish settings (enable-grays) are stored as the string
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
+
+import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
+import { removeStored, writeStored } from "./storage"
+import { themeTokens } from "./theme-tokens"
 
 export type Mode = "light" | "dark"
 
@@ -39,19 +43,50 @@ export const TOKENS = [
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
-// before the user has tweaked anything. theme.css hardcodes
-//   --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
-// where Open Props' --hue-blue is 240, hence chroma 0.5 / hue 240.
-export const TOKEN_DEFAULTS: Record<Token, string> = {
-  "--palette-hue": "240",
-  "--palette-chroma": "0.5",
-  "--palette-hue-rotate-by": "0",
-  "--gray-chroma": "0.01",
-  "--gray-hue": "255",
-  "--border-radius": "var(--radius-2)",
-  "--field-border-radius": "var(--radius-2)",
-  "--button-border-radius": "var(--radius-2)",
+// before the user has tweaked anything. theme.css sets --palette-hue to
+// Open Props' --hue-green (145) in light mode and --hue-blue (240) in dark.
+const HUES = Object.fromEntries(
+  [...huesSource.matchAll(/(--hue-[\w-]+):\s*([\d.]+)/g)].map(
+    ([, name, value]) => [name, value],
+  ),
+)
+
+const resolveHues = (value: string) =>
+  value.replace(/var\((--hue-[\w-]+)\)/g, (match, name) => HUES[name] ?? match)
+
+const THEME_TOKENS = themeTokens()
+
+const TOKEN_DEFAULTS_BY_MODE: Record<Mode, Record<Token, string>> = {
+  dark: {} as Record<Token, string>,
+  light: {} as Record<Token, string>,
 }
+
+for (const token of TOKENS) {
+  const declared = THEME_TOKENS.find((candidate) => candidate.name === token)
+  if (!declared) throw new Error(`${token} is not declared in theme.css`)
+  TOKEN_DEFAULTS_BY_MODE.light[token] = resolveHues(declared.value)
+  TOKEN_DEFAULTS_BY_MODE.dark[token] = resolveHues(
+    declared.dark ?? declared.value,
+  )
+}
+
+export const THEME_KEYS = {
+  contrast: "contrast",
+  customTheme: "opui-custom-theme",
+  theme: "theme",
+}
+
+export function tokenDefaults(mode: Mode): Record<Token, string> {
+  return TOKEN_DEFAULTS_BY_MODE[mode]
+}
+
+export const RADIUS_OPTIONS = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--size-1)" },
+  { text: "2", value: "var(--size-2)" },
+  { text: "3", value: "var(--size-3)" },
+  { text: "4", value: "var(--size-4)" },
+]
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
@@ -67,32 +102,17 @@ export type ThemeChangeDetail = {
 }
 
 const EVENT_NAME = "theme:change"
-const STORAGE_KEY = (mode: Mode) => `opui-custom-theme-${mode}`
+const STORAGE_KEY = (mode: Mode) => `${THEME_KEYS.customTheme}-${mode}`
 const isBrowser = typeof window !== "undefined"
 
 function readConfig(mode: Mode): ModeConfig {
   if (!isBrowser) return {}
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY(mode))
-    if (!raw) return {}
-    const parsed = JSON.parse(raw) as ModeConfig & {
-      "--gray-hue-offset"?: string
-    }
-    // Drop the legacy `--gray-hue-offset` key. The new core derives grays
-    // per-element using absolute `--gray-hue`, so the offset semantic no
-    // longer applies. Users will fall back to the default --gray-hue (255).
-    if ("--gray-hue-offset" in parsed) {
-      delete parsed["--gray-hue-offset"]
-    }
-    return parsed
-  } catch {
-    return {}
-  }
+  return window.themeUtils.getCustomTheme(mode)
 }
 
 function writeConfig(mode: Mode, config: ModeConfig): void {
   if (!isBrowser) return
-  localStorage.setItem(STORAGE_KEY(mode), JSON.stringify(config))
+  writeStored(STORAGE_KEY(mode), config)
 }
 
 function emit(detail: ThemeChangeDetail): void {
@@ -116,7 +136,7 @@ export const themeStore = {
 
   /** Resolve a token's effective value for `mode`, falling back to the default. */
   effective(mode: Mode, token: Token): string {
-    return readConfig(mode)[token] ?? TOKEN_DEFAULTS[token]
+    return readConfig(mode)[token] ?? tokenDefaults(mode)[token]
   },
 
   isGraysEnabled(mode: Mode): boolean {
@@ -148,36 +168,23 @@ export const themeStore = {
   },
 
   /**
-   * Re-applies the saved config for `mode` to <html>. Mirrors
-   * Header.astro's bootstrap so toggling the global theme and switching
-   * configs always lands in a consistent state.
+   * Re-applies the saved config for `mode` to <html> with ThemeBootstrap.astro's
+   * bootstrap, so toggling the global theme and switching configs always
+   * lands in a consistent state.
    */
   applyMode(mode: Mode = getActiveSiteMode()): void {
     if (!isBrowser) return
-    const html = document.documentElement
-    TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.classList.remove("no-grays")
-
-    const config = readConfig(mode)
-    for (const [name, value] of Object.entries(config)) {
-      if (name === "enable-grays") {
-        html.classList.toggle("no-grays", value === "false")
-      } else if (typeof value === "string") {
-        html.style.setProperty(name, value)
-      }
-    }
+    window.themeUtils.applyCustomTheme(mode)
     emit({ mode, type: "applyMode" })
   },
 
   reset(): void {
     if (!isBrowser) return
-    localStorage.removeItem(STORAGE_KEY("light"))
-    localStorage.removeItem(STORAGE_KEY("dark"))
-    localStorage.removeItem("opui-custom-theme") // legacy
+    removeStored(STORAGE_KEY("light"))
+    removeStored(STORAGE_KEY("dark"))
+    removeStored(THEME_KEYS.customTheme) // legacy
 
-    const html = document.documentElement
-    TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.classList.remove("no-grays")
+    window.themeUtils.applyCustomTheme()
 
     emit({ mode: getActiveSiteMode(), type: "reset" })
   },

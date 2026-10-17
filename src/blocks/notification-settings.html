@@ -1,0 +1,609 @@
+<style>
+  .notification-settings {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-5);
+    margin-inline: auto;
+    max-inline-size: 56rem;
+
+    .notif-top {
+      align-items: end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: space-between;
+    }
+
+    .notif-table {
+      overflow-x: auto;
+
+      .ui-table {
+        margin-block: 0;
+      }
+    }
+
+    .notif-channel {
+      inline-size: 3.5rem;
+      text-align: center;
+
+      svg {
+        block-size: var(--size-4);
+        display: block;
+        inline-size: var(--size-4);
+        margin-inline: auto;
+      }
+
+      @container (inline-size >= 40rem) {
+        inline-size: 5.5rem;
+      }
+    }
+
+    .notif-group {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+
+    .notif-name,
+    .notif-desc {
+      display: block;
+    }
+
+    .notif-name {
+      font-weight: var(--font-weight-medium);
+    }
+
+    .notif-desc {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      font-weight: var(--font-weight-4);
+    }
+
+    .notif-cell {
+      text-align: center;
+
+      .ui-switch {
+        justify-content: center;
+      }
+    }
+
+    .notif-options {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+
+      @container (inline-size >= 44rem) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .ui-card {
+        block-size: 100%;
+      }
+    }
+
+    .notif-hours {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .notif-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: end;
+
+      p {
+        color: var(--text-muted);
+        font-size: var(--font-size-1);
+        margin: 0 auto 0 0;
+      }
+    }
+  }
+</style>
+
+<form class="notification-settings" action="#">
+  <div class="notif-top">
+    <hgroup class="ui-hgroup">
+      <h1 class="ui-h3">Notifications</h1>
+      <p>Choose what reaches you, and where.</p>
+    </hgroup>
+    <label class="ui-switch">
+      <input name="notification-settings-pause" role="switch" type="checkbox" />
+      <span class="ui-label">Pause all for 24 hours</span>
+    </label>
+  </div>
+
+  <section
+    aria-labelledby="notification-settings-channels-heading"
+    class="ui-card ui-outlined"
+  >
+    <hgroup>
+      <h2 class="ui-h5" id="notification-settings-channels-heading">
+        Channels
+      </h2>
+      <p>
+        SMS goes to +46 70 123 45 67.
+        <a class="ui-link" href="#notification-settings-phone">Change number</a>
+      </p>
+    </hgroup>
+    <div class="ui-content notif-table">
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th scope="col">Notification</th>
+            <th class="notif-channel" scope="col">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4-8 5-8-5V6l8 5 8-5z"
+                ></path>
+              </svg>
+              Email
+            </th>
+            <th class="notif-channel" scope="col">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M17 1.01 7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+                ></path>
+              </svg>
+              Push
+            </th>
+            <th class="notif-channel" scope="col">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M9 11H7V9h2zm4 0h-2V9h2zm4 0h-2V9h2z"
+                ></path>
+              </svg>
+              SMS
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              class="notif-group"
+              colspan="4"
+              id="notification-settings-activity"
+              scope="colgroup"
+            >
+              Activity
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Mentions</span>
+              <span class="notif-desc"
+                >When someone @mentions you in a comment</span
+              >
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-mentions-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Mentions by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-mentions-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Mentions by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-mentions-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Mentions by SMS</span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Replies</span>
+              <span class="notif-desc">Replies to threads you're part of</span>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-replies-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Replies by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-replies-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Replies by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-replies-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Replies by SMS</span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Assigned to you</span>
+              <span class="notif-desc">Tasks and reviews assigned to you</span>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-assigned-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Assigned to you by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-assigned-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Assigned to you by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-assigned-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Assigned to you by SMS</span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th
+              class="notif-group"
+              colspan="4"
+              id="notification-settings-projects"
+              scope="colgroup"
+            >
+              Projects
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Status changes</span>
+              <span class="notif-desc"
+                >When a project you follow changes status</span
+              >
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-status-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Status changes by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-status-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Status changes by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-status-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Status changes by SMS</span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Due date reminders</span>
+              <span class="notif-desc">The day before a task is due</span>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-due-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Due date reminders by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-due-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Due date reminders by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-due-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Due date reminders by SMS</span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Weekly summary</span>
+              <span class="notif-desc">Every Monday at 08:00</span>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-digest-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Weekly summary by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-digest-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Weekly summary by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-digest-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Weekly summary by SMS</span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th
+              class="notif-group"
+              colspan="4"
+              id="notification-settings-account"
+              scope="colgroup"
+            >
+              Account
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Security alerts</span>
+              <span class="notif-desc"
+                >New sign-ins and password changes. Email is always on.</span
+              >
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  disabled
+                  name="notification-settings-security-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Security alerts by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-security-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Security alerts by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-security-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Security alerts by SMS</span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="notif-name">Billing</span>
+              <span class="notif-desc">Receipts and failed payments</span>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  checked
+                  name="notification-settings-billing-email"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Billing by email</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-billing-push"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Billing by push</span>
+              </label>
+            </td>
+            <td class="notif-cell">
+              <label class="ui-switch ui-small">
+                <input
+                  name="notification-settings-billing-sms"
+                  role="switch"
+                  type="checkbox"
+                />
+                <span class="ui-sr-only">Billing by SMS</span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="notif-options">
+    <section
+      aria-labelledby="notification-settings-quiet-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="notification-settings-quiet-heading">
+          Quiet hours
+        </h2>
+        <p>Push and SMS wait until quiet hours end. Security alerts don't.</p>
+      </hgroup>
+      <div class="ui-content notif-hours">
+        <label class="ui-text-field">
+          <span class="ui-label">From</span>
+          <span class="ui-field">
+            <input name="quiet-from" type="time" value="22:00" />
+          </span>
+        </label>
+        <label class="ui-text-field">
+          <span class="ui-label">To</span>
+          <span class="ui-field">
+            <input name="quiet-to" type="time" value="07:00" />
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="notification-settings-digest-heading"
+      class="ui-card ui-outlined"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="notification-settings-digest-heading">
+          Email digest
+        </h2>
+        <p>Bundle activity emails instead of sending them one by one.</p>
+      </hgroup>
+      <div class="ui-content">
+        <div
+          aria-labelledby="notification-settings-digest-heading"
+          class="ui-field-group ui-row"
+          role="radiogroup"
+        >
+          <label class="ui-radio">
+            <input
+              name="notification-settings-digest"
+              type="radio"
+              value="off"
+            />
+            <span class="ui-label">Off</span>
+          </label>
+          <label class="ui-radio">
+            <input
+              checked
+              name="notification-settings-digest"
+              type="radio"
+              value="daily"
+            />
+            <span class="ui-label">Daily</span>
+          </label>
+          <label class="ui-radio">
+            <input
+              name="notification-settings-digest"
+              type="radio"
+              value="weekly"
+            />
+            <span class="ui-label">Weekly</span>
+          </label>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="notif-footer">
+    <p>Changes apply to all your devices.</p>
+    <button class="ui-button" type="reset">Reset to defaults</button>
+    <button class="ui-button ui-filled" type="submit">Save changes</button>
+  </div>
+</form>

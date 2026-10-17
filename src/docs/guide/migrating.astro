@@ -1,0 +1,62 @@
+---
+import Code from "../../components/Code.astro"
+import Guide from "../../layouts/Guide.astro"
+import { compiledContent } from "../../../packages/opui/MIGRATING.md"
+
+const html = await compiledContent()
+const start = html.indexOf('<h1 id="migrating-from-v5-to-v6"')
+const end = html.indexOf("<h1", start + 1)
+const [intro, ...sections] = html
+  .slice(start, end === -1 ? undefined : end)
+  .replace(/^<h1[^>]*>[\s\S]*?<\/h1>/, "")
+  .split(/(?=<h2 id=")/)
+const content = [
+  intro,
+  ...sections.map((section) => `<section>${section.trim()}</section>`),
+].join("\n")
+
+const CODE_BLOCK =
+  /<pre><code(?: class="language-([\w-]+)")?>([\s\S]*?)<\/code><\/pre>/
+const ENTITIES: Record<string, string> = {
+  amp: "&",
+  gt: ">",
+  lt: "<",
+  quot: '"',
+}
+const decode = (code: string) =>
+  code.replace(/&(?:#x([\da-f]+)|(\w+));/gi, (entity, hex, name) =>
+    hex ? String.fromCodePoint(parseInt(hex, 16)) : (ENTITIES[name] ?? entity),
+  )
+const segments = content.split(CODE_BLOCK)
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Migrating to v6</Fragment>
+  <Fragment slot="preamble">
+    The breaking changes in v6 and how to update your code, component by
+    component.
+  </Fragment>
+
+  {
+    segments.map((segment, index) =>
+      index % 3 === 0 ? (
+        <Fragment set:html={segment} />
+      ) : (
+        index % 3 === 2 && (
+          <Code code={decode(segment)} lang={segments[index - 1]} />
+        )
+      ),
+    )
+  }
+
+  <section>
+    <h2 id="older-versions">Older versions</h2>
+    <p>
+      Coming from an older version? The notes for v3, v4 and v5 are in <a
+        href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING.md"
+        target="_blank"
+        rel="noopener noreferrer"><code>MIGRATING.md</code></a
+      >.
+    </p>
+  </section>
+</Guide>

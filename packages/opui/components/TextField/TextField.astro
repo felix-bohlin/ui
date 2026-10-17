@@ -1,49 +1,52 @@
 ---
 import type { Props } from "./types.astro"
+import { fieldContext } from "../FieldGroup/context.astro"
 
 export const title = "Text Field"
 
 const {
+  "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
-  error,
-  description,
   disabled,
   endText,
-  filled,
+  error,
   id,
+  inputmode,
   label,
   list,
   max,
   min,
   name,
+  pattern,
   placeholder,
   required,
-  small,
+  size,
   spread,
   startText,
   step,
+  style,
   type = "text",
   value,
+  variant,
   ...rest
 } = Astro.props
 
-const startTextValue = description || startText
+const field = fieldContext.get()
 ---
 
 <label
   class:list={[
     "ui-text-field",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -54,23 +57,25 @@ const startTextValue = description || startText
     )
   }
   {
-    (startTextValue || Astro.slots.has("description")) && (
+    (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text">
-        {startTextValue}
-        <slot name="description" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <input
+      {...rest}
+      aria-invalid={error ? "true" : ariaInvalid}
       disabled={disabled}
       id={id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
+      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
       list={list}
       max={max}
       min={min}
-      name={name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
+      name={name ?? field?.name}
+      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       placeholder={placeholder}
       required={required}
       step={step}
@@ -107,13 +112,10 @@ const startTextValue = description || startText
     }
   </span>
   {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
+    (endText || Astro.slots.has("end-text")) && (
       <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
-        <slot name="supporting-text" />
       </span>
     )
   }

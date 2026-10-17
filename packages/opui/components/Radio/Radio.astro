@@ -1,5 +1,7 @@
 ---
 import type { RadioProps as Props } from "./types.astro"
+import { warnUnnamed } from "../dev"
+import { createId } from "../id"
 import RadioInput from "./RadioInput.astro"
 
 export const title = "Radio"
@@ -8,14 +10,23 @@ const {
   class: className,
   error,
   hideLabel,
-  name,
   size,
+  spread,
   stack,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+
+warnUnnamed(
+  "Radio",
+  Astro.slots.has("default") ||
+    Astro.props["aria-label"] ||
+    Astro.props["aria-labelledby"],
+)
 ---
 
 <label
@@ -24,13 +35,23 @@ const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
     size && `ui-${size}`,
     {
       "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
   ]}
-  data-invalid={error ? "" : undefined}
 >
-  <RadioInput aria-describedby={endTextId} name={name} {...rest} />
-  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
+  <RadioInput
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
+  />
+  {
+    Astro.slots.has("default") && (
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <slot />
+      </span>
+    )
+  }
   {
     Astro.slots.has("end-text") && (
       <span id={endTextId} class="ui-end-text">

@@ -7,7 +7,7 @@ type Element = DefaultTreeAdapterMap["element"]
 const DROPPED_ELEMENTS = new Set(["script", "style"])
 
 const DROPPED_ATTRIBUTE =
-  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
+  /^(data-astro-|data-svelte-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
 
 const ID_REFERENCE_ATTRIBUTES = new Set([
   "anchor",
@@ -44,7 +44,7 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
-const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+)$/
+const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
 
 const isElement = (node: Node): node is Element => "tagName" in node
 
@@ -91,7 +91,7 @@ const normalizeAttribute = (
   if (name === "style") {
     return value
       .split(";")
-      .map((declaration) => declaration.trim())
+      .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
       .filter(Boolean)
       .map((declaration) => {
         const colon = declaration.indexOf(":")
@@ -112,12 +112,20 @@ const serialize = (
   const indent = "  ".repeat(depth)
   const lines: string[] = []
 
+  let pending = ""
+  const flush = () => {
+    const text = pending.replace(/\s+/g, " ").trim()
+    if (text) lines.push(indent + text)
+    pending = ""
+  }
+
   for (const node of nodes) {
     if (node.nodeName === "#text" && "value" in node) {
-      const text = node.value.replace(/\s+/g, " ").trim()
-      if (text) lines.push(indent + text)
+      pending += node.value
       continue
     }
+    if (node.nodeName === "#comment") continue
+    flush()
     if (!isElement(node) || DROPPED_ELEMENTS.has(node.tagName)) continue
 
     const attrs = node.attrs
@@ -126,7 +134,10 @@ const serialize = (
         name: attr.name,
         value: normalizeAttribute(attr.name, attr.value, ids),
       }))
-      .filter((attr) => !(attr.name === "class" && !attr.value))
+      .filter(
+        (attr) =>
+          !((attr.name === "class" || attr.name === "style") && !attr.value),
+      )
       .toSorted((a, b) => a.name.localeCompare(b.name))
       .map((attr) => (attr.value ? `${attr.name}="${attr.value}"` : attr.name))
 
@@ -145,6 +156,7 @@ const serialize = (
       lines.push(indent + open, ...children, `${indent}</${node.tagName}>`)
     }
   }
+  flush()
 
   return lines
 }

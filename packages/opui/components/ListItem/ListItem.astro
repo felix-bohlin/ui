@@ -1,12 +1,14 @@
 ---
 import type { Props } from "./types.astro"
+import type { HTMLAttributes } from "astro/types"
 
 export const title = "List Item"
 
 const {
-  as: Tag,
+  as = Astro.props.href ? "a" : undefined,
   borderTop,
   class: className,
+  critical,
   description,
   for: htmlFor,
   headline,
@@ -15,49 +17,30 @@ const {
   ...rest
 } = Astro.props
 
-const hasLabel =
-  type && (type === "checkbox" || type === "radio" || type === "switch")
-const labelClass = type || ""
-const liProps = Tag ? {} : rest
-const innerProps = Tag ? rest : {}
+const hasLabel = type === "checkbox" || type === "radio" || type === "switch"
+const Tag = hasLabel ? "label" : as
+const liProps = Tag && !hasLabel ? {} : rest
+const tagProps = hasLabel
+  ? { class: `ui-${type}`, for: htmlFor }
+  : { type: Tag === "button" ? ("button" as const) : undefined, ...rest }
 ---
 
 <li
   class:list={[
     {
       "ui-border-top": borderTop,
+      "ui-critical": critical,
       "ui-inset": inset,
     },
     className,
   ]}
-  {...liProps as any}
+  {...liProps as HTMLAttributes<"li">}
 >
   {
     // Label + checkbox/radio/switch
-    hasLabel ? (
-      <label class={labelClass && `ui-${labelClass}`} for={htmlFor}>
-        {Astro.slots.start && (
-          <div class="ui-start">
-            <slot name="start" />
-          </div>
-        )}
-        {Astro.slots.text || headline || description ? (
-          <div class="ui-text">
-            {headline && <p>{headline}</p>}
-            {description && <p>{description}</p>}
-            <slot name="text" />
-          </div>
-        ) : null}
-        {Astro.slots.end && (
-          <div class="ui-end">
-            <slot name="end" />
-          </div>
-        )}
-        <slot />
-      </label>
-    ) : // With custom tag
+    // With custom tag
     Tag ? (
-      <Tag {...(innerProps as any)}>
+      <Tag {...tagProps}>
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />
@@ -105,4 +88,5 @@ const innerProps = Tag ? rest : {}
       </>
     )
   }
+  <slot name="submenu" />
 </li>

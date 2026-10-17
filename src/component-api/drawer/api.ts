@@ -3,13 +3,20 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Drawer",
   notes: {
-    html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
-    vue: "Attributes that aren't props go to the `<dialog>`.",
+    astro:
+      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
+    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
+    react:
+      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
+    svelte:
+      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
+    vue: "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
   },
   options: [
     {
       default: '"blurred"',
-      description: "The backdrop style.",
+      description:
+        'The backdrop style. `"transparent"` keeps the page behind it fully visible.',
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -29,7 +36,8 @@ export default {
     {
       class: ".ui-scroll-lock",
       default: "true",
-      description: "Locks page scroll while the drawer is open.",
+      description:
+        "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
       group: "Scroll lock",
       prop: "scrollLock",
     },
@@ -48,19 +56,46 @@ export default {
   ],
   parts: [
     {
-      description: "The header. `DrawerHeader` renders it with a close button.",
+      component: {
+        astro: "DrawerHeader",
+        react: "DrawerHeader",
+        svelte: "DrawerHeader",
+        vue: "DrawerHeader",
+      },
+      description: "The header, with a close button.",
       selector: ".ui-header",
-      slots: ["header"],
     },
     {
+      code: "<h2>",
+      component: {
+        astro: "DrawerTitle",
+        react: "DrawerTitle",
+        svelte: "DrawerTitle",
+        vue: "DrawerTitle",
+      },
+      description: "The title. Names the drawer through `aria-labelledby`.",
+      selector: ".ui-header > h2",
+    },
+    {
+      anchorName: "--ui-drawer-content",
+      component: {
+        astro: "DrawerContent",
+        react: "DrawerContent",
+        svelte: "DrawerContent",
+        vue: "DrawerContent",
+      },
       description: "The scrollable content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
-      description: "The footer. `DrawerFooter` renders it.",
+      component: {
+        astro: "DrawerFooter",
+        react: "DrawerFooter",
+        svelte: "DrawerFooter",
+        vue: "DrawerFooter",
+      },
+      description: "The footer.",
       selector: ".ui-footer",
-      slots: ["footer"],
     },
   ],
   root: {
@@ -69,7 +104,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the drawer.",
+      description: "The drawer parts, and any other content.",
       name: "default",
     },
   ],

@@ -1,3 +1,18 @@
 <div class="ui-progress">
   <progress id="determinate-progress" value="10" max="100"></progress>
 </div>
+
+<script>
+  {
+    const progress = document.querySelector("#determinate-progress")
+    if (progress instanceof HTMLProgressElement) {
+      setInterval(() => {
+        if (progress.value >= 100) {
+          progress.value = 10
+        } else {
+          progress.value += 10
+        }
+      }, 3000)
+    }
+  }
+</script>

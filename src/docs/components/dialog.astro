@@ -2,14 +2,38 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Table } from "@opui/astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Button as UIButton,
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+  Dialog as UIDialog,
+  DialogActions as UIDialogActions,
+  DialogContent as UIDialogContent,
+  DialogHeader as UIDialogHeader,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 
 import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 
+import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
+import { componentHasFramework } from "../../utils/framework"
+
+const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 import dialogApi from "../../component-api/dialog/api"
+import dialogActionsApi from "../../component-api/dialog-actions/api"
+import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
   "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
@@ -17,14 +41,24 @@ export const description =
 
 <Component
   description={description}
+  heroAnatomy
   slug="dialog"
-  apis={[{ title: "Dialog API", api: dialogApi }]}
+  apis={[
+    { title: "Dialog API", api: dialogApi },
+    { title: "Dialog actions API", api: dialogActionsApi },
+  ]}
   browserSupport={[
+    "anchor-positioning",
+    "backdrop-filter",
+    "container-scroll-state-queries",
     "container-style-queries",
     "dialog-closedby",
+    "display-animation",
     "has",
     "invoker-commands",
+    "overflow-clip",
     "overlay",
+    "scrollbar-gutter",
     "starting-style",
     "transition-behavior",
   ]}
@@ -47,296 +81,327 @@ export const description =
   ]}
 >
   <Fragment slot="title">Dialog</Fragment>
+  <Fragment slot="preamble">
+    Use a Dialog for a question or a short task that needs the user's full
+    attention. For navigation, filters or side content, use a <DocLink
+      href="/components/drawer">Drawer</DocLink
+    >.
+  </Fragment>
 
   <div class="ui-not-rich-text">
     <UICallout>
-      <Fragment slot="title">Modal vs Dialog</Fragment>
-      <p>
-        The term "modal" and "dialog" are often used interchangeably, but
-        there's an important difference. A modal window describes parts of a UI
-        that <a href="#modal" class="ui-link">blocks user interaction</a>. A
-        dialog <a href="#non-modal" class="ui-link"
-          >doesn't have to be blocking</a
-        >.
-      </p>
+      <UICalloutContent>
+        <h3>Modal vs dialog</h3>
+        <p>
+          The terms "modal" and "dialog" are often used interchangeably, but
+          there's an important difference. A modal window describes parts of a
+          UI that <a href="#modal" class="ui-link">blocks user interaction</a>.
+          A dialog {
+            hasToast ? (
+              <a href="#non-modal" class="ui-link">
+                doesn't have to be blocking
+              </a>
+            ) : (
+              "doesn't have to be blocking"
+            )
+          }.
+        </p>
+      </UICalloutContent>
     </UICallout>
   </div>
 
   <section>
     <h2 id="usage">Usage</h2>
 
-    <h3 id="non-modal">Non-modal</h3>
-    <ul>
-      <li>
-        <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-        informative but non-interruptive
-      </li>
-    </ul>
+    {
+      hasToast && (
+        <>
+          <h3 id="non-modal">Non-modal</h3>
+          <ul>
+            <li>
+              <DocLink
+                href="/components/toast"
+                class="ui-link"
+                set:text="Toast"
+              />
+              : informative but non-interruptive
+            </li>
+          </ul>
+        </>
+      )
+    }
 
     <h3 id="modal">Modal</h3>
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <Fragment slot="title">No JavaScript required</Fragment>
-        <p>
-          In browsers that support <a
-            href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-            class="ui-link">Invoker Commands</a
-          > you can toggle a <code>&lt;dialog&gt;</code> without JavaScript by using
-          the <code>commandfor</code> and <code>command</code> attributes.
-        </p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>HTML only</h3>
+          <p>
+            In browsers that support <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
+              class="ui-link">Invoker Commands</a
+            > you can toggle a <code>&lt;dialog&gt;</code> with HTML only, using the
+            {" "}<code>commandfor</code> and <code>command</code> attributes.
+          </p>
+        </UICalloutContent>
       </UICallout>
     </div>
+
+    <Conditional>
+      <p slot="astro">
+        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
+      </p>
+      <p slot="html">
+        Put the title in an <code>hgroup</code>, the body in <code
+          >.ui-content</code
+        > and the buttons in <code>.ui-actions</code>. Name the dialog by
+        pointing <code>aria-labelledby</code> at its title.
+      </p>
+      <p slot="react">
+        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
+      </p>
+      <p slot="svelte">
+        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
+      </p>
+      <p slot="vue">
+        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
+        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
+        it gets an <code>aria-labelledby</code> that points at the header. A dialog
+        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
+      </p>
+    </Conditional>
 
     <AutoExample name="Usage" row />
   </section>
 
   <section>
-    <h2 id="how-to-close">How to close a dialog</h2>
-    <Conditional>
-      <Fragment slot="html">
-        <p>
-          You can use it like this: <code>&lt;dialog closedby=""&gt;</code> and give
-          it the following values:
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Attr value</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
+    <h2 id="actions">Actions</h2>
+    <Conditional as="p">
       <Fragment slot="astro">
-        <p>
-          Use <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="html">
+        Actions sit at the end. Add <code>.ui-align-start</code> to <code
+          >.ui-actions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="react">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
+      </Fragment>
+      <Fragment slot="svelte">
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
       </Fragment>
       <Fragment slot="vue">
-        <p>
-          Use <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
+        Actions sit at the end. Set <code>align="start"</code> on <code
+          >DialogActions</code
+        > to move them to the start.
       </Fragment>
     </Conditional>
+
+    <AutoExample name="ActionsAlignment" row />
+  </section>
+
+  <section>
+    <h2 id="alert-dialog">Alert dialog</h2>
+    <p>
+      Use <code>role="alertdialog"</code> when the dialog interrupts with something
+      that needs a response, like confirming a destructive action. Point
+      {" "}<code>aria-describedby</code> at the message so screen readers read it
+      when the dialog opens.
+    </p>
+
+    <AutoExample name="AlertDialog" row />
+  </section>
+
+  <section>
+    <h2 id="width">Width</h2>
+    <p>
+      The dialog is up to <code>60ch</code> wide. Set <code
+        >--_max-inline-size</code
+      > on it for a wider or narrower dialog, for example <code
+        >style="--_max-inline-size: 40rem"</code
+      >. On small screens it keeps a <code>--size-2</code> margin on each side, whatever
+      the width.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="long-content">Long content</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="html">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while <code>.ui-content</code> scrolls, with a shadow on
+        the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="react">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="svelte">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+      <Fragment slot="vue">
+        The dialog grows up to 85% of the viewport height. The header and
+        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
+        on the scrolled edge. A modal dialog also locks page scroll.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="LongContent" row />
+  </section>
+
+  <section>
+    <h2 id="how-to-close">How to close a dialog</h2>
+    <ClosedbyTable name="dialog" />
 
     <AutoExample name="CloseBehaviors" row />
   </section>
 
-  <Fragment slot="accessibility">
-    <ul>
-      <li>
-        The <code>tabindex</code> attribute must <strong>not</strong> be used on the
-        <code>&lt;dialog&gt;</code> element.
-      </li>
-    </ul>
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIDialog
+        closedby="none"
+        open
+        style="inline-size: 22rem; margin: 0; position: static"
+      >
+        <UIDialogHeader>
+          <h2 class="ui-h4">Newsletter</h2>
+        </UIDialogHeader>
+        <UIDialogContent>
+          <p>
+            Get a short email when we ship something new. No more than once a
+            month.
+          </p>
+        </UIDialogContent>
+        <UIDialogActions>
+          <UIButton>Not now</UIButton>
+          <UIButton variant="filled">Subscribe</UIButton>
+        </UIDialogActions>
+      </UIDialog>
+    </Anatomy>
+  </Fragment>
 
+  <DialogBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
+      with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
+      it modal and the page behind it inert.
+    </p>
     <Table style="table-layout: fixed">
-      <Table.ColumnGroup>
-        <Table.Column width="30%" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Role/attribute</Table.HeaderCell>
-          <Table.HeaderCell>Usage</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>role="dialog"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element that serves as the dialog container.</Table.Cell
-          >
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>role="alertdialog"</code></Table.Cell>
-          <Table.Cell>
-            If the dialog is a confirmation window communicating an important
-            message that requires a confirmation or other user response.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
-          <Table.Cell>
+      <TableColumnGroup>
+        <TableColumn width="30%" />
+        <TableColumn />
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>aria-labelledby="IDREF"</code></TableCell>
+          <TableCell>
             Gives the dialog an accessible name by referring to the element that
             provides the dialog title.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
-          <Table.Cell>
-            Gives the dialog an accessible description by referring to the
-            dialog content that describes the primary message or purpose of the
-            dialog.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-modal="true"</code></Table.Cell>
-          <Table.Cell>
-            Tells assistive technologies that the windows underneath the current
-            dialog are not available for interaction (inert).
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>aria-describedby="IDREF"</code></TableCell>
+          <TableCell>
+            Optional. Gives the dialog an accessible description by referring to
+            the dialog content that describes the primary message or purpose of
+            the dialog.
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell><code>role="alertdialog"</code></TableCell>
+          <TableCell>
+            Only if the dialog is a confirmation window communicating an
+            important message that requires a confirmation or other user
+            response. See <a href="#alert-dialog">alert dialog</a>.
+          </TableCell>
+        </TableRow>
+      </TableBody>
     </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
-        <Table.ColumnGroup>
-          <Table.Column width="30%" />
-          <Table.Column />
-        </Table.ColumnGroup>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeaderCell>Key</Table.HeaderCell>
-            <Table.HeaderCell>Function</Table.HeaderCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell><kbd>Tab</kbd></Table.Cell>
-            <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to next focusable element inside the dialog.
-                </li>
-                <li>
-                  When focus is on the last focusable element in the dialog,
-                  moves focus to the first focusable element in the dialog.
-                </li>
-              </ul>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
-            <Table.Cell>
-              <ul>
-                <li>
-                  Moves focus to previous focusable element inside the dialog.
-                </li>
-                <li>
-                  When focus is on the first focusable element in the dialog,
-                  moves focus to the last focusable element in the dialog.
-                </li>
-              </ul>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell><kbd>Esc</kbd></Table.Cell>
-            <Table.Cell>Closes the dialog.</Table.Cell>
-          </Table.Row>
-        </Table.Body>
+        <TableColumnGroup>
+          <TableColumn width="30%" />
+          <TableColumn />
+        </TableColumnGroup>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
+              Moves focus to the next focusable element in the dialog. After the
+              last one, focus moves to the browser's own controls (like the
+              address bar), then back to the first element in the dialog. The
+              page behind it is inert.
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Shift + Tab</kbd></TableCell>
+            <TableCell>
+              Moves focus to the previous focusable element. Before the first
+              one, focus moves to the browser's controls, then to the last
+              element in the dialog.
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Esc</kbd></TableCell>
+            <TableCell>
+              Closes the dialog, unless <code>closedby="none"</code>, and
+              returns focus to the element that opened it.
+            </TableCell>
+          </TableRow>
+        </TableBody>
       </Table>
     </div>
 
     <p>
       Source: <a
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/#rps_label"
-        class="ui-link">w3.org</a
-      >, <a
-        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility"
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#accessibility"
         class="ui-link">MDN</a
-      >
+      >. The <a
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/"
+        class="ui-link">APG modal dialog pattern</a
+      > wraps focus with a script. A native modal dialog doesn't need one.
     </p>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-dialog.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-  }
-</style>

@@ -1,0 +1,275 @@
+<style>
+  .feature-grid {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-7);
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    .feature-intro {
+      margin-inline: auto;
+      max-inline-size: 42rem;
+      text-align: center;
+
+      h1 {
+        text-wrap: balance;
+      }
+    }
+
+    .feature-list {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      @container (inline-size >= 36rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @container (inline-size >= 56rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .ui-card {
+        block-size: 100%;
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-2);
+        justify-items: start;
+
+        & > * {
+          margin: 0;
+        }
+      }
+
+      p {
+        color: var(--text-muted);
+      }
+    }
+
+    .feature-heading {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    .feature-icon {
+      background-color: oklch(from var(--primary) l c h / 14%);
+      border-radius: var(--radius-3);
+      color: var(--primary);
+      display: grid;
+      padding: var(--size-2);
+      place-items: center;
+
+      svg {
+        block-size: var(--size-5);
+        inline-size: var(--size-5);
+      }
+    }
+
+    .feature-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-3);
+      justify-content: center;
+    }
+  }
+</style>
+
+<section class="feature-grid" aria-labelledby="feature-grid-heading">
+  <hgroup class="ui-hgroup feature-intro">
+    <p>Why Northwind</p>
+    <h1 class="ui-h2" id="feature-grid-heading">
+      Everything your team needs to ship with confidence
+    </h1>
+    <p>
+      From the first sketch to the release notes, Northwind keeps planning,
+      building and learning in one place.
+    </p>
+  </hgroup>
+
+  <ul class="feature-list">
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M13.6 2.2a1 1 0 0 1 .4 1.1L12.3 10H19a1 1 0 0 1 .78 1.63l-8 10a1 1 0 0 1-1.75-.88L11.7 14H5a1 1 0 0 1-.78-1.63l8-10a1 1 0 0 1 1.38-.17"
+              ></path>
+            </svg>
+          </span>
+          <h2 class="ui-h5">Real-time sync</h2>
+          <p>
+            Changes show up for everyone in under 100&nbsp;ms, with offline
+            edits merged the moment you reconnect.
+          </p>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M11.65 2.06a1 1 0 0 1 .7 0l7 2.63A1 1 0 0 1 20 5.62V11c0 4.73-3.07 8.84-7.7 10.95a1 1 0 0 1-.83 0C6.86 19.84 4 15.73 4 11V5.62a1 1 0 0 1 .65-.93zm4.06 7.23a1 1 0 0 0-1.42 0L11 12.59l-1.29-1.3a1 1 0 0 0-1.42 1.42l2 2a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 0-1.42"
+              ></path>
+            </svg>
+          </span>
+          <h2 class="ui-h5">Enterprise-grade security</h2>
+          <p>
+            SSO, SCIM provisioning and audit logs on every plan. Data is hosted
+            in the EU and encrypted at rest.
+          </p>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2 12a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0zm4-4a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0z"
+              ></path>
+            </svg>
+          </span>
+          <div class="feature-heading">
+            <h2 class="ui-h5">Insights</h2>
+            <span class="ui-chip ui-tonal ui-x-small">
+              <span class="ui-text">New</span>
+            </span>
+          </div>
+          <p>
+            Cycle time, throughput and bottlenecks on one dashboard, updated
+            live as work moves across the board.
+          </p>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M9 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8m8 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6M2 18.5C2 15.46 5.13 14 9 14s7 1.46 7 4.5V19a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm15.5 1.5H21a1 1 0 0 0 1-1v-.5c0-2.27-2.07-3.5-4.66-3.5h-.34c.95.98 1.5 2.24 1.5 3.67z"
+              ></path>
+            </svg>
+          </span>
+          <h2 class="ui-h5">Built for teams</h2>
+          <p>
+            Comments, mentions and shared views keep design, engineering and
+            support on the same page.
+          </p>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M9 2a1 1 0 0 1 1 1v3h4V3a1 1 0 1 1 2 0v3h1a2 2 0 0 1 2 2v3a6 6 0 0 1-5 5.92V21a1 1 0 1 1-2 0v-4.08A6 6 0 0 1 7 11V8a2 2 0 0 1-2-2h3V3a1 1 0 0 1 1-1"
+              ></path>
+            </svg>
+          </span>
+          <h2 class="ui-h5">60+ integrations</h2>
+          <p>
+            Connect GitHub, Slack, Figma and your help desk in a few clicks, or
+            build your own with the open API.
+          </p>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="ui-card ui-outlined">
+        <div class="ui-content">
+          <span class="feature-icon">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20m-2.47 11H4.06a8 8 0 0 0 5.7 6.68A15.6 15.6 0 0 1 9.53 13m4.94 0a13.7 13.7 0 0 1-2.47 6.84A13.7 13.7 0 0 1 9.53 13zm5.47 0h-5.47a15.6 15.6 0 0 1-.23 6.68A8 8 0 0 0 19.94 13M9.76 4.32A8 8 0 0 0 4.06 11h5.47a15.6 15.6 0 0 1 .23-6.68M12 4.16A13.7 13.7 0 0 0 9.53 11h4.94A13.7 13.7 0 0 0 12 4.16m2.24.16a15.6 15.6 0 0 1 .23 6.68h5.47a8 8 0 0 0-5.7-6.68"
+              ></path>
+            </svg>
+          </span>
+          <h2 class="ui-h5">Works in 24 languages</h2>
+          <p>
+            Localized interface, time zones and date formats, so distributed
+            teams feel at home from day one.
+          </p>
+        </div>
+      </article>
+    </li>
+  </ul>
+
+  <div class="feature-footer">
+    <a class="ui-button ui-filled" href="#feature-grid-trial"
+      >Start free trial</a
+    >
+    <a class="ui-button" href="#feature-grid-features">
+      <span class="ui-text">See all features</span>
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M13.3 5.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-1.4-1.4l4.29-4.3H4a1 1 0 1 1 0-2h13.59l-4.3-4.3a1 1 0 0 1 0-1.4"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</section>

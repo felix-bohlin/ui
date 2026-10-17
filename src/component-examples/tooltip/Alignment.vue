@@ -1,66 +1,70 @@
 <script setup lang="ts">
-import { Button, Tooltip } from "opui-css/vue"
+import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
   <div class="tooltip-alignment-grid">
-    <Tooltip label="Above" alignment="block-start" id="tooltip-top">
+    <Tooltip alignment="block-start" id="tooltip-top">
       <Button
         interestfor="tooltip-top"
         commandfor="tooltip-top"
         command="toggle-popover"
         >Top</Button
       >
+      <TooltipContent>Above</TooltipContent>
     </Tooltip>
-    <Tooltip label="Before" alignment="inline-start" id="tooltip-start">
+    <Tooltip alignment="inline-start" id="tooltip-start">
       <Button
         interestfor="tooltip-start"
         commandfor="tooltip-start"
         command="toggle-popover"
         >Start</Button
       >
+      <TooltipContent>Before</TooltipContent>
     </Tooltip>
-    <Tooltip label="After" alignment="inline-end" id="tooltip-end">
+    <Tooltip alignment="inline-end" id="tooltip-end">
       <Button
         interestfor="tooltip-end"
         commandfor="tooltip-end"
         command="toggle-popover"
         >End</Button
       >
+      <TooltipContent>After</TooltipContent>
     </Tooltip>
-    <Tooltip label="Below" alignment="block-end" id="tooltip-bottom">
+    <Tooltip alignment="block-end" id="tooltip-bottom">
       <Button
         interestfor="tooltip-bottom"
         commandfor="tooltip-bottom"
         command="toggle-popover"
         >Bottom</Button
       >
+      <TooltipContent>Below</TooltipContent>
     </Tooltip>
   </div>
-
-  <style>
-    .tooltip-alignment-grid {
-      display: grid;
-      gap: var(--size-3);
-      grid-template-areas:
-        ".     top    .  "
-        "start .      end"
-        ".     bottom .  ";
-      justify-items: center;
-      align-items: center;
-    }
-
-    .tooltip-alignment-grid > :nth-child(1) {
-      grid-area: top;
-    }
-    .tooltip-alignment-grid > :nth-child(2) {
-      grid-area: start;
-    }
-    .tooltip-alignment-grid > :nth-child(3) {
-      grid-area: end;
-    }
-    .tooltip-alignment-grid > :nth-child(4) {
-      grid-area: bottom;
-    }
-  </style>
 </template>
+
+<style>
+.tooltip-alignment-grid {
+  align-items: center;
+  display: grid;
+  gap: var(--size-3);
+  grid-template-areas:
+    ".     top    .  "
+    "start .      end"
+    ".     bottom .  ";
+  justify-items: center;
+}
+
+.tooltip-alignment-grid > :nth-child(1) {
+  grid-area: top;
+}
+.tooltip-alignment-grid > :nth-child(2) {
+  grid-area: start;
+}
+.tooltip-alignment-grid > :nth-child(3) {
+  grid-area: end;
+}
+.tooltip-alignment-grid > :nth-child(4) {
+  grid-area: bottom;
+}
+</style>

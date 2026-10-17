@@ -1,24 +1,27 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
+import { tabsContext } from "./context.astro"
 
 export const title = "Tabs"
 
-const { $id } = Astro.locals
-const { class: className, name, ...rest } = Astro.props
+const $id = createId(Astro.locals)
+const { class: className, name, scrollable, variant, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")
-const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
-
-const slotHtml = (await Astro.slots.render("default")) ?? ""
-const html = slotHtml.replace(
-  /<input\b(?=[^>]*\sclass="[^"]*\bui-tab-input\b)(?![^>]*\sname=)/g,
-  () => `<input name="${escapedName}"`,
+const html = await tabsContext.provide({ groupName }, () =>
+  Astro.slots.render("default"),
 )
 ---
 
 <div
-  class:list={["ui-tabs", className]}
-  role="tablist"
+  class:list={[
+    "ui-tabs",
+    { "ui-scrollable": scrollable },
+    variant && `ui-${variant}`,
+    className,
+  ]}
   {...rest}
-  set:html={html}
-/>
+>
+  <Fragment set:html={html} />
+</div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useId } from "vue"
-import type { DrawerSlots, Props } from "./types.d.vue"
+import { computed, provide, reactive, useAttrs, useId } from "vue"
+import { DrawerKey } from "./context.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const {
   backdrop = "blurred",
@@ -9,18 +10,27 @@ const {
   scrollLock = true,
   side = "inline-start",
 } = defineProps<Props>()
-const slots = defineSlots<DrawerSlots>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const drawerId = id || useId()
+const attrs = useAttrs()
+const uid = useId()
+const drawerId = computed(() => id || `drawer-${uid}`)
+const titleId = computed(() => `${drawerId.value}-heading`)
+const labelledBy = computed(() =>
+  attrs["aria-label"] || attrs["aria-labelledby"] ? undefined : titleId.value,
+)
+
+provide(DrawerKey, reactive({ id: drawerId, titleId: labelledBy }))
 </script>
 
 <template>
   <dialog
     :id="drawerId"
+    :aria-labelledby="labelledBy"
     :class="[
       'ui-drawer',
       side && `ui-${side}`,
@@ -33,14 +43,6 @@ const drawerId = id || useId()
     :closedby="closedby"
     v-bind="$attrs"
   >
-    <slot v-if="slots.header" name="header"></slot>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <slot v-if="slots.footer" name="footer"></slot>
   </dialog>
 </template>

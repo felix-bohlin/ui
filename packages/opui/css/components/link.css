@@ -1,21 +1,31 @@
 @layer components.root {
   :where(.ui-link) {
-    color: var(--primary);
+    --_text-color: light-dark(
+      oklch(from var(--primary) min(l, 0.47) c h),
+      oklch(from var(--primary) max(l, 0.78) c h)
+    );
+
+    color: var(--_text-color);
     cursor: pointer;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     text-decoration: underline;
-    text-decoration-color: var(--primary);
+    text-decoration-color: var(--_text-color);
     text-underline-offset: 2px;
 
     &[href] {
-      &:hover,
-      &:focus-visible {
-        color: var(--primary-light);
+      @media (hover: hover) {
+        &:hover {
+          color: light-dark(var(--primary-dark), var(--primary-light));
+          text-decoration-color: currentColor;
+          text-decoration-thickness: 3px;
+        }
       }
-    }
 
-    @supports (-moz-appearance: none) {
-      text-underline-offset: 2px;
+      &:focus-visible {
+        color: light-dark(var(--primary-dark), var(--primary-light));
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 3px;
+      }
     }
   }
 }

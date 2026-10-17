@@ -9,50 +9,51 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes (`disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step`, `value`) go to the `<input>`. Other attributes go to the root `<label>`.",
-    html: "The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.",
-    vue: "Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
+    html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes size depending on its content.",
+      description: "Lets the width follow the content, from `25ch`.",
       group: "Auto-fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the input to the other.",
+        "Pushes the label and start text to one side and the input to the other.",
       group: "Layout",
       prop: "spread",
     },
@@ -60,9 +61,16 @@ export default {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "type",
       type: '"numeric" | string',
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [
@@ -73,11 +81,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      legacy: { props: ["startText"] },
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed input area.",
@@ -114,7 +121,6 @@ export default {
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],

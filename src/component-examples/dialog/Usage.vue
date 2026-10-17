@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Button, Dialog } from "opui-css/vue"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/vue"
 </script>
 
 <template>
@@ -7,26 +13,18 @@ import { Button, Dialog } from "opui-css/vue"
     Open dialog
   </Button>
 
-  <Dialog
-    id="example-dialog"
-    role="alertdialog"
-    aria-labelledby="dialog-heading"
-    aria-modal="true"
-  >
-    <template #header
-      ><h2 id="dialog-heading" class="ui-h4">Are you sure?</h2></template
-    >
-    <template #content
-      ><p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor
-        rhoncus.
-      </p></template
-    >
-    <template #actions>
+  <Dialog id="example-dialog">
+    <DialogHeader>
+      <h2 class="ui-h4">Newsletter</h2>
+    </DialogHeader>
+    <DialogContent>
+      <p>
+        Get a short email when we ship something new. No more than once a month.
+      </p>
+    </DialogContent>
+    <DialogActions>
       <Button commandfor="example-dialog" command="close" type="button">
-        Cancel
+        Not now
       </Button>
       <Button
         commandfor="example-dialog"
@@ -34,8 +32,8 @@ import { Button, Dialog } from "opui-css/vue"
         type="button"
         variant="filled"
       >
-        Save
+        Subscribe
       </Button>
-    </template>
+    </DialogActions>
   </Dialog>
 </template>

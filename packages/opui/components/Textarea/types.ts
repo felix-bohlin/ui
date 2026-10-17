@@ -1,16 +1,15 @@
 export type Props = {
   autoFit?: boolean
-  description?: string
   endText?: string
   error?: boolean
-  filled?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "large"
   spread?: boolean
+  startText?: string
+  variant?: "outlined" | "filled"
 }
 
 export type Slots<S> = {
-  description?: string | S
   endText?: string | S
   footer?: string | S
   header?: string | S
@@ -18,16 +17,4 @@ export type Slots<S> = {
   prefix?: string | S
   startText?: string | S
   suffix?: string | S
-  supportingText?: string | S
 }
-
-export type TextareaProps =
-  | "cols"
-  | "disabled"
-  | "maxlength"
-  | "minlength"
-  | "name"
-  | "placeholder"
-  | "required"
-  | "rows"
-  | "value"

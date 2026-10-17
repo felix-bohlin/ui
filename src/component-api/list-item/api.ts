@@ -2,13 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
+  css: ["list"],
   notes: {
-    html: "Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.",
+    html: "To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.",
   },
   options: [
     {
       description:
-        'The element to render inside the `<li>`, such as `"a"` or `"button"`.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`.',
       prop: "as",
     },
     {
@@ -19,12 +20,30 @@ export default {
       prop: "borderTop",
     },
     {
+      class: ".ui-critical",
+      default: "false",
+      description: "A destructive item in a [Menu](/components/menu).",
+      group: "Colors",
+      prop: "critical",
+    },
+    {
+      description: 'Disables the item when `as` is `"button"`.',
+      prop: "disabled",
+    },
+    {
       description: "The `for` attribute of the `<label>` when `type` is set.",
+      frameworks: ["astro", "svelte", "vue"],
       prop: "for",
     },
     {
-      description: 'The link to use, with `as="a"`.',
+      description: "The link to use. Renders an `<a>` inside the `<li>`.",
       prop: "href",
+    },
+    {
+      description: "The `for` attribute of the `<label>` when `type` is set.",
+      frameworks: ["react"],
+      prop: "htmlFor",
+      type: "string",
     },
     {
       class: ".ui-inset",
@@ -35,11 +54,10 @@ export default {
     },
     {
       description:
-        "Wraps the content in a `<label>` for a checkbox, radio or switch.",
+        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
       group: "Controls",
       prop: "type",
       values: {
-        button: null,
         checkbox: "label.ui-checkbox",
         radio: "label.ui-radio",
         switch: "label.ui-switch",
@@ -86,6 +104,11 @@ export default {
       description:
         "Extra content inside `.ui-text`, or all the content when there's no text.",
       name: "default",
+    },
+    {
+      description:
+        "A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.",
+      name: "submenu",
     },
   ],
   source: "ListItem",

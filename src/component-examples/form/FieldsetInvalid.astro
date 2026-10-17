@@ -1,0 +1,17 @@
+---
+import { FieldSet } from "opui-css/astro"
+import { FieldLegend } from "opui-css/astro"
+import { FieldDescription } from "opui-css/astro"
+import { FieldGroup } from "opui-css/astro"
+import { Checkbox } from "opui-css/astro"
+---
+
+<FieldSet aria-describedby="food-error">
+  <FieldLegend>Pet food</FieldLegend>
+  <FieldDescription>Pick at least one.</FieldDescription>
+  <FieldGroup name="food">
+    <Checkbox error value="kibble">Kibble</Checkbox>
+    <Checkbox error value="wet-food">Wet food</Checkbox>
+  </FieldGroup>
+  <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
+</FieldSet>

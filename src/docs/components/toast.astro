@@ -1,12 +1,19 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Code from "../../components/Code.astro"
 import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
-import { Badge, Callout as UICallout } from "@opui/astro"
+import {
+  Badge,
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+} from "opui-css/astro"
+import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
 
 export const description =
   "Non-interruptive and stackable notifications. They pop up like... toast."
@@ -15,7 +22,13 @@ export const description =
 <Component
   description={description}
   slug="toast"
-  browserSupport={["popover", "light-dark", "invoker-commands"]}
+  browserSupport={[
+    "attr",
+    "dir-pseudo",
+    "invoker-commands",
+    "popover",
+    "relative-color",
+  ]}
   changelogPaths={[
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
@@ -33,8 +46,11 @@ export const description =
 
   <div class="ui-not-rich-text">
     <UICallout severity="warning">
-      <Fragment slot="title">Alpha stage</Fragment>
-      <p>This is in no way finished, just an idea put out in the open.</p>
+      <UICalloutIcon />
+      <UICalloutContent>
+        <h3>Alpha stage</h3>
+        <p>This is in no way finished, just an idea put out in the open.</p>
+      </UICalloutContent>
     </UICallout>
   </div>
 
@@ -55,21 +71,74 @@ export const description =
       >. JS only clones the template, fills the structural slots (<code
         >[data-toast-title]</code
       >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
-      <code>[data-toast-close]</code>) using <code>textContent</code>, and
+      {" "}<code>[data-toast-close]</code>) using <code>textContent</code>, and
       removes the toast on <code>animationend</code>. Provide your own <code
         >&lt;template&gt;</code
       > with the same slot markers and reference it via <code
         >data-template</code
       >
-      on the trigger to override the default look.
+      {" "}on the trigger to override the default look.
     </p>
+
+    <h3 id="setup">Setup</h3>
+    <p>
+      Add the manager and the default template once per page, and load <code
+        >toast.js</code
+      > to start the manager. With a bundler, import <code
+        >opui-css/css/js/toast.js</code
+      > instead of the CDN URL.
+    </p>
+    <Code
+      code={`<output
+  aria-live="polite"
+  id="toast-manager"
+  popover="manual"
+  role="status"
+></output>
+<template id="toast-template">
+  <div class="ui-toast" role="alert">
+    <span class="ui-icon" data-toast-icon></span>
+    <div class="ui-content">
+      <div class="ui-title" data-toast-title></div>
+      <div class="ui-description" data-toast-description></div>
+    </div>
+    <button
+      aria-label="Close"
+      class="ui-close-button"
+      data-toast-close
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="20"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+</template>
+<script type="module">
+  import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
+  initToastManager()
+</script>`}
+      lang="html"
+    />
 
     <h3 id="html">HTML</h3>
     <p>
       Use <code>commandfor="toast-manager"</code> and <code
         >command="--show-toast"</code
       >
-      on a button. The <code>data-title</code> attribute will be used as the message.
+      {" "}on a button. The <code>data-title</code> attribute will be used as the
+      message.
     </p>
 
     <AutoExample name="HTML" centered />
@@ -121,6 +190,8 @@ export const description =
 
     <AutoExample name="Duration" row centered />
   </section>
+
+  <ToastBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <p>

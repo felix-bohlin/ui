@@ -12,18 +12,24 @@ defineOptions({
 
 const hasLabel = computed(
   () =>
-    props.type &&
-    (props.type === "checkbox" ||
-      props.type === "radio" ||
-      props.type === "switch"),
+    props.type === "checkbox" ||
+    props.type === "radio" ||
+    props.type === "switch",
 )
-const labelClass = computed(() => props.type || "")
-const Tag = computed(() => props.as)
+const Tag = computed(() =>
+  hasLabel.value ? "label" : (props.as ?? (props.href ? "a" : undefined)),
+)
 
-const liAttrs = computed(() => (Tag.value ? {} : attrs))
-const innerAttrs = computed(() => (Tag.value ? attrs : {}))
-const disabled = computed(() =>
-  "disabled" in props ? props.disabled : undefined,
+const liAttrs = computed(() => (hasLabel.value || !Tag.value ? attrs : {}))
+const tagAttrs = computed(() =>
+  hasLabel.value
+    ? { class: `ui-${props.type}`, for: props.for }
+    : {
+        disabled: props.disabled,
+        href: props.href,
+        type: Tag.value === "button" ? "button" : undefined,
+        ...attrs,
+      },
 )
 </script>
 
@@ -32,41 +38,14 @@ const disabled = computed(() =>
     :class="[
       {
         'ui-border-top': props.borderTop,
+        'ui-critical': props.critical,
         'ui-inset': props.inset,
       },
       props.class,
     ]"
     v-bind="liAttrs"
   >
-    <label
-      v-if="hasLabel"
-      :class="labelClass && `ui-${labelClass}`"
-      :for="props.for"
-    >
-      <div v-if="slots.start" class="ui-start">
-        <slot name="start"></slot>
-      </div>
-      <div
-        v-if="slots.text || props.headline || props.description"
-        class="ui-text"
-      >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
-        <slot name="text"></slot>
-      </div>
-      <div v-if="slots.end" class="ui-end">
-        <slot name="end"></slot>
-      </div>
-      <slot></slot>
-    </label>
-
-    <component
-      :is="Tag"
-      v-else-if="Tag"
-      :disabled="disabled"
-      :href="props.href"
-      v-bind="innerAttrs"
-    >
+    <component :is="Tag" v-if="Tag" v-bind="tagAttrs">
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
@@ -103,5 +82,6 @@ const disabled = computed(() =>
         <slot name="end"></slot>
       </div>
     </template>
+    <slot name="submenu"></slot>
   </li>
 </template>

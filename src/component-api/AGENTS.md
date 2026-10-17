@@ -1,0 +1,86 @@
+# Component API Documentation Guide
+
+This guide defines the standards for documenting component APIs (HTML, Astro, React, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files.
+
+## Checklist for Documentation
+
+When creating or updating a component API, ensure:
+
+- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)) in one folder per component, such as `src/component-api/button/api.ts`.
+- [ ] **CSS Verified**: Every class, selector and part selector exists in the component's CSS file in `packages/opui/css/components/`.
+- [ ] **Inline code**: Wrap classes, selectors, tags and props in backticks in descriptions and notes. `formatInline` renders them as `<code>` and escapes HTML, so never write `<code>` tags. Link to docs pages with `[label](/components/name)`.
+- [ ] **Class Prefixing**: Classes in `class` and `values` use the `ui-` prefix and a leading dot (`.ui-primary`).
+- [ ] **Baseline value**: Map an enum value that adds no class to `null` in `values` (`values: { end: ".ui-align-end", start: null }`). The table shows it as `default`.
+- [ ] **Standard groups**: Use `Variants`, `Sizes`, `Colors` and `Orientation` as the `group` where they fit.
+- [ ] **Short Descriptions**: All descriptions are very short and concise (often a single sentence fragment). Reuse the standard phrases:
+  - `The variant to use.` (for Variants)
+  - `The size of the element.` (for Sizes)
+  - `Optional colors.` (for Colors)
+  - `The orientation of the element.` (for Orientation)
+
+`ApiTables` generates the rest: the column layout and widths, `default` and `-` in the Default column, and comma-separated types.
+
+## Framework-specific APIs
+
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `toast` still uses:
+
+```
+src/component-api/button/
+  api.ts
+src/component-api/toast/
+  HTML.astro
+```
+
+The doc page is just:
+
+```astro
+<Component slug="button">...</Component>
+```
+
+No `apis` prop, no manual imports.
+
+Pass `apis={[ ... ]}` explicitly to give the section a title, or to show several API sections on one page (e.g., a component plus its `*Group` companion):
+
+```astro
+---
+import buttonApi from "../../component-api/button/api"
+import buttonGroupApi from "../../component-api/button-group/api"
+---
+
+<Component
+  apis={[
+    { title: "Button group API", api: buttonGroupApi },
+    { title: "Button API", api: buttonApi },
+  ]}>...</Component
+>
+```
+
+## Data-driven APIs (`api.ts`)
+
+`src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
+
+- `component`: (Required) the name shown in tables and build warnings, such as `TextField` or `TabsItem`.
+- `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`.
+- `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
+- `file`: the component file name when it differs from `component`. Props are read from the `<file>Props` type, or from `Props` when `file` (or `component`) is the `source` folder's own component, so a sub-API never picks up its root's props.
+- `hydration`: per-framework props that need a client directive, each with a `description` and an optional `fallback`. They get a marker in the props table.
+- `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionListTerm", react: "DescriptionListTerm", svelte: "DescriptionListTerm", vue: "DescriptionListTerm" }`. Container parts (`CardHeader`, `AccordionSummary`) always set `component`; a part with its own props or slots also gets its own `api.ts`, like `card-actions`. `snippets` lists the Svelte snippets and React slot props that fill the part when they differ from the slots, such as `valueText` for the Range `value` slot. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
+- `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Every option has its own `group`; the build warns when two share one. Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
+  - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
+  - `part` is the selector of the part that gets the modifier, such as `input` for the Checkbox `error` option.
+  - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
+  - `htmlDescription` replaces the description in the HTML table, for an option whose HTML use differs, such as a `name` that Astro, Svelte and Vue generate.
+  - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
+- `slots`: slots that aren't parts, such as `default`.
+- `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
+- `model` and `notes`: the bound value and per-framework notes.
+
+Prop names and types are read from each framework's types file, Astro and Vue slots from the component source, Svelte snippets from the `{@render}` tags in the component source, and React slot props from `types.react.ts`, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source, and when a component exported from a barrel in `packages/opui/<framework>/index.ts` is neither an `api.ts`'s `component` nor a root's or part's `component`.
+
+Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
+
+## Toast
+
+Only `toast` still uses a hand-written table, `src/component-api/toast/HTML.astro`, built from the `Table` parts in `opui-css/astro`. It uses the HTML columns (`Type`, `Modifiers`, `Default`, `Description`), `<code>` tags for classes and attributes, and `style="min-width: …"` on each `TableColumn`. Convert it to `api.ts` when touching it.
+
+Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-framework APIs.

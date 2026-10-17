@@ -1,61 +1,76 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<Props>(), {
-  type: "text",
-})
+const {
+  autoFit,
+  endText,
+  error,
+  id,
+  label,
+  size,
+  spread,
+  startText,
+  type = "text",
+  value,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<string | number>()
 
 const model = computed({
-  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
+  get: () => modelValue.value ?? value,
   set: (value) => {
     modelValue.value = value
   },
 })
 
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
-const startTextValue = computed(() => props.description || props.startText)
+const fieldName = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
   <label
     :class="[
       'ui-text-field',
+      size && `ui-${size}`,
       {
-        'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
-        'ui-spread': props.spread,
-        'ui-small': props.small,
+        'ui-auto-fit': autoFit,
+        'ui-filled': variant === 'filled',
+        'ui-spread': spread,
       },
-      props.class,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
+    <span v-if="label || $slots.label" class="ui-label">
+      <slot name="label">{{ label }}</slot>
     </span>
 
-    <span v-if="startTextValue || $slots.description" class="ui-start-text">
-      <slot name="description">{{ startTextValue }}</slot>
+    <span v-if="startText || $slots['start-text']" class="ui-start-text">
+      <slot name="start-text">{{ startText }}</slot>
     </span>
 
     <span class="ui-field">
       <input
-        :id="props.id"
-        :name="currentFieldName"
-        :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
-        :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
-        :type="props.type === 'numeric' ? 'text' : props.type"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-model="model"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="id"
+        :inputmode="
+          attrs.inputmode ?? (type === 'numeric' ? 'numeric' : undefined)
+        "
+        :name="attrs.name ?? fieldName"
+        :pattern="attrs.pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
+        :type="type === 'numeric' ? 'text' : type"
       />
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
@@ -71,12 +86,8 @@ const startTextValue = computed(() => props.description || props.startText)
       ></span>
     </span>
 
-    <span
-      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ props.endText }}</slot
-      ><slot name="supporting-text"></slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      <slot name="end-text">{{ endText }}</slot>
     </span>
 
     <slot></slot>

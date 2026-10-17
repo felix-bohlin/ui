@@ -1,41 +1,25 @@
 ---
 import type { TabsItemProps as Props } from "./types.astro"
+import { createId } from "../id"
+import { tabsContext } from "./context.astro"
 
-const { $id } = Astro.locals
-const {
-  class: className,
-  name,
-  open,
-  tabId = $id("tab"),
-  panelId = $id("panel"),
-  ...rest
-} = Astro.props
+const $id = createId(Astro.locals)
+const { class: className, name, open, tabId, ...rest } = Astro.props
 
-const escapeAttr = (value: string) =>
-  value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
-
-const slotHtml = (await Astro.slots.render("default")) ?? ""
-const html = slotHtml
-  .replace(
-    /<label\b(?=[^>]*\sclass="[^"]*\bui-tab-label\b)(?![^>]*\sfor=)/g,
-    () => `<label for="${escapeAttr(tabId)}"`,
-  )
-  .replace(
-    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\sid=)/g,
-    () => `<div id="${escapeAttr(panelId)}"`,
-  )
-  .replace(
-    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\saria-labelledby=)/g,
-    () => `<div aria-labelledby="${escapeAttr(tabId)}"`,
-  )
+const parent = tabsContext.get()
+const groupName = name || parent?.groupName || $id("tabs")
+const computedTabId = tabId || $id("tab")
+const html = await tabsContext.provide(
+  { groupName, tabId: computedTabId },
+  () => Astro.slots.render("default"),
+)
 ---
 
 <input
-  aria-controls={panelId}
   checked={open}
   class:list={["ui-tab-input", className]}
-  id={tabId}
-  name={name}
+  id={computedTabId}
+  name={groupName}
   type="radio"
   {...rest}
 />

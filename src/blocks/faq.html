@@ -1,0 +1,405 @@
+<style>
+  .faq {
+    container-type: inline-size;
+
+    .faq-inner {
+      display: grid;
+      gap: var(--size-6);
+      grid-template-columns: minmax(0, 1fr);
+      margin-inline: auto;
+      max-inline-size: 72rem;
+
+      @container (inline-size >= 56rem) {
+        align-content: start;
+        column-gap: var(--size-8);
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+
+        .ui-tabs {
+          align-self: start;
+          grid-column: 2;
+          grid-row: 1 / span 2;
+        }
+      }
+    }
+
+    .faq-support {
+      .ui-content {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-3);
+      }
+
+      .faq-agent p {
+        margin: 0;
+      }
+    }
+
+    .faq-online {
+      align-items: center;
+      display: inline-flex;
+      gap: var(--size-2);
+
+      &::before {
+        background-color: var(--success);
+        block-size: var(--size-2);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--size-2);
+      }
+    }
+
+    .ui-tab-panel p {
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="faq">
+  <div class="faq-inner">
+    <hgroup class="ui-hgroup">
+      <p>Help center</p>
+      <h1 class="ui-h2">Frequently asked questions</h1>
+      <p>
+        Quick answers about plans, billing and keeping your data safe. Can't
+        find what you're looking for? We're happy to help.
+      </p>
+    </hgroup>
+
+    <div class="ui-tabs ui-line">
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-general"
+        class="ui-tab-input"
+        checked
+      />
+      <label for="faq-tab-general" class="ui-tab-label">General</label>
+      <div class="ui-tab-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="General questions"
+        >
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-general"
+            open
+          >
+            <summary>
+              How long is the free trial?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Every plan starts with a 14-day trial with all Business features
+                included. No credit card needed, and your workspace stays put if
+                you upgrade later.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-general"
+          >
+            <summary>
+              Can I import from another tool?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Yes. Import projects, issues and comments from Jira, Trello,
+                Asana or a CSV file. Most teams are fully moved over in under an
+                hour.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-general"
+          >
+            <summary>
+              Is there a mobile app?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Northwind has native apps for iOS and Android with offline
+                support, push notifications and quick capture from the share
+                sheet.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-general"
+          >
+            <summary>
+              Do you offer discounts for non-profits?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Registered non-profits and schools get 50% off any paid plan.
+                Reach out to our team with proof of status and we'll apply it to
+                your account.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-billing"
+        class="ui-tab-input"
+      />
+      <label for="faq-tab-billing" class="ui-tab-label">Billing</label>
+      <div class="ui-tab-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="Billing questions"
+        >
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-billing"
+          >
+            <summary>
+              Which payment methods do you accept?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                We accept all major credit cards, SEPA direct debit and invoices
+                with 30-day terms on yearly plans over €2 000.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-billing"
+          >
+            <summary>
+              Can I change plans at any time?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Upgrades take effect right away and are prorated. Downgrades
+                apply at the end of your current billing period.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-billing"
+          >
+            <summary>
+              What happens when I add more members?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                New members are added to your next invoice, prorated to the day.
+                Guests and viewers are always free.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="faq-category"
+        id="faq-tab-security"
+        class="ui-tab-input"
+      />
+      <label for="faq-tab-security" class="ui-tab-label">Security</label>
+      <div class="ui-tab-panel">
+        <div
+          class="ui-card ui-outlined"
+          role="group"
+          aria-label="Security questions"
+        >
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-security"
+          >
+            <summary>
+              Where is my data stored?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                All data is stored in data centers in Frankfurt and Stockholm,
+                encrypted at rest with AES-256 and in transit with TLS 1.3.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-security"
+          >
+            <summary>
+              Do you support single sign-on?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                SAML SSO and SCIM provisioning are available on the Business and
+                Enterprise plans, with support for Okta, Entra ID and Google
+                Workspace.
+              </p>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="faq-security"
+          >
+            <summary>
+              Are you GDPR and SOC 2 compliant?
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <p>
+                Yes. We're SOC 2 Type II certified, sign a DPA with every
+                customer and publish our sub-processors on the trust page.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <section
+      class="ui-card ui-outlined faq-support"
+      aria-labelledby="faq-support-heading"
+    >
+      <hgroup>
+        <h2 class="ui-h5" id="faq-support-heading">Still have questions?</h2>
+        <p>Our support team in Stockholm usually replies within 2 hours.</p>
+      </hgroup>
+      <div class="ui-content">
+        <div class="ui-avatar" aria-hidden="true">AH</div>
+        <div class="faq-agent">
+          <p>Astrid Holm</p>
+          <p class="ui-caption faq-online">Online now, Mon–Fri 08–18 CET</p>
+        </div>
+      </div>
+      <div class="ui-actions">
+        <a class="ui-button ui-filled" href="#faq-chat">Chat with us</a>
+        <a class="ui-button ui-outlined" href="#faq-email">Email support</a>
+      </div>
+    </section>
+  </div>
+</div>

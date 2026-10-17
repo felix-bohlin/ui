@@ -1,0 +1,19 @@
+<script lang="ts">
+  import { Card, CardContent, Divider } from "opui-css/svelte"
+</script>
+
+<Card variant="outlined">
+  <CardContent>Inside a card, the gap spaces the divider.</CardContent>
+  <Divider />
+  <CardContent>
+    Nested deeper, it uses the card's tighter space.
+    <Divider />
+    So everything stays close together.
+  </CardContent>
+</Card>
+
+<div style="--divider-space: var(--size-1)">
+  A custom space on any wrapper
+  <Divider />
+  reaches every divider inside it.
+</div>

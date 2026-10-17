@@ -1,0 +1,413 @@
+<style>
+  .pricing {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-7);
+    margin-inline: auto;
+    max-inline-size: 72rem;
+
+    &:has(#pricing-period-monthly:checked) .pricing-yearly,
+    &:has(#pricing-period-yearly:checked) .pricing-monthly {
+      display: none;
+    }
+
+    .pricing-intro {
+      display: grid;
+      gap: var(--size-5);
+      justify-items: center;
+      margin-inline: auto;
+      max-inline-size: 40rem;
+      text-align: center;
+
+      h1 {
+        text-wrap: balance;
+      }
+    }
+
+    .pricing-period {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      justify-content: center;
+    }
+
+    .pricing-save {
+      color: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+      font-size: var(--font-size-1);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .pricing-plans {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: minmax(0, 1fr);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      @container (inline-size >= 52rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .pricing-plan {
+      block-size: 100%;
+
+      &.pricing-featured {
+        outline: var(--border-size-2) solid var(--primary);
+        outline-offset: calc(-1 * var(--border-size-2));
+      }
+
+      .ui-content {
+        display: grid;
+        gap: var(--size-4);
+      }
+    }
+
+    .pricing-badge {
+      inset-block-start: var(--size-3);
+      inset-inline-end: var(--size-3);
+      position: absolute;
+    }
+
+    .pricing-price {
+      display: grid;
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    .pricing-amount {
+      font-size: var(--font-size-6);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+    }
+
+    .pricing-unit {
+      color: var(--text-muted);
+      font-size: var(--font-size-1);
+    }
+
+    .pricing-cta {
+      justify-content: center;
+    }
+
+    .pricing-features {
+      display: grid;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        align-items: start;
+        display: flex;
+        gap: var(--size-2);
+
+        &::before {
+          flex-shrink: 0;
+          margin-block-start: 0.15em;
+        }
+      }
+    }
+
+    .pricing-check,
+    .pricing-features li::before {
+      background-color: light-dark(
+        oklch(from var(--success) 0.45 c h),
+        oklch(from var(--success) 0.8 c h)
+      );
+      block-size: var(--size-4);
+      content: "";
+      display: inline-block;
+      inline-size: var(--size-4);
+      mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20.7 6.3a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.4l4.3 4.29 9.3-9.3a1 1 0 0 1 1.4 0'/></svg>")
+        center / contain no-repeat;
+      vertical-align: middle;
+    }
+
+    .pricing-dash {
+      color: var(--text-muted);
+    }
+
+    .pricing-compare {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    .pricing-table {
+      overflow-x: auto;
+
+      .ui-table {
+        margin-block: 0;
+        min-inline-size: 36rem;
+        table-layout: fixed;
+      }
+
+      th[scope="row"] {
+        font-weight: var(--font-weight-4);
+      }
+
+      :is(td, thead th:not(:first-child)) {
+        text-align: center;
+      }
+    }
+
+    .pricing-note {
+      margin: 0;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="pricing">
+  <div class="pricing-intro">
+    <hgroup class="ui-hgroup">
+      <p>Pricing</p>
+      <h1 class="ui-h2">Simple plans that grow with your team</h1>
+      <p>
+        Start free, upgrade when you need more. Every paid plan comes with a
+        14-day trial.
+      </p>
+    </hgroup>
+    <div class="pricing-period">
+      <div
+        aria-label="Billing period"
+        class="ui-toggle-group"
+        role="radiogroup"
+      >
+        <label class="ui-toggle-button">
+          <input
+            id="pricing-period-monthly"
+            name="pricing-period"
+            type="radio"
+            value="monthly"
+          />
+          Monthly
+        </label>
+        <label class="ui-toggle-button">
+          <input
+            id="pricing-period-yearly"
+            name="pricing-period"
+            type="radio"
+            value="yearly"
+            checked
+          />
+          Yearly
+        </label>
+      </div>
+      <span class="pricing-save">Save 2 months with yearly billing</span>
+    </div>
+  </div>
+
+  <ul class="pricing-plans">
+    <li>
+      <section
+        class="ui-card ui-outlined pricing-plan"
+        aria-labelledby="pricing-starter-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="pricing-starter-heading">Starter</h2>
+          <p>For individuals and small side projects.</p>
+        </hgroup>
+        <div class="ui-content">
+          <p class="pricing-price">
+            <span class="pricing-amount">€0</span
+            ><span class="pricing-unit">Free forever</span>
+          </p>
+          <a class="ui-button ui-outlined pricing-cta" href="#pricing-starter"
+            >Get started</a
+          >
+          <ul class="pricing-features">
+            <li>Up to 3 members</li>
+            <li>2 active projects</li>
+            <li>Board and list views</li>
+            <li>Community support</li>
+          </ul>
+        </div>
+      </section>
+    </li>
+    <li>
+      <section
+        class="ui-card ui-elevated pricing-plan pricing-featured"
+        aria-labelledby="pricing-team-heading"
+      >
+        <span class="ui-chip ui-small pricing-badge"
+          ><span class="ui-text">Most popular</span></span
+        >
+        <hgroup>
+          <h2 class="ui-h5" id="pricing-team-heading">Team</h2>
+          <p>For growing teams that ship every week.</p>
+        </hgroup>
+        <div class="ui-content">
+          <p class="pricing-price pricing-monthly">
+            <span class="pricing-amount">€12</span
+            ><span class="pricing-unit">per member / month</span>
+          </p>
+          <p class="pricing-price pricing-yearly">
+            <span class="pricing-amount">€10</span
+            ><span class="pricing-unit">per member / month, billed yearly</span>
+          </p>
+          <a class="ui-button ui-filled pricing-cta" href="#pricing-team"
+            >Start free trial</a
+          >
+          <ul class="pricing-features">
+            <li>Everything in Starter</li>
+            <li>Unlimited members and projects</li>
+            <li>Roadmaps and sprints</li>
+            <li>Insights dashboard</li>
+            <li>Priority email support</li>
+          </ul>
+        </div>
+      </section>
+    </li>
+    <li>
+      <section
+        class="ui-card ui-outlined pricing-plan"
+        aria-labelledby="pricing-business-heading"
+      >
+        <hgroup>
+          <h2 class="ui-h5" id="pricing-business-heading">Business</h2>
+          <p>For companies with strict security needs.</p>
+        </hgroup>
+        <div class="ui-content">
+          <p class="pricing-price pricing-monthly">
+            <span class="pricing-amount">€24</span
+            ><span class="pricing-unit">per member / month</span>
+          </p>
+          <p class="pricing-price pricing-yearly">
+            <span class="pricing-amount">€20</span
+            ><span class="pricing-unit">per member / month, billed yearly</span>
+          </p>
+          <a class="ui-button ui-outlined pricing-cta" href="#pricing-business"
+            >Contact sales</a
+          >
+          <ul class="pricing-features">
+            <li>Everything in Team</li>
+            <li>SAML SSO and SCIM</li>
+            <li>Audit log and data retention</li>
+            <li>EU data residency</li>
+            <li>Dedicated success manager</li>
+          </ul>
+        </div>
+      </section>
+    </li>
+  </ul>
+
+  <div class="pricing-compare">
+    <h2 class="ui-h4" id="pricing-compare-heading">Compare plans</h2>
+    <div
+      aria-labelledby="pricing-compare-heading"
+      class="pricing-table"
+      role="region"
+      tabindex="0"
+    >
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Starter</th>
+            <th scope="col">Team</th>
+            <th scope="col">Business</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Members</th>
+            <td>Up to 3</td>
+            <td>Unlimited</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <th scope="row">Projects</th>
+            <td>2</td>
+            <td>Unlimited</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <th scope="row">File storage</th>
+            <td>1 GB</td>
+            <td>100 GB per member</td>
+            <td>1 TB per member</td>
+          </tr>
+          <tr>
+            <th scope="row">Roadmaps and sprints</th>
+            <td>
+              <span class="pricing-dash" aria-hidden="true">–</span
+              ><span class="ui-sr-only">Not included</span>
+            </td>
+            <td>
+              <span
+                class="pricing-check"
+                role="img"
+                aria-label="Included"
+              ></span>
+            </td>
+            <td>
+              <span
+                class="pricing-check"
+                role="img"
+                aria-label="Included"
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Insights dashboard</th>
+            <td>
+              <span class="pricing-dash" aria-hidden="true">–</span
+              ><span class="ui-sr-only">Not included</span>
+            </td>
+            <td>
+              <span
+                class="pricing-check"
+                role="img"
+                aria-label="Included"
+              ></span>
+            </td>
+            <td>
+              <span
+                class="pricing-check"
+                role="img"
+                aria-label="Included"
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">SAML SSO and SCIM</th>
+            <td>
+              <span class="pricing-dash" aria-hidden="true">–</span
+              ><span class="ui-sr-only">Not included</span>
+            </td>
+            <td>
+              <span class="pricing-dash" aria-hidden="true">–</span
+              ><span class="ui-sr-only">Not included</span>
+            </td>
+            <td>
+              <span
+                class="pricing-check"
+                role="img"
+                aria-label="Included"
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Support</th>
+            <td>Community</td>
+            <td>Priority email</td>
+            <td>Dedicated manager</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="ui-caption pricing-note">
+    Prices in EUR, excluding VAT. Need more than 200 seats?
+    <a class="ui-link" href="#pricing-sales">Talk to sales</a>.
+  </p>
+</div>

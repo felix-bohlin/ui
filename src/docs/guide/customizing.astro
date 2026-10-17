@@ -1,0 +1,183 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Customizing</Fragment>
+  <Fragment slot="preamble">
+    Theme tokens change the whole library. When you want to change one
+    component, or one instance of it, reach for its <code>--_</code> custom properties.
+  </Fragment>
+
+  <section>
+    <h2 id="component-properties">Component properties</h2>
+    <p>
+      There are two kinds of custom properties. <DocLink
+        href="/guide/theme-tokens">Theme tokens</DocLink
+      >, like <code>--primary</code> or <code>--button-size</code>, are set on
+      <code>html</code> and inherited by everything. Change one and every component
+      that reads it follows.
+    </p>
+    <p>
+      Component properties start with <code>--_</code>, like <code
+        >--_accent</code
+      > or <code>--_icon-size</code>. Each component declares them on itself and
+      builds its styles from them. They're the knobs for that one component, and
+      the API for customizing it.
+    </p>
+    <p>For example, Button reads these:</p>
+    <ul>
+      <li>
+        <code>--_accent</code>: the accent color. Fills, borders, text, hover
+        and active states are all derived from it.
+      </li>
+      <li>
+        <code>--_bg-color</code> and <code>--_text-color</code>: the current
+        background and text color.
+      </li>
+      <li>
+        <code>--_icon-size</code>: the size of a direct child <code>svg</code>.
+      </li>
+      <li><code>--_min-height</code>: the height, set by the size classes.</li>
+      <li>
+        <code>--_motion</code>: the motion multiplier, <code>0</code> turns transitions
+        off.
+      </li>
+      <li>
+        <code>--_padding-inline</code>: the inline padding, set by the size
+        classes.
+      </li>
+    </ul>
+    <p>
+      Other components use the same names where they mean the same thing, like
+      <code>--_size</code> for the height of a Badge. Open a component's CSS to see
+      what it reads.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="set-them-on-the-component">Set them on the component</h2>
+    <p>
+      Theme tokens can be set on any parent, since they're inherited. <code
+        >--_</code
+      > properties can't: the component declares its own value, and a declared value
+      always beats an inherited one. So set them on the component itself.
+    </p>
+    <Code
+      code={`/* Does nothing: every .ui-button sets its own --_icon-size */
+.toolbar {
+  --_icon-size: 1.25em;
+}
+
+/* Works */
+.toolbar .ui-button {
+  --_icon-size: 1.25em;
+}
+
+/* Theme tokens are inherited, so a parent is fine */
+.toolbar {
+  --button-border-radius: var(--radius-round);
+}`}
+      lang="css"
+    />
+    <p>
+      An inline <code>style</code> works too, for a one-off:
+    </p>
+    <Example centered>
+      <button
+        class="ui-button ui-filled"
+        style="--_accent: var(--green)"
+        type="button"
+      >
+        Green filled
+      </button>
+      <button
+        class="ui-button ui-outlined"
+        style="--_accent: var(--green)"
+        type="button"
+      >
+        Green outlined
+      </button>
+    </Example>
+    <p>
+      Prefer the inputs, like <code>--_accent</code>, over the outputs, like <code
+        >--_bg-color</code
+      >. Hover, active and disabled states set the outputs too, so overriding <code
+        >--_bg-color</code
+      > freezes the background in every state, while a new <code>--_accent</code
+      > flows through all of them.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="unlayered-or-your-own-layer">Unlayered or your own layer</h2>
+    <p>
+      All OPUI styles live in <DocLink href="/guide/concepts#cascade-layers"
+        >cascade layers</DocLink
+      >. Where you put your overrides decides how they compete with the library,
+      and with each other.
+    </p>
+    <h3 id="unlayered">Unlayered</h3>
+    <p>
+      CSS outside any layer beats every layer, whatever the specificity. Simple,
+      and fine for most apps:
+    </p>
+    <Code
+      code={`.ui-button.compact {
+  --_min-height: var(--size-7);
+  --_padding-inline: 1ex;
+}`}
+      lang="css"
+    />
+    <h3 id="your-own-layer">Your own layer</h3>
+    <p>
+      If you use layers yourself, add one after <code>utils</code>. It beats the
+      library and still loses to your unlayered CSS, so one-off fixes keep
+      working:
+    </p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
+
+@layer overrides {
+  .ui-badge {
+    --_size: var(--size-5);
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      Layers are ordered by where they're first mentioned, so a layer you first
+      use after the OPUI imports already lands after <code>utils</code>.
+      Spelling out the full order is just nicer to read.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="more-examples">More examples</h2>
+    <p>Bigger icons in a toolbar, without touching the buttons elsewhere:</p>
+    <Code
+      code={`.toolbar .ui-button {
+  --_icon-size: var(--size-5);
+}`}
+      lang="css"
+    />
+    <p>A critical button that skips its color transitions:</p>
+    <Code
+      code={`<button class="ui-button ui-filled ui-critical" style="--_motion: 0" type="button">
+  Delete
+</button>`}
+      lang="html"
+    />
+    <p>
+      Need to change it everywhere instead? Then it's a theme token, see <DocLink
+        href="/guide/theme-tokens">Theme tokens</DocLink
+      > or try the <DocLink href="/guide/theme-generator"
+        >Theme generator</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> covers the palette, density,
+      motion and contrast.
+    </p>
+  </section>
+</Guide>

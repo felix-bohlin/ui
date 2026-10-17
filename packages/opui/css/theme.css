@@ -206,7 +206,7 @@
     --text-muted: light-dark(var(--gray-13), var(--gray-4));
     --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
     --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-primary-contrast: var(--text-inverse);
 
     /* Surfaces */
     --surface-default: light-dark(var(--gray-1), var(--gray-13));

@@ -164,6 +164,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--text-muted": "Body text color.",
   "--text-muted-contrast": "Muted text color on an inverted surface.",
   "--text-primary": "Emphasized text color for headings, labels and values.",
-  "--text-primary-contrast": "Emphasized text color on an inverted surface.",
+  "--text-primary-contrast":
+    "Same as `--text-inverse`. Kept for older themes, use `--text-inverse` instead.",
   "--warning": "Severity color for warnings.",
 }

@@ -8,6 +8,7 @@
     );
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
+    --_divider-color: var(--_border-color);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease-enter);
     --_margin-block: var(--_offset);
@@ -34,11 +35,6 @@
     padding-block: var(--size-1);
     padding-inline: 0;
 
-    & > .ui-border-top::before,
-    &.ui-bordered > :where(li + li, option + option)::before {
-      border-block-start-color: var(--_border-color);
-    }
-
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
       inset: auto;
@@ -61,7 +57,7 @@
         overlay var(--_duration) allow-discrete,
         scale var(--_duration) var(--_ease);
 
-      /* Firefox and Safari fallback */
+      /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
           var(--_max-block-size),
@@ -120,6 +116,11 @@
       anchor-scope: --ui-menu-root;
     }
 
+    /* Submenus of submenus keep a flipped parent's direction: once the parent
+       item sits on the root menu's start side, their end edge stops at the
+       root menu's start edge. * 1000 makes min() and max() pick either that
+       edge or 0. Replace with an anchored(fallback: flip-inline) container
+       query once lightningcss parses it. */
     & .ui-menu .ui-menu[popover] {
       inset-inline-end: max(
         0px,
@@ -131,6 +132,8 @@
       inset-inline-start: 0;
     }
 
+    /* iOS Safari doesn't place a submenu at its trigger item, so there it
+       anchors to the parent menu. Remove once iOS Safari does. */
     @supports (-webkit-touch-callout: none) {
       &:has(.ui-menu[popover]) {
         anchor-name: --ui-menu;

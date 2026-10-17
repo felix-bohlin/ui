@@ -1,28 +1,28 @@
 @layer components.root {
   :where(.ui-divider) {
-    --_color: var(--border-color);
+    --_divider-color: var(--border-color);
 
-    background-color: var(--_color);
+    background-color: var(--_divider-color);
     block-size: var(--border-width);
     margin-block: var(--divider-space, var(--size-fluid-3));
 
     /* Border color */
     &.ui-filled {
-      --_color: var(--surface-filled);
+      --_divider-color: var(--surface-filled);
     }
 
     &.ui-primary {
-      --_color: var(--primary);
+      --_divider-color: var(--primary);
     }
 
     &.ui-tonal {
-      --_color: var(--surface-tonal);
+      --_divider-color: var(--surface-tonal);
     }
 
     @container style(--contrast: more) {
       &.ui-filled,
       &.ui-tonal {
-        --_color: var(--border-color);
+        --_divider-color: var(--border-color);
       }
     }
 
@@ -38,7 +38,7 @@
 
       &::before,
       &::after {
-        background-color: var(--_color);
+        background-color: var(--_divider-color);
         block-size: var(--border-width);
         content: "";
         flex: 1;

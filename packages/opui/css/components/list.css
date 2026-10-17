@@ -8,11 +8,11 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);
+    --_divider-color: color-mix(in oklch, currentColor 18%, transparent);
     --_hover-bg-color: oklch(
       from var(--primary) l c h / var(--state-hover-alpha-accent)
     );
     --_item-gap: var(--size-3);
-    --_separator-color: color-mix(in oklch, currentColor 18%, transparent);
     --_separator-space: var(--size-3);
     --_start-size: var(--icon-size);
 
@@ -31,7 +31,7 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     @container style(--contrast: more) {
-      --_separator-color: var(--border-color);
+      --_divider-color: var(--border-color);
     }
 
     /* Background color */
@@ -52,7 +52,7 @@ Lists meant to be used stand-alone or as part of Select elements
       margin-block-start: var(--_separator-space);
 
       &::before {
-        border-block-start: var(--border-width) solid var(--_separator-color);
+        border-block-start: var(--border-width) solid var(--_divider-color);
         content: "";
         display: block;
         inset-block: calc(var(--_separator-space) / -2) auto;

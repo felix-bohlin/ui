@@ -5,16 +5,16 @@
     --_border-color: transparent;
     --_border-width: 0;
     --_elevated-bg-color: var(--surface-elevated);
+    --_elevated-shadow: var(--_shadow-light);
     --_outlined-border-color: var(--border-color);
     --_shadow: none;
     --_shadow-dark: var(--shadow-4);
-    --_shadow-elevated: var(--_shadow-light);
     --_shadow-light: var(--shadow-3);
     --_surface-bg-color: var(--surface-default);
     --_tonal-bg-color: var(--surface-tonal);
 
     @container style(--color-scheme: dark) {
-      --_shadow-elevated: var(--_shadow-dark);
+      --_elevated-shadow: var(--_shadow-dark);
     }
 
     background-color: var(--_bg-color);
@@ -50,7 +50,7 @@
       --_bg-color: var(--_elevated-bg-color);
       --_border-color: var(--_surface-bg-color);
       --_border-width: var(--border-width);
-      --_shadow: var(--_shadow-elevated);
+      --_shadow: var(--_elevated-shadow);
     }
 
     &.ui-outlined {

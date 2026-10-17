@@ -65,7 +65,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Delete"
-      border-top
+      borderTop
       critical
       commandfor="menu-custom"
       command="hide-popover"

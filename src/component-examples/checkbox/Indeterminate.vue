@@ -20,9 +20,9 @@ function toggleAll() {
     <FieldLegend>
       <Checkbox
         class="parent"
-        :model-value="allChecked"
+        :modelValue="allChecked"
         :indeterminate="indeterminate"
-        @update:model-value="toggleAll"
+        @update:modelValue="toggleAll"
         >Select all</Checkbox
       >
     </FieldLegend>

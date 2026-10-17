@@ -89,7 +89,7 @@ const experience = ref(5)
           max="20"
           step="1"
           v-model="experience"
-          start-text="Drag the slider to match your total tenure."
+          startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>
     </FieldSet>

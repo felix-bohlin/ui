@@ -11,7 +11,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel aria-label="Destinations" buttons="outside" :per-view="3">
+  <Carousel aria-label="Destinations" buttons="outside" :perView="3">
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>

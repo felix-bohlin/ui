@@ -5,7 +5,7 @@
     type="button"
     class="ui-button"
     aria-label="More save options"
-    commandfor="split-button-menu-html"
+    commandfor="split-button-menu"
     command="toggle-popover"
   >
     <svg
@@ -22,16 +22,12 @@
     </svg>
   </button>
 
-  <menu
-    id="split-button-menu-html"
-    class="ui-menu ui-list ui-align-end"
-    popover
-  >
+  <menu id="split-button-menu" class="ui-menu ui-list ui-align-end" popover>
     <li>
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="split-button-menu"
       >
         <div class="ui-text"><p>Save as draft</p></div>
       </button>
@@ -40,7 +36,7 @@
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="split-button-menu"
       >
         <div class="ui-text"><p>Save and publish</p></div>
       </button>

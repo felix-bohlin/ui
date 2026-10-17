@@ -9,11 +9,11 @@ import {
 </script>
 
 <template>
-  <Button commandfor="example-dialog" command="show-modal" variant="outlined">
+  <Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
     Open dialog
   </Button>
 
-  <Dialog id="example-dialog">
+  <Dialog id="dialog-basics-1">
     <DialogHeader>
       <h2 class="ui-h4">Newsletter</h2>
     </DialogHeader>
@@ -23,15 +23,8 @@ import {
       </p>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="example-dialog" command="close" type="button">
-        Not now
-      </Button>
-      <Button
-        commandfor="example-dialog"
-        command="close"
-        type="button"
-        variant="filled"
-      >
+      <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
+      <Button commandfor="dialog-basics-1" command="close" variant="filled">
         Subscribe
       </Button>
     </DialogActions>

@@ -408,7 +408,7 @@ const anatomyApi = {
     document
       .querySelectorAll<HTMLElement>(".example-container")
       .forEach((container) => {
-        if (!container.querySelector("[id^='kitchen-sink-example']")) return
+        if (!container.querySelector("#kitchen-sink-example")) return
         if (container.dataset.kitchenSinkSetup) return
         container.dataset.kitchenSinkSetup = "true"
 
@@ -423,9 +423,7 @@ const anatomyApi = {
         )
 
         const updateFields = () => {
-          const example = container.querySelector(
-            "[id^='kitchen-sink-example']",
-          )
+          const example = container.querySelector("#kitchen-sink-example")
           if (!example) return
 
           if (smallToggle) {

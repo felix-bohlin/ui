@@ -30,7 +30,7 @@
 <button type="button" class="ui-button toggle-binding-reset">Reset</button>
 
 <script>
-  function setupToggleBinding() {
+  {
     const text = document.querySelector(".toggle-binding-text")
     const inputs = [
       ...document.querySelectorAll(
@@ -42,7 +42,7 @@
         .filter((input) => input.name === name && input.checked)
         .map((input) => input.value)
 
-    function update() {
+    const update = () => {
       if (!text) return
       text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
         checked("text-format").join(", ") || "none"
@@ -57,6 +57,4 @@
         update()
       })
   }
-
-  setupToggleBinding()
 </script>

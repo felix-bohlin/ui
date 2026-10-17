@@ -10,13 +10,13 @@ export default function LongContent() {
   return (
     <>
       <Button
-        commandfor="example-dialog-long"
+        commandfor="dialog-long-content-1"
         command="show-modal"
         variant="outlined"
       >
         Read the terms
       </Button>
-      <Dialog id="example-dialog-long">
+      <Dialog id="dialog-long-content-1">
         <DialogHeader>
           <h2 className="ui-h4">Terms of service</h2>
         </DialogHeader>
@@ -91,17 +91,12 @@ export default function LongContent() {
           </p>
         </DialogContent>
         <DialogActions>
-          <Button
-            commandfor="example-dialog-long"
-            command="close"
-            type="button"
-          >
+          <Button commandfor="dialog-long-content-1" command="close">
             Decline
           </Button>
           <Button
-            commandfor="example-dialog-long"
+            commandfor="dialog-long-content-1"
             command="close"
-            type="button"
             variant="filled"
           >
             Accept

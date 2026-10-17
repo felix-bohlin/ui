@@ -27,7 +27,7 @@ import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
       .filter((input) => input.name === name && input.checked)
       .map((input) => input.value)
 
-  function update() {
+  const update = () => {
     if (!text) return
     text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
       checked("text-format").join(", ") || "none"

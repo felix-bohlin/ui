@@ -1,17 +1,27 @@
 import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 const tooltips = [
-  { alignment: "block-start", id: "tooltip-top", label: "Above", text: "Top" },
+  {
+    alignment: "block-start",
+    id: "tooltip-alignment-1",
+    label: "Above",
+    text: "Top",
+  },
   {
     alignment: "inline-start",
-    id: "tooltip-start",
+    id: "tooltip-alignment-2",
     label: "Before",
     text: "Start",
   },
-  { alignment: "inline-end", id: "tooltip-end", label: "After", text: "End" },
+  {
+    alignment: "inline-end",
+    id: "tooltip-alignment-3",
+    label: "After",
+    text: "End",
+  },
   {
     alignment: "block-end",
-    id: "tooltip-bottom",
+    id: "tooltip-alignment-4",
     label: "Below",
     text: "Bottom",
   },

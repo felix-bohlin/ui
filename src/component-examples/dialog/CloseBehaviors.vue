@@ -17,14 +17,14 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
 
 <template>
   <Button
-    commandfor="closing-behaviors-dialog"
+    commandfor="dialog-close-behaviors-1"
     command="show-modal"
     variant="outlined"
   >
     Open dialog
   </Button>
 
-  <Dialog id="closing-behaviors-dialog" :closedby="closedby">
+  <Dialog id="dialog-close-behaviors-1" :closedby="closedby">
     <DialogHeader>
       <h2 class="ui-h4">How to close</h2>
     </DialogHeader>
@@ -39,7 +39,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       </FieldSet>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="closing-behaviors-dialog" command="close">
+      <Button commandfor="dialog-close-behaviors-1" command="close">
         Close manually
       </Button>
     </DialogActions>

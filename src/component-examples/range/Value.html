@@ -1,10 +1,10 @@
 <label class="ui-range">
   <span class="ui-label" id="range-value-1-label">Hue</span>
-  <output class="ui-value" for="hueRange" data-suffix="°">250°</output>
+  <output class="ui-value" for="range-value-1" data-suffix="°">250°</output>
   <input
     aria-labelledby="range-value-1-label"
     type="range"
-    id="hueRange"
+    id="range-value-1"
     min="0"
     max="360"
     value="250"
@@ -13,8 +13,8 @@
 
 <script>
   {
-    const input = document.getElementById("hueRange")
-    const output = document.querySelector('output[for="hueRange"]')
+    const input = document.getElementById("range-value-1")
+    const output = document.querySelector('output[for="range-value-1"]')
     input.addEventListener("input", () => {
       output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
     })

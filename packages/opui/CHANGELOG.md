@@ -59,6 +59,7 @@
 - `Select` items are typed `SelectItem`. Rename imports of `Item` from `components/Select/types`.
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
+- `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.
 
 ### Removed
 
@@ -67,7 +68,7 @@
 - `IconButton`. Use `Button`: an icon-only button is square by default, `round` (`.ui-round`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
-- `TextField` no longer takes `startText`, and `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `description` and `endText` (`end-text`).
+- `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `endText` (`end-text`).
 - `Avatar` squircle no longer falls back to a rounded square. Without `corner-shape` it is a circle.
 - `Range` no longer wraps the scroll-driven track fill in `@supports (animation-timeline: view())`.
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
@@ -399,7 +400,7 @@
 - `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
 - `Radio` in Vue follows a passed `checked` without `v-model`.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value` slot content and ranges it didn't render alone, and wires each output once.
-- `Select` adds its description (`.ui-start-text`) to `aria-describedby`, before the end text.
+- `Select` adds its start text (`.ui-start-text`) to `aria-describedby`, before the end text.
 - `Select` `--_motion: 0` on the root also stops the picker and chevron animations.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
 - `TextField`, `Textarea` and `Select` (Vue) can be edited when given a `value` without `v-model`.

@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  € EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -12,9 +12,9 @@ Label Description  € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · v-slot:description`
+- `startText · v-slot:start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -76,9 +76,9 @@ import { Textarea } from "opui-css/vue"
 </template>
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or slot for text between the label and the textarea.
+Use the `startText` prop or `start-text` slot for text between the label and the textarea.
 
 ```vue
 <script setup lang="ts">
@@ -86,7 +86,7 @@ import { Textarea } from "opui-css/vue"
 </script>
 
 <template>
-  <Textarea description="Shown on your public profile" label="Bio" />
+  <Textarea startText="Shown on your public profile" label="Bio" />
 </template>
 ```
 
@@ -197,7 +197,7 @@ import { Textarea } from "opui-css/vue"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```vue
 <script setup lang="ts">
@@ -207,7 +207,7 @@ import { Textarea } from "opui-css/vue"
 <template>
   <Textarea spread placeholder="Hello, world!">
     <template #label>Message</template>
-    <template #description
+    <template #start-text
       >You can write your message here. Keep it short, preferably under 100
       characters.</template
     >
@@ -215,25 +215,25 @@ import { Textarea } from "opui-css/vue"
 
   <Textarea spread placeholder="Additional notes..." variant="filled">
     <template #label>Notes</template>
-    <template #description>Add any additional notes or comments</template>
+    <template #start-text>Add any additional notes or comments</template>
     <template #end-text>Maximum 500 characters</template>
   </Textarea>
 
   <Textarea spread required label="Required">
-    <template #description>You must provide a response</template>
+    <template #start-text>You must provide a response</template>
   </Textarea>
 
   <Textarea spread disabled label="Disabled">
-    <template #description>This textarea is disabled</template>
+    <template #start-text>This textarea is disabled</template>
   </Textarea>
 
   <Textarea spread error label="Invalid Message">
-    <template #description>This textarea has an error</template>
+    <template #start-text>This textarea has an error</template>
     <template #end-text>This value is too short.</template>
   </Textarea>
 
   <Textarea spread label="Bio" placeholder="Tell us about yourself...">
-    <template #description>Shown on your public profile</template>
+    <template #start-text>Shown on your public profile</template>
     <template #prefix>
       <svg
         aria-hidden="true"
@@ -263,7 +263,7 @@ import { Textarea } from "opui-css/vue"
     label="Release notes"
     placeholder="Markdown supported..."
   >
-    <template #description>Shown on the changelog page</template>
+    <template #start-text>Shown on the changelog page</template>
     <template #header>v1.4.0</template>
     <template #footer>Saved 2 minutes ago</template>
     <template #end-text>Drafts are auto-saved</template>
@@ -289,32 +289,32 @@ import { Textarea } from "opui-css/vue"
 
 ### Textarea API
 
-| Prop                                                                                                                                                                        | Type                                | Default      | Description                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`                                                                                                                                                                   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
-| `description`                                                                                                                                                               | `string`                            | -            | Description text displayed above the field.                                 |
-| `endText`                                                                                                                                                                   | `string`                            | -            | Supporting text displayed below the field.                                  |
-| `error`                                                                                                                                                                     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
-| `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                    |
-| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
-| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string`                            | -            | The textarea value.                                                         |
-| `value`                                                                                                                                                                     | `string`                            | -            | The textarea value.                                                         |
-| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
+| Prop                                                                                                                                                                        | Type                                | Default      | Description                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`                                                                                                                                                                   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `endText`                                                                                                                                                                   | `string`                            | -            | Supporting text displayed below the field.                                 |
+| `error`                                                                                                                                                                     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
+| `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<textarea>`.                                                |
+| `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                   |
+| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
+| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText`                                                                                                                                                                 | `string`                            | -            | Start text displayed above the field.                                      |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string`                            | -            | The textarea value.                                                        |
+| `value`                                                                                                                                                                     | `string`                            | -            | The textarea value.                                                        |
+| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
 
 #### Slots
 
-| Slot          | Description                                                    |
-| ------------- | -------------------------------------------------------------- |
-| `default`     | Extra content inside the root.                                 |
-| `description` | Description text displayed above the field.                    |
-| `end-text`    | Supporting text displayed below the field.                     |
-| `footer`      | Content below the textarea, inside the border, with a divider. |
-| `header`      | Content above the textarea, inside the border, with a divider. |
-| `label`       | The label for the field.                                       |
-| `prefix`      | Content at the inline-start of the field, inside the border.   |
-| `suffix`      | Content at the inline-end of the field, inside the border.     |
+| Slot         | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `default`    | Extra content inside the root.                                 |
+| `end-text`   | Supporting text displayed below the field.                     |
+| `footer`     | Content below the textarea, inside the border, with a divider. |
+| `header`     | Content above the textarea, inside the border, with a divider. |
+| `label`      | The label for the field.                                       |
+| `prefix`     | Content at the inline-start of the field, inside the border.   |
+| `start-text` | Start text displayed above the field.                          |
+| `suffix`     | Content at the inline-end of the field, inside the border.     |
 
 #### CSS variables
 
@@ -498,4 +498,4 @@ Import the component from `opui-css/vue`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `supportingText` is gone. Use [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

@@ -10,11 +10,11 @@ export type Props = BaseProps & {
 
 export type Slots = {
   default?: Slot
-  description?: Slot
   "end-text"?: Slot
   footer?: Slot
   header?: Slot
   label?: Slot
   prefix?: Slot
+  "start-text"?: Slot
   suffix?: Slot
 }

@@ -18,12 +18,12 @@
 
     // Snippets
     children,
-    description,
     endText,
     footer,
     header,
     label,
     prefix,
+    startText,
     suffix,
     ...rest
   }: Props = $props()
@@ -36,10 +36,10 @@
   const uid = $props.id()
   const field = getFieldContext()
   const labelId = `select-label-${uid}`
-  const descriptionId = $derived(description ? `start-text-${uid}` : undefined)
+  const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
   const describedBy = $derived(
-    [descriptionId, endTextId, rest["aria-describedby"]]
+    [startTextId, endTextId, rest["aria-describedby"]]
       .filter(Boolean)
       .join(" ") || undefined,
   )
@@ -72,9 +72,9 @@
       {@render content(label)}
     </span>
   {/if}
-  {#if description}
-    <span class="ui-start-text" id={descriptionId}>
-      {@render content(description)}
+  {#if startText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
     </span>
   {/if}
   <span class="ui-field">

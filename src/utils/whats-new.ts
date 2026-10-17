@@ -433,6 +433,9 @@ const whatsNew = {
     components(
       `Breaking: <code>ClassicSelect</code> is gone. Use <code>Select</code>, which falls back to the browser's own picker (<a href="#fallback">Fallback</a>).`,
     ),
+    components(
+      `Breaking: <code>startText</code> replaces <code>description</code>, matching <code>endText</code> (<a href="#spread">Spread</a>).`,
+    ),
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -531,7 +534,7 @@ const whatsNew = {
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
-      `Breaking: <code>startText</code> and <code>supportingText</code> are gone. Use <a href="#description"><code>description</code></a> and <a href="#end-text"><code>endText</code></a>.`,
+      `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
   ],
   textarea: [
@@ -562,7 +565,7 @@ const whatsNew = {
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> and <code>--_height</code> is <code>--_min-height</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
-      `Breaking: <code>supportingText</code> is gone. Use <a href="#end-text"><code>endText</code></a>.`,
+      `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
   ],
   toast: [

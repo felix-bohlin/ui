@@ -7,7 +7,7 @@ export default function Spread() {
         spread
         placeholder="Evil Rabbit"
         label="Name"
-        description="Provide your full name for identification"
+        startText="Provide your full name for identification"
       />
 
       <TextField
@@ -16,7 +16,7 @@ export default function Spread() {
         type="email"
         variant="filled"
         label="Email"
-        description="We'll use this to contact you"
+        startText="We'll use this to contact you"
         endText="Please use a valid email address"
       />
 
@@ -24,21 +24,21 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must fill this in"
+        startText="You must fill this in"
       />
 
       <TextField
         spread
         disabled
         label="Disabled"
-        description="This field is disabled"
+        startText="This field is disabled"
       />
 
       <TextField
         spread
         error
         label="Invalid Name"
-        description="This field has an error"
+        startText="This field has an error"
         endText="This value is too short."
       />
 
@@ -46,7 +46,7 @@ export default function Spread() {
         spread
         label="Amount"
         placeholder="0.00"
-        description="Daily spending limit"
+        startText="Daily spending limit"
         prefix="€"
         suffix="EUR"
       />
@@ -56,7 +56,7 @@ export default function Spread() {
         label="Website"
         placeholder="example.com"
         variant="filled"
-        description="Your public profile URL"
+        startText="Your public profile URL"
         prefix="https://"
         endText="Must include a valid domain"
       />
@@ -65,7 +65,7 @@ export default function Spread() {
         spread
         label="Project name"
         placeholder="my-project"
-        description="Used to generate the project URL"
+        startText="Used to generate the project URL"
         header="acme.dev/"
         footer="Lowercase letters and dashes only"
       />
@@ -76,7 +76,7 @@ export default function Spread() {
         label="API key"
         placeholder="Paste your key"
         type="password"
-        description="Stored encrypted at rest"
+        startText="Stored encrypted at rest"
         prefix={
           <svg
             aria-hidden="true"

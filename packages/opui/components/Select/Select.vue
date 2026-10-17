@@ -15,7 +15,6 @@ defineOptions({
 
 const {
   dense,
-  description,
   endText,
   error,
   id,
@@ -23,6 +22,7 @@ const {
   label,
   size,
   spread,
+  startText,
   value,
   variant = "outlined",
 } = defineProps<Props>()
@@ -62,7 +62,7 @@ const isSelected = (value: unknown) =>
 
 const uid = useId()
 const labelId = `select-label-${uid}`
-const descriptionId = `start-text-${uid}`
+const startTextId = `start-text-${uid}`
 const endTextId = `end-text-${uid}`
 const fieldName = inject(FieldGroupKey, undefined)
 </script>
@@ -84,11 +84,11 @@ const fieldName = inject(FieldGroupKey, undefined)
     </span>
 
     <span
-      v-if="description || $slots.description"
+      v-if="startText || $slots['start-text']"
       class="ui-start-text"
-      :id="descriptionId"
+      :id="startTextId"
     >
-      <slot name="description">{{ description }}</slot>
+      <slot name="start-text">{{ startText }}</slot>
     </span>
 
     <span class="ui-field">
@@ -98,7 +98,7 @@ const fieldName = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           [
-            description || $slots.description ? descriptionId : undefined,
+            startText || $slots['start-text'] ? startTextId : undefined,
             endText || $slots['end-text'] ? endTextId : undefined,
             attrs['aria-describedby'],
           ]

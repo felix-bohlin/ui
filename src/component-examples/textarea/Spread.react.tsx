@@ -7,7 +7,7 @@ export default function Spread() {
         spread
         placeholder="Hello, world!"
         label="Message"
-        description="You can write your message here. Keep it short, preferably under 100 characters."
+        startText="You can write your message here. Keep it short, preferably under 100 characters."
       />
 
       <Textarea
@@ -15,7 +15,7 @@ export default function Spread() {
         placeholder="Additional notes..."
         variant="filled"
         label="Notes"
-        description="Add any additional notes or comments"
+        startText="Add any additional notes or comments"
         endText="Maximum 500 characters"
       />
 
@@ -23,21 +23,21 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must provide a response"
+        startText="You must provide a response"
       />
 
       <Textarea
         spread
         disabled
         label="Disabled"
-        description="This textarea is disabled"
+        startText="This textarea is disabled"
       />
 
       <Textarea
         spread
         error
         label="Invalid Message"
-        description="This textarea has an error"
+        startText="This textarea has an error"
         endText="This value is too short."
       />
 
@@ -45,7 +45,7 @@ export default function Spread() {
         spread
         label="Bio"
         placeholder="Tell us about yourself..."
-        description="Shown on your public profile"
+        startText="Shown on your public profile"
         prefix={
           <svg
             aria-hidden="true"
@@ -70,7 +70,7 @@ export default function Spread() {
         variant="filled"
         label="Release notes"
         placeholder="Markdown supported..."
-        description="Shown on the changelog page"
+        startText="Shown on the changelog page"
         header="v1.4.0"
         footer="Saved 2 minutes ago"
         endText="Drafts are auto-saved"

@@ -5,42 +5,42 @@ import { TextField } from "opui-css/vue"
 <template>
   <TextField spread placeholder="Evil Rabbit">
     <template #label>Name</template>
-    <template #description>Provide your full name for identification</template>
+    <template #start-text>Provide your full name for identification</template>
   </TextField>
 
   <TextField spread placeholder="you@example.com" type="email" variant="filled">
     <template #label>Email</template>
-    <template #description>We'll use this to contact you</template>
+    <template #start-text>We'll use this to contact you</template>
     <template #end-text>Please use a valid email address</template>
   </TextField>
 
   <TextField spread required label="Required">
-    <template #description>You must fill this in</template>
+    <template #start-text>You must fill this in</template>
   </TextField>
 
   <TextField spread disabled label="Disabled">
-    <template #description>This field is disabled</template>
+    <template #start-text>This field is disabled</template>
   </TextField>
 
   <TextField spread error label="Invalid Name">
-    <template #description>This field has an error</template>
+    <template #start-text>This field has an error</template>
     <template #end-text>This value is too short.</template>
   </TextField>
 
   <TextField spread label="Amount" placeholder="0.00">
-    <template #description>Daily spending limit</template>
+    <template #start-text>Daily spending limit</template>
     <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 
   <TextField spread label="Website" placeholder="example.com" variant="filled">
-    <template #description>Your public profile URL</template>
+    <template #start-text>Your public profile URL</template>
     <template #prefix>https://</template>
     <template #end-text>Must include a valid domain</template>
   </TextField>
 
   <TextField spread label="Project name" placeholder="my-project">
-    <template #description>Used to generate the project URL</template>
+    <template #start-text>Used to generate the project URL</template>
     <template #header>acme.dev/</template>
     <template #footer>Lowercase letters and dashes only</template>
   </TextField>
@@ -52,7 +52,7 @@ import { TextField } from "opui-css/vue"
     placeholder="Paste your key"
     type="password"
   >
-    <template #description>Stored encrypted at rest</template>
+    <template #start-text>Stored encrypted at rest</template>
     <template #prefix>
       <svg
         aria-hidden="true"

@@ -60,7 +60,7 @@ export default {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the select to the other.",
+        "Pushes the label and start text to one side and the select to the other.",
       group: "Layout",
       prop: "spread",
     },
@@ -80,10 +80,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed select area.",

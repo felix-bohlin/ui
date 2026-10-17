@@ -43,8 +43,8 @@ const fieldName = inject(FieldGroupKey, undefined)
       <slot name="label">{{ props.label }}</slot>
     </span>
 
-    <span v-if="props.description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ props.description }}</slot>
+    <span v-if="props.startText || $slots['start-text']" class="ui-start-text">
+      <slot name="start-text">{{ props.startText }}</slot>
     </span>
 
     <span class="ui-field">

@@ -15,12 +15,12 @@ export default function Textarea({
   style,
   variant,
   children,
-  description,
   endText,
   footer,
   header,
   label,
   prefix,
+  startText,
   suffix,
   ...rest
 }: Props) {
@@ -41,7 +41,7 @@ export default function Textarea({
       style={style}
     >
       {label && <span className="ui-label">{label}</span>}
-      {description && <span className="ui-start-text">{description}</span>}
+      {startText && <span className="ui-start-text">{startText}</span>}
       <span className="ui-field">
         <textarea
           {...rest}

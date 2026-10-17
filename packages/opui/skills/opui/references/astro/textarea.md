@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  € EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -12,9 +12,9 @@ Label Description  € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · slot="description"`
+- `startText · slot="start-text"`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -72,16 +72,16 @@ import { Textarea } from "opui-css/astro"
 <Textarea label="Large" placeholder="Placeholder" size="large" />
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or slot for text between the label and the textarea.
+Use the `startText` prop or `start-text` slot for text between the label and the textarea.
 
 ```astro
 ---
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea description="Shown on your public profile" label="Bio" />
+<Textarea startText="Shown on your public profile" label="Bio" />
 ```
 
 ## End text
@@ -179,7 +179,7 @@ import { Textarea } from "opui-css/astro"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```astro
 ---
@@ -188,7 +188,7 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea spread placeholder="Hello, world!">
   <Fragment slot="label">Message</Fragment>
-  <Fragment slot="description"
+  <Fragment slot="start-text"
     >You can write your message here. Keep it short, preferably under 100
     characters.</Fragment
   >
@@ -196,25 +196,25 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea spread placeholder="Additional notes..." variant="filled">
   <Fragment slot="label">Notes</Fragment>
-  <Fragment slot="description">Add any additional notes or comments</Fragment>
+  <Fragment slot="start-text">Add any additional notes or comments</Fragment>
   <Fragment slot="end-text">Maximum 500 characters</Fragment>
 </Textarea>
 
 <Textarea spread required label="Required">
-  <Fragment slot="description">You must provide a response</Fragment>
+  <Fragment slot="start-text">You must provide a response</Fragment>
 </Textarea>
 
 <Textarea spread disabled label="Disabled">
-  <Fragment slot="description">This textarea is disabled</Fragment>
+  <Fragment slot="start-text">This textarea is disabled</Fragment>
 </Textarea>
 
 <Textarea spread error label="Invalid Message">
-  <Fragment slot="description">This textarea has an error</Fragment>
+  <Fragment slot="start-text">This textarea has an error</Fragment>
   <Fragment slot="end-text">This value is too short.</Fragment>
 </Textarea>
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
-  <Fragment slot="description">Shown on your public profile</Fragment>
+  <Fragment slot="start-text">Shown on your public profile</Fragment>
   <Fragment slot="prefix">
     <svg
       aria-hidden="true"
@@ -241,7 +241,7 @@ import { Textarea } from "opui-css/astro"
   label="Release notes"
   placeholder="Markdown supported..."
 >
-  <Fragment slot="description">Shown on the changelog page</Fragment>
+  <Fragment slot="start-text">Shown on the changelog page</Fragment>
   <Fragment slot="header">v1.4.0</Fragment>
   <Fragment slot="footer">Saved 2 minutes ago</Fragment>
   <Fragment slot="end-text">Drafts are auto-saved</Fragment>
@@ -264,30 +264,30 @@ import { Textarea } from "opui-css/astro"
 
 ### Textarea API
 
-| Prop          | Type                                | Default      | Description                                                                 |
-| ------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
-| `description` | `string`                            | -            | Description text displayed above the field.                                 |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                  |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
-| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`       | `string`                            | -            | The label for the field.                                                    |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
+| Prop        | Type                                | Default      | Description                                                                |
+| ----------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `endText`   | `string`                            | -            | Supporting text displayed below the field.                                 |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
+| `id`        | `string`                            | -            | The id of the `<textarea>`.                                                |
+| `label`     | `string`                            | -            | The label for the field.                                                   |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText` | `string`                            | -            | Start text displayed above the field.                                      |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
 
 #### Slots
 
-| Slot          | Description                                                    |
-| ------------- | -------------------------------------------------------------- |
-| `default`     | Extra content inside the root.                                 |
-| `description` | Description text displayed above the field.                    |
-| `end-text`    | Supporting text displayed below the field.                     |
-| `footer`      | Content below the textarea, inside the border, with a divider. |
-| `header`      | Content above the textarea, inside the border, with a divider. |
-| `label`       | The label for the field.                                       |
-| `prefix`      | Content at the inline-start of the field, inside the border.   |
-| `suffix`      | Content at the inline-end of the field, inside the border.     |
+| Slot         | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `default`    | Extra content inside the root.                                 |
+| `end-text`   | Supporting text displayed below the field.                     |
+| `footer`     | Content below the textarea, inside the border, with a divider. |
+| `header`     | Content above the textarea, inside the border, with a divider. |
+| `label`      | The label for the field.                                       |
+| `prefix`     | Content at the inline-start of the field, inside the border.   |
+| `start-text` | Start text displayed above the field.                          |
+| `suffix`     | Content at the inline-end of the field, inside the border.     |
 
 #### CSS variables
 
@@ -471,4 +471,4 @@ Import the component from `opui-css/astro`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `supportingText` is gone. Use [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

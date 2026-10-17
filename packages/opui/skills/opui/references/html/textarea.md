@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  € EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `label.ui-textarea`
 
@@ -14,7 +14,7 @@ Label Description  € EUR Header Footer Supporting text
 
 - `.ui-start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -98,7 +98,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 ```
 
-## Description
+## Start text
 
 Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the label and the textarea.
 
@@ -229,7 +229,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
 
 ## Spread
 
-Add the `.ui-spread` class to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Add the `.ui-spread` class to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```html
 <label class="ui-textarea ui-spread">
@@ -335,13 +335,13 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 
 ### Textarea API
 
-| Type       | Modifiers                               | Default | Description                                                                 |
-| ---------- | --------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content and allows resizing in both directions.   |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the textarea to the other. |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                    |
-| Validation | `textarea[aria-invalid="true"]`         | -       | Marks the control invalid and shows error styles.                           |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                         |
+| Type       | Modifiers                               | Default | Description                                                                |
+| ---------- | --------------------------------------- | ------- | -------------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content and allows resizing in both directions.  |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the textarea to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                   |
+| Validation | `textarea[aria-invalid="true"]`         | -       | Marks the control invalid and shows error styles.                          |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                        |
 
 #### Parts
 
@@ -349,7 +349,7 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | ------------------- | -------------------------------------------------------------- |
 | `label.ui-textarea` | Container element.                                             |
 | `.ui-label`         | The label for the field.                                       |
-| `.ui-start-text`    | Description text displayed above the field.                    |
+| `.ui-start-text`    | Start text displayed above the field.                          |
 | `.ui-field`         | The boxed textarea area.                                       |
 | `.ui-header`        | Content above the textarea, inside the border, with a divider. |
 | `.ui-prefix`        | Content at the inline-start of the field, inside the border.   |

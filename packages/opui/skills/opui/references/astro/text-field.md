@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description € EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -12,9 +12,9 @@ Label Description € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · slot="description"`
+- `startText · slot="start-text"`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -72,16 +72,16 @@ import { TextField } from "opui-css/astro"
 <TextField label="Large" placeholder="Placeholder" size="large" />
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or slot for text between the label and the input.
+Use the `startText` prop or `start-text` slot for text between the label and the input.
 
 ```astro
 ---
 import { TextField } from "opui-css/astro"
 ---
 
-<TextField description="As it appears on your ID" label="Name" />
+<TextField startText="As it appears on your ID" label="Name" />
 ```
 
 ## End text
@@ -195,7 +195,7 @@ import { TextField } from "opui-css/astro"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```astro
 ---
@@ -204,44 +204,44 @@ import { TextField } from "opui-css/astro"
 
 <TextField spread placeholder="Evil Rabbit">
   <Fragment slot="label">Name</Fragment>
-  <Fragment slot="description"
+  <Fragment slot="start-text"
     >Provide your full name for identification</Fragment
   >
 </TextField>
 
 <TextField spread placeholder="you@example.com" type="email" variant="filled">
   <Fragment slot="label">Email</Fragment>
-  <Fragment slot="description">We'll use this to contact you</Fragment>
+  <Fragment slot="start-text">We'll use this to contact you</Fragment>
   <Fragment slot="end-text">Please use a valid email address</Fragment>
 </TextField>
 
 <TextField spread required label="Required">
-  <Fragment slot="description">You must fill this in</Fragment>
+  <Fragment slot="start-text">You must fill this in</Fragment>
 </TextField>
 
 <TextField spread disabled label="Disabled">
-  <Fragment slot="description">This field is disabled</Fragment>
+  <Fragment slot="start-text">This field is disabled</Fragment>
 </TextField>
 
 <TextField spread error label="Invalid Name">
-  <Fragment slot="description">This field has an error</Fragment>
+  <Fragment slot="start-text">This field has an error</Fragment>
   <Fragment slot="end-text">This value is too short.</Fragment>
 </TextField>
 
 <TextField spread label="Amount" placeholder="0.00">
-  <Fragment slot="description">Daily spending limit</Fragment>
+  <Fragment slot="start-text">Daily spending limit</Fragment>
   <Fragment slot="prefix">€</Fragment>
   <Fragment slot="suffix">EUR</Fragment>
 </TextField>
 
 <TextField spread label="Website" placeholder="example.com" variant="filled">
-  <Fragment slot="description">Your public profile URL</Fragment>
+  <Fragment slot="start-text">Your public profile URL</Fragment>
   <Fragment slot="prefix">https://</Fragment>
   <Fragment slot="end-text">Must include a valid domain</Fragment>
 </TextField>
 
 <TextField spread label="Project name" placeholder="my-project">
-  <Fragment slot="description">Used to generate the project URL</Fragment>
+  <Fragment slot="start-text">Used to generate the project URL</Fragment>
   <Fragment slot="header">acme.dev/</Fragment>
   <Fragment slot="footer">Lowercase letters and dashes only</Fragment>
 </TextField>
@@ -253,7 +253,7 @@ import { TextField } from "opui-css/astro"
   placeholder="Paste your key"
   type="password"
 >
-  <Fragment slot="description">Stored encrypted at rest</Fragment>
+  <Fragment slot="start-text">Stored encrypted at rest</Fragment>
   <Fragment slot="prefix">
     <svg
       aria-hidden="true"
@@ -424,31 +424,31 @@ import { TextField } from "opui-css/astro"
 
 ### Text field API
 
-| Prop          | Type                                | Default      | Description                                                               |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `description` | `string`                            | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`       | `string`                            | -            | The label for the field.                                                  |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                | Default      | Description                                                               |
+| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `endText`   | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
+| `id`        | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`     | `string`                            | -            | The label for the field.                                                  |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText` | `string`                            | -            | Start text displayed above the field.                                     |
+| `type`      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
-| Slot          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `default`     | Extra content inside the root, such as a `<datalist>`.       |
-| `description` | Description text displayed above the field.                  |
-| `end-text`    | Supporting text displayed below the field.                   |
-| `footer`      | Content below the input, inside the border, with a divider.  |
-| `header`      | Content above the input, inside the border, with a divider.  |
-| `label`       | The label for the field.                                     |
-| `prefix`      | Content at the inline-start of the field, inside the border. |
-| `suffix`      | Content at the inline-end of the field, inside the border.   |
+| Slot         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Extra content inside the root, such as a `<datalist>`.       |
+| `end-text`   | Supporting text displayed below the field.                   |
+| `footer`     | Content below the input, inside the border, with a divider.  |
+| `header`     | Content above the input, inside the border, with a divider.  |
+| `label`      | The label for the field.                                     |
+| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start-text` | Start text displayed above the field.                        |
+| `suffix`     | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
@@ -673,4 +673,4 @@ Import the component from `opui-css/astro`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `startText` and `supportingText` are gone. Use [`description`](#description) and [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description € EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -12,9 +12,9 @@ Label Description € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · v-slot:description`
+- `startText · v-slot:start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -76,9 +76,9 @@ import { TextField } from "opui-css/vue"
 </template>
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or slot for text between the label and the input.
+Use the `startText` prop or `start-text` slot for text between the label and the input.
 
 ```vue
 <script setup lang="ts">
@@ -86,7 +86,7 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField description="As it appears on your ID" label="Name" />
+  <TextField startText="As it appears on your ID" label="Name" />
 </template>
 ```
 
@@ -209,7 +209,7 @@ import { TextField } from "opui-css/vue"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```vue
 <script setup lang="ts">
@@ -219,42 +219,42 @@ import { TextField } from "opui-css/vue"
 <template>
   <TextField spread placeholder="Evil Rabbit">
     <template #label>Name</template>
-    <template #description>Provide your full name for identification</template>
+    <template #start-text>Provide your full name for identification</template>
   </TextField>
 
   <TextField spread placeholder="you@example.com" type="email" variant="filled">
     <template #label>Email</template>
-    <template #description>We'll use this to contact you</template>
+    <template #start-text>We'll use this to contact you</template>
     <template #end-text>Please use a valid email address</template>
   </TextField>
 
   <TextField spread required label="Required">
-    <template #description>You must fill this in</template>
+    <template #start-text>You must fill this in</template>
   </TextField>
 
   <TextField spread disabled label="Disabled">
-    <template #description>This field is disabled</template>
+    <template #start-text>This field is disabled</template>
   </TextField>
 
   <TextField spread error label="Invalid Name">
-    <template #description>This field has an error</template>
+    <template #start-text>This field has an error</template>
     <template #end-text>This value is too short.</template>
   </TextField>
 
   <TextField spread label="Amount" placeholder="0.00">
-    <template #description>Daily spending limit</template>
+    <template #start-text>Daily spending limit</template>
     <template #prefix>€</template>
     <template #suffix>EUR</template>
   </TextField>
 
   <TextField spread label="Website" placeholder="example.com" variant="filled">
-    <template #description>Your public profile URL</template>
+    <template #start-text>Your public profile URL</template>
     <template #prefix>https://</template>
     <template #end-text>Must include a valid domain</template>
   </TextField>
 
   <TextField spread label="Project name" placeholder="my-project">
-    <template #description>Used to generate the project URL</template>
+    <template #start-text>Used to generate the project URL</template>
     <template #header>acme.dev/</template>
     <template #footer>Lowercase letters and dashes only</template>
   </TextField>
@@ -266,7 +266,7 @@ import { TextField } from "opui-css/vue"
     placeholder="Paste your key"
     type="password"
   >
-    <template #description>Stored encrypted at rest</template>
+    <template #start-text>Stored encrypted at rest</template>
     <template #prefix>
       <svg
         aria-hidden="true"
@@ -453,13 +453,13 @@ import { TextField } from "opui-css/vue"
 | Prop                                                                                                                                                                        | Type                                | Default      | Description                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
 | `autoFit`                                                                                                                                                                   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `description`                                                                                                                                                               | `string`                            | -            | Description text displayed above the field.                               |
 | `endText`                                                                                                                                                                   | `string`                            | -            | Supporting text displayed below the field.                                |
 | `error`                                                                                                                                                                     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
 | `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<input>`.                                                  |
 | `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                  |
 | `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText`                                                                                                                                                                 | `string`                            | -            | Start text displayed above the field.                                     |
 | `type`                                                                                                                                                                      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
 | `value`                                                                                                                                                                     | `number` , `string`                 | -            | The input value.                                                          |
@@ -467,16 +467,16 @@ import { TextField } from "opui-css/vue"
 
 #### Slots
 
-| Slot          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `default`     | Extra content inside the root, such as a `<datalist>`.       |
-| `description` | Description text displayed above the field.                  |
-| `end-text`    | Supporting text displayed below the field.                   |
-| `footer`      | Content below the input, inside the border, with a divider.  |
-| `header`      | Content above the input, inside the border, with a divider.  |
-| `label`       | The label for the field.                                     |
-| `prefix`      | Content at the inline-start of the field, inside the border. |
-| `suffix`      | Content at the inline-end of the field, inside the border.   |
+| Slot         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Extra content inside the root, such as a `<datalist>`.       |
+| `end-text`   | Supporting text displayed below the field.                   |
+| `footer`     | Content below the input, inside the border, with a divider.  |
+| `header`     | Content above the input, inside the border, with a divider.  |
+| `label`      | The label for the field.                                     |
+| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start-text` | Start text displayed above the field.                        |
+| `suffix`     | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
@@ -701,4 +701,4 @@ Import the component from `opui-css/vue`:
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `startText` and `supportingText` are gone. Use [`description`](#description) and [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

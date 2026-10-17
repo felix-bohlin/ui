@@ -9,13 +9,13 @@ defineOptions({
 
 const {
   autoFit,
-  description,
   endText,
   error,
   id,
   label,
   size,
   spread,
+  startText,
   type = "text",
   value,
   variant,
@@ -55,8 +55,8 @@ const fieldName = inject(FieldGroupKey, undefined)
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <span v-if="description || $slots.description" class="ui-start-text">
-      <slot name="description">{{ description }}</slot>
+    <span v-if="startText || $slots['start-text']" class="ui-start-text">
+      <slot name="start-text">{{ startText }}</slot>
     </span>
 
     <span class="ui-field">

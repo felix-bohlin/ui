@@ -12,7 +12,6 @@ const {
   "aria-labelledby": ariaLabelledBy,
   class: className,
   dense,
-  description,
   endText,
   error,
   id,
@@ -21,6 +20,7 @@ const {
   name,
   size,
   spread,
+  startText,
   value,
   variant = "outlined",
   ...rest
@@ -29,12 +29,12 @@ const {
 const field = fieldContext.get()
 const $id = createId(Astro.locals)
 const labelId = $id("select-label")
-const descriptionId =
-  description || Astro.slots.has("description") ? $id("start-text") : undefined
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 const describedBy =
-  [descriptionId, endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
+  [startTextId, endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
   undefined
 const isSelected = (item: SelectItem) =>
   value === undefined
@@ -64,10 +64,10 @@ const isSelected = (item: SelectItem) =>
     )
   }
   {
-    (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text" id={descriptionId}>
-        {description}
-        <slot name="description" />
+    (startText || Astro.slots.has("start-text")) && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }

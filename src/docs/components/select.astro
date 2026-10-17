@@ -261,27 +261,27 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
+        Add the <code>.ui-spread</code> class to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
@@ -327,7 +327,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UISelect
-        description="Description"
+        startText="Start text"
         endText="Supporting text"
         items={[
           { text: "Option one", value: "1" },

@@ -4,31 +4,31 @@
 
 <Textarea spread placeholder="Hello, world!">
   {#snippet label()}Message{/snippet}
-  {#snippet description()}You can write your message here. Keep it short,
+  {#snippet startText()}You can write your message here. Keep it short,
     preferably under 100 characters.{/snippet}
 </Textarea>
 
 <Textarea spread placeholder="Additional notes..." variant="filled">
   {#snippet label()}Notes{/snippet}
-  {#snippet description()}Add any additional notes or comments{/snippet}
+  {#snippet startText()}Add any additional notes or comments{/snippet}
   {#snippet endText()}Maximum 500 characters{/snippet}
 </Textarea>
 
 <Textarea spread required label="Required">
-  {#snippet description()}You must provide a response{/snippet}
+  {#snippet startText()}You must provide a response{/snippet}
 </Textarea>
 
 <Textarea spread disabled label="Disabled">
-  {#snippet description()}This textarea is disabled{/snippet}
+  {#snippet startText()}This textarea is disabled{/snippet}
 </Textarea>
 
 <Textarea spread error label="Invalid Message">
-  {#snippet description()}This textarea has an error{/snippet}
+  {#snippet startText()}This textarea has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </Textarea>
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
-  {#snippet description()}Shown on your public profile{/snippet}
+  {#snippet startText()}Shown on your public profile{/snippet}
   {#snippet prefix()}
     <svg
       aria-hidden="true"
@@ -55,7 +55,7 @@
   label="Release notes"
   placeholder="Markdown supported..."
 >
-  {#snippet description()}Shown on the changelog page{/snippet}
+  {#snippet startText()}Shown on the changelog page{/snippet}
   {#snippet header()}v1.4.0{/snippet}
   {#snippet footer()}Saved 2 minutes ago{/snippet}
   {#snippet endText()}Drafts are auto-saved{/snippet}

@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/astro/component
 
 ## Anatomy
 
-Label Description Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
 - `<Select>`
 
@@ -14,9 +14,9 @@ Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · slot="description"`
+- `startText · slot="start-text"`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -305,7 +305,7 @@ import { Select } from "opui-css/astro"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the select on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the select on the right. The layout collapses to a column on narrow containers.
 
 ```astro
 ---
@@ -314,7 +314,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread>
   <Fragment slot="label">Country</Fragment>
-  <Fragment slot="description">Select your country of residence</Fragment>
+  <Fragment slot="start-text">Select your country of residence</Fragment>
   <option value="">Select a country</option>
   <option>Denmark</option>
   <option>Finland</option>
@@ -325,7 +325,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread variant="filled">
   <Fragment slot="label">Language</Fragment>
-  <Fragment slot="description">Choose your preferred language</Fragment>
+  <Fragment slot="start-text">Choose your preferred language</Fragment>
   <Fragment slot="end-text">This affects UI translations</Fragment>
   <option value="">Select a language</option>
   <option>Danish</option>
@@ -337,7 +337,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread required>
   <Fragment slot="label">Required</Fragment>
-  <Fragment slot="description">You must select an option</Fragment>
+  <Fragment slot="start-text">You must select an option</Fragment>
   <option value="">Select an option</option>
   <option>Option 1</option>
   <option>Option 2</option>
@@ -345,20 +345,20 @@ import { Select } from "opui-css/astro"
 
 <Select spread disabled>
   <Fragment slot="label">Disabled</Fragment>
-  <Fragment slot="description">This select is disabled</Fragment>
+  <Fragment slot="start-text">This select is disabled</Fragment>
   <option>Option 1</option>
 </Select>
 
 <Select spread error>
   <Fragment slot="label">Invalid Select</Fragment>
-  <Fragment slot="description">This select has an error</Fragment>
+  <Fragment slot="start-text">This select has an error</Fragment>
   <Fragment slot="end-text">Please select a valid option.</Fragment>
   <option>Option 1</option>
 </Select>
 
 <Select spread>
   <Fragment slot="label">Time zone</Fragment>
-  <Fragment slot="description">Used for reminders and due dates</Fragment>
+  <Fragment slot="start-text">Used for reminders and due dates</Fragment>
   <Fragment slot="prefix">UTC</Fragment>
   <option>-03:00</option>
   <option>+00:00</option>
@@ -369,7 +369,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread variant="filled">
   <Fragment slot="label">Region</Fragment>
-  <Fragment slot="description">Affects data residency and latency</Fragment>
+  <Fragment slot="start-text">Affects data residency and latency</Fragment>
   <Fragment slot="prefix">
     <svg
       aria-hidden="true"
@@ -415,31 +415,31 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Prop          | Type                                | Default      | Description                                                               |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `dense`       | `boolean`                           | `false`      | Packs the options tighter.                                                |
-| `description` | `string`                            | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `id`          | `string`                            | -            | The id of the `<select>`.                                                 |
-| `items`       | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`       | `string`                            | -            | The label for the field.                                                  |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the select to the other. |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                | Default      | Description                                                              |
+| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------ |
+| `dense`     | `boolean`                           | `false`      | Packs the options tighter.                                               |
+| `endText`   | `string`                            | -            | Supporting text displayed below the field.                               |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                        |
+| `id`        | `string`                            | -            | The id of the `<select>`.                                                |
+| `items`     | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`     | `string`                            | -            | The label for the field.                                                 |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                 |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText` | `string`                            | -            | Start text displayed above the field.                                    |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                      |
 
 #### Slots
 
-| Slot          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `default`     | Extra `<option>` and `<optgroup>` elements.                  |
-| `description` | Description text displayed above the field.                  |
-| `end-text`    | Supporting text displayed below the field.                   |
-| `footer`      | Content below the select, inside the border, with a divider. |
-| `header`      | Content above the select, inside the border, with a divider. |
-| `label`       | The label for the field.                                     |
-| `prefix`      | Content at the inline-start of the field, inside the border. |
-| `suffix`      | Content at the inline-end of the field, inside the border.   |
+| Slot         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Extra `<option>` and `<optgroup>` elements.                  |
+| `end-text`   | Supporting text displayed below the field.                   |
+| `footer`     | Content below the select, inside the border, with a divider. |
+| `header`     | Content above the select, inside the border, with a divider. |
+| `label`      | The label for the field.                                     |
+| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start-text` | Start text displayed above the field.                        |
+| `suffix`     | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
@@ -705,3 +705,4 @@ Import the component from `opui-css/astro`:
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
+- Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).

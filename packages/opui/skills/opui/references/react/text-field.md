@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description € EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -12,9 +12,9 @@ Label Description € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description`
+- `startText`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -80,15 +80,15 @@ export default function Sizes() {
 }
 ```
 
-## Description
+## Start text
 
-Use the `description` prop for text between the label and the input.
+Use the `startText` prop for text between the label and the input.
 
 ```tsx
 import { TextField } from "opui-css/react"
 
 export default function Description() {
-  return <TextField description="As it appears on your ID" label="Name" />
+  return <TextField startText="As it appears on your ID" label="Name" />
 }
 ```
 
@@ -214,7 +214,7 @@ export default function Validation() {
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```tsx
 import { TextField } from "opui-css/react"
@@ -226,7 +226,7 @@ export default function Spread() {
         spread
         placeholder="Evil Rabbit"
         label="Name"
-        description="Provide your full name for identification"
+        startText="Provide your full name for identification"
       />
 
       <TextField
@@ -235,7 +235,7 @@ export default function Spread() {
         type="email"
         variant="filled"
         label="Email"
-        description="We'll use this to contact you"
+        startText="We'll use this to contact you"
         endText="Please use a valid email address"
       />
 
@@ -243,21 +243,21 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must fill this in"
+        startText="You must fill this in"
       />
 
       <TextField
         spread
         disabled
         label="Disabled"
-        description="This field is disabled"
+        startText="This field is disabled"
       />
 
       <TextField
         spread
         error
         label="Invalid Name"
-        description="This field has an error"
+        startText="This field has an error"
         endText="This value is too short."
       />
 
@@ -265,7 +265,7 @@ export default function Spread() {
         spread
         label="Amount"
         placeholder="0.00"
-        description="Daily spending limit"
+        startText="Daily spending limit"
         prefix="€"
         suffix="EUR"
       />
@@ -275,7 +275,7 @@ export default function Spread() {
         label="Website"
         placeholder="example.com"
         variant="filled"
-        description="Your public profile URL"
+        startText="Your public profile URL"
         prefix="https://"
         endText="Must include a valid domain"
       />
@@ -284,7 +284,7 @@ export default function Spread() {
         spread
         label="Project name"
         placeholder="my-project"
-        description="Used to generate the project URL"
+        startText="Used to generate the project URL"
         header="acme.dev/"
         footer="Lowercase letters and dashes only"
       />
@@ -295,7 +295,7 @@ export default function Spread() {
         label="API key"
         placeholder="Paste your key"
         type="password"
-        description="Stored encrypted at rest"
+        startText="Stored encrypted at rest"
         prefix={
           <svg
             aria-hidden="true"
@@ -486,23 +486,23 @@ export default function NoLabel() {
 
 ### Text field API
 
-| Prop          | Type                                | Default      | Description                                                               |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `children`    | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
-| `description` | `ReactNode`                         | -            | Description text displayed above the field.                               |
-| `endText`     | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`      | `ReactNode`                         | -            | Content below the input, inside the border, with a divider.               |
-| `header`      | `ReactNode`                         | -            | Content above the input, inside the border, with a divider.               |
-| `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`       | `ReactNode`                         | -            | The label for the field.                                                  |
-| `prefix`      | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `suffix`      | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
-| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                | Default      | Description                                                               |
+| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `children`  | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
+| `footer`    | `ReactNode`                         | -            | Content below the input, inside the border, with a divider.               |
+| `header`    | `ReactNode`                         | -            | Content above the input, inside the border, with a divider.               |
+| `id`        | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`     | `ReactNode`                         | -            | The label for the field.                                                  |
+| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                     |
+| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
+| `type`      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -723,4 +723,4 @@ Import the component from `opui-css/react`:
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `startText` and `supportingText` are gone. Use [`description`](#description) and [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

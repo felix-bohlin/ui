@@ -6,7 +6,7 @@ export default function Spread() {
       <Select
         spread
         label="Country"
-        description="Select your country of residence"
+        startText="Select your country of residence"
       >
         <option value="">Select a country</option>
         <option>Denmark</option>
@@ -20,7 +20,7 @@ export default function Spread() {
         spread
         variant="filled"
         label="Language"
-        description="Choose your preferred language"
+        startText="Choose your preferred language"
         endText="This affects UI translations"
       >
         <option value="">Select a language</option>
@@ -35,7 +35,7 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must select an option"
+        startText="You must select an option"
       >
         <option value="">Select an option</option>
         <option>Option 1</option>
@@ -46,7 +46,7 @@ export default function Spread() {
         spread
         disabled
         label="Disabled"
-        description="This select is disabled"
+        startText="This select is disabled"
       >
         <option>Option 1</option>
       </Select>
@@ -55,7 +55,7 @@ export default function Spread() {
         spread
         error
         label="Invalid Select"
-        description="This select has an error"
+        startText="This select has an error"
         endText="Please select a valid option."
       >
         <option>Option 1</option>
@@ -64,7 +64,7 @@ export default function Spread() {
       <Select
         spread
         label="Time zone"
-        description="Used for reminders and due dates"
+        startText="Used for reminders and due dates"
         prefix="UTC"
       >
         <option>-03:00</option>
@@ -78,7 +78,7 @@ export default function Spread() {
         spread
         variant="filled"
         label="Region"
-        description="Affects data residency and latency"
+        startText="Affects data residency and latency"
         prefix={
           <svg
             aria-hidden="true"

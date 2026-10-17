@@ -4,7 +4,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread>
   <Fragment slot="label">Country</Fragment>
-  <Fragment slot="description">Select your country of residence</Fragment>
+  <Fragment slot="start-text">Select your country of residence</Fragment>
   <option value="">Select a country</option>
   <option>Denmark</option>
   <option>Finland</option>
@@ -15,7 +15,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread variant="filled">
   <Fragment slot="label">Language</Fragment>
-  <Fragment slot="description">Choose your preferred language</Fragment>
+  <Fragment slot="start-text">Choose your preferred language</Fragment>
   <Fragment slot="end-text">This affects UI translations</Fragment>
   <option value="">Select a language</option>
   <option>Danish</option>
@@ -27,7 +27,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread required>
   <Fragment slot="label">Required</Fragment>
-  <Fragment slot="description">You must select an option</Fragment>
+  <Fragment slot="start-text">You must select an option</Fragment>
   <option value="">Select an option</option>
   <option>Option 1</option>
   <option>Option 2</option>
@@ -35,20 +35,20 @@ import { Select } from "opui-css/astro"
 
 <Select spread disabled>
   <Fragment slot="label">Disabled</Fragment>
-  <Fragment slot="description">This select is disabled</Fragment>
+  <Fragment slot="start-text">This select is disabled</Fragment>
   <option>Option 1</option>
 </Select>
 
 <Select spread error>
   <Fragment slot="label">Invalid Select</Fragment>
-  <Fragment slot="description">This select has an error</Fragment>
+  <Fragment slot="start-text">This select has an error</Fragment>
   <Fragment slot="end-text">Please select a valid option.</Fragment>
   <option>Option 1</option>
 </Select>
 
 <Select spread>
   <Fragment slot="label">Time zone</Fragment>
-  <Fragment slot="description">Used for reminders and due dates</Fragment>
+  <Fragment slot="start-text">Used for reminders and due dates</Fragment>
   <Fragment slot="prefix">UTC</Fragment>
   <option>-03:00</option>
   <option>+00:00</option>
@@ -59,7 +59,7 @@ import { Select } from "opui-css/astro"
 
 <Select spread variant="filled">
   <Fragment slot="label">Region</Fragment>
-  <Fragment slot="description">Affects data residency and latency</Fragment>
+  <Fragment slot="start-text">Affects data residency and latency</Fragment>
   <Fragment slot="prefix">
     <svg
       aria-hidden="true"

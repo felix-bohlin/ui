@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description € EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `label.ui-text-field`
 
@@ -14,7 +14,7 @@ Label Description € EUR Header Footer Supporting text
 
 - `.ui-start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -98,7 +98,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 ```
 
-## Description
+## Start text
 
 Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the label and the input.
 
@@ -254,7 +254,7 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 ## Spread
 
-Add the `.ui-spread` class to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Add the `.ui-spread` class to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```html
 <label class="ui-text-field ui-spread">
@@ -550,13 +550,13 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Type       | Modifiers                               | Default | Description                                                              |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                          |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                        |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
+| Type       | Modifiers                               | Default | Description                                                             |
+| ---------- | --------------------------------------- | ------- | ----------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                         |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the input to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                |
+| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                       |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                     |
 
 #### Parts
 
@@ -564,7 +564,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | --------------------- | ------------------------------------------------------------ |
 | `label.ui-text-field` | Container element.                                           |
 | `.ui-label`           | The label for the field.                                     |
-| `.ui-start-text`      | Description text displayed above the field.                  |
+| `.ui-start-text`      | Start text displayed above the field.                        |
 | `.ui-field`           | The boxed input area.                                        |
 | `.ui-header`          | Content above the input, inside the border, with a divider.  |
 | `.ui-prefix`          | Content at the inline-start of the field, inside the border. |

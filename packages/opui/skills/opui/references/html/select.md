@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 ## Anatomy
 
-Label Description Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
 - `label.ui-select`
 
@@ -16,7 +16,7 @@ Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
 - `.ui-start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -482,7 +482,7 @@ Wrap options in a `<div role="group">` and start it with a `<label class="ui-tex
 
 ## Spread
 
-Add the `.ui-spread` class to display the label and description on the left with the select on the right. The layout collapses to a column on narrow containers.
+Add the `.ui-spread` class to display the label and start text on the left with the select on the right. The layout collapses to a column on narrow containers.
 
 ```html
 <label class="ui-select ui-spread">
@@ -695,13 +695,13 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Type       | Modifiers                               | Default | Description                                                               |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------- |
-| Dense      | `.ui-list.ui-dense`                     | -       | Packs the options tighter.                                                |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the select to the other. |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                  |
-| Validation | `select[aria-invalid="true"]`           | -       | Marks the control invalid and shows error styles.                         |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                       |
+| Type       | Modifiers                               | Default | Description                                                              |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Dense      | `.ui-list.ui-dense`                     | -       | Packs the options tighter.                                               |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the select to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
+| Validation | `select[aria-invalid="true"]`           | -       | Marks the control invalid and shows error styles.                        |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
 
 #### Parts
 
@@ -709,7 +709,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | ----------------- | ------------------------------------------------------------ |
 | `label.ui-select` | Container element.                                           |
 | `.ui-label`       | The label for the field.                                     |
-| `.ui-start-text`  | Description text displayed above the field.                  |
+| `.ui-start-text`  | Start text displayed above the field.                        |
 | `.ui-field`       | The boxed select area.                                       |
 | `.ui-header`      | Content above the select, inside the border, with a divider. |
 | `.ui-prefix`      | Content at the inline-start of the field, inside the border. |

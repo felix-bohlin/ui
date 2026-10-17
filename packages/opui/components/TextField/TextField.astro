@@ -8,7 +8,6 @@ const {
   "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
-  description,
   disabled,
   endText,
   error,
@@ -24,6 +23,7 @@ const {
   required,
   size,
   spread,
+  startText,
   step,
   style,
   type = "text",
@@ -57,10 +57,10 @@ const field = fieldContext.get()
     )
   }
   {
-    (description || Astro.slots.has("description")) && (
+    (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }

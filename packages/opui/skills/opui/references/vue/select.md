@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/vue/components/
 
 ## Anatomy
 
-Label Description Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
 - `<Select>`
 
@@ -14,9 +14,9 @@ Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description · v-slot:description`
+- `startText · v-slot:start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -326,7 +326,7 @@ import { Select } from "opui-css/vue"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the select on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the select on the right. The layout collapses to a column on narrow containers.
 
 ```vue
 <script setup lang="ts">
@@ -336,7 +336,7 @@ import { Select } from "opui-css/vue"
 <template>
   <Select spread>
     <template #label>Country</template>
-    <template #description>Select your country of residence</template>
+    <template #start-text>Select your country of residence</template>
     <option value="">Select a country</option>
     <option>Denmark</option>
     <option>Finland</option>
@@ -347,7 +347,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Language</template>
-    <template #description>Choose your preferred language</template>
+    <template #start-text>Choose your preferred language</template>
     <template #end-text>This affects UI translations</template>
     <option value="">Select a language</option>
     <option>Danish</option>
@@ -359,7 +359,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread required>
     <template #label>Required</template>
-    <template #description>You must select an option</template>
+    <template #start-text>You must select an option</template>
     <option value="">Select an option</option>
     <option>Option 1</option>
     <option>Option 2</option>
@@ -367,20 +367,20 @@ import { Select } from "opui-css/vue"
 
   <Select spread disabled>
     <template #label>Disabled</template>
-    <template #description>This select is disabled</template>
+    <template #start-text>This select is disabled</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread error>
     <template #label>Invalid Select</template>
-    <template #description>This select has an error</template>
+    <template #start-text>This select has an error</template>
     <template #end-text>Please select a valid option.</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread>
     <template #label>Time zone</template>
-    <template #description>Used for reminders and due dates</template>
+    <template #start-text>Used for reminders and due dates</template>
     <template #prefix>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
@@ -391,7 +391,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Region</template>
-    <template #description>Affects data residency and latency</template>
+    <template #start-text>Affects data residency and latency</template>
     <template #prefix>
       <svg
         aria-hidden="true"
@@ -438,33 +438,33 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Prop                                                                                                                                                                        | Type                                         | Default      | Description                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `dense`                                                                                                                                                                     | `boolean`                                    | `false`      | Packs the options tighter.                                                |
-| `description`                                                                                                                                                               | `string`                                     | -            | Description text displayed above the field.                               |
-| `endText`                                                                                                                                                                   | `string`                                     | -            | Supporting text displayed below the field.                                |
-| `error`                                                                                                                                                                     | `boolean`                                    | `false`      | Marks the control invalid and shows error styles.                         |
-| `id`                                                                                                                                                                        | `string`                                     | -            | The id of the `<select>`.                                                 |
-| `items`                                                                                                                                                                     | `SelectItem[]`                               | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`                                                                                                                                                                     | `string`                                     | -            | The label for the field.                                                  |
-| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"`          | -            | The size of the element.                                                  |
-| `spread`                                                                                                                                                                    | `boolean`                                    | `false`      | Pushes the label and description to one side and the select to the other. |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
-| `value`                                                                                                                                                                     | `(string \| number)[]` , `number` , `string` | -            | The selected value, or values with `multiple`.                            |
-| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`                    | `"outlined"` | The variant to use.                                                       |
+| Prop                                                                                                                                                                        | Type                                         | Default      | Description                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------ |
+| `dense`                                                                                                                                                                     | `boolean`                                    | `false`      | Packs the options tighter.                                               |
+| `endText`                                                                                                                                                                   | `string`                                     | -            | Supporting text displayed below the field.                               |
+| `error`                                                                                                                                                                     | `boolean`                                    | `false`      | Marks the control invalid and shows error styles.                        |
+| `id`                                                                                                                                                                        | `string`                                     | -            | The id of the `<select>`.                                                |
+| `items`                                                                                                                                                                     | `SelectItem[]`                               | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`                                                                                                                                                                     | `string`                                     | -            | The label for the field.                                                 |
+| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"`          | -            | The size of the element.                                                 |
+| `spread`                                                                                                                                                                    | `boolean`                                    | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText`                                                                                                                                                                 | `string`                                     | -            | Start text displayed above the field.                                    |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                           |
+| `value`                                                                                                                                                                     | `(string \| number)[]` , `number` , `string` | -            | The selected value, or values with `multiple`.                           |
+| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`                    | `"outlined"` | The variant to use.                                                      |
 
 #### Slots
 
-| Slot          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `default`     | Extra `<option>` and `<optgroup>` elements.                  |
-| `description` | Description text displayed above the field.                  |
-| `end-text`    | Supporting text displayed below the field.                   |
-| `footer`      | Content below the select, inside the border, with a divider. |
-| `header`      | Content above the select, inside the border, with a divider. |
-| `label`       | The label for the field.                                     |
-| `prefix`      | Content at the inline-start of the field, inside the border. |
-| `suffix`      | Content at the inline-end of the field, inside the border.   |
+| Slot         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Extra `<option>` and `<optgroup>` elements.                  |
+| `end-text`   | Supporting text displayed below the field.                   |
+| `footer`     | Content below the select, inside the border, with a divider. |
+| `header`     | Content above the select, inside the border, with a divider. |
+| `label`      | The label for the field.                                     |
+| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start-text` | Start text displayed above the field.                        |
+| `suffix`     | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
@@ -730,3 +730,4 @@ Import the component from `opui-css/vue`:
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
+- Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).

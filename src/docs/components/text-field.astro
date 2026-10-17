@@ -166,29 +166,29 @@ export const description =
   </section>
 
   <section>
-    <h2 id="description">Description</h2>
+    <h2 id="start-text">Start text</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>description</code> prop or slot for text between the label and
-        the input.
+        Use the <code>startText</code> prop or <code>start-text</code> slot for text
+        between the label and the input.
       </Fragment>
       <Fragment slot="html">
         Add a <code>.ui-start-text</code> between <code>.ui-label</code> and
         {" "}<code>.ui-field</code> for text between the label and the input.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>description</code> prop for text between the label and the input.
+        Use the <code>startText</code> prop for text between the label and the input.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>description</code> prop or snippet for text between the label
+        Use the <code>startText</code> prop or snippet for text between the label
         and the input.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>description</code> prop or slot for text between the label and
-        the input.
+        Use the <code>startText</code> prop or <code>start-text</code> slot for text
+        between the label and the input.
       </Fragment>
     </Conditional>
-    <AutoExample name="Description" row />
+    <AutoExample name="StartText" row />
   </section>
 
   <section>
@@ -255,27 +255,27 @@ export const description =
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
+        Add the <code>.ui-spread</code> class to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
@@ -491,7 +491,7 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITextField
-        description="Description"
+        startText="Start text"
         endText="Supporting text"
         label="Label"
         placeholder="Placeholder"

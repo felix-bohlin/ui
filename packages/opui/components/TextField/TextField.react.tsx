@@ -16,12 +16,12 @@ export default function TextField({
   type = "text",
   variant,
   children,
-  description,
   endText,
   footer,
   header,
   label,
   prefix,
+  startText,
   suffix,
   ...rest
 }: Props) {
@@ -42,7 +42,7 @@ export default function TextField({
       style={style}
     >
       {label && <span className="ui-label">{label}</span>}
-      {description && <span className="ui-start-text">{description}</span>}
+      {startText && <span className="ui-start-text">{startText}</span>}
       <span className="ui-field">
         <input
           {...rest}

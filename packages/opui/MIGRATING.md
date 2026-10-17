@@ -446,6 +446,13 @@ The `items` type is `SelectItem`, exported from every framework barrel.
 + import type { SelectItem } from "opui-css/react"
 ```
 
+`description` is `startText` (the `start-text` slot in Astro and Vue), like Text field.
+
+```diff
+- <Select label="Country" description="Where you live" items={items} />
++ <Select label="Country" startText="Where you live" items={items} />
+```
+
 ## Switch
 
 `Switch` takes `size="small"` instead of `small`.
@@ -530,11 +537,11 @@ Astro and Vue no longer generate an input `id`. Pass `id` when something outside
 
 In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
 
-`startText` and `supportingText` (the `supporting-text` slot in Astro and Vue) are gone. Use `description` and `endText`.
+`description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 ```diff
 - <TextField label="Name" startText="Full name" supportingText="Required" />
-+ <TextField label="Name" description="Full name" endText="Required" />
++ <TextField label="Name" startText="Full name" endText="Required" />
 ```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
@@ -562,7 +569,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 

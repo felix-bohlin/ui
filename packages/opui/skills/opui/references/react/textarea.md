@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  € EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -12,9 +12,9 @@ Label Description  € EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description`
+- `startText`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -80,15 +80,15 @@ export default function Sizes() {
 }
 ```
 
-## Description
+## Start text
 
-Use the `description` prop for text between the label and the textarea.
+Use the `startText` prop for text between the label and the textarea.
 
 ```tsx
 import { Textarea } from "opui-css/react"
 
 export default function Description() {
-  return <Textarea description="Shown on your public profile" label="Bio" />
+  return <Textarea startText="Shown on your public profile" label="Bio" />
 }
 ```
 
@@ -213,7 +213,7 @@ export default function Validation() {
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```tsx
 import { Textarea } from "opui-css/react"
@@ -225,7 +225,7 @@ export default function Spread() {
         spread
         placeholder="Hello, world!"
         label="Message"
-        description="You can write your message here. Keep it short, preferably under 100 characters."
+        startText="You can write your message here. Keep it short, preferably under 100 characters."
       />
 
       <Textarea
@@ -233,7 +233,7 @@ export default function Spread() {
         placeholder="Additional notes..."
         variant="filled"
         label="Notes"
-        description="Add any additional notes or comments"
+        startText="Add any additional notes or comments"
         endText="Maximum 500 characters"
       />
 
@@ -241,21 +241,21 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must provide a response"
+        startText="You must provide a response"
       />
 
       <Textarea
         spread
         disabled
         label="Disabled"
-        description="This textarea is disabled"
+        startText="This textarea is disabled"
       />
 
       <Textarea
         spread
         error
         label="Invalid Message"
-        description="This textarea has an error"
+        startText="This textarea has an error"
         endText="This value is too short."
       />
 
@@ -263,7 +263,7 @@ export default function Spread() {
         spread
         label="Bio"
         placeholder="Tell us about yourself..."
-        description="Shown on your public profile"
+        startText="Shown on your public profile"
         prefix={
           <svg
             aria-hidden="true"
@@ -288,7 +288,7 @@ export default function Spread() {
         variant="filled"
         label="Release notes"
         placeholder="Markdown supported..."
-        description="Shown on the changelog page"
+        startText="Shown on the changelog page"
         header="v1.4.0"
         footer="Saved 2 minutes ago"
         endText="Drafts are auto-saved"
@@ -314,22 +314,22 @@ export default function AutoFit() {
 
 ### Textarea API
 
-| Prop          | Type                                | Default      | Description                                                                 |
-| ------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
-| `children`    | `ReactNode`                         | -            | Extra content inside the root.                                              |
-| `description` | `ReactNode`                         | -            | Description text displayed above the field.                                 |
-| `endText`     | `ReactNode`                         | -            | Supporting text displayed below the field.                                  |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
-| `footer`      | `ReactNode`                         | -            | Content below the textarea, inside the border, with a divider.              |
-| `header`      | `ReactNode`                         | -            | Content above the textarea, inside the border, with a divider.              |
-| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`       | `ReactNode`                         | -            | The label for the field.                                                    |
-| `prefix`      | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.                |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                    |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `suffix`      | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                  |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                         |
+| Prop        | Type                                | Default      | Description                                                                |
+| ----------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `children`  | `ReactNode`                         | -            | Extra content inside the root.                                             |
+| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                                 |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
+| `footer`    | `ReactNode`                         | -            | Content below the textarea, inside the border, with a divider.             |
+| `header`    | `ReactNode`                         | -            | Content above the textarea, inside the border, with a divider.             |
+| `id`        | `string`                            | -            | The id of the `<textarea>`.                                                |
+| `label`     | `ReactNode`                         | -            | The label for the field.                                                   |
+| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.               |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                      |
+| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                 |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
 
 #### CSS variables
 
@@ -509,4 +509,4 @@ Import the component from `opui-css/react`:
 - [Spread](#spread) fields line up at one width.
 - The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
-- Breaking: `supportingText` is gone. Use [`endText`](#end-text).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).

@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/react/component
 
 ## Anatomy
 
-Label Description Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
 - `<Select>`
 
@@ -14,9 +14,9 @@ Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description`
+- `startText`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -358,7 +358,7 @@ export default function Validation() {
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the select on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the select on the right. The layout collapses to a column on narrow containers.
 
 ```tsx
 import { Select } from "opui-css/react"
@@ -369,7 +369,7 @@ export default function Spread() {
       <Select
         spread
         label="Country"
-        description="Select your country of residence"
+        startText="Select your country of residence"
       >
         <option value="">Select a country</option>
         <option>Denmark</option>
@@ -383,7 +383,7 @@ export default function Spread() {
         spread
         variant="filled"
         label="Language"
-        description="Choose your preferred language"
+        startText="Choose your preferred language"
         endText="This affects UI translations"
       >
         <option value="">Select a language</option>
@@ -398,7 +398,7 @@ export default function Spread() {
         spread
         required
         label="Required"
-        description="You must select an option"
+        startText="You must select an option"
       >
         <option value="">Select an option</option>
         <option>Option 1</option>
@@ -409,7 +409,7 @@ export default function Spread() {
         spread
         disabled
         label="Disabled"
-        description="This select is disabled"
+        startText="This select is disabled"
       >
         <option>Option 1</option>
       </Select>
@@ -418,7 +418,7 @@ export default function Spread() {
         spread
         error
         label="Invalid Select"
-        description="This select has an error"
+        startText="This select has an error"
         endText="Please select a valid option."
       >
         <option>Option 1</option>
@@ -427,7 +427,7 @@ export default function Spread() {
       <Select
         spread
         label="Time zone"
-        description="Used for reminders and due dates"
+        startText="Used for reminders and due dates"
         prefix="UTC"
       >
         <option>-03:00</option>
@@ -441,7 +441,7 @@ export default function Spread() {
         spread
         variant="filled"
         label="Region"
-        description="Affects data residency and latency"
+        startText="Affects data residency and latency"
         prefix={
           <svg
             aria-hidden="true"
@@ -489,23 +489,23 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Prop          | Type                                | Default      | Description                                                               |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `children`    | `ReactNode`                         | -            | Extra `<option>` and `<optgroup>` elements.                               |
-| `dense`       | `boolean`                           | `false`      | Packs the options tighter.                                                |
-| `description` | `ReactNode`                         | -            | Description text displayed above the field.                               |
-| `endText`     | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`      | `ReactNode`                         | -            | Content below the select, inside the border, with a divider.              |
-| `header`      | `ReactNode`                         | -            | Content above the select, inside the border, with a divider.              |
-| `id`          | `string`                            | -            | The id of the `<select>`.                                                 |
-| `items`       | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`       | `ReactNode`                         | -            | The label for the field.                                                  |
-| `prefix`      | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the select to the other. |
-| `suffix`      | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
-| `variant`     | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                | Default      | Description                                                              |
+| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------ |
+| `children`  | `ReactNode`                         | -            | Extra `<option>` and `<optgroup>` elements.                              |
+| `dense`     | `boolean`                           | `false`      | Packs the options tighter.                                               |
+| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                               |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                        |
+| `footer`    | `ReactNode`                         | -            | Content below the select, inside the border, with a divider.             |
+| `header`    | `ReactNode`                         | -            | Content above the select, inside the border, with a divider.             |
+| `id`        | `string`                            | -            | The id of the `<select>`.                                                |
+| `items`     | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`     | `ReactNode`                         | -            | The label for the field.                                                 |
+| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.             |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                 |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                    |
+| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.               |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                      |
 
 #### CSS variables
 
@@ -769,3 +769,4 @@ Import the component from `opui-css/react`:
 - Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
+- Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).

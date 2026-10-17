@@ -19,22 +19,22 @@ export default function Select({
   value,
   variant = "outlined",
   children,
-  description,
   endText,
   footer,
   header,
   label,
   prefix,
+  startText,
   suffix,
   ...rest
 }: Props) {
   const uid = useId()
   const field = useFieldContext()
   const labelId = `select-label-${uid}`
-  const descriptionId = description ? `start-text-${uid}` : undefined
+  const startTextId = startText ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined
   const describedBy =
-    [descriptionId, endTextId, rest["aria-describedby"]]
+    [startTextId, endTextId, rest["aria-describedby"]]
       .filter(Boolean)
       .join(" ") || undefined
 
@@ -66,9 +66,9 @@ export default function Select({
           {label}
         </span>
       )}
-      {description && (
-        <span className="ui-start-text" id={descriptionId}>
-          {description}
+      {startText && (
+        <span className="ui-start-text" id={startTextId}>
+          {startText}
         </span>
       )}
       <span className="ui-field">

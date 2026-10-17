@@ -18,12 +18,12 @@
 
     // Snippets
     children,
-    description,
     endText,
     footer,
     header,
     label,
     prefix,
+    startText,
     suffix,
     ...rest
   }: Props = $props()
@@ -51,8 +51,8 @@
   {#if label}
     <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if description}
-    <span class="ui-start-text">{@render content(description)}</span>
+  {#if startText}
+    <span class="ui-start-text">{@render content(startText)}</span>
   {/if}
   <span class="ui-field">
     <input

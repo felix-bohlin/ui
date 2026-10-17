@@ -4,7 +4,7 @@
 
 <Select spread>
   {#snippet label()}Country{/snippet}
-  {#snippet description()}Select your country of residence{/snippet}
+  {#snippet startText()}Select your country of residence{/snippet}
   <option value="">Select a country</option>
   <option>Denmark</option>
   <option>Finland</option>
@@ -15,7 +15,7 @@
 
 <Select spread variant="filled">
   {#snippet label()}Language{/snippet}
-  {#snippet description()}Choose your preferred language{/snippet}
+  {#snippet startText()}Choose your preferred language{/snippet}
   {#snippet endText()}This affects UI translations{/snippet}
   <option value="">Select a language</option>
   <option>Danish</option>
@@ -27,7 +27,7 @@
 
 <Select spread required>
   {#snippet label()}Required{/snippet}
-  {#snippet description()}You must select an option{/snippet}
+  {#snippet startText()}You must select an option{/snippet}
   <option value="">Select an option</option>
   <option>Option 1</option>
   <option>Option 2</option>
@@ -35,20 +35,20 @@
 
 <Select spread disabled>
   {#snippet label()}Disabled{/snippet}
-  {#snippet description()}This select is disabled{/snippet}
+  {#snippet startText()}This select is disabled{/snippet}
   <option>Option 1</option>
 </Select>
 
 <Select spread error>
   {#snippet label()}Invalid Select{/snippet}
-  {#snippet description()}This select has an error{/snippet}
+  {#snippet startText()}This select has an error{/snippet}
   {#snippet endText()}Please select a valid option.{/snippet}
   <option>Option 1</option>
 </Select>
 
 <Select spread>
   {#snippet label()}Time zone{/snippet}
-  {#snippet description()}Used for reminders and due dates{/snippet}
+  {#snippet startText()}Used for reminders and due dates{/snippet}
   {#snippet prefix()}UTC{/snippet}
   <option>-03:00</option>
   <option>+00:00</option>
@@ -59,7 +59,7 @@
 
 <Select spread variant="filled">
   {#snippet label()}Region{/snippet}
-  {#snippet description()}Affects data residency and latency{/snippet}
+  {#snippet startText()}Affects data residency and latency{/snippet}
   {#snippet prefix()}
     <svg
       aria-hidden="true"

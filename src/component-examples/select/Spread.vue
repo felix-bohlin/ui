@@ -5,7 +5,7 @@ import { Select } from "opui-css/vue"
 <template>
   <Select spread>
     <template #label>Country</template>
-    <template #description>Select your country of residence</template>
+    <template #start-text>Select your country of residence</template>
     <option value="">Select a country</option>
     <option>Denmark</option>
     <option>Finland</option>
@@ -16,7 +16,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Language</template>
-    <template #description>Choose your preferred language</template>
+    <template #start-text>Choose your preferred language</template>
     <template #end-text>This affects UI translations</template>
     <option value="">Select a language</option>
     <option>Danish</option>
@@ -28,7 +28,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread required>
     <template #label>Required</template>
-    <template #description>You must select an option</template>
+    <template #start-text>You must select an option</template>
     <option value="">Select an option</option>
     <option>Option 1</option>
     <option>Option 2</option>
@@ -36,20 +36,20 @@ import { Select } from "opui-css/vue"
 
   <Select spread disabled>
     <template #label>Disabled</template>
-    <template #description>This select is disabled</template>
+    <template #start-text>This select is disabled</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread error>
     <template #label>Invalid Select</template>
-    <template #description>This select has an error</template>
+    <template #start-text>This select has an error</template>
     <template #end-text>Please select a valid option.</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread>
     <template #label>Time zone</template>
-    <template #description>Used for reminders and due dates</template>
+    <template #start-text>Used for reminders and due dates</template>
     <template #prefix>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
@@ -60,7 +60,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Region</template>
-    <template #description>Affects data residency and latency</template>
+    <template #start-text>Affects data residency and latency</template>
     <template #prefix>
       <svg
         aria-hidden="true"

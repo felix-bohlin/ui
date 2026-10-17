@@ -5,7 +5,7 @@ import { Textarea } from "opui-css/vue"
 <template>
   <Textarea spread placeholder="Hello, world!">
     <template #label>Message</template>
-    <template #description
+    <template #start-text
       >You can write your message here. Keep it short, preferably under 100
       characters.</template
     >
@@ -13,25 +13,25 @@ import { Textarea } from "opui-css/vue"
 
   <Textarea spread placeholder="Additional notes..." variant="filled">
     <template #label>Notes</template>
-    <template #description>Add any additional notes or comments</template>
+    <template #start-text>Add any additional notes or comments</template>
     <template #end-text>Maximum 500 characters</template>
   </Textarea>
 
   <Textarea spread required label="Required">
-    <template #description>You must provide a response</template>
+    <template #start-text>You must provide a response</template>
   </Textarea>
 
   <Textarea spread disabled label="Disabled">
-    <template #description>This textarea is disabled</template>
+    <template #start-text>This textarea is disabled</template>
   </Textarea>
 
   <Textarea spread error label="Invalid Message">
-    <template #description>This textarea has an error</template>
+    <template #start-text>This textarea has an error</template>
     <template #end-text>This value is too short.</template>
   </Textarea>
 
   <Textarea spread label="Bio" placeholder="Tell us about yourself...">
-    <template #description>Shown on your public profile</template>
+    <template #start-text>Shown on your public profile</template>
     <template #prefix>
       <svg
         aria-hidden="true"
@@ -61,7 +61,7 @@ import { Textarea } from "opui-css/vue"
     label="Release notes"
     placeholder="Markdown supported..."
   >
-    <template #description>Shown on the changelog page</template>
+    <template #start-text>Shown on the changelog page</template>
     <template #header>v1.4.0</template>
     <template #footer>Saved 2 minutes ago</template>
     <template #end-text>Drafts are auto-saved</template>

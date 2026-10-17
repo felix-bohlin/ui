@@ -9,7 +9,6 @@ const {
   autoFit,
   class: className,
   cols,
-  description,
   disabled,
   endText,
   error,
@@ -23,6 +22,7 @@ const {
   rows,
   size,
   spread,
+  startText,
   style,
   value,
   variant,
@@ -55,10 +55,10 @@ const field = fieldContext.get()
   }
 
   {
-    (description || Astro.slots.has("description")) && (
+    (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }

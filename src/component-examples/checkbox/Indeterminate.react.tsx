@@ -18,10 +18,9 @@ export default function Indeterminate() {
   }
 
   return (
-    <FieldSet className="indeterminate-demo">
+    <FieldSet>
       <FieldLegend>
         <Checkbox
-          className="parent"
           checked={allChecked}
           onChange={toggleAll}
           indeterminate={indeterminate}
@@ -32,7 +31,6 @@ export default function Indeterminate() {
       <FieldGroup name="indeterminate-children">
         {items.map((item, index) => (
           <Checkbox
-            className="child"
             key={item}
             checked={checked[index]}
             onChange={(event) =>

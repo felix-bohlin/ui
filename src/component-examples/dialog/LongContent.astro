@@ -9,14 +9,14 @@ import {
 ---
 
 <Button
-  commandfor="example-dialog-long"
+  commandfor="dialog-long-content-1"
   command="show-modal"
   variant="outlined"
 >
   Read the terms
 </Button>
 
-<Dialog id="example-dialog-long">
+<Dialog id="dialog-long-content-1">
   <DialogHeader>
     <h2 class="ui-h4">Terms of service</h2>
   </DialogHeader>
@@ -86,15 +86,10 @@ import {
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="example-dialog-long" command="close" type="button">
+    <Button commandfor="dialog-long-content-1" command="close">
       Decline
     </Button>
-    <Button
-      commandfor="example-dialog-long"
-      command="close"
-      type="button"
-      variant="filled"
-    >
+    <Button commandfor="dialog-long-content-1" command="close" variant="filled">
       Accept
     </Button>
   </DialogActions>

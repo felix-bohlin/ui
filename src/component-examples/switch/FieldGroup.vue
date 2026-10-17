@@ -3,7 +3,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Form as="div">
+  <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup name="switch-group">

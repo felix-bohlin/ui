@@ -41,9 +41,7 @@
       --_text-color: var(--text-primary);
     }
 
-    &:where(button, a):where(
-        :not(:disabled, [aria-disabled="true"], .ui-disabled)
-      ) {
+    &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:hover {
           --_bg-color: light-dark(
@@ -74,9 +72,7 @@
           oklch(from var(--_accent) 0.92 calc(c * 0.5) h)
         );
 
-        &:where(button, a):where(
-            :not(:disabled, [aria-disabled="true"], .ui-disabled)
-          ) {
+        &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
             &:hover {
               --_bg-color: light-dark(
@@ -180,7 +176,7 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+    &:is([disabled], [aria-disabled="true"]) {
       --_text-color: var(--text-disabled);
 
       cursor: not-allowed;
@@ -191,6 +187,7 @@
       --_text-color: var(--text-primary);
 
       cursor: auto;
+      opacity: var(--disabled-opacity);
 
       @container style(--contrast: more) {
         --_text-color: var(--text-muted);

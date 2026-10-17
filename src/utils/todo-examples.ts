@@ -22,6 +22,9 @@ export const todoExamples = {
   "carousel-translated-labels": {
     match: "Carousel: the generated button and marker names are English",
   },
+  "list-item-as-div": {
+    match: 'ListItem: `as="div"` renders',
+  },
 }
 
 export type TodoExampleName = keyof typeof todoExamples

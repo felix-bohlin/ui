@@ -5,13 +5,14 @@
     children,
     class: className,
     max,
+    style,
     value,
     variant,
     ...rest
   }: Props = $props()
 </script>
 
-<div class={["ui-progress", variant && `ui-${variant}`, className]}>
+<div class={["ui-progress", variant && `ui-${variant}`, className]} {style}>
   {#key value == null}
     <progress {max} {value} {...rest}>
       {@render children?.()}

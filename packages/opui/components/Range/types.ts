@@ -4,7 +4,6 @@ export type RangeOption =
 export type RangeProps = {
   endText?: string
   error?: boolean
-  id?: string
   label?: string
   list?: string
   options?: RangeOption[]

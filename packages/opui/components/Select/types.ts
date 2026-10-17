@@ -13,7 +13,7 @@ export type Props = {
 export type SelectItem = {
   selected?: boolean
   text: string
-  value: any
+  value: number | string
 }
 
 export type Slots<S> = {

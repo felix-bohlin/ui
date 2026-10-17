@@ -3,12 +3,10 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox name="checkbox-supporting-text">
+  <Checkbox name="checkbox-supporting-text" endText="Supporting text">
     Default
-    <template #end-text>Supporting text</template>
   </Checkbox>
-  <Checkbox stack name="checkbox-supporting-text">
+  <Checkbox stack name="checkbox-supporting-text" endText="Supporting text">
     Stack
-    <template #end-text>Supporting text</template>
   </Checkbox>
 </template>

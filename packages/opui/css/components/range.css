@@ -13,6 +13,7 @@
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--motion, 1);
+    --_accent: var(--primary);
     --_thumb-size: 3ex;
 
     @media (hover: none) {
@@ -199,6 +200,8 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
+      --_accent: var(--invalid-color);
+
       .ui-start-text,
       .ui-end-text,
       .ui-value {
@@ -212,13 +215,13 @@
         var(--size-2),
         var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
       );
-      --_thumb-bg-color: var(--primary);
-      --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
+      --_thumb-bg-color: var(--_accent);
+      --_thumb-highlight-color: oklch(from var(--_accent) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
-      --_thumb-offset: -1.125ex;
+      --_thumb-offset: calc((var(--_track-height) - var(--_thumb-size)) / 2);
       --_track-color: var(--field-border-color);
       --_track-fill: 0%;
-      --_track-fill-color: var(--primary);
+      --_track-fill-color: var(--_accent);
       --_track-height: 0.75ex;
       --_track-radius: 1e5px;
 
@@ -240,10 +243,6 @@
       overflow: hidden;
       padding: var(--_inset);
       timeline-scope: --ui-range-thumb;
-
-      @media (hover: none) {
-        --_thumb-offset: -11.5px;
-      }
 
       &:focus-visible {
         animation-duration: auto, calc(var(--duration) * var(--_motion));
@@ -325,14 +324,6 @@
       }
 
       /* Element state */
-      .ui-range:has([aria-invalid="true"], :user-invalid) & {
-        --_thumb-bg-color: var(--invalid-color);
-        --_thumb-highlight-color: oklch(
-          from var(--invalid-color) 70% 100% h / 20%
-        );
-        --_track-fill-color: var(--invalid-color);
-      }
-
       &:not([disabled]) {
         @media (hover: hover) {
           &:hover {

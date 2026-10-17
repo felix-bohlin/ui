@@ -2,7 +2,7 @@
   import { Button, Tooltip, TooltipContent } from "opui-css/svelte"
 </script>
 
-<div class="tooltip-alignment-grid">
+<div class="example-compass">
   <Tooltip alignment="block-start" id="tooltip-top">
     <Button
       interestfor="tooltip-top"
@@ -36,31 +36,3 @@
     <TooltipContent>Below</TooltipContent>
   </Tooltip>
 </div>
-
-<style>
-  :global {
-    .tooltip-alignment-grid {
-      align-items: center;
-      display: grid;
-      gap: var(--size-3);
-      grid-template-areas:
-        ".     top    .  "
-        "start .      end"
-        ".     bottom .  ";
-      justify-items: center;
-    }
-
-    .tooltip-alignment-grid > :nth-child(1) {
-      grid-area: top;
-    }
-    .tooltip-alignment-grid > :nth-child(2) {
-      grid-area: start;
-    }
-    .tooltip-alignment-grid > :nth-child(3) {
-      grid-area: end;
-    }
-    .tooltip-alignment-grid > :nth-child(4) {
-      grid-area: bottom;
-    }
-  }
-</style>

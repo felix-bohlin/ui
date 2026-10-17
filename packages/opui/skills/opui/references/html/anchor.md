@@ -80,7 +80,7 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
             A CSS UI library exploring how next-gen HTML &amp; CSS features can
             change the way we create components.
           </p>
-          <p class="ui-caption">CSS · MIT license</p>
+          <p class="ui-caption">CSS, MIT license</p>
         </div>
         <div class="ui-actions">
           <button type="button" class="ui-button ui-outlined ui-small">

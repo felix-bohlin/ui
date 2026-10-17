@@ -8,11 +8,11 @@ Label Start text € EUR Header Footer Supporting text
 
   Container element.
 
-- `label · v-slot:label`
+- `label / v-slot:label`
 
   The label for the field.
 
-- `startText · v-slot:start-text`
+- `startText / v-slot:start-text`
 
   Start text displayed above the field.
 
@@ -40,7 +40,7 @@ Label Start text € EUR Header Footer Supporting text
 
   Content below the input, inside the border, with a divider.
 
-- `endText · v-slot:end-text`
+- `endText / v-slot:end-text`
 
   Supporting text displayed below the field.
 

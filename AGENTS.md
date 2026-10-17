@@ -6,6 +6,11 @@ Read the guide for the files you're editing:
 - `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
 - `src/docs/components/AGENTS.md`: the component docs pages and their examples.
 
+## Characters
+
+- Never use the em dash (U+2014) or the middle dot (U+00B7), in prose, UI text, examples, code, comments, generated labels or commit messages. Use a comma, a slash or parentheses instead.
+- `pnpm check-characters`, part of `pnpm check`, fails on them in every tracked or new text file.
+
 ## Sorting
 
 Always sort and order items in ascending order (ASC) whenever possible. This applies to:

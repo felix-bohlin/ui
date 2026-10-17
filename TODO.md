@@ -5281,7 +5281,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Still open: the entry offers two approaches (sub-APIs or parts with `component`), so it needs a choice.
   > Fix
   - Fixed: added sub-APIs `src/component-api/{checkbox-input,radio-input,switch-input,table-column,table-column-group}/api.ts`, shown on the Checkbox, Radio, Switch and Table pages, and the components guide calls the inputs public parts. `checkExports` in `src/utils/component-source.ts` (run from `src/layouts/Component.astro`) fails the build on a barrel export that no `api.ts` documents: dropping `TableColumn` gives 4 warnings, the real set gives none.
-- [x] (2) Anatomy: `partLabel` drops a part's `props` whenever the part has `slots`, so the Astro and Vue legends name only the slot, even when the hero itself uses the prop. Range's label row reads `slot="default"`/`v-slot:default` (React: `children`) although the hero passes `label="Label"`; Range's value row reads `slot="value"` in Astro but `valueSuffix · valueText` in React; Text field's label row reads `slot="label"` next to a hero that sets the `label` prop (`src/component-api/rows.ts:185-195`, `src/component-api/range/api.ts:99-112`, `src/component-api/text-field/api.ts:77-82`, `src/docs/components/range.astro:262-269`)
+- [x] (2) Anatomy: `partLabel` drops a part's `props` whenever the part has `slots`, so the Astro and Vue legends name only the slot, even when the hero itself uses the prop. Range's label row reads `slot="default"`/`v-slot:default` (React: `children`) although the hero passes `label="Label"`; Range's value row reads `slot="value"` in Astro but `valueSuffix / valueText` in React; Text field's label row reads `slot="label"` next to a hero that sets the `label` prop (`src/component-api/rows.ts:185-195`, `src/component-api/range/api.ts:99-112`, `src/component-api/text-field/api.ts:77-82`, `src/docs/components/range.astro:262-269`)
   - Today:
     ```
     ...(syntax.slotsAreProps && part.snippets
@@ -5300,7 +5300,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
       ...models,
     ])
     ```
-  - Fixed: `partLabel` in `src/component-api/rows.ts` lists props first, then slots or snippets and models. Range's label reads `label · slot="default"`, and every `heroAnatomy` page passes `anatomy.spec`.
+  - Fixed: `partLabel` in `src/component-api/rows.ts` lists props first, then slots or snippets and models. Range's label reads `label / slot="default"`, and every `heroAnatomy` page passes `anatomy.spec`.
 - [x] (2) Toast: the hand-written table is wrong in several rows. The message comes from `data-title`, then the button text, not from `value`. `data-severity` is said to default to `info` and lists only `success`, `critical` and `info`, but a toast without the attribute gets its own icon, and `warning` is styled and typed as well. Toast is on hold, so this can wait (`src/component-api/toast/HTML.astro:39-54`, `packages/opui/css/components/toast.css:90,126-141`, `packages/opui/css/js/toast.js:27,32-62,80`)
   - Today:
     ```astro

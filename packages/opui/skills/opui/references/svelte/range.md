@@ -8,11 +8,11 @@ Label 50 Start text End text
 
   Container element.
 
-- `label · children`
+- `label / children`
 
   The label for the range.
 
-- `valueSuffix · valueText`
+- `valueSuffix / valueText`
 
   Shows the current value, with an optional `valueSuffix`.
 

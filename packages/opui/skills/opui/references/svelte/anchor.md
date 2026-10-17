@@ -106,7 +106,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
             A CSS UI library exploring how next-gen HTML &amp; CSS features can
             change the way we create components.
           </p>
-          <p class="ui-caption">CSS · MIT license</p>
+          <p class="ui-caption">CSS, MIT license</p>
         </CardContent>
         <CardActions>
           <Button variant="outlined" size="small">Star</Button>

@@ -8,15 +8,15 @@ Label 50 Start text End text
 
   Container element.
 
-- `label · slot="default"`
+- `label / slot="default"`
 
   The label for the range.
 
-- `valueSuffix · slot="value"`
+- `valueSuffix / slot="value"`
 
   Shows the current value, with an optional `valueSuffix`.
 
-- `startText · slot="start-text"`
+- `startText / slot="start-text"`
 
   Description text displayed above the input.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `endText · slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the input.
 

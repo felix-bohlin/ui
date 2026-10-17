@@ -42,7 +42,7 @@ Utils that you can plop down wherever.
   <blockquote class="ui-blockquote">
     “Occupy your mind, don't stay home. Talk to all your friends, but don't look
     at your phone”
-    <footer>— Marika Hackman, <cite>No Caffeine</cite></footer>
+    <footer>Marika Hackman, <cite>No Caffeine</cite></footer>
   </blockquote>
 </template>
 ```
@@ -79,8 +79,8 @@ const code = `.ui-card {
 | ----------------- | ----------------- | ----------- |
 | Abbr.             | `<abbr>`          | `.ui-abbr`  |
 | Definition        | `<dfn>`           | `.ui-dfn`   |
-| **Bold**          | `<strong>`, `<b>` | —           |
-| *Italic*          | `<i>`, `<em>`     | —           |
+| **Bold**          | `<strong>`, `<b>` | None        |
+| *Italic*          | `<i>`, `<em>`     | None        |
 | Citation          | `<cite>`          | `.ui-cite`  |
 | `Ctrl + S`        | `<kbd>`           | `.ui-kbd`   |
 | [Link](#link)     | `<a href>`        | `.ui-link`  |
@@ -139,7 +139,7 @@ Let's put everything together and see how all elements look in a classless, rich
     Cornhole actually <code>h1</code> tumblr tacos mumblecore twee. Crucifix
     pour-over leggings heirloom chartreuse cloud bread trust fund lyft keytar.
     <footer>
-      — <cite>Flexitarian single-origin, somewhere off the L train</cite>
+      <cite>Flexitarian single-origin, somewhere off the L train</cite>
     </footer>
   </blockquote>
   <p>
@@ -416,7 +416,7 @@ Let's put everything together and see how all elements look in a classless, rich
       <li>Palo santo trust fund vexillologist.</li>
     </ul>
     <p>Roof party microdosing flannel cloud bread.</p>
-    <footer>— <cite>Someone who owns a fixie</cite></footer>
+    <footer><cite>Someone who owns a fixie</cite></footer>
   </blockquote>
   <p>Nested, like an email reply chain:</p>
   <blockquote>
@@ -433,7 +433,7 @@ Let's put everything together and see how all elements look in a classless, rich
     <blockquote>
       <p>The kombucha was fermenting before it was cool.</p>
     </blockquote>
-    <figcaption>— A barista, probably</figcaption>
+    <figcaption>A barista, probably</figcaption>
   </figure>
 
   <h2>Code</h2>
@@ -538,8 +538,8 @@ cold-brew 1.0.0</samp></pre>
     <tfoot>
       <tr>
         <th scope="row">Average</th>
-        <td>—</td>
-        <td>—</td>
+        <td></td>
+        <td></td>
         <td>7.4</td>
       </tr>
     </tfoot>

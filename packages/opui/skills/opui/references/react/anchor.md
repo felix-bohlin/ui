@@ -110,7 +110,7 @@ export default function RepoCard() {
                   A CSS UI library exploring how next-gen HTML &amp; CSS
                   features can change the way we create components.
                 </p>
-                <p className="ui-caption">CSS · MIT license</p>
+                <p className="ui-caption">CSS, MIT license</p>
               </CardContent>
               <CardActions>
                 <Button variant="outlined" size="small">

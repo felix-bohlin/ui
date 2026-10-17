@@ -10,7 +10,7 @@ Theme Label End text
 
   Container element.
 
-- `bind:checked · bind:group`
+- `bind:checked / bind:group`
 
   The switch input.
 

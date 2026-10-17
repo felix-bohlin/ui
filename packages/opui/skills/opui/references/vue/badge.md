@@ -12,7 +12,7 @@
 
   The element the badge is anchored to.
 
-- `label · v-slot:indicator`
+- `label / v-slot:indicator`
 
   The indicator, inside `.ui-anchor-floating`.
 

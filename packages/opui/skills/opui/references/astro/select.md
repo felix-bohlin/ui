@@ -10,11 +10,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   Container element.
 
-- `label · slot="label"`
+- `label / slot="label"`
 
   The label for the field.
 
-- `startText · slot="start-text"`
+- `startText / slot="start-text"`
 
   Start text displayed above the field.
 
@@ -42,7 +42,7 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   Content below the select, inside the border, with a divider.
 
-- `endText · slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the field.
 

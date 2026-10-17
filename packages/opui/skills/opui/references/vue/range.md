@@ -8,15 +8,15 @@ Label 50 Start text End text
 
   Container element.
 
-- `label · v-slot:default`
+- `label / v-slot:default`
 
   The label for the range.
 
-- `valueSuffix · v-slot:value`
+- `valueSuffix / v-slot:value`
 
   Shows the current value, with an optional `valueSuffix`.
 
-- `startText · v-slot:start-text`
+- `startText / v-slot:start-text`
 
   Description text displayed above the input.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `endText · v-slot:end-text`
+- `endText / v-slot:end-text`
 
   Supporting text displayed below the input.
 

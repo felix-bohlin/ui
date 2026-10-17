@@ -191,5 +191,5 @@ export const partLabel = (
       ? modelsFor(api, framework).map((entry) => syntax.model!(entry.prop))
       : []),
   ])
-  return handles.size > 0 ? [...handles].join(" · ") : fallback
+  return handles.size > 0 ? [...handles].join(" / ") : fallback
 }

@@ -20,8 +20,14 @@ import {
 import DocLink from "./DocLink.astro"
 import HydrationMarker from "./HydrationMarker.astro"
 import type { ComponentApi } from "../component-api/types"
-import { checkApi, shipped, splitUnion } from "../utils/component-source"
+import {
+  checkApi,
+  reportProblems,
+  shipped,
+  splitUnion,
+} from "../utils/component-source"
 import { formatInline } from "../utils/format-inline"
+import { FRAMEWORKS } from "../utils/framework"
 
 type Props = {
   api: ComponentApi
@@ -32,7 +38,7 @@ const { api, headingLevel = 4 } = Astro.props
 const { link } = Astro.locals
 const SlotsHeading = `h${headingLevel}` as const
 
-checkApi(api)
+reportProblems(checkApi(api))
 
 const framework = Astro.locals.framework
 const view = api.source ? framework : "html"
@@ -48,9 +54,19 @@ const parts = component
       description: part.description,
       name: partLabel(api, part, "html"),
     }))
-const notes = [...new Set([view, framework])].flatMap(
-  (key) => api.notes?.[key] ?? [],
-)
+const notes = [
+  ...new Set(
+    [view, framework].flatMap(
+      (key) => api.notes?.[key] ?? api.notes?.default ?? [],
+    ),
+  ),
+]
+if (!api.source && framework !== "html") {
+  const label = FRAMEWORKS.find((entry) => entry.id === framework)?.label
+  notes.push(
+    [notes.pop(), `There is no ${label} component.`].filter(Boolean).join(" "),
+  )
+}
 const cssVars = cssVarRows(api)
 ---
 

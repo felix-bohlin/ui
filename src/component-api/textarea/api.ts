@@ -36,7 +36,7 @@ export default {
     },
     {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },

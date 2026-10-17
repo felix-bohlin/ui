@@ -275,10 +275,19 @@ async function generateIndex() {
 
     for (const framework of FRAMEWORKS) {
       const html = framework.id === "html"
-      const options = api.options.filter(
-        (option) =>
-          !option.frameworks || option.frameworks.includes(framework.id),
-      )
+      const options = api.options
+        .filter(
+          (option) =>
+            !option.frameworks || option.frameworks.includes(framework.id),
+        )
+        .filter(
+          (option) =>
+            !html ||
+            option.class ||
+            option.attribute ||
+            option.cssVar ||
+            option.values,
+        )
       const terms = [
         html ? api.root.selector : api.component,
         api.root.description,

@@ -6,6 +6,7 @@
   round
   size="small"
   aria-label="More actions"
+  iconOnly
   commandfor="menu-custom"
   command="toggle-popover"
 >

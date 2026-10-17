@@ -4,7 +4,7 @@
 
 <div class="example-row">
   <ButtonGroup orientation="vertical">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="outlined">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="tonal">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="filled">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

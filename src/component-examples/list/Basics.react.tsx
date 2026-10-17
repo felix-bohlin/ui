@@ -1,6 +1,6 @@
 import { List, ListItem } from "opui-css/react"
 
-export default function Default() {
+export default function Basics() {
   return (
     <List>
       <ListItem headline="Headline" />

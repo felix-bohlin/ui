@@ -6,7 +6,7 @@ import {
   DialogHeader,
 } from "opui-css/react"
 
-export default function Usage() {
+export default function Basics() {
   return (
     <>
       <Button

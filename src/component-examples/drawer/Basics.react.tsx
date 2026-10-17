@@ -7,7 +7,7 @@ import {
   DrawerTitle,
 } from "opui-css/react"
 
-export default function Usage() {
+export default function Basics() {
   return (
     <>
       <div className="drawer-examples">

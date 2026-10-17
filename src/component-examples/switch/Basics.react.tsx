@@ -1,6 +1,6 @@
 import { Switch } from "opui-css/react"
 
-export default function Variants() {
+export default function Basics() {
   return (
     <>
       <Switch name="switch-variants" defaultChecked hideLabel>

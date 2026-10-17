@@ -1,6 +1,6 @@
 import { Checkbox } from "opui-css/react"
 
-export default function Variants() {
+export default function Basics() {
   return (
     <>
       <Checkbox defaultChecked name="checkbox-variants" hideLabel>

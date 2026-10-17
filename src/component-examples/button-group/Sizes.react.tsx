@@ -1,6 +1,6 @@
 import { Button, ButtonGroup } from "opui-css/react"
 
-export default function Size() {
+export default function Sizes() {
   return (
     <>
       <ButtonGroup size="x-small" variant="outlined">

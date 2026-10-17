@@ -1,3 +1,3 @@
-export default function Default() {
+export default function Basics() {
   return <div aria-busy="true"></div>
 }

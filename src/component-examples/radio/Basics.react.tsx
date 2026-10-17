@@ -1,6 +1,6 @@
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
 
-export default function FieldGroupExample() {
+export default function Basics() {
   return (
     <Form>
       <FieldSet>

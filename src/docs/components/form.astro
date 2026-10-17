@@ -4,11 +4,11 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
-import ExampleUsageReactCode from "../../component-examples/form/Usage.react.tsx?raw"
-import ExampleUsageSvelteCode from "../../component-examples/form/Usage.svelte?raw"
-import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
-import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
+import ExampleBasicsAstroCode from "../../component-examples/form/Basics.astro?raw"
+import ExampleBasicsReactCode from "../../component-examples/form/Basics.react.tsx?raw"
+import ExampleBasicsSvelteCode from "../../component-examples/form/Basics.svelte?raw"
+import ExampleBasicsVueCode from "../../component-examples/form/Basics.vue?raw"
+import ExampleBasicsHTMLCode from "../../component-examples/form/Basics.html?raw"
 
 import fieldDescriptionApi from "../../component-api/field-description/api"
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -105,11 +105,11 @@ const anatomyApi = {
   <section>
     <h2 id="usage">Usage</h2>
     <Conditional>
-      <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
-      <Code slot="react" lang="tsx" code={ExampleUsageReactCode} />
-      <Code slot="svelte" lang="svelte" code={ExampleUsageSvelteCode} />
-      <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
-      <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
+      <Code slot="astro" lang="astro" code={ExampleBasicsAstroCode} />
+      <Code slot="react" lang="tsx" code={ExampleBasicsReactCode} />
+      <Code slot="svelte" lang="svelte" code={ExampleBasicsSvelteCode} />
+      <Code slot="vue" lang="vue" code={ExampleBasicsVueCode} />
+      <Code slot="html" lang="html" code={ExampleBasicsHTMLCode} />
     </Conditional>
   </section>
 

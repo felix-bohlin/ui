@@ -7,11 +7,7 @@ import { CheckboxInput } from "opui-css/astro"
 <List>
   <ListItem as="button" headline="Button list item" />
   <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-  <ListItem
-    type="checkbox"
-    for="clickable-checkbox"
-    headline="Checkbox list item"
-  >
-    <CheckboxInput slot="end" id="clickable-checkbox" />
+  <ListItem type="checkbox" headline="Checkbox list item">
+    <CheckboxInput slot="end" />
   </ListItem>
 </List>

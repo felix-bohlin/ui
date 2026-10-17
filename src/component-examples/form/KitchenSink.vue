@@ -55,7 +55,7 @@ const experience = ref(5)
       <FieldDescription>
         Configure how you want to receive updates.
       </FieldDescription>
-      <FieldGroup name="notifications">
+      <FieldGroup>
         <Switch v-model="emailNotifs" name="email_notifs"
           >Email Notifications</Switch
         >
@@ -99,9 +99,10 @@ const experience = ref(5)
     <FieldSet>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
+      <FieldGroup>
         <Textarea
           label="Biography"
+          name="biography"
           placeholder="Tell us about yourself..."
           :rows="4"
         />
@@ -112,7 +113,7 @@ const experience = ref(5)
 
     <FieldSet>
       <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
+      <FieldGroup>
         <Checkbox name="terms" required>
           I agree to the terms and conditions
           <template #end-text>Support this text</template>

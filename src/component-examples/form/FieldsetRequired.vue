@@ -13,9 +13,9 @@ import {
   <FieldSet>
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
-    <FieldGroup name="bio">
+    <FieldGroup>
       <TextField label="Name" name="name" />
-      <Textarea required label="Life story" />
+      <Textarea label="Life story" name="story" required />
     </FieldGroup>
   </FieldSet>
 </template>

@@ -23,6 +23,7 @@
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;
       block-size: var(--_track-height);
+      border-radius: var(--radius-round);
       cursor: pointer;
       inline-size: var(--_track-width);
       margin: 0;
@@ -41,13 +42,6 @@
         transition:
           background-color var(--_duration) var(--_ease),
           border-color var(--_duration) var(--_ease);
-      }
-
-      &:focus-visible {
-        border-radius: var(--radius-round);
-        outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color);
-        outline-offset: var(--focus-ring-offset);
       }
 
       /* Dot */
@@ -142,7 +136,6 @@
     /* Label */
     .ui-label {
       min-inline-size: 0;
-      user-select: none;
     }
 
     /* Spread layout */
@@ -157,7 +150,6 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input {
-        border-radius: var(--radius-round);
         box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
       }
 
@@ -166,21 +158,23 @@
           var(--focus-ring-offset) + var(--focus-ring-width)
         );
       }
-
-      .ui-end-text {
-        color: var(--invalid-text-color);
-      }
     }
 
     @media (forced-colors: active) {
-      --_accent: SelectedItem;
-      --_accent-contrast: SelectedItemText;
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
       &:has([disabled], input[aria-disabled="true"]) {
-        --_accent: GrayText;
         --_dot-bg-color: GrayText;
+      }
+
+      :where(input[type="checkbox"][role="switch"]) {
+        --_accent: SelectedItem;
+        --_accent-contrast: SelectedItemText;
+
+        &:is(:disabled, [aria-disabled="true"]) {
+          --_accent: GrayText;
+        }
       }
     }
   }

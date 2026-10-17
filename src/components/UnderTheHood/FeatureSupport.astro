@@ -103,15 +103,15 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     }
 
     [data-status="high"] > & {
-      --_status-color: var(--text-ok, #2e7d32);
+      --_status-color: var(--success);
     }
 
     [data-status="low"] > & {
-      --_status-color: var(--text-info, #1565c0);
+      --_status-color: var(--info);
     }
 
     [data-status="limited"] > & {
-      --_status-color: var(--text-warning, #ed6c02);
+      --_status-color: var(--warning);
     }
   }
 

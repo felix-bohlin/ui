@@ -88,6 +88,9 @@ const htmlSource = rawSources[htmlPath]
 const reactSource = rawSources[reactPath]
 const vueSource = rawSources[vuePath]
 const svelteSource = rawSources[sveltePath]
+const codeSource = (ext: string) =>
+  rawSources[`../component-examples/${slug}/${name}Code.${ext}`] ??
+  rawSources[`../component-examples/${slug}/${name}.${ext}`]
 
 const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
   `${slug}/${name}`,
@@ -161,9 +164,17 @@ if (
   }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
-  {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
-  {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
-  {reactSource && <Example.Code slot="code-react" code={reactSource} />}
-  {svelteSource && <Example.Code slot="code-svelte" code={svelteSource} />}
-  {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
+  {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
+  {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
+  {
+    reactSource && (
+      <Example.Code slot="code-react" code={codeSource("react.tsx")} />
+    )
+  }
+  {
+    svelteSource && (
+      <Example.Code slot="code-svelte" code={codeSource("svelte")} />
+    )
+  }
+  {vueSource && <Example.Code slot="code-vue" code={codeSource("vue")} />}
 </Example>

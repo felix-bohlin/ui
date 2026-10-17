@@ -88,7 +88,6 @@ async function generateIndex() {
   const gettingStartedPages = (
     await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
   ).sort()
-  const homePages = await globby(["src/pages/index.astro"])
   const apiFiles = (await globby(["src/component-api/**/*.astro"])).sort()
   const apiDataFiles = (await globby(["src/component-api/*/api.ts"])).sort()
 
@@ -161,21 +160,6 @@ async function generateIndex() {
       category: "Guide",
       frameworkId: framework.id,
       url,
-    })
-  }
-
-  // Home/landing pages
-  for (const file of homePages) {
-    const meta = readMeta(file)
-    if (!meta) continue
-
-    index.push({
-      id: "home-/",
-      title: meta.title,
-      description: meta.preamble,
-      headings: meta.headings.join(" "),
-      category: "Guide",
-      url: "/",
     })
   }
 

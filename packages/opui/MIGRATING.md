@@ -757,6 +757,14 @@ Import `opui-css/css/layers.css` first when you import single component files, s
   @import "opui-css/css/components/checkbox.css";
 ```
 
+Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio`, `Switch` and `Range`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:
+
+```diff
+- import type { CheckboxProps } from "opui-css/components/Checkbox/types.astro"
+- import type { SectionProps } from "opui-css/components/Table/types.astro"
++ import type { CheckboxProps, TableCellProps } from "opui-css/astro"
+```
+
 `text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
 
 ```diff

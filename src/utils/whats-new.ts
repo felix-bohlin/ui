@@ -199,6 +199,9 @@ const whatsNew = {
     components(
       `No <code>type</code> prop in the types (<a href="#api">API</a>).`,
     ),
+    slots(
+      `Breaking: deep type imports from <code>components/Checkbox/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>CheckboxProps</code> and <code>CheckboxSlots</code>). Import <a href="#api"><code>CheckboxProps</code></a> from the framework entry instead.`,
+    ),
   ],
   chip: [
     {
@@ -248,6 +251,9 @@ const whatsNew = {
       ),
       html: `Breaking: <code>.ui-term</code> and <code>.ui-description</code> are gone. The list styles <code>dt</code> and <code>dd</code> by element (<a href="#basics">Basics</a>).`,
     },
+    slots(
+      `Breaking: deep type imports from <code>components/DescriptionList/types</code> are named <a href="#api"><code>DescriptionListTermProps</code></a>, <code>DescriptionListDescriptionProps</code> and <code>DescriptionListItemProps</code> (was <code>TermProps</code>, <code>DescriptionProps</code> and <code>ItemProps</code>), like the framework entry.`,
+    ),
   ],
   dialog: [
     slots(
@@ -395,6 +401,9 @@ const whatsNew = {
     components(
       `No <code>type</code> prop in the types, and the native <code>size</code> isn't typed either (<a href="#api">API</a>).`,
     ),
+    slots(
+      `Breaking: deep type imports from <code>components/Radio/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RadioProps</code> and <code>RadioSlots</code>). Import <a href="#api"><code>RadioProps</code></a> from the framework entry instead.`,
+    ),
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -435,6 +444,9 @@ const whatsNew = {
       astro: `Extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
     },
     `The thumb, its halo and the track fill follow <code>--_accent</code> on <code>.ui-range</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    slots(
+      `Breaking: deep type imports from <code>components/Range/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RangeProps</code> and <code>RangeSlots</code>). Import <a href="#api"><code>RangeProps</code></a> from the framework entry instead.`,
+    ),
   ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
@@ -504,6 +516,9 @@ const whatsNew = {
       `No <code>type</code> prop in the types (<a href="#api">API</a>).`,
     ),
     `A checked invalid switch turns its track red, like Checkbox and Radio (<a href="#validation">Validation</a>).`,
+    slots(
+      `Breaking: deep type imports from <code>components/Switch/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>SwitchProps</code> and <code>SwitchSlots</code>). Import <a href="#api"><code>SwitchProps</code></a> from the framework entry instead.`,
+    ),
   ],
   table: [
     {
@@ -525,6 +540,12 @@ const whatsNew = {
     ),
     components(
       `<a href="#default"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
+    ),
+    components(
+      `<a href="#api">Every part</a> has its own props type, such as <code>TableBodyProps</code> and <code>TableCellProps</code>, exported from every framework.`,
+    ),
+    slots(
+      `Breaking: deep type imports from <code>components/Table/types</code> have one type per part, such as <a href="#api"><code>TableCellProps</code></a>, instead of <code>SectionProps</code>, and <code>TableColumnProps</code> instead of <code>ColumnProps</code>.`,
     ),
   ],
   tabs: [

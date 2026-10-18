@@ -27,7 +27,7 @@ Every component uses layered type files:
 
 - `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`), and the `Context` shape for components with context
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
-- `types.d.vue.ts` - Vue props = base + `class`, plus the `Slots` type for `defineSlots`
+- `types.d.vue.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one). It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`
 - `types.react.ts` - React props = base + slot props (`ReactNode`) + `ComponentProps<element>`
 - `types.svelte.ts` - Svelte props = base + snippets + `SvelteHTMLElements[element]`
 - `types.solid.ts` - framework-specific extensions (for merge parity)

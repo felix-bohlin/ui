@@ -1,12 +1,9 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { Slot } from "vue"
+import type { Class } from "../vue"
 import type {
   SwitchInputProps as BaseSwitchInputProps,
   SwitchProps as BaseSwitchProps,
 } from "./types"
-
-type Class = {
-  class?: HTMLAttributes["class"]
-}
 
 export type SwitchProps = BaseSwitchProps & Class
 

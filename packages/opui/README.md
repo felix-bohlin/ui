@@ -186,6 +186,10 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/vue`                      | All Vue components                                                                                                     |
 | `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
 
+## Design tokens
+
+`opui-css/tokens.json` lists every theme token in the [W3C design tokens](https://www.designtokens.org/) format: its CSS variable, default, dark mode value and description. Use it with Style Dictionary or a design tool. Values are CSS expressions, so they work as they are in CSS.
+
 ## AI assistants
 
 The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:

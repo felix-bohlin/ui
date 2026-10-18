@@ -46,7 +46,8 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## Testing
 
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
-- The build regenerates `public/search-index.json` and the agent skill references in `packages/opui/skills/opui/references`. Commit them; CI fails when they're stale.
+- The build regenerates `public/search-index.json`, the agent skill references in `packages/opui/skills/opui/references` and `packages/opui/tokens.json`. Commit them; CI fails when they're stale.
+- `tests/unit/released-tokens.json` lists the theme tokens of the last published version. A token from it that disappears from `theme.css` fails the tests until a `Breaking` or `Removed` entry in the CHANGELOG names it. Update the file after a release.
 - CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks. Run `pnpm sort-css` to fix order.
 - The docs build fails on `[component-api]` errors: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop must exist.
 - Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>`, theming checks against `/<framework>/test/theming`, and layout and accessibility checks on every `heroAnatomy` docs page. The fixture pages only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).

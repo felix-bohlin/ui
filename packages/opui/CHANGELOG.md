@@ -131,6 +131,7 @@
 - `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion` (`--shadow-4` in dark mode), and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.brand` sublayers. `theme.brand` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 - Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
+- `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
 
 ### Changed
 

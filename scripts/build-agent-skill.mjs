@@ -10,6 +10,7 @@ const REFERENCES = path.resolve(
 )
 
 const SUB_APIS = path.resolve(process.cwd(), "src/component-api")
+const TOKENS = path.resolve(process.cwd(), "packages/opui/tokens.json")
 
 function readSubApis(pages) {
   return fs
@@ -72,6 +73,10 @@ function buildSkill() {
       )
     }
     copyReference(
+      path.join(DIST, framework.id, "guide/customizing.md"),
+      path.join(outDir, "customizing.md"),
+    )
+    copyReference(
       path.join(DIST, framework.id, "guide/getting-started.md"),
       path.join(outDir, "getting-started.md"),
     )
@@ -113,6 +118,11 @@ function buildSkill() {
   ].join("\n")
 
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
+  fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
+  fs.copyFileSync(
+    path.join(DIST, "tokens.json"),
+    path.join(REFERENCES, "tokens.json"),
+  )
   console.log(
     `Wrote ${components.length} components × ${FRAMEWORKS.length} frameworks to ${REFERENCES}`,
   )

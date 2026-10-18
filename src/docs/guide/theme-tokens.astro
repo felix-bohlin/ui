@@ -55,10 +55,19 @@ const slug = (title: string) =>
     />
     <p>
       <DocLink href="/guide/customizing#your-brand">Customizing</DocLink> explains
-      the <code>theme.brand</code> layer and where to put your other styles. <DocLink
-        href="/guide/theming">Theming</DocLink
-      > explains the palette, density, spacing, corners, fonts, elevation, motion
-      and contrast, and the classes that change them for one part of the page.
+      the <code>theme.brand</code> layer and where to put your other styles.
+    </p>
+    <p>
+      The same list ships as <code>opui-css/tokens.json</code>, in the <a
+        href="https://www.designtokens.org/"
+        class="ui-link">W3C design tokens</a
+      > format, for Style Dictionary, design tools and AI assistants. It's also at
+      <a href="/tokens.json" class="ui-link">/tokens.json</a>. Values are CSS,
+      and each token carries its CSS variable and dark mode value under <code
+        >$extensions.opui</code
+      >. <DocLink href="/guide/theming">Theming</DocLink> explains the palette, density,
+      spacing, corners, fonts, elevation, motion and contrast, and the classes that
+      change them for one part of the page.
     </p>
   </section>
 

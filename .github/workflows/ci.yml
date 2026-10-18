@@ -27,8 +27,8 @@ jobs:
       - run: pnpm check
         env:
           OPUI_TEST_PAGES: ${{ github.event_name == 'pull_request' && '1' || '' }}
-      - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references
-      - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references
+      - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: pnpm --package=netlify-cli@27.11.2 dlx netlify deploy --prod --no-build --dir=dist --filter open-props-ui-docs --message "Deploy ${GITHUB_SHA::7}"
         env:

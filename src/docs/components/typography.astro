@@ -7,6 +7,8 @@ import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 
 import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
+
+import typographyApi from "../../component-api/typography/api"
 ---
 
 <Component
@@ -24,6 +26,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     "scrollbar-width",
     "text-wrap-pretty",
   ]}
+  apis={[{ title: "Typography API", api: typographyApi }]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
     { path: "src/component-examples/typography", type: "docs" },

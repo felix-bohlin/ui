@@ -59,7 +59,7 @@ for (const theme of THEMES) {
           ),
         nodes.map((node) => node.target),
       )
-      const prefix = `${testInfo.project.name}/${component}`
+      const prefix = `${testInfo.project.name}/html/${component}`
       expect(
         nodes.filter(
           (node, index) =>

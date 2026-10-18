@@ -1,7 +1,7 @@
 ---
 import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
-import { createId } from "../id"
+import { createId, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
@@ -21,6 +21,7 @@ const {
   size,
   spread,
   startText,
+  style,
   value,
   variant = "outlined",
   ...rest
@@ -33,14 +34,12 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const describedBy =
-  [startTextId, endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
-  undefined
+const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
     : Array.isArray(value)
-      ? value.includes(item.value)
+      ? value.some((selected) => selected === item.value)
       : item.value === value
 ---
 
@@ -54,6 +53,7 @@ const isSelected = (item: SelectItem) =>
     },
     className,
   ]}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (

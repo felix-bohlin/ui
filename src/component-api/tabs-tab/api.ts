@@ -11,12 +11,6 @@ export default {
   page: "tabs",
   parts: [],
   root: {
-    component: {
-      astro: "TabsTab",
-      react: "TabsTab",
-      svelte: "TabsTab",
-      vue: "TabsTab",
-    },
     description: "The tab.",
     selector: "label.ui-tab-label",
   },

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { idRefs } from "../id"
 import type { RangeProps as Props } from "./types.react"
 
 export default function Range({
@@ -21,6 +22,7 @@ export default function Range({
   spread,
   startText,
   step,
+  style,
   value,
   valueSuffix,
   variant,
@@ -71,10 +73,7 @@ export default function Range({
   const startTextId = startText ? `range-start-${uid}` : undefined
   const endTextId = endText ? `range-end-${uid}` : undefined
   const listId = list ?? (hasDatalist ? `range-list-${uid}` : undefined)
-  const describedBy =
-    [startTextId, endTextId, rest["aria-describedby"]]
-      .filter(Boolean)
-      .join(" ") || undefined
+  const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
 
   return (
     <label
@@ -84,6 +83,7 @@ export default function Range({
         { "ui-spread": spread },
         className,
       ])}
+      style={style}
     >
       {hasLabel && (
         <span className="ui-label" id={labelId}>

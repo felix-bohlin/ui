@@ -1,8 +1,8 @@
-<button class="ui-button" id="js-trigger-html">Trigger from JS</button>
+<button class="ui-button" id="js-trigger">Trigger from JS</button>
 
 <script>
-  function setupToastDemoHtml() {
-    const btn = document.getElementById("js-trigger-html")
+  {
+    const btn = document.getElementById("js-trigger")
     if (btn) {
       btn.addEventListener("click", () => {
         if (window.showToast) {
@@ -16,6 +16,4 @@
       })
     }
   }
-
-  setupToastDemoHtml()
 </script>

@@ -1,6 +1,7 @@
 import { useId } from "react"
 import { cx } from "../cx"
 import { warnUnnamed } from "../dev"
+import { idRefs } from "../id"
 import CheckboxInput from "./CheckboxInput.react"
 import type { CheckboxProps as Props } from "./types.react"
 
@@ -17,8 +18,7 @@ export default function Checkbox({
 }: Props) {
   const uid = useId()
   const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy =
-    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+  const describedBy = idRefs(endTextId, rest["aria-describedby"])
 
   warnUnnamed(
     "Checkbox",

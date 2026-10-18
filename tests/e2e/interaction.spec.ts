@@ -91,8 +91,33 @@ interaction(
 )
 
 interaction(
+  "checkbox",
+  "FieldGroupBinding",
+  "checkbox group binds the checked values",
+  async ({ root }) => {
+    const apples = root.getByRole("checkbox", { name: "Apples" })
+    const bananas = root.getByRole("checkbox", { name: "Bananas" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(apples).toBeChecked()
+    await expect(selection).toHaveText("Selected: apples")
+    await root.getByText("Bananas", { exact: true }).click()
+    await expect(bananas).toBeChecked()
+    await expect(selection).toHaveText("Selected: apples, bananas")
+    await root.getByText("Apples", { exact: true }).click()
+    await expect(apples).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: bananas")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(apples).toBeChecked()
+    await expect(bananas).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: apples")
+  },
+)
+
+interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog opens, traps focus and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Open dialog" })
@@ -114,7 +139,7 @@ interaction(
 
 interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog closes from its actions",
   async ({ root }) => {
     const dialog = root.locator("dialog")
@@ -127,7 +152,7 @@ interaction(
 
 interaction(
   "drawer",
-  "Usage",
+  "Basics",
   "drawer opens and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Inline Start" })
@@ -140,6 +165,32 @@ interaction(
     await page.keyboard.press("Escape")
     await expect(drawer).toHaveCount(0)
     await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
+  "radio",
+  "FieldGroupBinding",
+  "radio group binds the selected value and resets",
+  async ({ root }) => {
+    const free = root.getByRole("radio", { name: "Free" })
+    const pro = root.getByRole("radio", { name: "Pro" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(free).toBeChecked()
+    await root.getByText("Pro", { exact: true }).click()
+    await expect(pro).toBeChecked()
+    await expect(selection).toHaveText("Selected: pro")
+    await root.getByText("Free", { exact: true }).click()
+    await expect(free).toBeChecked()
+    await expect(selection).toHaveText("Selected: free")
+    await root.getByText("Pro", { exact: true }).click()
+    await expect(pro).toBeChecked()
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(free).toBeChecked()
+    await expect(pro).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: free")
   },
 )
 
@@ -179,6 +230,31 @@ interaction(
     await expect
       .poll(() => select.evaluate((el) => el.matches(":open")))
       .toBe(false)
+  },
+)
+
+interaction(
+  "switch",
+  "FieldGroupBinding",
+  "switch group binds the checked values",
+  async ({ root }) => {
+    const email = root.getByRole("switch", { name: "Email" })
+    const push = root.getByRole("switch", { name: "Push" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(email).toBeChecked()
+    await expect(selection).toHaveText("Selected: email")
+    await root.getByText("Push", { exact: true }).click()
+    await expect(push).toBeChecked()
+    await expect(selection).toHaveText("Selected: email, push")
+    await root.getByText("Email", { exact: true }).click()
+    await expect(email).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: push")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(email).toBeChecked()
+    await expect(push).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: email")
   },
 )
 

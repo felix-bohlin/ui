@@ -12,6 +12,7 @@
     onchange,
     pressed,
     size,
+    style,
     type,
     value,
 
@@ -25,14 +26,12 @@
 
   const finalName = $derived(name || group?.groupName || field?.name)
   const finalType = $derived(
-    group?.inputType === "radio"
-      ? "radio"
-      : type || group?.inputType || "checkbox",
+    group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
   const checked = $derived(isSelected(group?.value, value || label) ?? pressed)
 </script>
 
-<label class={["ui-toggle-button", size && `ui-${size}`, className]}>
+<label class={["ui-toggle-button", size && `ui-${size}`, className]} {style}>
   <input
     {checked}
     {disabled}

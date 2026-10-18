@@ -1,10 +1,5 @@
 @layer components.root {
   :where(label.ui-radio) {
-    cursor: pointer;
-    line-height: var(--font-lineheight-3);
-    transform: translateZ(0);
-    user-select: none;
-
     /* Input */
     input[type="radio"] {
       --_dot-radius: calc(
@@ -44,20 +39,14 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --primary: var(--invalid-color);
-
       input[type="radio"]:not(:checked) {
         border-color: var(--invalid-color);
-      }
-
-      :where(.ui-end-text) {
-        color: var(--invalid-text-color);
       }
     }
 
     @media (forced-colors: active) {
       input[type="radio"] {
-        border: 1px solid CanvasText;
+        border-color: CanvasText;
 
         &:checked {
           --_accent: SelectedItem;

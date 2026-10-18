@@ -191,4 +191,36 @@ const examples = examplesFor(framework, component)
     gap: var(--size-3);
     justify-content: center;
   }
+
+  .example-row.ui-spacious {
+    gap: var(--size-6);
+  }
+
+  .example-compass {
+    align-items: center;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-areas:
+      ". block-start ."
+      "inline-start . inline-end"
+      ". block-end .";
+    justify-content: center;
+    justify-items: center;
+
+    & > :nth-child(1) {
+      grid-area: block-start;
+    }
+
+    & > :nth-child(2) {
+      grid-area: inline-start;
+    }
+
+    & > :nth-child(3) {
+      grid-area: inline-end;
+    }
+
+    & > :nth-child(4) {
+      grid-area: block-end;
+    }
+  }
 </style>

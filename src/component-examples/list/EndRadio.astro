@@ -1,26 +1,14 @@
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { RadioInput } from "opui-css/astro"
+import { List, ListItem, RadioInput } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem type="radio" for="radio-example-1">
+  <ListItem type="radio">
     <Fragment slot="text">Radio 1</Fragment>
-    <RadioInput
-      slot="end"
-      id="radio-example-1"
-      name="radio-example-group"
-      value="1"
-    />
+    <RadioInput slot="end" name="radio-example-group" value="1" />
   </ListItem>
-  <ListItem type="radio" for="radio-example-2">
+  <ListItem type="radio">
     <Fragment slot="text">Radio 2</Fragment>
-    <RadioInput
-      slot="end"
-      id="radio-example-2"
-      name="radio-example-group"
-      value="2"
-    />
+    <RadioInput slot="end" name="radio-example-group" value="2" />
   </ListItem>
 </List>

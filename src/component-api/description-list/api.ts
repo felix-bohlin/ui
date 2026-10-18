@@ -22,34 +22,19 @@ export default {
   ],
   parts: [
     {
-      component: {
-        astro: "DescriptionListItem",
-        react: "DescriptionListItem",
-        svelte: "DescriptionListItem",
-        vue: "DescriptionListItem",
-      },
+      component: "DescriptionListItem",
       description: "Groups a term with its description.",
       selector: ".ui-item",
     },
     {
       code: "<dt>",
-      component: {
-        astro: "DescriptionListTerm",
-        react: "DescriptionListTerm",
-        svelte: "DescriptionListTerm",
-        vue: "DescriptionListTerm",
-      },
+      component: "DescriptionListTerm",
       description: "The term.",
       selector: "dt",
     },
     {
       code: "<dd>",
-      component: {
-        astro: "DescriptionListDescription",
-        react: "DescriptionListDescription",
-        svelte: "DescriptionListDescription",
-        vue: "DescriptionListDescription",
-      },
+      component: "DescriptionListDescription",
       description: "The description.",
       selector: "dd",
     },

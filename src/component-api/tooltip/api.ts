@@ -34,12 +34,7 @@ export default {
       selector: ".ui-tooltip > :first-child",
     },
     {
-      component: {
-        astro: "TooltipContent",
-        react: "TooltipContent",
-        svelte: "TooltipContent",
-        vue: "TooltipContent",
-      },
+      component: "TooltipContent",
       description: 'The tooltip, a `popover="hint"`.',
       selector: ".ui-anchor-floating",
     },

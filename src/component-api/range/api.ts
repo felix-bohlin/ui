@@ -3,23 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Range",
   hydration: {
-    react: [
-      {
-        description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
-        prop: "valueSuffix",
-      },
-    ],
-    svelte: [
-      {
-        description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
-        prop: "valueSuffix",
-      },
-    ],
-    vue: [
+    default: [
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
@@ -35,13 +19,13 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.",
+      "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.",
     html: "Add a `<datalist>` after the input for tick marks.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -55,7 +39,9 @@ export default {
     {
       description:
         "The id of the `<input>`. Generated when omitted and the value is shown.",
+      inherited: true,
       prop: "id",
+      type: "string",
     },
     {
       description:

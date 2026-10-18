@@ -33,7 +33,7 @@ const tagAttrs = computed(() =>
   hasLabel.value
     ? { class: `ui-${type}`, for: htmlFor }
     : {
-        disabled,
+        disabled: Tag.value === "button" ? disabled : undefined,
         href,
         type: Tag.value === "button" ? "button" : undefined,
         ...attrs,

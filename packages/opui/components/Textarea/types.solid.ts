@@ -3,4 +3,4 @@ import type { JSX } from "solid-js"
 
 export type Props = Base.Props &
   JSX.TextareaHTMLAttributes<HTMLTextAreaElement> &
-  Partial<Base.Slots<JSX.Element>>
+  Base.Slots<JSX.Element>

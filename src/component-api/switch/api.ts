@@ -95,6 +95,7 @@ export default {
     },
     {
       description: "Supporting text displayed below the label.",
+      props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
     },

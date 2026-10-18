@@ -12,6 +12,7 @@ const {
   name,
   pressed,
   size,
+  style,
   type,
   value,
   ...rest
@@ -21,13 +22,13 @@ const field = fieldGroupContext.get()
 const group = toggleGroupContext.get()
 
 const finalName = name || group?.groupName || field?.name
-const finalType =
-  group?.inputType === "radio"
-    ? "radio"
-    : type || group?.inputType || "checkbox"
+const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
 ---
 
-<label class:list={["ui-toggle-button", size && `ui-${size}`, className]}>
+<label
+  class:list={["ui-toggle-button", size && `ui-${size}`, className]}
+  style={style}
+>
   <input
     checked={pressed}
     disabled={disabled}

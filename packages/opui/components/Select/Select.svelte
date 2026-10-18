@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
-  import { untrack, type Snippet } from "svelte"
+  import { untrack } from "svelte"
 
   let {
     class: className,
@@ -13,6 +15,7 @@
     name,
     size,
     spread,
+    style,
     value = $bindable(),
     variant = "outlined",
 
@@ -39,9 +42,7 @@
   const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
   const describedBy = $derived(
-    [startTextId, endTextId, rest["aria-describedby"]]
-      .filter(Boolean)
-      .join(" ") || undefined,
+    idRefs(startTextId, endTextId, rest["aria-describedby"]),
   )
 
   const isSelected = (item: SelectItem) =>
@@ -51,10 +52,6 @@
         ? value.includes(item.value)
         : item.value === value
 </script>
-
-{#snippet content(
-  part: string | Snippet,
-)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
   class={[
@@ -66,6 +63,7 @@
     },
     className,
   ]}
+  {style}
 >
   {#if label}
     <span class="ui-label" id={labelId}>

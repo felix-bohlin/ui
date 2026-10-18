@@ -66,7 +66,7 @@
         oklch(from var(--primary) l c h / 25%),
         oklch(from var(--primary) l c calc(h + 60) / 15%)
       );
-      border-radius: var(--radius-4);
+      border-radius: var(--border-radius);
       padding: var(--size-4);
 
       @container (inline-size >= 40rem) {
@@ -93,8 +93,6 @@
       }
 
       .hero-url {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
         margin-inline-start: var(--size-2);
       }
     }
@@ -125,11 +123,6 @@
       .ui-card {
         gap: var(--size-1);
         padding: var(--size-2);
-      }
-
-      span {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
       }
 
       strong {
@@ -226,7 +219,9 @@
           <span class="hero-dot"></span>
           <span class="hero-dot"></span>
           <span class="hero-dot"></span>
-          <span class="hero-url">app.northwind.example/sprints/42</span>
+          <span class="hero-url ui-caption"
+            >app.northwind.example/sprints/42</span
+          >
         </div>
         <div class="hero-screen">
           <div class="hero-screen-head">
@@ -237,15 +232,15 @@
           </div>
           <div class="hero-stats">
             <div class="ui-card ui-outlined">
-              <span>Done</span>
+              <span class="ui-caption">Done</span>
               <strong>18</strong>
             </div>
             <div class="ui-card ui-outlined">
-              <span>In review</span>
+              <span class="ui-caption">In review</span>
               <strong>6</strong>
             </div>
             <div class="ui-card ui-outlined">
-              <span>Velocity</span>
+              <span class="ui-caption">Velocity</span>
               <strong>34</strong>
             </div>
           </div>

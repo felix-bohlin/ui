@@ -29,7 +29,7 @@ type Ramp = { gray: [string, string]; color: [string, string] }
 
 const RAMPS = {
   "--text-primary": { gray: ["15", "1"], color: ["15", "1"] },
-  "--text-primary-contrast": { gray: ["2", "15"], color: ["2", "15"] },
+  "--text-inverse": { gray: ["1", "15"], color: ["1", "15"] },
   "--text-muted": { gray: ["13", "4"], color: ["13", "4"] },
   "--text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
   "--surface-default": { gray: ["1", "13"], color: ["1", "14"] },

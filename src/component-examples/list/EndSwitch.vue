@@ -4,13 +4,13 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="switch" for="switch-example-1">
+    <ListItem type="switch">
       <template #text>Switch 1</template>
-      <template #end><SwitchInput id="switch-example-1" /></template>
+      <template #end><SwitchInput /></template>
     </ListItem>
-    <ListItem type="switch" for="switch-example-2">
+    <ListItem type="switch">
       <template #text>Switch 2</template>
-      <template #end><SwitchInput id="switch-example-2" /></template>
+      <template #end><SwitchInput /></template>
     </ListItem>
   </List>
 </template>

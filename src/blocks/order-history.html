@@ -54,11 +54,6 @@
       grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
       margin: 0;
 
-      dt {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
-      }
-
       dd {
         font-variant-numeric: tabular-nums;
         font-weight: var(--font-weight-semibold);
@@ -89,9 +84,7 @@
     }
 
     .orders-steps {
-      color: var(--text-muted);
       display: flex;
-      font-size: var(--font-size-0);
       justify-content: space-between;
     }
 
@@ -102,7 +95,7 @@
 
     .orders-thumb {
       aspect-ratio: 1;
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius);
       inline-size: var(--size-8);
     }
 
@@ -222,15 +215,15 @@
           <h2 class="ui-h5" id="order-history-4821">Order NW-4821</h2>
           <dl class="orders-meta">
             <div>
-              <dt>Placed</dt>
+              <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-10-05">5 Oct 2026</time></dd>
             </div>
             <div>
-              <dt>Total</dt>
+              <dt class="ui-caption">Total</dt>
               <dd>€141.90</dd>
             </div>
             <div>
-              <dt>Ship to</dt>
+              <dt class="ui-caption">Ship to</dt>
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
@@ -265,7 +258,7 @@
                 value="66"
               ></progress>
             </div>
-            <div aria-hidden="true" class="orders-steps">
+            <div aria-hidden="true" class="orders-steps ui-caption">
               <span>Ordered</span><span>Shipped</span><span>Delivered</span>
             </div>
           </div>
@@ -370,15 +363,15 @@
           <h2 class="ui-h5" id="order-history-4610">Order NW-4610</h2>
           <dl class="orders-meta">
             <div>
-              <dt>Placed</dt>
+              <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-09-14">14 Sep 2026</time></dd>
             </div>
             <div>
-              <dt>Total</dt>
+              <dt class="ui-caption">Total</dt>
               <dd>€239.00</dd>
             </div>
             <div>
-              <dt>Ship to</dt>
+              <dt class="ui-caption">Ship to</dt>
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
@@ -513,15 +506,15 @@
           <h2 class="ui-h5" id="order-history-4377">Order NW-4377</h2>
           <dl class="orders-meta">
             <div>
-              <dt>Placed</dt>
+              <dt class="ui-caption">Placed</dt>
               <dd><time datetime="2026-08-22">22 Aug 2026</time></dd>
             </div>
             <div>
-              <dt>Total</dt>
+              <dt class="ui-caption">Total</dt>
               <dd>€33.90</dd>
             </div>
             <div>
-              <dt>Ship to</dt>
+              <dt class="ui-caption">Ship to</dt>
               <dd>Mateo Okafor</dd>
             </div>
           </dl>

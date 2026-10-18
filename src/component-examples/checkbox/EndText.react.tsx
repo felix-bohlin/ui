@@ -3,10 +3,10 @@ import { Checkbox } from "opui-css/react"
 export default function EndText() {
   return (
     <>
-      <Checkbox name="checkbox-supporting-text" endText="Supporting text">
+      <Checkbox name="checkbox-end-text" endText="Supporting text">
         Default
       </Checkbox>
-      <Checkbox stack name="checkbox-supporting-text" endText="Supporting text">
+      <Checkbox stack name="checkbox-end-text" endText="Supporting text">
         Stack
       </Checkbox>
     </>

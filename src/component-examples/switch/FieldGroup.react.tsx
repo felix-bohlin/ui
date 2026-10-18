@@ -2,7 +2,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupExample() {
   return (
-    <Form as="div">
+    <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="switch-group">

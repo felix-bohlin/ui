@@ -25,12 +25,12 @@
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
     );
-    --_marker-color: oklch(from var(--text-primary) l c h / 25%);
-    --_marker-color-active: var(--primary);
+    --_marker-active-bg-color: var(--primary);
+    --_marker-bg-color: oklch(from var(--text-primary) l c h / 25%);
     --_marker-gap: var(--size-2);
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
-    --_markers-margin-block-start: var(--size-3);
+    --_markers-gap: var(--size-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--border-radius);
     --_padding-block: 0px;
@@ -200,7 +200,7 @@
 
             &.ui-with-markers {
               margin-inline-end: calc(
-                var(--_marker-size) + var(--_markers-margin-block-start)
+                var(--_marker-size) + var(--_markers-gap)
               );
             }
           }
@@ -277,11 +277,11 @@
         flex-wrap: wrap;
         gap: var(--_marker-gap);
         justify-content: center;
-        margin-block-start: var(--_markers-margin-block-start);
+        margin-block-start: var(--_markers-gap);
       }
 
       & > *::scroll-marker {
-        background-color: var(--_marker-color);
+        background-color: var(--_marker-bg-color);
         block-size: var(--_marker-size);
         border-radius: var(--radius-round);
         box-sizing: border-box;
@@ -293,7 +293,7 @@
       }
 
       & > *::scroll-marker:target-current {
-        background-color: var(--_marker-color-active);
+        background-color: var(--_marker-active-bg-color);
       }
 
       & > *::scroll-marker:focus-visible {
@@ -319,15 +319,13 @@
     &.ui-vertical.ui-with-markers {
       anchor-name: --ui-carousel;
       anchor-scope: --ui-carousel;
-      margin-inline-end: calc(
-        var(--_marker-size) + var(--_markers-margin-block-start)
-      );
+      margin-inline-end: calc(var(--_marker-size) + var(--_markers-gap));
 
       &::scroll-marker-group {
         flex-direction: column;
         inset-block-start: anchor(--ui-carousel center);
         inset-inline-start: calc(
-          anchor(--ui-carousel end) + var(--_markers-margin-block-start)
+          anchor(--ui-carousel end) + var(--_markers-gap)
         );
         margin: 0;
         position: absolute;

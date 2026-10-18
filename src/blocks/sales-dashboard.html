@@ -94,10 +94,8 @@
     }
 
     .sales-legend {
-      color: var(--text-muted);
       display: flex;
       flex-wrap: wrap;
-      font-size: var(--font-size-0);
       gap: var(--size-3);
       list-style-type: none;
       margin: 0 0 var(--size-4);
@@ -172,8 +170,6 @@
       }
 
       .sales-month {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
         translate: 0 calc(100% + var(--size-1));
       }
     }
@@ -198,8 +194,6 @@
       gap: var(--size-2);
 
       span:last-child {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
         font-variant-numeric: tabular-nums;
         margin-inline-start: auto;
       }
@@ -337,7 +331,7 @@
           <p>Against the monthly target of 1 000 000 kr.</p>
         </hgroup>
         <div class="ui-content">
-          <ul aria-hidden="true" class="sales-legend">
+          <ul aria-hidden="true" class="sales-legend ui-caption">
             <li><span class="sales-swatch"></span>Revenue</li>
             <li>
               <span class="sales-swatch sales-swatch-target"></span>Target
@@ -346,70 +340,70 @@
           <ol class="sales-chart" style="--target: 77%">
             <li>
               <span class="sales-bar" style="--value: 58%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Jan</span
                 ><span class="ui-sr-only">January: 752 000 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 55%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Feb</span
                 ><span class="ui-sr-only">February: 715 400 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 66%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Mar</span
                 ><span class="ui-sr-only">March: 861 900 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 71%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Apr</span
                 ><span class="ui-sr-only">April: 924 300 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 80%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">May</span
                 ><span class="ui-sr-only">May: 1 041 800 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 74%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Jun</span
                 ><span class="ui-sr-only">June: 963 200 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 62%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Jul</span
                 ><span class="ui-sr-only">July: 806 500 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 84%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Aug</span
                 ><span class="ui-sr-only">August: 1 092 700 kr</span></span
               >
             </li>
             <li>
               <span class="sales-bar" style="--value: 93%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Sep</span
                 ><span class="ui-sr-only">September: 1 208 400 kr</span></span
               >
             </li>
             <li class="sales-current">
               <span class="sales-bar" style="--value: 34%"></span>
-              <span class="sales-month"
+              <span class="sales-month ui-caption"
                 ><span aria-hidden="true">Oct</span
                 ><span class="ui-sr-only"
                   >October so far: 442 100 kr</span
@@ -434,7 +428,8 @@
           <ul class="sales-targets">
             <li>
               <span class="sales-target" id="sales-dashboard-target-online"
-                ><span>Online store</span><span>248k of 520k kr</span></span
+                ><span>Online store</span
+                ><span class="ui-caption">248k of 520k kr</span></span
               >
               <div class="ui-progress">
                 <progress
@@ -446,7 +441,8 @@
             </li>
             <li>
               <span class="sales-target" id="sales-dashboard-target-retail"
-                ><span>Retail stores</span><span>112k of 330k kr</span></span
+                ><span>Retail stores</span
+                ><span class="ui-caption">112k of 330k kr</span></span
               >
               <div class="ui-progress">
                 <progress
@@ -458,7 +454,8 @@
             </li>
             <li>
               <span class="sales-target" id="sales-dashboard-target-b2b"
-                ><span>Business sales</span><span>64k of 100k kr</span></span
+                ><span>Business sales</span
+                ><span class="ui-caption">64k of 100k kr</span></span
               >
               <div class="ui-progress">
                 <progress
@@ -470,7 +467,8 @@
             </li>
             <li>
               <span class="sales-target" id="sales-dashboard-target-wholesale"
-                ><span>Wholesale</span><span>18k of 50k kr</span></span
+                ><span>Wholesale</span
+                ><span class="ui-caption">18k of 50k kr</span></span
               >
               <div class="ui-progress">
                 <progress

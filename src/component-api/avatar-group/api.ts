@@ -9,12 +9,6 @@ export default {
   page: "avatar",
   parts: [],
   root: {
-    component: {
-      astro: "AvatarGroup",
-      react: "AvatarGroup",
-      svelte: "AvatarGroup",
-      vue: "AvatarGroup",
-    },
     description: "A group of overlapping avatars.",
     selector: ".ui-avatar-group",
   },

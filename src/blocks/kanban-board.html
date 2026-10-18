@@ -64,7 +64,7 @@
     .kanban-column {
       align-content: start;
       background-color: var(--surface-tonal);
-      border-radius: var(--radius-3);
+      border-radius: var(--border-radius);
       display: grid;
       gap: var(--size-2);
       padding: var(--size-2);
@@ -95,8 +95,6 @@
     }
 
     .kanban-count {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
       font-variant-numeric: tabular-nums;
     }
 
@@ -133,10 +131,8 @@
 
     .kanban-meta {
       align-items: center;
-      color: var(--text-muted);
       display: flex;
       flex-wrap: wrap;
-      font-size: var(--font-size-0);
       gap: var(--size-3);
 
       .ui-avatar-group,
@@ -166,10 +162,6 @@
     .kanban-done h3 {
       color: var(--text-muted);
       text-decoration: line-through;
-    }
-
-    .kanban-add {
-      justify-content: center;
     }
   }
 </style>
@@ -246,7 +238,7 @@
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-todo-heading">To do</h2>
-          <span class="kanban-count">3</span>
+          <span class="kanban-count ui-caption">3</span>
           <button
             aria-label="Add task to To do"
             class="ui-button ui-round ui-x-small"
@@ -281,7 +273,7 @@
                     >Write copy for the pricing page</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span>
                     <svg
                       aria-hidden="true"
@@ -329,7 +321,7 @@
                     >Cookie banner for EU visitors</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span>
                     <svg
                       aria-hidden="true"
@@ -370,7 +362,7 @@
                     >Set up redirects from old URLs</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span>
                     <svg
                       aria-hidden="true"
@@ -392,7 +384,7 @@
             </article>
           </li>
         </ol>
-        <button class="ui-button ui-small kanban-add" type="button">
+        <button class="ui-button ui-small" type="button">
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -415,7 +407,7 @@
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-progress-heading">In progress</h2>
-          <span class="kanban-count">2</span>
+          <span class="kanban-count ui-caption">2</span>
           <button
             aria-label="Add task to In progress"
             class="ui-button ui-round ui-x-small"
@@ -460,7 +452,7 @@
                     >New navigation with mega menu</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span class="kanban-overdue">
                     <svg
                       aria-hidden="true"
@@ -526,7 +518,7 @@
                     >Migrate blog posts to the new CMS</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span>
                     <svg
                       aria-hidden="true"
@@ -560,7 +552,7 @@
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-review-heading">In review</h2>
-          <span class="kanban-count">1</span>
+          <span class="kanban-count ui-caption">1</span>
           <button
             aria-label="Add task to In review"
             class="ui-button ui-round ui-x-small"
@@ -598,7 +590,7 @@
                     >Accessibility audit of checkout</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span>
                     <svg
                       aria-hidden="true"
@@ -647,7 +639,7 @@
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-done-heading">Done</h2>
-          <span class="kanban-count">2</span>
+          <span class="kanban-count ui-caption">2</span>
         </div>
         <ol class="kanban-cards">
           <li>
@@ -667,7 +659,7 @@
                     >Pick a new type scale</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span
                     >Completed <time datetime="2026-10-06">6 Oct</time></span
                   >
@@ -695,7 +687,7 @@
                     >Staging environment on Fly</a
                   >
                 </h3>
-                <div class="kanban-meta">
+                <div class="kanban-meta ui-caption">
                   <span
                     >Completed <time datetime="2026-10-03">3 Oct</time></span
                   >

@@ -66,6 +66,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     round
     size="small"
     aria-label="More actions"
+    iconOnly
     commandfor="menu-custom"
     command="toggle-popover"
   >
@@ -123,7 +124,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Delete"
-      border-top
+      borderTop
       critical
       commandfor="menu-custom"
       command="hide-popover"
@@ -261,7 +262,7 @@ import { Button, Menu } from "opui-css/vue"
 
 ## Accessibility
 
-### Role
+### Role & attributes
 
 A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="menu"` or `role="menuitem"`, so screen readers announce a list of buttons, and the keyboard works like it does for any other button. The ARIA menu pattern needs a script for the arrow keys, which the library doesn't ship.
 
@@ -277,6 +278,8 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
+### Menu API
+
 | Prop        | Type                                                                | Default       | Description                                                                                                                                                                                                                                                                      |
 | ----------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                                                                |
@@ -287,13 +290,13 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                                                                                                                                                            |
 | `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                        |
 
-### Slots
+#### Slots
 
 | Slot      | Description                                                                                                        |
 | --------- | ------------------------------------------------------------------------------------------------------------------ |
 | `default` | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. |
 
-### CSS variables
+#### CSS variables
 
 | Variable                      | Default                                      | Description                                                                                                                                                                                             |
 | ----------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -497,10 +500,6 @@ Import the component from `opui-css/vue`:
 
 * `opui-css/css/components/menu.css`
 * `opui-css/css/components/list.css`
-
-## See also
-
-- [List](https://open-props-ui.netlify.app/vue/components/list.md)
 
 ## Changelog
 

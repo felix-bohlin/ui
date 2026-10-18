@@ -27,22 +27,22 @@ Label End text
 ```tsx
 import { Checkbox } from "opui-css/react"
 
-export default function Variants() {
+export default function Basics() {
   return (
     <>
-      <Checkbox defaultChecked name="checkbox-variants" hideLabel>
+      <Checkbox defaultChecked name="checkbox-basics" hideLabel>
         Checked
       </Checkbox>
-      <Checkbox name="checkbox-variants" hideLabel>
+      <Checkbox name="checkbox-basics" hideLabel>
         Unchecked
       </Checkbox>
-      <Checkbox indeterminate name="checkbox-variants" hideLabel>
+      <Checkbox indeterminate name="checkbox-basics" hideLabel>
         Indeterminate
       </Checkbox>
-      <Checkbox disabled name="checkbox-variants" hideLabel>
+      <Checkbox disabled name="checkbox-basics" hideLabel>
         Disabled
       </Checkbox>
-      <Checkbox defaultChecked disabled name="checkbox-variants" hideLabel>
+      <Checkbox defaultChecked disabled name="checkbox-basics" hideLabel>
         Checked and disabled
       </Checkbox>
     </>
@@ -149,10 +149,10 @@ import { Checkbox } from "opui-css/react"
 export default function EndText() {
   return (
     <>
-      <Checkbox name="checkbox-supporting-text" endText="Supporting text">
+      <Checkbox name="checkbox-end-text" endText="Supporting text">
         Default
       </Checkbox>
-      <Checkbox stack name="checkbox-supporting-text" endText="Supporting text">
+      <Checkbox stack name="checkbox-end-text" endText="Supporting text">
         Stack
       </Checkbox>
     </>
@@ -228,10 +228,9 @@ export default function Indeterminate() {
   }
 
   return (
-    <FieldSet className="indeterminate-demo">
+    <FieldSet>
       <FieldLegend>
         <Checkbox
-          className="parent"
           checked={allChecked}
           onChange={toggleAll}
           indeterminate={indeterminate}
@@ -242,7 +241,6 @@ export default function Indeterminate() {
       <FieldGroup name="indeterminate-children">
         {items.map((item, index) => (
           <Checkbox
-            className="child"
             key={item}
             checked={checked[index]}
             onChange={(event) =>
@@ -496,7 +494,7 @@ import {
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="checkbox-group-error">
+      <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-validation">
           <Checkbox defaultChecked error>
@@ -505,11 +503,83 @@ export default function FieldGroupValidation() {
           <Checkbox error>Checkbox 2</Checkbox>
           <Checkbox error>Checkbox 3</Checkbox>
         </FieldGroup>
-        <span className="ui-end-text" id="checkbox-group-error">
+        <span
+          className="ui-end-text"
+          id="checkbox-field-group-validation-1-error"
+        >
           Something went wrong!
         </span>
       </FieldSet>
     </Form>
+  )
+}
+```
+
+### Binding
+
+Keep the checked values in your own state. Pass each `Checkbox` a `checked` and an `onChange` that adds or removes its `value`.
+
+```tsx
+"use client"
+
+import { type ChangeEvent, useState } from "react"
+import {
+  Button,
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/react"
+
+export default function FieldGroupBinding() {
+  const [fruit, setFruit] = useState(["apples"])
+
+  function reset() {
+    setFruit(["apples"])
+  }
+
+  function toggle(event: ChangeEvent<HTMLInputElement>) {
+    const { checked, value } = event.target
+    setFruit((current) =>
+      checked ? [...current, value] : current.filter((item) => item !== value),
+    )
+  }
+
+  return (
+    <>
+      <FieldSet>
+        <FieldLegend>Fruit</FieldLegend>
+        <FieldGroup name="checkbox-binding">
+          <Checkbox
+            checked={fruit.includes("apples")}
+            onChange={toggle}
+            value="apples"
+          >
+            Apples
+          </Checkbox>
+          <Checkbox
+            checked={fruit.includes("bananas")}
+            onChange={toggle}
+            value="bananas"
+          >
+            Bananas
+          </Checkbox>
+          <Checkbox
+            checked={fruit.includes("cherries")}
+            onChange={toggle}
+            value="cherries"
+          >
+            Cherries
+          </Checkbox>
+        </FieldGroup>
+      </FieldSet>
+      <p className="checkbox-binding-text">
+        Selected: {fruit.join(", ") || "none"}
+      </p>
+      <Button className="checkbox-binding-reset" onClick={reset}>
+        Reset
+      </Button>
+    </>
   )
 }
 ```
@@ -835,7 +905,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/react`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/react/components/form.md)
 

@@ -29,7 +29,7 @@ The `name` prop will get passed down to each radio button in the group.
 ```tsx
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
 
-export default function FieldGroupExample() {
+export default function Basics() {
   return (
     <Form>
       <FieldSet>
@@ -173,7 +173,7 @@ export default function EndText() {
   return (
     <>
       <Radio
-        name="radio-supporting-text"
+        name="radio-end-text"
         value="default"
         defaultChecked
         endText="Supporting text"
@@ -181,7 +181,7 @@ export default function EndText() {
         Default
       </Radio>
       <Radio
-        name="radio-supporting-text"
+        name="radio-end-text"
         value="stack"
         stack
         endText="Supporting text"
@@ -380,7 +380,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="radio-group-error">
+      <FieldSet aria-describedby="radio-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="radio-group-validation">
           <Radio defaultChecked error value="1">
@@ -393,11 +393,71 @@ export default function FieldGroupValidation() {
             Radio 3
           </Radio>
         </FieldGroup>
-        <span className="ui-end-text" id="radio-group-error">
+        <span className="ui-end-text" id="radio-field-group-validation-1-error">
           Something went wrong!
         </span>
       </FieldSet>
     </Form>
+  )
+}
+```
+
+## Binding
+
+Keep the selected value in your own state. Pass each `Radio` a `checked` and an `onChange` that stores its `value`.
+
+```tsx
+"use client"
+
+import { useState } from "react"
+import {
+  Button,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/react"
+
+export default function FieldGroupBinding() {
+  const [plan, setPlan] = useState("free")
+
+  function reset() {
+    setPlan("free")
+  }
+
+  return (
+    <>
+      <FieldSet>
+        <FieldLegend>Plan</FieldLegend>
+        <FieldGroup name="radio-binding">
+          <Radio
+            checked={plan === "free"}
+            onChange={() => setPlan("free")}
+            value="free"
+          >
+            Free
+          </Radio>
+          <Radio
+            checked={plan === "pro"}
+            onChange={() => setPlan("pro")}
+            value="pro"
+          >
+            Pro
+          </Radio>
+          <Radio
+            checked={plan === "team"}
+            onChange={() => setPlan("team")}
+            value="team"
+          >
+            Team
+          </Radio>
+        </FieldGroup>
+      </FieldSet>
+      <p className="radio-binding-text">Selected: {plan}</p>
+      <Button className="radio-binding-reset" onClick={reset}>
+        Reset
+      </Button>
+    </>
   )
 }
 ```
@@ -653,7 +713,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/react`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/react/components/form.md)
 

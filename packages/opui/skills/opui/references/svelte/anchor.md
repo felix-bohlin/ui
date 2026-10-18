@@ -81,12 +81,12 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="anchor-repo-card"
+    id="anchor-repo-card-1"
   >
     <a
       class="ui-link"
       href="https://github.com/felix-bohlin/ui"
-      interestfor="anchor-repo-card">felix-bohlin/ui</a
+      interestfor="anchor-repo-card-1">felix-bohlin/ui</a
     >
     <AnchorContent>
       <Card variant="elevated" class="repo-card">
@@ -157,12 +157,12 @@ Preview where a link goes before following it.
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="anchor-link-preview"
+    id="anchor-link-preview-1"
   >
     <a
       class="ui-link"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-      interestfor="anchor-link-preview">CSS anchor positioning</a
+      interestfor="anchor-link-preview-1">CSS anchor positioning</a
     >
     <AnchorContent>
       <Card variant="elevated" class="link-preview">
@@ -204,11 +204,6 @@ Preview where a link goes before following it.
   }
 </style>
 ```
-
-## Used by
-
-- [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md)
-- [Tooltip](https://open-props-ui.netlify.app/svelte/components/tooltip.md)
 
 ## API
 
@@ -323,4 +318,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/svelte`:
 
-- `opui-css/css/components/anchor.css`
+### Used by
+
+- [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md)
+- [Tooltip](https://open-props-ui.netlify.app/svelte/components/tooltip.md)
+
+* `opui-css/css/components/anchor.css`

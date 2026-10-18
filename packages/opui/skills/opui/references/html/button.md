@@ -736,7 +736,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/button.css`
+### Used by
+
+- [Button Group](https://open-props-ui.netlify.app/html/components/button-group.md)
+
+* `opui-css/css/components/button.css`
 
 ## Changelog
 

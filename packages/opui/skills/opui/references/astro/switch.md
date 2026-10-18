@@ -26,7 +26,7 @@ Theme Label End text
 
   The label.
 
-- `slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the label.
 
@@ -39,10 +39,10 @@ All switches should have an accessible name. Put the label text inside the compo
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-variants" checked hideLabel>Label</Switch>
-<Switch name="switch-variants" hideLabel>Label</Switch>
-<Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-variants" disabled hideLabel>Label</Switch>
+<Switch name="switch-basics" checked hideLabel>Label</Switch>
+<Switch name="switch-basics" hideLabel>Label</Switch>
+<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
+<Switch name="switch-basics" disabled hideLabel>Label</Switch>
 ```
 
 ## Sizes
@@ -105,14 +105,8 @@ import { Switch } from "opui-css/astro"
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-supporting-text">
-  Default
-  <Fragment slot="end-text">Supporting text</Fragment>
-</Switch>
-<Switch name="switch-supporting-text" stack>
-  Stack
-  <Fragment slot="end-text">Supporting text</Fragment>
-</Switch>
+<Switch name="switch-end-text" endText="Supporting text"> Default </Switch>
+<Switch name="switch-end-text" stack endText="Supporting text"> Stack </Switch>
 ```
 
 ## Icons
@@ -255,14 +249,10 @@ See also: [Form documentation](https://open-props-ui.netlify.app/astro/component
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 ---
 
-<Form as="div">
+<Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">
@@ -278,11 +268,7 @@ import { Form } from "opui-css/astro"
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
@@ -303,12 +289,14 @@ Can be placed above and below the fields.
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Switch,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -342,11 +330,7 @@ Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
@@ -367,11 +351,7 @@ Each switch with `required` must be on before the form submits. There's no nativ
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
@@ -394,26 +374,74 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```astro
 ---
-import { Switch } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="switch-group-error">
+  <FieldSet aria-describedby="switch-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="switch-field-group-validation">
       <Switch error>Switch 1</Switch>
       <Switch error>Switch 2</Switch>
       <Switch error>Switch 3</Switch>
     </FieldGroup>
-    <span class="ui-end-text" id="switch-group-error"
+    <span class="ui-end-text" id="switch-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+### Binding
+
+Astro renders the group on the server, so it has no bound value. The checked values live in the inputs, which share the group's `name`. Submit them with a form, where `FormData.getAll()` reads them, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` switches.
+
+```astro
+---
+import {
+  Button,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Switch,
+} from "opui-css/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Notifications</FieldLegend>
+  <FieldGroup name="switch-binding">
+    <Switch checked value="email">Email</Switch>
+    <Switch value="push">Push</Switch>
+    <Switch value="sms">SMS</Switch>
+  </FieldGroup>
+</FieldSet>
+<p class="switch-binding-text">Selected: email</p>
+<Button class="switch-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".switch-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="switch-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".switch-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>
 ```
 
 ## Accessibility
@@ -446,6 +474,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 | Prop        | Type                                | Default | Description                                       |
 | ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `endText`   | `string`                            | -       | Supporting text displayed below the label.        |
 | `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
 | `size`      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
@@ -481,9 +510,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -531,9 +558,7 @@ Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `re
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -772,7 +797,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/astro`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/astro/components/form.md)
 

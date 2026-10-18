@@ -19,11 +19,11 @@ import { Progress } from "opui-css/astro"
 import { Progress } from "opui-css/astro"
 ---
 
-<Progress id="determinate-progress" max="100" value="10" />
+<Progress id="progress-determinate-1" max="100" value="10" />
 
 <script>
   const progress = document.querySelector(
-    "#determinate-progress",
+    "#progress-determinate-1",
   ) as HTMLProgressElement
   if (progress) {
     setInterval(() => {
@@ -91,7 +91,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 
 ## Under the hood
 

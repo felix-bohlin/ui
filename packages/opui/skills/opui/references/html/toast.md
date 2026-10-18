@@ -267,7 +267,7 @@ Step 1 of 4: Stack
   background-color: var(--surface-inverse);
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-3);
-  color: var(--text-primary-contrast);
+  color: var(--text-inverse);
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;

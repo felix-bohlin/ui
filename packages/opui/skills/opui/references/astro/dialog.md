@@ -45,11 +45,11 @@ import {
 } from "opui-css/astro"
 ---
 
-<Button commandfor="example-dialog" command="show-modal" variant="outlined">
+<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
   Open dialog
 </Button>
 
-<Dialog id="example-dialog">
+<Dialog id="dialog-basics-1">
   <DialogHeader>
     <h2 class="ui-h4">Newsletter</h2>
   </DialogHeader>
@@ -59,15 +59,8 @@ import {
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="example-dialog" command="close" type="button">
-      Not now
-    </Button>
-    <Button
-      commandfor="example-dialog"
-      command="close"
-      type="button"
-      variant="filled"
-    >
+    <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
+    <Button commandfor="dialog-basics-1" command="close" variant="filled">
       Subscribe
     </Button>
   </DialogActions>
@@ -90,14 +83,14 @@ import {
 ---
 
 <Button
-  commandfor="actions-alignment-example"
+  commandfor="dialog-actions-alignment-1"
   command="show-modal"
   variant="outlined"
 >
   Show shortcuts
 </Button>
 
-<Dialog id="actions-alignment-example">
+<Dialog id="dialog-actions-alignment-1">
   <DialogHeader>
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </DialogHeader>
@@ -106,9 +99,8 @@ import {
   </DialogContent>
   <DialogActions align="start">
     <Button
-      commandfor="actions-alignment-example"
+      commandfor="dialog-actions-alignment-1"
       command="close"
-      type="button"
       variant="filled"
     >
       Got it
@@ -134,7 +126,7 @@ import {
 
 <Button
   color="critical"
-  commandfor="alert-dialog-example"
+  commandfor="dialog-alert-dialog-1"
   command="show-modal"
   variant="outlined"
 >
@@ -142,27 +134,24 @@ import {
 </Button>
 
 <Dialog
-  id="alert-dialog-example"
+  id="dialog-alert-dialog-1"
   role="alertdialog"
-  aria-describedby="alert-dialog-description"
+  aria-describedby="dialog-alert-dialog-1-description"
 >
   <DialogHeader>
     <h2 class="ui-h4">Delete project?</h2>
   </DialogHeader>
   <DialogContent>
-    <p id="alert-dialog-description">
+    <p id="dialog-alert-dialog-1-description">
       This deletes the project and all its files. You can't undo this.
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="alert-dialog-example" command="close" type="button">
-      Cancel
-    </Button>
+    <Button commandfor="dialog-alert-dialog-1" command="close"> Cancel </Button>
     <Button
       color="critical"
-      commandfor="alert-dialog-example"
+      commandfor="dialog-alert-dialog-1"
       command="close"
-      type="button"
       variant="filled"
     >
       Delete
@@ -191,14 +180,14 @@ import {
 ---
 
 <Button
-  commandfor="example-dialog-long"
+  commandfor="dialog-long-content-1"
   command="show-modal"
   variant="outlined"
 >
   Read the terms
 </Button>
 
-<Dialog id="example-dialog-long">
+<Dialog id="dialog-long-content-1">
   <DialogHeader>
     <h2 class="ui-h4">Terms of service</h2>
   </DialogHeader>
@@ -268,15 +257,10 @@ import {
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="example-dialog-long" command="close" type="button">
+    <Button commandfor="dialog-long-content-1" command="close">
       Decline
     </Button>
-    <Button
-      commandfor="example-dialog-long"
-      command="close"
-      type="button"
-      variant="filled"
-    >
+    <Button commandfor="dialog-long-content-1" command="close" variant="filled">
       Accept
     </Button>
   </DialogActions>
@@ -311,14 +295,14 @@ import {
 ---
 
 <Button
-  commandfor="closing-behaviors-dialog"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   variant="outlined"
 >
   Open dialog
 </Button>
 
-<Dialog id="closing-behaviors-dialog" closedby="any">
+<Dialog id="dialog-close-behaviors-1" closedby="any">
   <DialogHeader>
     <h2 class="ui-h4">How to close</h2>
   </DialogHeader>
@@ -333,26 +317,21 @@ import {
     </FieldSet>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="closing-behaviors-dialog" command="close">
+    <Button commandfor="dialog-close-behaviors-1" command="close">
       Close manually
     </Button>
   </DialogActions>
 </Dialog>
 
 <script>
-  const dialog = document.getElementById(
-    "closing-behaviors-dialog",
-  ) as HTMLDialogElement
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      const target = e.target as HTMLInputElement
-      if (dialog) {
-        dialog.setAttribute("closedby", target.value)
-      }
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document
+    .querySelectorAll<HTMLInputElement>('input[name="closedby-demo"]')
+    .forEach((radio) => {
+      radio.addEventListener("change", () =>
+        dialog?.setAttribute("closedby", radio.value),
+      )
     })
-  })
 </script>
 ```
 

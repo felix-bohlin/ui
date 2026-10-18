@@ -66,7 +66,7 @@ Use `selection="multiple"` for multi-select groups.
 
 ```astro
 ---
-import { ToggleGroup, ToggleButton } from "opui-css/astro"
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
 ---
 
 <ToggleGroup name="text-style">
@@ -82,7 +82,7 @@ Use `selection="single"` for single-select groups. Every button is a radio then,
 
 ```astro
 ---
-import { ToggleGroup, ToggleButton } from "opui-css/astro"
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
 ---
 
 <ToggleGroup selection="single" name="alignment">
@@ -162,7 +162,7 @@ import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
       .filter((input) => input.name === name && input.checked)
       .map((input) => input.value)
 
-  function update() {
+  const update = () => {
     if (!text) return
     text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
       checked("text-format").join(", ") || "none"
@@ -185,7 +185,7 @@ Put an `svg` before the text in the slot. Icon-only buttons need an `aria-label`
 
 ```astro
 ---
-import { ToggleGroup, ToggleButton } from "opui-css/astro"
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
 ---
 
 <ToggleGroup selection="single" name="transport">
@@ -309,14 +309,14 @@ import { ToggleButton } from "opui-css/astro"
 
 ### Toggle group API
 
-| Prop          | Type                                | Default      | Description                                                                                                       |
-| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `name`        | `string`                            | -            | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation` | `"vertical"`                        | -            | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                           | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`   | `"multiple"` , `"single"`           | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`      | `boolean`                           | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -            | The size of the buttons. Without one they are the default control size.                                           |
+| Prop          | Type                                | Default        | Description                                                                                                       |
+| ------------- | ----------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                            | -              | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation` | `"horizontal"` , `"vertical"`       | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                           | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`   | `"multiple"` , `"single"`           | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`      | `boolean`                           | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"small"` , `"x-small"` | -              | The size of the buttons. Without one they are the default control size.                                           |
 
 #### Slots
 
@@ -407,6 +407,8 @@ The selection lives in the inputs. Read it from the form, or listen for `change`
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+Other attributes go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

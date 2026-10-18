@@ -223,7 +223,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`.
 
 ## Under the hood
 

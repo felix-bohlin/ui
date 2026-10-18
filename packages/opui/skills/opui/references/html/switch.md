@@ -35,33 +35,23 @@ Theme Label End text
 All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`.
 
 ```html
-<!-- Checked -->
 <label class="ui-switch">
-  <input name="switch-variants" type="checkbox" role="switch" checked />
+  <input name="switch-basics" type="checkbox" role="switch" checked />
   <span class="ui-sr-only">Label</span>
 </label>
 
-<!-- Unchecked -->
 <label class="ui-switch">
-  <input name="switch-variants" type="checkbox" role="switch" />
+  <input name="switch-basics" type="checkbox" role="switch" />
   <span class="ui-sr-only">Label</span>
 </label>
 
-<!-- Checked & disabled -->
 <label class="ui-switch">
-  <input
-    name="switch-variants"
-    type="checkbox"
-    role="switch"
-    checked
-    disabled
-  />
+  <input name="switch-basics" type="checkbox" role="switch" checked disabled />
   <span class="ui-sr-only">Label</span>
 </label>
 
-<!-- Unchecked & disabled -->
 <label class="ui-switch">
-  <input name="switch-variants" type="checkbox" role="switch" disabled />
+  <input name="switch-basics" type="checkbox" role="switch" disabled />
   <span class="ui-sr-only">Label</span>
 </label>
 ```
@@ -162,28 +152,24 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
 ```html
 <label class="ui-switch">
   <input
-    name="switch-supporting-text"
+    name="switch-end-text"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-supporting-text-end-text-1"
+    aria-describedby="switch-end-text-1"
   />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="switch-supporting-text-end-text-1"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="switch-end-text-1">Supporting text</span>
 </label>
 
 <label class="ui-switch ui-stack">
   <input
-    name="switch-supporting-text"
+    name="switch-end-text"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-supporting-text-end-text-2"
+    aria-describedby="switch-end-text-2"
   />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="switch-supporting-text-end-text-2"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="switch-end-text-2">Supporting text</span>
 </label>
 ```
 
@@ -385,7 +371,7 @@ Give every `<input>` in the group the same `name` attribute so they're submitted
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
 ```html
-<div class="ui-form">
+<form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group">
@@ -403,7 +389,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
       </label>
     </div>
   </fieldset>
-</div>
+</form>
 ```
 
 ### Direction
@@ -577,7 +563,10 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```html
 <form class="ui-form">
-  <fieldset aria-describedby="switch-group-error" class="ui-fieldset">
+  <fieldset
+    aria-describedby="switch-field-group-validation-1-error"
+    class="ui-fieldset"
+  >
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-switch">
@@ -608,11 +597,70 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
         <span class="ui-label">Switch 3</span>
       </label>
     </div>
-    <span class="ui-end-text" id="switch-group-error"
+    <span class="ui-end-text" id="switch-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </fieldset>
 </form>
+```
+
+### Binding
+
+The checked values live in the inputs, which share a `name`. Submit them with a form, where `FormData.getAll()` reads them, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` inputs in the markup.
+
+```html
+<fieldset class="ui-fieldset">
+  <legend>Notifications</legend>
+  <div class="ui-field-group">
+    <label class="ui-switch">
+      <input
+        name="switch-binding"
+        type="checkbox"
+        role="switch"
+        value="email"
+        checked
+      />
+      <span class="ui-label">Email</span>
+    </label>
+    <label class="ui-switch">
+      <input name="switch-binding" type="checkbox" role="switch" value="push" />
+      <span class="ui-label">Push</span>
+    </label>
+    <label class="ui-switch">
+      <input name="switch-binding" type="checkbox" role="switch" value="sms" />
+      <span class="ui-label">SMS</span>
+    </label>
+  </div>
+</fieldset>
+<p class="switch-binding-text">Selected: email</p>
+<button type="button" class="ui-button switch-binding-reset">Reset</button>
+
+<script>
+  function setupSwitchBinding() {
+    const text = document.querySelector(".switch-binding-text")
+    const inputs = [...document.querySelectorAll('[name="switch-binding"]')]
+
+    function update() {
+      if (!text) return
+      text.textContent = `Selected: ${
+        inputs
+          .filter((input) => input.checked)
+          .map((input) => input.value)
+          .join(", ") || "none"
+      }`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".switch-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupSwitchBinding()
+</script>
 ```
 
 ## Accessibility
@@ -681,9 +729,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -737,9 +783,7 @@ The input needs `type="checkbox"` and `role="switch"`. To hide the label, use `.
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -975,7 +1019,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/html/components/form.md)
 

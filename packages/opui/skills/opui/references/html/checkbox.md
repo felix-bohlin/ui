@@ -25,33 +25,28 @@ Label End text
 ## Basics
 
 ```html
-<!-- Checked -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants" type="checkbox" checked />
+  <input name="checkbox-basics" type="checkbox" checked />
   <span class="ui-sr-only">Checked</span>
 </label>
 
-<!-- Unchecked -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants" type="checkbox" />
+  <input name="checkbox-basics" type="checkbox" />
   <span class="ui-sr-only">Unchecked</span>
 </label>
 
-<!-- Indeterminate -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants" type="checkbox" data-indeterminate />
+  <input name="checkbox-basics" type="checkbox" data-indeterminate />
   <span class="ui-sr-only">Indeterminate</span>
 </label>
 
-<!-- Disabled -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants" type="checkbox" disabled />
+  <input name="checkbox-basics" type="checkbox" disabled />
   <span class="ui-sr-only">Disabled</span>
 </label>
 
-<!-- Checked and disabled -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants" type="checkbox" checked disabled />
+  <input name="checkbox-basics" type="checkbox" checked disabled />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
 ```
@@ -155,26 +150,22 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 ```html
 <label class="ui-checkbox">
   <input
-    name="checkbox-supporting-text"
+    name="checkbox-end-text"
     type="checkbox"
-    aria-describedby="checkbox-supporting-text-end-text-1"
+    aria-describedby="checkbox-end-text-1"
   />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="checkbox-supporting-text-end-text-1"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="checkbox-end-text-1">Supporting text</span>
 </label>
 
 <label class="ui-checkbox ui-stack">
   <input
-    name="checkbox-supporting-text"
+    name="checkbox-end-text"
     type="checkbox"
-    aria-describedby="checkbox-supporting-text-end-text-2"
+    aria-describedby="checkbox-end-text-2"
   />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="checkbox-supporting-text-end-text-2"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="checkbox-end-text-2">Supporting text</span>
 </label>
 ```
 
@@ -236,23 +227,23 @@ Add `data-indeterminate` to the `<input type="checkbox">` and call `activateInde
 The `indeterminate` state cannot be set with HTML or CSS alone. The browser only exposes it as a property on `HTMLInputElement`, so `activateIndeterminate()` sets `el.indeterminate = true` on every input with `data-indeterminate`. The `:indeterminate` CSS pseudo-class then matches and the dash glyph appears.
 
 ```html
-<fieldset class="ui-fieldset indeterminate-demo">
+<fieldset class="ui-fieldset">
   <legend>
-    <label class="ui-checkbox parent">
+    <label class="ui-checkbox">
       <input type="checkbox" data-indeterminate />
       <span class="ui-label">Select all</span>
     </label>
   </legend>
   <div class="ui-field-group">
-    <label class="ui-checkbox child">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" checked />
       <span class="ui-label">Apples</span>
     </label>
-    <label class="ui-checkbox child">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Bananas</span>
     </label>
-    <label class="ui-checkbox child">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Cherries</span>
     </label>
@@ -260,31 +251,29 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 </fieldset>
 
 <script>
-  function setupIndeterminateDemoHtml() {
-    document.querySelectorAll(".indeterminate-demo").forEach((root) => {
-      const parent = root.querySelector('.parent input[type="checkbox"]')
-      const children = Array.from(
-        root.querySelectorAll('.child input[type="checkbox"]'),
-      )
-      if (!parent || children.length === 0) return
+  {
+    document
+      .querySelectorAll("fieldset:has(> legend input[data-indeterminate])")
+      .forEach((root) => {
+        const parent = root.querySelector("legend input")
+        const children = [...root.querySelectorAll(".ui-field-group input")]
+        if (!parent || children.length === 0) return
 
-      const sync = () => {
-        const checkedCount = children.filter((c) => c.checked).length
-        parent.checked = checkedCount === children.length
-        parent.indeterminate =
-          checkedCount > 0 && checkedCount < children.length
-      }
+        const sync = () => {
+          const checkedCount = children.filter((c) => c.checked).length
+          parent.checked = checkedCount === children.length
+          parent.indeterminate =
+            checkedCount > 0 && checkedCount < children.length
+        }
 
-      parent.addEventListener("change", () => {
-        children.forEach((c) => (c.checked = parent.checked))
-        parent.indeterminate = false
+        parent.addEventListener("change", () => {
+          children.forEach((c) => (c.checked = parent.checked))
+          parent.indeterminate = false
+        })
+        children.forEach((c) => c.addEventListener("change", sync))
+        sync()
       })
-      children.forEach((c) => c.addEventListener("change", sync))
-      sync()
-    })
   }
-
-  setupIndeterminateDemoHtml()
 </script>
 ```
 
@@ -525,7 +514,10 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```html
 <form class="ui-form">
-  <fieldset aria-describedby="checkbox-group-error" class="ui-fieldset">
+  <fieldset
+    aria-describedby="checkbox-field-group-validation-1-error"
+    class="ui-fieldset"
+  >
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
@@ -554,11 +546,64 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>
-    <span class="ui-end-text" id="checkbox-group-error"
+    <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </fieldset>
 </form>
+```
+
+### Binding
+
+The checked values live in the inputs, which share a `name`. Submit them with a form, where `FormData.getAll()` reads them, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` inputs in the markup.
+
+```html
+<fieldset class="ui-fieldset">
+  <legend>Fruit</legend>
+  <div class="ui-field-group">
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="apples" checked />
+      <span class="ui-label">Apples</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="bananas" />
+      <span class="ui-label">Bananas</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="cherries" />
+      <span class="ui-label">Cherries</span>
+    </label>
+  </div>
+</fieldset>
+<p class="checkbox-binding-text">Selected: apples</p>
+<button type="button" class="ui-button checkbox-binding-reset">Reset</button>
+
+<script>
+  function setupCheckboxBinding() {
+    const text = document.querySelector(".checkbox-binding-text")
+    const inputs = [...document.querySelectorAll('[name="checkbox-binding"]')]
+
+    function update() {
+      if (!text) return
+      text.textContent = `Selected: ${
+        inputs
+          .filter((input) => input.checked)
+          .map((input) => input.value)
+          .join(", ") || "none"
+      }`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".checkbox-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupCheckboxBinding()
+</script>
 ```
 
 ## Accessibility
@@ -896,7 +941,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/html/components/form.md)
 

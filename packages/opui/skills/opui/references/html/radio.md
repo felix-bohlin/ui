@@ -146,29 +146,25 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
 ```html
 <label class="ui-radio">
   <input
-    name="radio-supporting-text"
+    name="radio-end-text"
     type="radio"
     value="default"
     checked
-    aria-describedby="radio-supporting-text-end-text-1"
+    aria-describedby="radio-end-text-1"
   />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="radio-supporting-text-end-text-1"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="radio-end-text-1">Supporting text</span>
 </label>
 
 <label class="ui-radio ui-stack">
   <input
-    name="radio-supporting-text"
+    name="radio-end-text"
     type="radio"
     value="stack"
-    aria-describedby="radio-supporting-text-end-text-2"
+    aria-describedby="radio-end-text-2"
   />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="radio-supporting-text-end-text-2"
-    >Supporting text</span
-  >
+  <span class="ui-end-text" id="radio-end-text-2">Supporting text</span>
 </label>
 ```
 
@@ -378,7 +374,10 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```html
 <form class="ui-form">
-  <fieldset aria-describedby="radio-group-error" class="ui-fieldset">
+  <fieldset
+    aria-describedby="radio-field-group-validation-1-error"
+    class="ui-fieldset"
+  >
     <legend>Legend</legend>
     <div class="ui-field-group ui-row">
       <label class="ui-radio">
@@ -410,11 +409,61 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
         <span class="ui-label">Radio 3</span>
       </label>
     </div>
-    <span class="ui-end-text" id="radio-group-error"
+    <span class="ui-end-text" id="radio-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </fieldset>
 </form>
+```
+
+## Binding
+
+The selected value lives in the inputs, which share a `name`. Submit them with a form, where `FormData.get()` reads it, or read the checked input in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` input in the markup.
+
+```html
+<fieldset class="ui-fieldset">
+  <legend>Plan</legend>
+  <div class="ui-field-group">
+    <label class="ui-radio">
+      <input name="radio-binding" type="radio" value="free" checked />
+      <span class="ui-label">Free</span>
+    </label>
+    <label class="ui-radio">
+      <input name="radio-binding" type="radio" value="pro" />
+      <span class="ui-label">Pro</span>
+    </label>
+    <label class="ui-radio">
+      <input name="radio-binding" type="radio" value="team" />
+      <span class="ui-label">Team</span>
+    </label>
+  </div>
+</fieldset>
+<p class="radio-binding-text">Selected: free</p>
+<button type="button" class="ui-button radio-binding-reset">Reset</button>
+
+<script>
+  function setupRadioBinding() {
+    const text = document.querySelector(".radio-binding-text")
+    const inputs = [...document.querySelectorAll('[name="radio-binding"]')]
+
+    function update() {
+      if (!text) return
+      text.textContent = `Selected: ${
+        inputs.find((input) => input.checked)?.value ?? "none"
+      }`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".radio-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupRadioBinding()
+</script>
 ```
 
 ## Accessibility
@@ -682,7 +731,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/html/components/form.md)
 

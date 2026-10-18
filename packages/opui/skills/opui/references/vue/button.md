@@ -179,7 +179,7 @@ import { Button } from "opui-css/vue"
 
 ## Icon-only
 
-Set `icon-only` and name the button with `aria-label`. The types require `aria-label` when `icon-only` is set. Add `round` for a circle.
+Set `iconOnly` and name the button with `aria-label`. The types require `aria-label` when `iconOnly` is set. Add `round` for a circle.
 
 ```vue
 <script setup lang="ts">
@@ -188,7 +188,7 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Button aria-label="Edit" icon-only>
+    <Button aria-label="Edit" iconOnly>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -202,37 +202,7 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Edit" icon-only round>
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-  </div>
-  <div class="example-row">
-    <Button aria-label="Edit" icon-only variant="outlined">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-    <Button aria-label="Edit" icon-only round variant="outlined">
+    <Button aria-label="Edit" iconOnly round>
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +218,7 @@ import { Button } from "opui-css/vue"
     </Button>
   </div>
   <div class="example-row">
-    <Button aria-label="Edit" icon-only variant="tonal">
+    <Button aria-label="Edit" iconOnly variant="outlined">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -262,37 +232,7 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Edit" icon-only round variant="tonal">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-  </div>
-  <div class="example-row">
-    <Button aria-label="Edit" icon-only variant="filled">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-    <Button aria-label="Edit" icon-only round variant="filled">
+    <Button aria-label="Edit" iconOnly round variant="outlined">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -308,7 +248,7 @@ import { Button } from "opui-css/vue"
     </Button>
   </div>
   <div class="example-row">
-    <Button aria-label="Edit" icon-only round size="x-small" variant="tonal">
+    <Button aria-label="Edit" iconOnly variant="tonal">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +262,7 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Edit" icon-only round size="small" variant="tonal">
+    <Button aria-label="Edit" iconOnly round variant="tonal">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -336,7 +276,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Edit" icon-only round variant="tonal">
+  </div>
+  <div class="example-row">
+    <Button aria-label="Edit" iconOnly variant="filled">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +292,65 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Edit" icon-only round size="large" variant="tonal">
+    <Button aria-label="Edit" iconOnly round variant="filled">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+  </div>
+  <div class="example-row">
+    <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -531,7 +531,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-- `opui-css/css/components/button.css`
+### Used by
+
+- [Button Group](https://open-props-ui.netlify.app/vue/components/button-group.md)
+
+* `opui-css/css/components/button.css`
 
 ## Changelog
 

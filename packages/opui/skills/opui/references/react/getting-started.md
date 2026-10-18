@@ -44,7 +44,7 @@ Or pick and choose in a CSS file, and import that file in your entry instead:
 import "./styles/main.css"
 ```
 
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. `choice.css` goes before `checkbox.css`, `radio.css` and `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 ## How to use
 

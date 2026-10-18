@@ -18,7 +18,7 @@ Label End text
 
   The label.
 
-- `v-slot:end-text`
+- `endText / v-slot:end-text`
 
   Supporting text displayed below the label.
 
@@ -132,7 +132,7 @@ import { Radio } from "opui-css/vue"
 
 ### End text
 
-Use the `end-text` slot for supporting text under a single radio's label. The component points `aria-describedby` at it.
+Use the `endText` prop for supporting text under a single radio's label, or the `end-text` slot for rich content. The component points `aria-describedby` at it.
 
 ```vue
 <script setup lang="ts">
@@ -140,13 +140,16 @@ import { Radio } from "opui-css/vue"
 </script>
 
 <template>
-  <Radio name="radio-supporting-text" value="default" checked>
+  <Radio
+    name="radio-end-text"
+    value="default"
+    checked
+    endText="Supporting text"
+  >
     Default
-    <template #end-text>Supporting text</template>
   </Radio>
-  <Radio name="radio-supporting-text" value="stack" stack>
+  <Radio name="radio-end-text" value="stack" stack endText="Supporting text">
     Stack
-    <template #end-text>Supporting text</template>
   </Radio>
 </template>
 ```
@@ -318,18 +321,48 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 
 <template>
   <Form>
-    <FieldSet aria-describedby="radio-group-error">
+    <FieldSet aria-describedby="radio-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="radio-group-validation">
         <Radio checked error value="1">Radio 1</Radio>
         <Radio error value="2">Radio 2</Radio>
         <Radio error value="3">Radio 3</Radio>
       </FieldGroup>
-      <span class="ui-end-text" id="radio-group-error"
+      <span class="ui-end-text" id="radio-field-group-validation-1-error"
         >Something went wrong!</span
       >
     </FieldSet>
   </Form>
+</template>
+```
+
+## Binding
+
+Bind the selected value with `v-model` on each `Radio`. It holds the `value` of the checked radio, and setting it updates the radios.
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue"
+import { Button, FieldGroup, FieldLegend, FieldSet, Radio } from "opui-css/vue"
+
+const plan = ref("free")
+
+function reset() {
+  plan.value = "free"
+}
+</script>
+
+<template>
+  <FieldSet>
+    <FieldLegend>Plan</FieldLegend>
+    <FieldGroup name="radio-binding">
+      <Radio v-model="plan" value="free">Free</Radio>
+      <Radio v-model="plan" value="pro">Pro</Radio>
+      <Radio v-model="plan" value="team">Team</Radio>
+    </FieldGroup>
+  </FieldSet>
+  <p class="radio-binding-text">Selected: {{ plan }}</p>
+  <Button class="radio-binding-reset" @click="reset">Reset</Button>
 </template>
 ```
 
@@ -349,6 +382,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 
 | Prop                                                                                                                                                                        | Type                                | Default | Description                                       |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `endText`                                                                                                                                                                   | `string`                            | -       | Supporting text displayed below the label.        |
 | `error`                                                                                                                                                                     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel`                                                                                                                                                                 | `boolean`                           | `false` | Visually hides the label.                         |
 | `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
@@ -599,7 +633,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/vue/components/form.md)
 

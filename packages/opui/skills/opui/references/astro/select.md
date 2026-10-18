@@ -494,7 +494,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.
+Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

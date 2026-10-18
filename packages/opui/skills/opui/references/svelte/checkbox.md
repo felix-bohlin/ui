@@ -29,13 +29,12 @@ Label End text
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-variants" hideLabel
-  >Indeterminate</Checkbox
+<Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
+<Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
+<Checkbox indeterminate name="checkbox-basics" hideLabel>Indeterminate</Checkbox
 >
-<Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-variants" hideLabel
+<Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
+<Checkbox checked disabled name="checkbox-basics" hideLabel
   >Checked and disabled</Checkbox
 >
 ```
@@ -106,13 +105,9 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-supporting-text">
-  Default
-  {#snippet endText()}Supporting text{/snippet}
-</Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
+<Checkbox name="checkbox-end-text" endText="Supporting text">Default</Checkbox>
+<Checkbox stack name="checkbox-end-text" endText="Supporting text">
   Stack
-  {#snippet endText()}Supporting text{/snippet}
 </Checkbox>
 ```
 
@@ -164,17 +159,15 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
   }
 </script>
 
-<FieldSet class="indeterminate-demo">
+<FieldSet>
   <FieldLegend>
-    <Checkbox
-      class="parent"
-      bind:checked={() => allChecked, toggleAll}
-      {indeterminate}>Select all</Checkbox
+    <Checkbox bind:checked={() => allChecked, toggleAll} {indeterminate}
+      >Select all</Checkbox
     >
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
     {#each items as item, index (item)}
-      <Checkbox class="child" bind:checked={checked[index]}>{item}</Checkbox>
+      <Checkbox bind:checked={checked[index]}>{item}</Checkbox>
     {/each}
   </FieldGroup>
 </FieldSet>
@@ -389,18 +382,51 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 </script>
 
 <Form>
-  <FieldSet aria-describedby="checkbox-group-error">
+  <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
       <Checkbox error>Checkbox 2</Checkbox>
       <Checkbox error>Checkbox 3</Checkbox>
     </FieldGroup>
-    <span class="ui-end-text" id="checkbox-group-error"
+    <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+### Binding
+
+Bind the checked values with `bind:group` on each `Checkbox`. The array holds the `value` of every checked box, and setting it updates the boxes.
+
+```svelte
+<script lang="ts">
+  import {
+    Button,
+    Checkbox,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+  } from "opui-css/svelte"
+
+  let fruit = $state(["apples"])
+
+  function reset() {
+    fruit = ["apples"]
+  }
+</script>
+
+<FieldSet>
+  <FieldLegend>Fruit</FieldLegend>
+  <FieldGroup name="checkbox-binding">
+    <Checkbox bind:group={fruit} value="apples">Apples</Checkbox>
+    <Checkbox bind:group={fruit} value="bananas">Bananas</Checkbox>
+    <Checkbox bind:group={fruit} value="cherries">Cherries</Checkbox>
+  </FieldGroup>
+</FieldSet>
+<p class="checkbox-binding-text">Selected: {fruit.join(", ") || "none"}</p>
+<Button class="checkbox-binding-reset" onclick={reset}>Reset</Button>
 ```
 
 ## Accessibility
@@ -728,7 +754,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/svelte`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/svelte/components/form.md)
 

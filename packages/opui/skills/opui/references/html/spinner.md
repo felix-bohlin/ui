@@ -25,7 +25,6 @@ The spinner's size is set to `1em`, which means it will adjust to its current fo
 Simply add `aria-busy="true"` to a `<button>`.
 
 ```html
-<!-- Text buttons -->
 <div class="example-row">
   <button type="button" aria-busy="true" class="ui-button">Text</button>
   <button type="button" aria-busy="true" disabled class="ui-button ui-outlined">
@@ -36,7 +35,6 @@ Simply add `aria-busy="true"` to a `<button>`.
   </button>
 </div>
 
-<!-- Icon buttons -->
 <div class="example-row">
   <button type="button" aria-busy="true" class="ui-button">
     <span class="ui-sr-only">Text</span>
@@ -70,17 +68,19 @@ See [progress accessibility](https://open-props-ui.netlify.app/html/components/p
 
 ## API
 
+### Spinner API
+
 | Type  | Modifiers   | Default | Description                                            |
 | ----- | ----------- | ------- | ------------------------------------------------------ |
 | Sizes | `font-size` | `1em`   | Spinner size follows the element's computed font size. |
 
-### Parts
+#### Parts
 
 | Part                 | Description                                                            |
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
-### CSS variables
+#### CSS variables
 
 | Variable   | Default | Description                                                                                                                                                                                              |
 | ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

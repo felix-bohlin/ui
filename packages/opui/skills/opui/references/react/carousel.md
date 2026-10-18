@@ -383,7 +383,7 @@ const plans = [
   { action: "Choose Team", description: "For small teams.", title: "Team" },
 ]
 
-export default function Actions() {
+export default function ButtonsOutside() {
   return (
     <Carousel aria-label="Plans" buttons="outside" perView={2}>
       {plans.map(({ action, description, title }) => (

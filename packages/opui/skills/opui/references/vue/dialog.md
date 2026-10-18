@@ -46,11 +46,11 @@ import {
 </script>
 
 <template>
-  <Button commandfor="example-dialog" command="show-modal" variant="outlined">
+  <Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
     Open dialog
   </Button>
 
-  <Dialog id="example-dialog">
+  <Dialog id="dialog-basics-1">
     <DialogHeader>
       <h2 class="ui-h4">Newsletter</h2>
     </DialogHeader>
@@ -60,15 +60,8 @@ import {
       </p>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="example-dialog" command="close" type="button">
-        Not now
-      </Button>
-      <Button
-        commandfor="example-dialog"
-        command="close"
-        type="button"
-        variant="filled"
-      >
+      <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
+      <Button commandfor="dialog-basics-1" command="close" variant="filled">
         Subscribe
       </Button>
     </DialogActions>
@@ -93,14 +86,14 @@ import {
 
 <template>
   <Button
-    commandfor="actions-alignment-example"
+    commandfor="dialog-actions-alignment-1"
     command="show-modal"
     variant="outlined"
   >
     Show shortcuts
   </Button>
 
-  <Dialog id="actions-alignment-example">
+  <Dialog id="dialog-actions-alignment-1">
     <DialogHeader>
       <h2 class="ui-h4">Keyboard shortcuts</h2>
     </DialogHeader>
@@ -109,9 +102,8 @@ import {
     </DialogContent>
     <DialogActions align="start">
       <Button
-        commandfor="actions-alignment-example"
+        commandfor="dialog-actions-alignment-1"
         command="close"
-        type="button"
         variant="filled"
       >
         Got it
@@ -139,7 +131,7 @@ import {
 <template>
   <Button
     color="critical"
-    commandfor="alert-dialog-example"
+    commandfor="dialog-alert-dialog-1"
     command="show-modal"
     variant="outlined"
   >
@@ -147,27 +139,26 @@ import {
   </Button>
 
   <Dialog
-    id="alert-dialog-example"
+    id="dialog-alert-dialog-1"
     role="alertdialog"
-    aria-describedby="alert-dialog-description"
+    aria-describedby="dialog-alert-dialog-1-description"
   >
     <DialogHeader>
       <h2 class="ui-h4">Delete project?</h2>
     </DialogHeader>
     <DialogContent>
-      <p id="alert-dialog-description">
+      <p id="dialog-alert-dialog-1-description">
         This deletes the project and all its files. You can't undo this.
       </p>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="alert-dialog-example" command="close" type="button">
+      <Button commandfor="dialog-alert-dialog-1" command="close">
         Cancel
       </Button>
       <Button
         color="critical"
-        commandfor="alert-dialog-example"
+        commandfor="dialog-alert-dialog-1"
         command="close"
-        type="button"
         variant="filled"
       >
         Delete
@@ -198,14 +189,14 @@ import {
 
 <template>
   <Button
-    commandfor="example-dialog-long"
+    commandfor="dialog-long-content-1"
     command="show-modal"
     variant="outlined"
   >
     Read the terms
   </Button>
 
-  <Dialog id="example-dialog-long">
+  <Dialog id="dialog-long-content-1">
     <DialogHeader>
       <h2 class="ui-h4">Terms of service</h2>
     </DialogHeader>
@@ -276,13 +267,12 @@ import {
       </p>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="example-dialog-long" command="close" type="button">
+      <Button commandfor="dialog-long-content-1" command="close">
         Decline
       </Button>
       <Button
-        commandfor="example-dialog-long"
+        commandfor="dialog-long-content-1"
         command="close"
-        type="button"
         variant="filled"
       >
         Accept
@@ -324,14 +314,14 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
 
 <template>
   <Button
-    commandfor="closing-behaviors-dialog"
+    commandfor="dialog-close-behaviors-1"
     command="show-modal"
     variant="outlined"
   >
     Open dialog
   </Button>
 
-  <Dialog id="closing-behaviors-dialog" :closedby="closedby">
+  <Dialog id="dialog-close-behaviors-1" :closedby="closedby">
     <DialogHeader>
       <h2 class="ui-h4">How to close</h2>
     </DialogHeader>
@@ -346,7 +336,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       </FieldSet>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="closing-behaviors-dialog" command="close">
+      <Button commandfor="dialog-close-behaviors-1" command="close">
         Close manually
       </Button>
     </DialogActions>

@@ -27,16 +27,16 @@
 ```html
 <dl class="ui-description-list">
   <div class="ui-item">
-    <dt class="ui-term">Price</dt>
-    <dd class="ui-description">6 950 000</dd>
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Size</dt>
-    <dd class="ui-description">64 m²</dd>
+    <dt>Size</dt>
+    <dd>64 m²</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Rooms</dt>
-    <dd class="ui-description">3</dd>
+    <dt>Rooms</dt>
+    <dd>3</dd>
   </div>
 </dl>
 ```
@@ -50,31 +50,31 @@ Above `45ch` the term and description share a row and the border fills the gap b
 ```html
 <dl class="ui-description-list ui-bordered">
   <div class="ui-item">
-    <dt class="ui-term">Price</dt>
-    <dd class="ui-description">6 950 000</dd>
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Size</dt>
-    <dd class="ui-description">64 m²</dd>
+    <dt>Size</dt>
+    <dd>64 m²</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Rooms</dt>
-    <dd class="ui-description">3</dd>
+    <dt>Rooms</dt>
+    <dd>3</dd>
   </div>
 </dl>
 
 <dl class="ui-description-list ui-bordered ui-dotted">
   <div class="ui-item">
-    <dt class="ui-term">Price</dt>
-    <dd class="ui-description">6 950 000</dd>
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Size</dt>
-    <dd class="ui-description">64 m²</dd>
+    <dt>Size</dt>
+    <dd>64 m²</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Rooms</dt>
-    <dd class="ui-description">3</dd>
+    <dt>Rooms</dt>
+    <dd>3</dd>
   </div>
 </dl>
 ```
@@ -89,16 +89,16 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
   style="max-inline-size: 18rem"
 >
   <div class="ui-item">
-    <dt class="ui-term">Subtotal</dt>
-    <dd class="ui-description">$120.00</dd>
+    <dt>Subtotal</dt>
+    <dd>$120.00</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Shipping</dt>
-    <dd class="ui-description">$8.00</dd>
+    <dt>Shipping</dt>
+    <dd>$8.00</dd>
   </div>
   <div class="ui-item">
-    <dt class="ui-term">Total</dt>
-    <dd class="ui-description">$128.00</dd>
+    <dt>Total</dt>
+    <dd>$128.00</dd>
   </div>
 </dl>
 ```

@@ -202,7 +202,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     type="button"
     class="ui-button"
     aria-label="More save options"
-    commandfor="split-button-menu-html"
+    commandfor="split-button-menu"
     command="toggle-popover"
   >
     <svg
@@ -219,16 +219,12 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     </svg>
   </button>
 
-  <menu
-    id="split-button-menu-html"
-    class="ui-menu ui-list ui-align-end"
-    popover
-  >
+  <menu id="split-button-menu" class="ui-menu ui-list ui-align-end" popover>
     <li>
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="split-button-menu"
       >
         <div class="ui-text"><p>Save as draft</p></div>
       </button>
@@ -237,7 +233,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="split-button-menu"
       >
         <div class="ui-text"><p>Save and publish</p></div>
       </button>
@@ -469,7 +465,7 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 | Type        | Modifiers                                 | Default | Description                                                                                                       |
 | ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
 | Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons.                                                                                  |
-| Orientation | `.ui-vertical`                            | -       | The orientation of the element.                                                                                   |
+| Orientation | default, `.ui-vertical`                   | default | The orientation of the element.                                                                                   |
 | Scroll      | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | Shrink      | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
 | Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.                                                                                          |

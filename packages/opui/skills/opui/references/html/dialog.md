@@ -41,7 +41,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
 ```html
 <button
   type="button"
-  commandfor="example-dialog-html"
+  commandfor="dialog-basics-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -49,11 +49,11 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
 </button>
 
 <dialog
-  id="example-dialog-html"
+  id="dialog-basics-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="example-dialog-title-html"
+  aria-labelledby="dialog-basics-1-title"
 >
-  <hgroup id="example-dialog-title-html">
+  <hgroup id="dialog-basics-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -63,7 +63,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
   </div>
   <div class="ui-actions">
     <button
-      commandfor="example-dialog-html"
+      commandfor="dialog-basics-1"
       command="close"
       class="ui-button"
       type="button"
@@ -71,7 +71,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
       Not now
     </button>
     <button
-      commandfor="example-dialog-html"
+      commandfor="dialog-basics-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -89,7 +89,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
 ```html
 <button
   type="button"
-  commandfor="actions-alignment-html"
+  commandfor="dialog-actions-alignment-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -97,11 +97,11 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
 </button>
 
 <dialog
-  id="actions-alignment-html"
+  id="dialog-actions-alignment-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="actions-alignment-title-html"
+  aria-labelledby="dialog-actions-alignment-1-title"
 >
-  <hgroup id="actions-alignment-title-html">
+  <hgroup id="dialog-actions-alignment-1-title">
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </hgroup>
   <div class="ui-content">
@@ -109,7 +109,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
   </div>
   <div class="ui-actions ui-align-start">
     <button
-      commandfor="actions-alignment-html"
+      commandfor="dialog-actions-alignment-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -127,7 +127,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 ```html
 <button
   type="button"
-  commandfor="alert-dialog-html"
+  commandfor="dialog-alert-dialog-1"
   command="show-modal"
   class="ui-button ui-outlined ui-critical"
 >
@@ -135,23 +135,23 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 </button>
 
 <dialog
-  id="alert-dialog-html"
+  id="dialog-alert-dialog-1"
   class="ui-dialog ui-card ui-elevated"
   role="alertdialog"
-  aria-labelledby="alert-dialog-title-html"
-  aria-describedby="alert-dialog-description-html"
+  aria-labelledby="dialog-alert-dialog-1-title"
+  aria-describedby="dialog-alert-dialog-1-description"
 >
-  <hgroup id="alert-dialog-title-html">
+  <hgroup id="dialog-alert-dialog-1-title">
     <h2 class="ui-h4">Delete project?</h2>
   </hgroup>
   <div class="ui-content">
-    <p id="alert-dialog-description-html">
+    <p id="dialog-alert-dialog-1-description">
       This deletes the project and all its files. You can't undo this.
     </p>
   </div>
   <div class="ui-actions">
     <button
-      commandfor="alert-dialog-html"
+      commandfor="dialog-alert-dialog-1"
       command="close"
       class="ui-button"
       type="button"
@@ -159,7 +159,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
       Cancel
     </button>
     <button
-      commandfor="alert-dialog-html"
+      commandfor="dialog-alert-dialog-1"
       command="close"
       class="ui-button ui-filled ui-critical"
       type="button"
@@ -181,7 +181,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 ```html
 <button
   type="button"
-  commandfor="example-dialog-long-html"
+  commandfor="dialog-long-content-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -189,11 +189,11 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 </button>
 
 <dialog
-  id="example-dialog-long-html"
+  id="dialog-long-content-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="example-dialog-long-title-html"
+  aria-labelledby="dialog-long-content-1-title"
 >
-  <hgroup id="example-dialog-long-title-html">
+  <hgroup id="dialog-long-content-1-title">
     <h2 class="ui-h4">Terms of service</h2>
   </hgroup>
   <div class="ui-content">
@@ -263,7 +263,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
   </div>
   <div class="ui-actions">
     <button
-      commandfor="example-dialog-long-html"
+      commandfor="dialog-long-content-1"
       command="close"
       class="ui-button"
       type="button"
@@ -271,7 +271,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
       Decline
     </button>
     <button
-      commandfor="example-dialog-long-html"
+      commandfor="dialog-long-content-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -297,7 +297,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 ```html
 <button
   type="button"
-  commandfor="closing-behaviors-dialog-html"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -305,12 +305,12 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </button>
 
 <dialog
-  aria-labelledby="dialog-header"
-  id="closing-behaviors-dialog-html"
+  aria-labelledby="dialog-close-behaviors-1-title"
+  id="dialog-close-behaviors-1"
   class="ui-dialog ui-card ui-elevated"
   closedby="any"
 >
-  <hgroup id="dialog-header">
+  <hgroup id="dialog-close-behaviors-1-title">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -335,7 +335,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
   <div class="ui-actions">
     <button
       type="button"
-      commandfor="closing-behaviors-dialog-html"
+      commandfor="dialog-close-behaviors-1"
       command="close"
       class="ui-button"
     >
@@ -345,14 +345,16 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </dialog>
 
 <script>
-  const dialog = document.getElementById("closing-behaviors-dialog-html")
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      dialog?.setAttribute("closedby", radio.value)
-    })
-  })
+  {
+    const dialog = document.getElementById("dialog-close-behaviors-1")
+    document
+      .querySelectorAll('input[name="closedby-demo"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () =>
+          dialog?.setAttribute("closedby", radio.value),
+        )
+      })
+  }
 </script>
 ```
 

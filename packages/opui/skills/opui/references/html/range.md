@@ -32,11 +32,11 @@ Label 50 Start text End text
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-default-1-label">Label</span>
-  <span class="ui-start-text" id="range-default-1-start-text">Min</span>
+  <span class="ui-label" id="range-basics-1-label">Label</span>
+  <span class="ui-start-text" id="range-basics-1-start-text">Min</span>
   <input
-    aria-describedby="range-default-1-start-text"
-    aria-labelledby="range-default-1-label"
+    aria-describedby="range-basics-1-start-text"
+    aria-labelledby="range-basics-1-label"
     type="range"
   />
 </label>
@@ -71,16 +71,16 @@ Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better c
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-start-end-1-label">Label</span>
-  <span class="ui-start-text" id="range-start-end-1-start-text"
+  <span class="ui-label" id="range-start-end-text-1-label">Label</span>
+  <span class="ui-start-text" id="range-start-end-text-1-start-text"
     >Start helper text</span
   >
   <input
-    aria-describedby="range-start-end-1-start-text range-start-end-1-end-text"
-    aria-labelledby="range-start-end-1-label"
+    aria-describedby="range-start-end-text-1-start-text range-start-end-text-1-end-text"
+    aria-labelledby="range-start-end-text-1-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-start-end-1-end-text"
+  <span class="ui-end-text" id="range-start-end-text-1-end-text"
     >End helper text</span
   >
 </label>
@@ -93,11 +93,11 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-value-1-label">Hue</span>
-  <output class="ui-value" for="hueRange" data-suffix="°">250°</output>
+  <output class="ui-value" for="range-value-1" data-suffix="°">250°</output>
   <input
     aria-labelledby="range-value-1-label"
     type="range"
-    id="hueRange"
+    id="range-value-1"
     min="0"
     max="360"
     value="250"
@@ -106,8 +106,8 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
 
 <script>
   {
-    const input = document.getElementById("hueRange")
-    const output = document.querySelector('output[for="hueRange"]')
+    const input = document.getElementById("range-value-1")
+    const output = document.querySelector('output[for="range-value-1"]')
     input.addEventListener("input", () => {
       output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
     })
@@ -121,15 +121,15 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-tick-marks-1-label"
+  <span class="ui-label" id="range-tick-marks-labels-1-label"
     >Tick marks with labels</span
   >
   <input
-    aria-labelledby="range-tick-marks-1-label"
-    list="labeled-markers"
+    aria-labelledby="range-tick-marks-labels-1-label"
+    list="range-tick-marks-labels-1-list"
     type="range"
   />
-  <datalist id="labeled-markers">
+  <datalist id="range-tick-marks-labels-1-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -177,50 +177,50 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ```html
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-1-label">Spread Layout</span>
-  <span class="ui-start-text" id="range-row-1-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-1-label">Spread Layout</span>
+  <span class="ui-start-text" id="range-spread-1-start-text">Start text</span>
   <input
-    aria-describedby="range-row-1-start-text range-row-1-end-text"
-    aria-labelledby="range-row-1-label"
+    aria-describedby="range-spread-1-start-text range-spread-1-end-text"
+    aria-labelledby="range-spread-1-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-row-1-end-text">End text</span>
+  <span class="ui-end-text" id="range-spread-1-end-text">End text</span>
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-2-label">Disabled</span>
-  <span class="ui-start-text" id="range-row-2-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-2-label">Disabled</span>
+  <span class="ui-start-text" id="range-spread-2-start-text">Start text</span>
   <input
-    aria-describedby="range-row-2-start-text range-row-2-end-text"
-    aria-labelledby="range-row-2-label"
+    aria-describedby="range-spread-2-start-text range-spread-2-end-text"
+    aria-labelledby="range-spread-2-label"
     type="range"
     disabled
   />
-  <span class="ui-end-text" id="range-row-2-end-text">End text</span>
+  <span class="ui-end-text" id="range-spread-2-end-text">End text</span>
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-3-label">Invalid Range</span>
-  <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-3-label">Invalid Range</span>
+  <span class="ui-start-text" id="range-spread-3-start-text">Start text</span>
   <input
     aria-invalid="true"
-    aria-describedby="range-row-3-start-text range-row-3-end-text"
-    aria-labelledby="range-row-3-label"
+    aria-describedby="range-spread-3-start-text range-spread-3-end-text"
+    aria-labelledby="range-spread-3-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-row-3-end-text"
+  <span class="ui-end-text" id="range-spread-3-end-text"
     >This value is incorrect.</span
   >
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-4-label">Tick marks with labels</span>
+  <span class="ui-label" id="range-spread-4-label">Tick marks with labels</span>
   <input
-    aria-labelledby="range-row-4-label"
-    list="labeled-markers-spread"
+    aria-labelledby="range-spread-4-label"
+    list="range-spread-4-list"
     type="range"
   />
-  <datalist id="labeled-markers-spread">
+  <datalist id="range-spread-4-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>

@@ -143,12 +143,12 @@ Give a `<button>` `type="button"` so the item doesn't submit a surrounding form.
     </a>
   </li>
   <li>
-    <label class="ui-checkbox" for="clickable-checkbox-html">
+    <label class="ui-checkbox">
       <div class="ui-text">
         <p>Checkbox list item</p>
       </div>
       <div class="ui-end">
-        <input type="checkbox" id="clickable-checkbox-html" />
+        <input type="checkbox" />
       </div>
     </label>
   </li>
@@ -421,25 +421,25 @@ Found in `div.ui-end`.
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md)
 
 ```html
 <ul class="ui-list">
   <li>
-    <label class="ui-checkbox" for="checkbox-example-1-html">
+    <label class="ui-checkbox">
       <div class="ui-text">Checkbox 1</div>
       <div class="ui-end">
-        <input id="checkbox-example-1-html" type="checkbox" />
+        <input type="checkbox" />
       </div>
     </label>
   </li>
   <li>
-    <label class="ui-checkbox" for="checkbox-example-2-html">
+    <label class="ui-checkbox">
       <div class="ui-text">Checkbox 2</div>
       <div class="ui-end">
-        <input id="checkbox-example-2-html" type="checkbox" />
+        <input type="checkbox" />
       </div>
     </label>
   </li>
@@ -448,7 +448,7 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -457,28 +457,18 @@ Read more: [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
 ```html
 <ul class="ui-list">
   <li>
-    <label class="ui-radio" for="radio-example-1-html">
+    <label class="ui-radio">
       <div class="ui-text">Radio 1</div>
       <div class="ui-end">
-        <input
-          id="radio-example-1-html"
-          value="1"
-          name="radio-example-group"
-          type="radio"
-        />
+        <input value="1" name="radio-example-group" type="radio" />
       </div>
     </label>
   </li>
   <li>
-    <label class="ui-radio" for="radio-example-2-html">
+    <label class="ui-radio">
       <div class="ui-text">Radio 2</div>
       <div class="ui-end">
-        <input
-          id="radio-example-2-html"
-          value="2"
-          name="radio-example-group"
-          type="radio"
-        />
+        <input value="2" name="radio-example-group" type="radio" />
       </div>
     </label>
   </li>
@@ -492,18 +482,18 @@ Read more: [Switch](https://open-props-ui.netlify.app/html/components/switch.md)
 ```html
 <ul class="ui-list">
   <li>
-    <label class="ui-switch" for="switch-example-1-html">
+    <label class="ui-switch">
       <div class="ui-text">Switch 1</div>
       <div class="ui-end">
-        <input id="switch-example-1-html" type="checkbox" role="switch" />
+        <input type="checkbox" role="switch" />
       </div>
     </label>
   </li>
   <li>
-    <label class="ui-switch" for="switch-example-2-html">
+    <label class="ui-switch">
       <div class="ui-text">Switch 2</div>
       <div class="ui-end">
-        <input id="switch-example-2-html" type="checkbox" role="switch" />
+        <input type="checkbox" role="switch" />
       </div>
     </label>
   </li>
@@ -903,7 +893,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/html/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/html/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 

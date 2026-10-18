@@ -111,12 +111,8 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
   <List>
     <ListItem as="button" headline="Button list item" />
     <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-    <ListItem
-      type="checkbox"
-      for="clickable-checkbox"
-      headline="Checkbox list item"
-    >
-      <template #end><CheckboxInput id="clickable-checkbox" /></template>
+    <ListItem type="checkbox" headline="Checkbox list item">
+      <template #end><CheckboxInput /></template>
     </ListItem>
   </List>
 </template>
@@ -133,21 +129,13 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem>
-      <a href="#" aria-current="page">
-        <div class="ui-text">
-          <p>Selected item</p>
-          <p>This item has aria-current="page" on its link</p>
-        </div>
-      </a>
-    </ListItem>
-    <ListItem>
-      <a href="#">
-        <div class="ui-text">
-          <p>Normal item</p>
-        </div>
-      </a>
-    </ListItem>
+    <ListItem
+      href="#"
+      aria-current="page"
+      headline="Selected item"
+      description='This item has aria-current="page" on its link'
+    />
+    <ListItem href="#" headline="Normal item" />
   </List>
 </template>
 ```
@@ -364,7 +352,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md)
 
@@ -375,13 +363,13 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="checkbox" for="checkbox-example-1">
+    <ListItem type="checkbox">
       <template #text>Checkbox 1</template>
-      <template #end><CheckboxInput id="checkbox-example-1" /></template>
+      <template #end><CheckboxInput /></template>
     </ListItem>
-    <ListItem type="checkbox" for="checkbox-example-2">
+    <ListItem type="checkbox">
       <template #text>Checkbox 2</template>
-      <template #end><CheckboxInput id="checkbox-example-2" /></template>
+      <template #end><CheckboxInput /></template>
     </ListItem>
   </List>
 </template>
@@ -389,7 +377,7 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -402,16 +390,16 @@ import { List, ListItem, RadioInput } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="radio" for="radio-example-1">
+    <ListItem type="radio">
       <template #text>Radio 1</template>
       <template #end
-        ><RadioInput id="radio-example-1" name="radio-example-group" value="1"
+        ><RadioInput name="radio-example-group" value="1"
       /></template>
     </ListItem>
-    <ListItem type="radio" for="radio-example-2">
+    <ListItem type="radio">
       <template #text>Radio 2</template>
       <template #end
-        ><RadioInput id="radio-example-2" name="radio-example-group" value="2"
+        ><RadioInput name="radio-example-group" value="2"
       /></template>
     </ListItem>
   </List>
@@ -429,13 +417,13 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem type="switch" for="switch-example-1">
+    <ListItem type="switch">
       <template #text>Switch 1</template>
-      <template #end><SwitchInput id="switch-example-1" /></template>
+      <template #end><SwitchInput /></template>
     </ListItem>
-    <ListItem type="switch" for="switch-example-2">
+    <ListItem type="switch">
       <template #text>Switch 2</template>
-      <template #end><SwitchInput id="switch-example-2" /></template>
+      <template #end><SwitchInput /></template>
     </ListItem>
   </List>
 </template>
@@ -483,18 +471,14 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 
 ```vue
 <script setup lang="ts">
-import { List, ListItem } from "opui-css/vue"
+import { Button, List, ListItem } from "opui-css/vue"
 </script>
 
 <template>
   <List gutterless>
     <ListItem headline="Gutterless list item">
       <template #end>
-        <button
-          aria-label="Delete"
-          class="ui-button ui-round ui-small"
-          type="button"
-        >
+        <Button aria-label="Delete" iconOnly round size="small">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -506,7 +490,7 @@ import { List, ListItem } from "opui-css/vue"
               d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
             ></path>
           </svg>
-        </button>
+        </Button>
       </template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
@@ -814,7 +798,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/vue`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/vue/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/vue/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 

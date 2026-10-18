@@ -86,7 +86,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel aria-label="Destinations" buttons="outside" :per-view="3">
+  <Carousel aria-label="Destinations" buttons="outside" :perView="3">
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -124,7 +124,7 @@ const places = [
 </script>
 
 <template>
-  <Carousel aria-label="Destinations" buttons="outside" :per-view="3" stretch>
+  <Carousel aria-label="Destinations" buttons="outside" :perView="3" stretch>
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
         <CardHeader>
@@ -263,7 +263,7 @@ const photos = [
 </script>
 
 <template>
-  <Carousel aria-label="Gallery" :per-view="3" aspect-ratio="1">
+  <Carousel aria-label="Gallery" :perView="3" aspectRatio="1">
     <li v-for="{ alt, id } in photos" :key="id">
       <img
         :alt="alt"
@@ -365,7 +365,7 @@ const plans = [
 </script>
 
 <template>
-  <Carousel aria-label="Plans" buttons="outside" :per-view="2">
+  <Carousel aria-label="Plans" buttons="outside" :perView="2">
     <li v-for="{ action, description, title } in plans" :key="title">
       <Card variant="outlined">
         <CardHeader>
@@ -401,8 +401,8 @@ const places = [
   <Carousel
     aria-label="Destinations"
     buttons="outside"
-    :per-view="2"
-    persistent-buttons
+    :perView="2"
+    persistentButtons
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">
@@ -439,7 +439,7 @@ const places = [
     aria-label="Destinations"
     buttons="outside"
     class="carousel-custom-buttons"
-    :per-view="2"
+    :perView="2"
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">

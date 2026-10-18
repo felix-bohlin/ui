@@ -125,20 +125,18 @@ Set `stack` to put the label under the radio.
 
 ### End text
 
-Use the `endText` snippet for supporting text under a single radio's label. The component points `aria-describedby` at it.
+Use the `endText` prop for supporting text under a single radio's label, or an `endText` snippet for rich content. The component points `aria-describedby` at it.
 
 ```svelte
 <script lang="ts">
   import { Radio } from "opui-css/svelte"
 </script>
 
-<Radio name="radio-supporting-text" value="default" checked>
+<Radio name="radio-end-text" value="default" checked endText="Supporting text">
   Default
-  {#snippet endText()}Supporting text{/snippet}
 </Radio>
-<Radio name="radio-supporting-text" value="stack" stack>
+<Radio name="radio-end-text" value="stack" stack endText="Supporting text">
   Stack
-  {#snippet endText()}Supporting text{/snippet}
 </Radio>
 ```
 
@@ -328,17 +326,51 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 </script>
 
 <Form>
-  <FieldSet aria-describedby="radio-group-error">
+  <FieldSet aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
       <Radio error value="2">Radio 2</Radio>
       <Radio error value="3">Radio 3</Radio>
     </FieldGroup>
-    <span class="ui-end-text" id="radio-group-error">Something went wrong!</span
+    <span class="ui-end-text" id="radio-field-group-validation-1-error"
+      >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+## Binding
+
+Bind the selected value with `bind:group` on each `Radio`. It holds the `value` of the checked radio, and setting it updates the radios.
+
+```svelte
+<script lang="ts">
+  import {
+    Button,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Radio,
+  } from "opui-css/svelte"
+
+  let plan = $state("free")
+
+  function reset() {
+    plan = "free"
+  }
+</script>
+
+<FieldSet>
+  <FieldLegend>Plan</FieldLegend>
+  <FieldGroup name="radio-binding">
+    <Radio bind:group={plan} value="free">Free</Radio>
+    <Radio bind:group={plan} value="pro">Pro</Radio>
+    <Radio bind:group={plan} value="team">Team</Radio>
+  </FieldGroup>
+</FieldSet>
+<p class="radio-binding-text">Selected: {plan}</p>
+<Button class="radio-binding-reset" onclick={reset}>Reset</Button>
 ```
 
 ## Accessibility
@@ -597,7 +629,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/svelte`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/svelte/components/form.md)
 

@@ -106,12 +106,8 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 <List>
   <ListItem as="button" headline="Button list item" />
   <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-  <ListItem
-    type="checkbox"
-    for="clickable-checkbox"
-    headline="Checkbox list item"
-  >
-    {#snippet end()}<CheckboxInput id="clickable-checkbox" />{/snippet}
+  <ListItem type="checkbox" headline="Checkbox list item">
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
 ```
@@ -126,21 +122,13 @@ Add `aria-current="page"` to the link inside the `ListItem`.
 </script>
 
 <List>
-  <ListItem>
-    <a href="#" aria-current="page">
-      <div class="ui-text">
-        <p>Selected item</p>
-        <p>This item has aria-current="page" on its link</p>
-      </div>
-    </a>
-  </ListItem>
-  <ListItem>
-    <a href="#">
-      <div class="ui-text">
-        <p>Normal item</p>
-      </div>
-    </a>
-  </ListItem>
+  <ListItem
+    href="#"
+    aria-current="page"
+    headline="Selected item"
+    description={'This item has aria-current="page" on its link'}
+  />
+  <ListItem href="#" headline="Normal item" />
 </List>
 ```
 
@@ -335,7 +323,7 @@ Authored via the `end` snippet on `ListItem`.
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
 
@@ -345,20 +333,20 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkb
 </script>
 
 <List>
-  <ListItem type="checkbox" for="checkbox-example-1">
+  <ListItem type="checkbox">
     {#snippet text()}Checkbox 1{/snippet}
-    {#snippet end()}<CheckboxInput id="checkbox-example-1" />{/snippet}
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
-  <ListItem type="checkbox" for="checkbox-example-2">
+  <ListItem type="checkbox">
     {#snippet text()}Checkbox 2{/snippet}
-    {#snippet end()}<CheckboxInput id="checkbox-example-2" />{/snippet}
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
 ```
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -370,18 +358,16 @@ Read more: [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
 </script>
 
 <List>
-  <ListItem type="radio" for="radio-example-1">
+  <ListItem type="radio">
     {#snippet text()}Radio 1{/snippet}
     {#snippet end()}<RadioInput
-        id="radio-example-1"
         name="radio-example-group"
         value="1"
       />{/snippet}
   </ListItem>
-  <ListItem type="radio" for="radio-example-2">
+  <ListItem type="radio">
     {#snippet text()}Radio 2{/snippet}
     {#snippet end()}<RadioInput
-        id="radio-example-2"
         name="radio-example-group"
         value="2"
       />{/snippet}
@@ -399,13 +385,13 @@ Read more: [Switch](https://open-props-ui.netlify.app/svelte/components/switch.m
 </script>
 
 <List>
-  <ListItem type="switch" for="switch-example-1">
+  <ListItem type="switch">
     {#snippet text()}Switch 1{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-1" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
-  <ListItem type="switch" for="switch-example-2">
+  <ListItem type="switch">
     {#snippet text()}Switch 2{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-2" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
 </List>
 ```
@@ -449,17 +435,13 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 
 ```svelte
 <script lang="ts">
-  import { List, ListItem } from "opui-css/svelte"
+  import { Button, List, ListItem } from "opui-css/svelte"
 </script>
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
     {#snippet end()}
-      <button
-        aria-label="Delete"
-        class="ui-button ui-round ui-small"
-        type="button"
-      >
+      <Button aria-label="Delete" iconOnly round size="small">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -471,7 +453,7 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
             d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
           ></path>
         </svg>
-      </button>
+      </Button>
     {/snippet}
   </ListItem>
   <ListItem headline="Headline" description="Supporting text">
@@ -595,14 +577,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `critical`    | `boolean`                             | `false` | A destructive item in a [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md).                                                    |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `end`         | `Snippet` , `string`                  | -       | Optional content at the end, such as a value or an action.                                                                                      |
+| `end`         | `Snippet`                             | -       | Optional content at the end, such as a value or an action.                                                                                      |
 | `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
 | `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
 | `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
 | `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `start`       | `Snippet` , `string`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
-| `submenu`     | `Snippet` , `string`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
-| `text`        | `Snippet` , `string`                  | -       | The text content.                                                                                                                               |
+| `start`       | `Snippet`                             | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
+| `submenu`     | `Snippet`                             | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
+| `text`        | `Snippet`                             | -       | The text content.                                                                                                                               |
 | `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### CSS variables
@@ -761,7 +743,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/svelte`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 

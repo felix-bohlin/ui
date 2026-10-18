@@ -83,12 +83,12 @@ export default function RepoCard() {
         <Anchor
           alignment="block-end span-inline-end"
           trigger="hover"
-          id="anchor-repo-card"
+          id="anchor-repo-card-1"
         >
           <a
             className="ui-link"
             href="https://github.com/felix-bohlin/ui"
-            interestfor="anchor-repo-card"
+            interestfor="anchor-repo-card-1"
           >
             felix-bohlin/ui
           </a>
@@ -164,12 +164,12 @@ export default function LinkPreview() {
         <Anchor
           alignment="block-end span-inline-end"
           trigger="hover"
-          id="anchor-link-preview"
+          id="anchor-link-preview-1"
         >
           <a
             className="ui-link"
             href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-            interestfor="anchor-link-preview"
+            interestfor="anchor-link-preview-1"
           >
             CSS anchor positioning
           </a>
@@ -214,11 +214,6 @@ export default function LinkPreview() {
   )
 }
 ```
-
-## Used by
-
-- [Badge](https://open-props-ui.netlify.app/react/components/badge.md)
-- [Tooltip](https://open-props-ui.netlify.app/react/components/tooltip.md)
 
 ## API
 
@@ -333,4 +328,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/react`:
 
-- `opui-css/css/components/anchor.css`
+### Used by
+
+- [Badge](https://open-props-ui.netlify.app/react/components/badge.md)
+- [Tooltip](https://open-props-ui.netlify.app/react/components/tooltip.md)
+
+* `opui-css/css/components/anchor.css`

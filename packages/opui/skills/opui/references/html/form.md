@@ -39,11 +39,11 @@ Dog Cat
     <p class="ui-field-description"><!-- --></p>
 
     <div class="ui-field-group">
-      <!-- form fields -->
+      <!-- -->
     </div>
 
     <div class="ui-field-group">
-      <!-- form fields -->
+      <!-- -->
     </div>
   </fieldset>
 </form>
@@ -109,61 +109,61 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
     <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
-          aria-describedby="field-group-projects-1-end-text"
+          aria-describedby="form-field-group-1-end-text"
           type="checkbox"
           name="projects"
           value="the-smile"
         />
         <span class="ui-label">The Smile</span>
-        <span class="ui-end-text" id="field-group-projects-1-end-text"
+        <span class="ui-end-text" id="form-field-group-1-end-text"
           >Thom Yorke, Jonny Greenwood, Tom Skinner</span
         >
       </label>
       <label class="ui-checkbox">
         <input
-          aria-describedby="field-group-projects-2-end-text"
+          aria-describedby="form-field-group-2-end-text"
           type="checkbox"
           name="projects"
           value="atoms-for-peace"
         />
         <span class="ui-label">Atoms for Peace</span>
-        <span class="ui-end-text" id="field-group-projects-2-end-text"
+        <span class="ui-end-text" id="form-field-group-2-end-text"
           >Thom Yorke, Flea, Nigel Godrich</span
         >
       </label>
       <label class="ui-checkbox">
         <input
-          aria-describedby="field-group-projects-3-end-text"
+          aria-describedby="form-field-group-3-end-text"
           type="checkbox"
           name="projects"
           value="eob"
         />
         <span class="ui-label">EOB</span>
-        <span class="ui-end-text" id="field-group-projects-3-end-text"
+        <span class="ui-end-text" id="form-field-group-3-end-text"
           >Ed O'Brien solo</span
         >
       </label>
       <label class="ui-checkbox">
         <input
-          aria-describedby="field-group-projects-4-end-text"
+          aria-describedby="form-field-group-4-end-text"
           type="checkbox"
           name="projects"
           value="jonny-scores"
         />
         <span class="ui-label">Film Scores</span>
-        <span class="ui-end-text" id="field-group-projects-4-end-text"
+        <span class="ui-end-text" id="form-field-group-4-end-text"
           >Film compositions by Jonny Greenwood</span
         >
       </label>
       <label class="ui-checkbox">
         <input
-          aria-describedby="field-group-projects-5-end-text"
+          aria-describedby="form-field-group-5-end-text"
           type="checkbox"
           name="projects"
           value="selway-solo"
         />
         <span class="ui-label">Philip Selway</span>
-        <span class="ui-end-text" id="field-group-projects-5-end-text"
+        <span class="ui-end-text" id="form-field-group-5-end-text"
           >Philip Selway solo albums</span
         >
       </label>
@@ -238,7 +238,7 @@ Add `aria-invalid="true"` to each control in the `<fieldset>`, and explain the e
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
 ```html
-<fieldset aria-describedby="food-error" class="ui-fieldset">
+<fieldset aria-describedby="form-fieldset-invalid-1-error" class="ui-fieldset">
   <legend>Pet food</legend>
   <p class="ui-field-description">Pick at least one.</p>
   <div class="ui-field-group">
@@ -251,7 +251,9 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
       <span class="ui-label">Wet food</span>
     </label>
   </div>
-  <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
+  <span class="ui-end-text" id="form-fieldset-invalid-1-error"
+    >Your pet is hungry.</span
+  >
 </fieldset>
 ```
 
@@ -273,7 +275,7 @@ The legend gets an asterisk when a field inside is required.
     <label class="ui-textarea">
       <span class="ui-label">Life story</span>
       <span class="ui-field">
-        <textarea name="bio" required></textarea>
+        <textarea name="story" required></textarea>
       </span>
     </label>
   </div>
@@ -313,8 +315,12 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` w
 
 ```html
 <div class="ui-form">
-  <div class="ui-fieldset" role="group" aria-labelledby="delivery-legend">
-    <p class="ui-legend" id="delivery-legend">Delivery</p>
+  <div
+    class="ui-fieldset"
+    role="group"
+    aria-labelledby="form-adaptive-output-1-legend"
+  >
+    <p class="ui-legend" id="form-adaptive-output-1-legend">Delivery</p>
     <p class="ui-field-description">Rendered as div and p elements.</p>
   </div>
 </div>
@@ -325,7 +331,7 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` w
 Everything at once.
 
 ```html
-<form class="ui-form" id="kitchen-sink-example-html">
+<form class="ui-form" id="kitchen-sink-example">
   <fieldset class="ui-fieldset">
     <legend>User Profile</legend>
     <p class="ui-field-description">
@@ -345,9 +351,9 @@ Everything at once.
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="kitchen-sink-role-label">Role</span>
+        <span class="ui-label" id="form-kitchen-sink-1-label">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="kitchen-sink-role-label">
+          <select aria-labelledby="form-kitchen-sink-1-label">
             <button type="button">
               <selectedcontent></selectedcontent>
             </button>
@@ -411,16 +417,16 @@ Everything at once.
     </p>
     <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="kitchen-sink-experience-label"
+        <span class="ui-label" id="form-kitchen-sink-2-label"
           >Professional Experience</span
         >
-        <span class="ui-start-text" id="kitchen-sink-experience-start-text"
+        <span class="ui-start-text" id="form-kitchen-sink-2-start-text"
           >Drag the slider to match your total tenure.</span
         >
         <input
           type="range"
-          aria-describedby="kitchen-sink-experience-start-text"
-          aria-labelledby="kitchen-sink-experience-label"
+          aria-describedby="form-kitchen-sink-2-start-text"
+          aria-labelledby="form-kitchen-sink-2-label"
           min="0"
           max="20"
           step="1"
@@ -440,7 +446,7 @@ Everything at once.
         <span class="ui-label">Biography</span>
         <span class="ui-field">
           <textarea
-            name="details"
+            name="biography"
             placeholder="Tell us about yourself..."
             rows="4"
           ></textarea>
@@ -456,13 +462,13 @@ Everything at once.
     <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
-          aria-describedby="kitchen-sink-terms-1-end-text"
+          aria-describedby="form-kitchen-sink-3-end-text"
           type="checkbox"
           name="terms"
           required
         />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="kitchen-sink-terms-1-end-text"
+        <span class="ui-end-text" id="form-kitchen-sink-3-end-text"
           >Support this text</span
         >
       </label>
@@ -743,17 +749,10 @@ Step 3 of 4: Groups
 Step 4 of 4: Required
 
 ```css
-.fieldset:has(:required) legend {
-  padding-inline-end: 1ex;
-  position: relative;
-}
-
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);
   content: "*";
-  inset-block: 0 auto;
-  inset-inline: auto -0.25ex;
-  position: absolute;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -769,19 +768,22 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 This doesn't include all the styles for all form elements, just the scaffolding around them.
 
-### See also
+### Used by
 
-- [Button](https://open-props-ui.netlify.app/html/components/button.md)
 - [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md)
-- [Divider](https://open-props-ui.netlify.app/html/components/divider.md)
 - [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
-- [Range](https://open-props-ui.netlify.app/html/components/range.md)
-- [Select](https://open-props-ui.netlify.app/html/components/select.md)
 - [Switch](https://open-props-ui.netlify.app/html/components/switch.md)
-- [Textarea](https://open-props-ui.netlify.app/html/components/textarea.md)
-- [Text Field](https://open-props-ui.netlify.app/html/components/text-field.md)
 
 * `opui-css/css/components/form.css`
+
+## See also
+
+- [Button](https://open-props-ui.netlify.app/html/components/button.md)
+- [Divider](https://open-props-ui.netlify.app/html/components/divider.md)
+- [Range](https://open-props-ui.netlify.app/html/components/range.md)
+- [Select](https://open-props-ui.netlify.app/html/components/select.md)
+- [Text Field](https://open-props-ui.netlify.app/html/components/text-field.md)
+- [Textarea](https://open-props-ui.netlify.app/html/components/textarea.md)
 
 ## Changelog
 

@@ -100,20 +100,14 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { CheckboxInput } from "opui-css/astro"
+import { CheckboxInput, List, ListItem } from "opui-css/astro"
 ---
 
 <List>
   <ListItem as="button" headline="Button list item" />
   <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-  <ListItem
-    type="checkbox"
-    for="clickable-checkbox"
-    headline="Checkbox list item"
-  >
-    <CheckboxInput slot="end" id="clickable-checkbox" />
+  <ListItem type="checkbox" headline="Checkbox list item">
+    <CheckboxInput slot="end" />
   </ListItem>
 </List>
 ```
@@ -128,21 +122,13 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem>
-    <a href="#" aria-current="page">
-      <div class="ui-text">
-        <p>Selected item</p>
-        <p>This item has aria-current="page" on its link</p>
-      </div>
-    </a>
-  </ListItem>
-  <ListItem>
-    <a href="#">
-      <div class="ui-text">
-        <p>Normal item</p>
-      </div>
-    </a>
-  </ListItem>
+  <ListItem
+    href="#"
+    aria-current="page"
+    headline="Selected item"
+    description='This item has aria-current="page" on its link'
+  />
+  <ListItem href="#" headline="Normal item" />
 </List>
 ```
 
@@ -152,8 +138,7 @@ Main text lives in the `text` slot, or pass `headline` and `description` props d
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -177,8 +162,7 @@ Authored via the `start` slot on `ListItem`.
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -219,9 +203,7 @@ Read more: [Avatar](https://open-props-ui.netlify.app/astro/components/avatar.md
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { Avatar } from "opui-css/astro"
+import { Avatar, List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -245,8 +227,7 @@ import { Avatar } from "opui-css/astro"
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -275,8 +256,7 @@ import { ListItem } from "opui-css/astro"
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -309,8 +289,7 @@ Authored via the `end` slot on `ListItem`.
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -333,8 +312,7 @@ import { ListItem } from "opui-css/astro"
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -349,32 +327,30 @@ import { ListItem } from "opui-css/astro"
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md)
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { CheckboxInput } from "opui-css/astro"
+import { CheckboxInput, List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem type="checkbox" for="checkbox-example-1">
+  <ListItem type="checkbox">
     <Fragment slot="text">Checkbox 1</Fragment>
-    <CheckboxInput slot="end" id="checkbox-example-1" />
+    <CheckboxInput slot="end" />
   </ListItem>
-  <ListItem type="checkbox" for="checkbox-example-2">
+  <ListItem type="checkbox">
     <Fragment slot="text">Checkbox 2</Fragment>
-    <CheckboxInput slot="end" id="checkbox-example-2" />
+    <CheckboxInput slot="end" />
   </ListItem>
 </List>
 ```
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -382,29 +358,17 @@ Read more: [Radio](https://open-props-ui.netlify.app/astro/components/radio.md)
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { RadioInput } from "opui-css/astro"
+import { List, ListItem, RadioInput } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem type="radio" for="radio-example-1">
+  <ListItem type="radio">
     <Fragment slot="text">Radio 1</Fragment>
-    <RadioInput
-      slot="end"
-      id="radio-example-1"
-      name="radio-example-group"
-      value="1"
-    />
+    <RadioInput slot="end" name="radio-example-group" value="1" />
   </ListItem>
-  <ListItem type="radio" for="radio-example-2">
+  <ListItem type="radio">
     <Fragment slot="text">Radio 2</Fragment>
-    <RadioInput
-      slot="end"
-      id="radio-example-2"
-      name="radio-example-group"
-      value="2"
-    />
+    <RadioInput slot="end" name="radio-example-group" value="2" />
   </ListItem>
 </List>
 ```
@@ -415,19 +379,17 @@ Read more: [Switch](https://open-props-ui.netlify.app/astro/components/switch.md
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { SwitchInput } from "opui-css/astro"
+import { List, ListItem, SwitchInput } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem type="switch" for="switch-example-1">
+  <ListItem type="switch">
     <Fragment slot="text">Switch 1</Fragment>
-    <SwitchInput slot="end" id="switch-example-1" />
+    <SwitchInput slot="end" />
   </ListItem>
-  <ListItem type="switch" for="switch-example-2">
+  <ListItem type="switch">
     <Fragment slot="text">Switch 2</Fragment>
-    <SwitchInput slot="end" id="switch-example-2" />
+    <SwitchInput slot="end" />
   </ListItem>
 </List>
 ```
@@ -438,8 +400,7 @@ Enables a list item without a start icon to align with items that do.
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -473,18 +434,12 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { Button, List, ListItem } from "opui-css/astro"
 ---
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
-    <button
-      slot="end"
-      aria-label="Delete"
-      class="ui-button ui-round ui-small"
-      type="button"
-    >
+    <Button aria-label="Delete" iconOnly round size="small" slot="end">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -496,7 +451,7 @@ import { ListItem } from "opui-css/astro"
           d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
         ></path>
       </svg>
-    </button>
+    </Button>
   </ListItem>
   <ListItem headline="Headline" description="Supporting text">
     <svg
@@ -524,8 +479,7 @@ Add the `bordered` prop to the `List` to give all list items a border.
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List bordered>
@@ -541,8 +495,7 @@ Add the `borderTop` prop to a `ListItem` to give it an upper border.
 
 ```astro
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
+import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
@@ -798,7 +751,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/astro`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/astro/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/astro/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 

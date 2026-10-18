@@ -221,14 +221,16 @@ import {
 </script>
 
 <template>
-  <FieldSet aria-describedby="food-error">
+  <FieldSet aria-describedby="form-fieldset-invalid-1-error">
     <FieldLegend>Pet food</FieldLegend>
     <FieldDescription>Pick at least one.</FieldDescription>
     <FieldGroup name="food">
       <Checkbox error value="kibble">Kibble</Checkbox>
       <Checkbox error value="wet-food">Wet food</Checkbox>
     </FieldGroup>
-    <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
+    <span class="ui-end-text" id="form-fieldset-invalid-1-error"
+      >Your pet is hungry.</span
+    >
   </FieldSet>
 </template>
 ```
@@ -253,9 +255,9 @@ import {
   <FieldSet>
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
-    <FieldGroup name="bio">
+    <FieldGroup>
       <TextField label="Name" name="name" />
-      <Textarea required label="Life story" />
+      <Textarea label="Life story" name="story" required />
     </FieldGroup>
   </FieldSet>
 </template>
@@ -308,8 +310,10 @@ import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 <template>
   <Form as="div">
-    <FieldSet aria-labelledby="delivery-legend" as="div">
-      <FieldLegend as="p" id="delivery-legend">Delivery</FieldLegend>
+    <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+      <FieldLegend as="p" id="form-adaptive-output-1-legend"
+        >Delivery</FieldLegend
+      >
       <FieldDescription>Rendered as div and p elements.</FieldDescription>
     </FieldSet>
   </Form>
@@ -335,21 +339,15 @@ import {
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/vue"
-import { ref } from "vue"
 
 const roleItems = [
   { text: "Developer", value: "dev" },
   { text: "Designer", value: "design" },
   { text: "Manager", value: "manager" },
 ]
-
-const emailNotifs = ref(true)
-const smsNotifs = ref(false)
-const theme = ref("light")
-const experience = ref(5)
 </script>
 
 <template>
@@ -378,11 +376,9 @@ const experience = ref(5)
       <FieldDescription>
         Configure how you want to receive updates.
       </FieldDescription>
-      <FieldGroup name="notifications">
-        <Switch v-model="emailNotifs" name="email_notifs"
-          >Email Notifications</Switch
-        >
-        <Switch v-model="smsNotifs" name="sms_notifs">SMS Notifications</Switch>
+      <FieldGroup>
+        <Switch name="email_notifs" checked>Email Notifications</Switch>
+        <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
     </FieldSet>
 
@@ -392,9 +388,9 @@ const experience = ref(5)
       <FieldLegend>Theme Preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
       <FieldGroup name="theme">
-        <Radio v-model="theme" value="light">Light Theme</Radio>
-        <Radio v-model="theme" value="dark">Dark Theme</Radio>
-        <Radio v-model="theme" value="system">System Default</Radio>
+        <Radio value="light" checked>Light Theme</Radio>
+        <Radio value="dark">Dark Theme</Radio>
+        <Radio value="system">System Default</Radio>
       </FieldGroup>
     </FieldSet>
 
@@ -411,8 +407,8 @@ const experience = ref(5)
           min="0"
           max="20"
           step="1"
-          v-model="experience"
-          start-text="Drag the slider to match your total tenure."
+          value="5"
+          startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>
     </FieldSet>
@@ -422,9 +418,10 @@ const experience = ref(5)
     <FieldSet>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
+      <FieldGroup>
         <Textarea
           label="Biography"
+          name="biography"
           placeholder="Tell us about yourself..."
           :rows="4"
         />
@@ -435,7 +432,7 @@ const experience = ref(5)
 
     <FieldSet>
       <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
+      <FieldGroup>
         <Checkbox name="terms" required>
           I agree to the terms and conditions
           <template #end-text>Support this text</template>
@@ -723,17 +720,10 @@ Step 3 of 4: Groups
 Step 4 of 4: Required
 
 ```css
-.fieldset:has(:required) legend {
-  padding-inline-end: 1ex;
-  position: relative;
-}
-
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);
   content: "*";
-  inset-block: 0 auto;
-  inset-inline: auto -0.25ex;
-  position: absolute;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -751,19 +741,22 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 Import the components from `opui-css/vue`:
 
-### See also
+### Used by
 
-- [Button](https://open-props-ui.netlify.app/vue/components/button.md)
 - [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md)
-- [Divider](https://open-props-ui.netlify.app/vue/components/divider.md)
 - [Radio](https://open-props-ui.netlify.app/vue/components/radio.md)
-- [Range](https://open-props-ui.netlify.app/vue/components/range.md)
-- [Select](https://open-props-ui.netlify.app/vue/components/select.md)
 - [Switch](https://open-props-ui.netlify.app/vue/components/switch.md)
-- [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md)
-- [Text Field](https://open-props-ui.netlify.app/vue/components/text-field.md)
 
 * `opui-css/css/components/form.css`
+
+## See also
+
+- [Button](https://open-props-ui.netlify.app/vue/components/button.md)
+- [Divider](https://open-props-ui.netlify.app/vue/components/divider.md)
+- [Range](https://open-props-ui.netlify.app/vue/components/range.md)
+- [Select](https://open-props-ui.netlify.app/vue/components/select.md)
+- [Text Field](https://open-props-ui.netlify.app/vue/components/text-field.md)
+- [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md)
 
 ## Changelog
 

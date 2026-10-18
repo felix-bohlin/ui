@@ -48,14 +48,13 @@ interaction(
     const supportsInterest = await page.evaluate(
       () => "interestForElement" in HTMLAnchorElement.prototype,
     )
+    test.skip(!supportsInterest, "needs interest invokers")
 
     await expect(card).toBeHidden()
-    if (supportsInterest) {
-      await trigger.hover()
-      await expect(card).toBeVisible()
-      await page.mouse.move(0, 0)
-      await expect(card).toBeHidden()
-    }
+    await trigger.hover()
+    await expect(card).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect(card).toBeHidden()
   },
 )
 
@@ -334,7 +333,7 @@ interaction(
 interaction(
   "tooltip",
   "Basics",
-  "tooltip shows on hover and toggles on click",
+  "tooltip shows on hover",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
@@ -342,15 +341,25 @@ interaction(
     const supportsInterest = await page.evaluate(
       () => "interestForElement" in HTMLButtonElement.prototype,
     )
+    test.skip(!supportsInterest, "needs interest invokers")
 
     await expect(tooltip).toBeHidden()
-    if (supportsInterest) {
-      await trigger.hover()
-      await expect(tooltip).toBeVisible()
-      await page.mouse.move(0, 0)
-      await expect(tooltip).toBeHidden()
-    }
+    await trigger.hover()
+    await expect(tooltip).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect(tooltip).toBeHidden()
+  },
+)
 
+interaction(
+  "tooltip",
+  "Basics",
+  "tooltip toggles on click",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Save" })
+    const tooltip = root.getByText("Save your changes")
+
+    await expect(tooltip).toBeHidden()
     await trigger.click()
     await expect(tooltip).toBeVisible()
   },

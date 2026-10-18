@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from "node:fs"
 import type AxeBuilder from "@axe-core/playwright"
-import type { Page } from "@playwright/test"
+import { expect, type Locator, type Page } from "@playwright/test"
 import {
   exampleExtension,
   FRAMEWORK_IDS,
@@ -55,7 +55,7 @@ export const BLOCKS = readdirSync(new URL("../../src/blocks/", import.meta.url))
   .map((file) => `blocks/${file.replace(/\.html$/, "")}`)
   .toSorted()
 
-export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS, "theming"].toSorted()
+export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS].toSorted()
 
 export const hasExample = (
   framework: Framework,
@@ -83,10 +83,14 @@ export const openFixture = async (
       ? `/${component}/preview/`
       : component.startsWith("stress/")
         ? `/tests/${component.slice("stress/".length)}/`
-        : component === "theming"
-          ? "/tests/theming/"
-          : `/${framework}/test/${component}/`,
+        : `/${framework}/test/${component}/`,
   )
+  if (!component.startsWith("blocks/")) {
+    await expect(
+      page.locator("[data-example]").first(),
+      `${framework}/${component} renders no examples`,
+    ).toBeAttached()
+  }
   if (framework !== "astro" && framework !== "html") {
     await page.waitForFunction(
       (name) =>
@@ -111,5 +115,32 @@ export const openFixture = async (
     ),
   )
   await page.waitForLoadState("networkidle")
-  await page.screenshot({ fullPage: true })
 }
+
+export const computed = (locator: Locator, property: string, pseudo?: string) =>
+  locator.evaluate(
+    (element, [name, pseudoElement]) =>
+      getComputedStyle(element, pseudoElement).getPropertyValue(name).trim(),
+    [property, pseudo ?? null] as const,
+  )
+
+export const resolveColor = (
+  locator: Locator,
+  color: string,
+  colorScheme?: string,
+) =>
+  locator.evaluate(
+    (element, [value, scheme]) => {
+      const probe = document.createElement("div")
+      if (scheme) probe.style.colorScheme = scheme
+      probe.style.color = value
+      const host = element.matches("input, select, textarea")
+        ? element.parentElement!
+        : element
+      host.append(probe)
+      const resolved = getComputedStyle(probe).color
+      probe.remove()
+      return resolved
+    },
+    [color, colorScheme ?? null] as const,
+  )

@@ -1,3 +1,4 @@
+// @ts-check
 /** @typedef {import("./framework.js").FrameworkId} FrameworkId */
 
 /** @typedef {"API" | "Blocks" | "Component" | "Guide" | "Learn"} SearchCategoryId */

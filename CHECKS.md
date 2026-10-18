@@ -1,4 +1,4 @@
-Manual checks before releasing 6.0.0. The tests cover Chromium only, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev` (the stress test pages need `OPUI_TEST_PAGES=1 pnpm dev`), or use the Netlify preview of the pull request.
+Manual checks before releasing 6.0.0. The tests cover Chromium only, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev`, which also renders the stress test pages at `/tests/`, or use the Netlify preview of the pull request.
 
 ## CI and baselines
 

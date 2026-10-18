@@ -82,16 +82,14 @@
         --_accent-tonal: light-dark(var(--color-4), var(--color-12));
       }
 
-      --_default-hover-bg-color: oklch(
-        from var(--_accent) l c h / var(--state-hover-alpha-accent)
-      );
       --_default-active-bg-color: oklch(
         from var(--_accent) l c h / var(--state-active-alpha-accent)
       );
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_default-hover-bg-color: oklch(
+        from var(--_accent) l c h / var(--state-hover-alpha-accent)
+      );
       --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
       --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
     }
 

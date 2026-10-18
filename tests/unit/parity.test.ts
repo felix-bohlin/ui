@@ -1,8 +1,6 @@
 import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import type { AstroInstance } from "astro"
-import { getContainerRenderer } from "@astrojs/vue/container-renderer"
-import { loadRenderers } from "astro:container"
 import { createTwoFilesPatch } from "diff"
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
@@ -10,7 +8,7 @@ import type { Component as SvelteComponent } from "svelte"
 import { render } from "svelte/server"
 import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { beforeAll, describe, expect, test } from "vitest"
+import { describe, expect, test } from "vitest"
 import {
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS as FRAMEWORKS,
@@ -42,18 +40,13 @@ const htmlSources = import.meta.glob<string>(
   { import: "default", query: "?raw" },
 )
 
-const EXAMPLE_CLASSES = new Set([
-  "code",
-  "copy",
-  "frame",
-  "header",
-  "indent",
-  ...Object.values(exampleSources).flatMap((source) =>
+const EXAMPLE_CLASSES = new Set(
+  Object.values(exampleSources).flatMap((source) =>
     [...source.matchAll(/\b(?:class|className)="([^"{]+)"/g)].flatMap((match) =>
       match[1].split(/\s+/),
     ),
   ),
-])
+)
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
@@ -98,16 +91,11 @@ register("react", reactModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
-const cases = [...examples.values()]
-  .filter(({ key }) => !key.endsWith("Code"))
-  .toSorted((a, b) => a.key.localeCompare(b.key))
+const cases = [...examples.values()].toSorted((a, b) =>
+  a.key.localeCompare(b.key),
+)
 
-let container: AstroContainer
-
-beforeAll(async () => {
-  const renderers = await loadRenderers([getContainerRenderer()])
-  container = await AstroContainer.create({ renderers })
-})
+const container = await AstroContainer.create()
 
 const renderers: {
   [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>

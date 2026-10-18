@@ -44,6 +44,45 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
+const INLINE_ELEMENTS = new Set([
+  "a",
+  "abbr",
+  "b",
+  "bdi",
+  "bdo",
+  "button",
+  "cite",
+  "code",
+  "data",
+  "del",
+  "dfn",
+  "em",
+  "i",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "mark",
+  "meter",
+  "output",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "select",
+  "small",
+  "span",
+  "strong",
+  "sub",
+  "sup",
+  "svg",
+  "textarea",
+  "time",
+  "u",
+  "var",
+])
+
 const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+|([a-z][a-z-]*-)?_R_\w+_)$/
 
 const isElement = (node: Node): node is Element => "tagName" in node
@@ -113,9 +152,14 @@ const serialize = (
   const lines: string[] = []
 
   let pending = ""
-  const flush = () => {
+  let previousInline = false
+  const flush = (nextInline: boolean) => {
     const text = pending.replace(/\s+/g, " ").trim()
-    if (text) lines.push(indent + text)
+    if (text) {
+      const lead = previousInline && /^\s/.test(pending) ? "␣" : ""
+      const trail = nextInline && /\s$/.test(pending) ? "␣" : ""
+      lines.push(indent + lead + text + trail)
+    }
     pending = ""
   }
 
@@ -125,7 +169,9 @@ const serialize = (
       continue
     }
     if (node.nodeName === "#comment") continue
-    flush()
+    const inline = isElement(node) && INLINE_ELEMENTS.has(node.tagName)
+    flush(inline)
+    previousInline = inline
     if (!isElement(node) || DROPPED_ELEMENTS.has(node.tagName)) continue
 
     const attrs = node.attrs
@@ -156,7 +202,7 @@ const serialize = (
       lines.push(indent + open, ...children, `${indent}</${node.tagName}>`)
     }
   }
-  flush()
+  flush(false)
 
   return lines
 }

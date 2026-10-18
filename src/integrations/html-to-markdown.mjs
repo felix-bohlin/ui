@@ -1,9 +1,16 @@
+// @ts-check
 import rehypeParse from "rehype-parse"
 import rehypeRemark from "rehype-remark"
 import remarkGfm from "remark-gfm"
 import remarkStringify from "remark-stringify"
 import { unified } from "unified"
 import { select, selectAll } from "hast-util-select"
+
+/** @typedef {NonNullable<Parameters<typeof select>[1]>} Nodes */
+/** @typedef {NonNullable<ReturnType<typeof select>>} Element */
+/** @typedef {Element["children"][number]} ElementContent */
+/** @typedef {Extract<Nodes, { type: "root" }>} Root */
+/** @typedef {Extract<Nodes, { type: "text" }>} Text */
 
 const REMOVE_SELECTORS = [
   "#changelog-list",
@@ -35,11 +42,21 @@ const toMarkdown = unified()
   .use(remarkGfm)
   .use(remarkStringify, { bullet: "-", fences: true, rule: "-" })
 
+/**
+ * @param {Nodes} node
+ * @returns {string}
+ */
 const textContent = (node) =>
   node.type === "text"
     ? node.value
-    : (node.children ?? []).map(textContent).join("")
+    : ("children" in node ? node.children : []).map(textContent).join("")
 
+/**
+ * @param {string} tagName
+ * @param {Element["properties"]} properties
+ * @param {ElementContent[]} children
+ * @returns {Element}
+ */
 const element = (tagName, properties, children) => ({
   type: "element",
   tagName,
@@ -47,37 +64,61 @@ const element = (tagName, properties, children) => ({
   children,
 })
 
+/**
+ * @param {string} value
+ * @returns {Text}
+ */
 const text = (value) => ({ type: "text", value })
 
+/**
+ * @param {ElementContent} node
+ * @param {Set<Nodes>} removed
+ */
 function prune(node, removed) {
-  if (!node.children) return
+  if (node.type !== "element") return
   node.children = node.children.filter(
     (child) => child.type !== "comment" && !removed.has(child),
   )
   node.children.forEach((child) => prune(child, removed))
 }
 
+/**
+ * @param {ElementContent} node
+ * @param {(node: Element) => boolean} test
+ * @param {(node: Element) => ElementContent} build
+ */
 function replace(node, test, build) {
-  if (!node.children) return
+  if (node.type !== "element") return
   node.children = node.children.map((child) =>
     child.type === "element" && test(child) ? build(child) : child,
   )
   node.children.forEach((child) => replace(child, test, build))
 }
 
-const isClass = (name) => (node) =>
-  (node.properties?.className ?? []).includes(name)
+/**
+ * @param {string} name
+ * @returns {(node: Element) => boolean}
+ */
+const isClass = (name) => (node) => {
+  const className = node.properties?.className
+  return Array.isArray(className) && className.includes(name)
+}
 
+/**
+ * @param {ElementContent} node
+ * @param {(node: Element) => boolean} test
+ */
 function unwrapTemplates(node, test) {
-  if (!node.children) return
+  if (node.type !== "element") return
   node.children = node.children.flatMap((child) =>
     child.type === "element" && child.tagName === "template" && test(child)
-      ? (child.content?.children ?? [])
+      ? /** @type {ElementContent[]} */ (child.content?.children ?? [])
       : [child],
   )
   node.children.forEach((child) => unwrapTemplates(child, test))
 }
 
+/** @param {Element} node */
 const codeBlock = (node) => {
   const lang = node.properties?.dataLanguage
   const code = textContent(select("code", node) ?? node)
@@ -88,6 +129,7 @@ const codeBlock = (node) => {
   ])
 }
 
+/** @param {Element} node */
 const codeGroup = (node) => {
   const labels = selectAll(".ui-tab-label", node).map((tab) =>
     textContent(tab).trim(),
@@ -103,7 +145,9 @@ const codeGroup = (node) => {
   )
 }
 
+/** @param {Element} node */
 const installationGroup = (node) => {
+  /** @type {Element[]} */
   const children = []
   for (const tab of selectAll(".ui-tab-label", node)) {
     const label = textContent(tab).trim()
@@ -121,8 +165,10 @@ const installationGroup = (node) => {
   return element("div", {}, children)
 }
 
+/** @type {Record<string, string>} */
 const ENGINES = { chromium: "Chromium", gecko: "Firefox", webkit: "Safari" }
 
+/** @param {Element} node */
 const browserSupport = (node) =>
   element(
     "ul",
@@ -139,23 +185,32 @@ const browserSupport = (node) =>
     }),
   )
 
+/**
+ * @param {string} selector
+ * @param {Element} node
+ */
+const required = (selector, node) =>
+  /** @type {Element} */ (select(selector, node))
+
+/** @param {Element} node */
 const featureSupport = (node) =>
   element(
     "ul",
     {},
     selectAll("li", node).map((item) => {
-      const status = textContent(select(".feature-support-status", item))
+      const status = textContent(required(".feature-support-status", item))
       const browsers = selectAll("dl > div", item).map((row) => {
-        const version = textContent(select("dd", row)).trim()
-        return `${textContent(select("dt", row)).trim()} ${version === "No" ? "not supported" : `${version}+`}`
+        const version = textContent(required("dd", row)).trim()
+        return `${textContent(required("dt", row)).trim()} ${version === "No" ? "not supported" : `${version}+`}`
       })
       return element("li", {}, [
-        select("a", item),
+        required("a", item),
         text(` (${status.trim()}): ${browsers.join(", ")}`),
       ])
     }),
   )
 
+/** @param {{ componentToFeatures: Record<string, string[]> }} data */
 const baselineFeatures = (data) => () =>
   element("section", {}, [
     element("h2", {}, [text("Features by component")]),
@@ -178,8 +233,10 @@ const baselineFeatures = (data) => () =>
     ),
   ])
 
+/** @param {string} html */
 export const parseHtml = (html) => parser.parse(html)
 
+/** @param {Root} tree */
 export function pageMeta(tree) {
   const refresh = select("meta[http-equiv='refresh']", tree)
   const description = select("meta[name='description']", tree)
@@ -195,6 +252,10 @@ export function pageMeta(tree) {
   }
 }
 
+/**
+ * @param {Root} tree
+ * @param {{ omitInstallationCode?: boolean, rewriteHref: (href: string) => string }} options
+ */
 export async function articleToMarkdown(
   tree,
   { omitInstallationCode = false, rewriteHref },

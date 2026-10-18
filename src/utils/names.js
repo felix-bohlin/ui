@@ -1,3 +1,4 @@
+// @ts-check
 /** @param {string} slug */
 export function componentName(slug) {
   return slug

@@ -1,5 +1,16 @@
+import { readFileSync } from "node:fs"
 import { expect, type Page, test } from "@playwright/test"
-import { openFixture } from "./fixtures"
+import { openFixture, STRESS_TESTS } from "./fixtures"
+
+const SIZED = STRESS_TESTS.filter((fixture) =>
+  readFileSync(
+    new URL(
+      `../../src/stress-tests/${fixture.slice("stress/".length)}.html`,
+      import.meta.url,
+    ),
+    "utf-8",
+  ).includes("data-size="),
+)
 
 const CONTROLS = [
   ":scope > .ui-button",
@@ -11,78 +22,63 @@ const CONTROLS = [
   ":scope > .ui-toggle-group",
 ].join(", ")
 
-const measureRows = (page: Page) =>
-  page.locator("[data-size]").evaluateAll(
-    (elements, selector) =>
-      elements.map((row) => {
-        const size = row.getAttribute("data-size")!
-        const token =
-          size === "default" ? "--control-size" : `--control-size-${size}`
-        const probe = document.createElement("div")
-        probe.style.blockSize = `var(${token})`
-        probe.style.position = "absolute"
-        row.append(probe)
-        const expected = `${probe.getBoundingClientRect().height}px`
-        probe.remove()
-        const controls = [...row.querySelectorAll<HTMLElement>(selector)]
-        return {
-          controls: controls.map((control) => ({
-            control: `${control.parentElement!.className} > ${control.className}`,
-            height: `${control.getBoundingClientRect().height}px`,
-          })),
-          expected,
-          row: `${row.closest("[data-example]")!.getAttribute("data-example")} ${size}`,
-          size,
-        }
-      }),
-    CONTROLS,
-  )
-
-const measureChips = (page: Page) =>
-  page.locator("[data-size]").evaluateAll((elements) => {
+const measure = (page: Page) =>
+  page.locator("[data-size]").evaluateAll((elements, selector) => {
     const SIZES = ["x-small", "small", "default", "large"]
-    const measure = (row: Element, token: string) => {
-      const probe = document.createElement("div")
-      probe.style.blockSize = `var(${token})`
-      probe.style.position = "absolute"
-      row.append(probe)
-      const height = `${probe.getBoundingClientRect().height}px`
-      probe.remove()
+    const probe = (row: Element, token: string, size: string) => {
+      const element = document.createElement("div")
+      element.style.blockSize = `var(${size === "default" ? token : `${token}-${size}`})`
+      element.style.position = "absolute"
+      row.append(element)
+      const height = `${element.getBoundingClientRect().height}px`
+      element.remove()
       return height
     }
-    return elements.flatMap((row) => {
+    const rows = elements.map((row) => {
       const size = row.getAttribute("data-size")!
-      const controlHeight = measure(
+      return {
+        controlHeight: probe(row, "--control-size", size),
+        example: row.closest("[data-example]")!.getAttribute("data-example"),
         row,
-        size === "default" ? "--control-size" : `--control-size-${size}`,
-      )
-      const example = row
-        .closest("[data-example]")!
-        .getAttribute("data-example")
-      return [...row.querySelectorAll<HTMLElement>(":scope > .ui-chip")].map(
-        (chip) => {
-          const chipSize =
-            SIZES.find((name) => chip.classList.contains(`ui-${name}`)) ??
-            "default"
-          return {
-            chip: `${example} ${size} > ${chip.className} "${chip.textContent!.trim()}"`,
-            controlHeight,
-            expected: measure(
-              row,
-              chipSize === "default"
-                ? "--chip-size"
-                : `--chip-size-${chipSize}`,
-            ),
-            height: `${chip.getBoundingClientRect().height}px`,
-            matchesControl: SIZES.indexOf(chipSize) === SIZES.indexOf(size) + 1,
-            size,
-          }
-        },
-      )
+        size,
+      }
     })
-  })
+    return {
+      chips: rows.flatMap(({ controlHeight, example, row, size }) =>
+        [...row.querySelectorAll<HTMLElement>(":scope > .ui-chip")].map(
+          (chip) => {
+            const chipSize =
+              SIZES.find((name) => chip.classList.contains(`ui-${name}`)) ??
+              "default"
+            return {
+              chip: `${example} ${size} > ${chip.className} "${chip.textContent!.trim()}"`,
+              controlHeight,
+              expected: probe(row, "--chip-size", chipSize),
+              height: `${chip.getBoundingClientRect().height}px`,
+              matchesControl:
+                SIZES.indexOf(chipSize) === SIZES.indexOf(size) + 1,
+              size,
+            }
+          },
+        ),
+      ),
+      rows: rows.map(({ controlHeight, example, row, size }) => ({
+        controls: [...row.querySelectorAll<HTMLElement>(selector)].map(
+          (control) => ({
+            control: `${control.parentElement!.className} > ${control.className}`,
+            height: `${control.getBoundingClientRect().height}px`,
+          }),
+        ),
+        expected: controlHeight,
+        row: `${example} ${size}`,
+        size,
+      })),
+    }
+  }, CONTROLS)
 
-const expectSharedHeights = (rows: Awaited<ReturnType<typeof measureRows>>) => {
+type Measured = Awaited<ReturnType<typeof measure>>
+
+const expectSharedHeights = (rows: Measured["rows"]) => {
   expect(rows.length).toBeGreaterThan(0)
   for (const { controls, expected, row } of rows) {
     expect(controls.length, row).toBeGreaterThan(0)
@@ -93,7 +89,7 @@ const expectSharedHeights = (rows: Awaited<ReturnType<typeof measureRows>>) => {
   }
 }
 
-const expectChipHeights = (chips: Awaited<ReturnType<typeof measureChips>>) => {
+const expectChipHeights = (chips: Measured["chips"]) => {
   expect(
     chips.filter(({ expected, height }) => height !== expected),
     "chips should match their chip size token",
@@ -108,20 +104,32 @@ const expectChipHeights = (chips: Awaited<ReturnType<typeof measureChips>>) => {
 }
 
 const expectSizedRows = async (page: Page) => {
-  expectSharedHeights(await measureRows(page))
-  expectChipHeights(await measureChips(page))
+  const { chips, rows } = await measure(page)
+  expectSharedHeights(rows)
+  expectChipHeights(chips)
 }
 
-test("form controls of one size share one height", async ({ page }) => {
-  await openFixture(page, "html", "stress/forms")
+for (const fixture of SIZED) {
+  test(`${fixture} controls of one size share one height`, async ({ page }) => {
+    await openFixture(page, "html", fixture)
 
-  await expectSizedRows(page)
-})
+    await expectSizedRows(page)
+  })
+
+  test(`${fixture} controls keep their height in forced colors mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors: "active" })
+    await openFixture(page, "html", fixture)
+
+    await expectSizedRows(page)
+  })
+}
 
 test("chips one size step up match the control size", async ({ page }) => {
   await openFixture(page, "html", "stress/forms")
 
-  const chips = await measureChips(page)
+  const { chips } = await measure(page)
   expect(
     [
       ...new Set(
@@ -133,31 +141,6 @@ test("chips one size step up match the control size", async ({ page }) => {
   ).toEqual(["default", "small", "x-small"])
   expectChipHeights(chips)
 })
-
-test("form controls keep their height in high contrast mode", async ({
-  page,
-}) => {
-  await openFixture(page, "html", "stress/contrast")
-
-  await expectSizedRows(page)
-})
-
-test("busy controls keep their height", async ({ page }) => {
-  await openFixture(page, "html", "stress/data-display")
-
-  await expectSizedRows(page)
-})
-
-for (const fixture of ["contrast", "forms"]) {
-  test(`${fixture} controls keep their height in forced colors mode`, async ({
-    page,
-  }) => {
-    await page.emulateMedia({ forcedColors: "active" })
-    await openFixture(page, "html", `stress/${fixture}`)
-
-    await expectSizedRows(page)
-  })
-}
 
 const DENSITIES = {
   "0.875": {
@@ -182,7 +165,7 @@ for (const [density, heights] of Object.entries(DENSITIES)) {
       density,
     )
 
-    const rows = await measureRows(page)
+    const { rows } = await measure(page)
     for (const { expected, row, size } of rows) {
       expect(expected, row).toBe(heights[size as keyof typeof heights])
     }

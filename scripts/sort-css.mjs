@@ -10,8 +10,8 @@ const check = process.argv.includes("--check")
 
 const files = await globby(
   [
-    "packages/opui/**/*.{astro,css,svelte,vue}",
-    "src/**/*.{astro,css,svelte,vue}",
+    "packages/opui/**/*.{astro,css,html,svelte,vue}",
+    "src/**/*.{astro,css,html,svelte,vue}",
   ],
   {
     cwd: root,
@@ -20,8 +20,70 @@ const files = await globby(
   },
 )
 
+const PRIVATE_PROPERTY = /^--_/
+
+const privateOrder = (a, b) =>
+  a === b ? 0 : a === "--_motion" ? -1 : b === "--_motion" ? 1 : a < b ? -1 : 1
+
+const sortRun = (items) => {
+  if (items.length < 2) return
+  const sorted = items.toSorted((a, b) =>
+    privateOrder(a.decl.prop, b.decl.prop),
+  )
+  if (sorted.every((item, index) => item === items[index])) return
+  const first = items[0].nodes[0]
+  const parent = first.parent
+  const previous = first.prev()
+  const before = items.map(({ nodes }, index) =>
+    index === 0
+      ? nodes[0].raws.before
+      : nodes[0].raws.before?.replace(/\n[^\S\n]*(?=\n)/g, ""),
+  )
+  for (const { nodes } of items) for (const node of nodes) node.remove()
+  let last = previous
+  sorted.forEach(({ nodes }, index) => {
+    nodes[0].raws.before = before[index]
+    for (const node of nodes) {
+      if (last) parent.insertAfter(last, node)
+      else parent.prepend(node)
+      last = node
+    }
+  })
+}
+
+const sortPrivateProperties = {
+  postcssPlugin: "sort-private-properties",
+  OnceExit(root) {
+    root.walk((node) => {
+      if (!node.nodes) return
+      const runs = [[]]
+      let comments = []
+      for (const child of node.nodes) {
+        const run = runs.at(-1)
+        if (child.type === "comment") {
+          if (
+            run.length &&
+            !comments.length &&
+            !child.raws.before?.includes("\n")
+          ) {
+            run.at(-1).nodes.push(child)
+          } else comments.push(child)
+        } else if (child.type === "decl" && PRIVATE_PROPERTY.test(child.prop)) {
+          run.push({ decl: child, nodes: [...comments, child] })
+          comments = []
+        } else {
+          if (run.length) runs.push([])
+          comments = []
+        }
+      }
+      runs.forEach(sortRun)
+    })
+  },
+}
+
 const sorter = postcss([
   cssDeclarationSorter({ keepOverrides: true, order: "alphabetical" }),
+  sortPrivateProperties,
 ])
 const unsorted = []
 

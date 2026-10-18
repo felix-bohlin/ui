@@ -10,11 +10,11 @@ const openPropsEntry = join(opuiDir, "open-props.css")
 const CONSUMER_SET = ["--anchor-position-area"]
 
 const BASES = {
+  "badge.css": ["avatar.css"],
   "button-group.css": ["button.css"],
   "checkbox.css": ["choice.css"],
   "radio.css": ["choice.css"],
   "select.css": ["text-field.css"],
-  "text-input.css": ["text-field.css"],
   "textarea.css": ["text-field.css"],
   "toggle-group.css": ["toggle-button.css"],
 }

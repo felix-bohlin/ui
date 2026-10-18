@@ -13,11 +13,9 @@ import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import FieldCSS from "@opui/css/components/text-field.css?raw"
-import TextFieldCSS from "@opui/css/components/text-input.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
-import textInputApi from "../../component-api/text-input/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
@@ -39,12 +37,7 @@ export const description =
     "relative-color",
     "user-pseudos",
   ]}
-  apis={[
-    { title: "Text field API", api: textFieldApi },
-    ...(Astro.locals.framework === "html"
-      ? [{ title: "Text input API", api: textInputApi }]
-      : []),
-  ]}
+  apis={[{ title: "Text field API", api: textFieldApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/TextField/TextField.astro",
@@ -56,21 +49,10 @@ export const description =
       path: "packages/opui/css/components/text-field.css",
       type: "css",
     },
-    {
-      path: "packages/opui/css/components/text-input.css",
-      type: "css",
-    },
     { path: "src/component-api/text-field", type: "api" },
-    { path: "src/component-api/text-input", type: "api" },
   ]}
   installationTabs={[
-    { title: "text-field.css", code: FieldCSS, lang: "css" },
-    {
-      title: "text-input.css",
-      code: TextFieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
+    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
@@ -360,7 +342,8 @@ export const description =
     <h2 id="autosuggest">Autosuggest</h2>
     <p>
       Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> element
-      combo.
+      combo. An input with a <code>list</code> shows the Select chevron in place of
+      the browser's arrow.
     </p>
 
     <ul>

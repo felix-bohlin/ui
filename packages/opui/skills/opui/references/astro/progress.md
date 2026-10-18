@@ -249,3 +249,4 @@ Import the component from `opui-css/astro`:
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
 - [Progress bars](#indeterminate) center in table cells and lines of text.
+- Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).

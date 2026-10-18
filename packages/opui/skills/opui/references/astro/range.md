@@ -490,3 +490,6 @@ Import the component from `opui-css/astro`:
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
+- Breaking: `style` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
+- Extra attributes are typed as `<input>` attributes, where they go ([API](#api)).
+- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).

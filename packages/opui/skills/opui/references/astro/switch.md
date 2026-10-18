@@ -815,3 +815,6 @@ Import the component from `opui-css/astro`:
 - Breaking: `error` only sets `aria-invalid="true"` on the input. Set `error` on each switch in an invalid [group](#field-group-validation).
 - `size` takes `"x-small"` and `"large"`. [Sizes](#sizes)
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- [`endText`](#end-text) takes a string, like the `end-text` slot.
+- No `type` prop in the types ([API](#api)).
+- A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).

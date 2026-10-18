@@ -482,3 +482,4 @@ Import the component from `opui-css/svelte`:
 - `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
 - The [`valueText`](#value) snippet gets the current value and follows the thumb.
+- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).

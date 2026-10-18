@@ -637,3 +637,4 @@ Import the component from `opui-css/react`:
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
 - [Icon-only buttons](#icons) in a group use the button's icon size.
+- [`orientation`](#vertical-orientation) takes `"horizontal"`, the default, like `Carousel`.

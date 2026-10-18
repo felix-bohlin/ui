@@ -364,7 +364,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
-- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - Breaking: [`alt`](#image) is required when `src` is set.
 - Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.

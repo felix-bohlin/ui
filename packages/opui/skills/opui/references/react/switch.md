@@ -933,3 +933,5 @@ Import the component from `opui-css/react`:
 - `size` takes `"x-small"` and `"large"`. [Sizes](#sizes)
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - A switch without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.
+- No `type` prop in the types ([API](#api)).
+- A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).

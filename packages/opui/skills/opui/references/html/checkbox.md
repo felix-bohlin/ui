@@ -954,8 +954,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
+- Breaking: `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. `--isLTR` and `--isRTL` are gone, the halo centers itself ([Under the hood](#under-the-hood)).
 - Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.
 - Breaking: mark an invalid checkbox with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
 - Takes `.ui-x-small`. [Sizes](#sizes)
-- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch. Import it before `checkbox.css`.
+- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch.

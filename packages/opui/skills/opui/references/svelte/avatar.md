@@ -345,7 +345,7 @@ Import the components from `opui-css/svelte`:
 
 ### What's new
 
-- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
 - Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
 - Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it (types).

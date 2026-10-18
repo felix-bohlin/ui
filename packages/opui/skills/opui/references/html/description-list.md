@@ -270,3 +270,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `.ui-inline`.
+- Breaking: `.ui-term` and `.ui-description` are gone. The list styles `dt` and `dd` by element ([Basics](#basics)).

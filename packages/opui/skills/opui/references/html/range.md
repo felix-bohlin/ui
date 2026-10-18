@@ -545,3 +545,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 - Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
+- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).

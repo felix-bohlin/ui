@@ -1036,4 +1036,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: mark an invalid switch with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root, also in a [group](#field-group-validation) ([Validation](#validation)).
 - Takes `.ui-x-small` and `.ui-large`. [Sizes](#sizes)
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
-- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio. Import it before `switch.css`.
+- Breaking: [`choice.css`](#basics) holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Radio.
+- A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).

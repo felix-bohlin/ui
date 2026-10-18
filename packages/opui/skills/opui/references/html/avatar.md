@@ -332,6 +332,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.
 - Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).

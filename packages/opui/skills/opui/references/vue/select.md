@@ -727,7 +727,8 @@ Import the component from `opui-css/vue`:
 - The arrow is a chevron.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the select, no more `data-invalid` on the root ([Validation](#validation)).
-- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
 - Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).
+- Breaking: `style` goes to the root, like `class`, instead of the `<select>` ([API](#api)).

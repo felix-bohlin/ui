@@ -766,7 +766,7 @@ Import the component from `opui-css/react`:
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
 - The arrow is a chevron.
-- Breaking: `--_accent-color` is `--_accent` and `--_height` is `--_min-height` ([Under the hood](#under-the-hood)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
 - Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).

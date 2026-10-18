@@ -643,8 +643,9 @@ Import the component from `opui-css/svelte`:
 
 - [Radios](#sizes) are 20px, the same `--choice-size` as Checkbox.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl` ([Under the hood](#under-the-hood)).
+- Breaking: `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. `--isLTR` and `--isRTL` are gone, the halo centers itself ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text.
 - [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
+- No `type` prop in the types, and the native `size` isn't typed either ([API](#api)).

@@ -459,4 +459,4 @@ Import the components from `opui-css/vue`:
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
-- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color`, and `--_shadow-elevated` is `--_elevated-shadow` ([Under the hood](#under-the-hood)).

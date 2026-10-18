@@ -738,5 +738,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
 - [Rich text](#rich-text-showcase) styles tables, which scroll sideways in narrow columns, `hr` and task lists.
 - Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
-- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size, and so does [`.ui-small`](#inline-text-elements).
+- Rich text `var` is monospace, like [`.ui-var`](#inline-text-elements).
 - [Links](#link) are documented, and get a thicker underline on hover.

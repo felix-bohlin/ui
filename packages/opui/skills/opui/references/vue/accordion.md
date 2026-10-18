@@ -534,5 +534,5 @@ Import the components from `opui-css/vue`:
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) on `AccordionSummary` replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
 - [Actions](#actions) line up with the content and the chevron.
-- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`variant="default"`](#variants) is gone. Leave `variant` out for the default look.

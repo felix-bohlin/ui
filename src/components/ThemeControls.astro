@@ -1,0 +1,115 @@
+---
+import {
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Range,
+  Switch,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import {
+  GRAY_FIELDS,
+  PALETTE_FIELDS,
+  RADIUS_FIELDS,
+  sourceColor,
+} from "../utils/theme-form"
+import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
+
+const defaults = tokenDefaults("light")
+---
+
+<FieldSet>
+  <FieldLegend>Color palette</FieldLegend>
+  <FieldGroup>
+    <TextField
+      type="color"
+      label="Source color"
+      name="--palette-source-color"
+      value={sourceColor("light")}
+      spread
+      size="small"
+    />
+    {
+      PALETTE_FIELDS.map((field) => (
+        <Range
+          label={field.label}
+          name={field.token}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={defaults[field.token]}
+          valueSuffix={field.suffix ?? ""}
+        />
+      ))
+    }
+  </FieldGroup>
+</FieldSet>
+
+<Divider />
+
+<FieldSet>
+  <FieldLegend>Grays</FieldLegend>
+  <FieldGroup>
+    <Switch name="enable-grays" checked spread>Enable</Switch>
+    {
+      GRAY_FIELDS.map((field) => (
+        <Range
+          label={field.label}
+          name={field.token}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={defaults[field.token]}
+          valueSuffix={field.suffix ?? ""}
+        />
+      ))
+    }
+  </FieldGroup>
+</FieldSet>
+
+<Divider />
+
+<FieldSet>
+  <FieldLegend>Border radii</FieldLegend>
+  {
+    RADIUS_FIELDS.map((field) => (
+      <FieldGroup>
+        <div class="radius-field">
+          <span class="ui-label">{field.label}</span>
+          <ToggleGroup
+            aria-label={field.label}
+            name={field.token}
+            selection="single"
+            size="small"
+          >
+            {RADIUS_OPTIONS.map((option) => (
+              <ToggleButton
+                pressed={option.value === defaults[field.token]}
+                title={option.value}
+                value={option.value}
+              >
+                {option.text}
+              </ToggleButton>
+            ))}
+          </ToggleGroup>
+        </div>
+      </FieldGroup>
+    ))
+  }
+</FieldSet>
+
+<style>
+  .radius-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+
+    .ui-label {
+      font-size: var(--font-size-05);
+      font-weight: var(--font-weight-5);
+    }
+  }
+</style>

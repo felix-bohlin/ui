@@ -14,54 +14,36 @@
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
     font-weight: var(--font-weight-bold);
-    line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+    line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
     text-wrap: pretty;
   }
 
   :where(.ui-h1) {
-    font-size: round(
-      var(--font-size-h1, var(--font-size-7)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h1), var(--rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h2) {
-    font-size: round(
-      var(--font-size-h2, var(--font-size-5, 2rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h2), var(--rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h3) {
-    font-size: round(
-      var(--font-size-h3, var(--font-size-4, 1.5rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h3), var(--rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h4) {
-    font-size: round(
-      var(--font-size-h4, var(--font-size-3, 1.25rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h4), var(--rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h5) {
-    font-size: round(
-      var(--font-size-h5, var(--font-size-2, 1.1rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h5), var(--rhythm-step) / 2);
   }
 
   :where(.ui-h6) {
-    font-size: round(
-      var(--font-size-h6, var(--font-size-1, 1rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h6), var(--rhythm-step) / 2);
   }
 
   /** Overline */
@@ -86,7 +68,7 @@
     }
 
     & > :where(h1, h2, h3, h4, h5, h6) {
-      margin-block: 0 round(0.4em, var(--rhythm-step, 0.25rem));
+      margin-block: 0 round(0.4em, var(--rhythm-step));
     }
 
     /* First p element (overline) */
@@ -114,11 +96,11 @@
       }
 
       font-size: var(--font-size-3);
-      line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
+      line-height: round(up, 1.6em, var(--rhythm-step));
     }
 
     & > p + p {
-      margin-block-start: round(0.75em, var(--rhythm-step, 0.25rem));
+      margin-block-start: round(0.75em, var(--rhythm-step));
     }
   }
 
@@ -285,7 +267,7 @@
 @layer components.prose {
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-space: round(1.25em, var(--rhythm-step, 0.25rem));
+      --_flow-space: round(1.25em, var(--rhythm-step));
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -391,11 +373,8 @@
       border-radius: var(--border-radius);
       color: var(--color-1);
       font-size: 0.875em;
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
-      margin-block: round(
-        var(--_flow-space) * 1.5,
-        var(--rhythm-step, 0.25rem)
-      );
+      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
       max-inline-size: 100%;
       overflow-inline: auto;
       padding-block: var(--size-3);
@@ -425,10 +404,7 @@
     figure {
       display: grid;
       gap: var(--size-2);
-      margin-block: round(
-        var(--_flow-space) * 1.5,
-        var(--rhythm-step, 0.25rem)
-      );
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
       place-items: center;
 
       & > * {
@@ -447,7 +423,7 @@
       & figcaption {
         color: var(--text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
         text-wrap: pretty;
       }
     }
@@ -488,14 +464,14 @@
 
       color: var(--text-primary);
       font-weight: var(--font-weight-bold);
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
       text-wrap: pretty;
     }
 
     h1:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h1, var(--font-size-7)) * var(--_font-scale, 1)),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h1) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3) var(--_flow-space);
@@ -503,63 +479,50 @@
 
     h2:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h2, var(--font-size-5, 2rem)) * var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h2) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3)
-        round(var(--_flow-space) * 0.75, var(--rhythm-step, 0.25rem));
+        round(var(--_flow-space) * 0.75, var(--rhythm-step));
     }
 
     h3:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h3, var(--font-size-4, 1.5rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h3) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.01em;
       margin-block: calc(var(--_flow-space) * 2)
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h4:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h4, var(--font-size-3, 1.25rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h4) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.01em;
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h5:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h5, var(--font-size-2, 1.1rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h5) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h6:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h6, var(--font-size-1, 1rem)) * var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h6) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     /** Overline */
@@ -586,15 +549,11 @@
       }
 
       & > :where(h1, h2, h3, h4, h5, h6) {
-        margin-block: 0
-          round(var(--_flow-space) * 0.75, var(--rhythm-step, 0.25rem));
+        margin-block: 0 round(var(--_flow-space) * 0.75, var(--rhythm-step));
       }
 
       & + * {
-        margin-block-start: round(
-          var(--_flow-space) * 2.5,
-          var(--rhythm-step, 0.25rem)
-        );
+        margin-block-start: round(var(--_flow-space) * 2.5, var(--rhythm-step));
       }
 
       /* Body paragraphs after the heading */
@@ -606,13 +565,13 @@
         }
 
         font-size: var(--font-size-3);
-        line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1.6em, var(--rhythm-step));
       }
 
       & > p + p {
         margin-block-start: round(
           var(--_flow-space) * 0.75,
-          var(--rhythm-step, 0.25rem)
+          var(--rhythm-step)
         );
       }
     }
@@ -733,7 +692,7 @@
       caption {
         color: var(--text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
         padding-block-end: var(--size-2);
         text-align: start;
       }

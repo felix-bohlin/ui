@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(.ui-badge) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_anchor-tx: calc(50% * var(--_sign-x));
     --_anchor-ty: calc(50% * var(--_sign-y));
     --_bg-color: var(--primary);

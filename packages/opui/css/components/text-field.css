@@ -4,7 +4,7 @@
 - Form related styles such as: label, supporting text, error handling
 */
   :where(.ui-text-field, .ui-textarea, .ui-select) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_accent: var(--primary);
     --_affix-color: var(--text-muted);
     --_arrow-inset: var(--size-3);

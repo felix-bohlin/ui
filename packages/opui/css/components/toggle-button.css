@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-toggle-button) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: transparent;
     --_font-size: var(--font-size-1);
     --_icon-size: var(--icon-size);

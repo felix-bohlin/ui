@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(.ui-menu) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--surface-elevated);
     --_border-color: light-dark(
       var(--border-color),

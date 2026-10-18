@@ -12,7 +12,7 @@
 
 @layer components.root {
   :where(.ui-range) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_accent: var(--primary);
     --_thumb-size: 3ex;
 

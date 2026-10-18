@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-progress) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_accent: var(--primary);
     --_bg-color: var(--surface-tonal);
 

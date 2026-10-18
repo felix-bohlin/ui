@@ -130,7 +130,7 @@
     }
 
     &.ui-sticky-header {
-      --_motion: var(--motion, 1);
+      --_motion: var(--motion);
       --_scroll-shadow: var(--shadow-4);
       --_sticky-offset: 0;
 

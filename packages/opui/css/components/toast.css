@@ -26,7 +26,7 @@
   }
 
   :where(.ui-toast) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_dir: 1;
     --_enter-duration: calc(var(--duration-slow) * var(--_motion));
     --_exit-duration: calc(var(--duration-slow) * var(--_motion));

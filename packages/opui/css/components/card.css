@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-card) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;

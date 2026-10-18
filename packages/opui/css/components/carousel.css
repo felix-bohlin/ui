@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-carousel) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_block-size: 24rem;
     --_button-bg-color: var(--surface-inverse);
     --_button-border-color: light-dark(

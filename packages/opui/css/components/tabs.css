@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_active-bg-color: light-dark(
       var(--surface-default),
       oklch(100% 0 0 / var(--state-hover-alpha))

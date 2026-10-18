@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_actions-gap: var(--size-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);

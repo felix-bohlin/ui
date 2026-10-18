@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(.ui-tooltip) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--surface-inverse);
     --_min-inline-size: 10rem;
     --_offset: var(--size-2);

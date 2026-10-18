@@ -81,6 +81,11 @@ export const RADIUS_OPTIONS = [
   { text: "4", value: "var(--size-4)" },
 ]
 
+export const radiusOptions = (token: Token) =>
+  token === "--border-radius"
+    ? RADIUS_OPTIONS
+    : [{ text: "Auto", value: "var(--border-radius)" }, ...RADIUS_OPTIONS]
+
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
 }

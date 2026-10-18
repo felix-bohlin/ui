@@ -165,20 +165,3 @@ export const setThemeToken = (css: string, name: string, value: string) => {
   }
   throw new Error(`${name} is not declared in theme.css`)
 }
-
-export const setDarkThemeTokens = (
-  css: string,
-  tokens: readonly (readonly [string, string])[],
-) => {
-  const body = (indent: string) =>
-    tokens.map(([name, value]) => `${indent}${name}: ${value};`).join("\n")
-  return css
-    .replace(
-      /(:where\(html\.ui-dark\) \{\n)[\s\S]*?(\n {2}\})/,
-      (_, open, close) => `${open}${body("    ")}${close}`,
-    )
-    .replace(
-      /(:where\(html:not\(\.ui-light\)\) \{\n)[\s\S]*?(\n {4}\})/,
-      (_, open, close) => `${open}${body("      ")}${close}`,
-    )
-}

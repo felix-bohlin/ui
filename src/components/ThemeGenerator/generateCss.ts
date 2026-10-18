@@ -1,19 +1,18 @@
 /**
  * Pure function that turns the saved per-mode configs into a copy-pasteable
- * `theme.css` snippet. The shape of the output mirrors
- * `packages/opui/css/theme.css` so consumers can drop it in
- * place. Tunable values (palette, grays, radii, enable-grays) get inlined;
- * the rest of the theme structure (named colors, intent tokens, primary
- * variants, text/surface mappings, focus ring, typography, control sizes,
- * field/button tokens, and severity scope classes) is emitted verbatim.
+ * `brand.css` snippet. It only holds the tokens that differ from what
+ * `packages/opui/css/theme.css` ships, in the `theme.brand` layer, so it
+ * keeps working when a release adds or changes other tokens.
  *
  * Per-mode differences:
- *  - `--palette-source` is wrapped in `light-dark()` when the modes diverge.
- *  - Other tokens (`--palette-hue-rotate-by`, `--gray-chroma`, `--gray-hue`,
- *    radii) get a `.dark { ... }` override block when they differ.
+ *  - Tokens that differ from the light defaults go in `:where(html)`.
+ *  - Dark values that differ from what the light block and the dark defaults
+ *    already give go in `:where(html.ui-dark)` and the matching
+ *    `prefers-color-scheme: dark` block.
+ *  - With grays disabled, the text, surface and border mappings go in
+ *    `:where(html, .ui-palette)`, like in theme.css.
  */
 
-import themeSource from "@opui/css/theme.css?raw"
 import {
   TOKENS,
   tokenDefaults,
@@ -21,7 +20,6 @@ import {
   type ModeConfig,
   type Token,
 } from "../../utils/theme-store"
-import { setDarkThemeTokens, setThemeToken } from "../../utils/theme-tokens"
 
 type Snapshot = Record<Token, string>
 
@@ -66,6 +64,17 @@ function isGraysEnabled(config: ModeConfig): boolean {
   return config["enable-grays"] !== "false"
 }
 
+const rule = (
+  selector: string,
+  tokens: readonly (readonly [string, string])[],
+  indent = "  ",
+) =>
+  tokens.length > 0
+    ? `${indent}${selector} {\n${tokens
+        .map(([name, value]) => `${indent}  ${name}: ${value};`)
+        .join("\n")}\n${indent}}`
+    : ""
+
 export function generateCss({
   light,
   dark,
@@ -75,32 +84,45 @@ export function generateCss({
 }): string {
   const lightSnap = snapshotFor("light", light)
   const darkSnap = snapshotFor("dark", dark)
+  const lightDefaults = tokenDefaults("light")
+  const darkDefaults = tokenDefaults("dark")
 
-  let css = themeSource
-  for (const token of TOKENS) {
-    css = setThemeToken(css, token, lightSnap[token])
-  }
-
-  const overrides = TOKENS.filter(
-    (token) => darkSnap[token] !== lightSnap[token],
-  ).map((token) => [token, darkSnap[token]] as const)
-  css = setDarkThemeTokens(
-    css,
-    overrides.length > 0
-      ? overrides
-      : [["--palette-hue", darkSnap["--palette-hue"]]],
+  const lightTokens = TOKENS.filter(
+    (token) => lightSnap[token] !== lightDefaults[token],
+  )
+  const darkTokens = TOKENS.filter(
+    (token) =>
+      darkSnap[token] !==
+      (lightTokens.includes(token) ? lightSnap[token] : darkDefaults[token]),
   )
 
   const grays = { light: isGraysEnabled(light), dark: isGraysEnabled(dark) }
-  if (!grays.light || !grays.dark) {
-    for (const [name, ramp] of Object.entries(RAMPS)) {
-      css = setThemeToken(css, name, rampValue(ramp, grays))
-    }
-  }
+  const rampTokens =
+    grays.light && grays.dark
+      ? []
+      : Object.entries(RAMPS).map(
+          ([name, ramp]) => [name, rampValue(ramp, grays)] as const,
+        )
 
-  return css
+  const darkPairs = darkTokens.map((token) => [token, darkSnap[token]] as const)
+  const rules = [
+    rule(
+      ":where(html)",
+      lightTokens.map((token) => [token, lightSnap[token]] as const),
+    ),
+    rule(":where(html, .ui-palette)", rampTokens),
+    rule(":where(html.ui-dark)", darkPairs),
+    darkPairs.length > 0
+      ? `  @media (prefers-color-scheme: dark) {\n${rule(":where(html:not(.ui-light))", darkPairs, "    ")}\n  }`
+      : "",
+  ].filter(Boolean)
+
+  return rules.length > 0
+    ? `@layer theme.brand {\n${rules.join("\n\n")}\n}\n`
+    : PLACEHOLDER_CSS
 }
 
-export const PLACEHOLDER_CSS = `@layer theme {
-  /* Tweak the controls to generate your theme.css */
-}`
+export const PLACEHOLDER_CSS = `@layer theme.brand {
+  /* Tweak the controls to generate your brand.css */
+}
+`

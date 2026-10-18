@@ -41,24 +41,24 @@ const slug = (title: string) =>
       <code>html</code> for a whole site, or on an element to theme a part of the
       page. The <DocLink href="/guide/theme-generator">theme generator</DocLink
       >{" "}
-      writes a complete <code>theme.css</code> for you.
+      writes a <code>brand.css</code> with the tokens you change.
     </p>
     <Code
-      code={`/* Unlayered, or in a layer after utils (see Customizing) */
-html {
-  --palette-hue: 30;
-  --border-radius: var(--radius-3);
-  --duration: 0.15s;
+      code={`@layer theme.brand {
+  :where(html) {
+    --border-radius: var(--radius-3);
+    --duration: 0.15s;
+    --palette-hue: 30;
+  }
 }`}
       lang="css"
     />
     <p>
-      <DocLink href="/guide/customizing#unlayered-or-your-own-layer"
-        >Customizing</DocLink
-      > explains where to put your own styles. <DocLink href="/guide/theming"
-        >Theming</DocLink
-      > explains the palette, density, motion and contrast, and the classes that change
-      them for one part of the page.
+      <DocLink href="/guide/customizing#your-brand">Customizing</DocLink> explains
+      the <code>theme.brand</code> layer and where to put your other styles. <DocLink
+        href="/guide/theming">Theming</DocLink
+      > explains the palette, density, spacing, corners, fonts, elevation, motion
+      and contrast, and the classes that change them for one part of the page.
     </p>
   </section>
 

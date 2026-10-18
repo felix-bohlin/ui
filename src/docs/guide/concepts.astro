@@ -21,7 +21,8 @@ import Example from "../../components/Example/index"
       the order once, and everything after it slots into place:
     </p>
     <Code
-      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;`}
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.brand;`}
       lang="css"
     />
     <ul>
@@ -30,9 +31,14 @@ import Example from "../../components/Example/index"
         <code>--font-size-1</code>, …).
       </li>
       <li>
-        <code>theme</code>: <code>palette.css</code> and <code>theme.css</code>,
-        the colors and component tokens like <code>--primary</code> and <code
+        <code>theme</code>: the tokens, in three sublayers. <code
+          >theme.palette</code
+        > is <code>palette.css</code>, <code>theme.base</code> is <code
+          >theme.css</code
+        >, the colors and component tokens like <code>--primary</code> and <code
           >--button-size</code
+        >, and <code>theme.brand</code> is empty, for your own theme. See <DocLink
+          href="/guide/customizing#your-brand">Your brand</DocLink
         >.
       </li>
       <li><code>normalize</code>: the reset.</li>

@@ -528,12 +528,29 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 `theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)`). The global focus ring reads it now and keeps the inverted page background color while it's unset. If your styles read `var(--focus-ring-color)`, set it in your theme:
 
 ```css
-@layer theme {
-  :root {
+@layer theme.brand {
+  :where(html) {
     --focus-ring-color: var(--primary);
   }
 }
 ```
+
+`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.brand` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `brand.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
+
+`--button-border-radius` and `--field-border-radius` follow `--border-radius`. If you set `--border-radius` and want buttons and fields to keep their corners, set them back:
+
+```css
+@layer theme.brand {
+  :where(html) {
+    --button-border-radius: var(--size-2);
+    --field-border-radius: var(--size-2);
+  }
+}
+```
+
+`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--border-radius`.
+
+The `Select` picker and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--shadow-raised` (`--shadow-4` in dark mode, was `--shadow-3`).
 
 `--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is derived from `--primary` with relative color. If you set your own `--primary`, its text color now follows it.
 

@@ -20,7 +20,7 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
-import { RADIUS_OPTIONS, tokenDefaults } from "../../utils/theme-store"
+import { radiusOptions, tokenDefaults } from "../../utils/theme-store"
 import { PLACEHOLDER_CSS } from "./generateCss"
 import "../../styles/syntax.css"
 
@@ -158,7 +158,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
                 <FieldLegend>{group.label}</FieldLegend>
                 <FieldGroup>
                   <div class="chip-group">
-                    {RADIUS_OPTIONS.map((item) => {
+                    {radiusOptions(group.name).map((item) => {
                       const pressed =
                         item.value === tokenDefaults("light")[group.name]
                       return (
@@ -285,7 +285,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   >
     <CardHeader>
       <div class="card-header">
-        <h3>theme.css</h3>
+        <h3>brand.css</h3>
         <div class="css-actions">
           <Button
             rounded
@@ -309,8 +309,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
             rounded
             id="theme-generator-download"
             size="x-small"
-            title="Download theme.css"
-            aria-label="Download theme.css"
+            title="Download brand.css"
+            aria-label="Download brand.css"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -817,8 +817,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     try {
       await navigator.clipboard.writeText(generatedCss)
       ;(window as any).showToast?.({
-        title: "Copied theme.css",
-        description: "Paste it into your project's stylesheet.",
+        title: "Copied brand.css",
+        description: "Paste it into a stylesheet that loads after opui-css.",
         duration: "3s",
       })
     } catch {
@@ -837,7 +837,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     )
     const link = document.createElement("a")
     link.href = url
-    link.download = "theme.css"
+    link.download = "brand.css"
     link.click()
     setTimeout(() => URL.revokeObjectURL(url))
   })

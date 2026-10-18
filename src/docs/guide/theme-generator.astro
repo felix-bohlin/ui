@@ -1,12 +1,13 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import DocLink from "../../components/DocLink.astro"
 import Generator from "../../components/ThemeGenerator/ThemeGenerator.astro"
 ---
 
 <Guide overline="Guide" showToc={false}>
   <Fragment slot="title">Theme generator</Fragment>
   <Fragment slot="preamble">
-    Edit the design tokens visually and download a <code>theme.css</code>.
+    Edit the design tokens visually and download a <code>brand.css</code>.
   </Fragment>
 
   <p>
@@ -14,7 +15,11 @@ import Generator from "../../components/ThemeGenerator/ThemeGenerator.astro"
     you're editing: Light, Dark, or Both at once. When the edited mode matches
     the site's current mode, the rest of the docs updates live too. Your changes
     persist between visits until you reset them, and you can copy or download
-    them as a stand-alone <code>theme.css</code>.
+    them as a <code>brand.css</code>. It only lists the tokens you changed, in
+    the <DocLink href="/guide/customizing#your-brand"
+      ><code>theme.brand</code> layer</DocLink
+    >, so later releases can add and change other tokens without breaking it.
+    Load it after the library.
   </p>
 
   <Generator />

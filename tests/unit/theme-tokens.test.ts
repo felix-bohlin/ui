@@ -3,7 +3,10 @@ import themeSource from "@opui/css/theme.css?raw"
 import { describe, expect, test } from "vitest"
 import { cssVarRows, stylesheets } from "../../src/component-api/rows"
 import type { ComponentApi } from "../../src/component-api/types"
-import { generateCss } from "../../src/components/ThemeGenerator/generateCss"
+import {
+  generateCss,
+  PLACEHOLDER_CSS,
+} from "../../src/components/ThemeGenerator/generateCss"
 import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import {
@@ -118,19 +121,42 @@ describe("theme tokens", () => {
 })
 
 describe("generateCss", () => {
-  test("substitutes the configured values into theme.css", () => {
+  test("lists only the changed tokens in the theme.brand layer", () => {
     const css = generateCss({
       dark: { "--border-radius": "var(--radius-3)", "--palette-hue": "200" },
       light: { "--border-radius": "var(--radius-3)", "--palette-hue": "30" },
     })
-    expect(css).toContain("--palette-hue: 30;")
-    expect(css).toContain("--palette-hue: 200;")
-    expect(css).toContain("--border-radius: var(--radius-3);")
-    expect(css).toMatch(
-      /:where\(html\.ui-dark\) \{\n {4}--palette-hue: 200;\n {2}\}/,
-    )
-    expect(css).not.toMatch(/light-dark\(\s*\d/)
-    expect(parseThemeTokens(css).length).toBe(sections.length)
+    expect(css).toBe(`@layer theme.brand {
+  :where(html) {
+    --palette-hue: 30;
+    --border-radius: var(--radius-3);
+  }
+
+  :where(html.ui-dark) {
+    --palette-hue: 200;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --palette-hue: 200;
+    }
+  }
+}
+`)
+  })
+
+  test("leaves out dark values that the light block and defaults already give", () => {
+    const css = generateCss({
+      dark: { "--border-radius": "0", "--palette-hue": "240" },
+      light: { "--border-radius": "0" },
+    })
+    expect(css).toContain("--border-radius: 0;")
+    expect(css).not.toContain("--palette-hue")
+    expect(css).not.toContain("ui-dark")
+  })
+
+  test("returns the placeholder without changes", () => {
+    expect(generateCss({ dark: {}, light: {} })).toBe(PLACEHOLDER_CSS)
   })
 
   test("swaps grays for palette steps when grays are disabled", () => {
@@ -138,6 +164,7 @@ describe("generateCss", () => {
       dark: { "enable-grays": "false" },
       light: { "enable-grays": "false" },
     })
+    expect(css).toContain(":where(html, .ui-palette) {")
     expect(css).toContain(
       "--surface-default: light-dark(var(--color-1), var(--color-14));",
     )

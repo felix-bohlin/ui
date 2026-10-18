@@ -15,7 +15,7 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
-import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
+import { radiusOptions, tokenDefaults } from "../utils/theme-store"
 
 const radiusGroups = [
   { name: "--border-radius", label: "Border radius" },
@@ -178,7 +178,7 @@ const { link } = Astro.locals
                 <div class="chip-group-wrapper">
                   <span class="ui-label">{group.label}</span>
                   <div class="chip-group">
-                    {RADIUS_OPTIONS.map((item) => {
+                    {radiusOptions(group.name).map((item) => {
                       const pressed =
                         item.value === tokenDefaults("light")[group.name]
                       return (

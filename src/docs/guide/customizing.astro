@@ -13,6 +13,38 @@ import Example from "../../components/Example/index"
   </Fragment>
 
   <section>
+    <h2 id="your-brand">Your brand</h2>
+    <p>
+      A brand is a short list of <DocLink href="/guide/theme-tokens"
+        >theme tokens</DocLink
+      >. Put them in the <code>theme.brand</code> layer: it sits right after the defaults
+      in <code>theme.base</code>, so it beats them, and every component and
+      utility still beats it. Only list what you change, and new tokens in later
+      releases keep their defaults.
+    </p>
+    <Code
+      code={`@layer theme.brand {
+  :where(html) {
+    --border-radius: 4px;
+    --density: 0.9;
+    --font-body: "Inter", var(--font-sans);
+    --font-heading: "Fraunces", var(--font-serif);
+    --palette-chroma: 0.35;
+    --palette-hue: 265;
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      Load it after the library, or after <code>layers.css</code> when you import
+      single files. The <DocLink href="/guide/theme-generator"
+        >Theme generator</DocLink
+      > writes one for you, and <DocLink href="/guide/theming">Theming</DocLink> explains
+      each token.
+    </p>
+  </section>
+
+  <section>
     <h2 id="component-properties">Component properties</h2>
     <p>
       There are two kinds of custom properties. <DocLink
@@ -140,6 +172,7 @@ import Example from "../../components/Example/index"
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
+@layer theme.palette, theme.base, theme.brand;
 
 @layer overrides {
   .ui-badge {
@@ -177,7 +210,7 @@ import Example from "../../components/Example/index"
       > or try the <DocLink href="/guide/theme-generator"
         >Theme generator</DocLink
       >. <DocLink href="/guide/theming">Theming</DocLink> covers the palette, density,
-      motion and contrast.
+      spacing, corners, fonts, elevation, motion and contrast.
     </p>
   </section>
 </Guide>

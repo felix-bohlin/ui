@@ -150,11 +150,12 @@ The library defines this layer order:
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.brand;
 ```
 
 Import `opui-css/css/layers.css` first to set this order when you import single files.
 
-Wrap your own styles in a layer above `utils` (or unlayered) to override.
+Put your theme tokens in `@layer theme.brand`, which beats the defaults in `theme.base`. Wrap other overrides in a layer above `utils` (or unlayered).
 
 ## Upgrading
 

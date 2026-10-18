@@ -1,4 +1,4 @@
-@layer theme {
+@layer theme.base {
   /* Color scheme */
   .ui-light {
     --color-scheme: light;

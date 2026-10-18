@@ -129,6 +129,7 @@
 - `theme.css` has font tokens: `--font-body` for text, fields and buttons, `--font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--font-code` for `code`, `kbd`, `samp` and `var`. `--font-heading` follows `--font-body`.
 - `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins. Controls keep following `--density`.
 - `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion` (`--shadow-4` in dark mode), and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
+- `layers.css` declares the `theme.palette`, `theme.base` and `theme.brand` sublayers. `theme.brand` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 
 ### Changed
 
@@ -202,6 +203,7 @@
 - `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--border-radius`: `--button-border-radius` and `--field-border-radius` default to it, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--border-radius`.
 - `Accordion` with `variant="elevated"` uses `--shadow-raised`, which is `--shadow-4` in dark mode like the elevated `Card` (was `--shadow-3`).
 - `Select` pickers and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), like `Menu` and `Toast`.
+- `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.brand` beat the defaults wherever they load.
 
 ### Fixed
 

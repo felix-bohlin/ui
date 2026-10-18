@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useLayoutEffect, useRef } from "react"
-import { useFieldContext } from "../FieldGroup/context.react"
+import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { CheckboxInputProps as Props } from "./types.react"
 
 export default function CheckboxInput({
@@ -10,7 +10,7 @@ export default function CheckboxInput({
   ref,
   ...rest
 }: Props) {
-  const field = useFieldContext()
+  const field = useFieldGroupContext()
   const inputRef = useRef<HTMLInputElement>(null)
 
   useLayoutEffect(() => {

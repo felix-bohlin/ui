@@ -15,3 +15,8 @@ export type TabsTabProps = {
 }
 
 export type TabsPanelProps = {}
+
+export type Context = {
+  groupName?: string
+  tabId?: string
+}

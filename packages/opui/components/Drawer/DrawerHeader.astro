@@ -16,7 +16,7 @@ const drawer = drawerContext.get()
 const closeAttrs =
   commandfor || drawer
     ? { command: "close", commandfor: commandfor ?? drawer?.id }
-    : { onclick: "this.closest('dialog').close()" }
+    : { onclick: "this.closest('dialog')?.close()" }
 ---
 
 <div class:list={["ui-header", className]} {...rest}>

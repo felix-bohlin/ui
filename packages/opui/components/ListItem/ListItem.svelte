@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import type { Snippet } from "svelte"
   import type { HTMLAttributes } from "svelte/elements"
 
   let {
@@ -35,21 +34,17 @@
   )
 </script>
 
-{#snippet content(
-  part: string | Snippet,
-)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
-
 {#snippet body()}
   {#if start}
     <div class="ui-start">
-      {@render content(start)}
+      {@render start()}
     </div>
   {/if}
   {#if headline || description || text}
     <div class="ui-text">
       {#if headline}<p>{headline}</p>{/if}
       {#if description}<p>{description}</p>{/if}
-      {#if text}{@render content(text)}{/if}
+      {@render text?.()}
       {@render children?.()}
     </div>
   {:else}
@@ -57,7 +52,7 @@
   {/if}
   {#if end}
     <div class="ui-end">
-      {@render content(end)}
+      {@render end()}
     </div>
   {/if}
 {/snippet}
@@ -80,5 +75,5 @@
   {:else}
     {@render body()}
   {/if}
-  {#if submenu}{@render content(submenu)}{/if}
+  {@render submenu?.()}
 </li>

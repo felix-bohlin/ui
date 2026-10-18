@@ -16,12 +16,12 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
+const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
   <component
-    :is="tag"
+    :is="Tag"
     :class="[
       'ui-chip',
       {
@@ -33,7 +33,7 @@ const tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
       variant && `ui-${variant}`,
       $props.class,
     ]"
-    v-bind="tagAttrs(tag, disabled, href)"
+    v-bind="tagAttrs(Tag, disabled, href)"
   >
     <slot name="start"></slot>
     <slot></slot>

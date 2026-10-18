@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { fieldContext } from "../FieldGroup/context.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 import { toggleGroupContext } from "../ToggleGroup/context.astro"
 
 export const title = "Toggle Button"
@@ -18,7 +18,7 @@ const {
   ...rest
 } = Astro.props
 
-const field = fieldContext.get()
+const field = fieldGroupContext.get()
 const group = toggleGroupContext.get()
 
 const finalName = name || group?.groupName || field?.name

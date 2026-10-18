@@ -16,3 +16,8 @@ export type DrawerHeaderProps = {
 }
 
 export type DrawerTitleProps = {}
+
+export type Context = {
+  id: string
+  titleId?: string
+}

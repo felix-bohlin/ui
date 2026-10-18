@@ -1,6 +1,6 @@
 <script lang="ts">
   import { mergeStyle } from "../style"
-  import { setAnchorContext } from "./context"
+  import { setAnchorContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let {

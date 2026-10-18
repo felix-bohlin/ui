@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
-  import { getToggleGroupContext } from "../ToggleGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
   import type { Props } from "./types.svelte"
 
@@ -21,7 +21,7 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
   const group = getToggleGroupContext()
 
   const finalName = $derived(name || group?.groupName || field?.name)

@@ -67,7 +67,7 @@ const defaultValue = computed(() => {
 })
 
 const uid = useId()
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 const hasValue = computed(() => valueSuffix !== undefined || !!slots.value)
 const inputId = computed(
   () => id || (hasValue.value ? `range-${uid}` : undefined),
@@ -128,7 +128,7 @@ const endTextId = `range-end-${uid}`
       "
       :id="inputId"
       :list="listId"
-      :name="attrs.name ?? fieldName"
+      :name="attrs.name ?? field?.name"
       ref="input"
       type="range"
     />

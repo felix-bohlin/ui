@@ -9,3 +9,7 @@ export type DialogActionsProps = {
 export type DialogContentProps = {}
 
 export type DialogHeaderProps = {}
+
+export type Context = {
+  headerId?: string
+}

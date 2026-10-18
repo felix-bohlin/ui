@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getTabsContext } from "./context"
+  import { getTabsContext } from "./context.svelte"
   import type { TabsTabProps as Props } from "./types.svelte"
 
   let { children, class: className, tabId, ...rest }: Props = $props()

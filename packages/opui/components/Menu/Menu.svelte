@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getMenuContext, setMenuContext } from "./context"
+  import { getMenuContext, setMenuContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let {

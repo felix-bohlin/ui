@@ -1,10 +1,10 @@
 ---
 import type { CheckboxInputProps as Props } from "./types.astro"
-import { fieldContext } from "../FieldGroup/context.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 const { indeterminate, name, ...rest } = Astro.props as Props
 
-const field = fieldContext.get()
+const field = fieldGroupContext.get()
 ---
 
 <input

@@ -1,7 +1,7 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
 import { createId, idRefs } from "../id"
-import { fieldContext } from "../FieldGroup/context.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Range"
 
@@ -30,7 +30,7 @@ const {
   ...rest
 } = Astro.props
 
-const field = fieldContext.get()
+const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")

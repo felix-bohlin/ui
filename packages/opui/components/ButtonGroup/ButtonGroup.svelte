@@ -19,11 +19,14 @@
 <div
   class={[
     "ui-button-group",
+    {
+      "ui-scrollable": scrollable,
+      "ui-shrink": shrink,
+      "ui-vertical": orientation === "vertical",
+    },
     color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
-    orientation && `ui-${orientation}`,
-    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role="group"

@@ -34,7 +34,7 @@ const model = computed({
   },
 })
 
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
@@ -68,7 +68,7 @@ const fieldName = inject(FieldGroupKey, undefined)
         :inputmode="
           attrs.inputmode ?? (type === 'numeric' ? 'numeric' : undefined)
         "
-        :name="attrs.name ?? fieldName"
+        :name="attrs.name ?? field?.name"
         :pattern="attrs.pattern ?? (type === 'numeric' ? '[0-9]*' : undefined)"
         :type="type === 'numeric' ? 'text' : type"
       />

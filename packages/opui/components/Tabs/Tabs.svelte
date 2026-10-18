@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setTabsContext } from "./context"
+  import { setTabsContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let {

@@ -1,5 +1,4 @@
-import type { InjectionKey, Ref } from "vue"
+import type { InjectionKey } from "vue"
+import type { Context } from "./types"
 
-export const FieldGroupKey = Symbol() as InjectionKey<
-  Readonly<Ref<string | undefined>>
->
+export const FieldGroupKey = Symbol() as InjectionKey<Context>

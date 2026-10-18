@@ -5,5 +5,5 @@ export default function DescriptionListDescription({
   className,
   ...rest
 }: Props) {
-  return <dd className={cx(["ui-description", className])} {...rest} />
+  return <dd className={cx([className])} {...rest} />
 }

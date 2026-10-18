@@ -19,7 +19,7 @@ const inputAttrs = computed(() =>
 
 const field = inject(FieldGroupKey, undefined)
 const group = inject(ToggleGroupKey, undefined)
-const finalName = computed(() => name || group?.groupName || field?.value)
+const finalName = computed(() => name || group?.groupName || field?.name)
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )

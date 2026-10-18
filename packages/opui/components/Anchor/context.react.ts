@@ -1,14 +1,8 @@
 "use client"
 
 import { createContext, useContext } from "react"
+import type { Context } from "./types"
 
-export type AnchorContextValue = {
-  floatingId?: string
-  popover?: "hint"
-}
-
-export const AnchorContext = createContext<AnchorContextValue | undefined>(
-  undefined,
-)
+export const AnchorContext = createContext<Context | undefined>(undefined)
 
 export const useAnchorContext = () => useContext(AnchorContext)

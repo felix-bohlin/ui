@@ -19,7 +19,10 @@ export type DrawerFooterProps = BaseDrawerFooterProps & Class
 
 export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
 
-export type DrawerTitleProps = BaseDrawerTitleProps & Class
+export type DrawerTitleProps = BaseDrawerTitleProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
 
 export type Slots = {
   default?: Slot

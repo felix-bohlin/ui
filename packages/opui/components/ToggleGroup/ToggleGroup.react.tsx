@@ -38,9 +38,12 @@ export default function ToggleGroup({
       <div
         className={cx([
           "ui-toggle-group",
+          {
+            "ui-scrollable": scrollable,
+            "ui-shrink": shrink,
+            "ui-vertical": orientation === "vertical",
+          },
           size && `ui-${size}`,
-          orientation && `ui-${orientation}`,
-          { "ui-scrollable": scrollable, "ui-shrink": shrink },
           className,
         ])}
         role={selection === "single" ? "radiogroup" : "group"}

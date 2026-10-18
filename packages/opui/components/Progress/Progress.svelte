@@ -2,12 +2,14 @@
   import type { Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     max,
     style,
     value,
     variant,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 </script>

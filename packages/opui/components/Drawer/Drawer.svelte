@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { setDrawerContext } from "./context"
+  import { autoLabelledBy } from "../id"
+  import { setDrawerContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let {
@@ -17,10 +18,7 @@
 
   const uid = $props.id()
   const drawerId = $derived(id || `drawer-${uid}`)
-  const titleId = $derived(`${drawerId}-heading`)
-  const labelledBy = $derived(
-    rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId,
-  )
+  const labelledBy = $derived(autoLabelledBy(rest, `${drawerId}-heading`))
 
   setDrawerContext({
     get id() {

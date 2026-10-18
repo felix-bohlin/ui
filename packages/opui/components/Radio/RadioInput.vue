@@ -12,7 +12,7 @@ const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 
 const checked = computed(() =>
   attrs.checked === undefined
@@ -29,7 +29,7 @@ const select = () => {
     type="radio"
     :class="$props.class"
     v-bind="$attrs"
-    :name="attrs.name ?? fieldName"
+    :name="attrs.name ?? field?.name"
     :checked="checked || undefined"
     @change="select"
   />

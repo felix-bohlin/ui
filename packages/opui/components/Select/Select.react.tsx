@@ -2,7 +2,7 @@
 
 import { createElement, useId } from "react"
 import { cx } from "../cx"
-import { useFieldContext } from "../FieldGroup/context.react"
+import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
 import type { Props } from "./types.react"
 
@@ -31,7 +31,7 @@ export default function Select({
   ...rest
 }: Props) {
   const uid = useId()
-  const field = useFieldContext()
+  const field = useFieldGroupContext()
   const labelId = `select-label-${uid}`
   const startTextId = startText ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined

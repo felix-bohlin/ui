@@ -12,7 +12,7 @@ const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 
 const model = computed({
   get: () =>
@@ -30,7 +30,7 @@ const model = computed({
     role="switch"
     :class="$props.class"
     v-bind="$attrs"
-    :name="attrs.name ?? fieldName"
+    :name="attrs.name ?? field?.name"
     v-model="model"
   />
 </template>

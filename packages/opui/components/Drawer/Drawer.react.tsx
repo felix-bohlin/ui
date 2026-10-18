@@ -2,6 +2,7 @@
 
 import { useId } from "react"
 import { cx } from "../cx"
+import { autoLabelledBy } from "../id"
 import { DrawerContext } from "./context.react"
 import type { Props } from "./types.react"
 
@@ -16,9 +17,7 @@ export default function Drawer({
 }: Props) {
   const uid = useId()
   const drawerId = id || `drawer-${uid}`
-  const titleId = `${drawerId}-heading`
-  const labelledBy =
-    rest["aria-label"] || rest["aria-labelledby"] ? undefined : titleId
+  const labelledBy = autoLabelledBy(rest, `${drawerId}-heading`)
 
   return (
     <DrawerContext value={{ id: drawerId, titleId: labelledBy }}>

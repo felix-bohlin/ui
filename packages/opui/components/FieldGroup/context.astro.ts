@@ -1,3 +1,4 @@
 import { createContext } from "../context.astro"
+import type { Context } from "./types"
 
-export const fieldContext = createContext<{ name?: string }>()
+export const fieldGroupContext = createContext<Context>()

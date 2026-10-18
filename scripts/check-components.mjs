@@ -32,7 +32,7 @@ const CLIENT =
 const CONTEXT_FILES = [
   "context.astro.ts",
   "context.react.ts",
-  "context.ts",
+  "context.svelte.ts",
   "context.vue.ts",
 ]
 

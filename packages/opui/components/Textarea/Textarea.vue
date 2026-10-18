@@ -33,7 +33,7 @@ const model = computed({
   },
 })
 
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
@@ -64,7 +64,7 @@ const fieldName = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :id="id"
-        :name="attrs.name ?? fieldName"
+        :name="attrs.name ?? field?.name"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot

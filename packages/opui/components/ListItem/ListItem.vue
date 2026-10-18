@@ -2,7 +2,18 @@
 import { computed, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const props = defineProps<Props>()
+const {
+  as,
+  borderTop,
+  critical,
+  description,
+  disabled,
+  for: htmlFor,
+  headline,
+  href,
+  inset,
+  type,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs()
 
@@ -11,22 +22,19 @@ defineOptions({
 })
 
 const hasLabel = computed(
-  () =>
-    props.type === "checkbox" ||
-    props.type === "radio" ||
-    props.type === "switch",
+  () => type === "checkbox" || type === "radio" || type === "switch",
 )
 const Tag = computed(() =>
-  hasLabel.value ? "label" : (props.as ?? (props.href ? "a" : undefined)),
+  hasLabel.value ? "label" : (as ?? (href ? "a" : undefined)),
 )
 
 const liAttrs = computed(() => (hasLabel.value || !Tag.value ? attrs : {}))
 const tagAttrs = computed(() =>
   hasLabel.value
-    ? { class: `ui-${props.type}`, for: props.for }
+    ? { class: `ui-${type}`, for: htmlFor }
     : {
-        disabled: Tag.value === "button" ? props.disabled : undefined,
-        href: props.href,
+        disabled: Tag.value === "button" ? disabled : undefined,
+        href,
         type: Tag.value === "button" ? "button" : undefined,
         ...attrs,
       },
@@ -37,11 +45,11 @@ const tagAttrs = computed(() =>
   <li
     :class="[
       {
-        'ui-border-top': props.borderTop,
-        'ui-critical': props.critical,
-        'ui-inset': props.inset,
+        'ui-border-top': borderTop,
+        'ui-critical': critical,
+        'ui-inset': inset,
       },
-      props.class,
+      $props.class,
     ]"
     v-bind="liAttrs"
   >
@@ -49,12 +57,9 @@ const tagAttrs = computed(() =>
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div
-        v-if="props.headline || props.description || slots.text"
-        class="ui-text"
-      >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
+      <div v-if="headline || description || slots.text" class="ui-text">
+        <p v-if="headline">{{ headline }}</p>
+        <p v-if="description">{{ description }}</p>
         <slot name="text"></slot>
         <slot></slot>
       </div>
@@ -68,12 +73,9 @@ const tagAttrs = computed(() =>
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div
-        v-if="props.headline || props.description || slots.text"
-        class="ui-text"
-      >
-        <p v-if="props.headline">{{ props.headline }}</p>
-        <p v-if="props.description">{{ props.description }}</p>
+      <div v-if="headline || description || slots.text" class="ui-text">
+        <p v-if="headline">{{ headline }}</p>
+        <p v-if="description">{{ description }}</p>
         <slot name="text"></slot>
         <slot></slot>
       </div>

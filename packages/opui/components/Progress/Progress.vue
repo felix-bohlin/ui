@@ -2,12 +2,13 @@
 import { computed, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
+const { max, value, variant } = defineProps<Props>()
+defineSlots<Slots>()
+
 defineOptions({
   inheritAttrs: false,
 })
 
-defineSlots<Slots>()
-const props = defineProps<Props>()
 const attrs = useAttrs()
 const progressAttrs = computed(() =>
   Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
@@ -16,14 +17,10 @@ const progressAttrs = computed(() =>
 
 <template>
   <div
-    :class="[
-      'ui-progress',
-      props.variant && `ui-${props.variant}`,
-      props.class,
-    ]"
+    :class="['ui-progress', variant && `ui-${variant}`, $props.class]"
     :style="$attrs.style"
   >
-    <progress v-bind="progressAttrs" :max="props.max" :value="props.value">
+    <progress v-bind="progressAttrs" :max="max" :value="value">
       <slot></slot>
     </progress>
   </div>

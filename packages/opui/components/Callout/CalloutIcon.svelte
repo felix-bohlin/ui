@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { getCalloutContext } from "./context"
-  import { icons } from "./icons"
+  import { getCalloutContext } from "./context.svelte"
+  import { iconFor } from "./icons"
   import type { CalloutIconProps as Props } from "./types.svelte"
 
   let { class: className, ...rest }: Props = $props()
 
   const callout = getCalloutContext()
-  const icon = $derived(
-    callout?.severity === "neutral"
-      ? undefined
-      : callout?.severity && icons[callout.severity],
-  )
+  const icon = $derived(iconFor(callout?.severity))
 </script>
 
 {#if icon}

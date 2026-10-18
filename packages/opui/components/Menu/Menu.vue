@@ -14,10 +14,6 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const uid = useId()
 const menuId = computed(() => id || `menu-${uid}`)
 const parent = inject(MenuKey, undefined)
@@ -40,7 +36,6 @@ provide(MenuKey, reactive({ rootId }))
       $props.class,
     ]"
     :popover="popover === 'auto' ? '' : popover"
-    v-bind="$attrs"
   >
     <li
       v-for="(

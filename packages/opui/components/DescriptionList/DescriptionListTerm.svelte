@@ -4,6 +4,6 @@
   let { children, class: className, ...rest }: Props = $props()
 </script>
 
-<dt class={["ui-term", className]} {...rest}>
+<dt class={[className]} {...rest}>
   {@render children?.()}
 </dt>

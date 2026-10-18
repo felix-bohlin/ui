@@ -1,12 +1,11 @@
 ---
 import type { CalloutIconProps as Props } from "./types.astro"
 import { calloutContext } from "./context.astro"
-import { icons } from "./icons"
+import { iconFor } from "./icons"
 
 const { class: className, ...rest } = Astro.props
 
-const severity = calloutContext.get()?.severity
-const icon = severity === "neutral" ? undefined : severity && icons[severity]
+const icon = iconFor(calloutContext.get()?.severity)
 ---
 
 {

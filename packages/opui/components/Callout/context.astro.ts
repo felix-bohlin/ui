@@ -1,4 +1,4 @@
 import { createContext } from "../context.astro"
-import type { Props } from "./types"
+import type { Context } from "./types"
 
-export const calloutContext = createContext<Pick<Props, "severity">>()
+export const calloutContext = createContext<Context>()

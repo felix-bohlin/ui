@@ -25,7 +25,7 @@ const tagAttrs = computed(() =>
   hasLabel.value
     ? { class: `ui-${props.type}`, for: props.for }
     : {
-        disabled: props.disabled,
+        disabled: Tag.value === "button" ? props.disabled : undefined,
         href: props.href,
         type: Tag.value === "button" ? "button" : undefined,
         ...attrs,

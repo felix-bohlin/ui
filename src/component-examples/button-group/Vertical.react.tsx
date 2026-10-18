@@ -40,23 +40,39 @@ export default function Vertical() {
     <>
       <div className="example-row">
         <ButtonGroup orientation="vertical">
-          <Button aria-label="Increase">{plusIcon}</Button>
-          <Button aria-label="Decrease">{minusIcon}</Button>
+          <Button aria-label="Increase" iconOnly>
+            {plusIcon}
+          </Button>
+          <Button aria-label="Decrease" iconOnly>
+            {minusIcon}
+          </Button>
         </ButtonGroup>
 
         <ButtonGroup orientation="vertical" variant="outlined">
-          <Button aria-label="Increase">{plusIcon}</Button>
-          <Button aria-label="Decrease">{minusIcon}</Button>
+          <Button aria-label="Increase" iconOnly>
+            {plusIcon}
+          </Button>
+          <Button aria-label="Decrease" iconOnly>
+            {minusIcon}
+          </Button>
         </ButtonGroup>
 
         <ButtonGroup orientation="vertical" variant="tonal">
-          <Button aria-label="Increase">{plusIcon}</Button>
-          <Button aria-label="Decrease">{minusIcon}</Button>
+          <Button aria-label="Increase" iconOnly>
+            {plusIcon}
+          </Button>
+          <Button aria-label="Decrease" iconOnly>
+            {minusIcon}
+          </Button>
         </ButtonGroup>
 
         <ButtonGroup orientation="vertical" variant="filled">
-          <Button aria-label="Increase">{plusIcon}</Button>
-          <Button aria-label="Decrease">{minusIcon}</Button>
+          <Button aria-label="Increase" iconOnly>
+            {plusIcon}
+          </Button>
+          <Button aria-label="Decrease" iconOnly>
+            {minusIcon}
+          </Button>
         </ButtonGroup>
       </div>
 

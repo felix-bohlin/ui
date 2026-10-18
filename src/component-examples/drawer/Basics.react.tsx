@@ -10,33 +10,17 @@ import {
 export default function Basics() {
   return (
     <>
-      <div className="drawer-examples">
-        <Button
-          className="top"
-          commandfor="drawer-block-start"
-          command="show-modal"
-        >
+      <div className="example-compass">
+        <Button commandfor="drawer-block-start" command="show-modal">
           Block Start
         </Button>
-        <Button
-          className="left"
-          commandfor="drawer-inline-start"
-          command="show-modal"
-        >
+        <Button commandfor="drawer-inline-start" command="show-modal">
           Inline Start
         </Button>
-        <Button
-          className="right"
-          commandfor="drawer-inline-end"
-          command="show-modal"
-        >
+        <Button commandfor="drawer-inline-end" command="show-modal">
           Inline End
         </Button>
-        <Button
-          className="bottom"
-          commandfor="drawer-block-end"
-          command="show-modal"
-        >
+        <Button commandfor="drawer-block-end" command="show-modal">
           Block End
         </Button>
       </div>

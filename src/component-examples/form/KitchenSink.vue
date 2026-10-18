@@ -49,7 +49,7 @@ const roleItems = [
       <FieldDescription>
         Configure how you want to receive updates.
       </FieldDescription>
-      <FieldGroup name="notifications">
+      <FieldGroup>
         <Switch name="email_notifs" checked>Email Notifications</Switch>
         <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
@@ -81,7 +81,7 @@ const roleItems = [
           max="20"
           step="1"
           value="5"
-          start-text="Drag the slider to match your total tenure."
+          startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>
     </FieldSet>
@@ -91,9 +91,10 @@ const roleItems = [
     <FieldSet>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
+      <FieldGroup>
         <Textarea
           label="Biography"
+          name="biography"
           placeholder="Tell us about yourself..."
           :rows="4"
         />
@@ -104,7 +105,7 @@ const roleItems = [
 
     <FieldSet>
       <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
+      <FieldGroup>
         <Checkbox name="terms" required>
           I agree to the terms and conditions
           <template #end-text>Support this text</template>

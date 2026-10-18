@@ -48,7 +48,7 @@ export default function KitchenSink() {
         <FieldDescription>
           Configure how you want to receive updates.
         </FieldDescription>
-        <FieldGroup name="notifications">
+        <FieldGroup>
           <Switch defaultChecked name="email_notifs">
             Email Notifications
           </Switch>
@@ -94,9 +94,10 @@ export default function KitchenSink() {
       <FieldSet>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
-        <FieldGroup name="details">
+        <FieldGroup>
           <Textarea
             label="Biography"
+            name="biography"
             placeholder="Tell us about yourself..."
             rows={4}
           />
@@ -107,7 +108,7 @@ export default function KitchenSink() {
 
       <FieldSet>
         <FieldLegend>Legal</FieldLegend>
-        <FieldGroup name="legal">
+        <FieldGroup>
           <Checkbox name="terms" required endText="Support this text">
             I agree to the terms and conditions
           </Checkbox>

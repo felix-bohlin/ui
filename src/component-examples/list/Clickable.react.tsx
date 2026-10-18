@@ -7,9 +7,8 @@ export default function Clickable() {
       <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
       <ListItem
         type="checkbox"
-        htmlFor="clickable-checkbox"
         headline="Checkbox list item"
-        end={<CheckboxInput id="clickable-checkbox" />}
+        end={<CheckboxInput />}
       />
     </List>
   )

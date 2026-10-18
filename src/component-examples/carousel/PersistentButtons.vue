@@ -13,8 +13,8 @@ const places = [
   <Carousel
     aria-label="Destinations"
     buttons="outside"
-    :per-view="2"
-    persistent-buttons
+    :perView="2"
+    persistentButtons
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">

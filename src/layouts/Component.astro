@@ -222,7 +222,11 @@ const learnPost = currentSlug
 
   {
     installationTabs ? (
-      <Installation imports={imports} tabs={installationTabs}>
+      <Installation
+        imports={imports}
+        slug={currentSlug}
+        tabs={installationTabs}
+      >
         <slot name="installation" />
       </Installation>
     ) : (

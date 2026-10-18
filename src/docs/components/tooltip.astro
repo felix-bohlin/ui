@@ -44,9 +44,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
   ]}
   installationTabs={[
     { title: "tooltip.css", code: TooltipCSS, lang: "css" },
-    { title: "anchor.css", code: AnchorCSS, lang: "css" },
+    { title: "anchor.css", code: AnchorCSS, lang: "css", isDependency: true },
   ]}
-  seeAlsoLinks={[{ name: "Anchor", href: "/components/anchor" }]}
 >
   <Fragment slot="title">Tooltip</Fragment>
   <Fragment slot="preamble">

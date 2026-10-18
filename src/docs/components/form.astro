@@ -65,18 +65,14 @@ const anatomyApi = {
   slug="form"
   heroAnatomy
   browserSupport={["has"]}
-  installationTabs={[
-    { title: "form.css", code: FormCSS, lang: "css" },
-    { title: "button.css", seeAlso: true },
-    { title: "checkbox.css", seeAlso: true },
-    { title: "choice.css", seeAlso: true },
-    { title: "divider.css", seeAlso: true },
-    { title: "radio.css", seeAlso: true },
-    { title: "range.css", seeAlso: true },
-    { title: "select.css", seeAlso: true },
-    { title: "switch.css", seeAlso: true },
-    { title: "textarea.css", seeAlso: true },
-    { title: "text-field.css", seeAlso: true },
+  installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
+  seeAlsoLinks={[
+    { name: "Button", href: "/components/button" },
+    { name: "Divider", href: "/components/divider" },
+    { name: "Range", href: "/components/range" },
+    { name: "Select", href: "/components/select" },
+    { name: "Text Field", href: "/components/text-field" },
+    { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
     { title: "Form API", api: formApi },

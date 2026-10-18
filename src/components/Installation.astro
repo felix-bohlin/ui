@@ -1,22 +1,23 @@
 ---
 import Code from "./Code.astro"
 import CodeGroup from "./CodeGroup.astro"
-import { components } from "../utils/components"
+import { components, dependentsOf } from "../utils/components"
+import { componentHasFramework } from "../utils/framework"
 
 export type Tab = {
   title: string
-  code?: string
+  code: string
   lang?: string
   isDependency?: boolean
-  seeAlso?: boolean
 }
 
 type Props = {
   imports?: { names: string[]; package: string }
+  slug?: string
   tabs: Tab[]
 }
 
-const { imports, tabs } = Astro.props
+const { imports, slug, tabs } = Astro.props
 
 const importLine = imports
   ? `import { ${imports.names.join(", ")} } from "${imports.package}"`
@@ -36,10 +37,11 @@ const dependencies = tabs
   .map(pageFor)
   .filter((c) => c !== undefined)
 
-const seeAlsoLinks = tabs
-  .filter((tab) => tab.seeAlso)
-  .map(pageFor)
-  .filter((c) => c !== undefined)
+const usedBy = slug
+  ? dependentsOf(slug).filter((c) =>
+      componentHasFramework(Astro.locals.framework, c.slug),
+    )
+  : []
 ---
 
 <section>
@@ -75,11 +77,11 @@ const seeAlsoLinks = tabs
   }
 
   {
-    seeAlsoLinks.length > 0 && (
+    usedBy.length > 0 && (
       <>
-        <h3 id="see-also">See also</h3>
+        <h3 id="used-by">Used by</h3>
         <ul>
-          {seeAlsoLinks.map((item) => (
+          {usedBy.map((item) => (
             <li>
               <a href={link(item.href)}>{item.name}</a>
             </li>
@@ -89,5 +91,5 @@ const seeAlsoLinks = tabs
     )
   }
 
-  <CodeGroup tabs={tabs.filter((tab) => tab.code)} />
+  <CodeGroup tabs={tabs} />
 </section>

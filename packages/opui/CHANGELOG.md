@@ -8,7 +8,7 @@
 - `Accordion` renders a chevron marker by default in Astro and Vue, hidden from screen readers with `aria-hidden="true"`. The `marker` slot on `AccordionSummary` replaces it, so move a custom chevron there and give it `.ui-marker`, or it shows twice. An empty `marker` slot shows the native arrow.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component needs to reference the input.
-- `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. Rename any overrides to the new names.
+- `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. `--isLTR` and `--isRTL` are removed, the halo centers itself in both directions. Rename any overrides to the new names.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
@@ -39,7 +39,7 @@
 - `Toast` keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`.
 - `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 - `TextField`, `Textarea`, `Select`, `Switch`, `Checkbox`, `Radio` and `Range` are marked invalid with `aria-invalid="true"` on the control instead of `data-invalid` on the root. `error` in Astro and Vue sets only `aria-invalid`. Replace `data-invalid` on the root with `aria-invalid="true"` on the `<input>`, `<select>` or `<textarea>`.
-- `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
+- `FieldSet` (`.ui-fieldset`) no longer reads `data-invalid`. Its end text turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`, so mark each control in the group (`error` on each `Checkbox`, `Radio` or `Switch` in Astro and Vue).
 - `Card` in Astro and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
 - `Dialog` in Astro and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`.
 - `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue. The `components/{Tabs,Table,DescriptionList}/index.ts` files that held the aliases are gone.
@@ -51,15 +51,17 @@
 - `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
 - `ToggleGroup` `size` and `Accordion` `variant` no longer accept `"default"`. Leave the prop out for the default.
-- `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it before them, or use `components.css`.
+- `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it with them, in any order, or use `components.css`.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
 - `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
 - `Dialog` page scroll lock lives in `core/utils.css`, shared with the `Drawer` `.ui-scroll-lock`, and no longer sets `block-size: 100%` on `html`. If you import single files, import `utils.css` too, or the page scrolls behind a modal dialog.
 - `ListItem` `type` can't be combined with `as` or `href` (types).
-- `Select` items are typed `SelectItem`. Rename imports of `Item` from `components/Select/types`.
+- `Select` items are typed `SelectItem`, with a `number | string` `value`. Rename imports of `Item` from `components/Select/types`.
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
 - `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.
+- `Select`, `Range`, `Progress` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
+- `TextField` styles in `text-input.css` moved into `text-field.css`, and `text-input.css` is removed. Remove its import.
 
 ### Removed
 
@@ -78,6 +80,7 @@
 - `Select` no longer hides `option::before`.
 - `ClassicSelect`. Use `Select`: it renders the same field, with the browser's own picker where customizable select isn't supported.
 - `open-props.css` no longer imports Open Props' `props.palette.css`, so `opui-css/open-props` (`dist/op.css`) no longer declares `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by` or `--color-1` to `--color-16`. `core/palette.css` declares them, so `dist/opui.css` is unaffected.
+- `DescriptionList` `.ui-term` and `.ui-description`. The list styles `dt` and `dd` by element, and `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd`.
 
 ### Added
 
@@ -91,13 +94,13 @@
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). Inside a `Drawer` it defaults to the drawer's `id`, and the close button uses `command="close"` (Invoker Commands). Outside a `Drawer` without `commandfor`, it closes the nearest `<dialog>` with a script.
 - `Button` links with `aria-disabled="true"` no longer receive clicks.
-- `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
+- `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip (it doesn't disable a button or link chip).
 - `Carousel` buttons take an image icon via `--_button-icon`, sized with `--_button-icon-size`. It defaults to a chevron that points right, drawn as the inverse of the button face so it follows `.ui-dark`, `.ui-light` and forced colors, mirrored for the previous button and in RTL, and rotated in vertical carousels.
 - `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
 - `layers.css` holds the `@layer` order, for importing single component files.
-- `skills/opui` is an agent skill shipped with the package, with a reference for every component.
+- `skills/opui` is an agent skill shipped with the package, with a reference for every component and an index that maps every exported component and part to its reference.
 - `TextField`, `Textarea` and `Select` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size.
 - `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--chip-size-small`, `--chip-size` and `--chip-size-large`, which follow the control size scale.
 - `ButtonGroup` and `ToggleGroup` take `scrollable` (`.ui-scrollable`) to keep their items on one row and scroll sideways, and `shrink` (`.ui-shrink`) to keep them on one row and truncate labels with an ellipsis.
@@ -147,6 +150,8 @@
 - `ListItem` takes a `critical` prop (`li.ui-critical`) for a destructive item in a `Menu`.
 - `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string with `selection="single"` and an array of strings otherwise, and `ToggleButton` takes its pressed state from it.
 - `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
+- `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.
+- `ButtonGroup` and `ToggleGroup` `orientation` takes `"horizontal"`, the default, like `Carousel`.
 
 ### Changed
 
@@ -156,7 +161,7 @@
 - `Select` chevron flips when the picker opens, with a transition, like the `Accordion` flip marker.
 - `Table` centers a checkbox that is alone in a cell and shrinks the column to fit it.
 - `Badge` on a round `Avatar` sits on the avatar's edge instead of the corner of its box.
-- `Badge` in an `Avatar` group sits on the avatar's start side, the part the next avatar doesn't cover, with a ring in the page color.
+- `Badge` in an `Avatar` group sits on the avatar's start side, the part the next avatar doesn't cover, with the same ring as the avatars (the group's `--_outline-color`).
 - `theme.css` `--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is dark in dark mode, so text on primary and primary text both pass WCAG AA in light and dark.
 - `Checkbox`, `Radio` and `Switch` keep a light marker in dark mode on a fill darkened to keep 3:1 contrast.
 - `Button` critical keeps light text on its fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
@@ -201,7 +206,7 @@
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
 - Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick. Rich text links in a `List` are `--primary-dark` in light mode.
-- `theme.css` `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
+- `theme.css` named colors read Open Props' hue tokens instead of fixed angles: `--blue`, `--green`, `--orange` and `--red` follow `--hue-blue`, `--hue-green`, `--hue-orange` and `--hue-red`, like the severity scopes. `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
 - `ToggleGroup` is in the `components.extended` layer, like `ButtonGroup`.
 - `Callout` links, `Chip`, `Link`, `List`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
 - `Spinner` shows on busy buttons and links that have `aria-describedby`. Other elements with `aria-describedby` still opt out, for the progress bar pattern.
@@ -222,6 +227,14 @@
 - `Accordion`, `Drawer` and rich text use `overflow-inline`/`overflow-block` instead of `overflow-x`/`overflow-y`, so scrolling follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them, so those containers don't scroll there, and neither do `Dialog` content and scrollable `ButtonGroup`, `Tabs` and `ToggleGroup`.
 - `Range` generates the `<datalist>` id when `options` or the `datalist` slot is used, so `list` is optional.
 - `Range` in Vue scopes the `value` slot with the current `value`, so custom readout content follows the thumb.
+- `theme.css` `--text-primary-contrast` is an alias of `--text-inverse`, the text color on `--surface-inverse` that `Toast` and `Tooltip` use, so it is `--gray-1` instead of `--gray-2` in light mode. Use `--text-inverse` instead.
+- `Range` in Astro types its extra attributes as `<input>` attributes only, since they go to the input.
+- `Checkbox`, `Radio`, `Switch` and their `*Input` parts no longer type a `type` prop, and `Radio` no longer types the native `size`.
+- `ToggleButton` grows from `--button-size` with its content instead of having a fixed height, and sizes only direct child `svg`s, like `Button`.
+- `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`, and an invalid range only changes `--_accent`, so a disabled invalid range keeps its disabled thumb.
+- `Switch` turns its checked track red when invalid, like `Checkbox` and `Radio`.
+- `Typography` `.ui-small` is at least `0.75em` of the surrounding text instead of `0.5em`, like rich text `small`, so it stays in proportion in headings.
+- `Typography` rich text `var` uses the monospace font and wraps long names, like `.ui-var`.
 
 ### Fixed
 
@@ -412,6 +425,12 @@
 - Package: `opui-css/env.d.ts` types `interestfor` on `<a>` and `<button>` for Astro.
 - Package: `opui-css/css/js/checkbox.js` and `toast.js` ship type declarations.
 - `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
+- `Anchor` and `Tooltip` inside a `Badge` no longer shift their floating element by the badge's offset.
+- `TextField`, `Textarea` and `Select` required asterisks are spaced like the `Checkbox`, `Radio`, `Switch` and `FieldSet` ones (`0.25ex`).
+- `Switch` gets the pointer cursor, `--font-lineheight-3` line height and `user-select: none` of `Checkbox` and `Radio`.
+- `Range` thumb stays centered on the track when `--_thumb-size` or `--_track-height` changes, also on touch screens.
+- `Button` without a variant shows its pressed background while held with the keyboard, like outlined, tonal and filled buttons.
+- `Checkbox` and `Radio` no longer set `--primary` when invalid, so links and other content in their label keep the primary color.
 
 ## 5.5.0 - 2026-09-28
 

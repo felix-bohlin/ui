@@ -196,11 +196,11 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 
 Internal variables are private. Rename any overrides:
 
-| v5                   | v6               |
-| -------------------- | ---------------- |
-| `--isLTR`, `--isRTL` | `--_dir-rtl`     |
-| `--highlight-size`   | `--_ripple-size` |
-| `--thumb-scale`      | `--_thumb-scale` |
+| v5                   | v6                               |
+| -------------------- | -------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself |
+| `--highlight-size`   | `--_ripple-size`                 |
+| `--thumb-scale`      | `--_thumb-scale`                 |
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
@@ -255,6 +255,15 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 ```diff
 - import Item from "opui-css/components/DescriptionList/Item.astro"
 + import DescriptionListItem from "opui-css/components/DescriptionList/DescriptionListItem.astro"
+```
+
+`.ui-term` is gone, and the parts no longer render `.ui-term` or `.ui-description`. Drop the classes from `dt` and `dd`, and select `dt` and `dd` in your own CSS.
+
+```diff
+- <dt class="ui-term">Name</dt>
+- <dd class="ui-description">Ada</dd>
++ <dt>Name</dt>
++ <dd>Ada</dd>
 ```
 
 ## Dialog
@@ -328,7 +337,7 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 
 `FieldSet` with another element in `as` gets `role="group"`.
 
-`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"`. Switches in an invalid fieldset keep the primary track color like a standalone invalid switch; only the red ring shows.
+`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`. A checked invalid switch turns its track red, like Checkbox and Radio.
 
 ## Icon button
 
@@ -383,6 +392,8 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 
 Without a visible label the progress bar aligns to the middle. Give it a hidden label (`.ui-sr-only` in HTML).
 
+In Astro and Vue, `style` goes to the root `<div>` instead of the `<progress>`, like `class`. Set `--_` properties through `style`, and style the `<progress>` itself with a class or CSS.
+
 `variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
 ```diff
@@ -399,11 +410,11 @@ Without a visible label the progress bar aligns to the middle. Give it a hidden 
 
 Internal variables are private. Rename any overrides:
 
-| v5                   | v6               |
-| -------------------- | ---------------- |
-| `--isLTR`, `--isRTL` | `--_dir-rtl`     |
-| `--highlight-size`   | `--_ripple-size` |
-| `--thumb-scale`      | `--_thumb-scale` |
+| v5                   | v6                               |
+| -------------------- | -------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself |
+| `--highlight-size`   | `--_ripple-size`                 |
+| `--thumb-scale`      | `--_thumb-scale`                 |
 
 Radios are `--choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
@@ -431,9 +442,13 @@ With `spread`, the label and the range split the container into equal columns, a
 
 `aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 ## Select
 
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
+
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
 
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
@@ -594,6 +609,8 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 
+In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
 
 `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
@@ -657,6 +674,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | --------------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
 | Accordion                   | `--_transition`                                   | `--_duration`                                                      |
 | Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`              |
+| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                 |
 | Avatar                      | `--_color`                                        | `--_text-color`                                                    |
 | Avatar                      | `--_width`                                        | `--_size`                                                          |
 | Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                |
@@ -670,6 +688,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Card                        | `--_card-shadow`                                  | `--_shadow`                                                        |
 | Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                         |
 | Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color` |
+| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                               |
 | Chip                        | `--_color`                                        | `--_text-color`                                                    |
 | Drawer                      | `--_color`                                        | `--_text-color`                                                    |
 | Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                           |
@@ -681,8 +700,12 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Table                       | `--_table-border-radius`                          | `--_border-radius`                                                 |
 | TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                        |
 | TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                    |
+| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                   |
+| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                  |
 | Toast                       | `--_anim-enter`, `--_anim-exit`                   | `--_enter-duration`, `--_exit-duration`                            |
 | ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                      |
+| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                 |
+| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                          |
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                     |
 | Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                        |
 
@@ -726,12 +749,19 @@ Import `opui-css/css/layers.css` first when you import single component files, s
 @import "opui-css/css/components/button.css";
 ```
 
-`checkbox.css`, `radio.css` and `switch.css` moved their layout, label, end text, sizes and disabled styles into `choice.css`. Import it before them, or the labels lose their layout:
+`checkbox.css`, `radio.css` and `switch.css` moved their layout, label, end text, sizes and disabled styles into `choice.css`. Import it with them, in any order, or the labels lose their layout:
 
 ```diff
   @import "opui-css/css/layers.css";
 + @import "opui-css/css/components/choice.css";
   @import "opui-css/css/components/checkbox.css";
+```
+
+`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
+
+```diff
+  @import "opui-css/css/components/text-field.css";
+- @import "opui-css/css/components/text-input.css";
 ```
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.

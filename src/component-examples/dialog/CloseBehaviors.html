@@ -1,6 +1,6 @@
 <button
   type="button"
-  commandfor="closing-behaviors-dialog-html"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -8,12 +8,12 @@
 </button>
 
 <dialog
-  aria-labelledby="dialog-header"
-  id="closing-behaviors-dialog-html"
+  aria-labelledby="dialog-close-behaviors-1-title"
+  id="dialog-close-behaviors-1"
   class="ui-dialog ui-card ui-elevated"
   closedby="any"
 >
-  <hgroup id="dialog-header">
+  <hgroup id="dialog-close-behaviors-1-title">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -38,7 +38,7 @@
   <div class="ui-actions">
     <button
       type="button"
-      commandfor="closing-behaviors-dialog-html"
+      commandfor="dialog-close-behaviors-1"
       command="close"
       class="ui-button"
     >
@@ -48,12 +48,14 @@
 </dialog>
 
 <script>
-  const dialog = document.getElementById("closing-behaviors-dialog-html")
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      dialog?.setAttribute("closedby", radio.value)
-    })
-  })
+  {
+    const dialog = document.getElementById("dialog-close-behaviors-1")
+    document
+      .querySelectorAll('input[name="closedby-demo"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () =>
+          dialog?.setAttribute("closedby", radio.value),
+        )
+      })
+  }
 </script>

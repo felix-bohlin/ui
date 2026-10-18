@@ -2,11 +2,11 @@
   import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox-supporting-text">
+<Checkbox name="checkbox-end-text">
   Default
   {#snippet endText()}Supporting text{/snippet}
 </Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
+<Checkbox stack name="checkbox-end-text">
   Stack
   {#snippet endText()}Supporting text{/snippet}
 </Checkbox>

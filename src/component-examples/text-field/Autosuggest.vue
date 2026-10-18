@@ -3,8 +3,12 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Users" list="users" placeholder="Placeholder">
-    <datalist id="users">
+  <TextField
+    label="Users"
+    list="text-field-autosuggest-1-list"
+    placeholder="Placeholder"
+  >
+    <datalist id="text-field-autosuggest-1-list">
       <option value="Ray Manzarek"></option>
       <option value="Jonny Greenwood"></option>
       <option value="Marika Hackman"></option>
@@ -14,11 +18,11 @@ import { TextField } from "opui-css/vue"
   <TextField
     variant="filled"
     label="Emails"
-    list="users-email"
+    list="text-field-autosuggest-2-list"
     placeholder="Placeholder"
     type="email"
   >
-    <datalist id="users-email">
+    <datalist id="text-field-autosuggest-2-list">
       <option value="ray.manzarek@the.doors"></option>
       <option value="jonny.greenwood@radio.head"></option>
       <option value="marika@hack.man"></option>

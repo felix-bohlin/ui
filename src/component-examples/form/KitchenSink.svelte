@@ -12,8 +12,8 @@
     Range,
     Select,
     Switch,
-    TextField,
     Textarea,
+    TextField,
   } from "opui-css/svelte"
 
   const roleItems = [
@@ -21,11 +21,6 @@
     { text: "Designer", value: "design" },
     { text: "Manager", value: "manager" },
   ]
-
-  let emailNotifs = $state(true)
-  let smsNotifs = $state(false)
-  let theme = $state("light")
-  let experience = $state(5)
 </script>
 
 <Form id="kitchen-sink-example">
@@ -54,12 +49,8 @@
       Configure how you want to receive updates.
     </FieldDescription>
     <FieldGroup>
-      <Switch bind:checked={emailNotifs} name="email_notifs"
-        >Email Notifications</Switch
-      >
-      <Switch bind:checked={smsNotifs} name="sms_notifs"
-        >SMS Notifications</Switch
-      >
+      <Switch name="email_notifs" checked>Email Notifications</Switch>
+      <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
   </FieldSet>
 
@@ -69,9 +60,9 @@
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio bind:group={theme} value="light">Light Theme</Radio>
-      <Radio bind:group={theme} value="dark">Dark Theme</Radio>
-      <Radio bind:group={theme} value="system">System Default</Radio>
+      <Radio value="light" checked>Light Theme</Radio>
+      <Radio value="dark">Dark Theme</Radio>
+      <Radio value="system">System Default</Radio>
     </FieldGroup>
   </FieldSet>
 
@@ -88,7 +79,7 @@
         min="0"
         max="20"
         step="1"
-        bind:value={experience}
+        value="5"
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>

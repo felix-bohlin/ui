@@ -12,21 +12,15 @@ import {
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/vue"
-import { ref } from "vue"
 
 const roleItems = [
   { text: "Developer", value: "dev" },
   { text: "Designer", value: "design" },
   { text: "Manager", value: "manager" },
 ]
-
-const emailNotifs = ref(true)
-const smsNotifs = ref(false)
-const theme = ref("light")
-const experience = ref(5)
 </script>
 
 <template>
@@ -56,10 +50,8 @@ const experience = ref(5)
         Configure how you want to receive updates.
       </FieldDescription>
       <FieldGroup>
-        <Switch v-model="emailNotifs" name="email_notifs"
-          >Email Notifications</Switch
-        >
-        <Switch v-model="smsNotifs" name="sms_notifs">SMS Notifications</Switch>
+        <Switch name="email_notifs" checked>Email Notifications</Switch>
+        <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
     </FieldSet>
 
@@ -69,9 +61,9 @@ const experience = ref(5)
       <FieldLegend>Theme Preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
       <FieldGroup name="theme">
-        <Radio v-model="theme" value="light">Light Theme</Radio>
-        <Radio v-model="theme" value="dark">Dark Theme</Radio>
-        <Radio v-model="theme" value="system">System Default</Radio>
+        <Radio value="light" checked>Light Theme</Radio>
+        <Radio value="dark">Dark Theme</Radio>
+        <Radio value="system">System Default</Radio>
       </FieldGroup>
     </FieldSet>
 
@@ -88,7 +80,7 @@ const experience = ref(5)
           min="0"
           max="20"
           step="1"
-          v-model="experience"
+          value="5"
           startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>

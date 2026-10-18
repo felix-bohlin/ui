@@ -92,7 +92,7 @@ interaction(
 
 interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog opens, traps focus and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Open dialog" })
@@ -114,7 +114,7 @@ interaction(
 
 interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog closes from its actions",
   async ({ root }) => {
     const dialog = root.locator("dialog")
@@ -127,7 +127,7 @@ interaction(
 
 interaction(
   "drawer",
-  "Usage",
+  "Basics",
   "drawer opens and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Inline Start" })

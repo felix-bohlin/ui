@@ -171,10 +171,10 @@
 
   :where(html, .ui-palette) {
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
-    --blue: oklch(from var(--color-9) l 0.2 240);
-    --green: oklch(from var(--color-9) l 0.2 145);
-    --orange: oklch(from var(--color-7) l 0.2 75);
-    --red: oklch(from var(--color-9) l 0.2 25);
+    --blue: oklch(from var(--color-9) l 0.2 var(--hue-blue));
+    --green: oklch(from var(--color-9) l 0.2 var(--hue-green));
+    --orange: oklch(from var(--color-7) l 0.2 var(--hue-orange));
+    --red: oklch(from var(--color-9) l 0.2 var(--hue-red));
 
     /* Intent tokens */
     --critical: var(--red);
@@ -206,7 +206,7 @@
     --text-muted: light-dark(var(--gray-13), var(--gray-4));
     --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
     --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-primary-contrast: var(--text-inverse);
 
     /* Surfaces */
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
@@ -320,16 +320,16 @@
       .ui-table th
     ) {
       --blue: light-dark(
-        oklch(from var(--color-11) l 0.2 240),
-        oklch(from var(--color-9) l 0.2 240)
+        oklch(from var(--color-11) l 0.2 var(--hue-blue)),
+        oklch(from var(--color-9) l 0.2 var(--hue-blue))
       );
       --green: light-dark(
-        oklch(from var(--color-11) l 0.2 145),
-        oklch(from var(--color-9) l 0.2 145)
+        oklch(from var(--color-11) l 0.2 var(--hue-green)),
+        oklch(from var(--color-9) l 0.2 var(--hue-green))
       );
       --red: light-dark(
-        oklch(from var(--color-11) l 0.2 25),
-        oklch(from var(--color-9) l 0.2 25)
+        oklch(from var(--color-11) l 0.2 var(--hue-red)),
+        oklch(from var(--color-9) l 0.2 var(--hue-red))
       );
 
       --critical: var(--red);

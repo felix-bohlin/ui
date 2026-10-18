@@ -27,7 +27,7 @@ const whatsNew = {
       html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
-    `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron uses <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
     ),
@@ -76,6 +76,7 @@ const whatsNew = {
       `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
     ),
     `Breaking: <code>--_badge-inset</code> is <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   button: [
     {
@@ -107,6 +108,7 @@ const whatsNew = {
     ),
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_accent-contrast</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   "button-group": [
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
@@ -149,6 +151,7 @@ const whatsNew = {
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   carousel: [
     {
@@ -172,6 +175,7 @@ const whatsNew = {
       html: `<a href="#stretch">Stretch</a> cards to equal height with <code>.ui-stretch</code>.`,
     },
     `The <a href="#buttons-outside">scroll buttons</a> draw one glyph as the inverse of the button face, so it follows <code>.ui-dark</code>, <code>.ui-light</code> and forced colors in every browser.`,
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -202,6 +206,7 @@ const whatsNew = {
     slots(
       `Breaking: deep type imports from <code>components/Checkbox/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>CheckboxProps</code> and <code>CheckboxSlots</code>). Import <a href="#api"><code>CheckboxProps</code></a> from the framework entry instead.`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   chip: [
     {
@@ -268,6 +273,7 @@ const whatsNew = {
     {
       html: `Breaking: the page scroll lock lives in <code>utils.css</code>. Import it too if you import single files.`,
     },
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
@@ -369,6 +375,7 @@ const whatsNew = {
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;progress&gt;</code> (<a href="#api">API</a>).`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   radio: [
     `<a href="#sizes">Radios</a> are 20px, the same <code>--choice-size</code> as Checkbox.`,
@@ -404,6 +411,7 @@ const whatsNew = {
     slots(
       `Breaking: deep type imports from <code>components/Radio/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RadioProps</code> and <code>RadioSlots</code>). Import <a href="#api"><code>RadioProps</code></a> from the framework entry instead.`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -447,6 +455,7 @@ const whatsNew = {
     slots(
       `Breaking: deep type imports from <code>components/Range/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RangeProps</code> and <code>RangeSlots</code>). Import <a href="#api"><code>RangeProps</code></a> from the framework entry instead.`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   select: [
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
@@ -547,6 +556,7 @@ const whatsNew = {
     slots(
       `Breaking: deep type imports from <code>components/Table/types</code> have one type per part, such as <a href="#api"><code>TableCellProps</code></a>, instead of <code>SectionProps</code>, and <code>TableColumnProps</code> instead of <code>ColumnProps</code>.`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   tabs: [
     {
@@ -567,6 +577,7 @@ const whatsNew = {
       default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
       html: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with <code>.ui-filled</code>, <code>.ui-line</code> and <code>.ui-outlined</code>.`,
     },
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   "text-field": [
     {
@@ -599,6 +610,7 @@ const whatsNew = {
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   textarea: [
     {
@@ -630,6 +642,7 @@ const whatsNew = {
     components(
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
@@ -667,6 +680,7 @@ const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> on <code>ToggleGroup</code> takes <code>"horizontal"</code>, the default.`,
     ),
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--button-size</code> instead of having a fixed height.`,
+    `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   tooltip: [
     slots(
@@ -678,6 +692,7 @@ const whatsNew = {
     ),
     `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
     `Breaking: <code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-offset</code> is <code>--_offset</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,

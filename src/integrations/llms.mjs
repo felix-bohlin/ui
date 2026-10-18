@@ -150,9 +150,9 @@ const slugsIn = (relDir) =>
 async function devPages(framework, origin, rewriteHref) {
   const pathnames = [
     `/${framework.id}/api/`,
-    ...slugsIn("../pages/[framework]/guide/").map(
-      (slug) => `/${framework.id}/guide/${slug}/`,
-    ),
+    ...["getting-started", ...slugsIn("../docs/guide/")]
+      .toSorted()
+      .map((slug) => `/${framework.id}/guide/${slug}/`),
     ...slugsIn("../docs/components/")
       .filter((slug) => componentHasFramework(framework.id, slug))
       .map((slug) => `/${framework.id}/components/${slug}/`),

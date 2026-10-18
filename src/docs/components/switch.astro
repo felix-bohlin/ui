@@ -2,7 +2,15 @@
 import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Switch as UISwitch } from "opui-css/astro"
+import {
+  Switch as UISwitch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
@@ -57,7 +65,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   installationTabs={[
     { title: "switch.css", code: SwitchCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Switch</Fragment>
@@ -442,40 +450,40 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Role/attribute</th>
-          <th>Usage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>role="switch"</code></td>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>role="switch"</code></TableCell>
+          <TableCell>
             Required on the <code>input</code> element. Identifies the element that
             serves as a switch.
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="labels">Labels</h3>
     <p>
       Accessible switches should have a label. The first two approaches are
       equally ok:
     </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Switch component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Provide a label inside the element</td>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Switch component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Provide a label inside the element</TableCell>
+          <TableCell>
             <Conditional>
               <Fragment slot="astro"
                 >The default slot is the <a
@@ -513,42 +521,42 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
                 accessible.</Fragment
               >
             </Conditional>
-          </td>
-        </tr>
-        <tr>
-          <td>Add an <code>aria-label</code> on the input</td>
-          <td
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Add an <code>aria-label</code> on the input</TableCell>
+          <TableCell
             >Not used. Use <PropOrClass prop="hideLabel" class=".ui-sr-only" /> instead,
-            also for icon-only switches.</td
+            also for icon-only switches.</TableCell
           >
-        </tr>
-        <tr>
-          <td>
+        </TableRow>
+        <TableRow>
+          <TableCell>
             Have a visible label that you reference with <code
               >aria-labelledby</code
             >
-          </td>
-          <td>Not used.</td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+          <TableCell>Not used.</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Switch is focused it changes its state.</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Space</kbd></TableCell>
+            <TableCell>When Switch is focused it changes its state.</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </Fragment>
 

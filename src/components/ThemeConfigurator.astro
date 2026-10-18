@@ -10,19 +10,9 @@ import {
   FieldGroup,
   FieldLegend,
   FieldSet,
-  Range,
   Switch,
-  TextField,
-  ToggleButton,
-  ToggleGroup,
 } from "opui-css/astro"
-import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
-
-const radiusGroups = [
-  { name: "--border-radius", label: "Border radius" },
-  { name: "--field-border-radius", label: "Field border radius" },
-  { name: "--button-border-radius", label: "Button border radius" },
-] as const
+import ThemeControls from "./ThemeControls.astro"
 
 const { link } = Astro.locals
 ---
@@ -99,108 +89,7 @@ const { link } = Astro.locals
 
         <Divider />
 
-        <FieldSet>
-          <FieldLegend>Color palette</FieldLegend>
-          <FieldGroup>
-            <TextField
-              type="color"
-              label="Source color"
-              name="--palette-source-color"
-              value="#000000"
-              spread
-              size="small"
-            />
-            <Range
-              label="Hue"
-              name="--palette-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="240"
-              valueSuffix="°"
-            />
-            <Range
-              label="Chroma"
-              name="--palette-chroma"
-              min="0"
-              max="1"
-              step="0.01"
-              value="0.5"
-              valueSuffix=""
-            />
-            <Range
-              label="Hue rotation"
-              name="--palette-hue-rotate-by"
-              min="-10"
-              max="10"
-              step="1"
-              value="0"
-              valueSuffix=""
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Grays</FieldLegend>
-          <FieldGroup>
-            <Switch id="enable-grays" name="enable-grays" checked spread>
-              Enable
-            </Switch>
-            <Range
-              label="Gray chroma"
-              name="--gray-chroma"
-              min="0"
-              max="0.1"
-              step="0.001"
-              value="0.01"
-              valueSuffix=""
-            />
-            <Range
-              label="Gray hue"
-              name="--gray-hue"
-              min="0"
-              max="360"
-              step="1"
-              value="255"
-              valueSuffix="°"
-            />
-          </FieldGroup>
-        </FieldSet>
-
-        <Divider />
-
-        <FieldSet>
-          <FieldLegend>Border radii</FieldLegend>
-          {
-            radiusGroups.map((group) => (
-              <FieldGroup>
-                <div class="chip-group-wrapper">
-                  <span class="ui-label">{group.label}</span>
-                  <ToggleGroup
-                    aria-label={group.label}
-                    name={group.name}
-                    selection="single"
-                    size="small"
-                  >
-                    {RADIUS_OPTIONS.map((item) => (
-                      <ToggleButton
-                        pressed={
-                          item.value === tokenDefaults("light")[group.name]
-                        }
-                        title={item.value}
-                        value={item.value}
-                      >
-                        {item.text}
-                      </ToggleButton>
-                    ))}
-                  </ToggleGroup>
-                </div>
-              </FieldGroup>
-            ))
-          }
-        </FieldSet>
+        <ThemeControls />
       </form>
     </div>
   </DrawerContent>
@@ -221,18 +110,9 @@ const { link } = Astro.locals
 
 <script>
   import { removeStored } from "../utils/storage"
-  import {
-    THEME_KEYS,
-    themeStore,
-    TOKENS,
-    tokenDefaults,
-    type Mode,
-    type Token,
-  } from "../utils/theme-store"
-  import { hexToOklch, oklchToHex } from "../utils/color-utils"
+  import { themeForm } from "../utils/theme-form"
+  import { THEME_KEYS, themeStore, type Mode } from "../utils/theme-store"
   import { skipOffscreenRendering } from "../utils/skip-offscreen-rendering"
-
-  const TOKEN_SET = new Set<string>(TOKENS)
 
   const form = document.getElementById(
     "theme-configurator-form",
@@ -245,57 +125,17 @@ const { link } = Astro.locals
     "contrast-switcher",
   ) as HTMLInputElement | null
 
-  function setGrayInputsDisabled(disabled: boolean) {
-    form
-      ?.querySelectorAll<HTMLInputElement>(
-        '[name="--gray-chroma"], [name="--gray-hue"]',
-      )
-      .forEach((input) => {
-        input.disabled = disabled
-      })
-  }
-
-  function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
-    if (!form) return
-    const config = themeStore.get(mode)
-    const defaults = tokenDefaults(mode)
-
-    TOKENS.forEach((token) => {
-      const value = config[token] ?? defaults[token] ?? ""
-      if (!value) return
-      const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
-      if (input?.type === "radio") {
-        form
-          .querySelectorAll<HTMLInputElement>(`[name="${token}"]`)
-          .forEach((radio) => {
-            radio.checked = radio.value === value
-          })
-      } else if (input && input.type !== "checkbox") {
-        input.value = value
-
-        input.dispatchEvent(new Event("input", { bubbles: false }))
-      }
+  const controls =
+    form &&
+    themeForm(form, {
+      setGrays: (enabled) =>
+        themeStore.setEnableGrays(themeStore.getActiveSiteMode(), enabled),
+      setToken: (token, value) =>
+        themeStore.setToken(themeStore.getActiveSiteMode(), token, value),
     })
 
-    const enableGrays = form.querySelector<HTMLInputElement>(
-      '[name="enable-grays"]',
-    )
-    const graysEnabled = themeStore.isGraysEnabled(mode)
-    if (enableGrays) enableGrays.checked = graysEnabled
-    setGrayInputsDisabled(!graysEnabled)
-
-    const colorPicker = form.querySelector<HTMLInputElement>(
-      '[name="--palette-source-color"]',
-    )
-    if (colorPicker) {
-      const hue = parseFloat(
-        config["--palette-hue"] ?? defaults["--palette-hue"],
-      )
-      const chroma = parseFloat(
-        config["--palette-chroma"] ?? defaults["--palette-chroma"],
-      )
-      colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
-    }
+  function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
+    controls?.sync(mode, themeStore.get(mode))
   }
 
   themeStore.applyMode()
@@ -332,36 +172,6 @@ const { link } = Astro.locals
 
   contrastSwitcher?.addEventListener("click", () => {
     window.themeUtils?.setContrast(contrastSwitcher.checked ? "more" : "normal")
-  })
-
-  form?.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement | null
-    if (!target) return
-    const name = target.name || target.getAttribute("name")
-    if (!name) return
-
-    const mode = themeStore.getActiveSiteMode()
-
-    if (target.type === "checkbox") {
-      if (name === "enable-grays") {
-        themeStore.setEnableGrays(mode, target.checked)
-        setGrayInputsDisabled(!target.checked)
-      }
-      return
-    }
-
-    if (name === "--palette-source-color") {
-      const { C, H } = hexToOklch(target.value)
-      const hue = String(Math.round(H))
-      const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
-      themeStore.setToken(mode, "--palette-hue", hue)
-      themeStore.setToken(mode, "--palette-chroma", chroma)
-      return
-    }
-
-    if (TOKEN_SET.has(name)) {
-      themeStore.setToken(mode, name as Token, target.value)
-    }
   })
 
   let endDrag: (() => void) | undefined
@@ -411,22 +221,6 @@ const { link } = Astro.locals
   })
 </script>
 
-<style is:global>
-  html.no-grays {
-    --neutral: var(--color-9);
-    --text-primary: light-dark(var(--color-15), var(--color-1));
-    --text-inverse: light-dark(var(--color-1), var(--color-15));
-    --text-muted: light-dark(var(--color-13), var(--color-4));
-    --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
-    --surface-default: light-dark(var(--color-1), var(--color-14));
-    --surface-filled: light-dark(var(--color-5), var(--color-16));
-    --surface-tonal: light-dark(var(--color-4), var(--color-12));
-    --surface-elevated: light-dark(var(--color-1), var(--color-12));
-    --border-color: light-dark(var(--color-4), var(--color-12));
-    --field-border-color: light-dark(var(--color-4), var(--color-12));
-  }
-</style>
-
 <style>
   .configurator-content {
     display: flex;
@@ -443,17 +237,6 @@ const { link } = Astro.locals
       display: flex;
       flex-direction: column;
       gap: var(--size-4);
-    }
-
-    .chip-group-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-2);
-
-      .ui-label {
-        font-size: var(--font-size-05);
-        font-weight: var(--font-weight-5);
-      }
     }
   }
 </style>

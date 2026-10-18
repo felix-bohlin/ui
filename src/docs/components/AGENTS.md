@@ -151,7 +151,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
-- `installationTabs`: (Optional) Array of `{ title, code, lang }` objects.
+- `installationTabs`: (Optional) Array of `{ title, code, lang, isDependency }` objects. Set `isDependency` on every CSS file that has its own component page: Installation links it under "Dependencies", and that page lists this one under "Used by".
 - `overline`: (Optional) Sidebar/breadcrumb overline. Defaults to `"Components"`.
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
 - `showToc`: (Optional) Shows the table of contents. Defaults to `true`.

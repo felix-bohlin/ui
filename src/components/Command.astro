@@ -1,17 +1,14 @@
 ---
-type Props = {
-  class?: string
-  isDialog?: boolean
-  [key: string]: any
-}
+import type { HTMLAttributes } from "astro/types"
 
-const { class: className, isDialog = false, ...rest } = Astro.props
-const Element = isDialog ? "dialog" : "div"
+type Props = HTMLAttributes<"dialog">
+
+const { class: className, ...rest } = Astro.props
 ---
 
-<Element
-  class:list={["command", isDialog && "ui-dialog", className]}
-  {...isDialog ? { closedby: "any" } : {}}
+<dialog
+  class:list={["command", "ui-dialog", className]}
+  closedby="any"
   {...rest}
 >
   <div class="command-input-wrapper">
@@ -44,4 +41,4 @@ const Element = isDialog ? "dialog" : "div"
       <div class="helper"><kbd>esc</kbd> <span>Close</span></div>
     </slot>
   </div>
-</Element>
+</dialog>

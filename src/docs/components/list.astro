@@ -13,6 +13,7 @@ import {
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
@@ -508,53 +509,15 @@ export const description =
       </p>
     </Conditional>
     <AutoExample name="Dense">
-      <Conditional slot="controls">
-        <Switch
-          slot="html"
-          id="list-dense-toggle-html"
-          class="list-dense-toggle"
-          size="small"
-          checked
-        >
-          <code>.ui-dense</code>
-        </Switch>
-        <Switch
-          slot="astro"
-          id="list-dense-toggle-astro"
-          class="list-dense-toggle"
-          size="small"
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-        <Switch
-          slot="react"
-          id="list-dense-toggle-react"
-          class="list-dense-toggle"
-          size="small"
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-        <Switch
-          slot="svelte"
-          id="list-dense-toggle-svelte"
-          class="list-dense-toggle"
-          size="small"
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-        <Switch
-          slot="vue"
-          id="list-dense-toggle-vue"
-          class="list-dense-toggle"
-          size="small"
-          checked
-        >
-          <code>dense</code>
-        </Switch>
-      </Conditional>
+      <Switch
+        slot="controls"
+        checked
+        data-toggle-class="ui-dense"
+        data-toggle-target=".ui-list"
+        size="small"
+      >
+        <PropOrClass prop="dense" class=".ui-dense" />
+      </Switch>
     </AutoExample>
   </section>
 
@@ -582,47 +545,6 @@ export const description =
     </Anatomy>
   </Fragment>
 </Component>
-
-<script>
-  function setupListDenseControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector(".list-dense-toggle")) return
-        if (container.dataset.listDenseSetup) return
-        container.dataset.listDenseSetup = "true"
-
-        const sync = (checked: boolean) => {
-          container
-            .querySelectorAll(".example-preview .ui-list")
-            .forEach((list) => {
-              list.classList.toggle("ui-dense", checked)
-            })
-          container
-            .querySelectorAll<HTMLInputElement>(".list-dense-toggle input")
-            .forEach((input) => {
-              if (input.checked !== checked) {
-                input.checked = checked
-              }
-            })
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (!input.closest(".list-dense-toggle")) return
-          sync(input.checked)
-        })
-
-        const initial = container.querySelector<HTMLInputElement>(
-          ".list-dense-toggle input",
-        )
-        if (initial) sync(initial.checked)
-      })
-  }
-
-  setupListDenseControls()
-</script>
 
 <style is:global>
   .tab-panel ul {

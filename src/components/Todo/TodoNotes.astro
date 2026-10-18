@@ -38,15 +38,6 @@ const { class: className, notes } = Astro.props
     display: grid;
     font-size: var(--font-size-05);
     gap: var(--size-2);
-
-    :global(code) {
-      font-size: 0.875em;
-      overflow-wrap: anywhere;
-    }
-
-    pre :global(code) {
-      overflow-wrap: normal;
-    }
   }
 
   .todo-note {

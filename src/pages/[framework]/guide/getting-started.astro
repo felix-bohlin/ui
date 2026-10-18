@@ -1,29 +1,17 @@
 ---
 import type { AstroInstance } from "astro"
-import { frameworkPaths, type FrameworkId } from "../../../utils/framework"
+import { FRAMEWORKS, frameworkPaths } from "../../../utils/framework"
 
 export const getStaticPaths = frameworkPaths
-
-const framework = Astro.locals.framework
 
 const modules = import.meta.glob<AstroInstance>(
   "../../../docs/guide/getting-started/*.astro",
   { eager: true },
 )
 
-const labelByFramework: Record<FrameworkId, string> = {
-  astro: "Astro",
-  html: "HTML",
-  react: "React",
-  svelte: "Svelte",
-  vue: "Vue",
-}
-
-const label = labelByFramework[framework]
-const entry = Object.entries(modules).find(([path]) =>
-  path.endsWith(`/${label}.astro`),
-)
-const Page = entry?.[1].default
+const label = FRAMEWORKS.find((f) => f.id === Astro.locals.framework)!.label
+const Page =
+  modules[`../../../docs/guide/getting-started/${label}.astro`].default
 ---
 
-{Page && <Page />}
+<Page />

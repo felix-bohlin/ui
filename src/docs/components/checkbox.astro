@@ -8,6 +8,12 @@ import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
   Checkbox as UICheckbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
 } from "opui-css/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
@@ -60,7 +66,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Checkbox</Fragment>
@@ -444,51 +450,54 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       Accessible checkboxes must have a label. You can choose between three
       approaches:
     </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Checkbox component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Checkbox component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>
             Provide a label text inside the <code>label</code> element
-          </td>
-          <td>Default</td>
-        </tr>
-        <tr>
-          <td>Add an <code>aria-label</code> on the input element</td>
-          <td>Not used</td>
-        </tr>
-        <tr>
-          <td>
+          </TableCell>
+          <TableCell>Default</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell
+            >Add an <code>aria-label</code> on the input element</TableCell
+          >
+          <TableCell>Not used</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
             Have a visible label that you reference with <code
               >aria-labelledby</code
             >
-          </td>
-          <td>Not used</td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+          <TableCell>Not used</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Checkbox is focused it changes its state.</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Space</kbd></TableCell>
+            <TableCell>When Checkbox is focused it changes its state.</TableCell
+            >
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </Fragment>
 

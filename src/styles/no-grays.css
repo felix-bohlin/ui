@@ -1,0 +1,13 @@
+:is(html.no-grays, .preview-card.no-grays) {
+  --border-color: light-dark(var(--color-4), var(--color-12));
+  --field-border-color: light-dark(var(--color-4), var(--color-12));
+  --neutral: var(--color-9);
+  --surface-default: light-dark(var(--color-1), var(--color-14));
+  --surface-elevated: light-dark(var(--color-1), var(--color-12));
+  --surface-filled: light-dark(var(--color-5), var(--color-16));
+  --surface-tonal: light-dark(var(--color-4), var(--color-12));
+  --text-inverse: light-dark(var(--color-1), var(--color-15));
+  --text-muted: light-dark(var(--color-13), var(--color-4));
+  --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
+  --text-primary: light-dark(var(--color-15), var(--color-1));
+}

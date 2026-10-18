@@ -24,7 +24,7 @@ const currentFramework = Astro.locals.framework
 <script>
   import {
     FRAMEWORK_STORAGE_KEY,
-    isFrameworkFree,
+    hrefFor,
     isFrameworkId,
     pathHasFramework,
     stripFrameworkPrefix,
@@ -33,13 +33,9 @@ const currentFramework = Astro.locals.framework
 
   function urlForFramework(framework: FrameworkId): string {
     const { hash, pathname, search } = window.location
-    const sharedPath = stripFrameworkPrefix(pathname)
-    if (isFrameworkFree(sharedPath)) return `${sharedPath}${search}${hash}`
-    if (!pathHasFramework(framework, sharedPath)) {
-      return `/${framework}/components/`
-    }
-    const path = sharedPath === "/" ? "" : sharedPath
-    return `/${framework}${path}${search}${hash}`
+    return pathHasFramework(framework, stripFrameworkPrefix(pathname))
+      ? hrefFor(framework, `${pathname}${search}${hash}`)
+      : hrefFor(framework, "/components")
   }
 
   function init() {

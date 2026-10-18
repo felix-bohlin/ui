@@ -1,14 +1,6 @@
 import type { ComponentApi } from "../component-api/types"
-import {
-  exampleExtension,
-  PACKAGE_FRAMEWORK_IDS,
-  type PackageFrameworkId,
-} from "./framework"
-
-const examples = import.meta.glob<string>(
-  "../component-examples/*/*.{astro,react.tsx,svelte,vue}",
-  { eager: true, import: "default", query: "?raw" },
-)
+import { exampleSources, parseExamplePath } from "./examples"
+import { PACKAGE_FRAMEWORK_IDS, type PackageFrameworkId } from "./framework"
 
 const indexes = import.meta.glob<string>("../../packages/opui/*/index.ts", {
   eager: true,
@@ -68,12 +60,9 @@ export const componentImports = (
   const ownFolders = pageFolders(slug)
   const names = new Set<string>()
 
-  for (const [file, source] of Object.entries(examples)) {
-    if (
-      !file.startsWith(`../component-examples/${slug}/`) ||
-      !file.endsWith(`.${exampleExtension(framework)}`)
-    )
-      continue
+  for (const [file, source] of Object.entries(exampleSources)) {
+    const example = parseExamplePath(file)
+    if (example.slug !== slug || example.framework !== framework) continue
     for (const [, imported] of source.matchAll(importPattern)) {
       for (const name of imported.split(",")) {
         const trimmed = name.trim()

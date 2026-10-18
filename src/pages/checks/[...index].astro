@@ -1,6 +1,7 @@
 ---
 import { Button, Checkbox } from "opui-css/astro"
 import CommentField from "../../components/Todo/CommentField.astro"
+import CopyFallback from "../../components/Todo/CopyFallback.astro"
 import InlineText from "../../components/Todo/InlineText.astro"
 import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
@@ -86,16 +87,13 @@ const count = sections.reduce(
       <Button id="checks-uncheck" variant="outlined">Uncheck all</Button>
     </div>
     <p class="checks-status" id="checks-status" role="status"></p>
+    <CopyFallback label="Checks and comments" />
   </section>
 </Document>
 
 <script>
-  import { trackComments } from "../../components/Todo/comments"
-  import {
-    copyText,
-    readStored as read,
-    writeStored as write,
-  } from "../../utils/storage"
+  import { copyOrSelect, trackComments } from "../../components/Todo/comments"
+  import { readStored as read, writeStored as write } from "../../utils/storage"
 
   const commentsKey = "opui-checks-comments"
   const doneKey = "opui-checks-done"
@@ -107,6 +105,9 @@ const count = sections.reduce(
   const doneOf = (item: HTMLElement) =>
     item.querySelector<HTMLInputElement>(".checks-done input")!
   const status = document.querySelector("#checks-status")!
+  const copyFallback = document.querySelector<HTMLElement>(
+    "[data-copy-fallback]",
+  )!
   const progress = document.querySelector("#checks-progress")!
   const hideDone =
     document.querySelector<HTMLInputElement>("#checks-hide-done")!
@@ -208,9 +209,9 @@ const count = sections.reduce(
         status.textContent = "No comments yet."
         return
       }
-      status.textContent = (await copyText(text))
+      status.textContent = (await copyOrSelect(text, copyFallback))
         ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
-        : "Copying failed."
+        : "This browser blocked copying. The text is selected below: press and hold it, then copy."
     })
 
   document
@@ -267,11 +268,6 @@ const count = sections.reduce(
     &:has(.checks-done input:checked) :global(.checks-done .ui-label) {
       color: var(--text-muted);
       text-decoration: line-through;
-    }
-
-    :global(code) {
-      font-size: 0.875em;
-      overflow-wrap: anywhere;
     }
   }
 

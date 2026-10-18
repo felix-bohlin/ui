@@ -2,6 +2,7 @@
 import Default from "./Default.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
+import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
 import { Button, Drawer, DrawerContent, DrawerFooter } from "opui-css/astro"
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
   image?: string
   overline?: string
   showToc?: boolean
+  sidebarGroups?: SidebarGroup[]
   transitionName?: string
   wide?: boolean
 }
@@ -20,11 +22,12 @@ const {
   image,
   overline,
   showToc = true,
+  sidebarGroups = [],
   transitionName,
   wide,
 } = Astro.props
-const sidebar = await Astro.slots.render("sidebar")
-const hasSidebarDrawer = sidebar?.includes("<nav")
+const hasSidebarNav = sidebarGroups.length > 0
+const hasSidebar = hasSidebarNav || Astro.slots.has("sidebar")
 
 const preamble = Astro.slots.has("preamble")
   ? await Astro.slots.render("preamble")
@@ -51,23 +54,24 @@ const descText =
 <Default title={titleText} description={descText} hasMarkdown image={image}>
   <Fragment slot="toolbar">
     <LocalNav
-      sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}
+      sidebarDrawerId={hasSidebarNav ? "sidebar-drawer" : undefined}
       showToc={showToc}
     />
   </Fragment>
   <div data-wide={wide ? "" : undefined} id="document-page">
     {
-      sidebar && (
+      hasSidebar && (
         <aside class="sidebar">
           <div class="ui-content">
-            <Fragment set:html={sidebar} />
+            <slot name="sidebar" />
+            {hasSidebarNav && <SidebarNav groups={sidebarGroups} />}
           </div>
         </aside>
       )
     }
 
     {
-      hasSidebarDrawer && (
+      hasSidebarNav && (
         <Drawer
           aria-label="Sidebar"
           id="sidebar-drawer"
@@ -76,7 +80,7 @@ const descText =
           closedby="any"
         >
           <DrawerContent>
-            <Fragment set:html={sidebar} />
+            <SidebarNav groups={sidebarGroups} />
           </DrawerContent>
           <DrawerFooter>
             <Button size="small" commandfor="sidebar-drawer" command="close">
@@ -265,6 +269,10 @@ const descText =
             margin-block-end: 0.5em;
           }
 
+          menu + h3 {
+            margin-block-start: var(--size-5);
+          }
+
           menu {
             font-size: var(--font-size-05);
             list-style-type: none;
@@ -375,13 +383,6 @@ const descText =
 
       .ui-content {
         padding-block: 0;
-      }
-    }
-
-    #sidebar-drawer {
-      .framework-picker,
-      hr {
-        display: none;
       }
     }
 

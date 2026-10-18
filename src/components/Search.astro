@@ -4,12 +4,7 @@ import Command from "./Command.astro"
 import { SEARCH_CATEGORIES } from "../utils/search-categories"
 ---
 
-<Command
-  isDialog
-  id="search-dialog"
-  class="search-modal"
-  aria-label="Search docs"
->
+<Command id="search-dialog" class="search-modal" aria-label="Search docs">
   <input
     slot="input"
     type="text"
@@ -500,7 +495,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   // Global shortcuts
   window.addEventListener("keydown", (e) => {
     const platform = (
-      (navigator as any).userAgentData?.platform ||
+      (navigator as Navigator & { userAgentData?: { platform: string } })
+        .userAgentData?.platform ||
       navigator.platform ||
       ""
     ).toLowerCase()

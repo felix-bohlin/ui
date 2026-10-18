@@ -2,7 +2,15 @@
 import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Radio as UIRadio } from "opui-css/astro"
+import {
+  Radio as UIRadio,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
@@ -56,7 +64,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   installationTabs={[
     { title: "radio.css", code: RadioCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Radio</Fragment>
@@ -423,31 +431,33 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <Fragment slot="accessibility">
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Tab</kbd></td>
-            <td>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Tab</kbd></TableCell>
+            <TableCell>
               Moves focus into the group, to the checked radio. When none is
               checked, focus goes to the first radio.
-            </td>
-          </tr>
-          <tr>
-            <td>Arrow keys</td>
-            <td>Move focus to the next or previous radio and select it.</td>
-          </tr>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>Selects the focused radio.</td>
-          </tr>
-        </tbody>
-      </table>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Arrow keys</TableCell>
+            <TableCell
+              >Move focus to the next or previous radio and select it.</TableCell
+            >
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd>Space</kbd></TableCell>
+            <TableCell>Selects the focused radio.</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </Fragment>
 

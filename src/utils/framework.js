@@ -119,6 +119,11 @@ export function stripFrameworkPrefix(pathname) {
   return stripped || "/"
 }
 
+/** @param {string} pathname */
+export function canonicalPath(pathname) {
+  return stripFrameworkPrefix(pathname).replace(/\/$/, "")
+}
+
 /**
  * Build the URL for the same logical page on a specific framework. Every
  * framework has its own prefix and pages end in a slash. Preserves any query

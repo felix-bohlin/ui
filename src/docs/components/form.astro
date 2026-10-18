@@ -55,18 +55,14 @@ const anatomyApi = {
   slug="form"
   heroAnatomy
   browserSupport={["has"]}
-  installationTabs={[
-    { title: "form.css", code: FormCSS, lang: "css" },
-    { title: "button.css", seeAlso: true },
-    { title: "checkbox.css", seeAlso: true },
-    { title: "choice.css", seeAlso: true },
-    { title: "divider.css", seeAlso: true },
-    { title: "radio.css", seeAlso: true },
-    { title: "range.css", seeAlso: true },
-    { title: "select.css", seeAlso: true },
-    { title: "switch.css", seeAlso: true },
-    { title: "textarea.css", seeAlso: true },
-    { title: "text-field.css", seeAlso: true },
+  installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
+  seeAlsoLinks={[
+    { name: "Button", href: "/components/button" },
+    { name: "Divider", href: "/components/divider" },
+    { name: "Range", href: "/components/range" },
+    { name: "Select", href: "/components/select" },
+    { name: "Text Field", href: "/components/text-field" },
+    { name: "Textarea", href: "/components/textarea" },
   ]}
   apis={[
     { title: "Form API", api: formApi },
@@ -348,7 +344,9 @@ const anatomyApi = {
     <p>Everything at once.</p>
     <AutoExample name="KitchenSink">
       <Fragment slot="controls">
-        <UISwitch id="kitchen-sink-small-toggle"
+        <UISwitch
+          data-toggle-class="ui-small"
+          data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range"
           ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
         >
         <UISwitch id="kitchen-sink-spread-toggle"
@@ -402,9 +400,6 @@ const anatomyApi = {
         if (container.dataset.kitchenSinkSetup) return
         container.dataset.kitchenSinkSetup = "true"
 
-        const smallToggle = container.querySelector<HTMLInputElement>(
-          "#kitchen-sink-small-toggle",
-        )
         const spreadToggle = container.querySelector<HTMLInputElement>(
           "#kitchen-sink-spread-toggle",
         )
@@ -415,16 +410,6 @@ const anatomyApi = {
         const updateFields = () => {
           const example = container.querySelector("#kitchen-sink-example")
           if (!example) return
-
-          if (smallToggle) {
-            example
-              .querySelectorAll(
-                ".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range",
-              )
-              .forEach((field) => {
-                field.classList.toggle("ui-small", smallToggle.checked)
-              })
-          }
 
           if (spreadToggle) {
             example
@@ -453,8 +438,7 @@ const anatomyApi = {
         container.addEventListener("change", (event) => {
           const input = event.target
           if (!(input instanceof HTMLInputElement)) return
-          if (![smallToggle, spreadToggle, dividerToggle].includes(input))
-            return
+          if (![spreadToggle, dividerToggle].includes(input)) return
           updateFields()
         })
 

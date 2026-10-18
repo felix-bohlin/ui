@@ -1,9 +1,10 @@
 ---
 import Example from "./Example/index"
+import { examplePath, exampleModules, exampleSources } from "../utils/examples"
 import {
   componentHasFramework,
-  exampleExtension,
   FRAMEWORK_AGNOSTIC_EXAMPLES,
+  type FrameworkId,
 } from "../utils/framework"
 
 type Props = {
@@ -22,14 +23,9 @@ type Props = {
   centered?: boolean
   class?: string
   column?: boolean
-  exampleClass?: string
-  marks?: Record<string, any>
-  output?: "always-show" | "toggled"
-  richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
   spacious?: boolean
-  wrapperClass?: string
 }
 
 const { name, slug: slugProp, ...rest } = Astro.props
@@ -42,55 +38,24 @@ if (!slug) {
   )
 }
 
-// Eager globs scoped to the component-examples tree. Vite resolves these at
-// build time, so missing files mean `undefined` rather than a runtime fetch.
-// Note: every matched file must be parseable; orphaned/broken example files
-// will fail the whole build.
-const previewModules = import.meta.glob(
-  "../component-examples/**/*.{astro,svelte}",
-  {
-    eager: true,
-  },
-) as Record<string, { default: unknown }>
+const astroPath = examplePath(slug, name, "astro")
+const htmlPath = examplePath(slug, name, "html")
+const reactPath = examplePath(slug, name, "react")
+const vuePath = examplePath(slug, name, "vue")
+const sveltePath = examplePath(slug, name, "svelte")
 
-const reactPreviewModules = import.meta.glob(
-  "../component-examples/**/*.react.tsx",
-  {
-    eager: true,
-  },
-) as Record<string, { default: unknown }>
-
-const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
-  eager: true,
-}) as Record<string, { default: unknown }>
-
-const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,react.tsx,svelte,vue}",
-  {
-    eager: true,
-    query: "?raw",
-    import: "default",
-  },
-) as Record<string, string>
-
-const astroPath = `../component-examples/${slug}/${name}.astro`
-const htmlPath = `../component-examples/${slug}/${name}.html`
-const reactPath = `../component-examples/${slug}/${name}.react.tsx`
-const vuePath = `../component-examples/${slug}/${name}.vue`
-const sveltePath = `../component-examples/${slug}/${name}.svelte`
-
-const astroComponent = previewModules[astroPath]?.default
-const reactComponent = reactPreviewModules[reactPath]?.default
-const vueComponent = vuePreviewModules[vuePath]?.default
-const svelteComponent = previewModules[sveltePath]?.default
-const astroSource = rawSources[astroPath]
-const htmlSource = rawSources[htmlPath]
-const reactSource = rawSources[reactPath]
-const vueSource = rawSources[vuePath]
-const svelteSource = rawSources[sveltePath]
-const codeSource = (ext: string) =>
-  rawSources[`../component-examples/${slug}/${name}Code.${ext}`] ??
-  rawSources[`../component-examples/${slug}/${name}.${ext}`]
+const astroComponent = exampleModules[astroPath]?.default
+const reactComponent = exampleModules[reactPath]?.default
+const vueComponent = exampleModules[vuePath]?.default
+const svelteComponent = exampleModules[sveltePath]?.default
+const astroSource = exampleSources[astroPath]
+const htmlSource = exampleSources[htmlPath]
+const reactSource = exampleSources[reactPath]
+const vueSource = exampleSources[vuePath]
+const svelteSource = exampleSources[sveltePath]
+const codeSource = (framework: FrameworkId) =>
+  exampleSources[examplePath(slug, `${name}Code`, framework)] ??
+  exampleSources[examplePath(slug, name, framework)]
 
 const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
   `${slug}/${name}`,
@@ -109,9 +74,7 @@ if (
   !frameworkAgnostic &&
   framework !== "html" &&
   componentHasFramework(framework, slug) &&
-  !rawSources[
-    `../component-examples/${slug}/${name}.${exampleExtension(framework)}`
-  ]
+  !exampleSources[examplePath(slug, name, framework)]
 ) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> has no ${framework} file. ` +
@@ -166,11 +129,7 @@ if (
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
   {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
-  {
-    reactSource && (
-      <Example.Code slot="code-react" code={codeSource("react.tsx")} />
-    )
-  }
+  {reactSource && <Example.Code slot="code-react" code={codeSource("react")} />}
   {
     svelteSource && (
       <Example.Code slot="code-svelte" code={codeSource("svelte")} />

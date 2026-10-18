@@ -19,6 +19,8 @@ import {
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
 
+import menuApi from "../../component-api/menu/api"
+
 export const description = "A popover list of actions or links."
 ---
 
@@ -40,6 +42,7 @@ export const description = "A popover list of actions or links."
     "starting-style",
     "transition-behavior",
   ]}
+  apis={[{ title: "Menu API", api: menuApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Menu/Menu.astro",
@@ -54,7 +57,6 @@ export const description = "A popover list of actions or links."
     { title: "menu.css", code: MenuCSS, lang: "css" },
     { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
   ]}
-  seeAlsoLinks={[{ name: "List", href: "/components/list" }]}
 >
   <Fragment slot="title">Menu</Fragment>
   <Fragment slot="preamble">
@@ -234,7 +236,7 @@ export const description = "A popover list of actions or links."
   </section>
 
   <Fragment slot="accessibility">
-    <h3 id="role">Role</h3>
+    <h3 id="role-attributes">Role & attributes</h3>
     <p>
       A menu is a <code>&lt;menu&gt;</code> of buttons and links, not an ARIA menu.
       It has no <code>role="menu"</code> or <code>role="menuitem"</code>, so

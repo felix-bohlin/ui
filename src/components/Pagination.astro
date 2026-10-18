@@ -1,0 +1,111 @@
+---
+type Link = { href: string; label: string }
+
+type Props = {
+  label: string
+  next?: Link
+  prev?: Link
+}
+
+const { label, next, prev } = Astro.props
+---
+
+<nav aria-label={label} class="pagination">
+  {
+    prev ? (
+      <a href={prev.href} class="pagination-link prev">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+          />
+        </svg>
+        <div class="ui-hgroup">
+          <p class="ui-overline">Previous</p>
+          <p class="ui-h3">{prev.label}</p>
+        </div>
+      </a>
+    ) : (
+      <div class="spacer" />
+    )
+  }
+  {
+    next ? (
+      <a href={next.href} class="pagination-link next">
+        <div class="ui-hgroup">
+          <p class="ui-overline">Next</p>
+          <p class="ui-h3">{next.label}</p>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+          />
+        </svg>
+      </a>
+    ) : (
+      <div class="spacer" />
+    )
+  }
+</nav>
+
+<style>
+  .pagination {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(33ch, 100%), 1fr));
+
+    .pagination-link {
+      align-items: center;
+      border: 1px solid
+        color-mix(in oklch, var(--border-color), var(--text-primary) 20%);
+      border-radius: var(--radius-3);
+      color: var(--text-primary);
+      display: flex;
+      gap: var(--size-4);
+      padding: var(--size-4);
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+
+      /* @supports (corner-shape: squircle) {
+          border-radius: 0;
+          corner-shape: squircle;
+        } */
+
+      &:hover {
+        background-color: var(--surface-tonal);
+      }
+
+      svg {
+        align-items: center;
+        color: var(--text-muted);
+        display: inline-flex;
+        flex-shrink: 0;
+        font-size: var(--font-size-5);
+      }
+
+      &.prev {
+        svg {
+          rotate: 180deg;
+        }
+      }
+
+      &.next {
+        justify-content: end;
+        text-align: end;
+      }
+    }
+  }
+</style>

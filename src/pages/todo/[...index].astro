@@ -10,9 +10,9 @@ import {
   FieldLegend,
   FieldSet,
   Radio,
-  Textarea,
 } from "opui-css/astro"
 import CommentField from "../../components/Todo/CommentField.astro"
+import CopyFallback from "../../components/Todo/CopyFallback.astro"
 import InlineText from "../../components/Todo/InlineText.astro"
 import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
@@ -225,21 +225,13 @@ const count = sections.reduce(
       <Button id="todo-clear" variant="outlined">Clear comments</Button>
     </div>
     <p class="todo-status" id="todo-status" role="status"></p>
-    <div class="todo-copy-fallback" hidden id="todo-copy-fallback">
-      <Textarea
-        id="todo-copy-text"
-        label="Todos and comments"
-        readonly
-        rows={8}
-        spread
-      />
-    </div>
+    <CopyFallback label="Todos and comments" />
   </section>
 </Document>
 
 <script>
-  import { trackComments } from "../../components/Todo/comments"
-  import { copyText, readStored, writeStored } from "../../utils/storage"
+  import { copyOrSelect, trackComments } from "../../components/Todo/comments"
+  import { readStored, writeStored } from "../../utils/storage"
 
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"
@@ -322,10 +314,8 @@ const count = sections.reduce(
   }
 
   const copyFallback = document.querySelector<HTMLElement>(
-    "#todo-copy-fallback",
+    "[data-copy-fallback]",
   )!
-  const copyField =
-    document.querySelector<HTMLTextAreaElement>("#todo-copy-text")!
 
   const syncScheme = (frame: HTMLIFrameElement) => {
     const root = frame.contentDocument?.documentElement
@@ -375,15 +365,10 @@ const count = sections.reduce(
       status.textContent = "No comments yet."
       return
     }
-    const copied = await copyText(text)
-    copyFallback.hidden = copied
-    if (copied) {
+    if (await copyOrSelect(text, copyFallback)) {
       status.textContent = `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
       return
     }
-    copyField.value = text
-    copyField.focus()
-    copyField.setSelectionRange(0, text.length)
     status.textContent =
       "This browser blocked copying. The text is selected below: press and hold it, then copy."
   })
@@ -418,11 +403,6 @@ const count = sections.reduce(
     :global(.todo-severity) {
       margin-inline-end: var(--size-2);
     }
-
-    :global(code) {
-      font-size: 0.875em;
-      overflow-wrap: anywhere;
-    }
   }
 
   .todo-example {
@@ -456,10 +436,6 @@ const count = sections.reduce(
     display: grid;
     gap: var(--size-3);
     justify-items: start;
-  }
-
-  .todo-copy-fallback {
-    inline-size: 100%;
   }
 
   .todo-buttons {

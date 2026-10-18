@@ -43,32 +43,24 @@ type Props = {
   centered?: boolean
   class?: string
   column?: boolean
-  exampleClass?: string
-  output?: "always-show" | "toggled"
-  richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
   spacious?: boolean
   reactExampleId?: string
   svelteExampleId?: string
   vueExampleId?: string
-  wrapperClass?: string
 }
 
 const {
   centered,
   class: className,
   column,
-  exampleClass,
-  output = "toggled",
-  richText = "not-rich-text",
   row,
   showCode = true,
   spacious,
   reactExampleId,
   svelteExampleId,
   vueExampleId,
-  wrapperClass,
 } = Astro.props
 
 const activeFramework = Astro.locals.framework
@@ -120,8 +112,7 @@ const isLiveSveltePreview =
   previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
-// visible preview and (when output="toggled") as the "Output" tab content for
-// non-HTML frameworks.
+// visible preview and as the "Output" tab content for non-HTML frameworks.
 let previewHtml = ""
 if (previewSlot) {
   const raw = previewSlot.raw.trim()
@@ -142,10 +133,9 @@ if (codeSlot) {
 
 // Output (the rendered HTML view) is only meaningful when the source code is
 // in a different framework - otherwise it's identical to the source.
-const outputContent =
-  output && previewHtml && codeLangId !== "html" ? previewHtml : ""
+const outputContent = previewHtml && codeLangId !== "html" ? previewHtml : ""
 
-const showOutput = !!(output && outputContent)
+const showOutput = !!outputContent
 const hasCode = !!codeContent
 
 const codeLangLabel =
@@ -167,9 +157,7 @@ const outputId = `${groupName}-output`
 
 <div
   class:list={[
-    "example-container ui-card ui-outlined",
-    richText && `ui-${richText}`,
-    wrapperClass && `ui-${wrapperClass}`,
+    "example-container ui-card ui-outlined ui-not-rich-text",
     { "example-centered": centered },
   ]}
   data-expanded="false"
@@ -184,7 +172,6 @@ const outputId = `${groupName}-output`
         class:list={[
           "example-preview",
           className,
-          exampleClass && `ui-${exampleClass}`,
           {
             "example-column": column,
             "example-row": row,
@@ -238,14 +225,6 @@ const outputId = `${groupName}-output`
             </svg>
           </Chip>
         )}
-      </div>
-    )
-  }
-
-  {
-    showOutput && output === "always-show" && (
-      <div class="example-output-standalone">
-        <Code code={previewHtml} lang="html" />
       </div>
     )
   }
@@ -323,24 +302,6 @@ const outputId = `${groupName}-output`
       }
     }
 
-    &[data-expanded="true"] {
-      .example-output-standalone {
-        display: none;
-      }
-    }
-
-    .example-output-standalone {
-      background-color: var(--surface-default);
-      border-block-end: var(--border-width) solid var(--border-color);
-      overflow-x: auto;
-
-      :global(pre) {
-        border: none !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
-      }
-    }
-
     .show-code-button {
       align-items: center;
       bottom: anchor(bottom);
@@ -371,10 +332,6 @@ const outputId = `${groupName}-output`
       overflow: auto hidden;
       padding: var(--size-4);
       position: relative;
-
-      &.example-column {
-        gap: var(--size-3);
-      }
 
       &.example-row {
         align-items: start;
@@ -491,7 +448,7 @@ const outputId = `${groupName}-output`
       ".show-code-button",
     ) as HTMLElement | null
 
-    if (toggleBtn && !(toggleBtn as any)._hasListener) {
+    if (toggleBtn) {
       toggleBtn.addEventListener("click", () => {
         const template = container.querySelector<HTMLTemplateElement>(
           "template.example-code",
@@ -512,8 +469,25 @@ const outputId = `${groupName}-output`
           `${nextState ? "Hide" : "Show"} ${codeLabel ?? "code"}`,
         )
       })
-      ;(toggleBtn as any)._hasListener = true
     }
+
+    const toggle = (input: HTMLInputElement) => {
+      const { toggleClass, toggleTarget } =
+        input.closest<HTMLElement>("[data-toggle-class]")?.dataset ?? {}
+      if (!toggleClass || !toggleTarget) return
+      container
+        .querySelectorAll(`.example-preview :is(${toggleTarget})`)
+        .forEach((el) => el.classList.toggle(toggleClass, input.checked))
+    }
+
+    container
+      .querySelectorAll<HTMLInputElement>(
+        "[data-toggle-class] input, input[data-toggle-class]",
+      )
+      .forEach(toggle)
+    container.addEventListener("change", (event) => {
+      if (event.target instanceof HTMLInputElement) toggle(event.target)
+    })
   }
 
   function init() {

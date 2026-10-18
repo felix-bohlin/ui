@@ -59,7 +59,7 @@
     }
 
     &.ui-rounded {
-      border-radius: var(--radius-2);
+      border-radius: min(var(--radius-2), var(--border-radius));
     }
 
     &.ui-squircle {

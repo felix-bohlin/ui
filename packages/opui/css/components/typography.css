@@ -13,6 +13,7 @@
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
+    font-family: var(--font-heading);
     font-weight: var(--font-weight-bold);
     line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
     text-wrap: pretty;
@@ -173,10 +174,10 @@
   :where(.ui-kbd) {
     background-color: var(--text-muted);
     border-color: var(--text-muted);
-    border-radius: var(--radius-2);
+    border-radius: min(var(--radius-2), var(--border-radius));
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
     overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
@@ -184,7 +185,7 @@
 
   :where(.ui-mark) {
     background-color: Mark;
-    border-radius: var(--radius-2);
+    border-radius: min(var(--radius-2), var(--border-radius));
     box-decoration-break: clone;
     color: MarkText;
     padding-block: 0.1ex;
@@ -228,24 +229,24 @@
   :where(.ui-var) {
     background-color: var(--text-muted);
     border-color: var(--text-muted);
-    border-radius: var(--radius-2);
+    border-radius: min(var(--radius-2), var(--border-radius));
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
     overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
   }
 
   :where(.ui-samp) {
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
   }
 
   /* Blockquote */
   :where(.ui-blockquote) {
     border-inline-start: var(--border-size-3) solid currentColor;
-    padding-block: var(--size-3);
-    padding-inline: var(--size-4);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
 
     :first-child {
       margin-block-start: 0;
@@ -257,7 +258,7 @@
 
     footer {
       color: var(--text-muted);
-      margin-block-start: var(--size-3);
+      margin-block-start: var(--space-3);
     }
   }
 
@@ -266,12 +267,12 @@
     background-color: var(--color-15);
     border-radius: var(--border-radius);
     color: var(--color-1);
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
     font-size: var(--font-size-05);
     max-inline-size: 100%;
     overflow-x: auto;
-    padding-block: var(--size-3);
-    padding-inline: var(--size-4);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
     scrollbar-width: thin;
     white-space: pre;
 
@@ -375,8 +376,8 @@
       border-inline-start: var(--border-size-3) solid currentColor;
       font-size: inherit;
       line-height: inherit;
-      padding-block: var(--size-3);
-      padding-inline: var(--size-4);
+      padding-block: var(--space-3);
+      padding-inline: var(--space-4);
 
       :first-child {
         margin-block-start: 0;
@@ -405,8 +406,8 @@
       );
       max-inline-size: 100%;
       overflow-x: auto;
-      padding-block: var(--size-3);
-      padding-inline: var(--size-4);
+      padding-block: var(--space-3);
+      padding-inline: var(--space-4);
       scrollbar-width: thin;
       white-space: pre;
 
@@ -431,7 +432,7 @@
     /* Figures */
     figure {
       display: grid;
-      gap: var(--size-2);
+      gap: var(--space-2);
       margin-block: round(
         var(--_flow-space) * 1.5,
         var(--rhythm-step, 0.25rem)
@@ -741,7 +742,7 @@
         color: var(--text-muted);
         font-size: var(--font-size-0);
         line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
-        padding-block-end: var(--size-2);
+        padding-block-end: var(--space-2);
         text-align: start;
       }
 
@@ -833,7 +834,7 @@
 
     /* Code */
     :where(code, kbd, samp, pre) {
-      font-family: var(--font-mono);
+      font-family: var(--font-code);
     }
 
     code {
@@ -863,7 +864,7 @@
     :where(kbd, var) {
       background-color: var(--text-muted);
       border-color: var(--text-muted);
-      border-radius: var(--radius-2);
+      border-radius: min(var(--radius-2), var(--border-radius));
       border-width: var(--border-size-1);
       color: var(--text-muted-contrast);
       padding-block: 0.1ex;
@@ -890,7 +891,7 @@
     }
 
     mark {
-      border-radius: var(--radius-2);
+      border-radius: min(var(--radius-2), var(--border-radius));
       box-decoration-break: clone;
       padding-block: 0.1ex;
       padding-inline: 0.3ex;

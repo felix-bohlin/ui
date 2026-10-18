@@ -14,24 +14,24 @@
     --_button-disabled-opacity: 0;
     --_button-end-icon: var(--_button-next-icon);
     --_button-icon-size: 60%;
-    --_button-inset: var(--size-2);
+    --_button-inset: var(--space-2);
     --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
     --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0'/%3E%3C/svg%3E");
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small);
     --_button-start-icon: var(--_button-prev-icon);
-    --_gap: var(--size-3);
+    --_gap: var(--space-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
     );
     --_marker-color: oklch(from var(--text-primary) l c h / 25%);
     --_marker-color-active: var(--primary);
-    --_marker-gap: var(--size-2);
+    --_marker-gap: var(--space-2);
     --_button-next-label: "Next";
     --_button-prev-label: "Previous";
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
-    --_markers-margin-block-start: var(--size-3);
+    --_markers-margin-block-start: var(--space-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--border-radius);
     --_padding-block: 0px;
@@ -96,7 +96,7 @@
 
     /* Peek at the neighbouring items */
     &.ui-peek {
-      --_padding-inline: var(--size-8);
+      --_padding-inline: var(--space-8);
     }
 
     /* Vertical */
@@ -115,7 +115,7 @@
       scroll-snap-type: y mandatory;
 
       &.ui-peek {
-        --_padding-block: var(--size-8);
+        --_padding-block: var(--space-8);
       }
     }
 

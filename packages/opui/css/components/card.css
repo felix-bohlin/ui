@@ -9,13 +9,7 @@
     --_border-width: 0;
 
     --_shadow: none;
-    --_shadow-light: var(--shadow-3);
-    --_shadow-dark: var(--shadow-4);
-    --_shadow-elevated: var(--_shadow-light);
-
-    @container style(--color-scheme: dark) {
-      --_shadow-elevated: var(--_shadow-dark);
-    }
+    --_shadow-elevated: var(--shadow-raised);
 
     background-color: var(--_bg-color);
     border-color: var(--_border-color);
@@ -25,7 +19,7 @@
     box-shadow: var(--_shadow);
     display: flex;
     flex-direction: column;
-    gap: var(--size-3);
+    gap: var(--space-3);
     min-inline-size: 0;
     overflow: hidden;
     overflow-wrap: break-word;
@@ -61,16 +55,16 @@
 
     & > :where(hgroup, .ui-content) {
       margin-block: 0;
-      padding-inline: var(--size-3);
+      padding-inline: var(--space-3);
 
       &:last-child {
-        padding-block-end: var(--size-3);
+        padding-block-end: var(--space-3);
       }
     }
 
     /* Header */
     & > hgroup {
-      padding-block: var(--size-3) 0;
+      padding-block: var(--space-3) 0;
 
       & > :where(h1, h2, h3, h4, h5, h6, p) {
         margin-block: 0;
@@ -94,20 +88,20 @@
 
     /* Content */
     & > .ui-content:where(:only-child, :first-child) {
-      padding-block: var(--size-3) var(--size-4);
+      padding-block: var(--space-3) var(--space-4);
     }
 
     /* Actions */
     & > .ui-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--size-2);
+      gap: var(--space-2);
       margin-block-start: auto;
-      padding-block: var(--size-2);
-      padding-inline: var(--size-3);
+      padding-block: var(--space-2);
+      padding-inline: var(--space-3);
 
       &:has(.ui-button:first-child[class="ui-button"]) {
-        padding-inline: var(--size-1) var(--size-3);
+        padding-inline: var(--space-1) var(--space-3);
       }
 
       /* Alignment */
@@ -115,11 +109,11 @@
         justify-content: end;
 
         &:has(.ui-button:first-child[class="ui-button"]) {
-          padding-inline: var(--size-3);
+          padding-inline: var(--space-3);
         }
 
         &:has(.ui-button:last-child[class="ui-button"]) {
-          padding-inline: var(--size-3) var(--size-1);
+          padding-inline: var(--space-3) var(--space-1);
         }
       }
     }

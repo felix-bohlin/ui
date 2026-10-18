@@ -126,6 +126,9 @@
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
+- `theme.css` has font tokens: `--font-body` for text, fields and buttons, `--font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--font-code` for `code`, `kbd`, `samp` and `var`. `--font-heading` follows `--font-body`.
+- `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins. Controls keep following `--density`.
+- `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion` (`--shadow-4` in dark mode), and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
 
 ### Changed
 
@@ -196,6 +199,9 @@
 - `Toast` sits in the bottom inline-end corner and slides in from the inline end, so in right-to-left pages it shows at the bottom left.
 - `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
+- `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--border-radius`: `--button-border-radius` and `--field-border-radius` default to it, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--border-radius`.
+- `Accordion` with `variant="elevated"` uses `--shadow-raised`, which is `--shadow-4` in dark mode like the elevated `Card` (was `--shadow-3`).
+- `Select` pickers and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), like `Menu` and `Toast`.
 
 ### Fixed
 

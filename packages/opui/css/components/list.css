@@ -345,7 +345,7 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: transparent;
           border: 0;
           color: inherit;
-          font-family: var(--font-mono);
+          font-family: var(--font-code);
           opacity: 0.7;
           padding: 0;
 

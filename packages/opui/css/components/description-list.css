@@ -21,7 +21,7 @@
     .ui-item {
       align-items: baseline;
       display: grid;
-      gap: var(--size-1);
+      gap: var(--space-1);
       grid-template-columns: auto auto;
       justify-content: space-between;
       margin: 0;
@@ -29,7 +29,7 @@
       padding: 0;
 
       & + .ui-item {
-        margin-block-start: var(--size-1);
+        margin-block-start: var(--space-1);
       }
 
       dt,
@@ -78,7 +78,7 @@
         justify-content: normal;
 
         & + .ui-item {
-          margin-block-start: var(--size-3);
+          margin-block-start: var(--space-3);
         }
 
         dd {

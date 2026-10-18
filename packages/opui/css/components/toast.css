@@ -5,10 +5,10 @@
     border: none;
     display: none;
     flex-direction: column-reverse;
-    gap: var(--size-3);
+    gap: var(--space-3);
     inline-size: auto;
-    inset-block: auto var(--size-4);
-    inset-inline: auto var(--size-4);
+    inset-block: auto var(--space-4);
+    inset-inline: auto var(--space-4);
     margin: 0;
     max-inline-size: calc(100vi - var(--size-8));
     overflow: visible;
@@ -51,14 +51,14 @@
       calc(var(--_enter-duration) + attr(data-duration type(<time>), 5s));
     background-color: var(--surface-inverse);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-3);
+    box-shadow: var(--shadow-overlay);
     color: var(--text-primary-contrast);
     display: flex;
-    gap: var(--size-3);
+    gap: var(--space-3);
     justify-content: space-between;
     min-inline-size: 30ch;
-    padding-block: var(--size-3);
-    padding-inline: var(--size-4);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
     pointer-events: auto;
 
     @media (hover: hover) {
@@ -112,7 +112,7 @@
       cursor: pointer;
       display: grid;
       opacity: 0.7;
-      padding: var(--size-1);
+      padding: var(--space-1);
       place-items: center;
       transition: opacity calc(var(--duration) * var(--_motion));
 

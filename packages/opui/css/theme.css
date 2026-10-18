@@ -2,12 +2,14 @@
   /* Color scheme */
   .ui-light {
     --color-scheme: light;
+    --shadow-raised: var(--shadow-3);
 
     color-scheme: light;
   }
 
   .ui-dark {
     --color-scheme: dark;
+    --shadow-raised: var(--shadow-4);
 
     color-scheme: dark;
   }
@@ -123,6 +125,10 @@
     --focus-ring-width: 2px;
 
     /* Typography */
+    --font-body: var(--font-sans);
+    --font-code: var(--font-mono);
+    --font-heading: var(--font-body);
+
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
     --font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
@@ -139,6 +145,17 @@
     --font-weight-bold: var(--font-weight-7);
 
     --rhythm-step: 0.25rem;
+
+    /* Spacing - gaps, padding and margins inside and between components. */
+    --space-scale: 1;
+    --space-1: calc(var(--size-1) * var(--space-scale));
+    --space-2: calc(var(--size-2) * var(--space-scale));
+    --space-3: calc(var(--size-3) * var(--space-scale));
+    --space-4: calc(var(--size-4) * var(--space-scale));
+    --space-5: calc(var(--size-5) * var(--space-scale));
+    --space-6: calc(var(--size-6) * var(--space-scale));
+    --space-7: calc(var(--size-7) * var(--space-scale));
+    --space-8: calc(var(--size-8) * var(--space-scale));
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --density: 1;
@@ -163,7 +180,7 @@
     --chip-size-large: var(--control-size);
 
     /* Field / input */
-    --field-border-radius: var(--size-2);
+    --field-border-radius: var(--border-radius);
     --field-border-width: 1px;
     --field-helper-color: var(--text-muted);
     --field-helper-font-size: var(--font-size-0);
@@ -174,7 +191,7 @@
     --field-required-color: var(--invalid-text-color);
 
     /* Button */
-    --button-border-radius: var(--size-2);
+    --button-border-radius: var(--border-radius);
 
     /* Divider */
     --divider-space: var(--size-fluid-3);
@@ -225,9 +242,23 @@
     --switch-track-width: var(--size-8);
     --switch-track-width-large: 3.5rem;
 
+    /* Elevation */
+    --shadow-overlay: var(--shadow-3);
+    --shadow-raised: var(--shadow-3);
+
     /* Overlays */
     --backdrop-blur: 1px;
     --backdrop-color: rgb(0 0 0 / 0.5);
+  }
+
+  :where(html.ui-dark) {
+    --shadow-raised: var(--shadow-4);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --shadow-raised: var(--shadow-4);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -294,7 +325,7 @@
 
   /* Compact surfaces */
   :where(.ui-callout, .ui-card, .ui-dialog, .ui-drawer) {
-    --divider-space: var(--size-3);
+    --divider-space: var(--space-3);
   }
 
   /* Higher contrast */

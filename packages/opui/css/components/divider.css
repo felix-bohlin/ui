@@ -33,7 +33,7 @@
       color: var(--text-muted);
       display: flex;
       font-size: var(--font-size-0);
-      gap: var(--size-3);
+      gap: var(--space-3);
       text-box: trim-both cap alphabetic;
 
       &::before,

@@ -23,6 +23,7 @@ const whatsNew = {
       html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
+    `Elevated accordions use <a href="#api"><code>--shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--space-*</code> scale.`,
   ],
   anchor: [
     {
@@ -87,6 +88,7 @@ const whatsNew = {
       astro: `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
       vue: `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     },
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   "button-group": [
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
@@ -147,6 +149,7 @@ const whatsNew = {
     `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
+    `Elevated cards use <a href="#api"><code>--shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -238,6 +241,7 @@ const whatsNew = {
       default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
+    `The drawer shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--space-*</code> scale.`,
   ],
   form: [
     {
@@ -281,6 +285,7 @@ const whatsNew = {
     },
     `A subtle light gray border in dark mode, so <a href="#basics">menus</a> stand out on dialogs and other raised surfaces.`,
     `Tall menus shrink to the space on their side instead of running off-screen (<a href="#placement">Placement</a>).`,
+    `The menu shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
   ],
   progress: [
     {
@@ -357,6 +362,8 @@ const whatsNew = {
       html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the select, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `The picker shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with menus, drawers and toasts.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -441,6 +448,7 @@ const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   textarea: [
     {
@@ -467,10 +475,12 @@ const whatsNew = {
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
       vue: `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the textarea, no more <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
+    `The toast shadow is <a href="#api"><code>--shadow-overlay</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
   ],
   toggle: [
     {
@@ -512,6 +522,7 @@ const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
     `<a href="#rich-text-showcase">Rich text</a> tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
+    `Headings read <a href="#api"><code>--font-heading</code></a> and code, <code>kbd</code>, <code>samp</code> and <code>var</code> read <code>--font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
   ],
 } satisfies Record<string, Note[]>
 

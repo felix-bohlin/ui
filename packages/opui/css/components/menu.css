@@ -19,7 +19,7 @@
     --_side: block-end;
     --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
-    --_shadow: var(--shadow-3);
+    --_shadow: var(--shadow-overlay);
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -31,7 +31,7 @@
     min-inline-size: var(--_min-inline-size);
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding-block: var(--size-1);
+    padding-block: var(--space-1);
     padding-inline: 0;
 
     & > .ui-border-top::before,
@@ -182,7 +182,7 @@
       font-size: var(--font-size-0);
       font-weight: var(--font-weight-bold);
       min-block-size: auto;
-      padding-block: var(--size-2) var(--size-1);
+      padding-block: var(--space-2) var(--space-1);
     }
   }
 }

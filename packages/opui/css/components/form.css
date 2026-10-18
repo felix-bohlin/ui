@@ -2,7 +2,7 @@
   /* Form */
   :where(.ui-form) {
     display: grid;
-    gap: var(--size-8);
+    gap: var(--space-8);
 
     hr {
       margin-block: 0;
@@ -15,7 +15,7 @@
     border: 0;
     border-radius: 0;
     display: grid;
-    gap: var(--size-1);
+    gap: var(--space-1);
     margin: 0;
     min-inline-size: 0;
     padding: 0;
@@ -25,7 +25,7 @@
       all: unset;
       color: var(--field-label-color);
       font-weight: var(--field-label-font-weight);
-      margin-block-end: var(--size-3);
+      margin-block-end: var(--space-3);
       padding: 0;
 
       &:has(+ :where(.ui-field-description)) {
@@ -41,7 +41,7 @@
       margin: 0;
 
       &:has(+ *) {
-        margin-block-end: var(--size-3);
+        margin-block-end: var(--space-3);
       }
     }
 
@@ -88,29 +88,29 @@
   :where(.ui-field-group) {
     display: flex;
     flex-direction: column;
-    gap: var(--size-4);
+    gap: var(--space-4);
 
     /* If it only has checkboxes, radios, or switches */
     &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(
         :has(> :not(.ui-checkbox, .ui-radio, .ui-switch))
       ) {
-      gap: var(--size-2);
+      gap: var(--space-2);
     }
 
     /* If it only has buttons */
     &:has(> .ui-button):not(.ui-column, :has(> :not(.ui-button))) {
       align-items: center;
       flex-direction: row;
-      gap: var(--size-2);
+      gap: var(--space-2);
 
       /* If it's not preceded by an hr */
       &:not(hr + &) {
-        margin-block-start: var(--size-4);
+        margin-block-start: var(--space-4);
       }
     }
 
     & + & {
-      margin-block-start: var(--size-5);
+      margin-block-start: var(--space-5);
     }
 
     /* Directions */
@@ -123,7 +123,7 @@
       flex-wrap: wrap;
 
       &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
-        gap: var(--size-4);
+        gap: var(--space-4);
       }
     }
   }

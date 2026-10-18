@@ -168,9 +168,9 @@
     kbd {
       background-color: color-mix(in oklch, currentColor 12%, transparent);
       border: 0;
-      border-radius: var(--radius-2);
+      border-radius: min(var(--radius-2), var(--border-radius));
       color: inherit;
-      font-family: var(--font-mono);
+      font-family: var(--font-code);
       font-size: 0.8em;
       font-weight: var(--font-weight-normal);
       line-height: 1.2;
@@ -291,7 +291,7 @@
   :where(input[type="file"]) {
     align-self: flex-start;
     border: var(--border-size-1) solid var(--surface-filled);
-    border-radius: var(--radius-2);
+    border-radius: min(var(--radius-2), var(--border-radius));
     box-shadow: var(--inner-shadow-4);
     color: var(--text-muted-contrast);
     cursor: initial;

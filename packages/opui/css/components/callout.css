@@ -5,10 +5,10 @@
     --_text-color: var(--text-primary);
     --_icon-color: currentColor;
     --_link-hover-color: var(--primary);
-    --_padding: var(--size-3);
+    --_padding: var(--space-3);
     --_border-radius: var(--border-radius);
-    --_gap: var(--size-3);
-    --_content-gap: var(--size-2);
+    --_gap: var(--space-3);
+    --_content-gap: var(--space-2);
     --_font-size: var(--font-size-05);
     --_title-font-size: var(--font-size-1);
     --_icon-size: var(--icon-size);

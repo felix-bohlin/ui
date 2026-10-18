@@ -23,7 +23,7 @@
     block-size: 100%;
     caret-color: var(--primary);
     color: var(--text-muted);
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     interpolate-size: allow-keywords;
     line-height: var(--font-lineheight-4);
 
@@ -71,8 +71,12 @@
     border: var(--field-border-width) solid var(--field-border-color);
     border-radius: var(--field-border-radius);
     display: grid;
-    gap: var(--size-3);
-    padding: var(--size-3);
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-heading);
   }
 
   :where(input, button, select, textarea),
@@ -165,12 +169,12 @@
   }
 
   :where(dt:not(:first-of-type)) {
-    margin-block-start: var(--size-5);
+    margin-block-start: var(--space-5);
   }
 
   :where(figure) {
     display: grid;
-    gap: var(--size-2);
+    gap: var(--space-2);
     place-items: center;
   }
 

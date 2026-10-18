@@ -33,6 +33,7 @@ describe("theme tokens", () => {
       "Field / input",
       "Focus ring",
       "Typography",
+      "Spacing",
       "Control sizes",
       "Button",
       "Divider",
@@ -41,6 +42,7 @@ describe("theme tokens", () => {
       "State",
       "Icons",
       "Choice controls",
+      "Elevation",
       "Overlays",
     ])
   })

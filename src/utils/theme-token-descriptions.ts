@@ -6,10 +6,10 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--border-color":
     "Default border color for cards, lists, tables and dividers.",
   "--border-radius":
-    "Default corner radius for cards, callouts, tables and accordions.",
+    "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners.",
   "--border-width": "Default border width for components that draw a border.",
   "--button-border-radius":
-    "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.",
+    "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. Follows `--border-radius`.",
   "--button-size": "Default `Button` height.",
   "--button-size-large": "`Button` height with `.ui-large`.",
   "--button-size-small": "`Button` height with `.ui-small`.",
@@ -39,7 +39,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--disabled-opacity": "Opacity applied to disabled controls.",
   "--divider-space":
-    "Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
+    "Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--duration": "Default transition duration. Multiplied by `--motion`.",
   "--duration-fast": "Transition duration for hover and press feedback.",
   "--duration-slow":
@@ -49,7 +49,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ease-exit": "Easing for elements leaving the screen.",
   "--field-border-color":
     "Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.",
-  "--field-border-radius": "Corner radius for fields.",
+  "--field-border-radius":
+    "Corner radius for fields. Follows `--border-radius`.",
   "--field-border-width":
     "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
   "--field-helper-color": "Text color for helper and end text under a field.",
@@ -73,6 +74,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--focus-ring-offset": "Distance between a control and its focus ring.",
   "--focus-ring-style": "Outline style of the focus ring.",
   "--focus-ring-width": "Width of the focus ring.",
+  "--font-body":
+    "Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.",
+  "--font-code":
+    "Font family for `code`, `kbd`, `samp` and `var`. Defaults to Open Props `--font-mono`.",
+  "--font-heading":
+    "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. Follows `--font-body`.",
   "--font-size-05":
     "A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.",
   "--font-size-h1": "Font size for `h1` and `.ui-h1`.",
@@ -120,6 +127,20 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ripple-color": "Halo color for the `Checkbox` and `Radio` hover effect.",
+  "--shadow-overlay":
+    "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
+  "--shadow-raised":
+    "Shadow of raised surfaces: elevated `Card` and `Accordion`. `--shadow-4` in dark mode.",
+  "--space-1": "Spacing step 1: Open Props `--size-1` times `--space-scale`.",
+  "--space-2": "Spacing step 2: Open Props `--size-2` times `--space-scale`.",
+  "--space-3": "Spacing step 3: Open Props `--size-3` times `--space-scale`.",
+  "--space-4": "Spacing step 4: Open Props `--size-4` times `--space-scale`.",
+  "--space-5": "Spacing step 5: Open Props `--size-5` times `--space-scale`.",
+  "--space-6": "Spacing step 6: Open Props `--size-6` times `--space-scale`.",
+  "--space-7": "Spacing step 7: Open Props `--size-7` times `--space-scale`.",
+  "--space-8": "Spacing step 8: Open Props `--size-8` times `--space-scale`.",
+  "--space-scale":
+    "Multiplier for the `--space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms, tables and rich text. Controls follow `--density` instead. See [Spacing](/guide/theming#spacing).",
   "--state-active-alpha":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--state-active-alpha-accent":

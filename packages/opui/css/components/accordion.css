@@ -1,7 +1,7 @@
 @layer components.extended {
   :where(details.ui-accordion) {
     --_motion: var(--motion, 1);
-    --_actions-gap: var(--size-1);
+    --_actions-gap: var(--space-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
     --_actions-padding-inline: var(--_content-padding-inline);
@@ -9,16 +9,16 @@
     --_border-color: transparent;
     --_border-radius: var(--border-radius);
     --_border-width: 0;
-    --_content-padding-block: var(--size-2) var(--size-3);
+    --_content-padding-block: var(--space-2) var(--space-3);
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease);
     --_focus-ring-offset: var(--focus-ring-offset, 2px);
-    --_margin-inline: var(--size-1);
+    --_margin-inline: var(--space-1);
     --_overflow: visible;
     --_padding-inline: initial;
     --_shadow: none;
-    --_summary-padding-block: var(--size-3);
+    --_summary-padding-block: var(--space-3);
     --_summary-padding-inline: var(--_padding-inline);
 
     background-color: var(--_bg-color);
@@ -44,8 +44,8 @@
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_overflow: hidden;
-      --_padding-inline: var(--size-3);
-      --_shadow: var(--shadow-3);
+      --_padding-inline: var(--space-3);
+      --_shadow: var(--shadow-raised);
     }
 
     &.ui-outlined {
@@ -55,7 +55,7 @@
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_overflow: hidden;
-      --_padding-inline: var(--size-3);
+      --_padding-inline: var(--space-3);
     }
 
     &.ui-tonal {
@@ -63,7 +63,7 @@
       --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
       --_margin-inline: 0;
       --_overflow: hidden;
-      --_padding-inline: var(--size-3);
+      --_padding-inline: var(--space-3);
     }
 
     @media (forced-colors: active) {
@@ -105,7 +105,7 @@
       &:has(.ui-marker) {
         align-items: center;
         display: flex;
-        gap: var(--size-2);
+        gap: var(--space-2);
         list-style: none;
 
         /* Safari fallback */
@@ -168,7 +168,7 @@
   :where(.ui-card[role="group"]:has(details.ui-accordion)) {
     --_group-radius: var(--border-radius);
     --_gutter-color: var(--border-color);
-    --_item-padding-inline: var(--size-3);
+    --_item-padding-inline: var(--space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
     display: block;

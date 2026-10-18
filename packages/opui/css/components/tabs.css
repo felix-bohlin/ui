@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_active-bg-color: light-dark(
       var(--surface-default),
       oklch(100% 0 0 / var(--state-hover-alpha))
@@ -12,6 +12,8 @@
     --_active-shadow: var(--shadow-1);
     --_active-text-color: var(--text-primary);
     --_border-radius: var(--border-radius);
+    --_duration: calc(var(--duration-fast) * var(--_motion));
+    --_ease: var(--ease);
     --_indicator-color: transparent;
     --_indicator-size: 2px;
     --_inset: calc(var(--size-1) - var(--_track-border-width));
@@ -68,7 +70,7 @@
 
           &::before {
             animation: ui-focus-ring calc(var(--duration) * var(--_motion))
-              var(--ease);
+              var(--_ease);
             outline: var(--focus-ring-width) var(--focus-ring-style)
               var(--focus-ring-color);
             outline-offset: var(--focus-ring-offset, 0);
@@ -97,7 +99,7 @@
       );
       padding-inline: var(--size-3);
       position: relative;
-      transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
+      transition: color var(--_duration) var(--_ease);
       user-select: none;
       white-space: nowrap;
 
@@ -111,9 +113,8 @@
         inset-inline: 0;
         position: absolute;
         transition:
-          background-color calc(var(--duration-fast) * var(--_motion))
-            var(--ease),
-          box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
+          background-color var(--_duration) var(--_ease),
+          box-shadow var(--_duration) var(--_ease);
         z-index: -1;
       }
 
@@ -126,8 +127,7 @@
         inset-inline: 0;
         opacity: 0;
         position: absolute;
-        transition: opacity calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: opacity var(--_duration) var(--_ease);
       }
 
       &:nth-child(1 of .ui-tab-label) {

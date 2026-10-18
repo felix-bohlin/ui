@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_actions-gap: var(--size-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
@@ -74,8 +74,8 @@
       overflow-block: clip;
       transition:
         content-visibility var(--_duration) allow-discrete,
-        opacity var(--_duration),
-        block-size var(--_duration);
+        opacity var(--_duration) var(--_ease),
+        block-size var(--_duration) var(--_ease);
     }
 
     &[open]::details-content {

@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(.ui-badge) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_anchor-tx: calc(50% * var(--_sign-x));
     --_anchor-ty: calc(50% * var(--_sign-y));
     --_bg-color: var(--primary);
@@ -8,6 +8,8 @@
     --_border-width: 2px;
     --_dir: 1;
     --_dot-size: var(--size-2);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
     --_inset: 100%;
     --_inset-block: auto var(--_inset);
     --_inset-inline: var(--_inset) auto;
@@ -52,8 +54,8 @@
       place-items: center;
       text-align: center;
       transition:
-        opacity calc(var(--duration) * var(--_motion)) var(--ease-enter),
-        visibility calc(var(--duration) * var(--_motion)) var(--ease-enter);
+        opacity var(--_duration) var(--_ease),
+        visibility var(--_duration) var(--_ease);
     }
 
     /* Colors */

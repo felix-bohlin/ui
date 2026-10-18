@@ -130,7 +130,9 @@
     }
 
     &.ui-sticky-header {
-      --_motion: var(--motion, 1);
+      --_motion: var(--motion);
+      --_duration: calc(var(--duration) * var(--_motion));
+      --_ease: var(--ease);
       --_scroll-shadow: var(--shadow-4);
       --_sticky-offset: 0;
 
@@ -141,7 +143,7 @@
         z-index: 1;
 
         th {
-          transition: box-shadow calc(var(--duration) * var(--_motion));
+          transition: box-shadow var(--_duration) var(--_ease);
         }
       }
 

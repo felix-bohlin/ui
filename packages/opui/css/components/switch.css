@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-switch) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
     --_dot-inset: round(
       down,

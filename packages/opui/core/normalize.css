@@ -12,10 +12,8 @@
   }
 
   :where(html) {
-    --_page-bg-color: var(--surface-default);
-
     accent-color: var(--primary);
-    background-color: var(--_page-bg-color);
+    background-color: var(--surface-default);
     caret-color: var(--primary);
     color: var(--text-muted);
     font-family: var(--font-sans);
@@ -98,9 +96,9 @@
 
   :focus-visible {
     animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
-    outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+    outline: var(--focus-ring-width) var(--focus-ring-style)
       var(--focus-ring-color);
-    outline-offset: var(--focus-ring-offset, 2px);
+    outline-offset: var(--focus-ring-offset);
   }
 
   @keyframes ui-focus-ring {

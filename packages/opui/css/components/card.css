@@ -1,9 +1,11 @@
 @layer components.root {
   :where(.ui-card) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_elevated-bg-color: var(--surface-elevated);
     --_elevated-shadow: var(--_shadow-light);
     --_outlined-border-color: var(--border-color);
@@ -139,8 +141,7 @@
     &:has(.ui-card-link:focus-visible):not(
         :has(.ui-card .ui-card-link:focus-visible)
       ) {
-      animation: ui-focus-ring calc(var(--duration) * var(--_motion))
-        var(--ease);
+      animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
         var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);

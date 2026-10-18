@@ -1,9 +1,4 @@
 @layer components.extended {
-  :where(.ui-select) {
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
-  }
-
   :where(.ui-select select) {
     position: relative;
 

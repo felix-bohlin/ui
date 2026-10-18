@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-button) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_accent: light-dark(var(--color-16), var(--color-1));
     --_accent-contrast: light-dark(var(--color-1), var(--color-16));
     --_accent-text: light-dark(
@@ -29,6 +29,8 @@
       oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
       oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha-dark))
     );
+    --_duration: calc(var(--duration-fast) * var(--_motion));
+    --_ease: var(--ease);
     --_filled-active-bg-color: light-dark(
       oklch(from var(--_accent) calc(l + 0.3) c h),
       oklch(from var(--_accent) calc(l - 0.15) c h)
@@ -65,9 +67,9 @@
     text-align: center;
     text-decoration: none;
     transition:
-      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
-      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
-      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
+      background-color var(--_duration) var(--_ease),
+      color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease);
     user-select: none;
 
     &.ui-critical,

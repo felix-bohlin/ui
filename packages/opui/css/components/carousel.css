@@ -21,6 +21,8 @@
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small);
     --_button-start-flip: -1;
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_gap: var(--size-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
@@ -139,9 +141,9 @@
         scale: calc(var(--_button-flip, 1) * var(--_button-scale))
           var(--_button-scale);
         transition:
-          border-color calc(var(--duration) * var(--_motion)) var(--ease),
-          opacity calc(var(--duration) * var(--_motion)) var(--ease),
-          scale calc(var(--duration-fast) * var(--_motion)) var(--ease);
+          border-color var(--_duration) var(--_ease),
+          opacity var(--_duration) var(--_ease),
+          scale calc(var(--duration-fast) * var(--_motion)) var(--_ease);
         translate: 0 -50%;
       }
 
@@ -236,8 +238,7 @@
       }
 
       &::scroll-button(*):focus-visible {
-        animation: ui-focus-ring calc(var(--duration) * var(--_motion))
-          var(--ease);
+        animation: ui-focus-ring var(--_duration) var(--_ease);
         outline: var(--focus-ring-width) var(--focus-ring-style)
           var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
@@ -288,8 +289,7 @@
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
-        transition: background-color calc(var(--duration) * var(--_motion))
-          var(--ease);
+        transition: background-color var(--_duration) var(--_ease);
       }
 
       & > *::scroll-marker:target-current {
@@ -297,8 +297,7 @@
       }
 
       & > *::scroll-marker:focus-visible {
-        animation: ui-focus-ring calc(var(--duration) * var(--_motion))
-          var(--ease);
+        animation: ui-focus-ring var(--_duration) var(--_ease);
         outline: var(--focus-ring-width) var(--focus-ring-style)
           var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);

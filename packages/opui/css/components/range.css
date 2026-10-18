@@ -14,6 +14,8 @@
   :where(.ui-range) {
     --_motion: var(--motion);
     --_accent: var(--primary);
+    --_duration: calc(var(--duration-fast) * var(--_motion));
+    --_ease: var(--ease);
     --_thumb-size: 3ex;
 
     @media (hover: none) {
@@ -249,7 +251,7 @@
         animation-name: ui-range-fill, ui-focus-ring;
         animation-range: contain, normal;
         animation-timeline: --ui-range-thumb, auto;
-        animation-timing-function: linear, var(--ease);
+        animation-timing-function: linear, var(--_ease);
       }
 
       &:dir(rtl) {
@@ -301,8 +303,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: box-shadow var(--_duration) var(--_ease);
         view-timeline: --ui-range-thumb inline;
         view-timeline-inset: var(--_inset);
       }
@@ -319,8 +320,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: box-shadow var(--_duration) var(--_ease);
       }
 
       /* Element state */

@@ -3,6 +3,8 @@
     --_motion: var(--motion);
     --_accent: var(--primary);
     --_bg-color: var(--surface-tonal);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
 
     background-color: var(--_bg-color);
     block-size: var(--size-1);
@@ -47,8 +49,7 @@
 
       &[value]::-webkit-progress-value {
         background-color: var(--_accent);
-        transition: inline-size calc(var(--duration) * var(--_motion))
-          var(--ease-enter);
+        transition: inline-size var(--_duration) var(--_ease);
       }
 
       &::-moz-progress-bar {

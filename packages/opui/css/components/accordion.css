@@ -74,8 +74,8 @@
       overflow-block: clip;
       transition:
         content-visibility var(--_duration) allow-discrete,
-        opacity var(--_duration),
-        block-size var(--_duration);
+        opacity var(--_duration) var(--_ease),
+        block-size var(--_duration) var(--_ease);
     }
 
     &[open]::details-content {

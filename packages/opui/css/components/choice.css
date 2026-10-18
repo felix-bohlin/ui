@@ -6,6 +6,8 @@
       oklch(from var(--primary) min(l, 0.62) c h)
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
 
     align-items: start;
     color: var(--text-primary);
@@ -96,8 +98,7 @@
             transform: translateZ(-1px) scale(var(--_thumb-scale));
             transform-origin: center center;
 
-            transition: transform calc(var(--duration) * var(--_motion))
-              var(--ease);
+            transition: transform var(--_duration) var(--_ease);
             will-change: transform;
           }
         }

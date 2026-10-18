@@ -101,14 +101,14 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
 export type {
   CheckboxInputProps,
-  CheckboxProps,
+  Props as CheckboxProps,
 } from "../components/Checkbox/types.d.vue"
 export type { Props as ChipProps } from "../components/Chip/types.d.vue"
 export type {
-  DescriptionProps as DescriptionListDescriptionProps,
-  ItemProps as DescriptionListItemProps,
+  DescriptionListDescriptionProps,
+  DescriptionListItemProps,
   Props as DescriptionListProps,
-  TermProps as DescriptionListTermProps,
+  DescriptionListTermProps,
 } from "../components/DescriptionList/types.d.vue"
 export type {
   DialogActionsProps,
@@ -138,20 +138,27 @@ export type {
 export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
 export type {
   RadioInputProps,
-  RadioProps,
+  Props as RadioProps,
 } from "../components/Radio/types.d.vue"
 export type { RangeOption } from "../components/Range/types"
-export type { RangeProps } from "../components/Range/types.d.vue"
+export type { Props as RangeProps } from "../components/Range/types.d.vue"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.d.vue"
 export type {
   SwitchInputProps,
-  SwitchProps,
+  Props as SwitchProps,
 } from "../components/Switch/types.d.vue"
 export type {
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableColumnGroupProps,
   TableColumnProps,
+  TableFootProps,
+  TableHeaderCellProps,
+  TableHeadProps,
   Props as TableProps,
-  SectionProps as TableSectionProps,
+  TableRowProps,
 } from "../components/Table/types.d.vue"
 export type {
   TabsItemProps,

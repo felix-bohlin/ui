@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { DescriptionProps as Props, Slots } from "./types.d.vue"
+import type {
+  DescriptionListDescriptionProps as Props,
+  Slots,
+} from "./types.d.vue"
 
 defineProps<Props>()
 defineSlots<Slots>()

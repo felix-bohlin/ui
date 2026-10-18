@@ -1,11 +1,9 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type { IconOnlyProps, SharedProps } from "./types"
 
-export type Props = SharedProps & {
-  class?: HTMLAttributes["class"]
-  iconOnly?: boolean
-} & /* @vue-ignore */ IconOnlyProps
+export type Props = SharedProps &
+  Class & {
+    iconOnly?: boolean
+  } & /* @vue-ignore */ IconOnlyProps
 
-export type Slots = {
-  default?: Slot
-}
+export type Slots = DefaultSlots

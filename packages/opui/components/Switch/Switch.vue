@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
-import type { Slots, SwitchProps } from "./types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 import { type InputHTMLAttributes, useAttrs, useId } from "vue"
 import { warnUnnamed } from "../dev"
 import { idRefs } from "../id"
@@ -9,8 +9,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, size, spread, stack } =
-  defineProps<SwitchProps>()
+const { endText, error, hideLabel, size, spread, stack } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({

@@ -1,7 +1,7 @@
 export type RangeOption =
   string | number | { value: string | number; label?: string }
 
-export type RangeProps = {
+export type Props = {
   endText?: string
   error?: boolean
   label?: string
@@ -14,7 +14,7 @@ export type RangeProps = {
   variant?: "filled" | "tonal"
 }
 
-export type RangeSlots<S> = {
+export type Slots<S> = {
   datalist?: S
   endText?: string | S
   startText?: string | S

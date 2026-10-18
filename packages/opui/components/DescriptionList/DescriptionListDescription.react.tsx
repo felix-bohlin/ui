@@ -1,5 +1,5 @@
 import { cx } from "../cx"
-import type { DescriptionProps as Props } from "./types.react"
+import type { DescriptionListDescriptionProps as Props } from "./types.react"
 
 export default function DescriptionListDescription({
   className,

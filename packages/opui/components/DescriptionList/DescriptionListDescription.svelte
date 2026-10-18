@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DescriptionProps as Props } from "./types.svelte"
+  import type { DescriptionListDescriptionProps as Props } from "./types.svelte"
 
   let { children, class: className, ...rest }: Props = $props()
 </script>

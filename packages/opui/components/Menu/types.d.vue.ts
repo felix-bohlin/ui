@@ -1,9 +1,5 @@
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  HTMLAttributes,
-  Slot,
-} from "vue"
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type { MenuItem as BaseMenuItem, Props as BaseProps } from "./types"
 
 export type MenuItem = BaseMenuItem &
@@ -12,11 +8,9 @@ export type MenuItem = BaseMenuItem &
     keyof BaseMenuItem | "children"
   >
 
-export type Props = Omit<BaseProps, "items"> & {
-  class?: HTMLAttributes["class"]
-  items?: MenuItem[]
-}
+export type Props = Omit<BaseProps, "items"> &
+  Class & {
+    items?: MenuItem[]
+  }
 
-export type Slots = {
-  default?: Slot
-}
+export type Slots = DefaultSlots

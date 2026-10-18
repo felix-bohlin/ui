@@ -4,7 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
-import type { RangeProps as Props } from "./types.react"
+import type { Props } from "./types.react"
 
 export default function Range({
   className,

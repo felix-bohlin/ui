@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TermProps as Props } from "./types.svelte"
+  import type { DescriptionListTermProps as Props } from "./types.svelte"
 
   let { children, class: className, ...rest }: Props = $props()
 </script>

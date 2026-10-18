@@ -3,7 +3,7 @@ import { cx } from "../cx"
 import { warnUnnamed } from "../dev"
 import { idRefs } from "../id"
 import SwitchInput from "./SwitchInput.react"
-import type { SwitchProps as Props } from "./types.react"
+import type { Props } from "./types.react"
 
 export default function Switch({
   className,

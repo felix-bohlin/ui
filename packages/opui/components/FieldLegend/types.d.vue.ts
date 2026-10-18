@@ -1,11 +1,9 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type { Props as BaseProps } from "./types"
 
-export type Props = BaseProps & {
-  as?: "legend" | "p"
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps &
+  Class & {
+    as?: "legend" | "p"
+  }
 
-export type Slots = {
-  default?: Slot
-}
+export type Slots = DefaultSlots

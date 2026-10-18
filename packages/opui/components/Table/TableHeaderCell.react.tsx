@@ -1,5 +1,5 @@
-import type { SectionProps as Props } from "./types.react"
+import type { TableHeaderCellProps as Props } from "./types.react"
 
-export default function TableHeaderCell(props: Props<"th">) {
+export default function TableHeaderCell(props: Props) {
   return <th {...props} />
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { SectionProps as Props } from "./types.svelte"
+  import type { TableBodyProps as Props } from "./types.svelte"
 
-  let { children, ...rest }: Props<"tbody"> = $props()
+  let { children, ...rest }: Props = $props()
 </script>
 
 <tbody {...rest}>

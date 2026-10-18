@@ -4,7 +4,7 @@
   import { warnUnnamed } from "../dev"
   import { idRefs } from "../id"
   import SwitchInput from "./SwitchInput.svelte"
-  import type { SwitchProps as Props } from "./types.svelte"
+  import type { Props } from "./types.svelte"
 
   let {
     checked = $bindable(),

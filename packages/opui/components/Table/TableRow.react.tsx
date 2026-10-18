@@ -1,5 +1,5 @@
-import type { SectionProps as Props } from "./types.react"
+import type { TableRowProps as Props } from "./types.react"
 
-export default function TableRow(props: Props<"tr">) {
+export default function TableRow(props: Props) {
   return <tr {...props} />
 }

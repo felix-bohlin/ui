@@ -1,10 +1,11 @@
 import type { HTMLAttributes, Slot } from "vue"
-import type { RangeProps as BaseRangeProps } from "./types"
+import type { Class } from "../vue"
+import type { Props as BaseProps } from "./types"
 
-export type RangeProps = BaseRangeProps & {
-  class?: HTMLAttributes["class"]
-  id?: HTMLAttributes["id"]
-}
+export type Props = BaseProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
 
 export type Slots = {
   datalist?: Slot

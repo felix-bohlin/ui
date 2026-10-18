@@ -4,7 +4,7 @@
   import { warnUnnamed } from "../dev"
   import { idRefs } from "../id"
   import RadioInput from "./RadioInput.svelte"
-  import type { RadioProps as Props } from "./types.svelte"
+  import type { Props } from "./types.svelte"
 
   let {
     class: className,

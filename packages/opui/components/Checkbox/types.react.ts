@@ -1,9 +1,9 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-type Slots = Base.CheckboxSlots<ReactNode>
+type Slots = Base.Slots<ReactNode>
 
-export type CheckboxProps = Omit<Base.CheckboxProps, keyof Slots> &
+export type Props = Omit<Base.Props, keyof Slots> &
   Slots &
   Omit<ComponentProps<"input">, "size" | "type">
 

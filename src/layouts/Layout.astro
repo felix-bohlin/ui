@@ -119,9 +119,11 @@ const markdownUrl = hasMarkdown
     DEFAULT_FRAMEWORK,
     FRAMEWORK_STORAGE_KEY,
     frameworkPrefixPattern,
+    hrefFor,
     isFrameworkFree,
     isFrameworkId,
     pathHasFramework,
+    stripFrameworkPrefix,
   } from "../utils/framework"
 
   function rememberFramework() {
@@ -152,10 +154,9 @@ const markdownUrl = hasMarkdown
         const href = anchor.getAttribute("href")!
         const match = href.match(frameworkPrefixPattern())
         if (!match || match[1] === framework) return
-        const rest = href.slice(match[1].length + 1)
-        const path = rest.split(/[?#]/)[0] || "/"
+        const path = stripFrameworkPrefix(href.split(/[?#]/)[0])
         if (pathHasFramework(framework, path)) {
-          anchor.setAttribute("href", `/${framework}${rest}`)
+          anchor.setAttribute("href", hrefFor(framework, href))
         }
       })
   }

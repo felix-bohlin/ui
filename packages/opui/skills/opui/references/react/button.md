@@ -478,3 +478,4 @@ Import the component from `opui-css/react`:
 - [`iconOnly`](#icon-only) makes `aria-label` required on icon-only buttons (types only).
 - Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
 - Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

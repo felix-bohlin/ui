@@ -250,3 +250,4 @@ Import the component from `opui-css/astro`:
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
 - [Progress bars](#indeterminate) center in table cells and lines of text.
 - Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

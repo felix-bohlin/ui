@@ -432,3 +432,4 @@ Import the component from `opui-css/svelte`:
 - [Indicator](#indicator) context for screen readers with `srLabel`.
 - [`alignment`](#alignment) takes `"start-end"`, the default placement.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

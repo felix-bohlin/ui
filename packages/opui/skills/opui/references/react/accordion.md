@@ -526,4 +526,4 @@ Import the components from `opui-css/react`:
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - [Actions](#actions) line up with the content and the chevron.
-- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron uses `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).

@@ -11,11 +11,11 @@ A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), an
 import { Button, Menu } from "opui-css/astro"
 ---
 
-<Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-basics-1" command="toggle-popover" variant="outlined">
   Options
 </Button>
 <Menu
-  id="menu-basics"
+  id="menu-basics-1"
   items={[
     { text: "Edit", shortcut: "E" },
     { text: "Duplicate", shortcut: "D" },
@@ -34,12 +34,16 @@ import { Button, Menu } from "opui-css/astro"
 import { Button, Menu } from "opui-css/astro"
 ---
 
-<Button commandfor="menu-bordered" command="toggle-popover" variant="outlined">
+<Button
+  commandfor="menu-bordered-1"
+  command="toggle-popover"
+  variant="outlined"
+>
   Options
 </Button>
 <Menu
   bordered
-  id="menu-bordered"
+  id="menu-bordered-1"
   items={[{ text: "Edit" }, { text: "Duplicate" }, { text: "Archive" }]}
 />
 ```
@@ -58,7 +62,7 @@ import { Button, ListItem, Menu } from "opui-css/astro"
   size="small"
   aria-label="More actions"
   iconOnly
-  commandfor="menu-custom"
+  commandfor="menu-custom-1"
   command="toggle-popover"
 >
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -68,12 +72,12 @@ import { Button, ListItem, Menu } from "opui-css/astro"
     ></path>
   </svg>
 </Button>
-<Menu id="menu-custom">
+<Menu id="menu-custom-1">
   <li class="ui-label">Document</li>
   <ListItem
     as="button"
     headline="Rename"
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     <svg slot="start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -87,7 +91,7 @@ import { Button, ListItem, Menu } from "opui-css/astro"
   <ListItem
     as="button"
     headline="Copy"
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     <svg slot="start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -111,7 +115,7 @@ import { Button, ListItem, Menu } from "opui-css/astro"
     headline="Delete"
     borderTop
     critical
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     <svg slot="start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -136,36 +140,40 @@ const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 ---
 
 <Button
-  commandfor="menu-block-start"
+  commandfor="menu-placement-1"
   command="toggle-popover"
   variant="outlined"
 >
   Block start
 </Button>
-<Menu id="menu-block-start" items={items} placement="block-start" />
-
-<Button commandfor="menu-block-end" command="toggle-popover" variant="outlined">
-  Block end
-</Button>
-<Menu id="menu-block-end" items={items} />
+<Menu id="menu-placement-1" items={items} placement="block-start" />
 
 <Button
-  commandfor="menu-inline-start"
+  commandfor="menu-placement-2"
+  command="toggle-popover"
+  variant="outlined"
+>
+  Block end
+</Button>
+<Menu id="menu-placement-2" items={items} />
+
+<Button
+  commandfor="menu-placement-3"
   command="toggle-popover"
   variant="outlined"
 >
   Inline start
 </Button>
-<Menu id="menu-inline-start" items={items} placement="inline-start" />
+<Menu id="menu-placement-3" items={items} placement="inline-start" />
 
 <Button
-  commandfor="menu-inline-end"
+  commandfor="menu-placement-4"
   command="toggle-popover"
   variant="outlined"
 >
   Inline end
 </Button>
-<Menu id="menu-inline-end" items={items} placement="inline-end" />
+<Menu id="menu-placement-4" items={items} placement="inline-end" />
 ```
 
 ## Submenu
@@ -179,14 +187,14 @@ import { Button, ListItem, Menu } from "opui-css/astro"
 const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 ---
 
-<Button commandfor="menu-file" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
   File
 </Button>
-<Menu id="menu-file" items={[{ text: "New" }, { text: "Open" }]}>
+<Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
   <ListItem
     as="button"
     headline="Export"
-    commandfor="menu-export"
+    commandfor="menu-submenu-2"
     command="toggle-popover"
   >
     <svg
@@ -203,7 +211,7 @@ const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
     </svg>
     <Menu
       slot="submenu"
-      id="menu-export"
+      id="menu-submenu-2"
       items={formats}
       placement="inline-end"
     />
@@ -220,11 +228,11 @@ const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 import { Button, Menu } from "opui-css/astro"
 ---
 
-<Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-manual-1" command="toggle-popover" variant="outlined">
   View
 </Button>
 <Menu
-  id="menu-manual"
+  id="menu-manual-1"
   popover="manual"
   items={[
     { text: "Show grid", closeOnClick: false },

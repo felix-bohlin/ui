@@ -818,4 +818,6 @@ Import the component from `opui-css/astro`:
 - Breaking: `error` only sets `aria-invalid="true"` on the input. Set `error` on each checkbox in an invalid [group](#field-group-validation).
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
-- No `type` prop in the types ([API](#api)).
+- Breaking: no `type` prop in the types ([API](#api)).
+- Breaking: deep type imports from `components/Checkbox/types` are named `Props` and `Slots` (was `CheckboxProps` and `CheckboxSlots`). Import [`CheckboxProps`](#api) from the framework entry instead.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

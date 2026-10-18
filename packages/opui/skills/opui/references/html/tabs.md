@@ -576,3 +576,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
 - [Scrollable](#scrollable) tabs with `.ui-scrollable`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

@@ -501,3 +501,4 @@ Import the components from `opui-css/react`:
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
 - [Scrollable](#scrollable) tabs with the `scrollable` prop.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

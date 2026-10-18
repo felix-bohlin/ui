@@ -545,3 +545,4 @@ Import the components from `opui-css/svelte`:
 - Bind the selection with `bind:value` on `ToggleGroup` ([Binding](#binding)).
 - [`orientation`](#vertical-orientation) on `ToggleGroup` takes `"horizontal"`, the default.
 - A [toggle button](#toggle-button) grows with its content from `--button-size` instead of having a fixed height.
+- `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).

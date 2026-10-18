@@ -283,7 +283,7 @@ Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `R
 
 ## Required
 
-Add the `required` attribute on at least one `Radio`. It is forwarded to the underlying `<input>`.
+Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
 ```svelte
 <script lang="ts">
@@ -648,4 +648,4 @@ Import the component from `opui-css/svelte`:
 - [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
-- No `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

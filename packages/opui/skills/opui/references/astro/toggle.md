@@ -566,3 +566,4 @@ Import the components from `opui-css/astro`:
 - Breaking: `style` on `ToggleButton` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
 - [`orientation`](#vertical-orientation) on `ToggleGroup` takes `"horizontal"`, the default.
 - A [toggle button](#toggle-button) grows with its content from `--button-size` instead of having a fixed height.
+- `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).

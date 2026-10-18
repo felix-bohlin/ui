@@ -95,7 +95,7 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 Additionally, this is how you could include `--motion` in your CSS:
 
 ```css
-transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
+transition: transform calc(var(--duration) * var(--motion)) var(--ease);
 ```
 
 ## Contrast

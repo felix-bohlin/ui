@@ -2,7 +2,7 @@
 
 It's just a line.
 
-## Default
+## Basics
 
 ```tsx
 import { Divider } from "opui-css/react"

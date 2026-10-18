@@ -637,3 +637,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-height` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
 - A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.
 - A [toggle button](#toggle-button) grows with its content from `--button-size` instead of having a fixed height.
+- `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).

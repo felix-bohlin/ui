@@ -668,3 +668,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
 - Breaking: the page scroll lock lives in `utils.css`. Import it too if you import single files.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

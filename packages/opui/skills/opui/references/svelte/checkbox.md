@@ -771,4 +771,4 @@ Import the component from `opui-css/svelte`:
 - Without a [visible label](#visible-label), checkboxes center in table cells and lines of text.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A checkbox without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.
-- No `type` prop in the types ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

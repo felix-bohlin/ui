@@ -208,6 +208,10 @@ Without a visible label the checkbox aligns to the middle, so it centers in tabl
 
 `aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-checkbox`.
 
+In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
 ## Chip
 
 The hover and press ripple is removed. Delete any `--ripple` overrides.
@@ -265,6 +269,8 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 + <dt>Name</dt>
 + <dd>Ada</dd>
 ```
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Dialog
 
@@ -422,6 +428,10 @@ Without a visible label the radio aligns to the middle. Give it a hidden label (
 
 `aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-radio`. For an invalid group, put it on every radio in the group.
 
+In Astro, `type` and the native `size` are no longer typed props. Remove `type`, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
 ## Range
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
@@ -444,6 +454,10 @@ With `spread`, the label and the range split the container into equal columns, a
 
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
 
+In Astro, extra attributes are typed as `<input>` attributes only, since they go to the input.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
 ## Select
 
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
@@ -454,7 +468,7 @@ With `spread`, label and field split the container into equal columns. Selects k
 
 Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
 
-The `items` type is `SelectItem`, exported from every framework barrel.
+The `items` type is `SelectItem`, exported from every framework barrel, and its `value` is `number | string` instead of `any`.
 
 ```diff
 - import type { Item } from "opui-css/components/Select/types"
@@ -480,6 +494,10 @@ The `items` type is `SelectItem`, exported from every framework barrel.
 The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
+
+In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Table
 
@@ -507,6 +525,8 @@ The part files are renamed to `TableBody.*`, `TableCell.*`, `TableColumn.*`, `Ta
 - <TableColumn width="min-width: 10rem" />
 + <TableColumn style="min-width: 10rem" />
 ```
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Tabs
 
@@ -575,6 +595,13 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <label class="ui-text-field"> … <input aria-invalid="true">
 ```
 
+`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
+
+```diff
+  @import "opui-css/css/components/text-field.css";
+- @import "opui-css/css/components/text-input.css";
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -625,6 +652,13 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 ```diff
 - <ToggleGroup size="default">
 + <ToggleGroup>
+```
+
+`ToggleButton` icon styles only apply to a direct child `svg`, sized with `--_icon-size`. An `svg` nested in another element is no longer sized, so move it out of its wrapper:
+
+```diff
+- <label class="ui-toggle-button"><input type="checkbox" /><span><svg>…</svg></span></label>
++ <label class="ui-toggle-button"><input type="checkbox" /><svg>…</svg></label>
 ```
 
 ## Tooltip
@@ -693,6 +727,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Drawer                      | `--_color`                                        | `--_text-color`                                                    |
 | Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                           |
 | List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                |
+| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--surface-default`                          |
 | Progress                    | `--_accent-color`                                 | `--_accent`                                                        |
 | Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                |
 | Switch                      | `--_accent-color`                                 | `--_accent`                                                        |
@@ -763,13 +798,6 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 - import type { CheckboxProps } from "opui-css/components/Checkbox/types.astro"
 - import type { SectionProps } from "opui-css/components/Table/types.astro"
 + import type { CheckboxProps, TableCellProps } from "opui-css/astro"
-```
-
-`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
-
-```diff
-  @import "opui-css/css/components/text-field.css";
-- @import "opui-css/css/components/text-input.css";
 ```
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.

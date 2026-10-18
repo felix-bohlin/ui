@@ -2,7 +2,7 @@
 
 It's just a line.
 
-## Default
+## Basics
 
 ```html
 This text is placed over

@@ -969,3 +969,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Vertical](#vertical) carousels with `.ui-vertical`.
 - [Stretch](#stretch) cards to equal height with `.ui-stretch`.
 - The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

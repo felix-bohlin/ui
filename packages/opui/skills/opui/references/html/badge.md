@@ -481,3 +481,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

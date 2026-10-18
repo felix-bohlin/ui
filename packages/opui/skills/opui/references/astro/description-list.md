@@ -294,4 +294,5 @@ Import the components from `opui-css/astro`:
 
 - Breaking: import the parts by their flat names, such as [`DescriptionListItem`](#api). The `DescriptionList.Item` aliases are gone.
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
-- `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd` ([Basics](#basics)).
+- Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).
+- Breaking: deep type imports from `components/DescriptionList/types.astro` are named [`DescriptionListTermProps`](#api), `DescriptionListDescriptionProps` and `DescriptionListItemProps` (was `TermProps`, `DescriptionProps` and `ItemProps`), like the framework entry.

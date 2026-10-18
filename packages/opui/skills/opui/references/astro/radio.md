@@ -259,7 +259,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 
 ## Required
 
-Set `required` on at least one `Radio` in the group.
+Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
 ```astro
 ---
@@ -635,4 +635,6 @@ Import the component from `opui-css/astro`:
 - Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#field-group-validation)).
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
-- No `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
+- Breaking: no `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
+- Breaking: deep type imports from `components/Radio/types` are named `Props` and `Slots` (was `RadioProps` and `RadioSlots`). Import [`RadioProps`](#api) from the framework entry instead.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

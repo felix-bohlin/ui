@@ -505,3 +505,4 @@ Import the component from `opui-css/react`:
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
 - [`valueText`](#value) takes a function that gets the current value and follows the thumb.
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

@@ -732,4 +732,4 @@ Import the component from `opui-css/react`:
 - [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
-- No `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

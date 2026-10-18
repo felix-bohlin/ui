@@ -460,3 +460,4 @@ Import the component from `opui-css/svelte`:
 - The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

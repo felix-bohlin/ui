@@ -804,3 +804,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: mark an invalid field with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
 - Breaking: the [autosuggest](#autosuggest) and other input styles are in `text-field.css`, and `text-input.css` is gone. Remove its import.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

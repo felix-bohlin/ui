@@ -517,3 +517,4 @@ Import the components from `opui-css/vue`:
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
 - [Scrollable](#scrollable) tabs with the `scrollable` prop.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

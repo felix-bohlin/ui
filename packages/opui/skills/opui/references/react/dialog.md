@@ -673,3 +673,4 @@ Import the components from `opui-css/react`:
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
 - [`closedby`](#how-to-close) is typed in every framework.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

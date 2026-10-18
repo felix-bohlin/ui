@@ -35,7 +35,7 @@
 - `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use no variant, `filled` or `tonal` on a `Range` or `Progress`, and no variant, `tonal` or `transparent` on a `List`.
 - `TextField` and `Textarea` take `variant="filled"` like `Select` instead of the boolean `filled`. Replace `filled` with `variant="filled"`.
 - `Divider` variants render `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-filled`, `.ui-border-primary` and `.ui-border-tonal`. The `variant` values are unchanged.
-- `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename. `Badge`, `Button`, `Card`, `Carousel`, `Checkbox`, `Dialog`, `Progress`, `Radio`, `Range`, `Table`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `Tooltip` transitions read `--_duration` and `--_ease`, like `Accordion`, `Drawer`, `Menu`, `Select` and `Switch`.
+- `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
 - `Toast` keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`.
 - `ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 - `TextField`, `Textarea`, `Select`, `Switch`, `Checkbox`, `Radio` and `Range` are marked invalid with `aria-invalid="true"` on the control instead of `data-invalid` on the root. `error` in Astro and Vue sets only `aria-invalid`. Replace `data-invalid` on the root with `aria-invalid="true"` on the `<input>`, `<select>` or `<textarea>`.
@@ -63,6 +63,10 @@
 - `Select`, `Range`, `Progress` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
 - `TextField` styles in `text-input.css` moved into `text-field.css`, and `text-input.css` is removed. Remove its import.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `DescriptionList` and `Table` type files are named like the other components: `components/Checkbox/types*` export `Props` and `Slots` instead of `CheckboxProps` and `CheckboxSlots` (likewise `Radio`, `Switch` and `Range`), `DescriptionList` exports `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps` instead of `TermProps`, `DescriptionProps` and `ItemProps`, and `Table` exports one type per part (`TableBodyProps`, `TableCellProps` and the rest) instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`. Import the types from `opui-css/<framework>` instead.
+- `Checkbox`, `Radio`, `Switch`, `CheckboxInput` and `SwitchInput` in Astro no longer type a `type` prop, and `Radio` no longer types the native `size` (types).
+- `Range` in Astro types its extra attributes as `<input>` attributes only, since they go to the input (types).
+- `ToggleButton` icon styles only apply to a direct child `svg`, sized with `--_icon-size`. An `svg` nested in another element is no longer sized.
+- `normalize.css` no longer declares `--_page-bg-color`. The page background reads `--surface-default`; set that, or `background-color` on `html`.
 
 ### Removed
 
@@ -94,7 +98,7 @@
 - `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, shrinks to the space on its side and flips when that side has less than `12rem`, and moves below or above its trigger when neither side fits. Supports an `items` prop (items take native `a` and `button` attributes in every framework), `bordered` (`.ui-bordered`, a divider between items), custom `ListItem` content, placements, end alignment (`align="end"`, `.ui-align-end`), `--anchor-position-area` and critical items. Items are built like `List` items, with the text in `.ui-text` and shortcuts in `.ui-end`. Items in a submenu close the whole menu. Group labels are HTML and CSS only. Submenus go in the `submenu` slot of a `ListItem`. On iOS, submenus anchor to their parent menu instead of their trigger item.
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). Inside a `Drawer` it defaults to the drawer's `id`, and the close button uses `command="close"` (Invoker Commands). Outside a `Drawer` without `commandfor`, it closes the nearest `<dialog>` with a script.
-- `Button` links with `aria-disabled="true"` no longer receive clicks.
+- `Button` links with `aria-disabled="true"` look disabled and get no hover or press styles.
 - `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip (it doesn't disable a button or link chip).
 - `Carousel` buttons take an image icon via `--_button-icon`, sized with `--_button-icon-size`. It defaults to a chevron that points right, drawn as the inverse of the button face so it follows `.ui-dark`, `.ui-light` and forced colors, mirrored for the previous button and in RTL, and rotated in vertical carousels.
 - `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
@@ -154,6 +158,7 @@
 - `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.
 - `ButtonGroup` and `ToggleGroup` `orientation` takes `"horizontal"`, the default, like `Carousel`.
 - `Table` exports a props type for every part from `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`: `TableBodyProps`, `TableCaptionProps`, `TableCellProps`, `TableColumnGroupProps`, `TableFootProps`, `TableHeadProps`, `TableHeaderCellProps` and `TableRowProps`.
+- `Badge`, `Button`, `Card`, `Carousel`, `Checkbox`, `Dialog`, `Progress`, `Radio`, `Range`, `Table`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `Tooltip` transitions read `--_duration` and `--_ease`, like `Accordion`, `Drawer`, `Menu`, `Select` and `Switch`.
 
 ### Changed
 
@@ -230,10 +235,8 @@
 - `Range` generates the `<datalist>` id when `options` or the `datalist` slot is used, so `list` is optional.
 - `Range` in Vue scopes the `value` slot with the current `value`, so custom readout content follows the thumb.
 - `theme.css` `--text-primary-contrast` is an alias of `--text-inverse`, the text color on `--surface-inverse` that `Toast` and `Tooltip` use, so it is `--gray-1` instead of `--gray-2` in light mode. Use `--text-inverse` instead.
-- `Range` in Astro types its extra attributes as `<input>` attributes only, since they go to the input.
-- `Checkbox`, `Radio`, `Switch` and their `*Input` parts no longer type a `type` prop, and `Radio` no longer types the native `size`.
-- `ToggleButton` grows from `--button-size` with its content instead of having a fixed height, and sizes only direct child `svg`s, like `Button`.
-- `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`, and an invalid range only changes `--_accent`, so a disabled invalid range keeps its disabled thumb.
+- `ToggleButton` grows from `--button-size` with its content instead of having a fixed height.
+- `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`.
 - `Switch` turns its checked track red when invalid, like `Checkbox` and `Radio`.
 - `Typography` `.ui-small` is at least `0.75em` of the surrounding text instead of `0.5em`, like rich text `small`, so it stays in proportion in headings.
 - `Typography` rich text `var` uses the monospace font and wraps long names, like `.ui-var`.
@@ -313,7 +316,7 @@
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
 - `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
-- `Range` invalid state colors the thumb too.
+- `Range` invalid state colors the thumb and its halo too, except on a disabled range.
 - `Checkbox` forced-colors styles apply to checked and indeterminate boxes.
 - `Callout` rich text inside `.ui-content` no longer gets doubled margins.
 - `List` and `Table` borders on filled lists and table headers are visible in light mode.

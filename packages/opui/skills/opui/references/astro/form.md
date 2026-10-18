@@ -30,7 +30,7 @@ Dog Cat
 
   Lays out related fields.
 
-## Usage
+## Basics
 
 ```astro
 ---
@@ -330,7 +330,7 @@ import {
 } from "opui-css/astro"
 ---
 
-<Form id="kitchen-sink-example">
+<Form id="form-kitchen-sink-1">
   <FieldSet>
     <FieldLegend>User Profile</FieldLegend>
     <FieldDescription>

@@ -761,3 +761,4 @@ Import the component from `opui-css/react`:
 - [Vertical](#vertical) carousels with `orientation="vertical"`.
 - [Stretch](#stretch) cards to equal height with the `stretch` prop.
 - The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

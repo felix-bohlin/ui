@@ -200,9 +200,9 @@ const whatsNew = {
     slots(
       `<a href="#end-text"><code>endText</code></a> takes a string, like the <code>end-text</code> slot.`,
     ),
-    components(
-      `No <code>type</code> prop in the types (<a href="#api">API</a>).`,
-    ),
+    {
+      astro: `Breaking: no <code>type</code> prop in the types (<a href="#api">API</a>).`,
+    },
     slots(
       `Breaking: deep type imports from <code>components/Checkbox/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>CheckboxProps</code> and <code>CheckboxSlots</code>). Import <a href="#api"><code>CheckboxProps</code></a> from the framework entry instead.`,
     ),
@@ -251,14 +251,14 @@ const whatsNew = {
       html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
     },
     {
-      ...components(
-        `<code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> render a plain <code>dt</code> and <code>dd</code> (<a href="#basics">Basics</a>).`,
+      ...slots(
+        `Breaking: <code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> no longer render <code>.ui-term</code> and <code>.ui-description</code>. Select <code>dt</code> and <code>dd</code> in your CSS (<a href="#basics">Basics</a>).`,
       ),
       html: `Breaking: <code>.ui-term</code> and <code>.ui-description</code> are gone. The list styles <code>dt</code> and <code>dd</code> by element (<a href="#basics">Basics</a>).`,
     },
-    slots(
-      `Breaking: deep type imports from <code>components/DescriptionList/types</code> are named <a href="#api"><code>DescriptionListTermProps</code></a>, <code>DescriptionListDescriptionProps</code> and <code>DescriptionListItemProps</code> (was <code>TermProps</code>, <code>DescriptionProps</code> and <code>ItemProps</code>), like the framework entry.`,
-    ),
+    {
+      astro: `Breaking: deep type imports from <code>components/DescriptionList/types.astro</code> are named <a href="#api"><code>DescriptionListTermProps</code></a>, <code>DescriptionListDescriptionProps</code> and <code>DescriptionListItemProps</code> (was <code>TermProps</code>, <code>DescriptionProps</code> and <code>ItemProps</code>), like the framework entry.`,
+    },
   ],
   dialog: [
     slots(
@@ -405,9 +405,9 @@ const whatsNew = {
     slots(
       `<a href="#end-text"><code>endText</code></a> takes a string, like the <code>end-text</code> slot.`,
     ),
-    components(
-      `No <code>type</code> prop in the types, and the native <code>size</code> isn't typed either (<a href="#api">API</a>).`,
-    ),
+    {
+      astro: `Breaking: no <code>type</code> prop in the types, and the native <code>size</code> isn't typed either (<a href="#api">API</a>).`,
+    },
     slots(
       `Breaking: deep type imports from <code>components/Radio/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RadioProps</code> and <code>RadioSlots</code>). Import <a href="#api"><code>RadioProps</code></a> from the framework entry instead.`,
     ),
@@ -449,7 +449,7 @@ const whatsNew = {
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;input&gt;</code> (<a href="#api">API</a>).`,
     ),
     {
-      astro: `Extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
+      astro: `Breaking: extra attributes are typed as <code>&lt;input&gt;</code> attributes, where they go (<a href="#api">API</a>).`,
     },
     `The thumb, its halo and the track fill follow <code>--_accent</code> on <code>.ui-range</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
@@ -521,9 +521,9 @@ const whatsNew = {
     slots(
       `<a href="#end-text"><code>endText</code></a> takes a string, like the <code>end-text</code> slot.`,
     ),
-    components(
-      `No <code>type</code> prop in the types (<a href="#api">API</a>).`,
-    ),
+    {
+      astro: `Breaking: no <code>type</code> prop in the types (<a href="#api">API</a>).`,
+    },
     `A checked invalid switch turns its track red, like Checkbox and Radio (<a href="#validation">Validation</a>).`,
     slots(
       `Breaking: deep type imports from <code>components/Switch/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>SwitchProps</code> and <code>SwitchSlots</code>). Import <a href="#api"><code>SwitchProps</code></a> from the framework entry instead.`,

@@ -288,4 +288,3 @@ Import the components from `opui-css/svelte`:
 ### What's new
 
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
-- `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd` ([Basics](#basics)).

@@ -30,7 +30,7 @@ Dog Cat
 
   Lays out related fields.
 
-## Usage
+## Basics
 
 ```vue
 <script setup lang="ts">
@@ -351,7 +351,7 @@ const roleItems = [
 </script>
 
 <template>
-  <Form id="kitchen-sink-example">
+  <Form id="form-kitchen-sink-1">
     <FieldSet>
       <FieldLegend>User Profile</FieldLegend>
       <FieldDescription>
@@ -764,4 +764,4 @@ Import the components from `opui-css/vue`:
 
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
-- `Form`, `FieldSet` and `FieldLegend` type [`as`](#usage) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
+- `Form`, `FieldSet` and `FieldLegend` type [`as`](#basics) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.

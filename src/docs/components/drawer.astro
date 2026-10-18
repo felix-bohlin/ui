@@ -81,7 +81,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
   <section>
     <h2 id="usage">Usage</h2>
     <Conditional>
-      <Fragment slot="astro">
+      <Fragment slot="components">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
           Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
@@ -127,75 +127,6 @@ import PropOrClass from "../../components/PropOrClass.astro"
           >
           the page stays scrollable, except on screens narrower than 500px. Omit the
           class to allow background scrolling.
-        </p>
-      </Fragment>
-      <Fragment slot="react">
-        <p>Change the opening side with the <code>side</code> prop.</p>
-        <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
-        </p>
-        <p>
-          The header and footer stay put while the content scrolls, with a
-          shadow on the scrolled edge.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use <code
-            >backdrop="transparent"</code
-          > to keep the page behind it fully visible.
-        </p>
-        <p>
-          Page scrolling is locked by default when the drawer is open. With a
-          transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
-          allow scrolling on every screen.
-        </p>
-      </Fragment>
-      <Fragment slot="svelte">
-        <p>Change the opening side with the <code>side</code> prop.</p>
-        <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
-        </p>
-        <p>
-          The header and footer stay put while the content scrolls, with a
-          shadow on the scrolled edge.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use <code
-            >backdrop="transparent"</code
-          > to keep the page behind it fully visible.
-        </p>
-        <p>
-          Page scrolling is locked by default when the drawer is open. With a
-          transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
-          allow scrolling on every screen.
-        </p>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>Change the opening side with the <code>side</code> prop.</p>
-        <p>
-          Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
-        </p>
-        <p>
-          The header and footer stay put while the content scrolls, with a
-          shadow on the scrolled edge.
-        </p>
-        <p>
-          The backdrop dims and blurs the page by default. Use <code
-            >backdrop="transparent"</code
-          > to keep the page behind it fully visible.
-        </p>
-        <p>
-          Page scrolling is locked by default when the drawer is open. With a
-          transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
-          allow scrolling on every screen.
         </p>
       </Fragment>
     </Conditional>
@@ -246,7 +177,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
     <ul>
       <li>
         <Conditional>
-          <Fragment slot="astro"
+          <Fragment slot="components"
             >The <code>DrawerTitle</code> names the drawer through <code
               >aria-labelledby</code
             >. A drawer without one needs an <code>aria-label</code>. Pass <code
@@ -257,27 +188,6 @@ import PropOrClass from "../../components/PropOrClass.astro"
             >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
             <code>id</code>, not at <code>.ui-header</code>, which also holds
             the close button.</Fragment
-          >
-          <Fragment slot="react"
-            >The <code>DrawerTitle</code> names the drawer through <code
-              >aria-labelledby</code
-            >. A drawer without one needs an <code>aria-label</code>. Pass <code
-              >aria-labelledby</code
-            > to name it after another element.</Fragment
-          >
-          <Fragment slot="svelte"
-            >The <code>DrawerTitle</code> names the drawer through <code
-              >aria-labelledby</code
-            >. A drawer without one needs an <code>aria-label</code>. Pass <code
-              >aria-labelledby</code
-            > to name it after another element.</Fragment
-          >
-          <Fragment slot="vue"
-            >The <code>DrawerTitle</code> names the drawer through <code
-              >aria-labelledby</code
-            >. A drawer without one needs an <code>aria-label</code>. Pass <code
-              >aria-labelledby</code
-            > to name it after another element.</Fragment
           >
         </Conditional>
       </li>

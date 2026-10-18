@@ -77,7 +77,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         The <code>name</code> prop will get passed down to each radio button in the
         group.
       </Fragment>
@@ -85,18 +85,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         Give every <code>&lt;input type="radio"&gt;</code> in the group the same
         {" "}<code>name</code> attribute. Browsers use that shared name to enforce
         mutual exclusivity within the group.
-      </Fragment>
-      <Fragment slot="react">
-        The <code>name</code> prop will get passed down to each radio button in the
-        group.
-      </Fragment>
-      <Fragment slot="svelte">
-        The <code>name</code> prop will get passed down to each radio button in the
-        group.
-      </Fragment>
-      <Fragment slot="vue">
-        The <code>name</code> prop will get passed down to each radio button in the
-        group.
       </Fragment>
     </Conditional>
 
@@ -106,7 +94,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -118,21 +106,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >&lt;label class="ui-radio"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
@@ -140,7 +113,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >The default slot is the label. Without a visible label, keep the text
         in the slot and set <code>hideLabel</code> to hide it visually.</Fragment
       >
@@ -158,17 +131,13 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         >The <code>children</code> snippet is the label. Without a visible label,
         keep the text in it and set <code>hideLabel</code> to hide it visually.</Fragment
       >
-      <Fragment slot="vue"
-        >The default slot is the label. Without a visible label, keep the text
-        in the slot and set <code>hideLabel</code> to hide it visually.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Set <code>stack</code> to put the label under the radio.</Fragment
       >
       <Fragment slot="html"
@@ -176,21 +145,12 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >&lt;label class="ui-radio"&gt;</code
         > to put the label under the radio.</Fragment
       >
-      <Fragment slot="react"
-        >Set <code>stack</code> to put the label under the radio.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Set <code>stack</code> to put the label under the radio.</Fragment
-      >
-      <Fragment slot="vue"
-        >Set <code>stack</code> to put the label under the radio.</Fragment
-      >
     </Conditional>
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Use the <code>endText</code> prop for supporting text under a single radio's
         label, or the <code>end-text</code> slot for rich content. The component points
         <code>aria-describedby</code> at it.</Fragment
@@ -210,11 +170,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         points
         <code>aria-describedby</code> at it.</Fragment
       >
-      <Fragment slot="vue"
-        >Use the <code>endText</code> prop for supporting text under a single radio's
-        label, or the <code>end-text</code> slot for rich content. The component points
-        <code>aria-describedby</code> at it.</Fragment
-      >
     </Conditional>
     <AutoExample name="EndText" row spacious />
   </section>
@@ -222,7 +177,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the radio
         to the right. Handy for settings cards next to spread checkboxes and switches.
       </Fragment>
@@ -232,18 +187,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         >
         {" "}to push the label to the left and the radio to the right. Handy for
         settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the radio
-        to the right. Handy for settings cards next to spread checkboxes and switches.
       </Fragment>
     </Conditional>
 
@@ -258,7 +201,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="field-group-direction">Direction</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Radios stack vertically by default. Set <code>direction="row"</code> on the
         <code>FieldGroup</code> to put them in a row.
       </Fragment>
@@ -266,18 +209,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         Radios stack vertically by default. Add <code>.ui-row</code> to the <code
           >.ui-field-group</code
         > to put them in a row.
-      </Fragment>
-      <Fragment slot="react">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="svelte">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="vue">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
-        <code>FieldGroup</code> to put them in a row.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldGroupDirection" row />
@@ -292,7 +223,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="field-group-disabled">Disabled</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
         in it, or on a single <code>Radio</code>.
       </Fragment>
@@ -302,18 +233,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         > element to disable every radio in it, or to a single <code
           >&lt;input&gt;</code
         >.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
-        in it, or on a single <code>Radio</code>.
       </Fragment>
     </Conditional>
 
@@ -328,22 +247,9 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="field-group-required">Required</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>required</code> on at least one <code>Radio</code> in the group.
-      </Fragment>
-      <Fragment slot="react">
+      <Fragment slot="components">
         Set the <code>required</code> prop on at least one <code>Radio</code>.
         It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Add the <code>required</code> attribute on at least one <code
-          >Radio</code
-        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Add the <code>required</code> attribute on at least one <code
-          >Radio</code
-        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
       <Fragment slot="html">
         Attach the <code>required</code> attribute to at least one of your <code
@@ -357,25 +263,13 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="field-group-validation">Validation</h2>
     <Conditional>
+      <p slot="components">
+        Set <code>error</code> on each <code>Radio</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
-      </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Radio</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
     <p>

@@ -92,7 +92,7 @@ export const description =
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>. Set it on a <code
@@ -106,27 +106,6 @@ export const description =
           >.ui-toggle-button</code
         >, or to a <code>.ui-toggle-group</code> to size all its buttons.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>. Set it on a <code
-          >ToggleButton</code
-        >, or on a <code>ToggleGroup</code> to size all its buttons.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>. Set it on a <code
-          >ToggleButton</code
-        >, or on a <code>ToggleGroup</code> to size all its buttons.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>. Set it on a <code
-          >ToggleButton</code
-        >, or on a <code>ToggleGroup</code> to size all its buttons.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Sizes" centered row />
@@ -135,7 +114,7 @@ export const description =
   <section>
     <h2 id="toggle-group">Toggle group</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
       </Fragment>
       <Fragment slot="html">
@@ -143,33 +122,15 @@ export const description =
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
-      <Fragment slot="react">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
-      <Fragment slot="svelte">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
-      <Fragment slot="vue">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
     </Conditional>
 
     <h3 id="multi-select">Multi-select</h3>
     <Conditional>
+      <p slot="components">
+        Use <code>selection="multiple"</code> for multi-select groups.
+      </p>
       <p slot="html">
         Use <code>type="checkbox"</code> for multi-select groups.
-      </p>
-      <p slot="astro">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-      <p slot="react">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-      <p slot="svelte">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-      <p slot="vue">
-        Use <code>selection="multiple"</code> for multi-select groups.
       </p>
     </Conditional>
 
@@ -177,34 +138,16 @@ export const description =
 
     <h3 id="single-select">Single-select</h3>
     <Conditional>
+      <p slot="components">
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
+      </p>
       <p slot="html">
         Use <code>type="radio"</code> for single-select groups. Add <code
           >checked</code
         > to the input that starts pressed.
-      </p>
-      <p slot="astro">
-        Use <code>selection="single"</code> for single-select groups. Every button
-        is a radio then, and a <code>type</code> on a button is ignored. Set <code
-          >pressed</code
-        > on the button that starts pressed.
-      </p>
-      <p slot="react">
-        Use <code>selection="single"</code> for single-select groups. Every button
-        is a radio then, and a <code>type</code> on a button is ignored. Set <code
-          >pressed</code
-        > on the button that starts pressed.
-      </p>
-      <p slot="svelte">
-        Use <code>selection="single"</code> for single-select groups. Every button
-        is a radio then, and a <code>type</code> on a button is ignored. Set <code
-          >pressed</code
-        > on the button that starts pressed.
-      </p>
-      <p slot="vue">
-        Use <code>selection="single"</code> for single-select groups. Every button
-        is a radio then, and a <code>type</code> on a button is ignored. Set <code
-          >pressed</code
-        > on the button that starts pressed.
       </p>
     </Conditional>
 
@@ -261,7 +204,7 @@ export const description =
 
     <h3 id="text-icon">Text + icon</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Put an <code>svg</code> before the text in the slot. Icon-only buttons need
         an <code>aria-label</code>, which the component passes to the input.
       </Fragment>
@@ -280,17 +223,13 @@ export const description =
         Icon-only buttons need an <code>aria-label</code>, which the component
         passes to the input.
       </Fragment>
-      <Fragment slot="vue">
-        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
-        an <code>aria-label</code>, which the component passes to the input.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Interactive" centered />
 
     <h3 id="vertical-orientation">Vertical orientation</h3>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Change the layout of the group with the <code
           >orientation="vertical"</code
         > prop.
@@ -298,27 +237,12 @@ export const description =
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
       </p>
-      <p slot="react">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
-      <p slot="svelte">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
-      <p slot="vue">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
     </Conditional>
     <AutoExample name="Vertical" centered />
 
     <h3 id="overflow">Overflow</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
           >scrollable</code
         > to keep them on one row and scroll them sideways, or <code
@@ -331,30 +255,6 @@ export const description =
           >.ui-scrollable</code
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="react">
-        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="svelte">
-        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="vue">
-        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>

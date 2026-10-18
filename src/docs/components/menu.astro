@@ -70,30 +70,15 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
+      <Fragment slot="components"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
       <Fragment slot="html"
         ><code>command="toggle-popover"</code> to open, and <code
           >command="hide-popover"</code
         > to close.</Fragment
-      >
-      <Fragment slot="astro"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
       >
     </Conditional>
 
@@ -120,30 +105,15 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="placement">Placement</h2>
     <Conditional as="p">
+      <Fragment slot="components"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
       <Fragment slot="html"
         ><code>.ui-block-start</code>, <code>.ui-inline-start</code>, <code
           >.ui-inline-end</code
         >, or any <code>--anchor-position-area</code>. <code>.ui-align-end</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="astro"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
         > to line up with the end edge.</Fragment
       >
     </Conditional>
@@ -154,7 +124,7 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="submenu">Submenu</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
@@ -181,13 +151,6 @@ export const description = "A popover list of actions or links."
           >end</code
         > snippet. Submenu items close the whole menu.
       </Fragment>
-      <Fragment slot="vue">
-        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
-          >ListItem</code
-        >. Mark the item with an icon from your icon library in the <code
-          >end</code
-        > slot. Submenu items close the whole menu.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Submenu" centered />
@@ -196,7 +159,7 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="manual">Manual</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         ><code>popover="manual"</code> keeps the menu open until the trigger or an
         item closes it. Esc and a click outside don't close it, and opening another
         menu doesn't either. Items close the menu by default, so set <code
@@ -208,27 +171,6 @@ export const description = "A popover list of actions or links."
         item closes it. Esc and a click outside don't close it, and opening another
         menu doesn't either. Give <code>command="hide-popover"</code> only to the
         items that should close it.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
       >
     </Conditional>
 

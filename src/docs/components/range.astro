@@ -56,7 +56,7 @@ export const description =
   <section>
     <h2 id="variants">Variants</h2>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Use the <code>variant</code> prop to swap the track surface for better contrast
         on different backgrounds. Without a variant, the track uses <code
           >--field-border-color</code
@@ -66,24 +66,6 @@ export const description =
         Use the <code>.ui-filled</code> or <code>.ui-tonal</code>
         {" "}class to swap the track surface for better contrast on different
         backgrounds. Without a class, the track uses <code
-          >--field-border-color</code
-        >, like the border of a text field.
-      </p>
-      <p slot="react">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds. Without a variant, the track uses <code
-          >--field-border-color</code
-        >, like the border of a text field.
-      </p>
-      <p slot="svelte">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds. Without a variant, the track uses <code
-          >--field-border-color</code
-        >, like the border of a text field.
-      </p>
-      <p slot="vue">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds. Without a variant, the track uses <code
           >--field-border-color</code
         >, like the border of a text field.
       </p>
@@ -148,7 +130,7 @@ export const description =
   <section>
     <h2 id="tick-marks">Tick marks</h2>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Pass an <code>options</code> array - <code
           >{"options=[{ value, label }]"}</code
         > - and the component renders a <code>&lt;datalist&gt;</code> and links it
@@ -160,24 +142,6 @@ export const description =
         <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
       </p>
-      <p slot="react">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
-        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
-        to the input. Set <code>list</code> to choose its id.
-      </p>
-      <p slot="svelte">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
-        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
-        to the input. Set <code>list</code> to choose its id.
-      </p>
-      <p slot="vue">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
-        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
-        to the input. Set <code>list</code> to choose its id.
-      </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
   </section>
@@ -185,25 +149,13 @@ export const description =
   <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set the <code>disabled</code> prop to disable the slider. The whole range
         dims and shows a not-allowed cursor.
       </Fragment>
       <Fragment slot="html">
         Add <code>disabled</code> to the <code>&lt;input&gt;</code> to disable the
         slider. The whole <code>.ui-range</code> dims and shows a not-allowed cursor.
-      </Fragment>
-      <Fragment slot="react">
-        Set the <code>disabled</code> prop to disable the slider. The whole range
-        dims and shows a not-allowed cursor.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set the <code>disabled</code> prop to disable the slider. The whole range
-        dims and shows a not-allowed cursor.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the <code>disabled</code> prop to disable the slider. The whole range
-        dims and shows a not-allowed cursor.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column />
@@ -226,7 +178,7 @@ export const description =
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the slider on the right. The value, tick marks and end text
         go under the slider. The layout collapses to a column in containers narrower
@@ -234,24 +186,6 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and start text
-        on the left with the slider on the right. The value, tick marks and end text
-        go under the slider. The layout collapses to a column in containers narrower
-        than 400px.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the slider on the right. The value, tick marks and end text
-        go under the slider. The layout collapses to a column in containers narrower
-        than 400px.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the slider on the right. The value, tick marks and end text
-        go under the slider. The layout collapses to a column in containers narrower
-        than 400px.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the slider on the right. The value, tick marks and end text
         go under the slider. The layout collapses to a column in containers narrower
         than 400px.

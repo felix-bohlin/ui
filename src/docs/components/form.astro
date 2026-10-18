@@ -102,25 +102,13 @@ const anatomyApi = {
   <section>
     <h2 id="fieldset">Fieldset</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Groups related fields. Label it with <code>FieldLegend</code> and add an optional
         <code>FieldDescription</code>.
       </Fragment>
       <Fragment slot="html">
         Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
         optional <code>.ui-field-description</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
-        <code>FieldDescription</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
-        <code>FieldDescription</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
-        <code>FieldDescription</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetStacked" />
@@ -129,7 +117,7 @@ const anatomyApi = {
   <section>
     <h2 id="field-group">Field group</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Lays out related fields and passes a shared <code>name</code> to the OPUI
         fields inside. Wrap it in a fieldset to group them for screen readers.
       </Fragment>
@@ -137,38 +125,17 @@ const anatomyApi = {
         Lays out related fields. Wrap it in a fieldset to group them for screen
         readers.
       </Fragment>
-      <Fragment slot="react">
-        Lays out related fields and passes a shared <code>name</code> to the OPUI
-        fields inside. Wrap it in a fieldset to group them for screen readers.
-      </Fragment>
-      <Fragment slot="svelte">
-        Lays out related fields and passes a shared <code>name</code> to the OPUI
-        fields inside. Wrap it in a fieldset to group them for screen readers.
-      </Fragment>
-      <Fragment slot="vue">
-        Lays out related fields and passes a shared <code>name</code> to the OPUI
-        fields inside. Wrap it in a fieldset to group them for screen readers.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="FieldGroup" />
 
     <h3 id="field-group-row">Row</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>direction="row"</code> to lay out fields horizontally.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-row</code> to lay out fields horizontally.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>direction="row"</code> to lay out fields horizontally.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>direction="row"</code> to lay out fields horizontally.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>direction="row"</code> to lay out fields horizontally.
       </Fragment>
     </Conditional>
 
@@ -180,7 +147,7 @@ const anatomyApi = {
 
     <h3 id="fieldset-disabled">Disabled</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>disabled</code> on <code>FieldSet</code> to disable every field
         inside.
       </Fragment>
@@ -188,24 +155,12 @@ const anatomyApi = {
         Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to disable
         every field inside.
       </Fragment>
-      <Fragment slot="react">
-        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
-        inside.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
-        inside.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
-        inside.
-      </Fragment>
     </Conditional>
     <AutoExample name="FieldsetDisabled" />
 
     <h3 id="fieldset-invalid">Invalid</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>error</code> on each field in the <code>FieldSet</code>, and
         explain the error in a <code>.ui-end-text</code> directly inside it. The end
         text turns red when a field has <code>error</code> set.
@@ -215,21 +170,6 @@ const anatomyApi = {
         <code>&lt;fieldset&gt;</code>, and explain the error in a
         <code>.ui-end-text</code> directly inside it. The end text turns red when
         a control has <code>aria-invalid="true"</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>error</code> on each field in the <code>FieldSet</code>, and
-        explain the error in a <code>.ui-end-text</code> directly inside it. The end
-        text turns red when a field has <code>error</code> set.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>error</code> on each field in the <code>FieldSet</code>, and
-        explain the error in a <code>.ui-end-text</code> directly inside it. The end
-        text turns red when a field has <code>error</code> set.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>error</code> on each field in the <code>FieldSet</code>, and
-        explain the error in a <code>.ui-end-text</code> directly inside it. The end
-        text turns red when a field has <code>error</code> set.
       </Fragment>
     </Conditional>
     <p>
@@ -248,7 +188,7 @@ const anatomyApi = {
   <section>
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         A field group with only buttons lines up in a row. Set <code
           >direction="column"</code
         > to stack the buttons instead. Separate the group from the fields with <code
@@ -262,27 +202,6 @@ const anatomyApi = {
           >&lt;hr class="ui-divider"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        A field group with only buttons lines up in a row. Set <code
-          >direction="column"</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >Divider</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        A field group with only buttons lines up in a row. Set <code
-          >direction="column"</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >Divider</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        A field group with only buttons lines up in a row. Set <code
-          >direction="column"</code
-        > to stack the buttons instead. Separate the group from the fields with <code
-          >Divider</code
-        >.
-      </Fragment>
     </Conditional>
     <AutoExample name="Divider" />
   </section>
@@ -290,7 +209,7 @@ const anatomyApi = {
   <section>
     <h2 id="without-fieldset">Without fieldset</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
           >&lt;legend&gt;</code
         >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
@@ -307,33 +226,6 @@ const anatomyApi = {
         > and <code>.ui-legend</code> on other elements. A <code>div</code> doesn't
         pick up its name from the legend, so give the legend an <code>id</code> and
         point <code>aria-labelledby</code> on the field set at it.
-      </Fragment>
-      <Fragment slot="react">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
-          >FieldLegend</code
-        >. A <code>div</code> doesn't pick up its name from the legend, so give the
-        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
-        set at it.
-      </Fragment>
-      <Fragment slot="svelte">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
-          >FieldLegend</code
-        >. A <code>div</code> doesn't pick up its name from the legend, so give the
-        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
-        set at it.
-      </Fragment>
-      <Fragment slot="vue">
-        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
-          >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
-          >FieldLegend</code
-        >. A <code>div</code> doesn't pick up its name from the legend, so give the
-        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
-        set at it.
       </Fragment>
     </Conditional>
     <AutoExample name="AdaptiveOutput" />
@@ -354,11 +246,10 @@ const anatomyApi = {
         >
         <UISwitch id="kitchen-sink-divider-toggle">
           <Conditional>
-            <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
+            <Fragment slot="components"
+              >Show <code>&lt;Divider&gt;</code></Fragment
+            >
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
-            <Fragment slot="react">Show <code>&lt;Divider&gt;</code></Fragment>
-            <Fragment slot="svelte">Show <code>&lt;Divider&gt;</code></Fragment>
-            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>

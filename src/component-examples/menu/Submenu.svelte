@@ -4,14 +4,14 @@
   const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 </script>
 
-<Button commandfor="menu-file" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
   File
 </Button>
-<Menu id="menu-file" items={[{ text: "New" }, { text: "Open" }]}>
+<Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
   <ListItem
     as="button"
     headline="Export"
-    commandfor="menu-export"
+    commandfor="menu-submenu-2"
     command="toggle-popover"
   >
     {#snippet end()}
@@ -28,7 +28,7 @@
       </svg>
     {/snippet}
     {#snippet submenu()}
-      <Menu id="menu-export" items={formats} placement="inline-end" />
+      <Menu id="menu-submenu-2" items={formats} placement="inline-end" />
     {/snippet}
   </ListItem>
 </Menu>

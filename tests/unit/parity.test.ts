@@ -11,11 +11,12 @@ import { renderToString } from "vue/server-renderer"
 import { describe, expect, test } from "vitest"
 import {
   DEFAULT_FRAMEWORK,
+  exampleExtension,
   FRAMEWORK_IDS as FRAMEWORKS,
   type FrameworkId as Framework,
 } from "../../src/utils/framework"
 import { createIdGenerator } from "../../src/utils/id"
-import { normalize } from "./normalize"
+import { idsOf, normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
 
@@ -124,13 +125,41 @@ const renderExample = <F extends Framework>(example: Example, framework: F) =>
     renderers[framework](loaded, example.key),
   )
 
+const renders = new Map<string, Promise<string>>()
+const rendered = (example: Example, framework: Framework) => {
+  const cacheKey = `${example.key}.${framework}`
+  if (!renders.has(cacheKey)) {
+    renders.set(cacheKey, renderExample(example, framework))
+  }
+  return renders.get(cacheKey)!
+}
+
 const cache = new Map<string, Promise<string>>()
 const markup = (example: Example, framework: Framework) => {
   const cacheKey = `${example.key}.${framework}`
   if (!cache.has(cacheKey)) {
-    cache.set(cacheKey, renderExample(example, framework).then(normalize))
+    cache.set(cacheKey, rendered(example, framework).then(normalize))
   }
   return cache.get(cacheKey)!
+}
+
+const idPattern = (key: string) => {
+  const [slug, name] = key.split("/")
+  const example = name
+    .replace(/Code$/, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .toLowerCase()
+  return new RegExp(`^${slug}-${example}-\\d+(-[a-z]+)*$`)
+}
+
+const authoredIds = async (example: Example, framework: Framework) => {
+  const source =
+    exampleSources[
+      `../../src/component-examples/${example.key}.${exampleExtension(framework)}`
+    ]
+  return idsOf(await rendered(example, framework)).filter((id) =>
+    source.includes(`"${id}"`),
+  )
 }
 
 describe.each(cases)("$key", (example) => {
@@ -154,6 +183,24 @@ describe.each(cases)("$key", (example) => {
         (name) => !name.startsWith("ui-") && !EXAMPLE_CLASSES.has(name),
       )
       expect(unprefixed).toEqual([])
+    },
+  )
+
+  test.each(frameworks)(
+    "%s ids follow <slug>-<example>-<n> and match html",
+    async (framework) => {
+      const pattern = idPattern(example.key)
+      const ids = await authoredIds(example, framework)
+      expect(
+        ids.filter((id) => !pattern.test(id)),
+        `ids must match ${pattern}`,
+      ).toEqual([])
+      if (framework === "html" || !example.loaders.html) return
+      const htmlIds = await authoredIds(example, "html")
+      expect(
+        ids.filter((id) => !htmlIds.includes(id)),
+        "ids must be the ones the html example uses",
+      ).toEqual([])
     },
   )
 

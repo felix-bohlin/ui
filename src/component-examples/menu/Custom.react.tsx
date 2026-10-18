@@ -8,7 +8,7 @@ export default function Custom() {
         size="small"
         aria-label="More actions"
         iconOnly
-        commandfor="menu-custom"
+        commandfor="menu-custom-1"
         command="toggle-popover"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -18,12 +18,12 @@ export default function Custom() {
           ></path>
         </svg>
       </Button>
-      <Menu id="menu-custom">
+      <Menu id="menu-custom-1">
         <li className="ui-label">Document</li>
         <ListItem
           as="button"
           headline="Rename"
-          commandfor="menu-custom"
+          commandfor="menu-custom-1"
           command="hide-popover"
           start={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ export default function Custom() {
         <ListItem
           as="button"
           headline="Copy"
-          commandfor="menu-custom"
+          commandfor="menu-custom-1"
           command="hide-popover"
           start={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ export default function Custom() {
           headline="Delete"
           borderTop
           critical
-          commandfor="menu-custom"
+          commandfor="menu-custom-1"
           command="hide-popover"
           start={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

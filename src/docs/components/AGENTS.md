@@ -230,7 +230,7 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 
 Place logic in a `<script>` tag.
 
-- Use specific IDs to avoid global conflicts.
+- Use specific IDs to avoid global conflicts. Name ids in examples `<slug>-<example>-<n>`, with an optional part suffix (`dialog-basics-1-title`), and use the same ids in every format. The parity test checks this, skipping ids that components generate.
 - The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)

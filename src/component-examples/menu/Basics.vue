@@ -3,11 +3,15 @@ import { Button, Menu } from "opui-css/vue"
 </script>
 
 <template>
-  <Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-basics-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
     Options
   </Button>
   <Menu
-    id="menu-basics"
+    id="menu-basics-1"
     :items="[
       { text: 'Edit', shortcut: 'E' },
       { text: 'Duplicate', shortcut: 'D' },

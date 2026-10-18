@@ -6,38 +6,38 @@ const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 
 <template>
   <Button
-    commandfor="menu-block-start"
+    commandfor="menu-placement-1"
     command="toggle-popover"
     variant="outlined"
   >
     Block start
   </Button>
-  <Menu id="menu-block-start" :items="items" placement="block-start" />
+  <Menu id="menu-placement-1" :items="items" placement="block-start" />
 
   <Button
-    commandfor="menu-block-end"
+    commandfor="menu-placement-2"
     command="toggle-popover"
     variant="outlined"
   >
     Block end
   </Button>
-  <Menu id="menu-block-end" :items="items" />
+  <Menu id="menu-placement-2" :items="items" />
 
   <Button
-    commandfor="menu-inline-start"
+    commandfor="menu-placement-3"
     command="toggle-popover"
     variant="outlined"
   >
     Inline start
   </Button>
-  <Menu id="menu-inline-start" :items="items" placement="inline-start" />
+  <Menu id="menu-placement-3" :items="items" placement="inline-start" />
 
   <Button
-    commandfor="menu-inline-end"
+    commandfor="menu-placement-4"
     command="toggle-popover"
     variant="outlined"
   >
     Inline end
   </Button>
-  <Menu id="menu-inline-end" :items="items" placement="inline-end" />
+  <Menu id="menu-placement-4" :items="items" placement="inline-end" />
 </template>

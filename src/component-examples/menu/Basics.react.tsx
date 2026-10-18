@@ -4,14 +4,14 @@ export default function Basics() {
   return (
     <>
       <Button
-        commandfor="menu-basics"
+        commandfor="menu-basics-1"
         command="toggle-popover"
         variant="outlined"
       >
         Options
       </Button>
       <Menu
-        id="menu-basics"
+        id="menu-basics-1"
         items={[
           { text: "Edit", shortcut: "E" },
           { text: "Duplicate", shortcut: "D" },

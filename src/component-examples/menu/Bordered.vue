@@ -4,7 +4,7 @@ import { Button, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    commandfor="menu-bordered"
+    commandfor="menu-bordered-1"
     command="toggle-popover"
     variant="outlined"
   >
@@ -12,7 +12,7 @@ import { Button, Menu } from "opui-css/vue"
   </Button>
   <Menu
     bordered
-    id="menu-bordered"
+    id="menu-bordered-1"
     :items="[{ text: 'Edit' }, { text: 'Duplicate' }, { text: 'Archive' }]"
   />
 </template>

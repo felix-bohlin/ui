@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack, type Snippet } from "svelte"
@@ -34,7 +34,7 @@
   })
 
   const uid = $props.id()
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
   const labelId = `select-label-${uid}`
   const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)

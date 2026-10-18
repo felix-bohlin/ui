@@ -16,7 +16,10 @@ export type DialogActionsProps = BaseDialogActionsProps & Class
 
 export type DialogContentProps = BaseDialogContentProps & Class
 
-export type DialogHeaderProps = BaseDialogHeaderProps & Class
+export type DialogHeaderProps = BaseDialogHeaderProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
 
 export type Slots = {
   default?: Slot

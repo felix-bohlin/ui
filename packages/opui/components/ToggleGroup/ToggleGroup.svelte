@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setToggleGroupContext } from "./context"
+  import { setToggleGroupContext } from "./context.svelte"
   import { selectionOf } from "./selection"
   import type { Props } from "./types.svelte"
 
@@ -41,9 +41,12 @@
 <div
   class={[
     "ui-toggle-group",
+    {
+      "ui-scrollable": scrollable,
+      "ui-shrink": shrink,
+      "ui-vertical": orientation === "vertical",
+    },
     size && `ui-${size}`,
-    orientation && `ui-${orientation}`,
-    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}

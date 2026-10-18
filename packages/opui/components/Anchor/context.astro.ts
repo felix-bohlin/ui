@@ -1,6 +1,4 @@
 import { createContext } from "../context.astro"
+import type { Context } from "./types"
 
-export const anchorContext = createContext<{
-  floatingId?: string
-  popover?: "hint"
-}>()
+export const anchorContext = createContext<Context>()

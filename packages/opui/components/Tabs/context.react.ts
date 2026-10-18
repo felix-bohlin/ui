@@ -1,14 +1,8 @@
 "use client"
 
 import { createContext, useContext } from "react"
+import type { Context } from "./types"
 
-export type TabsContextValue = {
-  groupName?: string
-  tabId?: string
-}
-
-export const TabsContext = createContext<TabsContextValue | undefined>(
-  undefined,
-)
+export const TabsContext = createContext<Context | undefined>(undefined)
 
 export const useTabsContext = () => useContext(TabsContext)

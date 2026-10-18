@@ -1,6 +1,4 @@
 import type { InjectionKey } from "vue"
+import type { Context } from "./types"
 
-export const DrawerKey = Symbol() as InjectionKey<{
-  id: string
-  titleId?: string
-}>
+export const DrawerKey = Symbol() as InjectionKey<Context>

@@ -1,13 +1,8 @@
 "use client"
 
 import { createContext, useContext } from "react"
+import type { Context } from "./types"
 
-export type FieldContextValue = {
-  name?: string
-}
+export const FieldGroupContext = createContext<Context | undefined>(undefined)
 
-export const FieldContext = createContext<FieldContextValue | undefined>(
-  undefined,
-)
-
-export const useFieldContext = () => useContext(FieldContext)
+export const useFieldGroupContext = () => useContext(FieldGroupContext)

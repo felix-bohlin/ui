@@ -14,10 +14,11 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
+      default: '"horizontal"',
       description: "The orientation of the element.",
       group: "Orientation",
       prop: "orientation",
-      values: { vertical: ".ui-vertical" },
+      values: { horizontal: null, vertical: ".ui-vertical" },
     },
     {
       class: ".ui-scrollable",

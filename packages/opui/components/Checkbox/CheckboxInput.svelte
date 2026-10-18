@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { toggleInGroup } from "../group"
   import type { CheckboxInputProps as Props } from "./types.svelte"
 
@@ -12,7 +12,7 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
 
   const getChecked = () => (group ? group.includes(value) : !!checked)
   const setChecked = (isChecked: boolean) => {

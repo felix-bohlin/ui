@@ -11,3 +11,8 @@ export type Props = {
 )
 
 export type AnchorContentProps = {}
+
+export type Context = {
+  floatingId?: string
+  popover?: "hint"
+}

@@ -1,21 +1,13 @@
 <script setup lang="ts">
 import { computed, inject } from "vue"
 import { CalloutKey } from "./context.vue"
-import { icons } from "./icons"
+import { iconFor } from "./icons"
 import type { CalloutIconProps as Props } from "./types.d.vue"
 
 defineProps<Props>()
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const callout = inject(CalloutKey, undefined)
-const icon = computed(() =>
-  callout?.severity === "neutral"
-    ? undefined
-    : callout?.severity && icons[callout.severity],
-)
+const icon = computed(() => iconFor(callout?.severity))
 </script>
 
 <template>
@@ -27,7 +19,6 @@ const icon = computed(() =>
     width="32"
     height="32"
     :viewBox="icon.viewBox"
-    v-bind="$attrs"
   >
     <path fill="currentColor" :d="icon.d" />
   </svg>

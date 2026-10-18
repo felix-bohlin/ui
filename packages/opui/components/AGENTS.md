@@ -24,7 +24,7 @@ When implementing or updating a component, ensure:
 
 Every component uses layered type files:
 
-- `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`)
+- `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`), and the `Context` shape for components with context
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
 - `types.d.vue.ts` - Vue props = base + `class`, plus the `Slots` type for `defineSlots`
 - `types.react.ts` - React props = base + slot props (`ReactNode`) + `ComponentProps<element>`
@@ -85,7 +85,7 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
 </script>
 ```
 
-Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, TextField, Textarea, Range and ToggleGroup, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, TextField, Textarea, Range and ToggleGroup, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.svelte.ts`.
 
 The React component destructures props, slot props and `...rest` the same way, with `className` instead of `class`:
 
@@ -182,7 +182,7 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 - Each part renders its own wrapper. The root renders its children as they are, and never wraps, reorders or inspects them.
 - Defaults live in the part that renders them: `AccordionSummary` renders the chevron, `CalloutIcon` the severity icon.
 - Parts must be direct children of their root, because the CSS targets `> hgroup`, `> .ui-content` and so on. Title parts sit inside their region part: `DrawerTitle` in `DrawerHeader`. Other titles are plain headings in their region part, like `<h3>` in `CardHeader` or `CalloutContent`.
-- Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). Ids are deterministic, so every framework renders the same markup on the server.
+- Ids and settings reach parts through context: `context.astro.ts` (with `createContext` from `../context.astro`), `context.svelte.ts` (Svelte), `context.react.ts` (React, `"use client"`) and an `InjectionKey` in `context.vue.ts` (Vue). All four take their shape from the `Context` type in `types.ts`, and Vue provides it as a `reactive()` object. Ids are deterministic, so every framework renders the same markup on the server.
 - Parts without context stay React server components.
 - Every part is exported from all four barrels with its `Props` type.
 

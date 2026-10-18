@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { RangeProps as Props } from "./types.svelte"
 
   let {
@@ -28,7 +28,7 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
 
   const hasLabel = $derived(!!label || !!children)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)

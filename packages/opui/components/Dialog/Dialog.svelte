@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { setDialogContext } from "./context"
+  import { autoLabelledBy } from "../id"
+  import { setDialogContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let { children, class: className, closedby, ...rest }: Props = $props()
 
   const uid = $props.id()
   const headerId = `dialog-header-${uid}`
-  const labelledBy = $derived(
-    rest["aria-label"] || rest["aria-labelledby"] ? undefined : headerId,
-  )
+  const labelledBy = $derived(autoLabelledBy(rest, headerId))
 
   setDialogContext({
     get headerId() {

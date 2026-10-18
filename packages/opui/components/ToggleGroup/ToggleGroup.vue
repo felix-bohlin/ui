@@ -15,10 +15,6 @@ const {
 defineSlots<Slots>()
 const model = defineModel<string | string[]>()
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const uid = useId()
 const groupName = computed(() => name || `toggle-group-${uid}`)
 const inputType = computed(() =>
@@ -38,13 +34,15 @@ provide(
   <div
     :class="[
       'ui-toggle-group',
+      {
+        'ui-scrollable': scrollable,
+        'ui-shrink': shrink,
+        'ui-vertical': orientation === 'vertical',
+      },
       size && `ui-${size}`,
-      orientation && `ui-${orientation}`,
-      { 'ui-scrollable': scrollable, 'ui-shrink': shrink },
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"
-    v-bind="$attrs"
   >
     <slot></slot>
   </div>

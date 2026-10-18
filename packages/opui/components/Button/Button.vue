@@ -15,9 +15,9 @@ const Tag = computed(() => as || (href ? "a" : "button"))
     :class="[
       'ui-button',
       { 'ui-round': round },
+      color && `ui-${color}`,
       size && `ui-${size}`,
       variant && `ui-${variant}`,
-      color && `ui-${color}`,
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"

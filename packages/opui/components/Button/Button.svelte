@@ -26,9 +26,9 @@
   class={[
     "ui-button",
     { "ui-round": round },
+    color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
-    color && `ui-${color}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

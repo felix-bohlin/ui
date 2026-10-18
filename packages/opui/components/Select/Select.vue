@@ -64,7 +64,7 @@ const uid = useId()
 const labelId = `select-label-${uid}`
 const startTextId = `start-text-${uid}`
 const endTextId = `end-text-${uid}`
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 </script>
 
 <template>
@@ -110,7 +110,7 @@ const fieldName = inject(FieldGroupKey, undefined)
           label || $slots.label ? labelId : attrs['aria-labelledby']
         "
         :id="id"
-        :name="attrs.name ?? fieldName"
+        :name="attrs.name ?? field?.name"
       >
         <button v-pre>
           <selectedcontent></selectedcontent>

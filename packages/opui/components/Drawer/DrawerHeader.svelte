@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from "../Button/Button.svelte"
-  import { getDrawerContext } from "./context"
+  import { getDrawerContext } from "./context.svelte"
   import { closePath } from "./icons"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 

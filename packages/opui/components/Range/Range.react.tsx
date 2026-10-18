@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { cx } from "../cx"
-import { useFieldContext } from "../FieldGroup/context.react"
+import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { RangeProps as Props } from "./types.react"
 
 export default function Range({
@@ -31,7 +31,7 @@ export default function Range({
   ...rest
 }: Props) {
   const uid = useId()
-  const field = useFieldContext()
+  const field = useFieldGroupContext()
   const [current, setCurrent] = useState(defaultValue)
   const inputRef = useRef<HTMLInputElement>(null)
 

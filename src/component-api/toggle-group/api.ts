@@ -33,10 +33,11 @@ export default {
       type: "(value: string | string[]) => void",
     },
     {
+      default: '"horizontal"',
       description: "The orientation of the element.",
       group: "Orientation",
       prop: "orientation",
-      values: { vertical: ".ui-vertical" },
+      values: { horizontal: null, vertical: ".ui-vertical" },
     },
     {
       class: ".ui-scrollable",

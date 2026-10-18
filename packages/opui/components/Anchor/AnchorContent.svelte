@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getAnchorContext } from "./context"
+  import { getAnchorContext } from "./context.svelte"
   import type { AnchorContentProps as Props } from "./types.svelte"
 
   let { children, class: className, ...rest }: Props = $props()

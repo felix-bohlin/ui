@@ -12,7 +12,7 @@ const attrs = useAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 
 const model = computed({
   get: () =>
@@ -29,7 +29,7 @@ const model = computed({
     type="checkbox"
     role="switch"
     :class="props.class"
-    :name="fieldName"
+    :name="field?.name"
     v-bind="$attrs"
     v-model="model"
   />

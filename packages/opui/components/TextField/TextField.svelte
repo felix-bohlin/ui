@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
 
@@ -28,7 +28,7 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
 </script>
 
 {#snippet content(

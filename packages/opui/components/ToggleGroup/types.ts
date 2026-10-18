@@ -1,10 +1,17 @@
 export type Props = {
   name?: string
-  orientation?: "vertical"
+  orientation?: "horizontal" | "vertical"
   scrollable?: boolean
   selection?: "single" | "multiple"
   shrink?: boolean
   size?: "x-small" | "small" | "large"
+}
+
+export type Context = {
+  change: (input: HTMLInputElement) => void
+  groupName: string
+  inputType: "checkbox" | "radio"
+  value?: string | string[]
 }
 
 export type Selection<Single, Multiple> =

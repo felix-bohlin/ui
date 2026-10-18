@@ -14,7 +14,7 @@ defineOptions({
 })
 
 const attrs = useAttrs()
-const fieldName = inject(FieldGroupKey, undefined)
+const field = inject(FieldGroupKey, undefined)
 const props = defineProps<CheckboxInputProps>()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
@@ -42,7 +42,7 @@ watchPostEffect(() => {
     type="checkbox"
     :class="props.class"
     :data-indeterminate="props.indeterminate ? '' : undefined"
-    :name="fieldName"
+    :name="field?.name"
     v-bind="$attrs"
     v-model="model"
   />

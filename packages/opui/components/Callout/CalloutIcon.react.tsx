@@ -2,12 +2,11 @@
 
 import { cx } from "../cx"
 import { useCalloutContext } from "./context.react"
-import { icons } from "./icons"
+import { iconFor } from "./icons"
 import type { CalloutIconProps as Props } from "./types.react"
 
 export default function CalloutIcon({ className, ...rest }: Props) {
-  const severity = useCalloutContext()?.severity
-  const icon = severity === "neutral" ? undefined : severity && icons[severity]
+  const icon = iconFor(useCalloutContext()?.severity)
 
   if (!icon) return null
 

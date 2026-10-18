@@ -1,7 +1,7 @@
 "use client"
 
 import { cx } from "../cx"
-import { FieldContext, useFieldContext } from "./context.react"
+import { FieldGroupContext, useFieldGroupContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function FieldGroup({
@@ -10,10 +10,10 @@ export default function FieldGroup({
   name,
   ...rest
 }: Props) {
-  const parent = useFieldContext()
+  const parent = useFieldGroupContext()
 
   return (
-    <FieldContext value={{ name: name || parent?.name }}>
+    <FieldGroupContext value={{ name: name || parent?.name }}>
       <div
         className={cx([
           "ui-field-group",
@@ -22,6 +22,6 @@ export default function FieldGroup({
         ])}
         {...rest}
       />
-    </FieldContext>
+    </FieldGroupContext>
   )
 }

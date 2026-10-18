@@ -1,7 +1,7 @@
 "use client"
 
 import { cx } from "../cx"
-import { useFieldContext } from "../FieldGroup/context.react"
+import { useFieldGroupContext } from "../FieldGroup/context.react"
 import type { Props } from "./types.react"
 
 export default function Textarea({
@@ -24,7 +24,7 @@ export default function Textarea({
   suffix,
   ...rest
 }: Props) {
-  const field = useFieldContext()
+  const field = useFieldGroupContext()
 
   return (
     <label

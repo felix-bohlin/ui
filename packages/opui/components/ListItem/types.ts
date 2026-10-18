@@ -33,8 +33,8 @@ export type Props = {
 )
 
 export type Slots<S> = {
-  end?: string | S
-  start?: string | S
-  submenu?: string | S
-  text?: string | S
+  end?: S
+  start?: S
+  submenu?: S
+  text?: S
 }

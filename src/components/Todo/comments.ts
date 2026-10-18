@@ -1,4 +1,16 @@
-import { readStored, writeStored } from "../../utils/storage"
+import { copyText, readStored, writeStored } from "../../utils/storage"
+
+export const copyOrSelect = async (text: string, fallback: HTMLElement) => {
+  const copied = await copyText(text)
+  fallback.hidden = copied
+  if (!copied) {
+    const field = fallback.querySelector("textarea")!
+    field.value = text
+    field.focus()
+    field.setSelectionRange(0, text.length)
+  }
+  return copied
+}
 
 type CommentOptions = {
   items: HTMLElement[]

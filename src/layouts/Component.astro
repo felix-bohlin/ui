@@ -9,6 +9,7 @@ import type { AstroInstance } from "astro"
 import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
+import Pagination from "../components/Pagination.astro"
 import {
   Button,
   Callout,
@@ -138,6 +139,16 @@ const learnPost = currentSlug
 <Document
   overline={overline}
   showToc={showToc}
+  sidebarGroups={[
+    {
+      label: "Components",
+      links: components.map((component) => ({
+        href: componentHrefFor(currentFramework, component.slug),
+        isNew: isWhatsNewHighlighted(currentFramework, component.slug),
+        label: component.name,
+      })),
+    },
+  ]}
   title={title}
   description={description}
   image={image}
@@ -145,35 +156,6 @@ const learnPost = currentSlug
   <FrameworkPicker size="small" slot="sidebar" />
 
   <Divider variant="tonal" slot="sidebar" />
-
-  <nav aria-label="Components" slot="sidebar">
-    <h3>Components</h3>
-    <menu>
-      {
-        components.map((component) => {
-          const href = componentHrefFor(currentFramework, component.slug)
-          return (
-            <li>
-              <a
-                href={href}
-                title={component.name}
-                aria-current={
-                  component.slug === currentSlug ? "page" : undefined
-                }
-              >
-                {component.name}
-                {isWhatsNewHighlighted(currentFramework, component.slug) && (
-                  <span class="new-dot">
-                    <span class="ui-sr-only">New</span>
-                  </span>
-                )}
-              </a>
-            </li>
-          )
-        })
-      }
-    </menu>
-  </nav>
 
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
@@ -348,60 +330,17 @@ const learnPost = currentSlug
       )
     }
 
-    <nav aria-label="Component pages" class="pagination">
-      {
-        prevComponent ? (
-          <a
-            href={componentHrefFor(currentFramework, prevComponent.slug)}
-            class="pagination-link prev"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
-              />
-            </svg>
-            <div class="ui-hgroup">
-              <p class="ui-overline">Previous</p>
-              <p class="ui-h3">{prevComponent.name}</p>
-            </div>
-          </a>
-        ) : (
-          <div class="spacer" />
-        )
-      }
-      {
-        nextComponent ? (
-          <a
-            href={componentHrefFor(currentFramework, nextComponent.slug)}
-            class="pagination-link next"
-          >
-            <div class="ui-hgroup">
-              <p class="ui-overline">Next</p>
-              <p class="ui-h3">{nextComponent.name}</p>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
-              />
-            </svg>
-          </a>
-        ) : (
-          <div class="spacer" />
-        )
-      }
-    </nav>
+    <Pagination
+      label="Component pages"
+      next={nextComponent && {
+        href: componentHrefFor(currentFramework, nextComponent.slug),
+        label: nextComponent.name,
+      }}
+      prev={prevComponent && {
+        href: componentHrefFor(currentFramework, prevComponent.slug),
+        label: prevComponent.name,
+      }}
+    />
   </footer>
 
   <style>
@@ -425,69 +364,6 @@ const learnPost = currentSlug
 
       .ui-button {
         inline-size: fit-content;
-      }
-
-      .pagination {
-        display: grid;
-        gap: var(--size-4);
-        grid-template-columns: repeat(auto-fit, minmax(min(33ch, 100%), 1fr));
-
-        .pagination-link {
-          align-items: center;
-          border: 1px solid
-            color-mix(in oklch, var(--border-color), var(--text-primary) 20%);
-          border-radius: var(--radius-3);
-          color: var(--text-primary);
-          display: flex;
-          gap: var(--size-4);
-          padding: var(--size-4);
-          text-decoration: none;
-          transition: background-color 0.2s ease;
-
-          /* @supports (corner-shape: squircle) {
-          border-radius: 0;
-          corner-shape: squircle;
-        } */
-
-          &:hover {
-            background-color: var(--surface-tonal);
-          }
-
-          hgroup {
-            margin: 0;
-
-            p {
-              color: var(--text-muted);
-              font-size: var(--font-size-0);
-              font-weight: 500;
-              margin: 0;
-              text-transform: none;
-            }
-
-            h3 {
-              font-size: var(--font-size-4);
-              margin: 0;
-            }
-          }
-
-          svg {
-            align-items: center;
-            color: var(--text-muted);
-            display: inline-flex;
-            font-size: var(--font-size-5);
-          }
-
-          &.prev {
-            svg {
-              rotate: 180deg;
-            }
-          }
-
-          &.next {
-            justify-content: end;
-            text-align: end;
-          }
-        }
       }
     }
   </style>

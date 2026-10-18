@@ -1,6 +1,6 @@
 ---
 import Document from "./Document.astro"
-import { hrefFor, stripFrameworkPrefix } from "../utils/framework"
+import { canonicalPath, hrefFor } from "../utils/framework"
 import { categories, componentName, posts } from "../utils/learn"
 
 type Props = {
@@ -21,17 +21,11 @@ const {
 
 const currentFramework = Astro.locals.framework
 
-const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
-  /\/$/,
-  "",
-)
-
 const currentPost = posts.find(
-  (post) => canonicalPath === `/learn/${post.slug}`,
+  (post) => canonicalPath(Astro.url.pathname) === `/learn/${post.slug}`,
 )
 
 const linkTo = (href: string, label: string) => ({
-  current: canonicalPath === href,
   href: hrefFor(currentFramework, href),
   label,
 })
@@ -62,61 +56,12 @@ const groups = [
   description={description}
   overline={overline}
   showToc={showToc}
+  sidebarGroups={groups}
   title={title}
   transitionName={currentPost && `learn-${currentPost.slug}`}
   wide={wide}
 >
-  <nav aria-label="Learn" slot="sidebar">
-    {
-      groups.map((group) => (
-        <>
-          <h3>{group.label}</h3>
-          <menu class="learn-nav-list">
-            {group.links.map((link) => (
-              <li>
-                <a
-                  aria-current={link.current ? "page" : undefined}
-                  href={link.href}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </menu>
-        </>
-      ))
-    }
-  </nav>
-
   <slot slot="title" name="title" />
   <slot slot="preamble" name="preamble" />
   <slot />
 </Document>
-
-<style is:global>
-  .learn-nav-list + h3 {
-    margin-block-start: var(--size-5);
-  }
-
-  .learn-nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    & a {
-      color: var(--text-muted);
-      display: block;
-      padding-block: var(--size-1);
-      text-decoration: none;
-
-      &:hover {
-        color: var(--text-primary);
-      }
-
-      &[aria-current="page"] {
-        color: var(--link);
-        font-weight: var(--font-weight-6);
-      }
-    }
-  }
-</style>

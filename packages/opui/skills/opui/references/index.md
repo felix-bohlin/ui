@@ -20,6 +20,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Divider | `divider.md` | html, astro, react, svelte, vue | It's just a line. |
 | Drawer | `drawer.md` | html, astro, react, svelte, vue | Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog. |
 | Form | `form.md` | html, astro, react, svelte, vue | Spacing and grouping for form fields. |
+| Layout | `layout.md` | html, astro, react, svelte, vue | Four classes for the space between components: .ui-flow, .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale. |
 | List | `list.md` | html, astro, react, svelte, vue | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | html, astro, react, svelte, vue | A popover list of actions or links. |
 | Progress | `progress.md` | html, astro, react, svelte, vue | See also: Spinner. |

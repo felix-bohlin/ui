@@ -291,6 +291,27 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Add a `<datalist>` after the input for tick marks.
 
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property                   | Kind   | Description                                                                                                     |
+| -------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                           |
+| `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                    |
+| `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
+| `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                   |
+| `--_thumb-bg-color`        | Output | The current thumb color. From `--primary`, set by the invalid and disabled states.                              |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb. From `--primary`, set by the invalid state.                                 |
+| `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                 |
+| `--_thumb-offset`          | Input  | Vertical offset that centers the thumb on the track.                                                            |
+| `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                         |
+| `--_track-color`           | Output | The current track color. Set by `.ui-filled`, `.ui-tonal` and the active and disabled states.                   |
+| `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                              |
+| `--_track-fill-color`      | Output | Color of the filled part of the track. From `--primary`, set by the invalid state.                              |
+| `--_track-height`          | Input  | Height of the track.                                                                                            |
+| `--_track-radius`          | Input  | Corner radius of the track.                                                                                     |
+
 ## Under the hood
 
 Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify.app/learn/range-tick-marks)

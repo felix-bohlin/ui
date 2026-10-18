@@ -353,20 +353,24 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable              | Default                                     | Description                                                                                                                                                                                               |
-| --------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
-| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
-| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
-| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                           |
-| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                            |
-| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                  |
-| `--font-weight-bold`  | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                                                                                                              |
-| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                 |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                              |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                             |
+| Variable              | Default                                          | Description                                                                                                                                                                                               |
+| --------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`      | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`     | `var(--size-2)`                                  | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
+| `--border-width`      | `1px`                                            | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`          | `0.2s`                                           | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease`              | `ease`                                           | Default easing for transitions.                                                                                                                                                                           |
+| `--focus-ring-offset` | `2px`                                            | Distance between a control and its focus ring.                                                                                                                                                            |
+| `--focus-ring-width`  | `2px`                                            | Width of the focus ring.                                                                                                                                                                                  |
+| `--font-weight-bold`  | `var(--font-weight-7)`                           | Font weight for headings, buttons and terms.                                                                                                                                                              |
+| `--motion`            | `1`                                              | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--shadow-raised`     | `var(--shadow-3)` `var(--shadow-4)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. `--shadow-4` in dark mode.                                                                                                                    |
+| `--space-1`           | `calc(var(--size-1) * var(--space-scale))`       | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                              |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`       | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`       | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`      | Page and card background.                                                                                                                                                                                 |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`      | Background of elevated cards and accordions.                                                                                                                                                              |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`      | Background of tonal variants.                                                                                                                                                                             |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -383,22 +387,57 @@ Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To 
 
 #### CSS variables
 
-| Variable              | Default                                     | Description                                                                                                                                                                                               |
-| --------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
-| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
-| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
-| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                                                                                                           |
-| `--focus-ring-offset` | `2px`                                       | Distance between a control and its focus ring.                                                                                                                                                            |
-| `--focus-ring-width`  | `2px`                                       | Width of the focus ring.                                                                                                                                                                                  |
-| `--font-weight-bold`  | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                                                                                                              |
-| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                 |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                                                                                                              |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                                                                                                             |
+| Variable              | Default                                          | Description                                                                                                                                                                                               |
+| --------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`      | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`     | `var(--size-2)`                                  | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
+| `--border-width`      | `1px`                                            | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`          | `0.2s`                                           | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease`              | `ease`                                           | Default easing for transitions.                                                                                                                                                                           |
+| `--focus-ring-offset` | `2px`                                            | Distance between a control and its focus ring.                                                                                                                                                            |
+| `--focus-ring-width`  | `2px`                                            | Width of the focus ring.                                                                                                                                                                                  |
+| `--font-weight-bold`  | `var(--font-weight-7)`                           | Font weight for headings, buttons and terms.                                                                                                                                                              |
+| `--motion`            | `1`                                              | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--shadow-raised`     | `var(--shadow-3)` `var(--shadow-4)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. `--shadow-4` in dark mode.                                                                                                                    |
+| `--space-1`           | `calc(var(--size-1) * var(--space-scale))`       | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                              |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`       | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`       | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`      | Page and card background.                                                                                                                                                                                 |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`      | Background of elevated cards and accordions.                                                                                                                                                              |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`      | Background of tonal variants.                                                                                                                                                                             |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property                         | Kind   | Description                                                                            |
+| -------------------------------- | ------ | -------------------------------------------------------------------------------------- |
+| `--_actions-gap`                 | Input  | Space between the buttons in `.ui-actions`.                                            |
+| `--_actions-margin-block-start`  | Input  | Space above `.ui-actions`.                                                             |
+| `--_actions-padding-block-end`   | Input  | Bottom padding of `.ui-actions`. Defaults to `--_summary-padding-block`.               |
+| `--_actions-padding-inline`      | Input  | Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`.              |
+| `--_bg-color`                    | Input  | The background. Set by the variants.                                                   |
+| `--_border-color`                | Input  | The border color. Set by `.ui-outlined`.                                               |
+| `--_border-radius`               | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--border-radius`.    |
+| `--_border-width`                | Input  | The border width. Set by `.ui-outlined`.                                               |
+| `--_content-padding-block`       | Input  | Block padding of `.ui-content`.                                                        |
+| `--_content-padding-inline`      | Input  | Inline padding of `.ui-content`. Defaults to `--_padding-inline`.                      |
+| `--_duration`                    | Output | Duration of the transitions, `--duration` times `--_motion`.                           |
+| `--_ease`                        | Input  | Easing of the transitions. Defaults to `--ease`.                                       |
+| `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. The variants and groups move it inside.            |
+| `--_group-radius`                | Input  | Corner radius of the first and last item in a group. Defaults to `--border-radius`.    |
+| `--_gutter-color`                | Input  | Color of the border between items in a group. Defaults to `--border-color`.            |
+| `--_item-padding-inline`         | Input  | Inline padding of the items in a group. `0` when the card has no variant.              |
+| `--_item-summary-padding-inline` | Input  | Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`. |
+| `--_margin-inline`               | Input  | The inline margin. `0` in the variants and groups.                                     |
+| `--_motion`                      | Input  | Motion multiplier for `--_duration`. `0` turns the transitions off.                    |
+| `--_overflow`                    | Output | The overflow. Set to `hidden` by the variants.                                         |
+| `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. Set by the variants.     |
+| `--_shadow`                      | Input  | The shadow. Set by `.ui-elevated`.                                                     |
+| `--_summary-padding-block`       | Input  | Block padding of `summary`.                                                            |
+| `--_summary-padding-inline`      | Input  | Inline padding of `summary`. Defaults to `--_padding-inline`.                          |
 
 ## Under the hood
 
@@ -531,3 +570,4 @@ Import the components from `opui-css/astro`:
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) on `AccordionSummary` replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
 - [Actions](#actions) line up with the content and the chevron.
+- Elevated accordions use [`--shadow-raised`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--space-*` scale.

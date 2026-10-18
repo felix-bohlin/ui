@@ -635,6 +635,7 @@ export default function Dense() {
 | `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
+| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `var`. Defaults to Open Props `--font-mono`.                            |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
@@ -678,6 +679,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
+| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `var`. Defaults to Open Props `--font-mono`.                            |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                      |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
@@ -692,6 +694,22 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+| Property             | Kind  | Description                                                                                                     |
+| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it. |
+| `--_dot-size`        | Input | Dot size of a `.ui-switch` item, the small switch size.                                                         |
+| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                            |
+| `--_input-size`      | Input | Size of `.ui-checkbox` and `.ui-radio` in `.ui-dense`.                                                          |
+| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                     |
+| `--_separator-color` | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`.                                     |
+| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.        |
+| `--_track-height`    | Input | Track height of a `.ui-switch` item, the small switch size.                                                     |
+| `--_track-width`     | Input | Track width of a `.ui-switch` item, the small switch size.                                                      |
 
 ## Under the hood
 

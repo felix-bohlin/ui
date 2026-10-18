@@ -543,9 +543,35 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To 
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--space-1`                  | `calc(var(--size-1) * var(--space-scale))`                                              | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                              |
+| `--space-2`                  | `calc(var(--size-2) * var(--space-scale))`                                              | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                              |
+| `--space-3`                  | `calc(var(--size-3) * var(--space-scale))`                                              | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                              |
+| `--space-4`                  | `calc(var(--size-4) * var(--space-scale))`                                              | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                              |
+| `--space-5`                  | `calc(var(--size-5) * var(--space-scale))`                                              | Spacing step 5: Open Props `--size-5` times `--space-scale`.                                                              |
+| `--space-8`                  | `calc(var(--size-8) * var(--space-scale))`                                              | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
+
+| Property              | Kind   | Description                                                                                     |
+| --------------------- | ------ | ----------------------------------------------------------------------------------------------- |
+| `--_accent`           | Input  | Fill and border of the checked track. From `--primary`, with its lightness capped in dark mode. |
+| `--_accent-contrast`  | Input  | Color of the checked dot on `--_accent`.                                                        |
+| `--_dot-bg-color`     | Input  | Color of the unchecked dot and the track border. The checked dot uses `--_accent-contrast`.     |
+| `--_dot-inset`        | Output | Gap between the dot and the track edge, computed from `--_track-height` and `--_dot-size`.      |
+| `--_dot-outline-size` | Output | Current outline width that grows the dot. Set by the checked and active states.                 |
+| `--_dot-size`         | Input  | Width and height of the dot. Defaults to `--switch-dot-size`, set by the size classes.          |
+| `--_duration`         | Output | Duration of the transitions, `--duration` times `--_motion`.                                    |
+| `--_ease`             | Input  | Easing of the transitions. Defaults to `--ease`.                                                |
+| `--_icon-size`        | Output | Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the dot.  |
+| `--_motion`           | Input  | Motion multiplier for the transitions. `0` turns them off.                                      |
+| `--_track-bg-color`   | Input  | Background of the unchecked track.                                                              |
+| `--_track-height`     | Input  | Height of the track. Defaults to `--switch-track-height`, set by the size classes.              |
+| `--_track-width`      | Input  | Width of the track. Defaults to `--switch-track-width`, set by the size classes.                |
 
 ## Under the hood
 

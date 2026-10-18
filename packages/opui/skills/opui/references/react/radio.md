@@ -467,9 +467,29 @@ Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `va
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--space-1`                  | `calc(var(--size-1) * var(--space-scale))`                                              | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                              |
+| `--space-2`                  | `calc(var(--size-2) * var(--space-scale))`                                              | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                              |
+| `--space-3`                  | `calc(var(--size-3) * var(--space-scale))`                                              | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                              |
+| `--space-4`                  | `calc(var(--size-4) * var(--space-scale))`                                              | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                              |
+| `--space-5`                  | `calc(var(--size-5) * var(--space-scale))`                                              | Spacing step 5: Open Props `--size-5` times `--space-scale`.                                                              |
+| `--space-8`                  | `calc(var(--size-8) * var(--space-scale))`                                              | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+| Property             | Kind   | Description                                                                                      |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------ |
+| `--_accent`          | Input  | Fill and border of the checked circle. From `--primary`, with its lightness capped in dark mode. |
+| `--_accent-contrast` | Input  | Color of the dot on `--_accent`.                                                                 |
+| `--_dir-rtl`         | Output | Direction flag that centers the hover ripple. `-1`, or `1` in right-to-left.                     |
+| `--_dot-radius`      | Output | Radius of the checked dot, computed from `--_input-size` and `--field-border-width`.             |
+| `--_input-size`      | Input  | Width and height of the circle. Defaults to `--choice-size`, set by the size classes.            |
+| `--_ripple-size`     | Input  | Size of the hover ripple, relative to the circle. Set on `input`.                                |
+| `--_thumb-scale`     | Output | Current scale of the ripple. Set by the hover and active states.                                 |
 
 ## Under the hood
 

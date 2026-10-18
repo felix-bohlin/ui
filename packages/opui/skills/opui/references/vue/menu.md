@@ -279,6 +279,31 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `shortcut`     | `string`  | -       | Keyboard shortcut hint.             |
 | any other key  | `unknown` | -       | Passed to the item element.         |
 
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
+
+| Property             | Kind   | Description                                                                                                 |
+| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`        | Input  | The background. Defaults to `--surface-elevated`.                                                           |
+| `--_border-color`    | Input  | Color of the border and the item separators.                                                                |
+| `--_border-radius`   | Input  | The corner radius. Defaults to `--border-radius`.                                                           |
+| `--_border-width`    | Input  | The border width.                                                                                           |
+| `--_duration`        | Output | Duration of the transitions, `--duration` times `--_motion`.                                                |
+| `--_ease`            | Input  | Easing of the open transition. Defaults to `--ease-enter`.                                                  |
+| `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--critical`.                                                |
+| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the placement.                              |
+| `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                   |
+| `--_max-block-size`  | Input  | Maximum height.                                                                                             |
+| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter.                             |
+| `--_min-inline-size` | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                      |
+| `--_motion`          | Input  | Motion multiplier for the transitions. `0` turns them off.                                                  |
+| `--_offset`          | Input  | Gap between a popover menu and its invoker.                                                                 |
+| `--_position-area`   | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--anchor-position-area` overrides it. |
+| `--_shadow`          | Input  | The shadow. Defaults to `--shadow-overlay`.                                                                 |
+| `--_side`            | Output | Side of the invoker the menu opens on. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.   |
+| `--_span`            | Output | Direction the menu extends along the invoker. Set by the placement classes and `.ui-align-end`.             |
+
 ## Under the hood
 
 Read the post: [Menus with popover and anchor positioning](https://open-props-ui.netlify.app/learn/menu-popover-anchor)
@@ -461,3 +486,4 @@ Import the component from `opui-css/vue`:
 - [Submenus](#submenu) with the `submenu` slot on `ListItem`.
 - A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
 - Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
+- The menu shadow is [`--shadow-overlay`](#api), shared with drawers, select pickers and toasts.

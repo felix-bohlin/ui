@@ -35,11 +35,12 @@ const stylesheets = pageStylesheets(slug)
       <p>
         Set these on the component itself, inline or in your own CSS. Inputs are
         the knobs. Outputs are derived from the inputs and the current state, so
-        overriding one fixes it in every state. See{" "}
-        <DocLink href="/guide/customizing#component-properties">
-          Customizing
-        </DocLink>
-        .
+        overriding one fixes it in every state.{" "}
+        <DocLink
+          href="/guide/customizing#component-properties"
+          set:text="Customizing"
+        />{" "}
+        has examples.
       </p>
       {stylesheets.map(({ rows, stylesheet }) => (
         <Fragment>

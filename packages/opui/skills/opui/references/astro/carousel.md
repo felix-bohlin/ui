@@ -547,7 +547,7 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 | Variable              | Default                                      | Description                                                                                                                                                                                               |
 | --------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`     | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-radius`     | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
 | `--border-width`      | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
 | `--button-size-small` | `var(--control-size-small)`                  | `Button` height with `.ui-small`.                                                                                                                                                                         |
 | `--duration`          | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
@@ -559,10 +559,50 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | `--focus-ring-width`  | `2px`                                        | Width of the focus ring.                                                                                                                                                                                  |
 | `--motion`            | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
 | `--primary`           | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| `--space-8`           | `calc(var(--size-8) * var(--space-scale))`   | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                                                                                                              |
 | `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                           |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property                          | Kind   | Description                                                                                                  |
+| --------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
+| `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                                                |
+| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--surface-inverse`.                                           |
+| `--_button-border-color`          | Output | Border color of the scroll buttons, from `--_button-bg-color`.                                               |
+| `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                          |
+| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                       |
+| `--_button-end-icon`              | Output | Icon of the inline-end button. `--_button-next-icon`, swapped with `--_button-prev-icon` in right-to-left.   |
+| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                                         |
+| `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                                      |
+| `--_button-next-icon`             | Input  | Icon of the next button.                                                                                     |
+| `--_button-next-label`            | Input  | Accessible label of the next button.                                                                         |
+| `--_button-prev-icon`             | Input  | Icon of the previous button.                                                                                 |
+| `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                                     |
+| `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--shadow-2`.                                                      |
+| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--button-size-small`.                                               |
+| `--_button-start-icon`            | Output | Icon of the inline-start button. `--_button-prev-icon`, swapped with `--_button-next-icon` in right-to-left. |
+| `--_gap`                          | Input  | Space between items.                                                                                         |
+| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                                      |
+| `--_marker-color`                 | Input  | Color of the markers.                                                                                        |
+| `--_marker-color-active`          | Input  | Color of the current marker. Defaults to `--primary`.                                                        |
+| `--_marker-gap`                   | Input  | Space between markers.                                                                                       |
+| `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                                                |
+| `--_marker-size`                  | Input  | Size of the markers.                                                                                         |
+| `--_markers-margin-block-start`   | Input  | Space between the items and the markers.                                                                     |
+| `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                                        |
+| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--border-radius`.                        |
+| `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                 |
+| `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                           |
+| `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                        |
+| `--_per-view`                     | Input  | Number of items per view.                                                                                    |
+| `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                                   |
 
 ## Under the hood
 

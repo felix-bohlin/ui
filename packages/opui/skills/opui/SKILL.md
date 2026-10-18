@@ -34,18 +34,19 @@ Change the least specific thing that does the job, in this order:
 
 Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border-color`): hover, active and disabled set them, so an override freezes them in every state. Change the input they derive from, such as `--_accent`. Don't add `!important` or long selectors: the layers already let your CSS win.
 
-| To change                           | Set                                                                          |
-| ----------------------------------- | ---------------------------------------------------------------------------- |
-| Brand color                         | `--palette-hue` and `--palette-chroma`, or `--palette-source` with any color |
-| Brand color in one part of the page | `.ui-palette` and `--palette-hue` on that element                            |
-| Corners                             | `--border-radius` (buttons and fields follow it)                             |
-| Fonts                               | `--font-body`, `--font-heading`, `--font-code`                               |
-| Control height                      | `--density`                                                                  |
-| Spacing in and between containers   | `--space-scale`                                                              |
-| Shadows                             | `--shadow-raised`, `--shadow-overlay`                                        |
-| Transitions                         | `--motion` (`0` turns them off), `--duration`, `--ease`                      |
-| One component's color               | `--_accent` on it, or `.ui-primary`/`.ui-critical`                           |
-| A severity color for a section      | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`      |
+| To change                           | Set                                                                                                        |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Brand color                         | `--palette-hue` and `--palette-chroma`, or `--palette-source` with any color                               |
+| Brand color in one part of the page | `.ui-palette` and `--palette-hue` on that element                                                          |
+| Corners                             | `--border-radius` (buttons and fields follow it)                                                           |
+| Fonts                               | `--font-body`, `--font-heading`, `--font-code`                                                             |
+| Control height                      | `--density`                                                                                                |
+| Spacing in and between containers   | `--space-scale`                                                                                            |
+| Shadows                             | `--shadow-raised`, `--shadow-overlay`                                                                      |
+| Space between components            | `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container` (see `layout.md`), not your own flex or grid CSS |
+| Transitions                         | `--motion` (`0` turns them off), `--duration`, `--ease`                                                    |
+| One component's color               | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                         |
+| A severity color for a section      | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`                                    |
 
 ```css
 @layer theme.brand {

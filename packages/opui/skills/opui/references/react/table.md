@@ -404,12 +404,15 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | Variable                 | Default                                     | Description                                                                                                                                                                                               |
 | ------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                         |
+| `--border-radius`        | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
 | `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                   |
 | `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
 | `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
 | `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                         |
 | `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
+| `--space-1`              | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                              |
+| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`  | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
 | `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                 |
 | `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
 | `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                          |
@@ -418,6 +421,17 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+| Property           | Kind  | Description                                                                                   |
+| ------------------ | ----- | --------------------------------------------------------------------------------------------- |
+| `--_border-radius` | Input | Corner radius of the table and its corner cells. Defaults to `--border-radius`.               |
+| `--_motion`        | Input | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
+| `--_scroll-shadow` | Input | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--shadow-4`.                  |
+| `--_sticky-offset` | Input | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
 
 ## Under the hood
 

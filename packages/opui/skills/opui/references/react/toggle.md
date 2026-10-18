@@ -331,7 +331,7 @@ export default function Overflow() {
 | ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-border-radius` | `var(--border-radius)`                                                                | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. Follows `--border-radius`.                                                                                                      |
 | `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
 | `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                                                                                                                        |
@@ -372,7 +372,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                  |
 | `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                      |
-| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--button-border-radius` | `var(--border-radius)`                                                                | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. Follows `--border-radius`.                                                                                                      |
 | `--duration`             | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
 | `--ease`                 | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
 | `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                                                                                                                        |
@@ -393,6 +393,29 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 `pressed` sets the starting state. To control it, pass `checked` and `onChange`.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+### toggle-button.css
+
+| Property       | Kind   | Description                                                   |
+| -------------- | ------ | ------------------------------------------------------------- |
+| `--_bg-color`  | Output | The current background. Set by the hover and selected states. |
+| `--_font-size` | Input  | The font size. Set by the size classes.                       |
+| `--_size`      | Input  | Height and minimum width. Set by the size classes.            |
+| `--_svg-size`  | Input  | Size of a child `svg`. Defaults to `--icon-size`.             |
+
+### toggle-group.css
+
+| Property           | Kind  | Description                                                                                        |
+| ------------------ | ----- | -------------------------------------------------------------------------------------------------- |
+| `--_bg-color`      | Input | Background of the group. Defaults to `--surface-default`.                                          |
+| `--_border-color`  | Input | Color of the outline around the group and the lines between buttons. Defaults to `--border-color`. |
+| `--_border-radius` | Input | Corner radius of the group. Defaults to `--button-border-radius`.                                  |
+| `--_font-size`     | Input | Font size of each toggle button. Set by the group's size classes.                                  |
+| `--_size`          | Input | Height and minimum width of each toggle button. Set by the group's size classes.                   |
 
 ## Under the hood
 

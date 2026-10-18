@@ -800,6 +800,56 @@
     "url": "/vue/components/form"
   },
   {
+    "id": "component-layout-html",
+    "title": "Layout",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "headings": "Flow Cluster Grid Gap Container",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/layout"
+  },
+  {
+    "id": "component-layout-astro",
+    "title": "Layout",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "headings": "Flow Cluster Grid Gap Container",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/layout"
+  },
+  {
+    "id": "component-layout-react",
+    "title": "Layout",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "headings": "Flow Cluster Grid Gap Container",
+    "category": "Component",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/components/layout"
+  },
+  {
+    "id": "component-layout-svelte",
+    "title": "Layout",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "headings": "Flow Cluster Grid Gap Container",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/layout"
+  },
+  {
+    "id": "component-layout-vue",
+    "title": "Layout",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "headings": "Flow Cluster Grid Gap Container",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/layout"
+  },
+  {
     "id": "component-list-html",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -1743,7 +1793,7 @@
     "id": "guide-customizing-html",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your brand Reference themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/customizing"
@@ -1752,7 +1802,7 @@
     "id": "guide-customizing-astro",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your brand Reference themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/customizing"
@@ -1761,7 +1811,7 @@
     "id": "guide-customizing-react",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your brand Reference themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/customizing"
@@ -1770,7 +1820,7 @@
     "id": "guide-customizing-svelte",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your brand Reference themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/customizing"
@@ -1779,7 +1829,7 @@
     "id": "guide-customizing-vue",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your brand Reference themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/customizing"
@@ -1832,7 +1882,7 @@
   {
     "id": "guide-theme-generator-html",
     "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a theme.css.",
+    "description": "Edit the design tokens visually and download a brand.css.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "html",
@@ -1841,7 +1891,7 @@
   {
     "id": "guide-theme-generator-astro",
     "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a theme.css.",
+    "description": "Edit the design tokens visually and download a brand.css.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1850,7 +1900,7 @@
   {
     "id": "guide-theme-generator-react",
     "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a theme.css.",
+    "description": "Edit the design tokens visually and download a brand.css.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "react",
@@ -1859,7 +1909,7 @@
   {
     "id": "guide-theme-generator-svelte",
     "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a theme.css.",
+    "description": "Edit the design tokens visually and download a brand.css.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1868,7 +1918,7 @@
   {
     "id": "guide-theme-generator-vue",
     "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a theme.css.",
+    "description": "Edit the design tokens visually and download a brand.css.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1922,8 +1972,8 @@
   {
     "id": "guide-theming-html",
     "title": "Theming",
-    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
-    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/theming"
@@ -1931,8 +1981,8 @@
   {
     "id": "guide-theming-astro",
     "title": "Theming",
-    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
-    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theming"
@@ -1940,8 +1990,8 @@
   {
     "id": "guide-theming-react",
     "title": "Theming",
-    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
-    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/theming"
@@ -1949,8 +1999,8 @@
   {
     "id": "guide-theming-svelte",
     "title": "Theming",
-    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
-    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/theming"
@@ -1958,8 +2008,8 @@
   {
     "id": "guide-theming-vue",
     "title": "Theming",
-    "description": "Colors, density, motion and contrast. Each is a few custom properties on html, and a few classes change them for one part of the page.",
-    "headings": "Palette Scopes Density Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/theming"
@@ -3899,6 +3949,56 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#form"
+  },
+  {
+    "id": "api-layout-astro",
+    "title": "Layout API",
+    "description": "Reference for Layout Astro component.",
+    "headings": "Layout Any element. The classes only set its layout. cluster A wrapping row with its children centered on one line. container Centers its content and caps its width. flow A column with even space between its children. grid Columns that fill the width and wrap. size The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#layout"
+  },
+  {
+    "id": "api-layout-html",
+    "title": "Layout API",
+    "description": "Reference for Layout HTML component.",
+    "headings": ".ui-flow, .ui-cluster, .ui-grid, .ui-container Any element. The classes only set its layout. .ui-cluster Cluster A wrapping row with its children centered on one line. .ui-container Container Centers its content and caps its width. .ui-flow Flow A column with even space between its children. .ui-grid Grid Columns that fill the width and wrap. .ui-large .ui-small .ui-x-small Sizes The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#layout"
+  },
+  {
+    "id": "api-layout-react",
+    "title": "Layout API",
+    "description": "Reference for Layout React component.",
+    "headings": "Layout Any element. The classes only set its layout. cluster A wrapping row with its children centered on one line. container Centers its content and caps its width. flow A column with even space between its children. grid Columns that fill the width and wrap. size The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+    "category": "API",
+    "frameworkId": "react",
+    "type": "React",
+    "url": "/react/api#layout"
+  },
+  {
+    "id": "api-layout-svelte",
+    "title": "Layout API",
+    "description": "Reference for Layout Svelte component.",
+    "headings": "Layout Any element. The classes only set its layout. cluster A wrapping row with its children centered on one line. container Centers its content and caps its width. flow A column with even space between its children. grid Columns that fill the width and wrap. size The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#layout"
+  },
+  {
+    "id": "api-layout-vue",
+    "title": "Layout API",
+    "description": "Reference for Layout Vue component.",
+    "headings": "Layout Any element. The classes only set its layout. cluster A wrapping row with its children centered on one line. container Centers its content and caps its width. flow A column with even space between its children. grid Columns that fill the width and wrap. size The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#layout"
   },
   {
     "id": "api-list-item-astro",

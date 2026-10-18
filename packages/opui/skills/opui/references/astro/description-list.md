@@ -144,14 +144,25 @@ import {
 
 #### CSS variables
 
-| Variable             | Default                                     | Description                                                 |
-| -------------------- | ------------------------------------------- | ----------------------------------------------------------- |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers. |
-| `--border-width`     | `1px`                                       | Default border width for components that draw a border.     |
-| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                            |
+| Variable             | Default                                     | Description                                                  |
+| -------------------- | ------------------------------------------- | ------------------------------------------------------------ |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.  |
+| `--border-width`     | `1px`                                       | Default border width for components that draw a border.      |
+| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                 |
+| `--space-1`          | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`. |
+| `--space-3`          | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`. |
+| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                             |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property          | Kind  | Description                                                                                      |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------------ |
+| `--_border-style` | Input | Style of the line between term and description in `.ui-bordered`. `.ui-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description in `.ui-bordered`. `.ui-dotted` sets it to `2px`. |
 
 ## Under the hood
 

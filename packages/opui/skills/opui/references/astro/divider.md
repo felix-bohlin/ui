@@ -96,16 +96,25 @@ import { Card, CardContent, Divider } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                                                                                                                                                   |
-| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                   |
-| `--divider-space`  | `var(--size-fluid-3)`                        | Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
-| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                              |
+| Variable           | Default                                      | Description                                                                                                                                                                                    |
+| ------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                    |
+| `--divider-space`  | `var(--size-fluid-3)`                        | Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                   |
+| `--space-3`        | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                   |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                          |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                  |
+| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                               |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property   | Kind  | Description                                                                                       |
+| ---------- | ----- | ------------------------------------------------------------------------------------------------- |
+| `--_color` | Input | The line color. Defaults to `--border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
 
 ## Under the hood
 

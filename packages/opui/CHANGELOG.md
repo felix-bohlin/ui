@@ -133,6 +133,7 @@
 - Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
 - `themes/corporate.css`, `themes/dense.css` and `themes/editorial.css` are reference brands in the `theme.brand` layer. Import one after the library, or copy it as a starting point.
+- `Layout` classes for the space between components: `.ui-flow` (a column), `.ui-cluster` (a wrapping row), `.ui-grid` (columns that fill the width without breakpoints) and `.ui-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`.
 
 ### Changed
 

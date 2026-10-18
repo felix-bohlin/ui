@@ -159,6 +159,18 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 | **Container** | `#toast-manager`        | -        | The global fixed container that manages the stack of toasts.                    |
 | **Component** | `.ui-toast`             | -        | Individual notification element within the container.                           |
 
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property            | Kind   | Description                                                                                                                    |
+| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `--_dir`            | Output | Direction of the enter slide, `-1` in right-to-left.                                                                           |
+| `--_enter-duration` | Output | Duration of the enter animation, `--duration-slow` times `--_motion`.                                                          |
+| `--_exit-duration`  | Output | Duration of the exit animation, `--duration-slow` times `--_motion`.                                                           |
+| `--_hold-duration`  | Input  | How long the toast stays before it exits, in browsers without typed `attr()`. Others read `data-duration`, defaulting to `5s`. |
+| `--_motion`         | Input  | Motion multiplier for the animations and transitions. `0` turns them off.                                                      |
+
 ## Under the hood
 
 Read the post: [Toast timing with typed attr()](https://open-props-ui.netlify.app/learn/toast-attr-duration)
@@ -312,3 +324,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
 - Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
+- The toast shadow is [`--shadow-overlay`](#api), and padding and gaps read the `--space-*` scale.

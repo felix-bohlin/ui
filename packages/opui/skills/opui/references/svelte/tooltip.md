@@ -153,15 +153,32 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 | Variable            | Default                                     | Description                                                                                                                                                                                                |
 | ------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`   | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners.  |
 | `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                    |
 | `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
 | `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                   |
 | `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                      |
 | `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-2`         | `calc(var(--size-2) * var(--space-scale))`  | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                               |
 | `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                            |
 | `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                                                                                                         |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
+
+| Property             | Kind  | Description                                                                   |
+| -------------------- | ----- | ----------------------------------------------------------------------------- |
+| `--_arrow-size`      | Input | Size of the arrow in `.ui-with-arrow`.                                        |
+| `--_bg-color`        | Input | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
+| `--_min-inline-size` | Input | The minimum width, unless the content is narrower.                            |
+| `--_motion`          | Input | Motion multiplier for the fade. `0` turns it off.                             |
+| `--_offset`          | Input | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
+| `--_shift`           | Input | How far a shifted tooltip reaches past the center of the trigger.             |
+| `--_text-color`      | Input | The text color. Defaults to `--text-inverse`.                                 |
 
 ## Under the hood
 

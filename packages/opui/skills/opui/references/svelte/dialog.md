@@ -375,13 +375,15 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 #### CSS variables
 
-| Variable           | Default             | Description                                                                                                                                                                                                |
-| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
-| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
-| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
-| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                   |
-| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| Variable           | Default                                    | Description                                                                                                                                                                                                |
+| ------------------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`                                      | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`                         | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
+| `--duration`       | `0.2s`                                     | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)`                        | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--motion`         | `1`                                        | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--space-1`        | `calc(var(--size-1) * var(--space-scale))` | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-3`        | `calc(var(--size-3) * var(--space-scale))` | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                               |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -396,15 +398,29 @@ Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labell
 
 #### CSS variables
 
-| Variable           | Default             | Description                                                                                                                                                                                                |
-| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
-| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
-| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
-| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                                                                                                   |
-| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| Variable           | Default                                    | Description                                                                                                                                                                                                |
+| ------------------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`                                      | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`                         | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
+| `--duration`       | `0.2s`                                     | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)`                        | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--motion`         | `1`                                        | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--space-1`        | `calc(var(--size-1) * var(--space-scale))` | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-3`        | `calc(var(--size-3) * var(--space-scale))` | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                               |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
+
+| Property               | Kind  | Description                                                                     |
+| ---------------------- | ----- | ------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input | The backdrop color. Defaults to `--backdrop-color`.                             |
+| `--_backdrop-blur`     | Input | The backdrop filter. Defaults to a `--backdrop-blur` blur.                      |
+| `--_max-inline-size`   | Input | Maximum width, capped to fit the viewport.                                      |
+| `--_motion`            | Input | Motion multiplier for the transitions. `0` turns them off.                      |
+| `--_scroll-shadow`     | Input | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`. |
 
 ## Under the hood
 

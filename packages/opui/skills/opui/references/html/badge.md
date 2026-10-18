@@ -349,6 +349,27 @@ Where the badge should be placed over the child.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property          | Kind   | Description                                                                                                               |
+| ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
+| `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
+| `--_bg-color`     | Input  | Background of the indicator. Defaults to `--primary`, set by the color classes.                                           |
+| `--_border-color` | Input  | Border color of the indicator. Set by the color classes.                                                                  |
+| `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
+| `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
+| `--_inset`        | Input  | Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle. |
+| `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the alignment classes.                                                  |
+| `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the alignment classes.                                                 |
+| `--_motion`       | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                |
+| `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.                                              |
+| `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.                                                |
+| `--_size`         | Input  | Height and minimum width of the indicator.                                                                                |
+| `--_text-color`   | Input  | Text color of the indicator. Defaults to `--primary-contrast`, set by the color classes.                                  |
+
 ## Under the hood
 
 1. Indicator

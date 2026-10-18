@@ -620,6 +620,25 @@ cold-brew 1.0.0</samp></pre>
 
 Add the classes to elements in your templates. There is no Vue component.
 
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
+
+### link.css
+
+| Property        | Kind  | Description                                                                                                |
+| --------------- | ----- | ---------------------------------------------------------------------------------------------------------- |
+| `--_text-color` | Input | Text and underline color. `--primary`, darkened in light mode and lightened in dark mode to stay readable. |
+
+### typography.css
+
+| Property          | Kind   | Description                                                                                      |
+| ----------------- | ------ | ------------------------------------------------------------------------------------------------ |
+| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                            |
+| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it. |
+| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.               |
+| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                          |
+
 ## Under the hood
 
 Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
@@ -727,3 +746,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
 - [Links](#link) are documented, and get a thicker underline on hover.
 - [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
+- Headings read [`--font-heading`](#api) and code, `kbd`, `samp` and `var` read `--font-code`. Rich text margins read the `--space-*` scale.

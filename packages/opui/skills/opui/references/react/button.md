@@ -448,7 +448,8 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                  |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--button-border-radius`      | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                                                                                                                 |
+| `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners.    |
+| `--button-border-radius`      | `var(--border-radius)`                                                                | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. Follows `--border-radius`.                                                                                                      |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                     |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                            |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                                                                                                            |
@@ -457,6 +458,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                                                                                                        |
 | `--duration-fast`             | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                            |
 | `--ease`                      | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                              |
+| `--font-code`                 | `var(--font-mono)`                                                                    | Font family for `code`, `kbd`, `samp` and `var`. Defaults to Open Props `--font-mono`.                                                                                                                       |
 | `--font-size-05`              | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                        |
 | `--font-weight-bold`          | `var(--font-weight-7)`                                                                | Font weight for headings, buttons and terms.                                                                                                                                                                 |
 | `--font-weight-normal`        | `var(--font-weight-4)`                                                                | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                 |
@@ -475,6 +477,33 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                                           | Muted text color on an inverted surface.                                                                                                                                                                     |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+| Property                      | Kind   | Description                                                                                                                   |
+| ----------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                   | Input  | The accent color. Fills, borders, text, hover and active states are derived from it. `.ui-primary` and `.ui-critical` set it. |
+| `--_accent-contrast`          | Input  | Text color on a fill of `--_accent`.                                                                                          |
+| `--_accent-text`              | Output | Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable.                                |
+| `--_accent-tonal`             | Input  | Background of `.ui-tonal`.                                                                                                    |
+| `--_accent-tonal-contrast`    | Input  | Text color of `.ui-tonal`.                                                                                                    |
+| `--_bg-color`                 | Output | The current background. Set by the variant, hover, active and disabled states.                                                |
+| `--_border-color`             | Output | The current border color. Set by the variant and states.                                                                      |
+| `--_border-radius`            | Input  | The corner radius. Defaults to `--button-border-radius`, `.ui-rounded` makes it round.                                        |
+| `--_border-width`             | Input  | The border width.                                                                                                             |
+| `--_default-active-bg-color`  | Output | Pressed background of text buttons, from `--_accent`.                                                                         |
+| `--_default-hover-bg-color`   | Output | Hover background of text buttons, from `--_accent`.                                                                           |
+| `--_filled-active-bg-color`   | Output | Pressed background of filled buttons, from `--_accent`.                                                                       |
+| `--_filled-hover-bg-color`    | Output | Hover background of filled buttons, from `--_accent`.                                                                         |
+| `--_font-size`                | Input  | The font size. Set by the size classes.                                                                                       |
+| `--_icon-size`                | Input  | The size of a direct child `svg`. Icon-only buttons scale it with `--_min-height`.                                            |
+| `--_min-height`               | Input  | The height. Set by the size classes.                                                                                          |
+| `--_motion`                   | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                    |
+| `--_outlined-active-bg-color` | Output | Pressed background of outlined buttons, from `--_accent`.                                                                     |
+| `--_padding-inline`           | Input  | The inline padding. Set by the size classes.                                                                                  |
+| `--_text-color`               | Output | The current text color. Set by the variant, hover, active and disabled states.                                                |
 
 ## Under the hood
 
@@ -576,3 +605,4 @@ Import the component from `opui-css/react`:
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
+- Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

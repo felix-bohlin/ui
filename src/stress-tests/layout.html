@@ -3631,3 +3631,86 @@
     </div>
   </div>
 </section>
+
+<section class="stress" data-example="LayoutPrimitives">
+  <h2>Layout primitives</h2>
+  <p>
+    A settings section built only from <code>.ui-container</code>,
+    <code>.ui-flow</code>, <code>.ui-cluster</code> and <code>.ui-grid</code>,
+    at full width and in a 24rem box. The header actions should wrap under the
+    title when they run out of room, the grid should drop to one column in the
+    box and the chips should wrap without overflowing.
+  </p>
+  <div class="ui-flow ui-large">
+    <div class="ui-container" style="--_max-inline-size: 48rem">
+      <div class="ui-flow ui-large">
+        <div class="ui-cluster" style="--_justify-content: space-between">
+          <div class="ui-flow ui-x-small">
+            <h3 class="ui-h4">Workspace</h3>
+            <p>Members, plans and the integrations this workspace uses.</p>
+          </div>
+          <div class="ui-cluster ui-small">
+            <button class="ui-button ui-outlined" type="button">Export</button>
+            <button class="ui-button ui-filled ui-primary" type="button">
+              Invite people
+            </button>
+          </div>
+        </div>
+        <div class="ui-grid" style="--_min-inline-size: 12rem">
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">12 members</div>
+          </div>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">
+              Team plan, renews on the 1st of every month
+            </div>
+          </div>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">4 integrations</div>
+          </div>
+        </div>
+        <div class="ui-cluster ui-x-small">
+          <span class="ui-chip">Design</span>
+          <span class="ui-chip">Engineering</span>
+          <span class="ui-chip">Customer support</span>
+          <span class="ui-chip">Marketing</span>
+          <span class="ui-chip">Finance and operations</span>
+        </div>
+      </div>
+    </div>
+    <div class="stress-layout-medium">
+      <div class="ui-container" style="--_padding-inline: 0">
+        <div class="ui-flow">
+          <div class="ui-cluster" style="--_justify-content: space-between">
+            <h3 class="ui-h5">Workspace</h3>
+            <div class="ui-cluster ui-small">
+              <button class="ui-button ui-outlined ui-small" type="button">
+                Export
+              </button>
+              <button
+                class="ui-button ui-filled ui-primary ui-small"
+                type="button"
+              >
+                Invite people
+              </button>
+            </div>
+          </div>
+          <div class="ui-grid ui-small" style="--_min-inline-size: 12rem">
+            <div class="ui-card ui-outlined">
+              <div class="ui-content">12 members</div>
+            </div>
+            <div class="ui-card ui-outlined">
+              <div class="ui-content">Team plan</div>
+            </div>
+          </div>
+          <div class="ui-cluster ui-x-small">
+            <span class="ui-chip">Design</span>
+            <span class="ui-chip">Engineering</span>
+            <span class="ui-chip">Customer support</span>
+            <span class="ui-chip">Finance and operations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

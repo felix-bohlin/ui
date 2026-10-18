@@ -230,6 +230,10 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
 | `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                   |
 | `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                |
+| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                               |
+| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                               |
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
@@ -256,6 +260,10 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 | `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
 | `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                   |
 | `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                |
+| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                               |
+| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                               |
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
@@ -278,10 +286,40 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                     |
 | `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                   |
 | `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                |
+| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                               |
+| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                               |
+| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                               |
 | `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                  |
 | `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                     |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
+
+| Property               | Kind   | Description                                                                                       |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--backdrop-color`, `.ui-backdrop-transparent` clears it.         |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
+| `--_bg-color`          | Input  | The background. Defaults to `--surface-default`.                                                  |
+| `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                          |
+| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                    |
+| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                    |
+| `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                         |
+| `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                             |
+| `--_duration`          | Output | Duration of the transitions, `--duration` times `--_motion`.                                      |
+| `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ease-enter`.                                |
+| `--_footer-gap`        | Input  | Gap between items in `.ui-footer`.                                                                |
+| `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                          |
+| `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                            |
+| `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                          |
+| `--_inline-size`       | Input  | Width of `.ui-inline-start` and `.ui-inline-end` drawers.                                         |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                        |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.                   |
+| `--_shadow`            | Input  | The shadow. Defaults to `--shadow-overlay`.                                                       |
+| `--_text-color`        | Input  | The text color. Defaults to `--text-primary`.                                                     |
 
 ## Under the hood
 
@@ -538,3 +576,4 @@ Import the components from `opui-css/svelte`:
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
 - Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.
+- The drawer shadow is [`--shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.

@@ -1,6 +1,6 @@
 # Theming
 
-Colors, density, motion and contrast. Each is a few custom properties on `html`, and a few classes change them for one part of the page.
+Colors, density, spacing, corners, fonts, elevation, motion and contrast. Each is a few custom properties on `html`, and a few classes change them for one part of the page.
 
 ## Palette
 
@@ -59,6 +59,57 @@ A scope is a class that changes the theme for one element and everything inside 
 ```css
 :where(html) {
   --density: 0.875;
+}
+```
+
+## Spacing
+
+Containers space their content with the `--space-1` to `--space-8` steps: the padding of cards, callouts, dialogs, drawers, toasts and table cells, the gaps in forms, and the margins in rich text. Each step is the Open Props size of the same number times `--space-scale`, so one value makes the whole page roomier or tighter. Controls keep following `--density`, so a form can be spacious while its fields stay compact.
+
+```css
+:where(html) {
+  --space-scale: 1.25;
+}
+
+/* Or tie spacing to density */
+:where(html) {
+  --density: 0.875;
+  --space-scale: var(--density);
+}
+```
+
+Like the control sizes, the steps resolve on `html`, so set `--space-scale` there.
+
+## Corners
+
+`--border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and `--button-border-radius` and `--field-border-radius` follow it. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--border-radius`, so `0` squares everything.
+
+```css
+:where(html) {
+  --border-radius: 0;
+}
+```
+
+## Fonts
+
+`--font-body` sets the text, fields and buttons, `--font-heading` the headings and the `.ui-h1` to `.ui-h6` classes, and `--font-code` `code`, `kbd`, `samp` and `var`. Headings follow the body font until you set their own.
+
+```css
+:where(html) {
+  --font-body: "Inter", var(--font-sans);
+  --font-code: "JetBrains Mono", var(--font-mono);
+  --font-heading: "Fraunces", var(--font-serif);
+}
+```
+
+## Elevation
+
+Two shadows lift things off the page. `--shadow-raised` is for surfaces in the page, like elevated cards and accordions, and switches to a stronger shadow in dark mode. `--shadow-overlay` is for layers above it: menus, `select` pickers, drawers and toasts.
+
+```css
+:where(html) {
+  --shadow-overlay: var(--shadow-4);
+  --shadow-raised: none;
 }
 ```
 

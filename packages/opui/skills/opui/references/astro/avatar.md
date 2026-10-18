@@ -176,6 +176,7 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 
 | Variable                 | Default                                                                               | Description                                                                                                                                                                                                  |
 | ------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--border-radius`        | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners.    |
 | `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                |
 | `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                  |
 | `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                  |
@@ -189,6 +190,20 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property           | Kind  | Description                                                                                             |
+| ------------------ | ----- | ------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`      | Input | The background. Defaults to `--primary`, transparent when the avatar holds an `img`.                    |
+| `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                     |
+| `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                 |
+| `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                     |
+| `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--surface-default`. Set on the group. |
+| `--_size`          | Input | The width and height. Defaults to `--control-size`, set by the size classes.                            |
+| `--_text-color`    | Input | The text and icon color. Defaults to `--primary-contrast`.                                              |
 
 ## Under the hood
 

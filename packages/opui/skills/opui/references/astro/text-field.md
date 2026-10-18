@@ -512,7 +512,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
 | `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                           |
 | `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                  |
-| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                                                                                                 |
+| `--field-border-radius`      | `var(--border-radius)`                                                                  | Corner radius for fields. Follows `--border-radius`.                                                                                                                                                      |
 | `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                |
 | `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                         |
 | `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                          |
@@ -529,6 +529,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                            |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                          |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                  |
+| `--font-body`                | `var(--font-sans)`                                                                      | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                      |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
 | `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                      |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                      |
@@ -543,6 +544,27 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property                     | Kind   | Description                                                                                               |
+| ---------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                      |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                         |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                           |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                 |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                            |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                     |
+| `--_end-text-color`          | Output | The current color of `.ui-start-text` and `.ui-end-text`. Set by the invalid state.                       |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                      |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                         |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                       |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                 |
+| `--_label-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Set by the invalid state. |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                   |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                |
 
 ## Under the hood
 
@@ -726,3 +748,4 @@ Import the component from `opui-css/astro`:
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the input, no more `data-invalid` on the root ([Validation](#validation)).
+- Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

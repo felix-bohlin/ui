@@ -255,6 +255,9 @@ const whatsNew = {
       vue: `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
     },
   ],
+  layout: [
+    `New: <a href="#flow"><code>.ui-flow</code></a>, <a href="#cluster"><code>.ui-cluster</code></a>, <a href="#grid"><code>.ui-grid</code></a> and <a href="#container"><code>.ui-container</code></a> lay out the space between components.`,
+  ],
   list: [
     `Smaller <a href="#icon">start</a> and end icons.`,
     {
@@ -529,6 +532,7 @@ const whatsNew = {
 const highlighted = new Set([
   "button",
   "carousel",
+  "layout",
   "menu",
   "tabs",
   "typography",

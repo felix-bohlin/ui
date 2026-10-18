@@ -84,21 +84,31 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                                                                                                                                                             |
-| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
-| `--border-radius`  | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                                                                                                       |
-| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                 |
-| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
-| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                |
-| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                            |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                   |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                           |
+| Variable           | Default                                      | Description                                                                                                                                                                                               |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`  | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
+| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
+| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
+| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                  |
+| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).   |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                     |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
+
+| Property      | Kind  | Description                                                                 |
+| ------------- | ----- | --------------------------------------------------------------------------- |
+| `--_accent`   | Input | Color of the bar. Defaults to `--primary`.                                  |
+| `--_bg-color` | Input | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
+| `--_motion`   | Input | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
 

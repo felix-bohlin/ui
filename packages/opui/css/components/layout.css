@@ -1,0 +1,56 @@
+@layer components.root {
+  :where(.ui-flow) {
+    --_gap: var(--space-3);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
+  }
+
+  :where(.ui-cluster) {
+    --_gap: var(--space-3);
+    --_justify-content: flex-start;
+
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_gap);
+    justify-content: var(--_justify-content);
+  }
+
+  :where(.ui-grid) {
+    --_gap: var(--space-3);
+    --_min-inline-size: 16rem;
+
+    display: grid;
+    gap: var(--_gap);
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(var(--_min-inline-size), 100%), 1fr)
+    );
+  }
+
+  :where(.ui-flow, .ui-cluster, .ui-grid) {
+    &.ui-x-small {
+      --_gap: var(--space-1);
+    }
+
+    &.ui-small {
+      --_gap: var(--space-2);
+    }
+
+    &.ui-large {
+      --_gap: var(--space-5);
+    }
+  }
+
+  :where(.ui-container) {
+    --_max-inline-size: 72rem;
+    --_padding-inline: var(--space-4);
+
+    inline-size: 100%;
+    margin-inline: auto;
+    max-inline-size: var(--_max-inline-size);
+    padding-inline: var(--_padding-inline);
+  }
+}

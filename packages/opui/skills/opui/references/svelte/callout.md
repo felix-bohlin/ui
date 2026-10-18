@@ -157,18 +157,20 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 #### CSS variables
 
-| Variable                 | Default                                      | Description                                                                                           |
-| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                     |
-| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+| Variable                 | Default                                      | Description                                                                                                                                                                                               |
+| ------------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`        | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
+| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                                                                                                                         |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                      |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                                                                                                 |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -183,20 +185,46 @@ For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instea
 
 #### CSS variables
 
-| Variable                 | Default                                      | Description                                                                                           |
-| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                     |
-| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+| Variable                 | Default                                      | Description                                                                                                                                                                                               |
+| ------------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
+| `--border-radius`        | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                   |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                     |
+| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                                                                                                                         |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                      |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                              |
+| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                              |
+| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                                                                                                 |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                             |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
+
+| Property                   | Kind   | Description                                                                                      |
+| -------------------------- | ------ | ------------------------------------------------------------------------------------------------ |
+| `--_bg-color`              | Output | The current tint, drawn over `--_surface-bg-color`. Set by the color classes and `.ui-outlined`. |
+| `--_border-color`          | Output | The current border color. Set by the color classes and `.ui-outlined`.                           |
+| `--_border-radius`         | Input  | The corner radius. Defaults to `--border-radius`.                                                |
+| `--_content-gap`           | Input  | Space between the children of `.ui-content`.                                                     |
+| `--_font-size`             | Input  | Font size of `.ui-content`.                                                                      |
+| `--_gap`                   | Input  | Gap between a direct child `svg` and `.ui-content`.                                              |
+| `--_icon-color`            | Output | The current color of a direct child `svg`. Set by the color classes and `.ui-outlined`.          |
+| `--_icon-size`             | Input  | Width of the icon column when there's a direct child `svg`.                                      |
+| `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--primary`, not used in `.ui-outlined`.              |
+| `--_outlined-bg-color`     | Input  | Background of `.ui-outlined`. Defaults to `--surface-default`.                                   |
+| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Set by the color classes.                                        |
+| `--_outlined-icon-color`   | Input  | Icon color of `.ui-outlined`. Set by the color classes.                                          |
+| `--_outlined-text-color`   | Input  | Text color of `.ui-outlined`. Set by the color classes.                                          |
+| `--_padding`               | Input  | The padding.                                                                                     |
+| `--_surface-bg-color`      | Input  | The opaque background under the tint. Defaults to `--surface-default`.                           |
+| `--_text-color`            | Output | The current text color. Set by the color classes and `.ui-outlined`.                             |
+| `--_title-font-size`       | Input  | Font size of headings in `.ui-content`.                                                          |
 
 ## Under the hood
 

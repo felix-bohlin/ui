@@ -818,3 +818,4 @@ Import the component from `opui-css/astro`:
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
 - No `type` prop in the types ([API](#api)).
 - A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).
+- Breaking: deep type imports from `components/Switch/types` are named `Props` and `Slots` (was `SwitchProps` and `SwitchSlots`). Import [`SwitchProps`](#api) from the framework entry instead.

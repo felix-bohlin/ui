@@ -2,7 +2,7 @@
 
 It's just a line.
 
-## Default
+## Basics
 
 ```svelte
 <script lang="ts">

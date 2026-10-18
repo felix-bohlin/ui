@@ -287,7 +287,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 
 ## Required
 
-Add the `required` attribute on at least one `Radio`. It is forwarded to the underlying `<input>`.
+Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
 ```vue
 <script setup lang="ts">
@@ -655,3 +655,4 @@ Import the component from `opui-css/vue`:
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
 - No `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
+- Breaking: deep type imports from `components/Radio/types` are named `Props` and `Slots` (was `RadioProps` and `RadioSlots`). Import [`RadioProps`](#api) from the framework entry instead.

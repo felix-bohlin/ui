@@ -301,3 +301,4 @@ Import the components from `opui-css/vue`:
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
 - `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd` ([Basics](#basics)).
+- Breaking: deep type imports from `components/DescriptionList/types` are named [`DescriptionListTermProps`](#api), `DescriptionListDescriptionProps` and `DescriptionListItemProps` (was `TermProps`, `DescriptionProps` and `ItemProps`), like the framework entry.

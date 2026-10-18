@@ -183,10 +183,10 @@ Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label t
           type="radio"
           value="standard"
           checked
-          aria-describedby="radio-spread-end-text-1"
+          aria-describedby="radio-spread-1-end-text"
         />
         <span class="ui-label">Standard</span>
-        <span class="ui-end-text" id="radio-spread-end-text-1"
+        <span class="ui-end-text" id="radio-spread-1-end-text"
           >Arrives in 3 to 5 days.</span
         >
       </label>
@@ -195,10 +195,10 @@ Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label t
           name="radio-spread"
           type="radio"
           value="express"
-          aria-describedby="radio-spread-end-text-2"
+          aria-describedby="radio-spread-2-end-text"
         />
         <span class="ui-label">Express</span>
-        <span class="ui-end-text" id="radio-spread-end-text-2"
+        <span class="ui-end-text" id="radio-spread-2-end-text"
           >Arrives tomorrow.</span
         >
       </label>
@@ -208,10 +208,10 @@ Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label t
           type="radio"
           value="pickup"
           disabled
-          aria-describedby="radio-spread-end-text-3"
+          aria-describedby="radio-spread-3-end-text"
         />
         <span class="ui-label">Pickup</span>
-        <span class="ui-end-text" id="radio-spread-end-text-3"
+        <span class="ui-end-text" id="radio-spread-3-end-text"
           >Not available in your area.</span
         >
       </label>

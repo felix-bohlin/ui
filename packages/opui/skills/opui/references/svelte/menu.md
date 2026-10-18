@@ -11,11 +11,11 @@ A popover [List](https://open-props-ui.netlify.app/svelte/components/list.md), a
   import { Button, Menu } from "opui-css/svelte"
 </script>
 
-<Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-basics-1" command="toggle-popover" variant="outlined">
   Options
 </Button>
 <Menu
-  id="menu-basics"
+  id="menu-basics-1"
   items={[
     { text: "Edit", shortcut: "E" },
     { text: "Duplicate", shortcut: "D" },
@@ -34,12 +34,16 @@ A popover [List](https://open-props-ui.netlify.app/svelte/components/list.md), a
   import { Button, Menu } from "opui-css/svelte"
 </script>
 
-<Button commandfor="menu-bordered" command="toggle-popover" variant="outlined">
+<Button
+  commandfor="menu-bordered-1"
+  command="toggle-popover"
+  variant="outlined"
+>
   Options
 </Button>
 <Menu
   bordered
-  id="menu-bordered"
+  id="menu-bordered-1"
   items={[{ text: "Edit" }, { text: "Duplicate" }, { text: "Archive" }]}
 />
 ```
@@ -58,7 +62,7 @@ If you want to decide yourself what goes into your list.
   size="small"
   aria-label="More actions"
   iconOnly
-  commandfor="menu-custom"
+  commandfor="menu-custom-1"
   command="toggle-popover"
 >
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -68,12 +72,12 @@ If you want to decide yourself what goes into your list.
     ></path>
   </svg>
 </Button>
-<Menu id="menu-custom">
+<Menu id="menu-custom-1">
   <li class="ui-label">Document</li>
   <ListItem
     as="button"
     headline="Rename"
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     {#snippet start()}
@@ -89,7 +93,7 @@ If you want to decide yourself what goes into your list.
   <ListItem
     as="button"
     headline="Copy"
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     {#snippet start()}
@@ -117,7 +121,7 @@ If you want to decide yourself what goes into your list.
     headline="Delete"
     borderTop
     critical
-    commandfor="menu-custom"
+    commandfor="menu-custom-1"
     command="hide-popover"
   >
     {#snippet start()}
@@ -144,36 +148,40 @@ If you want to decide yourself what goes into your list.
 </script>
 
 <Button
-  commandfor="menu-block-start"
+  commandfor="menu-placement-1"
   command="toggle-popover"
   variant="outlined"
 >
   Block start
 </Button>
-<Menu id="menu-block-start" {items} placement="block-start" />
-
-<Button commandfor="menu-block-end" command="toggle-popover" variant="outlined">
-  Block end
-</Button>
-<Menu id="menu-block-end" {items} />
+<Menu id="menu-placement-1" {items} placement="block-start" />
 
 <Button
-  commandfor="menu-inline-start"
+  commandfor="menu-placement-2"
+  command="toggle-popover"
+  variant="outlined"
+>
+  Block end
+</Button>
+<Menu id="menu-placement-2" {items} />
+
+<Button
+  commandfor="menu-placement-3"
   command="toggle-popover"
   variant="outlined"
 >
   Inline start
 </Button>
-<Menu id="menu-inline-start" {items} placement="inline-start" />
+<Menu id="menu-placement-3" {items} placement="inline-start" />
 
 <Button
-  commandfor="menu-inline-end"
+  commandfor="menu-placement-4"
   command="toggle-popover"
   variant="outlined"
 >
   Inline end
 </Button>
-<Menu id="menu-inline-end" {items} placement="inline-end" />
+<Menu id="menu-placement-4" {items} placement="inline-end" />
 ```
 
 ## Submenu
@@ -187,14 +195,14 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
   const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 </script>
 
-<Button commandfor="menu-file" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
   File
 </Button>
-<Menu id="menu-file" items={[{ text: "New" }, { text: "Open" }]}>
+<Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
   <ListItem
     as="button"
     headline="Export"
-    commandfor="menu-export"
+    commandfor="menu-submenu-2"
     command="toggle-popover"
   >
     {#snippet end()}
@@ -211,7 +219,7 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
       </svg>
     {/snippet}
     {#snippet submenu()}
-      <Menu id="menu-export" items={formats} placement="inline-end" />
+      <Menu id="menu-submenu-2" items={formats} placement="inline-end" />
     {/snippet}
   </ListItem>
 </Menu>
@@ -226,11 +234,11 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
   import { Button, Menu } from "opui-css/svelte"
 </script>
 
-<Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-manual-1" command="toggle-popover" variant="outlined">
   View
 </Button>
 <Menu
-  id="menu-manual"
+  id="menu-manual-1"
   popover="manual"
   items={[
     { text: "Show grid", closeOnClick: false },

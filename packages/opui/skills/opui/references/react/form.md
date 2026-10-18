@@ -30,7 +30,7 @@ Dog Cat
 
   Lays out related fields.
 
-## Usage
+## Basics
 
 ```tsx
 import {
@@ -362,7 +362,7 @@ const roleItems = [
 
 export default function KitchenSink() {
   return (
-    <Form id="kitchen-sink-example">
+    <Form id="form-kitchen-sink-1">
       <FieldSet>
         <FieldLegend>User Profile</FieldLegend>
         <FieldDescription>

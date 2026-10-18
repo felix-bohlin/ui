@@ -24,7 +24,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   The footer.
 
-## Usage
+## Basics
 
 Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
 
@@ -39,7 +39,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <button
     type="button"
     class="ui-button"
-    commandfor="drawer-block-start"
+    commandfor="drawer-basics-3"
     command="show-modal"
   >
     Block Start
@@ -47,7 +47,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <button
     type="button"
     class="ui-button"
-    commandfor="drawer-inline-start"
+    commandfor="drawer-basics-1"
     command="show-modal"
   >
     Inline Start
@@ -55,7 +55,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <button
     type="button"
     class="ui-button"
-    commandfor="drawer-inline-end"
+    commandfor="drawer-basics-2"
     command="show-modal"
   >
     Inline End
@@ -63,7 +63,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <button
     type="button"
     class="ui-button"
-    commandfor="drawer-block-end"
+    commandfor="drawer-basics-4"
     command="show-modal"
   >
     Block End
@@ -72,17 +72,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
-  id="drawer-inline-start"
-  aria-labelledby="drawer-inline-start-heading"
+  id="drawer-basics-1"
+  aria-labelledby="drawer-basics-1-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-inline-start-heading">Inline Start</h2>
+    <h2 id="drawer-basics-1-heading">Inline Start</h2>
     <button
       type="button"
       class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-inline-start"
+      commandfor="drawer-basics-1"
       command="close"
     >
       <svg
@@ -121,7 +121,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-inline-start"
+      commandfor="drawer-basics-1"
       command="close"
     >
       Close
@@ -131,17 +131,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-end"
-  id="drawer-inline-end"
-  aria-labelledby="drawer-inline-end-heading"
+  id="drawer-basics-2"
+  aria-labelledby="drawer-basics-2-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-inline-end-heading">Inline End</h2>
+    <h2 id="drawer-basics-2-heading">Inline End</h2>
     <button
       type="button"
       class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-inline-end"
+      commandfor="drawer-basics-2"
       command="close"
     >
       <svg
@@ -180,7 +180,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-inline-end"
+      commandfor="drawer-basics-2"
       command="close"
     >
       Close
@@ -190,17 +190,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-start"
-  id="drawer-block-start"
-  aria-labelledby="drawer-block-start-heading"
+  id="drawer-basics-3"
+  aria-labelledby="drawer-basics-3-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-block-start-heading">Block Start</h2>
+    <h2 id="drawer-basics-3-heading">Block Start</h2>
     <button
       type="button"
       class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-block-start"
+      commandfor="drawer-basics-3"
       command="close"
     >
       <svg
@@ -234,7 +234,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-block-start"
+      commandfor="drawer-basics-3"
       command="close"
     >
       Close
@@ -244,17 +244,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-end"
-  id="drawer-block-end"
-  aria-labelledby="drawer-block-end-heading"
+  id="drawer-basics-4"
+  aria-labelledby="drawer-basics-4-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-block-end-heading">Block End</h2>
+    <h2 id="drawer-basics-4-heading">Block End</h2>
     <button
       type="button"
       class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-block-end"
+      commandfor="drawer-basics-4"
       command="close"
     >
       <svg
@@ -288,7 +288,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-block-end"
+      commandfor="drawer-basics-4"
       command="close"
     >
       Close
@@ -672,7 +672,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
-- The [backdrop](#usage) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- The [backdrop](#basics) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
 - Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).

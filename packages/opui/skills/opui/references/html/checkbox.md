@@ -195,10 +195,10 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
       name="checkbox-validation"
       type="checkbox"
       checked
-      aria-describedby="checkbox-validation-end-text-1"
+      aria-describedby="checkbox-validation-3-end-text"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-1"
+    <span class="ui-end-text" id="checkbox-validation-3-end-text"
       >Check yourself</span
     >
   </label>
@@ -208,10 +208,10 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
       aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
-      aria-describedby="checkbox-validation-end-text-2"
+      aria-describedby="checkbox-validation-4-end-text"
     />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-2"
+    <span class="ui-end-text" id="checkbox-validation-4-end-text"
       >Before you wreck yourself</span
     >
   </label>
@@ -286,10 +286,10 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
   <input
     name="checkbox-spread"
     type="checkbox"
-    aria-describedby="checkbox-spread-end-text-1"
+    aria-describedby="checkbox-spread-1-end-text"
   />
   <span class="ui-label">Accept Terms & Conditions</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-1"
+  <span class="ui-end-text" id="checkbox-spread-1-end-text"
     >I have read and agree to the privacy policy.</span
   >
 </label>
@@ -299,10 +299,10 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
     name="checkbox-spread"
     type="checkbox"
     required
-    aria-describedby="checkbox-spread-end-text-2"
+    aria-describedby="checkbox-spread-2-end-text"
   />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-2"
+  <span class="ui-end-text" id="checkbox-spread-2-end-text"
     >You must accept this to continue.</span
   >
 </label>
@@ -312,10 +312,10 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
     name="checkbox-spread"
     type="checkbox"
     disabled
-    aria-describedby="checkbox-spread-end-text-3"
+    aria-describedby="checkbox-spread-3-end-text"
   />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-3"
+  <span class="ui-end-text" id="checkbox-spread-3-end-text"
     >This checkbox is disabled.</span
   >
 </label>
@@ -325,10 +325,10 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
     aria-invalid="true"
     name="checkbox-spread"
     type="checkbox"
-    aria-describedby="checkbox-spread-end-text-4"
+    aria-describedby="checkbox-spread-4-end-text"
   />
   <span class="ui-label">Invalid Checkbox</span>
-  <span class="ui-end-text" id="checkbox-spread-end-text-4"
+  <span class="ui-end-text" id="checkbox-spread-4-end-text"
     >There is an error with this checkbox.</span
   >
 </label>

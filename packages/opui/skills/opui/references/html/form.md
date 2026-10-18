@@ -30,7 +30,7 @@ Dog Cat
 
   Lays out related fields.
 
-## Usage
+## Basics
 
 ```html
 <form class="ui-form">
@@ -331,7 +331,7 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` w
 Everything at once.
 
 ```html
-<form class="ui-form" id="kitchen-sink-example">
+<form class="ui-form" id="form-kitchen-sink-1">
   <fieldset class="ui-fieldset">
     <legend>User Profile</legend>
     <p class="ui-field-description">
@@ -351,9 +351,9 @@ Everything at once.
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label" id="form-kitchen-sink-1-label">Role</span>
+        <span class="ui-label" id="form-kitchen-sink-2-label">Role</span>
         <span class="ui-field">
-          <select aria-labelledby="form-kitchen-sink-1-label">
+          <select aria-labelledby="form-kitchen-sink-2-label">
             <button type="button">
               <selectedcontent></selectedcontent>
             </button>
@@ -417,16 +417,16 @@ Everything at once.
     </p>
     <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label" id="form-kitchen-sink-2-label"
+        <span class="ui-label" id="form-kitchen-sink-3-label"
           >Professional Experience</span
         >
-        <span class="ui-start-text" id="form-kitchen-sink-2-start-text"
+        <span class="ui-start-text" id="form-kitchen-sink-3-start-text"
           >Drag the slider to match your total tenure.</span
         >
         <input
           type="range"
-          aria-describedby="form-kitchen-sink-2-start-text"
-          aria-labelledby="form-kitchen-sink-2-label"
+          aria-describedby="form-kitchen-sink-3-start-text"
+          aria-labelledby="form-kitchen-sink-3-label"
           min="0"
           max="20"
           step="1"
@@ -462,13 +462,13 @@ Everything at once.
     <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
-          aria-describedby="form-kitchen-sink-3-end-text"
+          aria-describedby="form-kitchen-sink-4-end-text"
           type="checkbox"
           name="terms"
           required
         />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="form-kitchen-sink-3-end-text"
+        <span class="ui-end-text" id="form-kitchen-sink-4-end-text"
           >Support this text</span
         >
       </label>

@@ -798,3 +798,4 @@ Import the component from `opui-css/vue`:
 - A checkbox without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
 - No `type` prop in the types ([API](#api)).
+- Breaking: deep type imports from `components/Checkbox/types` are named `Props` and `Slots` (was `CheckboxProps` and `CheckboxSlots`). Import [`CheckboxProps`](#api) from the framework entry instead.

@@ -202,7 +202,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     type="button"
     class="ui-button"
     aria-label="More save options"
-    commandfor="split-button-menu"
+    commandfor="button-group-split-button-1"
     command="toggle-popover"
   >
     <svg
@@ -219,12 +219,16 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     </svg>
   </button>
 
-  <menu id="split-button-menu" class="ui-menu ui-list ui-align-end" popover>
+  <menu
+    id="button-group-split-button-1"
+    class="ui-menu ui-list ui-align-end"
+    popover
+  >
     <li>
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu"
+        commandfor="button-group-split-button-1"
       >
         <div class="ui-text"><p>Save as draft</p></div>
       </button>
@@ -233,7 +237,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu"
+        commandfor="button-group-split-button-1"
       >
         <div class="ui-text"><p>Save and publish</p></div>
       </button>

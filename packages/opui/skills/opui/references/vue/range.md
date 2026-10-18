@@ -514,3 +514,4 @@ Import the component from `opui-css/vue`:
 - The [`value`](#value) slot is scoped with the current value and follows the thumb.
 - Breaking: `style` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
+- Breaking: deep type imports from `components/Range/types` are named `Props` and `Slots` (was `RangeProps` and `RangeSlots`). Import [`RangeProps`](#api) from the framework entry instead.

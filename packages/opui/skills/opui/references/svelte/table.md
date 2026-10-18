@@ -616,3 +616,4 @@ Import the components from `opui-css/svelte`:
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
 - [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.
+- [Every part](#api) has its own props type, such as `TableBodyProps` and `TableCellProps`, exported from every framework.

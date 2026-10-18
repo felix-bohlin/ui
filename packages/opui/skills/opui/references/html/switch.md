@@ -267,10 +267,10 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
       name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-end-text-1"
+      aria-describedby="switch-validation-3-end-text"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="switch-validation-end-text-1"
+    <span class="ui-end-text" id="switch-validation-3-end-text"
       >Supporting text</span
     >
   </label>
@@ -281,10 +281,10 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
       name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-end-text-2"
+      aria-describedby="switch-validation-4-end-text"
     />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="switch-validation-end-text-2"
+    <span class="ui-end-text" id="switch-validation-4-end-text"
       >Supporting text</span
     >
   </label>
@@ -301,10 +301,10 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     name="switch-spread"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-spread-end-text-1"
+    aria-describedby="switch-spread-1-end-text"
   />
   <span class="ui-label">Notifications</span>
-  <span class="ui-end-text" id="switch-spread-end-text-1"
+  <span class="ui-end-text" id="switch-spread-1-end-text"
     >Receive alerts when someone mentions you.</span
   >
 </label>
@@ -315,10 +315,10 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     type="checkbox"
     role="switch"
     required
-    aria-describedby="switch-spread-end-text-2"
+    aria-describedby="switch-spread-2-end-text"
   />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="switch-spread-end-text-2"
+  <span class="ui-end-text" id="switch-spread-2-end-text"
     >You must accept this to proceed.</span
   >
 </label>
@@ -329,10 +329,10 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     type="checkbox"
     role="switch"
     disabled
-    aria-describedby="switch-spread-end-text-3"
+    aria-describedby="switch-spread-3-end-text"
   />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="switch-spread-end-text-3"
+  <span class="ui-end-text" id="switch-spread-3-end-text"
     >This switch is disabled.</span
   >
 </label>
@@ -343,10 +343,10 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     name="switch-spread"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-spread-end-text-4"
+    aria-describedby="switch-spread-4-end-text"
   />
   <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text" id="switch-spread-end-text-4"
+  <span class="ui-end-text" id="switch-spread-4-end-text"
     >There is an error with this switch.</span
   >
 </label>

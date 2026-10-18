@@ -2,7 +2,7 @@
 
 It's just a line.
 
-## Default
+## Basics
 
 ```vue
 <script setup lang="ts">

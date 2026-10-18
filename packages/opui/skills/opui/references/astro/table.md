@@ -625,3 +625,5 @@ Import the components from `opui-css/astro`:
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
 - Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.
 - [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.
+- [Every part](#api) has its own props type, such as `TableBodyProps` and `TableCellProps`, exported from every framework.
+- Breaking: deep type imports from `components/Table/types` have one type per part, such as [`TableCellProps`](#api), instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`.

@@ -18,7 +18,7 @@ Label End text
 
   The label.
 
-- `slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the label.
 
@@ -29,13 +29,12 @@ Label End text
 import { Checkbox } from "opui-css/astro"
 ---
 
-<Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
-<Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
-<Checkbox indeterminate name="checkbox-variants" hideLabel
-  >Indeterminate</Checkbox
+<Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
+<Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
+<Checkbox indeterminate name="checkbox-basics" hideLabel>Indeterminate</Checkbox
 >
-<Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
-<Checkbox checked disabled name="checkbox-variants" hideLabel
+<Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
+<Checkbox checked disabled name="checkbox-basics" hideLabel
   >Checked and disabled</Checkbox
 >
 ```
@@ -106,13 +105,11 @@ import { Checkbox } from "opui-css/astro"
 import { Checkbox } from "opui-css/astro"
 ---
 
-<Checkbox name="checkbox-supporting-text">
+<Checkbox name="checkbox-end-text" endText="Supporting text">
   Default
-  <Fragment slot="end-text">Supporting text</Fragment>
 </Checkbox>
-<Checkbox stack name="checkbox-supporting-text">
+<Checkbox stack name="checkbox-end-text" endText="Supporting text">
   Stack
-  <Fragment slot="end-text">Supporting text</Fragment>
 </Checkbox>
 ```
 
@@ -156,49 +153,41 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
 ---
 
-<FieldSet class="indeterminate-demo">
+<FieldSet>
   <FieldLegend>
-    <Checkbox class="parent" indeterminate>Select all</Checkbox>
+    <Checkbox indeterminate>Select all</Checkbox>
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
-    <Checkbox class="child" checked>Apples</Checkbox>
-    <Checkbox class="child">Bananas</Checkbox>
-    <Checkbox class="child">Cherries</Checkbox>
+    <Checkbox checked>Apples</Checkbox>
+    <Checkbox>Bananas</Checkbox>
+    <Checkbox>Cherries</Checkbox>
   </FieldGroup>
 </FieldSet>
 
 <script>
-  function setupIndeterminateDemo() {
-    document
-      .querySelectorAll<HTMLElement>(".indeterminate-demo")
-      .forEach((root) => {
-        const parent = root.querySelector<HTMLInputElement>(
-          '.parent input[type="checkbox"]',
-        )
-        const children = Array.from(
-          root.querySelectorAll<HTMLInputElement>(
-            '.child input[type="checkbox"]',
-          ),
-        )
-        if (!parent || children.length === 0) return
+  document
+    .querySelectorAll("fieldset:has(> legend input[data-indeterminate])")
+    .forEach((root) => {
+      const parent = root.querySelector<HTMLInputElement>("legend input")
+      const children = [
+        ...root.querySelectorAll<HTMLInputElement>(".ui-field-group input"),
+      ]
+      if (!parent || children.length === 0) return
 
-        const sync = () => {
-          const checkedCount = children.filter((c) => c.checked).length
-          parent.checked = checkedCount === children.length
-          parent.indeterminate =
-            checkedCount > 0 && checkedCount < children.length
-        }
+      const sync = () => {
+        const checkedCount = children.filter((c) => c.checked).length
+        parent.checked = checkedCount === children.length
+        parent.indeterminate =
+          checkedCount > 0 && checkedCount < children.length
+      }
 
-        parent.addEventListener("change", () => {
-          children.forEach((c) => (c.checked = parent.checked))
-          parent.indeterminate = false
-        })
-        children.forEach((c) => c.addEventListener("change", sync))
-        sync()
+      parent.addEventListener("change", () => {
+        children.forEach((c) => (c.checked = parent.checked))
+        parent.indeterminate = false
       })
-  }
-
-  setupIndeterminateDemo()
+      children.forEach((c) => c.addEventListener("change", sync))
+      sync()
+    })
 </script>
 ```
 
@@ -254,11 +243,13 @@ See also: [Form documentation](https://open-props-ui.netlify.app/astro/component
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -277,11 +268,13 @@ import { Form } from "opui-css/astro"
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -302,12 +295,14 @@ Can be placed above and below the fields.
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -341,11 +336,13 @@ Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -366,11 +363,13 @@ Each checkbox with `required` must be checked before the form submits. There's n
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -393,26 +392,80 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="checkbox-group-error">
+  <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
       <Checkbox error>Checkbox 2</Checkbox>
       <Checkbox error>Checkbox 3</Checkbox>
     </FieldGroup>
-    <span class="ui-end-text" id="checkbox-group-error"
+    <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+### Binding
+
+Astro renders the group on the server, so it has no bound value. The checked values live in the inputs, which share the group's `name`. Submit them with a form, where `FormData.getAll()` reads them, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` boxes.
+
+```astro
+---
+import {
+  Button,
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Fruit</FieldLegend>
+  <FieldGroup name="checkbox-binding">
+    <Checkbox checked value="apples">Apples</Checkbox>
+    <Checkbox value="bananas">Bananas</Checkbox>
+    <Checkbox value="cherries">Cherries</Checkbox>
+  </FieldGroup>
+</FieldSet>
+<p class="checkbox-binding-text">Selected: apples</p>
+<Button class="checkbox-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".checkbox-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="checkbox-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs
+        .filter((input) => input.checked)
+        .map((input) => input.value)
+        .join(", ") || "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".checkbox-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>
 ```
 
 ## Accessibility
@@ -439,6 +492,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Prop            | Type                                | Default | Description                                                                          |
 | --------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `endText`       | `string`                            | -       | Supporting text displayed below the label.                                           |
 | `error`         | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
 | `hideLabel`     | `boolean`                           | `false` | Visually hides the label.                                                            |
 | `indeterminate` | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
@@ -746,7 +800,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/astro`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/astro/components/form.md)
 

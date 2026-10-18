@@ -354,18 +354,18 @@ export default function Disabled() {
 
 ### Toggle group API
 
-| Prop            | Type                                  | Default      | Description                                                                                                       |
-| --------------- | ------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `children`      | `ReactNode`                           | -            | The toggle buttons.                                                                                               |
-| `defaultValue`  | `string` , `string[]`                 | -            | The starting selection when `value` is omitted.                                                                   |
-| `name`          | `string`                              | -            | The name shared by the inputs. Generated when omitted.                                                            |
-| `onValueChange` | `(value: string \| string[]) => void` | -            | Called with the new selection when a button is toggled.                                                           |
-| `orientation`   | `"vertical"`                          | -            | The orientation of the element.                                                                                   |
-| `scrollable`    | `boolean`                             | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`     | `"multiple"` , `"single"`             | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`        | `boolean`                             | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`          | `"large"` , `"small"` , `"x-small"`   | -            | The size of the buttons. Without one they are the default control size.                                           |
-| `value`         | `string` , `string[]`                 | -            | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
+| Prop            | Type                                  | Default        | Description                                                                                                       |
+| --------------- | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `children`      | `ReactNode`                           | -              | The toggle buttons.                                                                                               |
+| `defaultValue`  | `string` , `string[]`                 | -              | The starting selection when `value` is omitted.                                                                   |
+| `name`          | `string`                              | -              | The name shared by the inputs. Generated when omitted.                                                            |
+| `onValueChange` | `(value: string \| string[]) => void` | -              | Called with the new selection when a button is toggled.                                                           |
+| `orientation`   | `"horizontal"` , `"vertical"`         | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`    | `boolean`                             | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`     | `"multiple"` , `"single"`             | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`        | `boolean`                             | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`          | `"large"` , `"small"` , `"x-small"`   | -              | The size of the buttons. Without one they are the default control size.                                           |
+| `value`         | `string` , `string[]`                 | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
 
 #### CSS variables
 
@@ -446,7 +446,7 @@ Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons ke
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-`pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `style` goes to the root `<label>`. `pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.
 
 ## Under the hood
 

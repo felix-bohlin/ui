@@ -14,12 +14,12 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress id="determinate-progress" value="10" max="100"></progress>
+  <progress id="progress-determinate-1" value="10" max="100"></progress>
 </div>
 
 <script>
   {
-    const progress = document.querySelector("#determinate-progress")
+    const progress = document.querySelector("#progress-determinate-1")
     if (progress instanceof HTMLProgressElement) {
       setInterval(() => {
         if (progress.value >= 100) {

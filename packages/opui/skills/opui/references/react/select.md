@@ -560,7 +560,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
+Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `style` goes to the root `<label>`.
 
 ## Under the hood
 

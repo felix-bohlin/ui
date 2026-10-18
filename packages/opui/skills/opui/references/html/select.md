@@ -185,11 +185,11 @@ Use `.ui-end-text` for supporting text below the select.
 
 ```html
 <label class="ui-select">
-  <span class="ui-label" id="select-supporting-1-label">Label</span>
+  <span class="ui-label" id="select-end-text-1-label">Label</span>
   <span class="ui-field">
     <select
-      aria-describedby="select-supporting-1-end-text"
-      aria-labelledby="select-supporting-1-label"
+      aria-describedby="select-end-text-1-end-text"
+      aria-labelledby="select-end-text-1-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -202,17 +202,17 @@ Use `.ui-end-text` for supporting text below the select.
       </div>
     </select>
   </span>
-  <span class="ui-end-text" id="select-supporting-1-end-text"
+  <span class="ui-end-text" id="select-end-text-1-end-text"
     >Supporting text</span
   >
 </label>
 
 <label class="ui-select ui-filled">
-  <span class="ui-label" id="select-supporting-2-label">Label</span>
+  <span class="ui-label" id="select-end-text-2-label">Label</span>
   <span class="ui-field">
     <select
-      aria-describedby="select-supporting-2-end-text"
-      aria-labelledby="select-supporting-2-label"
+      aria-describedby="select-end-text-2-end-text"
+      aria-labelledby="select-end-text-2-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -225,7 +225,7 @@ Use `.ui-end-text` for supporting text below the select.
       </div>
     </select>
   </span>
-  <span class="ui-end-text" id="select-supporting-2-end-text"
+  <span class="ui-end-text" id="select-end-text-2-end-text"
     >Supporting text</span
   >
 </label>
@@ -486,14 +486,14 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ```html
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-1-label">Country</span>
-  <span class="ui-start-text" id="select-orientation-1-start-text"
+  <span class="ui-label" id="select-spread-1-label">Country</span>
+  <span class="ui-start-text" id="select-spread-1-start-text"
     >Select your country of residence</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-1-start-text"
-      aria-labelledby="select-orientation-1-label"
+      aria-describedby="select-spread-1-start-text"
+      aria-labelledby="select-spread-1-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -511,14 +511,14 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 </label>
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label" id="select-orientation-2-label">Language</span>
-  <span class="ui-start-text" id="select-orientation-2-start-text"
+  <span class="ui-label" id="select-spread-2-label">Language</span>
+  <span class="ui-start-text" id="select-spread-2-start-text"
     >Choose your preferred language</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-2-start-text select-orientation-2-end-text"
-      aria-labelledby="select-orientation-2-label"
+      aria-describedby="select-spread-2-start-text select-spread-2-end-text"
+      aria-labelledby="select-spread-2-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -533,20 +533,20 @@ Add the `.ui-spread` class to display the label and start text on the left with 
       </div>
     </select>
   </span>
-  <span class="ui-end-text" id="select-orientation-2-end-text"
+  <span class="ui-end-text" id="select-spread-2-end-text"
     >This affects UI translations</span
   >
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-3-label">Required</span>
-  <span class="ui-start-text" id="select-orientation-3-start-text"
+  <span class="ui-label" id="select-spread-3-label">Required</span>
+  <span class="ui-start-text" id="select-spread-3-start-text"
     >You must select an option</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-3-start-text"
-      aria-labelledby="select-orientation-3-label"
+      aria-describedby="select-spread-3-start-text"
+      aria-labelledby="select-spread-3-label"
       required
     >
       <button>
@@ -562,14 +562,14 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-4-label">Disabled</span>
-  <span class="ui-start-text" id="select-orientation-4-start-text"
+  <span class="ui-label" id="select-spread-4-label">Disabled</span>
+  <span class="ui-start-text" id="select-spread-4-start-text"
     >This select is disabled</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-4-start-text"
-      aria-labelledby="select-orientation-4-label"
+      aria-describedby="select-spread-4-start-text"
+      aria-labelledby="select-spread-4-label"
       disabled
     >
       <button>
@@ -583,15 +583,15 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
-  <span class="ui-start-text" id="select-orientation-5-start-text"
+  <span class="ui-label" id="select-spread-5-label">Invalid Select</span>
+  <span class="ui-start-text" id="select-spread-5-start-text"
     >This select has an error</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-5-start-text select-orientation-5-end-text"
+      aria-describedby="select-spread-5-start-text select-spread-5-end-text"
       aria-invalid="true"
-      aria-labelledby="select-orientation-5-label"
+      aria-labelledby="select-spread-5-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -601,20 +601,20 @@ Add the `.ui-spread` class to display the label and start text on the left with 
       </div>
     </select>
   </span>
-  <span class="ui-end-text" id="select-orientation-5-end-text"
+  <span class="ui-end-text" id="select-spread-5-end-text"
     >Please select a valid option.</span
   >
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label" id="select-orientation-6-label">Time zone</span>
-  <span class="ui-start-text" id="select-orientation-6-start-text"
+  <span class="ui-label" id="select-spread-6-label">Time zone</span>
+  <span class="ui-start-text" id="select-spread-6-start-text"
     >Used for reminders and due dates</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-6-start-text"
-      aria-labelledby="select-orientation-6-label"
+      aria-describedby="select-spread-6-start-text"
+      aria-labelledby="select-spread-6-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -632,14 +632,14 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 </label>
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label" id="select-orientation-7-label">Region</span>
-  <span class="ui-start-text" id="select-orientation-7-start-text"
+  <span class="ui-label" id="select-spread-7-label">Region</span>
+  <span class="ui-start-text" id="select-spread-7-start-text"
     >Affects data residency and latency</span
   >
   <span class="ui-field">
     <select
-      aria-describedby="select-orientation-7-start-text select-orientation-7-end-text"
-      aria-labelledby="select-orientation-7-label"
+      aria-describedby="select-spread-7-start-text select-spread-7-end-text"
+      aria-labelledby="select-spread-7-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -671,7 +671,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
       </svg>
     </span>
   </span>
-  <span class="ui-end-text" id="select-orientation-7-end-text"
+  <span class="ui-end-text" id="select-spread-7-end-text"
     >Cannot be changed after deploy</span
   >
 </label>

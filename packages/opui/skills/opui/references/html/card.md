@@ -50,7 +50,7 @@ Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.
 </div>
 ```
 
-**Why does a text variant exist?**
+### Why does a text variant exist?
 
 On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
 
@@ -425,9 +425,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/html/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md)
+### Used by
 
-- `opui-css/css/components/card.css`
+- [Accordion](https://open-props-ui.netlify.app/html/components/accordion.md)
+- [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md)
+
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

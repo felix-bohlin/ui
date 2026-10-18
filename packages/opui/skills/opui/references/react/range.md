@@ -33,7 +33,7 @@ Label 50 Start text End text
 ```tsx
 import { Range } from "opui-css/react"
 
-export default function Default() {
+export default function Basics() {
   return <Range label="Label" startText="Min" />
 }
 ```
@@ -245,7 +245,7 @@ export default function Spread() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.
 
 ## Under the hood
 

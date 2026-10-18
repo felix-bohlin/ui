@@ -193,7 +193,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `input` | `checked` | Selects the tab that is open initially.                    |
 | `label` | `for`     | Names the radio button after the tab.                      |
 
-### Keyboard interaction
+### Keyboard support
 
 - **Tab**: Moves focus to the selected tab (its radio button), then into the open panel, then to the next focusable element after the tabs.
 - **Down Arrow / Up Arrow**: Moves focus to the next or previous tab and selects it.

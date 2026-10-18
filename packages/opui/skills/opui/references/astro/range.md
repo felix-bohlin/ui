@@ -230,7 +230,7 @@ import { Range } from "opui-css/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.
+Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

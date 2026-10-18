@@ -10,20 +10,20 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-basics-html"
+  commandfor="menu-basics"
   command="toggle-popover"
 >
   Options
 </button>
-<menu class="ui-menu ui-list" id="menu-basics-html" popover>
+<menu class="ui-menu ui-list" id="menu-basics" popover>
   <li>
-    <button type="button" commandfor="menu-basics-html" command="hide-popover">
+    <button type="button" commandfor="menu-basics" command="hide-popover">
       <div class="ui-text"><p>Edit</p></div>
       <div class="ui-end"><kbd>E</kbd></div>
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-basics-html" command="hide-popover">
+    <button type="button" commandfor="menu-basics" command="hide-popover">
       <div class="ui-text"><p>Duplicate</p></div>
       <div class="ui-end"><kbd>D</kbd></div>
     </button>
@@ -34,7 +34,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     </button>
   </li>
   <li class="ui-border-top ui-critical">
-    <button type="button" commandfor="menu-basics-html" command="hide-popover">
+    <button type="button" commandfor="menu-basics" command="hide-popover">
       <div class="ui-text"><p>Delete</p></div>
     </button>
   </li>
@@ -49,36 +49,24 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-bordered-html"
+  commandfor="menu-bordered"
   command="toggle-popover"
 >
   Options
 </button>
-<menu class="ui-menu ui-bordered ui-list" id="menu-bordered-html" popover>
+<menu class="ui-menu ui-bordered ui-list" id="menu-bordered" popover>
   <li>
-    <button
-      type="button"
-      commandfor="menu-bordered-html"
-      command="hide-popover"
-    >
+    <button type="button" commandfor="menu-bordered" command="hide-popover">
       <div class="ui-text"><p>Edit</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-bordered-html"
-      command="hide-popover"
-    >
+    <button type="button" commandfor="menu-bordered" command="hide-popover">
       <div class="ui-text"><p>Duplicate</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-bordered-html"
-      command="hide-popover"
-    >
+    <button type="button" commandfor="menu-bordered" command="hide-popover">
       <div class="ui-text"><p>Archive</p></div>
     </button>
   </li>
@@ -94,7 +82,7 @@ If you want to decide yourself what goes into your list.
   type="button"
   class="ui-button ui-round ui-small"
   aria-label="More actions"
-  commandfor="menu-custom-html"
+  commandfor="menu-custom"
   command="toggle-popover"
 >
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -104,10 +92,10 @@ If you want to decide yourself what goes into your list.
     />
   </svg>
 </button>
-<menu class="ui-menu ui-list" id="menu-custom-html" popover>
+<menu class="ui-menu ui-list" id="menu-custom" popover>
   <li class="ui-label">Document</li>
   <li>
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -121,7 +109,7 @@ If you want to decide yourself what goes into your list.
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -148,7 +136,7 @@ If you want to decide yourself what goes into your list.
     </a>
   </li>
   <li class="ui-border-top ui-critical">
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button type="button" commandfor="menu-custom" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -171,36 +159,24 @@ If you want to decide yourself what goes into your list.
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-block-start-html"
+  commandfor="menu-block-start"
   command="toggle-popover"
 >
   Block start
 </button>
-<menu class="ui-menu ui-list ui-block-start" id="menu-block-start-html" popover>
+<menu class="ui-menu ui-list ui-block-start" id="menu-block-start" popover>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-start">
       <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-start">
       <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-start">
       <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
@@ -209,36 +185,24 @@ If you want to decide yourself what goes into your list.
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-block-end-html"
+  commandfor="menu-block-end"
   command="toggle-popover"
 >
   Block end
 </button>
-<menu class="ui-menu ui-list" id="menu-block-end-html" popover>
+<menu class="ui-menu ui-list" id="menu-block-end" popover>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-end">
       <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-end">
       <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-block-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-block-end">
       <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
@@ -247,40 +211,24 @@ If you want to decide yourself what goes into your list.
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-inline-start-html"
+  commandfor="menu-inline-start"
   command="toggle-popover"
 >
   Inline start
 </button>
-<menu
-  class="ui-menu ui-list ui-inline-start"
-  id="menu-inline-start-html"
-  popover
->
+<menu class="ui-menu ui-list ui-inline-start" id="menu-inline-start" popover>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-start">
       <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-start">
       <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-start-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-start">
       <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
@@ -289,36 +237,24 @@ If you want to decide yourself what goes into your list.
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-inline-end-html"
+  commandfor="menu-inline-end"
   command="toggle-popover"
 >
   Inline end
 </button>
-<menu class="ui-menu ui-list ui-inline-end" id="menu-inline-end-html" popover>
+<menu class="ui-menu ui-list ui-inline-end" id="menu-inline-end" popover>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-end">
       <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-end">
       <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      command="hide-popover"
-      commandfor="menu-inline-end-html"
-    >
+    <button type="button" command="hide-popover" commandfor="menu-inline-end">
       <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
@@ -333,28 +269,24 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-file-html"
+  commandfor="menu-file"
   command="toggle-popover"
 >
   File
 </button>
-<menu class="ui-menu ui-list" id="menu-file-html" popover>
+<menu class="ui-menu ui-list" id="menu-file" popover>
   <li>
-    <button type="button" commandfor="menu-file-html" command="hide-popover">
+    <button type="button" commandfor="menu-file" command="hide-popover">
       <div class="ui-text"><p>New</p></div>
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-file-html" command="hide-popover">
+    <button type="button" commandfor="menu-file" command="hide-popover">
       <div class="ui-text"><p>Open</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-export-html"
-      command="toggle-popover"
-    >
+    <button type="button" commandfor="menu-export" command="toggle-popover">
       <div class="ui-text"><p>Export</p></div>
       <div class="ui-end">
         <svg
@@ -370,31 +302,19 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
         </svg>
       </div>
     </button>
-    <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
+    <menu class="ui-menu ui-list ui-inline-end" id="menu-export" popover>
       <li>
-        <button
-          type="button"
-          commandfor="menu-file-html"
-          command="hide-popover"
-        >
+        <button type="button" commandfor="menu-file" command="hide-popover">
           <div class="ui-text"><p>PDF</p></div>
         </button>
       </li>
       <li>
-        <button
-          type="button"
-          commandfor="menu-file-html"
-          command="hide-popover"
-        >
+        <button type="button" commandfor="menu-file" command="hide-popover">
           <div class="ui-text"><p>PNG</p></div>
         </button>
       </li>
       <li>
-        <button
-          type="button"
-          commandfor="menu-file-html"
-          command="hide-popover"
-        >
+        <button type="button" commandfor="menu-file" command="hide-popover">
           <div class="ui-text"><p>SVG</p></div>
         </button>
       </li>
@@ -411,12 +331,12 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 <button
   type="button"
   class="ui-button ui-outlined"
-  commandfor="menu-manual-html"
+  commandfor="menu-manual"
   command="toggle-popover"
 >
   View
 </button>
-<menu class="ui-menu ui-list" id="menu-manual-html" popover="manual">
+<menu class="ui-menu ui-list" id="menu-manual" popover="manual">
   <li>
     <button type="button">
       <div class="ui-text"><p>Show grid</p></div>
@@ -428,7 +348,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
     </button>
   </li>
   <li class="ui-border-top">
-    <button type="button" commandfor="menu-manual-html" command="hide-popover">
+    <button type="button" commandfor="menu-manual" command="hide-popover">
       <div class="ui-text"><p>Done</p></div>
     </button>
   </li>
@@ -437,7 +357,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 
 ## Accessibility
 
-### Role
+### Role & attributes
 
 A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="menu"` or `role="menuitem"`, so screen readers announce a list of buttons, and the keyboard works like it does for any other button. The ARIA menu pattern needs a script for the arrow keys, which the library doesn't ship.
 
@@ -453,6 +373,8 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
+### Menu API
+
 | Type           | Modifiers                                                        | Default                     | Description                                                                                                                                                                                                                               |
 | -------------- | ---------------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                         |
@@ -466,7 +388,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                                                                                                                                  |
 | Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                                                                                                                                              |
 
-### Parts
+#### Parts
 
 | Part                            | Description                                                                                                        |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -477,7 +399,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `.ui-end`                       | Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).                              |
 | `li.ui-label`                   | A group label. HTML and CSS only.                                                                                  |
 
-### CSS variables
+#### CSS variables
 
 | Variable                      | Default                                      | Description                                                                                                                                                                                              |
 | ----------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -679,10 +601,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 * `opui-css/css/components/menu.css`
 * `opui-css/css/components/list.css`
-
-## See also
-
-- [List](https://open-props-ui.netlify.app/html/components/list.md)
 
 ## Changelog
 

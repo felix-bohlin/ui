@@ -56,7 +56,7 @@ import { Card, CardContent } from "opui-css/vue"
 </template>
 ```
 
-**Why does a text variant exist?**
+### Why does a text variant exist?
 
 On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
 
@@ -113,7 +113,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   <Card variant="outlined">
     <CardContent>Icon buttons work too!</CardContent>
     <CardActions>
-      <Button round size="small" aria-label="Favorite">
+      <Button aria-label="Favorite" iconOnly round size="small">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-      <Button round size="small" aria-label="Share">
+      <Button aria-label="Share" iconOnly round size="small">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +175,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
   <Card variant="outlined">
     <CardContent>Icon buttons aligned to the end!</CardContent>
     <CardActions align="end">
-      <Button round size="small" aria-label="Favorite">
+      <Button aria-label="Favorite" iconOnly round size="small">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +189,7 @@ import { Button, Card, CardActions, CardContent } from "opui-css/vue"
           ></path>
         </svg>
       </Button>
-      <Button round size="small" aria-label="Share">
+      <Button aria-label="Share" iconOnly round size="small">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -442,11 +442,14 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/vue/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md)
-
 Import the components from `opui-css/vue`:
 
-- `opui-css/css/components/card.css`
+### Used by
+
+- [Accordion](https://open-props-ui.netlify.app/vue/components/accordion.md)
+- [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md)
+
+* `opui-css/css/components/card.css`
 
 ## Changelog
 

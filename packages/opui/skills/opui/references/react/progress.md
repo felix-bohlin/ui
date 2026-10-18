@@ -30,7 +30,7 @@ export default function Determinate() {
     return () => clearInterval(interval)
   }, [])
 
-  return <Progress id="determinate-progress" max="100" value={value} />
+  return <Progress id="progress-determinate-1" max="100" value={value} />
 }
 ```
 
@@ -87,7 +87,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `style` goes to the root `<div>`.
 
 ## Under the hood
 

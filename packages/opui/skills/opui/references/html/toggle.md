@@ -206,7 +206,7 @@ The selection lives in the inputs, which share a `name`. Submit them with a form
 <button type="button" class="ui-button toggle-binding-reset">Reset</button>
 
 <script>
-  function setupToggleBinding() {
+  {
     const text = document.querySelector(".toggle-binding-text")
     const inputs = [
       ...document.querySelectorAll(
@@ -218,7 +218,7 @@ The selection lives in the inputs, which share a `name`. Submit them with a form
         .filter((input) => input.name === name && input.checked)
         .map((input) => input.value)
 
-    function update() {
+    const update = () => {
       if (!text) return
       text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
         checked("text-format").join(", ") || "none"
@@ -233,8 +233,6 @@ The selection lives in the inputs, which share a `name`. Submit them with a form
         update()
       })
   }
-
-  setupToggleBinding()
 </script>
 ```
 
@@ -397,7 +395,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 
 | Type        | Modifiers                               | Default          | Description                                                                                                       |
 | ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-vertical`                          | -                | The orientation of the element.                                                                                   |
+| Orientation | default, `.ui-vertical`                 | default          | The orientation of the element.                                                                                   |
 | Scroll      | `.ui-scrollable`                        | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | Shrink      | `.ui-shrink`                            | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |

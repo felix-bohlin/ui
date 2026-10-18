@@ -34,11 +34,13 @@ Dog Cat
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -61,11 +63,13 @@ Groups related fields. Label it with `FieldLegend` and add an optional `FieldDes
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <FieldSet>
@@ -85,13 +89,15 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
 
 ```astro
 ---
-import { Checkbox } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { Form } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -144,11 +150,13 @@ Set `direction="row"` to lay out fields horizontally.
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -171,11 +179,13 @@ Set `disabled` on `FieldSet` to disable every field inside.
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/astro"
 ---
 
 <FieldSet disabled>
@@ -196,21 +206,25 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/astro"
 ---
 
-<FieldSet aria-describedby="food-error">
+<FieldSet aria-describedby="form-fieldset-invalid-1-error">
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
     <Checkbox error value="kibble">Kibble</Checkbox>
     <Checkbox error value="wet-food">Wet food</Checkbox>
   </FieldGroup>
-  <span class="ui-end-text" id="food-error">Your pet is hungry.</span>
+  <span class="ui-end-text" id="form-fieldset-invalid-1-error"
+    >Your pet is hungry.</span
+  >
 </FieldSet>
 ```
 
@@ -220,20 +234,22 @@ The legend gets an asterisk when a field inside is required.
 
 ```astro
 ---
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Textarea } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Textarea,
+  TextField,
+} from "opui-css/astro"
 ---
 
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
-  <FieldGroup name="bio">
+  <FieldGroup>
     <TextField label="Name" name="name" />
-    <Textarea required label="Life story" />
+    <Textarea label="Life story" name="story" required />
   </FieldGroup>
 </FieldSet>
 ```
@@ -244,13 +260,15 @@ A field group with only buttons lines up in a row. Set `direction="column"` to s
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
-import { Button } from "opui-css/astro"
-import { Divider } from "opui-css/astro"
+import {
+  Button,
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  TextField,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -280,8 +298,9 @@ import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/astro"
 ---
 
 <Form as="div">
-  <FieldSet aria-labelledby="delivery-legend" as="div">
-    <FieldLegend as="p" id="delivery-legend">Delivery</FieldLegend>
+  <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+    <FieldLegend as="p" id="form-adaptive-output-1-legend">Delivery</FieldLegend
+    >
     <FieldDescription>Rendered as div and p elements.</FieldDescription>
   </FieldSet>
 </Form>
@@ -293,20 +312,22 @@ Everything at once.
 
 ```astro
 ---
-import { Form } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
-import { Select } from "opui-css/astro"
-import { Switch } from "opui-css/astro"
-import { Radio } from "opui-css/astro"
-import { Textarea } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
-import { Range } from "opui-css/astro"
-import { Button } from "opui-css/astro"
-import { Divider } from "opui-css/astro"
+import {
+  Button,
+  Checkbox,
+  Divider,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Textarea,
+  TextField,
+} from "opui-css/astro"
 ---
 
 <Form id="kitchen-sink-example">
@@ -341,7 +362,7 @@ import { Divider } from "opui-css/astro"
     <FieldDescription>
       Configure how you want to receive updates.
     </FieldDescription>
-    <FieldGroup name="notifications">
+    <FieldGroup>
       <Switch name="email_notifs" checked>Email Notifications</Switch>
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
@@ -383,9 +404,10 @@ import { Divider } from "opui-css/astro"
   <FieldSet>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
+    <FieldGroup>
       <Textarea
         label="Biography"
+        name="biography"
         placeholder="Tell us about yourself..."
         rows={4}
       />
@@ -396,7 +418,7 @@ import { Divider } from "opui-css/astro"
 
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
+    <FieldGroup>
       <Checkbox name="terms" required>
         I agree to the terms and conditions
         <Fragment slot="end-text">Support this text</Fragment>
@@ -683,17 +705,10 @@ Step 3 of 4: Groups
 Step 4 of 4: Required
 
 ```css
-.fieldset:has(:required) legend {
-  padding-inline-end: 1ex;
-  position: relative;
-}
-
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);
   content: "*";
-  inset-block: 0 auto;
-  inset-inline: auto -0.25ex;
-  position: absolute;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -711,19 +726,22 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 Import the components from `opui-css/astro`:
 
-### See also
+### Used by
 
-- [Button](https://open-props-ui.netlify.app/astro/components/button.md)
 - [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md)
-- [Divider](https://open-props-ui.netlify.app/astro/components/divider.md)
 - [Radio](https://open-props-ui.netlify.app/astro/components/radio.md)
-- [Range](https://open-props-ui.netlify.app/astro/components/range.md)
-- [Select](https://open-props-ui.netlify.app/astro/components/select.md)
 - [Switch](https://open-props-ui.netlify.app/astro/components/switch.md)
-- [Textarea](https://open-props-ui.netlify.app/astro/components/textarea.md)
-- [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 
 * `opui-css/css/components/form.css`
+
+## See also
+
+- [Button](https://open-props-ui.netlify.app/astro/components/button.md)
+- [Divider](https://open-props-ui.netlify.app/astro/components/divider.md)
+- [Range](https://open-props-ui.netlify.app/astro/components/range.md)
+- [Select](https://open-props-ui.netlify.app/astro/components/select.md)
+- [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
+- [Textarea](https://open-props-ui.netlify.app/astro/components/textarea.md)
 
 ## Changelog
 

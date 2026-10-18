@@ -387,7 +387,7 @@ import { TextField } from "opui-css/vue"
 
 ## Autosuggest
 
-Leverages the `<input>` + `<datalist>` element combo.
+Leverages the `<input>` + `<datalist>` element combo. An input with a `list` shows the Select chevron in place of the browser's arrow.
 
 - `<input list="DATALISTID">`
 - `<datalist id="DATALISTID">`
@@ -398,8 +398,12 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Users" list="users" placeholder="Placeholder">
-    <datalist id="users">
+  <TextField
+    label="Users"
+    list="text-field-autosuggest-1-list"
+    placeholder="Placeholder"
+  >
+    <datalist id="text-field-autosuggest-1-list">
       <option value="Ray Manzarek"></option>
       <option value="Jonny Greenwood"></option>
       <option value="Marika Hackman"></option>
@@ -409,11 +413,11 @@ import { TextField } from "opui-css/vue"
   <TextField
     variant="filled"
     label="Emails"
-    list="users-email"
+    list="text-field-autosuggest-2-list"
     placeholder="Placeholder"
     type="email"
   >
-    <datalist id="users-email">
+    <datalist id="text-field-autosuggest-2-list">
       <option value="ray.manzarek@the.doors"></option>
       <option value="jonny.greenwood@radio.head"></option>
       <option value="marika@hack.man"></option>
@@ -561,9 +565,9 @@ Step 1 of 4: Wrapper
 ```css
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -629,7 +633,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -657,7 +661,7 @@ Step 3 of 4: Required
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -668,9 +672,9 @@ Step 4 of 4: Validation
 ```css
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }
 ```
 
@@ -686,8 +690,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/text-input.css`
+### Used by
+
+- [Select](https://open-props-ui.netlify.app/vue/components/select.md)
+- [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md)
+
+* `opui-css/css/components/text-field.css`
 
 ## Changelog
 

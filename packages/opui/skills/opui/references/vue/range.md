@@ -251,7 +251,7 @@ import { Range } from "opui-css/vue"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.
 
 ## Under the hood
 

@@ -41,7 +41,7 @@ import {
   Form,
 } from "opui-css/react"
 
-export default function Usage() {
+export default function Basics() {
   return (
     <Form>
       <FieldSet>
@@ -228,7 +228,7 @@ import {
 
 export default function FieldsetInvalid() {
   return (
-    <FieldSet aria-describedby="food-error">
+    <FieldSet aria-describedby="form-fieldset-invalid-1-error">
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
@@ -239,7 +239,7 @@ export default function FieldsetInvalid() {
           Wet food
         </Checkbox>
       </FieldGroup>
-      <span className="ui-end-text" id="food-error">
+      <span className="ui-end-text" id="form-fieldset-invalid-1-error">
         Your pet is hungry.
       </span>
     </FieldSet>
@@ -266,9 +266,9 @@ export default function FieldsetRequired() {
     <FieldSet>
       <FieldLegend>Pet info</FieldLegend>
       <FieldDescription>We must know your pet's information.</FieldDescription>
-      <FieldGroup name="bio">
+      <FieldGroup>
         <TextField label="Name" name="name" />
-        <Textarea required label="Life story" />
+        <Textarea label="Life story" name="story" required />
       </FieldGroup>
     </FieldSet>
   )
@@ -321,8 +321,8 @@ import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/react"
 export default function AdaptiveOutput() {
   return (
     <Form as="div">
-      <FieldSet aria-labelledby="delivery-legend" as="div">
-        <FieldLegend as="p" id="delivery-legend">
+      <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+        <FieldLegend as="p" id="form-adaptive-output-1-legend">
           Delivery
         </FieldLegend>
         <FieldDescription>Rendered as div and p elements.</FieldDescription>
@@ -337,9 +337,6 @@ export default function AdaptiveOutput() {
 Everything at once.
 
 ```tsx
-"use client"
-
-import { useState } from "react"
 import {
   Button,
   Checkbox,
@@ -353,8 +350,8 @@ import {
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/react"
 
 const roleItems = [
@@ -364,11 +361,6 @@ const roleItems = [
 ]
 
 export default function KitchenSink() {
-  const [emailNotifs, setEmailNotifs] = useState(true)
-  const [smsNotifs, setSmsNotifs] = useState(false)
-  const [theme, setTheme] = useState("light")
-  const [experience, setExperience] = useState(5)
-
   return (
     <Form id="kitchen-sink-example">
       <FieldSet>
@@ -395,21 +387,11 @@ export default function KitchenSink() {
         <FieldDescription>
           Configure how you want to receive updates.
         </FieldDescription>
-        <FieldGroup name="notifications">
-          <Switch
-            checked={emailNotifs}
-            onChange={(event) => setEmailNotifs(event.currentTarget.checked)}
-            name="email_notifs"
-          >
+        <FieldGroup>
+          <Switch defaultChecked name="email_notifs">
             Email Notifications
           </Switch>
-          <Switch
-            checked={smsNotifs}
-            onChange={(event) => setSmsNotifs(event.currentTarget.checked)}
-            name="sms_notifs"
-          >
-            SMS Notifications
-          </Switch>
+          <Switch name="sms_notifs">SMS Notifications</Switch>
         </FieldGroup>
       </FieldSet>
 
@@ -419,27 +401,11 @@ export default function KitchenSink() {
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
-          <Radio
-            checked={theme === "light"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="light"
-          >
+          <Radio value="light" defaultChecked>
             Light Theme
           </Radio>
-          <Radio
-            checked={theme === "dark"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="dark"
-          >
-            Dark Theme
-          </Radio>
-          <Radio
-            checked={theme === "system"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="system"
-          >
-            System Default
-          </Radio>
+          <Radio value="dark">Dark Theme</Radio>
+          <Radio value="system">System Default</Radio>
         </FieldGroup>
       </FieldSet>
 
@@ -456,8 +422,7 @@ export default function KitchenSink() {
             min="0"
             max="20"
             step="1"
-            value={experience}
-            onChange={(event) => setExperience(Number(event.target.value))}
+            defaultValue="5"
             startText="Drag the slider to match your total tenure."
           />
         </FieldGroup>
@@ -468,9 +433,10 @@ export default function KitchenSink() {
       <FieldSet>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
-        <FieldGroup name="details">
+        <FieldGroup>
           <Textarea
             label="Biography"
+            name="biography"
             placeholder="Tell us about yourself..."
             rows={4}
           />
@@ -481,7 +447,7 @@ export default function KitchenSink() {
 
       <FieldSet>
         <FieldLegend>Legal</FieldLegend>
-        <FieldGroup name="legal">
+        <FieldGroup>
           <Checkbox name="terms" required endText="Support this text">
             I agree to the terms and conditions
           </Checkbox>
@@ -749,17 +715,10 @@ Step 3 of 4: Groups
 Step 4 of 4: Required
 
 ```css
-.fieldset:has(:required) legend {
-  padding-inline-end: 1ex;
-  position: relative;
-}
-
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);
   content: "*";
-  inset-block: 0 auto;
-  inset-inline: auto -0.25ex;
-  position: absolute;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -777,16 +736,19 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 Import the components from `opui-css/react`:
 
-### See also
+### Used by
 
-- [Button](https://open-props-ui.netlify.app/react/components/button.md)
 - [Checkbox](https://open-props-ui.netlify.app/react/components/checkbox.md)
-- [Divider](https://open-props-ui.netlify.app/react/components/divider.md)
 - [Radio](https://open-props-ui.netlify.app/react/components/radio.md)
-- [Range](https://open-props-ui.netlify.app/react/components/range.md)
-- [Select](https://open-props-ui.netlify.app/react/components/select.md)
 - [Switch](https://open-props-ui.netlify.app/react/components/switch.md)
-- [Textarea](https://open-props-ui.netlify.app/react/components/textarea.md)
-- [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
 
 * `opui-css/css/components/form.css`
+
+## See also
+
+- [Button](https://open-props-ui.netlify.app/react/components/button.md)
+- [Divider](https://open-props-ui.netlify.app/react/components/divider.md)
+- [Range](https://open-props-ui.netlify.app/react/components/range.md)
+- [Select](https://open-props-ui.netlify.app/react/components/select.md)
+- [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
+- [Textarea](https://open-props-ui.netlify.app/react/components/textarea.md)

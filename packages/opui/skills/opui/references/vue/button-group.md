@@ -224,6 +224,7 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Button>Save</Button>
     <Button
       aria-label="More save options"
+      iconOnly
       commandfor="split-button-menu"
       command="toggle-popover"
     >
@@ -285,7 +286,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -302,7 +303,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +322,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="outlined">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -338,7 +339,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -357,7 +358,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="tonal">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -374,7 +375,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -393,7 +394,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="filled">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -410,7 +411,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -490,14 +491,14 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ### Button group API
 
-| Prop          | Type                                  | Default | Description                                                                                                       |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"`   | -       | The size of the buttons.                                                                                          |
-| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -       | The variant of the buttons.                                                                                       |
+| Prop          | Type                                  | Default        | Description                                                                                                       |
+| ------------- | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`            | -              | Optional colors for the buttons.                                                                                  |
+| `orientation` | `"horizontal"` , `"vertical"`         | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                             | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `shrink`      | `boolean`                             | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"small"` , `"x-small"`   | -              | The size of the buttons.                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -              | The variant of the buttons.                                                                                       |
 
 #### Slots
 

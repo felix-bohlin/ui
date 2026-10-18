@@ -65,7 +65,6 @@ Put the header in the `<summary>` and the body in a `.ui-content` element.
 Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to the `<details>` element to change how it looks. Add `.ui-card` for the card styles.
 
 ```html
-<!-- Text (default) -->
 <details class="ui-accordion ui-card ui-marker-rotate">
   <summary>
     Text
@@ -92,7 +91,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   </div>
 </details>
 
-<!-- Elevated -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-elevated">
   <summary>
     Elevated
@@ -119,7 +117,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   </div>
 </details>
 
-<!-- Outlined -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
   <summary>
     Outlined
@@ -146,7 +143,6 @@ Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to 
   </div>
 </details>
 
-<!-- Tonal -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
   <summary>
     Tonal

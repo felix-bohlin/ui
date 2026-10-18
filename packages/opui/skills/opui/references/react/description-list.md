@@ -32,7 +32,7 @@ import {
   DescriptionListTerm,
 } from "opui-css/react"
 
-export default function Default() {
+export default function Basics() {
   return (
     <DescriptionList>
       <DescriptionListItem>

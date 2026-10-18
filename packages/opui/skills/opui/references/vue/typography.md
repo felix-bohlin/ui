@@ -129,7 +129,7 @@ Let's put everything together and see how all elements look in a classless, rich
     swag four loko vaporware poutine roof party. Raclette
     <em>drinking vinegar</em> chartreuse gochujang kogi heirloom ugh snackwave
     banh mi cray cliche locavore,
-    <a href="#inline-text">skip to inline text</a>.
+    <a href="#typography-default-1">skip to inline text</a>.
   </p>
   <p>
     Gluten-free ennui air plant franzen tattooed poutine scenester tote bag
@@ -149,7 +149,7 @@ Let's put everything together and see how all elements look in a classless, rich
 
   <hr />
 
-  <h2 id="inline-text">Inline text</h2>
+  <h2 id="typography-default-1">Inline text</h2>
   <p>
     <strong>Strong</strong>, <b>bold</b>, <em>emphasis</em>, <i>italic</i>,
     <strong><em>strong emphasis</em></strong
@@ -167,23 +167,26 @@ Let's put everything together and see how all elements look in a classless, rich
     <data value="42">forty-two</data> and a <span>plain span</span>.
   </p>
   <p>
-    Nested inline elements: <a href="#inline-text"><code>linked code</code></a
-    >, <a href="#inline-text"><strong>linked strong</strong></a
-    >, <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,
-    <del><code>deleted code</code></del
+    Nested inline elements:
+    <a href="#typography-default-1"><code>linked code</code></a
+    >, <a href="#typography-default-1"><strong>linked strong</strong></a
+    >,
+    <mark>highlight with <a href="#typography-default-1">a link</a> inside</mark
+    >, <del><code>deleted code</code></del
     >, <ins><code>inserted code</code></ins
     >, <em><code>emphasized code</code></em
     >,
     <small
-      >small with <code>code</code> and <a href="#inline-text">link</a></small
+      >small with <code>code</code> and
+      <a href="#typography-default-1">link</a></small
     >, <strong><kbd>Enter</kbd></strong> and
-    <sup><a href="#inline-text">sup link</a></sup
+    <sup><a href="#typography-default-1">sup link</a></sup
     >.
   </p>
   <p>
     Links come in a few flavors: an
     <a href="https://github.com/felix-bohlin/ui">external link</a>, an
-    <a href="#inline-text">in-page anchor</a>, and a placeholder
+    <a href="#typography-default-1">in-page anchor</a>, and a placeholder
     <a>anchor without an href</a> that shouldn't look clickable.
   </p>
   <p>
@@ -193,7 +196,7 @@ Let's put everything together and see how all elements look in a classless, rich
       keeps going until it breaks onto another line and keeps its padding</mark
     >
     and then
-    <a href="#inline-text"
+    <a href="#typography-default-1"
       >this link also runs long enough that it needs to wrap across a line break
       without losing its underline</a
     >. Same goes for
@@ -206,7 +209,7 @@ Let's put everything together and see how all elements look in a classless, rich
   <p>
     Superscripts and subscripts must not blow out the line height of a
     paragraph. Here is a footnote reference<sup
-      ><a href="#footnote-1" id="footnote-ref-1">1</a></sup
+      ><a href="#typography-default-2" id="typography-default-2-ref">1</a></sup
     >
     in the middle of a line, then some more text so it wraps, CO<sub>2</sub>
     emissions, 2<sup>10</sup> = 1024 and the 21<sup>st</sup> century, just to be
@@ -251,7 +254,7 @@ Let's put everything together and see how all elements look in a classless, rich
 
   <h3>
     A heading with <code>code</code>, <em>emphasis</em> and
-    <a href="#inline-text">a link</a> in it
+    <a href="#typography-default-1">a link</a> in it
   </h3>
   <p>Shoreditch tbh mlkshk wolf.</p>
 
@@ -581,22 +584,24 @@ cold-brew 1.0.0</samp></pre>
     <ul>
       <li>An unstyled list item</li>
     </ul>
-    <p><a href="#inline-text">An unstyled link</a></p>
+    <p><a href="#typography-default-1">An unstyled link</a></p>
   </div>
   <p>And now we're back in rich text.</p>
 
   <hr />
 
   <ol>
-    <li id="footnote-1">
+    <li id="typography-default-2">
       A footnote at the very end of the article.
-      <a href="#footnote-ref-1" aria-label="Back to reference 1">↩</a>
+      <a href="#typography-default-2-ref" aria-label="Back to reference 1">↩</a>
     </li>
   </ol>
 </article>
 ```
 
 ## API
+
+### Typography API
 
 | Type          | Modifiers                                                                                                                                                  | Default | Description                                                                                                                                        |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -611,13 +616,13 @@ cold-brew 1.0.0</samp></pre>
 | Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
 | Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                                         |
 
-### Parts
+#### Parts
 
 | Part            | Description                                         |
 | --------------- | --------------------------------------------------- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
 
-### CSS variables
+#### CSS variables
 
 | Variable                | Default                                              | Description                                                                                           |
 | ----------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |

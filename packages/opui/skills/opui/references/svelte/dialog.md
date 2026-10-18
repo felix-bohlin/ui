@@ -45,11 +45,11 @@ Build it from `DialogHeader`, `DialogContent` and `DialogActions`. The `DialogHe
   } from "opui-css/svelte"
 </script>
 
-<Button commandfor="example-dialog" command="show-modal" variant="outlined">
+<Button commandfor="dialog-basics-1" command="show-modal" variant="outlined">
   Open dialog
 </Button>
 
-<Dialog id="example-dialog">
+<Dialog id="dialog-basics-1">
   <DialogHeader>
     <h2 class="ui-h4">Newsletter</h2>
   </DialogHeader>
@@ -59,15 +59,8 @@ Build it from `DialogHeader`, `DialogContent` and `DialogActions`. The `DialogHe
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="example-dialog" command="close" type="button">
-      Not now
-    </Button>
-    <Button
-      commandfor="example-dialog"
-      command="close"
-      type="button"
-      variant="filled"
-    >
+    <Button commandfor="dialog-basics-1" command="close">Not now</Button>
+    <Button commandfor="dialog-basics-1" command="close" variant="filled">
       Subscribe
     </Button>
   </DialogActions>
@@ -90,14 +83,14 @@ Actions sit at the end. Set `align="start"` on `DialogActions` to move them to t
 </script>
 
 <Button
-  commandfor="actions-alignment-example"
+  commandfor="dialog-actions-alignment-1"
   command="show-modal"
   variant="outlined"
 >
   Show shortcuts
 </Button>
 
-<Dialog id="actions-alignment-example">
+<Dialog id="dialog-actions-alignment-1">
   <DialogHeader>
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </DialogHeader>
@@ -106,9 +99,8 @@ Actions sit at the end. Set `align="start"` on `DialogActions` to move them to t
   </DialogContent>
   <DialogActions align="start">
     <Button
-      commandfor="actions-alignment-example"
+      commandfor="dialog-actions-alignment-1"
       command="close"
-      type="button"
       variant="filled"
     >
       Got it
@@ -134,7 +126,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 
 <Button
   color="critical"
-  commandfor="alert-dialog-example"
+  commandfor="dialog-alert-dialog-1"
   command="show-modal"
   variant="outlined"
 >
@@ -142,27 +134,24 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 </Button>
 
 <Dialog
-  id="alert-dialog-example"
+  id="dialog-alert-dialog-1"
   role="alertdialog"
-  aria-describedby="alert-dialog-description"
+  aria-describedby="dialog-alert-dialog-1-description"
 >
   <DialogHeader>
     <h2 class="ui-h4">Delete project?</h2>
   </DialogHeader>
   <DialogContent>
-    <p id="alert-dialog-description">
+    <p id="dialog-alert-dialog-1-description">
       This deletes the project and all its files. You can't undo this.
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="alert-dialog-example" command="close" type="button">
-      Cancel
-    </Button>
+    <Button commandfor="dialog-alert-dialog-1" command="close">Cancel</Button>
     <Button
       color="critical"
-      commandfor="alert-dialog-example"
+      commandfor="dialog-alert-dialog-1"
       command="close"
-      type="button"
       variant="filled"
     >
       Delete
@@ -191,14 +180,14 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 </script>
 
 <Button
-  commandfor="example-dialog-long"
+  commandfor="dialog-long-content-1"
   command="show-modal"
   variant="outlined"
 >
   Read the terms
 </Button>
 
-<Dialog id="example-dialog-long">
+<Dialog id="dialog-long-content-1">
   <DialogHeader>
     <h2 class="ui-h4">Terms of service</h2>
   </DialogHeader>
@@ -268,15 +257,8 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
     </p>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="example-dialog-long" command="close" type="button">
-      Decline
-    </Button>
-    <Button
-      commandfor="example-dialog-long"
-      command="close"
-      type="button"
-      variant="filled"
-    >
+    <Button commandfor="dialog-long-content-1" command="close">Decline</Button>
+    <Button commandfor="dialog-long-content-1" command="close" variant="filled">
       Accept
     </Button>
   </DialogActions>
@@ -313,14 +295,14 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </script>
 
 <Button
-  commandfor="closing-behaviors-dialog"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   variant="outlined"
 >
   Open dialog
 </Button>
 
-<Dialog id="closing-behaviors-dialog" {closedby}>
+<Dialog id="dialog-close-behaviors-1" {closedby}>
   <DialogHeader>
     <h2 class="ui-h4">How to close</h2>
   </DialogHeader>
@@ -335,7 +317,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
     </FieldSet>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="closing-behaviors-dialog" command="close">
+    <Button commandfor="dialog-close-behaviors-1" command="close">
       Close manually
     </Button>
   </DialogActions>

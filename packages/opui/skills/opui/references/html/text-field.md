@@ -493,7 +493,7 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 
 ## Autosuggest
 
-Leverages the `<input>` + `<datalist>` element combo.
+Leverages the `<input>` + `<datalist>` element combo. An input with a `list` shows the Select chevron in place of the browser's arrow.
 
 - `<input list="DATALISTID">`
 - `<datalist id="DATALISTID">`
@@ -502,9 +502,13 @@ Leverages the `<input>` + `<datalist>` element combo.
 <label class="ui-text-field">
   <span class="ui-label">Users</span>
   <span class="ui-field">
-    <input type="text" list="users" placeholder="Placeholder" />
+    <input
+      type="text"
+      list="text-field-autosuggest-1-list"
+      placeholder="Placeholder"
+    />
   </span>
-  <datalist id="users">
+  <datalist id="text-field-autosuggest-1-list">
     <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
@@ -514,9 +518,13 @@ Leverages the `<input>` + `<datalist>` element combo.
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Emails</span>
   <span class="ui-field">
-    <input type="email" list="users-email" placeholder="Placeholder" />
+    <input
+      type="email"
+      list="text-field-autosuggest-2-list"
+      placeholder="Placeholder"
+    />
   </span>
-  <datalist id="users-email">
+  <datalist id="text-field-autosuggest-2-list">
     <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
@@ -613,24 +621,6 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.
 
-### Text input API
-
-#### Parts
-
-| Part                              | Description                                                                                                                                          |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.ui-text-field:has(input[list])` | A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field. |
-
-#### CSS variables
-
-| Variable         | Default                                     | Description                                            |
-| ---------------- | ------------------------------------------- | ------------------------------------------------------ |
-| `--text-primary` | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values. |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
-
-Needs `text-field.css`. It holds the field, variant and size styles.
-
 ## Under the hood
 
 Read the post: [Validation that waits with :user-invalid](https://open-props-ui.netlify.app/learn/text-field-user-invalid)
@@ -674,9 +664,9 @@ Step 1 of 4: Wrapper
 ```css
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -742,7 +732,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -770,7 +760,7 @@ Step 3 of 4: Required
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -781,9 +771,9 @@ Step 4 of 4: Validation
 ```css
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }
 ```
 
@@ -797,8 +787,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/text-input.css`
+### Used by
+
+- [Select](https://open-props-ui.netlify.app/html/components/select.md)
+- [Textarea](https://open-props-ui.netlify.app/html/components/textarea.md)
+
+* `opui-css/css/components/text-field.css`
 
 ## Changelog
 

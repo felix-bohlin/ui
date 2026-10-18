@@ -18,7 +18,7 @@ Label End text
 
   The label.
 
-- `v-slot:end-text`
+- `endText / v-slot:end-text`
 
   Supporting text displayed below the label.
 
@@ -30,13 +30,13 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
-  <Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
-  <Checkbox indeterminate name="checkbox-variants" hideLabel
+  <Checkbox checked name="checkbox-basics" hideLabel>Checked</Checkbox>
+  <Checkbox name="checkbox-basics" hideLabel>Unchecked</Checkbox>
+  <Checkbox indeterminate name="checkbox-basics" hideLabel
     >Indeterminate</Checkbox
   >
-  <Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
-  <Checkbox checked disabled name="checkbox-variants" hideLabel
+  <Checkbox disabled name="checkbox-basics" hideLabel>Disabled</Checkbox>
+  <Checkbox checked disabled name="checkbox-basics" hideLabel
     >Checked and disabled</Checkbox
   >
 </template>
@@ -117,13 +117,11 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <Checkbox name="checkbox-supporting-text">
+  <Checkbox name="checkbox-end-text" endText="Supporting text">
     Default
-    <template #end-text>Supporting text</template>
   </Checkbox>
-  <Checkbox stack name="checkbox-supporting-text">
+  <Checkbox stack name="checkbox-end-text" endText="Supporting text">
     Stack
-    <template #end-text>Supporting text</template>
   </Checkbox>
 </template>
 ```
@@ -180,19 +178,17 @@ function toggleAll() {
 </script>
 
 <template>
-  <FieldSet class="indeterminate-demo">
+  <FieldSet>
     <FieldLegend>
       <Checkbox
-        class="parent"
-        :model-value="allChecked"
+        :modelValue="allChecked"
         :indeterminate="indeterminate"
-        @update:model-value="toggleAll"
+        @update:modelValue="toggleAll"
         >Select all</Checkbox
       >
     </FieldLegend>
     <FieldGroup name="indeterminate-children">
       <Checkbox
-        class="child"
         v-for="(item, index) in items"
         :key="item"
         v-model="checked[index]"
@@ -395,18 +391,56 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 <template>
   <Form>
-    <FieldSet aria-describedby="checkbox-group-error">
+    <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="checkbox-group-validation">
         <Checkbox checked error>Checkbox 1</Checkbox>
         <Checkbox error>Checkbox 2</Checkbox>
         <Checkbox error>Checkbox 3</Checkbox>
       </FieldGroup>
-      <span class="ui-end-text" id="checkbox-group-error"
+      <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
         >Something went wrong!</span
       >
     </FieldSet>
   </Form>
+</template>
+```
+
+### Binding
+
+Bind the checked values with `v-model` and an array ref on each `Checkbox`. The array holds the `value` of every checked box, and setting it updates the boxes.
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue"
+import {
+  Button,
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/vue"
+
+const fruit = ref(["apples"])
+
+function reset() {
+  fruit.value = ["apples"]
+}
+</script>
+
+<template>
+  <FieldSet>
+    <FieldLegend>Fruit</FieldLegend>
+    <FieldGroup name="checkbox-binding">
+      <Checkbox v-model="fruit" value="apples">Apples</Checkbox>
+      <Checkbox v-model="fruit" value="bananas">Bananas</Checkbox>
+      <Checkbox v-model="fruit" value="cherries">Cherries</Checkbox>
+    </FieldGroup>
+  </FieldSet>
+  <p class="checkbox-binding-text">
+    Selected: {{ fruit.join(", ") || "none" }}
+  </p>
+  <Button class="checkbox-binding-reset" @click="reset">Reset</Button>
 </template>
 ```
 
@@ -434,6 +468,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Prop                                                                                                                                                                                                                                   | Type                                | Default | Description                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `endText`                                                                                                                                                                                                                              | `string`                            | -       | Supporting text displayed below the label.                                           |
 | `error`                                                                                                                                                                                                                                | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
 | `hideLabel`                                                                                                                                                                                                                            | `boolean`                           | `false` | Visually hides the label.                                                            |
 | `indeterminate` **Needs hydration** A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
@@ -743,7 +778,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/vue/components/form.md)
 

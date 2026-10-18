@@ -48,19 +48,16 @@ Page scrolling is locked by default when the drawer is open. With a transparent 
   } from "opui-css/svelte"
 </script>
 
-<div class="drawer-examples">
-  <Button class="top" commandfor="drawer-block-start" command="show-modal"
+<div class="example-compass">
+  <Button commandfor="drawer-block-start" command="show-modal"
     >Block Start</Button
   >
-  <Button class="left" commandfor="drawer-inline-start" command="show-modal"
+  <Button commandfor="drawer-inline-start" command="show-modal"
     >Inline Start</Button
   >
-  <Button class="right" commandfor="drawer-inline-end" command="show-modal"
-    >Inline End</Button
+  <Button commandfor="drawer-inline-end" command="show-modal">Inline End</Button
   >
-  <Button class="bottom" commandfor="drawer-block-end" command="show-modal"
-    >Block End</Button
-  >
+  <Button commandfor="drawer-block-end" command="show-modal">Block End</Button>
 </div>
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">

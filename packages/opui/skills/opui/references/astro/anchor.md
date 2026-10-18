@@ -79,12 +79,12 @@ import {
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="anchor-repo-card"
+    id="anchor-repo-card-1"
   >
     <a
       class="ui-link"
       href="https://github.com/felix-bohlin/ui"
-      interestfor="anchor-repo-card">felix-bohlin/ui</a
+      interestfor="anchor-repo-card-1">felix-bohlin/ui</a
     >
     <AnchorContent>
       <Card variant="elevated" class="repo-card">
@@ -153,12 +153,12 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="anchor-link-preview"
+    id="anchor-link-preview-1"
   >
     <a
       class="ui-link"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-      interestfor="anchor-link-preview">CSS anchor positioning</a
+      interestfor="anchor-link-preview-1">CSS anchor positioning</a
     >
     <AnchorContent>
       <Card variant="elevated" class="link-preview">
@@ -198,11 +198,6 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
   }
 </style>
 ```
-
-## Used by
-
-- [Badge](https://open-props-ui.netlify.app/astro/components/badge.md)
-- [Tooltip](https://open-props-ui.netlify.app/astro/components/tooltip.md)
 
 ## API
 
@@ -322,7 +317,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/astro`:
 
-- `opui-css/css/components/anchor.css`
+### Used by
+
+- [Badge](https://open-props-ui.netlify.app/astro/components/badge.md)
+- [Tooltip](https://open-props-ui.netlify.app/astro/components/tooltip.md)
+
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 

@@ -61,10 +61,10 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
     <a
       class="ui-link"
       href="https://github.com/felix-bohlin/ui"
-      interestfor="anchor-repo-card"
+      interestfor="anchor-repo-card-1"
       >felix-bohlin/ui</a
     >
-    <span class="ui-anchor-floating" id="anchor-repo-card" popover="hint">
+    <span class="ui-anchor-floating" id="anchor-repo-card-1" popover="hint">
       <div class="ui-card ui-elevated repo-card">
         <div class="ui-content">
           <div class="repo-card-identity">
@@ -131,10 +131,10 @@ Preview where a link goes before following it.
     <a
       class="ui-link"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-      interestfor="anchor-link-preview"
+      interestfor="anchor-link-preview-1"
       >CSS anchor positioning</a
     >
-    <span class="ui-anchor-floating" id="anchor-link-preview" popover="hint">
+    <span class="ui-anchor-floating" id="anchor-link-preview-1" popover="hint">
       <div class="ui-card ui-elevated link-preview">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <hgroup>
@@ -172,11 +172,6 @@ Preview where a link goes before following it.
   }
 </style>
 ```
-
-## Used by
-
-- [Badge](https://open-props-ui.netlify.app/html/components/badge.md)
-- [Tooltip](https://open-props-ui.netlify.app/html/components/tooltip.md)
 
 ## API
 
@@ -297,4 +292,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/anchor.css`
+### Used by
+
+- [Badge](https://open-props-ui.netlify.app/html/components/badge.md)
+- [Tooltip](https://open-props-ui.netlify.app/html/components/tooltip.md)
+
+* `opui-css/css/components/anchor.css`

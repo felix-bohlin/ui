@@ -15,13 +15,13 @@ Set the tooltip text inside `.ui-anchor-floating[popover="hint"]`.
   <button
     type="button"
     class="ui-button"
-    interestfor="tooltip-basic"
-    commandfor="tooltip-basic"
+    interestfor="tooltip-basics-1"
+    commandfor="tooltip-basics-1"
     command="toggle-popover"
   >
     Save
   </button>
-  <span class="ui-anchor-floating" id="tooltip-basic" popover="hint"
+  <span class="ui-anchor-floating" id="tooltip-basics-1" popover="hint"
     >Save your changes</span
   >
 </span>
@@ -36,13 +36,13 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
   <button
     type="button"
     class="ui-button"
-    interestfor="tooltip-rich"
-    commandfor="tooltip-rich"
+    interestfor="tooltip-rich-content-1"
+    commandfor="tooltip-rich-content-1"
     command="toggle-popover"
   >
     Keyboard shortcuts
   </button>
-  <span class="ui-anchor-floating" id="tooltip-rich" popover="hint">
+  <span class="ui-anchor-floating" id="tooltip-rich-content-1" popover="hint">
     Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
   </span>
 </span>
@@ -53,7 +53,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 Set `--anchor-position-area` on the parent with your preferred `position-area` value.
 
 ```html
-<div class="tooltip-alignment-grid">
+<div class="example-compass">
   <span
     class="ui-anchor ui-tooltip"
     style="--anchor-position-area: block-start"
@@ -61,13 +61,13 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-top"
-      commandfor="tooltip-top"
+      interestfor="tooltip-alignment-1"
+      commandfor="tooltip-alignment-1"
       command="toggle-popover"
     >
       Top
     </button>
-    <span class="ui-anchor-floating" id="tooltip-top" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-alignment-1" popover="hint"
       >Above</span
     >
   </span>
@@ -78,13 +78,13 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-start"
-      commandfor="tooltip-start"
+      interestfor="tooltip-alignment-2"
+      commandfor="tooltip-alignment-2"
       command="toggle-popover"
     >
       Start
     </button>
-    <span class="ui-anchor-floating" id="tooltip-start" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-alignment-2" popover="hint"
       >Before</span
     >
   </span>
@@ -92,13 +92,13 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-end"
-      commandfor="tooltip-end"
+      interestfor="tooltip-alignment-3"
+      commandfor="tooltip-alignment-3"
       command="toggle-popover"
     >
       End
     </button>
-    <span class="ui-anchor-floating" id="tooltip-end" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-alignment-3" popover="hint"
       >After</span
     >
   </span>
@@ -106,46 +106,17 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-bottom"
-      commandfor="tooltip-bottom"
+      interestfor="tooltip-alignment-4"
+      commandfor="tooltip-alignment-4"
       command="toggle-popover"
     >
       Bottom
     </button>
-    <span class="ui-anchor-floating" id="tooltip-bottom" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-alignment-4" popover="hint"
       >Below</span
     >
   </span>
 </div>
-
-<style>
-  .tooltip-alignment-grid {
-    display: grid;
-    gap: var(--size-3);
-    grid-template-areas:
-      ".     top    .  "
-      "start .      end"
-      ".     bottom .  ";
-    justify-items: center;
-    align-items: center;
-  }
-
-  .tooltip-alignment-grid > :nth-child(1) {
-    grid-area: top;
-  }
-
-  .tooltip-alignment-grid > :nth-child(2) {
-    grid-area: start;
-  }
-
-  .tooltip-alignment-grid > :nth-child(3) {
-    grid-area: end;
-  }
-
-  .tooltip-alignment-grid > :nth-child(4) {
-    grid-area: bottom;
-  }
-</style>
 ```
 
 ## Arrow
@@ -157,13 +128,13 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
   <button
     type="button"
     class="ui-button"
-    interestfor="tooltip-arrow"
-    commandfor="tooltip-arrow"
+    interestfor="tooltip-arrow-1"
+    commandfor="tooltip-arrow-1"
     command="toggle-popover"
   >
     Save
   </button>
-  <span class="ui-anchor-floating" id="tooltip-arrow" popover="hint"
+  <span class="ui-anchor-floating" id="tooltip-arrow-1" popover="hint"
     >Save your changes</span
   >
 </span>
@@ -381,12 +352,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/tooltip.css`
-- `opui-css/css/components/anchor.css`
-
-## See also
+### Dependencies
 
 - [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md)
+
+* `opui-css/css/components/tooltip.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 

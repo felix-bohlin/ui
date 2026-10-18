@@ -5,7 +5,7 @@ Add it to an element with `aria-busy="true"`. Spinners are always indeterminate.
 ## Basics
 
 ```tsx
-export default function Default() {
+export default function Basics() {
   return <div aria-busy="true"></div>
 }
 ```
@@ -86,17 +86,19 @@ See [progress accessibility](https://open-props-ui.netlify.app/react/components/
 
 ## API
 
+### Spinner API
+
 | Type  | Modifiers   | Default | Description                                            |
 | ----- | ----------- | ------- | ------------------------------------------------------ |
 | Sizes | `font-size` | `1em`   | Spinner size follows the element's computed font size. |
 
-### Parts
+#### Parts
 
 | Part                 | Description                                                            |
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
-### CSS variables
+#### CSS variables
 
 | Variable   | Default | Description                                                                                                                                                                                               |
 | ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

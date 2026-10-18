@@ -39,10 +39,10 @@ All switches should have an accessible name. Put the label text inside the compo
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-variants" checked hideLabel>Label</Switch>
-<Switch name="switch-variants" hideLabel>Label</Switch>
-<Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
-<Switch name="switch-variants" disabled hideLabel>Label</Switch>
+<Switch name="switch-basics" checked hideLabel>Label</Switch>
+<Switch name="switch-basics" hideLabel>Label</Switch>
+<Switch name="switch-basics" checked disabled hideLabel>Label</Switch>
+<Switch name="switch-basics" disabled hideLabel>Label</Switch>
 ```
 
 ## Sizes
@@ -105,14 +105,8 @@ Set `stack` to put the label under the switch.
   import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch name="switch-supporting-text">
-  Default
-  {#snippet endText()}Supporting text{/snippet}
-</Switch>
-<Switch name="switch-supporting-text" stack>
-  Stack
-  {#snippet endText()}Supporting text{/snippet}
-</Switch>
+<Switch name="switch-end-text" endText="Supporting text">Default</Switch>
+<Switch name="switch-end-text" stack endText="Supporting text">Stack</Switch>
 ```
 
 ## Icons
@@ -264,7 +258,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   } from "opui-css/svelte"
 </script>
 
-<Form as="div">
+<Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">
@@ -414,18 +408,53 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 </script>
 
 <Form>
-  <FieldSet aria-describedby="switch-group-error">
+  <FieldSet aria-describedby="switch-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="switch-field-group-validation">
       <Switch error>Switch 1</Switch>
       <Switch error>Switch 2</Switch>
       <Switch error>Switch 3</Switch>
     </FieldGroup>
-    <span class="ui-end-text" id="switch-group-error"
+    <span class="ui-end-text" id="switch-field-group-validation-1-error"
       >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+### Binding
+
+Bind the checked values with `bind:group` on each `Switch`. The array holds the `value` of every checked switch, and setting it updates the switches.
+
+```svelte
+<script lang="ts">
+  import {
+    Button,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Switch,
+  } from "opui-css/svelte"
+
+  let notifications = $state(["email"])
+
+  function reset() {
+    notifications = ["email"]
+  }
+</script>
+
+<FieldSet>
+  <FieldLegend>Notifications</FieldLegend>
+  <FieldGroup name="switch-binding">
+    <Switch bind:group={notifications} value="email">Email</Switch>
+    <Switch bind:group={notifications} value="push">Push</Switch>
+    <Switch bind:group={notifications} value="sms">SMS</Switch>
+  </FieldGroup>
+</FieldSet>
+<p class="switch-binding-text">
+  Selected: {notifications.join(", ") || "none"}
+</p>
+<Button class="switch-binding-reset" onclick={reset}>Reset</Button>
 ```
 
 ## Accessibility
@@ -490,9 +519,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -545,9 +572,7 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To 
 | `--field-label-font-size`       | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                  |
 | `--field-label-font-weight`     | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                         |
 | `--field-required-color`        | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                              |
-| `--focus-ring-color`            | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                             |
 | `--focus-ring-offset`           | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                               |
-| `--focus-ring-style`            | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                             |
 | `--focus-ring-width`            | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                     |
 | `--invalid-color`               | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                         |
 | `--invalid-text-color`          | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                    |
@@ -781,7 +806,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/svelte`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/svelte/components/form.md)
 

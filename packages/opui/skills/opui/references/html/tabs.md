@@ -31,29 +31,29 @@ General account settings.
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-profile"
+    id="tabs-basics-1"
     class="ui-tab-input"
     checked
   />
-  <label for="tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-basics-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-settings"
+    id="tabs-basics-2"
     class="ui-tab-input"
   />
-  <label for="tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-basics-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-notifications"
+    id="tabs-basics-3"
     class="ui-tab-input"
   />
-  <label for="tab-notifications" class="ui-tab-label">Notifications</label>
+  <label for="tabs-basics-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -67,31 +67,29 @@ Use `.ui-filled` to fill the selected tab with the primary color.
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-profile"
+    id="tabs-filled-1"
     class="ui-tab-input"
     checked
   />
-  <label for="filled-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-filled-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-settings"
+    id="tabs-filled-2"
     class="ui-tab-input"
   />
-  <label for="filled-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-filled-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-notifications"
+    id="tabs-filled-3"
     class="ui-tab-input"
   />
-  <label for="filled-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-filled-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -105,29 +103,19 @@ Use `.ui-line` for tabs without a background, marking the selected tab with a li
   <input
     type="radio"
     name="line-tabs"
-    id="line-tab-profile"
+    id="tabs-line-1"
     class="ui-tab-input"
     checked
   />
-  <label for="line-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-line-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-  <input
-    type="radio"
-    name="line-tabs"
-    id="line-tab-settings"
-    class="ui-tab-input"
-  />
-  <label for="line-tab-settings" class="ui-tab-label">Settings</label>
+  <input type="radio" name="line-tabs" id="tabs-line-2" class="ui-tab-input" />
+  <label for="tabs-line-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
-  <input
-    type="radio"
-    name="line-tabs"
-    id="line-tab-notifications"
-    class="ui-tab-input"
-  />
-  <label for="line-tab-notifications" class="ui-tab-label">Notifications</label>
+  <input type="radio" name="line-tabs" id="tabs-line-3" class="ui-tab-input" />
+  <label for="tabs-line-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -141,31 +129,29 @@ Use `.ui-outlined` for a bordered track without a background.
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-profile"
+    id="tabs-outlined-1"
     class="ui-tab-input"
     checked
   />
-  <label for="outlined-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-outlined-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-settings"
+    id="tabs-outlined-2"
     class="ui-tab-input"
   />
-  <label for="outlined-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-outlined-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-notifications"
+    id="tabs-outlined-3"
     class="ui-tab-input"
   />
-  <label for="outlined-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-outlined-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -179,49 +165,47 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-profile"
+    id="tabs-scrollable-1"
     class="ui-tab-input"
     checked
   />
-  <label for="scrollable-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-scrollable-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-settings"
+    id="tabs-scrollable-2"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-scrollable-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-notifications"
+    id="tabs-scrollable-3"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-scrollable-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-billing"
+    id="tabs-scrollable-4"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-billing" class="ui-tab-label">Billing</label>
+  <label for="tabs-scrollable-4" class="ui-tab-label">Billing</label>
   <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-security"
+    id="tabs-scrollable-5"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-security" class="ui-tab-label">Security</label>
+  <label for="tabs-scrollable-5" class="ui-tab-label">Security</label>
   <div class="ui-tab-panel">
     Passwords, sessions and two-factor authentication.
   </div>
@@ -229,30 +213,28 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-integrations"
+    id="tabs-scrollable-6"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-integrations" class="ui-tab-label"
-    >Integrations</label
-  >
+  <label for="tabs-scrollable-6" class="ui-tab-label">Integrations</label>
   <div class="ui-tab-panel">Connected apps and webhooks.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-team"
+    id="tabs-scrollable-7"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-team" class="ui-tab-label">Team</label>
+  <label for="tabs-scrollable-7" class="ui-tab-label">Team</label>
   <div class="ui-tab-panel">Members and roles.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-advanced"
+    id="tabs-scrollable-8"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-advanced" class="ui-tab-label">Advanced</label>
+  <label for="tabs-scrollable-8" class="ui-tab-label">Advanced</label>
   <div class="ui-tab-panel">Export data or delete the account.</div>
 </div>
 ```
@@ -271,7 +253,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `input` | `checked` | Selects the tab that is open initially.                    |
 | `label` | `for`     | Names the radio button after the tab.                      |
 
-### Keyboard interaction
+### Keyboard support
 
 - **Tab**: Moves focus to the selected tab (its radio button), then into the open panel, then to the next focusable element after the tabs.
 - **Down Arrow / Up Arrow**: Moves focus to the next or previous tab and selects it.

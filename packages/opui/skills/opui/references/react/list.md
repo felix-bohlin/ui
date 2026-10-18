@@ -37,7 +37,7 @@
 ```tsx
 import { List, ListItem } from "opui-css/react"
 
-export default function Default() {
+export default function Basics() {
   return (
     <List>
       <ListItem headline="Headline" />
@@ -112,9 +112,8 @@ export default function Clickable() {
       <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
       <ListItem
         type="checkbox"
-        htmlFor="clickable-checkbox"
         headline="Checkbox list item"
-        end={<CheckboxInput id="clickable-checkbox" />}
+        end={<CheckboxInput />}
       />
     </List>
   )
@@ -131,21 +130,13 @@ import { List, ListItem } from "opui-css/react"
 export default function Selected() {
   return (
     <List>
-      <ListItem>
-        <a href="#" aria-current="page">
-          <div className="ui-text">
-            <p>Selected item</p>
-            <p>This item has aria-current="page" on its link</p>
-          </div>
-        </a>
-      </ListItem>
-      <ListItem>
-        <a href="#">
-          <div className="ui-text">
-            <p>Normal item</p>
-          </div>
-        </a>
-      </ListItem>
+      <ListItem
+        href="#"
+        aria-current="page"
+        headline="Selected item"
+        description='This item has aria-current="page" on its link'
+      />
+      <ListItem href="#" headline="Normal item" />
     </List>
   )
 }
@@ -372,7 +363,7 @@ export default function EndKeyboard() {
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/react/components/checkbox.md)
 
@@ -382,18 +373,8 @@ import { CheckboxInput, List, ListItem } from "opui-css/react"
 export default function EndCheckbox() {
   return (
     <List>
-      <ListItem
-        type="checkbox"
-        htmlFor="checkbox-example-1"
-        text="Checkbox 1"
-        end={<CheckboxInput id="checkbox-example-1" />}
-      />
-      <ListItem
-        type="checkbox"
-        htmlFor="checkbox-example-2"
-        text="Checkbox 2"
-        end={<CheckboxInput id="checkbox-example-2" />}
-      />
+      <ListItem type="checkbox" text="Checkbox 1" end={<CheckboxInput />} />
+      <ListItem type="checkbox" text="Checkbox 2" end={<CheckboxInput />} />
     </List>
   )
 }
@@ -401,7 +382,7 @@ export default function EndCheckbox() {
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -415,27 +396,13 @@ export default function EndRadio() {
     <List>
       <ListItem
         type="radio"
-        htmlFor="radio-example-1"
         text="Radio 1"
-        end={
-          <RadioInput
-            id="radio-example-1"
-            name="radio-example-group"
-            value="1"
-          />
-        }
+        end={<RadioInput name="radio-example-group" value="1" />}
       />
       <ListItem
         type="radio"
-        htmlFor="radio-example-2"
         text="Radio 2"
-        end={
-          <RadioInput
-            id="radio-example-2"
-            name="radio-example-group"
-            value="2"
-          />
-        }
+        end={<RadioInput name="radio-example-group" value="2" />}
       />
     </List>
   )
@@ -452,18 +419,8 @@ import { List, ListItem, SwitchInput } from "opui-css/react"
 export default function EndSwitch() {
   return (
     <List>
-      <ListItem
-        type="switch"
-        htmlFor="switch-example-1"
-        text="Switch 1"
-        end={<SwitchInput id="switch-example-1" />}
-      />
-      <ListItem
-        type="switch"
-        htmlFor="switch-example-2"
-        text="Switch 2"
-        end={<SwitchInput id="switch-example-2" />}
-      />
+      <ListItem type="switch" text="Switch 1" end={<SwitchInput />} />
+      <ListItem type="switch" text="Switch 2" end={<SwitchInput />} />
     </List>
   )
 }
@@ -513,7 +470,7 @@ export default function Inset() {
 Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
 
 ```tsx
-import { List, ListItem } from "opui-css/react"
+import { Button, List, ListItem } from "opui-css/react"
 
 export default function Gutterless() {
   return (
@@ -521,11 +478,7 @@ export default function Gutterless() {
       <ListItem
         headline="Gutterless list item"
         end={
-          <button
-            aria-label="Delete"
-            className="ui-button ui-round ui-small"
-            type="button"
-          >
+          <Button aria-label="Delete" iconOnly round size="small">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -537,7 +490,7 @@ export default function Gutterless() {
                 d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
               ></path>
             </svg>
-          </button>
+          </Button>
         }
       />
       <ListItem
@@ -837,7 +790,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/react`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/react/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/react/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 

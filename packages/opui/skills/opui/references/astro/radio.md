@@ -18,7 +18,7 @@ Label End text
 
   The label.
 
-- `slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the label.
 
@@ -28,11 +28,7 @@ The `name` prop will get passed down to each radio button in the group.
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
@@ -123,20 +119,18 @@ import { Radio } from "opui-css/astro"
 
 ### End text
 
-Use the `end-text` slot for supporting text under a single radio's label. The component points `aria-describedby` at it.
+Use the `endText` prop for supporting text under a single radio's label, or the `end-text` slot for rich content. The component points `aria-describedby` at it.
 
 ```astro
 ---
 import { Radio } from "opui-css/astro"
 ---
 
-<Radio name="radio-supporting-text" value="default" checked>
+<Radio name="radio-end-text" value="default" checked endText="Supporting text">
   Default
-  <Fragment slot="end-text">Supporting text</Fragment>
 </Radio>
-<Radio name="radio-supporting-text" value="stack" stack>
+<Radio name="radio-end-text" value="stack" stack endText="Supporting text">
   Stack
-  <Fragment slot="end-text">Supporting text</Fragment>
 </Radio>
 ```
 
@@ -186,11 +180,7 @@ Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
@@ -211,12 +201,14 @@ Can be placed above and below the fields.
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Form>
@@ -250,11 +242,7 @@ Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `R
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
@@ -275,11 +263,7 @@ Set `required` on at least one `Radio` in the group.
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
@@ -302,25 +286,71 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 
 ```astro
 ---
-import { Radio } from "opui-css/astro"
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Form } from "opui-css/astro"
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="radio-group-error">
+  <FieldSet aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup direction="row" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
       <Radio error value="2">Radio 2</Radio>
       <Radio error value="3">Radio 3</Radio>
     </FieldGroup>
-    <span class="ui-end-text" id="radio-group-error">Something went wrong!</span
+    <span class="ui-end-text" id="radio-field-group-validation-1-error"
+      >Something went wrong!</span
     >
   </FieldSet>
 </Form>
+```
+
+## Binding
+
+Astro renders the group on the server, so it has no bound value. The selected value lives in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads it, or read the checked input in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` radio.
+
+```astro
+---
+import {
+  Button,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Plan</FieldLegend>
+  <FieldGroup name="radio-binding">
+    <Radio checked value="free">Free</Radio>
+    <Radio value="pro">Pro</Radio>
+    <Radio value="team">Team</Radio>
+  </FieldGroup>
+</FieldSet>
+<p class="radio-binding-text">Selected: free</p>
+<Button class="radio-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".radio-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="radio-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>
 ```
 
 ## Accessibility
@@ -339,6 +369,7 @@ import { Form } from "opui-css/astro"
 
 | Prop        | Type                                | Default | Description                                       |
 | ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
+| `endText`   | `string`                            | -       | Supporting text displayed below the label.        |
 | `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
 | `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
 | `size`      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
@@ -584,7 +615,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/astro`:
 
-### See also
+### Dependencies
 
 - [Form](https://open-props-ui.netlify.app/astro/components/form.md)
 

@@ -4,22 +4,17 @@ export default {
   component: "Accordion",
   css: ["accordion", "card"],
   notes: {
-    astro:
+    default:
       'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
     html: 'Add `.ui-card` to the root for card styles. To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
-    react:
-      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    svelte:
-      'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    vue: 'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
   },
   options: [
     {
       attribute: "[name]",
       description:
         "Groups accordions so only one of them can be open at a time.",
-      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "Grouping",
+      inherited: true,
       prop: "name",
       type: "string",
     },
@@ -39,8 +34,8 @@ export default {
       attribute: "[open]",
       default: "false",
       description: "Whether the accordion is open.",
-      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "State",
+      inherited: true,
       prop: "open",
       type: "boolean",
     },
@@ -59,12 +54,7 @@ export default {
   parts: [
     {
       code: "<summary>",
-      component: {
-        astro: "AccordionSummary",
-        react: "AccordionSummary",
-        svelte: "AccordionSummary",
-        vue: "AccordionSummary",
-      },
+      component: "AccordionSummary",
       description: "The always visible header.",
       selector: "summary",
     },
@@ -75,22 +65,12 @@ export default {
       selector: "summary .ui-marker",
     },
     {
-      component: {
-        astro: "AccordionContent",
-        react: "AccordionContent",
-        svelte: "AccordionContent",
-        vue: "AccordionContent",
-      },
+      component: "AccordionContent",
       description: "The collapsible content.",
       selector: ".ui-content",
     },
     {
-      component: {
-        astro: "AccordionActions",
-        react: "AccordionActions",
-        svelte: "AccordionActions",
-        vue: "AccordionActions",
-      },
+      component: "AccordionActions",
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
     },

@@ -33,7 +33,6 @@ export default {
     {
       default: "false",
       description: "Adds a border between the items.",
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "bordered",
     },
     {

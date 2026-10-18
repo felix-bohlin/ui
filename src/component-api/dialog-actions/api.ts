@@ -14,12 +14,6 @@ export default {
   page: "dialog",
   parts: [],
   root: {
-    component: {
-      astro: "DialogActions",
-      react: "DialogActions",
-      svelte: "DialogActions",
-      vue: "DialogActions",
-    },
     description: "A group of actions, such as buttons.",
     selector: ".ui-actions",
   },

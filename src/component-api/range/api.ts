@@ -3,23 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Range",
   hydration: {
-    react: [
-      {
-        description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
-        prop: "valueSuffix",
-      },
-    ],
-    svelte: [
-      {
-        description:
-          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
-        prop: "valueSuffix",
-      },
-    ],
-    vue: [
+    default: [
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
@@ -55,7 +39,7 @@ export default {
     {
       description:
         "The id of the `<input>`. Generated when omitted and the value is shown.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },

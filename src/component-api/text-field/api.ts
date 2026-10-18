@@ -35,7 +35,7 @@ export default {
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
@@ -61,7 +61,6 @@ export default {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "type",
       type: '"numeric" | string',
     },

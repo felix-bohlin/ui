@@ -20,7 +20,6 @@ export default {
       description: "The starting selection when `value` is omitted.",
       frameworks: ["react"],
       prop: "defaultValue",
-      type: "string | string[]",
     },
     {
       description: "The name shared by the inputs. Generated when omitted.",
@@ -78,19 +77,13 @@ export default {
         'The value of the pressed button with `selection="single"`, or the values of the pressed buttons.',
       frameworks: ["react"],
       prop: "value",
-      type: "string | string[]",
     },
   ],
   page: "toggle",
   parts: [
     {
       code: ".ui-toggle-button",
-      component: {
-        astro: "ToggleButton",
-        react: "ToggleButton",
-        svelte: "ToggleButton",
-        vue: "ToggleButton",
-      },
+      component: "ToggleButton",
       description: "A toggle button.",
       selector: ".ui-toggle-group > .ui-toggle-button:first-child",
     },

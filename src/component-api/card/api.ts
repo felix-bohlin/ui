@@ -3,14 +3,8 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Card",
   notes: {
-    astro:
+    default:
       "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
-    html: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
-    react:
-      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
-    svelte:
-      "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
-    vue: "To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.",
   },
   options: [
     {
@@ -29,32 +23,17 @@ export default {
   parts: [
     {
       code: "<hgroup>",
-      component: {
-        astro: "CardHeader",
-        react: "CardHeader",
-        svelte: "CardHeader",
-        vue: "CardHeader",
-      },
+      component: "CardHeader",
       description: "The card header.",
       selector: "hgroup",
     },
     {
-      component: {
-        astro: "CardContent",
-        react: "CardContent",
-        svelte: "CardContent",
-        vue: "CardContent",
-      },
+      component: "CardContent",
       description: "The card content.",
       selector: ".ui-content",
     },
     {
-      component: {
-        astro: "CardActions",
-        react: "CardActions",
-        svelte: "CardActions",
-        vue: "CardActions",
-      },
+      component: "CardActions",
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
     },

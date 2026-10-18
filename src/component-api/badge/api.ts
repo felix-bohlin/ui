@@ -44,9 +44,7 @@ export default {
     {
       description:
         'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "srLabel",
-      type: "string",
     },
   ],
   parts: [

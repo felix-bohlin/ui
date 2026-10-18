@@ -13,12 +13,6 @@ export default {
   page: "card",
   parts: [],
   root: {
-    component: {
-      astro: "CardActions",
-      react: "CardActions",
-      svelte: "CardActions",
-      vue: "CardActions",
-    },
     description: "A group of actions, such as buttons.",
     selector: ".ui-actions",
   },

@@ -1,11 +1,13 @@
 import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
 import {
+  appliesTo,
   describe,
   frameworkProps,
+  hasDefaultSlot,
+  hydrationFor,
   modelsFor,
   slotNames,
-  snippetNames,
 } from "../utils/component-source"
 import { themeTokenDescriptions } from "../utils/theme-token-descriptions"
 import { themeTokens } from "../utils/theme-tokens"
@@ -51,9 +53,7 @@ export const htmlDefault = (option: ApiOption) => {
 
 export const htmlRows = (api: ComponentApi) =>
   api.options
-    .filter(
-      (option) => !option.frameworks || option.frameworks.includes("html"),
-    )
+    .filter((option) => appliesTo(option, "html"))
     .flatMap((option) => {
       const list = modifiers(option)
       return list.length > 0
@@ -71,31 +71,23 @@ export const htmlRows = (api: ComponentApi) =>
 
 export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
   const props = frameworkProps(api, framework)
+  const options = api.options.filter((option) => appliesTo(option, framework))
   const option = (name: string) =>
-    api.options.find((option) => option.prop === name)
-  const scoped = api.options
-    .filter((option) => option.frameworks?.includes(framework))
-    .filter((option) => !props.has(option.prop))
-    .map((option) => [option.prop, option.type ?? ""] as const)
-  const { model, modelIsProp } = frameworks[framework]
+    options.find((option) => option.prop === name)
+  const inherited = options
+    .filter((option) => option.inherited && !props.has(option.prop))
+    .map((option) => [option.prop, option.type] as const)
+  const syntax = frameworks[framework]
+  const { model, modelIsProp } = syntax
+  const children =
+    syntax.slotsAreProps && hasDefaultSlot(api) && !props.has("children")
+      ? [["children", syntax.slotType] as const]
+      : []
   const bound = new Set(
     modelIsProp ? modelsFor(api, framework).map((entry) => entry.prop) : [],
   )
-  const reactChildren =
-    framework === "react" &&
-    (api.slots?.some((slot) => slot.name === "default") ||
-      api.parts.some((part) => part.slots?.includes("default")))
-  const snippets = [
-    ...snippetNames(api, framework),
-    ...(reactChildren ? ["children"] : []),
-  ]
-    .filter((name) => !props.has(name) && !bound.has(name))
-    .map(
-      (name) =>
-        [name, framework === "react" ? "ReactNode" : "Snippet"] as const,
-    )
   return [
-    ...[...props, ...scoped, ...snippets]
+    ...[...props, ...inherited, ...children]
       .filter(([name]) => !bound.has(name))
       .map(([name, type]) => ({
         default: option(name)?.default,
@@ -120,7 +112,7 @@ export const hydrationRows = (
 ) => {
   const model = frameworks[framework].model
   return [
-    ...(api.hydration?.[framework] ?? []),
+    ...hydrationFor(api, framework),
     ...(model
       ? modelsFor(api, framework).map((entry) => ({
           description:
@@ -178,8 +170,8 @@ export const partLabel = (
 ) => {
   const fallback = part.code ?? part.selector
   if (framework === "html" || !api.source) return fallback
-  if (root) return `<${part.component?.[framework] ?? api.component}>`
-  if (part.component?.[framework]) return `<${part.component[framework]}>`
+  if (root) return `<${api.component}>`
+  if (part.component) return `<${part.component}>`
 
   const syntax = frameworks[framework]
   const handles = new Set([

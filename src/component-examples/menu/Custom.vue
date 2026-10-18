@@ -7,6 +7,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     round
     size="small"
     aria-label="More actions"
+    iconOnly
     commandfor="menu-custom"
     command="toggle-popover"
   >
@@ -64,7 +65,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Delete"
-      border-top
+      borderTop
       critical
       commandfor="menu-custom"
       command="hide-popover"

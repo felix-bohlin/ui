@@ -1,16 +1,14 @@
 ---
-import { List } from "opui-css/astro"
-import { ListItem } from "opui-css/astro"
-import { SwitchInput } from "opui-css/astro"
+import { List, ListItem, SwitchInput } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem type="switch" for="switch-example-1">
+  <ListItem type="switch">
     <Fragment slot="text">Switch 1</Fragment>
-    <SwitchInput slot="end" id="switch-example-1" />
+    <SwitchInput slot="end" />
   </ListItem>
-  <ListItem type="switch" for="switch-example-2">
+  <ListItem type="switch">
     <Fragment slot="text">Switch 2</Fragment>
-    <SwitchInput slot="end" id="switch-example-2" />
+    <SwitchInput slot="end" />
   </ListItem>
 </List>

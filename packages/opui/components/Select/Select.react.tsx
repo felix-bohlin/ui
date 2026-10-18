@@ -3,6 +3,7 @@
 import { createElement, useId } from "react"
 import { cx } from "../cx"
 import { useFieldContext } from "../FieldGroup/context.react"
+import { idRefs } from "../id"
 import type { Props } from "./types.react"
 
 export default function Select({
@@ -16,6 +17,7 @@ export default function Select({
   name,
   size,
   spread,
+  style,
   value,
   variant = "outlined",
   children,
@@ -33,14 +35,11 @@ export default function Select({
   const labelId = `select-label-${uid}`
   const startTextId = startText ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy =
-    [startTextId, endTextId, rest["aria-describedby"]]
-      .filter(Boolean)
-      .join(" ") || undefined
+  const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
 
   const selectedValues = items
     .filter((item) => item.selected)
-    .map((item) => item.value)
+    .map((item) => String(item.value))
   const initialValue =
     defaultValue ??
     (selectedValues.length
@@ -60,6 +59,7 @@ export default function Select({
         },
         className,
       ])}
+      style={style}
     >
       {label && (
         <span className="ui-label" id={labelId}>

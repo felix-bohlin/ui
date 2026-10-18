@@ -3,12 +3,11 @@
     --_motion: var(--motion, 1);
     --_bg-color: transparent;
     --_font-size: var(--font-size-1);
-    --_size: var(--button-size);
-    --_svg-size: var(--icon-size);
+    --_icon-size: var(--icon-size);
+    --_min-height: var(--button-size);
 
     align-items: center;
     background-color: var(--_bg-color);
-    block-size: var(--_size);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius);
     color: var(--text-primary);
@@ -18,7 +17,8 @@
     gap: var(--size-2);
     inline-size: fit-content;
     justify-content: center;
-    min-inline-size: var(--_size);
+    min-block-size: var(--_min-height);
+    min-inline-size: var(--_min-height);
     outline-offset: calc(-1 * var(--size-2));
     padding-block: 0;
     padding-inline: var(--size-2);
@@ -63,10 +63,10 @@
     }
 
     /* svgs */
-    svg {
-      block-size: var(--_svg-size);
+    & > svg {
+      block-size: var(--_icon-size);
       flex-shrink: 0;
-      inline-size: var(--_svg-size);
+      inline-size: var(--_icon-size);
     }
 
     /* Selected */
@@ -100,18 +100,18 @@
     &.ui-x-small,
     :where(.ui-toggle-group.ui-x-small) > & {
       --_font-size: var(--font-size-0);
-      --_size: var(--button-size-x-small);
+      --_min-height: var(--button-size-x-small);
     }
 
     &.ui-small,
     :where(.ui-toggle-group.ui-small) > & {
       --_font-size: var(--font-size-05);
-      --_size: var(--button-size-small);
+      --_min-height: var(--button-size-small);
     }
 
     &.ui-large,
     :where(.ui-toggle-group.ui-large) > & {
-      --_size: var(--button-size-large);
+      --_min-height: var(--button-size-large);
       padding-inline: var(--size-3);
     }
 

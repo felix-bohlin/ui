@@ -19,7 +19,7 @@ The files you are given, or `git diff --name-only` against the base branch when 
 
 ## Already checked by tools
 
-Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: declaration order, physical properties, the `ui-` class prefix, unknown properties and undefined custom properties. Run them when they help, and report a failure in one line.
+Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: declaration order, physical properties, the `ui-` class prefix, unknown properties, undefined custom properties (in the package and in `src/` styles), and private `--_` properties a component reads without defining them in its own file or its base file. Run them when they help, and report a failure in one line.
 
 ## Quality
 

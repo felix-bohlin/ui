@@ -6,9 +6,7 @@ export default {
     {
       description:
         "Alternative text for the image. Required with src; use an empty string when the name is shown next to it.",
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "alt",
-      type: "string",
     },
     {
       description:
@@ -35,9 +33,7 @@ export default {
     },
     {
       description: "The image source. Replaces the content.",
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "src",
-      type: "string",
     },
     {
       description: "The variant to use.",

@@ -8,7 +8,7 @@
   } from "opui-css/svelte"
 </script>
 
-<Form as="div">
+<Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">

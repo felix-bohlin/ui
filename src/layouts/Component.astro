@@ -21,7 +21,11 @@ import {
   ListItem,
 } from "opui-css/astro"
 import { componentImports, packageFor } from "../utils/component-imports"
-import { checkExports, shipped } from "../utils/component-source"
+import {
+  checkExports,
+  reportProblems,
+  shipped,
+} from "../utils/component-source"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
@@ -83,7 +87,7 @@ const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
   import: "default",
 })
 
-checkExports(Object.values(apiData))
+reportProblems(checkExports(Object.values(apiData)))
 
 const autoApis = ((): Apis | null => {
   if (!currentSlug) return null

@@ -121,7 +121,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       >
     </Conditional>
 
-    <AutoExample name="Variants" row />
+    <AutoExample name="Basics" row />
   </section>
 
   <section>
@@ -407,6 +407,43 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       on the fieldset at it, so screen readers read the error with the group.
     </p>
     <AutoExample name="FieldGroupValidation" row />
+
+    <h3 id="field-group-binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        checked values live in the inputs, which share the group's <code
+          >name</code
+        >. Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> switches.
+      </Fragment>
+      <Fragment slot="html">
+        The checked values live in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> inputs in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the checked values in your own state. Pass each <code>Switch</code> a
+        <code>checked</code> and an <code>onChange</code> that adds or removes its
+        <code>value</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the checked values with <code>bind:group</code> on each <code
+          >Switch</code
+        >. The array holds the <code>value</code> of every checked switch, and setting
+        it updates the switches.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the checked values with <code>v-model</code> and an array ref on each
+        <code>Switch</code>. The array holds the <code>value</code> of every checked
+        switch, and setting it updates the switches.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupBinding" centered column />
   </section>
 
   <SwitchBuild slot="under-the-hood" />
@@ -572,15 +609,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 </Component>
 
 <style is:global>
-  .example-row {
-    align-items: center;
-    display: flex;
-    gap: var(--size-3);
-  }
-  .example-row.ui-spacious {
-    gap: var(--size-6);
-  }
-
   .switch-anatomy {
     align-items: start;
     display: flex;

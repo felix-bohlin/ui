@@ -1,6 +1,3 @@
-"use client"
-
-import { useState } from "react"
 import {
   Button,
   Checkbox,
@@ -14,8 +11,8 @@ import {
   Range,
   Select,
   Switch,
-  TextField,
   Textarea,
+  TextField,
 } from "opui-css/react"
 
 const roleItems = [
@@ -25,11 +22,6 @@ const roleItems = [
 ]
 
 export default function KitchenSink() {
-  const [emailNotifs, setEmailNotifs] = useState(true)
-  const [smsNotifs, setSmsNotifs] = useState(false)
-  const [theme, setTheme] = useState("light")
-  const [experience, setExperience] = useState(5)
-
   return (
     <Form id="kitchen-sink-example">
       <FieldSet>
@@ -56,21 +48,11 @@ export default function KitchenSink() {
         <FieldDescription>
           Configure how you want to receive updates.
         </FieldDescription>
-        <FieldGroup name="notifications">
-          <Switch
-            checked={emailNotifs}
-            onChange={(event) => setEmailNotifs(event.currentTarget.checked)}
-            name="email_notifs"
-          >
+        <FieldGroup>
+          <Switch defaultChecked name="email_notifs">
             Email Notifications
           </Switch>
-          <Switch
-            checked={smsNotifs}
-            onChange={(event) => setSmsNotifs(event.currentTarget.checked)}
-            name="sms_notifs"
-          >
-            SMS Notifications
-          </Switch>
+          <Switch name="sms_notifs">SMS Notifications</Switch>
         </FieldGroup>
       </FieldSet>
 
@@ -80,27 +62,11 @@ export default function KitchenSink() {
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
-          <Radio
-            checked={theme === "light"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="light"
-          >
+          <Radio value="light" defaultChecked>
             Light Theme
           </Radio>
-          <Radio
-            checked={theme === "dark"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="dark"
-          >
-            Dark Theme
-          </Radio>
-          <Radio
-            checked={theme === "system"}
-            onChange={(event) => setTheme(event.currentTarget.value)}
-            value="system"
-          >
-            System Default
-          </Radio>
+          <Radio value="dark">Dark Theme</Radio>
+          <Radio value="system">System Default</Radio>
         </FieldGroup>
       </FieldSet>
 
@@ -117,8 +83,7 @@ export default function KitchenSink() {
             min="0"
             max="20"
             step="1"
-            value={experience}
-            onChange={(event) => setExperience(Number(event.target.value))}
+            defaultValue="5"
             startText="Drag the slider to match your total tenure."
           />
         </FieldGroup>
@@ -129,9 +94,10 @@ export default function KitchenSink() {
       <FieldSet>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
-        <FieldGroup name="details">
+        <FieldGroup>
           <Textarea
             label="Biography"
+            name="biography"
             placeholder="Tell us about yourself..."
             rows={4}
           />
@@ -142,7 +108,7 @@ export default function KitchenSink() {
 
       <FieldSet>
         <FieldLegend>Legal</FieldLegend>
-        <FieldGroup name="legal">
+        <FieldGroup>
           <Checkbox name="terms" required endText="Support this text">
             I agree to the terms and conditions
           </Checkbox>

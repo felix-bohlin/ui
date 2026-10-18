@@ -6,8 +6,8 @@
   --surface-elevated: light-dark(var(--color-1), var(--color-12));
   --surface-filled: light-dark(var(--color-5), var(--color-16));
   --surface-tonal: light-dark(var(--color-4), var(--color-12));
+  --text-inverse: light-dark(var(--color-1), var(--color-15));
   --text-muted: light-dark(var(--color-13), var(--color-4));
   --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
   --text-primary: light-dark(var(--color-15), var(--color-1));
-  --text-primary-contrast: light-dark(var(--color-2), var(--color-15));
 }

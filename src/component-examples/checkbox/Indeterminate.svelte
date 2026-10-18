@@ -14,17 +14,15 @@
   }
 </script>
 
-<FieldSet class="indeterminate-demo">
+<FieldSet>
   <FieldLegend>
-    <Checkbox
-      class="parent"
-      bind:checked={() => allChecked, toggleAll}
-      {indeterminate}>Select all</Checkbox
+    <Checkbox bind:checked={() => allChecked, toggleAll} {indeterminate}
+      >Select all</Checkbox
     >
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
     {#each items as item, index (item)}
-      <Checkbox class="child" bind:checked={checked[index]}>{item}</Checkbox>
+      <Checkbox bind:checked={checked[index]}>{item}</Checkbox>
     {/each}
   </FieldGroup>
 </FieldSet>

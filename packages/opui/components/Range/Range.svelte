@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import { getFieldContext } from "../FieldGroup/context"
+  import { idRefs } from "../id"
   import type { RangeProps as Props } from "./types.svelte"
 
   let {
@@ -16,6 +18,7 @@
     spread,
     startText,
     step,
+    style,
     value = $bindable(),
     valueSuffix,
     variant,
@@ -52,9 +55,7 @@
     list ?? (hasDatalist ? `range-list-${uid}` : undefined),
   )
   const describedBy = $derived(
-    [startTextId, endTextId, rest["aria-describedby"]]
-      .filter(Boolean)
-      .join(" ") || undefined,
+    idRefs(startTextId, endTextId, rest["aria-describedby"]),
   )
 </script>
 
@@ -65,6 +66,7 @@
     { "ui-spread": spread },
     className,
   ]}
+  {style}
 >
   {#if hasLabel}
     <span class="ui-label" id={labelId}>
@@ -81,7 +83,7 @@
   {/if}
   {#if startText}
     <span class="ui-start-text" id={startTextId}>
-      {#if typeof startText === "string"}{startText}{:else}{@render startText()}{/if}
+      {@render content(startText)}
     </span>
   {/if}
   <input
@@ -118,7 +120,7 @@
   {/if}
   {#if endText}
     <span class="ui-end-text" id={endTextId}>
-      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
+      {@render content(endText)}
     </span>
   {/if}
 </label>

@@ -10,14 +10,14 @@ import {
 
 <template>
   <Button
-    commandfor="actions-alignment-example"
+    commandfor="dialog-actions-alignment-1"
     command="show-modal"
     variant="outlined"
   >
     Show shortcuts
   </Button>
 
-  <Dialog id="actions-alignment-example">
+  <Dialog id="dialog-actions-alignment-1">
     <DialogHeader>
       <h2 class="ui-h4">Keyboard shortcuts</h2>
     </DialogHeader>
@@ -26,9 +26,8 @@ import {
     </DialogContent>
     <DialogActions align="start">
       <Button
-        commandfor="actions-alignment-example"
+        commandfor="dialog-actions-alignment-1"
         command="close"
-        type="button"
         variant="filled"
       >
         Got it

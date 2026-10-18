@@ -199,7 +199,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
         </p>
       </Fragment>
     </Conditional>
-    <AutoExample name="Usage" column>
+    <AutoExample name="Basics" column>
       <Switch
         slot="controls"
         data-toggle-class="ui-backdrop-transparent"
@@ -378,34 +378,3 @@ import PropOrClass from "../../components/PropOrClass.astro"
     </div>
   </Fragment>
 </Component>
-
-<style is:global>
-  .drawer-examples {
-    align-items: center;
-    display: grid;
-    gap: var(--size-3);
-    grid-template-areas:
-      ". top ."
-      "left . right"
-      ". bottom .";
-    justify-items: center;
-    margin: var(--size-8) auto;
-    width: fit-content;
-  }
-
-  .drawer-examples .top {
-    grid-area: top;
-  }
-
-  .drawer-examples .left {
-    grid-area: left;
-  }
-
-  .drawer-examples .right {
-    grid-area: right;
-  }
-
-  .drawer-examples .bottom {
-    grid-area: bottom;
-  }
-</style>

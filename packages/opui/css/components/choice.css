@@ -6,15 +6,17 @@
       oklch(from var(--primary) min(l, 0.62) c h)
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
-    --_input-size: var(--choice-size);
 
     align-items: start;
     color: var(--text-primary);
+    cursor: pointer;
     display: inline-grid;
     gap: 0 var(--size-2);
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
+    line-height: var(--font-lineheight-3);
+    user-select: none;
 
     &:not(:has(.ui-label, .ui-text)) {
       vertical-align: middle;
@@ -63,46 +65,54 @@
       z-index: 1;
     }
 
-    /* Hover and active effect */
-    &:where(.ui-checkbox, .ui-radio)
+    &:where(.ui-checkbox, .ui-radio) {
+      --_input-size: var(--choice-size);
+
+      transform: translateZ(0);
+
+      /* Hover and active effect */
       input:is([type="checkbox"], [type="radio"]) {
-      --_dir-rtl: -1;
-      --_ripple-size: 175%;
+        --_ripple-size: 175%;
 
-      &:dir(rtl) {
-        --_dir-rtl: 1;
-      }
+        &:where(:not(:disabled, [aria-disabled="true"])) {
+          @media (hover: hover) {
+            &:hover::before {
+              --_thumb-scale: 1;
+            }
+          }
 
-      &:where(:not(:disabled, [aria-disabled="true"])) {
-        @media (hover: hover) {
-          &:hover::before {
-            --_thumb-scale: 1;
+          &:active::before {
+            --_thumb-scale: 1.1;
+          }
+
+          &::before {
+            --_thumb-scale: 0.01;
+
+            background-color: var(--ripple-color);
+            clip-path: circle(50%);
+            content: "";
+            inset: calc((100% - var(--_ripple-size)) / 2);
+            position: absolute;
+            transform: translateZ(-1px) scale(var(--_thumb-scale));
+            transform-origin: center center;
+
+            transition: transform calc(var(--duration) * var(--_motion))
+              var(--ease);
+            will-change: transform;
           }
         }
+      }
+    }
 
-        &:active::before {
-          --_thumb-scale: 1.1;
-        }
+    /* Validation */
+    &:has([aria-invalid="true"], :user-invalid) {
+      --_accent: light-dark(
+        var(--invalid-color),
+        oklch(from var(--invalid-color) min(l, 0.62) c h)
+      );
 
-        &::before {
-          --_thumb-scale: 0.01;
-
-          background-color: var(--ripple-color);
-          block-size: var(--_ripple-size, 150%);
-          clip-path: circle(50%);
-          content: "";
-          inline-size: var(--_ripple-size, 150%);
-          inset-block-start: 50%;
-          inset-inline-start: 50%;
-          position: absolute;
-          transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
-            translateZ(-1px) scale(var(--_thumb-scale));
-          transform-origin: center center;
-
-          transition: transform calc(var(--duration) * var(--_motion))
-            var(--ease);
-          will-change: transform;
-        }
+      :where(.ui-end-text) {
+        color: var(--invalid-text-color);
       }
     }
 

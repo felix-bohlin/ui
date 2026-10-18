@@ -15,12 +15,12 @@
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="anchor-repo-card"
+    id="anchor-repo-card-1"
   >
     <a
       class="ui-link"
       href="https://github.com/felix-bohlin/ui"
-      interestfor="anchor-repo-card">felix-bohlin/ui</a
+      interestfor="anchor-repo-card-1">felix-bohlin/ui</a
     >
     <AnchorContent>
       <Card variant="elevated" class="repo-card">

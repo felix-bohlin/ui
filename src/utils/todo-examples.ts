@@ -10,6 +10,9 @@ export const todoExamples = {
   "carousel-scroll-button-fallback": {
     match: "Carousel in Chromium 141",
   },
+  "list-item-as-div": {
+    match: 'ListItem: `as="div"` renders',
+  },
 }
 
 export type TodoExampleName = keyof typeof todoExamples

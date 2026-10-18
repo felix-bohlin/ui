@@ -1,17 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
-
 import AutoExample from "../../components/AutoExample.astro"
-import BadgeVisibility from "../../component-examples/badge/Visibility.astro"
-import BadgeVisibilityReact from "../../component-examples/badge/Visibility.react.tsx"
-import BadgeVisibilitySvelte from "../../component-examples/badge/Visibility.svelte"
-import BadgeVisibilityVue from "../../component-examples/badge/Visibility.vue"
-import BadgeVisibilityHTML from "../../component-examples/badge/Visibility.html?raw"
-import BadgeVisibilityAstro from "../../component-examples/badge/VisibilityCode.astro?raw"
-import BadgeVisibilityReactRaw from "../../component-examples/badge/VisibilityCode.react.tsx?raw"
-import BadgeVisibilitySvelteRaw from "../../component-examples/badge/VisibilityCode.svelte?raw"
-import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode.vue?raw"
 
 import Anatomy from "../../components/Anatomy.astro"
 import { Badge as UIBadge, Switch as UISwitch } from "opui-css/astro"
@@ -160,7 +149,7 @@ export const description =
       </Fragment>
     </Conditional>
 
-    <Example row>
+    <AutoExample name="Visibility" row>
       <UISwitch
         slot="controls"
         checked
@@ -169,17 +158,7 @@ export const description =
       >
         <PropOrClass prop="invisible" class=".ui-invisible" />
       </UISwitch>
-      <Example.Preview slot="preview-astro" code={BadgeVisibility} />
-      <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
-      <Example.Preview slot="preview-react" code={BadgeVisibilityReact} />
-      <Example.Preview slot="preview-svelte" code={BadgeVisibilitySvelte} />
-      <Example.Preview slot="preview-vue" code={BadgeVisibilityVue} />
-      <Example.Code slot="code-html" code={BadgeVisibilityHTML} />
-      <Example.Code slot="code-astro" code={BadgeVisibilityAstro} />
-      <Example.Code slot="code-react" code={BadgeVisibilityReactRaw} />
-      <Example.Code slot="code-svelte" code={BadgeVisibilitySvelteRaw} />
-      <Example.Code slot="code-vue" code={BadgeVisibilityVueRaw} />
-    </Example>
+    </AutoExample>
   </section>
 
   <section>

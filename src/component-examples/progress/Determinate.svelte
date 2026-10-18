@@ -11,4 +11,4 @@
   })
 </script>
 
-<Progress id="determinate-progress" max="100" {value} />
+<Progress id="progress-determinate-1" max="100" {value} />

@@ -48,7 +48,7 @@
 
     .cart-thumb {
       aspect-ratio: 1;
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius);
       grid-area: thumb;
       inline-size: var(--size-10);
     }
@@ -158,9 +158,7 @@
       text-align: end;
 
       s {
-        color: var(--text-muted);
         display: block;
-        font-size: var(--font-size-0);
         font-weight: var(--font-weight-4);
       }
     }
@@ -234,7 +232,6 @@
 
     .cart-checkout {
       inline-size: 100%;
-      justify-content: center;
     }
 
     .cart-continue {
@@ -330,7 +327,10 @@
               </button>
             </div>
             <p class="cart-line-price">
-              €119.00 <s><span class="ui-sr-only">Was </span>€149.00</s>
+              €119.00
+              <s class="ui-caption"
+                ><span class="ui-sr-only">Was </span>€149.00</s
+              >
             </p>
           </div>
         </li>

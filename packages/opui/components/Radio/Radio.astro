@@ -1,13 +1,16 @@
 ---
 import type { RadioProps as Props } from "./types.astro"
 import { warnUnnamed } from "../dev"
-import { createId } from "../id"
+import { createId, idRefs } from "../id"
 import RadioInput from "./RadioInput.astro"
 
 export const title = "Radio"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
   class: className,
+  endText,
   error,
   hideLabel,
   size,
@@ -17,9 +20,9 @@ const {
 } = Astro.props
 
 const $id = createId(Astro.locals)
-const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
-const describedBy =
-  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy = idRefs(endTextId, ariaDescribedBy)
 
 warnUnnamed(
   "Radio",
@@ -43,7 +46,7 @@ warnUnnamed(
   <RadioInput
     {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : rest["aria-invalid"]}
+    aria-invalid={error ? "true" : ariaInvalid}
   />
   {
     Astro.slots.has("default") && (
@@ -53,8 +56,9 @@ warnUnnamed(
     )
   }
   {
-    Astro.slots.has("end-text") && (
+    (endText || Astro.slots.has("end-text")) && (
       <span id={endTextId} class="ui-end-text">
+        {endText}
         <slot name="end-text" />
       </span>
     )

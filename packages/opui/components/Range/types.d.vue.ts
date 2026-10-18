@@ -3,6 +3,7 @@ import type { RangeProps as BaseRangeProps } from "./types"
 
 export type RangeProps = BaseRangeProps & {
   class?: HTMLAttributes["class"]
+  id?: HTMLAttributes["id"]
 }
 
 export type Slots = {

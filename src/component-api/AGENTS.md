@@ -59,7 +59,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
-- `component`: (Required) the name shown in tables and `[component-api]` problems, such as `TextField` or `TabsItem`. It is also the component file name in `source`. Props are read from the `<component>Props` type, or from `Props` when `component` is the `source` folder's own component, so a sub-API never picks up its root's props.
+- `component`: (Required) the name shown in tables and `[component-api]` problems, such as `TextField` or `TabsItem`. It is also the component file name in `source`. Props are read from the `Props` type when `component` is the `source` folder's own component, and from the `<component>Props` type otherwise (`TableColumnProps`), so a sub-API never picks up its root's props.
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`, followed by "There is no {Framework} component.".
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the check fails when it does not exist.
 - `hydration`: per-framework props that need a client directive in React, Svelte or Vue, each with a `description` and an optional `fallback`. They get a marker in the props table. `default` applies to every hydrated framework without its own entry.

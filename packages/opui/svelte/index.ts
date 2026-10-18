@@ -103,14 +103,14 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.svelte"
 export type {
   CheckboxInputProps,
-  CheckboxProps,
+  Props as CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
 export type {
-  DescriptionProps as DescriptionListDescriptionProps,
-  ItemProps as DescriptionListItemProps,
+  DescriptionListDescriptionProps,
+  DescriptionListItemProps,
   Props as DescriptionListProps,
-  TermProps as DescriptionListTermProps,
+  DescriptionListTermProps,
 } from "../components/DescriptionList/types.svelte"
 export type {
   DialogActionsProps,
@@ -140,20 +140,27 @@ export type {
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {
   RadioInputProps,
-  RadioProps,
+  Props as RadioProps,
 } from "../components/Radio/types.svelte"
 export type { RangeOption } from "../components/Range/types"
-export type { RangeProps } from "../components/Range/types.svelte"
+export type { Props as RangeProps } from "../components/Range/types.svelte"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
 export type {
   SwitchInputProps,
-  SwitchProps,
+  Props as SwitchProps,
 } from "../components/Switch/types.svelte"
 export type {
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableColumnGroupProps,
   TableColumnProps,
+  TableFootProps,
+  TableHeaderCellProps,
+  TableHeadProps,
   Props as TableProps,
-  SectionProps as TableSectionProps,
+  TableRowProps,
 } from "../components/Table/types.svelte"
 export type {
   TabsItemProps,

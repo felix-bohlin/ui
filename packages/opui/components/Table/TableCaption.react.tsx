@@ -1,5 +1,5 @@
-import type { SectionProps as Props } from "./types.react"
+import type { TableCaptionProps as Props } from "./types.react"
 
-export default function TableCaption(props: Props<"caption">) {
+export default function TableCaption(props: Props) {
   return <caption {...props} />
 }

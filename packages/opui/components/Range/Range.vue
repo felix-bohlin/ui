@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RangeProps, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 import {
   computed,
   inject,
@@ -29,7 +29,7 @@ const {
   value,
   valueSuffix,
   variant,
-} = defineProps<RangeProps>()
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const modelValue = defineModel<number | string>()
 

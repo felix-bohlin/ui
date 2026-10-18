@@ -3,7 +3,7 @@ import { cx } from "../cx"
 import { warnUnnamed } from "../dev"
 import { idRefs } from "../id"
 import RadioInput from "./RadioInput.react"
-import type { RadioProps as Props } from "./types.react"
+import type { Props } from "./types.react"
 
 export default function Radio({
   className,

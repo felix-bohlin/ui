@@ -1,10 +1,22 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-type Section =
-  "caption" | "colgroup" | "tbody" | "td" | "tfoot" | "th" | "thead" | "tr"
-
 export type Props = Base.Props & SvelteHTMLElements["table"]
-export type SectionProps<T extends Section = Section> = Base.SectionProps &
-  SvelteHTMLElements[T]
+
+export type TableBodyProps = SvelteHTMLElements["tbody"]
+
+export type TableCaptionProps = SvelteHTMLElements["caption"]
+
+export type TableCellProps = SvelteHTMLElements["td"]
+
+export type TableColumnGroupProps = SvelteHTMLElements["colgroup"]
+
 export type TableColumnProps = Base.TableColumnProps & SvelteHTMLElements["col"]
+
+export type TableFootProps = SvelteHTMLElements["tfoot"]
+
+export type TableHeaderCellProps = SvelteHTMLElements["th"]
+
+export type TableHeadProps = SvelteHTMLElements["thead"]
+
+export type TableRowProps = SvelteHTMLElements["tr"]

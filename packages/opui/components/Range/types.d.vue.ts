@@ -1,8 +1,8 @@
 import type { HTMLAttributes, Slot } from "vue"
 import type { Class } from "../vue"
-import type { RangeProps as BaseRangeProps } from "./types"
+import type { Props as BaseProps } from "./types"
 
-export type RangeProps = BaseRangeProps &
+export type Props = BaseProps &
   Class & {
     id?: HTMLAttributes["id"]
   }

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { SectionProps as Props } from "./types.svelte"
+  import type { TableColumnGroupProps as Props } from "./types.svelte"
 
-  let { children, ...rest }: Props<"colgroup"> = $props()
+  let { children, ...rest }: Props = $props()
 </script>
 
 <colgroup {...rest}>

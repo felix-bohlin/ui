@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SectionProps as Props, Slots } from "./types.d.vue"
+import type { TableColumnGroupProps as Props, Slots } from "./types.d.vue"
 
 defineProps<Props>()
 defineSlots<Slots>()

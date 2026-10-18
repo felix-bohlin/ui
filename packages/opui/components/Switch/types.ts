@@ -1,4 +1,4 @@
-export type SwitchProps = {
+export type Props = {
   endText?: string
   error?: boolean
   hideLabel?: boolean
@@ -7,7 +7,7 @@ export type SwitchProps = {
   stack?: boolean
 }
 
-export type SwitchSlots<S> = {
+export type Slots<S> = {
   endText?: string | S
   iconChecked?: S
   iconUnchecked?: S

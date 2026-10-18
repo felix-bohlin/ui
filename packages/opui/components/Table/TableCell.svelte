@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { SectionProps as Props } from "./types.svelte"
+  import type { TableCellProps as Props } from "./types.svelte"
 
-  let { children, ...rest }: Props<"td"> = $props()
+  let { children, ...rest }: Props = $props()
 </script>
 
 <td {...rest}>

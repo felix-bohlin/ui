@@ -101,14 +101,14 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.astro"
 export type {
   CheckboxInputProps,
-  CheckboxProps,
+  Props as CheckboxProps,
 } from "../components/Checkbox/types.astro"
 export type { Props as ChipProps } from "../components/Chip/types.astro"
 export type {
-  DescriptionProps as DescriptionListDescriptionProps,
-  ItemProps as DescriptionListItemProps,
+  DescriptionListDescriptionProps,
+  DescriptionListItemProps,
   Props as DescriptionListProps,
-  TermProps as DescriptionListTermProps,
+  DescriptionListTermProps,
 } from "../components/DescriptionList/types.astro"
 export type {
   DialogActionsProps,
@@ -138,20 +138,27 @@ export type {
 export type { Props as ProgressProps } from "../components/Progress/types.astro"
 export type {
   RadioInputProps,
-  RadioProps,
+  Props as RadioProps,
 } from "../components/Radio/types.astro"
 export type { RangeOption } from "../components/Range/types"
-export type { RangeProps } from "../components/Range/types.astro"
+export type { Props as RangeProps } from "../components/Range/types.astro"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"
 export type {
   SwitchInputProps,
-  SwitchProps,
+  Props as SwitchProps,
 } from "../components/Switch/types.astro"
 export type {
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableColumnGroupProps,
   TableColumnProps,
+  TableFootProps,
+  TableHeaderCellProps,
+  TableHeadProps,
   Props as TableProps,
-  SectionProps as TableSectionProps,
+  TableRowProps,
 } from "../components/Table/types.astro"
 export type {
   TabsItemProps,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
-import type { CheckboxProps, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 import { type InputHTMLAttributes, useAttrs, useId } from "vue"
 import { warnUnnamed } from "../dev"
 import { idRefs } from "../id"
@@ -10,7 +10,7 @@ defineOptions({
 })
 
 const { endText, error, hideLabel, indeterminate, size, spread, stack } =
-  defineProps<CheckboxProps>()
+  defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({

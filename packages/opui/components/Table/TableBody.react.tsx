@@ -1,5 +1,5 @@
-import type { SectionProps as Props } from "./types.react"
+import type { TableBodyProps as Props } from "./types.react"
 
-export default function TableBody(props: Props<"tbody">) {
+export default function TableBody(props: Props) {
   return <tbody {...props} />
 }

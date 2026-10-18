@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RadioInput from "./RadioInput.vue"
-import type { RadioProps, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 import { type InputHTMLAttributes, useAttrs, useId } from "vue"
 import { warnUnnamed } from "../dev"
 import { idRefs } from "../id"
@@ -9,8 +9,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, size, spread, stack } =
-  defineProps<RadioProps>()
+const { endText, error, hideLabel, size, spread, stack } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<string | number | boolean | undefined>({

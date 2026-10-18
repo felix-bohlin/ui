@@ -2,7 +2,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
-  import type { RangeProps as Props } from "./types.svelte"
+  import type { Props } from "./types.svelte"
 
   let {
     class: className,

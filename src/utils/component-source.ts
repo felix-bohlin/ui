@@ -135,15 +135,12 @@ export const frameworkProps = (
   const props = new Map<string, string>()
   if (!target.source) return props
   const filePath = path.join(root, target.source, frameworks[framework].types)
-  const aliases = program()
+  const name =
+    target.component === target.source ? "Props" : `${target.component}Props`
+  const alias = program()
     .getSourceFile(filePath)
     ?.statements.filter(ts.isTypeAliasDeclaration)
-  const alias = [
-    `${target.component}Props`,
-    ...(target.component === target.source ? ["Props"] : []),
-  ]
-    .map((name) => aliases?.find((statement) => statement.name.text === name))
-    .find(Boolean)
+    .find((statement) => statement.name.text === name)
   if (!alias) return props
 
   const checker = program().getTypeChecker()

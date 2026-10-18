@@ -1,0 +1,75 @@
+<style>
+  .example-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .scope {
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+</style>
+
+<section class="stress" data-example="Default">
+  <h2>Default</h2>
+  <div class="example-row">
+    <button class="ui-button ui-primary ui-filled">Primary</button>
+    <button class="ui-button ui-critical ui-filled">Critical</button>
+    <span class="ui-badge">3</span>
+  </div>
+  <div class="ui-card ui-elevated">
+    <div class="ui-content">Elevated card</div>
+  </div>
+</section>
+
+<section class="stress" data-example="DarkSubtree">
+  <h2>Dark subtree</h2>
+  <section class="ui-dark scope">
+    <div class="example-row">
+      <button class="ui-button ui-primary ui-filled">Primary</button>
+      <button class="ui-button ui-critical ui-filled">Critical</button>
+      <span class="ui-badge">3</span>
+    </div>
+    <div class="ui-card ui-elevated">
+      <div class="ui-content">Elevated card</div>
+    </div>
+  </section>
+</section>
+
+<section class="stress" data-example="LightSubtree">
+  <h2>Light subtree</h2>
+  <section class="ui-light scope">
+    <div class="example-row">
+      <button class="ui-button ui-primary ui-filled">Primary</button>
+      <button class="ui-button ui-critical ui-filled">Critical</button>
+      <span class="ui-badge">3</span>
+    </div>
+    <div class="ui-card ui-elevated">
+      <div class="ui-content">Elevated card</div>
+    </div>
+  </section>
+</section>
+
+<section class="stress" data-example="Palette">
+  <h2>Palette</h2>
+  <section class="ui-palette scope" style="--palette-hue: 120">
+    <div class="example-row">
+      <button class="ui-button ui-primary ui-filled">Primary</button>
+      <button class="ui-button ui-critical ui-filled">Critical</button>
+      <span class="ui-badge">3</span>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Outlined card</div>
+    </div>
+  </section>
+</section>
+
+<section class="stress" data-example="MotionOff">
+  <h2>Motion off</h2>
+  <section class="ui-motion-off scope">
+    <button class="ui-button ui-primary ui-filled">Primary</button>
+  </section>
+</section>

@@ -20,7 +20,10 @@ const readKnown = (): Record<string, string[]> =>
 
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
-let scheme = ""
+const ran = new Set<string>()
+
+const within = (key: string, prefix: string) =>
+  key === prefix || key.startsWith(`${prefix}/`)
 
 if (RECORD) test.describe.configure({ mode: "serial" })
 
@@ -36,8 +39,7 @@ for (const component of TARGETS) {
         "recording the ledger needs --workers=1",
       ).toBe(1)
     }
-    scheme = testInfo.project.name
-    const prefix = `${scheme}/html/${component}`
+    const prefix = `${testInfo.project.name}/html/${component}`
     await openFixture(page, "html", component)
 
     const { violations } = await new AxeBuilder({ page })
@@ -82,6 +84,7 @@ for (const component of TARGETS) {
     })
 
     if (RECORD) {
+      ran.add(prefix)
       for (const [key, rules] of found) {
         recorded[key] = [
           ...new Set([...(recorded[key] ?? []), ...rules]),
@@ -113,14 +116,34 @@ for (const component of TARGETS) {
       fixed,
       `fixed violations; remove them from a11y-known-violations.json`,
     ).toEqual([])
+
+    const stale = Object.keys(known).filter(
+      (key) => within(key, prefix) && !present.has(key),
+    )
+    expect(
+      stale,
+      `examples that no longer exist; remove them from a11y-known-violations.json`,
+    ).toEqual([])
   })
 }
 
+test("a11y-known-violations.json only lists pages that exist", () => {
+  const scheme = test.info().project.name
+  const prefixes = TARGETS.map((target) => `${scheme}/html/${target}`)
+  expect(
+    Object.keys(known).filter(
+      (key) =>
+        key.startsWith(`${scheme}/`) &&
+        !prefixes.some((prefix) => within(key, prefix)),
+    ),
+  ).toEqual([])
+})
+
 test.afterAll(() => {
-  if (!RECORD || !scheme) return
+  if (!RECORD || ran.size === 0) return
   const merged = Object.fromEntries(
     Object.entries(readKnown()).filter(
-      ([key]) => !key.startsWith(`${scheme}/`),
+      ([key]) => ![...ran].some((prefix) => within(key, prefix)),
     ),
   )
   Object.assign(merged, recorded)

@@ -13,6 +13,8 @@ const HEROES = readdirSync(docsDir)
   .map((file) => file.replace(/\.astro$/, ""))
   .toSorted()
 
+if (HEROES.length === 0) throw new Error("no heroAnatomy pages found")
+
 const WIDTHS = [390, 920, 1280]
 const MIN_GAP = 24
 
@@ -58,6 +60,64 @@ for (const framework of FRAMEWORKS) {
             )
             .toBeGreaterThanOrEqual(MIN_GAP)
         }
+      }
+
+      const diagrams = await page.evaluate(() =>
+        [...document.querySelectorAll(".anatomy-diagram")].map((diagram) => {
+          const sheet = diagram.querySelector("style")!.sheet!
+          const elements = [...diagram.querySelectorAll(".subject *")]
+          const anchorNames = () =>
+            elements.map((element) =>
+              getComputedStyle(element)
+                .getPropertyValue("anchor-name")
+                .split(/,\s*/)
+                .filter((name) => name !== "none"),
+            )
+          const named = anchorNames()
+          sheet.disabled = true
+          const own = anchorNames()
+          sheet.disabled = false
+          const names = new Set(named.flat())
+          for (const rule of sheet.cssRules) {
+            if (!(rule instanceof CSSStyleRule)) continue
+            const [originating, pseudo] = rule.selectorText.split("::")
+            if (pseudo && document.querySelector(originating)) {
+              for (const name of rule.style
+                .getPropertyValue("anchor-name")
+                .split(/,\s*/)) {
+                names.add(name)
+              }
+            }
+          }
+          return {
+            lost: elements.flatMap((element, index) =>
+              own[index]
+                .filter((name) => !named[index].includes(name))
+                .map(
+                  (name) =>
+                    `${[element.localName, ...element.classList].join(".")}: ${name}`,
+                ),
+            ),
+            unmatched: [
+              ...diagram.querySelectorAll<HTMLElement>(".legend .part"),
+            ]
+              .filter(
+                (part) =>
+                  !names.has(part.style.getPropertyValue("--part").trim()),
+              )
+              .map((part) => part.querySelector("code")!.textContent),
+          }
+        }),
+      )
+      expect(diagrams.length).toBeGreaterThan(0)
+      for (const { lost, unmatched } of diagrams) {
+        expect.soft(unmatched, "parts that match nothing").toEqual([])
+        expect
+          .soft(
+            lost,
+            "anchor names the anatomy overrides; add them to anchorName",
+          )
+          .toEqual([])
       }
 
       if (framework !== "html") return

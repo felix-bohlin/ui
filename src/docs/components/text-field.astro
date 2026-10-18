@@ -286,17 +286,23 @@ export const description =
       follow its content, from <code>25ch</code>.
     </p>
 
-    <AutoExample name="AutoFit" exampleClass="flex" />
+    <AutoExample name="AutoFit" class="flex" />
   </section>
 
   <section>
     <h2 id="input-types">Input types</h2>
     <AutoExample name="InputTypes" row>
-      <UISwitch size="small" slot="controls" id="text-field-filled-toggle"
-        >Filled</UISwitch
+      <UISwitch
+        size="small"
+        slot="controls"
+        data-toggle-class="ui-filled"
+        data-toggle-target=".ui-text-field">Filled</UISwitch
       >
-      <UISwitch size="small" slot="controls" id="text-field-small-toggle"
-        >Small</UISwitch
+      <UISwitch
+        size="small"
+        slot="controls"
+        data-toggle-class="ui-small"
+        data-toggle-target=".ui-text-field">Small</UISwitch
       >
     </AutoExample>
 
@@ -500,43 +506,3 @@ export const description =
     </Anatomy>
   </Fragment>
 </Component>
-
-<script>
-  function setupInputTypesControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector("#text-field-filled-toggle")) return
-        if (container.dataset.inputTypesSetup) return
-        container.dataset.inputTypesSetup = "true"
-
-        const filledToggle = container.querySelector<HTMLInputElement>(
-          "#text-field-filled-toggle",
-        )
-        const smallToggle = container.querySelector<HTMLInputElement>(
-          "#text-field-small-toggle",
-        )
-
-        const updateFields = () => {
-          if (!filledToggle || !smallToggle) return
-          container
-            .querySelectorAll(".example-preview .ui-text-field")
-            .forEach((field) => {
-              field.classList.toggle("ui-filled", filledToggle.checked)
-              field.classList.toggle("ui-small", smallToggle.checked)
-            })
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (input !== filledToggle && input !== smallToggle) return
-          updateFields()
-        })
-
-        updateFields()
-      })
-  }
-
-  setupInputTypesControls()
-</script>

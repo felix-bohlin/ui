@@ -8,11 +8,9 @@
 // Use this for any internal docs link in a regular `<a>`. For components that
 // render their own anchor (Button, Chip, ListItem, etc.), use
 // `Astro.locals.link()` directly on the `href` prop instead.
-type Props = {
-  [key: string]: any
-  class?: string
-  href: string
-}
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"a"> & { href: string }
 
 const { class: className, href, ...rest } = Astro.props
 const { link } = Astro.locals

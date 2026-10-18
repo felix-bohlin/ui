@@ -161,7 +161,12 @@ export const description =
     </Conditional>
 
     <Example row>
-      <UISwitch slot="controls" checked id="badge-visibility-toggle">
+      <UISwitch
+        slot="controls"
+        checked
+        data-toggle-class="ui-invisible"
+        data-toggle-target=".ui-badge"
+      >
         <PropOrClass prop="invisible" class=".ui-invisible" />
       </UISwitch>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
@@ -246,35 +251,3 @@ export const description =
     </Anatomy>
   </Fragment>
 </Component>
-
-<script>
-  function setupBadgeVisibilityControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector("#badge-visibility-toggle")) return
-        if (container.dataset.badgeVisibilitySetup) return
-        container.dataset.badgeVisibilitySetup = "true"
-
-        const sync = (checked: boolean) => {
-          container.querySelectorAll(".ui-badge").forEach((badge) => {
-            badge.classList.toggle("ui-invisible", checked)
-          })
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (input.id !== "badge-visibility-toggle") return
-          sync(input.checked)
-        })
-
-        const initial = container.querySelector<HTMLInputElement>(
-          "#badge-visibility-toggle",
-        )
-        if (initial) sync(initial.checked)
-      })
-  }
-
-  setupBadgeVisibilityControls()
-</script>

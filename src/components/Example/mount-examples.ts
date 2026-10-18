@@ -4,23 +4,13 @@ export function mountExamples<Module>(
   loaders: Record<string, () => Promise<Module>>,
   mount: (el: HTMLElement, mod: Module, id: string) => void,
 ) {
-  const registry = new Map<string, () => Promise<Module>>()
-  for (const [path, loader] of Object.entries(loaders)) {
-    const start = path.indexOf("component-examples/")
-    if (start === -1 || !path.endsWith(extension)) continue
-    registry.set(
-      path.slice(start + "component-examples/".length, -extension.length),
-      loader,
-    )
-  }
-
   const pending = new WeakSet<HTMLElement>()
 
   async function mountExample(el: HTMLElement) {
     const id = el.getAttribute(`data-${framework}-example`)
     if (!id || pending.has(el)) return
 
-    const loader = registry.get(id)
+    const loader = loaders[`../../component-examples/${id}${extension}`]
     if (!loader) return
 
     pending.add(el)

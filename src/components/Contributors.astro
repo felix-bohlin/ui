@@ -7,6 +7,10 @@ type Contributor = {
   html_url: string
 }
 
+type ContributorData = {
+  author: { avatar: string; login: string; path: string }
+}
+
 const REPO = "felix-bohlin/ui"
 const HEADERS = {
   "User-Agent": "Astro-Site-Generator",
@@ -25,18 +29,18 @@ try {
   if (!response.ok) {
     error = `HTTP Error: ${response.status}`
   } else {
-    const data = await response.json()
+    const data: unknown = await response.json()
     if (!Array.isArray(data)) {
       error = "Unexpected response from GitHub"
     } else {
-      contributors = data
+      contributors = (data as ContributorData[])
         .filter(
-          (c: any) =>
+          (c) =>
             !c.author.path.includes("/apps/") &&
             !c.author.login.includes("[bot]") &&
             c.author.login !== "Copilot",
         )
-        .map((c: any) => ({
+        .map((c) => ({
           login: c.author.login,
           avatar_url: c.author.avatar,
           html_url: `https://github.com${c.author.path}`,

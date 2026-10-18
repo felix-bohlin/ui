@@ -17,11 +17,11 @@ const { ids } = Astro.props
 const { $id } = Astro.locals
 const entries = ids.length > 0 ? computeEngineBrowserSupport(ids) : []
 
-const ICONS: Record<EngineId, any[]> = {
+const ICONS = {
   chromium: [Chrome, Edge],
   gecko: [Firefox],
   webkit: [Safari],
-}
+} satisfies Record<EngineId, unknown[]>
 
 const HEADINGS = {
   full: "Full support",

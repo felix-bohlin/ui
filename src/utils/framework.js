@@ -1,3 +1,4 @@
+// @ts-check
 // Client-safe framework constants and routing helpers.
 //
 // Authored as `.js` (with JSDoc types) so it can be imported from

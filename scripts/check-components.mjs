@@ -1,10 +1,17 @@
 import { readdir, readFile } from "node:fs/promises"
 import { basename, extname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
-import { PACKAGE_FRAMEWORK_IDS } from "../src/utils/framework.js"
+import {
+  componentHasFramework,
+  exampleExtension,
+  FRAMEWORK_AGNOSTIC_EXAMPLES,
+  FRAMEWORK_IDS,
+  PACKAGE_FRAMEWORK_IDS,
+} from "../src/utils/framework.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
+const examplesDir = join(root, "src/component-examples")
 
 const errors = []
 const report = (file, message) =>
@@ -183,6 +190,42 @@ for (const folder of folders) {
   }
 }
 
+const EXAMPLE_FILE = new RegExp(
+  `\\.(${FRAMEWORK_IDS.map(exampleExtension).join("|").replaceAll(".", "\\.")})$`,
+)
+
+const exampleFolders = (await readdir(examplesDir, { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .toSorted()
+
+for (const slug of exampleFolders) {
+  const dir = join(examplesDir, slug)
+  const files = (await readdir(dir, { withFileTypes: true }))
+    .filter((entry) => entry.isFile() && EXAMPLE_FILE.test(entry.name))
+    .map((entry) => entry.name)
+  const names = [
+    ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
+  ].toSorted()
+  for (const name of names) {
+    if (FRAMEWORK_AGNOSTIC_EXAMPLES.includes(`${slug}/${name}`)) continue
+    const code = name.endsWith("Code")
+    if (code && !names.includes(name.slice(0, -4))) {
+      report(join(dir, name), `overrides no ${name.slice(0, -4)} example`)
+    }
+    for (const framework of FRAMEWORK_IDS) {
+      const file = `${name}.${exampleExtension(framework)}`
+      if (
+        componentHasFramework(framework, slug) &&
+        !(code && framework === "html") &&
+        !files.includes(file)
+      ) {
+        report(join(dir, file), "is missing")
+      }
+    }
+  }
+}
+
 const astroNames = exportedNames(barrels.astro)
 for (const [framework, source] of Object.entries(barrels)) {
   const names = exportedNames(source)
@@ -202,4 +245,6 @@ if (errors.length > 0) {
   process.exit(1)
 }
 
-console.log(`Checked ${folders.length} component folders.`)
+console.log(
+  `Checked ${folders.length} component folders and ${exampleFolders.length} example folders.`,
+)
